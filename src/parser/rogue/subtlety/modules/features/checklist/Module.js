@@ -13,13 +13,6 @@ import AlwaysBeCasting from '../AlwaysBeCasting';
 //Base
 import CastsInShadowDance from '../../core/CastsInShadowDance';
 import CastsInStealth from '../../core/CastsInStealth';
-import NightbladeDuringSymbols from '../../core/NightbladeDuringSymbols';
-import NightbladeEarlyRefresh from '../../core/NightbladeEarlyRefresh';
-import NightbladeUptime from '../../core/NightbladeUptime';
-
-//Talents
-import DarkShadowNightblade from '../../talents/DarkShadow/DarkShadowNightblade';
-import FindWeakness from '../../talents/FindWeakness';
 
 import Component from './Component';
 
@@ -37,13 +30,6 @@ class Checklist extends BaseChecklist {
     //Base
     castsInShadowDance: CastsInShadowDance,
     castsInStealth: CastsInStealth,
-    nightbladeUptime: NightbladeUptime,
-    nightbladeDuringSymbols: NightbladeDuringSymbols,
-    nightbladeEarlyRefresh: NightbladeEarlyRefresh,
-
-    //Talents
-    darkShadowNightblade: DarkShadowNightblade,
-    findWeakness: FindWeakness,
   };
 
   render() {
@@ -63,14 +49,6 @@ class Checklist extends BaseChecklist {
           backstabInShadowDance: this.castsInShadowDance.danceBackstabThresholds,
           castsInStealth: this.castsInStealth.castsInStealthThresholds,
           backstabInStealth: this.castsInStealth.stealthBackstabThresholds,
-          nightbladeUptime:  this.nightbladeUptime.uptimeThresholds,
-          nightbladeEffect:  this.nightbladeUptime.effectThresholds,
-          nightbladeDuringSymbols: this.nightbladeDuringSymbols.thresholds,
-          nightbladeEarlyRefresh: this.nightbladeEarlyRefresh.suggestionThresholdsNightbladeEfficiency,
-
-          //Talents
-          darkShadowNightblade: this.darkShadowNightblade.thresholds,
-          findWeaknessVanish: this.findWeakness.vanishThresholds,
         }}
       />
     );

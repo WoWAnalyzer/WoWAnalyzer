@@ -45,7 +45,7 @@ class AzsharasFontofPower extends Analyzer {
       });
       this.buffs.add({
         spellId: SPELLS.LATENT_ARCANA_BUFF.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       });
       this.statBuff = calculatePrimaryStat(400, 2203, this.selectedCombatant.getItem(ITEMS.AZSHARAS_FONT_OF_POWER.id).itemLevel);
     }

@@ -31,7 +31,7 @@ exports[`Frost Death Knight integration test: example log AlwaysBeCasting matche
         <div
           className="value"
         >
-          25.95 %
+          49.91 %
         </div>
         <div
           style={
@@ -50,7 +50,7 @@ exports[`Frost Death Knight integration test: example log AlwaysBeCasting matche
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "74.05323650798718%",
+                  "width": "50.09408956355389%",
                 }
               }
             >
@@ -93,6 +93,33 @@ exports[`Frost Death Knight integration test: example log AlwaysBeCasting matche
     </div>
   </div>
 </div>
+`;
+
+exports[`Frost Death Knight integration test: example log AlwaysBeCasting matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_mage_altertime",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your downtime can be improved. Try to Always Be Casting (ABC), reducing time away from the boss unless due to mechanics.  If you do have to move, try casting filler spells, such as 
+      <ForwardRef
+        id={49184}
+      />
+       or 
+      <ForwardRef
+        id={196770}
+      />
+      .
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      49.91% downtime
+       (
+      &lt;30.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
 `;
 
 exports[`Frost Death Knight integration test: example log AshvanesRazorCoral matches the statistic snapshot 1`] = `
@@ -298,19 +325,14 @@ exports[`Frost Death Knight integration test: example log BreathOfSindragosa mat
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={60}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -325,12 +347,22 @@ exports[`Frost Death Knight integration test: example log BreathOfSindragosa mat
             />
           </a>
            
-          Average Breath of Sindragosa Duration
+          <a
+            href="http://wowhead.com/spell=152279"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Breath of Sindragosa
+          </a>
         </label>
         <div
           className="value"
         >
-          14.1 seconds
+          14.1
+          s  
+          <small>
+            average duration
+          </small>
         </div>
       </div>
     </div>
@@ -450,7 +482,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -463,7 +495,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -476,7 +508,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -936,7 +968,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -949,7 +981,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -962,7 +994,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1070,7 +1102,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1083,7 +1115,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1096,7 +1128,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1313,7 +1345,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1326,7 +1358,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1339,7 +1371,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1415,7 +1447,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "84.65690698218523%",
+                      "width": "91.75941709281727%",
                     }
                   }
                 />
@@ -1430,7 +1462,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 }
               }
             >
-              84.66%
+              91.76%
             </td>
             <td
               style={
@@ -1635,6 +1667,202 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             />
           </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                href="http://wowhead.com/spell=279302"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/achievement_boss_sindragosa.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Frostwyrm's Fury
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /1
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#ff8000",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            >
+              shared.castEfficiency.canBeImproved
+            </td>
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                href="http://wowhead.com/spell=46585"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_pet_ghoul.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Raise Dead
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /1
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
         </tbody>
         <tbody>
           <tr>
@@ -1653,7 +1881,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1666,7 +1894,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1679,7 +1907,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1963,6 +2191,200 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             />
           </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                href="http://wowhead.com/spell=51052"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_antimagiczone.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Anti-Magic Zone
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /1
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                href="http://wowhead.com/spell=49039"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_raisedead.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Lichborne
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /1
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
         </tbody>
         <tbody>
           <tr>
@@ -1981,7 +2403,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1994,7 +2416,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -2007,7 +2429,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -2861,6 +3283,188 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             />
           </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                href="http://wowhead.com/spell=43265"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_deathanddecay.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Death and Decay
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /4
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                href="http://wowhead.com/spell=47541"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_deathcoil.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Death Coil
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
         </tbody>
         <tbody>
           <tr>
@@ -2879,7 +3483,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -2892,7 +3496,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -2905,7 +3509,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -3208,6 +3812,59 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
 </div>
 `;
 
+exports[`Frost Death Knight integration test: example log CastEfficiency matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "achievement_boss_sindragosa",
+    "importance": "major",
+    "issue": <React.Fragment>
+      <WithI18n
+        components={
+          Array [
+            <ForwardRef
+              id={279302}
+            />,
+          ]
+        }
+        id="Try to cast <0/> more often."
+      />
+       
+      <React.Fragment>
+        Although you normally want to use this off CD, you can save it to line it up with 
+        <ForwardRef
+          icon={true}
+          id={51271}
+        />
+        .  You can also hold it if you know there will be an opportunity to hit more than one enemy in the next 30 seconds.
+      </React.Fragment>
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <WithI18n
+        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        values={
+          Object {
+            "0": 0,
+            "1": 1,
+            "2": "0",
+          }
+        }
+      />
+       (
+      <WithI18n
+        id=">{0}% is recommended"
+        values={
+          Object {
+            "0": "90",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
 exports[`Frost Death Knight integration test: example log DeathTracker matches the suggestions snapshot 1`] = `
 Array [
   Object {
@@ -3252,7 +3909,7 @@ exports[`Frost Death Knight integration test: example log DistanceMoved matches 
         className="pad"
       >
         <label>
-          Distance moved
+          shared.distanceMoved.statistic.label
         </label>
         <div
           className="value"
@@ -3331,151 +3988,201 @@ Array [
     "details": null,
     "icon": "inv_chest_plate_warfrontsalliance_c_01.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              1607,
-              4786,
-              6263,
-            ],
-            "icon": "inv_chest_plate_warfrontsalliance_c_01.jpg",
-            "id": 163418,
-            "itemLevel": 420,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  1607,
+                  4786,
+                  6263,
+                ],
+                "icon": "inv_chest_plate_warfrontsalliance_c_01.jpg",
+                "id": 163418,
+                "itemLevel": 420,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={163418}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Chest"
+            id="common.slots.chest"
+          />,
         }
-        icon={false}
-        id={163418}
-        quality={3}
-      >
-        Chest
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_glove_plate_warfrontsalliance_c_01.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              1607,
-              4786,
-            ],
-            "icon": "inv_glove_plate_warfrontsalliance_c_01.jpg",
-            "id": 163414,
-            "itemLevel": 415,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  1607,
+                  4786,
+                ],
+                "icon": "inv_glove_plate_warfrontsalliance_c_01.jpg",
+                "id": 163414,
+                "itemLevel": 415,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={163414}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Gloves"
+            id="common.slots.gloves"
+          />,
         }
-        icon={false}
-        id={163414}
-        quality={3}
-      >
-        Gloves
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_argus_ring01.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              4798,
-              42,
-              1487,
-              5870,
-              4784,
-            ],
-            "icon": "inv_argus_ring01.jpg",
-            "id": 168889,
-            "itemLevel": 440,
-            "quality": 4,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4798,
+                  42,
+                  1487,
+                  5870,
+                  4784,
+                ],
+                "icon": "inv_argus_ring01.jpg",
+                "id": 168889,
+                "itemLevel": 440,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={168889}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Ring"
+            id="common.slots.ring"
+          />,
         }
-        icon={false}
-        id={168889}
-        quality={4}
-      >
-        Ring
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_ring_80_02e.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              1507,
-              5850,
-              4781,
-            ],
-            "icon": "inv_ring_80_02e.jpg",
-            "id": 167523,
-            "itemLevel": 400,
-            "quality": 4,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  1507,
+                  5850,
+                  4781,
+                ],
+                "icon": "inv_ring_80_02e.jpg",
+                "id": 167523,
+                "itemLevel": 400,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={167523}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Ring"
+            id="common.slots.ring"
+          />,
         }
-        icon={false}
-        id={167523}
-        quality={4}
-      >
-        Ring
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_cape_cloth_nazjatar_c_01.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              1507,
-              5860,
-              4782,
-            ],
-            "icon": "inv_cape_cloth_nazjatar_c_01.jpg",
-            "id": 167533,
-            "itemLevel": 410,
-            "quality": 4,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  1507,
+                  5860,
+                  4782,
+                ],
+                "icon": "inv_cape_cloth_nazjatar_c_01.jpg",
+                "id": 167533,
+                "itemLevel": 410,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={167533}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Cloak"
+            id="common.slots.cloak"
+          />,
         }
-        icon={false}
-        id={167533}
-        quality={4}
-      >
-        Cloak
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
 ]
@@ -3517,19 +4224,14 @@ exports[`Frost Death Knight integration test: example log FrostFeverUptime match
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={20}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -3544,12 +4246,32 @@ exports[`Frost Death Knight integration test: example log FrostFeverUptime match
             />
           </a>
            
-          Frost Fever Uptime
+          <a
+            href="http://wowhead.com/spell=55095"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Frost Fever
+          </a>
         </label>
         <div
           className="value"
         >
-          107.99 %
+          <svg
+            className="icon"
+            viewBox="10 10 80 80"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M50,86.4865c17.4361,0,31.6216-14.1855,31.6216-31.6216c0-16.6168-12.8865-30.2714-29.1892-31.5189v-4.9677h7.2973v-4.8649  H40.2703v4.8649h7.2973v4.9677c-16.3027,1.2475-29.1892,14.902-29.1892,31.5189C18.3784,72.3009,32.5639,86.4865,50,86.4865z M52.4324,28.2236c3.1101,0.2817,6.0664,1.0982,8.7798,2.356l-8.7798,15.2073V28.2236z M47.5676,28.2236v26.6412 c0,1.1008,0.7393,2.0647,1.8029,2.3497c0.209,0.0561,0.4205,0.0827,0.6295,0.0827c0.8533,0,1.6642-0.4504,2.1065-1.2162 l13.3146-23.0616c6.8507,4.8503,11.3357,12.8315,11.3357,21.8454c0,14.7537-12.0031,26.7567-26.7568,26.7567 s-26.7568-12.003-26.7568-26.7567C23.2432,40.9315,33.9501,29.4573,47.5676,28.2236z"
+            />
+          </svg>
+           
+          107.99
+          % 
+          <small>
+            uptime
+          </small>
         </div>
       </div>
     </div>
@@ -3562,19 +4284,14 @@ exports[`Frost Death Knight integration test: example log Frostscythe matches th
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={1000}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -3589,12 +4306,22 @@ exports[`Frost Death Knight integration test: example log Frostscythe matches th
             />
           </a>
            
-          Frostscythe efficiency
+          <a
+            href="http://wowhead.com/spell=207230"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Frostscythe
+          </a>
         </label>
         <div
           className="value"
         >
-          0.00%
+          0.00
+           % 
+          <small>
+            efficiency
+          </small>
         </div>
       </div>
     </div>
@@ -3624,19 +4351,14 @@ exports[`Frost Death Knight integration test: example log GatheringStorm matches
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={1000}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -3651,7 +4373,13 @@ exports[`Frost Death Knight integration test: example log GatheringStorm matches
             />
           </a>
            
-          Gathering Storm
+          <a
+            href="http://wowhead.com/spell=194912"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Gathering Storm
+          </a>
         </label>
         <div
           className="value"
@@ -3766,40 +4494,44 @@ exports[`Frost Death Knight integration test: example log HardHowlingBlastCasts 
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    postion={50}
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={50}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
-            href="http://wowhead.com/spell=59052"
+            href="http://wowhead.com/spell=49184"
             rel="noopener noreferrer"
             target="_blank"
           >
             <img
-              alt="Rime"
+              alt="Howling Blast"
               className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/spell_frost_arcticwinds.jpg"
             />
           </a>
            
-          Howling Blasts without Rime proc
+          <a
+            href="http://wowhead.com/spell=49184"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Howling Blast
+          </a>
         </label>
         <div
           className="value"
         >
           2
+           
+          <small>
+            casts without Rime proc
+          </small>
         </div>
       </div>
     </div>
@@ -3829,19 +4561,14 @@ exports[`Frost Death Knight integration test: example log KillingMachineEfficien
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={5}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -3856,12 +4583,22 @@ exports[`Frost Death Knight integration test: example log KillingMachineEfficien
             />
           </a>
            
-          Killing Machine Efficiency
+          <a
+            href="http://wowhead.com/spell=51124"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Killing Machine
+          </a>
         </label>
         <div
           className="value"
         >
-          100.00 %
+          90.00
+           % 
+          <small>
+            efficiency
+          </small>
         </div>
       </div>
     </div>
@@ -3884,6 +4621,37 @@ exports[`Frost Death Knight integration test: example log KillingMachineEfficien
     </div>
   </div>
 </div>
+`;
+
+exports[`Frost Death Knight integration test: example log KillingMachineEfficiency matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_sword_122",
+    "importance": "minor",
+    "issue": <React.Fragment>
+       You wasted 
+      <ForwardRef
+        id={51124}
+      />
+       procs. You should be casting 
+      <ForwardRef
+        id={49020}
+      />
+       or 
+      <ForwardRef
+        id={207230}
+      />
+       within 1 or 2 GCDs of gaining a Killing Machine proc to avoid wasting it. See one of the guides on the About tab for more information on when another ability takes precedence over spending Killing Machine
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      10.00% of Killing Machine procs were either refreshed and lost or expired without being used
+       (
+      &lt;5.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
 `;
 
 exports[`Frost Death Knight integration test: example log OverwhelmingPower matches the statistic snapshot 1`] = `
@@ -4024,19 +4792,14 @@ exports[`Frost Death Knight integration test: example log RimeEfficiency matches
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={5}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -4051,12 +4814,22 @@ exports[`Frost Death Knight integration test: example log RimeEfficiency matches
             />
           </a>
            
-          Rime Efficiency
+          <a
+            href="http://wowhead.com/spell=59052"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Rime
+          </a>
         </label>
         <div
           className="value"
         >
-          100.00 %
+          100.00
+           % 
+          <small>
+            efficiency
+          </small>
         </div>
       </div>
     </div>
@@ -4086,10 +4859,10 @@ exports[`Frost Death Knight integration test: example log RuneTracker matches th
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
+    className="panel statistic flexible "
+    position={10}
     style={
       Object {
-        "height": "auto",
         "zIndex": 1,
       }
     }
@@ -4098,21 +4871,33 @@ exports[`Frost Death Knight integration test: example log RuneTracker matches th
       className="panel-body"
     >
       <div
-        className="pad"
+        className="flex boring-value "
       >
-        <label>
-          <img
-            alt="Rune 1"
-            className="icon game "
-            src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_frozenruneweapon.jpg"
-          />
-           
-          Runes overcapped
-        </label>
         <div
-          className="value"
+          className="flex-sub icon"
         >
-          14.40 %
+          <a
+            href="http://wowhead.com/runes"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt="Runes"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_frozenruneweapon.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main value"
+        >
+          <div>
+            42.35 %
+          </div>
+          <small>
+            Runes overcapped
+          </small>
         </div>
       </div>
       <div
@@ -4161,14 +4946,14 @@ Array [
   Object {
     "details": null,
     "icon": "spell_deathknight_frozenruneweapon",
-    "importance": "minor",
+    "importance": "major",
     "issue": <React.Fragment>
       You overcapped 
-      14.40
+      42.35
       % of your runes. Try to always have at least 3 runes on cooldown.
     </React.Fragment>,
     "stat": <React.Fragment>
-      14.40% runes overcapped
+      42.35% runes overcapped
        (
       &lt;10.00% is recommended
       )
@@ -4182,33 +4967,40 @@ exports[`Frost Death Knight integration test: example log RunicPowerDetails matc
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic small "
+    position={11}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="flex boring-value "
       >
-        <label>
-          <img
-            alt=""
-            className="icon game "
-            src="//render-us.worldofwarcraft.com/icons/56/inv_sword_62.jpg"
-          />
-           
-          Runic Power wasted
-        </label>
         <div
-          className="value"
+          className="flex-sub icon"
         >
-          4.29 %
+          <a
+            href="http://wowhead.com/runic-power"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt="Runic Power"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/inv_sword_62.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main value"
+        >
+          <div>
+            4.29 %
+          </div>
+          <small>
+            Runic Power wasted
+          </small>
         </div>
       </div>
     </div>
@@ -4987,7 +5779,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
     </div>
   </li>
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -5011,8 +5803,8 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#4ec04e",
-                  "width": "100%",
+                  "backgroundColor": "#ac1f39",
+                  "width": "30.026503612398802%",
                 }
               }
             />
@@ -5119,7 +5911,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  25.95%
+                  49.91%
                    
                    
                 </div>
@@ -5139,9 +5931,9 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "30.026503612398802%",
                       }
                     }
                   />
@@ -5154,7 +5946,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
     </div>
   </li>
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -5178,8 +5970,8 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "85.2591597312744%",
+                  "backgroundColor": "#ac1f39",
+                  "width": "27.423385999341075%",
                 }
               }
             />
@@ -5272,7 +6064,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  85.60%
+                  57.65%
                    
                    
                 </div>
@@ -5292,9 +6084,9 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "85.2591597312744%",
+                        "width": "27.423385999341075%",
                       }
                     }
                   />
@@ -5714,7 +6506,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -5774,7 +6566,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -5834,7 +6626,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -5894,7 +6686,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -5954,7 +6746,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -6014,7 +6806,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -6074,7 +6866,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>

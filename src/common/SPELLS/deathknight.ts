@@ -224,6 +224,11 @@ const spells: SpellList = {
     name: 'Chill Streak',
     icon: 'spell_frost_piercing-chill',
   },
+  FROSTWYRMS_FURY: { 
+    id: 279302, 
+    name: 'Frostwyrm\'s Fury', 
+    icon: 'achievement_boss_sindragosa' 
+  },
   // Buffs
   EMPOWER_RUNE_WEAPON: {
     id: 47568,
@@ -284,10 +289,10 @@ const spells: SpellList = {
     icon: 'inv_misc_rune_10',
   },
 
-  PESTILENT_PUSTULES: {
-    id: 220211,
-    name: 'Pestilent Pustules',
-    icon: 'spell_yorsahj_bloodboil_purpleoil',
+  OBLITERATION_RUNE_GAIN:{
+    id: 281327,
+    name: 'Obliteration',
+    icon: 'inv_axe_114',
   },
   
   // Unholy:
@@ -344,6 +349,12 @@ const spells: SpellList = {
     id: 51460,
     name: 'Runic Corruption',
     icon: 'spell_shadow_rune',
+  },
+
+  PESTILENT_PUSTULES: {
+    id: 220211,
+    name: 'Pestilent Pustules',
+    icon: 'spell_yorsahj_bloodboil_purpleoil',
   },
 
   // scourge strike has one cast event but two damage events, the cast and physical
@@ -405,6 +416,12 @@ const spells: SpellList = {
     id: 51052,
     name: 'Anti-Magic Zone',
     icon: 'spell_deathknight_antimagiczone',
+  },
+
+  ANTI_MAGIC_ZONE_BUFF: {
+    id: 145629,
+    name: 'Anti-Magic Zone',
+    icon: 'spell_deathknight_antimagiczone'
   },
 
   ANTI_MAGIC_SHELL: {

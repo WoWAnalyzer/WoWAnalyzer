@@ -5,14 +5,14 @@ import {
   formatNumber,
   formatPercentage,
 } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import CrossIcon from 'interface/icons/Cross';
 import Statistic from 'interface/statistics/Statistic';
 import BoringValueText from 'interface/statistics/components/BoringValueText';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
-import { CastEvent } from '../../core/Events';
+import Events, { CastEvent, BeginCastEvent } from '../../core/Events';
 
 const debug = false;
 const MS_BUFFER = 100;
@@ -20,7 +20,7 @@ const MS_BUFFER = 100;
 class CancelledCasts extends Analyzer {
   castsCancelled = 0;
   castsFinished = 0;
-  beginCastSpell: CastEvent | undefined = undefined;
+  beginCastSpell: BeginCastEvent | undefined = undefined;
   wasCastStarted: boolean = false;
   cancelledSpellList: {
     [key: number]: {
@@ -30,7 +30,14 @@ class CancelledCasts extends Analyzer {
   } = {};
   IGNORED_ABILITIES: number[] = [];
 
-  on_byPlayer_begincast(event: CastEvent) {
+  constructor(options: Options){
+    super(options);
+    this.addEventListener(Events.begincast.by(SELECTED_PLAYER), this.onBeginCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.fightend, this.onFightend);
+  }
+
+  onBeginCast(event: BeginCastEvent) {
     const spellId = event.ability.guid;
     if (this.IGNORED_ABILITIES.includes(spellId)) {
       return;
@@ -46,7 +53,7 @@ class CancelledCasts extends Analyzer {
     this.wasCastStarted = true;
   }
 
-  on_byPlayer_cast(event: CastEvent) {
+  onCast(event: CastEvent) {
     const spellId = event.ability.guid;
     const beginCastAbility = this.beginCastSpell && this.beginCastSpell.ability;
     if (this.IGNORED_ABILITIES.includes(spellId) || !beginCastAbility) {
@@ -97,7 +104,7 @@ class CancelledCasts extends Analyzer {
     };
   }
 
-  on_fightend() {
+  onFightend() {
     debug &&
     console.log(
       formatMilliseconds(this.owner.fightDuration),

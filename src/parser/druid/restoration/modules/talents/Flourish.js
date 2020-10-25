@@ -6,8 +6,13 @@ import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+
+import Events from 'parser/core/Events';
 
 import HotTracker from '../core/hottracking/HotTracker';
 
@@ -62,12 +67,14 @@ class Flourish extends Analyzer {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FLOURISH_TALENT.id);
     this.hasCenarionWard = this.selectedCombatant.hasTalent(SPELLS.CENARION_WARD_TALENT.id);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR), this.onHeal);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLOURISH_TALENT), this.onCast);
   }
 
-  on_byPlayer_heal(event) {
+  onHeal(event) {
     const spellId = event.ability.guid;
 
-    if (this.selectedCombatant.hasBuff(SPELLS.FLOURISH_TALENT.id) && HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR.includes(spellId)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.FLOURISH_TALENT.id)) {
       switch (spellId) {
         case SPELLS.REJUVENATION.id:
           this.increasedRateRejuvenationHealing += calculateEffectiveHealing(event, FLOURISH_HEALING_INCREASE);
@@ -111,12 +118,7 @@ class Flourish extends Analyzer {
     }
   }
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (SPELLS.FLOURISH_TALENT.id !== spellId) {
-      return;
-    }
-
+  onCast(event) {
     this.flourishCount += 1;
     debug && console.log(`Flourish cast #: ${this.flourishCount}`);
 
@@ -223,14 +225,14 @@ class Flourish extends Analyzer {
     when(this.wildGrowthSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> should always aim to extend a <SpellLink id={SPELLS.WILD_GROWTH.id} /></>)
           .icon(SPELLS.FLOURISH_TALENT.icon)
-          .actual(`${formatPercentage(this.wgsExtended / this.flourishCount, 0)}% WGs extended.`)
+          .actual(i18n._(t('druid.restoration.suggestions.flourish.wildGrowthExtended')`${formatPercentage(this.wgsExtended / this.flourishCount, 0)}% WGs extended.`))
           .recommended(`${formatPercentage(recommended)}% is recommended`));
 
     if(this.hasCenarionWard) {
       when(this.cenarionWardSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> should always aim to extend a <SpellLink id={SPELLS.CENARION_WARD_HEAL.id} /></>)
             .icon(SPELLS.FLOURISH_TALENT.icon)
-            .actual(`${this.cwsExtended}/${this.flourishCount} CWs extended.`)
+            .actual(i18n._(t('druid.restoration.suggestions.flourish.cenarionWardExtended')`${this.cwsExtended}/${this.flourishCount} CWs extended.`))
             .recommended(`${formatPercentage(recommended)}% is recommended`));
     }
   }

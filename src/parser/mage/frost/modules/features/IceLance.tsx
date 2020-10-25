@@ -10,6 +10,8 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent, DamageEvent, ChangeBuffStackEvent } from 'parser/core/Events';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import { SHATTER_DEBUFFS } from '../../constants';
 import { CAST_BUFFER } from '../../constants';
@@ -55,7 +57,7 @@ class IceLance extends Analyzer {
       return;
     }
     const enemy = this.enemies.getEntity(event);
-    if (enemy && !SHATTER_DEBUFFS.some(effect => enemy.hasBuff(effect, event.timestamp)) && this.hadFingersProc === false) {
+    if (enemy && !SHATTER_DEBUFFS.some(effect => enemy.hasBuff(effect, event.timestamp)) && !this.hadFingersProc) {
       this.nonShatteredCasts += 1;
     }
   }
@@ -114,7 +116,7 @@ class IceLance extends Analyzer {
     when(this.nonShatteredIceLanceThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.ICE_LANCE.id} /> {this.nonShatteredCasts} times ({formatPercentage(actual)}%) without <SpellLink id={SPELLS.SHATTER.id} />. Make sure that you are only casting Ice Lance when the target has <SpellLink id={SPELLS.WINTERS_CHILL.id} /> (or other Shatter effects), if you have a <SpellLink id={SPELLS.FINGERS_OF_FROST.id} /> proc, or if you are moving and you cant cast anything else.</>)
           .icon(SPELLS.ICE_LANCE.icon)
-          .actual(`${formatPercentage(actual)}% missed`)
+          .actual(i18n._(t('mage.frost.suggestions.iceLance.nonShatterCasts')`${formatPercentage(actual)}% missed`))
           .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 

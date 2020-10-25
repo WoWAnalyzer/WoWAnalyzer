@@ -1,5 +1,6 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
+import Events, { EventType } from 'parser/core/Events';
 
 /**
  * This is an 'abstract' implementation of a framework for tracking resource generating/spending.
@@ -25,6 +26,11 @@ class ResourceTracker extends Analyzer {
   // TODO a classes 'main' resource passes the max along with events, but for other resources this may need to be defined
   maxResource;
 
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.energize.to(SELECTED_PLAYER), this.onEnergize);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+  }
 
   // FIXME implement natural regen
   // TODO if the tracked resource naturally regenerates (like Energy), set this to true and set the parameters of the regeneration in the below fields
@@ -41,7 +47,7 @@ class ResourceTracker extends Analyzer {
   }
 
   // BUILDERS - Handled on energize, using the 'resourceChange' field
-  on_toPlayer_energize(event) {
+  onEnergize(event) {
     const spellId = event.ability.guid;
 
     if(event.resourceChangeType !== this.resource.id) {
@@ -98,7 +104,7 @@ class ResourceTracker extends Analyzer {
   }
 
   // SPENDERS - Handled on cast, using the 'classResources' field
-  on_byPlayer_cast(event) {
+  onCast(event) {
     const spellId = event.ability.guid;
 
     if(!this.shouldProcessCastEvent(event)) {
@@ -156,7 +162,7 @@ class ResourceTracker extends Analyzer {
 
   triggerSpendEvent(spent, event) {
     this.eventEmitter.fabricateEvent({
-      type: 'spendresource',
+      type: EventType.SpendResource,
       timestamp: event.timestamp,
       sourceID: event.sourceID,
       targetID: event.targetID,

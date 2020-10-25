@@ -3,13 +3,14 @@ import React from 'react';
 import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
 import RACES from 'game/RACES';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import HIT_TYPES from 'game/HIT_TYPES';
 import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 import StatisticBox from 'interface/others/StatisticBox';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import ROLES from 'game/ROLES';
+import Events from 'parser/core/Events';
 
 export const CRIT_EFFECT = 0.02;
 
@@ -29,6 +30,8 @@ class MightOfTheMountain extends Analyzer {
     }
 
     this.critEffectBonus.hook(this.getCritEffectBonus.bind(this));
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
   isApplicableHeal(event) {
@@ -66,7 +69,7 @@ class MightOfTheMountain extends Analyzer {
     return critEffectModifier + CRIT_EFFECT;
   }
 
-  on_byPlayer_heal(event) {
+  onHeal(event) {
     if (!this.isApplicableHeal(event)) {
       return;
     }
@@ -82,7 +85,7 @@ class MightOfTheMountain extends Analyzer {
 
     this.healing += effectiveHealing;
   }
-  on_byPlayer_damage(event) {
+  onDamage(event) {
     if (!this.isApplicableDamage(event)) {
       return;
     }

@@ -1,6 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -23,7 +23,7 @@ class FreezingWinds extends Analyzer {
 
   cooldownReduction = 0;
 
-  constructor(props: any) {
+  constructor(props: Options) {
     super(props);
     this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.FREEZING_WINDS.bonusID);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FROSTBOLT), this.onFrostbolt);

@@ -1,8 +1,8 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS/index';
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemHealingDone from 'interface/ItemHealingDone';
-import { HealEvent } from 'parser/core/Events';
+import Events, { HealEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
@@ -20,13 +20,10 @@ class CosmicRipple extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.COSMIC_RIPPLE_TALENT.id);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.COSMIC_RIPPLE_HEAL), this.onHeal);
   }
 
-  on_byPlayer_heal(event: HealEvent) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.COSMIC_RIPPLE_HEAL.id) {
-      return;
-    }
+  onHeal(event: HealEvent) {
     this.overhealing += event.overheal || 0;
     this.totalHealing += (event.amount || 0) + (event.absorbed || 0);
     this.totalHits += 1;

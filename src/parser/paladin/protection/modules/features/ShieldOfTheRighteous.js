@@ -3,18 +3,18 @@ import { formatPercentage, formatThousands } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELLS from 'common/SPELLS';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import { findByBossId } from 'raids/index';
-
-const VALOR_BUFFER_TIME = 100;
-const VALOR_GAIN_THRESHOLD = 2000;
+import Events from 'parser/core/Events';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const SOTR_DURATION = 4500;
 
-const isGoodCast = (cast, endTime) => cast.melees >= 2 || cast.tankbusters >= 1 || cast.remainingCharges >= 1.35 || cast.buffEndTime > endTime || (cast.consumedValor && cast.beforeValorGained);
+const isGoodCast = (cast, endTime) => cast.melees >= 2 || cast.tankbusters >= 1 || cast.buffEndTime > endTime;
 
 class ShieldOfTheRighteous extends Analyzer {
   static dependencies = {
@@ -36,9 +36,6 @@ class ShieldOfTheRighteous extends Analyzer {
         buffEndTime: <timestamp>, // end time of the buff. if the current buff is > 2x SOTR_DURATION then this can be < SOTR_DURATION
         melees: <number>, // melees received while during buff
         tankbusters: <number>, // tankbusters mitigated by buff
-        remainingCharges: <number>, // fractional number of charges remaining *after* cast
-        consumedValor: <boolean>, // whether the player had Avenger's Valor when cast
-        beforeValorGained: <boolean>, // whether the player gained Avenger's Valor immediately after casting
      }
      */
   ];
@@ -64,20 +61,14 @@ class ShieldOfTheRighteous extends Analyzer {
     if (this.owner.boss) {
       const boss = findByBossId(this.owner.boss.id);
       this._tankbusters = (boss.fight.softMitigationChecks && boss.fight.softMitigationChecks.physical) || [];
+      this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_OF_THE_RIGHTEOUS), this.onCast);
+      this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
+      this.addEventListener(Events.fightend, this.onFightend);
     }
   }
 
-  _partialCharge() {
-    const cd = this.spellUsable._currentCooldowns[SPELLS.SHIELD_OF_THE_RIGHTEOUS.id];
 
-    return 1 - this.spellUsable.cooldownRemaining(SPELLS.SHIELD_OF_THE_RIGHTEOUS.id) / cd.expectedDuration;
-  }
-
-  on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.SHIELD_OF_THE_RIGHTEOUS.id) {
-      return;
-    }
-
+  onCast(event) {
     const buffEndTime = Math.min(
       // if the buff expired before the current event, its just
       // event.timestamp + SOTR_DURATION ...
@@ -93,9 +84,6 @@ class ShieldOfTheRighteous extends Analyzer {
       buffEndTime: buffEndTime,
       melees: 0,
       tankbusters: 0,
-      remainingCharges: this.spellUsable.chargesAvailable(SPELLS.SHIELD_OF_THE_RIGHTEOUS.id) + this._partialCharge(),
-      consumedValor: this.selectedCombatant.hasBuff(SPELLS.AVENGERS_VALOR_BUFF.id, null, VALOR_BUFFER_TIME),
-      beforeValorGained: false,
       _event: event,
     };
 
@@ -110,17 +98,7 @@ class ShieldOfTheRighteous extends Analyzer {
     this._sotrCasts.push(cast);
   }
 
-  on_toPlayer_applybuff(event) {
-    if (event.ability.guid !== SPELLS.AVENGERS_VALOR_BUFF.id) {
-      return;
-    }
-
-    if (this._latestCast && this._latestCast.castTime > event.timestamp - VALOR_GAIN_THRESHOLD) {
-      this._latestCast.beforeValorGained = true;
-    }
-  }
-
-  on_toPlayer_damage(event) {
+  onDamageTaken(event) {
     if (event.ability.type !== MAGIC_SCHOOLS.ids.PHYSICAL) {
       return;
     }
@@ -140,7 +118,7 @@ class ShieldOfTheRighteous extends Analyzer {
     }
   }
 
-  on_fightend(event) {
+  onFightend(event) {
     if (this._activeCast) {
       this._markupCast(this._activeCast);
     }
@@ -180,7 +158,7 @@ class ShieldOfTheRighteous extends Analyzer {
     }
     const meta = cast._event.meta || {};
     meta.isInefficientCast = true;
-    meta.inefficientCastReason = 'This cast did not block many melee attacks, or block a tankbuster, or prevent you from capping SotR charges, or avoid wasting Avenger\'s Valor.';
+    meta.inefficientCastReason = 'This cast did not block many melee attacks, or block a tankbuster, or prevent you from capping SotR charges.';
     cast._event.meta = meta;
   }
 
@@ -204,7 +182,7 @@ class ShieldOfTheRighteous extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>{formatPercentage(actual)}% of your <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> casts were <em>good</em> (they mitigated at least 2 auto-attacks or 1 tankbuster, or prevented capping charges). You should have Shield of the Righteous up to mitigate as much physical damage as possible.</>)
           .icon(SPELLS.SHIELD_OF_THE_RIGHTEOUS.icon)
-          .actual(`${formatPercentage(actual)}% good Shield of the Righteous casts`)
+          .actual(i18n._(t('paladin.protection.suggestions.shieldOfTheRighteous.goodCasts')`${formatPercentage(actual)}% good Shield of the Righteous casts`))
           .recommended(`${Math.round(formatPercentage(recommended))}% or more is recommended`));
   }
 
@@ -225,7 +203,7 @@ class ShieldOfTheRighteous extends Analyzer {
               <li>You were hit <strong>{this.physicalHitsWithoutShieldOfTheRighteous}</strong> times <strong><em>without</em></strong> your Shield of the Righteous buff (<strong>{formatThousands(this.physicalDamageWithoutShieldOfTheRighteous)}</strong> damage).</li>
             </ul>
             <strong>{formatPercentage(physicalHitsMitigatedPercent)}%</strong> of physical attacks were mitigated with Shield of the Righteous (<strong>{formatPercentage(physicalDamageMitigatedPercent)}%</strong> of physical damage taken).<br />
-            <strong>{this.goodCasts.length}</strong> of your {this._sotrCasts.length} casts were <em>good</em> (blocked at least 2 melees or a tankbuster, or prevented capping charges, or consumed an Avenger's Valor buff that was about to be overwritten).
+            <strong>{this.goodCasts.length}</strong> of your {this._sotrCasts.length} casts were <em>good</em> (blocked at least 2 melees or a tankbuster, or prevented capping charges).
           </>
         )}
       />

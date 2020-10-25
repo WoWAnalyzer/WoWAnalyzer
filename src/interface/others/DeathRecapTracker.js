@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import DEFENSIVE_BUFFS from 'common/DEFENSIVE_BUFFS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Buffs';
@@ -10,6 +10,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Enemies from 'parser/shared/modules/Enemies';
 import Healthstone from 'parser/shared/modules/items/Healthstone';
 import Panel from 'interface/others/Panel';
+import Events from 'parser/core/Events';
 
 import DeathRecap from './DeathRecap';
 
@@ -33,6 +34,10 @@ class DeathRecapTracker extends Analyzer {
 
   constructor(...args) {
     super(...args);
+    this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamage);
+    this.addEventListener(Events.instakill.to(SELECTED_PLAYER), this.onInstakill);
+    this.addEventListener(Events.death.to(SELECTED_PLAYER), this.onDeath);
     this.cooldowns = this.abilities.activeAbilities.filter(ability => (
       ability.category === Abilities.SPELL_CATEGORIES.DEFENSIVE
       || ability.category === Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE
@@ -89,16 +94,16 @@ class DeathRecapTracker extends Analyzer {
     this.events.push(extendedEvent);
   }
 
-  on_toPlayer_heal(event) {
+  onHeal(event) {
     this.addEvent(event);
   }
-  on_toPlayer_damage(event) {
+  onDamage(event) {
     this.addEvent(event);
   }
-  on_toPlayer_instakill(event) {
+  onInstakill(event) {
     this.addEvent(event);
   }
-  on_toPlayer_death(event) {
+  onDeath(event) {
     if(event.timestamp <= this.owner.fight.start_time){
       return;
     }

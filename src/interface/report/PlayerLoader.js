@@ -17,6 +17,7 @@ import ReportDurationWarning, { MAX_REPORT_DURATION } from 'interface/report/Rep
 import ReportRaidBuffList from 'interface/ReportRaidBuffList';
 import { fetchCharacter } from 'interface/actions/characters';
 import { generateFakeCombatantInfo } from 'interface/report/CombatantInfoFaker';
+import Panel from 'interface/others/Panel';
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -55,6 +56,7 @@ class PlayerLoader extends React.PureComponent {
       exportedCharacters: PropTypes.any,
       start: PropTypes.number.isRequired,
       end: PropTypes.number.isRequired,
+      gameVersion: PropTypes.number.isRequired,
     }).isRequired,
     fight: PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -101,6 +103,9 @@ class PlayerLoader extends React.PureComponent {
   }
 
   async loadCombatants(report, fight) {
+    if (report.gameVersion === 2) {
+      return;
+    }
     let numberOfCombatantsWithLoadedHeart = 0;
     try {
       const { fetchCharacter } = this.props;
@@ -206,12 +211,32 @@ class PlayerLoader extends React.PureComponent {
     return <ActivityIndicator text={i18n._(t`Fetching player info...`)} />;
   }
 
+  renderClassicWarning() {
+    return (
+      <div className="container offset">
+        <Panel title={<Trans>Sorry, Classic WoW Logs are not supported</Trans>}>
+          <div className="flex wrapable">
+            <div className="flex-main" style={{ minWidth: 400 }}>
+              <Trans>
+              The current report contains encounters from World of Warcraft: Classic. Currently WoWAnalyzer does not support, and does not have plans to support, Classic WoW logs.
+              </Trans><br /><br />
+            </div>
+          </div>
+        </Panel>
+      </div>
+    );
+  }
+
   render() {
     const { report, fight, playerName, playerId } = this.props;
 
     const error = this.state.error;
     if (error) {
       return this.renderError(error);
+    }
+
+    if (report.gameVersion === 2) {
+      return this.renderClassicWarning();
     }
 
     const combatants = this.state.combatants;

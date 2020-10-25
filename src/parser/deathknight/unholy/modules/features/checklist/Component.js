@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+
 import Checklist from 'parser/shared/modules/features/Checklist';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
@@ -10,7 +11,7 @@ import PreparationRule from 'parser/shared/modules/features/Checklist/Preparatio
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 
 const UnholyDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }) => {
-  const AbilityRequirement = props => (
+  const AbilityRequirement = (props) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}

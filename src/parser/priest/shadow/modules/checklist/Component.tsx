@@ -34,44 +34,19 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: any) =
     spell: PropTypes.number.isRequired,
   };
 
-  const VoidFormStacks: any = (props: any) => {
-    const requirements = [];
-
-    // eslint-disable-next-line react/prop-types
-    for (let voidFormIndex = 0; voidFormIndex < props.voidform.voidforms.length; voidFormIndex++) {
-      // eslint-disable-next-line react/prop-types
-      const thresholds = props.voidform.suggestionStackThresholds(props.voidform.voidforms[voidFormIndex]);
-      // If you end the fight in voidform, we want to mark that voidform as green.
-      // eslint-disable-next-line react/prop-types
-      if (props.voidform.voidforms[voidFormIndex].excluded) {
-        thresholds.isLessThan = { minor: 0 };
-      }
-
-      requirements.push(<Requirement
-        key={voidFormIndex}
-        name={`Voidform #${voidFormIndex + 1} stacks`}
-        thresholds={thresholds}
-      />);
-
-    }
-    return requirements;
-  };
-
   return (
     <Checklist>
       <Rule
         name="Maintain your DoTs on the boss"
         description={(
           <React.Fragment>
-            Both <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> and <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} /> duration extends when the target or a nearby target gets hit by <SpellLink id={SPELLS.VOID_BOLT.id} />.
-            Due to this, you often only need to apply these spells to new targets and refresh them on targets that are too far away from your primary target.
+            When not in <SpellLink id={SPELLS.VOIDFORM.id} />, it's important to keep your DoTs up on the boss. While in <SpellLink id={SPELLS.VOIDFORM.id} />,  your <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} />, <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} />, and <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> durations are extended when the target or a nearby target gets hit by <SpellLink id={SPELLS.VOID_BOLT.id} />.
           </React.Fragment>
         )}
       >
         <DotUptime id={SPELLS.SHADOW_WORD_PAIN.id} thresholds={thresholds.shadowWordPain} />
         <DotUptime id={SPELLS.VAMPIRIC_TOUCH.id} thresholds={thresholds.vampiricTouch} />
 
-        {combatant.hasTalent(SPELLS.SIPHON_LIFE_TALENT.id) && <DotUptime id={SPELLS.SIPHON_LIFE_TALENT.id} thresholds={thresholds.siphonLife} />}
       </Rule>
 
       <Rule
@@ -95,6 +70,12 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: any) =
           </React.Fragment>
         )}
       >
+        <AbilityRequirement spell={SPELLS.VOID_ERUPTION.id} />
+
+        {combatant.hasTalent(SPELLS.SURRENDER_TO_MADNESS_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.SURRENDER_TO_MADNESS_TALENT.id} />
+        )}
+
         {combatant.hasTalent(SPELLS.MINDBENDER_TALENT_SHADOW.id) ?
           <AbilityRequirement spell={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> :
           <AbilityRequirement spell={SPELLS.SHADOWFIEND.id} />
@@ -106,36 +87,10 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: any) =
       </Rule>
 
       <Rule
-        name={(
-          <React.Fragment>Maximize <SpellLink id={SPELLS.VOIDFORM.id} /> stacks</React.Fragment>
-        )}
-        description={(
-          <React.Fragment>
-            Your Voidforms are an important part of your overall damage.
-            Try to get at least 20 stacks every Voidform with proper <SpellLink id={SPELLS.VOID_BOLT.id} /> and <SpellLink id={SPELLS.MIND_BLAST.id} /> usage.
-            Use <SpellLink id={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> on cooldown (even outside of Voidform).
-          </React.Fragment>
-        )}
-      >
-
-        <Requirement
-          name={(
-            <React.Fragment>
-              <SpellLink id={SPELLS.VOIDFORM.id} icon /> uptime
-            </React.Fragment>
-          )}
-          thresholds={thresholds.voidform.suggestionUptimeThresholds}
-        />
-
-        <VoidFormStacks voidform={thresholds.voidform} />
-
-      </Rule>
-
-      <Rule
         name="Minimize casting downtime"
         description={(
           <React.Fragment>
-            Try to minimize your time not casting. Use your core spells on cooldown and fillers when they are not available. If you know you have an upcoming position requirement, stutterstep with each <SpellLink id={SPELLS.VOID_BOLT.id} /> cast towards that location. During high movement you can use <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> as a filler.
+            Try to minimize your time not casting. Use your core spells on cooldown and fillers when they are not available. If you know you have an upcoming position requirement, stutterstep with each <SpellLink id={SPELLS.VOID_BOLT.id} /> or <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} /> cast towards that location. During high movement you can use <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> as a filler.
           </React.Fragment>
         )}
       >

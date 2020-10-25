@@ -8,15 +8,12 @@ import Analyzer from 'parser/core/Analyzer';
 import UptimeIcon from 'interface/icons/Uptime';
 import StatisticBox from 'interface/others/StatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import { ROLL_THE_BONES_BUFFS } from '../../constants';
 
 class RollTheBonesBuffs extends Analyzer {
-  constructor(...args) {
-    super(...args);
-    this.active = !this.selectedCombatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id);
-  }
-
   percentUptime(spellid) {
     return this.selectedCombatant.getBuffUptime(spellid) / this.owner.fightDuration;
   }
@@ -43,7 +40,7 @@ class RollTheBonesBuffs extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> uptime can be improved. Try to always have <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> active, even with a lower value roll.</>)
         .icon(SPELLS.ROLL_THE_BONES.icon)
-        .actual(`${formatPercentage(actual)}% Roll the Bones uptime`)
+        .actual(i18n._(t('rogue.outlaw.suggestions.rollTheBones.uptime')`${formatPercentage(actual)}% Roll the Bones uptime`))
         .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
   statistic() {

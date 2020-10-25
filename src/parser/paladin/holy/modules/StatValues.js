@@ -9,6 +9,8 @@ import HealingValue from 'parser/shared/modules/HealingValue';
 import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
+import Events from 'parser/core/Events';
+
 import SPELL_INFO from './StatValuesSpellInfo';
 import MasteryEffectiveness from './MasteryEffectiveness';
 import BeaconHealSource from './beacons/BeaconHealSource';
@@ -34,15 +36,21 @@ class StatValues extends BaseHealerStatValues {
 
   spellInfo = SPELL_INFO;
   qeLive = true;
+  active = false;
 
-  on_heal(event) {
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.beacontransfer, this.onBeaconTransfer);
+  }
+
+  onHeal(event) {
     if (event.ability.guid === SPELLS.BEACON_OF_LIGHT_HEAL.id) {
       // Handle this via the `on_beacontransfer` event
       return;
     }
-    super.on_heal(event);
+    super.onHeal(event);
   }
-  on_beacontransfer(event) {
+  onBeaconTransfer(event) {
     const spellInfo = this._getSpellInfo(event.originalHeal);
     const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
     const targetHealthPercentage = (event.hitPoints - healVal.effective) / event.maxHitPoints; // hitPoints contains HP *after* the heal
@@ -102,7 +110,7 @@ class StatValues extends BaseHealerStatValues {
       const { baseCritChance, ratingCritChance } = this._getCritChance(event);
 
       const totalCritChance = baseCritChance + ratingCritChance;
-      if (totalCritChance > 1 + 1 / this.statTracker.critRatingPerPercent) {
+      if (totalCritChance > 1 + 1 / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentHasteRating, this.statTracker.statBaselineRatingPerPercent[STAT.CRITICAL_STRIKE])) {
         // If the crit chance was more than 100%+1 rating, then the last rating was over the cap and worth 0.
         return 0;
       }
@@ -134,7 +142,7 @@ class StatValues extends BaseHealerStatValues {
 
     const masteryEffectiveness = event.masteryEffectiveness;
     const healIncreaseFromOneMastery =
-      (this.statTracker.statMultiplier.mastery / this.statTracker.masteryRatingPerPercent) *
+      (this.statTracker.statMultiplier.mastery / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentMasteryRating, this.statTracker.statBaselineRatingPerPercent[STAT.MASTERY], this.selectedCombatant.spec.masteryCoefficient)) *
       masteryEffectiveness;
     const baseHeal =
       healVal.effective / (1 + this.statTracker.currentMasteryPercentage * masteryEffectiveness);

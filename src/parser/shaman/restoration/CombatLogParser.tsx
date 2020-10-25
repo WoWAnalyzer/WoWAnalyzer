@@ -16,6 +16,7 @@ import Abilities from './modules/Abilities';
 
 import HealingDone from './modules/core/HealingDone';
 import HealingRainLocation from './modules/core/HealingRainLocation';
+import RestorationAbilityTracker from './modules/core/RestorationAbilityTracker';
 
 import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -49,6 +50,8 @@ import HealingRain from './modules/spells/HealingRain';
 import HealingWave from './modules/spells/HealingWave';
 import LavaSurge from './modules/spells/LavaSurge';
 import Resurgence from './modules/spells/Resurgence';
+import ManaTideTotem from './modules/spells/ManaTideTotem';
+import SpiritLinkDamageReduction from './modules/spells/SpiritLinkDamageReduction';
 // Potency Conduits
 import EmbraceOfEarth from './modules/shadowlands/conduits/EmbraceOfEarth';
 import HeavyRainfall from './modules/shadowlands/conduits/HeavyRainfall';
@@ -71,6 +74,7 @@ class CombatLogParser extends CoreCombatLogParser {
     healingDone: HealingDone,
     abilities: Abilities,
     healingRainLocation: HealingRainLocation,
+    restorationAbilityTracker: RestorationAbilityTracker,
     manaTracker: ManaTracker,
     hpmDetails: HealingEfficiencyDetails,
     hpmTracker: HealingEfficiencyTracker,
@@ -113,6 +117,8 @@ class CombatLogParser extends CoreCombatLogParser {
     healingWave: HealingWave,
     lavaSurge: LavaSurge,
     resurgence: Resurgence,
+    manaTideTotem: ManaTideTotem,
+    spiritLinkDamageReduction: SpiritLinkDamageReduction,
 
     // Shared:
     spiritWolf: SpiritWolf,

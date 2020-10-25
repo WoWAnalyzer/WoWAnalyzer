@@ -1,7 +1,8 @@
 import React from 'react';
 import SpellIcon from 'common/SpellIcon';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatisticBox from 'interface/others/StatisticBox';
+import Events from 'parser/core/Events';
 
 // time after a cast in which direct damage from the spellId will be associated with the cast
 const DAMAGE_WINDOW = 250; //ms
@@ -22,18 +23,22 @@ class HitCountAoE extends Analyzer {
   lastCastEvent = null;
   lastCastHits = 0;
 
-  on_byPlayer_cast(event) {
-    if (this.constructor.spell.id !== event.ability.guid) {
-      return;
-    }
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.constructor.spell.id), this.onCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(this.constructor.spell.id), this.onDamage);
+    this.addEventListener(Events.fightend, this.onFightend);
+  }
+
+  onCast(event) {
     this.finalizePreviousCast();
     this.casts += 1;
     this.lastCastEvent = event;
     this.lastCastHits = 0;
   }
 
-  on_byPlayer_damage(event) {
-    if ((this.constructor.spell.id !== event.ability.guid) || event.tick ||
+  onDamage(event) {
+    if (event.tick ||
         !this.lastCastEvent || ((event.timestamp - this.lastCastEvent.timestamp) > DAMAGE_WINDOW)) {
       // only interested in direct damage from the spellId shortly after cast
       return;
@@ -42,7 +47,7 @@ class HitCountAoE extends Analyzer {
     this.lastCastHits += 1;
   }
 
-  on_fightend() {
+  onFightend() {
     this.finalizePreviousCast();
   }
 

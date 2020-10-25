@@ -19,6 +19,7 @@ import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Buffs';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Haste from 'parser/shared/modules/Haste';
+import STAT from 'parser/shared/modules/features/STAT';
 
 let OVERCHARGE_MANA_HEALING_INCREASE_PER_STACK = 0.04;
 let MANA_REGEN_PER_SECOND = 800;
@@ -60,7 +61,7 @@ class TheEverRisingTide extends Analyzer {
       this.buffs.add({
         spellId: SPELLS.EVER_RISING_TIDE_HEALING_BUFF.id,
         triggeredBySpellId: SPELLS.EVER_RISING_TIDE_CHARGING_BUFF.id,
-        timelineHightlight: true,
+        timelineHighlight: true,
       });
       if (this.selectedCombatant.hasTalent(SPELLS.ENLIGHTENMENT_TALENT.id)) {
         MANA_REGEN_PER_SECOND *= (1 + ENLIGHTENMENT_TALENT_REGEN_INCREASE);
@@ -157,7 +158,8 @@ class TheEverRisingTide extends Analyzer {
       const ramp = hasteBuffsCopy.splice(startIndex, spliceCount);
       averageHaste = averageHaste === 0 ? this.average(ramp) : (averageHaste + this.average(ramp)) / 2;
     }
-    return averageHaste * this.statTracker.hasteRatingPerPercent * this.selectedCombatant.getBuffUptime(SPELLS.EVER_RISING_TIDE_CHARGING_BUFF.id) / this.owner.fightDuration;
+    /** There is a potential for this average haste % to be wrong since it can overflow into the next penalty threshold */
+    return averageHaste * this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentHasteRating, this.statTracker.statBaselineRatingPerPercent[STAT.HASTE]) * this.selectedCombatant.getBuffUptime(SPELLS.EVER_RISING_TIDE_CHARGING_BUFF.id) / this.owner.fightDuration;
   }
 
   average(ramp) {

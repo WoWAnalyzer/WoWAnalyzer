@@ -4,6 +4,8 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
 import { TooltipElement } from 'common/Tooltip';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import Snapshot from '../core/Snapshot';
 import { MOONFIRE_FERAL_BASE_DURATION, PANDEMIC_FRACTION } from '../../constants';
@@ -81,7 +83,7 @@ class MoonfireSnapshot extends Snapshot {
         </>,
       )
         .icon(SPELLS.MOONFIRE_FERAL.icon)
-        .actual(`${formatPercentage(actual)}% of Moonfire refreshes were early downgrades.`)
+        .actual(i18n._(t('druid.feral.suggestions.moonfireSnapshot.downgrades')`${formatPercentage(actual)}% of Moonfire refreshes were early downgrades.`))
         .recommended(`${recommended}% is recommended`));
   }
 

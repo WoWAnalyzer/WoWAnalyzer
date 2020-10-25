@@ -1,13 +1,18 @@
 import React from 'react';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
+
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 /**
  *A sweeping attack that strikes all enemies in front of you for (14% of attack power) Frost damage. This attack benefits from Killing Machine. Critical strikes with Frostscythe deal 4 times normal damage.
@@ -67,23 +72,27 @@ class Frostscythe extends Analyzer {
 
   suggestions(when: When) {
     when(this.efficencyThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-        <>
-          Your <SpellLink id={SPELLS.FROSTSCYTHE_TALENT.id} /> efficiency can be improved. Only cast Frostscythe if you have a <SpellLink id={SPELLS.KILLING_MACHINE.id} icon /> proc or you can hit 2+ targets.
-        </>)
-        .icon(SPELLS.FROSTSCYTHE_TALENT.icon)
-        .actual(`${formatPercentage(actual)}% Frostscythe efficiency`)
-        .recommended(`>${formatPercentage(recommended)}% is recommended`));
+      <>
+        Your <SpellLink id={SPELLS.FROSTSCYTHE_TALENT.id} /> efficiency can be improved. Only cast Frostscythe if you have a <SpellLink id={SPELLS.KILLING_MACHINE.id} icon /> proc or you can hit 2+ targets.
+      </>)
+      .icon(SPELLS.FROSTSCYTHE_TALENT.icon)
+      .actual(i18n._(t('deathknight.forst.frostScythe.efficiency')`${formatPercentage(actual)}% Frostscythe efficiency`))
+      .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
-        icon={<SpellIcon id={SPELLS.FROSTSCYTHE_TALENT.id} />}
-        value={`${formatPercentage(this.efficiency)}%`}
-        label="Frostscythe efficiency"
+        size="flexible"
         tooltip={`A good cast is one where you either hit 1+ targets with a Killing Machine buff or you hit 2+ targets.  You had ${this.goodCasts} / ${this.casts} good casts`}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.FROSTSCYTHE_TALENT}>
+          <>
+            {formatPercentage(this.efficiency)} % <small>efficiency</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

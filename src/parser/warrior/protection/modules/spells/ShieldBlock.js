@@ -1,10 +1,13 @@
 import React from 'react';
 import SpellLink from 'common/SpellLink';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
 import { ThresholdStyle } from 'parser/core/ParseResults';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+import Events from 'parser/core/Events';
 
 const debug = false;
 
@@ -23,15 +26,13 @@ class ShieldBlock extends Analyzer {
     this.shieldBlocksOffensive = [];
     this.shieldBlocksDefensive = [];
     this.shieldBlocksOverall = [];
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_BLOCK), this.onCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
+    this.addEventListener(Events.fightend, this.onFightend);
   }
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-
-    if(spellId !== SPELLS.SHIELD_BLOCK.id){
-      return;
-    }
-
+  onCast(event) {
     if(this.shieldBlocksDefensive.length>0){
       this.checkLastBlock();
     }
@@ -39,7 +40,7 @@ class ShieldBlock extends Analyzer {
     this.shieldBlockCast(event);
   }
 
-  on_byPlayer_damage(event) {
+  onDamage(event) {
     const spellId = event.ability.guid;
 
     if(!this.selectedCombatant.hasBuff(SPELLS.SHIELD_BLOCK_BUFF.id)){
@@ -55,7 +56,7 @@ class ShieldBlock extends Analyzer {
     }
   }
 
-  on_toPlayer_damage(event) {
+  onDamageTaken(event) {
 
     if(!this.selectedCombatant.hasBuff(SPELLS.SHIELD_BLOCK_BUFF.id)){
       return;
@@ -149,7 +150,7 @@ class ShieldBlock extends Analyzer {
 
   }
 
-  on_fightend(){
+  onFightend(){
     if(this.shieldBlocksDefensive.length>0){
       this.checkLastBlock();
     }
@@ -179,7 +180,7 @@ class ShieldBlock extends Analyzer {
         <> You had uneventful <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> cast(s) where there was either no blockable damage events or you didn't cast shield slam enough. </>,
       )
         .icon(SPELLS.SHIELD_BLOCK.icon)
-        .actual(`${this.goodCast} good casts of shield block`)
+        .actual(i18n._(t('warrior.protection.suggestions.shieldBlock.goodCasts')`${this.goodCast} good casts of shield block`))
         .recommended(`${Math.floor(recommended * (this.goodCast + this.badCast))} is recommended`));
   }
 
@@ -188,7 +189,7 @@ class ShieldBlock extends Analyzer {
     let offensiveCasts = 0;
     let defensiveCasts = 0;
     const totalCasts = this.shieldBlocksOverall.length;
-    for(let i = 0; i<this.shieldBlocksOverall.length; i++){
+    for(let i = 0; i<this.shieldBlocksOverall.length; i += 1){
       goodCasts += this.shieldBlocksOverall[i].good ? 1 : 0;
       offensiveCasts += this.shieldBlocksOffensive[i].good ? 1 : 0;
       defensiveCasts += this.shieldBlocksDefensive[i].good ? 1 : 0;

@@ -4,10 +4,14 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage , formatDuration } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatisticBox from 'interface/others/StatisticBox';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
+import Events from 'parser/core/Events';
 
 import Abilities from '../Abilities';
 import ActiveTargets from './ActiveTargets';
@@ -35,7 +39,12 @@ class AntiFillerSpam extends Analyzer {
   _totalFillerSpells = 0;
   _unnecessaryFillerSpells = 0;
 
-  on_byPlayer_cast(event) {
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+  }
+
+  onCast(event) {
     const spellId = event.ability.guid;
     const ability = this.abilities.getAbility(spellId);
     if (!ability || !ability.gcd) {
@@ -92,7 +101,7 @@ class AntiFillerSpam extends Analyzer {
     if (availableSpells.length > 0) {
       this._unnecessaryFillerSpells += 1;
       let text = '';
-      for (let i = 0; i < availableSpells.length; i++){
+      for (let i = 0; i < availableSpells.length; i += 1){
         if (availableSpells[i].primarySpell.id === SPELLS.MOONFIRE.id) {
           text += 'a Galactic Guardian proc';
         } else {
@@ -134,7 +143,7 @@ class AntiFillerSpam extends Analyzer {
           </>,
         )
           .icon(SPELLS.SWIPE_BEAR.icon)
-          .actual(`${formatPercentage(actual)}% unnecessary filler spells cast`)
+          .actual(i18n._(t('druid.guardian.suggestions.fillerSpells.efficiency')`${formatPercentage(actual)}% unnecessary filler spells cast`))
           .recommended(`${formatPercentage(recommended, 0)}% or less is recommended`)
           .regular(recommended + 0.05).major(recommended + 0.1));
   }

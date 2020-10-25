@@ -7,31 +7,36 @@ import { mapSpellsToIds } from 'parser/warlock/shared/helpers';
 
 import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
 
+const FEL_CELERITY_REDUCTION_SEC = {
+  1: 48,
+  2: 51,
+  3: 54,
+  4: 57,
+  5: 60,
+  6: 63,
+  7: 66,
+  8: 69,
+  9: 72,
+  10: 75,
+  11: 78,
+  12: 81,
+  13: 84,
+  14: 87,
+  15: 90,
+};
+
 class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
     return [
       // Rotational spells
       {
-        spell: SPELLS.UNSTABLE_AFFLICTION_CAST,
+        spell: SPELLS.UNSTABLE_AFFLICTION,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
         },
         buffSpellId: [...mapSpellsToIds(UNSTABLE_AFFLICTION_DEBUFFS)],
-      },
-      {
-        spell: SPELLS.DEATHBOLT_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(SPELLS.DEATHBOLT_TALENT.id),
-        cooldown: 30,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
       },
       {
         spell: SPELLS.HAUNT_TALENT,
@@ -66,6 +71,13 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.CORRUPTION_DEBUFF.id,
       },
       {
+        spell: SPELLS.MALEFIC_RAPTURE,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: SPELLS.SIPHON_LIFE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.SIPHON_LIFE_TALENT.id),
@@ -80,7 +92,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: !combatant.hasTalent(SPELLS.DRAIN_SOUL_TALENT.id),
       },
       {
         spell: SPELLS.DRAIN_SOUL_TALENT,
@@ -128,7 +139,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SUMMON_DARKGLARE,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180, // TODO: can be shortened with Dreaful Calling trait
+        cooldown: combatant.hasTalent(SPELLS.DARK_CALLER_TALENT.id) ? 120 : 180,
         gcd: {
           base: 1500,
         },
@@ -212,7 +223,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DEMONIC_CIRCLE_SUMMON,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        enabled: combatant.hasTalent(SPELLS.DEMONIC_CIRCLE_TALENT.id),
         gcd: {
           base: 1500,
         },
@@ -225,7 +235,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DEMONIC_CIRCLE_TELEPORT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
-        enabled: combatant.hasTalent(SPELLS.DEMONIC_CIRCLE_TALENT.id),
         gcd: {
           base: 1500,
         },
@@ -280,7 +289,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.ENSLAVE_DEMON,
+        spell: SPELLS.SUBJUGATE_DEMON,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
@@ -299,6 +308,27 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+      },
+      {
+        spell: SPELLS.CURSE_OF_TONGUES,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        }
+      },
+      {
+        spell: SPELLS.CURSE_OF_WEAKNESS,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        }
+      },
+      {
+        spell: SPELLS.CURSE_OF_EXHAUSTION,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        }
       },
       {
         spell: SPELLS.HEALTH_FUNNEL_CAST,
@@ -330,6 +360,23 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.UNENDING_BREATH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.FEL_DOMINATION,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: combatant.hasConduitBySpellID(SPELLS.FEL_CELERITY.id) ? 180 - FEL_CELERITY_REDUCTION_SEC[combatant.conduitRankBySpellID(SPELLS.FEL_CELERITY.id)] : 180,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.HOWL_OF_TERROR_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        enabled: combatant.hasTalent(SPELLS.HOWL_OF_TERROR_TALENT.id),
+        cooldown: 40,
         gcd: {
           base: 1500,
         },

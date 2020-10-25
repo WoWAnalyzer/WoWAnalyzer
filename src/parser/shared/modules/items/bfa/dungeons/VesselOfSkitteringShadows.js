@@ -1,10 +1,11 @@
 import React from 'react';
 import ITEMS from 'common/ITEMS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import SPELLS from 'common/SPELLS/';
 import ItemDamageDone from 'interface/ItemDamageDone';
+import Events from 'parser/core/Events';
 
 /* Vessel of Skittering Shadows
  * Equip: Your damaging spells have a chance to summon a Volatile Shadeweaver,
@@ -21,13 +22,10 @@ class VesselOfSkitteringShadows extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrinket(ITEMS.VESSEL_OF_SKITTERING_SHADOWS.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.WEBWEAVERS_SOUL_GEM_DAMAGE), this.onDamage);
   }
 
-  on_byPlayer_damage(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.WEBWEAVERS_SOUL_GEM_DAMAGE.id) {
-      return;
-    }
+  onDamage(event) {
     this.damage += event.amount + (event.absorbed || 0);
   }
 

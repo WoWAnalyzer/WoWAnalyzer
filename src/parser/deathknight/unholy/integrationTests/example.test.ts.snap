@@ -1,5 +1,100 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Unholy Death Knight integration test: example log AlwaysBeCasting matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad"
+      >
+        <label>
+          <img
+            alt="Downtime"
+            className="icon game "
+            src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
+          />
+           
+          Downtime
+        </label>
+        <div
+          className="value"
+        >
+          19.44 %
+        </div>
+        <div
+          style={
+            Object {
+              "marginTop": "0.5em",
+            }
+          }
+        >
+          <div
+            className="statistic-box-bar"
+          >
+            <div
+              className="stat-health-bg"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={[Function]}
+              style={
+                Object {
+                  "width": "80.56338512305788%",
+                }
+              }
+            >
+              <img
+                alt="Active time"
+                src="/img/sword.png"
+              />
+            </div>
+            <div
+              className="remainder DeathKnight-bg"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={[Function]}
+            >
+              <img
+                alt="Downtime"
+                src="/img/afk.png"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Unholy Death Knight integration test: example log Apocalypse matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -280,7 +375,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -293,7 +388,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -306,7 +401,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -844,7 +939,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              Can be improved.
+              shared.castEfficiency.canBeImproved
             </td>
           </tr>
           <tr>
@@ -1047,7 +1142,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1060,7 +1155,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1073,7 +1168,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1193,7 +1288,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1206,7 +1301,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1219,7 +1314,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1533,7 +1628,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1546,7 +1641,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1559,7 +1654,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -1861,7 +1956,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -1874,7 +1969,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -1887,7 +1982,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -2820,7 +2915,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                CPM
+                shared.castEfficiency.cpm
               </dfn>
             </th>
             <th
@@ -2833,7 +2928,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Casts
+                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -2846,7 +2941,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Time on Cooldown
+                shared.castEfficiency.timeOnCooldown
               </dfn>
             </th>
             <th />
@@ -3210,7 +3305,7 @@ exports[`Unholy Death Knight integration test: example log DistanceMoved matches
         className="pad"
       >
         <label>
-          Distance moved
+          shared.distanceMoved.statistic.label
         </label>
         <div
           className="value"
@@ -3289,166 +3384,216 @@ Array [
     "details": null,
     "icon": "inv_chest_plate_nzothraid_d_01.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              4824,
-              1517,
-              4786,
-              6510,
-            ],
-            "icon": "inv_chest_plate_nzothraid_d_01.jpg",
-            "id": 174164,
-            "itemLevel": 480,
-            "quality": 4,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4824,
+                  1517,
+                  4786,
+                  6510,
+                ],
+                "icon": "inv_chest_plate_nzothraid_d_01.jpg",
+                "id": 174164,
+                "itemLevel": 480,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={174164}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Chest"
+            id="common.slots.chest"
+          />,
         }
-        icon={false}
-        id={174164}
-        quality={4}
-      >
-        Chest
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_glove_plate_nzothraid_d_01.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              6412,
-              4803,
-              6515,
-              6578,
-              6579,
-              6474,
-              6455,
-              1507,
-              4786,
-            ],
-            "icon": "inv_glove_plate_nzothraid_d_01.jpg",
-            "id": 173456,
-            "itemLevel": 450,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  6412,
+                  4803,
+                  6515,
+                  6578,
+                  6579,
+                  6474,
+                  6455,
+                  1507,
+                  4786,
+                ],
+                "icon": "inv_glove_plate_nzothraid_d_01.jpg",
+                "id": 173456,
+                "itemLevel": 450,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={173456}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Gloves"
+            id="common.slots.gloves"
+          />,
         }
-        icon={false}
-        id={173456}
-        quality={3}
-      >
-        Gloves
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_ring_80_05b.jpg",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              6536,
-              6578,
-              6579,
-              6559,
-              6513,
-              1647,
-              4786,
-            ],
-            "icon": "inv_ring_80_05b.jpg",
-            "id": 159461,
-            "itemLevel": 475,
-            "permanentEnchant": 6109,
-            "quality": 3,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  6536,
+                  6578,
+                  6579,
+                  6559,
+                  6513,
+                  1647,
+                  4786,
+                ],
+                "icon": "inv_ring_80_05b.jpg",
+                "id": 159461,
+                "itemLevel": 475,
+                "permanentEnchant": 6109,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={159461}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Ring"
+            id="common.slots.ring"
+          />,
         }
-        icon={false}
-        id={159461}
-        quality={3}
-      >
-        Ring
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_70_raid_ring8d.jpg",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              4824,
-              6578,
-              6579,
-              6560,
-              6513,
-              1517,
-              4786,
-            ],
-            "icon": "inv_70_raid_ring8d.jpg",
-            "id": 174530,
-            "itemLevel": 475,
-            "permanentEnchant": 6109,
-            "quality": 4,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4824,
+                  6578,
+                  6579,
+                  6560,
+                  6513,
+                  1517,
+                  4786,
+                ],
+                "icon": "inv_70_raid_ring8d.jpg",
+                "id": 174530,
+                "itemLevel": 475,
+                "permanentEnchant": 6109,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={174530}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Ring"
+            id="common.slots.ring"
+          />,
         }
-        icon={false}
-        id={174530}
-        quality={4}
-      >
-        Ring
-      </ItemLink>
-       has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <ItemLink
-        details={
-          Object {
-            "bonusIDs": Array [
-              6590,
-              1472,
-            ],
-            "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
-            "id": 169223,
-            "itemLevel": 500,
-            "quality": 5,
-          }
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  6590,
+                  1472,
+                ],
+                "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
+                "id": 169223,
+                "itemLevel": 500,
+                "quality": 5,
+              }
+            }
+            icon={false}
+            id={169223}
+            quality={5}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Cloak"
+            id="common.slots.cloak"
+          />,
         }
-        icon={false}
-        id={169223}
-        quality={5}
-      >
-        Cloak
-      </ItemLink>
-       is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-    </React.Fragment>,
+      }
+    />,
     "stat": null,
   },
 ]
@@ -3540,24 +3685,20 @@ exports[`Unholy Death Knight integration test: example log EssenceOfTheFocusingI
 </div>
 `;
 
-exports[`Unholy Death Knight integration test: example log FesteringStrike matches the statistic snapshot 1`] = `
+exports[`Unholy Death Knight integration test: example log FesteringStrikeEfficiency matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    category="GENERAL"
+    className="panel statistic flexible "
+    position={4}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -3571,75 +3712,12 @@ exports[`Unholy Death Knight integration test: example log FesteringStrike match
               src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_festering_strike.jpg"
             />
           </a>
-           
-          Festering Strike Efficiency
+           Festering Strike Efficency
         </label>
         <div
           className="value"
         >
-          100.00 %
-        </div>
-      </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Unholy Death Knight integration test: example log FesteringStrikeEfficiency matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad"
-      >
-        <label>
-          <a
-            href="http://wowhead.com/spell=55090"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Scourge Strike"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_scourgestrike.jpg"
-            />
-          </a>
-           
-          Scourge Strike Efficiency
-        </label>
-        <div
-          className="value"
-        >
-          87.50 %
+          100.00% 
         </div>
       </div>
     </div>
@@ -3830,10 +3908,10 @@ exports[`Unholy Death Knight integration test: example log RuneTracker matches t
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
+    className="panel statistic flexible "
+    position={10}
     style={
       Object {
-        "height": "auto",
         "zIndex": 1,
       }
     }
@@ -3842,21 +3920,33 @@ exports[`Unholy Death Knight integration test: example log RuneTracker matches t
       className="panel-body"
     >
       <div
-        className="pad"
+        className="flex boring-value "
       >
-        <label>
-          <img
-            alt="Rune 1"
-            className="icon game "
-            src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_frozenruneweapon.jpg"
-          />
-           
-          Runes overcapped
-        </label>
         <div
-          className="value"
+          className="flex-sub icon"
         >
-          3.21 %
+          <a
+            href="http://wowhead.com/runes"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt="Runes"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_frozenruneweapon.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main value"
+        >
+          <div>
+            21.00 %
+          </div>
+          <small>
+            Runes overcapped
+          </small>
         </div>
       </div>
       <div
@@ -3900,6 +3990,27 @@ exports[`Unholy Death Knight integration test: example log RuneTracker matches t
 </div>
 `;
 
+exports[`Unholy Death Knight integration test: example log RuneTracker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_deathknight_frozenruneweapon",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      You overcapped 
+      21.00
+      % of your runes. Try to always have at least 3 runes on cooldown.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      21.00% runes overcapped
+       (
+      &lt;15.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
 exports[`Unholy Death Knight integration test: example log RunicPowerDetails matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -3932,6 +4043,65 @@ exports[`Unholy Death Knight integration test: example log RunicPowerDetails mat
           className="value"
         >
           0.00 %
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Unholy Death Knight integration test: example log ScourgeStrikeEfficiency matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="GENERAL"
+    className="panel statistic flexible "
+    position={3}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=55090"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Scourge Strike"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_scourgestrike.jpg"
+            />
+          </a>
+           
+          Scourge Strike
+           Strike Efficency
+        </label>
+        <div
+          className="value"
+        >
+          87.50% 
         </div>
       </div>
     </div>
@@ -4950,7 +5120,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  9.60%
+                  19.44%
                    
                    
                 </div>
@@ -5009,8 +5179,8 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#4ec04e",
-                  "width": "100%",
+                  "backgroundColor": "#a6c34c",
+                  "width": "79.91412415784411%",
                 }
               }
             />
@@ -5103,7 +5273,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  96.79%
+                  79.00%
                    
                    
                 </div>
@@ -5123,9 +5293,9 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "79.91412415784411%",
                       }
                     }
                   />
@@ -5545,7 +5715,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  Yes
+                  common.yes
                    
                    
                 </div>
@@ -5605,7 +5775,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -5665,7 +5835,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -5725,7 +5895,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -5785,7 +5955,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  Yes
+                  common.yes
                    
                    
                 </div>
@@ -5845,7 +6015,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  No
+                  common.no
                    
                    
                 </div>
@@ -5905,7 +6075,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  Yes
+                  common.yes
                    
                    
                 </div>

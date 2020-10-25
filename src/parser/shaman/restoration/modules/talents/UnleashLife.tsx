@@ -13,6 +13,7 @@ import DonutChart from 'interface/statistics/components/DonutChart';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events, { CastEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
+import { Trans } from '@lingui/macro';
 
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
 
@@ -78,7 +79,7 @@ class UnleashLife extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.UNLEASH_LIFE_TALENT.id);
 
-    const spellFilter = [SPELLS.RIPTIDE, SPELLS.CHAIN_HEAL, SPELLS.HEALING_WAVE, SPELLS.HEALING_SURGE_RESTORATION]; // TODO ADD CHAIN HARVEST
+    const spellFilter = [SPELLS.UNLEASH_LIFE_TALENT, SPELLS.RIPTIDE, SPELLS.CHAIN_HEAL, SPELLS.HEALING_WAVE, SPELLS.HEALING_SURGE_RESTORATION]; // TODO ADD CHAIN HARVEST
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(spellFilter), this._onHeal);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(spellFilter), this._onCast);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this._onRiptideRemoval);
@@ -180,32 +181,32 @@ class UnleashLife extends Analyzer {
     const items = [
       {
         color: SPELLS.CHAIN_HEAL.color,
-        label: 'Chain Heal',
+        label: <Trans id="shaman.restoration.spell.chainHeal">Chain Heal</Trans>,
         spellId: SPELLS.CHAIN_HEAL.id,
         value: this.healingBuff[SPELLS.CHAIN_HEAL.id].castAmount,
       },
       {
         color: SPELLS.HEALING_WAVE.color,
-        label: 'Healing Wave',
+        label: <Trans id="shaman.restoration.spell.healingWave">Healing Wave</Trans>,
         spellId: SPELLS.HEALING_WAVE.id,
         value: this.healingBuff[SPELLS.HEALING_WAVE.id].castAmount,
       },
       {
         color: SPELLS.HEALING_SURGE_RESTORATION.color,
-        label: 'Healing Surge',
+        label: <Trans id="shaman.restoration.spell.healingSurge">Healing Surge</Trans>,
         spellId: SPELLS.HEALING_SURGE_RESTORATION.id,
         value: this.healingBuff[SPELLS.HEALING_SURGE_RESTORATION.id].castAmount,
       },
       {
         color: SPELLS.RIPTIDE.color,
-        label: 'Riptide',
+        label: <Trans id="shaman.restoration.spell.riptide">Riptide</Trans>,
         spellId: SPELLS.RIPTIDE.id,
         value: this.healingBuff[SPELLS.RIPTIDE.id].castAmount,
       },
       {
         color: '#CC3D20',
-        label: 'Unused Buffs',
-        tooltip: `The amount of Unleash Life buffs you did not use out of the total available. You cast ${this.unleashLifeCasts} Unleash Lifes, of which you used ${this.totalUses}.`,
+        label: <Trans id="shaman.restoration.unleashLife.chart.unused.label">Unused Buffs</Trans>,
+        tooltip: <Trans id="shaman.restoration.unleashLife.chart.unused.label.tooltip">The amount of Unleash Life buffs you did not use out of the total available. You cast {this.unleashLifeCasts} Unleash Lifes, of which you used {this.totalUses}.</Trans>,
         value: unusedUL,
       },
     ];
@@ -225,7 +226,7 @@ class UnleashLife extends Analyzer {
         size="flexible"
       >
         <div className="pad">
-          <label><SpellLink id={SPELLS.UNLEASH_LIFE_TALENT.id} /> usage</label>
+          <label><Trans id="shaman.restoration.unleashLife.statistic.label"><SpellLink id={SPELLS.UNLEASH_LIFE_TALENT.id} /> usage</Trans></label>
           {this.unleashLifeCastRatioChart}
         </div>
       </Statistic>
@@ -238,7 +239,7 @@ class UnleashLife extends Analyzer {
       <StatisticListBoxItem
         title={<SpellLink id={SPELLS.UNLEASH_LIFE_TALENT.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing + this.totalBuffedHealing + feeding))} %`}
-        valueTooltip={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing + feeding))}% from Unleash Life and ${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalBuffedHealing))}% from the healing buff.`}
+        valueTooltip={<Trans id="shaman.restoration.unleashLife.statistic.tooltip">{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing + feeding))}% from Unleash Life and {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalBuffedHealing))}% from the healing buff.</Trans>}
       />
     );
   }

@@ -1,5 +1,6 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
+import Events from 'parser/core/Events';
 
 const MAX_SOUL_FRAGMENTS = 5;
 
@@ -14,12 +15,12 @@ class SoulFragmentsTracker extends Analyzer {
   soulsSpent = 0;
   currentSouls = 0;
 
-  on_byPlayer_changebuffstack(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SOUL_FRAGMENT_STACK.id) {
-      return;
-    }
+  constructor(options){
+    super(options);
+    this.addEventListener(Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.SOUL_FRAGMENT_STACK), this.onChangeBuffStack);
+  }
 
+  onChangeBuffStack(event) {
     this.currentSouls = event.newStacks;
 
     if (event.oldStacks > MAX_SOUL_FRAGMENTS) {

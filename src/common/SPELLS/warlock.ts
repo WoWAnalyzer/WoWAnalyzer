@@ -39,7 +39,7 @@ const spells: SpellList = {
     name: 'Drain Life',
     icon: 'spell_shadow_lifedrain02',
   },
-  ENSLAVE_DEMON: {
+  SUBJUGATE_DEMON: {
     id: 1098,
     name: 'Enslave Demon',
     icon: 'spell_shadow_enslavedemon',
@@ -114,6 +114,42 @@ const spells: SpellList = {
     name: 'Unending Resolve',
     icon: 'spell_shadow_demonictactics',
   },
+  CURSE_OF_TONGUES: {
+    id: 1714,
+    name: 'Curse of Tongues',
+    icon: 'spell_shadow_curseoftounges',
+  },
+  CURSE_OF_WEAKNESS: {
+    id: 702,
+    name: 'Curse of Weakness',
+    icon: 'spell_shadow_curseofmannoroth',
+  },
+  CURSE_OF_EXHAUSTION: {
+    id: 334275,
+    name: 'Curse of Exhaustion',
+    icon: 'spell_shadow_grimward',
+  },
+  FEL_DOMINATION: {
+    id: 333889,
+    name: 'Fel Domination',
+    icon: 'spell_shadow_felmending',
+  },
+  DEMONIC_CIRCLE: { 
+    id: 268358, 
+    name: 'Demonic Circle', 
+    icon: 'spell_shadow_demoniccirclesummon', 
+    manaCost: 2000, 
+  },
+  DEMONIC_CIRCLE_SUMMON: {
+    id: 48018,
+    name: 'Demonic Circle Summon',
+    icon: 'spell_shadow_demoniccirclesummon',
+  },
+  DEMONIC_CIRCLE_TELEPORT: {
+    id: 48020,
+    name: 'Demonic Circle Teleport',
+    icon: 'spell_shadow_demoniccircleteleport',
+  },
 
   // Permanent pet damage abilities
   IMP_FIREBOLT: {
@@ -151,16 +187,6 @@ const spells: SpellList = {
   // Shared talents
   // --------------
 
-  DEMONIC_CIRCLE_SUMMON: {
-    id: 48018,
-    name: 'Demonic Circle Summon',
-    icon: 'spell_shadow_demoniccirclesummon',
-  },
-  DEMONIC_CIRCLE_TELEPORT: {
-    id: 48020,
-    name: 'Demonic Circle Teleport',
-    icon: 'spell_shadow_demoniccircleteleport',
-  },
   MORTAL_COIL_HEAL: {
     id: 108396,
     name: 'Mortal Coil',
@@ -221,35 +247,20 @@ const spells: SpellList = {
     name: 'Eye Beam',
     icon: 'inv_beholderwarlock',
   },
-  UNSTABLE_AFFLICTION_CAST: {
-    id: 30108,
+  UNSTABLE_AFFLICTION: {
+    id: 316099,
     name: 'Unstable Affliction',
     icon: 'spell_shadow_unstableaffliction_3',
   },
-  UNSTABLE_AFFLICTION_DEBUFF_1: {
-    id: 233490,
-    name: 'Unstable Affliction',
-    icon: 'spell_shadow_unstableaffliction_3',
+  SHADOW_EMBRACE: { 
+    id: 32388, 
+    name: 'Shadow Embrace', 
+    icon: 'spell_shadow_shadowembrace' 
   },
-  UNSTABLE_AFFLICTION_DEBUFF_2: {
-    id: 233496,
-    name: 'Unstable Affliction',
-    icon: 'spell_shadow_unstableaffliction_3',
-  },
-  UNSTABLE_AFFLICTION_DEBUFF_3: {
-    id: 233497,
-    name: 'Unstable Affliction',
-    icon: 'spell_shadow_unstableaffliction_3',
-  },
-  UNSTABLE_AFFLICTION_DEBUFF_4: {
-    id: 233498,
-    name: 'Unstable Affliction',
-    icon: 'spell_shadow_unstableaffliction_3',
-  },
-  UNSTABLE_AFFLICTION_DEBUFF_5: {
-    id: 233499,
-    name: 'Unstable Affliction',
-    icon: 'spell_shadow_unstableaffliction_3',
+  MALEFIC_RAPTURE: {
+    id: 324536,
+    name: 'Malefic Rapture',
+    icon: 'ability_warlock_everlastingaffliction',
   },
 
   // Affliction talents

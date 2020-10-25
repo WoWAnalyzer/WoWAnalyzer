@@ -12,6 +12,8 @@ import { formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import { WINTERS_CHILL_HARDCASTS, WINTERS_CHILL_CASTS, WINTERS_CHILL_DAMAGE, WINTERS_CHILL_SPENDERS } from '../../constants';
 
@@ -175,12 +177,12 @@ class WintersChill extends Analyzer {
     when(this.wintersChillShatterThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You failed to properly take advantage of <SpellLink id={SPELLS.WINTERS_CHILL.id} /> on your target {this.badShatters + this.missedShatters} times ({formatPercentage(this.shatterMissedPercent)}%). After debuffing the target via <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> and <SpellLink id={SPELLS.FLURRY.id} />, you should ensure that you hit the target with {this.hasGlacialSpike ? <>a <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> and an <SpellLink id={SPELLS.ICE_LANCE.id} /> (If Glacial Spike is available), or </> : ''} two <SpellLink id={SPELLS.ICE_LANCE.id} />s before the <SpellLink id={SPELLS.WINTERS_CHILL.id} /> debuff expires to get the most out of <SpellLink id={SPELLS.SHATTER.id} />.</>)
           .icon(SPELLS.ICE_LANCE.icon)
-          .actual(`${formatPercentage(this.shatterMissedPercent)}% Winter's Chill not shattered with Ice Lance`)
+          .actual(i18n._(t('mage.frost.suggestions.wintersChill.notShatteredIceLance')`${formatPercentage(this.shatterMissedPercent)}% Winter's Chill not shattered with Ice Lance`))
           .recommended(`${formatPercentage(1 - recommended)}% is recommended`));
     when(this.wintersChillHardCastThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You failed to use a pre-cast ability before spending your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> {this.missedHardcasts} times ({formatPercentage(this.hardcastMissedPercent)}%). Because of the travel time of <SpellLink id={SPELLS.FLURRY.id} />, you should cast a damaging ability such as <SpellLink id={SPELLS.FROSTBOLT.id} /> {this.hasEbonbolt ? <>or <SpellLink id={SPELLS.EBONBOLT_TALENT.id} /></> : ''} immediately before using your instant cast <SpellLink id={SPELLS.FLURRY.id} />. Doing this will allow your pre-cast ability to hit the target after <SpellLink id={SPELLS.FLURRY.id} /> (unless you are standing too close to the target) allowing it to benefit from <SpellLink id={SPELLS.SHATTER.id} />. If you are a Kyrian, it is also acceptable to pre-cast <SpellLink id={SPELLS.RADIANT_SPARK.id} /> instead.</>)
           .icon(SPELLS.FROSTBOLT.icon)
-          .actual(`${formatPercentage(this.hardcastMissedPercent)}% Winter's Chill not shattered with Frostbolt, Glacial Spike, or Ebonbolt`)
+          .actual(i18n._(t('mage.frost.suggestions.wintersChill.notShattered')`${formatPercentage(this.hardcastMissedPercent)}% Winter's Chill not shattered with Frostbolt, Glacial Spike, or Ebonbolt`))
           .recommended(`${formatPercentage(1 - recommended)}% is recommended`));
   }
 

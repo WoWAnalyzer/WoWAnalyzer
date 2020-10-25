@@ -3,10 +3,13 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
-import { Abelito75, Dambroda } from 'CONTRIBUTORS';
+import { Abelito75, Dambroda, Zeboot } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 10, 18), 'Updated Talents', Abelito75),
+  change(date(2020, 10, 18), 'Converted legacy listeners to new event filters', Zeboot),
+  change(date(2020, 10, 14),<>Fixed checklist and updated spellbook to prevent crashes.</>,Abelito75),
   change(date(2020, 9, 25),'Update spec to TypeScript.', Dambroda),
   change(date(2020, 1, 18),<>Included Lucid dream statistic.</>,Abelito75),
   change(date(2020, 1, 15),<>Updated for 8.3 </>,Abelito75),

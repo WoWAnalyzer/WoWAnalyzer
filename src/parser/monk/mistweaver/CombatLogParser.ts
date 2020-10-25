@@ -36,6 +36,7 @@ import TouchOfDeath from '../shared/modules/spells/TouchOfDeath';
 import InvokeYulon from './modules/spells/InvokeYulon';
 import InvokeChiJi from './modules/talents/InvokeChiJi';
 import ExpelHarm from './modules/spells/ExpelHarm';
+import EnvelopingBreath from './modules/spells/EnvelopingBreath';
 
 // Talents
 import JadeSerpentStatue from './modules/talents/JadeSerpentStatue';
@@ -121,6 +122,7 @@ class CombatLogParser extends CoreCombatLogParser {
     touchOfDeath: TouchOfDeath,
     invokeYulon: InvokeYulon,
     expelHarm: ExpelHarm,
+    envelopingBreath: EnvelopingBreath,
 
     // Talents
     chiBurst: ChiBurst,

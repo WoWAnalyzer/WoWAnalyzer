@@ -132,23 +132,23 @@ class Combatant extends Entity {
   get lv15Talent() {
     return this._getTalent(TALENT_ROWS.LV15);
   }
+  get lv25Talent() {
+    return this._getTalent(TALENT_ROWS.LV25);
+  }
   get lv30Talent() {
     return this._getTalent(TALENT_ROWS.LV30);
+  }
+  get lv35Talent() {
+    return this._getTalent(TALENT_ROWS.LV35);
+  }
+  get lv40Talent() {
+    return this._getTalent(TALENT_ROWS.LV40);
   }
   get lv45Talent() {
     return this._getTalent(TALENT_ROWS.LV45);
   }
-  get lv60Talent() {
-    return this._getTalent(TALENT_ROWS.LV60);
-  }
-  get lv75Talent() {
-    return this._getTalent(TALENT_ROWS.LV75);
-  }
-  get lv90Talent() {
-    return this._getTalent(TALENT_ROWS.LV90);
-  }
-  get lv100Talent() {
-    return this._getTalent(TALENT_ROWS.LV100);
+  get lv50Talent() {
+    return this._getTalent(TALENT_ROWS.LV50);
   }
 
   hasTalent(spell: number | Spell) {

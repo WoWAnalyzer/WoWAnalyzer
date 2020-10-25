@@ -15,7 +15,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 77130,
     name: 'Purify Spirit',
     icon: 'ability_shaman_cleansespirit',
-    manaCost: 650,
+    manaCost: 130,
   },
   WIND_SHEAR: {
     id: 57994,
@@ -26,7 +26,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 2484,
     name: 'Earthbind Totem',
     icon: 'spell_nature_strengthofearthtotem02',
-    manaCost: 250,
+    manaCost: 50,
   },
   RESONANCE_TOTEM: {
     id: 262417,
@@ -37,7 +37,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 370,
     name: 'Purge',
     icon: 'spell_nature_purge',
-    manaCost: 800,
+    manaCost: 1000,
   },
   FAR_SIGHT: {
     id: 6196,
@@ -68,7 +68,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 8143,
     name: 'Tremor Totem',
     icon: 'spell_nature_tremortotem',
-    manaCost: 230,
+    manaCost: 46,
   },
   SPIRIT_WOLF_BUFF: {
     id: 260881,
@@ -79,7 +79,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 974,
     name: 'Earth Shield',
     icon: 'spell_nature_skinofearth',
-    manaCost: 1000,
+    manaCost: 200,
   },
   EARTH_SHIELD_HEAL: {
     id: 379,
@@ -90,7 +90,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 192058,
     name: 'Capacitor Totem',
     icon: 'spell_nature_brilliance',
-    manaCost: 1000,
+    manaCost: 200,
   },
   EARTH_ELEMENTAL: {
     id: 198103,
@@ -101,16 +101,25 @@ const spells: SpellList<ShamanSpell> = {
     id: 51886,
     name: 'Cleanse Spirit',
     icon: 'ability_shaman_cleansespirit',
+    manaCost: 650,
   },
   LIGHTNING_SHIELD: {
     id: 192106,
     name: 'Lightning Shield',
     icon: 'spell_nature_lightningshield',
+    manaCost: 30,
   },
   FROST_SHOCK: {
     id: 196840,
     name: 'Frost Shock',
     icon: 'spell_frost_frostshock',
+    manaCost: 20,
+  },
+  PRIMAL_STRIKE: {
+    id: 73899,
+    name: 'Primal Strike',
+    icon: 'spell_shaman_primalstrike',
+    manaCost: 188,
   },
   // Hex and its variations
   HEX: {
@@ -179,7 +188,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 51505,
     name: 'Lava Burst',
     icon: 'spell_shaman_lavaburst',
-    manaCost: 250,
+    manaCost: 50,
     coefficient: 0.53125,
   },
   LAVA_BURST_DAMAGE: {
@@ -192,10 +201,16 @@ const spells: SpellList<ShamanSpell> = {
     name: 'Lava Burst Overload',
     icon: 'spell_shaman_lavaburst',
   },
+  LAVA_BURST_OVERLOAD_DAMAGE: {
+    id: 285466,
+    name: 'Lava Burst Overload',
+    icon: 'spell_shaman_lavaburst',
+  },
   LIGHTNING_BOLT: {
     id: 188196,
     name: 'Lightning Bolt',
     icon: 'spell_nature_lightning',
+    manaCost: 20,
   },
   LIGHTNING_BOLT_INSTANT: {
     id: 214815,
@@ -251,6 +266,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 188443,
     name: 'Chain Lightning',
     icon: 'spell_nature_chainlightning',
+    manaCost: 20,
   },
   CHAIN_LIGHTNING_INSTANT: {
     id: 195897,
@@ -327,6 +343,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 188389,
     name: 'Flame Shock',
     icon: 'spell_fire_flameshock',
+    manaCost: 30,
     max_maelstrom: 20,
   },
   FROST_SHOCK_ENERGIZE: {
@@ -406,32 +423,11 @@ const spells: SpellList<ShamanSpell> = {
     icon: 'spell_fire_immolation',
   },
   // Enhancement Shaman
-  ROCKBITER: {
-    id: 193786,
-    name: 'Rockbiter',
-    icon: 'spell_nature_rockbiter',
-  },
-  FROSTBRAND: {
-    id: 196834,
-    name: 'Frostbrand',
-    icon: 'spell_shaman_unleashweapon_frost',
-    maelstrom: 20,
-  },
-  FLAMETONGUE: {
-    id: 193796,
-    name: 'Flametongue',
-    icon: 'spell_fire_flametounge',
-  },
-  FLAMETONGUE_BUFF: {
-    id: 194084,
-    name: 'Flametongue',
-    icon: 'spell_fire_flametounge',
-  },
   CRASH_LIGHTNING: {
     id: 187874,
     name: 'Crash Lightning',
     icon: 'spell_shaman_crashlightning',
-    maelstrom: 20,
+    manaCost: 550,
   },
   FERAL_SPIRIT: {
     id: 51533,
@@ -439,7 +435,7 @@ const spells: SpellList<ShamanSpell> = {
     icon: 'spell_shaman_feralspirit',
   },
   FERAL_SPIRIT_MAELSTROM_BUFF: {
-    id: 190185,
+    id: 333957,
     name: 'Feral Spirit',
     icon: 'spell_shaman_feralspirit',
   },
@@ -462,7 +458,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 17364,
     name: 'Stormstrike',
     icon: 'ability_shaman_stormstrike',
-    maelstrom: 30,
+    manaCost: 200,
   },
   STORMSTRIKE_DAMAGE: {
     id: 32175,
@@ -474,11 +470,15 @@ const spells: SpellList<ShamanSpell> = {
     name: 'Stormstrike Off-Hand',
     icon: 'ability_shaman_stormstrike',
   },
+  ASCENDANCE_INITIAL_DAMAGE: {
+    id: 344548,
+    name: 'Ascendance',
+    icon: 'spell_fire_elementaldevastation',
+  },
   WINDSTRIKE_CAST: {
     id: 115356,
     name: 'Windstrike',
     icon: 'ability_skyreach_four_wind',
-    maelstrom: 30,
   },
   WINDSTRIKE_DAMAGE: {
     id: 115357,
@@ -494,7 +494,12 @@ const spells: SpellList<ShamanSpell> = {
     id: 60103,
     name: 'Lava Lash',
     icon: 'ability_shaman_lavalash',
-    maelstrom: 40,
+    manaCost: 400,
+  },
+  FIRE_NOVA_DAMAGE: {
+    id: 333977,
+    name: 'Fire Nova',
+    icon: 'spell_shaman_improvedfirenova',
   },
   DOOM_WINDS: {
     id: 204945,
@@ -516,6 +521,11 @@ const spells: SpellList<ShamanSpell> = {
     name: 'Maelstrom Weapon',
     icon: 'spell_shaman_maelstromweapon',
   },
+  MAELSTROM_WEAPON_BUFF: {
+    id: 344179,
+    name: 'Maelstrom Weapon',
+    icon: 'spell_shaman_maelstromweapon',
+  },
   DOOM_VORTEX: {
     id: 199116,
     name: 'Doom Vortex',
@@ -525,18 +535,6 @@ const spells: SpellList<ShamanSpell> = {
     id: 2645,
     name: 'Ghost Wolf',
     icon: 'spell_nature_spiritwolf',
-  },
-  HEALING_SURGE_ENHANCE: {
-    id: 188070,
-    name: 'Healing Surge',
-    icon: 'spell_nature_healingway',
-    manaCost: 2400,
-    maelstrom: 20,
-  },
-  LIGHTNING_BOLT_ENHANCE: {
-    name: "Lightning Bolt",
-    id: 187837,
-    icon: "spell_nature_lightning",
   },
   FERAL_LUNGE: {
     id: 196881,
@@ -552,13 +550,13 @@ const spells: SpellList<ShamanSpell> = {
     id: 2825,
     name: 'Bloodlust',
     icon: 'spell_nature_bloodlust',
-    manaCost: 2150,
+    manaCost: 430,
   },
   HEROISM: {
     id: 32182,
     name: 'Heroism',
     icon: 'ability_shaman_heroism',
-    manaCost: 2150,
+    manaCost: 430,
   },
   REINCARNATION: {
     id: 21169,
@@ -590,6 +588,17 @@ const spells: SpellList<ShamanSpell> = {
     name: 'Windfury Attack',
     icon: 'spell_shaman_unleashweapon_wind',
   },
+  WINDFURY_TOTEM: {
+    id: 8512,
+    name: 'Windfury Totem',
+    icon: 'spell_nature_windfury',
+    manaCost: 1200,
+  },
+  WINDFURY_TOTEM_BUFF: {
+    id: 327942,
+    name: 'Windfury Totem',
+    icon: 'spell_nature_windfury',
+  },
   ELEMENTAL_HEALING: {
     id: 198249,
     name: 'Elemental Healing',
@@ -620,40 +629,30 @@ const spells: SpellList<ShamanSpell> = {
     name: 'Spirit of the Maelstrom',
     icon: 'ability_shaman_freedomwolf',
   },
-  FURY_OF_AIR_DAMAGE: {
-    id: 197385,
-    name: 'Fury of Air',
-    icon: 'ability_ironmaidens_swirlingvortex',
-  },
   WINDFURY_ATTACK_BUFF: {
     id: 204608,
     name: 'Windfury Attack',
     icon: 'spell_shaman_unleashweapon_wind',
   },
-  CRASHING_STORM_BUFF: {
+  CRASHING_STORM_DAMAGE: {
     id: 210801,
     name: 'Crashing Storm',
     icon: 'spell_nature_unrelentingstorm',
   },
   HAILSTORM_BUFF: {
-    id: 210854,
+    id: 334196,
     name: 'Hailstorm',
-    icon: 'spell_frost_frostbrand',
+    icon: 'spell_frost_icestorm',
   },
-  LANDSLIDE_BUFF: {
-    id: 202004,
-    name: 'Landslide',
-    icon: 'inv_ore_blackrock_nugget',
+  LASHING_FLAMES_DEBUFF: {
+    id: 334168,
+    name: 'Lashing Flames',
+    icon: 'spell_shaman_improvelavalash',
   },
   FORCEFUL_WINDS_BUFF: {
     id: 262652,
     name: 'Forceful Winds Buff',
     icon: 'spell_shaman_unleashweapon_wind',
-  },
-  SEARING_ASSAULT_DAMAGE: {
-    id: 268429,
-    name: 'Searing Assault Damage',
-    icon: 'ability_rhyolith_magmaflow_wave',
   },
   HOT_HAND_BUFF: {
     id: 215785,
@@ -665,7 +664,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 1064,
     name: 'Chain Heal',
     icon: 'spell_nature_healingwavegreater',
-    manaCost: 3000,
+    manaCost: 600,
     color: '#203755',
     coefficient: 1.4,
   },
@@ -673,7 +672,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 77472,
     name: 'Healing Wave',
     icon: 'spell_nature_healingwavelesser',
-    manaCost: 1500,
+    manaCost: 300,
     color: '#146585',
     coefficient: 1.7,
     castTime: 2.5,
@@ -682,7 +681,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 8004,
     name: 'Healing Surge',
     icon: 'spell_nature_healingway',
-    manaCost: 2400,
+    manaCost: 2400, // TODO enh/ele cost is 2616 for some reason
     color: '#40b3bf',
     coefficient: 1.57,
   },
@@ -690,7 +689,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 61295,
     name: 'Riptide',
     icon: 'spell_nature_riptide',
-    manaCost: 800,
+    manaCost: 160,
     color: '#a3dbce',
   },
   TIDAL_WAVES_BUFF: {
@@ -702,7 +701,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 73920,
     name: 'Healing Rain',
     icon: 'spell_nature_giftofthewaterspirit',
-    manaCost: 2160,
+    manaCost: 432,
   },
   HEALING_RAIN_HEAL: {
     id: 73921,
@@ -713,7 +712,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 5394,
     name: 'Healing Stream Totem',
     icon: 'inv_spear_04',
-    manaCost: 900,
+    manaCost: 180,
   },
   HEALING_STREAM_TOTEM_HEAL: {
     id: 52042,
@@ -724,7 +723,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 108280,
     name: 'Healing Tide Totem',
     icon: 'ability_shaman_healingtide',
-    manaCost: 560,
+    manaCost: 112,
   },
   HEALING_TIDE_TOTEM_HEAL: {
     id: 114942,
@@ -746,10 +745,15 @@ const spells: SpellList<ShamanSpell> = {
     id: 98008,
     name: 'Spirit Link Totem',
     icon: 'spell_shaman_spiritlink',
-    manaCost: 1100,
+    manaCost: 220,
   },
   SPIRIT_LINK_TOTEM_REDISTRIBUTE: {
     id: 98021,
+    name: 'Spirit Link Totem',
+    icon: 'spell_shaman_spiritlink',
+  },
+  SPIRIT_LINK_TOTEM_BUFF: { // casted by totem
+    id: 325174,
     name: 'Spirit Link Totem',
     icon: 'spell_shaman_spiritlink',
   },
@@ -787,29 +791,12 @@ const spells: SpellList<ShamanSpell> = {
     id: 79206,
     name: 'Spiritwalker\'s Grace',
     icon: 'spell_shaman_spiritwalkersgrace',
-    manaCost: 1410,
+    manaCost: 282,
   },
   WELLSPRING_HEAL: {
     id: 197997,
     name: 'Wellspring',
     icon: 'ability_shawaterelemental_split',
-  },
-  FLAME_SHOCK_RESTORATION: {
-    id: 188838,
-    name: 'Flame Shock',
-    icon: 'spell_fire_flameshock',
-    manaCost: 150,
-  },
-  LIGHTNING_BOLT_RESTORATION: {
-    id: 403,
-    name: 'Lightning Bolt',
-    icon: 'spell_nature_lightning',
-  },
-  CHAIN_LIGHTNING_RESTORATION: {
-    id: 421,
-    name: 'Chain Lightning',
-    icon: 'spell_nature_chainlightning',
-    manaCost: 100,
   },
   RESURGENCE: {
     id: 101033,

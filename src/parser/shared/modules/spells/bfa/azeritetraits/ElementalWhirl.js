@@ -10,8 +10,9 @@ import HasteIcon from 'interface/icons/Haste';
 import MasteryIcon from 'interface/icons/Mastery';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import Events from 'parser/core/Events';
 
 const elementalWhirlStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [stat] = calculateAzeriteEffects(SPELLS.ELEMENTAL_WHIRL.id, rank);
@@ -39,10 +40,10 @@ class ElementalWhirl extends Analyzer {
   versProcs = 0;
 
   variousProcs = [
-    SPELLS.ELEMENTAL_WHIRL_HASTE.id,
-    SPELLS.ELEMENTAL_WHIRL_CRIT.id,
-    SPELLS.ELEMENTAL_WHIRL_MASTERY.id,
-    SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id,
+    SPELLS.ELEMENTAL_WHIRL_HASTE,
+    SPELLS.ELEMENTAL_WHIRL_CRIT,
+    SPELLS.ELEMENTAL_WHIRL_MASTERY,
+    SPELLS.ELEMENTAL_WHIRL_VERSATILITY,
   ];
 
   constructor(...args) {
@@ -66,13 +67,15 @@ class ElementalWhirl extends Analyzer {
     this.statTracker.add(SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id, {
       versatility: stat,
     });
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(this.variousProcs), this.onApplyBuff);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(this.variousProcs), this.onRefreshBuff);
   }
 
-  on_byPlayer_applybuff(event) {
+  onApplyBuff(event) {
     this.handleBuff(event);
   }
 
-  on_byPlayer_refreshbuff(event) {
+  onRefreshBuff(event) {
     this.handleBuff(event);
   }
 
@@ -99,7 +102,7 @@ class ElementalWhirl extends Analyzer {
   }
 
   get averageUptime() {
-    return this.variousProcs.reduce((a, b) => a + this.selectedCombatant.getBuffUptime(b), 0) / 4 / this.owner.fightDuration;
+    return this.variousProcs.reduce((a, b) => a + this.selectedCombatant.getBuffUptime(b.id), 0) / 4 / this.owner.fightDuration;
   }
 
   get averageHaste() {

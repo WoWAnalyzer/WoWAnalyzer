@@ -1,4 +1,5 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
+import Judgment from 'parser/paladin/shared/spells/Judgment';
 
 import Haste from './modules/core/Haste';
 
@@ -7,7 +8,6 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Checklist from './modules/features/Checklist/Module';
-import Judgment from './modules/core/Judgment';
 import ShieldOfVengeance from './modules/core/ShieldOfVengeance';
 
 import DivinePurpose from './modules/talents/DivinePurpose';
@@ -17,7 +17,7 @@ import CrusaderStrike from './modules/core/CrusaderStrike';
 import Crusade from './modules/talents/Crusade';
 import WakeofAshes from './modules/core/WakeofAshes';
 import Consecration from './modules/talents/Consecration';
-import HammerofWrath from './modules/core/HammerofWrath';
+import HammerofWrathRetribution from './modules/core/HammerofWrath';
 import RighteousVerdict from './modules/talents/RighteousVerdict';
 import ExecutionSentence from './modules/talents/ExecutionSentence';
 
@@ -38,15 +38,15 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
     bladeofJustice: BladeofJustice,
     crusaderStrike: CrusaderStrike,
-    judgment: Judgment,
     shieldOfVengeance: ShieldOfVengeance,
+    judgment: Judgment,
 
     // Talents
     divinePurpose: DivinePurpose,
     crusade: Crusade,
     wakeofAshes: WakeofAshes,
     consecration: Consecration,
-    hammerofWrath: HammerofWrath,
+    hammerofWrathRetribution: HammerofWrathRetribution,
     righteousVerdict: RighteousVerdict,
     executionSentence: ExecutionSentence,
 

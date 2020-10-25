@@ -7,8 +7,10 @@ import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
+import { TrackedPaladinAbility } from './core/PaladinAbilityTracker';
+
 class Abilities extends CoreAbilities {
-  spellbook(): SpellbookAbility[] {
+  spellbook(): Array<SpellbookAbility<TrackedPaladinAbility>> {
     const combatant = this.selectedCombatant;
     const hasSanctifiedWrath = combatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT.id);
     return [
@@ -17,7 +19,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => {
           const swCdr = hasSanctifiedWrath && combatant.hasBuff(SPELLS.AVENGING_WRATH.id) ? 0.5 : 0;
-          return (9 / (1 + haste)) * (1 - swCdr);
+          return (7.5 / (1 + haste)) * (1 - swCdr);
         },
         gcd: {
           base: 1500,
@@ -34,15 +36,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LIGHT_OF_DAWN_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 12 / (1 + haste),
         gcd: {
           base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          extraSuggestion: (
-            <Trans>Casting Light of Dawn regularly is very important for performing well.</Trans>
-          ),
         },
         timelineSortIndex: 1,
       },
@@ -272,7 +267,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           name: `Filler ${SPELLS.FLASH_OF_LIGHT.name}`,
-          casts: castCount => (castCount.casts || 0) - (castCount.healingIolHits || 0),
+          casts: castCount => castCount.casts - (castCount.healingIolHits || 0),
         },
         timelineSortIndex: 9,
       },
@@ -290,14 +285,6 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 10,
       },
       {
-        spell: SPELLS.HAMMER_OF_WRATH,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: haste => 7.5 / (1 + haste),
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: SPELLS.HOLY_LIGHT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
@@ -305,7 +292,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           name: `Filler ${SPELLS.HOLY_LIGHT.name}`,
-          casts: castCount => (castCount.casts || 0) - (castCount.healingIolHits || 0),
+          casts: castCount => castCount.casts - (castCount.healingIolHits || 0),
         },
         timelineSortIndex: 2,
       },
@@ -318,6 +305,14 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           name: `${SPELLS.INFUSION_OF_LIGHT.name} ${SPELLS.HOLY_LIGHT.name}`,
           casts: castCount => castCount.healingIolHits || 0,
+        },
+        timelineSortIndex: 2,
+      },
+      {
+        spell: SPELLS.WORD_OF_GLORY,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
         },
         timelineSortIndex: 2,
       },
@@ -369,7 +364,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         timelineSortIndex: 110,
-        enabled: combatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id),
+        enabled: combatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT.id),
       },
       {
         // The primary beacon cast is registered as BEACON_OF_LIGHT_CAST_AND_BUFF

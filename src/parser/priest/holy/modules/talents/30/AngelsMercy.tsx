@@ -1,7 +1,7 @@
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import React from 'react';
-import { CastEvent } from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
@@ -18,21 +18,19 @@ class AngelsMercy extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ANGELS_MERCY_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DESPERATE_PRAYER), this.onCast);
   }
 
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.DESPERATE_PRAYER.id) {
-      if (this.desperatePrayersCast > 0) {
-        const timeSinceLastDP = (event.timestamp - this.lastDesperatePrayerTimestamp);
-        const timeReduced = DESPERATE_PRAYER_BASE_COOLDOWN - timeSinceLastDP;
-        if (timeReduced > 0) {
-          this.desperatePrayerTimeReduced += DESPERATE_PRAYER_BASE_COOLDOWN - timeSinceLastDP;
-        }
+  onCast(event: CastEvent) {
+    if (this.desperatePrayersCast > 0) {
+      const timeSinceLastDP = (event.timestamp - this.lastDesperatePrayerTimestamp);
+      const timeReduced = DESPERATE_PRAYER_BASE_COOLDOWN - timeSinceLastDP;
+      if (timeReduced > 0) {
+        this.desperatePrayerTimeReduced += DESPERATE_PRAYER_BASE_COOLDOWN - timeSinceLastDP;
       }
-      this.desperatePrayersCast += 1;
-      this.lastDesperatePrayerTimestamp = event.timestamp;
     }
+    this.desperatePrayersCast += 1;
+    this.lastDesperatePrayerTimestamp = event.timestamp;
   }
 
   statistic() {

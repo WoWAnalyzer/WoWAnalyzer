@@ -1,7 +1,7 @@
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import React from 'react';
-import { ApplyDebuffEvent, CastEvent } from 'parser/core/Events';
+import Events, { ApplyDebuffEvent, CastEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
@@ -15,20 +15,16 @@ class ShiningForce extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SHINING_FORCE_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHINING_FORCE_TALENT), this.onCast);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.SHINING_FORCE_TALENT), this.onApplyDebuff);
   }
 
-  on_byPlayer_cast(event: CastEvent) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.SHINING_FORCE_TALENT.id) {
-      this.shiningForceCasts += 1;
-    }
+  onCast(event: CastEvent) {
+    this.shiningForceCasts += 1;
   }
 
-  on_byPlayer_applydebuff(event: ApplyDebuffEvent) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.SHINING_FORCE_TALENT.id) {
-      this.shiningForceHits += 1;
-    }
+  onApplyDebuff(event: ApplyDebuffEvent) {
+    this.shiningForceHits += 1;
   }
 
   statistic() {

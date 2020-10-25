@@ -3,6 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
+<<<<<<< HEAD:src/parser/shaman/elemental/modules/talents/StormElemental.tsx
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 
@@ -12,6 +13,19 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import Statistic from 'interface/statistics/Statistic';
 import SpellLink from 'common/SpellLink';
+=======
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import EnemyInstances from 'parser/shared/modules/EnemyInstances';
+
+import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
+import Events from 'parser/core/Events';
+
+import Abilities from '../Abilities';
+>>>>>>> upstream/shadowlands:src/parser/shaman/elemental/modules/talents/StormElemental.js
 
 const STORMELE_DURATION = 30000 - 1500;
 class StormElemental extends Analyzer {
@@ -40,7 +54,11 @@ class StormElemental extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id);
+<<<<<<< HEAD:src/parser/shaman/elemental/modules/talents/StormElemental.tsx
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STORM_ELEMENTAL_TALENT), this.onSECast);
+=======
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+>>>>>>> upstream/shadowlands:src/parser/shaman/elemental/modules/talents/StormElemental.js
   }
 
   get stormEleUptime() {
@@ -59,7 +77,11 @@ class StormElemental extends Analyzer {
     this.numCasts[SPELLS.STORM_ELEMENTAL_TALENT.id]+=1;
   }
 
+<<<<<<< HEAD:src/parser/shaman/elemental/modules/talents/StormElemental.tsx
   onCast(event: CastEvent) {
+=======
+  onCast(event) {
+>>>>>>> upstream/shadowlands:src/parser/shaman/elemental/modules/talents/StormElemental.js
     const spellId = event.ability.guid;
     const target = this.enemies.getEntity(event);
 
@@ -134,7 +156,7 @@ class StormElemental extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>Maximize your damage during Storm Elemental by only using {abilities}.</span>)
           .icon(SPELLS.STORM_ELEMENTAL_TALENT.icon)
-          .actual(`${actual} other casts with Storm Elemental up`)
+          .actual(i18n._(t('shaman.elemental.suggestions.stormElemental.badCasts')`${actual} other casts with Storm Elemental up`))
           .recommended(`Only cast ${abilities} while Storm Elemental is up.`));
   }
 }

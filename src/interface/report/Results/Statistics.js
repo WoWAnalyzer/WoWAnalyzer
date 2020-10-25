@@ -114,7 +114,7 @@ class Statistics extends React.PureComponent {
           );
         })}
 
-        {panels.length > 0 && (
+        {panels && panels.length > 0 && (
           <StatisticsSectionTitle>
             Details
           </StatisticsSectionTitle>

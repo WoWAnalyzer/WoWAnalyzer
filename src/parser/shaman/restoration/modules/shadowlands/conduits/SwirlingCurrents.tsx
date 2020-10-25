@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, CastEvent, HasTarget, HealEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
@@ -21,39 +21,42 @@ class SwirlingCurrents extends Analyzer {
   healing = 0;
   targetsWithBoostedRiptides: boolean[] = [];
 
-
   constructor(options: Options) {
     super(options);
-    this.active = true;
+    this.active = false;
 
     this.healingBoost = .2;//TODO Get from combat data when they EXPORT IT >:c
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.HEALING_SURGE_RESTORATION, SPELLS.HEALING_WAVE, SPELLS.RIPTIDE]), this.normalizeBoost);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.riptideHeal);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.HEALING_SURGE_RESTORATION, SPELLS.HEALING_WAVE]), this.notRiptideHeal);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.trackRiptide);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.addRiptide);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.trackRiptide);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.removeRiptide);
     this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.pandemicRiptide);
   }
 
-  normalizeBoost(event: HealEvent) {
-    if (this.selectedCombatant.hasBuff(SPELLS.SWIRLING_CURRENTS_BUFF.id) || this.targetsWithBoostedRiptides[event.targetID]) {
+  riptideHeal(event: HealEvent) {
+    if (this.targetsWithBoostedRiptides[event.targetID]) {
       this.healing += calculateEffectiveHealing(event, this.healingBoost);
     }
   }
 
-  addRiptide(event: ApplyBuffEvent) {
-    const targetID = event.targetID;
+  notRiptideHeal(event: HealEvent) {
     if (this.selectedCombatant.hasBuff(SPELLS.SWIRLING_CURRENTS_BUFF.id)) {
-      this.targetsWithBoostedRiptides[targetID] = true;
+      this.healing += calculateEffectiveHealing(event, this.healingBoost);
     }
   }
 
-  trackRiptide(event: CastEvent) {
-    const targetID = event.targetID!;
+  trackRiptide(event: ApplyBuffEvent | CastEvent) {
+    if (!HasTarget(event)) {
+      return;
+    }
+    // todo: check logic and timings, we don't want the castevent to add to the list, and the applybuffevent to remove again
+    // probably only use applybuffevent with proper buffers to catch non-casted riptides (legendary, pwave)
     if (this.selectedCombatant.hasBuff(SPELLS.SWIRLING_CURRENTS_BUFF.id)) {
-      this.targetsWithBoostedRiptides[targetID] = true;
+      this.targetsWithBoostedRiptides[event.targetID] = true;
     } else {
-      delete this.targetsWithBoostedRiptides[targetID];
+      delete this.targetsWithBoostedRiptides[event.targetID];
     }
   }
 

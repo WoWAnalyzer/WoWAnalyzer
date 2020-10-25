@@ -6,6 +6,8 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent } from 'parser/core/Events';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 const debug = false;
 
@@ -50,7 +52,7 @@ class RuleOfThrees extends Analyzer {
 		when(this.ruleOfThreesUtilizationThresholds)
 			.addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.ARCANE_BARRAGE.id} /> {this.barrageWithRuleOfThrees} times while you had the <SpellLink id={SPELLS.RULE_OF_THREES_BUFF.id} /> buff. This buff makes your next <SpellLink id={SPELLS.ARCANE_BLAST.id} /> or <SpellLink id={SPELLS.ARCANE_MISSILES.id} /> free after you gain your third Arcane Charge, so you should ensure that you use the buff before clearing your charges.</>)
 					.icon(SPELLS.RULE_OF_THREES_TALENT.icon)
-					.actual(`${formatPercentage(this.utilization)}% Utilization`)
+					.actual(i18n._(t('mage.arcane.suggestions.ruleOfThrees.utilization')`${formatPercentage(this.utilization)}% Utilization`))
 					.recommended(`${formatPercentage(recommended)}% is recommended`));
 	}
 }

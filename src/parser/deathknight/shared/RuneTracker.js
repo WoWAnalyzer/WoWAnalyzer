@@ -3,22 +3,26 @@ import React from 'react';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SPELLS from 'common/SPELLS';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
-import SpellIcon from 'common/SpellIcon';
-
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
 
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Abilities from 'parser/core/modules/Abilities';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
-import { EventType } from 'parser/core/Events';
+import Events, { EventType } from 'parser/core/Events';
+import { SELECTED_PLAYER } from 'parser/core/Analyzer';
+
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+import BoringResourceValue from 'interface/statistics/components/BoringResourceValue';
 
 const MAX_RUNES = 6;
 const RUNIC_CORRUPTION_INCREASE = 1; //Runic Corruption
 const RUNE_IDS = [
-  SPELLS.RUNE_1.id, //-101
-  SPELLS.RUNE_2.id, //-102
-  SPELLS.RUNE_3.id, //-103
+  SPELLS.RUNE_1, //-101
+  SPELLS.RUNE_2, //-102
+  SPELLS.RUNE_3, //-103
 ];
 
 /*
@@ -44,11 +48,16 @@ class RuneTracker extends ResourceTracker {
     this.resource = RESOURCE_TYPES.RUNES;
     this._lastTimestamp = this.owner.fight.start_time;
     this._runesReadySum = [MAX_RUNES + 1];
-    for (let i = 0; i <= MAX_RUNES; i++) {
+    for (let i = 0; i <= MAX_RUNES; i += 1) {
       this._runesReadySum[i] = 0;
     }
+    this.addEventListener(Events.fightend, this.onFightend);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.RUNIC_CORRUPTION), this.onApplybuff);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.RUNIC_CORRUPTION), this.onRemovebuff);
+    this.addEventListener(Events.UpdateSpellUsable.spell(RUNE_IDS), this.onUpdateSpellUsable);
   }
-  on_fightend() { //add a last event for calculating uptimes and make the chart not end early.
+
+  onFightend() { //add a last event for calculating uptimes and make the chart not end early.
     const runesAvailable = this.runesAvailable;
     this._fightend = true;
 
@@ -56,11 +65,12 @@ class RuneTracker extends ResourceTracker {
     this._runesReadySum[runesAvailable] += this.owner.fight.end_time - this._lastTimestamp;
     this.addPassiveRuneRegeneration();
   }
-  on_byPlayer_cast(event) {
+
+  onCast(event) {
     if (!event.classResources || event.prepull) {
       return;
     }
-    super.on_byPlayer_cast(event);
+    super.onCast(event);
 
     event.classResources
       .filter(resource => resource.type === this.resource.id)
@@ -73,42 +83,38 @@ class RuneTracker extends ResourceTracker {
         if (runeCost <= 0) {
           return;
         }
-        for (let i = 0; i < runeCost; i++) { //start rune cooldown
+        for (let i = 0; i < runeCost; i += 1) { //start rune cooldown
           this.startCooldown(event);
         }
       });
   }
-  on_toPlayer_energize(event) { //add a charge to the rune with the longest remaining cooldown when a rune is refunded.
-    super.on_toPlayer_energize(event);
+
+  onEnergize(event) { //add a charge to the rune with the longest remaining cooldown when a rune is refunded.
+    super.onEnergize(event);
     if (event.resourceChangeType !== this.resource.id) {
       return;
     }
     const amount = event.resourceChange;
-    for (let i = 0; i < amount; i++) {
+    for (let i = 0; i < amount; i += 1) {
       this.addCharge();
     }
   }
-  on_toPlayer_applybuff(event) { //decrease cooldown when a buff that increases rune regeneration rate is applied.
-    if (event.ability.guid === SPELLS.RUNIC_CORRUPTION.id) {
-      const multiplier = 1 / (1 + RUNIC_CORRUPTION_INCREASE);
-      RUNE_IDS.forEach(spellId => {
-        this.changeCooldown(spellId, multiplier);
-      });
-    }
+
+  onApplybuff(event) { //decrease cooldown when a buff that increases rune regeneration rate is applied.
+    const multiplier = 1 / (1 + RUNIC_CORRUPTION_INCREASE);
+    RUNE_IDS.forEach(spell => {
+      this.changeCooldown(spell.id, multiplier);
+    });
   }
-  on_toPlayer_removebuff(event) { //increase cooldown when a buff that increases rune regeneration rate fades.
-    if (event.ability.guid === SPELLS.RUNIC_CORRUPTION.id) {
-      const multiplier = 1 + RUNIC_CORRUPTION_INCREASE;
-      RUNE_IDS.forEach(spellId => {
-        this.changeCooldown(spellId, multiplier);
-      });
-    }
+
+  onRemovebuff(event) { //increase cooldown when a buff that increases rune regeneration rate fades.
+    const multiplier = 1 + RUNIC_CORRUPTION_INCREASE;
+    RUNE_IDS.forEach(spell => {
+      this.changeCooldown(spell.id, multiplier);
+    });
   }
-  on_updatespellusable(event) { //track when a rune comes off cooldown
-    const spellId = event.ability.guid;
-    if (!RUNE_IDS.includes(spellId)) {
-      return;
-    }
+
+  onUpdateSpellUsable(event) { //track when a rune comes off cooldown
     let change = 0;
     if (event.trigger === EventType.EndCooldown || event.trigger === EventType.RestoreCharge) { //gained a rune
       change += 1;
@@ -212,8 +218,8 @@ class RuneTracker extends ResourceTracker {
 
   get runesAvailable() {
     let chargesAvailable = 0;
-    RUNE_IDS.forEach(spellId => {
-      chargesAvailable += this.spellUsable.chargesAvailable(spellId);
+    RUNE_IDS.forEach(spell => {
+      chargesAvailable += this.spellUsable.chargesAvailable(spell.id);
     });
     return chargesAvailable;
   }
@@ -230,8 +236,8 @@ class RuneTracker extends ResourceTracker {
 
   get runeEfficiency() {
     const runeCastEfficiencies = [];
-    RUNE_IDS.forEach(spellId => {
-      runeCastEfficiencies.push(this.castEfficiency.getCastEfficiencyForSpellId(spellId).efficiency);
+    RUNE_IDS.forEach(spell => {
+      runeCastEfficiencies.push(this.castEfficiency.getCastEfficiencyForSpellId(spell.id).efficiency);
     });
     return runeCastEfficiencies.reduce((accumulator, currentValue) => accumulator + currentValue) / runeCastEfficiencies.length;
   }
@@ -289,20 +295,18 @@ class RuneTracker extends ResourceTracker {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You overcapped {formatPercentage(actual)}% of your runes. Try to always have at least 3 runes on cooldown.</>)
-        .icon(SPELLS.RUNE_1.icon)
-        .actual(`${formatPercentage(actual)}% runes overcapped`)
-        .recommended(`<${formatPercentage(recommended)}% is recommended`));
+      .icon(SPELLS.RUNE_1.icon)
+      .actual(i18n._(t('deathknight.shared.suggestions.runes.overcapped')`${formatPercentage(actual)}% runes overcapped`))
+      .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {
     const timeSpentAtRuneCount = this.timeSpentAtRuneCount;
     const badThreshold = 4;
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(10)}
-        icon={<SpellIcon id={SPELLS.RUNE_1.id} noLink />}
-        value={`${formatPercentage(1 - this.runeEfficiency)} %`}
-        label="Runes overcapped"
+        size="flexible"
         tooltip={(
           <>
             Number of runes wasted: {formatNumber(this.runesWasted)} <br />
@@ -310,37 +314,44 @@ class RuneTracker extends ResourceTracker {
             The table below shows the time spent at any given number of runes available.
           </>
         )}
+        dropdown={
+          <table className="table table-condensed">
+            <thead>
+              <tr>
+                <th>Runes</th>
+                <th>Time (s)</th>
+                <th>Time (%)</th>
+              </tr>
+            </thead>
+            <tbody>
+              { //split into good and bad number of runes available
+                this._runesReadySum.filter((value, index) => index < badThreshold).map((value, index) => (
+                  <tr key={index}>
+                    <th>{index}</th>
+                    <td>{formatDuration(this._runesReadySum[index] / 1000)}</td>
+                    <td>{formatPercentage(timeSpentAtRuneCount[index])}%</td>
+                  </tr>
+                ))
+              }
+              {
+                this._runesReadySum.filter((value, index) => index >= badThreshold).map((value, index) => (
+                  <tr key={index + badThreshold}>
+                    <th style={{ color: 'red' }}>{index + badThreshold}</th>
+                    <td>{formatDuration(this._runesReadySum[index + badThreshold] / 1000)}</td>
+                    <td>{formatPercentage(timeSpentAtRuneCount[index + badThreshold])}%</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        }
       >
-        <table className="table table-condensed">
-          <thead>
-            <tr>
-              <th>Runes</th>
-              <th>Time (s)</th>
-              <th>Time (%)</th>
-            </tr>
-          </thead>
-          <tbody>
-            { //split into good and bad number of runes available
-              this._runesReadySum.filter((value, index) => index < badThreshold).map((value, index) => (
-                <tr key={index}>
-                  <th>{index}</th>
-                  <td>{formatDuration(this._runesReadySum[index] / 1000)}</td>
-                  <td>{formatPercentage(timeSpentAtRuneCount[index])}%</td>
-                </tr>
-              ))
-            }
-            {
-              this._runesReadySum.filter((value, index) => index >= badThreshold).map((value, index) => (
-                <tr key={index + badThreshold}>
-                  <th style={{ color: 'red' }}>{index + badThreshold}</th>
-                  <td>{formatDuration(this._runesReadySum[index + badThreshold] / 1000)}</td>
-                  <td>{formatPercentage(timeSpentAtRuneCount[index + badThreshold])}%</td>
-                </tr>
-              ))
-            }
-          </tbody>
-        </table>
-      </StatisticBox>
+        <BoringResourceValue
+          resource={RESOURCE_TYPES.RUNES}
+          value={`${formatPercentage(1 - this.runeEfficiency)} %`}
+          label="Runes overcapped"
+        />
+      </Statistic>
     );
   }
 }

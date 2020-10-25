@@ -8,14 +8,14 @@ import { formatThousands, formatNumber } from 'common/format';
 
 import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'interface/others/LazyLoadStatisticBox';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import makeWclUrl from 'common/makeWclUrl';
 import SpellLink from 'common/SpellLink';
-import { EventType } from 'parser/core/Events';
+import Events, { EventType } from 'parser/core/Events';
 
 // Source: https://github.com/MartijnHols/HolyPaladin/blob/master/Spells/Talents/60/DevotionAura.md#about-the-passive-effect
-const DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION = n => Math.max(3, 2.25 + 7.75 / n) / 100;
+const DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION = .03;
 const DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION = 0.2;
 
 /**
@@ -59,10 +59,12 @@ class DevotionAuraDamageReduction extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.DEVOTION_AURA_TALENT.id);
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.onApplyBuff);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER), this.onRemoveBuff);
   }
 
-  on_toPlayer_damage(event) {
+  onDamageTaken(event) {
     const spellId = event.ability.guid;
     if (spellId === FALLING_DAMAGE_ABILITY_ID) {
       return;
@@ -75,6 +77,7 @@ class DevotionAuraDamageReduction extends Analyzer {
       0,
       this.owner.playerId,
     );
+
     if (!isAuraMasteryActive) {
       const damageTaken = event.amount + (event.absorbed || 0);
       const damageReduced =
@@ -85,7 +88,7 @@ class DevotionAuraDamageReduction extends Analyzer {
 
   buffsActive = 1;
   get singleTargetDamageReduction() {
-    return DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION(this.buffsActive);
+    return DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION * this.buffsActive;
   }
   get totalPassiveDamageReduction() {
     return this.singleTargetDamageReduction * this.buffsActive;
@@ -107,14 +110,14 @@ class DevotionAuraDamageReduction extends Analyzer {
 
     return true;
   }
-  on_byPlayer_applybuff(event) {
+  onApplyBuff(event) {
     if (!this.isApplicableBuffEvent(event)) {
       return;
     }
     this.buffsActive += 1;
     // this.debug('devo applied to', this.combatants.players[event.targetID].name, this.buffsActive);
   }
-  on_byPlayer_removebuff(event) {
+  onRemoveBuff(event) {
     if (!this.isApplicableBuffEvent(event)) {
       return;
     }
@@ -209,7 +212,7 @@ class DevotionAuraDamageReduction extends Analyzer {
       <LazyLoadStatisticBox
         position={STATISTIC_ORDER.OPTIONAL(60)}
         loader={this.load.bind(this)}
-        icon={<SpellIcon id={SPELLS.DEVOTION_AURA_TALENT.id} />}
+        icon={<SpellIcon id={SPELLS.DEVOTION_AURA.id} />}
         value={<Trans>≈{formatNumber(this.totalDrps)} DRPS</Trans>}
         label={<Trans>Damage reduction</Trans>}
         tooltip={tooltip}

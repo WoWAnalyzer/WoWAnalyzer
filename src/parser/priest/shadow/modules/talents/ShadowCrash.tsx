@@ -18,17 +18,17 @@ class ShadowCrash extends Analyzer {
   };
   protected abilityTracker!: AbilityTracker;
 
-  damage = 0;
-  totalTargetsHit = 0;
-
-  get averageTargetsHit() {
-    return this.totalTargetsHit / this.abilityTracker.getAbility(SPELLS.SHADOW_CRASH_TALENT.id).casts;
-  }
+  damage: number = 0;
+  totalTargetsHit: number = 0;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SHADOW_CRASH_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_CRASH_TALENT_DAMAGE), this.onShadowCrashDamage);
+  }
+
+  get averageTargetsHit() {
+    return this.totalTargetsHit / this.abilityTracker.getAbility(SPELLS.SHADOW_CRASH_TALENT.id).casts;
   }
 
   onShadowCrashDamage(event: DamageEvent) {

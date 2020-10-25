@@ -25,16 +25,11 @@ import ShieldSlam from './modules/spells/ShieldSlam';
 import AngerManagement from './modules/talents/AngerManagement';
 import BoomingVoice from './modules/talents/BoomingVoice';
 import HeavyRepercussions from './modules/talents/HeavyRepercussions';
-import Bolster from './modules/talents/Bolster';
 import IntoTheFray from './modules/talents/IntoTheFray';
-import Vengeance from './modules/talents/Vengeance';
+import WarMachine from './modules/talents/WarMachine';
 import Punish from './modules/talents/Punish';
 import DragonRoar from './modules/talents/DragonRoar';
-import AngerCD from './modules/talents/AngerCD';
 import SpellReflect from './modules/spells/SpellReflect';
-
-//azerite
-import BraceForImpact from './modules/azerite/BraceForImpact';
 
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -62,18 +57,13 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Talents
     angerManagement: AngerManagement,
-    angerCD: AngerCD,
     boomingVoice: BoomingVoice,
     heavyRepercussions: HeavyRepercussions,
     intoTheFray: IntoTheFray,
-    bolster: Bolster,
-    vengeance: Vengeance,
+    warMachine: WarMachine,
     punish: Punish,
     dragonRoar: DragonRoar,
     //Items
-
-    //Azerite
-    braceForImpact: BraceForImpact,
 
     //Essences
     lucidDreamsRage: LucidDreamsRage,

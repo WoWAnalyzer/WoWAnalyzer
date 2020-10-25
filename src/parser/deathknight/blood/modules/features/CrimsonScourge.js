@@ -1,12 +1,16 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+import Events from 'parser/core/Events';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 const DURATION_WORTH_CASTING_MS = 8000;
 
@@ -20,41 +24,40 @@ class CrimsonScourge extends Analyzer {
   freeDeathAndDecayCounter = 0;
   endOfCombatCast = false;
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.DEATH_AND_DECAY.id) {
-      return;
-    }
+  constructor(options) {
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEATH_AND_DECAY), this.onCast);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.CRIMSON_SCOURGE), this.onApplyBuff);
+  }
+
+  onCast(event) {
     if (this.selectedCombatant.hasBuff(SPELLS.CRIMSON_SCOURGE.id, event.timestamp)) {
       this.freeDeathAndDecayCounter += 1;
-      if(this.endOfCombatCast){
+      if (this.endOfCombatCast) {
         this.endOfCombatCast = false;
       }
     }
   }
-  on_byPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.CRIMSON_SCOURGE.id) {
-      return;
-    }
+
+  onApplyBuff(event) {
     this.crimsonScourgeProcsCounter += 1;
-    if(this.spellUsable.isOnCooldown(SPELLS.DEATH_AND_DECAY.id)){
+    if (this.spellUsable.isOnCooldown(SPELLS.DEATH_AND_DECAY.id)) {
       this.spellUsable.endCooldown(SPELLS.DEATH_AND_DECAY.id);
     }
-    if(event.timestamp + DURATION_WORTH_CASTING_MS > this.owner.fight.end_time){
+    if (event.timestamp + DURATION_WORTH_CASTING_MS > this.owner.fight.end_time) {
       this.endOfCombatCast = true;
     }
   }
 
-  get wastedCrimsonScourgeProcs(){
+  get wastedCrimsonScourgeProcs() {
     const wastedProcs = this.crimsonScourgeProcsCounter - this.freeDeathAndDecayCounter;
-    if(this.endOfCombatCast){
+    if (this.endOfCombatCast) {
       return wastedProcs - 1;
     }
     return wastedProcs;
   }
 
-  get wastedCrimsonScourgeProcsPercent(){
+  get wastedCrimsonScourgeProcsPercent() {
     return this.wastedCrimsonScourgeProcs / this.crimsonScourgeProcsCounter;
   }
 
@@ -88,21 +91,25 @@ class CrimsonScourge extends Analyzer {
     }
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You had unspent <SpellLink id={SPELLS.CRIMSON_SCOURGE.id} /> procs. Make sure you always use them.</>)
         .icon(SPELLS.CRIMSON_SCOURGE.icon)
-        .actual(`${formatPercentage(actual)}% Crimson Scourge procs wasted`)
+        .actual(i18n._(t('deathknight.blood.suggestions.crimsonScourge.procsWasted')`${formatPercentage(actual)}% Crimson Scourge procs wasted`))
         .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.CRIMSON_SCOURGE.id} />}
-        value={`${formatPercentage(this.wastedCrimsonScourgeProcsPercent)} %`}
-        label="Crimson Scourge procs wasted"
+      <Statistic
+        position={STATISTIC_ORDER.CORE(6)}
+        size="flexible"
         tooltip={`${this.wastedCrimsonScourgeProcs} out of ${this.crimsonScourgeProcsCounter} procs wasted.`}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.CRIMSON_SCOURGE}>
+          <>
+            {formatPercentage(this.wastedCrimsonScourgeProcsPercent)} % <small>procs wasted</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(6);
 }
 
 export default CrimsonScourge;

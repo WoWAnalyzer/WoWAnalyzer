@@ -2,11 +2,13 @@ import React from 'react';
 
 import Icon from 'common/Icon';
 import { formatPercentage } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
-import { EndChannelEvent, EventType, GlobalCooldownEvent } from 'parser/core/Events';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import Events, { EndChannelEvent, EventType, GlobalCooldownEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Tooltip from 'common/Tooltip';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import Abilities from '../../core/modules/Abilities';
 import GlobalCooldown from './GlobalCooldown';
@@ -44,7 +46,13 @@ class AlwaysBeCasting extends Analyzer {
   activeTime = 0;
   _lastGlobalCooldownDuration = 0;
 
-  on_globalcooldown(event: GlobalCooldownEvent) {
+  constructor(options: Options){
+    super(options);
+    this.addEventListener(Events.GlobalCooldown, this.onGCD);
+    this.addEventListener(Events.EndChannel, this.onEndChannel);
+  }
+
+  onGCD(event: GlobalCooldownEvent) {
     this._lastGlobalCooldownDuration = event.duration;
     if (event.trigger.prepull) {
       // Ignore prepull casts for active time since active time should only include casts during the
@@ -58,7 +66,7 @@ class AlwaysBeCasting extends Analyzer {
     return true;
   }
 
-  on_endchannel(event: EndChannelEvent) {
+  onEndChannel(event: EndChannelEvent) {
     // If the channel was shorter than the GCD then use the GCD as active time
     let amount = event.duration;
     if (this.globalCooldown.isOnGlobalCooldown(event.ability.guid)) {
@@ -139,7 +147,7 @@ class AlwaysBeCasting extends Analyzer {
     when(this.downtimeSuggestionThresholds.actual).isGreaterThan(this.downtimeSuggestionThresholds.isGreaterThan.minor)
       .addSuggestion((suggest, actual, recommended) => suggest('Your downtime can be improved. Try to Always Be Casting (ABC), avoid delays between casting spells and cast instant spells when you have to move.')
           .icon('spell_mage_altertime')
-          .actual(`${formatPercentage(actual)}% downtime`)
+          .actual(`${formatPercentage(actual)}% ${i18n._(t('shared.suggestions.alwaysBeCasting.downtime')`downtime`)}`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
           .regular(this.downtimeSuggestionThresholds.isGreaterThan.average).major(this.downtimeSuggestionThresholds.isGreaterThan.major));
   }

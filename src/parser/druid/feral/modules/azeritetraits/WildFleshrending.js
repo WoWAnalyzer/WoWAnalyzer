@@ -5,12 +5,16 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { calculateAzeriteEffects } from 'common/stats';
 import HIT_TYPES from 'game/HIT_TYPES';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage';
 import Enemies from 'parser/shared/modules/Enemies';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import ItemDamageDone from 'interface/ItemDamageDone';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+
+import Events from 'parser/core/Events';
 
 import { AFFECTED_SPELLS as UNTAMED_FEROCITY_SPELLS, calcBonus as calcUntamedFerocityBonus } from "./UntamedFerocity";
 import Abilities from '../Abilities';
@@ -18,9 +22,9 @@ import Abilities from '../Abilities';
 const debug = false;
 // Swipe has a bear and a cat version, both are affected by the trait. It can be replaced by the talent Brutal Slash which benefits in the same way.
 export const SWIPE_SPELLS = [
-  SPELLS.SWIPE_BEAR.id,
-  SPELLS.SWIPE_CAT.id,
-  SPELLS.BRUTAL_SLASH_TALENT.id,
+  SPELLS.SWIPE_BEAR,
+  SPELLS.SWIPE_CAT,
+  SPELLS.BRUTAL_SLASH_TALENT,
 ];
 const HIT_TYPES_TO_IGNORE = [
   HIT_TYPES.MISS,
@@ -29,7 +33,7 @@ const HIT_TYPES_TO_IGNORE = [
 ];
 
 export function isAffectedByWildFleshrending(damageEvent, owner, enemies) {
-  if (!(damageEvent.ability.guid === SPELLS.SHRED.id) && !SWIPE_SPELLS.includes(damageEvent.ability.guid)) {
+  if (!(damageEvent.ability.guid === SPELLS.SHRED.id) && !SWIPE_SPELLS.map(spell => spell.id).includes(damageEvent.ability.guid)) {
     // Only shred and swipe spells can be affected
     return false;
   }
@@ -96,27 +100,21 @@ class WildFleshrending extends Analyzer {
     this.swipeBonus = calcSwipeBonus(this.selectedCombatant);
     this.untamedFerocityBonus = calcUntamedFerocityBonus(this.selectedCombatant);
     debug && this.log(`untamedFerocityBonus: ${this.untamedFerocityBonus}, shredBonus: ${this.shredBonus}, swipeBonus: ${this.swipeBonus}`);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.SHRED, ...SWIPE_SPELLS]), this.onCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.SHRED, ...SWIPE_SPELLS]), this.onDamage);
   }
 
-  on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.SHRED.id &&
-        !SWIPE_SPELLS.includes(event.ability.guid)) {
-      return;
-    }
+  onCast(event) {
     this.attackPower = event.attackPower;
   }
 
-  on_byPlayer_damage(event) {
+  onDamage(event) {
     if (HIT_TYPES_TO_IGNORE.includes(event.hitType)) {
       // Attacks that don't hit cannot benefit from the trait's bonus
       return;
     }
 
     const isShred = event.ability.guid === SPELLS.SHRED.id;
-    if (!isShred && !SWIPE_SPELLS.includes(event.ability.guid)) {
-      // Only interested in shred and swipe
-      return;
-    }
 
     if (isShred) {
       this.shredsTotal += 1;
@@ -151,7 +149,7 @@ class WildFleshrending extends Analyzer {
 
     const traitBonus = isShred ? this.shredBonus : this.swipeBonus;
     // there are situations such as using Bear's Swipe ability where Wild Fleshrending is active and Untamed Ferocity is not
-    const otherBonus = UNTAMED_FEROCITY_SPELLS.includes(event.ability.guid) ? this.untamedFerocityBonus : 0;
+    const otherBonus = UNTAMED_FEROCITY_SPELLS.map(spell => spell.id).includes(event.ability.guid) ? this.untamedFerocityBonus : 0;
     const coefficient = this.abilities.getAbility(event.ability.guid).primaryCoefficient;
     const [ traitDamageContribution ] = calculateBonusAzeriteDamage(event, [traitBonus, otherBonus], this.attackPower, coefficient);
     if (isShred) {
@@ -215,7 +213,7 @@ class WildFleshrending extends Analyzer {
         </>,
       )
         .icon(SPELLS.WILD_FLESHRENDING.icon)
-        .actual(`${(actual * 100).toFixed(0)}% of Shreds benefited from Wild Fleshrending.`)
+        .actual(i18n._(t('druid.feral.suggestions.wildFleshrending.shredsBuffed')`${(actual * 100).toFixed(0)}% of Shreds benefited from Wild Fleshrending.`))
         .recommended(`>${(recommended * 100).toFixed(0)}% is recommended`));
 
     const swipeSpell = this.selectedCombatant.hasTalent(SPELLS.BRUTAL_SLASH_TALENT.id) ? SPELLS.BRUTAL_SLASH_TALENT : SPELLS.SWIPE_CAT;
@@ -225,7 +223,7 @@ class WildFleshrending extends Analyzer {
         </>,
       )
         .icon(SPELLS.WILD_FLESHRENDING.icon)
-        .actual(`${(actual * 100).toFixed(0)}% of ${swipeSpell.name} hits benefited from Wild Fleshrending.`)
+        .actual(i18n._(t('druid.feral.suggestions.wildFleshrending.swipeBuffed')`${(actual * 100).toFixed(0)}% of ${swipeSpell.name} hits benefited from Wild Fleshrending.`))
         .recommended(`>${(recommended * 100).toFixed(0)}% is recommended`));
   }
 }

@@ -4,9 +4,10 @@ import { calculateSecondaryStatDefault, calculatePrimaryStat } from 'common/stat
 import { formatMilliseconds } from 'common/format';
 import SPECS from 'game/SPECS';
 import RACES from 'game/RACES';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import { EventType } from 'parser/core/Events';
+import Events, { EventType } from 'parser/core/Events';
+import STAT from 'parser/shared/modules/features/STAT';
 
 const ARMOR_INT_BONUS = .05;
 
@@ -148,7 +149,7 @@ class StatTracker extends Analyzer {
 
     /****************************************\
      *                    BFA:                *
-    \****************************************/
+     \****************************************/
 
     // region Azerite Traits
     // region General
@@ -339,11 +340,56 @@ class StatTracker extends Analyzer {
     armor: 1,
   };
   statMultiplierBuffs = {
-    [SPELLS.ARCANE_INTELLECT.id]: { intellect: 1.1 },
-    [SPELLS.WARSCROLL_OF_INTELLECT.id]: { intellect: 1.07 },
-    [SPELLS.BATTLE_SHOUT.id]: { strength: 1.1, agility: 1.1 },
-    [SPELLS.WARSCROLL_OF_BATTLE_SHOUT.id]: { strength: 1.07, agility: 1.07 },
-  }
+    [SPELLS.ARCANE_INTELLECT.id]: { intellect: 1.05 },
+    [SPELLS.WARSCROLL_OF_INTELLECT.id]: { intellect: 1.03 },
+    [SPELLS.BATTLE_SHOUT.id]: { strength: 1.05, agility: 1.05 },
+    [SPELLS.WARSCROLL_OF_BATTLE_SHOUT.id]: { strength: 1.03, agility: 1.03 },
+  };
+
+  //TODO Update these values on Shadowlands Launch
+  //Values taken from https://github.com/simulationcraft/simc/blob/shadowlands/engine/dbc/generated/sc_scale_data.inc
+  statBaselineRatingPerPercent = {
+    /** Secondaries */
+    [STAT.CRITICAL_STRIKE]: 10.67, //33 @ 60
+    [STAT.HASTE]: 10.06, //35 @ 60
+    [STAT.MASTERY]: 10.67, //33 @ 60
+    [STAT.VERSATILITY]: 12.20, //40 @ 60
+    /** Tertiaries */
+    [STAT.AVOIDANCE]: 4.27, //14 @ 60
+    [STAT.LEECH]: 6.4, //21 @ 60
+    [STAT.SPEED]: 3.05, // 10 @ 60
+  };
+
+  /** Secondary stat scaling thresholds
+   * Taken from https://raw.githubusercontent.com/simulationcraft/simc/shadowlands/engine/dbc/generated/item_scaling.inc
+   * Search for 21024 in the first column for secondary stat scaling
+   */
+  secondaryStatPenaltyThresholds = [
+    /** Secondary stat scaling thresholds */
+    { base: 0, scaled: 0, penaltyAboveThis: 0 },
+    { base: 0.3, scaled: 0.3, penaltyAboveThis: 0.1 },
+    { base: 0.4, scaled: 0.39, penaltyAboveThis: 0.2 },
+    { base: 0.5, scaled: 0.47, penaltyAboveThis: 0.3 },
+    { base: 0.6, scaled: 0.54, penaltyAboveThis: 0.4 },
+    { base: 0.8, scaled: 0.66, penaltyAboveThis: 0.5 },
+    { base: 1, scaled: 0.76, penaltyAboveThis: 0.5 },
+    { base: 2, scaled: 1.26, penaltyAboveThis: 1 },
+  ];
+
+  /** Tertiary stat scaling thresholds
+   * Taken from https://raw.githubusercontent.com/simulationcraft/simc/shadowlands/engine/dbc/generated/item_scaling.inc
+   * Search for 21025 in the first column for tertiary stat scaling
+   */
+  tertiaryStatPenaltyThresholds = [
+    /** Tertiary stat scaling thresholds */
+    { base: 0, scaled: 0, penaltyAboveThis: 0 },
+    { base: 0.05, scaled: 0.05, penaltyAboveThis: 0 },
+    { base: 0.1, scaled: 0.1, penaltyAboveThis: 0 },
+    { base: 0.15, scaled: 0.14, penaltyAboveThis: 0.2 },
+    { base: 0.20, scaled: 0.17, penaltyAboveThis: 0.4 },
+    { base: 0.25, scaled: 0.19, penaltyAboveThis: 0.6 },
+    { base: 1, scaled: 0.49, penaltyAboveThis: 1 },
+  ];
 
   constructor(...args) {
     super(...args);
@@ -354,7 +400,7 @@ class StatTracker extends Analyzer {
       intellect: this.selectedCombatant._combatantInfo.intellect,
       stamina: this.selectedCombatant._combatantInfo.stamina,
       crit: this.selectedCombatant._combatantInfo.critSpell,
-      haste: this.selectedCombatant._combatantInfo.hasteSpell,
+      haste: this.selectedCombatant._combatantInfo.hasteSpell || 0, // the || 0 fixes tests where combatantinfo may not be defined
       mastery: this.selectedCombatant._combatantInfo.mastery,
       versatility: this.selectedCombatant._combatantInfo.versatilityHealingDone,
       avoidance: this.selectedCombatant._combatantInfo.avoidance,
@@ -379,6 +425,12 @@ class StatTracker extends Analyzer {
       strength: 1 + ARMOR_INT_BONUS,
       agility: 1 + ARMOR_INT_BONUS,
     });
+
+    this.addEventListener(Events.changebuffstack.to(SELECTED_PLAYER), this.onChangeBuffStack);
+    this.addEventListener(Events.changedebuffstack.to(SELECTED_PLAYER), this.onChangeDebuffStack);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.onHealTaken);
+
 
     debug && this._debugPrintStats(this._currentStats);
   }
@@ -453,36 +505,47 @@ class StatTracker extends Analyzer {
   get startingStrengthRating() {
     return this._pullStats.strength;
   }
+
   get startingAgilityRating() {
     return this._pullStats.agility;
   }
+
   get startingIntellectRating() {
     return this._pullStats.intellect;
   }
+
   get startingStaminaRating() {
     return this._pullStats.stamina;
   }
+
   get startingCritRating() {
     return this._pullStats.crit;
   }
+
   get startingHasteRating() {
     return this._pullStats.haste;
   }
+
   get startingMasteryRating() {
     return this._pullStats.mastery;
   }
+
   get startingVersatilityRating() {
     return this._pullStats.versatility;
   }
+
   get startingAvoidanceRating() {
     return this._pullStats.avoidance;
   }
+
   get startingLeechRating() {
     return this._pullStats.leech;
   }
+
   get startingSpeedRating() {
     return this._pullStats.speed;
   }
+
   get startingArmorRating() {
     return this._pullStats.armor;
   }
@@ -493,41 +556,51 @@ class StatTracker extends Analyzer {
   get currentStrengthRating() {
     return this._currentStats.strength;
   }
+
   get currentAgilityRating() {
     return this._currentStats.agility;
   }
+
   get currentIntellectRating() {
     return this._currentStats.intellect;
   }
+
   get currentStaminaRating() {
     return this._currentStats.stamina;
   }
+
   get currentCritRating() {
     return this._currentStats.crit;
   }
+
   get currentHasteRating() {
     return this._currentStats.haste;
   }
+
   get currentMasteryRating() {
     return this._currentStats.mastery;
   }
+
   get currentVersatilityRating() {
     return this._currentStats.versatility;
   }
+
   get currentAvoidanceRating() {
     return this._currentStats.avoidance;
   }
+
   get currentLeechRating() {
     return this._currentStats.leech;
   }
+
   get currentSpeedRating() {
     return this._currentStats.speed;
   }
+
   get currentArmorRating() {
     return this._currentStats.armor;
   }
 
-  // TODO: I think these should be ratings. They behave like ratings and I think the only reason they're percentages here is because that's how they're **displayed** in-game, but not because it's more correct.
   /*
    * For percentage stats, the percentage you'd have with zero rating.
    * These values don't change.
@@ -564,73 +637,130 @@ class StatTracker extends Analyzer {
         return critChance;
     }
   }
+
   get baseHastePercentage() {
     return 0;
   }
+
   get baseMasteryPercentage() {
     const spellPoints = 8; // Spellpoint is a unit of mastery, each class has 8 base Spellpoints
     return spellPoints * this.selectedCombatant.spec.masteryCoefficient / 100;
   }
+
+  get hasMasteryCoefficient(){
+    if(!this.selectedCombatant.spec || !this.selectedCombatant.spec.masteryCoefficient){
+      return null;
+    }
+    return this.selectedCombatant.spec.masteryCoefficient;
+  }
+
   get baseVersatilityPercentage() {
     return 0;
   }
+
   get baseAvoidancePercentage() {
     return 0;
   }
+
   get baseLeechPercentage() {
     return 0;
   }
+
   get baseSpeedPercentage() {
     return 0;
   }
 
   /*
-   * For percentage stats, this is the divider to go from rating to percent (expressed from 0 to 1)
-   * These values don't change.
-   * TODO: Verify these values at Shadowlands launch (33 haste, 35 crit, 35 mastery, 40 versatility)
-   * TODO: Account for DR in the rating to percent functions
+   * For percentage stats, the current stat percentage gained from stat ratings.
    */
-  get critRatingPerPercent() {
-    return 72 * 100;
+
+  /**
+   * This function handles the diminishing returns system for stats implemented in Shadowlands.
+   * It will return either current stat percentage gained from rating OR the rating needed for 1% at current rating amounts
+   *
+   * @param rating - number -- The current rating the player has.
+   * @param baselineRatingPerPercent - number -- The baseline rating needing for 1% before any penalties.
+   * @param returnRatingForNextPercent - boolean -- Whether this function should return the rating needed for 1% at current rating levels or not
+   * @param isSecondary - boolean -- Whether we are calculating a secondary or tertiary stat
+   * @param coef - number -- Any stat coefficient, currently only used for Mastery.
+   * @returns {number}
+   */
+  calculateStatPercentage(rating, baselineRatingPerPercent, returnRatingForNextPercent = false, isSecondary = true, coef = 1) {
+    //Which penalty thresholds we should use based on type of stat
+    const penaltyThresholds = isSecondary ? this.secondaryStatPenaltyThresholds : this.tertiaryStatPenaltyThresholds;
+    //The percentage of stats we would have if diminishing return was not a thing
+    const baselinePercent = rating / baselineRatingPerPercent / 100;
+    //If we have more stats baseline than the threshold where we can no longer gain stat percentages from ratings
+    if (baselinePercent > penaltyThresholds[penaltyThresholds.length - 1].base) {
+      if (returnRatingForNextPercent) {
+        //At this point we can't gain more % of the given stat from rating
+        return Infinity;
+      } else {
+        //We are at the maximum % so we use the maximum scaled value and multiply it by the coefficient
+        return penaltyThresholds[penaltyThresholds.length - 1].scaled * coef;
+      }
+    }
+    //Loop through each of our penaltythresholds until we find the first one where we have more baseline stats than that curvepoint
+    for (const idx in penaltyThresholds) {
+      //If we have a higher percent than the baseline, we can move on immediately
+      if (baselinePercent >= penaltyThresholds[idx].base) {
+        continue;
+      }
+      if (returnRatingForNextPercent) {
+        //Returns the rating needed for 1% at current rating levels
+        return ((baselineRatingPerPercent / (1 - penaltyThresholds[idx - 1].penaltyAboveThis)) / coef) * 100;
+      } else {
+        //Since we no longer have more base stats than the current curve point, we know that we atleast have the scaled value of the last curve point
+        const statFromLastCurvePoint = penaltyThresholds[idx - 1].scaled;
+        //Using the known stat from last curve point, we can calculate the remaining stat gain by subtracting the last curve point from our baseline percentage and multiplying it by (1-penalty) of the penalty applied to stats from the last curve point.
+        const calculateStatGainWithinCurrentCurvePoint = (baselinePercent - penaltyThresholds[idx - 1].base) * (1 - penaltyThresholds[idx - 1].penaltyAboveThis);
+        return (statFromLastCurvePoint + calculateStatGainWithinCurrentCurvePoint) * coef;
+      }
+    }
   }
+
+  /**
+   * This function makes it easier to utilize calculateStatPercentage to get the rating needed for 1% at current rating levels
+   *
+   * @param rating - number -- The current rating the player has.
+   * @param baselineRatingPerPercent - number -- The baseline rating needing for 1% before any penalties.
+   * @param coef - number -- Any stat coefficient, currently only used for Mastery.
+   * @param isSecondary - boolean -- Whether we are calculating a secondary or tertiary stat
+   * @returns {number}
+   */
+  ratingNeededForNextPercentage(rating, baselineRatingPerPercent, coef = 1, isSecondary = true) {
+    return this.calculateStatPercentage(rating, baselineRatingPerPercent, true, isSecondary, coef);
+  }
+
+  /*
+   * For percentage stats, returns the combined base stat values and the values gained from ratings -- this does not include percentage increases such as Bloodlust
+   */
   critPercentage(rating, withBase = false) {
-    return (withBase ? this.baseCritPercentage : 0) + rating / this.critRatingPerPercent;
+    return (withBase ? this.baseCritPercentage : 0) + this.calculateStatPercentage(rating, this.statBaselineRatingPerPercent[STAT.CRITICAL_STRIKE]);
   }
-  get hasteRatingPerPercent() {
-    return 68 * 100;
-  }
+
   hastePercentage(rating, withBase = false) {
-    return (withBase ? this.baseHastePercentage : 0) + rating / this.hasteRatingPerPercent;
+    return (withBase ? this.baseHastePercentage : 0) + this.calculateStatPercentage(rating, this.statBaselineRatingPerPercent[STAT.HASTE]);
   }
-  get masteryRatingPerPercent() {
-    return 72 * 100 / this.selectedCombatant.spec.masteryCoefficient;
-  }
+
   masteryPercentage(rating, withBase = false) {
-    return (withBase ? this.baseMasteryPercentage : 0) + rating / this.masteryRatingPerPercent;
+    return (withBase ? this.baseMasteryPercentage : 0) + this.calculateStatPercentage(rating, this.statBaselineRatingPerPercent[STAT.MASTERY], false, true, this.selectedCombatant.spec.masteryCoefficient);
   }
-  get versatilityRatingPerPercent() {
-    return 85 * 100;
-  }
+
   versatilityPercentage(rating, withBase = false) {
-    return (withBase ? this.baseVersatilityPercentage : 0) + rating / this.versatilityRatingPerPercent;
+    return (withBase ? this.baseVersatilityPercentage : 0) + this.calculateStatPercentage(rating, this.statBaselineRatingPerPercent[STAT.VERSATILITY]);
   }
-  get avoidanceRatingPerPercent() {
-    return 28 * 100;
-  }
+
   avoidancePercentage(rating, withBase = false) {
-    return (withBase ? this.baseAvoidancePercentage : 0) + rating / this.avoidanceRatingPerPercent;
+    return (withBase ? this.baseAvoidancePercentage : 0) + this.calculateStatPercentage(rating, this.statBaselineRatingPerPercent[STAT.AVOIDANCE], false, false);
   }
-  get leechRatingPerPercent() {
-    return 40 * 100;
-  }
+
   leechPercentage(rating, withBase = false) {
-    return (withBase ? this.baseLeechPercentage : 0) + rating / this.leechRatingPerPercent;
+    return (withBase ? this.baseLeechPercentage : 0) + this.calculateStatPercentage(rating, this.statBaselineRatingPerPercent[STAT.LEECH], false, false);
   }
-  get speedRatingPerPercent() {
-    return 20 * 100;
-  }
+
   speedPercentage(rating, withBase = false) {
-    return (withBase ? this.baseSpeedPercentage : 0) + rating / this.speedRatingPerPercent;
+    return (withBase ? this.baseSpeedPercentage : 0) + this.calculateStatPercentage(rating, this.statBaselineRatingPerPercent[STAT.SPEED], false, false);
   }
 
   /*
@@ -639,40 +769,46 @@ class StatTracker extends Analyzer {
   get currentCritPercentage() {
     return this.critPercentage(this.currentCritRating, true);
   }
+
   // This is only the percentage from BASE + RATING.
   // If you're looking for current haste percentage including buffs like Bloodlust, check the Haste module.
   get currentHastePercentage() {
     return this.hastePercentage(this.currentHasteRating, true);
   }
+
   get currentMasteryPercentage() {
     return this.masteryPercentage(this.currentMasteryRating, true);
   }
+
   get currentVersatilityPercentage() {
     return this.versatilityPercentage(this.currentVersatilityRating, true);
   }
+
   get currentAvoidancePercentage() {
     return this.avoidancePercentage(this.currentAvoidanceRating, true);
   }
+
   get currentLeechPercentage() {
     return this.leechPercentage(this.currentLeechRating, true);
   }
+
   get currentSpeedPercentage() {
     return this.speedPercentage(this.currentSpeedRating, true);
   }
 
-  on_toPlayer_changebuffstack(event) {
+  onChangeBuffStack(event) {
     this._changeBuffStack(event);
   }
 
-  on_toPlayer_changedebuffstack(event) {
+  onChangeDebuffStack(event) {
     this._changeBuffStack(event);
   }
 
-  on_byPlayer_cast(event) {
+  onCast(event) {
     this._updateIntellect(event);
   }
 
-  on_toPlayer_heal(event) {
+  onHealTaken(event) {
     this._updateIntellect(event);
   }
 

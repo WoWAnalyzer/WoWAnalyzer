@@ -1,12 +1,13 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 import EventGrouper from 'parser/core/EventGrouper';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellLink from 'common/SpellLink';
+import Events from 'parser/core/Events';
 
 const PENANCE_MINIMUM_RECAST_TIME = 3500; // Minimum duration from one Penance to Another
 
@@ -20,6 +21,8 @@ class Penance extends Analyzer {
 
     // Castigation Penance bolt count to 4 (from 3)
     this._boltCount = this.selectedCombatant.hasTalent(SPELLS.CASTIGATION_TALENT.id) ? 4 : 3;
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
   }
 
   static isPenance = (spellId) =>
@@ -40,7 +43,7 @@ class Penance extends Analyzer {
     return [...this.eventGrouper].slice(-1)[0].length - 1; // -1 here for legacy code
   }
 
-  on_byPlayer_damage(event) {
+  onDamage(event) {
     if (!Penance.isPenance(event.ability.guid)) {
       return;
     }
@@ -50,7 +53,7 @@ class Penance extends Analyzer {
     event.penanceBoltNumber = this.currentBoltNumber;
   }
 
-  on_byPlayer_heal(event) {
+  onHeal(event) {
     if (!Penance.isPenance(event.ability.guid)) {
       return;
     }

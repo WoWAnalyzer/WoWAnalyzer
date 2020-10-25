@@ -9,7 +9,6 @@ import AlwaysBeCasting from 'parser/shaman/elemental/modules/features/AlwaysBeCa
 import Aftershock from 'parser/shaman/elemental/modules/talents/Aftershock';
 import Ascendance from 'parser/shaman/elemental/modules/talents/Ascendance';
 import EarthenRage from 'parser/shaman/elemental/modules/talents/EarthenRage';
-import ElementalBlast from 'parser/shaman/elemental/modules/talents/ElementalBlast';
 import LiquidMagmaTotem from 'parser/shaman/elemental/modules/talents/LiquidMagmaTotem';
 import MasterOfTheElements from 'parser/shaman/elemental/modules/talents/MasterOfTheElements';
 import PrimalFireElemental from 'parser/shaman/elemental/modules/talents/PrimalFireElemental';
@@ -31,6 +30,7 @@ import SpiritWolf from '../shared/talents/SpiritWolf';
 import StaticCharge from '../shared/talents/StaticCharge';
 import AnkhNormalizer from '../shared/normalizers/AnkhNormalizer';
 import AstralShift from '../shared/spells/AstralShift';
+import ElementalBlast from '../shared/talents/ElementalBlast';
 
 //Resources
 import MaelstromDetails from '../shared/maelstromchart/MaelstromDetails';

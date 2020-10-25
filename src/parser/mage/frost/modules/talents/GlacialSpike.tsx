@@ -12,6 +12,8 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { TooltipElement } from 'common/Tooltip';
 import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import { SHATTER_DEBUFFS } from '../../constants';
 
@@ -123,7 +125,7 @@ class GlacialSpike extends Analyzer {
             </TooltipElement>.
           </>)
           .icon(SPELLS.GLACIAL_SPIKE_TALENT.icon)
-          .actual(`${formatPercentage(actual, 1)}% utilization`)
+          .actual(i18n._(t('mage.frost.suggestions.glacialSpike.castsWithoutShatter')`${formatPercentage(actual, 1)}% utilization`))
           .recommended(`${formatPercentage(recommended, 1)}% is recommended`));
   }
 

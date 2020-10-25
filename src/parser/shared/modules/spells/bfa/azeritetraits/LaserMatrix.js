@@ -1,9 +1,10 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/index';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import SpellLink from 'common/SpellLink';
+import Events from 'parser/core/Events';
 
 /**
  * Your spells and abilities have a chance to release a barrage of lasers, dealing 4058 Arcane damage
@@ -16,21 +17,16 @@ class LaserMatrix extends Analyzer{
   constructor(...args){
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.LASER_MATRIX.id);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.LASER_MATRIX_HEAL), this.onHeal);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LASER_MATRIX_DAMAGE), this.onDamage);
   }
 
-  on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
-
-    if (spellId === SPELLS.LASER_MATRIX_HEAL.id) {
-      this.healing += event.amount + (event.absorbed || 0);
-    }
+  onHeal(event) {
+    this.healing += event.amount + (event.absorbed || 0);
   }
 
-  on_byPlayer_damage(event) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.LASER_MATRIX_DAMAGE.id) {
-      this.damage += event.amount + (event.absorbed || 0);
-    }
+  onDamage(event) {
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   // TODO - Show actual gain from Reorigination Array (as an own module perhaps?)
