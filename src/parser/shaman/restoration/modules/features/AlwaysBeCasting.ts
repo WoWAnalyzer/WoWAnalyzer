@@ -22,7 +22,9 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.UNLEASH_LIFE_TALENT.id,
     SPELLS.EARTH_SHIELD.id,
     SPELLS.DOWNPOUR_TALENT.id,
-  ]; // TODO shadowlands abilities
+    SPELLS.MANA_TIDE_TOTEM_CAST.id,
+    SPELLS.SURGE_OF_EARTH_TALENT.id,
+  ];
 
   suggestions(when: When) {
     const nonHealingTimeSuggestionThresholds = this.nonHealingTimeSuggestionThresholds;

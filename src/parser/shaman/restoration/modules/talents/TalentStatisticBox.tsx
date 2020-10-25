@@ -46,7 +46,7 @@ class TalentStatisticBox extends Analyzer {
   protected ascendance!: Ascendance;
   protected wellspring!: Wellspring;
   protected highTide!: HighTide;
-
+  //TODO surge of earth
   statistic() {
     return (
       <StatisticsListBox

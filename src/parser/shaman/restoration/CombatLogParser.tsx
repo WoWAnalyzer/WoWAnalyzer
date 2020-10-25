@@ -4,13 +4,13 @@ import Panel from 'interface/others/Panel';
 import Feeding from 'interface/others/Feeding';
 
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import HealingEfficiencyDetails from 'parser/core/healingEfficiency/HealingEfficiencyDetails';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
 import LucidDreams from 'parser/shared/modules/spells/bfa/essences/LucidDreamsHealers';
 
+import HealingEfficiencyDetails from './modules/core/HealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/core/HealingEfficiencyTracker';
 import Abilities from './modules/Abilities';
 
