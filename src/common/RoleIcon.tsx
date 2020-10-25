@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 
 import ROLES from 'game/ROLES';
 
-import Icon from './Icon';
-
-interface Props extends Omit<React.ComponentProps<typeof Icon>, 'id' | 'icon'> {
+interface Props {
   id: number;
   className: string;
 }
