@@ -39,12 +39,12 @@ interface Fight {
   id: number;
 }
 
-interface Player { 
+export interface Player { 
   combatant: CombatantInfoEvent;
   fights: Fight[];
-  guid: number;
+  guid: string;
   icon: string;
-  id: number;
+  id: string;
   name: string;
   region: string;
   server: string;
@@ -53,7 +53,7 @@ interface Player {
 
 interface Props {
   players: Player[];
-  makeUrl: (playerId: string) => void;
+  makeUrl: (playerId: string) => string;
 }
 
 const PlayerSelection = ({ players, makeUrl }: Props) => (
