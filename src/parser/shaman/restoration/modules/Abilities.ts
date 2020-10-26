@@ -513,6 +513,24 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+      {
+        spell: SPELLS.SURGE_OF_EARTH_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL, // Rotational? CD? idk, is there a "useless" category?
+        cooldown: 20,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(SPELLS.SURGE_OF_EARTH_TALENT.id),
+        healSpellIds: [
+          SPELLS.SURGE_OF_EARTH_HEAL.id,
+        ],
+        castEfficiency: {
+          suggestion: true,
+          majorIssueEfficiency: .4,
+          averageIssueEfficiency: .6,
+          recommendedEfficiency: .8,
+        },
+      },
     ];
   }
 }
