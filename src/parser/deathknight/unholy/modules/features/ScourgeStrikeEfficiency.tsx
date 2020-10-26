@@ -5,22 +5,20 @@ import { t } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import BoringValue from 'interface/statistics/components/BoringValueText';
 import Statistic from 'interface/statistics/Statistic';
 
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+
 import WoundTracker from './WoundTracker';
-
-
 
 class ScourgeStrikeEfficiency extends Analyzer {
   static dependencies = {
@@ -40,17 +38,16 @@ class ScourgeStrikeEfficiency extends Analyzer {
   totalCasts = 0;
   zeroWoundCasts = 0;
 
-  onCast(event: CastEvent){
+  onCast(event: CastEvent) {
     this.totalCasts += 1;
     const targetString = encodeTargetString(event.targetID, event.targetInstance);
 
-    if(this.woundTracker.targets[targetString]){
+    if (this.woundTracker.targets[targetString]) {
       const currentTargetWounds = this.woundTracker.targets[targetString];
-      if(currentTargetWounds < 1){
+      if (currentTargetWounds < 1) {
         this.zeroWoundCasts += 1;
       }
-    } 
-    else {
+    } else {
       this.zeroWoundCasts += 1;
     }
   }
@@ -73,10 +70,10 @@ class ScourgeStrikeEfficiency extends Analyzer {
 
   suggestions(when: When) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>You are casting <SpellLink id={this.activeSpell.id} /> too often.  When spending runes remember to cast <SpellLink id={this.activeSpell.id} /> instead on targets with no stacks of <SpellLink id={this.activeSpell.id} /></>)
-      .icon(this.activeSpell.icon)
-      .actual(i18n._(t('deathknight.unholy.suggestions.scourgeStrike.efficiency')`${formatPercentage(actual)}% of ${this.activeSpell.name} were used with Wounds on the target`))
-      .recommended(`>${formatPercentage(recommended)}% is recommended`));
+      .addSuggestion((suggest, actual, recommended) => suggest(<>You are casting <SpellLink id={this.activeSpell.id} /> too often. When spending runes remember to cast <SpellLink id={this.activeSpell.id} /> instead on targets with no stacks of <SpellLink id={this.activeSpell.id} /></>)
+        .icon(this.activeSpell.icon)
+        .actual(i18n._(t('deathknight.unholy.suggestions.scourgeStrike.efficiency')`${formatPercentage(actual)}% of ${this.activeSpell.name} were used with Wounds on the target`))
+        .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {
@@ -87,11 +84,11 @@ class ScourgeStrikeEfficiency extends Analyzer {
         category={STATISTIC_CATEGORY.GENERAL}
         size="flexible"
       >
-        <BoringValue label={<><SpellIcon id={SPELLS.SCOURGE_STRIKE.id} /> {this.activeSpell.name} Strike Efficency</>} >
+        <BoringSpellValueText spell={SPELLS.SCOURGE_STRIKE}>
           <>
-            {`${formatPercentage(this.strikeEfficiency)}% `}
+            {formatPercentage(this.strikeEfficiency)}% <small>efficiency</small>
           </>
-        </BoringValue>
+        </BoringSpellValueText>
       </Statistic>
     );
   }
