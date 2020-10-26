@@ -2,10 +2,7 @@ import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import { formatNumber } from "common/format";
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import ItemHealingDone from 'interface/ItemHealingDone';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Events from 'parser/core/Events';
 
@@ -51,10 +48,10 @@ class WillOfTheNecropolis extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(2)}
-        category={STATISTIC_CATEGORY.TALENTS}
-        size="flexible"
+      <TalentStatisticBox
+        talent={SPELLS.WILL_OF_THE_NECROPOLIS_TALENT.id}
+        position={STATISTIC_ORDER.OPTIONAL(4)}
+        value={this.owner.formatItemHealingDone(this.totalWotnAbsorbed)}
         tooltip={(
           <>
             <strong>Total Damage Absorbed: </strong> {formatNumber(this.totalWotnAbsorbed)} <br />
@@ -62,13 +59,7 @@ class WillOfTheNecropolis extends Analyzer {
             <strong>Absorbed 5% Max Health or more count: </strong> {this.goodAbsorbCount}
           </>
         )}
-      >
-        <BoringSpellValueText spell={SPELLS.WILL_OF_THE_NECROPOLIS_TALENT}>
-          <>
-            <ItemHealingDone amount={this.totalWotnAbsorbed} />
-          </>
-        </BoringSpellValueText>
-      </Statistic>
+      />
     );
   }
 }

@@ -2,10 +2,7 @@ import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatNumber } from 'common/format';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import UptimeIcon from 'interface/icons/Uptime';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Events from 'parser/core/Events';
 
@@ -46,22 +43,13 @@ class RedThirst extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(2)}
-        category={STATISTIC_CATEGORY.TALENTS}
-        size="flexible"
-        tooltip={(
-          <>
-            {formatNumber(this.reduction)} sec total effective reduction and {formatNumber(this.wastedReduction)} sec ({formatPercentage(this.wastedPercent)}%) wasted reduction.
-          </>
-        )}
-      >
-        <BoringSpellValueText spell={SPELLS.RED_THIRST_TALENT}>
-          <>
-            <UptimeIcon /> {formatNumber(this.averageReduction)} sec <small>average reduction</small>
-          </>
-        </BoringSpellValueText>
-      </Statistic>
+      <TalentStatisticBox
+        talent={SPELLS.RED_THIRST_TALENT.id}
+        position={STATISTIC_ORDER.OPTIONAL(7)}
+        value={`${formatNumber(this.averageReduction)} sec`}
+        label="Red Thirst average reduction"
+        tooltip={`${formatNumber(this.reduction)} sec total effective reduction and ${formatNumber(this.wastedReduction)} sec (${formatPercentage(this.wastedPercent)}%) wasted reduction.`}
+      />
     );
   }
 }

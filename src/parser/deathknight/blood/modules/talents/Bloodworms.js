@@ -2,10 +2,7 @@ import React from 'react';
 import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import ItemHealingDone from 'interface/ItemHealingDone';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import { formatThousands } from 'common/format';
 import Events from 'parser/core/Events';
@@ -76,10 +73,11 @@ class Bloodworms extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(2)}
-        category={STATISTIC_CATEGORY.TALENTS}
-        size="flexible"
+      <TalentStatisticBox
+        talent={SPELLS.BLOODWORMS_TALENT.id}
+        position={STATISTIC_ORDER.OPTIONAL(6)}
+        value={this.owner.formatItemHealingDone(this.totalHealing)}
+        label="Bloodworm Stats"
         tooltip={(
           <>
             <strong>Damage:</strong> {formatThousands(this.totalDamage)} / {this.owner.formatItemDamageDone(this.totalDamage)}<br />
@@ -87,13 +85,7 @@ class Bloodworms extends Analyzer {
             <strong>Number of worms popped early:</strong> {this.poppedWorms(this.bloodworm)}
           </>
         )}
-      >
-        <BoringSpellValueText spell={SPELLS.BLOODWORMS_TALENT}>
-          <>
-            <ItemHealingDone amount={this.totalHealing} />
-          </>
-        </BoringSpellValueText>
-      </Statistic>
+      />
     );
   }
 }

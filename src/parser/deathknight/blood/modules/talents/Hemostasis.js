@@ -1,10 +1,8 @@
 import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import { formatNumber, formatPercentage } from 'common/format';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import { formatNumber } from 'common/format';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
@@ -17,11 +15,10 @@ class Hemostasis extends Analyzer {
   buffedDeathStrikes = 0;
   unbuffedDeathStrikes = 0;
   buffStack = 0;
-  usedBuffs = 0;
   wastedBuffs = 0;
   gainedBuffs = 0;
-  damage = 0;
-  heal = 0;
+  damage=0;
+  heal=0;
 
   constructor(...args) {
     super(...args);
@@ -41,7 +38,6 @@ class Hemostasis extends Analyzer {
     if (spellID === SPELLS.DEATH_STRIKE.id) {
       if(this.buffStack > 0){
         this.buffedDeathStrikes += 1;
-        this.usedBuffs += this.buffStack
         this.damage += calculateEffectiveDamage(event, PERCENT_BUFF * this.buffStack);
         this.buffStack = 0;
         return;
@@ -59,29 +55,21 @@ class Hemostasis extends Analyzer {
     }
   }
 
-  get averageIncrease() {
-    return this.usedBuffs / (this.buffedDeathStrikes + this.unbuffedDeathStrikes) * PERCENT_BUFF
-  }
 
   statistic() {
     return (
-      <Statistic
+      <TalentStatisticBox
+        talent={SPELLS.HEMOSTASIS_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(2)}
-        category={STATISTIC_CATEGORY.TALENTS}
-        size="flexible"
+        value={`${this.buffedDeathStrikes} / ${this.buffedDeathStrikes + this.unbuffedDeathStrikes}`}
+        label="Death Strikes with Hemostasis"
         tooltip={(
           <>
             Resulting in {formatNumber(this.damage)} additional damage and {formatNumber(this.heal)} additional healing.<br />
             You gained {this.gainedBuffs} and wasted {this.wastedBuffs} stacks.
           </>
         )}
-      >
-        <BoringSpellValueText spell={SPELLS.HEMOSTASIS_TALENT}>
-          <>
-            {formatPercentage(this.averageIncrease)} % <small>average DS increase</small>
-          </>
-        </BoringSpellValueText>
-      </Statistic>
+      />
     );
   }
 }

@@ -135,11 +135,6 @@ const spells: SpellList = {
     name: 'Voracious',
     icon: 'ability_ironmaidens_whirlofblood',
   },
-  RELISH_IN_BLOOD: {
-    id: 317614,
-    name: 'Relish in Blood',
-    icon: 'ability_deathknight_roilingblood',
-  },
 
   // CC
   GOREFIENDS_GRASP: {
