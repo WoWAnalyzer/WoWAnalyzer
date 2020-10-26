@@ -1,14 +1,15 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { When } from 'parser/core/ParseResults';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
@@ -55,13 +56,17 @@ class Apocalypse extends Analyzer {
   statistic() {
     const averageWoundsPopped = (this.apocalypseWoundsPopped / this.totalApocalypseCasts).toFixed(1);
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.APOCALYPSE.id} />}
-        value={`${averageWoundsPopped}`}
-        label="Average Wounds Popped with Apocalypse"
+      <Statistic
         tooltip={`You popped ${this.apocalypseWoundsPopped} wounds with ${this.totalApocalypseCasts} casts of Apocalypse.`}
         position={STATISTIC_ORDER.CORE(6)}
-      />
+        size="flexible"
+      >
+        <BoringSpellValueText spell={SPELLS.APOCALYPSE}>
+          <>
+            {averageWoundsPopped} <small>average Wounds popped</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

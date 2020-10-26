@@ -28,7 +28,7 @@ const spells: SpellList<ShamanSpell> = {
     icon: 'spell_nature_strengthofearthtotem02',
     manaCost: 50,
   },
-  RESONANCE_TOTEM: {
+  RESONANCE_TOTEM_HASTE: {
     id: 262417,
     name: 'Resonance Totem',
     icon: 'spell_nature_stoneskintotem',
@@ -174,7 +174,7 @@ const spells: SpellList<ShamanSpell> = {
     name: 'Elemental Overload',
     icon: 'spell_nature_lightningoverload',
   },
-  Resonance_Totem: {
+  RESONANCE_TOTEM_FULMINATION: {
     id: 202192,
     name: 'Resonance Totem',
     icon: 'spell_nature_stoneskintotem',
@@ -344,7 +344,7 @@ const spells: SpellList<ShamanSpell> = {
     name: 'Flame Shock',
     icon: 'spell_fire_flameshock',
     manaCost: 30,
-    max_maelstrom: 20,
+    maxMaelstrom: 20,
   },
   FROST_SHOCK_ENERGIZE: {
     icon: "spell_frost_frostshock",
@@ -843,6 +843,16 @@ const spells: SpellList<ShamanSpell> = {
     id: 52127,
     name: 'Water Shield',
     icon: 'ability_shaman_watershield',
+  },
+  WATER_SHIELD_ENERGIZE: {
+    id: 52128,
+    name: 'Water Shield',
+    icon: 'ability_shaman_watershield',
+  },
+  SURGE_OF_EARTH_HEAL: {
+    id: 320747,
+    name: 'Surge of Earth',
+    icon: 'inv_elementalearth2',
   },
 };
 export default spells;
