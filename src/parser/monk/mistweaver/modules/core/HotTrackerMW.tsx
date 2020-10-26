@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import { Options } from 'parser/core/Analyzer';
+
 import Combatant from 'parser/core/Combatant';
 import { ApplyBuffEvent, RefreshBuffEvent } from 'parser/core/Events';
 import HotTracker from 'parser/shared/modules/HotTracker';
@@ -14,22 +14,22 @@ const TFT_REM_EXTRA_DURATION = 10000;
 
 class HotTrackerMW extends HotTracker {
 
-  mistwrapActive: boolean = false;
-  upwellingActive: boolean = false;
 
-  constructor(options: Options){
-    super(options);
-    this.mistwrapActive = this.selectedCombatant.hasTalent(SPELLS.MIST_WRAP_TALENT.id);
-    this.upwellingActive = this.selectedCombatant.hasTalent(SPELLS.UPWELLING_TALENT.id);
+  get mistWrapIsActive() {
+    return this.selectedCombatant.hasTalent(SPELLS.MIST_WRAP_TALENT.id);
+  }
+
+  get upwellingIsActive() {
+    return this.selectedCombatant.hasTalent(SPELLS.UPWELLING_TALENT.id);
   }
 
   calculateMaxDuration(event: ApplyBuffEvent & {selectedCombatant: Combatant}){
     const spellId = event.ability.guid;
     if(spellId === SPELLS.ENVELOPING_MIST.id){
-      return (ENV_BASE_DURATION + (this.mistwrapActive ? MISTWRAP : 0)) * 2;
+      return (ENV_BASE_DURATION + (event.selectedCombatant.hasTalent(SPELLS.MIST_WRAP_TALENT.id) ? MISTWRAP : 0)) * 2;
     }
     if(spellId === SPELLS.ESSENCE_FONT_BUFF.id){
-      return (EF_BASE_DURATION + (this.upwellingActive ? UPWELLING : 0)) * 2;
+      return (EF_BASE_DURATION + (event.selectedCombatant.hasTalent(SPELLS.UPWELLING_TALENT.id) ? UPWELLING : 0)) * 2;
     }
     if(event.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) && spellId === SPELLS.RENEWING_MIST_HEAL.id){
       return (REM_BASE_DURATION + TFT_REM_EXTRA_DURATION) * 2;
@@ -56,13 +56,13 @@ class HotTrackerMW extends HotTracker {
         id: SPELLS.RENEWING_MIST_HEAL.id,
       },
       [SPELLS.ENVELOPING_MIST.id]: {
-        duration: ENV_BASE_DURATION + (this.mistwrapActive ? MISTWRAP : 0),
+        duration: ENV_BASE_DURATION + (this.mistWrapIsActive ? MISTWRAP : 0),
         tickPeriod: 1000,
         maxDuration: this.calculateMaxDuration,
         id: SPELLS.ENVELOPING_MIST.id,
       },
       [SPELLS.ESSENCE_FONT_BUFF.id]: {
-        duration: EF_BASE_DURATION + (this.upwellingActive ? UPWELLING : 0),
+        duration: EF_BASE_DURATION + (this.upwellingIsActive ? UPWELLING : 0),
         tickPeriod: 2000,
         maxDuration: this.calculateMaxDuration,
         id: SPELLS.ESSENCE_FONT_BUFF.id,
