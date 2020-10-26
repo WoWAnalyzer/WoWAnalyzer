@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
-export default [
+const spells: number[] = [
   /**
    * This can consist of boss mechanics marked as casts, buff applications marked
    * as separate casts from the normal ability, toy casts that some people macro
@@ -47,3 +47,5 @@ export default [
   SPELLS.WILD_MARK.id, //The debuff applied from enemies inside Wild Spirits
   //endregion
 ];
+
+export default spells;
