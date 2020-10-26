@@ -59,7 +59,6 @@ class TigerPalm extends Analyzer {
   badCasts = 0;
   normalHits = 0;
   bocHits = 0;
-  lastAttackPower = 0;
 
   cdr = 0;
   wastedCDR = 0;
@@ -94,7 +93,6 @@ class TigerPalm extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TIGER_PALM), this.onCast);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TIGER_PALM), this.checkBadTP);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.TIGER_PALM), this.onDamage);
-    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
   }
 
   onGainBOC(event: ApplyBuffEvent | RefreshBuffEvent){
@@ -120,14 +118,6 @@ class TigerPalm extends Analyzer {
       this.bocHits += 1;
     } else {
       this.normalHits += 1;
-    }
-  }
-
-  onDamageTaken(event: DamageEvent) {
-    // record the last known AP to estimate the amount of damage a
-    // non-FP TP should do
-    if (event.attackPower !== undefined && event.attackPower > 0) {
-      this.lastAttackPower = event.attackPower;
     }
   }
 
