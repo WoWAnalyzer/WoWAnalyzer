@@ -19,6 +19,7 @@ import './ManaTideTotem.scss'
 import Combatant from 'parser/core/Combatant';
 import SPECS from 'game/SPECS';
 import SpecIcon from 'common/SpecIcon';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 export const MANA_REGEN_PER_SECOND = 400 / 5;//Prepatch value
 
@@ -61,6 +62,7 @@ class ManaTideTotem extends Analyzer {
     return (
       <Statistic
         size='flexible'
+        position={STATISTIC_ORDER.UNIMPORTANT(89)}
         dropdown={(
           <table className="table table-condensed">
             <thead>
