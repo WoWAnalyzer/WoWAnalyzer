@@ -6,7 +6,7 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
-import { When } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { i18n } from '@lingui/core';
 import { t, Trans } from '@lingui/macro';
 
@@ -83,7 +83,7 @@ class SurgeOfEarth extends Analyzer {
         average: 2.2,
         major: 1.9,
       },
-      style: 'number',
+      style: ThresholdStyle.DECIMAL,
     };
   }
 }
