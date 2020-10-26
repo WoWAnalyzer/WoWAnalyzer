@@ -16,8 +16,9 @@ import Statistic from 'interface/statistics/Statistic';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
-import WoundTracker from './WoundTracker';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+
+import WoundTracker from './WoundTracker';
 
 const SAFE_WOUND_COUNT = 3;
 

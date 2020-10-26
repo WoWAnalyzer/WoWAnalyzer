@@ -16,8 +16,9 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import Statistic from 'interface/statistics/Statistic';
 
-import WoundTracker from './WoundTracker';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+
+import WoundTracker from './WoundTracker';
 
 class ScourgeStrikeEfficiency extends Analyzer {
   static dependencies = {
