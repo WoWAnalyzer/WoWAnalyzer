@@ -7,16 +7,15 @@ import Icon from './Icon';
 type Props = {
   id: number;
   noLink?: boolean;
-  details?: Record<string, any>;
-  alt?: string;
+  className?: string;
 }
 
-const ItemIcon = ({ id, noLink, details, alt, ...others }: Props) => {
+const ItemIcon = ({ id, noLink, className }: Props) => {
   const icon = (
     <Icon
       icon={ITEMS[id] ? ITEMS[id].icon : 'inv_misc_questionmark'}
-      alt={alt !== '' && ITEMS[id] ? ITEMS[id].name : ''}
-      {...others}
+      alt={ITEMS[id] ? ITEMS[id].name : ''}
+      className={className}
     />
   );
 
@@ -25,7 +24,7 @@ const ItemIcon = ({ id, noLink, details, alt, ...others }: Props) => {
   }
 
   return (
-    <ItemLink id={id} details={details} icon={false}>
+    <ItemLink id={id} icon={false}>
       {icon}
     </ItemLink>
   );
