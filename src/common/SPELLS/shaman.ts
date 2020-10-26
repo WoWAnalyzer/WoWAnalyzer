@@ -844,6 +844,11 @@ const spells: SpellList<ShamanSpell> = {
     name: 'Water Shield',
     icon: 'ability_shaman_watershield',
   },
+  WATER_SHIELD_ENERGIZE: {
+    id: 52128,
+    name: 'Water Shield',
+    icon: 'ability_shaman_watershield',
+  },
   SURGE_OF_EARTH_HEAL: {
     id: 320747,
     name: 'Surge of Earth',

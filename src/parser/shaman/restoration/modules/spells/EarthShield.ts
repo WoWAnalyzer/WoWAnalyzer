@@ -1,4 +1,7 @@
 import SPELLS from 'common/SPELLS';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { ApplyBuffEvent } from 'parser/core/Events';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 import EarthShieldCore from '../../../shared/talents/EarthShield';
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
@@ -10,6 +13,39 @@ class EarthShield extends EarthShieldCore {
   };
 
   protected cooldownThroughputTracker!: CooldownThroughputTracker;
+  prepullApplication = false;
+
+  constructor(options: Options) {
+    super(options);
+
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.EARTH_SHIELD), this.earthShieldPrepullCheck);
+  }
+
+  earthShieldPrepullCheck(event: ApplyBuffEvent) {
+    if (event.prepull) {
+      this.prepullApplication = true;
+    }
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.uptimePercent,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.90,
+        major: 0.85,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
+  get suggestionThresholdsPrepull() {
+    return {
+      actual: this.prepullApplication,
+      isEqual: false,
+      style: ThresholdStyle.BOOLEAN,
+    };
+  }
 
   getFeeding() {
     return this.cooldownThroughputTracker.getIndirectHealing(SPELLS.EARTH_SHIELD_HEAL.id);

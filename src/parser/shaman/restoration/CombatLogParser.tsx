@@ -52,6 +52,7 @@ import HealingWave from './modules/spells/HealingWave';
 import LavaSurge from './modules/spells/LavaSurge';
 import Resurgence from './modules/spells/Resurgence';
 import ManaTideTotem from './modules/spells/ManaTideTotem';
+import WaterShield from './modules/spells/WaterShield';
 import SpiritLinkDamageReduction from './modules/spells/SpiritLinkDamageReduction';
 // Potency Conduits
 import EmbraceOfEarth from './modules/shadowlands/conduits/EmbraceOfEarth';
@@ -120,6 +121,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lavaSurge: LavaSurge,
     resurgence: Resurgence,
     manaTideTotem: ManaTideTotem,
+    waterShield: WaterShield,
     spiritLinkDamageReduction: SpiritLinkDamageReduction,
 
     // Shared:
