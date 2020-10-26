@@ -567,6 +567,7 @@
   "shaman.elemental.suggestions.stormElemental.badCasts": "{actual} other casts with Storm Elemental up",
   "shaman.elemental.suggestions.surgeOfPower.stormKeeperEmpowered": "{0}% of Stormkeeper Lightning Bolts empowered with Surge",
   "shaman.enhancement.suggestions.alwaysBeCasting.downtime": "{0}% downtime",
+  "shaman.restoration.abilities.buffedByTidalWave": "Tidal Waved {0}",
   "shaman.restoration.apt.statistic.label": "Ancestral Protection Totem",
   "shaman.restoration.apt.statistic.label.failure": "No Results",
   "shaman.restoration.apt.statistic.label.success": "{0} events found",

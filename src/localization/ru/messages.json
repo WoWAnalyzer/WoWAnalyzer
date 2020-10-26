@@ -567,6 +567,7 @@
   "shaman.elemental.suggestions.stormElemental.badCasts": "{actual} других заклинаний во время действия Элементаля бури",
   "shaman.elemental.suggestions.surgeOfPower.stormKeeperEmpowered": "{0}% Молний под Хранителем бурь усилено Приливом мощи",
   "shaman.enhancement.suggestions.alwaysBeCasting.downtime": "{0}% простоев",
+  "shaman.restoration.abilities.buffedByTidalWave": "",
   "shaman.restoration.apt.statistic.label": "Тотем защиты Предков",
   "shaman.restoration.apt.statistic.label.failure": "Результаты не найдены",
   "shaman.restoration.apt.statistic.label.success": "{0} событий найдено",
