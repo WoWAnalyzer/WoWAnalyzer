@@ -26,6 +26,7 @@ import SanctifiedWrathProtJudgement from './modules/talents/SanctifiedWrathProtJ
 import HolyShieldSpellBlock from './modules/talents/HolyShieldSpellBlock';
 import Redoubt from './modules/talents/Redoubt';
 import BlessedHammerDamageReduction from './modules/talents/BlessedHammerDamageReduction';
+import FirstAvenger from './modules/talents/FirstAvenger';
 
 //import CooldownTracker from './Modules/Features/CooldownTracker';
 import HolyPowerTracker from '../shared/holypower/HolyPowerTracker';
@@ -61,6 +62,7 @@ class CombatLogParser extends CoreCombatLogParser {
     holyShieldSpellBlock: HolyShieldSpellBlock,
     redoubt: Redoubt,
     blessedHammerDamageReduction: BlessedHammerDamageReduction,
+    firstAvenger: FirstAvenger,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

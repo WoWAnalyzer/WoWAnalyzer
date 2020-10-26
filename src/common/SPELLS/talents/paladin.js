@@ -36,7 +36,7 @@ export default {
   RETRIBUTION_AURA_TALENT: { id: 203797, name: 'Retribution Aura', icon: 'spell_holy_auraoflight' },
   BLESSING_OF_SPELLWARDING_TALENT: { id: 204018, name: 'Blessing of Spellwarding', icon: 'spell_holy_blessingofprotection', manaCost: 3000 },
   FINAL_STAND_TALENT: { id: 204077, name: 'Final Stand', icon: 'spell_holy_crusade' },
-  HAND_OF_THE_PROTECTOR_TALENT: { id: 213652, name: 'Hand of the Protector', icon: 'ability_paladin_blessedhands' },
+  HAND_OF_THE_PROTECTOR_TALENT: { id: 315924, name: 'Hand of the Protector', icon: 'ability_paladin_blessedhands' },
   CONSECRATED_GROUND_TALENT: { id: 204054, name: 'Consecrated Ground', icon: 'ability_paladin_righteousvengeance' },
   AEGIS_OF_LIGHT_TALENT: { id: 204150, name: 'Aegis of Light', icon: 'spell_holy_greaterblessingoflight' },
   LAST_DEFENDER_TALENT: { id: 203791, name: 'Last Defender', icon: 'spell_holy_divinepurpose' },
