@@ -10,6 +10,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 10, 26), 'Update several component to Typescript, center player name in player gear header', Guyius),
   change(date(2020, 10, 25), 'Update PlayerTile, characters to Typescript, create new HOA type file, refactor PlayerTile to hooks', Guyius),
   change(date(2020, 10, 25), 'Fixed Healing Efficiency Tracker showing errors', niseko),
   change(date(2020, 10, 24), 'Update Regular Article to Typescript', Ssabbar),
