@@ -1,10 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { makeCharacterUrl } from 'interface/common/makeAnalyzerUrl';
+import Combatant from 'parser/core/Combatant';
 
-const PlayerGearHeader = ({ player, averageIlvl }) => (
+interface Props {
+  player: Combatant;
+  averageIlvl: number;
+}
+
+const PlayerGearHeader = ({ player, averageIlvl }: Props) => (
   <div className="player-gear-header">
     <div className={`${player.spec.className.replace(' ', '')} player-name`}>
       <Link to={makeCharacterUrl(player)}>{player.name}{player.characterProfile && <> - {player.characterProfile.realm}</>}</Link>
@@ -17,10 +22,5 @@ const PlayerGearHeader = ({ player, averageIlvl }) => (
     </div>
   </div>
 );
-
-PlayerGearHeader.propTypes = {
-  player: PropTypes.object.isRequired,
-  averageIlvl: PropTypes.number.isRequired,
-};
 
 export default PlayerGearHeader;
