@@ -5,7 +5,6 @@ module.exports = {
     {
       files: ['**/*.js'],
       rules: {
-        '@typescript-eslint/camelcase': 'off',
         'react/prefer-stateless-function': 'off',
         '@typescript-eslint/no-unused-vars': 'off',
       },
@@ -14,7 +13,6 @@ module.exports = {
     {
       files: ['**/*.js', '**/*.ts?(x)'],
       rules: {
-        '@typescript-eslint/camelcase': 'off',
         '@typescript-eslint/no-explicit-any': 'off',
         'react/display-name': 'off',
         // This one in particular hurts

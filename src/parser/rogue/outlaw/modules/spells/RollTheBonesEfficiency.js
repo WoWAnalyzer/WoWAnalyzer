@@ -35,7 +35,7 @@ class RollTheBonesEfficiency extends Analyzer {
 
   get goodLowValueRolls(){
     const delayedRolls = this.rollTheBonesCastTracker.rolltheBonesCastValues[ROLL_THE_BONES_CATEGORIES.LOW_VALUE]
-      .filter(cast => cast.RTB_IsDelayed).length;
+      .filter(cast => cast.RTBIsDelayed).length;
     const totalRolls = this.rollTheBonesCastTracker.rolltheBonesCastValues[ROLL_THE_BONES_CATEGORIES.LOW_VALUE].length;
 
     return totalRolls - delayedRolls;
@@ -60,7 +60,7 @@ class RollTheBonesEfficiency extends Analyzer {
     const lastCast = this.rollTheBonesCastTracker.lastCast;
     if(lastCast && this.rollTheBonesCastTracker.categorizeCast(lastCast) === ROLL_THE_BONES_CATEGORIES.LOW_VALUE){
       //FIX WHEN UPDATING ROGUE TO TS
-      lastCast.RTB_IsDelayed = true;
+      lastCast.RTBIsDelayed = true;
     }
   }
 
