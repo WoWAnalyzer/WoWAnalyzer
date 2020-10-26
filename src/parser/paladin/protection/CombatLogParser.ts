@@ -24,6 +24,8 @@ import Seraphim from './modules/talents/Seraphim';
 import RighteousProtector from './modules/talents/RighteousProtector';
 import SanctifiedWrathProtJudgement from './modules/talents/SanctifiedWrathProtJudgement';
 import HolyShieldSpellBlock from './modules/talents/HolyShieldSpellBlock';
+import Redoubt from './modules/talents/Redoubt';
+import BlessedHammerDamageReduction from './modules/talents/BlessedHammerDamageReduction';
 
 //import CooldownTracker from './Modules/Features/CooldownTracker';
 import HolyPowerTracker from '../shared/holypower/HolyPowerTracker';
@@ -57,6 +59,8 @@ class CombatLogParser extends CoreCombatLogParser {
     seraphim: Seraphim,
     sanctifiedWrathProtJudgement: SanctifiedWrathProtJudgement,
     holyShieldSpellBlock: HolyShieldSpellBlock,
+    redoubt: Redoubt,
+    blessedHammerDamageReduction: BlessedHammerDamageReduction,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
