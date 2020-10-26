@@ -5,7 +5,7 @@ import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import IgnoredAbilities from './IgnoredAbilities';
 
 export function notableEnemy(enemies: Enemies, event: DamageEvent): boolean {
-    return !event.sourceIsFriendly || event.sourceID === undefined || !enemies.getEntities()[event.sourceID];
+    return !event.sourceIsFriendly && event.sourceID !== undefined && enemies.getEntities()[event.sourceID] !== undefined;
 }
 
 export function magic(event: DamageEvent): boolean {
