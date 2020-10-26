@@ -16,6 +16,12 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
     },
+    {
+      spell: SPELLS.BLOOD_FURY_SPELL_AND_PHYSICAL,
+      summary: [
+        BUILT_IN_SUMMARY_TYPES.DAMAGE,
+      ],
+    },
   ];
 }
 

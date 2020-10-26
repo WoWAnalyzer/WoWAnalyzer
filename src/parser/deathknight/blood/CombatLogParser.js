@@ -19,7 +19,7 @@ import DeathStrikeTiming from './modules/features/DeathStrikeTiming';
 import BoneShieldTimesByStacks from './modules/features/BoneShieldTimesByStacks';
 import DeathsCaress from './modules/core/DeathsCaress';
 import MitigationCheck from './modules/features/MitigationCheck';
-import Ossuary from './modules/features/Ossuary';
+// import Ossuary from './modules/features/Ossuary';
 
 // Resources
 import RunicPowerDetails from './modules/runicpower/RunicPowerDetails';
@@ -40,6 +40,7 @@ import Voracious from './modules/talents/Voracious';
 import RapidDecomposition from './modules/talents/RapidDecomposition';
 import WillOfTheNecropolis from './modules/talents/WillOfTheNecropolis';
 import Consumption from './modules/talents/Consumption';
+import RelishInBlood from './modules/talents/RelishInBlood';
 
 // Azerite Traits
 import BonesOfTheDamned from './modules/spells/azeritetraits/BonesOfTheDamned';
@@ -92,8 +93,9 @@ class CombatLogParser extends CoreCombatLogParser {
     voracious: Voracious,
     rapidDecomposition: RapidDecomposition,
     willOfTheNecropolis: WillOfTheNecropolis,
-    ossuary: Ossuary,
+    // ossuary: Ossuary,
     consumption: Consumption,
+    relishInBlood: RelishInBlood,
 
     // Azerite Traits
     bonesOfTheDamned: BonesOfTheDamned,

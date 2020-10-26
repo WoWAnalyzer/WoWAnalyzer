@@ -1,5 +1,6 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+import Judgment from 'parser/paladin/shared/spells/Judgment';
 
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -9,7 +10,6 @@ import MitigationCheck from './modules/features/MitigationCheck';
 
 
 //Spells
-import Judgment from './modules/spells/Judgment';
 import Consecration from './modules/spells/Consecration';
 import WordOfGloryTiming from './modules/features/WordOfGloryTiming';
 import LightOfTheProtector from './modules/spells/LightOfTheProtector';
@@ -23,6 +23,9 @@ import WordOfGlory from './modules/spells/WordOfGlory';
 import Seraphim from './modules/talents/Seraphim';
 import RighteousProtector from './modules/talents/RighteousProtector';
 import SanctifiedWrathProtJudgement from './modules/talents/SanctifiedWrathProtJudgement';
+import HolyShieldSpellBlock from './modules/talents/HolyShieldSpellBlock';
+import Redoubt from './modules/talents/Redoubt';
+import BlessedHammerDamageReduction from './modules/talents/BlessedHammerDamageReduction';
 
 //import CooldownTracker from './Modules/Features/CooldownTracker';
 import HolyPowerTracker from '../shared/holypower/HolyPowerTracker';
@@ -37,6 +40,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lightOfTheProtector: LightOfTheProtector,
     hotr: HammerOfTheRighteous,
     wordOfGlory: WordOfGlory,
+    judgment: Judgment,
 
     // Features
     abilities: Abilities,
@@ -52,13 +56,15 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Talents
     righteousProtector: RighteousProtector,
-    judgment: Judgment,
     seraphim: Seraphim,
     sanctifiedWrathProtJudgement: SanctifiedWrathProtJudgement,
+    holyShieldSpellBlock: HolyShieldSpellBlock,
+    redoubt: Redoubt,
+    blessedHammerDamageReduction: BlessedHammerDamageReduction,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
-    
+
     // HolyPower
     holyPowerTracker: HolyPowerTracker,
     holyPowerDetails: HolyPowerDetails,
