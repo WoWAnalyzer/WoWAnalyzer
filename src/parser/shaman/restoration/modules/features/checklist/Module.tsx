@@ -11,6 +11,7 @@ import ChainHeal from '../../spells/ChainHeal';
 import HealingRain from '../../spells/HealingRain';
 import Wellspring from '../../talents/Wellspring';
 import EarthenWallTotem from '../../talents/EarthenWallTotem';
+import SurgeOfEarth from '../../talents/SurgeOfEarth';
 
 import Component from './Component';
 
@@ -25,6 +26,7 @@ class Checklist extends BaseChecklist {
     healingRain: HealingRain,
     wellspring: Wellspring,
     earthenWallTotem: EarthenWallTotem,
+    surgeOfEarth: SurgeOfEarth,
   };
 
   protected combatants!: Combatants;
@@ -36,6 +38,7 @@ class Checklist extends BaseChecklist {
   protected healingRain!: HealingRain;
   protected wellspring!: Wellspring;
   protected earthenWallTotem!: EarthenWallTotem;
+  protected surgeOfEarth!: SurgeOfEarth;
 
   render() {
     return (
@@ -51,6 +54,7 @@ class Checklist extends BaseChecklist {
           healingRainTargetThreshold: this.healingRain.suggestionThreshold,
           wellspringTargetThreshold: this.wellspring.suggestionThreshold,
           ewtTargetThreshold: this.earthenWallTotem.suggestionThreshold,
+          soeTargetThreshold: this.surgeOfEarth.suggestionThreshold,
           manaLeft: this.manaValues.suggestionThresholds,
         }}
       />
