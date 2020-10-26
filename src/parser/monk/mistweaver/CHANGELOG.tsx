@@ -7,6 +7,7 @@ import { change, date } from 'common/changelog';
 
 
 export default [
+  change(date(2020, 10, 26), <>Fix to HotTrackerMW not detecting talent choices that affect hot duration.</>, Vohrr),
   change(date(2020, 10, 25), <>Added average Enveloping Breath targets to checklist and suggestions.</>, Vohrr),
   change(date(2020, 10, 21), <>Updates to Lifecyles module to account for innervate and Chi-Ji stacks and updated suggestion threshhold for Shadowlands. </>, Vohrr),
   change(date(2020, 10, 20), <>Fixed Mana Tea duration in T45Comparison and updated Mana Tea suggestion.</>, Vohrr),
