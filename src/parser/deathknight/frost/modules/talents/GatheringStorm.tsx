@@ -1,15 +1,17 @@
 import React from 'react';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import UptimeIcon from 'interface/icons/Uptime';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
+
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import Events, { ApplyBuffEvent, ApplyBuffStackEvent, DamageEvent, RemoveBuffEvent, CastEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
 
 const DAMAGE_BOOST = .10;
 const DURATION_BOOST_MS = 500;
@@ -87,17 +89,17 @@ class GatheringStorm extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
-        icon={<SpellIcon id={SPELLS.GATHERING_STORM_TALENT.id} />}
-        label="Gathering Storm"
-        value={(
+        size="flexible"
+      >
+        <BoringSpellValueText spell={SPELLS.GATHERING_STORM_TALENT}>
           <>
             <ItemDamageDone amount={this.bonusDamage} /> <br />
             <UptimeIcon /> {this.averageExtension.toFixed(1)} <small>average seconds extended </small>
           </>
-        )}
-      />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

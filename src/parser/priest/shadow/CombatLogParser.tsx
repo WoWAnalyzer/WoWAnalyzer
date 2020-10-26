@@ -11,14 +11,10 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/checklist/Module';
 import SkippableCasts from './modules/features/SkippableCasts';
 // spells:
-import Mindbender from './modules/spells/Mindbender';
 import Shadowfiend from './modules/spells/Shadowfiend';
 import VampiricTouch from './modules/spells/VampiricTouch';
 import ShadowWordPain from './modules/spells/ShadowWordPain';
-import Voidform from './modules/spells/Voidform';
-import VoidformAverageStacks from './modules/spells/VoidformAverageStacks';
 import Dispersion from './modules/spells/Dispersion';
-import CallToTheVoid from './modules/spells/CallToTheVoid';
 import VampiricEmbrace from './modules/spells/VampiricEmbrace';
 // talents
 import TwistOfFate from './modules/talents/TwistOfFate';
@@ -45,14 +41,10 @@ class CombatLogParser extends MainCombatLogParser {
     skippableCasts: SkippableCasts,
 
     // spells:
-    mindbender: Mindbender,
     shadowfiend: Shadowfiend,
     vampiricTouch: VampiricTouch,
     shadowWordPain: ShadowWordPain,
-    voidform: Voidform,
-    voidformAverageStacks: VoidformAverageStacks,
     dispersion: Dispersion,
-    callToTheVoid: CallToTheVoid,
     vampiricEmbrace: VampiricEmbrace,
 
     // talents:

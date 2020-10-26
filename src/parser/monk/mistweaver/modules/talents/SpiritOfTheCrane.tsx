@@ -18,11 +18,11 @@ import SpellLink from 'common/SpellLink';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
-const SOTC_MANA_PER_SECOND_RETURN_MINOR: number = 80;
+const SOTC_MANA_PER_SECOND_RETURN_MINOR = 80;
 const SOTC_MANA_PER_SECOND_RETURN_AVERAGE: number = SOTC_MANA_PER_SECOND_RETURN_MINOR - 15;
 const SOTC_MANA_PER_SECOND_RETURN_MAJOR: number = SOTC_MANA_PER_SECOND_RETURN_MINOR - 15;
 
-const debug: boolean = false;
+const debug = false;
 
 class SpiritOfTheCrane extends Analyzer {
   castsTp: number = 0;

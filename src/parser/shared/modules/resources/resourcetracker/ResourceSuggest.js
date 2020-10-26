@@ -9,7 +9,7 @@ function suggest(when, tracker, suggestion) {
   //If an array of spells is passed, we manipulate the data to aggregate all the generated and wasted resources as well as the individual focus instances into 1 spell so that it can be displayed.
   if (Array.isArray(suggestion.spell)) {
     let newSuggestionSpell = { id: null };
-    for (let i = 0; i < suggestion.spell.length; i++) {
+    for (let i = 0; i < suggestion.spell.length; i += 1) {
       if (!tracker.buildersObj[suggestion.spell[i].id]) {
         continue;
       }

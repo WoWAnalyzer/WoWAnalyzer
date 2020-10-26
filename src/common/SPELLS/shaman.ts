@@ -37,7 +37,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 370,
     name: 'Purge',
     icon: 'spell_nature_purge',
-    manaCost: 160,
+    manaCost: 1000,
   },
   FAR_SIGHT: {
     id: 6196,
@@ -101,6 +101,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 51886,
     name: 'Cleanse Spirit',
     icon: 'ability_shaman_cleansespirit',
+    manaCost: 650,
   },
   LIGHTNING_SHIELD: {
     id: 192106,
@@ -422,32 +423,11 @@ const spells: SpellList<ShamanSpell> = {
     icon: 'spell_fire_immolation',
   },
   // Enhancement Shaman
-  ROCKBITER: {
-    id: 193786,
-    name: 'Rockbiter',
-    icon: 'spell_nature_rockbiter',
-  },
-  FROSTBRAND: {
-    id: 196834,
-    name: 'Frostbrand',
-    icon: 'spell_shaman_unleashweapon_frost',
-    maelstrom: 20,
-  },
-  FLAMETONGUE: {
-    id: 193796,
-    name: 'Flametongue',
-    icon: 'spell_fire_flametounge',
-  },
-  FLAMETONGUE_BUFF: {
-    id: 194084,
-    name: 'Flametongue',
-    icon: 'spell_fire_flametounge',
-  },
   CRASH_LIGHTNING: {
     id: 187874,
     name: 'Crash Lightning',
     icon: 'spell_shaman_crashlightning',
-    maelstrom: 20,
+    manaCost: 550,
   },
   FERAL_SPIRIT: {
     id: 51533,
@@ -455,7 +435,7 @@ const spells: SpellList<ShamanSpell> = {
     icon: 'spell_shaman_feralspirit',
   },
   FERAL_SPIRIT_MAELSTROM_BUFF: {
-    id: 190185,
+    id: 333957,
     name: 'Feral Spirit',
     icon: 'spell_shaman_feralspirit',
   },
@@ -478,7 +458,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 17364,
     name: 'Stormstrike',
     icon: 'ability_shaman_stormstrike',
-    maelstrom: 30,
+    manaCost: 200,
   },
   STORMSTRIKE_DAMAGE: {
     id: 32175,
@@ -490,11 +470,15 @@ const spells: SpellList<ShamanSpell> = {
     name: 'Stormstrike Off-Hand',
     icon: 'ability_shaman_stormstrike',
   },
+  ASCENDANCE_INITIAL_DAMAGE: {
+    id: 344548,
+    name: 'Ascendance',
+    icon: 'spell_fire_elementaldevastation',
+  },
   WINDSTRIKE_CAST: {
     id: 115356,
     name: 'Windstrike',
     icon: 'ability_skyreach_four_wind',
-    maelstrom: 30,
   },
   WINDSTRIKE_DAMAGE: {
     id: 115357,
@@ -510,7 +494,12 @@ const spells: SpellList<ShamanSpell> = {
     id: 60103,
     name: 'Lava Lash',
     icon: 'ability_shaman_lavalash',
-    maelstrom: 40,
+    manaCost: 400,
+  },
+  FIRE_NOVA_DAMAGE: {
+    id: 333977,
+    name: 'Fire Nova',
+    icon: 'spell_shaman_improvedfirenova',
   },
   DOOM_WINDS: {
     id: 204945,
@@ -532,6 +521,11 @@ const spells: SpellList<ShamanSpell> = {
     name: 'Maelstrom Weapon',
     icon: 'spell_shaman_maelstromweapon',
   },
+  MAELSTROM_WEAPON_BUFF: {
+    id: 344179,
+    name: 'Maelstrom Weapon',
+    icon: 'spell_shaman_maelstromweapon',
+  },
   DOOM_VORTEX: {
     id: 199116,
     name: 'Doom Vortex',
@@ -541,18 +535,6 @@ const spells: SpellList<ShamanSpell> = {
     id: 2645,
     name: 'Ghost Wolf',
     icon: 'spell_nature_spiritwolf',
-  },
-  HEALING_SURGE_ENHANCE: {
-    id: 188070,
-    name: 'Healing Surge',
-    icon: 'spell_nature_healingway',
-    manaCost: 480,
-    maelstrom: 20,
-  },
-  LIGHTNING_BOLT_ENHANCE: {
-    name: "Lightning Bolt",
-    id: 187837,
-    icon: "spell_nature_lightning",
   },
   FERAL_LUNGE: {
     id: 196881,
@@ -606,6 +588,17 @@ const spells: SpellList<ShamanSpell> = {
     name: 'Windfury Attack',
     icon: 'spell_shaman_unleashweapon_wind',
   },
+  WINDFURY_TOTEM: {
+    id: 8512,
+    name: 'Windfury Totem',
+    icon: 'spell_nature_windfury',
+    manaCost: 1200,
+  },
+  WINDFURY_TOTEM_BUFF: {
+    id: 327942,
+    name: 'Windfury Totem',
+    icon: 'spell_nature_windfury',
+  },
   ELEMENTAL_HEALING: {
     id: 198249,
     name: 'Elemental Healing',
@@ -636,40 +629,30 @@ const spells: SpellList<ShamanSpell> = {
     name: 'Spirit of the Maelstrom',
     icon: 'ability_shaman_freedomwolf',
   },
-  FURY_OF_AIR_DAMAGE: {
-    id: 197385,
-    name: 'Fury of Air',
-    icon: 'ability_ironmaidens_swirlingvortex',
-  },
   WINDFURY_ATTACK_BUFF: {
     id: 204608,
     name: 'Windfury Attack',
     icon: 'spell_shaman_unleashweapon_wind',
   },
-  CRASHING_STORM_BUFF: {
+  CRASHING_STORM_DAMAGE: {
     id: 210801,
     name: 'Crashing Storm',
     icon: 'spell_nature_unrelentingstorm',
   },
   HAILSTORM_BUFF: {
-    id: 210854,
+    id: 334196,
     name: 'Hailstorm',
-    icon: 'spell_frost_frostbrand',
+    icon: 'spell_frost_icestorm',
   },
-  LANDSLIDE_BUFF: {
-    id: 202004,
-    name: 'Landslide',
-    icon: 'inv_ore_blackrock_nugget',
+  LASHING_FLAMES_DEBUFF: {
+    id: 334168,
+    name: 'Lashing Flames',
+    icon: 'spell_shaman_improvelavalash',
   },
   FORCEFUL_WINDS_BUFF: {
     id: 262652,
     name: 'Forceful Winds Buff',
     icon: 'spell_shaman_unleashweapon_wind',
-  },
-  SEARING_ASSAULT_DAMAGE: {
-    id: 268429,
-    name: 'Searing Assault Damage',
-    icon: 'ability_rhyolith_magmaflow_wave',
   },
   HOT_HAND_BUFF: {
     id: 215785,
@@ -698,7 +681,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 8004,
     name: 'Healing Surge',
     icon: 'spell_nature_healingway',
-    manaCost: 480,
+    manaCost: 2400, // TODO enh/ele cost is 2616 for some reason
     color: '#40b3bf',
     coefficient: 1.57,
   },
@@ -766,6 +749,11 @@ const spells: SpellList<ShamanSpell> = {
   },
   SPIRIT_LINK_TOTEM_REDISTRIBUTE: {
     id: 98021,
+    name: 'Spirit Link Totem',
+    icon: 'spell_shaman_spiritlink',
+  },
+  SPIRIT_LINK_TOTEM_BUFF: { // casted by totem
+    id: 325174,
     name: 'Spirit Link Totem',
     icon: 'spell_shaman_spiritlink',
   },

@@ -57,14 +57,14 @@ export enum EventType {
   Dispel = 'dispel',
   Time = 'time',
   Test = 'test',
-  SpendResource = "spendresource",
+  SpendResource = 'spendresource',
 
   // Monk
   AddStagger = 'addstagger',
   RemoveStagger = 'removestagger',
 
   // Priest
-  Atonement ='atonement',
+  Atonement = 'atonement',
   AtonementDamage = 'atonementDamageSource',
   AtonementApplied = 'atonement_applied',
   AtonementFaded = 'atonement_faded',
@@ -139,6 +139,7 @@ export interface ClassResources {
   amount: number;
   max: number;
   type: number;
+  cost?: number;
 }
 
 // TODO: Find a good place for this
@@ -396,6 +397,7 @@ export interface ApplyBuffStackEvent extends BuffEvent<EventType.ApplyBuffStack>
 
 export interface ApplyDebuffStackEvent extends BuffEvent<EventType.ApplyDebuffStack> {
   sourceID: number;
+  targetInstance?: number;
   stack: number;
 }
 
@@ -439,6 +441,7 @@ export interface ChangeDebuffStackEvent extends Omit<ChangeBuffStackEvent, "type
 
 export interface RemoveDebuffStackEvent extends BuffEvent<EventType.RemoveDebuffStack> {
   sourceID: number;
+  targetInstance?: number;
   stack: number;
 }
 
@@ -491,7 +494,7 @@ export interface DrainEvent extends Event<EventType.Drain> {
   attackPower: number;
   spellPower: number;
   armor: number;
-  absorb: number; 
+  absorb: number;
   x: number;
   y: number;
   facing: number;
@@ -509,11 +512,20 @@ export interface InterruptEvent extends Event<EventType.Interrupt> {
 }
 
 export interface DeathEvent extends Event<EventType.Death> {
+  killingAbility?: Ability;
   source: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
   sourceIsFriendly: boolean;
   targetID: number;
   targetIsFriendly: boolean;
   ability: Ability;
+}
+
+export interface ResurrectEvent extends Event<EventType.Resurrect> {
+  ability?: Ability,
+  sourceID: number,
+  sourceIsFriendly: boolean;
+  targetID: number;
+  targetIsFriendly: boolean;
 }
 
 export interface SummonEvent extends Event<EventType.Summon> {

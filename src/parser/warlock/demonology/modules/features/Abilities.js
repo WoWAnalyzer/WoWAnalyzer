@@ -3,6 +3,24 @@ import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
+const FEL_CELERITY_REDUCTION_SEC = {
+  1: 48,
+  2: 51,
+  3: 54,
+  4: 57,
+  5: 60,
+  6: 63,
+  7: 66,
+  8: 69,
+  9: 72,
+  10: 75,
+  11: 78,
+  12: 81,
+  13: 84,
+  14: 87,
+  15: 90,
+};
+
 class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
@@ -33,6 +51,14 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+      },
+      {
+        spell: SPELLS.CORRUPTION_CAST,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+        buffSpellId: SPELLS.CORRUPTION_DEBUFF.id,
       },
       {
         spell: SPELLS.SOUL_STRIKE_TALENT,
@@ -233,7 +259,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DEMONIC_CIRCLE_SUMMON,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        enabled: combatant.hasTalent(SPELLS.DEMONIC_CIRCLE_TALENT.id),
         gcd: {
           base: 1500,
         },
@@ -246,7 +271,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DEMONIC_CIRCLE_TELEPORT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
-        enabled: combatant.hasTalent(SPELLS.DEMONIC_CIRCLE_TALENT.id),
         gcd: {
           base: 1500,
         },
@@ -265,15 +289,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DEMONIC_GATEWAY_CAST,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 10,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.GRIMOIRE_OF_SACRIFICE_TALENT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 30,
-        enabled: combatant.hasTalent(SPELLS.GRIMOIRE_OF_SACRIFICE_TALENT.id),
         gcd: {
           base: 1500,
         },
@@ -301,7 +316,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.ENSLAVE_DEMON,
+        spell: SPELLS.SUBJUGATE_DEMON,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
@@ -320,6 +335,27 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+      },
+      {
+        spell: SPELLS.CURSE_OF_TONGUES,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        }
+      },
+      {
+        spell: SPELLS.CURSE_OF_WEAKNESS,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        }
+      },
+      {
+        spell: SPELLS.CURSE_OF_EXHAUSTION,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        }
       },
       {
         spell: SPELLS.HEALTH_FUNNEL_CAST,
@@ -350,8 +386,25 @@ class Abilities extends CoreAbilities {
         cooldown: combatant.hasTalent(SPELLS.DARKFURY_TALENT.id) ? 45 : 60,
       },
       {
+        spell: SPELLS.FEL_DOMINATION,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: combatant.hasConduitBySpellID(SPELLS.FEL_CELERITY.id) ? 180 - FEL_CELERITY_REDUCTION_SEC[combatant.conduitRankBySpellID(SPELLS.FEL_CELERITY.id)] : 180,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: SPELLS.UNENDING_BREATH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.HOWL_OF_TERROR_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        enabled: combatant.hasTalent(SPELLS.HOWL_OF_TERROR_TALENT.id),
+        cooldown: 40,
         gcd: {
           base: 1500,
         },

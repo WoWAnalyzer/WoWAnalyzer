@@ -189,7 +189,7 @@ class ShieldBlock extends Analyzer {
     let offensiveCasts = 0;
     let defensiveCasts = 0;
     const totalCasts = this.shieldBlocksOverall.length;
-    for(let i = 0; i<this.shieldBlocksOverall.length; i++){
+    for(let i = 0; i<this.shieldBlocksOverall.length; i += 1){
       goodCasts += this.shieldBlocksOverall[i].good ? 1 : 0;
       offensiveCasts += this.shieldBlocksOffensive[i].good ? 1 : 0;
       defensiveCasts += this.shieldBlocksDefensive[i].good ? 1 : 0;

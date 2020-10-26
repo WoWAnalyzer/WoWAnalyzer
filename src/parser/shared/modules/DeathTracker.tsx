@@ -7,7 +7,7 @@ import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
-import Events, { BeginCastEvent, CastEvent, DamageEvent, DeathEvent, HealEvent } from '../../core/Events';
+import Events, { BeginCastEvent, CastEvent, DamageEvent, DeathEvent, HealEvent, ResurrectEvent } from '../../core/Events';
 
 const WIPE_MAX_DEAD_TIME = 15 * 1000; // 15sec
 
@@ -16,7 +16,7 @@ const debug = false;
 // Log where someone died: https://wowanalyzer.com/report/RjH6AnYdP8GWzX4h/2-Heroic+Aggramar+-+Kill+(6:23)/Kantasai
 class DeathTracker extends Analyzer {
   deaths: DeathEvent[] = [];
-  resurrections: Array<CastEvent | BeginCastEvent | HealEvent | DamageEvent> = [];
+  resurrections: Array<CastEvent | BeginCastEvent | HealEvent | DamageEvent | ResurrectEvent> = [];
 
   lastDeathTimestamp: number = 0;
   lastResurrectionTimestamp: number = 0;
@@ -30,7 +30,7 @@ class DeathTracker extends Analyzer {
     this.isAlive = false;
     this.deaths.push(event);
   }
-  resurrect(event: CastEvent | BeginCastEvent | HealEvent | DamageEvent) {
+  resurrect(event: CastEvent | BeginCastEvent | HealEvent | DamageEvent | ResurrectEvent) {
     this.lastResurrectionTimestamp = this.owner.currentTimestamp;
     this._timeDead += this.lastResurrectionTimestamp - this.lastDeathTimestamp;
     debug && this.log('Player was Resurrected');
@@ -51,7 +51,7 @@ class DeathTracker extends Analyzer {
   onDeath(event: DeathEvent) {
     this.die(event);
   }
-  onResurrect(event: any) {
+  onResurrect(event: ResurrectEvent) {
     this.resurrect(event);
   }
   onCast(event: CastEvent) {

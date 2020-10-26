@@ -11,18 +11,15 @@ class HolyPriestHealingEfficiencyDetails extends Analyzer {
     healingEfficiencyTracker: HealingEfficiencyTracker,
   };
 
+  protected healingEfficiencyTracker!: HealingEfficiencyTracker;
+
   tab() {
     return {
       title: 'Mana Efficiency',
       url: 'mana-efficiency',
       render: () => (
           <Panel>
-            <HealingEfficiencyBreakdown
-              // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-              // @ts-ignore
-              tracker={this.healingEfficiencyTracker}
-              showSpenders
-            />
+            <HealingEfficiencyBreakdown tracker={this.healingEfficiencyTracker} />
           </Panel>
         ),
     };

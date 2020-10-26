@@ -51,7 +51,7 @@ class SurgingShots extends Analyzer {
     this.damage = damage;
     this.initialDamage = damage * SUS_INITIAL_DAMAGE_MOD;
 
-    for (let ticks = 1; ticks <= RAPID_FIRE_TICKS_PER_CAST; ticks++) {
+    for (let ticks = 1; ticks <= RAPID_FIRE_TICKS_PER_CAST; ticks += 1) {
       this.damagePotential += this.initialDamage * (1 + (SUS_RAMP_UP_MOD * ticks));
       debug && console.log('Tick number: ', ticks, ' and added damage: ', this.initialDamage * (1 + (SUS_RAMP_UP_MOD * ticks)));
     }

@@ -4,13 +4,13 @@ import Combatant from 'parser/core/Combatant';
 import { ApplyBuffEvent, RefreshBuffEvent } from 'parser/core/Events';
 import HotTracker from 'parser/shared/modules/HotTracker';
 
-const REM_BASE_DURATION: number = 20000;
-const ENV_BASE_DURATION: number = 6000;
-const EF_BASE_DURATION: number = 8000;
+const REM_BASE_DURATION = 20000;
+const ENV_BASE_DURATION = 6000;
+const EF_BASE_DURATION = 8000;
 
-const UPWELLING: number = 4000;
-const MISTWRAP: number = 1000;
-const TFT_REM_EXTRA_DURATION: number = 10000;
+const UPWELLING = 4000;
+const MISTWRAP = 1000;
+const TFT_REM_EXTRA_DURATION = 10000;
 
 class HotTrackerMW extends HotTracker {
 

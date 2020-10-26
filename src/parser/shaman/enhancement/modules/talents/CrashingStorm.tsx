@@ -24,14 +24,11 @@ class CrashingStorm extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    if(!this.selectedCombatant.hasTalent(SPELLS.CRASHING_STORM_TALENT.id)) {
-      this.active = false;
-      return;
-    }
+    this.active = this.selectedCombatant.hasTalent(SPELLS.CRASHING_STORM_TALENT.id);
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER)
-        .spell(SPELLS.CRASHING_STORM_TALENT),
+        .spell(SPELLS.CRASHING_STORM_DAMAGE),
       this.onDamage,
     );
   }

@@ -95,7 +95,7 @@ class Resurgence extends Analyzer {
         <div>
           <Trans id="shaman.restoration.resurgence.statistic.table.description"><SpellLink id={SPELLS.RESURGENCE.id} iconStyle={{ height: '1.25em' }} /> accounted for {formatPercentage(this.totalResurgenceGain / this.totalMana, 0)}% of your mana pool ({formatNumber(this.totalMana)} mana).</Trans>
         </div>
-        <table className="table table-condensed" style={{ fontWeight: 'bold' }}>
+        <table className="table table-condensed">
           <thead>
             <tr>
               <th><Trans id="shaman.restoration.resurgence.statistic.tableHeader.spell">Spell</Trans></th>

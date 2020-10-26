@@ -41,7 +41,7 @@ const ALL_HOLY_POWER_SPELLS: Spell[] = [
 ];
 
 const BUFF_TIME: number = 12000 * .95;//add buffer since log events lmao
-const TRACK_BUFFER: number = 500;
+const TRACK_BUFFER = 500;
 
 class DivinePurpose extends Analyzer {
 

@@ -14,6 +14,8 @@ interface Props {
   link?: boolean
 }
 
+export type ContributorType = Props;
+
 const ContributorButton = ({ nickname, avatar, link = true }: Props) => {
   const [open, setOpen] = useState(false)
 

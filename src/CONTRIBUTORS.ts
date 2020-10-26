@@ -432,14 +432,18 @@ export const Zeboot: Contributor = {
       spec: SPECS.BREWMASTER_MONK,
       link: 'https://worldofwarcraft.com/en-us/character/us/whisperwind/zebeer',
     }, {
+      name: 'Zeaccent',
+      spec: SPECS.PROTECTION_PALADIN,
+      link: 'https://worldofwarcraft.com/en-us/character/us/whisperwind/Zeaccent',
+    }, ],
+    alts: [{
+      name: 'Zebot',
+      spec: SPECS.PROTECTION_WARRIOR,
+      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Zebot',
+    }, {
       name: 'Zeboot',
       spec: SPECS.GUARDIAN_DRUID,
       link: 'https://worldofwarcraft.com/en-us/character/us/whisperwind/zeboot',
-    }],
-    alts: [{
-      name: 'Zelightsneak',
-      spec: SPECS.ASSASSINATION_ROGUE,
-      link: 'https://worldofwarcraft.com/en-us/character/us/whisperwind/zelightsneak',
     }],
 };
 export const HawkCorrigan: Contributor = {
@@ -726,7 +730,7 @@ export const LeoZhekov: Contributor = {
   mains: [{
     name: 'Lisossa',
     spec: SPECS.SURVIVAL_HUNTER,
-    link: 'https://worldofwarcraft.com/en-gb/character/Zenedar/Lisossa',
+    link: 'https://worldofwarcraft.com/en-gb/character/Ravencrest/Lisossa',
   }],
 };
 export const Amrux: Contributor = {
@@ -768,8 +772,13 @@ export const Adoraci: Contributor = {
   avatar: require('./interface/images/avatars/Adoraci-avatar.jpg'),
   mains: [{
     name: 'Adoraci',
-    spec: SPECS.DISCIPLINE_PRIEST,
+    spec: SPECS.SHADOW_PRIEST,
     link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/adoraci',
+  }], 
+  alts: [{
+    name: 'Zenavi',
+    spec: SPECS.FURY_WARRIOR,
+    link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/zenavi',
   }],
 };
 export const TheJigglr: Contributor = {
@@ -928,6 +937,18 @@ export const Vohrr: Contributor = {
     link: 'https://worldofwarcraft.com/en-us/character/us/malganis/vohrbloom',
   }],
 };
+
+export const Vonn: Contributor = {
+  nickname: 'Vonn',
+  github: 'kenrms',
+  discord: 'vønn#2776',
+  avatar: require('./interface/images/avatars/vonn-avatar.jpg'),
+  mains: [{
+    name: 'Vønn',
+    spec: SPECS.ENHANCEMENT_SHAMAN,
+    link: 'https://worldofwarcraft.com/en-us/character/turalyon/vønn',
+  }],
+};
 export const AdamKelly: Contributor = {
   nickname: 'AdamKelly',
   github: 'Adammkelly',
@@ -959,4 +980,15 @@ export const Jafowler: Contributor = {
   nickname: 'Jake',
   github: 'jafowler',
   discord: 'Xinnk#3169',
+};
+export const Guyius: Contributor = {
+  nickname: 'Guyius',
+  github: 'guyius',
+  discord: 'Guyius#1560',
+};
+export const Amani: Contributor = {
+  nickname: 'Amani',
+  github: 'AmaniZandalari',
+  discord: 'Amani#0001',
+  about: 'Russian localizator',
 };

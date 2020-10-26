@@ -13,7 +13,7 @@ import Checklist from './modules/features/Checklist/Module';
 import Mastery from './modules/core/Mastery';
 import Rejuvenation from './modules/core/Rejuvenation';
 
-import HotTracker from './modules/core/hottracking/HotTracker';
+import HotTrackerRestoDruid from './modules/core/hottracking/HotTrackerRestoDruid';
 import RejuvenationAttributor from './modules/core/hottracking/RejuvenationAttributor';
 import RegrowthAttributor from './modules/core/hottracking/RegrowthAttributor';
 import SpellManaCost from './modules/core/SpellManaCost';
@@ -37,7 +37,6 @@ import SpringBlossoms from './modules/talents/SpringBlossoms';
 import SoulOfTheForest from './modules/talents/SoulOfTheForest';
 import TreeOfLife from './modules/talents/TreeOfLife';
 import Photosynthesis from './modules/talents/Photosynthesis';
-import Stonebark from './modules/talents/Stonebark';
 import Abundance from './modules/talents/Abundance';
 
 import FungalEssence from './modules/items/azeritetraits/FungalEssence';
@@ -88,7 +87,7 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
 
     // Hot Tracking
-    hotTracker: HotTracker,
+    hotTracker: HotTrackerRestoDruid,
     rejuvenationAttributor: RejuvenationAttributor,
     regrowthAttributor: RegrowthAttributor,
 
@@ -109,7 +108,6 @@ class CombatLogParser extends CoreCombatLogParser {
     prematureRejuvenations: PrematureRejuvenations,
 
     // Talents
-    stonebark: Stonebark,
     soulOfTheForest: SoulOfTheForest,
     treeOfLife: TreeOfLife,
     photosynthesis: Photosynthesis,

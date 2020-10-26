@@ -133,6 +133,21 @@ const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }) => {
         />
       )}
       </Rule>
+      {combatant.hasLegendaryByBonusID(SPELLS.LAST_EMPERORS_CAPACITOR.bonusID) && (
+        <Rule
+          name={<>Utilize <SpellLink id={SPELLS.LAST_EMPERORS_CAPACITOR.id} /> effectively</>}
+          description={<>Use <SpellLink id={SPELLS.CRACKLING_JADE_LIGHTNING.id} /> with high stacks and avoid wasting stacks by using Chi spenders at cap</>}
+        >
+        <Requirement
+          name={<>Average stacks used per <SpellLink id={SPELLS.CRACKLING_JADE_LIGHTNING.id} /> cast </>}
+          thresholds={thresholds.lastEmperorsCapacitorAverageStacks}
+        />
+        <Requirement
+          name="Stacks wasted per minute"
+          thresholds={thresholds.lastEmperorsCapacitorWastedStacks}
+        />
+        </Rule>
+      )}
       <Rule
         name="Use your defensive cooldowns effectively"
         description={(
@@ -162,6 +177,7 @@ WindwalkerMonkChecklist.propTypes = {
   castEfficiency: PropTypes.object.isRequired,
   combatant: PropTypes.shape({
     hasTalent: PropTypes.func.isRequired,
+    hasLegendaryByBonusID: PropTypes.func.isRequired,
   }).isRequired,
   thresholds: PropTypes.object.isRequired,
 };
