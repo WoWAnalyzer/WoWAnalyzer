@@ -41,6 +41,7 @@ export default {
   AEGIS_OF_LIGHT_TALENT: { id: 204150, name: 'Aegis of Light', icon: 'spell_holy_greaterblessingoflight' },
   LAST_DEFENDER_TALENT: { id: 203791, name: 'Last Defender', icon: 'spell_holy_divinepurpose' },
   RIGHTEOUS_PROTECTOR_TALENT: { id: 204074, name: 'Righteous Protector', icon: 'ability_paladin_shieldofthetemplar' },
+  MOMENT_OF_GLORY_TALENT: { id: 327193, name: 'Moment of Glory', icon: 'ability_paladin_veneration' },
 
   // Holy
   //15 crusader's might, bestow faith, light's hammer
