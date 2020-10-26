@@ -20,7 +20,7 @@ import Combatant from 'parser/core/Combatant';
 import SPECS from 'game/SPECS';
 import SpecIcon from 'common/SpecIcon';
 
-const MANA_REGEN_PER_SECOND = 400 / 5;//Prepatch value
+export const MANA_REGEN_PER_SECOND = 400 / 5;//Prepatch value
 
 class ManaTideTotem extends Analyzer {
   static dependencies = {

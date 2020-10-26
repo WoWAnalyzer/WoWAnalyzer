@@ -14,6 +14,8 @@ import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import { Trans } from '@lingui/macro';
 
+import { MANA_REGEN_PER_SECOND } from './ManaTideTotem';
+
 const SPELLS_PROCCING_RESURGENCE = {
   [SPELLS.HEALING_SURGE_RESTORATION.id]: 0.006,
   [SPELLS.HEALING_WAVE.id]: 0.01,
@@ -79,7 +81,7 @@ class Resurgence extends Analyzer {
   }
 
   get totalMana() {
-    this.regenedMana = ((this.owner.fightDuration / 1000) / 5) * 4000;
+    this.regenedMana = (this.owner.fightDuration / 1000) * MANA_REGEN_PER_SECOND;//Prepatch value
 
     return this.regenedMana + this.totalResurgenceGain + this.manaTracker.maxResource + this.otherManaGain;
   }
