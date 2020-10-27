@@ -4,19 +4,15 @@ import Abilities from './modules/Abilities';
 // Shared Shaman
 import AnkhNormalizer from '../shared/normalizers/AnkhNormalizer';
 import AstralShift from '../shared/spells/AstralShift';
-// Resources
-import MaelstromDetails from '../shared/maelstromchart/MaelstromDetails';
-import MaelstromTracker from '../shared/maelstromchart/MaelstromTracker';
 // Features
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/checklist/Module';
 import Buffs from './modules/Buffs';
 // Enhancement Core
-import Flametongue from './modules/core/Flametongue';
-import FlametongueRefresh from './modules/core/FlametongueRefresh';
 import Stormbringer from './modules/core/Stormbringer';
 // Talents
+import LashingFlames from "./modules/talents/LashingFlames";
 import HotHand from './modules/talents/HotHand';
 import ForcefulWinds from './modules/talents/ForcefulWinds';
 import SpiritWolf from '../shared/talents/SpiritWolf';
@@ -26,7 +22,14 @@ import Hailstorm from './modules/talents/Hailstorm';
 import NaturesGuardian from './modules/talents/NaturesGuardian';
 import CrashingStorm from './modules/talents/CrashingStorm';
 import Sundering from './modules/talents/Sundering';
+import Stormkeeper from './modules/talents/Stormkeeper';
 import EarthenSpike from './modules/talents/EarthenSpike';
+import ElementalBlast from '../shared/talents/ElementalBlast';
+import Stormflurry from './modules/talents/Stormflurry';
+import IceStrike from './modules/talents/IceStrike';
+import FireNova from './modules/talents/FireNova';
+import ElementalAssault from './modules/talents/ElementalAssault';
+import FeralSpirit from './modules/core/FeralSpirit';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -35,13 +38,14 @@ class CombatLogParser extends CoreCombatLogParser {
     astralShift: AstralShift,
 
     // Resources
-    maelstromTracker: MaelstromTracker,
-    maelstromDetails: MaelstromDetails,
+
+    // maelstromTracker: MaelstromTracker,
+    // maelstromDetails: MaelstromDetails,
 
     // Shaman Core
-    flametongue: Flametongue,
-    flametongueRefresh: FlametongueRefresh,
     stormbringer: Stormbringer,
+    feralSpirit: FeralSpirit,
+    //windfuryTotem: WindfuryTotem
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -51,24 +55,29 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
 
     // Talents
-    //lashingFlames: LashingFlames,
+    lashingFlames: LashingFlames,
     forcefulWinds: ForcefulWinds,
-    //elementalBlase: ElementalBlast,
-    //stormfury: Stormfury,
+    elementalBlast: ElementalBlast,
+    stormflurry: Stormflurry,
     hotHand: HotHand,
-    //icyStrike: IcyStrike,
+    iceStrike: IceStrike,
     spiritWolf: SpiritWolf,
     earthShield: EarthShield,
     staticCharge: StaticCharge,
-    //elementalAssault: ElementalAssault,
+    elementalAssault: ElementalAssault,
     hailstorm: Hailstorm,
+    fireNova: FireNova,
     naturesGuardian: NaturesGuardian,
     crashingStorm: CrashingStorm,
-    //stormkeeper: Stormkeeper,
+    stormkeeper: Stormkeeper,
     sundering: Sundering,
     //elementalSpirits: ElementalSpirits,
     earthenSpike: EarthenSpike,
     //ascendance: Ascendance,
+
+    // covenants
+    //chainHarvest: ChainHarvest,
+    //vesperTotem: VesperTotem,
   };
 }
 

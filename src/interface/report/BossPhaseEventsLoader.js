@@ -14,7 +14,10 @@ class BossPhaseEventsLoader extends React.PureComponent {
       code: PropTypes.string.isRequired,
     }).isRequired,
     fight: PropTypes.shape({
+      // replace with actual fight object when converting to TS
+      // eslint-disable-next-line @typescript-eslint/camelcase
       start_time: PropTypes.number.isRequired,
+      // eslint-disable-next-line @typescript-eslint/camelcase
       end_time: PropTypes.number.isRequired,
       boss: PropTypes.number.isRequired,
     }).isRequired,

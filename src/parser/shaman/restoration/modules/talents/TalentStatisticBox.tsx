@@ -12,6 +12,7 @@ import UnleashLife from './UnleashLife';
 import Undulation from './Undulation';
 import Deluge from './Deluge';
 import EarthenWallTotem from './EarthenWallTotem';
+import SurgeOfEarth from './SurgeOfEarth';
 import NaturesGuardian from './NaturesGuardian';
 import Downpour from './Downpour';
 import CloudburstTotem from './CloudburstTotem';
@@ -27,6 +28,7 @@ class TalentStatisticBox extends Analyzer {
     undulation: Undulation,
     deluge: Deluge,
     earthenWallTotem: EarthenWallTotem,
+    surgeOfEarth: SurgeOfEarth,
     naturesGuardian: NaturesGuardian,
     downpour: Downpour,
     cloudburstTotem: CloudburstTotem,
@@ -40,6 +42,7 @@ class TalentStatisticBox extends Analyzer {
   protected undulation!: Undulation;
   protected deluge!: Deluge;
   protected earthenWallTotem!: EarthenWallTotem;
+  protected surgeOfEarth!: SurgeOfEarth;
   protected naturesGuardian!: NaturesGuardian;
   protected downpour!: Downpour;
   protected cloudburstTotem!: CloudburstTotem;
@@ -69,6 +72,7 @@ class TalentStatisticBox extends Analyzer {
         {this.selectedCombatant.hasTalent(SPELLS.UNDULATION_TALENT.id) ? this.undulation.subStatistic() : ''}
         {this.selectedCombatant.hasTalent(SPELLS.DELUGE_TALENT.id) ? this.deluge.subStatistic() : ''}
         {this.selectedCombatant.hasTalent(SPELLS.EARTHEN_WALL_TOTEM_TALENT.id) ? this.earthenWallTotem.subStatistic() : ''}
+        {this.selectedCombatant.hasTalent(SPELLS.SURGE_OF_EARTH_TALENT.id) ? this.surgeOfEarth.subStatistic() : ''}
         {this.selectedCombatant.hasTalent(SPELLS.NATURES_GUARDIAN_TALENT.id) ? this.naturesGuardian.subStatistic() : ''}
         {this.selectedCombatant.hasTalent(SPELLS.DOWNPOUR_TALENT.id) ? this.downpour.subStatistic() : ''}
         {this.selectedCombatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id) ? this.cloudburstTotem.subStatistic() : ''}

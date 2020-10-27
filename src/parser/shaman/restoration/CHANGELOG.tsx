@@ -6,6 +6,10 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 10, 26), <>Added statistics, suggestions and checklist entries for <SpellLink id={SPELLS.WATER_SHIELD.id} /> and <SpellLink id={SPELLS.EARTH_SHIELD.id} />.</>, niseko),
+  change(date(2020, 10, 26), <>Added statistics, suggestions and checklist entries for <SpellLink id={SPELLS.SURGE_OF_EARTH_TALENT.id} />.</>, niseko),
+  change(date(2020, 10, 23), <>Added a statistic for <SpellLink id={SPELLS.MANA_TIDE_TOTEM_CAST.id} />.</>, niseko),
+  change(date(2020, 10, 22), <>Added a module to show the estimated damage reduction from <SpellLink id={SPELLS.SPIRIT_LINK_TOTEM.id} />, as Blizzard finally added the buff to combat logs.</>, niseko),
   change(date(2020, 10, 17), `Fixed imports so we stop crashing!`, Abelito75),
   change(date(2020, 10, 17), `Made almost all of Restoration Shaman localizable.`, niseko),
   change(date(2020, 10, 16), <>Fixed <SpellLink id={SPELLS.UNLEASH_LIFE_TALENT.id} /> not displaying its full healing contribution.</>, niseko),
@@ -21,5 +25,5 @@ export default [
         <li>More coming soon.</li>
       </ul>
     </>
-  ), [niseko]),
+  ), niseko),
 ];
