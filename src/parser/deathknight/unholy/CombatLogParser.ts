@@ -16,6 +16,10 @@ import RunicPowerTracker from './modules/runicpower/RunicPowerTracker';
 import RuneTracker from './modules/features/RuneTracker';
 import RuneDetails from '../shared/RuneDetails';
 
+// Runes
+import RuneOfTheFallenCrusader from '../shared/runeforges/RuneOfTheFallenCrusader';
+import RuneOfHysteria from '../shared/runeforges/RuneOfHysteria';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
@@ -36,6 +40,10 @@ class CombatLogParser extends CoreCombatLogParser {
     //RuneTracker
     runeTracker: RuneTracker,
     runeDetails: RuneDetails,
+    
+    // Runes
+    runeOfTheFallenCrusader: RuneOfTheFallenCrusader,
+    runeOfHysteria: RuneOfHysteria
   };
 }
 

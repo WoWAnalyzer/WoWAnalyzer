@@ -48,6 +48,10 @@ import BoneSpikeGraveyard from '../shared/spells/azeritetraits/BoneSpikeGraveyar
 import EternalRuneWeapon from './modules/spells/azeritetraits/EternalRuneWeapon';
 import BloodyRuneblade from './modules/spells/azeritetraits/BloodyRuneblade';
 
+// Runes
+import RuneOfTheFallenCrusader from '../shared/runeforges/RuneOfTheFallenCrusader';
+import RuneOfHysteria from '../shared/runeforges/RuneOfHysteria';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core Statistics
@@ -102,6 +106,10 @@ class CombatLogParser extends CoreCombatLogParser {
     boneSpikeGraveyard: BoneSpikeGraveyard,
     eternalRuneWeapon: EternalRuneWeapon,
     bloodyRuneblade: BloodyRuneblade,
+
+    // Runes
+    runeOfTheFallenCrusader: RuneOfTheFallenCrusader,
+    runeOfHysteria: RuneOfHysteria
   };
 }
 

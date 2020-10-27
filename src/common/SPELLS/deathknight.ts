@@ -4,7 +4,11 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
+import runeforges from 'parser/deathknight/shared/runeforges'
+import safeMerge from 'common/safeMerge';
+
 import { SpellList } from "./Spell";
+
 const spells: SpellList = {
   // Blood:
 
@@ -391,16 +395,16 @@ const spells: SpellList = {
   // Shared:
   //Rune of the Fallen Crusader Proc
   UNHOLY_STRENGTH_BUFF: {
-	  id: 53365,
-	  name: 'Unholy Strength',
-	  icon: 'spell_holy_blessingofstrength',
+    id: 53365,
+    name: 'Unholy Strength',
+    icon: 'spell_holy_blessingofstrength',
   },
 
   //Rune of Unending Thirst Proc
   RUNE_OF_UNENDING_THIRST_BUFF: {
-      id: 326984,
-      name: 'Rune of Unending Thirst',
-      icon: 'spell_nzinsanity_bloodthirst',
+    id: 326984,
+    name: 'Rune of Unending Thirst',
+    icon: 'spell_nzinsanity_bloodthirst',
   },
   
   //Rune of Spellwarding
@@ -415,6 +419,13 @@ const spells: SpellList = {
     id: 326808,
     name: 'Rune of Sanguination',
     icon: 'ability_argus_deathfog',
+  },
+
+  //Rune of Hysteria RP Buff
+  RUNE_OF_HYSTERIA_BUFF: {
+    id: 326918,
+    name: 'Rune of Hysteria',
+    icon: 'ability_deathknight_runicimpowerment',
   },
 
   ANTI_MAGIC_ZONE: {
@@ -584,4 +595,4 @@ const spells: SpellList = {
   },
 };
 
-export default spells;
+export default safeMerge(spells, runeforges);

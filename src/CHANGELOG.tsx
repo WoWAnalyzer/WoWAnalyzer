@@ -10,6 +10,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 10, 27), 'Fix encounter stats on the character pane', joshinator),
   change(date(2020, 10, 25), 'Enabled additional code quality rule (enforce camelcase).', Zeboot),
   change(date(2020, 10, 25), 'Update PlayerTile, characters to Typescript, create new HOA type file, refactor PlayerTile to hooks', Guyius),
   change(date(2020, 10, 25), 'Fixed Healing Efficiency Tracker showing errors', niseko),

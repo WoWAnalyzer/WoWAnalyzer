@@ -114,6 +114,7 @@ class EncounterStats extends React.PureComponent {
       limit: this.LIMIT, //Currently does nothing but if Kihra reimplements it'd be nice to have
       metric: this.metric,
       cache: currentWeek, // cache for a week
+      includeCombatantInfo: true,
     }).then((stats) => {
       const talentCounter = [[], [], [], [], [], [], []];
       const talents = [];
