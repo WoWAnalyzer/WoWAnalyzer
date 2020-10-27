@@ -50,12 +50,9 @@ const ProtectionPaladinChecklist = ({ castEfficiency, thresholds, extras }) => {
         )}
       >
         <Requirement name="Use your Holy Power efficiently" thresholds={thresholds.hpWaste} />
-        <Requirement
-          name={(
-            <>Good <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> casts</>
-          )}
-          thresholds={thresholds.shieldOfTheRighteous}
-        />
+        <Requirement name={<>Hits Mitigated with <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id}/></>}
+                     thresholds={thresholds.sotrHitsMitigated}
+                     tooltip="Only counts physical hits. Some spells that generate a large number of low-damage events are excluded."/>
         <Requirement
           name={(
             <>Hits Mitigated with <SpellLink id={SPELLS.CONSECRATION_CAST.id} /></>

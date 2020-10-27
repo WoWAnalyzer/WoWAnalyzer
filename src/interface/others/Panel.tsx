@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 
 interface HeadingProps {
   title?: React.ReactNode;
@@ -45,8 +45,8 @@ const Heading = ({ title, explanation, actions, backButton }: HeadingProps) => {
 interface PanelProps {
   children: React.ReactNode;
   className?: string;
-  style?: object;
-  bodyStyle?: object;
+  style?: CSSProperties;
+  bodyStyle?: CSSProperties;
   pad?: boolean;
   // Heading
   title?: React.ReactNode;

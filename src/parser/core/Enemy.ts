@@ -1,7 +1,7 @@
 import CombatLogParser from './CombatLogParser';
 import Entity from './Entity';
 
-interface EnemyInfo {
+export interface EnemyInfo {
   name: string;
   type: string;
   guid: string;

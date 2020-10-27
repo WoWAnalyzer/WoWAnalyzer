@@ -69,7 +69,7 @@ class HealingEfficiencyBreakdown extends React.Component<Props, State> {
       <td>
         <SpellLink id={spellDetail.spell.id} />
       </td>
-      {this.state.detailedView ? <this.DetailView spellDetail={spellDetail} /> : <this.BarView spellDetail={spellDetail} topHpm={topHpm} topDpm={topDpm} topHpet={topHpet} topDpet={topDpet} />}
+      {this.state.detailedView ? this.DetailView(spellDetail) : this.BarView(spellDetail, topHpm, topDpm, topHpet, topDpet)}
     </tr>
   );
 
@@ -96,8 +96,7 @@ class HealingEfficiencyBreakdown extends React.Component<Props, State> {
   );
 
 
-  BarView = (props: { spellDetail: SpellInfoDetails, topHpm: number, topDpm: number, topHpet: number, topDpet: number }) => {
-    const { spellDetail, topHpm, topDpm, topHpet, topDpet } = props;
+  BarView = (spellDetail: SpellInfoDetails, topHpm: number, topDpm: number, topHpet: number, topDpet: number) => {
     const hasHealing = spellDetail.healingDone;
     const hasDamage = spellDetail.damageDone > 0;
     const barWidth = 20;
@@ -171,8 +170,7 @@ class HealingEfficiencyBreakdown extends React.Component<Props, State> {
     </>
   );
 
-  DetailView = (props: { spellDetail: SpellInfoDetails }) => {
-    const { spellDetail } = props;
+  DetailView = (spellDetail: SpellInfoDetails) => {
     const hasHealing = spellDetail.healingDone;
     const hasOverhealing = spellDetail.healingDone > 0 || spellDetail.overhealingDone > 0;
     const hasDamage = spellDetail.damageDone > 0;

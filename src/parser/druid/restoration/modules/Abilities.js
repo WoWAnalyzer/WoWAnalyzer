@@ -48,7 +48,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.IRONBARK,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: (60 - (combatant.hasTalent(SPELLS.STONEBARK_TALENT.id) ? 15 : 0)),
+        cooldown: 60,
         castEfficiency: {
           suggestion: true,
           importance: ISSUE_IMPORTANCE.MINOR,
@@ -153,8 +153,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SWIFTMEND,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: combatant.hasTalent(SPELLS.PROSPERITY_TALENT.id) ? 22 : 25,
-        charges: combatant.hasTalent(SPELLS.PROSPERITY_TALENT.id) ? 2 : 1,
+        cooldown: 15,
         gcd: {
           base: 1500,
         },
@@ -495,6 +494,15 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(SPELLS.MASS_ENTANGLEMENT_TALENT.id),
+      },
+      {
+        spell: SPELLS.OVERGROWTH_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(SPELLS.OVERGROWTH_TALENT.id),
       },
     ];
   }
