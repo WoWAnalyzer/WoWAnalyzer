@@ -1000,11 +1000,13 @@ export const Amani: Contributor = {
 };
 export const Haelrail: Contributor = {
   nickname: 'Haelrail',
+  github: 'Haelrail',
   discord: 'Haelrail#9202',
   about: 'Russian localizator',
 };
-export const Kruzerstern: Contributor = {
-  nickname: 'Kruzerstern',
+export const Kruzershtern: Contributor = {
+  nickname: 'Kruzershtern',
+  github: 'Kruzershtern',
   discord: 'Kruzer#6980',
   about: 'Russian localizator',
 };
