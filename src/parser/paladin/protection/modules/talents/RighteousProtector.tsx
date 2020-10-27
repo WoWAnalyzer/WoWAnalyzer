@@ -45,13 +45,10 @@ class RighteousProtector extends Analyzer {
       this.avengingWrathReductionWasted += REDUCTION_TIME;
     }
     if (this.spellUsable.isOnCooldown(SPELLS.GUARDIAN_OF_ANCIENT_KINGS.id) || this.spellUsable.isOnCooldown(SPELLS.GUARDIAN_OF_ANCIENT_KINGS_QUEEN.id)) {
-      console.log(`Found GOAK on CD.`);
       const reduction = this.guardianReduction;
-      console.log(`Reducing GOAK CD by ${reduction}`);
       this.guardianOfAncientKingsReduced += reduction;
       this.guardianOfAncientKingsWasted += REDUCTION_TIME - reduction;
     } else {
-      console.log(`Found GOAK not on CD. Incrementing reduction time to ${this.avengingWrathReductionWasted + REDUCTION_TIME}`);
       this.guardianOfAncientKingsWasted += REDUCTION_TIME;
     }
   }
