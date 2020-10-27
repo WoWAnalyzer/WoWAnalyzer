@@ -25,7 +25,7 @@ class CastsInStealth extends CastsInStealthBase {
       ? "Stealth or Vanish with Subterfuge"
       : "Stealth or Vanish";
 
-    (options.stealthDamageTracker as StealthDamageTracker).subscribeInefficientCast(
+    options.stealthDamageTracker.subscribeInefficientCast(
       this.badStealthSpells,
       (s: Spell) => `Cast Shadowstrike instead of ${s.name} when you are in ${this.stealthCondition} window`,
     );

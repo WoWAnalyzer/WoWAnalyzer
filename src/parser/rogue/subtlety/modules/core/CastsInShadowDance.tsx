@@ -24,14 +24,14 @@ class CastsInShadowDance extends CastsInStealthBase {
   protected damageTracker!: DamageTracker;
   protected danceDamageTracker!: DanceDamageTracker;
 
-  constructor(options: Options) {
+  constructor(options: Options & { danceDamageTracker: DanceDamageTracker }) {
     super(options);
 
     this.maxCastsPerStealth = 5 + (this.selectedCombatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id) ? 1 : 0);
 
     this.stealthCondition = "Shadow Dance";
 
-    (options.danceDamageTracker as DanceDamageTracker).subscribeInefficientCast(
+    options.danceDamageTracker.subscribeInefficientCast(
       this.badStealthSpells,
       (s: Spell) => `Cast Shadowstrike instead of ${s.name} when you are in ${this.stealthCondition} window`,
     );
