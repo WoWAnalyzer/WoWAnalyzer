@@ -16,7 +16,7 @@ class CastsInStealth extends CastsInStealthBase {
   protected damageTracker!: DamageTracker;
   protected stealthDamageTracker!: StealthDamageTracker;
 
-  constructor(options: Options) {
+  constructor(options: Options & { stealthDamageTracker: StealthDamageTracker }) {
     super(options);
 
     this.maxCastsPerStealth = 1 + (this.selectedCombatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id) ? 2 : 0);
@@ -25,7 +25,7 @@ class CastsInStealth extends CastsInStealthBase {
       ? "Stealth or Vanish with Subterfuge"
       : "Stealth or Vanish";
 
-    this.stealthDamageTracker.subscribeInefficientCast(
+    (options.stealthDamageTracker as StealthDamageTracker).subscribeInefficientCast(
       this.badStealthSpells,
       (s: Spell) => `Cast Shadowstrike instead of ${s.name} when you are in ${this.stealthCondition} window`,
     );

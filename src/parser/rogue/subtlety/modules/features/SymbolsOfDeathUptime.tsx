@@ -25,7 +25,7 @@ class SymbolsOfDeathUptime extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.GENERAL}
       >
-        <BoringValueText label={<><SpellIcon id={SPELLS.SYMBOLS_OF_DEATH.id} /> Symboles of Death Uptime</>}>
+        <BoringValueText label={<><SpellIcon id={SPELLS.SYMBOLS_OF_DEATH.id} /> Symbols of Death Uptime</>}>
           {formatPercentage(symbolsOfDeathUptime)} %
           </BoringValueText>
       </Statistic>

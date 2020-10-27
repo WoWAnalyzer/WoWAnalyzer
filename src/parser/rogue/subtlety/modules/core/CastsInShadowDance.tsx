@@ -2,7 +2,9 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Statistic from 'interface/statistics/Statistic';
+import BoringValueText from 'interface/statistics/components/BoringValueText';
 import { Options } from 'parser/core/Analyzer';
 import Spell from 'common/SPELLS/Spell';
 import { When } from 'parser/core/ParseResults';
@@ -29,7 +31,7 @@ class CastsInShadowDance extends CastsInStealthBase {
 
     this.stealthCondition = "Shadow Dance";
 
-    this.danceDamageTracker.subscribeInefficientCast(
+    (options.danceDamageTracker as DanceDamageTracker).subscribeInefficientCast(
       this.badStealthSpells,
       (s: Spell) => `Cast Shadowstrike instead of ${s.name} when you are in ${this.stealthCondition} window`,
     );
@@ -54,12 +56,14 @@ class CastsInShadowDance extends CastsInStealthBase {
   statistic() {
     const shadowDanceUptime = this.selectedCombatant.getBuffUptime(SPELLS.SHADOW_DANCE_BUFF.id) / this.owner.fightDuration;
     return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE(20)}
-        icon={<SpellIcon id={SPELLS.SHADOW_DANCE_BUFF.id} />}
-        value={`${formatPercentage(shadowDanceUptime)} %`}
-        label="Shadow Dance uptime"
-      />
+      <Statistic
+        size="flexible"
+        category={STATISTIC_CATEGORY.GENERAL}
+      >
+        <BoringValueText label={<><SpellIcon id={SPELLS.SHADOW_DANCE_BUFF.id} /> Shadow Dance Uptime </>}>
+          {formatPercentage(shadowDanceUptime)} %
+        </BoringValueText>
+      </Statistic>
     );
   }
 }

@@ -26,7 +26,7 @@ class InvigoratingShadowdust extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.spec = this.selectedCombatant.spec().specName;
+    this.spec = this.selectedCombatant.spec.specName;
     switch (this.spec) {
       case 'Assassination':
         this.cooldowns = ASSASSINATION_ABILITY_COOLDOWNS;
