@@ -20,8 +20,8 @@ import NoDamageShieldOfTheRighteous from './modules/features/NoDamageShieldOfThe
 import WordOfGlory from './modules/spells/WordOfGlory';
 
 //Talents
-import Seraphim from 'parser/paladin/protection/modules/talents/Seraphim';
 import RighteousProtector from './modules/talents/RighteousProtector';
+import Seraphim from './modules/talents/Seraphim';
 import SanctifiedWrathProtJudgement from './modules/talents/SanctifiedWrathProtJudgement';
 import HolyShieldSpellBlock from './modules/talents/HolyShieldSpellBlock';
 import Redoubt from './modules/talents/Redoubt';
