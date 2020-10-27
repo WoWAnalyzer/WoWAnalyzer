@@ -97,7 +97,6 @@ class FirstAvenger extends Analyzer {
             </>
           )}
         />
-
       </Statistic>
     );
   }
