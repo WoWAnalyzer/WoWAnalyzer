@@ -1,3 +1,5 @@
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
@@ -229,7 +231,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HEALING_WAVE,
-        name: `Tidal Waved ${SPELLS.HEALING_WAVE.name}`,
+        name: i18n._(t('shaman.restoration.abilities.buffedByTidalWave')`Tidal Waved ${SPELLS.HEALING_WAVE.name}`),
         timelineSortIndex: 13,
         gcd: {
           base: 1500,
@@ -252,7 +254,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HEALING_SURGE_RESTORATION,
-        name: `Tidal Waved ${SPELLS.HEALING_SURGE_RESTORATION.name}`,
+        name: i18n._(t('shaman.restoration.abilities.buffedByTidalWave')`Tidal Waved ${SPELLS.HEALING_SURGE_RESTORATION.name}`),
         timelineSortIndex: 14,
         gcd: {
           base: 1500,
@@ -509,6 +511,24 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
         gcd: {
           base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.SURGE_OF_EARTH_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL, // Rotational? CD? idk, is there a "useless" category?
+        cooldown: 20,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(SPELLS.SURGE_OF_EARTH_TALENT.id),
+        healSpellIds: [
+          SPELLS.SURGE_OF_EARTH_HEAL.id,
+        ],
+        castEfficiency: {
+          suggestion: true,
+          majorIssueEfficiency: .4,
+          averageIssueEfficiency: .6,
+          recommendedEfficiency: .8,
         },
       },
     ];

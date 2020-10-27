@@ -153,7 +153,8 @@ class Casts extends React.PureComponent {
   }
   renderIcon(event, { className = '', style = {}, children, tooltip } = {}) {
     const left = this.getOffsetLeft(event.timestamp);
-    const icon = (
+
+    const linkIcon = children => (
       <SpellLink
         id={event.ability.guid}
         icon={false}
@@ -163,12 +164,17 @@ class Casts extends React.PureComponent {
           ...style,
         }}
       >
+        {children}
+      </SpellLink>
+    );
+    const icon = (
+      <>
         <Icon
           icon={event.ability.abilityIcon.replace('.jpg', '')}
           alt={event.ability.name}
         />
         {children}
-      </SpellLink>
+      </>
     );
 
     return (
@@ -178,9 +184,11 @@ class Casts extends React.PureComponent {
       >
         {tooltip ? (
           <Tooltip content={tooltip}>
-            {icon}
+            <div className={`cast ${className}`} style={{ left, ...style }}>
+               {icon}
+            </div>
           </Tooltip>
-        ) : icon}
+        ) : linkIcon(icon)}
       </React.Fragment>
     );
   }

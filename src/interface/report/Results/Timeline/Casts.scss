@@ -22,11 +22,11 @@
     position: absolute;
     height: 22px;
   }
-  a {
+  .cast {
     z-index: 3;
     display: block;
   }
-  a img {
+  .cast img {
     border: 1px solid #f8b700;
     box-shadow: 0 0 3px #000;
     border-radius: 2px;
@@ -35,20 +35,20 @@
     display: block;
   }
   //noinspection CssOverwrittenProperties
-  a.lower {
+  .cast.lower {
     --level: 0;
     height: 22px;
     top: 50px;
     top: calc(54px + var(--level) * 25px);
   }
-  a.lower img {
+  .cast.lower img {
     border-color: #ecb000;
     transform: translateX(-50%);
     z-index: 2;
     position: relative;
   }
   //noinspection CssOverwrittenProperties
-  a.lower .time-indicator {
+  .cast.lower .time-indicator {
     position: absolute;
     bottom: 7px;
     height: 50px;
@@ -56,7 +56,7 @@
     width: 1px;
     background: #ecb000;
   }
-  a.lower .time-indicator:before {
+  .cast.lower .time-indicator:before {
     content: '';
     width: 0;
     height: 0;
@@ -68,7 +68,7 @@
     left: 50%;
     transform: translateX(-50%);
   }
-  a.cancelled {
+  .cast.cancelled {
     &:before {
       content: '❌';
       position: absolute;
@@ -86,7 +86,7 @@
       border-color: red;
     }
   }
-  a.inefficient img {
+  .cast.inefficient img {
     border: 2px solid red;
     box-sizing: content-box;
     margin-left: -1px;
@@ -94,7 +94,7 @@
     box-shadow: 0 0 11px red;
     border-radius: 2px;
   }
-  a.enhanced img {
+  .cast.enhanced img {
     border: 2px solid rgb(226, 226, 226);
     box-sizing: content-box;
     margin-left: -1px;

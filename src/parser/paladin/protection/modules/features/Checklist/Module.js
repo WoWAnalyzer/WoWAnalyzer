@@ -42,7 +42,7 @@ class Checklist extends BaseChecklist {
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
           consecration: this.consecration.uptimeSuggestionThresholds,
-          shieldOfTheRighteous: this.shieldOfTheRighteous.suggestionThresholds,
+          sotrHitsMitigated: this.shieldOfTheRighteous.hitsMitigatedThreshold,
           noDamageSOTR: this.noDamageSOTR.hitRatioSuggestionThresholds,
           lotpDelay: this.lotp.delaySuggestion,
           lotpOverheal: this.lotp.overhealSuggestion,

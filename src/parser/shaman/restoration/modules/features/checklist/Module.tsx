@@ -9,8 +9,11 @@ import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/Pr
 import AlwaysBeCasting from '../AlwaysBeCasting';
 import ChainHeal from '../../spells/ChainHeal';
 import HealingRain from '../../spells/HealingRain';
+import WaterShield from '../../spells/WaterShield';
+import EarthShield from '../../spells/EarthShield';
 import Wellspring from '../../talents/Wellspring';
 import EarthenWallTotem from '../../talents/EarthenWallTotem';
+import SurgeOfEarth from '../../talents/SurgeOfEarth';
 
 import Component from './Component';
 
@@ -23,8 +26,11 @@ class Checklist extends BaseChecklist {
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     chainHeal: ChainHeal,
     healingRain: HealingRain,
+    waterShield: WaterShield,
+    earthShield: EarthShield,
     wellspring: Wellspring,
     earthenWallTotem: EarthenWallTotem,
+    surgeOfEarth: SurgeOfEarth,
   };
 
   protected combatants!: Combatants;
@@ -34,8 +40,11 @@ class Checklist extends BaseChecklist {
   protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
   protected chainHeal!: ChainHeal;
   protected healingRain!: HealingRain;
+  protected waterShield!: WaterShield;
+  protected earthShield!: EarthShield;
   protected wellspring!: Wellspring;
   protected earthenWallTotem!: EarthenWallTotem;
+  protected surgeOfEarth!: SurgeOfEarth;
 
   render() {
     return (
@@ -51,7 +60,12 @@ class Checklist extends BaseChecklist {
           healingRainTargetThreshold: this.healingRain.suggestionThreshold,
           wellspringTargetThreshold: this.wellspring.suggestionThreshold,
           ewtTargetThreshold: this.earthenWallTotem.suggestionThreshold,
+          soeTargetThreshold: this.surgeOfEarth.suggestionThreshold,
           manaLeft: this.manaValues.suggestionThresholds,
+          waterShieldPrepull: this.waterShield.suggestionThresholdsPrepull,
+          waterShieldUptime: this.waterShield.suggestionThresholds,
+          earthShieldPrepull: this.earthShield.suggestionThresholdsPrepull,
+          earthShieldUptime: this.earthShield.suggestionThresholds,
         }}
       />
     );

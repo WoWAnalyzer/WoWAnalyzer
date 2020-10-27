@@ -34,8 +34,12 @@ class EventParser extends React.PureComponent {
       code: PropTypes.string.isRequired,
     }).isRequired,
     fight: PropTypes.shape({
+      // use fight interface when converting to TS
+      // eslint-disable-next-line @typescript-eslint/camelcase
       start_time: PropTypes.number.isRequired,
+      // eslint-disable-next-line @typescript-eslint/camelcase
       end_time: PropTypes.number.isRequired,
+      // eslint-disable-next-line @typescript-eslint/camelcase
       offset_time: PropTypes.number.isRequired,
       boss: PropTypes.number.isRequired,
       phase: PropTypes.string,
