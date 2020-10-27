@@ -10,13 +10,13 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
-  change(date(2020, 10, 27), 'Russian localization of Interface and Restoration Shaman', Amani, Haelrail, Kruzerstern),
+  change(date(2020, 10, 27), 'Russian localization of Interface and Restoration Shaman', [Amani, Haelrail, Kruzerstern]),
   change(date(2020, 10, 25), 'Enabled additional code quality rule (enforce camelcase).', Zeboot),
   change(date(2020, 10, 25), 'Update PlayerTile, characters to Typescript, create new HOA type file, refactor PlayerTile to hooks', Guyius),
   change(date(2020, 10, 25), 'Fixed Healing Efficiency Tracker showing errors', niseko),
   change(date(2020, 10, 24), 'Update Regular Article to Typescript', Ssabbar),
   change(date(2020, 10, 24), 'Update PlayerSection to Typescript', Guyius),
-  change(date(2020, 10, 23), 'Added initial Russian localization', Amani, Haelrail, Kruzerstern),
+  change(date(2020, 10, 23), 'Added initial Russian localization', [Amani, Haelrail, Kruzerstern]),
   change(date(2020, 10, 23), 'Healing Efficiency Tracker TypeScript conversion', niseko),
   change(date(2020, 10, 22), 'Update Footer to Typescript', Ssabbar),
   change(date(2020, 10, 22), 'Update Progressbar to Typescript', Guyius),
