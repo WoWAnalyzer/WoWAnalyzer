@@ -258,7 +258,7 @@ class CooldownThroughputTracker extends Analyzer {
 
   tab() {
     return {
-      title: 'Cooldowns',
+    title: `${<Trans id="shared.cooldownThroughputTracker.tab">Cooldowns</Trans>}`,
       icon: CooldownIcon,
       url: 'cooldowns',
       render: () => (

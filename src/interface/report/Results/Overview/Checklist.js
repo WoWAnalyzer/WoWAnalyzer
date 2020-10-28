@@ -5,8 +5,8 @@ import { Trans } from '@lingui/macro';
 const Checklist = ({ children }) => (
   <div className="panel">
     <div className="panel-heading">
-      <h1>Checklist</h1>
-      <small>A quick overview of the important parts to see what you did well and what has room for improvement.</small>
+      <Trans id="interface.report.results.checklist.title" render="h1">Checklist</Trans>
+      <Trans id="interface.report.results.checklist.subTitle" render="small">A quick overview of the important parts to see what you did well and what has room for improvement.</Trans>
     </div>
     <div className="panel-body">
       {children ? children : (
