@@ -26,7 +26,7 @@ exports[`Brewmaster Monk integration test: example log AlwaysBeCasting matches t
             src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
           />
            
-          Downtime
+          shared.alwaysBeCasting.statistic.label
         </label>
         <div
           className="value"
@@ -211,12 +211,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
         }
       }
     >
-      <a
-        href="#Abilities"
-        id="Abilities"
-      >
-        Abilities
-      </a>
+      common.abilities
     </h1>
   </div>
   <div
@@ -3793,33 +3788,48 @@ Array [
     "details": null,
     "icon": "inv_alchemy_90_combat2_green",
     "importance": "minor",
-    "issue": <React.Fragment>
-      You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as 
-      <ItemLink
-        icon={true}
-        id={171270}
-      />
-       can be very effective, especially during shorter encounters. 
-      
-    </React.Fragment>,
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            icon={true}
+            id={171270}
+          />,
+        ]
+      }
+      defaults="You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <0/> can be very effective, especially during shorter encounters. {0}"
+      id="shared.modules.items.prepotion.suggestions.preCombat"
+      values={
+        Object {
+          "0": "",
+        }
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_alchemy_90_combat2_green",
     "importance": "minor",
-    "issue": <React.Fragment>
-      You forgot to use a potion during combat. Using a potion during combat allows you the benefit of 
-      
-       increasing output through 
-      <ItemLink
-        icon={true}
-        id={171270}
-      />
-      
-      . 
-      
-    </React.Fragment>,
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            icon={true}
+            id={171270}
+          />,
+        ]
+      }
+      defaults="You forgot to use a potion during combat. Using a potion during combat allows you the benefit of {0} increasing output through <0/>{1}. {2}"
+      id="shared.modules.items.prepotion.suggestions.duringCombat"
+      values={
+        Object {
+          "0": "",
+          "1": "",
+          "2": "",
+        }
+      }
+    />,
     "stat": null,
   },
 ]

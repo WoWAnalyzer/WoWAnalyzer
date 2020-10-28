@@ -33,7 +33,7 @@ class Deluge extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DELUGE_TALENT.id);
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.CHAIN_HEAL, SPELLS.HEALING_WAVE, SPELLS.HEALING_SURGE_RESTORATION]), this._onHeal);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.CHAIN_HEAL, SPELLS.HEALING_WAVE, SPELLS.HEALING_SURGE]), this._onHeal);
     this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_CAST), this._onHealingRainBegincast);
     this.addEventListener(Events.fightend, this._onFightend);
   }

@@ -23,7 +23,7 @@ class CastBehavior extends Analyzer {
   get twUsageRatioChart() {
     const riptide = this.abilityTracker.getAbility(SPELLS.RIPTIDE.id);
     const healingWave = this.abilityTracker.getAbility(SPELLS.HEALING_WAVE.id);
-    const healingSurge = this.abilityTracker.getAbility(SPELLS.HEALING_SURGE_RESTORATION.id);
+    const healingSurge = this.abilityTracker.getAbility(SPELLS.HEALING_SURGE.id);
     const chainHeal = this.abilityTracker.getAbility(SPELLS.CHAIN_HEAL.id);
 
     const chainHealCasts = chainHeal.casts || 0;
@@ -43,9 +43,9 @@ class CastBehavior extends Analyzer {
         value: twHealingWaves,
       },
       {
-        color: SPELLS.HEALING_SURGE_RESTORATION.color,
+        color: SPELLS.HEALING_SURGE.color,
         label: <Trans id="shaman.restoration.spell.healingSurge">Healing Surge</Trans>,
-        spellId: SPELLS.HEALING_SURGE_RESTORATION.id,
+        spellId: SPELLS.HEALING_SURGE.id,
         value: twHealingSurges,
       },
       {
@@ -65,7 +65,7 @@ class CastBehavior extends Analyzer {
 
   get fillerCastRatioChart() {
     const healingWave = this.abilityTracker.getAbility(SPELLS.HEALING_WAVE.id);
-    const healingSurge = this.abilityTracker.getAbility(SPELLS.HEALING_SURGE_RESTORATION.id);
+    const healingSurge = this.abilityTracker.getAbility(SPELLS.HEALING_SURGE.id);
     const twHealingWaves = healingWave.healingTwHits || 0;
     const twHealingSurges = healingSurge.healingTwHits || 0;
 
@@ -82,9 +82,9 @@ class CastBehavior extends Analyzer {
         value: fillerHealingWaves,
       },
       {
-        color: SPELLS.HEALING_SURGE_RESTORATION.color,
+        color: SPELLS.HEALING_SURGE.color,
         label: <Trans id="shaman.restoration.spell.healingSurge">Healing Surge</Trans>,
-        spellId: SPELLS.HEALING_SURGE_RESTORATION.id,
+        spellId: SPELLS.HEALING_SURGE.id,
         value: fillerHealingSurges,
       },
     ];

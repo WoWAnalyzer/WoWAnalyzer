@@ -37,7 +37,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 370,
     name: 'Purge',
     icon: 'spell_nature_purge',
-    manaCost: 1000,
+    manaCost: 160, // enh/ele cost is higher
   },
   FAR_SIGHT: {
     id: 6196,
@@ -677,11 +677,11 @@ const spells: SpellList<ShamanSpell> = {
     coefficient: 1.7,
     castTime: 2.5,
   },
-  HEALING_SURGE_RESTORATION: {
+  HEALING_SURGE: {
     id: 8004,
     name: 'Healing Surge',
     icon: 'spell_nature_healingway',
-    manaCost: 2400, // TODO enh/ele cost is 2616 for some reason
+    manaCost: 480, // enh/ele cost is higher
     color: '#40b3bf',
     coefficient: 1.57,
   },
