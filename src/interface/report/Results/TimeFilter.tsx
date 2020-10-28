@@ -63,7 +63,7 @@ const TimeFilter = (props: Props) => {
           className="btn btn-primary filter animated-button"
           disabled={isLoading || invalidTimes()}
         >
-          <Trans id="interface.report.reults.timeFilter.filter">Filter</Trans>
+          <Trans id="interface.report.results.timeFilter.filter">Filter</Trans>
           <span className="glyphicon glyphicon-chevron-right" aria-hidden />
         </button>
         <button
@@ -72,7 +72,7 @@ const TimeFilter = (props: Props) => {
           className="btn btn-primary reset-filter animated-button"
           disabled={isLoading || isReset()}
         >
-          <Trans id="interface.report.reults.timeFilter.reset">Reset Filter</Trans>
+          <Trans id="interface.report.results.timeFilter.reset">Reset Filter</Trans>
           <span className="glyphicon glyphicon-chevron-right" aria-hidden />
         </button>
       </div>
