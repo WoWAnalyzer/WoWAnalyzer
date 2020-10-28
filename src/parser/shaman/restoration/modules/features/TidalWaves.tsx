@@ -9,8 +9,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
 
-import { i18n } from '@lingui/core';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 
 import RestorationAbilityTracker from '../core/RestorationAbilityTracker';
 
@@ -53,10 +52,10 @@ class TidalWaves extends Analyzer {
     const suggestedThresholds = this.suggestionThresholds;
     when(suggestedThresholds.actual).isGreaterThan(suggestedThresholds.isGreaterThan.minor)
       .addSuggestion((suggest) => suggest(<Trans id="shaman.restoration.suggestions.tidalWaves.label"><SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> buffed <SpellLink id={SPELLS.HEALING_WAVE.id} /> can make for some very efficient healing, consider casting more of them if you are running into mana issues ({formatPercentage(suggestedThresholds.actual)}% unused Tidal Waves).</Trans>)
-          .icon(SPELLS.TIDAL_WAVES_BUFF.icon)
-          .actual(`${formatPercentage(suggestedThresholds.actual)}% ${i18n._(t('shaman.restoration.suggestions.tidalWaves.unused')`unused Tidal waves`)}`)
-          .recommended(`<${formatPercentage(suggestedThresholds.isGreaterThan.minor, 0)}% ${i18n._(t('shaman.restoration.suggestions.tidalWaves.unused')`unused Tidal waves`)}`)
-          .regular(suggestedThresholds.isGreaterThan.average).major(suggestedThresholds.isGreaterThan.major));
+        .icon(SPELLS.TIDAL_WAVES_BUFF.icon)
+        .actual(<Trans id="shaman.restoration.suggestions.tidalWaves.actual">{formatPercentage(suggestedThresholds.actual)}% unused Tidal waves</Trans>)
+        .recommended(<Trans id="shaman.restoration.suggestions.tidalWaves.recommended">Less than {formatPercentage(suggestedThresholds.isGreaterThan.minor, 0)}% unused is recommended</Trans>)
+        .regular(suggestedThresholds.isGreaterThan.average).major(suggestedThresholds.isGreaterThan.major));
   }
 
   get suggestionThresholds() {
