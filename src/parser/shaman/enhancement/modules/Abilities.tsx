@@ -304,7 +304,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.HEALING_SURGE_RESTORATION,
+        spell: SPELLS.HEALING_SURGE,
         gcd: {
           base: 1500,
         },

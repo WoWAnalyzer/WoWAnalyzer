@@ -25,7 +25,7 @@ class TidalWaves extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_SURGE_RESTORATION), this._onHealingSurge);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_SURGE), this._onHealingSurge);
     this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_WAVE), this._onHealingWave);
   }
 
@@ -62,7 +62,7 @@ class TidalWaves extends Analyzer {
   get suggestionThresholds() {
     const riptide = this.abilityTracker.getAbility(SPELLS.RIPTIDE.id);
     const healingWave = this.abilityTracker.getAbility(SPELLS.HEALING_WAVE.id);
-    const healingSurge = this.abilityTracker.getAbility(SPELLS.HEALING_SURGE_RESTORATION.id);
+    const healingSurge = this.abilityTracker.getAbility(SPELLS.HEALING_SURGE.id);
     const chainHeal = this.abilityTracker.getAbility(SPELLS.CHAIN_HEAL.id);
 
     const chainHealCasts = chainHeal.casts || 0;
