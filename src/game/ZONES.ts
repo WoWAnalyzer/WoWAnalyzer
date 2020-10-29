@@ -1,11 +1,41 @@
 /* eslint-disable */
 
+
+
 // a butchered version of https://www.warcraftlogs.com:443/v1/zones
 // only includes the raids from Battle For Azeroth (showing older logs wouldn't make sense)
 
 // TODO: Refactor this (it's kind of strange and feels misplaced)
 
-const ZONES = [
+interface Encounter {
+  id: number;
+  name: string;
+  npcID: number;
+}
+
+interface Bracket {
+  min: number;
+  max: number;
+  bucket: number;
+  type: string;
+}
+
+interface Partition {
+  name: string;
+  compact: string;
+  default?: boolean;
+}
+
+interface Zone {
+  id: number;
+  name: string;
+  frozen?: boolean;
+  encounters: Encounter[];
+  brackets: Bracket;
+  partitions?: Partition[];
+}
+
+const ZONES: Zone[] = [
   {
     'id': 24,
     'name': 'Ny\'alotha',

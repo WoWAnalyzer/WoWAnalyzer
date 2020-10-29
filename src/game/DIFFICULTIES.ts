@@ -1,8 +1,9 @@
 import { t } from '@lingui/macro';
-
 import { i18n } from 'interface/RootLocalizationProvider';
 
-const DIFFICULTIES = {
+const DIFFICULTIES: { 
+  [key: string]: number;
+} = {
   LFR_RAID: 1,
   NORMAL_RAID: 3,
   HEROIC_RAID: 4,
@@ -11,7 +12,7 @@ const DIFFICULTIES = {
 };
 export default DIFFICULTIES;
 
-export function getLabel(difficulty) {
+export function getLabel(difficulty: number | undefined) {
   switch (difficulty) {
     case DIFFICULTIES.LFR_RAID: return i18n._(t`LFR`);
     case DIFFICULTIES.NORMAL_RAID: return i18n._(t`Normal`);
