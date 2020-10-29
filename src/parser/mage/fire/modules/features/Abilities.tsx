@@ -54,7 +54,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 30,
+        cooldown: 25,
         charges: 3,
         castEfficiency: {
           suggestion: true,
