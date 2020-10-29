@@ -7,6 +7,7 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import SpellUsable from './modules/features/SpellUsable';
 import Checklist from './modules/features/Checklist/Module';
 import MitigationCheck from './modules/features/MitigationCheck';
+import Haste from './modules/core/Haste';
 
 
 //Spells
@@ -37,6 +38,7 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
     grandCrusader: GrandCrusader,
+    haste: Haste,
 
     // Spells
     lightOfTheProtector: LightOfTheProtector,

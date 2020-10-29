@@ -1,20 +1,22 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent } from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import UptimeIcon from 'interface/icons/Uptime';
 import CriticalStrikeIcon from 'interface/icons/CriticalStrike';
 import VersatilityIcon from 'interface/icons/Versatility';
 import HasteIcon from 'interface/icons/Haste';
 import MasteryIcon from 'interface/icons/Mastery';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Haste from 'parser/paladin/protection/modules/core/Haste';
 
 const STAT_MODIFIER = 0.08;
+const debug = false;
 
 type BonusStats = {haste: number, crit: number, versatility: number, mastery: number};
 
@@ -37,11 +39,9 @@ class Seraphim extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SERAPHIM_TALENT), this.onCast);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.SERAPHIM_TALENT), this.onSeraphimGain);
     const localStatTracker = (options.statTracker as StatTracker);
-    const bonusStats = this.getBonusStats(localStatTracker);
-    localStatTracker.add(SPELLS.SERAPHIM_TALENT.id, bonusStats);
-
+    localStatTracker.addStatMultiplierBuff(SPELLS.SERAPHIM_TALENT.id, this.statMultipliers);
   }
 
   get uptime(): number {
@@ -49,35 +49,51 @@ class Seraphim extends Analyzer {
   }
 
   get averageMasteryGain(): number {
-    return this.bonusStatGains.map((gain) => gain.mastery).reduce((sum, next) => sum + next, 0) / this.bonusStatGains.length;
+    return STAT_MODIFIER * this.uptime;
   }
 
   get averageCritGain(): number {
-    return this.bonusStatGains.map((gain) => gain.crit).reduce((sum, next) => sum + next, 0) / this.bonusStatGains.length;
+    return STAT_MODIFIER * this.uptime;
   }
 
   get averageVersatilityGain(): number {
-    return this.bonusStatGains.map((gain) => gain.versatility).reduce((sum, next) => sum + next, 0) / this.bonusStatGains.length;
+    return STAT_MODIFIER * this.uptime;
   }
 
   get averageHasteGain(): number {
-    return this.bonusStatGains.map((gain) => gain.haste).reduce((sum, next) => sum + next, 0) / this.bonusStatGains.length;
+    return this.bonusStatGains.map((gain: BonusStats) => gain.haste).reduce((sum, next) => sum + next, 0) / this.bonusStatGains.length * this.uptime;
   }
 
-  onCast(event: CastEvent): void {
+  get statMultipliers() {
+    return {
+      haste: 1.0 + STAT_MODIFIER,
+      crit: 1.0 + STAT_MODIFIER,
+      versatility: 1.0 + STAT_MODIFIER,
+      mastery: 1.0 + STAT_MODIFIER,
+    };
+  }
+
+  onSeraphimGain(event: ApplyBuffEvent): void {
     this.bonusStatGains.push(this.getBonusStats(this.statTracker));
   }
 
   getBonusStats(statTracker: StatTracker): BonusStats {
+    const hasteChange = Haste.addHaste(statTracker.currentHastePercentage, STAT_MODIFIER) - statTracker.currentHastePercentage;
+    debug && console.log(`Calculation haste change of ${hasteChange}`);
     return {
-      haste: statTracker.currentHasteRating * STAT_MODIFIER,
-      crit: statTracker.currentCritRating * STAT_MODIFIER,
-      versatility: statTracker.currentVersatilityRating * STAT_MODIFIER,
-      mastery: statTracker.currentMasteryRating * STAT_MODIFIER,
+      haste: hasteChange,
+      crit: STAT_MODIFIER,
+      versatility: STAT_MODIFIER,
+      mastery: STAT_MODIFIER,
     };
   }
 
+  calculateBonusStatFromCurrent(currentStat: number) {
+    return currentStat - (currentStat * (1 / (1 + STAT_MODIFIER)));
+  }
+
   statistic(): React.ReactNode {
+    debug && console.log(`Stat gains: haste - ${this.averageHasteGain} crit - ${this.averageCritGain} - vers ${this.averageCritGain} - mastery ${this.averageMasteryGain}.`);
     return (
       <Statistic
         position={STATISTIC_ORDER.DEFAULT}
@@ -86,10 +102,10 @@ class Seraphim extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.SERAPHIM_TALENT}>
           <UptimeIcon /> {formatPercentage(this.uptime, 0)}% <small>uptime</small><br />
-          <HasteIcon /> {formatNumber(this.averageHasteGain)} <small>average Haste gained</small><br />
-          <CriticalStrikeIcon /> {formatNumber(this.averageCritGain)} <small>average Critical Strike gained</small><br />
-          <VersatilityIcon /> {formatNumber(this.averageVersatilityGain)} <small>average Versatility gained</small><br />
-          <MasteryIcon /> {formatNumber(this.averageMasteryGain)} <small>average Mastery gained</small><br />
+          <HasteIcon /> {formatPercentage(this.averageHasteGain)}% <small>average Haste gained</small><br />
+          <CriticalStrikeIcon /> {formatPercentage(this.averageCritGain)}% <small>average Crit gained</small><br />
+          <VersatilityIcon /> {formatPercentage(this.averageVersatilityGain)}% <small>average Versatility gained</small><br />
+          <MasteryIcon /> {formatPercentage(this.averageMasteryGain)}% <small>average Mastery gained</small><br />
         </BoringSpellValueText>
       </Statistic>
     );
