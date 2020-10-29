@@ -10,7 +10,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   static HEALING_ABILITIES_ON_GCD = [
     SPELLS.HEALING_WAVE.id,
     SPELLS.CHAIN_HEAL.id,
-    SPELLS.HEALING_SURGE_RESTORATION.id,
+    SPELLS.HEALING_SURGE.id,
     SPELLS.RIPTIDE.id,
     SPELLS.HEALING_RAIN_CAST.id,
     SPELLS.HEALING_STREAM_TOTEM_CAST.id,
@@ -22,7 +22,9 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.UNLEASH_LIFE_TALENT.id,
     SPELLS.EARTH_SHIELD.id,
     SPELLS.DOWNPOUR_TALENT.id,
-  ]; // TODO shadowlands abilities
+    SPELLS.MANA_TIDE_TOTEM_CAST.id,
+    SPELLS.SURGE_OF_EARTH_TALENT.id,
+  ];
 
   suggestions(when: When) {
     const nonHealingTimeSuggestionThresholds = this.nonHealingTimeSuggestionThresholds;

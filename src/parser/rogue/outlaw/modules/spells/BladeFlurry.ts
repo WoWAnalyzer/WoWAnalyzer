@@ -20,16 +20,14 @@ class BladeFlurry extends Analyzer {
   }
 
   onFinishMove(event: CastEvent) {
-    if (!event.classResources || !getResource(event.classResources, RESOURCE_TYPES.COMBO_POINTS.id)) {
+    const cpCost = getResource(event.classResources, RESOURCE_TYPES.COMBO_POINTS.id)?.cost;
+    if (!cpCost) {
       return;
     }
     if (this.spellUsable.isOnCooldown(SPELLS.BLADE_FLURRY.id)) {
-      const cpCost = getResource(event.classResources, RESOURCE_TYPES.COMBO_POINTS.id)?.cost;
-      if (cpCost) {
-        const extraCDR = this.selectedCombatant.hasBuff(SPELLS.TRUE_BEARING.id) ? (cpCost * 1000) : 0;
-        const cooldownReduction = (cpCost * 1000) + extraCDR;
-        this.spellUsable.reduceCooldown(SPELLS.BLADE_FLURRY.id, cooldownReduction, event.timestamp);
-      }      
+      const extraCDR = this.selectedCombatant.hasBuff(SPELLS.TRUE_BEARING.id) ? (cpCost * 1000) : 0;
+      const cooldownReduction = (cpCost * 1000) + extraCDR;
+      this.spellUsable.reduceCooldown(SPELLS.BLADE_FLURRY.id, cooldownReduction, event.timestamp);
     }
   }
 }

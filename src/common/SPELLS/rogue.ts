@@ -158,6 +158,11 @@ const spells: SpellList = {
     name: 'Eviscerate',
     icon: 'ability_rogue_eviscerate',
   },
+  BLACK_POWDER: {
+    id: 319175,
+    name: 'Black Powder',
+    icon: 'spell_priest_divinestar_shadow',
+  },
   // Offensive cooldown
   SHADOW_BLADES: {
     id: 121471,
@@ -509,7 +514,7 @@ const spells: SpellList = {
     icon: 'ability_rogue_restlessblades',
   },
   FIND_WEAKNESS: {
-    id: 316219,
+    id: 316220,
     name: 'Find Weakness',
     icon: 'ability_rogue_findweakness',
   },

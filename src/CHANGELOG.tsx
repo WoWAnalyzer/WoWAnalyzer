@@ -1,5 +1,5 @@
 import React from 'react';
-import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Stui, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8, fluffels, Draenal, JeremyDwayne, axelkic, Khazak, layday, Vetyst, Moonrabbit, AdamKelly, ChristopherKiss, ChagriAli, Barter, Ssabbar, Jafowler, Guyius } from 'CONTRIBUTORS';
+import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Stui, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8, fluffels, Draenal, JeremyDwayne, axelkic, Khazak, layday, Vetyst, Moonrabbit, AdamKelly, ChristopherKiss, ChagriAli, Barter, Ssabbar, Jafowler, Guyius, Amani, Haelrail, Kruzershtern } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -10,13 +10,23 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
-  change(date(2020, 10, 21), 'Updated Potions Checklist items to show potions used instead of pre Potions/second Potions', Sharrq),
-  change(date(2020, 10, 21), 'Update Progressbar to Typescript', Guyius),
+  change(date(2020, 10, 29), 'Updated Potions Checklist items to show potions used instead of pre Potions/second Potions', Sharrq),
+  change(date(2020, 10, 28), 'Added more translateable elements.', niseko),
+  change(date(2020, 10, 27), 'Russian localization of Interface and Restoration Shaman', [Amani, Haelrail, Kruzershtern]),
+  change(date(2020, 10, 25), 'Enabled additional code quality rule (enforce camelcase).', Zeboot),
+  change(date(2020, 10, 25), 'Update PlayerTile, characters to Typescript, create new HOA type file, refactor PlayerTile to hooks', Guyius),
+  change(date(2020, 10, 25), 'Fixed Healing Efficiency Tracker showing errors', niseko),
+  change(date(2020, 10, 24), 'Update Regular Article to Typescript', Ssabbar),
+  change(date(2020, 10, 24), 'Update PlayerSection to Typescript', Guyius),
+  change(date(2020, 10, 23), 'Added initial Russian localization', [Amani, Haelrail, Kruzershtern]),
+  change(date(2020, 10, 23), 'Healing Efficiency Tracker TypeScript conversion', niseko),
+  change(date(2020, 10, 22), 'Update Footer to Typescript', Ssabbar),
+  change(date(2020, 10, 22), 'Update Progressbar to Typescript', Guyius),
   change(date(2020, 10, 21), 'Update some news components to Typescript', ChagriAli),
   change(date(2020, 10, 21), 'Update to "2018-01-31-1st-Anniversary" Typescript', ChagriAli),
   change(date(2020, 10, 19), 'Converted Boring components to TypeScript', Khazak),
   change(date(2020, 10, 19), 'Updated some react components, and adjusted our ContributorDetails modal to more accurately show what it represents', Putro),
-  change(date(2020, 10, 19), 'Removed legacy event listener support', Zeboot),
+  change(date(2020, 10, 19), 'Removed legacy event listener support and enabled camelcase lint rule', Zeboot),
   change(date(2020, 10, 18), 'Updated talent row levels.', Abelito75),
   change(date(2020, 10, 18), 'Added drain event', Zeboot),
   change(date(2020, 10, 18), 'Converted components in interface/common to functional components in TypeScript.', Barter),
@@ -34,7 +44,7 @@ export default [
   change(date(2020, 10, 13), 'Fixed Putros StatTracker', niseko),
   change(date(2020, 10, 13), 'Updated our StatTracker to reflect prepatch stat values and the diminishing return system added in Shadowlands', Putro),
   change(date(2020, 10, 13), 'Converted StatisticsSectionTitle/TABS to TypeScript', ChagriAli),
-  change(date(2020, 10, 13), 'Throughput & Language files  TypeScript conversion', niseko),
+  change(date(2020, 10, 13), 'Throughput & Language files TypeScript conversion', niseko),
   change(date(2020, 10, 13), 'Converted BAD_ICONS, aprilFools, colorForPerformance, Alerts, ContributorButton, Modal to TypeScript', Barter),
   change(date(2020, 10, 13), 'Converted AbilityTracker, Enemy, Enemies, Pet, and Pets to TypeScript', Dambroda),
   change(date(2020, 10, 13), 'Allow the use of any of the threshold breakpoints (minor, average, major) as the primary breakpoint for suggestions', Dambroda),

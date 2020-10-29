@@ -26,7 +26,7 @@ exports[`Unholy Death Knight integration test: example log AlwaysBeCasting match
             src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
           />
            
-          Downtime
+          shared.alwaysBeCasting.statistic.label
         </label>
         <div
           className="value"
@@ -100,19 +100,14 @@ exports[`Unholy Death Knight integration test: example log Apocalypse matches th
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={6}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -127,12 +122,22 @@ exports[`Unholy Death Knight integration test: example log Apocalypse matches th
             />
           </a>
            
-          Average Wounds Popped with Apocalypse
+          <a
+            href="http://wowhead.com/spell=275699"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Apocalypse
+          </a>
         </label>
         <div
           className="value"
         >
           4.0
+           
+          <small>
+            average Wounds popped
+          </small>
         </div>
       </div>
     </div>
@@ -330,12 +335,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
         }
       }
     >
-      <a
-        href="#Abilities"
-        id="Abilities"
-      >
-        Abilities
-      </a>
+      common.abilities
     </h1>
   </div>
   <div
@@ -3712,12 +3712,23 @@ exports[`Unholy Death Knight integration test: example log FesteringStrikeEffici
               src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_festering_strike.jpg"
             />
           </a>
-           Festering Strike Efficency
+           
+          <a
+            href="http://wowhead.com/spell=85948"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Festering Strike
+          </a>
         </label>
         <div
           className="value"
         >
-          100.00% 
+          100.00
+          % 
+          <small>
+            efficiency
+          </small>
         </div>
       </div>
     </div>
@@ -3867,6 +3878,7 @@ Array [
     "details": null,
     "icon": "inv_alchemy_90_combat2_yellow",
     "importance": "minor",
+<<<<<<< HEAD
     "issue": <React.Fragment>
       You used a weak potion. 
       <ItemLink
@@ -3880,6 +3892,49 @@ Array [
       />
        in order to get a slightly higher damage output.
     </React.Fragment>,
+=======
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            icon={true}
+            id={171275}
+          />,
+        ]
+      }
+      defaults="You forgot to use a potion during combat. Using a potion during combat allows you the benefit of {0} increasing output through <0/>{1}. {2}"
+      id="shared.modules.items.prepotion.suggestions.duringCombat"
+      values={
+        Object {
+          "0": "",
+          "1": "",
+          "2": "",
+        }
+      }
+    />,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_alchemy_90_combat2_yellow",
+    "importance": "minor",
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            icon={true}
+            id={171275}
+          />,
+          <ItemLink
+            icon={true}
+            id={171275}
+          />,
+        ]
+      }
+      defaults="You used a weak potion. <0/> can be used instead of <1/> in order to get a slightly higher damage output."
+      id="shared.modules.items.prepotion.suggestions.weakPotion"
+    />,
+>>>>>>> shadowlands
     "stat": null,
   },
 ]
@@ -3998,33 +4053,40 @@ exports[`Unholy Death Knight integration test: example log RunicPowerDetails mat
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic small "
+    position={3}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="flex boring-value "
       >
-        <label>
-          <img
-            alt=""
-            className="icon game "
-            src="//render-us.worldofwarcraft.com/icons/56/inv_sword_62.jpg"
-          />
-           
-          Runic Power wasted
-        </label>
         <div
-          className="value"
+          className="flex-sub icon"
         >
-          0.00 %
+          <a
+            href="http://wowhead.com/runic-power"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt="Runic Power"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/inv_sword_62.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main value"
+        >
+          <div>
+            0.00 %
+          </div>
+          <small>
+            Runic Power wasted
+          </small>
         </div>
       </div>
     </div>
@@ -4077,13 +4139,22 @@ exports[`Unholy Death Knight integration test: example log ScourgeStrikeEfficien
             />
           </a>
            
-          Scourge Strike
-           Strike Efficency
+          <a
+            href="http://wowhead.com/spell=55090"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Scourge Strike
+          </a>
         </label>
         <div
           className="value"
         >
-          87.50% 
+          87.50
+          % 
+          <small>
+            efficiency
+          </small>
         </div>
       </div>
     </div>
@@ -4400,19 +4471,14 @@ exports[`Unholy Death Knight integration test: example log VirulentPlagueEfficie
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={7}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -4427,12 +4493,38 @@ exports[`Unholy Death Knight integration test: example log VirulentPlagueEfficie
             />
           </a>
            
-          Average Virulent Plague Duration Waste
+          <a
+            href="http://wowhead.com/spell=191587"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Virulent Plague
+          </a>
         </label>
         <div
           className="value"
         >
-          0.0 seconds
+          <svg
+            className="icon"
+            viewBox="10 10 80 80"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M50,86.4865c17.4361,0,31.6216-14.1855,31.6216-31.6216c0-16.6168-12.8865-30.2714-29.1892-31.5189v-4.9677h7.2973v-4.8649  H40.2703v4.8649h7.2973v4.9677c-16.3027,1.2475-29.1892,14.902-29.1892,31.5189C18.3784,72.3009,32.5639,86.4865,50,86.4865z M52.4324,28.2236c3.1101,0.2817,6.0664,1.0982,8.7798,2.356l-8.7798,15.2073V28.2236z M47.5676,28.2236v26.6412 c0,1.1008,0.7393,2.0647,1.8029,2.3497c0.209,0.0561,0.4205,0.0827,0.6295,0.0827c0.8533,0,1.6642-0.4504,2.1065-1.2162 l13.3146-23.0616c6.8507,4.8503,11.3357,12.8315,11.3357,21.8454c0,14.7537-12.0031,26.7567-26.7568,26.7567 s-26.7568-12.003-26.7568-26.7567C23.2432,40.9315,33.9501,29.4573,47.5676,28.2236z"
+            />
+          </svg>
+           
+          94.38
+          % 
+          <small>
+            uptime
+          </small>
+          <br />
+          0.0
+          s 
+          <small>
+            average duration wasted
+          </small>
         </div>
       </div>
     </div>
@@ -4452,52 +4544,6 @@ exports[`Unholy Death Knight integration test: example log VirulentPlagueEfficie
           d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
         />
       </svg>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Unholy Death Knight integration test: example log VirulentPlagueUptime matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    className="panel statistic standard statistic-box"
-    statisticOrder={3}
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad"
-      >
-        <label>
-          <a
-            href="http://wowhead.com/spell=191587"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Virulent Plague"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/ability_creature_disease_02.jpg"
-            />
-          </a>
-           
-          Virulent Plague Uptime
-        </label>
-        <div
-          className="value"
-        >
-          94.38 %
-        </div>
-      </div>
     </div>
   </div>
 </div>

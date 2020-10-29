@@ -10,6 +10,7 @@ import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 
 import React from 'react';
+import { Trans } from '@lingui/macro';
 
 const debug = false;
 
@@ -272,11 +273,13 @@ class PotionChecker extends Analyzer {
     this.potionAdjuster(this.selectedCombatant.specId);
     this.setStrongPotionForSpec(this.selectedCombatant.specId);
     when(this.potionsUsedThresholds)
-      .addSuggestion((suggest) => suggest(<>You used {this.potionsUsed} combat potions during this encounter, but you could have used {this.maxPotions}. Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter.</>)
+      .addSuggestion((suggest) => 
+        suggest(<Trans id="shared.modules.items.potionChecker.suggestions.potionsUsed">You used {this.potionsUsed} combat potions during this encounter, but you could have used {this.maxPotions}. Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter.</>)
           .icon(this.strongPotionIcon)
           .staticImportance(SUGGESTION_IMPORTANCE.REGULAR));
     when(this.potionStrengthThresholds)
-      .addSuggestion((suggest) => suggest(<>You used a weak potion. <ItemLink id={this.strongPotionId} /> can be used instead of <ItemLink id={this.potionId} /> in order to get a slightly higher damage output.</>)
+      .addSuggestion((suggest) => 
+        suggest(<Trans id="shared.modules.items.potionChecker.suggestions.weakPotion">You used a weak potion. <ItemLink id={this.strongPotionId} /> can be used instead of <ItemLink id={this.potionId} /> in order to get a slightly higher damage output.</Trans>)
           .icon(this.strongPotionIcon)
           .staticImportance(SUGGESTION_IMPORTANCE.MINOR));
   }

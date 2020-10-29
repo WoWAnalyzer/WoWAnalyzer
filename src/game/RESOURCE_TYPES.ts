@@ -116,6 +116,9 @@ const RESOURCE_TYPES: { [key: string]: Resource } = {
 };
 export default indexById(RESOURCE_TYPES);
 
-export function getResource(classResources: ClassResources[], type: number): ClassResources | undefined {
+export function getResource(classResources: ClassResources[] | undefined, type: number) {
+  if (!classResources) {
+    return undefined;
+  }
   return classResources.find(resource => resource.type === type);
 }

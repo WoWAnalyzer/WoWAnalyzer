@@ -51,6 +51,9 @@ class FlankingStrike extends Analyzer {
     const foundPet = this.flankingStrikes.find((pet: { sourceID: number }) => pet.sourceID === petId);
     if (!foundPet) {
       const sourcePet = this.owner.playerPets.find((pet: { id: number }) => pet.id === petId);
+      if(!sourcePet) {
+        return;
+      }
       const pet = {
         name: sourcePet.name,
         sourceID: petId,
@@ -67,6 +70,9 @@ class FlankingStrike extends Analyzer {
   onPetDamage(event: DamageEvent) {
     const damage = event.amount + (event.absorbed || 0);
     const pet = this.getOrInitializePet(event.sourceID as number);
+    if (!pet) {
+      return;
+    }
     pet.damage += damage;
   }
 
@@ -77,6 +83,9 @@ class FlankingStrike extends Analyzer {
   onPetEnergize(event: EnergizeEvent) {
     const effectiveFocus = (event.resourceChange - event.waste) || 0;
     const pet = this.getOrInitializePet(event.sourceID);
+    if (!pet) {
+      return;
+    }
     pet.effectiveFocus += effectiveFocus;
     pet.possibleFocus += FLANKING_STRIKE_FOCUS_GAIN;
   }

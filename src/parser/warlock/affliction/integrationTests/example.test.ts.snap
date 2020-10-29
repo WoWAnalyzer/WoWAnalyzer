@@ -51,15 +51,8 @@ exports[`Affliction Warlock integration test: example log AlwaysBeCasting matche
         >
           <div
             className="flex-main text-right text-muted"
-            style={
-              Object {
-                "fontSize": 12,
-                "paddingRight": 8,
-                "paddingTop": 23,
-              }
-            }
           >
-            Low
+            interface.statistics.components.gauge.low
           </div>
           <div
             className="flex-sub"
@@ -198,15 +191,8 @@ exports[`Affliction Warlock integration test: example log AlwaysBeCasting matche
           </div>
           <div
             className="flex-main text-left text-muted"
-            style={
-              Object {
-                "fontSize": 12,
-                "paddingLeft": 8,
-                "paddingTop": 23,
-              }
-            }
           >
-            High
+            interface.statistics.components.gauge.high
           </div>
         </div>
       </div>
@@ -273,12 +259,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
         }
       }
     >
-      <a
-        href="#Abilities"
-        id="Abilities"
-      >
-        Abilities
-      </a>
+      common.abilities
     </h1>
   </div>
   <div
@@ -5465,6 +5446,7 @@ Array [
   Object {
     "details": null,
     "icon": "inv_alchemy_90_combat2_purple",
+<<<<<<< HEAD
     "importance": "regular",
     "issue": <React.Fragment>
       You used 
@@ -5473,12 +5455,33 @@ Array [
       1
       . Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter.
     </React.Fragment>,
+=======
+    "importance": "minor",
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            icon={true}
+            id={171273}
+          />,
+        ]
+      }
+      defaults="You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <0/> can be very effective, especially during shorter encounters. {0}"
+      id="shared.modules.items.prepotion.suggestions.preCombat"
+      values={
+        Object {
+          "0": "",
+        }
+      }
+    />,
+>>>>>>> shadowlands
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_alchemy_90_combat2_purple",
     "importance": "minor",
+<<<<<<< HEAD
     "issue": <React.Fragment>
       You used a weak potion. 
       <ItemLink
@@ -5492,6 +5495,27 @@ Array [
       />
        in order to get a slightly higher damage output.
     </React.Fragment>,
+=======
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            icon={true}
+            id={171273}
+          />,
+        ]
+      }
+      defaults="You forgot to use a potion during combat. Using a potion during combat allows you the benefit of {0} increasing output through <0/>{1}. {2}"
+      id="shared.modules.items.prepotion.suggestions.duringCombat"
+      values={
+        Object {
+          "0": "",
+          "1": "",
+          "2": "",
+        }
+      }
+    />,
+>>>>>>> shadowlands
     "stat": null,
   },
 ]

@@ -55,6 +55,7 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: any) =>
       >
         <AbilityRequirement spell={SPELLS.HEALING_TIDE_TOTEM_CAST.id} />
         <AbilityRequirement spell={SPELLS.SPIRIT_LINK_TOTEM.id} />
+        <AbilityRequirement spell={SPELLS.MANA_TIDE_TOTEM_CAST.id} />
         {combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_RESTORATION.id) && (
           <AbilityRequirement spell={SPELLS.ASCENDANCE_TALENT_RESTORATION.id} />
         )}
@@ -68,17 +69,41 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: any) =>
         description={<Trans id="shaman.restoration.checklist.aoeSpell.description">As a resto shaman our core AOE spells rely on not just who we target but where they are on the ground to maximize healing potential. You should plan you AOE spells ahead of time in preparation for where you expect raid members to be for the spells duration.</Trans>}
       >
         {thresholds.chainHealTargetThresholds.actual > 0 && (
-          <Requirement name={(<Trans id="shaman.restoration.checklist.aoeSpell.chainHeal">Average <SpellLink id={SPELLS.CHAIN_HEAL.id} /> targets</Trans>)} thresholds={thresholds.chainHealTargetThresholds} />
+          <Requirement name={(<Trans id="shaman.restoration.checklist.aoeSpell.targets">Average <SpellLink id={SPELLS.CHAIN_HEAL.id} /> targets</Trans>)} thresholds={thresholds.chainHealTargetThresholds} />
         )}
         {thresholds.healingRainTargetThreshold.actual > 0 && (
-          <Requirement name={(<Trans id="shaman.restoration.checklist.aoeSpell.healingRain">Average <SpellLink id={SPELLS.HEALING_RAIN_HEAL.id} /> targets</Trans>)} thresholds={thresholds.healingRainTargetThreshold} />
+          <Requirement name={(<Trans id="shaman.restoration.checklist.aoeSpell.targets">Average <SpellLink id={SPELLS.HEALING_RAIN_HEAL.id} /> targets</Trans>)} thresholds={thresholds.healingRainTargetThreshold} />
         )}
         {combatant.hasTalent(SPELLS.WELLSPRING_TALENT.id) && (
-          <Requirement name={(<Trans id="shaman.restoration.checklist.aoeSpell.wellspring">Average <SpellLink id={SPELLS.WELLSPRING_TALENT.id} /> efficiency</Trans>)} thresholds={thresholds.wellspringTargetThreshold} />
+          <Requirement name={(<Trans id="shaman.restoration.checklist.aoeSpell.efficiency">Average <SpellLink id={SPELLS.WELLSPRING_TALENT.id} /> efficiency</Trans>)} thresholds={thresholds.wellspringTargetThreshold} />
         )}
         {combatant.hasTalent(SPELLS.EARTHEN_WALL_TOTEM_TALENT.id) && (
-          <Requirement name={(<Trans id="shaman.restoration.checklist.aoeSpell.ewt">Average <SpellLink id={SPELLS.EARTHEN_WALL_TOTEM_TALENT.id} /> efficiency</Trans>)} thresholds={thresholds.ewtTargetThreshold} />
+          <Requirement name={(<Trans id="shaman.restoration.checklist.aoeSpell.efficiency">Average <SpellLink id={SPELLS.EARTHEN_WALL_TOTEM_TALENT.id} /> efficiency</Trans>)} thresholds={thresholds.ewtTargetThreshold} />
         )}
+        {combatant.hasTalent(SPELLS.SURGE_OF_EARTH_TALENT.id) && (
+          <Requirement name={(<Trans id="shaman.restoration.checklist.aoeSpell.targets">Average <SpellLink id={SPELLS.SURGE_OF_EARTH_TALENT.id} /> targets</Trans>)} thresholds={thresholds.soeTargetThreshold} />
+        )}
+      </Rule>
+      <Rule
+        name={<Trans id="shaman.restoration.checklist.buffUptime">Keep your buffs up</Trans>}
+        description={<Trans id="shaman.restoration.checklist.buffUptime.description">Water Shield and Earth Shield should be applied prior to the fight starting and maintained.</Trans>}
+      >
+          <Requirement
+            name={<Trans><SpellLink id={SPELLS.WATER_SHIELD.id}/> applied prepull</Trans>}
+            thresholds={thresholds.waterShieldPrepull}
+          />
+          <Requirement
+            name={<Trans><SpellLink id={SPELLS.WATER_SHIELD.id} /> Uptime</Trans>}
+            thresholds={thresholds.waterShieldUptime}
+          />
+          <Requirement
+            name={<Trans><SpellLink id={SPELLS.EARTH_SHIELD.id} /> applied prepull</Trans>}
+            thresholds={thresholds.earthShieldPrepull}
+          />
+          <Requirement
+            name={<Trans><SpellLink id={SPELLS.EARTH_SHIELD.id} /> Uptime</Trans>}
+            thresholds={thresholds.earthShieldUptime}
+          />
       </Rule>
       <Rule
         name={<Trans id="shaman.restoration.checklist.inactivity">Try to avoid being inactive for a large portion of the fight</Trans>}

@@ -1,53 +1,54 @@
 export default {
   // Shared
   ECHO_OF_THE_ELEMENTS_TALENT: { id: 108283, name: 'Echo of the Elements', icon: 'ability_shaman_echooftheelements' },
+  ELEMENTAL_BLAST_TALENT: { id: 117014, name: 'Elemental Blast', icon: 'shaman_talent_elementalblast', manaCost: 275 },
   SPIRIT_WOLF_TALENT: { id: 260878, name: 'Spirit Wolf', icon: 'spell_hunter_lonewolf' },
   STATIC_CHARGE_TALENT: { id: 265046, name: 'Static Charge', icon: 'spell_nature_brilliance' },
   NATURES_GUARDIAN_TALENT: { id: 30884, name: 'Nature\'s Guardian', icon: 'spell_nature_natureguardian' },
   WIND_RUSH_TOTEM_TALENT: { id: 192077, name: 'Wind Rush Totem', icon: 'ability_shaman_windwalktotem' },
   // Enhancement
-  BOULDERFIST_TALENT: { id: 246035, name: 'Boulderfist', icon: 'ability_earthenfury_giftofearth' },
-  HOT_HAND_TALENT: { id: 201900, name: 'Hot Hand', icon: 'spell_fire_playingwithfire' },
-  LANDSLIDE_TALENT: { id: 197992, name: 'Landslide', icon: 'inv_ore_blackrock_nugget' },
+  LASHING_FLAMES_TALENT: { id: 334046, name: 'Lashing Flames', icon: 'spell_shaman_improvelavalash' },
   FORCEFUL_WINDS_TALENT: { id: 262647, name: 'Forceful Winds', icon: 'spell_shaman_unleashweapon_wind' },
-  SEARING_ASSAULT_TALENT: { id: 192087, name: 'Searing Assault', icon: 'ability_rhyolith_magmaflow_wave' },
-  HAILSTORM_TALENT: { id: 210853, name: 'Hailstorm', icon: 'spell_frost_frostbrand' },
-  OVERCHARGE_TALENT: { id: 210727, name: 'Overcharge', icon: 'spell_nature_callstorm' },
+  STORMFLURRY_TALENT: { id: 344357, name: 'Stormflurry', icon: 'ability_shaman_stormstrike' },
+  HOT_HAND_TALENT: { id: 201900, name: 'Hot Hand', icon: 'spell_fire_playingwithfire' },
+  ICE_STRIKE_TALENT: { id: 342240, name: 'Ice Strike', icon: 'spell_frost_frostbolt', manaCost: 330 },
+  ELEMENTAL_ASSAULT_TALENT: { id: 210853, name: 'Elemental Assault', icon: 'shaman_talent_unleashedfury' },
+  HAILSTORM_TALENT: { id: 334195, name: 'Hailstorm', icon: 'spell_frost_icestorm' },
+  FIRE_NOVA_TALENT: { id: 333974, name: 'Fire Nova', icon: 'spell_shaman_improvedfirenova', manaCost: 550 },
   FERAL_LUNGE_TALENT: { id: 196884, name: 'Feral Lunge', icon: 'spell_beastmaster_wolf' },
   CRASHING_STORM_TALENT: { id: 192246, name: 'Crashing Storm', icon: 'spell_nature_unrelentingstorm' },
-  FURY_OF_AIR_TALENT: { id: 197211, name: 'Fury of Air', icon: 'ability_ironmaidens_swirlingvortex', maelstromCost: 3 },
-  SUNDERING_TALENT: { id: 197214, name: 'Sundering', icon: 'ability_rhyolith_lavapool', maelstromCost: 20 },
+  STORMKEEPER_TALENT_ENHANCEMENT: { id: 320137, name: 'Stormkeeper', icon: 'ability_thunderking_lightningwhip' },
+  SUNDERING_TALENT: { id: 197214, name: 'Sundering', icon: 'ability_rhyolith_lavapool', manaCost: 600 },
   ELEMENTAL_SPIRITS_TALENT: { id: 262624, name: 'Elemental Spirits', icon: 'spell_shaman_feralspirit' },
-  EARTHEN_SPIKE_TALENT: { id: 188089, name: 'Earthen Spike', icon: 'ability_earthen_pillar', maelstromCost: 20 },
-  TOTEM_MASTERY_TALENT_ENHANCEMENT: { id: 262395, name: 'Totem Mastery', icon: 'spell_nature_wrathofair_totem' },
+  EARTHEN_SPIKE_TALENT: { id: 188089, name: 'Earthen Spike', icon: 'ability_earthen_pillar', manaCost: 375 },
   ASCENDANCE_TALENT_ENHANCEMENT: { id: 114051, name: 'Ascendance', icon: 'spell_fire_elementaldevastation' },
 
   // Elemental
   // 15
   EARTHEN_RAGE_TALENT: { id: 170374, name: 'Earthen Rage', icon: 'ability_earthen_pillar' },
   // Echo of the Elements is shared
-  ELEMENTAL_BLAST_TALENT: { id: 117014, name: 'Elemental Blast', icon: 'shaman_talent_elementalblast' },
-  // 30
+  STATIC_DISCHARGE_TALENT: { id: 342243, name: 'Static Discharge', icon: 'spell_lightning_lightningbolt01'},
+  // 25
   AFTERSHOCK_TALENT: { id: 273221, name: 'Aftershock', icon: 'spell_nature_stormreach' },
-  CALL_THE_THUNDER_TALENT: { id: 260897, name: 'Call the Thunder', icon: 'ability_thunderking_thunderstruck' },
-  TOTEM_MASTERY_TALENT_ELEMENTAL: { id: 210643, name: 'Totem Mastery', icon: 'spell_nature_wrathofair_totem' },
-  // 45
+  ECHOING_SHOCK_TALENT: { id: 320125, name: 'Echoing Shock', icon: 'misc_legionfall_shaman' },
+  // Elemental Blast is shared
+  // 30
   // Spirit Wolf is shared
   // Earth Shield is shared
   // Static Charge is shared
-  // 60
+  // 35
   MASTER_OF_THE_ELEMENTS_TALENT: { id: 16166, name: 'Master of the Elements', icon: 'spell_nature_elementalabsorption' },
   STORM_ELEMENTAL_TALENT: { id: 192249, name: 'Storm Elemental', icon: 'inv_stormelemental' },
   LIQUID_MAGMA_TOTEM_TALENT: { id: 192222, name: 'Liquid Magma Totem', icon: 'spell_shaman_spewlava' },
-  // 75
+  // 40
   // Nature's Guardian is shared
   ANCESTRAL_GUIDANCE_TALENT: { id: 108281, name: 'Ancestral Guidance', icon: 'ability_shaman_ancestralguidance' },
   // Wind Rush Totem is shared
-  // 90
+  // 45
   SURGE_OF_POWER_TALENT: { id: 262303, name: 'Surge of Power', icon: 'spell_nature_shamanrage' },
   PRIMAL_ELEMENTALIST_TALENT: { id: 117013, name: 'Primal Elementalist', icon: 'shaman_talent_primalelementalist' },
   ICEFURY_TALENT: { id: 210714, name: 'Icefury', icon: 'spell_frost_iceshard' },
-  // 100
+  // 50
   UNLIMITED_POWER_TALENT: { id: 260895, name: 'Unlimited Power', icon: 'ability_shaman_ascendance' },
   STORMKEEPER_TALENT: { id: 191634, name: 'Stormkeeper', icon: 'ability_thunderking_lightningwhip' },
   ASCENDANCE_TALENT_ELEMENTAL: { id: 114050, name: 'Ascendance', icon: 'spell_fire_elementaldevastation' },

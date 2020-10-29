@@ -81,18 +81,18 @@ class PlayerBreakdown extends React.Component {
           <div className="pad">
             <div className="pull-right">
               <div className="toggle-control pull-left" style={{ marginLeft: '.5em' }}>
-                <label htmlFor="healing-toggle" style={{ marginLeft: '0.5em', marginRight: '1em' }}>
-                  Spells
+                <label htmlFor="playerbreakdown-toggle" style={{ marginLeft: '0.5em', marginRight: '1em' }}>
+                  <Trans id="interface.playerBreakdown.toggle.spells">Spells</Trans>
                 </label>
                 <Toggle
                   defaultChecked
                   icons={false}
                   onChange={event => this.setState({ showPlayers: event.target.checked })}
-                  id="healing-toggle"
+                  id="playerbreakdown-toggle"
                 />
-                <label htmlFor="healing-toggle" style={{ marginLeft: '0.5em' }}>
-                  Players
-              </label>
+                <label htmlFor="playerbreakdown-toggle" style={{ marginLeft: '0.5em' }}>
+                  <Trans id="interface.playerBreakdown.toggle.players">Players</Trans>
+                </label>
               </div>
             </div>
           </div>

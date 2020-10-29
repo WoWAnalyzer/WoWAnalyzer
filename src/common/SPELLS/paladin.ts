@@ -516,6 +516,11 @@ const spells: SpellList = {
     name: 'Shining Light',
     icon: 'ability_paladin_lightoftheprotector',
   },
+  REDOUBT_BUFF: {
+    id: 280375,
+    name: 'Redoubt',
+    icon: 'ability_warrior_shieldguard',
+  },
   // the shining light buff does not have a proper tooltip. this one does. used in display
   SHINING_LIGHT_DESC: {
     id: 321136,

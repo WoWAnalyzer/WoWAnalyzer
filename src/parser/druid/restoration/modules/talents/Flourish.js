@@ -14,7 +14,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import Events from 'parser/core/Events';
 
-import HotTracker from '../core/hottracking/HotTracker';
+import HotTrackerRestoDruid from '../core/hottracking/HotTrackerRestoDruid';
 
 import { HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR } from '../../constants';
 
@@ -29,7 +29,7 @@ const FLOURISH_HEALING_INCREASE = 1;
 // TODO: Idea - Give suggestions on low amount/duration extended with flourish on other HoTs
 class Flourish extends Analyzer {
   static dependencies = {
-    hotTracker: HotTracker,
+    hotTracker: HotTrackerRestoDruid,
   };
 
   // Counters for hot extension
