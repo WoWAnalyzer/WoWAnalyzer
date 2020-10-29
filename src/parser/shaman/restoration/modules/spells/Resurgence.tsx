@@ -23,7 +23,7 @@ import WaterShield from './WaterShield';
 
 
 const SPELLS_PROCCING_RESURGENCE = {
-  [SPELLS.HEALING_SURGE_RESTORATION.id]: 0.006,
+  [SPELLS.HEALING_SURGE.id]: 0.006,
   [SPELLS.HEALING_WAVE.id]: 0.01,
   [SPELLS.CHAIN_HEAL.id]: 0.0025,
   [SPELLS.UNLEASH_LIFE_TALENT.id]: 0.006,
@@ -54,7 +54,7 @@ class Resurgence extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.HEALING_SURGE_RESTORATION, SPELLS.HEALING_WAVE, SPELLS.CHAIN_HEAL, SPELLS.UNLEASH_LIFE_TALENT, SPELLS.RIPTIDE]), this.onRelevantHeal);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.HEALING_SURGE, SPELLS.HEALING_WAVE, SPELLS.CHAIN_HEAL, SPELLS.UNLEASH_LIFE_TALENT, SPELLS.RIPTIDE]), this.onRelevantHeal);
     this.addEventListener(Events.energize.to(SELECTED_PLAYER).spell(SPELLS.RESURGENCE), this.onResurgenceProc);
   }
 

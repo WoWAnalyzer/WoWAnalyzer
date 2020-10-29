@@ -2,6 +2,7 @@ import React from 'react';
 
 import Contributor from 'interface/ContributorButton';
 import Config from 'parser/Config';
+import { Trans } from '@lingui/macro';
 
 const SpecListItem = ({
   spec,
@@ -12,7 +13,7 @@ const SpecListItem = ({
   const className = spec.className.replace(/ /g, '');
   const Component = exampleReport ? 'a' : 'div';
   const builtinfo =
-    contributors.length !== 0 ? <>Maintained by:<br /></> : <small><em>CURRENTLY UNMAINTAINED</em></small>;
+    contributors.length !== 0 ? <Trans id="interface.specListItem.maintainer">Maintained by:<br /></Trans> : <Trans id="interface.specListItem.unmaintained" render="small"><em>CURRENTLY UNMAINTAINED</em></Trans>;
 
   return (
     <Component
@@ -33,7 +34,7 @@ const SpecListItem = ({
         <h4 className={className}>
           {spec.specName} {spec.className}
         </h4>
-        Accurate for patch {patchCompatibility}
+        <Trans id="interface.specListItem.patchCompatability">Accurate for patch {patchCompatibility}</Trans>
         <br />
         {builtinfo}
         {contributors.map(contributor =>

@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { formatPercentage } from 'common/format';
+import { Trans } from '@lingui/macro';
 
 const Gauge = ({ value }) => (
   <div className="flex" style={{ textAlign: 'center', marginTop: 12 }}>
-    <div className="flex-main text-right text-muted" style={{ paddingTop: 23, paddingRight: 8, fontSize: 12 }}>
+    <Trans id="interface.statistics.components.gauge.low" render="div" className="flex-main text-right text-muted" style={{ paddingTop: 23, paddingRight: 8, fontSize: 12 }}>
       Low
-    </div>
+    </Trans>
     <div className="flex-sub" style={{ position: 'relative' }}>
       <svg width="98" height="85" viewBox="19 19 101 88" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ fill: 'none' }}>
           <path d="M101.459 101.459C119.033 83.8858 119.033 55.3934 101.459 37.8198C83.8859 20.2462 55.3934 20.2462 37.8198 37.8198C20.2463 55.3934 20.2463 83.8858 37.8198 101.459" stroke="#f8b700" strokeWidth="8" strokeLinecap="round" />
@@ -55,9 +56,9 @@ const Gauge = ({ value }) => (
         {formatPercentage(value, 0)}%
       </div>
     </div>
-    <div className="flex-main text-left text-muted" style={{ paddingTop: 23, paddingLeft: 8, fontSize: 12 }}>
+    <Trans id="interface.statistics.components.gauge.high" render="div" className="flex-main text-left text-muted" style={{ paddingTop: 23, paddingLeft: 8, fontSize: 12 }}>
       High
-    </div>
+    </Trans>
   </div>
 );
 Gauge.propTypes = {

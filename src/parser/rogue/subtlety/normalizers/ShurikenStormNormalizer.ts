@@ -21,23 +21,23 @@ class ShurikenStormNormalizer extends EventsNormalizer {
    */
   minCPs = 3;
 
-  normalize(events) {
-    const fixedEvents = [];
+  normalize(events: any) {
+    const fixedEvents: any[] = [];
 
     //Player CP Pool
     let cpPool = 5;
-    if(this.selectedCombatant.hasTalent(SPELLS.DEEPER_STRATAGEM_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(SPELLS.DEEPER_STRATAGEM_TALENT.id)) {
       cpPool += 1;
     }
 
-    events.forEach((event, eventIndex) => {
+    events.forEach((event: any, eventIndex: number) => {
       fixedEvents.push(event);
 
       // Find Shuriken Storm CP Events
-      if(event.type === EventType.Energize && event.ability.guid === SPELLS.SHURIKEN_STORM_CP.id) {
+      if (event.type === EventType.Energize && event.ability.guid === SPELLS.SHURIKEN_STORM_CP.id) {
         //Remove excess waste from Shuriken Storm.
-        if(event.waste > 0) {
-          if(event.resourceChange - event.waste >= this.minCPs) {
+        if (event.waste > 0) {
+          if (event.resourceChange - event.waste >= this.minCPs) {
             //Consider the event as having no waste
             event.resourceChange = event.resourceChange - event.waste;
             event.waste = 0;

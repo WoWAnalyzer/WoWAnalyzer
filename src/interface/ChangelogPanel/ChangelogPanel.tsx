@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import CORE_CHANGELOG from 'CHANGELOG';
 import AVAILABLE_CONFIGS from 'parser';
+import { Trans } from '@lingui/macro';
 
 import Changelog from '../Changelog';
 
@@ -14,7 +15,7 @@ const ChangelogPanel = () => {
   return (
     <div className="panel">
       <div className="panel-heading">
-        <h1>Changelog</h1>
+        <Trans id="interface.changelogPanel.heading" render="h1">Changelog</Trans>
       </div>
       <div className="panel-body pad">
         <select
@@ -22,7 +23,7 @@ const ChangelogPanel = () => {
           value={changelogType}
           onChange={e => setChangelogType(Number(e.target.value))}
         >
-          <option value={0}>Core</option>
+          <option value={0}><Trans id="interface.changelogPanel.option.core">Core</Trans></option>
           {AVAILABLE_CONFIGS.map(config => (
             <option value={config.spec.id} key={config.spec.id}>
               {config.spec.specName} {config.spec.className}
