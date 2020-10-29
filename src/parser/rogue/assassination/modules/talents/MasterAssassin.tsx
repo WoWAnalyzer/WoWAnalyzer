@@ -1,17 +1,18 @@
 import React from 'react';
-
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import { SuggestionFactory, ThresholdStyle, When } from 'parser/core/ParseResults';
+import Events, { DamageEvent } from 'parser/core/Events';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import { i18n } from '@lingui/core';
-import { t } from '@lingui/macro';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 import StealthCasts from './StealthCasts';
 import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from '../../constants';
@@ -31,10 +32,12 @@ class MasterAssassin extends StealthCasts {
     statTracker: StatTracker,
   };
 
+  protected statTracker!: StatTracker;
+
   bonusDamage = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.MASTER_ASSASSIN_TALENT.id);
     if (!this.active) {
       return;
@@ -42,7 +45,7 @@ class MasterAssassin extends StealthCasts {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_DAMAGE_INCREASES), this.addBonusDamageIfBuffed);
   }
 
-  addBonusDamageIfBuffed(event) {
+  addBonusDamageIfBuffed(event: DamageEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.MASTER_ASSASSIN_BUFF.id)) {
       return;
     }
@@ -54,10 +57,10 @@ class MasterAssassin extends StealthCasts {
 
   get goodStealthCasts() {
     let goodCasts = 0;
-    this.stealthSequences.forEach(sequence => {
+    this.stealthSequences.forEach((sequence: any) => {
       const goodSpells = sequence === this.stealthSequences[0] || (this.usedStealthOnPull && sequence === this.stealthSequences[1]) ? GOOD_OPENER_CASTS : GOOD_MASTER_ASSASSIN_ABILITIES;
       let goodCastsSeq = 0;
-      sequence.forEach(e => {
+      sequence.forEach((e: any) => {
         if (goodSpells.includes(e.ability.guid)) {
           goodCastsSeq += 1;
         }
@@ -83,24 +86,27 @@ class MasterAssassin extends StealthCasts {
         average: 0.9,
         major: 0.8,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You failed to take full advantage of <SpellLink id={SPELLS.MASTER_ASSASSIN_TALENT.id} />. Make sure to prioritize spending the buff on <SpellLink id={SPELLS.MUTILATE.id} /> or <SpellLink id={SPELLS.ENVENOM.id} /> (<SpellLink id={SPELLS.FAN_OF_KNIVES.id} /> is acceptable for AOE). During your opener <SpellLink id={SPELLS.GARROTE.id} />, <SpellLink id={SPELLS.RUPTURE.id} /> and <SpellLink id={SPELLS.TOXIC_BLADE_TALENT.id} /> is also okay.</>)
-        .icon(SPELLS.MASTER_ASSASSIN_TALENT.icon)
-        .actual(i18n._(t('rogue.assassination.suggestions.masterAssassin.efficiency')`${formatPercentage(actual)}% good casts during Master Assassin`))
-        .recommended(`>${formatPercentage(recommended)}% is recommended`));
+  suggestions(when: When) {
+    when(this.suggestionThresholds).addSuggestion((suggest: SuggestionFactory, actual: number | boolean, recommended: number | boolean) => suggest(<>You failed to take full advantage of <SpellLink id={SPELLS.MASTER_ASSASSIN_TALENT.id} />. Make sure to prioritize spending the buff on <SpellLink id={SPELLS.MUTILATE.id} /> or <SpellLink id={SPELLS.ENVENOM.id} /> (<SpellLink id={SPELLS.FAN_OF_KNIVES.id} /> is acceptable for AOE). During your opener <SpellLink id={SPELLS.GARROTE.id} />, <SpellLink id={SPELLS.RUPTURE.id} /> and <SpellLink id={SPELLS.TOXIC_BLADE_TALENT.id} /> is also okay.</>)
+      .icon(SPELLS.MASTER_ASSASSIN_TALENT.icon)
+      .actual(i18n._(t('rogue.assassination.suggestions.masterAssassin.efficiency')`${formatPercentage(actual as number)}% good casts during Master Assassin`))
+      .recommended(`>${formatPercentage(recommended as number)}% is recommended`));
   }
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.MASTER_ASSASSIN_TALENT.id}
-        position={STATISTIC_ORDER.OPTIONAL(2)}
-        value={<ItemDamageDone amount={this.bonusDamage} />}
-      />
+      <Statistic
+        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
+      >
+        <BoringSpellValueText spell={SPELLS.MASTER_ASSASSIN_TALENT}>
+          <ItemDamageDone amount={this.bonusDamage} />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 

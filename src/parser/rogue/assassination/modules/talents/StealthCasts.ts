@@ -1,21 +1,21 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Events, { CastEvent } from 'parser/core/Events';
 
 const STEALTH_CHECK_BUFFER_MS = 50;
 
 class StealthCasts extends Analyzer {
 
-  stealthSequences = [];
-  latestStealth = null;
+  stealthSequences: any = [];
+  latestStealth: any = null;
   usedStealthOnPull = false;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.evaluateCast);
   }
 
-  evaluateCast(event) {
+  evaluateCast(event: CastEvent) {
     if (this.selectedCombatant.hasBuff(SPELLS.STEALTH_BUFF.id, null, STEALTH_CHECK_BUFFER_MS) ||
       this.selectedCombatant.hasBuff(SPELLS.STEALTH.id, null, STEALTH_CHECK_BUFFER_MS)) {
       this.usedStealthOnPull = true;

@@ -1,11 +1,12 @@
 import React from 'react';
 
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Events, { DamageEvent } from 'parser/core/Events';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import { ABILITIES_AFFECTED_BY_POISON_DAMAGE_INCREASES } from '../../constants';
@@ -16,8 +17,8 @@ class MasterPoisoner extends Analyzer {
 
   bonusDmg = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.MASTER_POISONER_TALENT.id);
     if (!this.active) {
       return;
@@ -25,17 +26,20 @@ class MasterPoisoner extends Analyzer {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_POISON_DAMAGE_INCREASES), this.addBonusDamage);
   }
 
-  addBonusDamage(event) {
+  addBonusDamage(event: DamageEvent) {
     this.bonusDmg += calculateEffectiveDamage(event, DAMAGE_BONUS);
   }
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.MASTER_POISONER_TALENT.id}
-        position={STATISTIC_ORDER.OPTIONAL(1)}
-        value={<ItemDamageDone amount={this.bonusDmg} />}
-      />
+      <Statistic
+        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
+      >
+        <BoringSpellValueText spell={SPELLS.MASTER_POISONER_TALENT}>
+          <ItemDamageDone amount={this.bonusDmg} />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 

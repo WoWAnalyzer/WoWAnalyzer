@@ -1,15 +1,18 @@
 import React from 'react';
-
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
+import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
-import { i18n } from '@lingui/core';
-import { t } from '@lingui/macro';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Events, { CastEvent } from 'parser/core/Events';
+import { SuggestionFactory, ThresholdStyle, When } from 'parser/core/ParseResults';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Statistic from 'interface/statistics/Statistic';
+import BoringValueText from 'interface/statistics/components/BoringValueText';
+
 
 const BLINDSIDE_EXECUTE = 0.3;
 const MS_BUFFER = 100;
@@ -24,8 +27,10 @@ class Blindside extends Analyzer {
     enemies: EnemyInstances,
   };
 
-  constructor(...args) {
-    super(...args);
+  protected enemies!: EnemyInstances;
+
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BLINDSIDE_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.BLINDSIDE_TALENT, SPELLS.MUTILATE]), this.onCast);
   }
@@ -37,7 +42,7 @@ class Blindside extends Analyzer {
     return (this.casts / this.casts + this.badMutilates) || 1;
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.BLINDSIDE_TALENT.id) {
       this.casts += 1;
@@ -47,16 +52,16 @@ class Blindside extends Analyzer {
     }
 
     //Sometimes buff event is before the cast.
-    if(this.selectedCombatant.hasBuff(SPELLS.BLINDSIDE_BUFF.id, event.timestamp - MS_BUFFER)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.BLINDSIDE_BUFF.id, event.timestamp - MS_BUFFER)) {
       this.registerBadMutilate(event, "you had a Blindside Proc");
     }
     const target = this.enemies.getEntity(event);
-    if(target && target.hpPercent < BLINDSIDE_EXECUTE) {
+    if (target && target.hpPercent < BLINDSIDE_EXECUTE) {
       this.registerBadMutilate(event, `health of your target was < ${BLINDSIDE_EXECUTE}% `);
     }
   }
 
-  registerBadMutilate(event, reason) {
+  registerBadMutilate(event: any, reason: string) {
     this.badMutilates += 1;
     event.meta = event.meta || {};
     event.meta.isInefficientCast = true;
@@ -71,13 +76,13 @@ class Blindside extends Analyzer {
         average: 0.9,
         major: 0.8,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds)
-    .addSuggestion((suggest, actual, recommended) => suggest(<>Use <SpellLink id={SPELLS.BLINDSIDE_TALENT.id} /> instead of <SpellLink id={SPELLS.MUTILATE.id} /> when the target is bellow 30% HP or when you have the <SpellLink id={SPELLS.BLINDSIDE_BUFF.id} /> proc. </>)
+      .addSuggestion((suggest: SuggestionFactory, actual: number | boolean, recommended: number | boolean) => suggest(<>Use <SpellLink id={SPELLS.BLINDSIDE_TALENT.id} /> instead of <SpellLink id={SPELLS.MUTILATE.id} /> when the target is bellow 30% HP or when you have the <SpellLink id={SPELLS.BLINDSIDE_BUFF.id} /> proc. </>)
         .icon(SPELLS.BLINDSIDE_TALENT.icon)
         .actual(i18n._(t('rogue.assassination.suggestions.blindside.efficiency')`You used Mutilate ${this.badMutilates} times when Blindside was available`))
         .recommended(`0 is recommended`));
@@ -85,13 +90,15 @@ class Blindside extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.BLINDSIDE_TALENT.id}
-        position={STATISTIC_ORDER.OPTIONAL(1)}
-        value={`${formatPercentage(this.efficiency)} %.`}
-        label="Blindside efficiency"
+      <Statistic
+        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip="The efficiency is the number of Blindside casts divided by the number of Blindside casts plus the number of Mutilate casts while Blindside was available."
-      />
+      >
+        <BoringValueText label={<><SpellIcon id={SPELLS.BLINDSIDE_TALENT.id} /> Blindside efficiency</>}>
+          {formatPercentage(this.efficiency)} %
+        </BoringValueText>
+      </Statistic>
     );
   }
 }

@@ -1,14 +1,15 @@
 import React from 'react';
-
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Events, { DamageEvent } from 'parser/core/Events';
+import { SuggestionFactory, ThresholdStyle, When } from 'parser/core/ParseResults';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
@@ -25,10 +26,13 @@ class Nightstalker extends StealthCasts {
     ruptureSnapshot: RuptureSnapshot,
   };
 
+  protected garroteSnapshot!: GarroteSnapshot;
+  protected ruptureSnapshot!: RuptureSnapshot;
+
   bonusDamage = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.NIGHTSTALKER_TALENT.id);
     if (!this.active) {
       return;
@@ -37,7 +41,7 @@ class Nightstalker extends StealthCasts {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(allowedAbilities), this.addBonusDamageIfBuffed);
   }
 
-  addBonusDamageIfBuffed(event) {
+  addBonusDamageIfBuffed(event: DamageEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.STEALTH.id) &&
       !this.selectedCombatant.hasBuff(SPELLS.STEALTH_BUFF.id) &&
       !this.selectedCombatant.hasBuff(SPELLS.VANISH_BUFF.id)) {
@@ -52,11 +56,11 @@ class Nightstalker extends StealthCasts {
 
   get vanishCastsSpentOnRupture() {
     let vanishWithRupture = 0;
-    this.stealthSequences.forEach(sequence => {
+    this.stealthSequences.forEach((sequence: any) => {
       if (this.usedStealthOnPull && sequence === this.stealthSequences[0]) {
         return;
       }
-      const firstRuptureCast = sequence.find(e => e.ability.guid === SPELLS.RUPTURE.id);
+      const firstRuptureCast = sequence.find((e: any) => e.ability.guid === SPELLS.RUPTURE.id);
       if (firstRuptureCast) {
         vanishWithRupture += 1;
       }
@@ -69,9 +73,9 @@ class Nightstalker extends StealthCasts {
       return false;
     }
 
-    const RuptureOpener = this.stealthSequences[0].find(e => e.ability.guid === SPELLS.RUPTURE.id);
-    const GarroteOpener = this.stealthSequences[0].find(e => e.ability.guid === SPELLS.GARROTE.id);
-    if(RuptureOpener || GarroteOpener) {
+    const RuptureOpener = this.stealthSequences[0].find((e: any) => e.ability.guid === SPELLS.RUPTURE.id);
+    const GarroteOpener = this.stealthSequences[0].find((e: any) => e.ability.guid === SPELLS.GARROTE.id);
+    if (RuptureOpener || GarroteOpener) {
       return true;
     }
     return false;
@@ -93,7 +97,7 @@ class Nightstalker extends StealthCasts {
         average: 0.9,
         major: 0.8,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -101,26 +105,29 @@ class Nightstalker extends StealthCasts {
     return {
       actual: this.goodOpenerCasts,
       isEqual: false,
-      style: 'boolean',
+      style: ThresholdStyle.BOOLEAN,
     };
   }
 
-  suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your failed to cast <SpellLink id={SPELLS.RUPTURE.id} /> after <SpellLink id={SPELLS.VANISH.id} /> {this.vanishCasts - this.vanishCastsSpentOnRupture} time(s). Make sure to prioritize spending your Vanish on snapshotting <SpellLink id={SPELLS.RUPTURE.id} /> when using <SpellLink id={SPELLS.NIGHTSTALKER_TALENT.id} />.</>)
-        .icon(SPELLS.GARROTE.icon)
-        .actual(i18n._(t('rogue.assassination.suggestions.nightstalker.snapshots')`${formatPercentage(actual)}% of Vanishes used to snapshot Rupture`))
-        .recommended(`>${formatPercentage(recommended)}% is recommended`));
+  suggestions(when: When) {
+    when(this.suggestionThresholds).addSuggestion((suggest: SuggestionFactory, actual: number | boolean, recommended: number | boolean) => suggest(<>Your failed to cast <SpellLink id={SPELLS.RUPTURE.id} /> after <SpellLink id={SPELLS.VANISH.id} /> {this.vanishCasts - this.vanishCastsSpentOnRupture} time(s). Make sure to prioritize spending your Vanish on snapshotting <SpellLink id={SPELLS.RUPTURE.id} /> when using <SpellLink id={SPELLS.NIGHTSTALKER_TALENT.id} />.</>)
+      .icon(SPELLS.GARROTE.icon)
+      .actual(i18n._(t('rogue.assassination.suggestions.nightstalker.snapshots')`${formatPercentage(actual as number)}% of Vanishes used to snapshot Rupture`))
+      .recommended(`>${formatPercentage(recommended as number)}% is recommended`));
     when(this.suggestionThresholdsOpener).isFalse().addSuggestion((suggest, actual, recommended) => suggest(<>You failed to snapshot a <SpellLink id={SPELLS.RUPTURE.id} /> or <SpellLink id={SPELLS.GARROTE.id} /> on pull from stealth. Make sure your first cast when using <SpellLink id={SPELLS.NIGHTSTALKER_TALENT.id} /> is a <SpellLink id={SPELLS.RUPTURE.id} /> or <SpellLink id={SPELLS.GARROTE.id} />.</>)
-        .icon(SPELLS.NIGHTSTALKER_TALENT.icon));
+      .icon(SPELLS.NIGHTSTALKER_TALENT.icon));
   }
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.NIGHTSTALKER_TALENT.id}
-        position={STATISTIC_ORDER.OPTIONAL(2)}
-        value={<ItemDamageDone amount={this.bonusDamageTotal} />}
-      />
+      <Statistic
+        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
+      >
+        <BoringSpellValueText spell={SPELLS.NIGHTSTALKER_TALENT}>
+          <ItemDamageDone amount={this.bonusDamageTotal} />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 
