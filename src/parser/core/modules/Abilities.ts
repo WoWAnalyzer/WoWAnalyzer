@@ -1,4 +1,6 @@
 import Module, { Options } from 'parser/core/Module';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 import { AnyEvent } from '../Events';
 import Ability, { SpellbookAbility } from './Ability';
@@ -15,17 +17,17 @@ class Abilities extends Module {
 
   // TODO - Enum?
   static SPELL_CATEGORIES = {
-    ROTATIONAL: 'Rotational Spell',
-    ROTATIONAL_AOE: 'Spell (AOE)',
-    ITEMS: 'Item',
-    COOLDOWNS: 'Cooldown',
-    DEFENSIVE: 'Defensive Cooldown',
-    SEMI_DEFENSIVE: 'Offensive & Defensive Cooldown',
-    OTHERS: 'Spell',
-    UTILITY: 'Utility',
-    HEALER_DAMAGING_SPELL: 'Damaging Spell',
-    CONSUMABLE: 'Consumable',
-    HIDDEN: 'Hidden',
+    ROTATIONAL: i18n._(t('core.abilities.spellCategories.rotational')`Rotational Spell`),
+    ROTATIONAL_AOE: i18n._(t('core.abilities.spellCategories.rotationalAoe')`Spell (AOE)`),
+    ITEMS: i18n._(t('core.abilities.spellCategories.items')`Item`),
+    COOLDOWNS: i18n._(t('core.abilities.spellCategories.cooldowns')`Cooldown`),
+    DEFENSIVE: i18n._(t('core.abilities.spellCategories.defensive')`Defensive Cooldown`),
+    SEMI_DEFENSIVE: i18n._(t('core.abilities.spellCategories.semiDefensive')`Offensive & Defensive Cooldown`),
+    OTHERS: i18n._(t('core.abilities.spellCategories.others')`Spell`),
+    UTILITY: i18n._(t('core.abilities.spellCategories.utility')`Utility`),
+    HEALER_DAMAGING_SPELL: i18n._(t('core.abilities.spellCategories.healerDamagingSpell')`Damaging Spell`),
+    CONSUMABLE: i18n._(t('core.abilities.spellCategories.consumable')`Consumable`),
+    HIDDEN: i18n._(t('core.abilities.spellCategories.hidden')`Hidden`),
   };
   static ABILITY_CLASS = Ability;
 

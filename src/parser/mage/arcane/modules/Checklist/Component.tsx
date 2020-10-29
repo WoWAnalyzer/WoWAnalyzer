@@ -62,9 +62,9 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: any) => 
       >
         {combatant.hasTalent(SPELLS.ARCANE_ORB_TALENT.id) && (
           <Requirement
-            name="Arcane Orb Avg. Hits Per Cast"
-            tooltip="Arcane Orb is primarily an AoE Spell, so you should only choose it on fights with multiple targets but you should still cast it on cooldown even if there is only one target available (unless there is about to be multiple targets). Therefore, on average, your Arcane Orb should hit more than 1 mob per cast."
-            thresholds={thresholds.arcaneOrbAverageHits}
+            name="Missed Arcane Orbs"
+            tooltip="Arcane Orb is a skillshot which means that it is important for you to aim it properly in order to get the most out of it. Therefore, on single target you should always ensure that the enemy gets hit by it, and if there are multiple enemies then you should do what you can to ensure all or most of them will get hit by the Orb as well."
+            thresholds={thresholds.arcaneOrbMissedOrbs}
           />
         )}
         {combatant.hasTalent(SPELLS.RULE_OF_THREES_TALENT.id) && (

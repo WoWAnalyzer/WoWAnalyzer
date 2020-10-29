@@ -29,6 +29,7 @@ import SymbolsDamageTracker from './modules/core/SymbolsDamageTracker';
 import DanceDamageTracker from './modules/core/DanceDamageTracker';
 import DarkShadowContribution from './modules/talents/DarkShadow/DarkShadowContribution';
 import FindWeakness from './modules/spells/FindWeakness';
+import BlackPowder from './modules/core/BlackPowder';
 
 import SerratedBoneSpike from '../shared/shadowlands/covenants/necrolord/SerratedBoneSpike';
 import EchoingReprimand from '../shared/shadowlands/covenants/kyrian/EchoingReprimand';
@@ -66,6 +67,7 @@ class CombatLogParser extends CoreCombatLogParser {
     symbolsDamageTracker: SymbolsDamageTracker,
     danceDamageTracker: DanceDamageTracker,
     stealthDamageTracker: StealthDamageTracker,
+    blackPowder: BlackPowder,
 
     //Core
     danceCooldownReduction: DeepeningShadows,

@@ -1,6 +1,6 @@
 import React from 'react';
-
 import Analyzer from 'parser/core/Analyzer';
+import { When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 import resourceSuggest from 'parser/shared/modules/resources/resourcetracker/ResourceSuggest';
@@ -14,6 +14,8 @@ class Energy extends Analyzer {
     energyCapTracker: EnergyCapTracker,
   };
 
+  protected energyTracker!: EnergyTracker;
+  protected energyCapTracker!: EnergyCapTracker;
 
   get energyThresholds() {
     return {
@@ -27,7 +29,7 @@ class Energy extends Analyzer {
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     resourceSuggest(when, this.energyTracker, {
       spell: SPELLS.SYMBOLS_OF_DEATH,
       minor: 0.10,

@@ -30,6 +30,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.BLACK_POWDER,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        gcd: {
+          base: 1000
+        }
+      },
+      {
         // Requires Stealth
         spell: SPELLS.SHADOWSTRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
