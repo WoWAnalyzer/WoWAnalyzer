@@ -12,7 +12,7 @@ import Enemies from 'parser/shared/modules/Enemies';
 
 import { SHATTER_DEBUFFS } from 'parser/mage/shared/constants';
 
-const DAMAGE_BONUS = [0, .25, .28, .30, .33, .35, .38, .40, .43, .45, .48, .50, .53, .55, .58, .60];
+const DAMAGE_BONUS = [0, .04, .044, .048, .052, .056, .06, .064, .068, .072, .076, .08, .084, .088, .092, .096];
 
 class IceBite extends Analyzer {
   static dependencies = {
