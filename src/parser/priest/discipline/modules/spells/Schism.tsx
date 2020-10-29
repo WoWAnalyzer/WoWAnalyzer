@@ -109,7 +109,7 @@ class Schism extends Analyzer {
     const { smiteDamage } = this.smiteEstimation();
 
     // Substract smite damage (because that is what we would be casting if we didn't pick Schism)
-    this.directDamage += (event.amount + event.absorbed || 0) - smiteDamage;
+    this.directDamage += event.amount + (event.absorbed || 0) - smiteDamage;
   }
 
   onHeal(event: HealEvent) {

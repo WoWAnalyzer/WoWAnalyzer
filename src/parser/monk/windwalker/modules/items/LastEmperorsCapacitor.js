@@ -1,7 +1,7 @@
 import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import Statistic from 'interface/statistics/Statistic';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
@@ -12,6 +12,8 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import Events from 'parser/core/Events';
 
 import { CHI_SPENDERS } from '../../constants';
+
+const MAX_STACKS = 20;
 
 class LastEmperorsCapacitor extends Analyzer {
   static dependencies = {
@@ -48,7 +50,7 @@ class LastEmperorsCapacitor extends Analyzer {
    }
 
   castChiSpender() {
-    if (this.currentStacks === 20) {
+    if (this.currentStacks === MAX_STACKS) {
       this.stacksWasted += 1;
     }
   }
@@ -107,7 +109,7 @@ class LastEmperorsCapacitor extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
         tooltip={
-          <>Damage dealt does not account for opportunity cost
+          <Trans>Damage dealt does not account for opportunity cost
             <br/>
             Stacks generated <b>{this.totalStacks}</b>
             <br/>
@@ -115,7 +117,7 @@ class LastEmperorsCapacitor extends Analyzer {
             <br/>
             Stacks wasted by generating at cap: <b>{this.stacksWasted}</b>
             <br/>
-            Average stacks spent on each cast: <b>{this.averageStacksUsed.toFixed(2)}</b></>}
+            Average stacks spent on each cast: <b>{this.averageStacksUsed.toFixed(2)}</b></Trans>}
       >
         <BoringSpellValueText spell={SPELLS.LAST_EMPERORS_CAPACITOR}>
           <ItemDamageDone amount={this.damage} />
@@ -126,14 +128,14 @@ class LastEmperorsCapacitor extends Analyzer {
 
   suggestions(when) {
     when(this.wastedStacksSuggestionsThresholds).addSuggestion((suggest, actual, recommended) => {
-      suggest(<span> You wasted your <SpellLink id={SPELLS.THE_EMPERORS_CAPACITOR_STACK.id}/> stacks by using chi spenders while at 20 stacks </span>)
-        .icon(ITEMS.THE_EMPERORS_CAPACITOR.icon)
+      suggest(<Trans> You wasted your <SpellLink id={SPELLS.LAST_EMPERORS_CAPACITOR_BUFF.id}/> stacks by using chi spenders while at 20 stacks </Trans>)
+        .icon(SPELLS.LAST_EMPERORS_CAPACITOR.icon)
         .actual(`${actual.toFixed(2)} Wasted stacks per minute`)
         .recommended(`${(recommended)} Wasted stacks per minute is recommended`)
     });
     when(this.averageStacksSuggestionThresholds).addSuggestion((suggest, actual) => {
-      suggest(<span> Your average number of <SpellLink id={SPELLS.THE_EMPERORS_CAPACITOR_STACK.id} /> stacks used when you cast <SpellLink id={SPELLS.CRACKLING_JADE_LIGHTNING.id}/> was low </span>)
-          .icon(ITEMS.THE_EMPERORS_CAPACITOR.icon)
+      suggest(<Trans> Your average number of <SpellLink id={SPELLS.LAST_EMPERORS_CAPACITOR_BUFF.id} /> stacks used when you cast <SpellLink id={SPELLS.CRACKLING_JADE_LIGHTNING.id}/> was low </Trans>)
+          .icon(SPELLS.LAST_EMPERORS_CAPACITOR.icon)
           .actual(`${actual.toFixed(2)} average stacks used`)
           .recommended(`Try to cast Crackling Jade Lightning while as close to 20 stacks as possible`);
       });

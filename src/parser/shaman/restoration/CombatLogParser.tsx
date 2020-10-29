@@ -4,13 +4,13 @@ import Panel from 'interface/others/Panel';
 import Feeding from 'interface/others/Feeding';
 
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import HealingEfficiencyDetails from 'parser/core/healingEfficiency/HealingEfficiencyDetails';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
 import LucidDreams from 'parser/shared/modules/spells/bfa/essences/LucidDreamsHealers';
 
+import HealingEfficiencyDetails from './modules/core/HealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/core/HealingEfficiencyTracker';
 import Abilities from './modules/Abilities';
 
@@ -32,6 +32,7 @@ import TalentStatisticBox from './modules/talents/TalentStatisticBox';
 import Torrent from './modules/talents/Torrent';
 import UnleashLife from './modules/talents/UnleashLife';
 import Deluge from './modules/talents/Deluge';
+import SurgeOfEarth from './modules/talents/SurgeOfEarth';
 import Undulation from './modules/talents/Undulation';
 import FlashFlood from './modules/talents/FlashFlood';
 import AncestralVigor from './modules/talents/AncestralVigor';
@@ -51,6 +52,7 @@ import HealingWave from './modules/spells/HealingWave';
 import LavaSurge from './modules/spells/LavaSurge';
 import Resurgence from './modules/spells/Resurgence';
 import ManaTideTotem from './modules/spells/ManaTideTotem';
+import WaterShield from './modules/spells/WaterShield';
 import SpiritLinkDamageReduction from './modules/spells/SpiritLinkDamageReduction';
 // Potency Conduits
 import EmbraceOfEarth from './modules/shadowlands/conduits/EmbraceOfEarth';
@@ -98,6 +100,7 @@ class CombatLogParser extends CoreCombatLogParser {
     unleashLife: UnleashLife,
     undulation: Undulation,
     deluge: Deluge,
+    surgeOfEarth: SurgeOfEarth,
     flashFlood: FlashFlood,
     ancestralVigor: AncestralVigor,
     earthenWallTotem: EarthenWallTotem,
@@ -118,6 +121,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lavaSurge: LavaSurge,
     resurgence: Resurgence,
     manaTideTotem: ManaTideTotem,
+    waterShield: WaterShield,
     spiritLinkDamageReduction: SpiritLinkDamageReduction,
 
     // Shared:

@@ -7,7 +7,7 @@ import Events, { DamageEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import { formatPercentage } from 'common/format';
 
-import { ISB as ABILITY_BLACKLIST } from '../constants/AbilityBlacklist';
+import { shouldIgnore } from 'parser/shared/modules/hit-tracking/utilities';
 
 export default class Shuffle extends Analyzer {
   static dependencies = {
@@ -29,10 +29,8 @@ export default class Shuffle extends Analyzer {
     if (event.ability.guid === SPELLS.STAGGER_TAKEN.id) {
       return;
     }
-    if (event.sourceID === undefined || !this.enemies.getEntities()[event.sourceID]) {
-      return; // not a notable entity (e.g. imonar traps, environment damage)
-    }
-    if (ABILITY_BLACKLIST.includes(event.ability.guid)) {
+
+    if (shouldIgnore(this.enemies, event)) {
       return;
     }
 
@@ -61,6 +59,6 @@ export default class Shuffle extends Analyzer {
         <>You should maintain <SpellLink id={SPELLS.SHUFFLE.id} /> while actively tanking.</>
       ).icon(SPELLS.SHUFFLE.icon)
        .actual(`${formatPercentage(actual)}% of hits mitigated by Shuffle.`)
-       .recommended(`< ${formatPercentage(recommended)}% is recommended`));
+       .recommended(`at least ${formatPercentage(recommended)}% is recommended`));
   }
 }

@@ -4,23 +4,21 @@ import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
 import Statistic from 'interface/statistics/Statistic';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import BoringValue from 'interface/statistics/components/BoringValueText';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+
 import WoundTracker from './WoundTracker';
-
-
 
 const SAFE_WOUND_COUNT = 3;
 
@@ -40,13 +38,13 @@ class FesteringStrikeEfficiency extends Analyzer {
   totalFesteringStrikeCasts = 0;
   festeringStrikeCastsOverSafeCount = 0;
 
-  onCast(event: CastEvent){
+  onCast(event: CastEvent) {
     this.totalFesteringStrikeCasts += 1;
     const targetString = encodeTargetString(event.targetID, event.targetInstance);
 
-    if(this.woundTracker.targets[targetString]){
+    if (this.woundTracker.targets[targetString]) {
       const currentTargetWounds = this.woundTracker.targets[targetString];
-      if(currentTargetWounds > SAFE_WOUND_COUNT){
+      if (currentTargetWounds > SAFE_WOUND_COUNT) {
         this.festeringStrikeCastsOverSafeCount += 1;
       }
     }
@@ -70,10 +68,10 @@ class FesteringStrikeEfficiency extends Analyzer {
 
   suggestions(when: When) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>You are casting <SpellLink id={SPELLS.FESTERING_STRIKE.id} /> too often.  When spending runes remember to cast <SpellLink id={SPELLS.SCOURGE_STRIKE.id} /> instead on targets with more than three stacks of <SpellLink id={SPELLS.FESTERING_WOUND.id} /></>)
-      .icon(SPELLS.FESTERING_STRIKE.icon)
-      .actual(i18n._(t('deathknight.unholy.suggestions.festeringStrikes.efficiency')`${formatPercentage(actual)}% of Festering Strikes did not risk overcapping Festering Wounds`))
-      .recommended(`>${formatPercentage(recommended)}% is recommended`));
+      .addSuggestion((suggest, actual, recommended) => suggest(<>You are casting <SpellLink id={SPELLS.FESTERING_STRIKE.id} /> too often. When spending runes remember to cast <SpellLink id={SPELLS.SCOURGE_STRIKE.id} /> instead on targets with more than three stacks of <SpellLink id={SPELLS.FESTERING_WOUND.id} /></>)
+        .icon(SPELLS.FESTERING_STRIKE.icon)
+        .actual(i18n._(t('deathknight.unholy.suggestions.festeringStrikes.efficiency')`${formatPercentage(actual)}% of Festering Strikes did not risk overcapping Festering Wounds`))
+        .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {
@@ -84,11 +82,11 @@ class FesteringStrikeEfficiency extends Analyzer {
         category={STATISTIC_CATEGORY.GENERAL}
         size="flexible"
       >
-        <BoringValue label={<><SpellIcon id={SPELLS.FESTERING_STRIKE.id} /> Festering Strike Efficency</>} >
+        <BoringSpellValueText spell={SPELLS.FESTERING_STRIKE}>
           <>
-            {`${formatPercentage(this.strikeEfficiency)}% `}
+            {formatPercentage(this.strikeEfficiency)}% <small>efficiency</small>
           </>
-        </BoringValue>
+        </BoringSpellValueText>
       </Statistic>
     );
   }

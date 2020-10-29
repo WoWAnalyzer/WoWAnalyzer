@@ -1,6 +1,7 @@
 export default {
   // Shared
   ECHO_OF_THE_ELEMENTS_TALENT: { id: 108283, name: 'Echo of the Elements', icon: 'ability_shaman_echooftheelements' },
+  ELEMENTAL_BLAST_TALENT: { id: 117014, name: 'Elemental Blast', icon: 'shaman_talent_elementalblast', manaCost: 275 },
   SPIRIT_WOLF_TALENT: { id: 260878, name: 'Spirit Wolf', icon: 'spell_hunter_lonewolf' },
   STATIC_CHARGE_TALENT: { id: 265046, name: 'Static Charge', icon: 'spell_nature_brilliance' },
   NATURES_GUARDIAN_TALENT: { id: 30884, name: 'Nature\'s Guardian', icon: 'spell_nature_natureguardian' },
@@ -26,28 +27,28 @@ export default {
   // 15
   EARTHEN_RAGE_TALENT: { id: 170374, name: 'Earthen Rage', icon: 'ability_earthen_pillar' },
   // Echo of the Elements is shared
-  ELEMENTAL_BLAST_TALENT: { id: 117014, name: 'Elemental Blast', icon: 'shaman_talent_elementalblast', manaCost: 275 },
-  // 30
+  STATIC_DISCHARGE_TALENT: { id: 342243, name: 'Static Discharge', icon: 'spell_lightning_lightningbolt01'},
+  // 25
   AFTERSHOCK_TALENT: { id: 273221, name: 'Aftershock', icon: 'spell_nature_stormreach' },
-  CALL_THE_THUNDER_TALENT: { id: 260897, name: 'Call the Thunder', icon: 'ability_thunderking_thunderstruck' },
-  TOTEM_MASTERY_TALENT_ELEMENTAL: { id: 210643, name: 'Totem Mastery', icon: 'spell_nature_wrathofair_totem' },
-  // 45
+  ECHOING_SHOCK_TALENT: { id: 320125, name: 'Echoing Shock', icon: 'misc_legionfall_shaman' },
+  // Elemental Blast is shared
+  // 30
   // Spirit Wolf is shared
   // Earth Shield is shared
   // Static Charge is shared
-  // 60
+  // 35
   MASTER_OF_THE_ELEMENTS_TALENT: { id: 16166, name: 'Master of the Elements', icon: 'spell_nature_elementalabsorption' },
   STORM_ELEMENTAL_TALENT: { id: 192249, name: 'Storm Elemental', icon: 'inv_stormelemental' },
   LIQUID_MAGMA_TOTEM_TALENT: { id: 192222, name: 'Liquid Magma Totem', icon: 'spell_shaman_spewlava' },
-  // 75
+  // 40
   // Nature's Guardian is shared
   ANCESTRAL_GUIDANCE_TALENT: { id: 108281, name: 'Ancestral Guidance', icon: 'ability_shaman_ancestralguidance' },
   // Wind Rush Totem is shared
-  // 90
+  // 45
   SURGE_OF_POWER_TALENT: { id: 262303, name: 'Surge of Power', icon: 'spell_nature_shamanrage' },
   PRIMAL_ELEMENTALIST_TALENT: { id: 117013, name: 'Primal Elementalist', icon: 'shaman_talent_primalelementalist' },
   ICEFURY_TALENT: { id: 210714, name: 'Icefury', icon: 'spell_frost_iceshard' },
-  // 100
+  // 50
   UNLIMITED_POWER_TALENT: { id: 260895, name: 'Unlimited Power', icon: 'ability_shaman_ascendance' },
   STORMKEEPER_TALENT: { id: 191634, name: 'Stormkeeper', icon: 'ability_thunderking_lightningwhip' },
   ASCENDANCE_TALENT_ELEMENTAL: { id: 114050, name: 'Ascendance', icon: 'spell_fire_elementaldevastation' },

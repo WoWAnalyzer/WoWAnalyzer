@@ -3,7 +3,6 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import VirulentPlagueUptime from './modules/features/VirulentPlagueUptime';
 import FesteringStrikeEfficiency from './modules/features/FesteringStrikeEfficiency';
 import Checklist from './modules/features/checklist/Module';
 import ScourgeStrikeEfficiency from './modules/features/ScourgeStrikeEfficiency';
@@ -23,7 +22,6 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    virulentPlagueUptime: VirulentPlagueUptime,
     festeringStrikeEfficiency: FesteringStrikeEfficiency,
     checklist: Checklist,
     scourgeStrikeEfficiency: ScourgeStrikeEfficiency,

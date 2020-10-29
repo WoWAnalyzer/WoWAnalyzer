@@ -9,8 +9,8 @@ class Abilities extends CoreAbilities {
     return [
       {
         spell: SPELLS.LAVA_BURST,
-        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id)?2:1,
-        cooldown: haste => 8/(1+haste),
+        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 2 : 1,
+        cooldown: haste => 8 / (1 + haste),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -87,7 +87,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        damageSpellIds: [ SPELLS.FIRE_BLAST.id, SPELLS.METEOR_DAMAGE.id, SPELLS.FIRE_ELEMENTAL_IMMOLATE.id ],
+        damageSpellIds: [SPELLS.FIRE_BLAST.id, SPELLS.METEOR_DAMAGE.id, SPELLS.FIRE_ELEMENTAL_IMMOLATE.id],
         enabled: !combatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -112,7 +112,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60 * 2.5,
         enabled: combatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id),
-        damageSpellIds: [ SPELLS.WIND_GUST.id, SPELLS.EYE_OF_THE_STORM.id, SPELLS.CALL_LIGHTNING.id ],
+        damageSpellIds: [SPELLS.WIND_GUST.id, SPELLS.EYE_OF_THE_STORM.id, SPELLS.CALL_LIGHTNING.id],
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -190,11 +190,29 @@ class Abilities extends CoreAbilities {
         gcd: null,
       },
       {
-        spell: SPELLS.TOTEM_MASTERY_TALENT_ELEMENTAL,
+        spell: SPELLS.STATIC_DISCHARGE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.TOTEM_MASTERY_TALENT_ELEMENTAL),
+        cooldown: 30,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+        enabled: combatant.hasTalent(SPELLS.STATIC_DISCHARGE_TALENT.id),
         gcd: {
-          base: 1000,
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.ECHOING_SHOCK_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 30,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+        enabled: combatant.hasTalent(SPELLS.ECHOING_SHOCK_TALENT.id),
+        gcd: {
+          base: 1500,
         },
       },
       {
