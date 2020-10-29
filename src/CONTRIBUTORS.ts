@@ -1010,3 +1010,9 @@ export const Kruzershtern: Contributor = {
   discord: 'Kruzer#6980',
   about: 'Russian localizator',
 };
+export const mariogusman: Contributor = {
+  nickname: 'mariogusman',
+  github: 'mariogusman',
+  discord: 'Ric/Mario#4438',
+  about: 'Portuguese localizator',
+};
