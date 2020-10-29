@@ -274,7 +274,7 @@ class PotionChecker extends Analyzer {
     this.setStrongPotionForSpec(this.selectedCombatant.specId);
     when(this.potionsUsedThresholds)
       .addSuggestion((suggest) => 
-        suggest(<Trans id="shared.modules.items.potionChecker.suggestions.potionsUsed">You used {this.potionsUsed} combat potions during this encounter, but you could have used {this.maxPotions}. Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter.</>)
+        suggest(<Trans id="shared.modules.items.potionChecker.suggestions.potionsUsed">You used {this.potionsUsed} combat potions during this encounter, but you could have used {this.maxPotions}. Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter.</Trans>)
           .icon(this.strongPotionIcon)
           .staticImportance(SUGGESTION_IMPORTANCE.REGULAR));
     when(this.potionStrengthThresholds)
