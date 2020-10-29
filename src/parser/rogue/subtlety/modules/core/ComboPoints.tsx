@@ -1,7 +1,8 @@
 import React from 'react';
-
 import Analyzer from 'parser/core/Analyzer';
+import { When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS/index';
+import Spell from 'common/SPELLS/Spell';
 import SpellLink from 'common/SpellLink';
 import resourceSuggest from 'parser/shared/modules/resources/resourcetracker/ResourceSuggest';
 
@@ -12,7 +13,9 @@ class ComboPoints extends Analyzer {
     comboPointTracker: ComboPointTracker,
   };
 
-  makeExtraSuggestion(spell) {
+  protected comboPointTracker!: ComboPointTracker;
+
+  makeExtraSuggestion(spell: Spell) {
     return <>Avoid wasting combo points when casting <SpellLink id={spell.id} /> </>;
   }
 
@@ -28,7 +31,7 @@ class ComboPoints extends Analyzer {
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     resourceSuggest(when, this.comboPointTracker, {
       spell: SPELLS.MARKED_FOR_DEATH_TALENT, // 5 CP
       minor: 0,
