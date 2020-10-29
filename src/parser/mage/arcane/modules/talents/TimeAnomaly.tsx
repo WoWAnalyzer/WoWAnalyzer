@@ -10,7 +10,7 @@ import Events, { CastEvent } from 'parser/core/Events';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
-import { TIME_ANOMALY_MANA_THRESHOLD } from '../../constants';
+const MANA_THRESHOLD = 0.70;
 
 class TimeAnomaly extends Analyzer {
 	static dependencies = {
@@ -33,7 +33,7 @@ class TimeAnomaly extends Analyzer {
 		}
 		const manaResource: any = event.classResources && event.classResources.find(classResource => classResource.type === RESOURCE_TYPES.MANA.id);
 		const manaPercent = manaResource.amount / manaResource.max;
-		if (manaPercent > TIME_ANOMALY_MANA_THRESHOLD) {
+		if (manaPercent > MANA_THRESHOLD) {
 			this.conservedTooHigh += 1;
 		}
 	}

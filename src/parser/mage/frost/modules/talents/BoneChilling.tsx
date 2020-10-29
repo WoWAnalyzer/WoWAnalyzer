@@ -11,7 +11,23 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { formatNumber, formatPercentage } from 'common/format';
 
-import { BONE_CHILLING_SPELLS, BONE_CHILLING_BONUS_PER_STACK } from '../../constants';
+const DAMAGE_BONUS_PER_STACK = 0.005;
+const AFFECTED_SPELLS = [
+  SPELLS.ICICLE_DAMAGE,
+  SPELLS.ICE_LANCE_DAMAGE,
+  SPELLS.BLIZZARD_DAMAGE,
+  SPELLS.FLURRY_DAMAGE,
+  SPELLS.FROSTBOLT_DAMAGE,
+  SPELLS.FROZEN_ORB_DAMAGE,
+  SPELLS.COMET_STORM_DAMAGE,
+  SPELLS.GLACIAL_SPIKE_DAMAGE,
+  SPELLS.FROST_NOVA,
+  SPELLS.EBONBOLT_DAMAGE,
+  SPELLS.CONE_OF_COLD,
+  SPELLS.RAY_OF_FROST_TALENT,
+  SPELLS.ICE_NOVA_TALENT,
+  SPELLS.WATERBOLT,
+];
 
 class BoneChilling extends Analyzer {
 
@@ -21,7 +37,7 @@ class BoneChilling extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BONE_CHILLING_TALENT.id);
     if (this.active) {
-      this.addEventListener(Events.damage.by(SELECTED_PLAYER | SELECTED_PLAYER_PET).spell(BONE_CHILLING_SPELLS), this.onAffectedDamage);
+      this.addEventListener(Events.damage.by(SELECTED_PLAYER | SELECTED_PLAYER_PET).spell(AFFECTED_SPELLS), this.onAffectedDamage);
     }
   }
 
@@ -30,7 +46,7 @@ class BoneChilling extends Analyzer {
     if (!buffInfo) {
       return;
     }
-    const mod = buffInfo.stacks * BONE_CHILLING_BONUS_PER_STACK;
+    const mod = buffInfo.stacks * DAMAGE_BONUS_PER_STACK;
     const increase = calculateEffectiveDamage(event, mod);
     this.totalDamage += increase;
   }

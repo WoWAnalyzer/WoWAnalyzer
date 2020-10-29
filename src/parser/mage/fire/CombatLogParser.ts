@@ -47,6 +47,7 @@ import GroundingSurge from '../shared/modules/items/GroundingSurge';
 import IreOfTheAscended from '../shared/modules/items/IreOfTheAscended';
 import TempestBarrier from '../shared/modules/items/TempestBarrier';
 import SiphonedMalice from '../shared/modules/items/SiphonedMalice';
+import FromTheAshes from './modules/talents/FromTheAshes';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -84,6 +85,7 @@ class CombatLogParser extends CoreCombatLogParser {
     meteorCombustion: MeteorCombustion,
     pyroclasm: Pyroclasm,
     searingTouch: SearingTouch,
+    fromTheAshes: FromTheAshes,
 
     //Legendaries
     feveredIncantation: FeveredIncantation,

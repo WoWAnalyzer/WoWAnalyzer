@@ -4,7 +4,12 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Events from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 
-import { COLD_SNAP_RESETS } from '../../constants';
+const SPELL_RESETS = [
+	SPELLS.ICE_BARRIER,
+	SPELLS.FROST_NOVA,
+	SPELLS.CONE_OF_COLD,
+	SPELLS.ICE_BLOCK,
+  ];
 
 class ColdSnap extends Analyzer {
   static dependencies = {
@@ -18,7 +23,7 @@ class ColdSnap extends Analyzer {
   }
 
   _resetCooldowns() {
-    COLD_SNAP_RESETS.forEach(spell => {
+    SPELL_RESETS.forEach(spell => {
       if (this.spellUsable.isOnCooldown(spell.id)) {
         this.spellUsable.endCooldown(spell.id);
       }

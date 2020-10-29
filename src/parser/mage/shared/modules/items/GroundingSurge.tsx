@@ -4,23 +4,7 @@ import Events, { InterruptEvent } from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
-const COOLDOWN_REDUCTION_MS: {[rank: number]: number } = {
-  1: 1000,
-  2: 1500,
-  3: 2000,
-  4: 2500,
-  5: 3000,
-  6: 3500,
-  7: 4000,
-  8: 4500,
-  9: 5000,
-  10: 5500,
-  11: 6000,
-  12: 6500,
-  13: 7000,
-  14: 7500,
-  15: 8000,
-};
+const COOLDOWN_REDUCTION_MS = [0, 2500, 2800, 3000, 3300, 3500, 3800, 4000, 4300, 4500, 4800, 5000, 5300, 5500, 5800, 6000];
 
 class GroundingSurge extends Analyzer {
   static dependencies = {
@@ -28,8 +12,7 @@ class GroundingSurge extends Analyzer {
   }
   protected spellUsable!: SpellUsable;
 
-  conduitRank: number = 0;
-
+  conduitRank = 0;
   bonusDamage = 0;
 
   constructor(props: Options) {
