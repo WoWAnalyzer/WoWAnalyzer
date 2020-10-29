@@ -15,12 +15,23 @@ class Buffs extends CoreBuffs {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.DARK_THOUGHTS.id,
+        spellId: SPELLS.DARK_THOUGHT_BUFF.id,
+        triggeredBySpellId: SPELLS.DARK_THOUGHTS.id,
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.UNFURLING_DARKNESS_BUFF.id,
+        triggeredBySpellId: SPELLS.VAMPIRIC_TOUCH.id,
+        enabled: combatant.hasTalent(SPELLS.UNFURLING_DARKNESS_TALENT.id),
         timelineHighlight: true,
       },
       {
         spellId: SPELLS.SURRENDER_TO_MADNESS_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.SURRENDER_TO_MADNESS_TALENT.id),
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.VAMPIRIC_EMBRACE.id,
         timelineHighlight: true,
       },
       {
@@ -34,6 +45,10 @@ class Buffs extends CoreBuffs {
       },
       {
         spellId: SPELLS.FADE.id,
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.DESPERATE_PRAYER.id,
         timelineHighlight: true,
       },
       {

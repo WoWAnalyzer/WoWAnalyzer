@@ -75,7 +75,10 @@ class Results extends React.PureComponent {
       fight: PropTypes.shape({
         boss: PropTypes.any,
         difficulty: PropTypes.any,
+        // use fight interface when converting to TS
+        // eslint-disable-next-line @typescript-eslint/camelcase
         start_time: PropTypes.any,
+        // eslint-disable-next-line @typescript-eslint/camelcase
         end_time: PropTypes.any,
       }),
       generateResults: PropTypes.func.isRequired,
@@ -100,8 +103,12 @@ class Results extends React.PureComponent {
     }).isRequired,
     fight: PropTypes.shape({
       id: PropTypes.number.isRequired,
+      // use fight interface when converting to TS
+      // eslint-disable-next-line @typescript-eslint/camelcase
       start_time: PropTypes.number.isRequired,
+      // eslint-disable-next-line @typescript-eslint/camelcase
       end_time: PropTypes.number.isRequired,
+      // eslint-disable-next-line @typescript-eslint/camelcase
       offset_time: PropTypes.number.isRequired,
       boss: PropTypes.number.isRequired,
       phase: PropTypes.string,
@@ -463,7 +470,7 @@ https://github.com/WoWAnalyzer/WoWAnalyzer/issues?q=is%3Aopen+is%3Aissue+label%3
         <div className="container" style={{ marginTop: 40 }}>
           <div className="row">
             <div className="col-md-8">
-              <small>Provided by</small>
+              <Trans id="interface.report.results.providedBy" render="small">Provided by</Trans>
               <div style={{ fontSize: 16 }}>
                 <Trans>
                   {config.spec.specName} {config.spec.className} analysis has been provided by{' '}
@@ -473,7 +480,7 @@ https://github.com/WoWAnalyzer/WoWAnalyzer/issues?q=is%3Aopen+is%3Aissue+label%3
               </div>
             </div>
             <div className="col-md-3">
-              <small>View on</small>
+              <Trans id="interface.report.results.viewOn" render="small">View on</Trans>
               <br />
               <Tooltip content={i18n._(t`Opens in a new tab. View the original report.`)}>
                 <a

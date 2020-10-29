@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Fight from 'parser/core/Fight';
+import { Trans } from '@lingui/macro';
 
 import TimeInput from './TimeInput';
 
@@ -10,10 +11,10 @@ interface Props {
 }
 
 const generateBoundary = (fight: Fight) => ({
-    start: fight.offset_time,
-    end: fight.end_time - fight.start_time + fight.offset_time,
-    max: (fight.original_end_time || fight.end_time) - fight.start_time + fight.offset_time,
-  });
+  start: fight.offset_time,
+  end: fight.end_time - fight.start_time + fight.offset_time,
+  max: (fight.original_end_time || fight.end_time) - fight.start_time + fight.offset_time,
+});
 
 const TimeFilter = (props: Props) => {
   const [start, setStart] = useState<number>(0);
@@ -62,7 +63,7 @@ const TimeFilter = (props: Props) => {
           className="btn btn-primary filter animated-button"
           disabled={isLoading || invalidTimes()}
         >
-          Filter
+          <Trans id="interface.report.results.timeFilter.filter">Filter</Trans>
           <span className="glyphicon glyphicon-chevron-right" aria-hidden />
         </button>
         <button
@@ -71,7 +72,7 @@ const TimeFilter = (props: Props) => {
           className="btn btn-primary reset-filter animated-button"
           disabled={isLoading || isReset()}
         >
-          Reset Filter
+          <Trans id="interface.report.results.timeFilter.reset">Reset Filter</Trans>
           <span className="glyphicon glyphicon-chevron-right" aria-hidden />
         </button>
       </div>

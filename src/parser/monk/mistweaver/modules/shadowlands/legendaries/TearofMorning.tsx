@@ -13,7 +13,7 @@ import { formatThousands } from 'common/format';
 import DonutChart from 'interface/statistics/components/DonutChart';
 
 
-const POWER_TRANSFER: number = .25;
+const POWER_TRANSFER = .25;
 
 class TearofMorning extends Analyzer {
 

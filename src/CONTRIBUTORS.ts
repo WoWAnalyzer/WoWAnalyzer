@@ -730,7 +730,7 @@ export const LeoZhekov: Contributor = {
   mains: [{
     name: 'Lisossa',
     spec: SPECS.SURVIVAL_HUNTER,
-    link: 'https://worldofwarcraft.com/en-gb/character/Zenedar/Lisossa',
+    link: 'https://worldofwarcraft.com/en-gb/character/Ravencrest/Lisossa',
   }],
 };
 export const Amrux: Contributor = {
@@ -772,8 +772,13 @@ export const Adoraci: Contributor = {
   avatar: require('./interface/images/avatars/Adoraci-avatar.jpg'),
   mains: [{
     name: 'Adoraci',
-    spec: SPECS.DISCIPLINE_PRIEST,
+    spec: SPECS.SHADOW_PRIEST,
     link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/adoraci',
+  }], 
+  alts: [{
+    name: 'Zenavi',
+    spec: SPECS.FURY_WARRIOR,
+    link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/zenavi',
   }],
 };
 export const TheJigglr: Contributor = {
@@ -932,6 +937,18 @@ export const Vohrr: Contributor = {
     link: 'https://worldofwarcraft.com/en-us/character/us/malganis/vohrbloom',
   }],
 };
+
+export const Vonn: Contributor = {
+  nickname: 'Vonn',
+  github: 'kenrms',
+  discord: 'vønn#2776',
+  avatar: require('./interface/images/avatars/vonn-avatar.jpg'),
+  mains: [{
+    name: 'Vønn',
+    spec: SPECS.ENHANCEMENT_SHAMAN,
+    link: 'https://worldofwarcraft.com/en-us/character/turalyon/vønn',
+  }],
+};
 export const AdamKelly: Contributor = {
   nickname: 'AdamKelly',
   github: 'Adammkelly',
@@ -963,4 +980,33 @@ export const Jafowler: Contributor = {
   nickname: 'Jake',
   github: 'jafowler',
   discord: 'Xinnk#3169',
+};
+export const Guyius: Contributor = {
+  nickname: 'Guyius',
+  github: 'guyius',
+  discord: 'Guyius#1560',
+};
+export const Amani: Contributor = {
+  nickname: 'Amani',
+  github: 'AmaniZandalari',
+  discord: 'Amani#0001',
+  about: 'Russian localizator and leader of Russian Shaman Discord community Vodovorot',
+  avatar: require('./interface/images/avatars/amani_avatar.png'),
+  mains: [{
+      name: 'Аманя',
+      spec: SPECS.ELEMENTAL_SHAMAN,
+      link: 'https://www.warcraftlogs.com/character/id/42517322',
+    }],
+};
+export const Haelrail: Contributor = {
+  nickname: 'Haelrail',
+  github: 'Haelrail',
+  discord: 'Haelrail#9202',
+  about: 'Russian localizator',
+};
+export const Kruzershtern: Contributor = {
+  nickname: 'Kruzershtern',
+  github: 'Kruzershtern',
+  discord: 'Kruzer#6980',
+  about: 'Russian localizator',
 };

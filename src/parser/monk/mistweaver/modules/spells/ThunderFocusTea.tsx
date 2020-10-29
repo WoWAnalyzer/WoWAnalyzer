@@ -15,7 +15,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
-const debug: boolean = false;
+const debug = false;
 
 //TODO clean up and make easier to add triggers
 class ThunderFocusTea extends Analyzer {

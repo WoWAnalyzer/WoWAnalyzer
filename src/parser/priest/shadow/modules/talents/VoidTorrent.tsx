@@ -12,7 +12,6 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
-import Voidform from '../spells/Voidform';
 import {MS_BUFFER, VOID_TORRENT_MAX_TIME } from '../../constants';
 
 function formatSeconds(seconds: number) {
@@ -21,10 +20,6 @@ function formatSeconds(seconds: number) {
 
 // Example Log: /report/hmJqLPZ7GVgY1CNa/16-Normal+Fetid+Devourer+-+Kill+(1:52)/44-베시잉/events
 class VoidTorrent extends Analyzer {
-  static dependencies = {
-    voidform: Voidform,
-  };
-  protected voidform!: Voidform;
 
   constructor(options: Options) {
     super(options);
@@ -38,32 +33,6 @@ class VoidTorrent extends Analyzer {
   _previousVoidTorrentCast: any;
   damage = 0;
 
-  startedVoidTorrent(event: any) {
-    this._voidTorrents[event.timestamp] = {
-      start: event.timestamp,
-    };
-
-    this._previousVoidTorrentCast = event;
-  }
-
-  finishedVoidTorrent({ event, wastedTime }: any) {
-    this._voidTorrents[this._previousVoidTorrentCast.timestamp] = {
-      ...this._voidTorrents[this._previousVoidTorrentCast.timestamp],
-      wastedTime,
-      end: event.timestamp,
-    };
-
-    // due to sometimes being able to cast it at the same time as you leave voidform:
-    if (this.voidform.inVoidform) {
-      this.voidform.addVoidformEvent(SPELLS.VOID_TORRENT_TALENT.id, {
-        start: this.voidform.normalizeTimestamp({ timestamp: this._previousVoidTorrentCast.timestamp }),
-        end: this.voidform.normalizeTimestamp(event),
-      });
-    }
-
-    this._previousVoidTorrentCast = null;
-  }
-
   get voidTorrents() {
     return Object.keys(this._voidTorrents).map(key => this._voidTorrents[key]);
   }
@@ -73,13 +42,23 @@ class VoidTorrent extends Analyzer {
   }
 
   onVoidTorrentCast(event: CastEvent) {
-    this.startedVoidTorrent(event);
+    this._voidTorrents[event.timestamp] = {
+      start: event.timestamp,
+    };
+
+    this._previousVoidTorrentCast = event;
   }
 
   onVoidTorrentRemoved(event: RemoveBuffEvent) {
     const timeSpentChanneling = event.timestamp - this._previousVoidTorrentCast.timestamp;
     const wastedTime = (VOID_TORRENT_MAX_TIME - MS_BUFFER) > timeSpentChanneling ? (VOID_TORRENT_MAX_TIME - timeSpentChanneling) : 0;
-    this.finishedVoidTorrent({ event, wastedTime });
+    this._voidTorrents[this._previousVoidTorrentCast.timestamp] = {
+      ...this._voidTorrents[this._previousVoidTorrentCast.timestamp],
+      wastedTime,
+      end: event.timestamp,
+    };
+
+    this._previousVoidTorrentCast = null;
   }
 
   onVoidTorrentDamage(event: DamageEvent) {
@@ -111,7 +90,7 @@ class VoidTorrent extends Analyzer {
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={`${formatSeconds(this.totalWasted)} seconds wasted`}
+        tooltip={`${formatSeconds(this.totalWasted)} seconds wasted by cancelling the channel early.`}
       >
         <BoringSpellValueText spell={SPELLS.VOID_TORRENT_TALENT}>
           <>

@@ -2,6 +2,7 @@ import React from 'react';
 
 import DocumentTitle from 'interface/DocumentTitle';
 import AVAILABLE_CONFIGS from 'parser';
+import { Trans } from '@lingui/macro';
 
 import './SpecList.css';
 
@@ -12,11 +13,11 @@ const SpecListing = () => (
     <DocumentTitle title="Specializations" />
 
     <div>
-      <h1>Specializations</h1>
+      <Trans id="interface.specList.specs" render="h1">Specializations</Trans>
     </div>
-    <small>
+    <Trans id="interface.specList.specs.label" render="small">
       Click any specialization to view an example report for that spec.
-    </small>
+    </Trans>
 
     <div className="spec-listing">
       {AVAILABLE_CONFIGS.sort((a, b) => {

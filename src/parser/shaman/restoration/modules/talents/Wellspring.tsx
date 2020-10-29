@@ -121,7 +121,7 @@ class Wellspring extends Analyzer {
   suggestions(when: When) {
     const suggestionThreshold = this.suggestionThreshold;
     when(suggestionThreshold.actual).isLessThan(suggestionThreshold.isLessThan.minor)
-      .addSuggestion((suggest, actual, recommended) => suggest(<span>You're not making full use of the potential of <SpellLink id={SPELLS.WELLSPRING_TALENT.id} />. Try to aim it towards stacks of injured players with 6 people or more.</span>)
+      .addSuggestion((suggest, _actual, _recommended) => suggest(<Trans id="shaman.restoration.suggestions.wellSpring.label">You're not making full use of the potential of <SpellLink id={SPELLS.WELLSPRING_TALENT.id} />. Try to aim it towards stacks of injured players with 6 people or more.</Trans>)
           .icon(SPELLS.WELLSPRING_TALENT.icon)
           .actual(`${formatPercentage(suggestionThreshold.actual)}% ${i18n._(t('shared.suggestions.efficiency')`efficiency`)}`)
           .recommended(`>${formatPercentage(suggestionThreshold.isLessThan.minor)}% efficiency is recommended`)
@@ -168,7 +168,7 @@ class Wellspring extends Analyzer {
                 <tr key={index}>
                   <th scope="row">{formatNth(index)}</th>
                   <td>{formatDuration((this.wellspringTimestamps[index] - this.owner.fight.start_time) / 1000) || 0}</td>
-                  <td style={hits < 6 ? { color: 'red', fontWeight: 'bold' } : { fontWeight: 'bold' }}>{hits} hits</td>
+                  <td style={hits < 6 ? { color: 'red', fontWeight: 'bold' } : {}}>{hits} hits</td>
                 </tr>
               ))
             }

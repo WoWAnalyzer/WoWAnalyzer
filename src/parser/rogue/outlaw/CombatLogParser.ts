@@ -39,6 +39,7 @@ import BladeFlurry from './modules/spells/BladeFlurry';
 import GuileCharm from './modules/spells/shadowlands/legendaries/GuileCharm';
 import GreenskinsWickers from './modules/spells/shadowlands/legendaries/GreenskinsWickers';
 import EssenceOfBloodfang from '../shared/shadowlands/legendaries/EssenceOfBloodfang';
+import InvigoratingShadowdust from '../shared/shadowlands/legendaries/InvigoratingShadowdust';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -67,6 +68,7 @@ class CombatLogParser extends CoreCombatLogParser {
     guileCharm: GuileCharm,
     greenskinsWickers: GreenskinsWickers,
     essenceOfBloodfang: EssenceOfBloodfang,
+    invigoratingShadowdust: InvigoratingShadowdust,
 
     //Casts
     dispatch: Dispatch,

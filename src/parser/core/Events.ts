@@ -57,14 +57,14 @@ export enum EventType {
   Dispel = 'dispel',
   Time = 'time',
   Test = 'test',
-  SpendResource = "spendresource",
+  SpendResource = 'spendresource',
 
   // Monk
   AddStagger = 'addstagger',
   RemoveStagger = 'removestagger',
 
   // Priest
-  Atonement ='atonement',
+  Atonement = 'atonement',
   AtonementDamage = 'atonementDamageSource',
   AtonementApplied = 'atonement_applied',
   AtonementFaded = 'atonement_faded',
@@ -139,6 +139,7 @@ export interface ClassResources {
   amount: number;
   max: number;
   type: number;
+  cost?: number;
 }
 
 // TODO: Find a good place for this
@@ -327,14 +328,14 @@ export interface AbsorbedEvent extends Event<EventType.Absorbed> {
 export interface DamageEvent extends Event<EventType.Damage> {
   source?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
   sourceID?: number;
-  sourceIsFriendly: true;
+  sourceIsFriendly: boolean;
   targetID: number;
   targetInstance: number;
-  targetIsFriendly: false;
+  targetIsFriendly: boolean;
   ability: Ability;
   hitType: number;
   amount: number;
-  absorbed: number;
+  absorbed?: number;
   resourceActor?: number;
   classResources?: ClassResources[];
   hitPoints?: number;

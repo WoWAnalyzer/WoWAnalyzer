@@ -15,7 +15,7 @@ import MarrowrendUsage from "../MarrowrendUsage";
 import DeathsCaress from '../../core/DeathsCaress';
 import BoneStorm from '../../talents/Bonestorm';
 import MarkOfBloodUptime from '../../talents/MarkOfBlood';
-import Ossuary from '../Ossuary';
+// import Ossuary from '../Ossuary';
 import Consumption from '../../talents/Consumption';
 import RunicPowerDetails from '../../runicpower/RunicPowerDetails';
 import RuneTracker from '../../../../shared/RuneTracker';
@@ -29,7 +29,7 @@ class Checklist extends BaseChecklist {
 
     bloodplagueUptime: BloodPlagueUptime,
     boneShield: BoneShield,
-    ossuary: Ossuary,
+    // ossuary: Ossuary,
     deathsCaress: DeathsCaress,
     bonestorm: BoneStorm,
     consumption: Consumption,
@@ -57,7 +57,7 @@ class Checklist extends BaseChecklist {
           bloodPlague: this.bloodplagueUptime.uptimeSuggestionThresholds,
           markOfBlood: this.markOfBloodUptime.uptimeSuggestionThresholds,
           boneShield: this.boneShield.uptimeSuggestionThresholds,
-          ossuary: this.ossuary.uptimeSuggestionThresholds,
+          // ossuary: this.ossuary.uptimeSuggestionThresholds,
         }}
       />
     );

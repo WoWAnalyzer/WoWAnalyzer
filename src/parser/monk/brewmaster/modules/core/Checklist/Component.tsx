@@ -64,6 +64,10 @@ const Component = ({ combatant, castEfficiency, thresholds }: any) => {
         <AbilityRequirement spell={SPELLS.BLACKOUT_KICK_BRM.id} />
         <AbilityRequirement spell={SPELLS.INVOKE_NIUZAO_THE_BLACK_OX.id} />
         <AbilityRequirement spell={SPELLS.TOUCH_OF_DEATH.id} />
+        <Requirement
+            name={<><SpellLink id={SPELLS.TIGER_PALM.id} /> casts while better abilities were available</>}
+            tooltip="Tiger Palm is a filler ability and should only be used when other spells are on cooldown."
+            thresholds={thresholds.badTp} />
         {combatant.hasTalent(SPELLS.BLACKOUT_COMBO_TALENT.id) && (
           <>
             <Requirement

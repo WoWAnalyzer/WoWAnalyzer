@@ -91,6 +91,7 @@ const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }) => {
           </>
         )}
       >
+        <AbilityRequirement spell={SPELLS.EXPEL_HARM.id} />
         {combatant.hasTalent(SPELLS.ENERGIZING_ELIXIR_TALENT.id) && <AbilityRequirement spell={SPELLS.ENERGIZING_ELIXIR_TALENT.id} />}
         {combatant.hasTalent(SPELLS.FIST_OF_THE_WHITE_TIGER_TALENT.id) && <AbilityRequirement spell={SPELLS.FIST_OF_THE_WHITE_TIGER_TALENT.id} />}
         <Requirement

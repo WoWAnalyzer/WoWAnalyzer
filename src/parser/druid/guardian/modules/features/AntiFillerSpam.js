@@ -101,7 +101,7 @@ class AntiFillerSpam extends Analyzer {
     if (availableSpells.length > 0) {
       this._unnecessaryFillerSpells += 1;
       let text = '';
-      for (let i = 0; i < availableSpells.length; i++){
+      for (let i = 0; i < availableSpells.length; i += 1){
         if (availableSpells[i].primarySpell.id === SPELLS.MOONFIRE.id) {
           text += 'a Galactic Guardian proc';
         } else {

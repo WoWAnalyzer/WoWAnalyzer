@@ -13,8 +13,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellLink from 'common/SpellLink';
 
-
-const PUNISH_DAMAGE_INCREASE: number = 0.2;
+const PUNISH_DAMAGE_INCREASE = 0.2;
 
 class Punish extends Analyzer {
   static dependencies = {

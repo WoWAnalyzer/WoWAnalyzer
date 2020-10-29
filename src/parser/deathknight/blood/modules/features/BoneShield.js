@@ -1,16 +1,16 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import { formatDuration, formatPercentage } from 'common/format';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
-import StatisticBox from 'interface/others/StatisticBox';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import UptimeIcon from 'interface/icons/Uptime';
+import Statistic from 'interface/statistics/Statistic';
 
-import BoneShieldTimesByStacks from "./BoneShieldTimesByStacks";
-
+import BoneShieldTimesByStacks from './BoneShieldTimesByStacks';
 
 class BoneShield extends Analyzer {
 
@@ -19,11 +19,9 @@ class BoneShield extends Analyzer {
     boneShieldTimesByStacks: BoneShieldTimesByStacks,
   };
 
-
   get boneShieldTimesByStack() {
     return this.boneShieldTimesByStacks.boneShieldTimesByStacks;
   }
-
 
   get uptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.BONE_SHIELD.id) / this.owner.fightDuration;
@@ -51,35 +49,41 @@ class BoneShield extends Analyzer {
 
   statistic() {
 
-      return (
-        <StatisticBox
-          icon={<SpellIcon id={SPELLS.BONE_SHIELD.id} />}
-          value={`${formatPercentage(this.uptime)} %`}
-          label="Bone Shield uptime"
-        >
-          <table className="table table-condensed">
-            <thead>
-              <tr>
-                <th>Stacks</th>
-                <th>Time (s)</th>
-                <th>Time (%)</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.values(this.boneShieldTimesByStack).map((e, i) => (
-                <tr key={i}>
-                  <th>{i}</th>
-                  <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
-                  <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
+    return (
+      <Statistic
+        position={STATISTIC_ORDER.CORE(5)}
+        size="flexible"
+        dropdown={(
+          <>
+            <table className="table table-condensed">
+              <thead>
+                <tr>
+                  <th>Stacks</th>
+                  <th>Time (s)</th>
+                  <th>Time (%)</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </StatisticBox>
-
-      );
+              </thead>
+              <tbody>
+                {Object.values(this.boneShieldTimesByStack).map((e, i) => (
+                  <tr key={i}>
+                    <th>{i}</th>
+                    <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
+                    <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </>
+        )}
+      >
+        <BoringSpellValueText spell={SPELLS.BONE_SHIELD}>
+          <>
+            <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
+    );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default BoneShield;

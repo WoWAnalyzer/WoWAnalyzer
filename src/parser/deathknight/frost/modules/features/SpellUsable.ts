@@ -6,9 +6,9 @@ import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 /**
  *
-Your Frost Strike, Frostscythe, and Obliterate critical strikes reduce the remaining cooldown of Pillar of Frost by 3 sec.
+Your Frost Strike, Frostscythe, and Obliterate critical strikes reduce the remaining cooldown of Pillar of Frost by 4 sec.
  */
-const ICECAP_COOLDOWN_REDUCTION_MS = 3000;
+const ICECAP_COOLDOWN_REDUCTION_MS = 4000;
 const ICECAP_INTERNAL_CD = 1000;
 
 const ICECAP_ABILITIES = [

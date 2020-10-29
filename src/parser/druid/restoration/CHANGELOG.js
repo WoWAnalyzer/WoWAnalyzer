@@ -5,6 +5,7 @@ import { Yajinni, blazyb, fel1ne, Qbz, Zerotorescue, Abelito75, Anatta336, Jerem
 import { change, date } from 'common/changelog';
 
 export default [  
+  change(date(2020, 10, 25), 'Updated spell book and to use common libraries', Abelito75),
   change(date(2020, 10, 18), 'Converted legacy listeners to new event filters', Zeboot),
   change(date(2020, 9, 26), 'Added Flash of Clarity conduit.', [Abelito75]),
   change(date(2020, 5, 26), 'Fixed an issue where HPCT would constantly grow.', [Abelito75]),

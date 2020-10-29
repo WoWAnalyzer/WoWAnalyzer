@@ -29,6 +29,69 @@ Array [
 ]
 `;
 
+exports[`Protection Paladin integration test: example log BlessedHammerDamageReduction matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="TALENTS"
+    className="panel statistic flexible "
+    position={100}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex boring-value "
+      >
+        <div
+          className="flex-sub icon"
+        >
+          <a
+            href="http://wowhead.com/spell=204019"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Blessed Hammer"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/paladin_retribution.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main value"
+        >
+          <div>
+            6,284
+          </div>
+          <small>
+            Reduced damage from 20 hits.
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Protection Paladin integration test: example log CastEfficiency matches the statistic snapshot 1`] = `
 <div
   className="panel "
@@ -43,12 +106,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
         }
       }
     >
-      <a
-        href="#Abilities"
-        id="Abilities"
-      >
-        Abilities
-      </a>
+      common.abilities
     </h1>
   </div>
   <div
@@ -2868,7 +2926,7 @@ exports[`Protection Paladin integration test: example log Consecration matches t
           className="flex-main value"
         >
           <div>
-            57.78 %
+            75.86 %
           </div>
           <small>
             Hits Mitigated w/ Consecration
@@ -2888,7 +2946,7 @@ Array [
     "importance": "major",
     "issue": "Your Consecration usage can be improved. Maintain it to reduce all incoming damage and refresh it during rotational downtime.",
     "stat": <React.Fragment>
-      57.78% of hits were mitigated by Consecration
+      75.86% of hits were mitigated by Consecration
        (
       &gt;95.00% is recommended
       )
@@ -3441,10 +3499,10 @@ exports[`Protection Paladin integration test: example log GrandCrusader matches 
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
+    className="panel statistic flexible "
+    position={100}
     style={
       Object {
-        "height": "auto",
         "zIndex": 1,
       }
     }
@@ -3453,9 +3511,11 @@ exports[`Protection Paladin integration test: example log GrandCrusader matches 
       className="panel-body"
     >
       <div
-        className="pad"
+        className="flex boring-value "
       >
-        <label>
+        <div
+          className="flex-sub icon"
+        >
           <a
             href="http://wowhead.com/spell=85043"
             rel="noopener noreferrer"
@@ -3467,13 +3527,16 @@ exports[`Protection Paladin integration test: example log GrandCrusader matches 
               src="//render-us.worldofwarcraft.com/icons/56/inv_helmet_74.jpg"
             />
           </a>
-           
-          Grand Crusader
-        </label>
+        </div>
         <div
-          className="value"
+          className="flex-main value"
         >
-          4 Resets
+          <div>
+            4 Resets
+          </div>
+          <small>
+            Grand Crusader
+          </small>
         </div>
       </div>
       <div
@@ -4094,39 +4157,39 @@ exports[`Protection Paladin integration test: example log Judgment matches the s
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={100}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="flex boring-value "
       >
-        <label>
+        <div
+          className="flex-sub icon"
+        >
           <a
-            href="http://wowhead.com/spell=53600"
+            href="http://wowhead.com/spell=197277"
             rel="noopener noreferrer"
             target="_blank"
           >
             <img
-              alt="Shield of the Righteous"
+              alt="Judgment"
               className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_shieldofvengeance.jpg"
+              src="//render-us.worldofwarcraft.com/icons/56/spell_holy_righteousfury.jpg"
             />
           </a>
-           
-          Effective SotR CDR
-        </label>
+        </div>
         <div
-          className="value"
+          className="flex-main value"
         >
-          0.00%
+          <div>
+            15
+          </div>
+          <small>
+            Judgment Debuffs Consumed
+          </small>
         </div>
       </div>
     </div>
@@ -4149,6 +4212,30 @@ exports[`Protection Paladin integration test: example log Judgment matches the s
     </div>
   </div>
 </div>
+`;
+
+exports[`Protection Paladin integration test: example log Judgment matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_holy_righteousfury",
+    "importance": "major",
+    "issue": <React.Fragment>
+      You're not consuming all your 
+      <ForwardRef
+        icon={true}
+        id={20271}
+      />
+       debuffs.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      39.47% Judgments consumed
+       (
+      &gt;95.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
 `;
 
 exports[`Protection Paladin integration test: example log NoDamageShieldOfTheRighteous matches the statistic snapshot 1`] = `
@@ -4281,33 +4368,48 @@ Array [
     "details": null,
     "icon": "inv_alchemy_90_combat2_yellow",
     "importance": "minor",
-    "issue": <React.Fragment>
-      You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as 
-      <ItemLink
-        icon={true}
-        id={171275}
-      />
-       can be very effective, especially during shorter encounters. 
-      
-    </React.Fragment>,
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            icon={true}
+            id={171275}
+          />,
+        ]
+      }
+      defaults="You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <0/> can be very effective, especially during shorter encounters. {0}"
+      id="shared.modules.items.prepotion.suggestions.preCombat"
+      values={
+        Object {
+          "0": "",
+        }
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_alchemy_90_combat2_yellow",
     "importance": "minor",
-    "issue": <React.Fragment>
-      You forgot to use a potion during combat. Using a potion during combat allows you the benefit of 
-      
-       increasing output through 
-      <ItemLink
-        icon={true}
-        id={171275}
-      />
-      
-      . 
-      
-    </React.Fragment>,
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            icon={true}
+            id={171275}
+          />,
+        ]
+      }
+      defaults="You forgot to use a potion during combat. Using a potion during combat allows you the benefit of {0} increasing output through <0/>{1}. {2}"
+      id="shared.modules.items.prepotion.suggestions.duringCombat"
+      values={
+        Object {
+          "0": "",
+          "1": "",
+          "2": "",
+        }
+      }
+    />,
     "stat": null,
   },
 ]
@@ -4345,12 +4447,12 @@ exports[`Protection Paladin integration test: example log ShieldOfTheRighteous m
             />
           </a>
            
-          Physical damage mitigated
+          Physical Hits Mitigated
         </label>
         <div
           className="value"
         >
-          59.99%
+          69.57%
         </div>
       </div>
     </div>
@@ -4382,21 +4484,16 @@ Array [
     "icon": "ability_paladin_shieldofvengeance",
     "importance": "major",
     "issue": <React.Fragment>
-      23.53
-      % of your 
+      You should maintain 
       <ForwardRef
         id={53600}
       />
-       casts were 
-      <em>
-        good
-      </em>
-       (they mitigated at least 2 auto-attacks or 1 tankbuster, or prevented capping charges). You should have Shield of the Righteous up to mitigate as much physical damage as possible.
+       while actively tanking
     </React.Fragment>,
     "stat": <React.Fragment>
-      23.53% good Shield of the Righteous casts
+      69.57% of hits mitigated by Shield of the Righteous
        (
-      90% or more is recommended
+      at least 95.00% is recommended
       )
     </React.Fragment>,
   },
@@ -5260,7 +5357,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "16.84047648585716%",
+                  "width": "22.27096638796493%",
                 }
               }
             />
@@ -5450,7 +5547,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                Good 
+                Hits Mitigated with 
                 <a
                   href="http://wowhead.com/spell=53600"
                   rel="noopener noreferrer"
@@ -5464,7 +5561,36 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                    
                   Shield of the Righteous
                 </a>
-                 casts
+              </div>
+              <div
+                className="flex-sub"
+                style={
+                  Object {
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  <svg
+                    className="icon"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                    />
+                    <path
+                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                    />
+                    <path
+                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                    />
+                  </svg>
+                </div>
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -5485,7 +5611,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                   }
                 >
                    
-                  23.53%
+                  69.57%
                    
                    
                 </div>
@@ -5507,7 +5633,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "13.058823529411768%",
+                        "width": "27.253196930946295%",
                       }
                     }
                   />
@@ -5558,7 +5684,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                   }
                 >
                    
-                  57.78%
+                  75.86%
                    
                    
                 </div>
@@ -5580,7 +5706,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "24.049999999999997%",
+                        "width": "31.57758620689655%",
                       }
                     }
                   />
@@ -5778,7 +5904,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
             </a>
              to heal yourself (or others, with 
             <a
-              href="http://wowhead.com/spell=213652"
+              href="http://wowhead.com/spell=315924"
               rel="noopener noreferrer"
               target="_blank"
             >
