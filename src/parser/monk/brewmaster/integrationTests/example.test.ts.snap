@@ -3787,35 +3787,17 @@ Array [
   Object {
     "details": null,
     "icon": "inv_alchemy_90_combat2_green",
-<<<<<<< HEAD
     "importance": "regular",
-    "issue": <React.Fragment>
-      You used 
-      1
-       combat potions during this encounter, but you could have used 
-      2
-      . Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter.
-    </React.Fragment>,
-=======
-    "importance": "minor",
     "issue": <WithI18n
-      components={
-        Array [
-          <ItemLink
-            icon={true}
-            id={171270}
-          />,
-        ]
-      }
-      defaults="You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <0/> can be very effective, especially during shorter encounters. {0}"
-      id="shared.modules.items.prepotion.suggestions.preCombat"
+      defaults="You used {0} combat potions during this encounter, but you could have used {1}. Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter."
+      id="shared.modules.items.potionChecker.suggestions.potionsUsed"
       values={
         Object {
-          "0": "",
+          "0": 0,
+          "1": 1,
         }
       }
     />,
->>>>>>> shadowlands
     "stat": null,
   },
   Object {
@@ -3829,17 +3811,14 @@ Array [
             icon={true}
             id={171270}
           />,
+          <ItemLink
+            icon={true}
+            id={171270}
+          />,
         ]
       }
-      defaults="You forgot to use a potion during combat. Using a potion during combat allows you the benefit of {0} increasing output through <0/>{1}. {2}"
-      id="shared.modules.items.prepotion.suggestions.duringCombat"
-      values={
-        Object {
-          "0": "",
-          "1": "",
-          "2": "",
-        }
-      }
+      defaults="You used a weak potion. <0/> can be used instead of <1/> in order to get a slightly higher damage output."
+      id="shared.modules.items.potionChecker.suggestions.weakPotion"
     />,
     "stat": null,
   },
@@ -5971,13 +5950,9 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-<<<<<<< HEAD
-                  1
-=======
-                  common.no
->>>>>>> shadowlands
+                  0
                    
-                  / 2
+                  / 1
                    
                 </div>
               </div>
@@ -5996,73 +5971,9 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                     className="performance-bar small"
                     style={
                       Object {
-<<<<<<< HEAD
-                        "backgroundColor": "#df7102",
-=======
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
                         "width": "0%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                Used a second potion
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  common.no
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
->>>>>>> shadowlands
-                        "transition": "background-color 800ms",
-                        "width": "50%",
                       }
                     }
                   />
@@ -6102,7 +6013,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                    
                   0
                    
-                  / 2
+                  / 1
                    
                 </div>
               </div>
