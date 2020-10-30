@@ -32,7 +32,6 @@ const spells: SpellList = {
     id: 34026,
     name: 'Kill Command',
     icon: 'ability_hunter_killcommand',
-    resourceCost: 30,
   },
   KILL_COMMAND_DAMAGE_BM: {
     id: 83381,

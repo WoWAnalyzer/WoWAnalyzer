@@ -5,10 +5,6 @@ export default interface Spell {
     manaCost?: number;
 };
 
-export interface HunterSpell extends Spell {
-  focusCost?: number;
-}
-
 export interface LegendarySpell extends Spell {
   bonusID?: number;
 }

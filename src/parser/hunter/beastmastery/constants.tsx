@@ -11,6 +11,9 @@ export const ORIGINAL_FRENZY_DURATION = 8000;
 export const COBRA_SHOT_CDR_MS = 1000;
 //A threshold where you can never realistically overcap on focus by waiting for AT MOST 1 GCD + 1 second.
 export const COBRA_SHOT_FOCUS_THRESHOLD_TO_WAIT = 50;
+/** Kill Command */
+//Kill Command costs 30 focus for Beast Mastery hunters
+export const KILL_COMMAND_BM_FOCUS_COST = 30;
 /** Bestial Wrath */
 //Bestial Wrath
 export const BARBED_SHOT_BESTIAL_WRATH_CDR_MS = 12000;
