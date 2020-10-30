@@ -10,6 +10,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 10, 31), 'Update several component to Typescript and refactor to hooks', Guyius),
   change(date(2020, 10, 29), 'Update several component to Typescript, center player name in player gear header', Guyius),
   change(date(2020, 10, 28), 'Added more translateable elements.', niseko),
   change(date(2020, 10, 27), 'Russian localization of Interface and Restoration Shaman', [Amani, Haelrail, Kruzershtern]),
