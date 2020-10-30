@@ -7,10 +7,9 @@ import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
+import { MS_BUFFER_100 } from 'parser/mage/shared/constants';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
-
-import { RUNE_OF_POWER_DELAY } from '../../constants';
 
 class MeteorRune extends Analyzer {
   static dependencies = {
@@ -40,7 +39,7 @@ class MeteorRune extends Analyzer {
   }
 
   onMeteor(event: CastEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.RUNE_OF_POWER_BUFF.id) && event.timestamp - this.lastRuneCast > RUNE_OF_POWER_DELAY) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.RUNE_OF_POWER_BUFF.id) && event.timestamp - this.lastRuneCast > MS_BUFFER_100) {
       this.badMeteor += 1;
     }
   }

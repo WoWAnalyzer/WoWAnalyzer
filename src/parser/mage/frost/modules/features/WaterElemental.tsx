@@ -22,7 +22,6 @@ class WaterElemental extends Analyzer {
   protected abc!: AlwaysBeCasting;
 
   beginCastSpell?: BeginCastEvent;
-
   _waterboltsCancelled = 0;
   _waterboltsCastStarts = 0;
   _waterboltHits = 0;

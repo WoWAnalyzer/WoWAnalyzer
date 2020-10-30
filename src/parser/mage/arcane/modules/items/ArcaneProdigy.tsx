@@ -9,23 +9,7 @@ import UptimeIcon from 'interface/icons/Uptime';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
-const COOLDOWN_REDUCTION_MS: {[rank: number]: number } = {
-  1: 100,
-  2: 200,
-  3: 300,
-  4: 400,
-  5: 500,
-  6: 600,
-  7: 700,
-  8: 800,
-  9: 900,
-  10: 1000,
-  11: 1100,
-  12: 1200,
-  13: 1300,
-  14: 1400,
-  15: 1500,
-};
+const COOLDOWN_REDUCTION_MS = [0, 200, 200, 200, 200, 200, 200, 200, 300, 300, 300, 300, 300, 300, 300, 400];
 
 class ArcaneProdigy extends Analyzer {
   static dependencies = {
@@ -33,8 +17,7 @@ class ArcaneProdigy extends Analyzer {
   }
   protected spellUsable!: SpellUsable;
 
-  conduitRank: number = 0;
-
+  conduitRank = 0;
   cooldownReduction = 0;
   wastedReduction = 0;
 

@@ -8,11 +8,11 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import { MS_BUFFER_250 } from 'parser/mage/shared/constants';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import HotStreakPreCasts from './HotStreakPreCasts';
-import { PROC_BUFFER } from '../../constants';
 
 const debug = false;
 
@@ -23,7 +23,6 @@ class HotStreak extends Analyzer {
   protected hotStreakPreCasts!: HotStreakPreCasts;
 
   hasPyroclasm: boolean;
-
   totalHotStreakProcs = 0;
   expiredProcs = 0;
   hotStreakRemoved = 0;
@@ -50,7 +49,7 @@ class HotStreak extends Analyzer {
 
   //Checks to see if there was a Hot Streak spender cast immediately before Hot Streak was removed. If there was not, then it must have expired.
   checkForExpiredProcs(event: RemoveBuffEvent) {
-    if (!this.castTimestamp || this.castTimestamp + PROC_BUFFER < event.timestamp) {
+    if (!this.castTimestamp || this.castTimestamp + MS_BUFFER_250 < event.timestamp) {
       debug && this.log("Hot Streak proc expired");
       this.expiredProcs += 1;
     }

@@ -64,7 +64,7 @@ class Checklist extends BaseChecklist {
 
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           arcaneFamiliarUptime: this.arcaneFamiliar.arcaneFamiliarUptimeThresholds,
-          arcaneOrbAverageHits: this.arcaneOrb.arcaneOrbHitThresholds,
+          arcaneOrbMissedOrbs: this.arcaneOrb.missedOrbsThresholds,
           arcanePowerCooldown: this.arcanePower.arcanePowerCooldownThresholds,
           arcanePowerManaUtilization: this.arcanePower.arcanePowerManaUtilization,
           arcanePowerCasts: this.arcanePower.arcanePowerCastThresholds,

@@ -1,8 +1,14 @@
 
+import SPELLS from 'common/SPELLS';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { AnyEvent, EventType } from 'parser/core/Events';
 
-import { ARCANE_CHARGE_SPELLS } from '../constants';
+const ARCANE_CHARGE_SPELLS = [
+  SPELLS.ARCANE_BLAST,
+  SPELLS.ARCANE_EXPLOSION,
+  SPELLS.TOUCH_OF_THE_MAGI,
+  SPELLS.ARTIFICE_OF_THE_ARCHMAGE,
+];
 
 class ArcaneCharges extends EventsNormalizer {
 
