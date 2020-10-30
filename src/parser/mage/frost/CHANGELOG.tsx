@@ -6,6 +6,9 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 10, 29), <>Updated <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> module to check for overlapping <SpellLink id={SPELLS.FLURRY.id} /> (Using a Brain Freeze while Winters Chill is still on the target). </>, Sharrq),
+  change(date(2020, 10, 20), 'Cleaned up variable types and constants.', Sharrq),
+  change(date(2020, 10, 20), <>Added Covenant Abilities to Spellbook and removed the GCD on <SpellLink id={SPELLS.ICY_VEINS.id} />. </>, Sharrq),
   change(date(2020, 10, 13), <>Updated <SpellLink id={SPELLS.MIRROR_IMAGE.id} /> module, added an <SpellLink id={SPELLS.ICE_BARRIER.id} /> module, and adjusted <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> ... again. </>, Sharrq),
   change(date(2020, 10, 13), <>Adjusted <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} />. </>, Sharrq),
   change(date(2020, 10, 13), <>Added support for the <SpellLink id={SPELLS.SIPHONED_MALICE.id} /> and <SpellLink id={SPELLS.TEMPEST_BARRIER.id} /> conduits. </>, Sharrq),
@@ -17,7 +20,7 @@ export default [
   change(date(2020, 10, 13), <>Updated modules for <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> and <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> for Shadowlands. </>, Sharrq),
   change(date(2020, 10, 13), <>Added Spell IDs for the Shadowlands Mage Conduits, Legendaries, and Covenant Abilities. </>, Sharrq),
   change(date(2020, 10, 13), <>Removed Azerite, Essences, and BFA Items in prep for Shadowlands. </>, Sharrq),
-  change(date(2020, 10, 13), <>Shadowlands base changes (Added <SpellLink id={SPELLS.FIRE_BLAST.id} /> and <SpellLink id={SPELLS.ARCANE_EXPLOSION.id} /></>, Sharrq),
+  change(date(2020, 10, 13), <>Shadowlands base changes (Added <SpellLink id={SPELLS.FIRE_BLAST.id} /> and <SpellLink id={SPELLS.ARCANE_EXPLOSION.id} />).</>, Sharrq),
   change(date(2020, 10, 13), <>General Cleanup for Mage Spells</>, Sharrq),
   change(date(2020, 10, 13), <>Shared class changes for Shadowlands (<SpellLink id={SPELLS.ALTER_TIME.id} />, <SpellLink id={SPELLS.FOCUS_MAGIC_TALENT.id} />, <SpellLink id={SPELLS.MIRROR_IMAGE.id} />)</>, Sharrq),
 ];

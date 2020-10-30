@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import SPELLS from 'common/SPELLS';
 import Icon from 'common/Icon';
@@ -9,11 +8,11 @@ import { Trans } from '@lingui/macro';
 
 const FALLBACK_ICON = 'inv_misc_questionmark';
 
-const Talents = (
-  {
-    talents,
-  },
-) => {
+interface Props {
+  talents: number[];
+}
+
+const Talents = ({talents}: Props) => {
   const rows = [15, 25, 30, 35, 40, 45, 50];
 
   return (
@@ -22,7 +21,7 @@ const Talents = (
         <Trans id="common.talents">Talents</Trans>
       </h3>
       <div className="talent-info">
-        {talents.map((spellId, index) => (
+        {talents.map((spellId: number, index: number) => (
           <div key={index} className="talent-info-row" style={{ marginBottom: '0.8em', fontSize: '1.3em' }}>
             <div className="talent-level">
               {rows[index]}
@@ -53,10 +52,6 @@ const Talents = (
       </div>
     </>
   );
-};
-
-Talents.propTypes = {
-  talents: PropTypes.array.isRequired,
 };
 
 export default Talents;

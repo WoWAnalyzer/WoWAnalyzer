@@ -29,10 +29,10 @@ const INCANTERS_FLOW_EXPECTED_BOOST = 0.12;
 // FIXME due to interactions with Ignite, the damage boost number will be underrated for Fire Mages. Still fine for Arcane and Frost.
 class RuneOfPower extends Analyzer {
 
-  hasROP: boolean = false;
-  damage: number = 0;
-  totalRunes: number = 0;
-  overlappedRunes: number = 0;
+  hasROP = false;
+  damage = 0;
+  totalRunes = 0;
+  overlappedRunes = 0;
 
   constructor(options: Options) {
     super(options);

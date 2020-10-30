@@ -7,10 +7,9 @@ import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent, DamageEvent, ApplyBuffEvent } from 'parser/core/Events';
 import HIT_TYPES from 'game/HIT_TYPES';
 import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import { MS_BUFFER_250, FIRE_DIRECT_DAMAGE_SPELLS } from 'parser/mage/shared/constants';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
-
-import { PROC_BUFFER, HOT_STREAK_CONTRIBUTORS } from '../../constants';
 
 const debug = false;
 
@@ -22,7 +21,6 @@ class HotStreakWastedCrits extends Analyzer {
 
   hasPyromaniac: boolean;
   lastCastEvent?: CastEvent;
-
   wastedCrits = 0;
   hasPyromaniacProc = false;
   pyromaniacProc = false;
@@ -31,8 +29,8 @@ class HotStreakWastedCrits extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.hasPyromaniac = this.selectedCombatant.hasTalent(SPELLS.PYROMANIAC_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(HOT_STREAK_CONTRIBUTORS), this._onCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(HOT_STREAK_CONTRIBUTORS), this._onDamage);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(FIRE_DIRECT_DAMAGE_SPELLS), this._onCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(FIRE_DIRECT_DAMAGE_SPELLS), this._onDamage);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.HOT_STREAK), this.checkForPyromaniacProc);
 
   }
@@ -70,7 +68,7 @@ class HotStreakWastedCrits extends Analyzer {
 
   //Pyromaniac doesnt trigger an event, so we need to check to see if the player immediately got a new Hot Streak immediately after using a Hot Streak
   checkForPyromaniacProc(event: ApplyBuffEvent) {
-    if (this.hasPyromaniac && event.timestamp - this.hotStreakRemoved < PROC_BUFFER) {
+    if (this.hasPyromaniac && event.timestamp - this.hotStreakRemoved < MS_BUFFER_250) {
       this.hasPyromaniacProc = true;
     }
   }

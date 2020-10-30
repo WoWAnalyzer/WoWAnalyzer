@@ -9,28 +9,11 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
-const DAMAGE_BONUS: {[rank: number]: number } = {
-  1: .02,
-  2: .024,
-  3: .028,
-  4: .032,
-  5: .036,
-  6: .04,
-  7: .044,
-  8: .048,
-  9: .052,
-  10: .056,
-  11: .06,
-  12: .064,
-  13: .068,
-  14: .072,
-  15: .08,
-};
+const DAMAGE_BONUS = [0, .05, .06, .06, .07, .07, .08, .08, .09, .09, .10, .10, .11, .11, .12, .12];
 
 class IreOfTheAscended extends Analyzer {
 
-  conduitRank: number = 0;
-
+  conduitRank = 0;
   bonusDamage = 0;
 
   constructor(props: Options) {

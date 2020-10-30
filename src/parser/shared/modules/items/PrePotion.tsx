@@ -10,6 +10,7 @@ import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 
 import React from 'react';
+import { Trans } from '@lingui/macro';
 
 const debug = false;
 
@@ -267,18 +268,18 @@ class PrePotion extends Analyzer {
     this.potionAdjuster(this.selectedCombatant.specId);
     this.setStrongPotionForSpec(this.selectedCombatant.specId);
     when(this.prePotionSuggestionThresholds)
-      .addSuggestion((suggest) => suggest(<>You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <ItemLink id={this.strongPotionId} /> can be very effective, especially during shorter encounters. {this.addedSuggestionText ? <>In a multi-target encounter, a potion such as <ItemLink id={this.alternatePotion} /> could be very effective.</> : ''}</>,
+      .addSuggestion((suggest) => suggest(<Trans id="shared.modules.items.prepotion.suggestions.preCombat">You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <ItemLink id={this.strongPotionId} /> can be very effective, especially during shorter encounters. {this.addedSuggestionText ? <Trans id="shared.modules.items.prepotion.suggestions.preCombat.added">In a multi-target encounter, a potion such as <ItemLink id={this.alternatePotion} /> could be very effective.</Trans> : ''}</Trans>,
           )
             .icon(this.strongPotionIcon)
             .staticImportance(SUGGESTION_IMPORTANCE.MINOR),
       );
     when(this.secondPotionSuggestionThresholds)
-      .addSuggestion((suggest) => suggest(<>You forgot to use a potion during combat. Using a potion during combat allows you the benefit of {this.isHealer ? 'either' : ''} increasing output through <ItemLink id={this.strongPotionId} />{this.isHealer ? <> or allowing you to gain mana using <ItemLink id={ITEMS.COASTAL_MANA_POTION.id} /> or <ItemLink id={ITEMS.POTION_OF_REPLENISHMENT.id} /></> : ''}. {this.addedSuggestionText ? <>In a multi-target encounter, a potion such as <ItemLink id={this.alternatePotion} /> could be very effective.</> : ''}</>)
+      .addSuggestion((suggest) => suggest(<Trans id="shared.modules.items.prepotion.suggestions.duringCombat">You forgot to use a potion during combat. Using a potion during combat allows you the benefit of {this.isHealer ? <Trans id="shared.modules.items.prepotion.suggestions.duringCombat.healer1">either</Trans> : ''} increasing output through <ItemLink id={this.strongPotionId} />{this.isHealer ? <Trans id="shared.modules.items.prepotion.suggestions.duringCombat.healer2"> or allowing you to gain mana using <ItemLink id={ITEMS.COASTAL_MANA_POTION.id} /> or <ItemLink id={ITEMS.POTION_OF_REPLENISHMENT.id} /></Trans> : ''}. {this.addedSuggestionText ? <Trans id="shared.modules.items.prepotion.suggestions.duringCombat.added">In a multi-target encounter, a potion such as <ItemLink id={this.alternatePotion} /> could be very effective.</Trans> : ''}</Trans>)
           .icon(this.strongPotionIcon)
           .staticImportance(SUGGESTION_IMPORTANCE.MINOR));
     if ((this.usedPrePotion || this.usedSecondPotion) && !this.usedStrongPrePotion) {
       when(this.prePotionStrengthSuggestion)
-        .addSuggestion((suggest) => suggest(<>You used a weak potion. <ItemLink id={this.strongPotionId} /> can be used instead of <ItemLink id={this.potionId} /> in order to get a slightly higher damage output.</>)
+        .addSuggestion((suggest) => suggest(<Trans id="shared.modules.items.prepotion.suggestions.weakPotion">You used a weak potion. <ItemLink id={this.strongPotionId} /> can be used instead of <ItemLink id={this.potionId} /> in order to get a slightly higher damage output.</Trans>)
             .icon(this.strongPotionIcon)
             .staticImportance(SUGGESTION_IMPORTANCE.MINOR));
     }

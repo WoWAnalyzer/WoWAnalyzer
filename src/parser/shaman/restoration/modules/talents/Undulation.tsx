@@ -19,7 +19,7 @@ class Undulation extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.UNDULATION_TALENT.id);
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.HEALING_WAVE, SPELLS.HEALING_SURGE_RESTORATION]), this._onHeal);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.HEALING_WAVE, SPELLS.HEALING_SURGE]), this._onHeal);
   }
   // TODO this might need to account for pwave covenant ability in SL as it copies healing waves
   _onHeal(event: HealEvent) {

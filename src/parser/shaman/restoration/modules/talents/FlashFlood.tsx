@@ -46,7 +46,7 @@ class FlashFlood extends Analyzer {
       timeSaved: 0,
       timeWasted: 0,
     },
-    [SPELLS.HEALING_SURGE_RESTORATION.id]: { //-- always below GCD
+    [SPELLS.HEALING_SURGE.id]: { //-- always below GCD
       timesBuffed: 0,
       timeSaved: 0,
       timeWasted: 0,
@@ -70,7 +70,7 @@ class FlashFlood extends Analyzer {
       };
     }
 
-    const spellFilter = [SPELLS.HEALING_WAVE, SPELLS.CHAIN_HEAL, SPELLS.HEALING_SURGE_RESTORATION, SPELLS.HEALING_RAIN_CAST, SPELLS.WELLSPRING_TALENT];
+    const spellFilter = [SPELLS.HEALING_WAVE, SPELLS.CHAIN_HEAL, SPELLS.HEALING_SURGE, SPELLS.HEALING_RAIN_CAST, SPELLS.WELLSPRING_TALENT];
     this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(spellFilter), this._onBeginCast);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(spellFilter), this._onCast);
   }
@@ -141,11 +141,11 @@ class FlashFlood extends Analyzer {
         valueTooltip: makeTooltip(this.spellsConsumingFlashFlood[SPELLS.HEALING_WAVE.id]),
       },
       {
-        color: SPELLS.HEALING_SURGE_RESTORATION.color,
+        color: SPELLS.HEALING_SURGE.color,
         label: <Trans id="shaman.restoration.spell.healingSurge">Healing Surge</Trans>,
-        spellId: SPELLS.HEALING_SURGE_RESTORATION.id,
-        value: this.spellsConsumingFlashFlood[SPELLS.HEALING_SURGE_RESTORATION.id].timeSaved,
-        valueTooltip: makeTooltip(this.spellsConsumingFlashFlood[SPELLS.HEALING_SURGE_RESTORATION.id]),
+        spellId: SPELLS.HEALING_SURGE.id,
+        value: this.spellsConsumingFlashFlood[SPELLS.HEALING_SURGE.id].timeSaved,
+        valueTooltip: makeTooltip(this.spellsConsumingFlashFlood[SPELLS.HEALING_SURGE.id]),
       },
       {
         color: SPELLS.RIPTIDE.color,

@@ -9,27 +9,11 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
-const DAMAGE_BONUS: {[rank: number]: number } = {
-  1: .1,
-  2: .12,
-  3: .14,
-  4: .16,
-  5: .18,
-  6: .2,
-  7: .22,
-  8: .24,
-  9: .26,
-  10: .28,
-  11: .3,
-  12: .32,
-  13: .34,
-  14: .36,
-  15: .4,
-};
+const DAMAGE_BONUS = [0, .15, .17, .18, .20, .21, .23, .24, .26, .27, .29, .30, .32, .33, .35, .36];
 
 class UnrelentingCold extends Analyzer {
-  conduitRank: number = 0;
-
+  
+  conduitRank = 0;
   bonusDamage = 0;
 
   constructor(props: Options) {

@@ -10,25 +10,9 @@ import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Enemies from 'parser/shared/modules/Enemies';
 
-import { SHATTER_DEBUFFS } from '../../constants';
+import { SHATTER_DEBUFFS } from 'parser/mage/shared/constants';
 
-const DAMAGE_BONUS: {[rank: number]: number } = {
-  1: 0.1,
-  2: 0.12,
-  3: 0.15,
-  4: 0.18,
-  5: 0.21,
-  6: 0.24,
-  7: 0.27,
-  8: 0.30,
-  9: 0.32,
-  10: 0.35,
-  11: 0.38,
-  12: 0.41,
-  13: 0.44,
-  14: 0.47,
-  15: 0.50,
-};
+const DAMAGE_BONUS = [0, .04, .044, .048, .052, .056, .06, .064, .068, .072, .076, .08, .084, .088, .092, .096];
 
 class IceBite extends Analyzer {
   static dependencies = {
@@ -36,8 +20,7 @@ class IceBite extends Analyzer {
   }
   protected enemies!: Enemies;
 
-  conduitRank: number = 0;
-
+  conduitRank = 0;
   bonusDamage = 0;
 
   constructor(props: Options) {

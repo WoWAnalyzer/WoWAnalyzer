@@ -210,7 +210,7 @@ class CelestialFortune extends Analyzer {
                   <td />
                   <td>
                     <SpellLink id={Number(id)} icon={false}>
-                      {SPELLS[id] ? <><Icon icon={SPELLS[id].icon} /> {SPELLS[id].name}</> : ITEMS[id] ? <><ItemIcon icon={ITEMS[id].icon} /> {ITEMS[id].name}</> : id}
+                      {SPELLS[id] ? <><Icon icon={SPELLS[id].icon} /> {SPELLS[id].name}</> : ITEMS[id] ? <><ItemIcon id={ITEMS[id]} /> {ITEMS[id].name}</> : id}
                     </SpellLink>
                   </td>
                   <td>{absorb ? '≈': ''}{`${formatNumber(amount / (this.owner.fightDuration / 1000))} HPS`}</td>

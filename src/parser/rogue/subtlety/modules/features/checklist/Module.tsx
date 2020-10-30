@@ -32,6 +32,20 @@ class Checklist extends BaseChecklist {
     castsInStealth: CastsInStealth,
   };
 
+  //region Core
+  protected combatants!: Combatants;
+  protected castEfficiency!: CastEfficiency;
+  protected alwaysBeCasting!: AlwaysBeCasting;
+  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
+  protected comboPoints!: ComboPoints;
+  protected energy!: Energy;
+  //endregion
+
+  //region Base
+  protected castsInShadowDance!: CastsInShadowDance;
+  protected castsInStealth!: CastsInStealth;
+  //endregion
+
   render() {
     return (
       <Component
