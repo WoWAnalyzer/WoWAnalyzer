@@ -1,5 +1,5 @@
 const FACTIONS: {
-  [key: string]: string;
+  [key: string]: 'ALLIANCE' | 'HORDE';
 } = {
   ALLIANCE: 'ALLIANCE',
   HORDE: 'HORDE',

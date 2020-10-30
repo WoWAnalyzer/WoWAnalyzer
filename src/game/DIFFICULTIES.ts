@@ -12,7 +12,7 @@ const DIFFICULTIES: {
 };
 export default DIFFICULTIES;
 
-export function getLabel(difficulty: number | undefined) {
+export function getLabel(difficulty?: number) {
   switch (difficulty) {
     case DIFFICULTIES.LFR_RAID: return i18n._(t`LFR`);
     case DIFFICULTIES.NORMAL_RAID: return i18n._(t`Normal`);
