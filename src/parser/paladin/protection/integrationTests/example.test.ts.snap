@@ -3710,13 +3710,13 @@ Array [
               Ability
             </th>
             <th
-              colSpan="2"
+              colSpan={2}
             >
               Holy Power
                generated
             </th>
             <th
-              colSpan="2"
+              colSpan={2}
             >
               <dfn
                 className=""
@@ -4022,13 +4022,13 @@ Array [
               Ability
             </th>
             <th
-              colSpan="2"
+              colSpan={2}
             >
               Holy Power
                spent
             </th>
             <th
-              colSpan="2"
+              colSpan={2}
             >
               Casts
             </th>

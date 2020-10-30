@@ -3,13 +3,13 @@ import EventEmitter from 'parser/core/modules/EventEmitter';
 import Events, { EventType, ClassResources, EnergizeEvent, CastEvent, HealEvent, SpendResourceEvent } from 'parser/core/Events';
 import { Resource } from 'game/RESOURCE_TYPES';
 
-type BuilderObj = {
+export type BuilderObj = {
   generated: number,
   wasted: number,
   casts: number,
 }
 
-type SpenderObj = {
+export type SpenderObj = {
   spent: number,
   spentByCast: number[],
   casts: number,

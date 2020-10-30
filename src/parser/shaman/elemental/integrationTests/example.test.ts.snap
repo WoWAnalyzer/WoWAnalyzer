@@ -3408,13 +3408,13 @@ Array [
               Ability
             </th>
             <th
-              colSpan="2"
+              colSpan={2}
             >
               Maelstrom
                generated
             </th>
             <th
-              colSpan="2"
+              colSpan={2}
             >
               <dfn
                 className=""
@@ -4464,13 +4464,13 @@ Array [
               Ability
             </th>
             <th
-              colSpan="2"
+              colSpan={2}
             >
               Maelstrom
                spent
             </th>
             <th
-              colSpan="2"
+              colSpan={2}
             >
               Casts
             </th>
