@@ -1,11 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
+import { Item } from 'parser/core/Events';
 import enchantIdMap from 'common/enchantIdMap';
 
-const Enchants = props => {
-  const { gear } = props;
+interface Props {
+  gear: Item[];
+}
 
+const Enchants = (props: Props) => {
+  const { gear } = props;
   return (
     <>
       {
@@ -15,16 +18,12 @@ const Enchants = props => {
 
           return (
             <div key={`${gearSlot}_${item.permanentEnchant}`} className={`item-slot-${gearSlot}-enchant`} style={{ gridArea: `item-slot-${gearSlot}-enchant` }}>
-              <span className="enchant-info">{enchantIdMap[item.permanentEnchant]}</span>
+              {item?.permanentEnchant && <span className="enchant-info">{enchantIdMap[item.permanentEnchant]}</span>}
             </div>
           );
         })}
     </>
   );
-};
-
-Enchants.propTypes = {
-  gear: PropTypes.array.isRequired,
 };
 
 export default Enchants;

@@ -5,7 +5,7 @@
     - Tailoring
 */
 
-export default {
+const enchantIdMap: {[key: number]: string} = {
   5933: "Kul Tiran Mining",
   5949: "Torrent of Elements",
   5945: "+37 Versatility",
@@ -42,3 +42,5 @@ export default {
   6088: "Discreet Spellthread",
   6089: "Feathery Spellthread",
 };
+
+export default enchantIdMap;
