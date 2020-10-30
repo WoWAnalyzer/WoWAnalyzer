@@ -62,7 +62,7 @@ class UnleashLife extends Analyzer {
       healing: 0,
       castAmount: 0,
     },
-    [SPELLS.HEALING_SURGE_RESTORATION.id]: {
+    [SPELLS.HEALING_SURGE.id]: {
       healing: 0,
       castAmount: 0,
     },
@@ -79,7 +79,7 @@ class UnleashLife extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.UNLEASH_LIFE_TALENT.id);
 
-    const spellFilter = [SPELLS.UNLEASH_LIFE_TALENT, SPELLS.RIPTIDE, SPELLS.CHAIN_HEAL, SPELLS.HEALING_WAVE, SPELLS.HEALING_SURGE_RESTORATION]; // TODO ADD CHAIN HARVEST
+    const spellFilter = [SPELLS.UNLEASH_LIFE_TALENT, SPELLS.RIPTIDE, SPELLS.CHAIN_HEAL, SPELLS.HEALING_WAVE, SPELLS.HEALING_SURGE]; // TODO ADD CHAIN HARVEST
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(spellFilter), this._onHeal);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(spellFilter), this._onCast);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this._onRiptideRemoval);
@@ -112,7 +112,7 @@ class UnleashLife extends Analyzer {
     }
 
     // These 3 heals only have 1 event and are handled easily
-    if (this.unleashLifeHealRemaining > 0 && ((spellId === SPELLS.HEALING_WAVE.id) || (spellId === SPELLS.HEALING_SURGE_RESTORATION.id) || (spellId === SPELLS.RIPTIDE.id && !event.tick))) {
+    if (this.unleashLifeHealRemaining > 0 && ((spellId === SPELLS.HEALING_WAVE.id) || (spellId === SPELLS.HEALING_SURGE.id) || (spellId === SPELLS.RIPTIDE.id && !event.tick))) {
       this.healingBuff[spellId].healing += calculateEffectiveHealing(event, UNLEASH_LIFE_HEALING_INCREASE);
       this.unleashLifeHealRemaining = 0;
       debug && console.log("Heal:", spellId);
@@ -192,10 +192,10 @@ class UnleashLife extends Analyzer {
         value: this.healingBuff[SPELLS.HEALING_WAVE.id].castAmount,
       },
       {
-        color: SPELLS.HEALING_SURGE_RESTORATION.color,
+        color: SPELLS.HEALING_SURGE.color,
         label: <Trans id="shaman.restoration.spell.healingSurge">Healing Surge</Trans>,
-        spellId: SPELLS.HEALING_SURGE_RESTORATION.id,
-        value: this.healingBuff[SPELLS.HEALING_SURGE_RESTORATION.id].castAmount,
+        spellId: SPELLS.HEALING_SURGE.id,
+        value: this.healingBuff[SPELLS.HEALING_SURGE.id].castAmount,
       },
       {
         color: SPELLS.RIPTIDE.color,

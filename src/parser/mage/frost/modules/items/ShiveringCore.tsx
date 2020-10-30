@@ -9,27 +9,11 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
-const DAMAGE_BONUS: {[rank: number]: number } = {
-  1: .05,
-  2: .0625,
-  3: .075,
-  4: .0875,
-  5: .1,
-  6: .1125,
-  7: .125,
-  8: .1375,
-  9: .15,
-  10: .1625,
-  11: .175,
-  12: .1875,
-  13: .2,
-  14: .2125,
-  15: .25,
-};
+const DAMAGE_BONUS = [0, .08, .09, .10, .10, .11, .12, .13, .14, .14, .15, .16, .17, .18, .18, .19];
 
 class ShiveringCore extends Analyzer {
-  conduitRank: number = 0;
-
+  
+  conduitRank = 0;
   bonusDamage = 0;
 
   constructor(props: Options) {

@@ -48,27 +48,27 @@ class ArcaneOrb extends Analyzer {
 		}
 	}
 
-	get averageHitPerCast() {
+	get averageHitsPerCast() {
 		return this.totalHits / this.abilityTracker.getAbility(SPELLS.ARCANE_ORB_TALENT.id).casts;
 	}
 
-	get arcaneOrbHitThresholds() {
+	get missedOrbsThresholds() {
     return {
-      actual: this.averageHitPerCast,
-      isLessThan: {
-        minor: 2,
-        average: 1.5,
-        major: 1,
+      actual: this.badCasts,
+      isGreaterThan: {
+				average: 0,
+        major: 0,
       },
       style: ThresholdStyle.NUMBER,
     };
 	}
 
 	suggestions(when: When) {
-		when(this.arcaneOrbHitThresholds)
-			.addSuggestion((suggest, actual, recommended) => suggest(<>On average, your <SpellLink id={SPELLS.ARCANE_ORB_TALENT.id} /> hit ${formatNumber(this.averageHitPerCast)} times per cast. While it is beneficial to cast this even if it will only hit one mob, the talent is suited more towards AOE than Single Target. So if the fight is primarily Single Target, consider taking a different talent.</>)
+		when(this.missedOrbsThresholds)
+			.addSuggestion((suggest, actual, recommended) => 
+				suggest(<>You cast <SpellLink id={SPELLS.ARCANE_ORB_TALENT.id} /> {this.badCasts} times without hitting anything. While it is acceptable to use this ability on Single Target encounters, you need to ensure you are aiming the ability so that it will at least hit one target.</>)
 					.icon(SPELLS.ARCANE_ORB_TALENT.icon)
-					.actual(i18n._(t('mage.arcane.suggestions.arcaneOrb.hitsPerCast')`${formatNumber(this.averageHitPerCast)} Hits Per Cast`))
+					.actual(i18n._(t('mage.arcane.suggestions.arcaneOrb.badCasts')`${formatNumber(this.badCasts)} Missed Orbs`))
 					.recommended(`${formatNumber(recommended)} is recommended`));
 	}
 
@@ -77,11 +77,11 @@ class ArcaneOrb extends Analyzer {
       <Statistic
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={`You averaged ${formatNumber(this.averageHitPerCast)} hits per cast of Arcane Orb. ${this.badCasts > 0 ? `Additionally, you cast Arcane Orb ${this.badCasts} times without hitting anything.` : '' } Casting Arcane Orb when it will only hit one target is still beneficial, but you should prioritize using it when it will hit multiple targets to get the full effect of the talent. If it is a Single Target fight or you are unable to hit more than 1 target on average, then you should consider taking a different talent.`}
+        tooltip={`You averaged ${formatNumber(this.averageHitsPerCast)} hits per cast of Arcane Orb. ${this.badCasts > 0 ? `Additionally, you cast Arcane Orb ${this.badCasts} times without hitting anything.` : '' } Casting Arcane Orb when it will only hit one target is still beneficial and acceptable, but if you can aim it so that it hits multiple enemies then you should.`}
       >
-        <BoringSpellValueText spell={SPELLS.ARCANE_FAMILIAR_TALENT}>
+        <BoringSpellValueText spell={SPELLS.ARCANE_ORB_TALENT}>
           <>
-            {formatNumber(this.averageHitPerCast)} <small>Average hits per cast</small>
+            {formatNumber(this.averageHitsPerCast)} <small>Average hits per cast</small>
           </>
         </BoringSpellValueText>
       </Statistic>

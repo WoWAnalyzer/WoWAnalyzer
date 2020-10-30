@@ -8,6 +8,7 @@ import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import { PHOENIX_FLAMES_MAX_CHARGES } from 'parser/mage/shared/constants';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
@@ -22,7 +23,6 @@ class CombustionCharges extends Analyzer {
   protected abilityTracker!: AbilityTracker;
 
   hasFlameOn: boolean;
-
   lowPhoenixFlamesCharges = 0;
   lowFireBlastCharges = 0;
   badCast = false;
@@ -38,7 +38,6 @@ class CombustionCharges extends Analyzer {
     const fireBlastCharges = this.spellUsable.chargesAvailable(SPELLS.FIRE_BLAST.id);
     const phoenixFlamesCharges = (this.spellUsable.chargesAvailable(SPELLS.PHOENIX_FLAMES.id) || 0);
     const FIRE_BLAST_THRESHOLD = this.hasFlameOn ? 2 : 1;
-    const PHOENIX_FLAMES_THRESHOLD = 2;
     this.badCast = false;
 
     if (fireBlastCharges < FIRE_BLAST_THRESHOLD) {
@@ -47,7 +46,7 @@ class CombustionCharges extends Analyzer {
       debug && this.log("Fire Blast Charges: " + fireBlastCharges + " Target: " + FIRE_BLAST_THRESHOLD);
     }
 
-    if (phoenixFlamesCharges < PHOENIX_FLAMES_THRESHOLD) {
+    if (phoenixFlamesCharges < PHOENIX_FLAMES_MAX_CHARGES) {
       this.lowPhoenixFlamesCharges += 1;
       this.badCast = true;
       debug && this.log("Phoenix Flames Charges: " + phoenixFlamesCharges);

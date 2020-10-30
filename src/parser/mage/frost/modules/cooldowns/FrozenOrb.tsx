@@ -4,7 +4,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Events from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 
-import { BLIZZARD_ORB_REDUCTION } from '../../constants';
+const REDUCTION_MS = 500;
 
 class FrozenOrb extends Analyzer {
   static dependencies = {
@@ -19,7 +19,7 @@ class FrozenOrb extends Analyzer {
 
   _reduceCooldown() {
     if (this.spellUsable.isOnCooldown(SPELLS.FROZEN_ORB.id)) {
-      this.spellUsable.reduceCooldown(SPELLS.FROZEN_ORB.id, BLIZZARD_ORB_REDUCTION);
+      this.spellUsable.reduceCooldown(SPELLS.FROZEN_ORB.id, REDUCTION_MS);
     }
   }
 }

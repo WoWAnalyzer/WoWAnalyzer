@@ -16,7 +16,7 @@ class MirrorImage extends Analyzer {
   }
   protected abilityTracker!: AbilityTracker;
   
-  damageDuringMirrorImages: number = 0;
+  damageDuringMirrorImages = 0;
 
   constructor(options: Options) {
     super(options);

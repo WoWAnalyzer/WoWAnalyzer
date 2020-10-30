@@ -29,7 +29,6 @@ import FocusMagic from '../shared/modules/features/FocusMagic';
 
 //Legendaries
 import ColdFront from './modules/items/ColdFront';
-import FreezingWinds from './modules/items/FreezingWinds';
 
 //Conduits
 import IceBite from './modules/items/IceBite';
@@ -75,7 +74,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Legendaries
     coldFront: ColdFront,
-    freezingWinds: FreezingWinds,
 
     //Conduits
     iceBite: IceBite,
