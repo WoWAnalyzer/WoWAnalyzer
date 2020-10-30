@@ -4,7 +4,7 @@ const SHARED = 'Shared';
 const TALENTS_DIRECTORY = '../../src/common/SPELLS/talents';
 
 const debugDelete = false;
-const debugDeduplicate = false;
+const debugDeduplicate = true;
 
 function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
@@ -45,9 +45,9 @@ const resourceTypes = {
   18: 'Pain',
 };
 
-//Generated from https://www.raidbots.com/static/data/beta/talents.json
+//Retrieved from https://www.raidbots.com/static/data/live/talents.json
 const talents = readJson('./talents.json');
-//Generated from https://wow.tools/dbc/?dbc=spellpower&build=9.0.2.36294
+//Keyed json converted from the csv retrieved from here from https://wow.tools/dbc/?dbc=spellpower&build=9.0.2.36949
 const spellpower = readJson('./spellpower.json');
 
 const toCamelCase = (str) => str.toLowerCase().replace(/(?:^\w|[A-Z]|\b\w)/g, (ltr, idx) => idx === 0 ? ltr.toLowerCase() : ltr.toUpperCase()).replace(/\s+/g, '');
@@ -78,7 +78,7 @@ function findResourceCost(spellPowerObj, className, resourceName) {
   if (spellPowerObj.PowerCostPct > 0) {
     return spellPowerObj.PowerCostPct / 100;
   } else {
-    if (resourceName === 'Runic Power') {
+    if (resourceName === 'Runic Power' || resourceName === 'Rage' || resourceName === 'Soul Shards') {
       return spellPowerObj.ManaCost / 10;
     }
   }

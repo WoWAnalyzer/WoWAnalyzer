@@ -3720,7 +3720,7 @@
             "tier": 4,
             "column": 2,
             "spell": {
-              "id": 342834,
+              "id": 205385,
               "name": "Shadow Crash",
               "icon": "spell_shadow_shadowfury"
             },
@@ -6888,7 +6888,7 @@
             "spell": {
               "id": 108416,
               "name": "Dark Pact",
-              "icon": "warlock_sacrificial_pact"
+              "icon": "spell_shadow_deathpact"
             }
           }
         ]
@@ -9130,9 +9130,9 @@
             "tier": 2,
             "column": 1,
             "spell": {
-              "id": 275144,
+              "id": 347461,
               "name": "Unbound Chaos",
-              "icon": "ability_demonhunter_felrush"
+              "icon": "artifactability_vengeancedemonhunter_painbringer"
             },
             "spec": {
               "id": 577,
