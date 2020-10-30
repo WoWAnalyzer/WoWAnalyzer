@@ -2724,7 +2724,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
-                href="http://wowhead.com/spell=109878"
+                href="http://wowhead.com/spell=342247"
                 rel="noopener noreferrer"
                 style={
                   Object {

@@ -201,8 +201,16 @@ Array [
     "details": null,
     "icon": "spell_mage_altertime",
     "importance": "regular",
-    "issue": <span>
-      Your downtime can be improved. Try to Always Be Casting (ABC) and try to reduce the delay between casting spells. If you have to move, try casting instants; even unbuffed 
+    "issue": <React.Fragment>
+      Your downtime can be improved. Try to Always Be Casting (ABC) and try to reduce the delay between casting spells. If you have to move, try casting instants like 
+      <ForwardRef
+        id={108853}
+      />
+       or 
+      <ForwardRef
+        id={1449}
+      />
+       (if there are 2+ targets); even unbuffed 
       <ForwardRef
         id={30455}
       />
@@ -215,7 +223,7 @@ Array [
         id={205473}
       />
       .
-    </span>,
+    </React.Fragment>,
     "stat": <React.Fragment>
       19.06% downtime
        (
@@ -3249,7 +3257,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
               }
             >
               <a
-                href="http://wowhead.com/spell=109878"
+                href="http://wowhead.com/spell=342247"
                 rel="noopener noreferrer"
                 style={
                   Object {
