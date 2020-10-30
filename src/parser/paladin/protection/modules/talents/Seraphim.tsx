@@ -26,7 +26,7 @@ type BonusStats = {haste: number, crit: number, versatility: number, mastery: nu
 class Seraphim extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
-  };
+  }
 
   protected statTracker!: StatTracker;
 
@@ -40,8 +40,6 @@ class Seraphim extends Analyzer {
       return;
     }
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.SERAPHIM_TALENT), this.onSeraphimGain);
-    const localStatTracker = (options.statTracker as StatTracker);
-    localStatTracker.addStatMultiplierBuff(SPELLS.SERAPHIM_TALENT.id, this.statMultipliers);
   }
 
   get uptime(): number {
@@ -64,15 +62,6 @@ class Seraphim extends Analyzer {
     return this.bonusStatGains.map((gain: BonusStats) => gain.haste).reduce((sum, next) => sum + next, 0) / this.bonusStatGains.length * this.uptime;
   }
 
-  get statMultipliers() {
-    return {
-      haste: 1.0 + STAT_MODIFIER,
-      crit: 1.0 + STAT_MODIFIER,
-      versatility: 1.0 + STAT_MODIFIER,
-      mastery: 1.0 + STAT_MODIFIER,
-    };
-  }
-
   onSeraphimGain(event: ApplyBuffEvent): void {
     this.bonusStatGains.push(this.getBonusStats(this.statTracker));
   }
@@ -88,7 +77,7 @@ class Seraphim extends Analyzer {
     };
   }
 
-  calculateBonusStatFromCurrent(currentStat: number) {
+  calculateBonusStatFromCurrent(currentStat: number): number {
     return currentStat - (currentStat * (1 / (1 + STAT_MODIFIER)));
   }
 

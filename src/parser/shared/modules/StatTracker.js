@@ -455,24 +455,6 @@ class StatTracker extends Analyzer {
     this.statBuffs[buffId] = stats;
   }
 
-  /**
-   * Akin to StatTracker.add(), but for buff providing stat multipliers rather than flat rating increases.
-   * @param buffId ID of the stat buff.
-   * @param stats Object with stats (intellect, mastery, etc.) and their respective stat modifier (E.g. if a buff increases a stat by 8%, the modifier is 1.08).
-   */
-  addStatMultiplierBuff(buffId, stats) {
-    if (!buffId || !stats) {
-      throw new Error(`StatTracker.addStatMultiplierBuff() called with invalid buffId ${buffId} or stats`);
-    }
-    if (typeof buffId === 'object') {
-      buffId = buffId.id;
-    }
-    if (this.statMultiplierBuffs[buffId]) {
-      throw new Error(`Stat buff with ID ${buffId} already exists`);
-    }
-    this.statMultiplierBuffs[buffId] = stats;
-  }
-
   addStatMultiplier(stats, changeCurrentStats = false) {
     const delta = {};
     for (const stat in stats) {
