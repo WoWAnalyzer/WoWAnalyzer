@@ -11,8 +11,9 @@ import DonutChart from 'interface/statistics/components/DonutChart';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { Trans } from '@lingui/macro';
 
-import RestorationAbilityTracker from '../core/RestorationAbilityTracker';
 import { RESTORATION_COLORS } from 'parser/shaman/restoration/constants';
+
+import RestorationAbilityTracker from '../core/RestorationAbilityTracker';
 
 class CastBehavior extends Analyzer {
   static dependencies = {
