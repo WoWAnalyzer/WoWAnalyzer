@@ -4,7 +4,7 @@ const SHARED = 'Shared';
 const TALENTS_DIRECTORY = '../../src/common/SPELLS/talents';
 
 const debugDelete = false;
-const debugDeduplicate = true;
+const debugDeduplicate = false;
 
 function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
