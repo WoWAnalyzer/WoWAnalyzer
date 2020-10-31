@@ -1,4 +1,6 @@
-const TALENT_ROWS = {
+const TALENT_ROWS: {
+  [key: string]: number;
+} = {
   LV15: 0,
   LV25: 1,
   LV30: 2,
