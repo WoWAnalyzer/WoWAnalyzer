@@ -22,6 +22,8 @@ class StaticDischarge extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.STATIC_DISCHARGE_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.STATIC_DISCHARGE_TALENT),
       this.onSDDamage);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STATIC_DISCHARGE_TALENT),
+      this.onSDCast);
   }
 
   onSDDamage(event: DamageEvent) {
