@@ -75,7 +75,7 @@ export class PremiumLoginPanel extends React.PureComponent {
           <div className="text">
             <h1>
               <Textfit mode="single">
-                <Trans>Hello</Trans> {user.name}.
+                <Trans id="interface.PremiumLoginPanel.logged-in.greeting">Hello {user.name}.</Trans>
               </Textfit>
             </h1>
             {hasPremium ? (
