@@ -50,7 +50,7 @@ class StaticDischarge extends Analyzer {
         suggest(<span>Maximize your damage with Static Discharge by only using it with Flame Shock active.</span>)
         .icon(SPELLS.STATIC_DISCHARGE_TALENT.icon)
         .actual(`${actual}% of possible ticks with ${<SpellLink id={SPELLS.STATIC_DISCHARGE_TALENT.id}/>}`)
-          .recommended(<span>Only cast ${<SpellLink id={SPELLS.STATIC_DISCHARGE_TALENT.id} />} while <SpellLink id={SPELLS.FLAME_SHOCK.id}/> is up.</span>));
+          .recommended(<span>Only cast <SpellLink id={SPELLS.STATIC_DISCHARGE_TALENT.id} /> while <SpellLink id={SPELLS.FLAME_SHOCK.id}/> is up.</span>));
   };
 
   statistic() {
