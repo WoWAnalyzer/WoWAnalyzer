@@ -17,15 +17,11 @@ class PreparationRule extends React.PureComponent {
     return (
       <>
         <Requirement
-          name={<Trans>Used a pre-potion</Trans>}
-          thresholds={thresholds.prePotion}
+          name={<Trans>Combat potions used</Trans>}
+          thresholds={thresholds.potionsUsed}
         />
         <Requirement
-          name={<Trans>Used a second potion</Trans>}
-          thresholds={thresholds.secondPotion}
-        />
-        <Requirement
-          name={<Trans>Used a high quality pre-potion</Trans>}
+          name={<Trans>High quality combat potions used</Trans>}
           thresholds={thresholds.bestPotionUsed}
         />
       </>

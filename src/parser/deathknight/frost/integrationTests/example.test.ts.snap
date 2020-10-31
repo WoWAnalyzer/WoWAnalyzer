@@ -4744,26 +4744,19 @@ exports[`Frost Death Knight integration test: example log OverwhelmingPower matc
 </div>
 `;
 
-exports[`Frost Death Knight integration test: example log PrePotion matches the suggestions snapshot 1`] = `
+exports[`Frost Death Knight integration test: example log PotionChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
     "icon": "inv_alchemy_90_combat2_yellow",
-    "importance": "minor",
+    "importance": "regular",
     "issue": <WithI18n
-      components={
-        Array [
-          <ItemLink
-            icon={true}
-            id={171275}
-          />,
-        ]
-      }
-      defaults="You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <0/> can be very effective, especially during shorter encounters. {0}"
-      id="shared.modules.items.prepotion.suggestions.preCombat"
+      defaults="You used {0} combat potions during this encounter, but you could have used {1}. Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter."
+      id="shared.modules.items.potionChecker.suggestions.potionsUsed"
       values={
         Object {
-          "0": "",
+          "0": 0,
+          "1": 1,
         }
       }
     />,
@@ -4780,17 +4773,14 @@ Array [
             icon={true}
             id={171275}
           />,
+          <ItemLink
+            icon={true}
+            id={171275}
+          />,
         ]
       }
-      defaults="You forgot to use a potion during combat. Using a potion during combat allows you the benefit of {0} increasing output through <0/>{1}. {2}"
-      id="shared.modules.items.prepotion.suggestions.duringCombat"
-      values={
-        Object {
-          "0": "",
-          "1": "",
-          "2": "",
-        }
-      }
+      defaults="You used a weak potion. <0/> can be used instead of <1/> in order to get a slightly higher damage output."
+      id="shared.modules.items.potionChecker.suggestions.weakPotion"
     />,
     "stat": null,
   },
@@ -4839,6 +4829,73 @@ exports[`Frost Death Knight integration test: example log RimeEfficiency matches
            % 
           <small>
             efficiency
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Frost Death Knight integration test: example log RuneOfTheFallenCrusader matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic flexible "
+    position={1002}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=53344"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Rune of the Fallen Crusader"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_holy_retributionaura.jpg"
+            />
+          </a>
+           
+          <a
+            href="http://wowhead.com/spell=53344"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Rune of the Fallen Crusader
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          10.33
+           % 
+          <small>
+            average Strength
           </small>
         </div>
       </div>
@@ -6495,7 +6552,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                Used a pre-potion
+                Combat potions used
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6516,8 +6573,9 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  common.no
+                  0
                    
+                  / 1
                    
                 </div>
               </div>
@@ -6555,7 +6613,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                Used a second potion
+                High quality combat potions used
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6576,68 +6634,9 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  common.no
+                  0
                    
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                Used a high quality pre-potion
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  common.no
-                   
+                  / 1
                    
                 </div>
               </div>
