@@ -10,6 +10,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 10, 31), 'Added IDs to i18n of PlayerLoader', jos3p),
   change(date(2020, 10, 31), 'Added i18n of Premium page', jos3p),
   change(date(2020, 10, 29), 'Update game components to Typescript', jos3p),
   change(date(2020, 10, 29), 'Updated Potions Checklist items to show potions used instead of pre Potions/second Potions.', Sharrq),
