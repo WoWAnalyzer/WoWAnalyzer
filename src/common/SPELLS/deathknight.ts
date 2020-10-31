@@ -5,9 +5,9 @@
  */
 
 import safeMerge from 'common/safeMerge';
+import { Enchant } from 'common/ITEMS/Item';
 
 import { SpellList } from "./Spell";
-import { Enchant } from 'common/ITEMS/Item';
 
 const spells: SpellList = {
   // Blood:
