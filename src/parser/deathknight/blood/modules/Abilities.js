@@ -231,11 +231,11 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ANTI_MAGIC_ZONE,
+        buffSpellId: SPELLS.ANTI_MAGIC_ZONE_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
-        gcd: {
-          base: 1500,
-        },
+        gcd: null,
+        isDefensive: true,
       },
       {
         spell: SPELLS.MARK_OF_BLOOD_TALENT,
