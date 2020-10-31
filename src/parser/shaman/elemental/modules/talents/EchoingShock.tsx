@@ -4,17 +4,9 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 
-import Abilities from 'parser/shaman/elemental/modules/Abilities';
 import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import Enemies from 'parser/shared/modules/Enemies';
-import Statistic from 'interface/statistics/Statistic';
-import SpellLink from 'common/SpellLink';
-
-import { i18n } from '@lingui/core';
-import { t } from '@lingui/macro';
 
 class EchoingShock extends Analyzer {
 
