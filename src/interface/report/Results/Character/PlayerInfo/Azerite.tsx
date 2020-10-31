@@ -18,8 +18,11 @@ export interface Azerite {
   name: string
 }
 
+export interface AzeriteByItemSlot {
+  [key: string]: number[];
+}
 export interface Props {
-  azerite: {[key: string]: number[]};
+  azerite: AzeriteByItemSlot;
 }
 
 const Azerite = ({azerite}: Props) => {
