@@ -36,6 +36,10 @@ class StaticDischarge extends Analyzer {
     this.casts += 1;
   }
 
+  get efficientcy() {
+    return this.ticks/(6*this.casts) || 1;
+  }
+
   get suggestionThresholds() {
     return {
       actual: this.ticks/(6*this.casts),
