@@ -11,6 +11,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellLink from 'common/SpellLink';
+import { formatPercentage } from 'common/format';
 
 class StaticDischarge extends Analyzer {
   damageDone = 0;
@@ -54,7 +55,7 @@ class StaticDischarge extends Analyzer {
           </span>)
         .icon(SPELLS.STATIC_DISCHARGE_TALENT.icon)
         .actual(`${actual}% of possible ticks with ${<SpellLink id={SPELLS.STATIC_DISCHARGE_TALENT.id}/>}`)
-          .recommended(`${recommended}% is recommended`));
+          .recommended(`${formatPercentage(recommended)}% is recommended`));
   };
 
   statistic() {
