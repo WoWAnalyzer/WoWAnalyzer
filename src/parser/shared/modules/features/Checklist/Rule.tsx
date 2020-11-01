@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 
 import DropdownIcon from 'interface/icons/Dropdown';
 import InformationIcon from 'interface/icons/Information';
@@ -10,36 +9,29 @@ import calculateMedian from './helpers/calculateMedian';
 import average from './helpers/average';
 import harmonic from './helpers/harmonic';
 
-export const RuleContext = React.createContext();
+export const RuleContext = React.createContext((value: number) => {/**/});
 
-export const PERFORMANCE_METHOD = {
-  DEFAULT: 'DEFAULT',
-  MEDIAN: 'MEDIAN',
-  AVERAGE: 'AVERAGE',
-  LOWEST: 'LOWEST',
-  FIRST: 'FIRST',
-  HARMONIC: 'HARMONIC',
+export enum PERFORMANCE_METHOD {
+  DEFAULT = 'DEFAULT',
+  MEDIAN = 'MEDIAN',
+  AVERAGE = 'AVERAGE',
+  LOWEST = 'LOWEST',
+  FIRST = 'FIRST',
+  HARMONIC = 'HARMONIC',
 };
 
-class Rule extends React.PureComponent {
-  static propTypes = {
-    name: PropTypes.node.isRequired,
-    children: PropTypes.node.isRequired,
-    description: PropTypes.node,
-    performanceMethod: PropTypes.oneOf(Object.values(PERFORMANCE_METHOD)),
-  };
+interface Props {
+  name: React.ReactNode;
+  children: React.ReactNode;
+  description?: React.ReactNode;
+  performanceMethod?: PERFORMANCE_METHOD;
+}
 
-  expandable = null;
-  constructor() {
-    super();
-    this.state = {
-      requirementPerformances: [],
-    };
-    this.expandable = React.createRef();
-    this.setRequirementPerformance = this.setRequirementPerformance.bind(this);
-  }
+const Rule = (props: Props) => {
+  const [requirementPerformances, setRequirementPerformances] = useState<number[]>([]);
+  const expandable = useRef<Expandable>(null);
 
-  static calculateRulePerformance(values, style = PERFORMANCE_METHOD.DEFAULT) {
+  const calculateRulePerformance = useCallback((values: number[], style = PERFORMANCE_METHOD.DEFAULT) => {
     // Lowest would generally be too punishing for small mistakes, if you want to have a single value tank the rule consider making it its own rule.
     // Average would mark things as OK when one thing was OK and 3 things were "average", I think this is wrong and it should mark the rule as average. Median achieves this.
     // Actual Median could mark a rule as 100% ok when there are still some things being neglected, so instead I opted for the best of both worlds and using the lowest of the median or average by default.
@@ -60,99 +52,86 @@ class Rule extends React.PureComponent {
       default:
         throw new Error(`Unknown style: ${style}`);
     }
-  }
+  }, [])
 
-  componentDidUpdate(prevProps, prevState, prevContext) {
-    if (prevState.requirementPerformances !== this.state.requirementPerformances) {
-      if (!this.passed) {
-        this.expandable.current && this.expandable.current.expand();
-      }
+  const performance = useCallback(() => {
+    const performanceMethod = props.performanceMethod;
+    return requirementPerformances.length > 0 ? calculateRulePerformance(requirementPerformances, performanceMethod) : 1;
+  }, [props.performanceMethod, calculateRulePerformance, requirementPerformances])
+
+  const passed = useCallback(() => performance() > 0.666, [performance])
+
+  useEffect(() => {
+    if (passed()) {
+      return;
     }
-  }
 
-  checkEmptyRule(child) {
-    if (child.props) {
+    expandable.current && expandable.current.expand()
+  }, [requirementPerformances, passed])
+
+  const checkEmptyRule = (child: React.ReactNode) => {
+    if (React.isValidElement(child) && child?.props) {
       return true;
     } else {
       return false;
     }
   }
 
-  setRequirementPerformance(performance) {
+  const setRequirementPerformance = (performance: number) => {
     // We don't have to worry about adding the same Requirement's performance multiple times here because it's only called in the Requirement's constructor, which is only called once.
-    this.setState(state => ({
-      requirementPerformances: [
-        ...state.requirementPerformances,
-        performance,
-      ],
-    }));
+    setRequirementPerformances((prevRequirementPerformances: number[]) => [...prevRequirementPerformances, performance])
   }
 
-  get performance() {
-    const performanceMethod = this.props.performanceMethod;
-    const requirementPerformances = this.state.requirementPerformances;
-    return requirementPerformances.length > 0 ? this.constructor.calculateRulePerformance(requirementPerformances, performanceMethod) : 1;
-  }
-  get passed() {
-    return this.performance > 0.666;
+  const { name, children: requirements, description } = props;
+
+  if (!requirements || (Array.isArray(requirements) && !requirements.some(checkEmptyRule))) {
+    return null;
   }
 
-  render() {
-    const { name, children, description } = this.props;
-
-    const performance = this.performance;
-    const passed = this.passed;
-    const requirements = this.props.children;
-
-    if (!requirements || (Array.isArray(requirements) && !requirements.some(this.checkEmptyRule))) {
-      return null;
-    }
-
-    return (
-      <RuleContext.Provider value={this.setRequirementPerformance}>
-        <Expandable
-          element="li"
-          className={passed ? 'passed' : 'failed'}
-          header={(
-            <div className="flex wrapable">
-              <div className="flex-main name">
-                {name}
-              </div>
-              <div className="flex-sub perf">
-                <div className="perf-container">
-                  <div
-                    className="perf-bar"
-                    style={{
-                      width: `${performance * 100}%`,
-                      backgroundColor: colorForPerformance(performance),
-                    }}
-                  />
-                </div>
-              </div>
-              <div className="flex-sub chevron">
-                <div>
-                  <DropdownIcon />
-                </div>
+  return (
+    <RuleContext.Provider value={setRequirementPerformance}>
+      <Expandable
+        element="li"
+        className={passed() ? 'passed' : 'failed'}
+        header={(
+          <div className="flex wrapable">
+            <div className="flex-main name">
+              {name}
+            </div>
+            <div className="flex-sub perf">
+              <div className="perf-container">
+                <div
+                  className="perf-bar"
+                  style={{
+                    width: `${performance() * 100}%`,
+                    backgroundColor: colorForPerformance(performance()),
+                  }}
+                />
               </div>
             </div>
-          )}
-          ref={this.expandable}
-        >
-          {description && (
-            <div className="row text-muted description">
-              <InformationIcon />
-              <div className="col-md-12">
-                {description}
+            <div className="flex-sub chevron">
+              <div>
+                <DropdownIcon />
               </div>
             </div>
-          )}
-          <div className="row">
-            {children}
           </div>
-        </Expandable>
-      </RuleContext.Provider>
-    );
-  }
+        )}
+        ref={expandable}
+      >
+        {description && (
+          <div className="row text-muted description">
+            <InformationIcon />
+            <div className="col-md-12">
+              {description}
+            </div>
+          </div>
+        )}
+        <div className="row">
+          {requirements}
+        </div>
+      </Expandable>
+    </RuleContext.Provider>
+  );
 }
 
 export default Rule;
