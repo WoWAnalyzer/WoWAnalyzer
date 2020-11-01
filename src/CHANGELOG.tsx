@@ -9,6 +9,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 11, 1), 'Eliminated x-axis padding in several charts.', emallson),
   change(date(2020, 11, 1), 'Shifted all spells to use the same generic Spell type', Putro),
   change(date(2020, 10, 31), 'Added i18n of Premium page', jos3p),
   change(date(2020, 10, 29), 'Update game components to Typescript', jos3p),
