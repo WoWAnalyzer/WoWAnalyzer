@@ -60,6 +60,9 @@ export default function FlushLineChart(props: Props) {
         field: x,
         type: 'quantitative' as const,
         axis: null,
+        scale: {
+          nice: false
+        },
       },
       y: {
         field: 'sum_val',

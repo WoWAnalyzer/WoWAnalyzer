@@ -99,7 +99,7 @@ class SelfHealTimingGraph extends Analyzer {
           grid: false,
         },
         title: null,
-        scale: { zero: true },
+        scale: { zero: true, nice: false },
       },
       y: {
         field: 'y',
