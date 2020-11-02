@@ -792,7 +792,8 @@ exports[`Root matches snapshot 1`] = `
                                                                     <li />,
                                                                   ]
                                                                 }
-                                                                id="Supported links:<0/><1><2>https://www.warcraftlogs.com/reports/<report code></2><3>https://www.warcraftlogs.com/character/<region>/<realm>/<name></3><4>https://worldofwarcraft.com/<language-code>/character/<realm>/<name></4><5>https://www.wowchina.com/<language-code>/character/<realm>/<name></5></1>"
+                                                                defaults="Supported links:<0/><1><2>https://www.warcraftlogs.com/reports/<report code></2><3>https://www.warcraftlogs.com/character/<region>/<realm>/<name></3><4>https://worldofwarcraft.com/<language-code>/character/<realm>/<name></4><5>https://www.wowchina.com/<language-code>/character/<realm>/<name></5></1>"
+                                                                id="interface.reportSelecter.reportSelecter.tooltip.supportedLinks"
                                                               />
                                                             }
                                                             direction="down"
@@ -816,7 +817,8 @@ exports[`Root matches snapshot 1`] = `
                                                                       <li />,
                                                                     ]
                                                                   }
-                                                                  id="Supported links:<0/><1><2>https://www.warcraftlogs.com/reports/<report code></2><3>https://www.warcraftlogs.com/character/<region>/<realm>/<name></3><4>https://worldofwarcraft.com/<language-code>/character/<realm>/<name></4><5>https://www.wowchina.com/<language-code>/character/<realm>/<name></5></1>"
+                                                                  defaults="Supported links:<0/><1><2>https://www.warcraftlogs.com/reports/<report code></2><3>https://www.warcraftlogs.com/character/<region>/<realm>/<name></3><4>https://worldofwarcraft.com/<language-code>/character/<realm>/<name></4><5>https://www.wowchina.com/<language-code>/character/<realm>/<name></5></1>"
+                                                                  id="interface.reportSelecter.reportSelecter.tooltip.supportedLinks"
                                                                 />
                                                               }
                                                               direction="down"
@@ -865,13 +867,15 @@ exports[`Root matches snapshot 1`] = `
                                                             type="submit"
                                                           >
                                                             <WithI18n
-                                                              id="Analyze"
+                                                              defaults="Analyze"
+                                                              id="interface.reportSelecter.reportSelecter.button"
                                                             >
                                                               <I18n
                                                                 update={true}
                                                                 withHash={true}
                                                               >
                                                                 <Trans
+                                                                  defaults="Analyze"
                                                                   i18n={
                                                                     I18n {
                                                                       "_activeMessages": Object {},
@@ -888,7 +892,7 @@ exports[`Root matches snapshot 1`] = `
                                                                     }
                                                                   }
                                                                   i18nHash={null}
-                                                                  id="Analyze"
+                                                                  id="interface.reportSelecter.reportSelecter.button"
                                                                 >
                                                                   <Render
                                                                     value="Analyze"
