@@ -211,7 +211,7 @@ class PlayerLoader extends React.PureComponent {
   }
 
   renderLoading() {
-    return <ActivityIndicator text={i18n._(t('interface.report.renderLoading.FetchingPlayerInfo')`Fetching player info...`)} />;
+    return <ActivityIndicator text={i18n._(t('interface.report.renderLoading.fetchingPlayerInfo')`Fetching player info...`)} />;
   }
 
   renderClassicWarning() {
@@ -325,7 +325,7 @@ class PlayerLoader extends React.PureComponent {
     return (
       <>
         {/* TODO: Refactor the DocumentTitle away */}
-        <DocumentTitle title={i18n._(t('interface.report.render.DocumentTitle')`${getFightName(report, fight)} by ${player.name} in ${report.title}`)} />
+        <DocumentTitle title={i18n._(t('interface.report.render.documentTitle')`${getFightName(report, fight)} by ${player.name} in ${report.title}`)} />
 
         {this.props.children(player, combatant, combatants)}
       </>
