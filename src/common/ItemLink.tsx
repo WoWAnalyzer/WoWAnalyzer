@@ -17,13 +17,14 @@ interface Props {
   icon?: boolean; 
 }
 
-const ItemLink = ({icon = true, ...props}: Props) => {
+const ItemLink = (props: Props) => {
 
   const [elem, setElem] = useState<HTMLAnchorElement | null>(null);
 
   useEffect(() => {TooltipProvider.refresh(elem);})
 
   const { id, children, details, ...others } = props;
+  delete others.icon;
   delete others.quality;
 
   if (process.env.NODE_ENV === 'development' && !children && !ITEMS[id]) {
@@ -48,10 +49,12 @@ const ItemLink = ({icon = true, ...props}: Props) => {
       ref={elem => {setElem(elem)}}
       {...others}
     >
-      {icon && <ItemIcon id={id} noLink />}{' '}
+      {props.icon && <ItemIcon id={id} noLink />}{' '}
       {children || ITEMS[id].name}
     </a>
   );
 }
+
+ItemLink.defaultProps = {icon: true}
 
 export default ItemLink;
