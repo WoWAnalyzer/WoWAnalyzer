@@ -36,7 +36,7 @@ class RuptureUptime extends Analyzer {
     };
   }
 
-  suggestions(when:When) {
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest: SuggestionFactory, actual: number | boolean, recommended: number | boolean) => suggest(<>Your <SpellLink id={SPELLS.RUPTURE.id} /> uptime can be improved. Try to pay more attention to your <SpellLink id={SPELLS.RUPTURE.id} /> on the boss.</>)
         .icon(SPELLS.RUPTURE.icon)
         .actual(i18n._(t('rogue.assassination.suggestions.rupture.uptime')`${formatPercentage(actual as number)}% Rupture uptime`))
