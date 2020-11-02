@@ -1,18 +1,19 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS/index';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Events from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatThousands, formatPercentage } from 'common/format';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/KGJgZPxanBX82LzV/#fight=4&source=20
  */
-class DemonBite extends Analyzer{
+class DemonBite extends Analyzer {
 
   furyGain = 0;
   furyWaste = 0;
@@ -37,7 +38,7 @@ class DemonBite extends Analyzer{
   }
 
   get furyPerMin() {
-    return ((this.furyGain - this.furyWaste) / (this.owner.fightDuration/60000)).toFixed(2);
+    return ((this.furyGain - this.furyWaste) / (this.owner.fightDuration / 60000)).toFixed(2);
   }
 
   get suggestionThresholds() {
@@ -60,19 +61,12 @@ class DemonBite extends Analyzer{
           .recommended(`${formatPercentage(recommended)}% is recommended.`));
   }
 
-  statistic(){
+  statistic() {
     const effectiveFuryGain = this.furyGain - this.furyWaste;
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.DEMONS_BITE.id} />}
-        label="Demon Bite"
+      <Statistic
         position={STATISTIC_ORDER.OPTIONAL(6)}
-        value={(
-          <>
-              {this.furyPerMin} <small>Fury per min</small> <br />
-              {this.owner.formatItemDamageDone(this.damage)}
-          </>
-        )}
+        size="flexible"
         tooltip={(
           <>
             {formatThousands(this.damage)} Total damage<br />
@@ -81,8 +75,16 @@ class DemonBite extends Analyzer{
             {this.furyWaste} Fury wasted
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.DEMONS_BITE}>
+          <>
+            {this.furyPerMin} <small>Fury per min</small> <br />
+            {this.owner.formatItemDamageDone(this.damage)}
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }
+
 export default DemonBite;
