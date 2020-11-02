@@ -9,10 +9,10 @@ interface Props {
   element: React.ElementType;
   className?: string;
   expanded?: boolean;
-  setExpanded:  React.Dispatch<React.SetStateAction<boolean>>;
+  inverseExpanded: () => void;
 }
 
-export const Expandable = (props: Omit<Props, 'expanded'|'setExpanded'>) => {
+export const Expandable = (props: Omit<Props, 'expanded'|'inverseExpanded'>) => {
   const [expanded, setExpanded] = useState<boolean>(false);
   const handleToggle = () => {
     setExpanded((prevExpanded: boolean) => !prevExpanded)
@@ -33,15 +33,11 @@ export const Expandable = (props: Omit<Props, 'expanded'|'setExpanded'>) => {
 }
 
 export const ControlledExpandable = (props: Props) =>  {
-  const handleToggle = () => {
-    props.setExpanded((prevExpanded: boolean) => !prevExpanded)
-  }
-
   const { header, children, element: Element, className } = props;
 
   return (
     <Element className={`expandable ${props.expanded ? 'expanded' : ''} ${className || ''}`}>
-      <div className="meta" onClick={handleToggle}>
+      <div className="meta" onClick={props.inverseExpanded}>
         {header}
       </div>
       <AnimateHeight className="details" height={props.expanded ? 'auto' : 0}>

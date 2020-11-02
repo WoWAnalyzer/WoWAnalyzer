@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 
 import DropdownIcon from 'interface/icons/Dropdown';
 import InformationIcon from 'interface/icons/Information';
@@ -28,9 +28,17 @@ interface Props {
   performanceMethod?: PERFORMANCE_METHOD;
 }
 
+interface State {
+  requirementPerformances: number[],
+  performance: number;
+  passed: boolean;
+  expanded: boolean;
+}
+
 const Rule = (props: Props) => {
-  const [requirementPerformances, setRequirementPerformances] = useState<number[]>([]);
-  const [expanded, setExpanded] = useState<boolean>(false);
+
+  const [state, setState] = useState<State>({requirementPerformances: [], performance: 1, passed: true, expanded: false});
+
 
   const calculateRulePerformance = useCallback((values: number[], style = PERFORMANCE_METHOD.DEFAULT) => {
     // Lowest would generally be too punishing for small mistakes, if you want to have a single value tank the rule consider making it its own rule.
@@ -55,20 +63,7 @@ const Rule = (props: Props) => {
     }
   }, [])
 
-  const performance = useCallback(() => {
-    const performanceMethod = props.performanceMethod;
-    return requirementPerformances.length > 0 ? calculateRulePerformance(requirementPerformances, performanceMethod) : 1;
-  }, [props.performanceMethod, calculateRulePerformance, requirementPerformances])
-
-  const passed = useCallback(() => performance() > 0.666, [performance])
-
-  useEffect(() => {
-    if (passed()) {
-      return;
-    }
-
-    setExpanded(true);
-  }, [requirementPerformances, passed])
+ 
 
   const checkEmptyRule = (child: React.ReactNode) => {
     if (React.isValidElement(child) && child?.props) {
@@ -78,9 +73,15 @@ const Rule = (props: Props) => {
     }
   }
 
-  const setRequirementPerformance = (performance: number) => {
+  const setRequirementPerformance = (p: number) => {
     // We don't have to worry about adding the same Requirement's performance multiple times here because it's only called in the Requirement's constructor, which is only called once.
-    setRequirementPerformances((prevRequirementPerformances: number[]) => [...prevRequirementPerformances, performance])
+    setState((prevState: State) => {
+      const requirementPerformances: State['requirementPerformances'] = [...prevState.requirementPerformances, p];
+      const performance = requirementPerformances.length > 0 ? calculateRulePerformance(requirementPerformances, props.performanceMethod) : 1
+      const passed = performance > 0.666;
+      const expanded = !passed;
+      return {requirementPerformances, performance: performance, passed, expanded}
+    })
   }
 
   const { name, children: requirements, description } = props;
@@ -89,13 +90,17 @@ const Rule = (props: Props) => {
     return null;
   }
 
+  const inverseExpanded = () => {
+    setState(prevState => ({...prevState, expanded: !prevState.expanded}))
+  }
+
   return (
     <RuleContext.Provider value={setRequirementPerformance}>
       <ControlledExpandable
         element="li"
-        className={passed() ? 'passed' : 'failed'}
-        setExpanded={setExpanded}
-        expanded={expanded}
+        className={state.passed ? 'passed' : 'failed'}
+        inverseExpanded={inverseExpanded}
+        expanded={state.expanded}
         header={(
           <div className="flex wrapable">
             <div className="flex-main name">
@@ -106,8 +111,8 @@ const Rule = (props: Props) => {
                 <div
                   className="perf-bar"
                   style={{
-                    width: `${performance() * 100}%`,
-                    backgroundColor: colorForPerformance(performance()),
+                    width: `${state.performance * 100}%`,
+                    backgroundColor: colorForPerformance(state.performance),
                   }}
                 />
               </div>
