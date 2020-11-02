@@ -1,8 +1,8 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 
 import DropdownIcon from 'interface/icons/Dropdown';
 import InformationIcon from 'interface/icons/Information';
-import Expandable from 'interface/common/Expandable';
+import { ControlledExpandable } from 'interface/common/Expandable';
 import colorForPerformance from 'common/colorForPerformance';
 
 import calculateMedian from './helpers/calculateMedian';
@@ -10,6 +10,7 @@ import average from './helpers/average';
 import harmonic from './helpers/harmonic';
 
 export const RuleContext = React.createContext((value: number) => {/**/});
+
 
 export enum PERFORMANCE_METHOD {
   DEFAULT = 'DEFAULT',
@@ -29,7 +30,7 @@ interface Props {
 
 const Rule = (props: Props) => {
   const [requirementPerformances, setRequirementPerformances] = useState<number[]>([]);
-  const expandable = useRef<Expandable>(null);
+  const [expanded, setExpanded] = useState<boolean>(false);
 
   const calculateRulePerformance = useCallback((values: number[], style = PERFORMANCE_METHOD.DEFAULT) => {
     // Lowest would generally be too punishing for small mistakes, if you want to have a single value tank the rule consider making it its own rule.
@@ -66,7 +67,7 @@ const Rule = (props: Props) => {
       return;
     }
 
-    expandable.current && expandable.current.expand()
+    setExpanded(true);
   }, [requirementPerformances, passed])
 
   const checkEmptyRule = (child: React.ReactNode) => {
@@ -90,9 +91,11 @@ const Rule = (props: Props) => {
 
   return (
     <RuleContext.Provider value={setRequirementPerformance}>
-      <Expandable
+      <ControlledExpandable
         element="li"
         className={passed() ? 'passed' : 'failed'}
+        setExpanded={setExpanded}
+        expanded={expanded}
         header={(
           <div className="flex wrapable">
             <div className="flex-main name">
@@ -116,7 +119,6 @@ const Rule = (props: Props) => {
             </div>
           </div>
         )}
-        ref={expandable}
       >
         {description && (
           <div className="row text-muted description">
@@ -129,7 +131,7 @@ const Rule = (props: Props) => {
         <div className="row">
           {requirements}
         </div>
-      </Expandable>
+      </ControlledExpandable>
     </RuleContext.Provider>
   );
 }
