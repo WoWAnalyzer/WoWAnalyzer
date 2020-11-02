@@ -1010,3 +1010,15 @@ export const Kruzershtern: Contributor = {
   discord: 'Kruzer#6980',
   about: 'Russian localizator',
 };
+
+export const Mae: Contributor = {
+  nickname: 'Mae',
+  github: 'invfo',
+  discord: 'Mae#3348',
+  avatar: require('./interface/images/avatars/Mae_avatar.png'),
+  mains: [{
+    name: 'Maerstrom',
+    spec: SPECS.RESTORATION_SHAMAN,
+    link: 'https://worldofwarcraft.com/en-gb/character/eu/draenor/maerstrom'
+  }]
+}
