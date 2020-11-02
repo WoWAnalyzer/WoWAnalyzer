@@ -19,7 +19,7 @@ class ArcaneBombardment extends Analyzer {
   }
   protected abilityTracker!: AbilityTracker;
 
-  bonusDamage: number = 0;
+  bonusDamage = 0;
 
   constructor(props: Options) {
     super(props);

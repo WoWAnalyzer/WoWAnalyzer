@@ -18,7 +18,7 @@ class AgonizingFlames extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.AGONIZING_FLAMES_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.IMMOLATION_AURA_FIRST_STRIKE, SPELLS.IMMOLATION_AURA_BUFF]), this.onDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.IMMOLATION_AURA_FIRST_STRIKE, SPELLS.IMMOLATION_AURA]), this.onDamage);
   }
 
   onDamage(event) {

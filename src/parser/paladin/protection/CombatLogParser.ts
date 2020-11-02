@@ -7,6 +7,7 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import SpellUsable from './modules/features/SpellUsable';
 import Checklist from './modules/features/Checklist/Module';
 import MitigationCheck from './modules/features/MitigationCheck';
+import Haste from './modules/core/Haste';
 
 
 //Spells
@@ -20,8 +21,8 @@ import NoDamageShieldOfTheRighteous from './modules/features/NoDamageShieldOfThe
 import WordOfGlory from './modules/spells/WordOfGlory';
 
 //Talents
-import Seraphim from './modules/talents/Seraphim';
 import RighteousProtector from './modules/talents/RighteousProtector';
+import Seraphim from './modules/talents/Seraphim';
 import SanctifiedWrathProtJudgement from './modules/talents/SanctifiedWrathProtJudgement';
 import HolyShieldSpellBlock from './modules/talents/HolyShieldSpellBlock';
 import Redoubt from './modules/talents/Redoubt';
@@ -37,6 +38,7 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
     grandCrusader: GrandCrusader,
+    haste: Haste,
 
     // Spells
     lightOfTheProtector: LightOfTheProtector,

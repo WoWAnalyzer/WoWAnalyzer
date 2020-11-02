@@ -3,11 +3,14 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS/index';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import { formatPercentage, formatDuration } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import UptimeIcon from 'interface/icons/Uptime';
 
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
@@ -46,20 +49,24 @@ class Momentum extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<> Maintain the <SpellLink id={SPELLS.MOMENTUM_TALENT.id} /> buff to maximize damage.</>)
-          .icon(SPELLS.MOMENTUM_TALENT.icon)
-          .actual(i18n._(t('demonhunter.havoc.suggestions.momentum.uptime')`${formatPercentage(actual)}% buff uptime`))
-          .recommended(`${formatPercentage(recommended)}% is recommended.`));
+        .icon(SPELLS.MOMENTUM_TALENT.icon)
+        .actual(i18n._(t('demonhunter.havoc.suggestions.momentum.uptime')`${formatPercentage(actual)}% buff uptime`))
+        .recommended(`${formatPercentage(recommended)}% is recommended.`));
   }
 
   statistic() {
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(3)}
-        icon={<SpellIcon id={SPELLS.MOMENTUM_TALENT.id} />}
-        value={`${formatPercentage(this.buffUptime)}%`}
-        label="Momentum Uptime"
+        size="flexible"
         tooltip={`The Momentum buff total uptime was ${formatDuration(this.buffDuration / 1000)}.`}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.MOMENTUM_TALENT}>
+          <>
+            <UptimeIcon /> {formatPercentage(this.buffUptime)}% <small>uptime</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

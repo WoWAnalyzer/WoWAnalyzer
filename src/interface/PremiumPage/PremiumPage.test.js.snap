@@ -23,7 +23,10 @@ exports[`PremiumPage matches snapshot when logged in with GitHub 1`] = `
           className="panel-heading"
         >
           <h1>
-            WoWAnalyzer premium
+            <WithI18n
+              defaults="WoWAnalyzer premium"
+              id="interface.PremiumPage.Premium"
+            />
           </h1>
         </div>
         <div
@@ -47,18 +50,22 @@ exports[`PremiumPage matches snapshot when logged in with GitHub 1`] = `
               }
             }
           >
-            Help out development and unlock 
-            <span
-              style={
-                Object {
-                  "color": "#fab700",
-                  "fontWeight": 700,
-                }
+            <WithI18n
+              components={
+                Array [
+                  <span
+                    style={
+                      Object {
+                        "color": "#fab700",
+                        "fontWeight": 700,
+                      }
+                    }
+                  />,
+                ]
               }
-            >
-              WoWAnalyzer Premium
-            </span>
-            !
+              defaults="Help out development and unlock <0>WoWAnalyzer Premium</0>!"
+              id="interface.PremiumPage.Premium.helpout"
+            />
           </div>
           <div
             className="row"
@@ -72,7 +79,10 @@ exports[`PremiumPage matches snapshot when logged in with GitHub 1`] = `
             <div
               className="col-md-12 text-center text-muted"
             >
-              How to unlock WoWAnalyzer Premium:
+              <WithI18n
+                defaults="How to unlock WoWAnalyzer Premium:"
+                id="interface.PremiumPage.howToUnlock"
+              />
             </div>
           </div>
           <div
@@ -86,10 +96,15 @@ exports[`PremiumPage matches snapshot when logged in with GitHub 1`] = `
                 }
               }
             >
-              <h2>
-                Patreon
-              </h2>
-              Help fund further development by becoming a patron on Patreon. Pledge whatever you want!
+              <WithI18n
+                components={
+                  Array [
+                    <h2 />,
+                  ]
+                }
+                defaults="<0>Patreon</0>Help fund further development by becoming a patron on Patreon. Pledge whatever you want!"
+                id="interface.PremiumPage.helpPatreon"
+              />
               <br />
               <br />
               <PatreonButton />
@@ -97,21 +112,23 @@ exports[`PremiumPage matches snapshot when logged in with GitHub 1`] = `
             <div
               className="col-md-6"
             >
-              <h2>
-                GitHub
-              </h2>
-              Improve the analysis of a spec or build a new feature to get 1 month of Premium free
-              <TooltipElement
-                className=""
-                content="Only commits that are merged to the master branch are eligible. Your work will have to pass a pull request review before it can be merged."
-                direction="down"
-                hoverable={false}
-                style={Object {}}
-                tooltipClassName=""
-              >
-                *
-              </TooltipElement>
-              .
+              <WithI18n
+                components={
+                  Array [
+                    <h2 />,
+                    <TooltipElement
+                      className=""
+                      content="Only commits that are merged to the master branch are eligible. Your work will have to pass a pull request review before it can be merged."
+                      direction="down"
+                      hoverable={false}
+                      style={Object {}}
+                      tooltipClassName=""
+                    />,
+                  ]
+                }
+                defaults="<0>GitHub</0>Improve the analysis of a spec or build a new feature to get 1 month of Premium free<1>*</1>."
+                id="interface.PremiumPage.helpGitHub"
+              />
               <br />
               <br />
               <GithubButton />
@@ -129,7 +146,10 @@ exports[`PremiumPage matches snapshot when logged in with GitHub 1`] = `
             <div
               className="col-md-12 text-center text-muted"
             >
-              WoWAnalyzer Premium unlocks the following things:
+              <WithI18n
+                defaults="WoWAnalyzer Premium unlocks the following things:"
+                id="interface.PremiumPage.unlocks"
+              />
             </div>
           </div>
           <div>
@@ -144,19 +164,19 @@ exports[`PremiumPage matches snapshot when logged in with GitHub 1`] = `
               <div
                 className="flex-main"
               >
-                <h2>
-                  New things
-                </h2>
-                <strong>
-                  Nothing develops itself.
-                </strong>
-                 Your contributions will help fund new things for the site, making it even better. We'll post bounties on the best ideas via 
-                <a
-                  href="https://www.bountysource.com/teams/wowanalyzer"
-                >
-                  Bountysource
-                </a>
-                 as a motivation to get developers to build them.
+                <WithI18n
+                  components={
+                    Array [
+                      <h2 />,
+                      <strong />,
+                      <a
+                        href="https://www.bountysource.com/teams/wowanalyzer"
+                      />,
+                    ]
+                  }
+                  defaults="<0>New things</0><1>Nothing develops itself.</1> Your contributions will help fund new things for the site, making it even better. We'll post bounties on the best ideas via <2>Bountysource</2> as a motivation to get developers to build them."
+                  id="interface.PremiumPage.unlocks.new"
+                />
               </div>
             </div>
             <div
@@ -170,13 +190,16 @@ exports[`PremiumPage matches snapshot when logged in with GitHub 1`] = `
               <div
                 className="flex-main"
               >
-                <h2>
-                  Updates for patches
-                </h2>
-                <strong>
-                  Updating for patches is a lot of work.
-                </strong>
-                 We need to apply all spell changes, add new traits, add support for the new fights, make screenshots, add fight phases, buffs and debuffs, etc. Your contributions make it possible for us to keep specs updated as they're changed in patches.
+                <WithI18n
+                  components={
+                    Array [
+                      <h2 />,
+                      <strong />,
+                    ]
+                  }
+                  defaults="<0>Updates for patches</0><1>Updating for patches is a lot of work.</1> We need to apply all spell changes, add new traits, add support for the new fights, make screenshots, add fight phases, buffs and debuffs, etc. Your contributions make it possible for us to keep specs updated as they're changed in patches."
+                  id="interface.PremiumPage.unlocks.updates"
+                />
               </div>
             </div>
             <div
@@ -190,13 +213,16 @@ exports[`PremiumPage matches snapshot when logged in with GitHub 1`] = `
               <div
                 className="flex-main"
               >
-                <h2>
-                  No ads
-                </h2>
-                <strong>
-                  Nobody likes them, but we need them.
-                </strong>
-                 Any contribution is worth more than the ads, so we'll remove ads from the platform for you so you can consume our content with less distractions and less clutter.
+                <WithI18n
+                  components={
+                    Array [
+                      <h2 />,
+                      <strong />,
+                    ]
+                  }
+                  defaults="<0>No ads</0><1>Nobody likes them, but we need them.</1> Any contribution is worth more than the ads, so we'll remove ads from the platform for you so you can consume our content with less distractions and less clutter."
+                  id="interface.PremiumPage.unlocks.noAds"
+                />
               </div>
             </div>
             <div
@@ -216,13 +242,16 @@ exports[`PremiumPage matches snapshot when logged in with GitHub 1`] = `
               <div
                 className="flex-main"
               >
-                <h2>
-                  Discord name color
-                </h2>
-                <strong>
-                  We'll help anyone, but sometimes we can't avoid favoritism.
-                </strong>
-                 Get a distinct Discord name color befitting your contribution. See Patreon for Patron specific name colors. Serious GitHub contributors get the yellow contributor name color.
+                <WithI18n
+                  components={
+                    Array [
+                      <h2 />,
+                      <strong />,
+                    ]
+                  }
+                  defaults="<0>Discord name color</0><1>We'll help anyone, but sometimes we can't avoid favoritism.</1> Get a distinct Discord name color befitting your contribution. See Patreon for Patron specific name colors. Serious GitHub contributors get the yellow contributor name color."
+                  id="interface.PremiumPage.unlocks.Discord"
+                />
               </div>
             </div>
             <div
@@ -236,13 +265,16 @@ exports[`PremiumPage matches snapshot when logged in with GitHub 1`] = `
               <div
                 className="flex-main"
               >
-                <h2>
-                  Access to secret channels on Discord
-                </h2>
-                <strong>
-                  You don't know what you're missing out on.
-                </strong>
-                 Get access to special Discord channels to discuss things privately in the sub-community.
+                <WithI18n
+                  components={
+                    Array [
+                      <h2 />,
+                      <strong />,
+                    ]
+                  }
+                  defaults="<0>Access to secret channels on Discord</0><1>You don't know what you're missing out on.</1> Get access to special Discord channels to discuss things privately in the sub-community."
+                  id="interface.PremiumPage.unlocks.DiscordChannels"
+                />
               </div>
             </div>
           </div>
@@ -258,7 +290,10 @@ exports[`PremiumPage matches snapshot when logged in with GitHub 1`] = `
             <div
               className="col-md-12 text-center text-muted"
             >
-              How to login for WoWAnalyzer Premium:
+              <WithI18n
+                defaults="How to login for WoWAnalyzer Premium:"
+                id="interface.PremiumPage.howToLogin"
+              />
             </div>
           </div>
           <div
@@ -267,13 +302,17 @@ exports[`PremiumPage matches snapshot when logged in with GitHub 1`] = `
             <div
               className="col-md-12"
             >
-              Logging in is easy, just click one of the buttons on the panel to the left. If you have any more questions ask away 
-              <a
-                href="/discord"
-              >
-                at Discord
-              </a>
-              .
+              <WithI18n
+                components={
+                  Array [
+                    <a
+                      href="/discord"
+                    />,
+                  ]
+                }
+                defaults="Logging in is easy, just click one of the buttons on the panel to the left. If you have any more questions ask away <0>at Discord</0>."
+                id="interface.PremiumPage.howToLoginDescription"
+              />
             </div>
           </div>
         </div>
@@ -285,26 +324,49 @@ exports[`PremiumPage matches snapshot when logged in with GitHub 1`] = `
           className="panel-heading"
         >
           <h2>
-            You
+            <WithI18n
+              defaults="You"
+              id="interface.PremiumPage.You"
+            />
           </h2>
         </div>
         <div
           className="panel-body pad"
         >
-          Hello 
-          Martijn Hols
-          . Your Premium is currently 
-          <span
-            className="text-danger"
-          >
-            Inactive
-          </span>
-           
-          because of a recent GitHub contribution (active until 
-          Mon, 02 Jul 2018 11:48:40 GMT
-          )
-          . 
-          You can get Premium by becoming a Patron on Patreon or by making a contribution to application on GitHub. Try logging in again if you wish to refresh your status.
+          <WithI18n
+            defaults="Hello {0}. Your Premium is currently {1} {2} {3} . {4}"
+            id="interface.PremiumPage.status"
+            values={
+              Object {
+                "0": "Martijn Hols",
+                "1": <span
+                  className="text-danger"
+                >
+                  <WithI18n
+                    defaults="Inactive"
+                    id="interface.PremiumPage.status.inactive"
+                  />
+                </span>,
+                "2": undefined,
+                "3": <React.Fragment>
+                   
+                  <WithI18n
+                    defaults="because of a recent GitHub contribution (active until {0})"
+                    id="interface.PremiumPage.status.GitHub"
+                    values={
+                      Object {
+                        "0": "Mon, 02 Jul 2018 11:48:40 GMT",
+                      }
+                    }
+                  />
+                </React.Fragment>,
+                "4": Object {
+                  "defaults": "You can get Premium by becoming a Patron on Patreon or by making a contribution to application on GitHub. Try logging in again if you wish to refresh your status.",
+                  "id": "interface.PremiumPage.status.getPremium",
+                },
+              }
+            }
+          />
         </div>
       </div>
     </div>
@@ -335,7 +397,10 @@ exports[`PremiumPage matches snapshot when logged in with Patreon 1`] = `
           className="panel-heading"
         >
           <h1>
-            WoWAnalyzer premium
+            <WithI18n
+              defaults="WoWAnalyzer premium"
+              id="interface.PremiumPage.Premium"
+            />
           </h1>
         </div>
         <div
@@ -359,18 +424,22 @@ exports[`PremiumPage matches snapshot when logged in with Patreon 1`] = `
               }
             }
           >
-            Help out development and unlock 
-            <span
-              style={
-                Object {
-                  "color": "#fab700",
-                  "fontWeight": 700,
-                }
+            <WithI18n
+              components={
+                Array [
+                  <span
+                    style={
+                      Object {
+                        "color": "#fab700",
+                        "fontWeight": 700,
+                      }
+                    }
+                  />,
+                ]
               }
-            >
-              WoWAnalyzer Premium
-            </span>
-            !
+              defaults="Help out development and unlock <0>WoWAnalyzer Premium</0>!"
+              id="interface.PremiumPage.Premium.helpout"
+            />
           </div>
           <div
             className="row"
@@ -384,7 +453,10 @@ exports[`PremiumPage matches snapshot when logged in with Patreon 1`] = `
             <div
               className="col-md-12 text-center text-muted"
             >
-              How to unlock WoWAnalyzer Premium:
+              <WithI18n
+                defaults="How to unlock WoWAnalyzer Premium:"
+                id="interface.PremiumPage.howToUnlock"
+              />
             </div>
           </div>
           <div
@@ -398,10 +470,15 @@ exports[`PremiumPage matches snapshot when logged in with Patreon 1`] = `
                 }
               }
             >
-              <h2>
-                Patreon
-              </h2>
-              Help fund further development by becoming a patron on Patreon. Pledge whatever you want!
+              <WithI18n
+                components={
+                  Array [
+                    <h2 />,
+                  ]
+                }
+                defaults="<0>Patreon</0>Help fund further development by becoming a patron on Patreon. Pledge whatever you want!"
+                id="interface.PremiumPage.helpPatreon"
+              />
               <br />
               <br />
               <PatreonButton />
@@ -409,21 +486,23 @@ exports[`PremiumPage matches snapshot when logged in with Patreon 1`] = `
             <div
               className="col-md-6"
             >
-              <h2>
-                GitHub
-              </h2>
-              Improve the analysis of a spec or build a new feature to get 1 month of Premium free
-              <TooltipElement
-                className=""
-                content="Only commits that are merged to the master branch are eligible. Your work will have to pass a pull request review before it can be merged."
-                direction="down"
-                hoverable={false}
-                style={Object {}}
-                tooltipClassName=""
-              >
-                *
-              </TooltipElement>
-              .
+              <WithI18n
+                components={
+                  Array [
+                    <h2 />,
+                    <TooltipElement
+                      className=""
+                      content="Only commits that are merged to the master branch are eligible. Your work will have to pass a pull request review before it can be merged."
+                      direction="down"
+                      hoverable={false}
+                      style={Object {}}
+                      tooltipClassName=""
+                    />,
+                  ]
+                }
+                defaults="<0>GitHub</0>Improve the analysis of a spec or build a new feature to get 1 month of Premium free<1>*</1>."
+                id="interface.PremiumPage.helpGitHub"
+              />
               <br />
               <br />
               <GithubButton />
@@ -441,7 +520,10 @@ exports[`PremiumPage matches snapshot when logged in with Patreon 1`] = `
             <div
               className="col-md-12 text-center text-muted"
             >
-              WoWAnalyzer Premium unlocks the following things:
+              <WithI18n
+                defaults="WoWAnalyzer Premium unlocks the following things:"
+                id="interface.PremiumPage.unlocks"
+              />
             </div>
           </div>
           <div>
@@ -456,19 +538,19 @@ exports[`PremiumPage matches snapshot when logged in with Patreon 1`] = `
               <div
                 className="flex-main"
               >
-                <h2>
-                  New things
-                </h2>
-                <strong>
-                  Nothing develops itself.
-                </strong>
-                 Your contributions will help fund new things for the site, making it even better. We'll post bounties on the best ideas via 
-                <a
-                  href="https://www.bountysource.com/teams/wowanalyzer"
-                >
-                  Bountysource
-                </a>
-                 as a motivation to get developers to build them.
+                <WithI18n
+                  components={
+                    Array [
+                      <h2 />,
+                      <strong />,
+                      <a
+                        href="https://www.bountysource.com/teams/wowanalyzer"
+                      />,
+                    ]
+                  }
+                  defaults="<0>New things</0><1>Nothing develops itself.</1> Your contributions will help fund new things for the site, making it even better. We'll post bounties on the best ideas via <2>Bountysource</2> as a motivation to get developers to build them."
+                  id="interface.PremiumPage.unlocks.new"
+                />
               </div>
             </div>
             <div
@@ -482,13 +564,16 @@ exports[`PremiumPage matches snapshot when logged in with Patreon 1`] = `
               <div
                 className="flex-main"
               >
-                <h2>
-                  Updates for patches
-                </h2>
-                <strong>
-                  Updating for patches is a lot of work.
-                </strong>
-                 We need to apply all spell changes, add new traits, add support for the new fights, make screenshots, add fight phases, buffs and debuffs, etc. Your contributions make it possible for us to keep specs updated as they're changed in patches.
+                <WithI18n
+                  components={
+                    Array [
+                      <h2 />,
+                      <strong />,
+                    ]
+                  }
+                  defaults="<0>Updates for patches</0><1>Updating for patches is a lot of work.</1> We need to apply all spell changes, add new traits, add support for the new fights, make screenshots, add fight phases, buffs and debuffs, etc. Your contributions make it possible for us to keep specs updated as they're changed in patches."
+                  id="interface.PremiumPage.unlocks.updates"
+                />
               </div>
             </div>
             <div
@@ -502,13 +587,16 @@ exports[`PremiumPage matches snapshot when logged in with Patreon 1`] = `
               <div
                 className="flex-main"
               >
-                <h2>
-                  No ads
-                </h2>
-                <strong>
-                  Nobody likes them, but we need them.
-                </strong>
-                 Any contribution is worth more than the ads, so we'll remove ads from the platform for you so you can consume our content with less distractions and less clutter.
+                <WithI18n
+                  components={
+                    Array [
+                      <h2 />,
+                      <strong />,
+                    ]
+                  }
+                  defaults="<0>No ads</0><1>Nobody likes them, but we need them.</1> Any contribution is worth more than the ads, so we'll remove ads from the platform for you so you can consume our content with less distractions and less clutter."
+                  id="interface.PremiumPage.unlocks.noAds"
+                />
               </div>
             </div>
             <div
@@ -528,13 +616,16 @@ exports[`PremiumPage matches snapshot when logged in with Patreon 1`] = `
               <div
                 className="flex-main"
               >
-                <h2>
-                  Discord name color
-                </h2>
-                <strong>
-                  We'll help anyone, but sometimes we can't avoid favoritism.
-                </strong>
-                 Get a distinct Discord name color befitting your contribution. See Patreon for Patron specific name colors. Serious GitHub contributors get the yellow contributor name color.
+                <WithI18n
+                  components={
+                    Array [
+                      <h2 />,
+                      <strong />,
+                    ]
+                  }
+                  defaults="<0>Discord name color</0><1>We'll help anyone, but sometimes we can't avoid favoritism.</1> Get a distinct Discord name color befitting your contribution. See Patreon for Patron specific name colors. Serious GitHub contributors get the yellow contributor name color."
+                  id="interface.PremiumPage.unlocks.Discord"
+                />
               </div>
             </div>
             <div
@@ -548,13 +639,16 @@ exports[`PremiumPage matches snapshot when logged in with Patreon 1`] = `
               <div
                 className="flex-main"
               >
-                <h2>
-                  Access to secret channels on Discord
-                </h2>
-                <strong>
-                  You don't know what you're missing out on.
-                </strong>
-                 Get access to special Discord channels to discuss things privately in the sub-community.
+                <WithI18n
+                  components={
+                    Array [
+                      <h2 />,
+                      <strong />,
+                    ]
+                  }
+                  defaults="<0>Access to secret channels on Discord</0><1>You don't know what you're missing out on.</1> Get access to special Discord channels to discuss things privately in the sub-community."
+                  id="interface.PremiumPage.unlocks.DiscordChannels"
+                />
               </div>
             </div>
           </div>
@@ -570,7 +664,10 @@ exports[`PremiumPage matches snapshot when logged in with Patreon 1`] = `
             <div
               className="col-md-12 text-center text-muted"
             >
-              How to login for WoWAnalyzer Premium:
+              <WithI18n
+                defaults="How to login for WoWAnalyzer Premium:"
+                id="interface.PremiumPage.howToLogin"
+              />
             </div>
           </div>
           <div
@@ -579,13 +676,17 @@ exports[`PremiumPage matches snapshot when logged in with Patreon 1`] = `
             <div
               className="col-md-12"
             >
-              Logging in is easy, just click one of the buttons on the panel to the left. If you have any more questions ask away 
-              <a
-                href="/discord"
-              >
-                at Discord
-              </a>
-              .
+              <WithI18n
+                components={
+                  Array [
+                    <a
+                      href="/discord"
+                    />,
+                  ]
+                }
+                defaults="Logging in is easy, just click one of the buttons on the panel to the left. If you have any more questions ask away <0>at Discord</0>."
+                id="interface.PremiumPage.howToLoginDescription"
+              />
             </div>
           </div>
         </div>
@@ -597,23 +698,41 @@ exports[`PremiumPage matches snapshot when logged in with Patreon 1`] = `
           className="panel-heading"
         >
           <h2>
-            You
+            <WithI18n
+              defaults="You"
+              id="interface.PremiumPage.You"
+            />
           </h2>
         </div>
         <div
           className="panel-body pad"
         >
-          Hello 
-          Martijn Hols
-          . Your Premium is currently 
-          <span
-            className="text-danger"
-          >
-            Inactive
-          </span>
-           because of your Patreonage
-          . 
-          You can get Premium by becoming a Patron on Patreon or by making a contribution to application on GitHub. Try logging in again if you wish to refresh your status.
+          <WithI18n
+            defaults="Hello {0}. Your Premium is currently {1} {2} {3} . {4}"
+            id="interface.PremiumPage.status"
+            values={
+              Object {
+                "0": "Martijn Hols",
+                "1": <span
+                  className="text-danger"
+                >
+                  <WithI18n
+                    defaults="Inactive"
+                    id="interface.PremiumPage.status.inactive"
+                  />
+                </span>,
+                "2": Object {
+                  "defaults": " because of your Patreonage",
+                  "id": "interface.PremiumPage.status.Patreon",
+                },
+                "3": undefined,
+                "4": Object {
+                  "defaults": "You can get Premium by becoming a Patron on Patreon or by making a contribution to application on GitHub. Try logging in again if you wish to refresh your status.",
+                  "id": "interface.PremiumPage.status.getPremium",
+                },
+              }
+            }
+          />
         </div>
       </div>
     </div>
@@ -644,7 +763,10 @@ exports[`PremiumPage matches snapshot when logged out 1`] = `
           className="panel-heading"
         >
           <h1>
-            WoWAnalyzer premium
+            <WithI18n
+              defaults="WoWAnalyzer premium"
+              id="interface.PremiumPage.Premium"
+            />
           </h1>
         </div>
         <div
@@ -668,18 +790,22 @@ exports[`PremiumPage matches snapshot when logged out 1`] = `
               }
             }
           >
-            Help out development and unlock 
-            <span
-              style={
-                Object {
-                  "color": "#fab700",
-                  "fontWeight": 700,
-                }
+            <WithI18n
+              components={
+                Array [
+                  <span
+                    style={
+                      Object {
+                        "color": "#fab700",
+                        "fontWeight": 700,
+                      }
+                    }
+                  />,
+                ]
               }
-            >
-              WoWAnalyzer Premium
-            </span>
-            !
+              defaults="Help out development and unlock <0>WoWAnalyzer Premium</0>!"
+              id="interface.PremiumPage.Premium.helpout"
+            />
           </div>
           <div
             className="row"
@@ -693,7 +819,10 @@ exports[`PremiumPage matches snapshot when logged out 1`] = `
             <div
               className="col-md-12 text-center text-muted"
             >
-              How to unlock WoWAnalyzer Premium:
+              <WithI18n
+                defaults="How to unlock WoWAnalyzer Premium:"
+                id="interface.PremiumPage.howToUnlock"
+              />
             </div>
           </div>
           <div
@@ -707,10 +836,15 @@ exports[`PremiumPage matches snapshot when logged out 1`] = `
                 }
               }
             >
-              <h2>
-                Patreon
-              </h2>
-              Help fund further development by becoming a patron on Patreon. Pledge whatever you want!
+              <WithI18n
+                components={
+                  Array [
+                    <h2 />,
+                  ]
+                }
+                defaults="<0>Patreon</0>Help fund further development by becoming a patron on Patreon. Pledge whatever you want!"
+                id="interface.PremiumPage.helpPatreon"
+              />
               <br />
               <br />
               <PatreonButton />
@@ -718,21 +852,23 @@ exports[`PremiumPage matches snapshot when logged out 1`] = `
             <div
               className="col-md-6"
             >
-              <h2>
-                GitHub
-              </h2>
-              Improve the analysis of a spec or build a new feature to get 1 month of Premium free
-              <TooltipElement
-                className=""
-                content="Only commits that are merged to the master branch are eligible. Your work will have to pass a pull request review before it can be merged."
-                direction="down"
-                hoverable={false}
-                style={Object {}}
-                tooltipClassName=""
-              >
-                *
-              </TooltipElement>
-              .
+              <WithI18n
+                components={
+                  Array [
+                    <h2 />,
+                    <TooltipElement
+                      className=""
+                      content="Only commits that are merged to the master branch are eligible. Your work will have to pass a pull request review before it can be merged."
+                      direction="down"
+                      hoverable={false}
+                      style={Object {}}
+                      tooltipClassName=""
+                    />,
+                  ]
+                }
+                defaults="<0>GitHub</0>Improve the analysis of a spec or build a new feature to get 1 month of Premium free<1>*</1>."
+                id="interface.PremiumPage.helpGitHub"
+              />
               <br />
               <br />
               <GithubButton />
@@ -750,7 +886,10 @@ exports[`PremiumPage matches snapshot when logged out 1`] = `
             <div
               className="col-md-12 text-center text-muted"
             >
-              WoWAnalyzer Premium unlocks the following things:
+              <WithI18n
+                defaults="WoWAnalyzer Premium unlocks the following things:"
+                id="interface.PremiumPage.unlocks"
+              />
             </div>
           </div>
           <div>
@@ -765,19 +904,19 @@ exports[`PremiumPage matches snapshot when logged out 1`] = `
               <div
                 className="flex-main"
               >
-                <h2>
-                  New things
-                </h2>
-                <strong>
-                  Nothing develops itself.
-                </strong>
-                 Your contributions will help fund new things for the site, making it even better. We'll post bounties on the best ideas via 
-                <a
-                  href="https://www.bountysource.com/teams/wowanalyzer"
-                >
-                  Bountysource
-                </a>
-                 as a motivation to get developers to build them.
+                <WithI18n
+                  components={
+                    Array [
+                      <h2 />,
+                      <strong />,
+                      <a
+                        href="https://www.bountysource.com/teams/wowanalyzer"
+                      />,
+                    ]
+                  }
+                  defaults="<0>New things</0><1>Nothing develops itself.</1> Your contributions will help fund new things for the site, making it even better. We'll post bounties on the best ideas via <2>Bountysource</2> as a motivation to get developers to build them."
+                  id="interface.PremiumPage.unlocks.new"
+                />
               </div>
             </div>
             <div
@@ -791,13 +930,16 @@ exports[`PremiumPage matches snapshot when logged out 1`] = `
               <div
                 className="flex-main"
               >
-                <h2>
-                  Updates for patches
-                </h2>
-                <strong>
-                  Updating for patches is a lot of work.
-                </strong>
-                 We need to apply all spell changes, add new traits, add support for the new fights, make screenshots, add fight phases, buffs and debuffs, etc. Your contributions make it possible for us to keep specs updated as they're changed in patches.
+                <WithI18n
+                  components={
+                    Array [
+                      <h2 />,
+                      <strong />,
+                    ]
+                  }
+                  defaults="<0>Updates for patches</0><1>Updating for patches is a lot of work.</1> We need to apply all spell changes, add new traits, add support for the new fights, make screenshots, add fight phases, buffs and debuffs, etc. Your contributions make it possible for us to keep specs updated as they're changed in patches."
+                  id="interface.PremiumPage.unlocks.updates"
+                />
               </div>
             </div>
             <div
@@ -811,13 +953,16 @@ exports[`PremiumPage matches snapshot when logged out 1`] = `
               <div
                 className="flex-main"
               >
-                <h2>
-                  No ads
-                </h2>
-                <strong>
-                  Nobody likes them, but we need them.
-                </strong>
-                 Any contribution is worth more than the ads, so we'll remove ads from the platform for you so you can consume our content with less distractions and less clutter.
+                <WithI18n
+                  components={
+                    Array [
+                      <h2 />,
+                      <strong />,
+                    ]
+                  }
+                  defaults="<0>No ads</0><1>Nobody likes them, but we need them.</1> Any contribution is worth more than the ads, so we'll remove ads from the platform for you so you can consume our content with less distractions and less clutter."
+                  id="interface.PremiumPage.unlocks.noAds"
+                />
               </div>
             </div>
             <div
@@ -837,13 +982,16 @@ exports[`PremiumPage matches snapshot when logged out 1`] = `
               <div
                 className="flex-main"
               >
-                <h2>
-                  Discord name color
-                </h2>
-                <strong>
-                  We'll help anyone, but sometimes we can't avoid favoritism.
-                </strong>
-                 Get a distinct Discord name color befitting your contribution. See Patreon for Patron specific name colors. Serious GitHub contributors get the yellow contributor name color.
+                <WithI18n
+                  components={
+                    Array [
+                      <h2 />,
+                      <strong />,
+                    ]
+                  }
+                  defaults="<0>Discord name color</0><1>We'll help anyone, but sometimes we can't avoid favoritism.</1> Get a distinct Discord name color befitting your contribution. See Patreon for Patron specific name colors. Serious GitHub contributors get the yellow contributor name color."
+                  id="interface.PremiumPage.unlocks.Discord"
+                />
               </div>
             </div>
             <div
@@ -857,13 +1005,16 @@ exports[`PremiumPage matches snapshot when logged out 1`] = `
               <div
                 className="flex-main"
               >
-                <h2>
-                  Access to secret channels on Discord
-                </h2>
-                <strong>
-                  You don't know what you're missing out on.
-                </strong>
-                 Get access to special Discord channels to discuss things privately in the sub-community.
+                <WithI18n
+                  components={
+                    Array [
+                      <h2 />,
+                      <strong />,
+                    ]
+                  }
+                  defaults="<0>Access to secret channels on Discord</0><1>You don't know what you're missing out on.</1> Get access to special Discord channels to discuss things privately in the sub-community."
+                  id="interface.PremiumPage.unlocks.DiscordChannels"
+                />
               </div>
             </div>
           </div>
@@ -879,7 +1030,10 @@ exports[`PremiumPage matches snapshot when logged out 1`] = `
             <div
               className="col-md-12 text-center text-muted"
             >
-              How to login for WoWAnalyzer Premium:
+              <WithI18n
+                defaults="How to login for WoWAnalyzer Premium:"
+                id="interface.PremiumPage.howToLogin"
+              />
             </div>
           </div>
           <div
@@ -888,13 +1042,17 @@ exports[`PremiumPage matches snapshot when logged out 1`] = `
             <div
               className="col-md-12"
             >
-              Logging in is easy, just click one of the buttons on the panel to the left. If you have any more questions ask away 
-              <a
-                href="/discord"
-              >
-                at Discord
-              </a>
-              .
+              <WithI18n
+                components={
+                  Array [
+                    <a
+                      href="/discord"
+                    />,
+                  ]
+                }
+                defaults="Logging in is easy, just click one of the buttons on the panel to the left. If you have any more questions ask away <0>at Discord</0>."
+                id="interface.PremiumPage.howToLoginDescription"
+              />
             </div>
           </div>
         </div>

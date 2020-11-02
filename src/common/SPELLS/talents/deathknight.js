@@ -33,7 +33,7 @@ export default {
   UNHOLY_BLIGHT_TALENT: { id: 115989, name: 'Unholy Blight', icon: 'spell_shadow_contagion' },
   PESTILENT_PUSTULES_TALENT: { id: 194917, name: 'Pestilent Pustules', icon: 'spell_yorsahj_bloodboil_purpleoil' },
   HARBINGER_OF_DOOM_TALENT: { id: 276023, name: 'Harbinger of Doom', icon: 'spell_shadow_painspike' },
-  SOUL_REAPER_TALENT: { id: 130736, name: 'Soul Reaper', icon: 'ability_deathknight_soulreaper' },
+  SOUL_REAPER_TALENT: { id: 343294, name: 'Soul Reaper', icon: 'ability_deathknight_soulreaper' },
   SPELL_EATER_TALENT: { id: 207321, name: 'Spell Eater', icon: 'ability_creature_cursed_03' },
   PESTILENCE_TALENT: { id: 277234, name: 'Pestilence', icon: 'spell_deathknight_necroticplague' },
   DEFILE_TALENT: { id: 152280, name: 'Defile', icon: 'spell_deathknight_defile', runicPowerCost: 10 },
@@ -41,6 +41,7 @@ export default {
   ARMY_OF_THE_DAMNED_TALENT: { id: 276837, name: 'Army of the Damned', icon: 'artifactability_unholydeathknight_deathsembrace' },
   UNHOLY_FRENZY_TALENT: { id: 207289, name: 'Unholy Frenzy', icon: 'spell_shadow_unholyfrenzy' },
   SUMMON_GARGOYLE_TALENT: { id: 49206, name: 'Summon Gargoyle', icon: 'ability_deathknight_summongargoyle' },
+  UNHOLY_PACT_TALENT: { id: 319230, name: 'Unholy Pact', icon: 'spell_shadow_deathsembrace' },
   // Frost
   INEXORABLE_ASSAULT_TALENT: { id: 253593, name: 'Inexorable Assault', icon: 'achievement_dungeon_icecrown_frostmourne' },
   ICY_TALONS_TALENT: { id: 194878, name: 'Icy Talons', icon: 'spell_deathknight_icytalons' },

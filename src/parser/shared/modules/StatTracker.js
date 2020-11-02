@@ -143,10 +143,6 @@ class StatTracker extends Analyzer {
 
     // endregion
 
-    // region Paladin
-    [SPELLS.SERAPHIM_TALENT.id]: { crit: 1007, haste: 1007, mastery: 1007, versatility: 1007 },
-    // endregion
-
     /****************************************\
      *                    BFA:                *
      \****************************************/
@@ -464,7 +460,6 @@ class StatTracker extends Analyzer {
     for (const stat in stats) {
       const before = this.statMultiplier[stat];
       this.statMultiplier[stat] *= stats[stat];
-
       debug && console.log(`StatTracker: ${stat} multiplier change (${before.toFixed(2)} -> ${this.statMultiplier[stat].toFixed(2)}) @ ${formatMilliseconds(this.owner.fightDuration)}`);
 
       if (changeCurrentStats) {

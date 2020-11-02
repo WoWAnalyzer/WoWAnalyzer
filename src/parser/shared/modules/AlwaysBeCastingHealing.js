@@ -6,7 +6,7 @@ import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Statistic from 'interface/statistics/Statistic';
 import Gauge from 'interface/statistics/components/Gauge';
 import { i18n } from '@lingui/core';
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 
 class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
   static HEALING_ABILITIES_ON_GCD = [
@@ -64,18 +64,18 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
       <Statistic
         position={STATISTIC_ORDER.CORE(10)}
         tooltip={(
-          <>
+          <Trans id="shared.alwaysBeCastingHealing.statistic.tooltip">
             This is the precise amount of time you were actively casting something or waiting for a Global Cooldown. The remaining time was downtime; you cast nothing and wasn't waiting for a global cooldown (i.e. "AFK time").<br /><br />
 
             You were active for <strong>{formatPercentage(activeTimePercentage)}%</strong> of the fight. You spent <strong>{formatPercentage(healingTimePercentage)}%</strong> of your time casting supportive spells, <strong>{formatPercentage(activeTimePercentage - healingTimePercentage)}%</strong> of the time casting offensive spells and <strong>{formatPercentage(downtimePercentage)}%</strong> of the time doing nothing.<br /><br />
 
             See the timeline for details.
-          </>
+          </Trans>
         )}
         drilldown="timeline"
       >
         <div className="pad">
-          <label>Active time</label>
+          <Trans id="shared.alwaysBeCastingHealing.statistic" render="label">Active time</Trans>
 
           <Gauge value={activeTimePercentage} />
         </div>

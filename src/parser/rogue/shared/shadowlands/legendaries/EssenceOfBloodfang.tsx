@@ -34,6 +34,7 @@ class EssenceOfBloodfang extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.ESSENCE_OF_BLOODFANG}>
           <ItemDamageDone amount={this.bloodfangDamage} />
+          <br />
           <ItemHealingDone amount={this.bloodfangHealing} />
         </BoringSpellValueText>
       </Statistic>

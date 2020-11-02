@@ -242,7 +242,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.HEALING_SURGE_RESTORATION,
+        spell: SPELLS.HEALING_SURGE,
         timelineSortIndex: 14,
         gcd: {
           base: 1500,
@@ -253,8 +253,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.HEALING_SURGE_RESTORATION,
-        name: i18n._(t('shaman.restoration.abilities.buffedByTidalWave')`Tidal Waved ${SPELLS.HEALING_SURGE_RESTORATION.name}`),
+        spell: SPELLS.HEALING_SURGE,
+        name: i18n._(t('shaman.restoration.abilities.buffedByTidalWave')`Tidal Waved ${SPELLS.HEALING_SURGE.name}`),
         timelineSortIndex: 14,
         gcd: {
           base: 1500,

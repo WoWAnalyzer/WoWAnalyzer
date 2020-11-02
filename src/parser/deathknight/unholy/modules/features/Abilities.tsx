@@ -65,9 +65,15 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.90,
         },
       },
-
       {
         spell: SPELLS.OUTBREAK,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.EPIDEMIC_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -118,6 +124,14 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 180,
         gcd: null,
+      },
+      {
+        spell: SPELLS.ANTI_MAGIC_ZONE,
+        buffSpellId: SPELLS.ANTI_MAGIC_ZONE_BUFF.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 120,
+        gcd: null,
+        isDefensive: true,
       },
       {
         spell: SPELLS.ANTI_MAGIC_SHELL,

@@ -272,10 +272,10 @@ class Cooldown extends React.Component {
                         manaUsed = cooldown.events.filter(event => event.type === EventType.Cast).reduce((total, event) => total + (event.resourceCost[RESOURCE_TYPES.MANA.id] || 0), 0);
                       }
                       return (
-                        <div className="col-md-4 text-center" key="mana">
+                        <Trans id="shared.cooldownThroughputTracker.cooldown.manaUsed" render="div" className="col-md-4 text-center" key="mana">
                           <div style={{ fontSize: '2em' }}>{formatNumber(manaUsed)}</div>
                           mana used
-                        </div>
+                        </Trans>
                       );
                     }
                     case BUILT_IN_SUMMARY_TYPES.DAMAGE: {

@@ -1,8 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-
-
+import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import Statistic from 'interface/statistics/Statistic';
