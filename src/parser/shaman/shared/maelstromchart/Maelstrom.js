@@ -51,6 +51,9 @@ const Maelstrom = props => {
           labelExpr: formatTime('datum.value * 1000'),
           grid: false,
         },
+        scale: {
+          nice: false,
+        },
         title: 'Time',
       },
       y: {
