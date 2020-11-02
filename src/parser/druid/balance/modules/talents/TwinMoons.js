@@ -1,12 +1,13 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events from 'parser/core/Events';
 
 class TwinMoons extends Analyzer {
@@ -26,6 +27,7 @@ class TwinMoons extends Analyzer {
     }
     this.moonfireHits += 1;
   }
+
   onCast(event) {
     this.moonfireCasts += 1;
   }
@@ -36,12 +38,17 @@ class TwinMoons extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.TWIN_MOONS_TALENT.id} />}
-        value={`${formatPercentage(this.percentTwoHits)} %`}
-        label="Double hits"
+      <Statistic
+        position={STATISTIC_ORDER.CORE(7)}
+        size="flexible"
         tooltip={`You hit ${this.moonfireHits} times with ${this.moonfireCasts} casts.`}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.TWIN_MOONS_TALENT}>
+          <>
+            ${formatPercentage(this.percentTwoHits)} % <small>double hits</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 

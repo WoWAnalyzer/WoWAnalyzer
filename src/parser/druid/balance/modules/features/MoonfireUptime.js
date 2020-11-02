@@ -5,9 +5,11 @@ import Enemies from 'parser/shared/modules/Enemies';
 
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import UptimeIcon from 'interface/icons/Uptime';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
@@ -31,19 +33,24 @@ class MoonfireUptime extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> uptime can be improved. Try to pay more attention to your Moonfire on the boss.</>)
-        .icon(SPELLS.MOONFIRE_BEAR.icon)
-        .actual(i18n._(t('druid.balance.suggestions.moonfire.uptime')`${formatPercentage(actual)}% Moonfire uptime`))
-        .recommended(`>${formatPercentage(recommended)}% is recommended`));
+      .icon(SPELLS.MOONFIRE_BEAR.icon)
+      .actual(i18n._(t('druid.balance.suggestions.moonfire.uptime')`${formatPercentage(actual)}% Moonfire uptime`))
+      .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {
     const moonfireUptime = this.enemies.getBuffUptime(SPELLS.MOONFIRE_BEAR.id) / this.owner.fightDuration;
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.MOONFIRE_BEAR.id} />}
-        value={`${formatPercentage(moonfireUptime)} %`}
-        label="Moonfire uptime"
-      />
+      <Statistic
+        position={STATISTIC_ORDER.CORE(4)}
+        size="flexible"
+      >
+        <BoringSpellValueText spell={SPELLS.MOONFIRE_BEAR}>
+          <>
+            <UptimeIcon /> {formatPercentage(moonfireUptime)} % <small>uptime</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 

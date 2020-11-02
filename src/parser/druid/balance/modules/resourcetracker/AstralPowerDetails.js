@@ -1,15 +1,19 @@
 import React from 'react';
 
 import Panel from 'interface/others/Panel';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import Analyzer from 'parser/core/Analyzer';
+import Statistic from 'interface/statistics/Statistic';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
+import BoringResourceValue from 'interface/statistics/components/BoringResourceValue';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+
+import Analyzer from 'parser/core/Analyzer';
 import { formatPercentage } from 'common/format';
-import Icon from 'common/Icon';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import AstralPowerTracker from './AstralPowerTracker';
+
 
 const MINOR_THRESHOLD = 0;
 const AVERAGE_THRESHOLD = 0.02;
@@ -70,13 +74,16 @@ class AstralPowerDetails extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(1)}
-        icon={<Icon icon="ability_druid_cresentburn" />}
-        value={`${formatPercentage(this.wastedPercent)} %`}
-        label="Overcapped Astral Power"
+        size="small"
         tooltip={`${this.wasted} out of ${this.total} Astral Power wasted.`}
-      />
+      >
+        <BoringResourceValue
+          resource={RESOURCE_TYPES.ASTRAL_POWER}
+          value={`${formatPercentage(this.wastedPercent)} %`}
+          label="Overcapped Astral Power" />
+      </Statistic>
     );
   }
 
