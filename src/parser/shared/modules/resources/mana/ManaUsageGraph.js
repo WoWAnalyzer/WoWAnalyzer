@@ -46,7 +46,7 @@ class ManaUsageGraph extends React.Component {
             grid: false,
           },
           title: null,
-          scale: { zero: true },
+          scale: { zero: true, nice: false },
         },
         y: {
           field: 'y',

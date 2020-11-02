@@ -17,7 +17,7 @@ import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Combatants from 'parser/shared/modules/Combatants';
 import { Trans } from '@lingui/macro';
 
-import { HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD } from '../constants';
+import { HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD } from 'parser/shaman/shared/constants';
 
 const EARTHSHIELD_HEALING_INCREASE = 0.20; // TODO add conduit
 

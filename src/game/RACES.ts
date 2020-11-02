@@ -1,5 +1,15 @@
 // Source: https://us.api.blizzard.com/wow/data/character/races?locale=en_US&accessToken=
-export default {
+
+export interface Race {
+  id: number;
+  mask?: number;
+  side: string;
+  name: string;
+}
+
+const RACES: {
+  [key: string]: Race;
+} = {
   Human: {
     id: 1,
     mask: 1,
@@ -147,3 +157,5 @@ export default {
     side: 'alliance',
   },
 };
+
+export default RACES;
