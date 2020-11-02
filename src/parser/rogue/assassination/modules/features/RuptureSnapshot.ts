@@ -1,8 +1,8 @@
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
-import { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Events, { SpendResourceEvent } from 'parser/core/Events';
 
 import Snapshot from '../core/Snapshot';
 
@@ -19,8 +19,8 @@ class RuptureSnapshot extends Snapshot {
 
   comboPointsOnLastCast = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     const combatant = this.selectedCombatant;
     if (combatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id)) {
       this.active = false;
@@ -32,7 +32,7 @@ class RuptureSnapshot extends Snapshot {
     return BASE_DURATION + this.comboPointsOnLastCast * COMBO_POINT_DURATION;
   }
 
-  onSpendResource(event) {
+  onSpendResource(event: SpendResourceEvent) {
     if (event.resourceChangeType === RESOURCE_TYPES.COMBO_POINTS.id) {
       this.comboPointsOnLastCast = event.resourceChange;
     }

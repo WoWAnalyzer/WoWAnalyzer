@@ -3,9 +3,9 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 import EarlyDotRefreshesCore from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshes';
 import suggest from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesSuggestion';
-import Events from 'parser/core/Events';
-import { SELECTED_PLAYER } from 'parser/core/Analyzer';
-
+import Events, { SpendResourceEvent } from 'parser/core/Events';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { When } from 'parser/core/ParseResults';
 
 const MINOR_THRESHOLD = 0.975;
 const AVERAGE_THRESHOLD = 0.95;
@@ -27,12 +27,12 @@ class EarlyDotRefresh extends EarlyDotRefreshesCore {
     },
   ];
 
-  constructor(options){
+  constructor(options: Options){
     super(options);
     this.addEventListener(Events.SpendResource.by(SELECTED_PLAYER), this.onSpendResource);
   }
 
-  onSpendResource(event) {
+  onSpendResource(event: SpendResourceEvent) {
     const comboPointsSpent = event.resourceChange;
     if (event.resourceChangeType !== RESOURCE_TYPES.COMBO_POINTS.id) {
       return;
@@ -43,7 +43,7 @@ class EarlyDotRefresh extends EarlyDotRefreshesCore {
   }
   
   // Checks the status of the last cast and marks it accordingly.
-  getLastBadCastText(event, dot) {    
+  getLastBadCastText(event: any, dot: any) {    
     if (dot.castId === SPELLS.RUPTURE.id) {
       return super.getLastBadCastText(event,dot) + " *Based on the amount of CPs spent.";
     }
@@ -57,7 +57,7 @@ class EarlyDotRefresh extends EarlyDotRefreshesCore {
     return this.makeSuggestionThresholds(SPELLS.GARROTE,MINOR_THRESHOLD,AVERAGE_THRESHOLD,MAJOR_THRESHOLD);
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     suggest(when, this.suggestionThresholdsRuptureEfficiency);
     suggest(when, this.suggestionThresholdsGarroteEfficiency);
   }
