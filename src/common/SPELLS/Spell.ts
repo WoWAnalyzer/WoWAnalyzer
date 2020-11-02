@@ -13,7 +13,6 @@ export interface MonkSpell extends Spell {
 
 export interface DemonHunterSpell extends Spell {
   painCost?: number;
-  firstStrikeSpellId?: number;
 }
 
 export interface PriestSpell extends Spell {

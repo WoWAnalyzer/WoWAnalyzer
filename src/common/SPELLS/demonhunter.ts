@@ -155,7 +155,6 @@ const spells: SpellList<DemonHunterSpell> = {
   },
   IMMOLATION_AURA: {
     id: 258920,
-    firstStrikeSpellId: 187727, // fix it
     name: 'Immolation Aura',
     icon: 'ability_demonhunter_immolation',
   },
