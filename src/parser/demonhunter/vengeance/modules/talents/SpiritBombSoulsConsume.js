@@ -1,6 +1,7 @@
 import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 import SPELLS from 'common/SPELLS/index';
@@ -10,6 +11,7 @@ import { formatPercentage } from 'common/format';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import Events from 'parser/core/Events';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 const MS_BUFFER = 100;
 
@@ -33,10 +35,10 @@ class SpiritBombSoulsConsume extends Analyzer {
   castSoulsConsumed = 0;
   cast = 0;
 
-  soulsConsumedByAmount = Array.from({length: 6}, x => 0);
+  soulsConsumedByAmount = Array.from({ length: 6 }, x => 0);
 
   onCast(event) {
-    if(this.cast > 0) {
+    if (this.cast > 0) {
       this.countHits();
     }
     this.castTimestamp = event.timestamp;
@@ -72,12 +74,13 @@ class SpiritBombSoulsConsume extends Analyzer {
   }
 
   get totalCasts() {
-    return Object.values(this.soulsConsumedByAmount).reduce((total, casts) => total+casts, 0);
+    return Object.values(this.soulsConsumedByAmount).reduce((total, casts) => total + casts, 0);
   }
 
   get percentGoodCasts() {
     return this.totalGoodCasts / this.totalCasts;
   }
+
   get suggestionThresholdsEfficiency() {
     return {
       actual: this.percentGoodCasts,
@@ -93,36 +96,44 @@ class SpiritBombSoulsConsume extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholdsEfficiency)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Try to cast <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> at 4 or 5 souls.</>)
-          .icon(SPELLS.SPIRIT_BOMB_TALENT.icon)
-          .actual(i18n._(t('demonhunter.vengeance.suggestions.spiritBomb.soulsConsumed')`${formatPercentage(this.percentGoodCasts)}% of casts at 4+ souls.`))
-          .recommended(`>${formatPercentage(recommended)}% is recommended`));
+        .icon(SPELLS.SPIRIT_BOMB_TALENT.icon)
+        .actual(i18n._(t('demonhunter.vengeance.suggestions.spiritBomb.soulsConsumed')`${formatPercentage(this.percentGoodCasts)}% of casts at 4+ souls.`))
+        .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.SPIRIT_BOMB_TALENT.id}
+      <Statistic
         position={STATISTIC_ORDER.CORE(6)}
-        value={`${formatPercentage(this.percentGoodCasts)} %`}
-        label="Good Spirit Bomb casts"
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
+        dropdown={(
+          <>
+            <table className="table table-condensed">
+              <thead>
+                <tr>
+                  <th>Stacks</th>
+                  <th>Casts</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.values(this.soulsConsumedByAmount).map((castAmount, stackAmount) => (
+                  <tr key={stackAmount}>
+                    <th>{stackAmount}</th>
+                    <td>{castAmount}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </>
+        )}
       >
-        <table className="table table-condensed">
-          <thead>
-            <tr>
-              <th>Stacks</th>
-              <th>Casts</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.values(this.soulsConsumedByAmount).map((castAmount, stackAmount) => (
-              <tr key={stackAmount}>
-                <th>{stackAmount}</th>
-                <td>{castAmount}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </TalentStatisticBox>
+        <BoringSpellValueText spell={SPELLS.SPIRIT_BOMB_TALENT}>
+          <>
+            {formatPercentage(this.percentGoodCasts)}% <small>good casts</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 

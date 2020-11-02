@@ -1,10 +1,10 @@
 import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import StatisticBox from 'interface/others/StatisticBox';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 import SPELLS from 'common/SPELLS/index';
-import SpellIcon from 'common/SpellIcon';
 
 import Events from 'parser/core/Events';
 
@@ -23,7 +23,7 @@ class SoulFragmentsConsume extends Analyzer {
 
   soulsConsumedBySpell = {};
 
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.SPIRIT_BOMB_TALENT, SPELLS.SOUL_CLEAVE, SPELLS.SOUL_BARRIER_TALENT]), this.onCast);
     this.addEventListener(Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.SOUL_FRAGMENT_STACK), this.onChangeBuffStack);
@@ -42,8 +42,8 @@ class SoulFragmentsConsume extends Analyzer {
   }
 
   onChangeBuffStack(event) {
-    if ( event.oldStacks < event.newStacks || // not interested in soul gains
-        event.oldStacks > MAX_SOUL_FRAGMENTS) { // not interested in overcap corrections
+    if (event.oldStacks < event.newStacks || // not interested in soul gains
+      event.oldStacks > MAX_SOUL_FRAGMENTS) { // not interested in overcap corrections
       return;
     }
     if (this.castTimestamp !== undefined && (event.timestamp - this.castTimestamp) < REMOVE_STACK_BUFFER) {
@@ -54,7 +54,7 @@ class SoulFragmentsConsume extends Analyzer {
   }
 
   soulCleaveSouls() {
-    if(this.soulsConsumedBySpell[SPELLS.SOUL_CLEAVE.id] === undefined) {
+    if (this.soulsConsumedBySpell[SPELLS.SOUL_CLEAVE.id] === undefined) {
       return 0;
     }
     return this.soulsConsumedBySpell[SPELLS.SOUL_CLEAVE.id].souls;
@@ -63,37 +63,44 @@ class SoulFragmentsConsume extends Analyzer {
   statistic() {
     const soulsByTouch = this.soulFragmentsTracker.soulsGenerated - this.totalSoulsConsumedBySpells;
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(6)}
-        icon={<SpellIcon id={SPELLS.SOUL_FRAGMENT_STACK.id} />}
-        value={`${this.soulFragmentsTracker.soulsSpent} Souls`}
-        label="Consumed"
+        size="small"
+        dropdown={(
+          <>
+            <table className="table table-condensed">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Souls Consumed</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.values(this.soulsConsumedBySpell).map((e, i) => (
+                  <tr key={i}>
+                    <th>{e.name}</th>
+                    <td>{e.souls}</td>
+                  </tr>
+                ))}
+                <tr>
+                  <th>Overcapped</th>
+                  <td>{this.soulFragmentsTracker.overcap}</td>
+                </tr>
+                <tr>
+                  <th>By Touch</th>
+                  <td>{soulsByTouch}</td>
+                </tr>
+              </tbody>
+            </table>
+          </>
+        )}
       >
-        <table className="table table-condensed">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Souls Consumed</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.values(this.soulsConsumedBySpell).map((e, i) => (
-              <tr key={i}>
-                <th>{e.name}</th>
-                <td>{e.souls}</td>
-              </tr>
-            ))}
-            <tr>
-              <th>Overcapped</th>
-              <td>{this.soulFragmentsTracker.overcap}</td>
-            </tr>
-            <tr>
-              <th>By Touch</th>
-              <td>{soulsByTouch}</td>
-            </tr>
-          </tbody>
-        </table>
-      </StatisticBox>
+        <BoringSpellValueText spell={SPELLS.SOUL_FRAGMENT_STACK}>
+          <>
+            {this.soulFragmentsTracker.soulsSpent} <small>Souls</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
 
     );
   }

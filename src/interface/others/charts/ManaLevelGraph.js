@@ -47,7 +47,7 @@ class ManaLevelGraph extends React.PureComponent {
                 grid: false,
               },
               title: null,
-              scale: { zero: true },
+              scale: { zero: true, nice: false },
             },
             y: {
               field: 'y',

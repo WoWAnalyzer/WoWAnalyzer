@@ -8,6 +8,9 @@ import Events, { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, EnergizeEvent, 
 
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
+import { TEACHINGS_OF_THE_MONASTERY_DURATION } from 'parser/monk/mistweaver/constants';
+
+
 import Statistic from 'interface/statistics/Statistic';
 import BoringValueText from 'interface/statistics/components/BoringValueText'
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -68,7 +71,7 @@ class SpiritOfTheCrane extends Analyzer {
 
   lostStacks(event: RemoveBuffEvent) {
     debug && console.log(event.timestamp);
-    if ((event.timestamp - this.lastTotmBuffTimestamp) > SPELLS.TEACHINGS_OF_THE_MONASTERY.buffDur) {
+    if ((event.timestamp - this.lastTotmBuffTimestamp) > TEACHINGS_OF_THE_MONASTERY_DURATION) {
       this.totmBuffWasted += 1;
       this.buffTotm = 0;
       debug && console.log('ToTM Buff Wasted');
@@ -93,7 +96,7 @@ class SpiritOfTheCrane extends Analyzer {
     this.totmOverCap += 1;
   }
 
-  blackoutKick(event: CastEvent) {
+  blackoutKick() {
     if (!this.selectedCombatant.hasBuff(SPELLS.TEACHINGS_OF_THE_MONASTERY.id)) {
       return;
     }
@@ -150,7 +153,7 @@ class SpiritOfTheCrane extends Analyzer {
           </>
         )}
       >
-        <BoringValueText 
+        <BoringValueText
           label={<><SpellIcon id={SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id} /> Mana Returned</>}
         >
           <>

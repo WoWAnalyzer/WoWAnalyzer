@@ -1,5 +1,5 @@
 import React from 'react';
-import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Stui, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8, fluffels, Draenal, JeremyDwayne, axelkic, Khazak, layday, Vetyst, Moonrabbit, AdamKelly, ChristopherKiss, ChagriAli, Barter, Ssabbar, Jafowler, Guyius, Amani, Haelrail, Kruzershtern } from 'CONTRIBUTORS';
+import { Abelito75, ackwell, AdamKelly, Aelexe, Amani, Amrux, Anatta336, axelkic, Barter, blazyb, ChagriAli, Chizu, ChristopherKiss, Dambroda, Dorixius, Draenal, emallson, fluffels, Fyruna, Gebuz, Guyius, Haelrail, Hartra344, HawkCorrigan, HolySchmidt, Hordehobbs, Jafowler, JeremyDwayne, jos3p, joshinator, Juko8, Khadaj, Khazak, Kruzershtern, layday, Mamtooth, Matardarix, Moonrabbit, Nalhan, niseko, Putro, Qbz, Satyric, Scotsoo, Sharrq, Ssabbar, Stui, Vetyst, Viridis, Yajinni, Zeboot, Zerotorescue } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -7,9 +7,10 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
-
 // prettier-ignore
 export default [
+  change(date(2020, 11, 1), 'Eliminated x-axis padding in several charts.', emallson),
+  change(date(2020, 11, 1), 'Shifted all spells to use the same generic Spell type', Putro),
   change(date(2020, 10, 31), 'Added IDs to i18n of PlayerLoader', jos3p),
   change(date(2020, 10, 31), 'Added i18n of Premium page', jos3p),
   change(date(2020, 10, 29), 'Update game components to Typescript', jos3p),
