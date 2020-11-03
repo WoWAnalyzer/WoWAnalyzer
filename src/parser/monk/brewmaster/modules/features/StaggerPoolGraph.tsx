@@ -98,7 +98,11 @@ class StaggerPoolGraph extends Analyzer {
       type: 'quantitative' as const,
       axis: {
         labelExpr: formatTime('datum.value'),
+        tickCount: 25,
         grid: false,
+      },
+      scale: {
+        nice: false,
       },
       title: null,
     };

@@ -3,10 +3,12 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS/index';
-import SpellIcon from 'common/SpellIcon';
 
 import { formatPercentage, formatDuration } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import UptimeIcon from 'interface/icons/Uptime';
 
 /*
 example report: https://www.warcraftlogs.com/reports/KGJgZPxanBX82LzV/#fight=4&source=20
@@ -24,13 +26,17 @@ class MetaBuffUptime extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(3)}
-        icon={<SpellIcon id={SPELLS.METAMORPHOSIS_HAVOC_BUFF.id} />}
-        value={`${formatPercentage(this.buffUptime)}%`}
-        label="Metamorphosis Uptime"
+        size="flexible"
         tooltip={`The Metamorphosis buff total uptime was ${formatDuration(this.buffDuration / 1000)}.`}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.METAMORPHOSIS_HAVOC_BUFF}>
+          <>
+            <UptimeIcon /> {formatPercentage(this.buffUptime)}% <small>uptime</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

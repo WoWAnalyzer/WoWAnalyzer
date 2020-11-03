@@ -1,13 +1,14 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, HealEvent } from 'parser/core/Events';
+import { POWER_WORD_RADIANCE_ATONEMENT_DUR, POWER_WORD_SHIELD_ATONEMENT_DUR, SHADOW_MEND_ATONEMENT_DUR } from 'parser/priest/discipline/constants';
 
 class AtonementApplicationSource extends Analyzer {
   // Spells that apply atonement
   atonementApplicators = new Map([
-    [SPELLS.POWER_WORD_RADIANCE.id, SPELLS.POWER_WORD_RADIANCE.atonementDuration],
-    [SPELLS.POWER_WORD_SHIELD.id, SPELLS.POWER_WORD_SHIELD.atonementDuration],
-    [SPELLS.SHADOW_MEND.id, SPELLS.SHADOW_MEND.atonementDuration],
+    [SPELLS.POWER_WORD_RADIANCE.id, POWER_WORD_RADIANCE_ATONEMENT_DUR],
+    [SPELLS.POWER_WORD_SHIELD.id, POWER_WORD_SHIELD_ATONEMENT_DUR],
+    [SPELLS.SHADOW_MEND.id, SHADOW_MEND_ATONEMENT_DUR],
   ]);
 
   get duration() {
