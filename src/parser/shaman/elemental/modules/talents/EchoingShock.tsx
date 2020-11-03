@@ -29,10 +29,8 @@ class EchoingShock extends Analyzer {
     this.casts += 1;
 
     if(event.ability.guid !== SPELLS.LAVA_BURST.id){
-      return;
+      this.badCasts += 1;
     }
-
-    this.badCasts += 1;
   }
 
   get efficiency() {
