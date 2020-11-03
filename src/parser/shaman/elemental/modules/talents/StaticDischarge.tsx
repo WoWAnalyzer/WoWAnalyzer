@@ -55,7 +55,9 @@ class StaticDischarge extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) =>
         suggest(
-          <span>Maximize your damage with Static Discharge by only using it with Flame Shock active on an enemy in range.
+          <span>
+            You missed ${formatPercentage(1 - actual)}% of the ticks of your <SpellLink id={SPELLS.STATIC_DISCHARGE.id} />. 
+            Try to maximize the ticks by only using it while Flame Shock is active on an enemy in range.
           </span>)
         .icon(SPELLS.STATIC_DISCHARGE_TALENT.icon)
         .actual(`${actual}% of possible ticks with ${<SpellLink id={SPELLS.STATIC_DISCHARGE_TALENT.id}/>}`)
