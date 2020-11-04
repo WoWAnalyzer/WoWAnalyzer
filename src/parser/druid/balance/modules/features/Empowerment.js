@@ -1,14 +1,16 @@
 import React from 'react';
-import Icon from 'common/Icon';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import StatisticBox from 'interface/others/StatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
+import BoringValue from 'interface/statistics/components/BoringValueText';
+import SpellIcon from 'common/SpellIcon';
 
 // Abstract class used for lunar & solar empowerments.
 class Empowerment extends Analyzer {
@@ -21,7 +23,7 @@ class Empowerment extends Analyzer {
   wasted = 0;
   generated = 0;
 
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STARSURGE_MOONKIN), this.onCast);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(this.empowermentBuff), this.onApplyBuff);
@@ -78,19 +80,24 @@ class Empowerment extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholdsInverted).addSuggestion((suggest, actual, recommended) => suggest(<>You overcapped {this.wasted} {this.empowermentPrefix} Empowerments by casting <SpellLink id={SPELLS.STARSURGE_MOONKIN.id} /> while already at 3 stacks. Try to always spend your empowerments before casting <SpellLink id={SPELLS.STARSURGE_MOONKIN.id} /> if you are not going to overcap Astral Power.</>)
-        .icon(this.icon)
-        .actual(i18n._(t('druid.balance.suggestions.empowerment.overcapped')`${formatPercentage(actual)}% overcapped ${this.empowermentPrefix} Empowerments`))
-        .recommended(`<${formatPercentage(recommended)}% is recommended`));
+      .icon(this.icon)
+      .actual(i18n._(t('druid.balance.suggestions.empowerment.overcapped')`${formatPercentage(actual)}% overcapped ${this.empowermentPrefix} Empowerments`))
+      .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<Icon icon={this.icon} />}
-        value={`${formatPercentage(this.wastedPercentage)} %`}
-        label={`Overcapped ${this.empowermentPrefix} Empowerments`}
+      <Statistic
+        position={STATISTIC_ORDER.CORE(3)}
+        size="flexible"
         tooltip={`${this.wasted} out of ${this.generated} ${this.empowermentPrefix} Empowerments wasted. ${this.empowermentPrefix} Empowerment overcapping should never occur when it is possible to cast a ${this.empoweredSpell.name} without overcapping Astral Power.`}
-      />
+      >
+        <BoringValue label={<>Overcapped <SpellIcon id={this.empoweredSpell.id} /> {this.empowermentPrefix} Empowerments </>}>
+          <>
+            {formatPercentage(this.wastedPercentage)} % <small>wasted</small>
+          </>
+        </BoringValue>
+      </Statistic>
     );
   }
 }

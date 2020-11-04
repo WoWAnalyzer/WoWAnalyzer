@@ -10,6 +10,7 @@ import Contributor from 'interface/ContributorButton';
 // prettier-ignore
 export default [
   change(date(2020, 11, 2), 'Converted the following components to TypeScript: ItemLink, ResourceLink, Rule and Expandable', Mae),
+  change(date(2020, 10, 31), 'Update several component to Typescript and refactor to hooks', Guyius),
   change(date(2020, 11, 1), 'Eliminated x-axis padding in several charts.', emallson),
   change(date(2020, 11, 1), 'Shifted all spells to use the same generic Spell type', Putro),
   change(date(2020, 10, 31), 'Added IDs to i18n of PlayerLoader', jos3p),

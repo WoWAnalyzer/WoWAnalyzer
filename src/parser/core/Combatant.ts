@@ -24,12 +24,13 @@ export interface CombatantInfo extends CombatantInfoEvent {
   name: string;
 }
 
-type Essence = {
+export type Essence = {
   icon: string;
   isMajor: boolean;
   rank: number;
   spellID: number;
   traitID: number;
+  slot?: number;
 };
 
 type Spell = {
