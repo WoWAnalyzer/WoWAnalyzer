@@ -32,7 +32,7 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
     name: "Flame Shock",
     debuffId: SPELLS.FLAME_SHOCK.id,
     castId: SPELLS.FLAME_SHOCK.id,
-    duration: 24000,
+    duration: 18000,
     movementFiller: true,
   }]
 
