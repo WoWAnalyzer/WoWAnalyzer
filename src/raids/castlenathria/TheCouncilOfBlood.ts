@@ -1,9 +1,10 @@
 import DIFFICULTIES from 'game/DIFFICULTIES';
+import { Boss } from "raids/index";
 
 import Background from './images/backgrounds/CastleNathria.jpg';
 import Headshot from './images/headshots/CastleNathriaHeadshot.png';
 
-export default {
+const TheCouncilOfBlood: Boss = {
   id: 2412,
   name: 'The Council of Blood',
   background: Background,
@@ -17,13 +18,17 @@ export default {
     },
     phases: {
       P: {
+        key: "P",
         name: 'Stage 1: The Council of Blood',
         difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
       },
       I: {
+        key: "I",
         name: 'Intermission: The Dance Macabre',
         difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
       },
     },
   },
 };
+
+export default TheCouncilOfBlood;
