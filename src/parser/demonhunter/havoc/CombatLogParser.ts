@@ -17,7 +17,6 @@ import MetaBuffUptime from './modules/spells/MetaBuffUptime';
 
 // Talents
 import Momentum from './modules/talents/Momentum';
-import Nemesis from './modules/talents/Nemesis';
 import Felblade from './modules/talents/Felblade';
 import DemonicAppetite from './modules/talents/DemonicAppetite';
 import BlindFury from './modules/talents/BlindFury';
@@ -74,7 +73,6 @@ class CombatLogParser extends CoreCombatLogParser {
     felBarrage: FelBarrage,
     felMastery: FelMastery,
     momentum: Momentum,
-    nemesis: Nemesis,
     netherwalk: Netherwalk,
     felEruption: FelEruption,
     masterOfTheGlaives: MasterOfTheGlaives,

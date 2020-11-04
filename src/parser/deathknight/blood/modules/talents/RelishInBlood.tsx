@@ -10,15 +10,17 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { formatNumber, formatPercentage } from 'common/format';
-
-const RELISH_IN_BLOOD_RP = 10;
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 class RelishInBlood extends Analyzer {
 
-  runicPowerGained = 0;
-  runicPowerWasted = 0;
-  healing = 0;
-  overhealing = 0;
+  runicPowerGained: number = 0;
+  runicPowerWasted: number = 0;
+  healing: number = 0;
+  overhealing: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -29,10 +31,12 @@ class RelishInBlood extends Analyzer {
   }
 
   _relishBuffed(event: EnergizeEvent) {
-    const rpGain = event.resourceChange;
+    if (event.resourceChangeType !== RESOURCE_TYPES.RUNIC_POWER.id) {
+      return;
+    }
 
-    this.runicPowerGained += rpGain
-    this.runicPowerWasted += RELISH_IN_BLOOD_RP - rpGain
+    this.runicPowerGained += event.resourceChange
+    this.runicPowerWasted += event.waste
   }
 
   _onHeal(event: HealEvent) {
@@ -48,6 +52,26 @@ class RelishInBlood extends Analyzer {
 
   get rpWastePercentage() {
     return this.runicPowerWasted / this.runicPowerGained
+  }
+
+  get efficiencySuggestionThresholds() {
+    return {
+      actual: this.rpWastePercentage,
+      isGreaterThan: {
+        minor: 0,
+        average: .2,
+        major: .4,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
+  suggestions(when: When) {
+    when(this.efficiencySuggestionThresholds)
+      .addSuggestion((suggest, actual, recommended) => suggest(<span>Avoid being Runic Power capped at all times, you wasted {this.runicPowerWasted} PR by being RP capped.</span>)
+          .icon(SPELLS.RELISH_IN_BLOOD_TALENT.icon)
+          .actual(i18n._(t('deathknight.suggestions.hysteria.efficiency')`You wasted ${(formatPercentage(actual))}% of RP from ${SPELLS.RELISH_IN_BLOOD_TALENT.name} by being RP capped.`))
+          .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

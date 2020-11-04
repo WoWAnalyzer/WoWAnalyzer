@@ -35,5 +35,12 @@ export const ATONEMENT_DAMAGE_SOURCES = {
 export const ATONEMENT_COEFFICIENT = 0.50;
 export const POWER_WORD_RADIANCE_COEFFICIENT = 0.625;
 
+export const PENANCE_COEFFICIENCT = 0.4;
+export const SMITE_COEFFICIENT = 0.47;
+
+export const POWER_WORD_SHIELD_ATONEMENT_DUR = 15000;
+export const POWER_WORD_RADIANCE_ATONEMENT_DUR = 9000;
+export const SHADOW_MEND_ATONEMENT_DUR = 15000;
+
 // https://www.wowhead.com/spell=137032/discipline-priest
 export const DISC_PRIEST_DAMAGE_REDUCTION = 0.67;

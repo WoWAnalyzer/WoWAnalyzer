@@ -1,4 +1,6 @@
-const HIT_TYPES = {
+const HIT_TYPES: {
+  [key: string]: number;
+} = {
   MISS: 0,
   NORMAL: 1,
   CRIT: 2,
