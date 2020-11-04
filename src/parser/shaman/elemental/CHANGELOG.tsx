@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { niseko, HawkCorrigan, Draenal, TheJigglr, Zeboot } from 'CONTRIBUTORS';
+import { niseko, HawkCorrigan, Draenal, TheJigglr, Zeboot, Mae } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 11, 4), <>Fix duration and statictic display for <SpellLink id={SPELLS.FLAME_SHOCK.id} /></>, Mae),
   change(date(2020, 10, 31), <>Add a suggestion for usage of Echoing Shock</>, HawkCorrigan),
   change(date(2020, 10, 25), <>Convert to Typescript</>, HawkCorrigan),
   change(date(2020, 10, 18), 'Converted legacy listeners to new event filters', Zeboot),
