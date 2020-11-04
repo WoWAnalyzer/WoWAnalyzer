@@ -9,15 +9,15 @@ import Enemies from 'parser/shared/modules/Enemies';
 import EarlyDotRefreshesAnalyzer from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshes';
 import badRefreshSuggestion from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesSuggestionByCount';
 
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { DamageEvent } from 'parser/core/Events';
-import Statistic from 'interface/statistics/Statistic';
 import Events from 'parser/core/Events';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
+import Icon from 'common/Icon';
 
 class FlameShock extends EarlyDotRefreshesAnalyzer {
   static dependencies = {
@@ -98,17 +98,13 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
 
   statistic() {
     return (
-      <Statistic
+      <StatisticBox
         position={STATISTIC_ORDER.CORE()}
         size="flexible"
-        >
-        <>
-          <UptimeIcon /> {formatPercentage(this.uptime)}% uptime on Flame Shock
-        </>
         value={`${formatPercentage(this.uptime)} %`}
-        label="Uptime"
-        tooltip="Flame Shock Uptime"
-      </Statistic>
+        icon={<Icon icon={SPELLS.FLAME_SHOCK.icon}/>}
+        label="Flame Shock uptime"
+        />
     );
   }
 }
