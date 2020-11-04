@@ -1,6 +1,5 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS/index';
-import ITEMS from 'common/ITEMS/index';
 import SpellLink from 'common/SpellLink';
 import CoreAbilities from 'parser/core/modules/Abilities';
 
@@ -75,7 +74,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DEMON_SPIKES,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: haste => 20 / (1 + haste),
-        charges: combatant.hasLegs(ITEMS.OBLIVIONS_EMBRACE.id) ? 3 : 2,
+        charges: 2,
         isDefensive: true,
       },
 
@@ -144,7 +143,7 @@ class Abilities extends CoreAbilities {
 
       // Sigils
       {
-        spell: [SPELLS.SIGIL_OF_SILENCE_CONCENTRATED,SPELLS.SIGIL_OF_SILENCE_QUICKENED],
+        spell: [SPELLS.SIGIL_OF_SILENCE_CONCENTRATED, SPELLS.SIGIL_OF_SILENCE_QUICKENED],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 60 * (1 - (combatant.hasTalent(SPELLS.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
         gcd: {
@@ -152,7 +151,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: [SPELLS.SIGIL_OF_MISERY_CONCENTRATED,SPELLS.SIGIL_OF_MISERY_QUICKENED],
+        spell: [SPELLS.SIGIL_OF_MISERY_CONCENTRATED, SPELLS.SIGIL_OF_MISERY_QUICKENED],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 60 * (1 - (combatant.hasTalent(SPELLS.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
         gcd: {
@@ -160,7 +159,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: [SPELLS.SIGIL_OF_FLAME_CONCENTRATED,SPELLS.SIGIL_OF_FLAME_QUICKENED],
+        spell: [SPELLS.SIGIL_OF_FLAME_CONCENTRATED, SPELLS.SIGIL_OF_FLAME_QUICKENED],
         buffSpellId: SPELLS.SIGIL_OF_FLAME_DEBUFF.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 30 * (1 - (combatant.hasTalent(SPELLS.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
@@ -170,7 +169,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
-          extraSuggestion: combatant.hasTalent(SPELLS.FLAME_CRASH_TALENT.id)?<>Line this up with <SpellLink id={SPELLS.INFERNAL_STRIKE.id} /> to double stack <SpellLink id={SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id} /> because of the <SpellLink id={SPELLS.FLAME_CRASH_TALENT.id} /> talent.</>:`Cast on cooldown for a dps increase.`,
+          extraSuggestion: combatant.hasTalent(SPELLS.FLAME_CRASH_TALENT.id) ? <>Line this up with <SpellLink id={SPELLS.INFERNAL_STRIKE.id} /> to double stack <SpellLink id={SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id} /> because of the <SpellLink id={SPELLS.FLAME_CRASH_TALENT.id} /> talent.</> : `Cast on cooldown for a dps increase.`,
         },
       },
 

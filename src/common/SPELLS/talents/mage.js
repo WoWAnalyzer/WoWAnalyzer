@@ -33,7 +33,7 @@ export default {
   NETHER_TEMPEST_TALENT: { id: 114923, name: 'Nether Tempest', icon: 'spell_mage_nethertempest' },
   CHRONO_SHIFT_TALENT: { id: 235711, name: 'Chrono Shift', icon: 'ability_monk_deadlyreach' },
   REVERBERATE_TALENT: { id: 281482, name: 'Reverberate', icon: 'spell_arcane_arcane04' },
-  ENLIGHTENED_TALENT: { id: 321387, name: 'Enlightened', icon: 'ability_sorcererking_arcanefortification' },
+  ENLIGHTENED_TALENT: { id: 321387, name: 'Enlightened', icon: 'ability_socererking_arcanefortification' },
   SUPERNOVA_TALENT: { id: 157980, name: 'Supernova', icon: 'spell_mage_supernova' },
   OVERPOWERED_TALENT: { id: 155147, name: 'Overpowered', icon: 'spell_mage_overpowered' },
   TIME_ANOMALY_TALENT: { id: 210805, name: 'Time Anomaly', icon: 'ability_mage_timewarp' },

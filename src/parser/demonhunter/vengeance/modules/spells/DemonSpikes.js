@@ -4,12 +4,13 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 import SPELLS from 'common/SPELLS/index';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import SCHOOLS from 'game/MAGIC_SCHOOLS';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import Events from 'parser/core/Events';
@@ -23,7 +24,7 @@ class DemonSpikes extends Analyzer {
   hitsWithoutDS = 0;
   hitsWithDSOffCD = 0;
 
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
   }
@@ -49,8 +50,8 @@ class DemonSpikes extends Analyzer {
     return formatPercentage(this.hitsWithDS / (this.hitsWithDS + this.hitsWithoutDS));
   }
 
-  get hitsWithDSOffCDPercent(){
-    return this.hitsWithDSOffCD / (this.hitsWithDS+ this.hitsWithoutDS);
+  get hitsWithDSOffCDPercent() {
+    return this.hitsWithDSOffCD / (this.hitsWithDS + this.hitsWithoutDS);
   }
 
   get suggestionThresholdsEfficiency() {
@@ -68,11 +69,10 @@ class DemonSpikes extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholdsEfficiency)
       .addSuggestion((suggest, actual, recommended) => suggest(<> Cast <SpellLink id={SPELLS.DEMON_SPIKES.id} /> more regularly while actively tanking the boss or when they use a big phsyical attack. You missed having it up for {formatPercentage(this.hitsWithDSOffCDPercent)}% of physical hits.</>)
-          .icon(SPELLS.DEMON_SPIKES.icon)
-          .actual(i18n._(t('demonhunter.vengeance.suggestions.demonSpikes.unmitgatedHits')`${formatPercentage(actual)}% unmitigated physical hits`))
-          .recommended(`<${formatPercentage(recommended)}% is recommended`));
+        .icon(SPELLS.DEMON_SPIKES.icon)
+        .actual(i18n._(t('demonhunter.vengeance.suggestions.demonSpikes.unmitgatedHits')`${formatPercentage(actual)}% unmitigated physical hits`))
+        .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
-
 
   statistic() {
     const demonSpikesUptime = this.selectedCombatant.getBuffUptime(SPELLS.DEMON_SPIKES_BUFF.id);
@@ -80,11 +80,9 @@ class DemonSpikes extends Analyzer {
     const demonSpikesUptimePercentage = demonSpikesUptime / this.owner.fightDuration;
 
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(2)}
-        icon={<SpellIcon id={SPELLS.DEMON_SPIKES.id} />}
-        value={`${this.mitigatedUptime}%`}
-        label="Hits mitigated by Demon Spikes"
+        size="flexible"
         tooltip={(
           <>
             Demon Spikes usage breakdown:
@@ -96,7 +94,13 @@ class DemonSpikes extends Analyzer {
             <b>Your overall uptime was {formatPercentage(demonSpikesUptimePercentage)}%</b>.
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.DEMON_SPIKES}>
+          <>
+            {this.mitigatedUptime}% <small>hits mitigated</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

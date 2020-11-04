@@ -63,7 +63,7 @@ import RaidHealthTab from '../shared/modules/features/RaidHealthTab';
 
 import CritEffectBonus from '../shared/modules/helpers/CritEffectBonus';
 
-import PrePotion from '../shared/modules/items/PrePotion';
+import PotionChecker from '../shared/modules/items/PotionChecker';
 import EnchantChecker from '../shared/modules/items/EnchantChecker';
 import FlaskChecker from '../shared/modules/items/FlaskChecker';
 import FoodChecker from '../shared/modules/items/FoodChecker';
@@ -286,7 +286,7 @@ class CombatLogParser {
     // Tabs
     raidHealthTab: RaidHealthTab,
 
-    prePotion: PrePotion,
+    potionChecker: PotionChecker,
     enchantChecker: EnchantChecker,
     flaskChecker: FlaskChecker,
     foodChecker: FoodChecker,

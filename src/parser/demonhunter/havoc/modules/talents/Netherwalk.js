@@ -1,10 +1,10 @@
 import React from 'react';
-import StatisticBox from 'interface/others/StatisticBox';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SPELLS from 'common/SPELLS/index';
-import SpellIcon from 'common/SpellIcon';
 import Events from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/PGMqmyH1b86fW7F2/#fight=55&source=10
@@ -24,38 +24,44 @@ class Netherwalk extends Analyzer {
   }
 
   onNetherwalkCast(event) {
-    if(!this.selectedCombatant.hasBuff(SPELLS.NETHERWALK_TALENT.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.NETHERWALK_TALENT.id)) {
       return;
     }
-      this.damageImmuned.push({
-        name: event.ability.name,
-      });
+    this.damageImmuned.push({
+      name: event.ability.name,
+    });
   }
-
 
   statistic() {
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(6)}
-        icon={<SpellIcon id={SPELLS.NETHERWALK_TALENT.id} />}
-        value={<>{this.damageImmuned.length} <small>spells immuned</small></>}
-        label="Netherwalk"
+        size="flexible"
+        dropdown={(
+          this.damageImmuned.length !== 0 ? <>
+            <table className="table table-condensed">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.values(this.damageImmuned).map((e, i) => (
+                  <tr key={i}>
+                    <th>{this.damageImmuned[i].name}</th>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </> : ""
+        )}
       >
-        <table className="table table-condensed">
-          <thead>
-            <tr>
-              <th>Name</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.values(this.damageImmuned).map((e, i) => (
-              <tr key={i}>
-                <th>{this.damageImmuned[i].name}</th>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </StatisticBox>
+        <BoringSpellValueText spell={SPELLS.NETHERWALK_TALENT}>
+          <>
+            {this.damageImmuned.length} <small>spells immuned</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
 
     );
   }

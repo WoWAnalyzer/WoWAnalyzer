@@ -88,12 +88,12 @@ const spells: SpellList = {
     icon: 'spell_arcane_studentofmagic',
   },
   ALTER_TIME: {
-    id: 109878,
+    id: 342247,
     name: 'Alter Time',
     icon: 'spell_mage_altertime',
   },
   ALTER_TIME_BUFF: {
-    id: 110909,
+    id: 342246,
     name: 'Alter Time',
     icon: 'spell_mage_altertime',
   },

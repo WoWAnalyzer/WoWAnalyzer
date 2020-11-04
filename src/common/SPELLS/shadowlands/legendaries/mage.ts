@@ -1,4 +1,4 @@
-import { SpellList, LegendarySpell } from "common/SPELLS/Spell";
+import { LegendarySpell, SpellList } from 'common/SPELLS/Spell';
 
 const legendaries: SpellList<LegendarySpell> = {
   DISCIPLINARY_COMMAND: {

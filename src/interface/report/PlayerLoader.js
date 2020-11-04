@@ -211,16 +211,16 @@ class PlayerLoader extends React.PureComponent {
   }
 
   renderLoading() {
-    return <ActivityIndicator text={i18n._(t`Fetching player info...`)} />;
+    return <ActivityIndicator text={i18n._(t('interface.report.renderLoading.fetchingPlayerInfo')`Fetching player info...`)} />;
   }
 
   renderClassicWarning() {
     return (
       <div className="container offset">
-        <Panel title={<Trans>Sorry, Classic WoW Logs are not supported</Trans>}>
+        <Panel title={<Trans id="interface.report.renderClassicWarning.classicUnsupported">Sorry, Classic WoW Logs are not supported</Trans>}>
           <div className="flex wrapable">
             <div className="flex-main" style={{ minWidth: 400 }}>
-              <Trans>
+              <Trans id="interface.report.renderClassicWarning.classicUnsupportedDetails">
               The current report contains encounters from World of Warcraft: Classic. Currently WoWAnalyzer does not support, and does not have plans to support, Classic WoW logs.
               </Trans><br /><br />
             </div>
@@ -257,30 +257,30 @@ class PlayerLoader extends React.PureComponent {
       if (player) {
         // Player data was in the report, but there was another issue
         if (hasDuplicatePlayers) {
-          alert(i18n._(t`It appears like another "${playerName}" is in this log, please select the correct one`));
+          alert(i18n._(t('interface.report.render.hasDuplicatePlayers')`It appears like another "${playerName}" is in this log, please select the correct one`));
         } else if (!combatant) {
-          alert(i18n._(t`Player data does not seem to be available for the selected player in this fight.`));
+          alert(i18n._(t('interface.report.render.dataNotAvailable')`Player data does not seem to be available for the selected player in this fight.`));
         } else if (combatant.error || !combatant.specID) {
-          alert(i18n._(t`The data received from WCL for this player is corrupt, this player can not be analyzed in this fight.`));
+          alert(i18n._(t('interface.report.render.logCorrupted')`The data received from WCL for this player is corrupt, this player can not be analyzed in this fight.`));
         }
       }
       return (
         <div className="container offset">
           <div style={{ position: 'relative', marginBottom: 15 }}>
             <div className="back-button">
-              <Tooltip content={i18n._(t`Back to fight selection`)}>
+              <Tooltip content={i18n._(t('interface.report.render.backToFightSelection')`Back to fight selection`)}>
                 <Link to={`/report/${report.code}`}>
                   <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
                   <label>
-                    {' '}<Trans>Fight selection</Trans>
+                    {' '}<Trans id="interface.report.render.labelFightSelection">Fight selection</Trans>
                   </label>
                 </Link>
               </Tooltip>
             </div>
             <div className="flex wrapable" style={{ marginBottom: 15 }}>
               <div className="flex-main">
-                <h1 style={{ lineHeight: 1.4, margin: 0 }}><Trans>Player selection</Trans></h1>
-                <small style={{ marginTop: -5 }}><Trans>Select the player you wish to analyze.</Trans></small>
+                <h1 style={{ lineHeight: 1.4, margin: 0 }}><Trans id="interface.report.render.playerSelection">Player selection</Trans></h1>
+                <small style={{ marginTop: -5 }}><Trans id="interface.report.render.playerSelectionDetails">Select the player you wish to analyze.</Trans></small>
               </div>
               <div className="flex-sub">
                 <RaidCompositionDetails
@@ -325,7 +325,7 @@ class PlayerLoader extends React.PureComponent {
     return (
       <>
         {/* TODO: Refactor the DocumentTitle away */}
-        <DocumentTitle title={i18n._(t`${getFightName(report, fight)} by ${player.name} in ${report.title}`)} />
+        <DocumentTitle title={i18n._(t('interface.report.render.documentTitle')`${getFightName(report, fight)} by ${player.name} in ${report.title}`)} />
 
         {this.props.children(player, combatant, combatants)}
       </>

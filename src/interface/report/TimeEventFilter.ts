@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 
 import { captureException } from 'common/errorLogger';
-import { SECOND_POTIONS } from 'parser/shared/modules/items/PrePotion';
+import { COMBAT_POTIONS } from 'parser/shared/modules/items/PotionChecker';
 import Fight from 'parser/core/Fight';
 import {
   EventType,
@@ -157,7 +157,7 @@ class TimeEventFilter extends React.PureComponent<Props, State> {
 function findRelevantPostFilterEvents(events: AnyEvent[]) {
   return events
     .filter(
-      (e) => e.type === EventType.Cast && SECOND_POTIONS.includes((e as CastEvent).ability.guid),
+      (e) => e.type === EventType.Cast && COMBAT_POTIONS.includes((e as CastEvent).ability.guid),
     )
     .map((e) => ({
       ...e,
@@ -232,7 +232,7 @@ function findRelevantPreFilterEvents(events: AnyEvent[]) {
         break;
       case EventType.RemoveBuff:
       case EventType.RemoveDebuff:
-        if (SECOND_POTIONS.includes((e as BuffEvent).ability.guid)) {
+        if (COMBAT_POTIONS.includes((e as BuffEvent).ability.guid)) {
           buffEvents.push(e as BuffEvent);
         }
         break;
@@ -240,7 +240,7 @@ function findRelevantPreFilterEvents(events: AnyEvent[]) {
         //only keep "latest" cast, override type to prevent > 100% uptime / efficiency
         //whitelist certain casts (like potions) to keep suggestions working
         if (
-          SECOND_POTIONS.includes((e as CastEvent).ability.guid) ||
+          COMBAT_POTIONS.includes((e as CastEvent).ability.guid) ||
           !castHappenedLater(e as CastEvent)
         ) {
           castEvents.push({
@@ -288,11 +288,11 @@ export function filterEvents(events: AnyEvent[], start: number, end: number) {
       prepull: true, //pretend previous events were "prepull"
       ...(e.type !== EventType.FilterCooldownInfo &&
         e.type !== EventType.Cast &&
-        SECOND_POTIONS.includes(e.ability.guid) && {
+        COMBAT_POTIONS.includes(e.ability.guid) && {
           type: EventType.FilterBuffInfo,
           trigger: e.type,
         }),
-      ...(e.type !== EventType.FilterCooldownInfo && !SECOND_POTIONS.includes(e.ability.guid)
+      ...(e.type !== EventType.FilterCooldownInfo && !COMBAT_POTIONS.includes(e.ability.guid)
         ? { timestamp: start }
         : { __fabricated: true }), //override existing timestamps to the start of the time period to avoid >100% uptimes (only on non casts to retain cooldowns)
     }));
