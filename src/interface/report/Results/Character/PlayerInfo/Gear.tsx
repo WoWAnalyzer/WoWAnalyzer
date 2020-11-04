@@ -33,7 +33,6 @@ const Gear = (props: Props) => {
                 id={item.id}
                 quality={quality}
                 details={item}
-                style={{ display: 'block', fontSize: '46px', lineHeight: 1 }}
                 icon={false}
               >
                 <Icon className="gear-icon icon" icon={item.icon} />
