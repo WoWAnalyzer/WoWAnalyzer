@@ -18,6 +18,7 @@ import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 class FlameShock extends EarlyDotRefreshesAnalyzer {
   static dependencies = {
@@ -101,13 +102,13 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE()}
         size="flexible"
-        >
-        <>
-          <UptimeIcon /> {formatPercentage(this.uptime)}% uptime on Flame Shock
-        </>
-        value={`${formatPercentage(this.uptime)} %`}
-        label="Uptime"
         tooltip="Flame Shock Uptime"
+        >
+        <BoringSpellValueText spell={SPELLS.FLAME_SHOCK}>
+          <>
+            <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
+          </>
+        </BoringSpellValueText>
       </Statistic>
     );
   }
