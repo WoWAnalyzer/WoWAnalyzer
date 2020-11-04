@@ -28,7 +28,7 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
   protected enemies!: Enemies;
 
   static dots = [{
-    name: "Flame Shock",
+    name: SPELLS.FLAME_SHOCK.name,
     debuffId: SPELLS.FLAME_SHOCK.id,
     castId: SPELLS.FLAME_SHOCK.id,
     duration: 18000,
@@ -103,7 +103,7 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
         size="flexible"
         value={`${formatPercentage(this.uptime)} %`}
         icon={<Icon icon={SPELLS.FLAME_SHOCK.icon}/>}
-        label="Flame Shock uptime"
+        label={`${SPELLS.FLAME_SHOCK.name} uptime`}
         />
     );
   }
