@@ -139,7 +139,7 @@ class ResourceTracker extends Analyzer {
       return;
     }
 
-    if (eventResource && eventResource.max) {
+    if (eventResource.max) {
       this.maxResource = eventResource.max; // track changes in max resource, which can happen due to procs / casts
     }
     const cost = this.getReducedCost(event);
