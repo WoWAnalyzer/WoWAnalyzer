@@ -1,5 +1,5 @@
 import React from 'react';
-import { Abelito75, ackwell, AdamKelly, Aelexe, Amani, Amrux, Anatta336, axelkic, Barter, blazyb, ChagriAli, Chizu, ChristopherKiss, Dambroda, Dorixius, Draenal, emallson, fluffels, Fyruna, Gebuz, Guyius, Haelrail, Hartra344, HawkCorrigan, HolySchmidt, Hordehobbs, Jafowler, JeremyDwayne, jos3p, joshinator, Juko8, Khadaj, Khazak, Kruzershtern, layday, Mamtooth, Matardarix, Moonrabbit, Nalhan, niseko, Putro, Qbz, Satyric, Scotsoo, Sharrq, Ssabbar, Stui, Vetyst, Viridis, Yajinni, Zeboot, Zerotorescue } from 'CONTRIBUTORS';
+import { Abelito75, ackwell, AdamKelly, Aelexe, Amani, Amrux, Anatta336, axelkic, Barter, blazyb, ChagriAli, Chizu, ChristopherKiss, Dambroda, Dorixius, Draenal, emallson, fluffels, Fyruna, Gebuz, Guyius, Haelrail, Hartra344, HawkCorrigan, HolySchmidt, Hordehobbs, Jafowler, JeremyDwayne, jos3p, joshinator, Juko8, Khadaj, Khazak, Kruzershtern, layday, Mae, Mamtooth, Matardarix, Moonrabbit, Nalhan, niseko, Putro, Qbz, Satyric, Scotsoo, Sharrq, Ssabbar, Stui, Vetyst, Viridis, Yajinni, Zeboot, Zerotorescue } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -9,6 +9,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 11, 2), 'Converted the following components to TypeScript: ItemLink, ResourceLink, Rule and Expandable', Mae),
   change(date(2020, 10, 31), 'Update several component to Typescript and refactor to hooks', Guyius),
   change(date(2020, 11, 1), 'Eliminated x-axis padding in several charts.', emallson),
   change(date(2020, 11, 1), 'Shifted all spells to use the same generic Spell type', Putro),
