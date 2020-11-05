@@ -1,6 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
+import UptimeIcon from 'interface/icons/Uptime';
 import Enemies from 'parser/shared/modules/Enemies';
 import { formatPercentage, formatThousands } from 'common/format';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
@@ -11,6 +12,8 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import SpellLink from 'common/SpellLink';
 
 const LASHING_FLAMES_BONUS = 1;
 
@@ -41,6 +44,22 @@ class LashingFlames extends Analyzer {
     );
   }
 
+  get uptime() {
+    return this.enemies.getBuffUptime(SPELLS.LASHING_FLAMES_DEBUFF.id) / this.owner.fightDuration;
+  }
+
+  get uptimeThreshold() {
+    return {
+      actual: this.uptime,
+      isLessThan: {
+        minor: 0.99,
+        average: 0.95,
+        major: 0.85,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
   onFlameShockDamage(event: DamageEvent) {
     const enemy = this.enemies.getEntity(event);
 
@@ -49,6 +68,24 @@ class LashingFlames extends Analyzer {
     }
 
     this.buffedFlameShockDmg += calculateEffectiveDamage(event, LASHING_FLAMES_BONUS);
+  }
+
+  suggestions(when: When) {
+    when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => suggest(
+      (
+        <>
+          Your <SpellLink id={SPELLS.LASHING_FLAMES_TALENT.id} /> uptime can be improved.
+          As <SpellLink id={SPELLS.LASHING_FLAMES_DEBUFF.id} /> increases the damage of <SpellLink id={SPELLS.FLAME_SHOCK.id} /> on its target,{` `}
+          try to maintain 100% uptime for maximum damage increase.
+          To achieve this, you can strike the target with <SpellLink id={SPELLS.LAVA_LASH.id} />{` `}
+          when <SpellLink id={SPELLS.LASHING_FLAMES_DEBUFF.id} /> is about to expire.
+        </>
+      )
+    )
+      .icon(SPELLS.LASHING_FLAMES_TALENT.icon)
+      .actual(<><SpellLink id={SPELLS.LASHING_FLAMES_DEBUFF.id} /> was active for {(actual*100).toFixed(2)}% of the fight</>)
+      .recommended('recommended: 99%')
+    )
   }
 
   statistic() {
@@ -65,6 +102,7 @@ class LashingFlames extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.LASHING_FLAMES_TALENT}>
           <>
+            <><UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small></><br/>
             <ItemDamageDone amount={this.buffedFlameShockDmg} /><br />
           </>
         </BoringSpellValueText>
