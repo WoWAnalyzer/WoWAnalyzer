@@ -16,6 +16,7 @@ export default [
   change(date(2020, 10, 31), 'Added IDs to i18n of PlayerLoader', jos3p),
   change(date(2020, 10, 31), 'Added i18n of Premium page', jos3p),
   change(date(2020, 10, 29), 'Update game components to Typescript', jos3p),
+  change(date(2020, 10, 29), 'Update ResourceTracker to TypeScript', Khazak),
   change(date(2020, 10, 29), 'Updated Potions Checklist items to show potions used instead of pre Potions/second Potions.', Sharrq),
   change(date(2020, 10, 29), 'Update several component to Typescript, center player name in player gear header', Guyius),
   change(date(2020, 10, 28), 'Added more translateable elements.', niseko),
