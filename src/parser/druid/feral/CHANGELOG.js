@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 11, 5), <>Corrected event filter.</>, Abelito75),
   change(date(2020, 10, 18), 'Converted legacy listeners to new event filters', Zeboot),
   change(date(2020, 3,27), <>Improved thresholds of wasted energy to be precentage based.</>, [Abelito75]),
   change(date(2019, 8, 10), <>Improved tracking of <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> energy use to account for <SpellLink id={SPELLS.BERSERK.id} />. Also highlights low energy bites on the timeline.</>, [Anatta336]),
