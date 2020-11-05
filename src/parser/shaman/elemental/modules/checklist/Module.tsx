@@ -9,9 +9,9 @@ import Icefury from 'parser/shaman/elemental/modules/talents/Icefury';
 import Ascendance from 'parser/shaman/elemental/modules/talents/Ascendance';
 import CancelledCasts from 'parser/shaman/elemental/modules/features/CancelledCasts';
 import AlwaysBeCasting from 'parser/shaman/elemental/modules/features/AlwaysBeCasting';
-import FlameShock from 'parser/shaman/elemental/modules/core/FlameShock';
 
 import Component from 'parser/shaman/elemental/modules/checklist/Component';
+import FlameShock from 'parser/shaman/shared/spells/FlameShock';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
