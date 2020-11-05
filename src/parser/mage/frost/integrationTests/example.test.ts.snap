@@ -15,7 +15,7 @@ exports[`Frost Mage integration test: example log AlwaysBeCasting matches the st
         className="pad"
       >
         <label>
-          shared.alwaysBeCasting.statistic.label
+          mage.frost.alwaysBeCasting.statistic.label
         </label>
         <div
           className="flex"
@@ -28,15 +28,8 @@ exports[`Frost Mage integration test: example log AlwaysBeCasting matches the st
         >
           <div
             className="flex-main text-right text-muted"
-            style={
-              Object {
-                "fontSize": 12,
-                "paddingRight": 8,
-                "paddingTop": 23,
-              }
-            }
           >
-            Low
+            interface.statistics.components.gauge.low
           </div>
           <div
             className="flex-sub"
@@ -139,7 +132,7 @@ exports[`Frost Mage integration test: example log AlwaysBeCasting matches the st
                   Object {
                     "fill": "none",
                     "margin": 0,
-                    "transform": "rotate(88.5866201463349deg)",
+                    "transform": "rotate(86.63796263217236deg)",
                     "transformOrigin": "5px 27px",
                   }
                 }
@@ -169,21 +162,14 @@ exports[`Frost Mage integration test: example log AlwaysBeCasting matches the st
                 }
               }
             >
-              82
+              81
               %
             </div>
           </div>
           <div
             className="flex-main text-left text-muted"
-            style={
-              Object {
-                "fontSize": 12,
-                "paddingLeft": 8,
-                "paddingTop": 23,
-              }
-            }
           >
-            High
+            interface.statistics.components.gauge.high
           </div>
         </div>
       </div>
@@ -215,8 +201,16 @@ Array [
     "details": null,
     "icon": "spell_mage_altertime",
     "importance": "regular",
-    "issue": <span>
-      Your downtime can be improved. Try to Always Be Casting (ABC) and try to reduce the delay between casting spells. If you have to move, try casting instants; even unbuffed 
+    "issue": <React.Fragment>
+      Your downtime can be improved. Try to Always Be Casting (ABC) and try to reduce the delay between casting spells. If you have to move, try casting instants like 
+      <ForwardRef
+        id={108853}
+      />
+       or 
+      <ForwardRef
+        id={1449}
+      />
+       (if there are 2+ targets); even unbuffed 
       <ForwardRef
         id={30455}
       />
@@ -229,9 +223,9 @@ Array [
         id={205473}
       />
       .
-    </span>,
+    </React.Fragment>,
     "stat": <React.Fragment>
-      18.36% downtime
+      19.06% downtime
        (
       &lt;5.00% is recommended
       )
@@ -716,12 +710,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
         }
       }
     >
-      <a
-        href="#Abilities"
-        id="Abilities"
-      >
-        Abilities
-      </a>
+      common.abilities
     </h1>
   </div>
   <div
@@ -3268,7 +3257,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
               }
             >
               <a
-                href="http://wowhead.com/spell=109878"
+                href="http://wowhead.com/spell=342247"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -5171,43 +5160,28 @@ exports[`Frost Mage integration test: example log OverwhelmingPower matches the 
 </div>
 `;
 
-exports[`Frost Mage integration test: example log PrePotion matches the suggestions snapshot 1`] = `
+exports[`Frost Mage integration test: example log PotionChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
     "icon": "inv_alchemy_90_combat2_purple",
     "importance": "minor",
-    "issue": <React.Fragment>
-      You forgot to use a potion during combat. Using a potion during combat allows you the benefit of 
-      
-       increasing output through 
-      <ItemLink
-        icon={true}
-        id={171273}
-      />
-      
-      . 
-      
-    </React.Fragment>,
-    "stat": null,
-  },
-  Object {
-    "details": null,
-    "icon": "inv_alchemy_90_combat2_purple",
-    "importance": "minor",
-    "issue": <React.Fragment>
-      You used a weak potion. 
-      <ItemLink
-        icon={true}
-        id={171273}
-      />
-       can be used instead of 
-      <ItemLink
-        icon={true}
-        id={171273}
-      />
-       in order to get a slightly higher damage output.
-    </React.Fragment>,
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            icon={true}
+            id={171273}
+          />,
+          <ItemLink
+            icon={true}
+            id={171273}
+          />,
+        ]
+      }
+      defaults="You used a weak potion. <0/> can be used instead of <1/> in order to get a slightly higher damage output."
+      id="shared.modules.items.potionChecker.suggestions.weakPotion"
+    />,
     "stat": null,
   },
 ]
@@ -7241,7 +7215,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "77.70240090844558%",
+                  "width": "76.54364563663106%",
                 }
               }
             />
@@ -7334,7 +7308,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  18.36%
+                  19.06%
                    
                    
                 </div>
@@ -7356,7 +7330,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                       Object {
                         "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "55.404801816891144%",
+                        "width": "53.08729127326212%",
                       }
                     }
                   />
@@ -7453,8 +7427,8 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ac1f39",
-                  "width": "25%",
+                  "backgroundColor": "#df7102",
+                  "width": "50%",
                 }
               }
             />
@@ -7648,7 +7622,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               <div
                 className="flex-main"
               >
-                Used a pre-potion
+                Combat potions used
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -7669,8 +7643,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  common.yes
+                  1
                    
+                  / 1
                    
                 </div>
               </div>
@@ -7708,7 +7683,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               <div
                 className="flex-main"
               >
-                Used a second potion
+                High quality combat potions used
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -7729,68 +7704,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  common.no
+                  0
                    
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                Used a high quality pre-potion
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  common.no
-                   
+                  / 1
                    
                 </div>
               </div>

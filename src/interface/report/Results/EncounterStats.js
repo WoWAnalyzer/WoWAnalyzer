@@ -12,6 +12,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatDuration, formatPercentage, formatThousands } from 'common/format';
 import ActivityIndicator from 'interface/common/ActivityIndicator';
 import { makeItemApiUrl } from 'common/makeApiUrl';
+import { Trans } from '@lingui/macro';
 
 /**
  * Show statistics (talents and trinkets) for the current boss, specID and difficulty
@@ -114,6 +115,7 @@ class EncounterStats extends React.PureComponent {
       limit: this.LIMIT, //Currently does nothing but if Kihra reimplements it'd be nice to have
       metric: this.metric,
       cache: currentWeek, // cache for a week
+      includeCombatantInfo: true,
     }).then((stats) => {
       const talentCounter = [[], [], [], [], [], [], []];
       const talents = [];
@@ -183,7 +185,7 @@ class EncounterStats extends React.PureComponent {
 
     }).catch(() => {
       this.setState({
-        message: 'Something went wrong.',
+        message: <Trans id="interface.report.results.encounterStats.eeek">Something went wrong.</Trans>,
       });
     });
   }

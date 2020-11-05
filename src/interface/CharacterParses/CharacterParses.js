@@ -201,11 +201,16 @@ class CharacterParses extends React.Component {
         name: elem.encounterName,
         spec: elem.spec.replace(' ', ''),
         difficulty: elem.difficulty,
+        // eslint-disable-next-line @typescript-eslint/camelcase
         report_code: elem.reportID,
+        // eslint-disable-next-line @typescript-eslint/camelcase
         report_fight: elem.fightID,
+        // eslint-disable-next-line @typescript-eslint/camelcase
         historical_percent: 100 - (elem.rank / elem.outOf) * 100,
         persecondamount: elem.total,
+        // eslint-disable-next-line @typescript-eslint/camelcase
         start_time: elem.startTime,
+        // eslint-disable-next-line @typescript-eslint/camelcase
         character_name: elem.characterName,
         talents: elem.talents,
         gear: elem.gear,

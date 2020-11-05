@@ -3,6 +3,7 @@ import RACES from 'game/RACES';
 import TALENT_ROWS from 'game/TALENT_ROWS';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import traitIdMap from 'common/TraitIdMap';
+import { Enchant } from "common/ITEMS/Item";
 import SPELLS from 'common/SPELLS';
 import { findByBossId } from 'raids';
 import CombatLogParser, { Player } from 'parser/core/CombatLogParser';
@@ -23,12 +24,13 @@ export interface CombatantInfo extends CombatantInfoEvent {
   name: string;
 }
 
-type Essence = {
+export type Essence = {
   icon: string;
   isMajor: boolean;
   rank: number;
   spellID: number;
   traitID: number;
+  slot?: number;
 };
 
 type Spell = {
@@ -165,6 +167,18 @@ class Combatant extends Entity {
   }
 
   // endregion
+
+  hasWeaponEnchant(enchant: Enchant) {
+    if (this.mainHand && this.mainHand.permanentEnchant === enchant.effectId) {
+      return true
+    }
+
+    if (this.offHand && this.offHand.permanentEnchant === enchant.effectId) {
+      return true
+    }
+    
+    return false
+  }
 
   // region Traits
   traitsBySpellId: { [key: number]: number[] } = {};

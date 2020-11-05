@@ -5,10 +5,11 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 
 import { formatNumber, formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
@@ -50,18 +51,16 @@ class SoulsOvercap extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholdsEfficiency)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You are generating <SpellLink id={SPELLS.SOUL_FRAGMENT.id} />s when you are already at 5 souls. These are auto consumed. You are missing out on the extra damage consuming them with <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> provides.</>)
-          .icon(SPELLS.SOUL_FRAGMENT.icon)
-          .actual(i18n._(t('demonhunter.vengeance.suggestions.souls.wasted')`${formatPercentage(this.wasterPerGenerated())}% wasted Soul Fragments.`))
-          .recommended(`${formatPercentage(recommended)}% or less is recommended`));
+        .icon(SPELLS.SOUL_FRAGMENT.icon)
+        .actual(i18n._(t('demonhunter.vengeance.suggestions.souls.wasted')`${formatPercentage(this.wasterPerGenerated())}% wasted Soul Fragments.`))
+        .recommended(`${formatPercentage(recommended)}% or less is recommended`));
   }
 
   statistic() {
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(5)}
-        icon={<SpellIcon id={SPELLS.SOUL_FRAGMENT.id} />}
-        value={`${formatPercentage(this.wasterPerGenerated())}% Souls`}
-        label="Inefficiently generated"
+        size="flexible"
         tooltip={(
           <>
             You generated {formatNumber(this.soulFragmentsTracker.soulsWasted)} souls at cap. These are absorbed automatically and aren't avalible to boost Spirit Bomb's damage.<br />
@@ -70,7 +69,13 @@ class SoulsOvercap extends Analyzer {
             At the end of the fight, you had {formatNumber(this.soulFragmentsTracker.currentSouls)} unused Soul Fragments.
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.SOUL_FRAGMENT}>
+          <>
+            {formatPercentage(this.wasterPerGenerated())}% <small>souls</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

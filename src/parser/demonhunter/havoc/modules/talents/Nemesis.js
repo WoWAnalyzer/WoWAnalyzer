@@ -26,6 +26,7 @@ const NEMESIS_BUFF_IDS = [
 
 const NEMESIS_DAMAGE_MODIFIER = 0.25;
 
+/** @Deprecated - talent/spell no longer exists in the prepatch or SL **/
 class Nemesis extends Analyzer {
   static dependencies = {
     enemies: Enemies,

@@ -7,6 +7,8 @@ import { change, date } from 'common/changelog';
 
 
 export default [
+  change(date(2020, 10, 31), <>Updates to Ancient Teachings of the Monastery.</>, Vohrr),
+  change(date(2020, 10, 19), <>Fixed talent detection for hot tracker. </>, Abelito75),
   change(date(2020, 10, 25), <>Added average Enveloping Breath targets to checklist and suggestions.</>, Vohrr),
   change(date(2020, 10, 21), <>Updates to Lifecyles module to account for innervate and Chi-Ji stacks and updated suggestion threshhold for Shadowlands. </>, Vohrr),
   change(date(2020, 10, 20), <>Fixed Mana Tea duration in T45Comparison and updated Mana Tea suggestion.</>, Vohrr),

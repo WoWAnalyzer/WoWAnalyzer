@@ -3,7 +3,6 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import VirulentPlagueUptime from './modules/features/VirulentPlagueUptime';
 import FesteringStrikeEfficiency from './modules/features/FesteringStrikeEfficiency';
 import Checklist from './modules/features/checklist/Module';
 import ScourgeStrikeEfficiency from './modules/features/ScourgeStrikeEfficiency';
@@ -17,13 +16,16 @@ import RunicPowerTracker from './modules/runicpower/RunicPowerTracker';
 import RuneTracker from './modules/features/RuneTracker';
 import RuneDetails from '../shared/RuneDetails';
 
+// Runes
+import RuneOfTheFallenCrusader from '../shared/runeforges/RuneOfTheFallenCrusader';
+import RuneOfHysteria from '../shared/runeforges/RuneOfHysteria';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    virulentPlagueUptime: VirulentPlagueUptime,
     festeringStrikeEfficiency: FesteringStrikeEfficiency,
     checklist: Checklist,
     scourgeStrikeEfficiency: ScourgeStrikeEfficiency,
@@ -38,6 +40,10 @@ class CombatLogParser extends CoreCombatLogParser {
     //RuneTracker
     runeTracker: RuneTracker,
     runeDetails: RuneDetails,
+    
+    // Runes
+    runeOfTheFallenCrusader: RuneOfTheFallenCrusader,
+    runeOfHysteria: RuneOfHysteria
   };
 }
 

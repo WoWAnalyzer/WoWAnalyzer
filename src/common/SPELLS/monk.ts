@@ -3,8 +3,8 @@
  * You need to do this manually, usually an easy way to do this is by opening a WCL report and clicking the icons of spells to open the relevant Wowhead pages, here you can get the icon name by clicking the icon, copy the name of the spell and the ID is in the URL.
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
-import { SpellList, MonkSpell } from "./Spell";
-const spells: SpellList<MonkSpell> = {
+import { SpellList } from "./Spell";
+const spells: SpellList = {
   // Shared
   MYSTIC_TOUCH: {
     id: 8647,
@@ -182,7 +182,6 @@ const spells: SpellList<MonkSpell> = {
     id: 210803,
     name: 'Spirit of the Crane',
     icon: 'monk_stance_redcrane',
-    manaRet: 0.0065,
   },
   CHI_BURST_HEAL: {
     id: 130654,
@@ -209,19 +208,16 @@ const spells: SpellList<MonkSpell> = {
     id: 197916,
     name: 'Lifecycles (Vivify)',
     icon: 'ability_monk_uplift',
-    manaPercRed: 0.25,
   },
   LIFECYCLES_ENVELOPING_MIST_BUFF: {
     id: 197919,
     name: 'Lifecycles (Enveloping Mist)',
     icon: 'spell_monk_envelopingmist',
-    manaPercRed: 0.25,
   },
   INVOKE_CHIJI_THE_RED_CRANE_BUFF: {
     id: 343820,
     name: 'Invoke Chi-Ji, the Red Crane',
     icon: 'monk_stance_redcrane',
-    buffDur: 20000,
   },
   // Mastery
   GUSTS_OF_MISTS: {
@@ -234,8 +230,6 @@ const spells: SpellList<MonkSpell> = {
     id: 202090,
     name: 'Teachings of the Monastery',
     icon: 'passive_monk_teachingsofmonastery',
-    buffDur: 12000,
-    manaRet: 0.0065,
   },
   BLACKOUT_KICK_TOTM : { //Backout Kick from TotM
     id: 228649,

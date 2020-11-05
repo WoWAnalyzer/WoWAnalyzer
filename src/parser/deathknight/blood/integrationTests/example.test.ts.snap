@@ -26,7 +26,7 @@ exports[`Blood Death Knight integration test: example log AlwaysBeCasting matche
             src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
           />
            
-          Downtime
+          shared.alwaysBeCasting.statistic.label
         </label>
         <div
           className="value"
@@ -336,19 +336,15 @@ exports[`Blood Death Knight integration test: example log Bloodworms matches the
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    category="TALENTS"
+    className="panel statistic flexible "
+    position={1002}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -363,12 +359,30 @@ exports[`Blood Death Knight integration test: example log Bloodworms matches the
             />
           </a>
            
-          Bloodworm Stats
+          <a
+            href="http://wowhead.com/spell=195679"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Bloodworms
+          </a>
         </label>
         <div
           className="value"
         >
-          14.01 % / 1,123 HPS
+          <img
+            alt="Healing"
+            className="icon"
+            src="/img/healing.png"
+          />
+           
+          1,123
+           HPS
+           
+          <small>
+            14.01
+            % of total
+          </small>
         </div>
       </div>
     </div>
@@ -553,12 +567,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
         }
       }
     >
-      <a
-        href="#Abilities"
-        id="Abilities"
-      >
-        Abilities
-      </a>
+      common.abilities
     </h1>
   </div>
   <div
@@ -1415,6 +1424,152 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
           <tr>
             <th>
               <b>
+                Cooldown
+              </b>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                shared.castEfficiency.cpm
+              </dfn>
+            </th>
+            <th
+              className="text-right"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                shared.castEfficiency.casts
+              </dfn>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                shared.castEfficiency.timeOnCooldown
+              </dfn>
+            </th>
+            <th />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                href="http://wowhead.com/spell=46585"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_pet_ghoul.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Raise Dead
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /2
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th>
+              <b>
                 Defensive Cooldown
               </b>
             </th>
@@ -1755,6 +1910,103 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
             >
               shared.castEfficiency.canBeImproved
             </td>
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                href="http://wowhead.com/spell=51052"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_antimagiczone.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Anti-Magic Zone
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /2
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
           </tr>
           <tr>
             <td
@@ -4078,19 +4330,15 @@ exports[`Blood Death Knight integration test: example log Hemostasis matches the
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    category="TALENTS"
+    className="panel statistic flexible "
+    position={1002}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -4105,12 +4353,22 @@ exports[`Blood Death Knight integration test: example log Hemostasis matches the
             />
           </a>
            
-          Death Strikes with Hemostasis
+          <a
+            href="http://wowhead.com/spell=273946"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Hemostasis
+          </a>
         </label>
         <div
           className="value"
         >
-          19 / 20
+          11.20
+           % 
+          <small>
+            average DS increase
+          </small>
         </div>
       </div>
     </div>
@@ -4372,13 +4630,40 @@ exports[`Blood Death Knight integration test: example log MitigationCheck matche
 </div>
 `;
 
-exports[`Blood Death Knight integration test: example log Ossuary matches the statistic snapshot 1`] = `
+exports[`Blood Death Knight integration test: example log PotionChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_alchemy_90_combat2_yellow",
+    "importance": "minor",
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            icon={true}
+            id={171275}
+          />,
+          <ItemLink
+            icon={true}
+            id={171275}
+          />,
+        ]
+      }
+      defaults="You used a weak potion. <0/> can be used instead of <1/> in order to get a slightly higher damage output."
+      id="shared.modules.items.potionChecker.suggestions.weakPotion"
+    />,
+    "stat": null,
+  },
+]
+`;
+
+exports[`Blood Death Knight integration test: example log RuneOfTheFallenCrusader matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
     className="panel statistic flexible "
-    position={3}
+    position={1002}
   >
     <div
       className="panel-body"
@@ -4388,34 +4673,32 @@ exports[`Blood Death Knight integration test: example log Ossuary matches the st
       >
         <label>
           <a
-            href="http://wowhead.com/spell=219788"
+            href="http://wowhead.com/spell=53344"
             rel="noopener noreferrer"
             target="_blank"
           >
             <img
-              alt="Ossuary"
+              alt="Rune of the Fallen Crusader"
               className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/ability_deathknight_brittlebones.jpg"
+              src="//render-us.worldofwarcraft.com/icons/56/spell_holy_retributionaura.jpg"
             />
           </a>
            
           <a
-            href="http://wowhead.com/spell=219788"
+            href="http://wowhead.com/spell=53344"
             rel="noopener noreferrer"
             target="_blank"
           >
-            Ossuary
+            Rune of the Fallen Crusader
           </a>
         </label>
         <div
           className="value"
         >
-          3
-           / 
-          20
-           
+          11.00
+           % 
           <small>
-            Death Strikes without Ossuary
+            average Strength
           </small>
         </div>
       </div>
@@ -4439,65 +4722,6 @@ exports[`Blood Death Knight integration test: example log Ossuary matches the st
     </div>
   </div>
 </div>
-`;
-
-exports[`Blood Death Knight integration test: example log Ossuary matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "ability_deathknight_brittlebones",
-    "importance": "regular",
-    "issue": "Your Ossuary usage can be improved. Avoid casting Death Strike while not having Ossuary up as you lose Runic Power by doing so.",
-    "stat": <React.Fragment>
-      85.00% Ossuary efficiency
-       (
-      100.00% is recommended
-      )
-    </React.Fragment>,
-  },
-]
-`;
-
-exports[`Blood Death Knight integration test: example log PrePotion matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "inv_alchemy_90_combat2_yellow",
-    "importance": "minor",
-    "issue": <React.Fragment>
-      You forgot to use a potion during combat. Using a potion during combat allows you the benefit of 
-      
-       increasing output through 
-      <ItemLink
-        icon={true}
-        id={171275}
-      />
-      
-      . 
-      
-    </React.Fragment>,
-    "stat": null,
-  },
-  Object {
-    "details": null,
-    "icon": "inv_alchemy_90_combat2_yellow",
-    "importance": "minor",
-    "issue": <React.Fragment>
-      You used a weak potion. 
-      <ItemLink
-        icon={true}
-        id={171275}
-      />
-       can be used instead of 
-      <ItemLink
-        icon={true}
-        id={171275}
-      />
-       in order to get a slightly higher damage output.
-    </React.Fragment>,
-    "stat": null,
-  },
-]
 `;
 
 exports[`Blood Death Knight integration test: example log RuneTracker matches the statistic snapshot 1`] = `
@@ -5065,19 +5289,15 @@ exports[`Blood Death Knight integration test: example log WillOfTheNecropolis ma
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    category="TALENTS"
+    className="panel statistic flexible "
+    position={1002}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -5103,7 +5323,19 @@ exports[`Blood Death Knight integration test: example log WillOfTheNecropolis ma
         <div
           className="value"
         >
-          1.32 % / 106 HPS
+          <img
+            alt="Healing"
+            className="icon"
+            src="/img/healing.png"
+          />
+           
+          106
+           HPS
+           
+          <small>
+            1.32
+            % of total
+          </small>
         </div>
       </div>
     </div>
@@ -5991,8 +6223,8 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "86.21994998218773%",
+                  "backgroundColor": "#4ec04e",
+                  "width": "100%",
                 }
               }
             />
@@ -6194,79 +6426,6 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                         "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
                         "width": "100%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                <a
-                  href="http://wowhead.com/spell=219788"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/ability_deathknight_brittlebones.jpg"
-                  />
-                   
-                  Ossuary
-                </a>
-                 Uptime
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  87.62%
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ffc84a",
-                        "transition": "background-color 800ms",
-                        "width": "58.65984994656319%",
                       }
                     }
                   />
@@ -6807,7 +6966,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                Used a pre-potion
+                Combat potions used
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6828,8 +6987,9 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  common.yes
+                  2
                    
+                  / 1
                    
                 </div>
               </div>
@@ -6850,7 +7010,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                       Object {
                         "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "200%",
                       }
                     }
                   />
@@ -6867,7 +7027,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                Used a second potion
+                High quality combat potions used
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6888,68 +7048,9 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  common.no
+                  0
                    
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                Used a high quality pre-potion
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  common.no
-                   
+                  / 1
                    
                 </div>
               </div>

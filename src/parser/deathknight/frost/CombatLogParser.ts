@@ -20,6 +20,10 @@ import RunicPowerTracker from './modules/runicpower/RunicPowerTracker';
 import GatheringStorm from './modules/talents/GatheringStorm';
 import Frostscythe from './modules/talents/Frostscythe';
 
+// Runes
+import RuneOfTheFallenCrusader from '../shared/runeforges/RuneOfTheFallenCrusader';
+import RuneOfHysteria from '../shared/runeforges/RuneOfHysteria';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
@@ -45,6 +49,10 @@ class CombatLogParser extends CoreCombatLogParser {
     //talents
     gatheringStorm: GatheringStorm,
     frostscythe: Frostscythe,
+
+    // Runes
+    runeOfTheFallenCrusader: RuneOfTheFallenCrusader,
+    runeOfHysteria: RuneOfHysteria
   };
 }
 

@@ -9,7 +9,21 @@ import { formatPercentage } from 'common/format';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
-import { SPLITTABLE_CASTS, SPLITTABLE_DAMAGE, SPLITTING_ICE_DAMAGE_BONUS, GLACIAL_SPIKE_DAMAGE_BONUS } from '../../constants';
+const SPLITTING_ICE_DAMAGE_BONUS = 0.05;
+const GLACIAL_SPIKE_DAMAGE_BONUS = 0.65;
+const SPLITTABLE_CASTS = [
+  SPELLS.FROSTBOLT,
+  SPELLS.ICE_LANCE,
+  SPELLS.GLACIAL_SPIKE_TALENT,
+  SPELLS.EBONBOLT_TALENT,
+];
+
+const SPLITTABLE_DAMAGE = [
+  SPELLS.ICE_LANCE_DAMAGE,
+  SPELLS.ICICLE_DAMAGE,
+  SPELLS.GLACIAL_SPIKE_DAMAGE,
+  SPELLS.EBONBOLT_DAMAGE,
+];
 
 const debug = false;
 
@@ -17,10 +31,8 @@ class SplittingIce extends Analyzer {
 
   hasGlacialSpike: boolean;
   hasEbonbolt: boolean;
-
   cleaveDamage = 0; // all damage to secondary target
   boostDamage = 0; // damage to primary target attributable to boost
-
   castTarget = ""; // player's last directly targeted foe, used to tell which hit was on primary target
 
   constructor(options: Options) {

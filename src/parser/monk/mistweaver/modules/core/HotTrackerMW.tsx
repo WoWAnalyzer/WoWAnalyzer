@@ -19,8 +19,9 @@ class HotTrackerMW extends HotTracker {
 
   constructor(options: Options){
     super(options);
-    this.mistwrapActive = this.selectedCombatant.hasTalent(SPELLS.MIST_WRAP_TALENT.id);
-    this.upwellingActive = this.selectedCombatant.hasTalent(SPELLS.UPWELLING_TALENT.id);
+    const selectedCombatant = options.owner.selectedCombatant;
+    this.mistwrapActive = selectedCombatant.hasTalent(SPELLS.MIST_WRAP_TALENT.id);
+    this.upwellingActive = selectedCombatant.hasTalent(SPELLS.UPWELLING_TALENT.id);
   }
 
   calculateMaxDuration(event: ApplyBuffEvent & {selectedCombatant: Combatant}){

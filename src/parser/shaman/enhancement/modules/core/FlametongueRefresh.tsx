@@ -18,8 +18,6 @@ class FlametongueRefresh extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = !this.selectedCombatant.hasTalent(SPELLS.SEARING_ASSAULT_TALENT.id);
-
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER)
         .spell(SPELLS.FLAMETONGUE),

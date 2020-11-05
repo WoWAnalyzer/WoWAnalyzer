@@ -10,11 +10,9 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent, DamageEvent, ChangeBuffStackEvent } from 'parser/core/Events';
+import { MS_BUFFER_100, SHATTER_DEBUFFS } from 'parser/mage/shared/constants';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
-
-import { SHATTER_DEBUFFS } from '../../constants';
-import { CAST_BUFFER } from '../../constants';
 
 class IceLance extends Analyzer {
   static dependencies = {
@@ -67,7 +65,7 @@ class IceLance extends Analyzer {
     const stackChange = event.stacksGained;
     if (stackChange > 0) {
       this.totalFingersProcs += stackChange;
-    } else if (this.iceLanceCastTimestamp && this.iceLanceCastTimestamp + CAST_BUFFER > event.timestamp) {
+    } else if (this.iceLanceCastTimestamp && this.iceLanceCastTimestamp + MS_BUFFER_100 > event.timestamp) {
       // just cast ice lance, so this stack removal probably a proc used
     } else if (event.newStacks === 0) {
       this.expiredFingersProcs += (-stackChange); // stacks zero out, must be expiration

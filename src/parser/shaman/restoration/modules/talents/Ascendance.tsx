@@ -23,8 +23,7 @@ class Ascendance extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ASCENDANCE_TALENT_RESTORATION.id);
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ASCENDANCE_HEAL), this._onHeal);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ASCENDANCE_INITIAL_HEAL), this._onHeal);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.ASCENDANCE_HEAL, SPELLS.ASCENDANCE_INITIAL_HEAL]), this._onHeal);
   }
 
   _onHeal(event: HealEvent) {

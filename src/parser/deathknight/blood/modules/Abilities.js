@@ -225,6 +225,19 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.RAISE_DEAD_BLOOD_FROST,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 120,
+      },
+      {
+        spell: SPELLS.ANTI_MAGIC_ZONE,
+        buffSpellId: SPELLS.ANTI_MAGIC_ZONE_BUFF.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 120,
+        gcd: null,
+        isDefensive: true,
+      },
+      {
         spell: SPELLS.MARK_OF_BLOOD_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.MARK_OF_BLOOD_TALENT),

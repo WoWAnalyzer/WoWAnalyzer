@@ -437,7 +437,7 @@ class CastEfficiency extends Analyzer {
   }
   statistic() {
     return (
-      <Panel title="Abilities" position={500} pad={false}>
+      <Panel title={<Trans id="common.abilities">Abilities</Trans>} position={500} pad={false}>
         <CastEfficiencyComponent
           categories={
             (this.abilities.constructor as typeof Abilities).SPELL_CATEGORIES

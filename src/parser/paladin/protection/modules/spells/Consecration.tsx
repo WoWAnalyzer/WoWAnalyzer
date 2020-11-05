@@ -7,10 +7,18 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { When, ThresholdStyle, NumberThreshold } from 'parser/core/ParseResults';
 import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
+import { shouldIgnore } from 'parser/shared/modules/hit-tracking/utilities';
+import Enemies from 'parser/shared/modules/Enemies';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class Consecration extends Analyzer {
+  static dependencies = {
+    enemies: Enemies,
+  };
+
+  protected enemies!: Enemies;
+
   _hitsTaken: number = 0;
   _hitsMitigated: number = 0;
 
@@ -20,6 +28,10 @@ class Consecration extends Analyzer {
   }
 
   onPlayerDamage(event: DamageEvent) {
+    if(shouldIgnore(this.enemies, event)) {
+      return;
+    }
+
     this._hitsTaken += 1;
     if(this.selectedCombatant.hasBuff(SPELLS.CONSECRATION_BUFF.id)) {
       this._hitsMitigated += 1;

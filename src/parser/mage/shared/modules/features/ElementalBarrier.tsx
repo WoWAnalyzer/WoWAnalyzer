@@ -18,7 +18,7 @@ class ElementalBarrier extends Analyzer {
   protected abilityTracker!: AbilityTracker;
   protected damageTaken!: DamageTaken;
   
-  damageAbsorbed: number = 0;
+  damageAbsorbed = 0;
   barrierSpell: {
     id: number,
     name: string,

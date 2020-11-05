@@ -25,8 +25,8 @@ class HitCountAoE extends Analyzer {
 
   constructor(options){
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.constructor.spell.id), this.onCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(this.constructor.spell.id), this.onDamage);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.constructor.spell), this.onCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(this.constructor.spell), this.onDamage);
     this.addEventListener(Events.fightend, this.onFightend);
   }
 
