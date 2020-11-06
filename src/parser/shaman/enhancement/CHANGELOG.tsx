@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 11, 5), <>Added <SpellLink id={SPELLS.FLAME_SHOCK.id} /> statistics</>, [Mae]),
   change(date(2020, 11, 3), <>Added <SpellLink id={SPELLS.SUNDERING_TALENT.id} /> to offensive cooldowns checklist.</>, [Mae]),
   change(date(2020, 10, 12), <>Added Maelstrom Weapon stats for <SpellLink id={SPELLS.FERAL_SPIRIT.id} />.</>, [Vonn]),
   change(date(2020, 10, 12), <>Updated statistics for <SpellLink id={SPELLS.FORCEFUL_WINDS_TALENT.id} />.</>, [Vonn]),
