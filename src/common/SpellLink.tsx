@@ -31,6 +31,7 @@ const SpellLink = React.forwardRef<HTMLAnchorElement, Props>(({
       target="_blank"
       rel="noopener noreferrer"
       ref={ref}
+      className='spell-link-text'
       {...other}
     >
       {icon && <><SpellIcon id={id} noLink style={iconStyle} alt="" /> </>}

@@ -1,4 +1,6 @@
-export default {
+import { SpellList } from 'common/SPELLS/Spell';
+
+const soulbindSpells: SpellList = {
   //region Pelagos
   COMBAT_MEDITATION_TRIGGER: {
     id: 328917,
@@ -16,4 +18,6 @@ export default {
     name: 'Bron\'s Call to Action',
     icon: 'ui_sigil_kyrian',
   },
-}
+
+};
+export default soulbindSpells;

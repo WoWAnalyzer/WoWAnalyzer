@@ -113,6 +113,7 @@ exports[`Arcane Mage integration test: example log ArcanePower matches the stati
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=205022"
             rel="noopener noreferrer"
             target="_blank"
@@ -125,6 +126,7 @@ exports[`Arcane Mage integration test: example log ArcanePower matches the stati
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=205022"
             rel="noopener noreferrer"
             target="_blank"
@@ -136,6 +138,7 @@ exports[`Arcane Mage integration test: example log ArcanePower matches the stati
           className="value"
         >
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=12042"
             rel="noopener noreferrer"
             target="_blank"
@@ -160,6 +163,7 @@ exports[`Arcane Mage integration test: example log ArcanePower matches the stati
           </small>
           <br />
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=30451"
             rel="noopener noreferrer"
             target="_blank"
@@ -413,6 +417,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=30451"
                 rel="noopener noreferrer"
                 style={
@@ -498,6 +503,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=116"
                 rel="noopener noreferrer"
                 style={
@@ -583,6 +589,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=108853"
                 rel="noopener noreferrer"
                 style={
@@ -680,6 +687,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=5143"
                 rel="noopener noreferrer"
                 style={
@@ -765,6 +773,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=44425"
                 rel="noopener noreferrer"
                 style={
@@ -850,6 +859,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=1449"
                 rel="noopener noreferrer"
                 style={
@@ -984,6 +994,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=313148"
                 rel="noopener noreferrer"
                 style={
@@ -1130,6 +1141,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=80353"
                 rel="noopener noreferrer"
                 style={
@@ -1227,6 +1239,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=12042"
                 rel="noopener noreferrer"
                 style={
@@ -1326,6 +1339,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=12051"
                 rel="noopener noreferrer"
                 style={
@@ -1425,6 +1439,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=205025"
                 rel="noopener noreferrer"
                 style={
@@ -1571,6 +1586,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=235450"
                 rel="noopener noreferrer"
                 style={
@@ -1668,6 +1684,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=45438"
                 rel="noopener noreferrer"
                 style={
@@ -1765,6 +1782,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=55342"
                 rel="noopener noreferrer"
                 style={
@@ -1911,6 +1929,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=1459"
                 rel="noopener noreferrer"
                 style={
@@ -1996,6 +2015,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=122"
                 rel="noopener noreferrer"
                 style={
@@ -2093,6 +2113,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=31589"
                 rel="noopener noreferrer"
                 style={
@@ -2178,6 +2199,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=212653"
                 rel="noopener noreferrer"
                 style={
@@ -2275,6 +2297,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=2139"
                 rel="noopener noreferrer"
                 style={
@@ -2372,6 +2395,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=475"
                 rel="noopener noreferrer"
                 style={
@@ -2469,6 +2493,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=130"
                 rel="noopener noreferrer"
                 style={
@@ -2554,6 +2579,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=30449"
                 rel="noopener noreferrer"
                 style={
@@ -2639,6 +2665,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=321358"
                 rel="noopener noreferrer"
                 style={
@@ -2724,6 +2751,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=342247"
                 rel="noopener noreferrer"
                 style={
@@ -2809,6 +2837,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=110959"
                 rel="noopener noreferrer"
                 style={
@@ -2906,6 +2935,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=118"
                 rel="noopener noreferrer"
                 style={
@@ -3040,6 +3070,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171267"
                 rel="noopener noreferrer"
                 style={
@@ -3137,6 +3168,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171273"
                 rel="noopener noreferrer"
                 style={
@@ -3423,6 +3455,7 @@ exports[`Arcane Mage integration test: example log ElementalBarrier matches the 
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=235450"
             rel="noopener noreferrer"
             target="_blank"
@@ -3435,6 +3468,7 @@ exports[`Arcane Mage integration test: example log ElementalBarrier matches the 
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=235450"
             rel="noopener noreferrer"
             target="_blank"
@@ -3503,6 +3537,7 @@ exports[`Arcane Mage integration test: example log ElementalWhirl matches the st
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=263984"
             rel="noopener noreferrer"
             target="_blank"
@@ -3515,6 +3550,7 @@ exports[`Arcane Mage integration test: example log ElementalWhirl matches the st
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=263984"
             rel="noopener noreferrer"
             target="_blank"
@@ -3914,7 +3950,7 @@ exports[`Arcane Mage integration test: example log ForbiddenObsidianClaw matches
       >
         <label>
           <a
-            className="epic"
+            className="epicitem-link-text"
             href="http://wowhead.com/item=173944&bonus=4823:6513:1502:4786"
             rel="noopener noreferrer"
             target="_blank"
@@ -4001,6 +4037,7 @@ exports[`Arcane Mage integration test: example log Gemhide matches the statistic
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=268596"
             rel="noopener noreferrer"
             target="_blank"
@@ -4013,6 +4050,7 @@ exports[`Arcane Mage integration test: example log Gemhide matches the statistic
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=268596"
             rel="noopener noreferrer"
             target="_blank"
@@ -4096,6 +4134,7 @@ exports[`Arcane Mage integration test: example log MirrorImage matches the stati
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=55342"
             rel="noopener noreferrer"
             target="_blank"
@@ -4108,6 +4147,7 @@ exports[`Arcane Mage integration test: example log MirrorImage matches the stati
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=55342"
             rel="noopener noreferrer"
             target="_blank"
@@ -4279,6 +4319,7 @@ exports[`Arcane Mage integration test: example log TheCrucibleofFlame matches th
         >
           <label>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=299348"
               rel="noopener noreferrer"
               target="_blank"
@@ -4722,6 +4763,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=12042"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -4794,6 +4836,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=12051"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -4945,6 +4988,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
           >
             Using 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=12042"
               rel="noopener noreferrer"
               target="_blank"
@@ -5628,6 +5672,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
           >
             You should ensure that you maintain 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=1459"
               rel="noopener noreferrer"
               target="_blank"
@@ -5642,6 +5687,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
             </a>
              for the entire fight and recast it whenever you are ressurected and likewise, if you have the appropriate classes/specs in your group you should also ensure that you maintain their buffs as possible. Additionally, you should also maintain other buffs such as 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=205022"
               rel="noopener noreferrer"
               target="_blank"
@@ -5809,6 +5855,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
           >
             The biggest aspect of playing Arcane properly is managing your mana effectively. Essentially your mana dictates how much damage you can do and therefore needs to be managed properly. Things such as running out of mana during 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=12042"
               rel="noopener noreferrer"
               target="_blank"

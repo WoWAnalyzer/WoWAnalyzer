@@ -267,6 +267,7 @@ exports[`Holy Paladin integration test: example log ArchiveOfTheTitans matches t
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=280555"
             rel="noopener noreferrer"
             target="_blank"
@@ -279,6 +280,7 @@ exports[`Holy Paladin integration test: example log ArchiveOfTheTitans matches t
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=280555"
             rel="noopener noreferrer"
             target="_blank"
@@ -311,6 +313,7 @@ exports[`Holy Paladin integration test: example log ArchiveOfTheTitans matches t
           <small>
             Enabled the 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=280573"
               rel="noopener noreferrer"
               target="_blank"
@@ -352,6 +355,7 @@ exports[`Holy Paladin integration test: example log AvengingCrusader matches the
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=216331"
             rel="noopener noreferrer"
             target="_blank"
@@ -364,6 +368,7 @@ exports[`Holy Paladin integration test: example log AvengingCrusader matches the
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=216331"
             rel="noopener noreferrer"
             target="_blank"
@@ -536,6 +541,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
             }
           >
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=19750"
               rel="noopener noreferrer"
               target="_blank"
@@ -616,6 +622,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
             }
           >
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=25914"
               rel="noopener noreferrer"
               target="_blank"
@@ -696,6 +703,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
             }
           >
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=216371"
               rel="noopener noreferrer"
               target="_blank"
@@ -776,6 +784,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
             }
           >
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=281465"
               rel="noopener noreferrer"
               target="_blank"
@@ -856,6 +865,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
             }
           >
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=225311"
               rel="noopener noreferrer"
               target="_blank"
@@ -936,6 +946,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
             }
           >
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=278785"
               rel="noopener noreferrer"
               target="_blank"
@@ -1016,6 +1027,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
             }
           >
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=82326"
               rel="noopener noreferrer"
               target="_blank"
@@ -1096,6 +1108,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
             }
           >
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=223306"
               rel="noopener noreferrer"
               target="_blank"
@@ -1176,6 +1189,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
             }
           >
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=278147"
               rel="noopener noreferrer"
               target="_blank"
@@ -1288,6 +1302,7 @@ exports[`Holy Paladin integration test: example log BeaconUptime matches the sta
             className="flex-sub icon"
           >
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=53563"
               rel="noopener noreferrer"
               target="_blank"
@@ -1326,6 +1341,7 @@ exports[`Holy Paladin integration test: example log BeaconUptime matches the sta
             className="flex-sub icon"
           >
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=156910"
               rel="noopener noreferrer"
               target="_blank"
@@ -1378,6 +1394,7 @@ exports[`Holy Paladin integration test: example log CastBehavior matches the sta
         >
           <label>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=54149"
               rel="noopener noreferrer"
               target="_blank"
@@ -1417,6 +1434,7 @@ exports[`Holy Paladin integration test: example log CastBehavior matches the sta
                   className="flex-main"
                 >
                   <a
+                    className="spell-link-text"
                     href="http://wowhead.com/spell=19750"
                     rel="noopener noreferrer"
                     target="_blank"
@@ -1464,6 +1482,7 @@ exports[`Holy Paladin integration test: example log CastBehavior matches the sta
                   className="flex-main"
                 >
                   <a
+                    className="spell-link-text"
                     href="http://wowhead.com/spell=82326"
                     rel="noopener noreferrer"
                     target="_blank"
@@ -1586,6 +1605,7 @@ exports[`Holy Paladin integration test: example log CastBehavior matches the sta
                   className="flex-main"
                 >
                   <a
+                    className="spell-link-text"
                     href="http://wowhead.com/spell=19750"
                     rel="noopener noreferrer"
                     target="_blank"
@@ -1633,6 +1653,7 @@ exports[`Holy Paladin integration test: example log CastBehavior matches the sta
                   className="flex-main"
                 >
                   <a
+                    className="spell-link-text"
                     href="http://wowhead.com/spell=82326"
                     rel="noopener noreferrer"
                     target="_blank"
@@ -1680,6 +1701,7 @@ exports[`Holy Paladin integration test: example log CastBehavior matches the sta
                   className="flex-main"
                 >
                   <a
+                    className="spell-link-text"
                     href="http://wowhead.com/spell=183998"
                     rel="noopener noreferrer"
                     target="_blank"
@@ -1816,6 +1838,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=20473"
                 rel="noopener noreferrer"
                 style={
@@ -1915,6 +1938,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=85222"
                 rel="noopener noreferrer"
                 style={
@@ -2000,6 +2024,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=275773"
                 rel="noopener noreferrer"
                 style={
@@ -2099,6 +2124,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=223306"
                 rel="noopener noreferrer"
                 style={
@@ -2198,6 +2224,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=85673"
                 rel="noopener noreferrer"
                 style={
@@ -2283,6 +2310,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=24275"
                 rel="noopener noreferrer"
                 style={
@@ -2431,6 +2459,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=266018"
                 rel="noopener noreferrer"
                 style={
@@ -2579,6 +2608,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=214202"
                 rel="noopener noreferrer"
                 style={
@@ -2676,6 +2706,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=498"
                 rel="noopener noreferrer"
                 style={
@@ -2775,6 +2806,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=642"
                 rel="noopener noreferrer"
                 style={
@@ -2872,6 +2904,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=216331"
                 rel="noopener noreferrer"
                 style={
@@ -2971,6 +3004,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=31821"
                 rel="noopener noreferrer"
                 style={
@@ -3068,6 +3102,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=6940"
                 rel="noopener noreferrer"
                 style={
@@ -3165,6 +3200,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=633"
                 rel="noopener noreferrer"
                 style={
@@ -3311,6 +3347,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=183998"
                 rel="noopener noreferrer"
                 style={
@@ -3396,6 +3433,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=19750"
                 rel="noopener noreferrer"
                 style={
@@ -3481,6 +3519,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=19750"
                 rel="noopener noreferrer"
                 style={
@@ -3566,6 +3605,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=82326"
                 rel="noopener noreferrer"
                 style={
@@ -3651,6 +3691,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=82326"
                 rel="noopener noreferrer"
                 style={
@@ -3785,6 +3826,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=190784"
                 rel="noopener noreferrer"
                 style={
@@ -3882,6 +3924,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=4987"
                 rel="noopener noreferrer"
                 style={
@@ -3979,6 +4022,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=1044"
                 rel="noopener noreferrer"
                 style={
@@ -4076,6 +4120,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=1022"
                 rel="noopener noreferrer"
                 style={
@@ -4173,6 +4218,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=156910"
                 rel="noopener noreferrer"
                 style={
@@ -4258,6 +4304,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=853"
                 rel="noopener noreferrer"
                 style={
@@ -4355,6 +4402,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=62124"
                 rel="noopener noreferrer"
                 style={
@@ -4501,6 +4549,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=35395"
                 rel="noopener noreferrer"
                 style={
@@ -4598,6 +4647,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=26573"
                 rel="noopener noreferrer"
                 style={
@@ -4744,6 +4794,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=6262"
                 rel="noopener noreferrer"
                 style={
@@ -4841,6 +4892,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171267"
                 rel="noopener noreferrer"
                 style={
@@ -4938,6 +4990,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171273"
                 rel="noopener noreferrer"
                 style={
@@ -5365,7 +5418,7 @@ exports[`Holy Paladin integration test: example log ConchofDarkWhispers matches 
       >
         <label>
           <a
-            className="unknown"
+            className="unknownitem-link-text"
             href="http://wowhead.com/item=159620"
             rel="noopener noreferrer"
             target="_blank"
@@ -5379,7 +5432,7 @@ exports[`Holy Paladin integration test: example log ConchofDarkWhispers matches 
           </a>
            
           <a
-            className="unknown"
+            className="unknownitem-link-text"
             href="http://wowhead.com/item=159620"
             rel="noopener noreferrer"
             target="_blank"
@@ -5458,6 +5511,7 @@ exports[`Holy Paladin integration test: example log DevotionAuraDamageReduction 
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=465"
             rel="noopener noreferrer"
             target="_blank"
@@ -5569,6 +5623,7 @@ exports[`Holy Paladin integration test: example log DirectBeaconHealing matches 
           </svg>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=53563"
             rel="noopener noreferrer"
             target="_blank"
@@ -6019,6 +6074,7 @@ exports[`Holy Paladin integration test: example log FailedBeaconTransfers matche
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=53563"
             rel="noopener noreferrer"
             target="_blank"
@@ -6309,6 +6365,7 @@ exports[`Holy Paladin integration test: example log GraceOfTheJusticar matches t
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=278785"
             rel="noopener noreferrer"
             target="_blank"
@@ -6321,6 +6378,7 @@ exports[`Holy Paladin integration test: example log GraceOfTheJusticar matches t
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=278785"
             rel="noopener noreferrer"
             target="_blank"
@@ -6538,6 +6596,7 @@ exports[`Holy Paladin integration test: example log JudgmentOfLight matches the 
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=183778"
             rel="noopener noreferrer"
             target="_blank"
@@ -6580,6 +6639,7 @@ exports[`Holy Paladin integration test: example log LightOfDawn matches the stat
           className="flex-sub icon"
         >
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=85222"
             rel="noopener noreferrer"
             target="_blank"
@@ -8510,6 +8570,7 @@ exports[`Holy Paladin integration test: example log RadiantIncandescence matches
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=278147"
             rel="noopener noreferrer"
             target="_blank"
@@ -8522,6 +8583,7 @@ exports[`Holy Paladin integration test: example log RadiantIncandescence matches
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=278147"
             rel="noopener noreferrer"
             target="_blank"
@@ -8589,7 +8651,7 @@ exports[`Holy Paladin integration test: example log RevitalizingVoodooTotem matc
       >
         <label>
           <a
-            className="unknown"
+            className="unknownitem-link-text"
             href="http://wowhead.com/item=158320"
             rel="noopener noreferrer"
             target="_blank"
@@ -8603,7 +8665,7 @@ exports[`Holy Paladin integration test: example log RevitalizingVoodooTotem matc
           </a>
            
           <a
-            className="unknown"
+            className="unknownitem-link-text"
             href="http://wowhead.com/item=158320"
             rel="noopener noreferrer"
             target="_blank"
@@ -8654,6 +8716,7 @@ exports[`Holy Paladin integration test: example log RuleOfLaw matches the statis
           className="flex-sub icon"
         >
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=214202"
             rel="noopener noreferrer"
             target="_blank"
@@ -9111,6 +9174,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
             className="col-md-12"
           >
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=20473"
               rel="noopener noreferrer"
               target="_blank"
@@ -9149,6 +9213,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=20473"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -9221,6 +9286,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=24275"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -9293,6 +9359,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=20271"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -9365,6 +9432,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=223306"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -9438,6 +9506,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               >
                 Total filler 
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=19750"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -9459,6 +9528,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                   <a
+                    className="spell-link-text"
                     href="http://wowhead.com/spell=20473"
                     rel="noopener noreferrer"
                     target="_blank"
@@ -9633,6 +9703,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=216331"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -9705,6 +9776,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=31821"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -9786,6 +9858,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
         >
           Only use 
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=183998"
             onClick={[Function]}
             rel="noopener noreferrer"
@@ -9870,6 +9943,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
             className="col-md-12"
           >
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=183998"
               rel="noopener noreferrer"
               target="_blank"
@@ -9884,6 +9958,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
             </a>
              is an inefficient spell to cast compared to the alternatives. Try to only cast 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=183998"
               rel="noopener noreferrer"
               target="_blank"
@@ -9973,6 +10048,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               >
                 Total filler casts while 
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=20473"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -10208,6 +10284,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
         >
           Position yourself well to maximize 
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=183997"
             onClick={[Function]}
             rel="noopener noreferrer"
@@ -10291,6 +10368,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
             className="col-md-12"
           >
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=183997"
               rel="noopener noreferrer"
               target="_blank"
@@ -10305,6 +10383,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
             </a>
              has a big impact on the strength of your heals. Try to stay close to the people you are healing to benefit the most from your Mastery. Use 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=214202"
               rel="noopener noreferrer"
               target="_blank"
@@ -10876,6 +10955,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=25914"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -10948,6 +11028,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=225311"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -11020,6 +11101,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=19750"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -11092,6 +11174,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=223306"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -11257,6 +11340,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=53563"
                   onClick={[Function]}
                   rel="noopener noreferrer"
@@ -11331,6 +11415,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=53563"
                   onClick={[Function]}
                   rel="noopener noreferrer"
@@ -11405,6 +11490,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=156910"
                   onClick={[Function]}
                   rel="noopener noreferrer"
@@ -11479,6 +11565,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=156910"
                   onClick={[Function]}
                   rel="noopener noreferrer"
@@ -12223,6 +12310,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=214202"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -12295,6 +12383,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=190784"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -12367,6 +12456,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=498"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -12439,6 +12529,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=6940"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -12511,6 +12602,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=633"
                   rel="noopener noreferrer"
                   target="_blank"
