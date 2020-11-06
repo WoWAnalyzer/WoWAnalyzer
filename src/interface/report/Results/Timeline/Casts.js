@@ -201,7 +201,7 @@ class Casts extends React.PureComponent {
       <Tooltip
         key={`channel-${left}-${event.ability.guid}`}
         content={(
-          <Trans>
+          <Trans id="interface.report.results.timeline.casts.tooltip.xSecChannelByAbility">
             {formatDuration(fightDuration, 3)}: {(event.duration / 1000).toFixed(2)}s channel by {event.ability.name}
           </Trans>
         )}
@@ -225,7 +225,7 @@ class Casts extends React.PureComponent {
       <Tooltip
         key={`gcd-${left}-${event.ability.guid}`}
         content={(
-          <Trans>
+          <Trans id="interface.report.results.timeline.casts.tooltip.xSecGCDByAbility">
             {formatDuration(fightDuration, 3)}: {(event.duration / 1000).toFixed(2)}s Global Cooldown by {event.ability.name}
           </Trans>
         )}
