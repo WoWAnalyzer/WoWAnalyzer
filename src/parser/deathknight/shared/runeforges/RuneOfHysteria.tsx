@@ -67,8 +67,16 @@ class RuneOfHysteria extends Analyzer {
     return this.runicPowerWastedDuringHysteria / this.runicPowerGainedByHysteria
   }
 
-  get gainedDeathStrikes() {
+  get potentiallyGainedDeathStrikes() {
     return Math.floor(this.potentialRunicPowerGainedByHysteria / DEATH_STRIKE_COST)
+  }
+
+  get gainedDeathStrikes() {
+    return Math.floor(this.runicPowerGainedByHysteria / DEATH_STRIKE_COST)
+  }
+
+  get wastedDeathStrikes() {
+    return this.potentiallyGainedDeathStrikes - this.gainedDeathStrikes
   }
 
   get efficiencySuggestionThresholds() {
@@ -98,9 +106,9 @@ class RuneOfHysteria extends Analyzer {
         size="flexible"
         tooltip={(
           <>
-            You gained {Math.floor(this.runicPowerGainedByHysteria)} RP by using {SPELLS.RUNE_OF_HYSTERIA.name}, resulting in {this.gainedDeathStrikes} additional Death Strikes.<br />
+            You gained {Math.floor(this.runicPowerGainedByHysteria)} RP by using {SPELLS.RUNE_OF_HYSTERIA.name}, resulting in {this.gainedDeathStrikes} additional {SPELLS.DEATH_STRIKE.name}.<br />
             {this.runicPowerWastedDuringHysteria > 1 && <>
-              You wasted {this.runicPowerWastedDuringHysteria} RP ({formatPercentage(this.wastedPercentage)} %) from Hysteria by being RP capped.
+              You wasted {this.runicPowerWastedDuringHysteria} RP ({formatPercentage(this.wastedPercentage)} %) from Hysteria by being RP capped, losing out on {this.wastedDeathStrikes} {SPELLS.DEATH_STRIKE.name}.
             </>}
           </>
         )}
