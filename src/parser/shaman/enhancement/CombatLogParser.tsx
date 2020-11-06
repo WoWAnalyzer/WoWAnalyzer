@@ -30,6 +30,7 @@ import IceStrike from './modules/talents/IceStrike';
 import FireNova from './modules/talents/FireNova';
 import ElementalAssault from './modules/talents/ElementalAssault';
 import FeralSpirit from './modules/core/FeralSpirit';
+import FlameShock from '../shared/spells/FlameShock';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -53,6 +54,7 @@ class CombatLogParser extends CoreCombatLogParser {
     buffs: Buffs,
     checklist: Checklist,
     cooldownThroughputTracker: CooldownThroughputTracker,
+    flameShock: FlameShock,
 
     // Talents
     lashingFlames: LashingFlames,
