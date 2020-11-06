@@ -4,21 +4,35 @@ import SpellLink from 'common/SpellLink';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
-function suggest(when, tracker, suggestion) {
+import Spell from 'common/SPELLS/Spell';
+
+import { When } from 'parser/core/ParseResults';
+
+import ResourceTracker from './ResourceTracker';
+
+interface Suggestion {
+  spell: Spell | any;
+  minor: number;
+  avg: number;
+  major: number;
+  extraSuggestion?: string | JSX.Element;
+}
+
+function suggest(when: When, tracker: ResourceTracker, suggestion: Suggestion) {
   let tracked = { generated: 0, wasted: 0, casts: 0 };
   //If an array of spells is passed, we manipulate the data to aggregate all the generated and wasted resources as well as the individual focus instances into 1 spell so that it can be displayed.
   if (Array.isArray(suggestion.spell)) {
-    let newSuggestionSpell = { id: null };
-    for (let i = 0; i < suggestion.spell.length; i += 1) {
-      if (!tracker.buildersObj[suggestion.spell[i].id]) {
+    let newSuggestionSpell: Spell = { id: -1, name: "", icon: "" };
+    for (const spell of suggestion.spell) {
+      if (!tracker.buildersObj[spell.id]) {
         continue;
       }
-      if (newSuggestionSpell.id === null) {
-        newSuggestionSpell = suggestion.spell[i];
+      if (newSuggestionSpell.id === -1) {
+        newSuggestionSpell = spell;
       }
-      tracked.generated += tracker.buildersObj[suggestion.spell[i].id].generated;
-      tracked.wasted += tracker.buildersObj[suggestion.spell[i].id].wasted;
-      tracked.casts += tracker.buildersObj[suggestion.spell[i].id].casts;
+      tracked.generated += tracker.buildersObj[spell.id].generated;
+      tracked.wasted += tracker.buildersObj[spell.id].wasted;
+      tracked.casts += tracker.buildersObj[spell.id].casts;
     }
     suggestion.spell = newSuggestionSpell;
   } else {

@@ -631,7 +631,7 @@ export interface BasePhaseEvent<T extends string> extends Event<T> {
 }
 export interface SpendResourceEvent extends Event<EventType.SpendResource>{
   sourceID: number;
-  targetID: number;
+  targetID?: number;
   resourceChange: number;
   resourceChangeType: number;
   ability: Ability;

@@ -1,32 +1,35 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
 
-class ResourceBreakdown extends React.Component {
-  static propTypes = {
-    tracker: PropTypes.object.isRequired,
-    showSpenders: PropTypes.bool,
-  };
+import ResourceTracker, { BuilderObj, SpenderObj } from './ResourceTracker';
 
-  prepareGenerated(buildersObj) {
+interface Props {
+  tracker: ResourceTracker,
+  showSpenders: boolean,
+}
+
+class ResourceBreakdown extends React.Component<Props> {
+
+  prepareGenerated(buildersObj: {[index: number]: BuilderObj}) {
     return Object.keys(buildersObj)
       .map(abilityId => ({
         abilityId: Number(abilityId),
-        generated: buildersObj[abilityId].generated,
-        wasted: buildersObj[abilityId].wasted,
+        generated: buildersObj[Number(abilityId)].generated,
+        wasted: buildersObj[Number(abilityId)].wasted,
       }))
       .sort((a, b) => b.generated - a.generated)
       .filter(ability => ability.generated > 0 || ability.wasted);
   }
-  prepareSpent(spendersObj) {
+
+  prepareSpent(spendersObj: {[index: number]: SpenderObj}) {
     return Object.keys(spendersObj)
       .map(abilityId => ({
         abilityId: Number(abilityId),
-        spent: spendersObj[abilityId].spent,
-        casts: spendersObj[abilityId].casts,
+        spent: spendersObj[Number(abilityId)].spent,
+        casts: spendersObj[Number(abilityId)].casts,
       }))
       .sort((a, b) => b.spent - a.spent)
       .filter(ability => ability.spent > 0);
@@ -58,8 +61,8 @@ class ResourceBreakdown extends React.Component {
           <thead>
             <tr>
               <th>Ability</th>
-              <th colSpan="2">{resourceName} generated</th>
-              <th colSpan="2"><TooltipElement content="This is the amount of resources that were generated while you were already at cap.">{resourceName} wasted</TooltipElement></th>
+              <th colSpan={2}>{resourceName} generated</th>
+              <th colSpan={2}><TooltipElement content="This is the amount of resources that were generated while you were already at cap.">{resourceName} wasted</TooltipElement></th>
             </tr>
           </thead>
           <tbody>
@@ -96,8 +99,8 @@ class ResourceBreakdown extends React.Component {
             <thead>
               <tr>
                 <th>Ability</th>
-                <th colSpan="2">{resourceName} spent</th>
-                <th colSpan="2">Casts</th>
+                <th colSpan={2}>{resourceName} spent</th>
+                <th colSpan={2}>Casts</th>
               </tr>
             </thead>
             <tbody>
