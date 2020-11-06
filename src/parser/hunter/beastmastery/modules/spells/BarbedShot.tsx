@@ -113,7 +113,7 @@ class BarbedShot extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.frenzyUptimeThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>Your pet has a general low uptime of the buff from <SpellLink id={SPELLS.BARBED_SHOT.id} />, you should never be sitting on 2 stacks of this spell, if you've chosen this talent, it's your most important spell to continously be casting. </>)
+    when(this.frenzyUptimeThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>Your pet has a general low uptime of the buff from <SpellLink id={SPELLS.BARBED_SHOT.id} />, you should never be sitting on 2 stacks of this spell. </>)
       .icon(SPELLS.BARBED_SHOT.icon)
       .actual(i18n._(t('hunter.beastmastery.suggestions.barbedShot.petBuff.uptime')`Your pet had the buff from Barbed Shot for ${formatPercentage(actual)}% of the fight`))
       .recommended(`${formatPercentage(recommended)}% is recommended`));

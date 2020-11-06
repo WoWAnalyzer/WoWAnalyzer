@@ -82,7 +82,7 @@ import PowerfulPrecision from './modules/spells/conduits/PowerfulPrecision';
 import SharpshootersFocus from './modules/spells/conduits/SharpshootersFocus';
 
 //Legendaries
-import NessingwarysTrappingApparatus from '../shared/modules/items/NessingwarysTrappingApparatus';
+import NesingwarysTrappingApparatus from 'parser/hunter/shared/modules/items/NesingwarysTrappingApparatus';
 import SoulforgeEmbers from '../shared/modules/items/SoulforgeEmbers';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -164,7 +164,7 @@ class CombatLogParser extends CoreCombatLogParser {
     sharpshootersFocus: SharpshootersFocus,
 
     //Legendaries
-    nessingwarysTrappingApparatus: NessingwarysTrappingApparatus,
+    nesingwarysTrappingApparatus: NesingwarysTrappingApparatus,
     soulforgeEmbers: SoulforgeEmbers,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown

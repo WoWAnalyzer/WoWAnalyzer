@@ -14,7 +14,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
  * https://www.warcraftlogs.com/reports/ayK6THQGAB4Y8h9N#fight=15&type=damage-done&source=1415&translate=true&ability=272745
  */
 
-class WildfireCluster extends Analyzer {
+class WildfireClusterAzerite extends Analyzer {
 
   damage = 0;
 
@@ -44,4 +44,4 @@ class WildfireCluster extends Analyzer {
   }
 }
 
-export default WildfireCluster;
+export default WildfireClusterAzerite;
