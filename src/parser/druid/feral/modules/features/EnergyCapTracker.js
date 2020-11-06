@@ -1,11 +1,12 @@
 import React from 'react';
-import Icon from 'common/Icon';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { formatDuration, formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import Tooltip from 'common/Tooltip';
+import { formatPercentage } from 'common/format';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
 import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetracker/RegenResourceCapTracker';
+import BoringResourceValue from 'interface/statistics/components/BoringResourceValue';
+
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
@@ -62,7 +63,7 @@ class EnergyCapTracker extends RegenResourceCapTracker {
     return Math.floor(max);
   }
 
-  get percentCapped(){
+  get percentCapped() {
     return (this.naturalRegen - this.missedRegen) / this.naturalRegen;
   }
 
@@ -91,37 +92,20 @@ class EnergyCapTracker extends RegenResourceCapTracker {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<Icon icon="spell_shadow_shadowworddominate" alt="Capped Energy" />}
-        value={(formatPercentage(this.percentCapped) + "%")}
-        label="Wasted energy per minute from being capped"
+      <Statistic
         tooltip={(
           <>
             Although it can be beneficial to wait and let your energy pool ready to be used at the right time, you should still avoid letting it reach the cap.<br />
             You spent <strong>{formatPercentage(this.cappedProportion)}%</strong> of the fight at capped energy, causing you to miss out on a total of <strong>{this.missedRegen.toFixed(0)}</strong> energy from regeneration.
           </>
         )}
-        footer={(
-          <div className="statistic-box-bar">
-            <Tooltip content={`Not at capped energy for ${formatDuration((this.owner.fightDuration - this.atCap) / 1000)}`}>
-              <div
-                className="stat-healing-bg"
-                style={{ width: `${(1 - this.cappedProportion) * 100}%` }}
-              >
-                <img src="/img/sword.png" alt="Uncapped Energy" />
-              </div>
-            </Tooltip>
-
-            <Tooltip content={`At capped energy for ${formatDuration(this.atCap / 1000)}`}>
-              <div className="remainder DeathKnight-bg">
-                <img src="/img/overhealing.png" alt="Capped Energy" />
-              </div>
-            </Tooltip>
-          </div>
-        )}
+        size="flexible"
         position={STATISTIC_ORDER.CORE(1)}
-      />
+      >
+        <BoringResourceValue resource={RESOURCE_TYPES.ENERGY} value={`${formatPercentage(this.percentCapped)}%`} label="Wasted energy per minute from being capped" />
+      </Statistic>
     );
   }
 }
+
 export default EnergyCapTracker;

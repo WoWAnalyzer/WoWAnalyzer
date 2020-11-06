@@ -2,10 +2,12 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import UptimeIcon from 'interface/icons/Uptime';
+import Statistic from 'interface/statistics/Statistic';
 import { TooltipElement } from 'common/Tooltip';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
@@ -50,12 +52,16 @@ class MoonfireUptime extends Analyzer {
   statistic() {
     const moonfireUptime = this.enemies.getBuffUptime(SPELLS.MOONFIRE_FERAL.id) / this.owner.fightDuration;
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.MOONFIRE_BEAR.id} />}
-        value={`${formatPercentage(moonfireUptime)} %`}
-        label="Moonfire uptime"
+      <Statistic
+        size="flexible"
         position={STATISTIC_ORDER.OPTIONAL(2)}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.MOONFIRE_BEAR}>
+          <>
+            <UptimeIcon /> {formatPercentage(moonfireUptime)} % <small>uptime</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

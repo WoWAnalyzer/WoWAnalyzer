@@ -11,7 +11,6 @@ import MoonfireUptime from '../../talents/MoonfireUptime';
 import SwipeHitCount from '../../spells/SwipeHitCount';
 import ComboPointDetails from '../../combopoints/ComboPointDetails';
 import RipUptime from '../../bleeds/RipUptime';
-import SavageRoarUptime from '../../talents/SavageRoarUptime';
 import FerociousBiteEnergy from '../../spells/FerociousBiteEnergy';
 import EnergyCapTracker from '../EnergyCapTracker';
 import RipSnapshot from '../../bleeds/RipSnapshot';
@@ -20,6 +19,7 @@ import MoonfireSnapshot from '../../talents/MoonfireSnapshot';
 import PredatorySwiftness from '../../spells/PredatorySwiftness';
 import Bloodtalons from '../../talents/Bloodtalons';
 import Predator from '../../talents/Predator';
+import SavageRoar from '../../talents/SavageRoar';
 import TigersFuryEnergy from '../../spells/TigersFuryEnergy';
 import Shadowmeld from '../../racials/Shadowmeld';
 import FinisherUse from '../../combopoints/FinisherUse';
@@ -35,7 +35,7 @@ class Checklist extends BaseChecklist {
     swipeHitCount: SwipeHitCount,
     comboPointDetails: ComboPointDetails,
     ripUptime: RipUptime,
-    savageRoarUptime: SavageRoarUptime,
+    savageRoar: SavageRoar,
     ferociousBiteEnergy: FerociousBiteEnergy,
     energyCapTracker: EnergyCapTracker,
     ripSnapshot: RipSnapshot,
@@ -66,7 +66,7 @@ class Checklist extends BaseChecklist {
 
           // finishers
           ripUptime: this.ripUptime.suggestionThresholds,
-          savageRoarUptime: this.savageRoarUptime.suggestionThresholds,
+          savageRoarUptime: this.savageRoar.suggestionThresholds,
           ferociousBiteEnergy: this.ferociousBiteEnergy.suggestionThresholds,
           ripShouldBeBite: this.ripSnapshot.shouldBeBiteSuggestionThresholds,
           ripDurationReduction: this.ripSnapshot.durationReductionThresholds,
