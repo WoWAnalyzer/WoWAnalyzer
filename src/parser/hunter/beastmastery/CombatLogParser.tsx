@@ -165,13 +165,15 @@ class CombatLogParser extends CoreCombatLogParser {
     ferociousAppetite: FerociousAppetite,
     oneWithTheBeast: OneWithTheBeast,
 
-    //Legendaries
+    //Generic Legendaries
+    nesingwarysTrappingApparatus: NesingwarysTrappingApparatus,
+    soulforgeEmbers: SoulforgeEmbers,
+
+    //Beast Mastery Legendaries
     direCommand: DireCommand,
     flamewakersCobraSting: FlamewakersCobraSting,
     qaplaEredunWarOrder: QaplaEredunWarOrder,
     rylakstalkersPiercingFangs: RylakstalkersPiercingFangs,
-    nesingwarysTrappingApparatus: NesingwarysTrappingApparatus,
-    soulforgeEmbers: SoulforgeEmbers,
   };
 }
 

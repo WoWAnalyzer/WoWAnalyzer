@@ -32,13 +32,15 @@ const debug = false;
  * https://www.warcraftlogs.com/reports/9Ljy6fh1TtCDHXVB#fight=2&type=damage-done&source=25
  *
  */
-class SurgingShots extends Analyzer {
+class SurgingShotsAzerite extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
+
   initialDamage = 0;
   damage = 0;
   damagePotential = 0;
+
   protected spellUsable!: SpellUsable;
 
   constructor(options: Options) {
@@ -77,4 +79,4 @@ class SurgingShots extends Analyzer {
 
 }
 
-export default SurgingShots;
+export default SurgingShotsAzerite;

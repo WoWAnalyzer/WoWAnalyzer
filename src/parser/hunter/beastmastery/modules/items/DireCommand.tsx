@@ -17,7 +17,7 @@ import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
 /**
  * TODO Find a log with both Dire Command and Dire Beast talent and account for them using the same spell for buff
- * Kill Command has a 15% chance to also summon a Dire Beast to attack your target.
+ * Kill Command has a 20% chance to also summon a Dire Beast to attack your target.
  *
  * Example log:
  *

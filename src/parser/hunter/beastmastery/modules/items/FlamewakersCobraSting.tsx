@@ -11,7 +11,7 @@ import { FLAMEWAKERS_PROC_CHANCE, KILL_COMMAND_BM_FOCUS_COST } from 'parser/hunt
 import SpellLink from 'common/SpellLink';
 
 /**
- * Cobra Shot has a 15% chance to make your next Kill Command consume no Focus.
+ * Cobra Shot has a 25% chance to make your next Kill Command consume no Focus.
  *
  * Example log:
  *

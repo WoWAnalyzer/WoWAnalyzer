@@ -13,7 +13,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
 /**
- * Barbed Shot reduces the cooldown of Kill Command by 4.0 sec.
+ * Barbed Shot reduces the cooldown of Kill Command by 5.0 sec.
  *
  * Example log:
  *

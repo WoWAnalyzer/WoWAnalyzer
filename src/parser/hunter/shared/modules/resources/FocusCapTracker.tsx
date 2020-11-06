@@ -10,7 +10,7 @@ import StatisticBar from 'interface/statistics/StatisticBar';
 import { AutoSizer } from 'react-virtualized';
 import FlushLineChart from 'interface/others/FlushLineChart';
 import Events, { CastEvent, DamageEvent, EnergizeEvent } from 'parser/core/Events';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { HUNTER_BASE_FOCUS_MAX, HUNTER_BASE_FOCUS_REGEN } from 'parser/hunter/shared/constants';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { i18n } from '@lingui/core';
@@ -30,6 +30,11 @@ class FocusCapTracker extends RegenResourceCapTracker {
   static isRegenHasted = true;
   bySecond: { [key: number]: number } = {};
 
+  constructor(options: Options) {
+    super(options);
+    this.addEventListener(Events.energize.by(SELECTED_PLAYER), this.onEnergizeByPlayer);
+  }
+
   get wastedPercent() {
     return (this.missedRegen / this.naturalRegen) || 0;
   }
@@ -44,11 +49,6 @@ class FocusCapTracker extends RegenResourceCapTracker {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  constructor(options: Options){
-    super(options);
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER), this.onEnergizeByPlayer);
   }
 
   currentMaxResource() {
@@ -74,13 +74,13 @@ class FocusCapTracker extends RegenResourceCapTracker {
 
   suggestions(when: When) {
     when(this.focusNaturalRegenWasteThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You're allowing your focus to reach its cap. While at its maximum value you miss out on the focus that would have regenerated. Although it can be beneficial to let focus pool ready to be used at the right time, try to spend some before it reaches the cap.</>)
-        .icon('ability_hunter_focusfire')
-        .actual(i18n._(t('hunter.marksmanship.suggestions.focusCapTracker.focusLost')`${formatPercentage(1 - actual)}% regenerated focus lost due to being capped.`))
-        .recommended(`<${formatPercentage(recommended, 0)}% is recommended.`));
+      .icon('ability_hunter_focusfire')
+      .actual(i18n._(t('hunter.marksmanship.suggestions.focusCapTracker.focusLost')`${formatPercentage(1 - actual)}% regenerated focus lost due to being capped.`))
+      .recommended(`<${formatPercentage(recommended, 0)}% is recommended.`));
   }
 
   statistic() {
-    const data = Object.entries(this.bySecond).map(([sec, val]) => ({'time': sec, 'val': val}));
+    const data = Object.entries(this.bySecond).map(([sec, val]) => ({ 'time': sec, 'val': val }));
     return (
       <StatisticBar
         position={STATISTIC_ORDER.CORE(1)}

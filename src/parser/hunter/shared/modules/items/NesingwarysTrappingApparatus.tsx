@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -14,6 +14,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
  *
  * Example log:
  *
+ * TODO: This is kinda messy atm after rework, look into it later with more logs.
  */
 class NesingwarysTrappingApparatus extends Analyzer {
 
