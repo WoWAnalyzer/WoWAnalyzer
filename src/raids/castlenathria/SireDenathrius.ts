@@ -1,9 +1,10 @@
 import DIFFICULTIES from 'game/DIFFICULTIES';
+import { Boss } from "raids/index";
 
 import Background from './images/backgrounds/CastleNathria.jpg';
 import Headshot from './images/headshots/CastleNathriaHeadshot.png';
 
-export default {
+const SireDenathrius: Boss = {
   id: 2407,
   name: 'Sire Denathrius',
   background: Background,
@@ -17,21 +18,27 @@ export default {
     },
     phases: {
       P1: {
+        key: "P1",
         name: 'Stage 1: Sinners Be Cleansed',
         difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
       },
       I: {
+        key: "I",
         name: 'Intermission: March of the Penitent',
         difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
       },
       P2: {
+        key: "P2",
         name: 'Stage 2: The Crimson Chorus',
         difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
       },
       P3: {
+        key: "P3",
         name: 'Stage 3: Indignation',
         difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
       },
     },
   },
 };
+
+export default SireDenathrius
