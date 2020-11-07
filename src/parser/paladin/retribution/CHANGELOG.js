@@ -6,6 +6,7 @@ import { Juko8, Skeletor, Abelito75, Zeboot, Hordehobbs } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 11, 6), 'General housekeeping and ability updates.', Skeletor),
   change(date(2020, 10, 23), <>Aggregate Prot and Ret <SpellLink id={SPELLS.JUDGMENT_CAST.id} /> analyzers into single analyzer.</>, Hordehobbs),
   change(date(2020, 10, 18), 'Converted legacy listeners to new event filters', Zeboot),
   change(date(2020, 10, 17), <>Updated <SpellLink id={SPELLS.HAMMER_OF_WRATH.id} icon /> max casts calculation to account for execute restrictions and added cast efficiency tracking</>, Juko8),
