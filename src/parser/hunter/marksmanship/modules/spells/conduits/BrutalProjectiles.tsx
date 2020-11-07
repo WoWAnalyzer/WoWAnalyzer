@@ -4,11 +4,11 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import React from 'react';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { BRUTAL_PROJECTILES_RAMP_DAMAGE } from 'parser/hunter/marksmanship/constants';
+import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
 
 /**
  * Your auto attacks have a 10% chance to cause your next Rapid Fire to deal 1.0% increased damage for each shot.
@@ -75,12 +75,13 @@ class BrutalProjectiles extends Analyzer {
           </>
         )}
       >
-        <BoringSpellValueText spell={SPELLS.BRUTAL_PROJECTILES_CONDUIT}>
+        <ConduitSpellText spell={SPELLS.BRUTAL_PROJECTILES_CONDUIT} rank={this.conduitRank}>
           <>
             <ItemDamageDone amount={this.addedDamage} />
+            <br />
             {this.procs} <small>procs</small>
           </>
-        </BoringSpellValueText>
+        </ConduitSpellText>
       </Statistic>
     );
   }
