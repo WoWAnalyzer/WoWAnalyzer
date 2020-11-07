@@ -6,15 +6,14 @@ import SpellLink from 'common/SpellLink';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import Events, { CastEvent, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import Events, { CastEvent, RemoveBuffEvent, FightEndEvent } from 'parser/core/Events';
+import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Statistic from 'interface/statistics/Statistic';
-
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
-const GOOD_BREATH_DURATION_MS = 20000;
+const GOOD_BREATH_DURATION_MS = 25000;
 
 class BreathOfSindragosa extends Analyzer {
 
@@ -35,6 +34,7 @@ class BreathOfSindragosa extends Analyzer {
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BREATH_OF_SINDRAGOSA_TALENT), this.onRemoveBuff);
     this.addEventListener(Events.fightend, this.onFightEnd);
   }
+
 
   onCast(event: CastEvent) {
     this.casts += 1;
@@ -57,16 +57,16 @@ class BreathOfSindragosa extends Analyzer {
     }
   }
 
-  suggestions(when: When) {
+  suggestions(when: When){
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<> You are not getting good uptime from your <SpellLink id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} /> casts. Your cast should last <b>at least</b> 15 seconds to take full advantage of the <SpellLink id={SPELLS.PILLAR_OF_FROST.id} /> buff.  A good cast is one that lasts 20 seconds or more.  To ensure a good duration, make you sure have 60+ Runic Power pooled and have less than 5 Runes available before you start the cast.  Also make sure to use <SpellLink id={SPELLS.EMPOWER_RUNE_WEAPON.id} /> before you cast Breath of Sindragosa. {this.tickingOnFinishedString}</>)
-          .icon(SPELLS.BREATH_OF_SINDRAGOSA_TALENT.icon)
-          .actual(i18n._(t('deathknight.frost.suggestions.breathOfSindragosa.uptime')`You averaged ${(this.averageDuration).toFixed(1)} seconds of uptime per cast`))
-          .recommended(`>${recommended} seconds is recommended`));
+      .addSuggestion((suggest, actual, recommended) => suggest(<> You are not getting good uptime from your <SpellLink id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} /> casts. A good cast is one that lasts 25 seconds or more.  To ensure a good duration, make sure you have 70+ Runic Power pooled and have less than 4 Runes available before you start the cast.  Also make sure to use <SpellLink id={SPELLS.EMPOWER_RUNE_WEAPON.id} /> within a few seconds of casting Breath of Sindragosa. Pay close attention to your Runic Power and make sure you are not overcapping. {this.tickingOnFinishedString}</>)
+        .icon(SPELLS.BREATH_OF_SINDRAGOSA_TALENT.icon)
+        .actual(i18n._(t('deathknight.frost.suggestions.breathOfSindragosa.uptime')`You averaged ${(this.averageDuration).toFixed(1)} seconds of uptime per cast`))
+        .recommended(`>${recommended} seconds is recommended`));
   }
 
   get tickingOnFinishedString() {
-    return this.breathActive ? 'Your final cast was not counted in the average since it was still ticking when the fight ended' : '';
+    return this.breathActive ? "Your final cast was not counted in the average since it was still ticking when the fight ended" : "";
   }
 
   get averageDuration() {
@@ -77,9 +77,9 @@ class BreathOfSindragosa extends Analyzer {
     return {
       actual: this.averageDuration,
       isLessThan: {
-        minor: 20.0,
-        average: 17.5,
-        major: 15.0,
+        minor: 25.0,
+        average: 22.5,
+        major: 20.0,
       },
       style: ThresholdStyle.SECONDS,
       suffix: 'Average',
@@ -89,7 +89,7 @@ class BreathOfSindragosa extends Analyzer {
   statistic() {
     return (
       <Statistic
-        tooltip={`You cast Breath of Sindragosa ${this.casts} times for a combined total of ${(this.totalDuration / 1000).toFixed(1)} seconds.  ${this.badCasts} casts were under 20 seconds.  ${this.tickingOnFinishedString}`}
+        tooltip={`You cast Breath of Sindragosa ${this.casts} times for a combined total of ${(this.totalDuration / 1000).toFixed(1)} seconds.  ${this.badCasts} casts were under 25 seconds.  ${this.tickingOnFinishedString}`}
         position={STATISTIC_ORDER.CORE(60)}
         size="flexible"
       >

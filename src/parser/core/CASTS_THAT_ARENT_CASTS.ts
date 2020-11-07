@@ -35,6 +35,10 @@ const spells: number[] = [
   316944, // Dragon's Flight - Feather Fall (DNT)
   SPELLS.CELESTIAL_GUIDANCE_CAST.id, //Celestial Guidance enchant proc
 
+  //region Death Knight
+  SPELLS.BREATH_OF_SINDRAGOSA_TALENT_DAMAGE_TICK.id,
+  //endregion
+
   //region Hunter
   SPELLS.BARBED_SHOT_PET_BUFF.id, //The buff applied to BM Hunter pet when casting Barbed Shot
   SPELLS.DIRE_BEAST_SUMMON.id,
