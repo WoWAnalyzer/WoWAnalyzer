@@ -10,7 +10,8 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import Checklist from './modules/features/Checklist/Module';
 import ShieldOfVengeance from './modules/core/ShieldOfVengeance';
 
-import DivinePurpose from './modules/talents/DivinePurpose';
+import DivinePurpose from '../shared/talents/DivinePurpose';
+import HolyAvenger from '../shared/talents/HolyAvenger';
 import ArtOfWar from './modules/core/ArtOfWar';
 import BladeofJustice from './modules/core/BladeofJustice';
 import CrusaderStrike from './modules/core/CrusaderStrike';
@@ -49,6 +50,7 @@ class CombatLogParser extends CoreCombatLogParser {
     hammerofWrathRetribution: HammerofWrathRetribution,
     righteousVerdict: RighteousVerdict,
     executionSentence: ExecutionSentence,
+    holyAvenger: HolyAvenger,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,

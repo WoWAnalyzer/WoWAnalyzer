@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Events, {DamageEvent} from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Enemies from 'parser/shared/modules/Enemies';
@@ -22,18 +22,22 @@ class ExecutionSentence extends Analyzer {
   static dependencies = {
     enemies: Enemies,
     abilityTracker: AbilityTracker,
-  }
+  };
+
+  protected abilityTracker!: AbilityTracker;
+  protected enemies!: Enemies;
+
   damageIncrease = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.EXECUTION_SENTENCE_TALENT.id);
 
     // event listeners
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_HOLY_DAMAGE_INCREASES), this.onAffectedDamage);
   }
 
-  onAffectedDamage(event) {
+  onAffectedDamage(event: DamageEvent) {
     const enemy = this.enemies.getEntity(event);
     if (!enemy) {
       return;

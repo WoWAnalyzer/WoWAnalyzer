@@ -1,7 +1,7 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import Events from 'parser/core/Events';
+import Events, {DamageEvent, } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
@@ -11,14 +11,16 @@ class Consecration extends Analyzer {
     abilityTracker: AbilityTracker,
   };
 
+  protected abilityTracker!: AbilityTracker;
+
   totalHits = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CONSECRATION_DAMAGE), this.onConsecrationDamage);
   }
 
-  onConsecrationDamage() {
+  onConsecrationDamage(event: DamageEvent) {
     this.totalHits += 1;
   }
 
