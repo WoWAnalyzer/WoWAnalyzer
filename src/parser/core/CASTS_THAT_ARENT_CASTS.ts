@@ -25,7 +25,6 @@ const spells: number[] = [
   255724, // proc from a Legion Antorus trinket
   SPELLS.GALECALLERS_BOON_CAST.id, //This can be used off GCD
   SPELLS.MUTILATE_OFFHAND.id, // Mutilate off hand
-  SPELLS.DIRE_BEAST_SUMMON.id, //A secondary cast event from Dire Beast talent
   SPELLS.DIVINE_HYMN_HEAL.id, //The heal component of divine hymn
   SPELLS.CHARGE_2.id, // The damage component of charge
   285503, // Lady Jaina Proudmoore boss mechanic (picking up munitions barrel)
@@ -35,13 +34,17 @@ const spells: number[] = [
   316944, // Dragon's Flight - Feather Fall (DNT)
   SPELLS.CELESTIAL_GUIDANCE_CAST.id, //Celestial Guidance enchant proc
 
+  //region Consumables
+  SPELLS.SHADOWCORE_OIL_BLAST.id,
+  //endregion
+
   //region Death Knight
   SPELLS.BREATH_OF_SINDRAGOSA_TALENT_DAMAGE_TICK.id,
   //endregion
 
   //region Hunter
   SPELLS.BARBED_SHOT_PET_BUFF.id, //The buff applied to BM Hunter pet when casting Barbed Shot
-  SPELLS.DIRE_BEAST_SUMMON.id,
+  SPELLS.DIRE_BEAST_SUMMON.id, //A secondary cast event from Dire Beast talent
   //endregion
 
   //region Covenants
