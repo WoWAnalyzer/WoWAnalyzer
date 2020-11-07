@@ -8,16 +8,13 @@ import { t } from '@lingui/macro';
 
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import Events, {CastEvent, RemoveBuffEvent, FightEndEvent, DamageEvent, EventType, ClassResources, EnergizeEvent, Ability} from 'parser/core/Events';
+import Events, { CastEvent, RemoveBuffEvent, FightEndEvent } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 const GOOD_BREATH_DURATION_MS = 25000;
-const BREATH_COST_PER_TICK = 160;
-const HYPOTHERMIC_PRESENCE_COST_REDUCTION = .35;
 
 class BreathOfSindragosa extends Analyzer {
   static dependencies = {
@@ -26,8 +23,6 @@ class BreathOfSindragosa extends Analyzer {
 
   protected eventEmitter!: EventEmitter;
 
-  damageAbility!: Ability;
-  triggeringCast!: CastEvent;
   
   beginTimestamp = 0;
   casts = 0;
@@ -50,62 +45,13 @@ class BreathOfSindragosa extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BREATH_OF_SINDRAGOSA_TALENT), this.onCast);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BREATH_OF_SINDRAGOSA_TALENT), this.onRemoveBuff);
     this.addEventListener(Events.fightend, this.onFightEnd);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BREATH_OF_SINDRAGOSA_TALENT_DAMAGE_TICK), this.onDamage)
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER), this.onEnergize);
   }
 
-  onEnergize(event: EnergizeEvent) {
-    if(!this.breathActive || !event.classResources) {
-      return;
-    }
-    event.classResources
-      .filter(resource => resource.type === RESOURCE_TYPES.RUNIC_POWER.id)
-      .forEach(({ amount }) => {
-        this.currentRpAmount = amount;
-      });
-  }
-
-  onDamage(event: DamageEvent) {
-    if (event.timestamp === this.mostRecentTickTime) {
-      return;
-    }
-
-    if (!this.damageAbility) {
-      this.damageAbility = event.ability;
-    }
-
-    this.tickAmounts.push(this.selectedCombatant.hasBuff(SPELLS.HYPOTHERMIC_PRESENCE_TALENT.id, event.timestamp) ? BREATH_COST_PER_TICK * (1 - HYPOTHERMIC_PRESENCE_COST_REDUCTION) : BREATH_COST_PER_TICK);
-    this.mostRecentTickTime = event.timestamp;
-  }
-
-  sendFabricatedResources(event: RemoveBuffEvent | FightEndEvent) {
-    const fabricatedResources: ClassResources & { cost: number } = {
-      amount: this.currentRpAmount,
-      max: 1000,
-      type: RESOURCE_TYPES.RUNIC_POWER.id,
-      cost: this.tickAmounts.reduce((a, b) => a + b, 0),
-    }
-
-    const fabricatedEvent: CastEvent = {
-      type: EventType.Cast,
-      ability: this.damageAbility,
-      timestamp: event.timestamp,
-      sourceID: this.triggeringCast.sourceID,
-      targetID: this.triggeringCast.targetID,
-      sourceIsFriendly: this.triggeringCast.sourceIsFriendly,
-      targetIsFriendly: this.triggeringCast.targetIsFriendly,
-      classResources: [fabricatedResources],
-    }
-
-    this.eventEmitter.fabricateEvent(fabricatedEvent, event);
-    this.tickAmounts = [];
-  }
 
   onCast(event: CastEvent) {
     this.casts += 1;
     this.beginTimestamp = event.timestamp;
     this.breathActive = true;
-    this.triggeringCast = event;
   }
 
   onRemoveBuff(event: RemoveBuffEvent) {
@@ -115,15 +61,12 @@ class BreathOfSindragosa extends Analyzer {
       this.badCasts +=1;
     }
     this.totalDuration += duration;
-    this.sendFabricatedResources(event);
   }
 
   onFightEnd(event: FightEndEvent) {
     if (this.breathActive) {
       this.casts -=1;
     }
-
-    this.sendFabricatedResources(event);
   }
 
   suggestions(when: When){

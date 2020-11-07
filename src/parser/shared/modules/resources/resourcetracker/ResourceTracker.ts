@@ -1,6 +1,6 @@
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import Events, { EventType, ClassResources, EnergizeEvent, CastEvent, HealEvent, SpendResourceEvent } from 'parser/core/Events';
+import Events, { EventType, ClassResources, EnergizeEvent, CastEvent, HealEvent, SpendResourceEvent, DamageEvent } from 'parser/core/Events';
 import { Resource } from 'game/RESOURCE_TYPES';
 
 export type BuilderObj = {
@@ -180,7 +180,7 @@ class ResourceTracker extends Analyzer {
     return this.getResource(event)?.cost;
   }
 
-  getResource(event: CastEvent | HealEvent | EnergizeEvent ) {
+  getResource(event: CastEvent | HealEvent | EnergizeEvent | DamageEvent) {
     if(!event.classResources) {
       return undefined;
     } else {
