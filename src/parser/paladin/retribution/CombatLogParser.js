@@ -16,7 +16,7 @@ import BladeofJustice from './modules/core/BladeofJustice';
 import CrusaderStrike from './modules/core/CrusaderStrike';
 import Crusade from './modules/talents/Crusade';
 import WakeofAshes from './modules/core/WakeofAshes';
-import Consecration from './modules/talents/Consecration';
+import Consecration from './modules/core/Consecration';
 import HammerofWrathRetribution from './modules/core/HammerofWrath';
 import RighteousVerdict from './modules/talents/RighteousVerdict';
 import ExecutionSentence from './modules/talents/ExecutionSentence';
