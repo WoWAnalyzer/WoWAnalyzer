@@ -25,7 +25,6 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.CRUSADE_TALENT.id,
         cooldown: 120,
         enabled: combatant.hasTalent(SPELLS.CRUSADE_TALENT.id),
-        gcd: undefined,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -39,7 +38,6 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.AVENGING_WRATH.id,
         cooldown: 120,
         enabled: !combatant.hasTalent(SPELLS.CRUSADE_TALENT.id),
-        gcd: undefined,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -199,7 +197,6 @@ class Abilities extends CoreAbilities {
         isDefensive: true,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 420 : 600,
-        gcd: undefined,
         castEfficiency: {
           recommendedEfficiency: 0.1,
         },
@@ -234,13 +231,11 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HAND_OF_RECKONING,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 8,
-        gcd: undefined,
       },
       {
         spell: SPELLS.REBUKE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 15,
-        gcd: undefined,
       },
       {
         spell: SPELLS.SERAPHIM_TALENT,
@@ -276,7 +271,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BLESSING_OF_SACRIFICE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 120,
-        gcd: undefined,
       },
       {
         spell: SPELLS.CLEANSE,
@@ -342,7 +336,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SHIELD_OF_THE_RIGHTEOUS,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 1,
-        gcd: undefined,
       },
     ];
   }

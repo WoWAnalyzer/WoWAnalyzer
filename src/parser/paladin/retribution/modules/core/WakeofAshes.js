@@ -86,7 +86,7 @@ class WakeofAshes extends Analyzer {
     statistic() {
         return (
             <StatisticBox
-              position={STATISTIC_ORDER.UNIMPORTANT()}
+              position={STATISTIC_ORDER.CORE()}
               icon={<SpellIcon id={SPELLS.WAKE_OF_ASHES.id} />}
               value={(
                     <>
