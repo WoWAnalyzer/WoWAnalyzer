@@ -40,6 +40,11 @@ const legendaries: SpellList<LegendarySpell> = {
     icon: 'ability_trueshot',
     bonusID: 7011,
   },
+  EAGLETALONS_TRUE_FOCUS_BUFF: {
+    id: 336851,
+    name: 'Eagletalon\'s True Focus',
+    icon: 'ability_trueshot',
+  },
   SURGING_SHOTS_EFFECT: {
     id: 336867,
     name: 'Surging Shots',
@@ -58,16 +63,12 @@ const legendaries: SpellList<LegendarySpell> = {
     icon: 'inv_trickshot',
     bonusID: 7014,
   },
-  EAGLETALONS_TRUE_FOCUS_BUFF: {
-    id: 336851,
-    name: 'Eagletalon\'s True Focus',
-    icon: 'ability_trueshot',
-  },
   SECRETS_OF_THE_UNBLINKING_VIGIL_BUFF: {
     id: 336892,
     name: 'Secrets of the Unblinking Vigil',
     icon: 'inv_trickshot',
   },
+
   //endregion
 
   //region Survival

@@ -22,11 +22,12 @@ import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
  */
 class BrutalProjectiles extends Analyzer {
 
-  conduitRank: number = 0;
-  addedDamage: number = 0;
-  currentTick: number = 0;
-  procs: number = 0;
-  overwrittenProcs: number = 0;
+  conduitRank = 0;
+  addedDamage = 0;
+  currentTick = 0;
+  procs = 0;
+  overwrittenProcs = 0;
+  usedProcs = 0;
 
   constructor(options: Options) {
     super(options);
@@ -44,6 +45,7 @@ class BrutalProjectiles extends Analyzer {
 
   onApplyBrutalProjectiles(event: ApplyBuffEvent) {
     this.procs += 1;
+
   }
 
   onRefreshBrutalProjectiles(event: RefreshBuffEvent) {
@@ -53,6 +55,9 @@ class BrutalProjectiles extends Analyzer {
 
   onRapidFireCast(event: CastEvent) {
     this.currentTick = 0;
+    if(this.selectedCombatant.hasBuff(SPELLS.BRUTAL_PROJECTILES_NEXT_RF_BUFF.id)) {
+      this.usedProcs += 1;
+    }
   }
 
   onRapidFireDamage(event: DamageEvent) {
@@ -71,6 +76,7 @@ class BrutalProjectiles extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={(
           <>
+            You used {this.usedProcs} out of {this.procs} gained.
             You overwrote the Brutal Projectiles buff {this.overwrittenProcs} times.
           </>
         )}
@@ -78,8 +84,6 @@ class BrutalProjectiles extends Analyzer {
         <ConduitSpellText spell={SPELLS.BRUTAL_PROJECTILES_CONDUIT} rank={this.conduitRank}>
           <>
             <ItemDamageDone amount={this.addedDamage} />
-            <br />
-            {this.procs} <small>procs</small>
           </>
         </ConduitSpellText>
       </Statistic>

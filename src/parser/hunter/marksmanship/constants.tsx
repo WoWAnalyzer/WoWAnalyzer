@@ -7,6 +7,8 @@ export const RAPID_FIRE_TICKS_PER_CAST = 10;
 /** Aimed Shot */
 //Aimed Shot has a baseline casttime of 2.5s
 export const AIMED_SHOT_BASELINE_CAST_TIME = 2500;
+//Aimed Shot costs 35 focus baseline
+export const AIMED_SHOT_FOCUS_COST = 35;
 /** Trueshot */
 //Trueshot makes Aimed Shot recharge 225% faster despite what its tooltip says
 export const TRUESHOT_AIMED_SHOT_RECHARGE_INCREASE = 2.25;
