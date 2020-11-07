@@ -46,14 +46,14 @@ class BreathOfSindragosa extends Analyzer {
     this.breathActive = false;
     const duration = event.timestamp - this.beginTimestamp;
     if (duration < GOOD_BREATH_DURATION_MS) {
-      this.badCasts +=1;
+      this.badCasts += 1;
     }
     this.totalDuration += duration;
   }
 
   onFightEnd(event: FightEndEvent) {
     if (this.breathActive) {
-      this.casts -=1;
+      this.casts -= 1;
     }
   }
 
