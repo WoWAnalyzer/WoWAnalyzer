@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
@@ -11,7 +11,6 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import Haste from 'interface/icons/Haste';
 import Events, { DamageEvent, SummonEvent } from 'parser/core/Events';
 import { DIRE_BEAST_HASTE_PERCENT } from 'parser/hunter/shared/constants';
-
 
 /**
  * Summons a powerful wild beast that attacks the target and roars, increasing your Haste by 5% for 8 sec.

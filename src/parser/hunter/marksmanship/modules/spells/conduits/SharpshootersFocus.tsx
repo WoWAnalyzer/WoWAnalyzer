@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -37,6 +37,10 @@ class SharpshootersFocus extends Analyzer {
     this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.TRUESHOT), this.onTrueshotRefresh);
   }
 
+  get maximumAddedTrueshotUptime() {
+    return this.casts * (TRUESHOT_DURATION_BASELINE * SHARPSHOOTERS_FOCUS_INCREASE_TRUESHOT_DURATION[this.conduitRank]);
+  }
+
   onTrueshotApply(event: ApplyBuffEvent) {
     this.trueshotApplicationTimestamp = event.timestamp;
     this.uptimeAddedBoolean = false;
@@ -67,10 +71,6 @@ class SharpshootersFocus extends Analyzer {
 
   addTrueshotUptime(event: RemoveBuffEvent | RefreshBuffEvent | FightEndEvent) {
     this.increasedTrueshotUptime += Math.max(event.timestamp - this.trueshotApplicationTimestamp - TRUESHOT_DURATION_BASELINE, 0);
-  }
-
-  get maximumAddedTrueshotUptime() {
-    return this.casts * (TRUESHOT_DURATION_BASELINE * SHARPSHOOTERS_FOCUS_INCREASE_TRUESHOT_DURATION[this.conduitRank]);
   }
 
   statistic() {

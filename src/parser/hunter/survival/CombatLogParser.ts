@@ -62,7 +62,7 @@ import LatentPoison from './modules/spells/azeritetraits/LatentPoison';
 import BlurOfTalons from './modules/spells/azeritetraits/BlurOfTalons';
 import PrimevalIntuition from './modules/spells/azeritetraits/PrimevalIntuition';
 import DireConsequences from '../shared/modules/spells/azeritetraits/DireConsequences';
-import WildfireCluster from './modules/spells/azeritetraits/WildfireCluster';
+import WildfireClusterAzerite from './modules/spells/azeritetraits/WildfireClusterAzerite';
 
 //Azerite Essences
 import MemoryOfLucidDreams from './modules/items/MemoryOfLucidDreams';
@@ -84,8 +84,9 @@ import StingingStrike from './modules/spells/conduits/StingingStrike';
 import StrengthOfThePack from './modules/spells/conduits/StrengthOfThePack';
 
 //Legendaries
-import NessingwarysTrappingApparatus from '../shared/modules/items/NessingwarysTrappingApparatus';
+import NesingwarysTrappingApparatus from '../shared/modules/items/NesingwarysTrappingApparatus';
 import SoulforgeEmbers from '../shared/modules/items/SoulforgeEmbers';
+import WildfireCluster from './modules/items/WildfireCluster';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -148,7 +149,7 @@ class CombatLogParser extends CoreCombatLogParser {
     blurOfTalons: BlurOfTalons,
     primevalIntuition: PrimevalIntuition,
     direConsequences: DireConsequences,
-    wildfireCluster: WildfireCluster,
+    wildfireClusterAzerite: WildfireClusterAzerite,
 
     //Azerite Essences
     memoryOfLucidDreams: MemoryOfLucidDreams,
@@ -169,9 +170,12 @@ class CombatLogParser extends CoreCombatLogParser {
     stingingStrike: StingingStrike,
     strengthOfThePack: StrengthOfThePack,
 
-    //Legendaries
-    nessingwarysTrappingApparatus: NessingwarysTrappingApparatus,
+    //Generic Legendaries
+    nesingwarysTrappingApparatus: NesingwarysTrappingApparatus,
     soulforgeEmbers: SoulforgeEmbers,
+
+    //Survival Legendaries
+    wildfireCluster: WildfireCluster,
 
     // Survival's throughput benefit isn't as big as for other classes
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,

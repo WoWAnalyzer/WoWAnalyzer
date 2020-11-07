@@ -1,6 +1,6 @@
 import React from 'react';
 import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/ItemDamageDone';
@@ -98,9 +98,9 @@ class BeastCleave extends Analyzer {
   suggestions(when: When) {
     if (this.casts > 0) {
       when(this.beastCleavesWithoutHits).addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.MULTISHOT_BM.id} /> {actual} {actual === 1 ? 'time' : 'times'} without your pets doing any <SpellLink id={SPELLS.BEAST_CLEAVE_PET_BUFF.id} /> damage onto additional targets. On single-target situations, avoid using <SpellLink id={SPELLS.MULTISHOT_BM.id} />.</>)
-          .icon(SPELLS.MULTISHOT_BM.icon)
-          .actual(i18n._(t('hunter.beastmastery.suggestions.beastCleave.efficiency')`${actual} ${actual === 1 ? 'cast' : 'casts'} without any Beast Cleave damage`))
-          .recommended(`${recommended} is recommended`));
+        .icon(SPELLS.MULTISHOT_BM.icon)
+        .actual(i18n._(t('hunter.beastmastery.suggestions.beastCleave.efficiency')`${actual} ${actual === 1 ? 'cast' : 'casts'} without any Beast Cleave damage`))
+        .recommended(`${recommended} is recommended`));
     }
   }
 
