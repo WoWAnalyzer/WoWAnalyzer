@@ -17,13 +17,30 @@ class RunicPowerTracker extends ResourceTracker {
 
   mostRecentTickTime = 0;
 
+
+  // The following is adapted from ResourceTracker to handle the specific use case for BoS where
+  // a single cast event triggers many ticks of a damage event where each damage tick costs
+  // resources
+  onCast(event: CastEvent) {
+    if (event.ability.guid === SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id) {
+      if (!this.spendersObj[SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id]) {
+        this.initSpenderAbility(SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id);
+      }
+      
+      this.spendersObj[SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id].casts += 1;
+    }
+
+    else {
+      super.onCast(event);
+    }
+  }
+
   onBreathDamage(event: DamageEvent) {
     if (event.timestamp === this.mostRecentTickTime) {
       return;
     }
 
-    const spellId = event.ability.guid;
-
+    // need to make a fake cast to satisfy TypeScript expecting a cast event in triggerSpendEvent
     const fakeCast: CastEvent = {
       type: EventType.Cast,
       timestamp: event.timestamp,
@@ -38,13 +55,9 @@ class RunicPowerTracker extends ResourceTracker {
 
     cost = cost / 10;
 
-    if (!this.spendersObj[spellId]) {
-      this.initSpenderAbility(spellId);
-    }
-
-    this.spendersObj[spellId].spentByCast.push(cost);
+    this.spendersObj[SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id].spentByCast.push(cost);
     if(cost > 0) {
-      this.spendersObj[spellId].spent += cost;
+      this.spendersObj[SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id].spent += cost;
     }
 
     this.current -= cost;
