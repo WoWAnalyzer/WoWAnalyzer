@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import React from 'react';
 import Statistic from 'interface/statistics/Statistic';

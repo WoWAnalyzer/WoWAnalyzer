@@ -46,7 +46,7 @@ class Streamline extends Analyzer {
       return;
     }
     /** Lock and Load suppresses streamline consumption so it's not possible to waste the decreased casting time from Streamline */
-    if(this.selectedCombatant.hasBuff(SPELLS.LOCK_AND_LOAD_BUFF.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.LOCK_AND_LOAD_BUFF.id)) {
       return;
     }
     const hastepercent = this.haste.current;

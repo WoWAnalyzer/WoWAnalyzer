@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import AverageTargetsHit from 'interface/others/AverageTargetsHit';
@@ -89,9 +89,9 @@ class Barrage extends Analyzer {
 
   suggestions(when: When) {
     when(this.barrageInefficientCastsThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.BARRAGE_TALENT.id} /> inefficiently {actual} {actual > 1 ? 'times' : 'time'} throughout the fight. This means you didn't hit all {BARRAGE_HITS_PER_CAST} shots of your barrage channel. Remember to always be facing your target when channelling <SpellLink id={SPELLS.BARRAGE_TALENT.id} />. </>)
-        .icon(SPELLS.BARRAGE_TALENT.icon)
-        .actual(i18n._(t('hunter.shared.suggestions.barrage.efficiency')`${actual} inefficient ${actual > 1 ? 'casts' : 'cast'}`))
-        .recommended(`${recommended} is recommended`));
+      .icon(SPELLS.BARRAGE_TALENT.icon)
+      .actual(i18n._(t('hunter.shared.suggestions.barrage.efficiency')`${actual} inefficient ${actual > 1 ? 'casts' : 'cast'}`))
+      .recommended(`${recommended} is recommended`));
   }
 
   statistic() {

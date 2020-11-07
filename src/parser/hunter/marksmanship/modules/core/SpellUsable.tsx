@@ -25,7 +25,7 @@ class SpellUsable extends CoreSpellUsable {
   beginCooldown(spellId: number, cooldownTriggerEvent: CastEvent | DamageEvent) {
     if (
       spellId === SPELLS.RAPID_FIRE.id &&
-      this.selectedCombatant.hasTrait(SPELLS.SURGING_SHOTS.id)
+      (this.selectedCombatant.hasTrait(SPELLS.SURGING_SHOTS.id) || this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SURGING_SHOTS_EFFECT.bonusID))
     ) {
       if (this.isOnCooldown(spellId)) {
         this.rapidFireResets += 1;

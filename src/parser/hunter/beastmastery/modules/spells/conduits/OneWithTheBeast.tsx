@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
@@ -40,7 +40,6 @@ class OneWithTheBeast extends Analyzer {
     }
     this.addedDamage += calculateEffectiveDamage(event, ONE_WITH_THE_BEAST_DAMAGE_INCREASE[this.conduitRank]);
   }
-
 
   statistic() {
     return (

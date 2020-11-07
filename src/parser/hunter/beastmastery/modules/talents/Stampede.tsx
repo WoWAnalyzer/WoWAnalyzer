@@ -2,8 +2,8 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { formatMilliseconds, formatNumber } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
@@ -14,7 +14,6 @@ import Events, { ApplyBuffEvent, DamageEvent } from 'parser/core/Events';
 import { STAMPEDE_POTENTIAL_HITS } from 'parser/hunter/beastmastery/constants';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
-
 
 /**
  * Summon a herd of stampeding animals from the wilds around you that deal damage to your enemies for 12 sec.
@@ -89,9 +88,9 @@ class Stampede extends Analyzer {
 
   suggestions(when: When) {
     when(this.stampedeInefficientCastsThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> inefficiently {actual} {actual > 1 ? 'times' : 'time'} throughout the fight. This means you've placed <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> at a place where it was impossible for it to deal it's full damage, or the enemy moved out of it. Avoid using <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> on moments where it's likely the enemy will be moving out of it.</>)
-        .icon(SPELLS.STAMPEDE_TALENT.icon)
-        .actual(i18n._(t('hunter.beastmastery.suggestions.stampede.efficiency')`${actual} inefficient ${actual > 1 ? 'casts' : 'cast'}`))
-        .recommended(`${recommended} is recommended`));
+      .icon(SPELLS.STAMPEDE_TALENT.icon)
+      .actual(i18n._(t('hunter.beastmastery.suggestions.stampede.efficiency')`${actual} inefficient ${actual > 1 ? 'casts' : 'cast'}`))
+      .recommended(`${recommended} is recommended`));
   }
 
   statistic() {

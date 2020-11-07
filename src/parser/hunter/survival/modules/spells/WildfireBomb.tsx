@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import Enemies from 'parser/shared/modules/Enemies';
@@ -18,7 +18,6 @@ import { MS_BUFFER } from 'parser/hunter/shared/constants';
 import { WILDFIRE_BOMB_LEEWAY_BUFFER } from 'parser/hunter/survival/constants';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
-
 
 /**
  * Hurl a bomb at the target, exploding for (45% of Attack power) Fire damage in a cone and coating enemies in wildfire, scorching them for (90% of Attack power) Fire damage over 6 sec.
@@ -114,13 +113,13 @@ class WildfireBomb extends Analyzer {
 
   suggestions(when: When) {
     when(this.badWFBThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You shouldn't refresh <SpellLink id={SPELLS.WILDFIRE_BOMB.id} /> since it doesn't pandemic. It's generally better to cast something else and wait for the DOT to drop off before reapplying.</>)
-        .icon(SPELLS.WILDFIRE_BOMB.icon)
-        .actual(i18n._(t('hunter.survival.suggestions.wildfireBomb.pandemic.efficiency')`${actual} casts unnecessarily refreshed WFB`))
-        .recommended(`<${recommended} is recommended`));
+      .icon(SPELLS.WILDFIRE_BOMB.icon)
+      .actual(i18n._(t('hunter.survival.suggestions.wildfireBomb.pandemic.efficiency')`${actual} casts unnecessarily refreshed WFB`))
+      .recommended(`<${recommended} is recommended`));
     when(this.uptimeThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Try and maximize your uptime on <SpellLink id={SPELLS.WILDFIRE_BOMB.id} />. This is achieved through not unnecessarily refreshing the debuff as it doesn't pandemic. </>)
-        .icon(SPELLS.WILDFIRE_BOMB.icon)
-        .actual(i18n._(t('hunter.survival.suggestions.wildfireBomb.uptime')`${formatPercentage(actual)}% uptime`))
-        .recommended(`>${formatPercentage(recommended)}% is recommended`));
+      .icon(SPELLS.WILDFIRE_BOMB.icon)
+      .actual(i18n._(t('hunter.survival.suggestions.wildfireBomb.uptime')`${formatPercentage(actual)}% uptime`))
+      .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

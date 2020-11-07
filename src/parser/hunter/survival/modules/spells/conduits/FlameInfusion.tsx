@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, ApplyBuffStackEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { AFFECTED_BY_GUERRILLA_TACTICS, FLAME_INFUSION_WFB_DAMAGE_INCREASE } from 'parser/hunter/survival/constants';
 import SPELLS from 'common/SPELLS';
