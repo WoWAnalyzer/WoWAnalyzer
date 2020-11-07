@@ -6,7 +6,6 @@ import React from 'react';
 
 import EventFilter from './EventFilter';
 
-
 export enum EventType {
   Heal = 'heal',
   HealAbsorbed = 'healabsorbed',
@@ -435,7 +434,7 @@ export interface ChangeBuffStackEvent extends BuffEvent<EventType.ChangeBuffStac
   };
 }
 
-export interface ChangeDebuffStackEvent extends Omit<ChangeBuffStackEvent, "type"> {
+export interface ChangeDebuffStackEvent extends Omit<ChangeBuffStackEvent, 'type'> {
   type: EventType.ChangeDebuffStack;
 }
 
@@ -501,6 +500,7 @@ export interface DrainEvent extends Event<EventType.Drain> {
   mapID: number;
   itemLevel: number;
 }
+
 export interface InterruptEvent extends Event<EventType.Interrupt> {
   ability: Ability;
   extraAbility: Ability;
@@ -629,7 +629,8 @@ export interface BasePhaseEvent<T extends string> extends Event<T> {
   phase: PhaseConfig;
   __fabricated: true;
 }
-export interface SpendResourceEvent extends Event<EventType.SpendResource>{
+
+export interface SpendResourceEvent extends Event<EventType.SpendResource> {
   sourceID: number;
   targetID?: number;
   resourceChange: number;
@@ -649,7 +650,7 @@ export interface Item {
   quality: number;
   icon: string;
   itemLevel: number;
-  bonusIDs?: number[];
+  bonusIDs?: number | number[];
   permanentEnchant?: number;
   gems?: Gem[];
 }
@@ -690,11 +691,17 @@ export interface Soulbind {
   garrisonTalentTreeId: number;
 }
 
+export interface SoulbindTrait {
+  traitID: number,
+  rank: number,
+  spellID: number,
+  icon: string,
+}
+
 export interface Conduit {
+  traitID: number;
   rank: number;
   spellID: number;
-  name: string; //TODO Verify this started showing up in logs as it currently is not there
-  soulbindConduitID: number; //TODO Verify if this is still called traitID as it is currently
   icon: string;
 }
 
@@ -736,18 +743,10 @@ export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
     Spell,
   ];
   pvpTalents: Spell[];
-  artifact: Array<{
-    traitID: number;
-    rank: number;
-    spellID: number;
-    icon: string;
-    slot: number;
-    isMajor: false;
-  }>;
-  heartOfAzeroth: Trait[];
-  covenant: Covenant, //TODO: Verify this is the structure in the combatlog
-  soulbind: Soulbind, //TODO: Verify this is the structure in the combatlog
-  conduits: Conduit[], //TODO: Verify this is the structure in the combatlog
+  artifact: Trait[] | SoulbindTrait[];
+  heartOfAzeroth: Trait[] | Conduit[];
+  covenantID: number,
+  soulbindID: number,
   error?: any, //TODO: Verify, is this a bool? string?
 }
 
@@ -1005,7 +1004,7 @@ const Events = {
   },
   get test() {
     return new EventFilter(EventType.Test);
-  }
+  },
 };
 
 export default Events;

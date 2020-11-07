@@ -133,6 +133,9 @@ class PlayerLoader extends React.PureComponent {
       // Filter for only loaded characterDatas
       characterDatas = characterDatas.filter(value => value);
       combatants.forEach(player => {
+        if (player.specID === 254) {
+          console.log(player);
+        }
         if (process.env.NODE_ENV === 'development' && FAKE_PLAYER_IF_DEV_ENV) {
           console.error('This player (sourceID: ' + player.sourceID + ') has an error. Because you\'re in development environment, we have faked the missing information, see CombatantInfoFaker.ts for more information.');
           player = generateFakeCombatantInfo(player);
@@ -221,7 +224,7 @@ class PlayerLoader extends React.PureComponent {
           <div className="flex wrapable">
             <div className="flex-main" style={{ minWidth: 400 }}>
               <Trans id="interface.report.renderClassicWarning.classicUnsupportedDetails">
-              The current report contains encounters from World of Warcraft: Classic. Currently WoWAnalyzer does not support, and does not have plans to support, Classic WoW logs.
+                The current report contains encounters from World of Warcraft: Classic. Currently WoWAnalyzer does not support, and does not have plans to support, Classic WoW logs.
               </Trans><br /><br />
             </div>
           </div>

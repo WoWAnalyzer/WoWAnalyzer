@@ -36,7 +36,7 @@ class SurgingShots extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SOULFORGE_EMBERS_DAMAGE), this.onRapidFireDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE_DAMAGE), this.onRapidFireDamage);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT), this.onAimedShotCast);
   }
 
@@ -63,7 +63,7 @@ class SurgingShots extends Analyzer {
           </>
         )}
       >
-        <BoringSpellValueText spell={SPELLS.FLAMEWAKERS_COBRA_STING_EFFECT}>
+        <BoringSpellValueText spell={SPELLS.SURGING_SHOTS_EFFECT}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

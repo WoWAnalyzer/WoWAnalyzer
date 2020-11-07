@@ -4,10 +4,10 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import React from 'react';
 import Events, { ApplyBuffEvent, FightEndEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import SPELLS from 'common/SPELLS';
 import { SHARPSHOOTERS_FOCUS_INCREASE_TRUESHOT_DURATION, TRUESHOT_DURATION_BASELINE } from 'parser/hunter/marksmanship/constants';
 import { formatNumber } from 'common/format';
+import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
 
 /**
  * Trueshot lasts 20.0% longer.
@@ -80,11 +80,11 @@ class SharpshootersFocus extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spell={SPELLS.SHARPSHOOTERS_FOCUS_CONDUIT}>
+        <ConduitSpellText spell={SPELLS.SHARPSHOOTERS_FOCUS_CONDUIT} rank={this.conduitRank}>
           <>
             {formatNumber(this.increasedTrueshotUptime / 1000)}/{this.maximumAddedTrueshotUptime / 1000}s <small>increased Trueshot uptime</small>
           </>
-        </BoringSpellValueText>
+        </ConduitSpellText>
       </Statistic>
     );
   }

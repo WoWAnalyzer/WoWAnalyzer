@@ -3,20 +3,11 @@ import RACES from 'game/RACES';
 import TALENT_ROWS from 'game/TALENT_ROWS';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import traitIdMap from 'common/TraitIdMap';
-import { Enchant } from "common/ITEMS/Item";
+import { Enchant } from 'common/ITEMS/Item';
 import SPELLS from 'common/SPELLS';
 import { findByBossId } from 'raids';
 import CombatLogParser, { Player } from 'parser/core/CombatLogParser';
-import {
-  Buff,
-  CombatantInfoEvent,
-  EventType,
-  Item,
-  Trait,
-  Soulbind,
-  Conduit,
-  Covenant,
-} from 'parser/core/Events';
+import { Buff, CombatantInfoEvent, Conduit, EventType, Item, SoulbindTrait, Trait } from 'parser/core/Events';
 
 import Entity from './Entity';
 
@@ -105,11 +96,12 @@ class Combatant extends Entity {
     };
 
     this._parseTalents(combatantInfo.talents);
-    this._parseTraits(combatantInfo.artifact);
-    this._parseEssences(combatantInfo.heartOfAzeroth);
-    this._parseCovenant(combatantInfo.covenant);
-    this._parseSoulbind(combatantInfo.soulbind);
-    this._parseConduits(combatantInfo.conduits);
+    this._parseTraits(combatantInfo.artifact as Trait[]);
+    this._parseEssences(combatantInfo.heartOfAzeroth as Essence[]);
+    this._parseCovenant(combatantInfo.covenantID);
+    this._parseSoulbind(combatantInfo.soulbindID);
+    this._parseSoulbindTraits(combatantInfo.artifact as SoulbindTrait[]);
+    this._parseConduits(combatantInfo.heartOfAzeroth as Conduit[]);
     this._parseGear(combatantInfo.gear);
     this._parsePrepullBuffs(combatantInfo.auras);
   }
@@ -134,21 +126,27 @@ class Combatant extends Entity {
   get lv15Talent() {
     return this._getTalent(TALENT_ROWS.LV15);
   }
+
   get lv25Talent() {
     return this._getTalent(TALENT_ROWS.LV25);
   }
+
   get lv30Talent() {
     return this._getTalent(TALENT_ROWS.LV30);
   }
+
   get lv35Talent() {
     return this._getTalent(TALENT_ROWS.LV35);
   }
+
   get lv40Talent() {
     return this._getTalent(TALENT_ROWS.LV40);
   }
+
   get lv45Talent() {
     return this._getTalent(TALENT_ROWS.LV45);
   }
+
   get lv50Talent() {
     return this._getTalent(TALENT_ROWS.LV50);
   }
@@ -170,14 +168,14 @@ class Combatant extends Entity {
 
   hasWeaponEnchant(enchant: Enchant) {
     if (this.mainHand && this.mainHand.permanentEnchant === enchant.effectId) {
-      return true
+      return true;
     }
 
     if (this.offHand && this.offHand.permanentEnchant === enchant.effectId) {
-      return true
+      return true;
     }
-    
-    return false
+
+    return false;
   }
 
   // region Traits
@@ -239,34 +237,51 @@ class Combatant extends Entity {
 
   //region Shadowlands Systems
 
-  //region Covenants TODO Verify if this isn't simply a number passed as covenantID
-  covenantsByCovenantID: { [key: number]: Covenant } = {};
+  //region Covenants
+  covenantsByCovenantID: { [key: number]: CombatantInfo['covenantID'] } = {};
 
-  _parseCovenant(covenant: Covenant) {
-    if (!covenant) {
+  _parseCovenant(covenantID: CombatantInfo['covenantID']) {
+    if (!covenantID) {
       return;
     }
-    this.covenantsByCovenantID[covenant.id] = covenant;
+    this.covenantsByCovenantID[covenantID] = covenantID;
   }
 
-  hasCovenant(covenantId: number) {
-    return Boolean(this.covenantsByCovenantID[covenantId]);
+  hasCovenant(covenantID: CombatantInfo['covenantID']) {
+    return Boolean(this.covenantsByCovenantID[covenantID]);
   }
 
   //endregion
 
-  //region Soulbinds TODO Verify if this isn't simply a number passed as soulbindID
-  soulbindsBySoulbindID: { [key: number]: Soulbind } = {};
+  //region Soulbinds
+  soulbindsBySoulbindID: { [key: number]: CombatantInfo['soulbindID'] } = {};
 
-  _parseSoulbind(soulbind: Soulbind) {
-    if (!soulbind) {
+  _parseSoulbind(soulbindID: CombatantInfo['soulbindID']) {
+    if (!soulbindID) {
       return;
     }
-    this.soulbindsBySoulbindID[soulbind.id] = soulbind;
+    this.soulbindsBySoulbindID[soulbindID] = soulbindID;
   }
 
-  hasSoulbind(soulbindId: number) {
-    return Boolean(this.soulbindsBySoulbindID[soulbindId]);
+  hasSoulbind(soulbindID: CombatantInfo['soulbindID']) {
+    return Boolean(this.soulbindsBySoulbindID[soulbindID]);
+  }
+
+  soulbindTraitsByID: { [key: number]: SoulbindTrait } = {};
+
+  _parseSoulbindTraits(soulbindTraits: SoulbindTrait[]) {
+    if (soulbindTraits === undefined) {
+      return;
+    }
+    soulbindTraits.forEach((soulbindTrait: SoulbindTrait) => {
+      if (soulbindTrait.spellID !== 0) {
+        this.soulbindTraitsByID[soulbindTrait.spellID] = soulbindTrait;
+      }
+    });
+  }
+
+  hasSoulbindTrait(soulbindTraitID: number) {
+    return Boolean(this.soulbindTraitsByID[soulbindTraitID]);
   }
 
   //endregion
@@ -278,7 +293,27 @@ class Combatant extends Entity {
     if (!conduits) {
       return;
     }
+
+    const ilvlToRankMapping: { [key: number]: number } = {
+      145: 1,
+      158: 2,
+      171: 3,
+      184: 4,
+      200: 5,
+      213: 6,
+      226: 7,
+      239: 8,
+      252: 9,
+      265: 10,
+      278: 11,
+      291: 12,
+      304: 13,
+      317: 14,
+      330: 15,
+    };
+
     conduits.forEach((conduit: Conduit) => {
+      conduit.rank = ilvlToRankMapping[conduit.rank];
       this.conduitsByConduitID[conduit.spellID] = conduit;
     });
   }
