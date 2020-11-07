@@ -22,11 +22,6 @@ class BreathOfSindragosa extends Analyzer {
   badCasts = 0;
   totalDuration = 0;
   breathActive = false;
-  mostRecentTickTime = 0;
-  currentRpAmount = 0;
-  
-
-  tickAmounts: number[] = [];
 
   constructor(options: Options) {
     super(options);
