@@ -99,7 +99,6 @@ class BestialWrath extends Analyzer {
     if (bestialWrathIsOnCooldown) {
       const reductionMs = this.spellUsable.reduceCooldown(SPELLS.BESTIAL_WRATH.id, BARBED_SHOT_BESTIAL_WRATH_CDR_MS);
       this.effectiveBWReduction += reductionMs;
-      console.log(reductionMs, this.effectiveBWReduction);
       this.wastedBWReduction += (BARBED_SHOT_BESTIAL_WRATH_CDR_MS - reductionMs);
     } else {
       this.wastedBWReduction += BARBED_SHOT_BESTIAL_WRATH_CDR_MS;

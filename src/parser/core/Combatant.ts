@@ -98,12 +98,14 @@ class Combatant extends Entity {
     this._parseTalents(combatantInfo.talents);
     this._parseTraits(combatantInfo.artifact as Trait[]);
     this._parseEssences(combatantInfo.heartOfAzeroth as Essence[]);
-    this._parseCovenant(combatantInfo.covenantID);
-    this._parseSoulbind(combatantInfo.soulbindID);
-    this._parseSoulbindTraits(combatantInfo.artifact as SoulbindTrait[]);
-    this._parseConduits(combatantInfo.heartOfAzeroth as Conduit[]);
     this._parseGear(combatantInfo.gear);
     this._parsePrepullBuffs(combatantInfo.auras);
+    if (combatantInfo.expansion === 'shadowlands') {
+      this._parseCovenant(combatantInfo.covenantID);
+      this._parseSoulbind(combatantInfo.soulbindID);
+      this._parseSoulbindTraits(combatantInfo.artifact as SoulbindTrait[]);
+      this._parseConduits(combatantInfo.heartOfAzeroth as Conduit[]);
+    }
   }
 
   // region Talents
