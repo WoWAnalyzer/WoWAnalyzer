@@ -8,7 +8,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import React from 'react';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
 
 /**
  * Bestial Wrath increases all damage you and your pet deal by X%.
@@ -48,11 +48,11 @@ class OneWithTheBeast extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spell={SPELLS.ONE_WITH_THE_BEAST_CONDUIT}>
+        <ConduitSpellText spell={SPELLS.ONE_WITH_THE_BEAST_CONDUIT} rank={this.conduitRank}>
           <>
             <ItemDamageDone amount={this.addedDamage} />
           </>
-        </BoringSpellValueText>
+        </ConduitSpellText>
       </Statistic>
     );
   }

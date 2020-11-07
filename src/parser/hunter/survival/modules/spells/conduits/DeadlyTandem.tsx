@@ -4,10 +4,10 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import React from 'react';
 import Events, { ApplyBuffEvent, CastEvent, FightEndEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import { COORDINATED_ASSAULT_BASELINE_DURATION, DEADLY_TANDEM_CA_DURATION_INCREASE } from 'parser/hunter/survival/constants';
+import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
 
 /**
  * Coordinated Assault's duration is increased by x ms
@@ -90,11 +90,11 @@ class DeadlyTandem extends Analyzer {
           </>
         )}
       >
-        <BoringSpellValueText spell={SPELLS.DEADLY_TANDOM_CONDUIT}>
+        <ConduitSpellText spell={SPELLS.DEADLY_TANDOM_CONDUIT} rank={this.conduitRank}>
           <>
             {formatNumber(this.increasedCAUptime / 1000)}/{this.maximumAddedCoordinatedAssaultUptime / 1000}s <small>increased Coordinated Assault uptime</small>
           </>
-        </BoringSpellValueText>
+        </ConduitSpellText>
       </Statistic>
     );
   }

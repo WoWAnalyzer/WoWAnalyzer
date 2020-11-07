@@ -6,10 +6,10 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import React from 'react';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { NECROTIC_BARRAGE_DAMAGE_INCREASE } from 'parser/hunter/shared/constants';
 import COVENANTS from 'game/shadowlands/COVENANTS';
+import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
 
 /**
  * Death Chakram generates an additional 2 Focus and the damage is increased by 5.0%.
@@ -53,12 +53,12 @@ class NecroticBarrage extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spell={SPELLS.NECROTIC_BARRAGE_CONDUIT}>
+        <ConduitSpellText spell={SPELLS.NECROTIC_BARRAGE_CONDUIT} rank={this.conduitRank}>
           <>
             <ItemDamageDone amount={this.addedDamage} />
             {this.gainedFocus}/{this.gainedFocus + this.wastedFocus} <small>gained focus</small>
           </>
-        </BoringSpellValueText>
+        </ConduitSpellText>
       </Statistic>
     );
   }
