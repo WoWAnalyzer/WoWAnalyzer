@@ -14,7 +14,7 @@ interface Props {
     quality: number;
   };
   quality?: number;
-  icon?: boolean; 
+  icon?: boolean;
 }
 
 const ItemLink = (props: Props) => {
@@ -45,7 +45,7 @@ const ItemLink = (props: Props) => {
       href={TooltipProvider.item(id, details)}
       target="_blank"
       rel="noopener noreferrer"
-      className={getItemQualityLabel(quality)}
+      className={getItemQualityLabel(quality) + 'item-link-text'}
       ref={elem => {setElem(elem)}}
       {...others}
     >

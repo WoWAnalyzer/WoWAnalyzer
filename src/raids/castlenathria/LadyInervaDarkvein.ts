@@ -1,7 +1,9 @@
+import { Boss } from "raids/index";
+
 import Background from './images/backgrounds/CastleNathria.jpg';
 import Headshot from './images/headshots/CastleNathriaHeadshot.png';
 
-export default {
+const LadyInervaDarkvein: Boss = {
   id: 2406,
   name: 'Lady Inerva Darkvein',
   background: Background,
@@ -15,3 +17,5 @@ export default {
     },
   },
 };
+
+export default LadyInervaDarkvein
