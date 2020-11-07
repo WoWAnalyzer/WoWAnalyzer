@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { Anatta336, Abelito75, Zeboot } from 'CONTRIBUTORS';
+import { Anatta336, Abelito75, Zeboot, LeoZhekov } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 11, 6), <>Replaced the deprecated StatisticBoxes with the new Statistic and reworked SavageRoar module.</>, LeoZhekov),
   change(date(2020, 11, 5), <>Corrected event filter.</>, Abelito75),
   change(date(2020, 10, 18), 'Converted legacy listeners to new event filters', Zeboot),
   change(date(2020, 3,27), <>Improved thresholds of wasted energy to be precentage based.</>, [Abelito75]),
