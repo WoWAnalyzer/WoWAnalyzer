@@ -34,7 +34,6 @@
   "Cooldown reduction": "",
   "Corrupt Warcraft Logs API response": "La réponse de l'API de Warcraft Logs est corrompue",
   "Corrupt Warcraft Logs API response received, this report can not be processed.": "La réponse de l'API de Warcraft Logs est corrompue, ce rapport ne peut pas être traité.",
-  "Damage reduction": "",
   "Direct beacon healing": "",
   "Either you entered a wrong report, or it is private.": "Vous avez soit entré un mauvais rapport, soit il est privé.",
   "Events": "Évènements",
@@ -95,7 +94,6 @@
   "The analysis for this spec is outdated. It may be inaccurate for spells that were changed since patch {patchCompatibility}.": "L'analyse de cette spécialisation est dépassée. Elle peut être inexacte pour les sorts qui ont été modifiés depuis le patch {patchCompatibility}.",
   "The checklist for this spec is not yet available. We could use your help to add this. See <0>GitHub</0> or join us on <1>Discord</1> if you're interested in contributing this.": "La liste récapitulative pour cette spécialisation n'est pas encore disponible. Nous pourrions avoir besoin de votre aide pour ajouter celle-ci. Voir le <0>GitHub</0> ou nous rejoindre sur <1>Discord</1> si vous êtes intéressé à y contribuer.",
   "The error": "",
-  "The total estimated damage reduced <0>by the passive</0> was {0} ({1} DRPS). This has high accuracy.<1/>The total estimated damage reduced <2>during Aura Mastery</2> was {2} ({3} DRPS). This has a 99% accuracy.<3/><4/>This value is calculated using the <5>Optional DRs</5> method. This results in the lowest possible damage reduction value being shown. This should be the correct value in most circumstances.<6/><7/>Calculating the exact damage reduced by Devotion Aura is very time and resource consuming. This method uses a very close estimation. The active damage reduced is calculated by taking the total damage taken of the entire raid during <8/> and calculating the damage reduced during this time. The passive damage reduction is calculated by taking the exact damage reduction factor applicable and calculating the damage reduced if that full effect was applied to the Paladin. Even though the passive damage reduction is split among other nearby players, using your personal damage taken should average it out very closely. More extensive tests that go over all damage events have shown that this is usually a close approximation.": "",
   "There are no major issues in this fight. Good job!": "Il n'y a aucune erreur majeure sur ce combat. Beau travail !",
   "There are very rare exceptions to this. For example it may be worth saving Holy Shock when you know you're going to be moving soon and you may have to heal yourself.": "",
   "This is the amount of healing done by spells affected by mastery. Things like Holy Paladin beacons or Restoration Shaman feeding are NOT included.": "",
@@ -635,6 +633,9 @@
   "paladin.holy.modules.masteryEffectiveness.suggestion.actual": "{0}% d'efficacité de votre maîtrise",
   "paladin.holy.modules.masteryEffectiveness.suggestion.recommended": "",
   "paladin.holy.modules.statValues.hpct": "",
+  "paladin.holy.modules.talents.devotionAuraDamageReduction.damageReduction": "",
+  "paladin.holy.modules.talents.devotionAuraDamageReduction.drps": "",
+  "paladin.holy.modules.talents.devotionAuraDamageReduction.tooltip": "",
   "paladin.holy.timeline.badLotM": "",
   "paladin.protection.alwaysBeCasting.downtime": "",
   "paladin.protection.suggestions.consecration.hitsMitigated": "",
@@ -1003,6 +1004,5 @@
   "{num, plural, one {Melee DPS} other {Melee DPS}}": "",
   "{num, plural, one {Ranged DPS} other {Ranged DPS}}": "",
   "{num, plural, one {Tank} other {Tanks}}": "",
-  "{seconds}s": "",
-  "≈{0} DRPS": ""
+  "{seconds}s": ""
 }

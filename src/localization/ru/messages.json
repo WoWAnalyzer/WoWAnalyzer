@@ -34,7 +34,6 @@
   "Cooldown reduction": "Сокращение времени отката",
   "Corrupt Warcraft Logs API response": "Получен некорректный ответ от Warcraft Logs API",
   "Corrupt Warcraft Logs API response received, this report can not be processed.": "Получен некорректный ответ от Warcraft Logs API, данный запрос не может быть обработан.",
-  "Damage reduction": "Снижение урона",
   "Direct beacon healing": "Прямое исцеление от частицы",
   "Either you entered a wrong report, or it is private.": "Вы указали неправильную ссылку на отчет, либо он является закрытым.",
   "Events": "События",
@@ -95,7 +94,6 @@
   "The analysis for this spec is outdated. It may be inaccurate for spells that were changed since patch {patchCompatibility}.": "Анализ для данной специализации устарел. Могут быть неточности в расчете работы ряда способностей, затронутых изменениями после патча {patchCompatibility}.",
   "The checklist for this spec is not yet available. We could use your help to add this. See <0>GitHub</0> or join us on <1>Discord</1> if you're interested in contributing this.": "",
   "The error": "Ошибка",
-  "The total estimated damage reduced <0>by the passive</0> was {0} ({1} DRPS). This has high accuracy.<1/>The total estimated damage reduced <2>during Aura Mastery</2> was {2} ({3} DRPS). This has a 99% accuracy.<3/><4/>This value is calculated using the <5>Optional DRs</5> method. This results in the lowest possible damage reduction value being shown. This should be the correct value in most circumstances.<6/><7/>Calculating the exact damage reduced by Devotion Aura is very time and resource consuming. This method uses a very close estimation. The active damage reduced is calculated by taking the total damage taken of the entire raid during <8/> and calculating the damage reduced during this time. The passive damage reduction is calculated by taking the exact damage reduction factor applicable and calculating the damage reduced if that full effect was applied to the Paladin. Even though the passive damage reduction is split among other nearby players, using your personal damage taken should average it out very closely. More extensive tests that go over all damage events have shown that this is usually a close approximation.": "Общее количество урона, сниженного за счет <0>пассивного эффекта</0> составило {0} ({1} DRPS). Количество урона, сниженного <2>за время действия Владения аурами</2> составило {2} ({3} DRPS).",
   "There are no major issues in this fight. Good job!": "Серьезных ошибок в данном бою не обнаружено. Хорошая работа!",
   "There are very rare exceptions to this. For example it may be worth saving Holy Shock when you know you're going to be moving soon and you may have to heal yourself.": "Из этого есть пара очень редких исключений. Например, иногда стоит придержать Шок небес, если Вы знаете, что в ближайшее время Вам нужно будет переместиться и в это время придется подлечить себя",
   "This is the amount of healing done by spells affected by mastery. Things like Holy Paladin beacons or Restoration Shaman feeding are NOT included.": "Это количество исцеления от способностей, зависящих от вашей Искусности. Механики наподобие частиц Паладина Света или Тотема разразившегося ливня / Перерождения Шамана сюда НЕ входят.",
@@ -635,6 +633,9 @@
   "paladin.holy.modules.masteryEffectiveness.suggestion.actual": "{0}% эффективности искусности",
   "paladin.holy.modules.masteryEffectiveness.suggestion.recommended": ">{0}% рекомендовано",
   "paladin.holy.modules.statValues.hpct": "HPCT расшифровывается как \"Healing per Cast Time\", что означает “Исцеление за время применения”. Это максимальный коэффициент полезности для Скорости, при использовании тех же заклинаний что и обычно (зависящих от Скорости). Мана и показатели избыточного исцеления при этом не учитываются. <0/><1/> Реальное значение полезности Скорости (HPCT) будет где-то в показанном тут интервале. Этот параметр зависит от различных факторов, таких как имеющаяся в Вашем распоряжении мана, показатели избыточного исцеления, а также количество прерванных за бой заклинаний. Если вы остаетесь без маны задолго до конца боя то, возможно, Вам стоит уменьшить количество Скорости на Вашей экипировке и тщательнее подходить к выбору применяемых заклинаний. Если на конец боя у Вас остается лишняя мана, дополнительная Скорость поможет Вам конвертировать эту ману в исцеление. Если Вы грамотно распоряжаетесь имеющейся Скоростью, то ее реальная полезность будет близка к максимальному значению. <2/><3/> Также Скорость может спасти жизнь Вашим товарищам во время фаз с большим количеством входящего урона, благодаря применению большего количества способностей за отрезок времени. <4/><5/><6>Самый простой и распространенный подход - набрать столько Скорости, сколько нужно лично Вам для комфортной игры. Поэкспериментировать с разным количеством Скорости и не жертвовать слишком большим количеством других характеристик ради ее увеличения. </6>",
+  "paladin.holy.modules.talents.devotionAuraDamageReduction.damageReduction": "Снижение урона",
+  "paladin.holy.modules.talents.devotionAuraDamageReduction.drps": "",
+  "paladin.holy.modules.talents.devotionAuraDamageReduction.tooltip": "Общее количество урона, сниженного за счет <0>пассивного эффекта</0> составило {0} ({1} DRPS). Количество урона, сниженного <2>за время действия Владения аурами</2> составило {2} ({3} DRPS).",
   "paladin.holy.timeline.badLotM": "This cast dealt more damage to you than it healed the target. If there is nothing to heal, you should deal damage instead.",
   "paladin.protection.alwaysBeCasting.downtime": "{0}% downtime",
   "paladin.protection.suggestions.consecration.hitsMitigated": "{0}% of hits were mitigated by Consecration",
@@ -1003,6 +1004,5 @@
   "{num, plural, one {Melee DPS} other {Melee DPS}}": "",
   "{num, plural, one {Ranged DPS} other {Ranged DPS}}": "",
   "{num, plural, one {Tank} other {Tanks}}": "",
-  "{seconds}s": "{seconds}с",
-  "≈{0} DRPS": ""
+  "{seconds}s": "{seconds}с"
 }
