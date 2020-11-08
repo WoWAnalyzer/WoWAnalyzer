@@ -2,7 +2,7 @@ import getFightName from 'common/getFightName';
 import prettyEncodeURI from 'common/prettyEncodeURI';
 import DEFAULT_BUILD from 'parser/DEFAULT_BUILD';
 
-export function makePlainUrl(reportCode = undefined, fightId = undefined, fightName = undefined, playerId = undefined, playerName = undefined, tab = undefined) {
+export function makePlainUrl(reportCode = undefined, fightId = undefined, fightName = undefined, playerId = undefined, playerName = undefined, tab = DEFAULT_BUILD.url) {
   const parts = [];
   if (reportCode) {
     parts.push(`report/${reportCode}`);
