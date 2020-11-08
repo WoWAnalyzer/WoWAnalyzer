@@ -12,10 +12,20 @@ class MaelstromWeapon extends Analyzer {
   
   protected currentStacks = 0;
 
-  protected cappedIntervals: Interval[] = []
+  protected cappedIntervals: Intervals;
+
+  get MAX_STACKS_SPENT_PER_CAST() {
+    return 5;
+  }
+
+  get MAX_STACKS() {
+    return 10;
+  }
 
   constructor(options: Options) {
     super(options);
+
+    this.cappedIntervals = new Intervals();
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON_BUFF),
@@ -54,32 +64,76 @@ class MaelstromWeapon extends Analyzer {
   }
 
   reachMaxStacks(timestamp: number) {
-    //
+    this.cappedIntervals.startInterval(timestamp);
   }
 
-  stopHavingMaxStacks(timestamps: number) {
-    //
+  stopHavingMaxStacks(timestamp: number) {
+    this.cappedIntervals.endInterval(timestamp);
   }
 
-  castMaelstromWeaponSpender() {
-    //
+  // this method is a helper for determining if removebuff event corresponds to stack expiration or spending
+  castMaelstromWeaponSpender(event: CastEvent) {
+    const stacksUsed = Math.min(
+      this.currentStacks,
+      this.MAX_STACKS_SPENT_PER_CAST
+    );
+
+    if (stacksUsed === 0) {
+      return;
+    }
+
+    this.stacksUsed += stacksUsed;
+
+    if (this.currentStacks === this.MAX_STACKS) {
+      this.stopHavingMaxStacks(event.timestamp);
+    }
+
+    this.currentStacks -= stacksUsed;
   }
 
   gainFirstStack(event: ApplyBuffEvent) {
-    //
+    this.currentStacks = 1;
+    this.stacksGained += 1;
   }
 
   gainSubsequentStack(event: ApplyBuffStackEvent) {
-    //
+    if (this.currentStacks + 1 !== event.stack) {
+      console.error('Maelstrom Weapon analyzer: stack mismatch in applybuffstack');
+      return;
+    }
+
+    this.currentStacks = event.stack;
+    this.stacksGained += 1;
+
+    if (this.currentStacks === this.MAX_STACKS) {
+      this.reachMaxStacks(event.timestamp)
+    }
   }
 
   removeAllStacks(event: RemoveBuffEvent) {
-    //
+    if (this.currentStacks === 0) {
+      // stacks were spend on a spender spell
+      return;
+    }
+
+    if (this.currentStacks === 10) {
+      this.stopHavingMaxStacks(event.timestamp);
+    }
+
+    this.stacksExpired += this.currentStacks;
+    this.currentStacks = 0;
   }
 
 
   spendStacks(event: RemoveBuffStackEvent) {
-    //
+    if (this.currentStacks !== event.stack) {
+      console.error('Maelstrom Weapon analyzer: stack mismatch in spendStacks')
+    }
+    if (this.currentStacks === this.MAX_STACKS) {
+      this.stopHavingMaxStacks(event.timestamp);
+    }
+
+    this.currentStacks = event.stack;
   }
 
   statistic() {
