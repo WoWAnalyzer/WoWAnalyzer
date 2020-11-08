@@ -3,13 +3,14 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Events, {CastEvent, ApplyBuffStackEvent} from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import HolyPowerTracker from 'parser/paladin/shared/holypower/HolyPowerTracker';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 const CAST_BUFFER = 500;
 
@@ -20,8 +21,12 @@ class Crusade extends Analyzer {
     holyPowerTracker: HolyPowerTracker,
   };
 
-  constructor(...args) {
-    super(...args);
+  protected abilityTracker!: AbilityTracker;
+  protected globalCooldown!: GlobalCooldown;
+  protected holyPowerTracker!: HolyPowerTracker;
+
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CRUSADE_TALENT.id);
     if (!this.active) {
       return;
@@ -30,11 +35,11 @@ class Crusade extends Analyzer {
     this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.CRUSADE_TALENT), this.onCrusadeBuffStack);
   }
 
-  crusadeCastTimestamp = 0;
+  crusadeCastTimestamp?: number;
   badFirstGlobal = 0;
   gcdBuffer = 0;
 
-  onCrusadeCast(event) {
+  onCrusadeCast(event: CastEvent) {
     this.crusadeCastTimestamp = event.timestamp;
     this.gcdBuffer = this.globalCooldown.getGlobalCooldownDuration(SPELLS.CRUSADE_TALENT.id);
     if (this.holyPowerTracker.current < 3) {
@@ -44,11 +49,11 @@ class Crusade extends Analyzer {
     }
   }
 
-  onCrusadeBuffStack(event) {
+  onCrusadeBuffStack(event: ApplyBuffStackEvent) {
     if (this.crusadeCastTimestamp && event.timestamp > (this.crusadeCastTimestamp + CAST_BUFFER + this.gcdBuffer)) {
       this.badFirstGlobal += 1;
     }
-    this.crusadeCastTimestamp = null;
+    this.crusadeCastTimestamp = undefined;
   }
 
   get badGlobalPercent() {
@@ -63,11 +68,11 @@ class Crusade extends Analyzer {
         average: 0.75,
         major: 0.5,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual) => suggest(<>You want to build stacks of <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon /> as quickly as possible. Make sure you are using <SpellLink id={SPELLS.TEMPLARS_VERDICT.id} icon /> or <SpellLink id={SPELLS.DIVINE_STORM.id} icon /> immediately after casting <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon />.</>)
         .icon(SPELLS.CRUSADE_TALENT.icon)
         .actual(i18n._(t('paladin.retribution.suggestions.Crusade.efficiency')`${formatNumber(this.badFirstGlobal)} bad first global(s)`))

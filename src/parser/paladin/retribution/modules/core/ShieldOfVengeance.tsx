@@ -3,13 +3,14 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import Events from 'parser/core/Events';
+import Events, {CastEvent} from 'parser/core/Events';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 const SHIELD_OF_VENGEANCE_HEALTH_SCALING = 0.3;
 
@@ -18,14 +19,21 @@ class ShieldOfVengeance extends Analyzer {
     healingDone: HealingDone,
     statTracker: StatTracker,
   };
+
+  protected statTracker!: StatTracker;
+  protected healingDone!: HealingDone;
+
   totalPossibleAbsorb = 0;
 
-  constructor(options){
+  constructor(options: Options){
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_OF_VENGEANCE), this.onCast);
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
+    if (!event.maxHitPoints) {
+      return false;
+    }
     this.totalPossibleAbsorb += event.maxHitPoints * SHIELD_OF_VENGEANCE_HEALTH_SCALING * (1+this.statTracker.currentVersatilityPercentage);
   }
 
@@ -41,11 +49,11 @@ class ShieldOfVengeance extends Analyzer {
         average: 0.65,
         major: 0.5,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You consumed a low amount of your total <SpellLink id={SPELLS.SHIELD_OF_VENGEANCE.id} /> absorb. It's best used when you can take enough damage to consume most of the absorb. Getting full absorb usage can be difficult on lower difficulty encounters.</>)
         .icon(SPELLS.SHIELD_OF_VENGEANCE.icon)
         .actual(i18n._(t('paladin.retribution.suggestions.shieldOfVengeance.absorbUsed')`${formatPercentage(actual)}% Shield of Vengeance absorb used`))
