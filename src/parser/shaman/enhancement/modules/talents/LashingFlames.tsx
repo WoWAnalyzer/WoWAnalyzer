@@ -83,8 +83,8 @@ class LashingFlames extends Analyzer {
       )
     )
       .icon(SPELLS.LASHING_FLAMES_TALENT.icon)
-      .actual(<><SpellLink id={SPELLS.LASHING_FLAMES_DEBUFF.id} /> was active for {(actual*100).toFixed(2)}% of the fight</>)
-      .recommended('recommended: 99%')
+      .actual(<><SpellLink id={SPELLS.LASHING_FLAMES_DEBUFF.id} /> was active for {formatPercentage(actual)}% of the fight</>)
+      .recommended(`recommended: ${formatPercentage(recommended)}%`)
     )
   }
 
