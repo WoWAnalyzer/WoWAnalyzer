@@ -54,7 +54,7 @@ class Statistics extends React.PureComponent {
           id="adjust-for-downtime-toggle"
         />
         <label htmlFor="adjust-for-downtime-toggle">
-          <Trans>
+          <Trans id="interface.report.results.statistics.adjustStatistics">
             Adjust statistics for <TooltipElement content={i18n._(t('interface.report.results.statistics.fightDowntime')`Fight downtime is any forced downtime caused by fight mechanics or dying. Downtime caused by simply not doing anything is not included.`)}>fight downtime</TooltipElement> (<TooltipElement content={i18n._(t('interface.report.results.statistics.fightDowntimeDetails')`We're still working out the kinks of this feature, some modules might output weird results with this on. When we're finished this will be enabled by default.`)}>experimental</TooltipElement>)
           </Trans>
         </label>
