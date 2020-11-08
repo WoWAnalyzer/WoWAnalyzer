@@ -31,6 +31,7 @@ import FireNova from './modules/talents/FireNova';
 import ElementalAssault from './modules/talents/ElementalAssault';
 import FeralSpirit from './modules/core/FeralSpirit';
 import FlameShock from '../shared/spells/FlameShock';
+import WindfuryTotem from './modules/core/WindfuryTotem';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -46,7 +47,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Shaman Core
     stormbringer: Stormbringer,
     feralSpirit: FeralSpirit,
-    //windfuryTotem: WindfuryTotem
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -55,6 +55,7 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
     cooldownThroughputTracker: CooldownThroughputTracker,
     flameShock: FlameShock,
+    windfuryTotem: WindfuryTotem,
 
     // Talents
     lashingFlames: LashingFlames,
