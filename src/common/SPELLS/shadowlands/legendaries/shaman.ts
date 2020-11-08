@@ -27,6 +27,12 @@ const legendaries: SpellList<LegendarySpell> = {
     icon: 'ability_shaman_repulsiontotem',
     bonusID: 6999,
   },
+  EARTHEN_HARMONY: {
+    id: 335886,
+    name: 'Earthen Harmony',
+    icon: 'item_earthenmight',
+    bonusID: 7000,
+  },
   //endregion
 
   //region Shared
