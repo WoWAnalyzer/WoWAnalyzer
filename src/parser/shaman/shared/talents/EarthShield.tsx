@@ -19,7 +19,7 @@ import { Trans } from '@lingui/macro';
 
 import { HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD } from 'parser/shaman/shared/constants';
 
-const EARTHSHIELD_HEALING_INCREASE = 0.20; // TODO add conduit
+export const EARTHSHIELD_HEALING_INCREASE = 0.20;
 
 class EarthShield extends Analyzer {
   static dependencies = {
