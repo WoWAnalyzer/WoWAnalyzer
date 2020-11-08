@@ -1,24 +1,24 @@
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Events, {EnergizeEvent, CastEvent} from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 
 class CrusaderStrike extends Analyzer {
 
   wasteHP = false;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CRUSADER_STRIKE), this.onCrusaderStrikeCast);
     this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.CRUSADER_STRIKE), this.onCrusaderStrikeEnergize);
   }
 
-  onCrusaderStrikeEnergize(event) {
+  onCrusaderStrikeEnergize(event: EnergizeEvent) {
     if (event.waste > 0) {
       this.wasteHP = true;
     }
   }
 
-  onCrusaderStrikeCast(event) {
+  onCrusaderStrikeCast(event: CastEvent) {
     if (this.wasteHP) {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;

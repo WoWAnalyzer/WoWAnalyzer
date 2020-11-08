@@ -1,24 +1,24 @@
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Events, {EnergizeEvent, CastEvent} from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 
 class BladeofJustice extends Analyzer {
 
   wastedHP = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLADE_OF_JUSTICE), this.onBladeOfJusticeCast);
     this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.BLADE_OF_JUSTICE), this.onBladeOfJusticeEnergize);
   }
 
-  onBladeOfJusticeEnergize(event) {
+  onBladeOfJusticeEnergize(event: EnergizeEvent) {
     if (event.waste > 0) {
       this.wastedHP = event.waste;
     }
   }
 
-  onBladeOfJusticeCast(event) {
+  onBladeOfJusticeCast(event: CastEvent) {
     if (this.wastedHP > 0) {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;

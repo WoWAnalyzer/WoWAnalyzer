@@ -401,25 +401,17 @@ Array [
       <ForwardRef
         id={152279}
       />
-       casts. Your cast should last 
-      <b>
-        at least
-      </b>
-       15 seconds to take full advantage of the 
-      <ForwardRef
-        id={51271}
-      />
-       buff.  A good cast is one that lasts 20 seconds or more.  To ensure a good duration, make you sure have 60+ Runic Power pooled and have less than 5 Runes available before you start the cast.  Also make sure to use 
+       casts. A good cast is one that lasts 25 seconds or more.  To ensure a good duration, make sure you have 70+ Runic Power pooled and have less than 4 Runes available before you start the cast.  Also make sure to use 
       <ForwardRef
         id={47568}
       />
-       before you cast Breath of Sindragosa. 
+       within a few seconds of casting Breath of Sindragosa. Pay close attention to your Runic Power and make sure you are not overcapping. 
       
     </React.Fragment>,
     "stat": <React.Fragment>
       You averaged 14.1 seconds of uptime per cast
        (
-      &gt;20 seconds is recommended
+      &gt;25 seconds is recommended
       )
     </React.Fragment>,
   },

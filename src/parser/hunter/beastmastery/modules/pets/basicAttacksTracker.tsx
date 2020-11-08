@@ -1,5 +1,5 @@
 import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
@@ -15,7 +15,6 @@ import { t } from '@lingui/macro';
 import Spell from 'common/SPELLS/Spell';
 
 import React from 'react';
-
 
 import { BASIC_ATTACK_SPELLS, MACRO_TIME_BETWEEN_BASIC_ATK, MAX_TIME_BETWEEN_BASIC_ATK, NO_DELAY_TIME_BETWEEN_BASIC_ATK } from '../../constants';
 
@@ -90,9 +89,9 @@ class BasicAttacks extends Analyzer {
 
   suggestions(when: When) {
     when(this.totalAttacksFromBasicAttacks).addSuggestion((suggest, actual, recommended) => suggest(<> Make sure that your pet is casting it's Basic Attacks, such as <SpellLink id={SPELLS.BITE_BASIC_ATTACK.id} />.</>)
-        .icon(SPELLS.BITE_BASIC_ATTACK.icon)
-        .actual(i18n._(t('hunter.beastmastery.suggestions.pet.basicAttacks')`Your pet didn't cast any Basic Attacks this fight`))
-        .recommended('Your pet should be autocast Basic Attacks'));
+      .icon(SPELLS.BITE_BASIC_ATTACK.icon)
+      .actual(i18n._(t('hunter.beastmastery.suggestions.pet.basicAttacks')`Your pet didn't cast any Basic Attacks this fight`))
+      .recommended('Your pet should be autocast Basic Attacks'));
   }
 
   statistic() {

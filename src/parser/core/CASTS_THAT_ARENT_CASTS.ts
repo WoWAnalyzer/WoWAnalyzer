@@ -35,6 +35,10 @@ const spells: number[] = [
   316944, // Dragon's Flight - Feather Fall (DNT)
   SPELLS.CELESTIAL_GUIDANCE_CAST.id, //Celestial Guidance enchant proc
 
+  //region Death Knight
+  SPELLS.BREATH_OF_SINDRAGOSA_TALENT_DAMAGE_TICK.id,
+  //endregion
+
   //region Hunter
   SPELLS.BARBED_SHOT_PET_BUFF.id, //The buff applied to BM Hunter pet when casting Barbed Shot
   SPELLS.DIRE_BEAST_SUMMON.id,
@@ -42,6 +46,7 @@ const spells: number[] = [
 
   //region Covenants
   SPELLS.RESONATING_ARROW_DEBUFF.id, //The debuff applied to mobs inside Kyrian hunter ability resonating arrow area of effect
+  SPELLS.RESONATING_ARROW_DAMAGE.id, //The damage event from the Kyrian Hunter Ability also has a cast event tied to it which we shouldn't track
   SPELLS.COMBAT_MEDITATION_TRIGGER.id, //The Spell ID when Combat Meditation from Kyrian Soulbind triggers, so that there is now a soul ready to pick up
   SPELLS.COMBAT_MEDITATION_PICK_UP.id, //The Spell ID that is "cast" when an orb is picked up
   SPELLS.WILD_MARK.id, //The debuff applied from enemies inside Wild Spirits

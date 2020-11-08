@@ -1,14 +1,15 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SPELLS from 'common/SPELLS';
-import Events from 'parser/core/Events';
+import Events, {DamageEvent, CastEvent, EnergizeEvent, FightEndEvent} from 'parser/core/Events';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 class WakeofAshes extends Analyzer {
     static dependencies = {
@@ -16,35 +17,33 @@ class WakeofAshes extends Analyzer {
         spellUsable: SpellUsable,
     };
 
+    protected abilityTracker!: AbilityTracker;
+
     totalHits = 0;
     badCasts = 0;
     wakeCast = false;
     wasteHP = false;
 
-    constructor(...args) {
-        super(...args);
-        this.active = this.selectedCombatant.hasTalent(SPELLS.WAKE_OF_ASHES.id);
-        if (!this.active) {
-            return;
-        }
+    constructor(options: Options) {
+        super(options);
         this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.WAKE_OF_ASHES), this.onWakeofAshesDamage);
         this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WAKE_OF_ASHES), this.onWakeofAshesCast);
         this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.WAKE_OF_ASHES), this.onWakeofAshesEnergize);
         this.addEventListener(Events.fightend, this.onFinished);
     }
 
-    onWakeofAshesDamage(event) {
+    onWakeofAshesDamage(event: DamageEvent) {
         this.totalHits += 1;
         this.wakeCast = false;
     }
 
-    onWakeofAshesEnergize(event) {
+    onWakeofAshesEnergize(event: EnergizeEvent) {
         if (event.waste > 0 ){
             this.wasteHP = true;
         }
     }
 
-    onWakeofAshesCast(event) {
+    onWakeofAshesCast(event: CastEvent) {
         if (this.wakeCast) {
             this.badCasts += 1;
         }
@@ -57,7 +56,7 @@ class WakeofAshes extends Analyzer {
         }
     }
 
-    onFinished() {
+    onFinished(event: FightEndEvent) {
         if (this.wakeCast) {
             this.badCasts += 1;
         }
@@ -75,11 +74,11 @@ class WakeofAshes extends Analyzer {
                 average: 0,
                 major: 0,
             },
-            style: 'number',
+            style: ThresholdStyle.NUMBER,
         };
     }
 
-    suggestions(when) {
+    suggestions(when: When) {
         when(this.badCastsThresholds)
             .addSuggestion((suggest, actual, recommended) => suggest(<><SpellLink id={SPELLS.WAKE_OF_ASHES.id} /> hit 0 targets {actual} time(s). <SpellLink id={SPELLS.BLADE_OF_JUSTICE.id} /> has the same range of 12yds. You can use this as a guideline to tell if targets will be in range.</>)
                     .icon(SPELLS.WAKE_OF_ASHES.icon)
@@ -90,7 +89,7 @@ class WakeofAshes extends Analyzer {
     statistic() {
         return (
             <StatisticBox
-              position={STATISTIC_ORDER.UNIMPORTANT()}
+              position={STATISTIC_ORDER.CORE()}
               icon={<SpellIcon id={SPELLS.WAKE_OF_ASHES.id} />}
               value={(
                     <>

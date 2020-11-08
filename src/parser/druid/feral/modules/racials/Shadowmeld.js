@@ -1,7 +1,8 @@
 import React from 'react';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Statistic from 'interface/statistics/Statistic';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import RACES from 'game/RACES';
@@ -34,24 +35,24 @@ class Shadowmeld extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHADOWMELD), this.onShadowmeld);
   }
 
-  onRake(event){
+  onRake(event) {
     if (this.selectedCombatant.hasBuff(SPELLS.SHADOWMELD.id, null, BUFF_WINDOW_TIME)) {
       // using Rake when Shadowmeld is active means Shadowmeld was used correctly
       this.correctUses += 1;
     }
   }
 
-  onShadowmeld(event){
+  onShadowmeld(event) {
     this.totalUses += 1;
 
     if (this.selectedCombatant.hasBuff(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id) ||
-        this.selectedCombatant.hasBuff(SPELLS.PROWL.id, null, BUFF_WINDOW_TIME) ||
-        this.selectedCombatant.hasBuff(SPELLS.PROWL_INCARNATION.id, null, BUFF_WINDOW_TIME)) {
+      this.selectedCombatant.hasBuff(SPELLS.PROWL.id, null, BUFF_WINDOW_TIME) ||
+      this.selectedCombatant.hasBuff(SPELLS.PROWL_INCARNATION.id, null, BUFF_WINDOW_TIME)) {
       // using Shadowmeld when the player already has a stealth (or stealth-like) effect active is almost always a mistake
       this.wastedDuringStealth += 1;
     }
   }
-  
+
   get possibleUses() {
     const cooldown = this.abilities.getAbility(SPELLS.SHADOWMELD.id).cooldown * 1000;
     return Math.floor(this.owner.fightDuration / cooldown) + 1;
@@ -83,10 +84,7 @@ class Shadowmeld extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.SHADOWMELD.id} />}
-        value={`${formatPercentage(this.correctUses / this.possibleUses)}%`}
-        label="Shadowmeld used to buff Rake"
+      <Statistic
         tooltip={(
           <>
             You used Shadowmeld <strong>{this.correctUses}</strong> times to increase Rake's damage.<br />
@@ -98,7 +96,14 @@ class Shadowmeld extends Analyzer {
           </>
         )}
         position={STATISTIC_ORDER.OPTIONAL()}
-      />
+        size="flexible"
+      >
+        <BoringSpellValueText spell={SPELLS.SHADOWMELD}>
+          <>
+            {formatPercentage(this.correctUses / this.possibleUses)}% <small>Shadowmeld used to buff Rake</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 

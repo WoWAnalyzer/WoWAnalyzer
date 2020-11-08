@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import Enemies from 'parser/shared/modules/Enemies';
@@ -169,9 +169,9 @@ class VolatileBomb extends Analyzer {
 
   suggestions(when: When) {
     when(this.missedResetsThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You shouldn't cast <SpellLink id={SPELLS.VOLATILE_BOMB_WFI.id} /> if your target doesn't have <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> on.</>)
-        .icon(SPELLS.VOLATILE_BOMB_WFI.icon)
-        .actual(i18n._(t('hunter.survival.suggestions.wildfireInfusion.castsWithoutSerpentSting')`${actual} casts without ${<SpellLink id={SPELLS.SERPENT_STING_SV.id} />} on`))
-        .recommended(`<${recommended} is recommended`));
+      .icon(SPELLS.VOLATILE_BOMB_WFI.icon)
+      .actual(i18n._(t('hunter.survival.suggestions.wildfireInfusion.castsWithoutSerpentSting')`${actual} casts without ${<SpellLink id={SPELLS.SERPENT_STING_SV.id} />} on`))
+      .recommended(`<${recommended} is recommended`));
 
   }
 }

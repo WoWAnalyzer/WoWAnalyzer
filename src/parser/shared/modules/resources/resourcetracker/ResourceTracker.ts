@@ -180,7 +180,7 @@ class ResourceTracker extends Analyzer {
     return this.getResource(event)?.cost;
   }
 
-  getResource(event: CastEvent | HealEvent | EnergizeEvent ) {
+  getResource(event: CastEvent | HealEvent | EnergizeEvent) {
     if(!event.classResources) {
       return undefined;
     } else {
