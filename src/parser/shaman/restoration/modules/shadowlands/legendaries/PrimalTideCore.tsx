@@ -26,7 +26,6 @@ import { Trans } from '@lingui/macro';
  * https://www.warcraftlogs.com/reports/94XrMGFh3vaN8dDZ/#fight=12&source=205
  */
 class PrimalTideCore extends Analyzer {
-  conduitRank = 0;
   healing = 0;
   targetsWithBoostedRiptides: boolean[] = [];
 
