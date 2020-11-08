@@ -61,6 +61,8 @@ import SwirlingCurrents from './modules/shadowlands/conduits/SwirlingCurrents';
 import NaturesFocus from './modules/shadowlands/conduits/NaturesFocus';
 // Legendaries
 import PrimalTideCore from './modules/shadowlands/legendaries/PrimalTideCore'
+import JonatsNaturalFocus from './modules/shadowlands/legendaries/JonatsNaturalFocus'
+import EarthenHarmony from './modules/shadowlands/legendaries/EarthenHarmony'
 // Shared
 import SpiritWolf from '../shared/talents/SpiritWolf';
 import StaticCharge from '../shared/talents/StaticCharge';
@@ -147,6 +149,8 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Legendaries
     primalTideCore: PrimalTideCore,
+    jonatsNaturalFocus: JonatsNaturalFocus,
+    earthenHarmony: EarthenHarmony,
   };
 
   generateResults(options: any) {

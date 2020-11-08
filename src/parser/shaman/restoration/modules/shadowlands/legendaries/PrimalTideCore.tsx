@@ -26,7 +26,6 @@ import { Trans } from '@lingui/macro';
  * https://www.warcraftlogs.com/reports/94XrMGFh3vaN8dDZ/#fight=12&source=205
  */
 class PrimalTideCore extends Analyzer {
-  conduitRank = 0;
   healing = 0;
   targetsWithBoostedRiptides: boolean[] = [];
 
@@ -81,7 +80,7 @@ class PrimalTideCore extends Analyzer {
         tooltip={<Trans id="shaman.restoration.legendaries.primalTideCore.statistic.tooltip">{this.gainedRiptideCasts} Riptide applications</Trans>}
       >
         <BoringSpellValueText spell={SPELLS.PRIMAL_TIDE_CORE}>
-          <ItemHealingDone amount={this.healing} /><br />
+          <ItemHealingDone amount={this.healing} />
         </BoringSpellValueText>
       </Statistic>
     );
