@@ -31,7 +31,6 @@
   "Character": "Personagem",
   "Click to switch languages. We've only just started localizing the app, it will take some time until everything is localized.": "Clique para trocar o idioma. Começamos a tradução da aplicação, vai levar um tempo até que tudo esteja traduzido.",
   "Combat potions used": "",
-  "Cooldown reduction": "",
   "Corrupt Warcraft Logs API response": "",
   "Corrupt Warcraft Logs API response received, this report can not be processed.": "",
   "Direct beacon healing": "",
@@ -49,7 +48,6 @@
   "High quality combat potions used": "",
   "High quality flask used": "",
   "High quality food used": "",
-  "Holy Shock was off cooldown when you cast Crusader Strike. You should cast Holy Shock before Crusader Strike for maximum healing or damage.": "",
   "It looks like we couldn't get a response in time from the API, this usually happens when the servers are under heavy load. Please try and use your report-code or try again later.": "",
   "It looks like we couldn't get a response in time from the API. Try and paste your report-code manually.": "Parece que não conseguimos uma resposta a tempo da API. Experimente colar o seu código de relatório manualmente.",
   "It was either already available or going to be available within {HOLY_SHOCK_COOLDOWN_WAIT_TIME}ms.": "",
@@ -633,6 +631,13 @@
   "paladin.holy.modules.masteryEffectiveness.suggestion.actual": "",
   "paladin.holy.modules.masteryEffectiveness.suggestion.recommended": ">{0}% é o recomendado",
   "paladin.holy.modules.statValues.hpct": "",
+  "paladin.holy.modules.talents.crusadersMight.actual": "",
+  "paladin.holy.modules.talents.crusadersMight.cdr": "",
+  "paladin.holy.modules.talents.crusadersMight.formatSeconds": "",
+  "paladin.holy.modules.talents.crusadersMight.inefficientCast": "",
+  "paladin.holy.modules.talents.crusadersMight.recommended": "",
+  "paladin.holy.modules.talents.crusadersMight.suggestion": "",
+  "paladin.holy.modules.talents.crusadersMight.tooltip": "",
   "paladin.holy.modules.talents.devotionAuraDamageReduction.damageReduction": "",
   "paladin.holy.modules.talents.devotionAuraDamageReduction.drps": "",
   "paladin.holy.modules.talents.devotionAuraDamageReduction.tooltip": "",
@@ -1003,6 +1008,5 @@
   "{num, plural, one {Healer} other {Healers}}": "",
   "{num, plural, one {Melee DPS} other {Melee DPS}}": "",
   "{num, plural, one {Ranged DPS} other {Ranged DPS}}": "",
-  "{num, plural, one {Tank} other {Tanks}}": "",
-  "{seconds}s": ""
+  "{num, plural, one {Tank} other {Tanks}}": ""
 }
