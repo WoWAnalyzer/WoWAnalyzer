@@ -156,9 +156,8 @@ class Hailstorm extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={(
           <ul>
-            <li>Stacks gained: usable stacks that you gained, not counting overcap.</li>
-            <li>Overcapped stacks: stacks that you could have potentially gained, but didn't because you can't have more then {MAX_STACKS} stacks.</li>
-            <li>Timed out stacks: stacks that you didn't consume with Frost Shock and that ended up timing out.</li>
+            <li>{`${formatNumber(this.totalStacksGained)} / ${formatNumber(this.totalStacksGained + this.overcappedStacks)} stacks gained: you overcapped ${this.overcappedStacks} stacks.`}</li>
+            <li>{`${formatNumber(this.totalStacksGained - this.lostStacks)} / ${formatNumber(this.totalStacksGained)} stacks used: ${this.lostStacks} stacks lost due to timeout.`}</li>
           </ul>
         )}
       >
@@ -166,16 +165,10 @@ class Hailstorm extends Analyzer {
           <>
             <ItemDamageDone amount={this.damage} approximate /><br />
             <AverageTargetsHit casts={this.casts} hits={this.hits} /><br/>
-            {formatNumber(this.totalStacksGained)} <small>stacks gained</small><br/>
-            { formatNumber(this.overcappedStacks)} <small>stacks overcapped</small><br/>
-            { this.lostStacks !== 0
-              ? <p style={{whiteSpace: 'nowrap'}}>
-                  {formatNumber(this.lostStacks)}{` `}
-                  ({formatPercentage(this.lostStacks / this.totalStacksGained )}%){` `}
-                  <small>stacks timed out</small>
-                </p> 
-              : <>{formatNumber(this.lostStacks)}{` `}<small>stacks lost due to buff timeout</small></>
-            }
+            <>
+                  {formatPercentage((this.totalStacksGained - this.lostStacks)/(this.totalStacksGained + this.overcappedStacks))}{'% '}
+                  <small>stacks used</small>
+            </>
           </>
         </BoringSpellValueText>
       </Statistic>
