@@ -92,7 +92,7 @@ class MaelstromWeapon extends Analyzer {
  */
 class Interval {
   protected startTime: number;
-  protected endTime: number | undefined;
+  protected endTime: number | undefined = undefined;
 
   constructor(timestamp: number) {
     this.startTime = timestamp;
@@ -104,9 +104,53 @@ class Interval {
 
   get duration(): number {
     if (this.endTime === undefined) {
-      throw Error('Cannot calculate duration of an Interval with no endTime.')
+      console.error('Cannot calculate duration of an Interval with no endTime.');
+      return 0;
     }
     return this.endTime - this.startTime;
+  }
+
+  get ended(): boolean {
+    return this.endTime !== undefined;
+  }
+}
+
+class Intervals {
+  protected intervals: Interval[];
+
+  constructor() {
+    this.intervals = [];
+  };
+
+  startInterval(timestamp: number) {
+    if (this.isLastIntervalInProgress) {
+      console.log('Intervals: cannot start a new interval because one is already in progress.')
+      return;
+    }
+
+    this.intervals.push(new Interval(timestamp));
+  }
+
+  endInterval(timestamp: number) {
+    if (!this.isLastIntervalInProgress) {
+      console.log('Intervals: cannot end an interval because none are in progress.')
+      return;
+    }
+
+    this.intervals[this.intervals.length - 1].end(timestamp);
+  }
+
+  private get isLastIntervalInProgress() {
+    const length = this.intervals.length;
+    if (length === 0) {
+      return false;
+    }
+
+    return !this.intervals[length - 1].ended
+  }
+
+  get totalDuration() {
+    return this.intervals.reduce((acc, interval) => acc + interval.duration, 0)
   }
 }
 
