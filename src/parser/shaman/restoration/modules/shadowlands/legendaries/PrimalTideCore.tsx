@@ -80,7 +80,7 @@ class PrimalTideCore extends Analyzer {
         tooltip={<Trans id="shaman.restoration.legendaries.primalTideCore.statistic.tooltip">{this.gainedRiptideCasts} Riptide applications</Trans>}
       >
         <BoringSpellValueText spell={SPELLS.PRIMAL_TIDE_CORE}>
-          <ItemHealingDone amount={this.healing} /><br />
+          <ItemHealingDone amount={this.healing} />
         </BoringSpellValueText>
       </Statistic>
     );
