@@ -58,6 +58,7 @@ import SpiritLinkDamageReduction from './modules/spells/SpiritLinkDamageReductio
 import EmbraceOfEarth from './modules/shadowlands/conduits/EmbraceOfEarth';
 import HeavyRainfall from './modules/shadowlands/conduits/HeavyRainfall';
 import SwirlingCurrents from './modules/shadowlands/conduits/SwirlingCurrents';
+import NaturesFocus from './modules/shadowlands/conduits/NaturesFocus';
 // Shared
 import SpiritWolf from '../shared/talents/SpiritWolf';
 import StaticCharge from '../shared/talents/StaticCharge';
@@ -140,6 +141,7 @@ class CombatLogParser extends CoreCombatLogParser {
     embraceOfEarth: EmbraceOfEarth,
     heavyRainfall: HeavyRainfall,
     swirlingCurrents: SwirlingCurrents,
+    naturesFocus: NaturesFocus,
   };
 
   generateResults(options: any) {
