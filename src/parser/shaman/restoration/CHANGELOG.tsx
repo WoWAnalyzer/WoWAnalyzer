@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 11, 8), <>Added the conduit <SpellLink id={SPELLS.NATURES_FOCUS.id} />.</>, niseko),
   change(date(2020, 10, 26), <>Added statistics, suggestions and checklist entries for <SpellLink id={SPELLS.WATER_SHIELD.id} /> and <SpellLink id={SPELLS.EARTH_SHIELD.id} />.</>, niseko),
   change(date(2020, 10, 26), <>Added statistics, suggestions and checklist entries for <SpellLink id={SPELLS.SURGE_OF_EARTH_TALENT.id} />.</>, niseko),
   change(date(2020, 10, 23), <>Added a statistic for <SpellLink id={SPELLS.MANA_TIDE_TOTEM_CAST.id} />.</>, niseko),
