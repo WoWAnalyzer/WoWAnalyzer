@@ -4975,7 +4975,7 @@ exports[`Frost Mage integration test: example log IceLance matches the statistic
         <div
           className="value"
         >
-          44%
+          50%
            
           <small>
             Casts shattered
@@ -5016,9 +5016,9 @@ Array [
         id={30455}
       />
        
-      10
+      9
        times (
-      55.56
+      50.00
       %) without 
       <ForwardRef
         id={12982}
@@ -5034,7 +5034,7 @@ Array [
        proc, or if you are moving and you cant cast anything else.
     </React.Fragment>,
     "stat": <React.Fragment>
-      55.56% missed
+      50.00% missed
        (
       &lt;5.00% is recommended
       )

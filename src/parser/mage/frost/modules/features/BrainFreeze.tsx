@@ -64,7 +64,6 @@ class BrainFreeze extends Analyzer {
 
   onFlurryCast(event: CastEvent) {
     const enemy = this.enemies.getEntity(event);
-    this.log(enemy.hasBuff(SPELLS.WINTERS_CHILL.id))
     if (!this.selectedCombatant.hasBuff(SPELLS.BRAIN_FREEZE.id)) {
       this.flurryHardCast += 1;
     } else if (enemy && enemy.hasBuff(SPELLS.WINTERS_CHILL.id)) {
