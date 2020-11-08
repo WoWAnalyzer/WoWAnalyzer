@@ -49,6 +49,7 @@ import EternalRuneWeapon from './modules/spells/azeritetraits/EternalRuneWeapon'
 import BloodyRuneblade from './modules/spells/azeritetraits/BloodyRuneblade';
 
 // Runes
+import RuneForgeChecker from './modules/core/RuneForgeChecker';
 import RuneOfTheFallenCrusader from '../shared/runeforges/RuneOfTheFallenCrusader';
 import RuneOfHysteria from '../shared/runeforges/RuneOfHysteria';
 
@@ -108,6 +109,7 @@ class CombatLogParser extends CoreCombatLogParser {
     bloodyRuneblade: BloodyRuneblade,
 
     // Runes
+    runeForgeChecker: RuneForgeChecker,
     runeOfTheFallenCrusader: RuneOfTheFallenCrusader,
     runeOfHysteria: RuneOfHysteria
   };
