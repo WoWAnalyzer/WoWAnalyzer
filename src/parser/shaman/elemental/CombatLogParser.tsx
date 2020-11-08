@@ -19,6 +19,7 @@ import UnlimitedPower from 'parser/shaman/elemental/modules/talents/UnlimitedPow
 import UnlimitedPowerTimesByStacks from 'parser/shaman/elemental/modules/talents/UnlimitedPowerTimesByStacks';
 import SurgeOfPower from 'parser/shaman/elemental/modules/talents/SurgeOfPower';
 import Icefury from 'parser/shaman/elemental/modules/talents/Icefury';
+import StaticDischarge from 'parser/shaman/elemental/modules/talents/StaticDischarge';
 import EchoingShock from 'parser/shaman/elemental/modules/talents/EchoingShock';
 
 import LavaSurge from 'parser/shaman/elemental/modules/core/LavaSurge';
@@ -68,6 +69,7 @@ class CombatLogParser extends CoreCombatLogParser {
     unlimitedPower: UnlimitedPower,
     stormkeeper: Stormkeeper,
     ascendance: Ascendance,
+    staticDischarge: StaticDischarge,
     echoingShock: EchoingShock,
 
     maelstromTracker: MaelstromTracker,
