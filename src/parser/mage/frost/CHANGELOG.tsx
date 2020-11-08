@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 11, 8), <>Resolved an issue where <SpellLink id={SPELLS.ICE_LANCE.id} /> was miscounting Non Shattered casts. </>, Sharrq),
   change(date(2020, 10, 29), <>Updated <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> module to check for overlapping <SpellLink id={SPELLS.FLURRY.id} /> (Using a Brain Freeze while Winters Chill is still on the target). </>, Sharrq),
   change(date(2020, 10, 20), 'Cleaned up variable types and constants.', Sharrq),
   change(date(2020, 10, 20), <>Added Covenant Abilities to Spellbook and removed the GCD on <SpellLink id={SPELLS.ICY_VEINS.id} />. </>, Sharrq),
