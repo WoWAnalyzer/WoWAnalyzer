@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 11, 8), <>Add Overcap analyzer for <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id}/> </>, Hordehobbs),
   change(date(2020, 10, 27), <>Update analyzers for <SpellLink id={SPELLS.RIGHTEOUS_PROTECTOR_TALENT.id}/> and <SpellLink id={SPELLS.SERAPHIM_TALENT.id}/>.</>, Hordehobbs),
   change(date(2020, 10, 26), <>Create analyzers for <SpellLink id={SPELLS.FIRST_AVENGER_TALENT.id} /> and <SpellLink id={SPELLS.MOMENT_OF_GLORY_TALENT.id} />.</>, Hordehobbs),
   change(date(2020, 10, 25), <>Create analyzers for <SpellLink id={SPELLS.REDOUBT_TALENT.id} /> and <SpellLink id={SPELLS.BLESSED_HAMMER_TALENT.id}/>.</>, Hordehobbs),

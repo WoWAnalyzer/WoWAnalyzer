@@ -6,16 +6,17 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
-import { formatNumber } from 'common/format';
+import { formatMilliseconds, formatNumber } from 'common/format';
 import SpellLink from 'common/SpellLink';
-import Abilities from 'parser/paladin/protection/modules/Abilities';
 import SpellUsable from 'parser/paladin/protection/modules/features/SpellUsable';
-import { TrackedBuffEvent } from 'parser/core/Entity';
 
 const ACTIVE_MITIGATION_CAP = 13.5 * 1000; // Active mitigation buffs cap out at 13.5 seconds.
 const SOTR_BUFF_LENGTH = 4.5 * 1000; // SOTR grants a 4.5s buff.
 const SOTR_SOFT_CAP = ACTIVE_MITIGATION_CAP - SOTR_BUFF_LENGTH;
 const SECOND = 1000;
+const debug = false;
+
+type OvercapRecord = {cast: CastEvent, overcap: number};
 
 class OvercapShieldOfTheRighteous extends Analyzer {
   static dependencies = {
@@ -28,9 +29,8 @@ class OvercapShieldOfTheRighteous extends Analyzer {
   badSotrCasts: number = 0;
   totalSotrOvercapping: number = 0;
   lastSotrCastTimestamp: number = 0;
-  numSotrCasts: number = 0;
-  sotrCasts: CastEvent[] = [];
-  sotrCastToBuffTimeAtCast: Map<number, number> = new Map<number, number>();
+  buffTimeAtLastCast: number = 0;
+  overcapRecords: OvercapRecord[] = [];
 
   hpGeneratingSpells = [
     SPELLS.BLESSED_HAMMER_TALENT,
@@ -45,30 +45,27 @@ class OvercapShieldOfTheRighteous extends Analyzer {
   }
 
   trackSotRCasts(event: CastEvent): void {
-    this.numSotrCasts += 1;
-    this.sotrCasts.push(event);
-    if (this.sotrCastToBuffTimeAtCast.size === 0) {
-      this.sotrCastToBuffTimeAtCast.set(event.timestamp, 0);
+    if (this.lastSotrCastTimestamp === 0) {
+      this.goodSotrCasts += 1;
+      this.lastSotrCastTimestamp = event.timestamp;
+      this.buffTimeAtLastCast = SOTR_BUFF_LENGTH;
+      return;
+    }
+    const timeDiffBetweenCasts = event.timestamp - this.lastSotrCastTimestamp;
+    const buffAmountAtCurrentCast = Math.max(0, this.buffTimeAtLastCast - timeDiffBetweenCasts);
+    if (buffAmountAtCurrentCast >= SOTR_SOFT_CAP && !this.castIsForgivable(event)) {
+      this.badSotrCasts += 1;
+      this.overcapRecords.push({
+        cast:event,
+        overcap: ACTIVE_MITIGATION_CAP - buffAmountAtCurrentCast,
+      });
+      debug && console.log(`Determined cast at ${event.timestamp} is bad cast with buff amount of ${buffAmountAtCurrentCast}. Adding overcap amount of ${ACTIVE_MITIGATION_CAP - buffAmountAtCurrentCast}`);
     } else {
-      const diffBetweenSotRCasts = event.timestamp - this.lastSotrCastTimestamp;
-      const buffTimeAtLastCast = (this.sotrCastToBuffTimeAtCast.get(this.lastSotrCastTimestamp) || 0);
-      const currentBuffUptime = Math.max(Math.min(SOTR_BUFF_LENGTH - diffBetweenSotRCasts + buffTimeAtLastCast, ACTIVE_MITIGATION_CAP), 0);
-      console.log(`Calculated ${currentBuffUptime} as ${SOTR_BUFF_LENGTH} - ${diffBetweenSotRCasts} + ${buffTimeAtLastCast}.`);
-      this.sotrCastToBuffTimeAtCast.set(event.timestamp, currentBuffUptime);
+      this.goodSotrCasts += 1;
+      debug && console.log(`Determined cast at ${event.timestamp} is good cast with buff amount of ${buffAmountAtCurrentCast}.`);
     }
     this.lastSotrCastTimestamp = event.timestamp;
-  }
-
-  getSotrOvercapAmount(event: CastEvent): number {
-    if (!this.selectedCombatant.hasBuff(SPELLS.SHIELD_OF_THE_RIGHTEOUS_BUFF.id, event.timestamp)) {
-      return 0;
-    } else if (this.castIsForgivable(event)) {
-      return 0;
-    } else {
-      const currentBufftime = this.getCurrentSotrBuffTime(event);
-      console.log(`Found current SOTR buff time of ${currentBufftime} at timestamp ${event.timestamp}.`);
-      return Math.min(Math.max(0, currentBufftime + SOTR_BUFF_LENGTH - SOTR_SOFT_CAP), SOTR_BUFF_LENGTH);
-    }
+    this.buffTimeAtLastCast = Math.min(buffAmountAtCurrentCast + SOTR_BUFF_LENGTH, ACTIVE_MITIGATION_CAP);
   }
 
   /**
@@ -86,20 +83,10 @@ class OvercapShieldOfTheRighteous extends Analyzer {
     return true;
   }
 
-  getCurrentSotrBuffTime(event: CastEvent): number {
-    return (this.sotrCastToBuffTimeAtCast.get(event.timestamp) || 0);
-  }
-
   statistic(): React.ReactNode {
-    const idealSotrUptime = this.numSotrCasts * SOTR_BUFF_LENGTH;
+    const idealSotrUptime = (this.goodSotrCasts + this.badSotrCasts) * SOTR_BUFF_LENGTH;
     const actualSotrUptime = this.selectedCombatant.getBuffUptime(SPELLS.SHIELD_OF_THE_RIGHTEOUS_BUFF.id);
     const lostUptimeDueToOvercap = idealSotrUptime - actualSotrUptime;
-    let overcapSum: number = 0;
-    this.sotrCasts.forEach((cast) => {
-      const overcapAmount = this.getSotrOvercapAmount(cast);
-      console.log(`Found overcap amount of ${overcapAmount} for SOTR cast at timestamp ${cast.timestamp}.`);
-      overcapSum += overcapAmount;
-    });
     return (
       <>
         <Statistic
@@ -110,6 +97,26 @@ class OvercapShieldOfTheRighteous extends Analyzer {
             <>
               You lost {formatNumber(lostUptimeDueToOvercap/SECOND)} seconds due to overcapping <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} />.<br />
               Overcapping occurs when you cast <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> with more than {formatNumber(SOTR_SOFT_CAP/SECOND)} seconds left on the buff.
+            </>
+          )}
+          dropdown={(
+            <>
+              <table className="table table-condensed">
+                <thead>
+                  <tr>
+                    <th>Cast Timestamp</th>
+                    <th>Overcap Amount (s)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.overcapRecords.map((record: OvercapRecord, i: number) => (
+                    <tr key={i}>
+                      <td>{this.owner.formatTimestamp(record.cast.timestamp)}</td>
+                      <td>{formatMilliseconds(record.overcap)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </>
           )}
         >
