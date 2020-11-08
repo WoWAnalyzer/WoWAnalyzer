@@ -1,5 +1,5 @@
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -65,13 +65,13 @@ class SteadyFocus extends Analyzer {
 
   suggestions(when: When) {
     when(this.uptimeThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-        <>
-          Your uptime on the buff from <SpellLink id={SPELLS.STEADY_FOCUS_TALENT.id} /> could be better. When using this talent you should always try and couple your <SpellLink id={SPELLS.STEADY_SHOT.id} /> together to maintain this buff.
-        </>,
-      )
-        .icon(SPELLS.STEADY_FOCUS_TALENT.icon)
-        .actual(i18n._(t('hunter.marksmanship.suggestions.steadyFocus.uptime')`${formatPercentage(actual)}% uptime`))
-        .recommended(`>${formatPercentage(recommended)}% is recommended`));
+      <>
+        Your uptime on the buff from <SpellLink id={SPELLS.STEADY_FOCUS_TALENT.id} /> could be better. When using this talent you should always try and couple your <SpellLink id={SPELLS.STEADY_SHOT.id} /> together to maintain this buff.
+      </>,
+    )
+      .icon(SPELLS.STEADY_FOCUS_TALENT.icon)
+      .actual(i18n._(t('hunter.marksmanship.suggestions.steadyFocus.uptime')`${formatPercentage(actual)}% uptime`))
+      .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 }
 

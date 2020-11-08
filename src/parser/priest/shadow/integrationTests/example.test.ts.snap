@@ -111,6 +111,7 @@ exports[`Shadow Priest integration test: example log AuspiciousSpirits matches t
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=155271"
             rel="noopener noreferrer"
             target="_blank"
@@ -123,6 +124,7 @@ exports[`Shadow Priest integration test: example log AuspiciousSpirits matches t
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=155271"
             rel="noopener noreferrer"
             target="_blank"
@@ -264,6 +266,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=205448"
                 rel="noopener noreferrer"
                 style={
@@ -361,6 +364,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=8092"
                 rel="noopener noreferrer"
                 style={
@@ -458,6 +462,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=15407"
                 rel="noopener noreferrer"
                 style={
@@ -543,6 +548,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=32379"
                 rel="noopener noreferrer"
                 style={
@@ -640,6 +646,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=589"
                 rel="noopener noreferrer"
                 style={
@@ -725,6 +732,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=335467"
                 rel="noopener noreferrer"
                 style={
@@ -810,6 +818,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=34914"
                 rel="noopener noreferrer"
                 style={
@@ -944,6 +953,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=48045"
                 rel="noopener noreferrer"
                 style={
@@ -1078,6 +1088,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=228260"
                 rel="noopener noreferrer"
                 style={
@@ -1175,6 +1186,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=200174"
                 rel="noopener noreferrer"
                 style={
@@ -1272,6 +1284,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=265314"
                 rel="noopener noreferrer"
                 style={
@@ -1418,6 +1431,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=47585"
                 rel="noopener noreferrer"
                 style={
@@ -1515,6 +1529,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=15487"
                 rel="noopener noreferrer"
                 style={
@@ -1612,6 +1627,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=15286"
                 rel="noopener noreferrer"
                 style={
@@ -1709,6 +1725,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=17"
                 rel="noopener noreferrer"
                 style={
@@ -1806,6 +1823,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=186263"
                 rel="noopener noreferrer"
                 style={
@@ -1891,6 +1909,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=19236"
                 rel="noopener noreferrer"
                 style={
@@ -1988,6 +2007,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=73325"
                 rel="noopener noreferrer"
                 style={
@@ -2085,6 +2105,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=586"
                 rel="noopener noreferrer"
                 style={
@@ -2182,6 +2203,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=21562"
                 rel="noopener noreferrer"
                 style={
@@ -2267,6 +2289,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=1706"
                 rel="noopener noreferrer"
                 style={
@@ -2352,6 +2375,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=453"
                 rel="noopener noreferrer"
                 style={
@@ -2437,6 +2461,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=32375"
                 rel="noopener noreferrer"
                 style={
@@ -2534,6 +2559,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=528"
                 rel="noopener noreferrer"
                 style={
@@ -2619,6 +2645,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=605"
                 rel="noopener noreferrer"
                 style={
@@ -2704,6 +2731,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=9484"
                 rel="noopener noreferrer"
                 style={
@@ -2789,6 +2817,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=8122"
                 rel="noopener noreferrer"
                 style={
@@ -2886,6 +2915,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=2096"
                 rel="noopener noreferrer"
                 style={
@@ -2971,6 +3001,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=213634"
                 rel="noopener noreferrer"
                 style={
@@ -3068,6 +3099,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=232698"
                 rel="noopener noreferrer"
                 style={
@@ -3153,6 +3185,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=2006"
                 rel="noopener noreferrer"
                 style={
@@ -3287,6 +3320,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=6262"
                 rel="noopener noreferrer"
                 style={
@@ -3384,6 +3418,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171267"
                 rel="noopener noreferrer"
                 style={
@@ -3481,6 +3516,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171273"
                 rel="noopener noreferrer"
                 style={
@@ -3597,6 +3633,7 @@ exports[`Shadow Priest integration test: example log DeadlyNavigation matches th
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=268905"
             rel="noopener noreferrer"
             target="_blank"
@@ -3609,6 +3646,7 @@ exports[`Shadow Priest integration test: example log DeadlyNavigation matches th
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=268905"
             rel="noopener noreferrer"
             target="_blank"
@@ -4101,6 +4139,7 @@ exports[`Shadow Priest integration test: example log EssenceOfTheFocusingIris ma
         >
           <label>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=299337"
               rel="noopener noreferrer"
               target="_blank"
@@ -4206,6 +4245,7 @@ exports[`Shadow Priest integration test: example log Gutripper matches the stati
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=266937"
             rel="noopener noreferrer"
             target="_blank"
@@ -4218,6 +4258,7 @@ exports[`Shadow Priest integration test: example log Gutripper matches the stati
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=266937"
             rel="noopener noreferrer"
             target="_blank"
@@ -4274,6 +4315,7 @@ exports[`Shadow Priest integration test: example log HeedMyCall matches the stat
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=263987"
             rel="noopener noreferrer"
             target="_blank"
@@ -4286,6 +4328,7 @@ exports[`Shadow Priest integration test: example log HeedMyCall matches the stat
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=263987"
             rel="noopener noreferrer"
             target="_blank"
@@ -4364,6 +4407,7 @@ exports[`Shadow Priest integration test: example log ShadowWordPain matches the 
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=589"
             rel="noopener noreferrer"
             target="_blank"
@@ -4376,6 +4420,7 @@ exports[`Shadow Priest integration test: example log ShadowWordPain matches the 
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=589"
             rel="noopener noreferrer"
             target="_blank"
@@ -4424,6 +4469,7 @@ exports[`Shadow Priest integration test: example log TheCrucibleofFlame matches 
         >
           <label>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=299348"
               rel="noopener noreferrer"
               target="_blank"
@@ -4780,6 +4826,7 @@ exports[`Shadow Priest integration test: example log VampiricEmbrace matches the
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=15286"
             rel="noopener noreferrer"
             target="_blank"
@@ -4792,6 +4839,7 @@ exports[`Shadow Priest integration test: example log VampiricEmbrace matches the
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=15286"
             rel="noopener noreferrer"
             target="_blank"
@@ -4855,6 +4903,7 @@ exports[`Shadow Priest integration test: example log VampiricTouch matches the s
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=34914"
             rel="noopener noreferrer"
             target="_blank"
@@ -4867,6 +4916,7 @@ exports[`Shadow Priest integration test: example log VampiricTouch matches the s
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=34914"
             rel="noopener noreferrer"
             target="_blank"
@@ -4905,7 +4955,7 @@ exports[`Shadow Priest integration test: example log VitaChargedTitanshard match
       >
         <label>
           <a
-            className="epic"
+            className="epicitem-link-text"
             href="http://wowhead.com/item=174500&gems=168638&bonus=4824:1517:4786:6514"
             rel="noopener noreferrer"
             target="_blank"
@@ -5051,6 +5101,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
           >
             When not in 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=228264"
               rel="noopener noreferrer"
               target="_blank"
@@ -5065,6 +5116,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
             </a>
             , it's important to keep your DoTs up on the boss. While in 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=228264"
               rel="noopener noreferrer"
               target="_blank"
@@ -5079,6 +5131,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
             </a>
             ,  your 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=34914"
               rel="noopener noreferrer"
               target="_blank"
@@ -5093,6 +5146,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
             </a>
             , 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=335467"
               rel="noopener noreferrer"
               target="_blank"
@@ -5107,6 +5161,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
             </a>
             , and 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=589"
               rel="noopener noreferrer"
               target="_blank"
@@ -5121,6 +5176,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
             </a>
              durations are extended when the target or a nearby target gets hit by 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=205448"
               rel="noopener noreferrer"
               target="_blank"
@@ -5149,6 +5205,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=589"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5222,6 +5279,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=34914"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5374,6 +5432,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
           >
             Spells such as 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=205448"
               rel="noopener noreferrer"
               target="_blank"
@@ -5388,6 +5447,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
             </a>
              or 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=8092"
               rel="noopener noreferrer"
               target="_blank"
@@ -5416,6 +5476,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=205448"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5488,6 +5549,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=8092"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5653,6 +5715,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=228260"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5725,6 +5788,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=200174"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5876,6 +5940,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
           >
             Try to minimize your time not casting. Use your core spells on cooldown and fillers when they are not available. If you know you have an upcoming position requirement, stutterstep with each 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=205448"
               rel="noopener noreferrer"
               target="_blank"
@@ -5890,6 +5955,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
             </a>
              or 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=335467"
               rel="noopener noreferrer"
               target="_blank"
@@ -5904,6 +5970,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
             </a>
              cast towards that location. During high movement you can use 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=589"
               rel="noopener noreferrer"
               target="_blank"

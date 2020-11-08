@@ -27,7 +27,6 @@ export default {
   DEMONIC_APPETITE_TALENT: { id: 206478, name: 'Demonic Appetite', icon: 'ability_creature_poison_01_purple' },
   INSATIABLE_HUNGER_TALENT: { id: 258876, name: 'Insatiable Hunger', icon: 'ability_rogue_hungerforblood' },
   DEMON_BLADES_TALENT: { id: 203555, name: 'Demon Blades', icon: 'inv_weapon_shortblade_92' },
-  IMMOLATION_AURA_TALENT: { id: 258920, name: 'Immolation Aura', icon: 'ability_demonhunter_immolation' },
   TRAIL_OF_RUIN_TALENT: { id: 258881, name: 'Trail of Ruin', icon: 'ability_demonhunter_bladedance' },
   FEL_MASTERY_TALENT: { id: 192939, name: 'Fel Mastery', icon: 'ability_skyreach_piercing_rush' },
   FEL_BARRAGE_TALENT: { id: 258925, name: 'Fel Barrage', icon: 'inv_felbarrage' },

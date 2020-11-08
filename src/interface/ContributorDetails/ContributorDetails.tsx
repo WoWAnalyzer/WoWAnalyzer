@@ -5,7 +5,7 @@ import SPECS from 'game/SPECS';
 import SpecIcon from 'common/SpecIcon';
 import DropdownIcon from 'interface/icons/Dropdown';
 import Panel from 'interface/others/Panel';
-import Expandable from 'interface/common/Expandable';
+import { Expandable } from 'interface/common/Expandable';
 import AVAILABLE_CONFIGS from 'parser';
 import { ChangelogEntry } from 'common/changelog';
 import contributors, { Character, Contributor } from 'common/contributor';

@@ -25,13 +25,12 @@ import ComboPointTracker from './modules/combopoints/ComboPointTracker';
 import ComboPointDetails from './modules/combopoints/ComboPointDetails';
 import FinisherUse from './modules/combopoints/FinisherUse';
 
-import SavageRoarUptime from './modules/talents/SavageRoarUptime';
 import MoonfireUptime from './modules/talents/MoonfireUptime';
-import SavageRoarDmg from './modules/talents/SavageRoarDmg';
 import MoonfireSnapshot from './modules/talents/MoonfireSnapshot';
 import Predator from './modules/talents/Predator';
 import Bloodtalons from './modules/talents/Bloodtalons';
 import BrutalSlashHitCount from './modules/talents/BrutalSlashHitCount';
+import SavageRoar from './modules/talents/SavageRoar';
 
 import PredatorySwiftness from './modules/spells/PredatorySwiftness';
 import ThrashHitCount from './modules/spells/ThrashHitCount';
@@ -80,9 +79,8 @@ class CombatLogParser extends CoreCombatLogParser {
     shadowmeld: Shadowmeld,
 
     // talents
-    savageRoarUptime: SavageRoarUptime,
     moonfireUptime: MoonfireUptime,
-    savageRoarDmg: SavageRoarDmg,
+    savageRoar: SavageRoar,
     predator: Predator,
     bloodtalons: Bloodtalons,
     brutalSlashHitCount: BrutalSlashHitCount,

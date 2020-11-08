@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
@@ -51,7 +51,7 @@ class FlankingStrike extends Analyzer {
     const foundPet = this.flankingStrikes.find((pet: { sourceID: number }) => pet.sourceID === petId);
     if (!foundPet) {
       const sourcePet = this.owner.playerPets.find((pet: { id: number }) => pet.id === petId);
-      if(!sourcePet) {
+      if (!sourcePet) {
         return;
       }
       const pet = {

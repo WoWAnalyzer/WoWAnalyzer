@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -7,11 +7,11 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import SPELLS from 'common/SPELLS';
 import Events from 'parser/core/Events';
 import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
-import { FLAMEWAKERS_PROC_CHANCE } from 'parser/hunter/beastmastery/constants';
+import { FLAMEWAKERS_PROC_CHANCE, KILL_COMMAND_BM_FOCUS_COST } from 'parser/hunter/beastmastery/constants';
 import SpellLink from 'common/SpellLink';
 
 /**
- * Cobra Shot has a 15% chance to make your next Kill Command consume no Focus.
+ * Cobra Shot has a 25% chance to make your next Kill Command consume no Focus.
  *
  * Example log:
  *
@@ -72,7 +72,7 @@ class FlamewakersCobraSting extends Analyzer {
         <BoringSpellValueText spell={SPELLS.FLAMEWAKERS_COBRA_STING_EFFECT}>
           {this.utilizedFlamewakerBuffs}/{this.wastedFlamewakerBuffs + this.utilizedFlamewakerBuffs} <small> Procs utilized </small>
           <br />
-          {this.utilizedFlamewakerBuffs * SPELLS.KILL_COMMAND_CAST_BM.focusCost} <small> Focus saved</small>
+          {this.utilizedFlamewakerBuffs * KILL_COMMAND_BM_FOCUS_COST} <small> Focus saved</small>
         </BoringSpellValueText>
       </Statistic>
     );

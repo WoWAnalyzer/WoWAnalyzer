@@ -9,9 +9,9 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import React from 'react';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { formatThousands } from 'common/format';
 import COVENANTS from 'game/shadowlands/COVENANTS';
+import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
 
 /**
  * Wild Spirits duration is increased by 3 sec and the damage dealt is increased by 10.0%.
@@ -70,12 +70,12 @@ class SpiritAttunement extends Analyzer {
           </>
         )}
       >
-        <BoringSpellValueText spell={SPELLS.SPIRIT_ATTUNEMENT_CONDUIT}>
+        <ConduitSpellText spell={SPELLS.SPIRIT_ATTUNEMENT_CONDUIT} rank={this.conduitRank}>
           <>
             <ItemDamageDone amount={this.addedDamage} />
             {formatThousands(this.damageAfterOriginalDuration)} <small>damage after normal duration</small>
           </>
-        </BoringSpellValueText>
+        </ConduitSpellText>
       </Statistic>
     );
   }

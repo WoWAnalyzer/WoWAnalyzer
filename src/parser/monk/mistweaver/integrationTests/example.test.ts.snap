@@ -16,7 +16,7 @@ exports[`Mistweaver Monk integration test: example log AlchemistStone matches th
       >
         <label>
           <a
-            className="unknown"
+            className="unknownitem-link-text"
             href="http://wowhead.com/item=171085"
             rel="noopener noreferrer"
             target="_blank"
@@ -30,7 +30,7 @@ exports[`Mistweaver Monk integration test: example log AlchemistStone matches th
           </a>
            
           <a
-            className="unknown"
+            className="unknownitem-link-text"
             href="http://wowhead.com/item=171085"
             rel="noopener noreferrer"
             target="_blank"
@@ -348,7 +348,7 @@ exports[`Mistweaver Monk integration test: example log Ashjrakamas matches the s
       >
         <label>
           <a
-            className="legendary"
+            className="legendaryitem-link-text"
             href="http://wowhead.com/item=169223"
             rel="noopener noreferrer"
             target="_blank"
@@ -362,7 +362,7 @@ exports[`Mistweaver Monk integration test: example log Ashjrakamas matches the s
           </a>
            
           <a
-            className="legendary"
+            className="legendaryitem-link-text"
             href="http://wowhead.com/item=169223"
             rel="noopener noreferrer"
             target="_blank"
@@ -503,6 +503,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=115151"
                 rel="noopener noreferrer"
                 style={
@@ -600,6 +601,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=115175"
                 rel="noopener noreferrer"
                 style={
@@ -734,6 +736,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=313148"
                 rel="noopener noreferrer"
                 style={
@@ -880,6 +883,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=116680"
                 rel="noopener noreferrer"
                 style={
@@ -977,6 +981,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=197908"
                 rel="noopener noreferrer"
                 style={
@@ -1076,6 +1081,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=123986"
                 rel="noopener noreferrer"
                 style={
@@ -1175,6 +1181,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=116849"
                 rel="noopener noreferrer"
                 style={
@@ -1274,6 +1281,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=115310"
                 rel="noopener noreferrer"
                 style={
@@ -1371,6 +1379,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=322118"
                 rel="noopener noreferrer"
                 style={
@@ -1470,6 +1479,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=322109"
                 rel="noopener noreferrer"
                 style={
@@ -1618,6 +1628,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=122783"
                 rel="noopener noreferrer"
                 style={
@@ -1715,6 +1726,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=243435"
                 rel="noopener noreferrer"
                 style={
@@ -1861,6 +1873,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=124682"
                 rel="noopener noreferrer"
                 style={
@@ -1946,6 +1959,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=116670"
                 rel="noopener noreferrer"
                 style={
@@ -2031,6 +2045,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=191837"
                 rel="noopener noreferrer"
                 style={
@@ -2128,6 +2143,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=322101"
                 rel="noopener noreferrer"
                 style={
@@ -2262,6 +2278,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=115450"
                 rel="noopener noreferrer"
                 style={
@@ -2359,6 +2376,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=115078"
                 rel="noopener noreferrer"
                 style={
@@ -2456,6 +2474,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=116844"
                 rel="noopener noreferrer"
                 style={
@@ -2553,6 +2572,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=119381"
                 rel="noopener noreferrer"
                 style={
@@ -2650,6 +2670,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=109132"
                 rel="noopener noreferrer"
                 style={
@@ -2747,6 +2768,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=116841"
                 rel="noopener noreferrer"
                 style={
@@ -2844,6 +2866,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=101643"
                 rel="noopener noreferrer"
                 style={
@@ -2941,6 +2964,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=119996"
                 rel="noopener noreferrer"
                 style={
@@ -3087,6 +3111,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=100780"
                 rel="noopener noreferrer"
                 style={
@@ -3172,6 +3197,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=100784"
                 rel="noopener noreferrer"
                 style={
@@ -3269,6 +3295,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=107428"
                 rel="noopener noreferrer"
                 style={
@@ -3366,6 +3393,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=101546"
                 rel="noopener noreferrer"
                 style={
@@ -3451,6 +3479,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=117952"
                 rel="noopener noreferrer"
                 style={
@@ -3585,6 +3614,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=6262"
                 rel="noopener noreferrer"
                 style={
@@ -3682,6 +3712,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171267"
                 rel="noopener noreferrer"
                 style={
@@ -3779,6 +3810,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171273"
                 rel="noopener noreferrer"
                 style={
@@ -4105,6 +4137,7 @@ exports[`Mistweaver Monk integration test: example log CastRatio matches the sta
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=124682"
             rel="noopener noreferrer"
             target="_blank"
@@ -4117,6 +4150,7 @@ exports[`Mistweaver Monk integration test: example log CastRatio matches the sta
           </a>
            : 
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=116670"
             rel="noopener noreferrer"
             target="_blank"
@@ -4521,6 +4555,7 @@ exports[`Mistweaver Monk integration test: example log EnvelopingBreath matches 
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=325209"
             rel="noopener noreferrer"
             target="_blank"
@@ -4533,6 +4568,7 @@ exports[`Mistweaver Monk integration test: example log EnvelopingBreath matches 
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=325209"
             rel="noopener noreferrer"
             target="_blank"
@@ -4619,6 +4655,7 @@ exports[`Mistweaver Monk integration test: example log EnvelopingMists matches t
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=124682"
             rel="noopener noreferrer"
             target="_blank"
@@ -4631,6 +4668,7 @@ exports[`Mistweaver Monk integration test: example log EnvelopingMists matches t
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=124682"
             rel="noopener noreferrer"
             target="_blank"
@@ -4692,6 +4730,7 @@ exports[`Mistweaver Monk integration test: example log EssenceFont matches the s
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=191837"
             rel="noopener noreferrer"
             target="_blank"
@@ -4740,6 +4779,7 @@ exports[`Mistweaver Monk integration test: example log EssenceFontHealingBreakdo
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=191837"
             rel="noopener noreferrer"
             target="_blank"
@@ -4779,6 +4819,7 @@ exports[`Mistweaver Monk integration test: example log EssenceFontHealingBreakdo
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=191837"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -4826,6 +4867,7 @@ exports[`Mistweaver Monk integration test: example log EssenceFontHealingBreakdo
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=191840"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -4873,6 +4915,7 @@ exports[`Mistweaver Monk integration test: example log EssenceFontHealingBreakdo
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=191894"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -4935,6 +4978,7 @@ exports[`Mistweaver Monk integration test: example log EssenceFontMastery matche
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=191894"
             rel="noopener noreferrer"
             target="_blank"
@@ -5038,7 +5082,7 @@ exports[`Mistweaver Monk integration test: example log ForbiddenObsidianClaw mat
       >
         <label>
           <a
-            className="epic"
+            className="epicitem-link-text"
             href="http://wowhead.com/item=173944&bonus=4824:6515:1517:4786"
             rel="noopener noreferrer"
             target="_blank"
@@ -5124,6 +5168,7 @@ exports[`Mistweaver Monk integration test: example log InvokeYulon matches the s
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=322118"
             rel="noopener noreferrer"
             target="_blank"
@@ -5136,6 +5181,7 @@ exports[`Mistweaver Monk integration test: example log InvokeYulon matches the s
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=322118"
             rel="noopener noreferrer"
             target="_blank"
@@ -5200,6 +5246,7 @@ exports[`Mistweaver Monk integration test: example log LifeCocoon matches the st
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=116849"
             rel="noopener noreferrer"
             target="_blank"
@@ -5212,6 +5259,7 @@ exports[`Mistweaver Monk integration test: example log LifeCocoon matches the st
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=116849"
             rel="noopener noreferrer"
             target="_blank"
@@ -5307,6 +5355,7 @@ exports[`Mistweaver Monk integration test: example log ManaTea matches the stati
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=197908"
             rel="noopener noreferrer"
             target="_blank"
@@ -5456,6 +5505,7 @@ exports[`Mistweaver Monk integration test: example log MasteryStats matches the 
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=191894"
             rel="noopener noreferrer"
             target="_blank"
@@ -5495,6 +5545,7 @@ exports[`Mistweaver Monk integration test: example log MasteryStats matches the 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=116670"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5542,6 +5593,7 @@ exports[`Mistweaver Monk integration test: example log MasteryStats matches the 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=115151"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5589,6 +5641,7 @@ exports[`Mistweaver Monk integration test: example log MasteryStats matches the 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=124682"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5636,6 +5689,7 @@ exports[`Mistweaver Monk integration test: example log MasteryStats matches the 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=115175"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5683,6 +5737,7 @@ exports[`Mistweaver Monk integration test: example log MasteryStats matches the 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=191837"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5730,6 +5785,7 @@ exports[`Mistweaver Monk integration test: example log MasteryStats matches the 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=322101"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5794,6 +5850,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
     </h1>
     <small>
       <a
+        className="spell-link-text"
         href="http://wowhead.com/spell=191894"
         rel="noopener noreferrer"
         target="_blank"
@@ -5810,6 +5867,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
       <br />
        
       <a
+        className="spell-link-text"
         href="http://wowhead.com/spell=191837"
         rel="noopener noreferrer"
         target="_blank"
@@ -5824,6 +5882,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
       </a>
        is given the healing from duplicated gusts, since without 
       <a
+        className="spell-link-text"
         href="http://wowhead.com/spell=191837"
         rel="noopener noreferrer"
         target="_blank"
@@ -5840,6 +5899,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
       <br />
        
       <a
+        className="spell-link-text"
         href="http://wowhead.com/spell=115151"
         rel="noopener noreferrer"
         target="_blank"
@@ -5854,6 +5914,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
       </a>
        is given the splash healing of 
       <a
+        className="spell-link-text"
         href="http://wowhead.com/spell=116670"
         rel="noopener noreferrer"
         target="_blank"
@@ -5868,6 +5929,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
       </a>
       's heal since without 
       <a
+        className="spell-link-text"
         href="http://wowhead.com/spell=115151"
         rel="noopener noreferrer"
         target="_blank"
@@ -5882,6 +5944,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
       </a>
       , 
       <a
+        className="spell-link-text"
         href="http://wowhead.com/spell=116670"
         rel="noopener noreferrer"
         target="_blank"
@@ -5898,6 +5961,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
       <br />
        
       <a
+        className="spell-link-text"
         href="http://wowhead.com/spell=124682"
         rel="noopener noreferrer"
         target="_blank"
@@ -5912,6 +5976,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
       </a>
        is given the healing of 
       <a
+        className="spell-link-text"
         href="http://wowhead.com/spell=325209"
         rel="noopener noreferrer"
         target="_blank"
@@ -5926,6 +5991,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
       </a>
        since without casting 
       <a
+        className="spell-link-text"
         href="http://wowhead.com/spell=124682"
         rel="noopener noreferrer"
         target="_blank"
@@ -5940,6 +6006,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
       </a>
       , 
       <a
+        className="spell-link-text"
         href="http://wowhead.com/spell=325209"
         rel="noopener noreferrer"
         target="_blank"
@@ -6166,6 +6233,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
         <tr>
           <td>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=191837"
               rel="noopener noreferrer"
               target="_blank"
@@ -6233,6 +6301,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
         <tr>
           <td>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=115151"
               rel="noopener noreferrer"
               target="_blank"
@@ -6300,6 +6369,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
         <tr>
           <td>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=115175"
               rel="noopener noreferrer"
               target="_blank"
@@ -6367,6 +6437,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
         <tr>
           <td>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=124682"
               rel="noopener noreferrer"
               target="_blank"
@@ -6434,6 +6505,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
         <tr>
           <td>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=116670"
               rel="noopener noreferrer"
               target="_blank"
@@ -6501,6 +6573,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
         <tr>
           <td>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=101546"
               rel="noopener noreferrer"
               target="_blank"
@@ -6568,6 +6641,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
         <tr>
           <td>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=107428"
               rel="noopener noreferrer"
               target="_blank"
@@ -6698,6 +6772,7 @@ exports[`Mistweaver Monk integration test: example log RenewingMistDuringManaTea
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=197908"
             rel="noopener noreferrer"
             target="_blank"
@@ -7353,6 +7428,7 @@ exports[`Mistweaver Monk integration test: example log Strife matches the statis
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=304056"
             rel="noopener noreferrer"
             target="_blank"
@@ -7437,6 +7513,7 @@ exports[`Mistweaver Monk integration test: example log TheEverRisingTide matches
         >
           <label>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=299879"
               rel="noopener noreferrer"
               target="_blank"
@@ -7517,6 +7594,7 @@ exports[`Mistweaver Monk integration test: example log TheFormlessVoid matches t
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=313922"
             rel="noopener noreferrer"
             target="_blank"
@@ -7885,6 +7963,7 @@ exports[`Mistweaver Monk integration test: example log ThunderFocusTea matches t
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=116680"
             rel="noopener noreferrer"
             target="_blank"
@@ -7924,6 +8003,7 @@ exports[`Mistweaver Monk integration test: example log ThunderFocusTea matches t
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=116670"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -7971,6 +8051,7 @@ exports[`Mistweaver Monk integration test: example log ThunderFocusTea matches t
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=115151"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -8018,6 +8099,7 @@ exports[`Mistweaver Monk integration test: example log ThunderFocusTea matches t
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=124682"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -8065,6 +8147,7 @@ exports[`Mistweaver Monk integration test: example log ThunderFocusTea matches t
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=107428"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -8159,6 +8242,7 @@ exports[`Mistweaver Monk integration test: example log Tier45Comparison matches 
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=197908"
             rel="noopener noreferrer"
             target="_blank"
@@ -8237,6 +8321,7 @@ exports[`Mistweaver Monk integration test: example log Upwelling matches the sta
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=274963"
             rel="noopener noreferrer"
             target="_blank"
@@ -8299,6 +8384,7 @@ exports[`Mistweaver Monk integration test: example log VersatileNavigation match
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=268854"
             rel="noopener noreferrer"
             target="_blank"
@@ -8311,6 +8397,7 @@ exports[`Mistweaver Monk integration test: example log VersatileNavigation match
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=268854"
             rel="noopener noreferrer"
             target="_blank"
@@ -8408,6 +8495,7 @@ exports[`Mistweaver Monk integration test: example log Vivify matches the statis
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=116670"
             rel="noopener noreferrer"
             target="_blank"
@@ -8457,6 +8545,7 @@ exports[`Mistweaver Monk integration test: example log WoundBinder matches the s
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=267880"
             rel="noopener noreferrer"
             target="_blank"
@@ -8469,6 +8558,7 @@ exports[`Mistweaver Monk integration test: example log WoundBinder matches the s
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=267880"
             rel="noopener noreferrer"
             target="_blank"
@@ -8608,6 +8698,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
           >
             As a Mistweaver you only have a single rotational spell that should be cast on CD 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=115151"
               rel="noopener noreferrer"
               target="_blank"
@@ -8622,6 +8713,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
             </a>
             . The other piece is ensuring you have enough 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=115151"
               rel="noopener noreferrer"
               target="_blank"
@@ -8636,6 +8728,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
             </a>
             's on the raid so that you maximize the cleave healing from 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=116670"
               rel="noopener noreferrer"
               target="_blank"
@@ -8664,6 +8757,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=115151"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -8736,6 +8830,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=115151"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -8910,6 +9005,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=116680"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -8982,6 +9078,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=197908"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -9054,6 +9151,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=115151"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -9068,6 +9166,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 </a>
                  active during 
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=197908"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -9140,6 +9239,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=123986"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -9212,6 +9312,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=115310"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -9284,6 +9385,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=322118"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -9356,6 +9458,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=322109"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -9428,6 +9531,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=325209"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -9442,6 +9546,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 </a>
                  applied per  
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=124682"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -9594,6 +9699,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
           >
             Effective use of 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=191837"
               rel="noopener noreferrer"
               target="_blank"
@@ -9608,6 +9714,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
             </a>
              has a big impact on your healing. Ensure you stay in melee to maximize the number of targets that can be in range of both 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=191837"
               rel="noopener noreferrer"
               target="_blank"
@@ -9622,6 +9729,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
             </a>
              and other spells such as 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=196725"
               rel="noopener noreferrer"
               target="_blank"
@@ -9650,6 +9758,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=191837"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -9723,6 +9832,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=123986"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -9796,6 +9906,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=101546"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -10022,6 +10133,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=197908"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -10095,6 +10207,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=197908"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -10261,6 +10374,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=116680"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -10334,6 +10448,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=191837"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -10631,6 +10746,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
               >
                 Effective 
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=115175"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -10797,6 +10913,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=243435"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -10869,6 +10986,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=116849"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -10941,6 +11059,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=122783"
                   rel="noopener noreferrer"
                   target="_blank"

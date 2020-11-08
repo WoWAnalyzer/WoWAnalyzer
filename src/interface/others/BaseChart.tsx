@@ -38,6 +38,11 @@ export default function BaseChart(props: Props) {
     config: defaultConfig,
     renderer: "canvas" as const,
     ...props,
+    spec: {
+      ...props.spec,
+      datasets: props.data,
+    },
+    data: undefined
   };
 
   return (

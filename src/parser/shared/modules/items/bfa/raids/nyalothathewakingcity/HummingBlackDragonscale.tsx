@@ -47,10 +47,14 @@ class HummingBlackDragonscale extends Analyzer {
   }
 
   statistic() {
+    if (this.item === undefined) {
+      throw new Error(`Called 'statistic' when HummingBlackDragonscale is not equipped`);
+    }
+
     return (
       <Statistic category={STATISTIC_CATEGORY.ITEMS} size="flexible">
         <div className="pad">
-          <label><ItemLink id={this.item?.id} details={this.item} /></label>
+          <label><ItemLink id={this.item.id} details={this.item} /></label>
 
           <div className="value">
             <HasteIcon /> {formatNumber(this.hasteRating * this.uptime)} <small>average Haste gained</small><br />

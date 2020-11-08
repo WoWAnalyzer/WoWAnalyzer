@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import Enemies from 'parser/shared/modules/Enemies';
@@ -208,20 +208,20 @@ class SerpentSting extends Analyzer {
         <>With <SpellLink id={SPELLS.BIRDS_OF_PREY_TALENT.id} /> talented and without <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> talented, you don't want to cast <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> during <SpellLink id={SPELLS.COORDINATED_ASSAULT.id} /> at all, which is a majority of the fight, therefore a low uptime of <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> is better than a high uptime. </>;
 
       when(this.uptimeThresholdBoP).addSuggestion((suggest, actual, recommended) => suggest(suggestionText)
-          .icon(SPELLS.SERPENT_STING_SV.icon)
-          .actual(i18n._(t('hunter.survival.suggestions.serpentSting.pandemicWindow')`${formatPercentage(actual)}% Serpent Sting uptime`))
-          .recommended(`<${formatPercentage(recommended)}% is recommended`));
+        .icon(SPELLS.SERPENT_STING_SV.icon)
+        .actual(i18n._(t('hunter.survival.suggestions.serpentSting.pandemicWindow')`${formatPercentage(actual)}% Serpent Sting uptime`))
+        .recommended(`<${formatPercentage(recommended)}% is recommended`));
     } else {
       when(this.uptimeThresholdNonBoP).addSuggestion((suggest, actual, recommended) => suggest(<>Remember to maintain the <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> on enemies, but don't refresh the debuff unless it has less than {formatPercentage(SERPENT_STING_SV_PANDEMIC, 0)}% duration remaining.</>)
-          .icon(SPELLS.SERPENT_STING_SV.icon)
-          .actual(i18n._(t('hunter.survival.suggestions.serpentSting.uptime')`${formatPercentage(actual)}% Serpent Sting uptime`))
-          .recommended(`>${formatPercentage(recommended)}% is recommended`));
+        .icon(SPELLS.SERPENT_STING_SV.icon)
+        .actual(i18n._(t('hunter.survival.suggestions.serpentSting.uptime')`${formatPercentage(actual)}% Serpent Sting uptime`))
+        .recommended(`>${formatPercentage(recommended)}% is recommended`));
     }
 
     when(this.nonPandemicThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>It is not recommended to refresh <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> earlier than when there is less than {formatPercentage(SERPENT_STING_SV_PANDEMIC, 0)}% of the duration remaining. </>)
-        .icon(SPELLS.SERPENT_STING_SV.icon)
-        .actual(i18n._(t('hunter.survival.suggestions.serpentSting.tooEarly')`${actual} Serpent Sting cast(s) were cast too early`))
-        .recommended(`<${recommended} is recommended`));
+      .icon(SPELLS.SERPENT_STING_SV.icon)
+      .actual(i18n._(t('hunter.survival.suggestions.serpentSting.tooEarly')`${actual} Serpent Sting cast(s) were cast too early`))
+      .recommended(`<${recommended} is recommended`));
   }
 
   statistic() {

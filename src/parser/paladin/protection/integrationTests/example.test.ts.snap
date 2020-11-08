@@ -48,6 +48,7 @@ exports[`Protection Paladin integration test: example log BlessedHammerDamageRed
           className="flex-sub icon"
         >
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=204019"
             rel="noopener noreferrer"
             target="_blank"
@@ -186,6 +187,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=26573"
                 rel="noopener noreferrer"
                 style={
@@ -283,6 +285,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=204019"
                 rel="noopener noreferrer"
                 style={
@@ -380,6 +383,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=31935"
                 rel="noopener noreferrer"
                 style={
@@ -479,6 +483,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=53600"
                 rel="noopener noreferrer"
                 style={
@@ -564,6 +569,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=275779"
                 rel="noopener noreferrer"
                 style={
@@ -663,6 +669,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=24275"
                 rel="noopener noreferrer"
                 style={
@@ -809,6 +816,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=633"
                 rel="noopener noreferrer"
                 style={
@@ -957,6 +965,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=85673"
                 rel="noopener noreferrer"
                 style={
@@ -1042,6 +1051,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=31850"
                 rel="noopener noreferrer"
                 style={
@@ -1141,6 +1151,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=86659"
                 rel="noopener noreferrer"
                 style={
@@ -1289,6 +1300,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=31884"
                 rel="noopener noreferrer"
                 style={
@@ -1435,6 +1447,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=19750"
                 rel="noopener noreferrer"
                 style={
@@ -1569,6 +1582,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=190784"
                 rel="noopener noreferrer"
                 style={
@@ -1666,6 +1680,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=1044"
                 rel="noopener noreferrer"
                 style={
@@ -1763,6 +1778,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=1022"
                 rel="noopener noreferrer"
                 style={
@@ -1860,6 +1876,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=6940"
                 rel="noopener noreferrer"
                 style={
@@ -1957,6 +1974,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=213644"
                 rel="noopener noreferrer"
                 style={
@@ -2054,6 +2072,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=853"
                 rel="noopener noreferrer"
                 style={
@@ -2151,6 +2170,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=62124"
                 rel="noopener noreferrer"
                 style={
@@ -2248,6 +2268,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=96231"
                 rel="noopener noreferrer"
                 style={
@@ -2394,6 +2415,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=6262"
                 rel="noopener noreferrer"
                 style={
@@ -2491,6 +2513,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171267"
                 rel="noopener noreferrer"
                 style={
@@ -2588,6 +2611,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171273"
                 rel="noopener noreferrer"
                 style={
@@ -2911,6 +2935,7 @@ exports[`Protection Paladin integration test: example log Consecration matches t
           className="flex-sub icon"
         >
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=26573"
             rel="noopener noreferrer"
             target="_blank"
@@ -2976,6 +3001,7 @@ exports[`Protection Paladin integration test: example log CrystallineCarapace ma
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=271536"
             rel="noopener noreferrer"
             target="_blank"
@@ -2988,6 +3014,7 @@ exports[`Protection Paladin integration test: example log CrystallineCarapace ma
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=271536"
             rel="noopener noreferrer"
             target="_blank"
@@ -3455,6 +3482,7 @@ exports[`Protection Paladin integration test: example log ForceMultiplier matche
         >
           <label>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=300801"
               rel="noopener noreferrer"
               target="_blank"
@@ -3517,6 +3545,7 @@ exports[`Protection Paladin integration test: example log GrandCrusader matches 
           className="flex-sub icon"
         >
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=85043"
             rel="noopener noreferrer"
             target="_blank"
@@ -3710,13 +3739,13 @@ Array [
               Ability
             </th>
             <th
-              colSpan="2"
+              colSpan={2}
             >
               Holy Power
                generated
             </th>
             <th
-              colSpan="2"
+              colSpan={2}
             >
               <dfn
                 className=""
@@ -3741,6 +3770,7 @@ Array [
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=220637"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -3834,6 +3864,7 @@ Array [
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=204019"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -3927,6 +3958,7 @@ Array [
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=31935"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -4022,13 +4054,13 @@ Array [
               Ability
             </th>
             <th
-              colSpan="2"
+              colSpan={2}
             >
               Holy Power
                spent
             </th>
             <th
-              colSpan="2"
+              colSpan={2}
             >
               Casts
             </th>
@@ -4044,6 +4076,7 @@ Array [
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=53600"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -4170,6 +4203,7 @@ exports[`Protection Paladin integration test: example log Judgment matches the s
           className="flex-sub icon"
         >
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=197277"
             rel="noopener noreferrer"
             target="_blank"
@@ -4256,6 +4290,7 @@ exports[`Protection Paladin integration test: example log NoDamageShieldOfTheRig
           className="flex-sub icon"
         >
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=53600"
             rel="noopener noreferrer"
             target="_blank"
@@ -4309,6 +4344,7 @@ exports[`Protection Paladin integration test: example log NullDynamo matches the
         >
           <label>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=295746"
               rel="noopener noreferrer"
               target="_blank"
@@ -4426,6 +4462,7 @@ exports[`Protection Paladin integration test: example log ShieldOfTheRighteous m
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=53600"
             rel="noopener noreferrer"
             target="_blank"
@@ -4793,7 +4830,7 @@ exports[`Protection Paladin integration test: example log VitaChargedTitanshard 
       >
         <label>
           <a
-            className="epic"
+            className="epicitem-link-text"
             href="http://wowhead.com/item=174500&gems=168641&bonus=4824:1517:4786:6514"
             rel="noopener noreferrer"
             target="_blank"
@@ -4980,6 +5017,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=31935"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5052,6 +5090,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=275779"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5125,6 +5164,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
               >
                 Bad 
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=204019"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5228,6 +5268,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=31884"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5309,6 +5350,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
         >
           Mitigate incoming damage with 
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=53600"
             rel="noopener noreferrer"
             target="_blank"
@@ -5323,6 +5365,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
           </a>
            and 
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=26573"
             rel="noopener noreferrer"
             target="_blank"
@@ -5406,6 +5449,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
           >
             Maintain 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=26573"
               rel="noopener noreferrer"
               target="_blank"
@@ -5422,6 +5466,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
             <br />
             Use 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=53600"
               rel="noopener noreferrer"
               target="_blank"
@@ -5436,6 +5481,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
             </a>
              to smooth out your physical damage taken. 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=31850"
               rel="noopener noreferrer"
               target="_blank"
@@ -5450,6 +5496,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
             </a>
              can be used either as a cooldown to mitigate boss abilities or to cover time when 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=53600"
               rel="noopener noreferrer"
               target="_blank"
@@ -5539,6 +5586,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
               >
                 Hits Mitigated with 
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=53600"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5642,6 +5690,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
               >
                 Hits Mitigated with 
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=26573"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5714,6 +5763,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=31850"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5796,6 +5846,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
         >
           Use 
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=85673"
             rel="noopener noreferrer"
             target="_blank"
@@ -5880,6 +5931,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
           >
             You should use 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=85673"
               rel="noopener noreferrer"
               target="_blank"
@@ -5894,6 +5946,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
             </a>
              to heal yourself (or others, with 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=315924"
               rel="noopener noreferrer"
               target="_blank"
@@ -5912,6 +5965,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
             </b>
              do this at the expense of 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=53600"
               rel="noopener noreferrer"
               target="_blank"
@@ -5926,6 +5980,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
             </a>
              uptime. Instead, take advantage of 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=321136"
               rel="noopener noreferrer"
               target="_blank"
@@ -5940,6 +5995,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
             </a>
              to make most of your 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=85673"
               rel="noopener noreferrer"
               target="_blank"
@@ -5972,6 +6028,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=85673"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -6076,6 +6133,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
               >
                 Free casts from 
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=321136"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -6180,6 +6238,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
               >
                 Stacks of 
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=321136"
                   rel="noopener noreferrer"
                   target="_blank"

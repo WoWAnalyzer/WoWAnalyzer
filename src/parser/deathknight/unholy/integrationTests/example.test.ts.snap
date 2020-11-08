@@ -138,6 +138,7 @@ exports[`Unholy Death Knight integration test: example log Apocalypse matches th
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=275699"
             rel="noopener noreferrer"
             target="_blank"
@@ -150,6 +151,7 @@ exports[`Unholy Death Knight integration test: example log Apocalypse matches th
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=275699"
             rel="noopener noreferrer"
             target="_blank"
@@ -206,7 +208,7 @@ exports[`Unholy Death Knight integration test: example log Ashjrakamas matches t
       >
         <label>
           <a
-            className="legendary"
+            className="legendaryitem-link-text"
             href="http://wowhead.com/item=169223"
             rel="noopener noreferrer"
             target="_blank"
@@ -220,7 +222,7 @@ exports[`Unholy Death Knight integration test: example log Ashjrakamas matches t
           </a>
            
           <a
-            className="legendary"
+            className="legendaryitem-link-text"
             href="http://wowhead.com/item=169223"
             rel="noopener noreferrer"
             target="_blank"
@@ -284,7 +286,7 @@ exports[`Unholy Death Knight integration test: example log AzsharasFontofPower m
       >
         <label>
           <a
-            className="unknown"
+            className="unknownitem-link-text"
             href="http://wowhead.com/item=169314"
             rel="noopener noreferrer"
             target="_blank"
@@ -298,7 +300,7 @@ exports[`Unholy Death Knight integration test: example log AzsharasFontofPower m
           </a>
            
           <a
-            className="unknown"
+            className="unknownitem-link-text"
             href="http://wowhead.com/item=169314"
             rel="noopener noreferrer"
             target="_blank"
@@ -442,6 +444,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=85948"
                 rel="noopener noreferrer"
                 style={
@@ -527,6 +530,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=55090"
                 rel="noopener noreferrer"
                 style={
@@ -612,6 +616,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=47541"
                 rel="noopener noreferrer"
                 style={
@@ -697,6 +702,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=63560"
                 rel="noopener noreferrer"
                 style={
@@ -794,6 +800,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=77575"
                 rel="noopener noreferrer"
                 style={
@@ -879,6 +886,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=207317"
                 rel="noopener noreferrer"
                 style={
@@ -964,6 +972,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=207317"
                 rel="noopener noreferrer"
                 style={
@@ -1049,6 +1058,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=43265"
                 rel="noopener noreferrer"
                 style={
@@ -1195,6 +1205,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=296971"
                 rel="noopener noreferrer"
                 style={
@@ -1341,6 +1352,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=275699"
                 rel="noopener noreferrer"
                 style={
@@ -1438,6 +1450,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=207349"
                 rel="noopener noreferrer"
                 style={
@@ -1535,6 +1548,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=42650"
                 rel="noopener noreferrer"
                 style={
@@ -1681,6 +1695,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=48792"
                 rel="noopener noreferrer"
                 style={
@@ -1778,6 +1793,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=51052"
                 rel="noopener noreferrer"
                 style={
@@ -1875,6 +1891,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=48707"
                 rel="noopener noreferrer"
                 style={
@@ -1972,6 +1989,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=49998"
                 rel="noopener noreferrer"
                 style={
@@ -2106,6 +2124,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=45524"
                 rel="noopener noreferrer"
                 style={
@@ -2203,6 +2222,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=108194"
                 rel="noopener noreferrer"
                 style={
@@ -2300,6 +2320,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=212552"
                 rel="noopener noreferrer"
                 style={
@@ -2385,6 +2406,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=48265"
                 rel="noopener noreferrer"
                 style={
@@ -2470,6 +2492,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=46584"
                 rel="noopener noreferrer"
                 style={
@@ -2567,6 +2590,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=111673"
                 rel="noopener noreferrer"
                 style={
@@ -2652,6 +2676,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=61999"
                 rel="noopener noreferrer"
                 style={
@@ -2749,6 +2774,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=49576"
                 rel="noopener noreferrer"
                 style={
@@ -2834,6 +2860,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=47528"
                 rel="noopener noreferrer"
                 style={
@@ -2919,6 +2946,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=56222"
                 rel="noopener noreferrer"
                 style={
@@ -3065,6 +3093,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=6262"
                 rel="noopener noreferrer"
                 style={
@@ -3162,6 +3191,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171267"
                 rel="noopener noreferrer"
                 style={
@@ -3259,6 +3289,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171273"
                 rel="noopener noreferrer"
                 style={
@@ -3689,6 +3720,7 @@ exports[`Unholy Death Knight integration test: example log EssenceOfTheFocusingI
         >
           <label>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=299337"
               rel="noopener noreferrer"
               target="_blank"
@@ -3766,6 +3798,7 @@ exports[`Unholy Death Knight integration test: example log FesteringStrikeEffici
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=85948"
             rel="noopener noreferrer"
             target="_blank"
@@ -3778,6 +3811,7 @@ exports[`Unholy Death Knight integration test: example log FesteringStrikeEffici
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=85948"
             rel="noopener noreferrer"
             target="_blank"
@@ -3858,6 +3892,7 @@ exports[`Unholy Death Knight integration test: example log OverwhelmingPower mat
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=266180"
             rel="noopener noreferrer"
             target="_blank"
@@ -3870,6 +3905,7 @@ exports[`Unholy Death Knight integration test: example log OverwhelmingPower mat
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=266180"
             rel="noopener noreferrer"
             target="_blank"
@@ -3979,6 +4015,7 @@ exports[`Unholy Death Knight integration test: example log RuneOfTheFallenCrusad
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=53344"
             rel="noopener noreferrer"
             target="_blank"
@@ -3991,6 +4028,7 @@ exports[`Unholy Death Knight integration test: example log RuneOfTheFallenCrusad
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=53344"
             rel="noopener noreferrer"
             target="_blank"
@@ -4218,6 +4256,7 @@ exports[`Unholy Death Knight integration test: example log ScourgeStrikeEfficien
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=55090"
             rel="noopener noreferrer"
             target="_blank"
@@ -4230,6 +4269,7 @@ exports[`Unholy Death Knight integration test: example log ScourgeStrikeEfficien
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=55090"
             rel="noopener noreferrer"
             target="_blank"
@@ -4572,6 +4612,7 @@ exports[`Unholy Death Knight integration test: example log VirulentPlagueEfficie
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=191587"
             rel="noopener noreferrer"
             target="_blank"
@@ -4584,6 +4625,7 @@ exports[`Unholy Death Knight integration test: example log VirulentPlagueEfficie
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=191587"
             rel="noopener noreferrer"
             target="_blank"
@@ -4655,7 +4697,7 @@ exports[`Unholy Death Knight integration test: example log VitaChargedTitanshard
       >
         <label>
           <a
-            className="epic"
+            className="epicitem-link-text"
             href="http://wowhead.com/item=174500&bonus=4824:6513:1517:4786"
             rel="noopener noreferrer"
             target="_blank"
@@ -4801,6 +4843,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
           >
             You should aim to use your cooldowns as often as you can to maximize your damage output. In the case of 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=343294"
               rel="noopener noreferrer"
               target="_blank"
@@ -4837,6 +4880,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=275699"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -4909,6 +4953,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=63560"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -4981,6 +5026,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=49206"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5438,6 +5484,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
           >
             Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities.  Cast 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=47541"
               rel="noopener noreferrer"
               target="_blank"

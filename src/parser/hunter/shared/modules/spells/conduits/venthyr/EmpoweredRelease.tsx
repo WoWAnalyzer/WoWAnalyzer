@@ -1,16 +1,16 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { EMPOWERED_RELEASE_INCREASE_KS_DAMAGE, EMPOWERED_RELEASE_INCREASED_FLAYED_PROC_CHANCE, FLAYED_SHOT_RESET_CHANCE } from 'parser/hunter/shared/constants';
 import Events, { DamageEvent } from 'parser/core/Events';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import COVENANTS from 'game/shadowlands/COVENANTS';
+import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
 
 /**
  * Flayed Shot has an additional 5% chance to pro Flayer's Mark
@@ -54,7 +54,7 @@ class EmpoweredRelease extends Analyzer {
   }
 
   onKillShotDamage(event: DamageEvent) {
-    if(!this.selectedCombatant.hasBuff(SPELLS.EMPOWERED_RELEASE_BUFF.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.EMPOWERED_RELEASE_BUFF.id)) {
       return;
     }
     this.addedDamage += calculateEffectiveDamage(event, EMPOWERED_RELEASE_INCREASE_KS_DAMAGE[this.conduitRank]);
@@ -67,12 +67,12 @@ class EmpoweredRelease extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spell={SPELLS.EMPOWERED_RELEASE_CONDUIT}>
+        <ConduitSpellText spell={SPELLS.EMPOWERED_RELEASE_CONDUIT} rank={this.conduitRank}>
           <>
             ≈ {this.averageContributionAbsolute} <small> additional procs </small>
             <ItemDamageDone amount={this.addedDamage} />
           </>
-        </BoringSpellValueText>
+        </ConduitSpellText>
       </Statistic>
     );
   }
