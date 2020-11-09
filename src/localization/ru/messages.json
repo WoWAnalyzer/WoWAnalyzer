@@ -1,6 +1,5 @@
 {
   "About": "Подробнее",
-  "About {0} {1}": "Подробнее {0} {1}",
   "All items enchanted": "Все доступные предметы зачарены",
   "An error occured during analysis": "При анализе произошла ошибка",
   "An error occured while trying to render this part of the page.": "Произошла ошибка отображения в этой части страницы",
@@ -405,6 +404,7 @@
   "interface.report.reportDurationWarning.warningDetails": "Текущий отчет содержит данные собранные за <0>{0} {1}</0>. Это может привести к проблемам с анализом более поздних боев в этот отчете. Мы рекомендуем разделять журнал боя перед загрузкой их на Warcraft Logs.",
   "interface.report.reportDurationWarning.warningDetails.day": "",
   "interface.report.reportDurationWarning.warningDetails.days": "",
+  "interface.report.results.about.aboutSpecnameClassname": "Подробнее {0} {1}",
   "interface.report.results.about.viewEvents": "",
   "interface.report.results.checklist.subTitle": "",
   "interface.report.results.checklist.title": "",

@@ -20,7 +20,7 @@ const About = (
 
   return (
     <Panel
-      title={<Trans>About {spec.specName} {spec.className}</Trans>}
+      title={<Trans id="interface.report.results.about.aboutSpecnameClassname">About {spec.specName} {spec.className}</Trans>}
       actions={(
         <Link to="events"><Trans id="interface.report.results.about.viewEvents">View all events</Trans></Link>
       )}

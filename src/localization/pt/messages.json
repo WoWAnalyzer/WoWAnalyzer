@@ -1,6 +1,5 @@
 {
   "About": "",
-  "About {0} {1}": "Sobre {0} {1}",
   "All items enchanted": "",
   "An error occured during analysis": "",
   "An error occured while trying to render this part of the page.": "",
@@ -405,6 +404,7 @@
   "interface.report.reportDurationWarning.warningDetails": "",
   "interface.report.reportDurationWarning.warningDetails.day": "",
   "interface.report.reportDurationWarning.warningDetails.days": "",
+  "interface.report.results.about.aboutSpecnameClassname": "Sobre {0} {1}",
   "interface.report.results.about.viewEvents": "",
   "interface.report.results.checklist.subTitle": "",
   "interface.report.results.checklist.title": "",

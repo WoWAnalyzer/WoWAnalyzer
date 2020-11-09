@@ -1,6 +1,5 @@
 {
   "About": "",
-  "About {0} {1}": "",
   "All items enchanted": "",
   "An error occured during analysis": "",
   "An error occured while trying to render this part of the page.": "",
@@ -405,6 +404,7 @@
   "interface.report.reportDurationWarning.warningDetails": "The current report contains data collected over <0>{0} {1}</0>. This could lead to parsing issues with fights later in the report. We recommend that you split your logs before uploading them to warcraftlogs.com.",
   "interface.report.reportDurationWarning.warningDetails.day": "day",
   "interface.report.reportDurationWarning.warningDetails.days": "days",
+  "interface.report.results.about.aboutSpecnameClassname": "About {0} {1}",
   "interface.report.results.about.viewEvents": "View all events",
   "interface.report.results.checklist.subTitle": "A quick overview of the important parts to see what you did well and what has room for improvement.",
   "interface.report.results.checklist.title": "Checklist",
