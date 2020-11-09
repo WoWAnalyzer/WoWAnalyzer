@@ -1,5 +1,4 @@
 {
-  "<0/> usage": "",
   "A connection error occured.": "",
   "About": "",
   "About {0} {1}": "",
@@ -576,6 +575,7 @@
   "paladin.holy.modules.beacons.missingBeacons.lostBeaconHealingLabel": "",
   "paladin.holy.modules.beacons.missingBeacons.lostBeaconHealingTooltip": "",
   "paladin.holy.modules.castBehavior.fillers": "",
+  "paladin.holy.modules.castBehavior.infusionOfLightUsage": "",
   "paladin.holy.modules.castBehavior.wastedProcs": "",
   "paladin.holy.modules.castBehavior.wastedProcsDetails": "",
   "paladin.holy.modules.checklist.avoidBeingInactive": "",

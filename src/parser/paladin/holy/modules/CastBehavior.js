@@ -120,7 +120,7 @@ class CastBehavior extends Analyzer {
         <Statistic ultrawide>
           <div className="pad">
             <label>
-              <Trans>
+              <Trans id="paladin.holy.modules.castBehavior.infusionOfLightUsage">
                 <SpellLink id={SPELLS.INFUSION_OF_LIGHT.id} /> usage
               </Trans>
             </label>
