@@ -128,7 +128,7 @@ class Casts extends React.PureComponent {
     let castReason;
     if (event.isCancelled) {
       className += ' cancelled';
-      castReason = <Trans>Cast never finished.</Trans>;
+      castReason = <Trans id="interface.report.results.timeline.casts.neverFinished">Cast never finished.</Trans>;
     }
     // If the beginchannel has a meta prop use that.
     // If it doesn't, look inside the trigger (which should be a begincast).
