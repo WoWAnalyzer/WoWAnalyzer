@@ -1,5 +1,4 @@
 {
-  "Average targets hit per cast": "",
   "CURRENTLY UNMAINTAINED": "",
   "Cast never finished.": "",
   "Character": "",
@@ -622,6 +621,7 @@
   "paladin.holy.modules.fillerLightOfTheMatyrs.inefficientSuggestion.recommended": "No inefficient casts is recommended",
   "paladin.holy.modules.fillerLightOfTheMatyrs.recommended": "<{recommended} casts per minute is recommended",
   "paladin.holy.modules.fillerLightOfTheMatyrs.suggestion": "You cast many <0/>s. Light of the Martyr is an inefficient spell to cast, try to only cast Light of the Martyr when it will save someone's life or when moving and all other instant cast spells are on cooldown.",
+  "paladin.holy.modules.lightOfDawn.avgHitPerCast": "Average targets hit per cast",
   "paladin.holy.modules.masteryEffectiveness.averageDistance": "Average distance",
   "paladin.holy.modules.masteryEffectiveness.masteryEffectiveness": "Mastery effectiveness",
   "paladin.holy.modules.masteryEffectiveness.masteryEffectivenessBreakdown": "Mastery effectiveness breakdown",

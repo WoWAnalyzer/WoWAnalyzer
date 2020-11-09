@@ -1,5 +1,4 @@
 {
-  "Average targets hit per cast": "Среднее количество целей, пораженных заклинанием за одно применение",
   "CURRENTLY UNMAINTAINED": "Не поддерживается в настоящее время",
   "Cast never finished.": "Применение заклинания не было завершено",
   "Character": "Персонаж",
@@ -622,6 +621,7 @@
   "paladin.holy.modules.fillerLightOfTheMatyrs.inefficientSuggestion.recommended": "Не рекомендуется использовать неэффективные способности",
   "paladin.holy.modules.fillerLightOfTheMatyrs.recommended": "<{recommended} применений в минуту рекомендовано",
   "paladin.holy.modules.fillerLightOfTheMatyrs.suggestion": "Вы используете <0/> слишком часто. Свет мученика не самое эффективное Ваше заклинание, старайтесь использовать только если это спасет чью-то жизнь или пока Вы двигаетесь, а остальные мгновенные заклинания перезаряжаются. ",
+  "paladin.holy.modules.lightOfDawn.avgHitPerCast": "Среднее количество целей, пораженных заклинанием за одно применение",
   "paladin.holy.modules.masteryEffectiveness.averageDistance": "Среднее расстояние",
   "paladin.holy.modules.masteryEffectiveness.masteryEffectiveness": "Эффективность Искусности",
   "paladin.holy.modules.masteryEffectiveness.masteryEffectivenessBreakdown": "Порог эффективности Искусности",

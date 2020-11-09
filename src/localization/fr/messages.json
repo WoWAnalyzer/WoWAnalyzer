@@ -1,5 +1,4 @@
 {
-  "Average targets hit per cast": "",
   "CURRENTLY UNMAINTAINED": "",
   "Cast never finished.": "",
   "Character": "Personnage",
@@ -622,6 +621,7 @@
   "paladin.holy.modules.fillerLightOfTheMatyrs.inefficientSuggestion.recommended": "",
   "paladin.holy.modules.fillerLightOfTheMatyrs.recommended": "",
   "paladin.holy.modules.fillerLightOfTheMatyrs.suggestion": "",
+  "paladin.holy.modules.lightOfDawn.avgHitPerCast": "",
   "paladin.holy.modules.masteryEffectiveness.averageDistance": "",
   "paladin.holy.modules.masteryEffectiveness.masteryEffectiveness": "Efficacité de la maîtrise",
   "paladin.holy.modules.masteryEffectiveness.masteryEffectivenessBreakdown": "",
