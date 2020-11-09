@@ -1,5 +1,4 @@
 {
-  "CURRENTLY UNMAINTAINED": "Не поддерживается в настоящее время",
   "Cast never finished.": "Применение заклинания не было завершено",
   "Character": "Персонаж",
   "Click to switch languages. We've only just started localizing the app, it will take some time until everything is localized.": "Нажмите чтобы сменить язык. Мы все еще в процессе локализации, на это уйдет некоторое время.",
@@ -391,6 +390,7 @@
   "interface.report.reportDurationWarning.warningDetails.day": "",
   "interface.report.reportDurationWarning.warningDetails.days": "",
   "interface.report.results.about.aboutSpecnameClassname": "Подробнее {0} {1}",
+  "interface.report.results.about.unmaintained": "Не поддерживается в настоящее время",
   "interface.report.results.about.viewEvents": "",
   "interface.report.results.checklist.subTitle": "",
   "interface.report.results.checklist.title": "",

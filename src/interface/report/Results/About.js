@@ -16,7 +16,7 @@ const About = (
 ) => {
   const { spec, description, contributors, patchCompatibility } = config;
 
-  const contributorinfo = (contributors.length !== 0) ? contributors.map(contributor => <Contributor key={contributor.nickname} {...contributor} />) : <Trans>CURRENTLY UNMAINTAINED</Trans>;
+  const contributorinfo = (contributors.length !== 0) ? contributors.map(contributor => <Contributor key={contributor.nickname} {...contributor} />) : <Trans id="interface.report.results.about.unmaintained">CURRENTLY UNMAINTAINED</Trans>;
 
   return (
     <Panel

@@ -1,5 +1,4 @@
 {
-  "CURRENTLY UNMAINTAINED": "",
   "Cast never finished.": "",
   "Character": "",
   "Click to switch languages. We've only just started localizing the app, it will take some time until everything is localized.": "",
@@ -391,6 +390,7 @@
   "interface.report.reportDurationWarning.warningDetails.day": "",
   "interface.report.reportDurationWarning.warningDetails.days": "",
   "interface.report.results.about.aboutSpecnameClassname": "",
+  "interface.report.results.about.unmaintained": "",
   "interface.report.results.about.viewEvents": "",
   "interface.report.results.checklist.subTitle": "",
   "interface.report.results.checklist.title": "",
