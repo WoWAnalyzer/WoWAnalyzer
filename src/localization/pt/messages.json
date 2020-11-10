@@ -1,6 +1,5 @@
 {
   "Character": "Personagem",
-  "Click to switch languages. We've only just started localizing the app, it will take some time until everything is localized.": "Clique para trocar o idioma. Começamos a tradução da aplicação, vai levar um tempo até que tudo esteja traduzido.",
   "Fight selection": "",
   "Guild": "",
   "Healing done": "",
@@ -309,6 +308,7 @@
   "interface.home.reportSelectionHeader.onlyRankedWCLogs": "",
   "interface.home.reportSelectionHeader.recentlyViewed": "Vistos recentemente",
   "interface.home.reportSelectionHeader.report": "",
+  "interface.languageSwitcher.clickToSwitch": "Clique para trocar o idioma. Começamos a tradução da aplicação, vai levar um tempo até que tudo esteja traduzido.",
   "interface.others.reportSelecter.analyze": "Analise",
   "interface.others.reportSelecter.placeholder": "",
   "interface.others.reportSelecter.tooltip.supportedLinks": "",

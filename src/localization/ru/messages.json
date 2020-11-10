@@ -1,6 +1,5 @@
 {
   "Character": "Персонаж",
-  "Click to switch languages. We've only just started localizing the app, it will take some time until everything is localized.": "Нажмите чтобы сменить язык. Мы все еще в процессе локализации, на это уйдет некоторое время.",
   "Fight selection": "Выбор боя",
   "Guild": "Гильдия",
   "Healing done": "Произведено исцеления",
@@ -309,6 +308,7 @@
   "interface.home.reportSelectionHeader.onlyRankedWCLogs": "На странице персонажа отображаются только те бои, которые были загружены на Warcraft Logs. Вайпы показаны не будут, а в загруженные периоды новые отчеты могут появляться с задержкой. Однако, Вы можете быстро проанализировать эти отчеты, вручную указав на них ссылку.",
   "interface.home.reportSelectionHeader.recentlyViewed": "Недавно просмотрено",
   "interface.home.reportSelectionHeader.report": "Отчет",
+  "interface.languageSwitcher.clickToSwitch": "Нажмите чтобы сменить язык. Мы все еще в процессе локализации, на это уйдет некоторое время.",
   "interface.others.reportSelecter.analyze": "Анализировать",
   "interface.others.reportSelecter.placeholder": "",
   "interface.others.reportSelecter.tooltip.supportedLinks": "",
