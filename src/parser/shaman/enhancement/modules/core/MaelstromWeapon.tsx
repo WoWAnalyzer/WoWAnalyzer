@@ -3,7 +3,12 @@ import React from 'react';
 import Analyzer, { Options, SELECTED_PLAYER } from "parser/core/Analyzer";
 import Events, { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, RemoveBuffEvent, RemoveBuffStackEvent } from "parser/core/Events";
 import SPELLS from 'common/SPELLS/index';
+import UptimeIcon from 'interface/icons/Uptime';
 import Spell from 'common/SPELLS/Spell';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { formatPercentage } from 'common/format';
 
 class MaelstromWeapon extends Analyzer {
   protected stacksGained = 0;
@@ -69,6 +74,10 @@ class MaelstromWeapon extends Analyzer {
 
   stopHavingMaxStacks(timestamp: number) {
     this.cappedIntervals.endInterval(timestamp);
+  }
+
+  get timePercentageSpentWithCappedStacks() {
+    return this.cappedIntervals.totalDuration / this.owner.fightDuration;
   }
 
   // this method is a helper for determining if removebuff event corresponds to stack expiration or spending
@@ -137,7 +146,18 @@ class MaelstromWeapon extends Analyzer {
   }
 
   statistic() {
-    return <>Hello</>
+    return <Statistic
+      position={STATISTIC_ORDER.CORE()}
+      size="flexible"
+      tooltip={<>
+        You gained {this.stacksGained} Maelstrom Weapon stacks and used {this.stacksUsed}
+      </>}
+    >
+      <BoringSpellValueText spell={SPELLS.MAELSTROM_WEAPON}>
+        <UptimeIcon /> {formatPercentage(this.timePercentageSpentWithCappedStacks)}% <small>of fight with max stacks</small><br />
+        {formatPercentage(this.stacksUsed / this.stacksGained)}% <small>of stacks used</small>
+      </BoringSpellValueText>
+    </Statistic>
   }
 }
 
