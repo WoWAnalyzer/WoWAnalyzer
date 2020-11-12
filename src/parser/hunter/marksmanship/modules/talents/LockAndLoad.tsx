@@ -105,7 +105,9 @@ class LockAndLoad extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.LOCK_AND_LOAD_TALENT}>
           <>
-            {this.noGainLNLProcs} ({formatPercentage(this.noGainLNLProcs / (this.totalProcs))}%) <small>lost procs</small>
+            {this.totalProcs} <small>procs</small>
+            <br />
+            {this.noGainLNLProcs} <small>wasted procs</small>
           </>
         </BoringSpellValueText>
       </Statistic>

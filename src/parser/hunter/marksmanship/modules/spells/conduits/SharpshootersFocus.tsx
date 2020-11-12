@@ -6,7 +6,6 @@ import React from 'react';
 import Events, { ApplyBuffEvent, FightEndEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import { SHARPSHOOTERS_FOCUS_INCREASE_TRUESHOT_DURATION, TRUESHOT_DURATION_BASELINE } from 'parser/hunter/marksmanship/constants';
-import { formatNumber } from 'common/format';
 import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
 
 /**
@@ -79,10 +78,15 @@ class SharpshootersFocus extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
+        tooltip={(
+          <>
+            You lost out on {((this.maximumAddedTrueshotUptime - this.increasedTrueshotUptime) / 1000).toFixed(1)}s of increased uptime due to combat ending or refreshing Trueshot.
+          </>
+        )}
       >
         <ConduitSpellText spell={SPELLS.SHARPSHOOTERS_FOCUS_CONDUIT} rank={this.conduitRank}>
           <>
-            {formatNumber(this.increasedTrueshotUptime / 1000)}/{this.maximumAddedTrueshotUptime / 1000}s <small>increased Trueshot uptime</small>
+            {(this.increasedTrueshotUptime / 1000).toFixed(1)}s <small>increased Trueshot uptime</small>
           </>
         </ConduitSpellText>
       </Statistic>
