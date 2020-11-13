@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import calculateEffectiveHealing from 'parser/core/calculateEffectiveDamage';
+import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events, { HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import { SHINING_RADIANCE_INCREASE } from 'parser/priest/discipline/constants';
@@ -50,7 +50,6 @@ class ShiningRadiance extends Analyzer {
       </Statistic>
     );
   }
-
 
 }
 export default ShiningRadiance;
