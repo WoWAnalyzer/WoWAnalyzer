@@ -1,9 +1,14 @@
+import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { AnyEvent, ApplyBuffEvent, CastEvent, EventType, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { AnyEvent, ApplyBuffEvent, EnergizeEvent, EventType, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Abilities from 'parser/core/modules/Abilities';
-import { TRUESHOT_RAPID_FIRE_RECHARGE_INCREASE } from 'parser/hunter/marksmanship/constants';
+import { RAPID_FIRE_FOCUS_PER_TICK, RAPID_FIRE_TICKS_PER_CAST, TRUESHOT_RAPID_FIRE_RECHARGE_INCREASE } from 'parser/hunter/marksmanship/constants';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { MS_BUFFER, NESINGWARY_FOCUS_GAIN_MULTIPLIER } from 'parser/hunter/shared/constants';
 
 /**
  * Shoot a stream of 7 shots at your target over 2 sec, dealing a total of 242% attack power Physical damage.
@@ -21,12 +26,18 @@ class RapidFire extends Analyzer {
     abilities: Abilities,
   };
 
-  lastReductionTimestamp: number = 0;
-  casts: number = 0;
-  totalCooldown: number = 0;
-  averageCooldown: number = 0;
-  effectiveCDRFromTrueshot: number = 0;
-  wastedCDRFromTrueshot: number = 0;
+  lastReductionTimestamp = 0;
+  casts = 0;
+  effectiveCDRFromTrueshot = 0;
+  wastedCDRFromTrueshot = 0;
+  currentFocusTicks = 0;
+  effectiveFocusGain = 0;
+  focusWasted = 0;
+  additionalFocusFromTrueshot = 0;
+  possibleAdditionalFocusFromTrueshot = 0;
+  additionalFocusFromNesingwary = 0;
+  possibleAdditionalFocusFromNesingwary = 0;
+  lastFocusTickTimestamp = 0;
 
   protected spellUsable!: SpellUsable;
   protected abilities!: Abilities;
@@ -36,9 +47,10 @@ class RapidFire extends Analyzer {
 
     this.addEventListener(Events.any, this.onEvent);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE), this.onCast);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.TRUESHOT), (event: ApplyBuffEvent) => this.onAffectingBuffChange(event));
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.TRUESHOT), (event: RefreshBuffEvent) => this.onAffectingBuffChange(event));
-    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.TRUESHOT), (event: RemoveBuffEvent) => this.onAffectingBuffChange(event));
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.TRUESHOT), this.onAffectingBuffChange);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.TRUESHOT), this.onAffectingBuffChange);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.TRUESHOT), this.onAffectingBuffChange);
+    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE_FOCUS), this.onEnergize);
   }
 
   onEvent(event: AnyEvent) {
@@ -79,12 +91,45 @@ class RapidFire extends Analyzer {
     this.lastReductionTimestamp = event.timestamp;
   }
 
-  onCast(event: CastEvent) {
-    const expectedCooldownDuration = this.abilities.getExpectedCooldownDuration(SPELLS.AIMED_SHOT.id, event);
-    if (expectedCooldownDuration) {
-      this.totalCooldown += expectedCooldownDuration;
-      this.casts += 1;
+  onCast() {
+    this.casts += 1;
+    this.currentFocusTicks = 0;
+  }
+
+  onEnergize(event: EnergizeEvent) {
+    this.effectiveFocusGain += event.resourceChange - event.waste;
+    this.focusWasted += event.waste;
+    const hasTrueshot = this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id);
+    const hasNesingwary = this.selectedCombatant.hasBuff(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_ENERGIZE.id);
+
+    /** If Trueshot is active Rapid Fire has a 50% chance to fire an additional energize event
+     *  However because focus can't be fractional and WoW rounds down on halves, we simply attribute 1 focus gain per additional energize tick over the baseline amount
+     *  However if Nesingwary is also active - the focus amount goes up to 3 because 1.5 * 2 = 3, and that works despite 1.5 focus not working.. In this case we can attribute 2 focus to Nesingwary, since that isn't possible otherwise and only 1 to Trueshot (if it was in excess of the regular 7 energize events).
+     *
+     */
+    if (hasTrueshot && (this.lastFocusTickTimestamp + (MS_BUFFER / 2)) > event.timestamp) {
+      this.additionalFocusFromTrueshot += event.resourceChange - event.waste;
+      this.possibleAdditionalFocusFromTrueshot += RAPID_FIRE_FOCUS_PER_TICK;
     }
+    if (hasNesingwary) {
+      this.additionalFocusFromNesingwary += Math.max(Math.ceil(event.resourceChange / NESINGWARY_FOCUS_GAIN_MULTIPLIER) - event.waste, 0);
+      this.possibleAdditionalFocusFromNesingwary += event.resourceChange - RAPID_FIRE_FOCUS_PER_TICK;
+    }
+  }
+
+  statistic() {
+    return (
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(2)}
+        size="flexible"
+      >
+        <BoringSpellValueText spell={SPELLS.RAPID_FIRE}>
+          <>
+            {this.effectiveFocusGain}/{this.focusWasted + this.effectiveFocusGain} <small>possible focus gained</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
+    );
   }
 }
 

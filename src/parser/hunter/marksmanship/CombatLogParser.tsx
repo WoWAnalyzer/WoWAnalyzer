@@ -24,7 +24,7 @@ import DeathTracker from '../shared/modules/core/DeathTracker';
 import FocusTracker from '../shared/modules/resources/FocusTracker';
 import FocusDetails from '../shared/modules/resources/FocusDetails';
 import SpellFocusCost from '../shared/modules/resources/SpellFocusCost';
-import FocusCapTracker from '../shared/modules/resources/FocusCapTracker';
+import MarksmanshipFocusCapTracker from './modules/resources/MarksmanshipFocusCapTracker';
 import Focus from './modules/resources/Focus';
 import MarksmanshipFocusUsage from './modules/resources/MarksmanshipFocusUsage';
 
@@ -34,6 +34,7 @@ import LoneWolf from './modules/spells/LoneWolf';
 import PreciseShots from './modules/spells/PreciseShots';
 import AimedShot from './modules/spells/AimedShot';
 import RapidFire from './modules/spells/RapidFire';
+import SteadyShot from './modules/spells/SteadyShot';
 import KillShot from '../shared/modules/spells/KillShot';
 import BindingShot from '../shared/modules/talents/BindingShot';
 
@@ -107,7 +108,7 @@ class CombatLogParser extends CoreCombatLogParser {
     focusTracker: FocusTracker,
     focusDetails: FocusDetails,
     spellFocusCost: SpellFocusCost,
-    focusCapTracker: FocusCapTracker,
+    marksmanshipFocusCapTracker: MarksmanshipFocusCapTracker,
     focus: Focus,
     marksmanshipFocusUsage: MarksmanshipFocusUsage,
 
@@ -120,8 +121,9 @@ class CombatLogParser extends CoreCombatLogParser {
     preciseShots: PreciseShots,
     aimedShot: AimedShot,
     rapidFire: RapidFire,
-    bindingShot: BindingShot,
+    steadyShot: SteadyShot,
     killShot: KillShot,
+    bindingShot: BindingShot,
 
     //Talents
     volley: Volley,
