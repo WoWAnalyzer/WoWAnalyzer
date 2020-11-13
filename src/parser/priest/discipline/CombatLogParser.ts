@@ -102,7 +102,7 @@ class CombatLogParser extends CoreCombatLogParser {
     mindgames: Mindgames,
     boonOfTheAscended: BoonOfTheAscended,
 
-    // cONDUITS
+    // Conduits
     shiningRadiance: ShiningRadiance,
   };
 }
