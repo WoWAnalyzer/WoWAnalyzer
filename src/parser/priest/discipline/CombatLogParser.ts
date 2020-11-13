@@ -37,11 +37,12 @@ import DesperatePrayer from '../shared/modules/features/DesperatePrayer';
 import Contrition from './modules/spells/Contrition';
 import Grace from './modules/spells/Grace';
 import Schism from './modules/spells/Schism';
+import SinsOfTheMany from './modules/spells/SinsOfTheMany';
+
 import Mindgames from './modules/shadowlands/covenants/MindGames';
 import BoonOfTheAscended from './modules/shadowlands/covenants/BoonOfTheAscended';
 
-
-import SinsOfTheMany from './modules/spells/SinsOfTheMany';
+import ShiningRadiance from './modules/shadowlands/conduits/ShiningRadiance';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
@@ -100,6 +101,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // Covenants
     mindgames: Mindgames,
     boonOfTheAscended: BoonOfTheAscended,
+
+    // cONDUITS
+    shiningRadiance: ShiningRadiance,
   };
 }
 
