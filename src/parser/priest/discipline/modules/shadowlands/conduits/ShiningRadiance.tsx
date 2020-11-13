@@ -17,6 +17,7 @@ import ItemHealingDone from 'interface/ItemHealingDone';
 class ShiningRadiance extends Analyzer {
 
   conduitRank: number = 0;
+  conduitIncrease: number = 0;
   bonusRadianceHealing: number = 0;
 
   constructor(options: Options) {
@@ -27,12 +28,13 @@ class ShiningRadiance extends Analyzer {
       this.active = false;
       return;
     }
+    this.conduitIncrease = SHINING_RADIANCE_INCREASE[this.conduitRank];
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.POWER_WORD_RADIANCE), this.onRadianceHeal);
   }
 
   onRadianceHeal(event: HealEvent) {
-    this.bonusRadianceHealing += calculateEffectiveHealing(event,SHINING_RADIANCE_INCREASE[this.conduitRank]);
+    this.bonusRadianceHealing += calculateEffectiveHealing(event,this.conduitIncrease);
   }
 
   statistic() {
