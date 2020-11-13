@@ -23,7 +23,7 @@ class ImmolationAura extends Analyzer{
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.IMMOLATION_AURA_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.IMMOLATION_AURA.id);
     if (!this.active) {
       return;
     }
@@ -58,8 +58,8 @@ class ImmolationAura extends Analyzer{
 
   suggestions(when) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<> Avoid casting <SpellLink id={SPELLS.IMMOLATION_AURA_TALENT.id} /> when close to max Fury.</>)
-          .icon(SPELLS.IMMOLATION_AURA_TALENT.icon)
+      .addSuggestion((suggest, actual, recommended) => suggest(<> Avoid casting <SpellLink id={SPELLS.IMMOLATION_AURA.id} /> when close to max Fury.</>)
+          .icon(SPELLS.IMMOLATION_AURA.icon)
           .actual(i18n._(t('demonhunter.havoc.suggestions.immolationAura.furyWasted')`${formatPercentage(actual)}% Fury wasted`))
           .recommended(`${formatPercentage(recommended)}% is recommended.`));
   }
@@ -68,7 +68,7 @@ class ImmolationAura extends Analyzer{
     const effectiveFuryGain = this.furyGain - this.furyWaste;
     return (
       <TalentStatisticBox
-        talent={SPELLS.IMMOLATION_AURA_TALENT.id}
+        talent={SPELLS.IMMOLATION_AURA.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
         value={(
           <>
