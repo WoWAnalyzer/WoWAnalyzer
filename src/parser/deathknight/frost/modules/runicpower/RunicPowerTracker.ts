@@ -3,7 +3,6 @@ import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/Res
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, EventType } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
-import { reduce } from 'vega-lite/build/src/encoding';
 
 const BREATH_COST_PER_TICK = 160;
 const HYPOTHERMIC_PRESENCE_COST_REDUCTION = .35;
