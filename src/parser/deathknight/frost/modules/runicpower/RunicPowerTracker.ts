@@ -3,6 +3,7 @@ import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/Res
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, EventType } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
+import { reduce } from 'vega-lite/build/src/encoding';
 
 const BREATH_COST_PER_TICK = 160;
 const HYPOTHERMIC_PRESENCE_COST_REDUCTION = .35;
@@ -16,7 +17,11 @@ class RunicPowerTracker extends ResourceTracker {
   }
 
   mostRecentTickTime = 0;
+  private _totalHypothermicPresenceReduction = 0;
 
+  get totalHypothermicPresenceReduction() {
+    return Math.round(this._totalHypothermicPresenceReduction / 10);
+  }
 
   // The following is adapted from ResourceTracker to handle the specific use case for BoS where
   // a single cast event triggers many ticks of a damage event where each damage tick costs
@@ -51,7 +56,7 @@ class RunicPowerTracker extends ResourceTracker {
       targetIsFriendly: event.targetIsFriendly,
     }    
 
-    let cost = this.selectedCombatant.hasBuff(SPELLS.HYPOTHERMIC_PRESENCE_TALENT.id, event.timestamp) ? BREATH_COST_PER_TICK * (1 - HYPOTHERMIC_PRESENCE_COST_REDUCTION) : BREATH_COST_PER_TICK
+    let cost = this.getHypothermicPresenceReduction(BREATH_COST_PER_TICK, event.timestamp);
 
     cost = cost / 10;
 
@@ -75,10 +80,23 @@ class RunicPowerTracker extends ResourceTracker {
     this.mostRecentTickTime = event.timestamp;
   }
 
+  getHypothermicPresenceReduction(cost: number, timestamp: number) {
+    
+    if (this.selectedCombatant.hasBuff(SPELLS.HYPOTHERMIC_PRESENCE_TALENT.id, timestamp)) {
+      console.log(cost)
+      const newCost = cost * (1 - HYPOTHERMIC_PRESENCE_COST_REDUCTION);
+      this._totalHypothermicPresenceReduction += (cost - newCost);
+      cost = newCost;
+    }
+
+    return cost;
+  }
+
   getReducedCost(event: CastEvent) {
     const cost = this.getResource(event)?.cost;
     if (cost) {
-      return cost / 10;
+      const reducedCost = this.getHypothermicPresenceReduction(cost, event.timestamp);
+      return reducedCost / 10;
     }
   }
 }
