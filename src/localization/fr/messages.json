@@ -1,5 +1,4 @@
 {
-  "Pulling report info...": "Récupération des informations du rapport...",
   "SotR Casts That Hit An Enemy": "",
   "The analysis for this spec is outdated. It may be inaccurate for spells that were changed since patch {patchCompatibility}.": "L'analyse de cette spécialisation est dépassée. Elle peut être inexacte pour les sorts qui ont été modifiés depuis le patch {patchCompatibility}.",
   "The checklist for this spec is not yet available. We could use your help to add this. See <0>GitHub</0> or join us on <1>Discord</1> if you're interested in contributing this.": "La liste récapitulative pour cette spécialisation n'est pas encore disponible. Nous pourrions avoir besoin de votre aide pour ajouter celle-ci. Voir le <0>GitHub</0> ou nous rejoindre sur <1>Discord</1> si vous êtes intéressé à y contribuer.",
@@ -389,6 +388,7 @@
   "interface.report.reportDurationWarning.warningDetails": "",
   "interface.report.reportDurationWarning.warningDetails.day": "",
   "interface.report.reportDurationWarning.warningDetails.days": "",
+  "interface.report.reportLoader": "Récupération des informations du rapport...",
   "interface.report.results.about.aboutSpecnameClassname": "A propos {0} {1}",
   "interface.report.results.about.unmaintained": "",
   "interface.report.results.about.viewEvents": "",

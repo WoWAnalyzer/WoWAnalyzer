@@ -1,5 +1,4 @@
 {
-  "Pulling report info...": "Обрабатываем информацию...",
   "SotR Casts That Hit An Enemy": "Использования Щита праведника, поразившие противника",
   "The analysis for this spec is outdated. It may be inaccurate for spells that were changed since patch {patchCompatibility}.": "Анализ для данной специализации устарел. Могут быть неточности в расчете работы ряда способностей, затронутых изменениями после патча {patchCompatibility}.",
   "The checklist for this spec is not yet available. We could use your help to add this. See <0>GitHub</0> or join us on <1>Discord</1> if you're interested in contributing this.": "",
@@ -389,6 +388,7 @@
   "interface.report.reportDurationWarning.warningDetails": "Текущий отчет содержит данные собранные за <0>{0} {1}</0>. Это может привести к проблемам с анализом более поздних боев в этот отчете. Мы рекомендуем разделять журнал боя перед загрузкой их на Warcraft Logs.",
   "interface.report.reportDurationWarning.warningDetails.day": "",
   "interface.report.reportDurationWarning.warningDetails.days": "",
+  "interface.report.reportLoader": "Обрабатываем информацию...",
   "interface.report.results.about.aboutSpecnameClassname": "Подробнее {0} {1}",
   "interface.report.results.about.unmaintained": "Не поддерживается в настоящее время",
   "interface.report.results.about.viewEvents": "",
