@@ -1,7 +1,5 @@
 {
-  "The analysis for this spec is outdated. It may be inaccurate for spells that were changed since patch {patchCompatibility}.": "",
   "The checklist for this spec is not yet available. We could use your help to add this. See <0>GitHub</0> or join us on <1>Discord</1> if you're interested in contributing this.": "",
-  "Updated for patch": "",
   "When you're not bringing too many healers.": "",
   "common.abilities": "",
   "common.ability": "",
@@ -389,7 +387,9 @@
   "interface.report.reportDurationWarning.warningDetails.days": "",
   "interface.report.reportLoader": "Puxando informações do relatório...",
   "interface.report.results.about.aboutSpecnameClassname": "Sobre {0} {1}",
+  "interface.report.results.about.outdated": "",
   "interface.report.results.about.unmaintained": "",
+  "interface.report.results.about.updatedForPatch": "",
   "interface.report.results.about.viewEvents": "",
   "interface.report.results.checklist.subTitle": "",
   "interface.report.results.checklist.title": "",

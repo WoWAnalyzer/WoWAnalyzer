@@ -43,7 +43,7 @@ const About = (
       </div>
       <div className="row" style={{ marginTop: '0.5em' }}>
         <div className="col-lg-4" style={{ fontWeight: 'bold', paddingRight: 0 }}>
-          <Trans>Updated for patch</Trans>
+          <Trans id="interface.report.results.about.updatedForPatch">Updated for patch</Trans>
         </div>
         <div className="col-lg-8">
           {patchCompatibility}
@@ -51,7 +51,7 @@ const About = (
       </div>
       {!isLatestPatch(patchCompatibility) && (
         <Warning style={{ marginTop: '1em' }}>
-          <Trans>The analysis for this spec is outdated. It may be inaccurate for spells that were changed since patch {patchCompatibility}.</Trans>
+          <Trans id="interface.report.results.about.outdated">The analysis for this spec is outdated. It may be inaccurate for spells that were changed since patch {patchCompatibility}.</Trans>
         </Warning>
       )}
     </Panel>
