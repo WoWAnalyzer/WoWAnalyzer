@@ -1,5 +1,4 @@
 {
-  "Help wanted": "",
   "Heroic": "",
   "Kill": "",
   "LFR": "",
@@ -277,6 +276,7 @@
   "interface.guildReports.home": "Home",
   "interface.guildReports.refresh": "Refresh",
   "interface.helpWantedPage.helpWanted": "WoWAnalyzer is completely open source and relies on mostly volunteer contributors to implement spec-specific analysis. You don't need to to do anything special to contribute. See the <0>contributing guidelines</0> if you want to give it a try.<1/><2/>If you're unable to help out with improving our analysis, please consider signing up for <3>Premium</3> instead.",
+  "interface.helpWantedPage.helpWantedTitle": "Help wanted",
   "interface.helpWantedPage.sharingIsCaring": "Sharing is caring",
   "interface.home.ReportHistory.notViewedAnythingYet": "You haven't viewed anything yet.",
   "interface.home.ReportHistory.viewedXDAgo": "viewed {0}d ago",

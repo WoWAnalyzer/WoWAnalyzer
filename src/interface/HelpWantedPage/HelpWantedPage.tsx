@@ -11,7 +11,7 @@ const HelpWanted = () => (
     <DocumentTitle title="Help wanted" />
 
     <Panel
-      title={<Trans>Help wanted</Trans>}
+      title={<Trans id="interface.helpWantedPage.helpWantedTitle">Help wanted</Trans>}
       bodyStyle={{
         textAlign: 'justify',
         padding: 0,

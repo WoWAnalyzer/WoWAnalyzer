@@ -1,5 +1,4 @@
 {
-  "Help wanted": "Требуется помощь",
   "Heroic": "Героический режим",
   "Kill": "Победа",
   "LFR": "Режим поиска рейда",
@@ -277,6 +276,7 @@
   "interface.guildReports.home": "На главную страницу",
   "interface.guildReports.refresh": "Обновить",
   "interface.helpWantedPage.helpWanted": "WoWAnalyzer имеет полностью открытый код и существует благодаря энтузиастам, выполняющим всю работу на добровольных началах. Каждый может внести свою лепту. Если хотите принять участие в проекте, ознакомьтесь с <0>основными принципами</0>.<1/><2/>Также всегда можно поддержать нас материально, оформив <3>Премиум-подписку</3>.",
+  "interface.helpWantedPage.helpWantedTitle": "Требуется помощь",
   "interface.helpWantedPage.sharingIsCaring": "",
   "interface.home.ReportHistory.notViewedAnythingYet": "Не обнаружено просмотренных отчетов.",
   "interface.home.ReportHistory.viewedXDAgo": "просмотрено {0} дней назад",

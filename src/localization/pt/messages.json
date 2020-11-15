@@ -1,5 +1,4 @@
 {
-  "Help wanted": "Precisamos de ajuda",
   "Heroic": "Heroico",
   "Kill": "Morte",
   "LFR": "",
@@ -277,6 +276,7 @@
   "interface.guildReports.home": "",
   "interface.guildReports.refresh": "Atualizar",
   "interface.helpWantedPage.helpWanted": "",
+  "interface.helpWantedPage.helpWantedTitle": "Precisamos de ajuda",
   "interface.helpWantedPage.sharingIsCaring": "Compartilhar é cuidar",
   "interface.home.ReportHistory.notViewedAnythingYet": "Você ainda não viu nada.",
   "interface.home.ReportHistory.viewedXDAgo": "visto à {0}d atrás",

@@ -1,5 +1,4 @@
 {
-  "Help wanted": "",
   "Heroic": "",
   "Kill": "",
   "LFR": "",
@@ -277,6 +276,7 @@
   "interface.guildReports.home": "",
   "interface.guildReports.refresh": "",
   "interface.helpWantedPage.helpWanted": "",
+  "interface.helpWantedPage.helpWantedTitle": "",
   "interface.helpWantedPage.sharingIsCaring": "",
   "interface.home.ReportHistory.notViewedAnythingYet": "",
   "interface.home.ReportHistory.viewedXDAgo": "",
