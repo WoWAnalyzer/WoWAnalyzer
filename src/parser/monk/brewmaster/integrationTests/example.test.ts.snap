@@ -3122,14 +3122,16 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 34,
@@ -3140,7 +3142,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "80",
@@ -3163,14 +3166,16 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 29,
@@ -3181,7 +3186,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "80",
@@ -3204,14 +3210,16 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 22,
@@ -3222,7 +3230,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "95",
@@ -3245,14 +3254,16 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 4,
@@ -3263,7 +3274,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "90",
@@ -3286,14 +3298,16 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 0,
@@ -3304,7 +3318,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "85",
@@ -5778,7 +5793,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
         <div
           className="flex-main name"
         >
-          Be well prepared
+          shared.modules.features.checklist.wellPrepared
         </div>
         <div
           className="flex-sub perf"
@@ -5848,7 +5863,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
           <div
             className="col-md-12"
           >
-            Being well prepared with food, flasks, potions and enchants is an easy way to improve your performance.
+            shared.modules.features.checklist.wellPreparedDetails
           </div>
         </div>
         <div
@@ -5863,7 +5878,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                All items enchanted
+                shared.modules.features.checklist.enchanted
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -5924,7 +5939,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                Using high quality enchants
+                shared.modules.features.checklist.enchantedHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -5985,7 +6000,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                Combat potions used
+                shared.modules.features.checklist.combatPotionsUsed
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6046,7 +6061,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                High quality combat potions used
+                shared.modules.features.checklist.highQualityCombatPotionsUsed
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6107,7 +6122,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                High quality flask used
+                shared.modules.features.checklist.flaskHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6167,7 +6182,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                Flask used
+                shared.modules.features.checklist.flask
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6227,7 +6242,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                High quality food used
+                shared.modules.features.checklist.foodHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6287,7 +6302,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                Food used
+                shared.modules.features.checklist.food
               </div>
               <div
                 className="flex-sub content-middle text-muted"

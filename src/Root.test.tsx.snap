@@ -482,7 +482,8 @@ exports[`Root matches snapshot 1`] = `
                                                         />,
                                                       ]
                                                     }
-                                                    id="Improve your performance with personal feedback and stats. Just enter the link of a <0>Warcraft Logs</0> report below."
+                                                    defaults="Improve your performance with personal feedback and stats. Just enter the link of a <0>Warcraft Logs</0> report below."
+                                                    id="interface.home.reportSelectionHeader.improveYourPerformance"
                                                   >
                                                     <I18n
                                                       update={true}
@@ -498,6 +499,7 @@ exports[`Root matches snapshot 1`] = `
                                                             />,
                                                           ]
                                                         }
+                                                        defaults="Improve your performance with personal feedback and stats. Just enter the link of a <0>Warcraft Logs</0> report below."
                                                         i18n={
                                                           I18n {
                                                             "_activeMessages": Object {},
@@ -514,7 +516,7 @@ exports[`Root matches snapshot 1`] = `
                                                           }
                                                         }
                                                         i18nHash={null}
-                                                        id="Improve your performance with personal feedback and stats. Just enter the link of a <0>Warcraft Logs</0> report below."
+                                                        id="interface.home.reportSelectionHeader.improveYourPerformance"
                                                       >
                                                         <Render
                                                           value={
@@ -606,13 +608,15 @@ exports[`Root matches snapshot 1`] = `
                                                               </svg>
                                                             </Icon>
                                                             <WithI18n
-                                                              id="Report"
+                                                              defaults="Report"
+                                                              id="interface.home.reportSelectionHeader.report"
                                                             >
                                                               <I18n
                                                                 update={true}
                                                                 withHash={true}
                                                               >
                                                                 <Trans
+                                                                  defaults="Report"
                                                                   i18n={
                                                                     I18n {
                                                                       "_activeMessages": Object {},
@@ -629,7 +633,7 @@ exports[`Root matches snapshot 1`] = `
                                                                     }
                                                                   }
                                                                   i18nHash={null}
-                                                                  id="Report"
+                                                                  id="interface.home.reportSelectionHeader.report"
                                                                 >
                                                                   <Render
                                                                     value="Report"
@@ -668,13 +672,15 @@ exports[`Root matches snapshot 1`] = `
                                                               </svg>
                                                             </Icon>
                                                             <WithI18n
-                                                              id="Character"
+                                                              defaults="Character"
+                                                              id="interface.home.reportSelectionHeader.character"
                                                             >
                                                               <I18n
                                                                 update={true}
                                                                 withHash={true}
                                                               >
                                                                 <Trans
+                                                                  defaults="Character"
                                                                   i18n={
                                                                     I18n {
                                                                       "_activeMessages": Object {},
@@ -691,7 +697,7 @@ exports[`Root matches snapshot 1`] = `
                                                                     }
                                                                   }
                                                                   i18nHash={null}
-                                                                  id="Character"
+                                                                  id="interface.home.reportSelectionHeader.character"
                                                                 >
                                                                   <Render
                                                                     value="Character"
@@ -733,13 +739,15 @@ exports[`Root matches snapshot 1`] = `
                                                               </svg>
                                                             </Icon>
                                                             <WithI18n
-                                                              id="Guild"
+                                                              defaults="Guild"
+                                                              id="interface.home.reportSelectionHeader.guild"
                                                             >
                                                               <I18n
                                                                 update={true}
                                                                 withHash={true}
                                                               >
                                                                 <Trans
+                                                                  defaults="Guild"
                                                                   i18n={
                                                                     I18n {
                                                                       "_activeMessages": Object {},
@@ -756,7 +764,7 @@ exports[`Root matches snapshot 1`] = `
                                                                     }
                                                                   }
                                                                   i18nHash={null}
-                                                                  id="Guild"
+                                                                  id="interface.home.reportSelectionHeader.guild"
                                                                 >
                                                                   <Render
                                                                     value="Guild"
@@ -952,13 +960,15 @@ exports[`Root matches snapshot 1`] = `
                                                       </svg>
                                                     </Icon>
                                                     <WithI18n
-                                                      id="News"
+                                                      defaults="News"
+                                                      id="interface.home.page.news"
                                                     >
                                                       <I18n
                                                         update={true}
                                                         withHash={true}
                                                       >
                                                         <Trans
+                                                          defaults="News"
                                                           i18n={
                                                             I18n {
                                                               "_activeMessages": Object {},
@@ -975,7 +985,7 @@ exports[`Root matches snapshot 1`] = `
                                                             }
                                                           }
                                                           i18nHash={null}
-                                                          id="News"
+                                                          id="interface.home.page.news"
                                                         >
                                                           <Render
                                                             value="News"
@@ -1029,13 +1039,15 @@ exports[`Root matches snapshot 1`] = `
                                                       </svg>
                                                     </Icon>
                                                     <WithI18n
-                                                      id="Specs"
+                                                      defaults="Specs"
+                                                      id="interface.home.page.specs"
                                                     >
                                                       <I18n
                                                         update={true}
                                                         withHash={true}
                                                       >
                                                         <Trans
+                                                          defaults="Specs"
                                                           i18n={
                                                             I18n {
                                                               "_activeMessages": Object {},
@@ -1052,7 +1064,7 @@ exports[`Root matches snapshot 1`] = `
                                                             }
                                                           }
                                                           i18nHash={null}
-                                                          id="Specs"
+                                                          id="interface.home.page.specs"
                                                         >
                                                           <Render
                                                             value="Specs"
@@ -1090,13 +1102,15 @@ exports[`Root matches snapshot 1`] = `
                                                       </svg>
                                                     </ForwardRef(SvgLogo)>
                                                     <WithI18n
-                                                      id="About"
+                                                      defaults="About"
+                                                      id="interface.home.page.about"
                                                     >
                                                       <I18n
                                                         update={true}
                                                         withHash={true}
                                                       >
                                                         <Trans
+                                                          defaults="About"
                                                           i18n={
                                                             I18n {
                                                               "_activeMessages": Object {},
@@ -1113,7 +1127,7 @@ exports[`Root matches snapshot 1`] = `
                                                             }
                                                           }
                                                           i18nHash={null}
-                                                          id="About"
+                                                          id="interface.home.page.about"
                                                         >
                                                           <Render
                                                             value="About"
@@ -1158,13 +1172,15 @@ exports[`Root matches snapshot 1`] = `
                                                       </svg>
                                                     </Icon>
                                                     <WithI18n
-                                                      id="Premium"
+                                                      defaults="Premium"
+                                                      id="interface.home.page.premium"
                                                     >
                                                       <I18n
                                                         update={true}
                                                         withHash={true}
                                                       >
                                                         <Trans
+                                                          defaults="Premium"
                                                           i18n={
                                                             I18n {
                                                               "_activeMessages": Object {},
@@ -1181,7 +1197,7 @@ exports[`Root matches snapshot 1`] = `
                                                             }
                                                           }
                                                           i18nHash={null}
-                                                          id="Premium"
+                                                          id="interface.home.page.premium"
                                                         >
                                                           <Render
                                                             value="Premium"
@@ -1229,13 +1245,15 @@ exports[`Root matches snapshot 1`] = `
                                                       </svg>
                                                     </Icon>
                                                     <WithI18n
-                                                      id="Help wanted"
+                                                      defaults="Help wanted"
+                                                      id="interface.home.page.helpWanted"
                                                     >
                                                       <I18n
                                                         update={true}
                                                         withHash={true}
                                                       >
                                                         <Trans
+                                                          defaults="Help wanted"
                                                           i18n={
                                                             I18n {
                                                               "_activeMessages": Object {},
@@ -1252,7 +1270,7 @@ exports[`Root matches snapshot 1`] = `
                                                             }
                                                           }
                                                           i18nHash={null}
-                                                          id="Help wanted"
+                                                          id="interface.home.page.helpWanted"
                                                         >
                                                           <Render
                                                             value="Help wanted"
