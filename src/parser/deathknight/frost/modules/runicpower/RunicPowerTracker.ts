@@ -82,7 +82,6 @@ class RunicPowerTracker extends ResourceTracker {
   getHypothermicPresenceReduction(cost: number, timestamp: number) {
     
     if (this.selectedCombatant.hasBuff(SPELLS.HYPOTHERMIC_PRESENCE_TALENT.id, timestamp)) {
-      console.log(cost)
       const newCost = cost * (1 - HYPOTHERMIC_PRESENCE_COST_REDUCTION);
       this._totalHypothermicPresenceReduction += (cost - newCost);
       cost = newCost;
