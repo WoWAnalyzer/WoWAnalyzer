@@ -1,5 +1,4 @@
 {
-  "When you're not bringing too many healers.": "",
   "common.abilities": "",
   "common.ability": "",
   "common.cast": "",
@@ -609,6 +608,7 @@
   "paladin.holy.modules.checklist.useLightOfTheMartyrOnlyWhenNecessary.description": "",
   "paladin.holy.modules.checklist.usePrimarySpells": "",
   "paladin.holy.modules.checklist.usePrimarySpells.description": "",
+  "paladin.holy.modules.checklist.usePrimarySpells.descriptionTooltipElement": "",
   "paladin.holy.modules.checklist.useSupportiveAbilities": "",
   "paladin.holy.modules.checklist.useSupportiveAbilities.description": "",
   "paladin.holy.modules.fillerFlashOfLight.actualInefficient": "",

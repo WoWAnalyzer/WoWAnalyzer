@@ -54,7 +54,7 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
             )}
             are your most efficient healing spells available. Try to cast them as much as possible
             without overhealing.
-            <TooltipElement content={<Trans>When you're not bringing too many healers.</Trans>}>
+            <TooltipElement content={<Trans id="paladin.holy.modules.checklist.usePrimarySpells.descriptionTooltipElement">When you're not bringing too many healers.</Trans>}>
               On Mythic
             </TooltipElement>{' '}
             you can often still cast these spells more even if you were overhealing by casting it

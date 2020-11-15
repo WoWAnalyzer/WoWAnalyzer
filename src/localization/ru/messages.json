@@ -1,5 +1,4 @@
 {
-  "When you're not bringing too many healers.": "Когда у Вас в группе не слишком много целителей",
   "common.abilities": "",
   "common.ability": "Способность",
   "common.cast": "Заклинание",
@@ -609,6 +608,7 @@
   "paladin.holy.modules.checklist.useLightOfTheMartyrOnlyWhenNecessary.description": "<0/> это не самая эффективная способность, если сравнивать с имеющимися альтернативами. Старайтесь использовать <1/> только если это спасет чью-то жизнь или пока Вы двигаетесь, а остальные мгновенные заклинания на перезаряжаются.",
   "paladin.holy.modules.checklist.usePrimarySpells": "Используйте свои основные лечащие способности как можно чаще",
   "paladin.holy.modules.checklist.usePrimarySpells.description": "<0/>{0} {1} {2} {3} {4} это Ваши наиболее эффективные способности. Старайтесь использовать их так часто, как это возможно, по возможности избегая избыточного исцеления. <1>В Мифической сложности</1> Вы часто сможете использовать эти способности еще чаще, практически по откату, даже если часть исцеления будет избыточной. {5}",
+  "paladin.holy.modules.checklist.usePrimarySpells.descriptionTooltipElement": "Когда у Вас в группе не слишком много целителей",
   "paladin.holy.modules.checklist.useSupportiveAbilities": "Используйте свои вспомогательные способности",
   "paladin.holy.modules.checklist.useSupportiveAbilities.description": "Хоть Вы не должны использовать свои защитные и сильные рейдовые способности по откату, старайтесь использовать их каждый раз, когда они будут действительно эффективны. Слишком редкое их использование означает что Вы распоряжаетесь ими не оптимальным образом.",
   "paladin.holy.modules.fillerFlashOfLight.actualInefficient": "{actual} применений, пока Шок небес был доступен",
