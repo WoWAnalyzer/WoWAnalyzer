@@ -1,5 +1,4 @@
 {
-  "SotR Casts That Hit An Enemy": "",
   "The analysis for this spec is outdated. It may be inaccurate for spells that were changed since patch {patchCompatibility}.": "",
   "The checklist for this spec is not yet available. We could use your help to add this. See <0>GitHub</0> or join us on <1>Discord</1> if you're interested in contributing this.": "",
   "Updated for patch": "",
@@ -664,6 +663,10 @@
   "paladin.holy.modules.talents.ruleOfLaw.suggestion": "Your <0/> uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges.",
   "paladin.holy.timeline.badLotM": "This cast dealt more damage to you than it healed the target. If there is nothing to heal, you should deal damage instead.",
   "paladin.protection.alwaysBeCasting.downtime": "{0}% downtime",
+  "paladin.protection.modules.features.noDamageShieldOfTheRighteous.actual": "{0}% of casts hit at least 1 target.",
+  "paladin.protection.modules.features.noDamageShieldOfTheRighteous.recommended": ">{0}% is recommended",
+  "paladin.protection.modules.features.noDamageShieldOfTheRighteous.sotrHit": "SotR Casts That Hit An Enemy",
+  "paladin.protection.modules.features.noDamageShieldOfTheRighteous.suggestion": "SotR is a major source of damage. Make sure that each cast hits at least 1 enemy.",
   "paladin.protection.suggestions.consecration.hitsMitigated": "{0}% of hits were mitigated by Consecration",
   "paladin.protection.suggestions.hammerOfTheRighteous.efficiency": "{0}% of casts while better spells were available",
   "paladin.protection.suggestions.lightOfTheProtector.averageDelay": "{0}s Average Delay",

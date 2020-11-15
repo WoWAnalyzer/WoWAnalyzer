@@ -1,5 +1,4 @@
 {
-  "SotR Casts That Hit An Enemy": "",
   "The analysis for this spec is outdated. It may be inaccurate for spells that were changed since patch {patchCompatibility}.": "Die Daten zur Analyse dieser Spezialisierung sind veraltet. Fähigkeiten, die nach Patch {patchCompatibility} verändert wurden, werden vermutlich falsch berechnet.",
   "The checklist for this spec is not yet available. We could use your help to add this. See <0>GitHub</0> or join us on <1>Discord</1> if you're interested in contributing this.": "Die Checkliste für diese Spezialisierung steht noch nicht zur Verfügung. Wir könnten deine Hilfe gebrauchen um sie hinzuzufügen. Schaue auf <0>GitHub</0> oder besuche uns im <1>Discord</1> falls du interresiert bist mitzuwirken.",
   "Updated for patch": "Aktualisiert für Patch",
@@ -664,6 +663,10 @@
   "paladin.holy.modules.talents.ruleOfLaw.suggestion": "",
   "paladin.holy.timeline.badLotM": "",
   "paladin.protection.alwaysBeCasting.downtime": "",
+  "paladin.protection.modules.features.noDamageShieldOfTheRighteous.actual": "",
+  "paladin.protection.modules.features.noDamageShieldOfTheRighteous.recommended": "",
+  "paladin.protection.modules.features.noDamageShieldOfTheRighteous.sotrHit": "",
+  "paladin.protection.modules.features.noDamageShieldOfTheRighteous.suggestion": "",
   "paladin.protection.suggestions.consecration.hitsMitigated": "",
   "paladin.protection.suggestions.hammerOfTheRighteous.efficiency": "",
   "paladin.protection.suggestions.lightOfTheProtector.averageDelay": "",

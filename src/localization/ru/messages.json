@@ -1,5 +1,4 @@
 {
-  "SotR Casts That Hit An Enemy": "Использования Щита праведника, поразившие противника",
   "The analysis for this spec is outdated. It may be inaccurate for spells that were changed since patch {patchCompatibility}.": "Анализ для данной специализации устарел. Могут быть неточности в расчете работы ряда способностей, затронутых изменениями после патча {patchCompatibility}.",
   "The checklist for this spec is not yet available. We could use your help to add this. See <0>GitHub</0> or join us on <1>Discord</1> if you're interested in contributing this.": "",
   "Updated for patch": "Обновлено для патча",
@@ -664,6 +663,10 @@
   "paladin.holy.modules.talents.ruleOfLaw.suggestion": "Время использования <0/> может быть увеличено. Старайтесь всегда держать минимум 1 заряд на перезарядке; старайтесь чтобы у Вас никогда не был накоплен максимум зарядов.",
   "paladin.holy.timeline.badLotM": "This cast dealt more damage to you than it healed the target. If there is nothing to heal, you should deal damage instead.",
   "paladin.protection.alwaysBeCasting.downtime": "{0}% downtime",
+  "paladin.protection.modules.features.noDamageShieldOfTheRighteous.actual": "",
+  "paladin.protection.modules.features.noDamageShieldOfTheRighteous.recommended": "",
+  "paladin.protection.modules.features.noDamageShieldOfTheRighteous.sotrHit": "Использования Щита праведника, поразившие противника",
+  "paladin.protection.modules.features.noDamageShieldOfTheRighteous.suggestion": "",
   "paladin.protection.suggestions.consecration.hitsMitigated": "{0}% of hits were mitigated by Consecration",
   "paladin.protection.suggestions.hammerOfTheRighteous.efficiency": "{0}% of casts while better spells were available",
   "paladin.protection.suggestions.lightOfTheProtector.averageDelay": "{0}s Average Delay",
