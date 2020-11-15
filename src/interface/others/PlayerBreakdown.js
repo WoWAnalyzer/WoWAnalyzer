@@ -100,9 +100,9 @@ class PlayerBreakdown extends React.Component {
         <table className="data-table">
           <thead>
             <tr style={{ textTransform: 'uppercase' }}>
-              <th><Trans>Name</Trans></th>
-              <th colSpan="2"><Trans>Mastery effectiveness</Trans></th>
-              <th colSpan="3"><TooltipElement content={<Trans>This is the amount of healing done by spells affected by mastery. Things like Holy Paladin beacons or Restoration Shaman feeding are NOT included.</Trans>}><Trans>Healing done</Trans></TooltipElement></th>
+              <th><Trans id="interface.playerBreakdown.name">Name</Trans></th>
+              <th colSpan="2"><Trans id="interface.playerBreakdown.masteryEffectiveness">Mastery effectiveness</Trans></th>
+              <th colSpan="3"><TooltipElement content={<Trans id="interface.playerBreakdown.masteryEffectivenessTooltip">This is the amount of healing done by spells affected by mastery. Things like Holy Paladin beacons or Restoration Shaman feeding are NOT included.</Trans>}><Trans id="interface.playerBreakdown.healingDone">Healing done</Trans></TooltipElement></th>
             </tr>
           </thead>
           <tbody>
