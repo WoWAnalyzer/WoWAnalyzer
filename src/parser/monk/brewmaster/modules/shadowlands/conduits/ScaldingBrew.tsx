@@ -41,7 +41,7 @@ export default class ScaldingBrew extends Analyzer {
       return;
     }
 
-    this.mult = BASE_DAMAGE_AMP + this.rank * DAMAGE_AMP_PER_RANK;
+    this.mult = BASE_DAMAGE_AMP + (this.rank - 1) * DAMAGE_AMP_PER_RANK;
 
     this.addEventListener(Events.damage.spell(SPELLS.KEG_SMASH).by(SELECTED_PLAYER), this.damage);
     this.addEventListener(Events.cast.spell(SPELLS.KEG_SMASH).by(SELECTED_PLAYER), this.cast);
@@ -70,10 +70,10 @@ export default class ScaldingBrew extends Analyzer {
   statistic() {
     return (
       <Statistic
-      position={STATISTIC_ORDER.OPTIONAL(0)}
-      size="flexible"
-      category={STATISTIC_CATEGORY.COVENANTS}
-      tooltip={`${this.missedHits} of your Keg Smash hits (besides the initial debuff application) were without the Breath of Fire debuff.`}
+        position={STATISTIC_ORDER.OPTIONAL(0)}
+        size="flexible"
+        category={STATISTIC_CATEGORY.ITEMS}
+        tooltip={`${this.missedHits} of your Keg Smash hits (besides the initial debuff application) were without the Breath of Fire debuff.`}
       >
       <ConduitSpellText spell={SPELLS.SCALDING_BREW} rank={this.rank!}>
         <>

@@ -471,6 +471,12 @@ const spells: SpellList = {
     name: "Hot Trub",
     icon: "spell_brew_dark",
   },
+  // Conduits
+  EVASIVE_STRIDE_HEAL: {
+    id: 343764,
+    name: 'Evasive Stride',
+    icon: 'ability_monk_uplift',
+  },
 
   // Windwalker Spells
   COMBO_STRIKES: {
