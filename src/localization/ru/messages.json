@@ -693,6 +693,7 @@
   "shaman.restoration.healingRain.averageTargets.label.tooltip": "Среднее количество целей Целительного ливня из 6 максимально возможных.",
   "shaman.restoration.healingWave.inefficientCast.reason": "Быстрина не была на перезарядке когда Вы начинали применение Волны исцеления без баффа от Приливных волн. Использование Быстрины перед Волной исцеления для генерации и последующего поглощения заряда Приливных волн и реализация Стремительных волн (если Вы играете с этим талантом) гораздо эффективнее, чем использование Волны исцеления без баффов с максимальными затратами времени на ее применение.",
   "shaman.restoration.highTide.statistic.tooltip": "Реализовано {0} баффов от Прилива из {1}.",
+  "shaman.restoration.legendaries.primalTideCore.statistic.tooltip": "{0} дополнительных Быстрин",
   "shaman.restoration.manaTideTotem.statistic.healerManaRestored": "Восстановлено маны (все целители)",
   "shaman.restoration.manaTideTotem.statistic.manaRestored": "Восстановлено маны",
   "shaman.restoration.masteryEffectiveness.statistic.label": "Полезность Искусности",
