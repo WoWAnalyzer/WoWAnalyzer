@@ -1,5 +1,4 @@
 {
-  "The checklist for this spec is not yet available. We could use your help to add this. See <0>GitHub</0> or join us on <1>Discord</1> if you're interested in contributing this.": "",
   "When you're not bringing too many healers.": "",
   "common.abilities": "",
   "common.ability": "",
@@ -391,6 +390,7 @@
   "interface.report.results.about.unmaintained": "",
   "interface.report.results.about.updatedForPatch": "",
   "interface.report.results.about.viewEvents": "",
+  "interface.report.results.checklist.notAvailableYet": "",
   "interface.report.results.checklist.subTitle": "",
   "interface.report.results.checklist.title": "",
   "interface.report.results.encounterStats.eeek": "",
