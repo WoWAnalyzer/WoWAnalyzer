@@ -1,5 +1,4 @@
 {
-  "New stuff": "",
   "Pulling report info...": "Récupération des informations du rapport...",
   "SotR Casts That Hit An Enemy": "",
   "The analysis for this spec is outdated. It may be inaccurate for spells that were changed since patch {patchCompatibility}.": "L'analyse de cette spécialisation est dépassée. Elle peut être inexacte pour les sorts qui ont été modifiés depuis le patch {patchCompatibility}.",
@@ -301,6 +300,9 @@
   "interface.nameSearch.realm": "Royaume",
   "interface.nameSearch.search": "Rechercher",
   "interface.nameSearch.stillWorking": "Travail en cours...",
+  "interface.news.follow": "",
+  "interface.news.moreNews": "",
+  "interface.news.newStuff": "",
   "interface.others.reportSelecter.analyze": "Analyser",
   "interface.others.reportSelecter.placeholder": "",
   "interface.others.reportSelecter.tooltip.supportedLinks": "",

@@ -1,5 +1,4 @@
 {
-  "New stuff": "",
   "Pulling report info...": "",
   "SotR Casts That Hit An Enemy": "",
   "The analysis for this spec is outdated. It may be inaccurate for spells that were changed since patch {patchCompatibility}.": "",
@@ -301,6 +300,9 @@
   "interface.nameSearch.realm": "Realm",
   "interface.nameSearch.search": "Search",
   "interface.nameSearch.stillWorking": "Still working...",
+  "interface.news.follow": "Follow @WoWAnalyzer",
+  "interface.news.moreNews": "More news?",
+  "interface.news.newStuff": "New stuff",
   "interface.others.reportSelecter.analyze": "Analyze",
   "interface.others.reportSelecter.placeholder": "https://www.warcraftlogs.com/reports/<report code>",
   "interface.others.reportSelecter.tooltip.supportedLinks": "Supported links:<0/><1><2>https://www.warcraftlogs.com/reports/<report code></2><3>https://www.warcraftlogs.com/character/<region>/<realm>/<name></3><4>https://worldofwarcraft.com/<language-code>/character/<realm>/<name></4><5>https://www.wowchina.com/<language-code>/character/<realm>/<name></5></1>",

@@ -1,5 +1,4 @@
 {
-  "New stuff": "Новинки",
   "Pulling report info...": "Обрабатываем информацию...",
   "SotR Casts That Hit An Enemy": "Использования Щита праведника, поразившие противника",
   "The analysis for this spec is outdated. It may be inaccurate for spells that were changed since patch {patchCompatibility}.": "Анализ для данной специализации устарел. Могут быть неточности в расчете работы ряда способностей, затронутых изменениями после патча {patchCompatibility}.",
@@ -301,6 +300,9 @@
   "interface.nameSearch.realm": "Игровой мир",
   "interface.nameSearch.search": "Поиск",
   "interface.nameSearch.stillWorking": "В работе...",
+  "interface.news.follow": "",
+  "interface.news.moreNews": "",
+  "interface.news.newStuff": "Новинки",
   "interface.others.reportSelecter.analyze": "Анализировать",
   "interface.others.reportSelecter.placeholder": "",
   "interface.others.reportSelecter.tooltip.supportedLinks": "",

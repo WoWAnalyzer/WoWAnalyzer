@@ -1,5 +1,4 @@
 {
-  "New stuff": "",
   "Pulling report info...": "Puxando informações do relatório...",
   "SotR Casts That Hit An Enemy": "",
   "The analysis for this spec is outdated. It may be inaccurate for spells that were changed since patch {patchCompatibility}.": "",
@@ -301,6 +300,9 @@
   "interface.nameSearch.realm": "Reino",
   "interface.nameSearch.search": "Pesquisar",
   "interface.nameSearch.stillWorking": "Ainda trabalhando",
+  "interface.news.follow": "",
+  "interface.news.moreNews": "",
+  "interface.news.newStuff": "",
   "interface.others.reportSelecter.analyze": "Analise",
   "interface.others.reportSelecter.placeholder": "",
   "interface.others.reportSelecter.tooltip.supportedLinks": "",
