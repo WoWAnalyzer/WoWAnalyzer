@@ -652,6 +652,7 @@ export interface Item {
   itemLevel: number;
   bonusIDs?: number | number[];
   permanentEnchant?: number;
+  temporaryEnchant?: number;
   gems?: Gem[];
 }
 
