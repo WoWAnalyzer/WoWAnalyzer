@@ -4,7 +4,7 @@ import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import Events, { CastEvent, DamageEvent, ApplyBuffEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import HIT_TYPES from 'game/HIT_TYPES';
 import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import { MS_BUFFER_250, FIRE_DIRECT_DAMAGE_SPELLS } from 'parser/mage/shared/constants';
@@ -29,22 +29,21 @@ class HotStreakWastedCrits extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.hasPyromaniac = this.selectedCombatant.hasTalent(SPELLS.PYROMANIAC_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(FIRE_DIRECT_DAMAGE_SPELLS), this._onCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(FIRE_DIRECT_DAMAGE_SPELLS), this._onDamage);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(FIRE_DIRECT_DAMAGE_SPELLS), this.onCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(FIRE_DIRECT_DAMAGE_SPELLS), this.onDamage);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.HOT_STREAK), this.checkForPyromaniacProc);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.HOT_STREAK), this.onHotStreakRemoved);
 
   }
 
   //When a spell that contributes towards Hot Streak is cast, get the event info to use for excluding the cleaves from Phoenix Flames on the damage event.
-  //If a Hot Streak Contributor was cast then Pyromaniac didnt proc, so set it to false (Pyromaniac procs when Hot Streak is used, so if something was cast, then it didnt proc)
-  _onCast(event: CastEvent) {
+  onCast(event: CastEvent) {
     this.lastCastEvent = event;
-    this.hasPyromaniacProc = false;
   }
 
   //When a spell that contributes towards Hot Streak crits the target while Hot Streak is active, count it as a wasted crit.
   //Excludes the cleave from Phoenix Flames (the cleave doesnt contribute towards Hot Streak) and excludes crits immediately after Pyromaniac procs, cause the player cant do anything to prevent that.
-  _onDamage(event: DamageEvent) {
+  onDamage(event: DamageEvent) {
     if (!this.lastCastEvent) {
       return;
     }
@@ -69,8 +68,14 @@ class HotStreakWastedCrits extends Analyzer {
   //Pyromaniac doesnt trigger an event, so we need to check to see if the player immediately got a new Hot Streak immediately after using a Hot Streak
   checkForPyromaniacProc(event: ApplyBuffEvent) {
     if (this.hasPyromaniac && event.timestamp - this.hotStreakRemoved < MS_BUFFER_250) {
+      this.log("Pyromaniac Proc")
       this.hasPyromaniacProc = true;
     }
+  }
+
+  onHotStreakRemoved(event: RemoveBuffEvent) {
+    this.hotStreakRemoved = event.timestamp;
+    this.hasPyromaniacProc = false;
   }
 
   get wastedCritsPerMinute() {
