@@ -10,6 +10,16 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { formatPercentage } from 'common/format';
 
+const MAX_STACKS = 10;
+const MAX_STACKS_SPENT_PER_CAST = 5;
+const MAELSTROM_WEAPON_SPENDERS: Spell[] = [
+  SPELLS.CHAIN_HEAL,
+  SPELLS.CHAIN_LIGHTNING,
+  SPELLS.HEALING_SURGE,
+  SPELLS.LIGHTNING_BOLT,
+]
+const debug = false;
+
 class MaelstromWeapon extends Analyzer {
   protected stacksGained = 0;
   protected stacksUsed = 0;
@@ -18,14 +28,6 @@ class MaelstromWeapon extends Analyzer {
   protected currentStacks = 0;
 
   protected cappedIntervals: Intervals;
-
-  get MAX_STACKS_SPENT_PER_CAST() {
-    return 5;
-  }
-
-  get MAX_STACKS() {
-    return 10;
-  }
 
   constructor(options: Options) {
     super(options);
@@ -53,19 +55,10 @@ class MaelstromWeapon extends Analyzer {
       this.spendStacks
     );
 
-    const MAELSTROM_WEAPON_SPENDERS: Spell[] = [
-      SPELLS.CHAIN_HEAL,
-      SPELLS.CHAIN_LIGHTNING,
-      SPELLS.HEALING_SURGE,
-      SPELLS.LIGHTNING_BOLT,
-    ]
-
-    MAELSTROM_WEAPON_SPENDERS.forEach(spell => {
-      this.addEventListener(
-        Events.cast.by(SELECTED_PLAYER).spell(spell),
-        this.castMaelstromWeaponSpender
-      )
-    })
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(MAELSTROM_WEAPON_SPENDERS),
+      this.castMaelstromWeaponSpender
+    )
   }
 
   reachMaxStacks(timestamp: number) {
@@ -84,7 +77,7 @@ class MaelstromWeapon extends Analyzer {
   castMaelstromWeaponSpender(event: CastEvent) {
     const stacksUsed = Math.min(
       this.currentStacks,
-      this.MAX_STACKS_SPENT_PER_CAST
+      MAX_STACKS_SPENT_PER_CAST
     );
 
     if (stacksUsed === 0) {
@@ -93,7 +86,7 @@ class MaelstromWeapon extends Analyzer {
 
     this.stacksUsed += stacksUsed;
 
-    if (this.currentStacks === this.MAX_STACKS) {
+    if (this.currentStacks === MAX_STACKS) {
       this.stopHavingMaxStacks(event.timestamp);
     }
 
@@ -107,14 +100,14 @@ class MaelstromWeapon extends Analyzer {
 
   gainSubsequentStack(event: ApplyBuffStackEvent) {
     if (this.currentStacks + 1 !== event.stack) {
-      console.error('Maelstrom Weapon analyzer: stack mismatch in applybuffstack');
+      debug && console.error('Maelstrom Weapon analyzer: stack mismatch in applybuffstack');
       return;
     }
 
     this.currentStacks = event.stack;
     this.stacksGained += 1;
 
-    if (this.currentStacks === this.MAX_STACKS) {
+    if (this.currentStacks === MAX_STACKS) {
       this.reachMaxStacks(event.timestamp)
     }
   }
@@ -125,7 +118,7 @@ class MaelstromWeapon extends Analyzer {
       return;
     }
 
-    if (this.currentStacks === 10) {
+    if (this.currentStacks === MAX_STACKS) {
       this.stopHavingMaxStacks(event.timestamp);
     }
 
@@ -136,9 +129,9 @@ class MaelstromWeapon extends Analyzer {
 
   spendStacks(event: RemoveBuffStackEvent) {
     if (this.currentStacks !== event.stack) {
-      console.error('Maelstrom Weapon analyzer: stack mismatch in spendStacks')
+      debug && console.error('Maelstrom Weapon analyzer: stack mismatch in spendStacks')
     }
-    if (this.currentStacks === this.MAX_STACKS) {
+    if (this.currentStacks === MAX_STACKS) {
       this.stopHavingMaxStacks(event.timestamp);
     }
 
@@ -178,7 +171,7 @@ class Interval {
 
   get duration(): number {
     if (this.endTime === undefined) {
-      console.error('Cannot calculate duration of an Interval with no endTime.');
+      debug && console.error('Cannot calculate duration of an Interval with no endTime.');
       return 0;
     }
     return this.endTime - this.startTime;
@@ -198,7 +191,7 @@ class Intervals {
 
   startInterval(timestamp: number) {
     if (this.isLastIntervalInProgress) {
-      console.log('Intervals: cannot start a new interval because one is already in progress.')
+      debug && console.error('Intervals: cannot start a new interval because one is already in progress.')
       return;
     }
 
@@ -207,7 +200,7 @@ class Intervals {
 
   endInterval(timestamp: number) {
     if (!this.isLastIntervalInProgress) {
-      console.log('Intervals: cannot end an interval because none are in progress.')
+      debug && console.error('Intervals: cannot end an interval because none are in progress.')
       return;
     }
 
