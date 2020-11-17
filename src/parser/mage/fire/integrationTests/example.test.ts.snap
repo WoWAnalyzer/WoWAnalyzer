@@ -7087,7 +7087,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#ffc84a",
-                  "width": "63.07152323529412%",
+                  "width": "64.78930373529413%",
                 }
               }
             />
@@ -7322,7 +7322,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "22.90374%",
+                        "width": "29.774862000000002%",
                       }
                     }
                   />
