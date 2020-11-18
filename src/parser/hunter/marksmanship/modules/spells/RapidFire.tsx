@@ -4,7 +4,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { AnyEvent, ApplyBuffEvent, EnergizeEvent, EventType, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Abilities from 'parser/core/modules/Abilities';
-import { RAPID_FIRE_FOCUS_PER_TICK, RAPID_FIRE_TICKS_PER_CAST, TRUESHOT_RAPID_FIRE_RECHARGE_INCREASE } from 'parser/hunter/marksmanship/constants';
+import { RAPID_FIRE_FOCUS_PER_TICK, TRUESHOT_RAPID_FIRE_RECHARGE_INCREASE } from 'parser/hunter/marksmanship/constants';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
