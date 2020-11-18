@@ -38,7 +38,7 @@ class EmpyreanPower extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.EMPYREAN_POWER_TALENT.id);
 
-    if(!this.active){
+    if (!this.active) {
       return;
     }
 
@@ -48,26 +48,26 @@ class EmpyreanPower extends Analyzer {
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.EMPYREAN_POWER_BUFF), this.removeBuff);
   }
 
-  castCounter(){
+  castCounter() {
     this.totalChances += 1;
     this.procProbabilities.push(EMPYREAN_POWER_CHANCE);
   }
 
-  divineStormDamage(event: DamageEvent){
-    if(this.hasProc || this.buffRemovedTimestamp + TRACK_BUFFER > event.timestamp){
+  divineStormDamage(event: DamageEvent) {
+    if (this.hasProc || this.buffRemovedTimestamp + TRACK_BUFFER > event.timestamp) {
       this.damageDone += (event.amount || 0) + (event.absorbed || 0);
     }
   }
 
-  applyBuff(event: ApplyBuffEvent){
+  applyBuff(event: ApplyBuffEvent) {
     this.hasProc = true;
     this.procsGained += 1;
     this.buffAppliedTimestamp = event.timestamp;
   }
 
-  removeBuff(event: RemoveBuffEvent){
+  removeBuff(event: RemoveBuffEvent) {
     const lowerRoughTime = (this.buffAppliedTimestamp + BUFF_TIME);
-    if(lowerRoughTime < event.timestamp){
+    if (lowerRoughTime < event.timestamp) {
       this.procsWasted += 1;
     }
     this.averageTimeTillBuffConsumed += (event.timestamp - this.buffAppliedTimestamp);
