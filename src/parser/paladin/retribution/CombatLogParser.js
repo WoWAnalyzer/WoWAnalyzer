@@ -21,6 +21,7 @@ import Consecration from './modules/core/Consecration';
 import HammerofWrathRetribution from './modules/core/HammerofWrath';
 import RighteousVerdict from './modules/talents/RighteousVerdict';
 import ExecutionSentence from './modules/talents/ExecutionSentence';
+import EmpyreanPower from './modules/talents/EmpyreanPower';
 
 import HolyPowerTracker from '../shared/holypower/HolyPowerTracker';
 import HolyPowerDetails from '../shared/holypower/HolyPowerDetails';
@@ -51,6 +52,7 @@ class CombatLogParser extends CoreCombatLogParser {
     righteousVerdict: RighteousVerdict,
     executionSentence: ExecutionSentence,
     holyAvenger: HolyAvenger,
+    empyreanPower: EmpyreanPower,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,
