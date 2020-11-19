@@ -10,6 +10,8 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { formatPercentage } from 'common/format';
 
+import { Intervals } from './Intervals';
+
 const MAX_STACKS = 10;
 const MAX_STACKS_SPENT_PER_CAST = 5;
 const MAELSTROM_WEAPON_SPENDERS: Spell[] = [
@@ -151,73 +153,6 @@ class MaelstromWeapon extends Analyzer {
         {formatPercentage(this.stacksUsed / this.stacksGained)}% <small>of stacks used</small>
       </BoringSpellValueText>
     </Statistic>
-  }
-}
-
-/**
- * This is used to calculate the amount of time spent while having max number of Maelstrom Weapon stacks
- */
-class Interval {
-  protected startTime: number;
-  protected endTime: number | undefined = undefined;
-
-  constructor(timestamp: number) {
-    this.startTime = timestamp;
-  }
-
-  end(timestamp: number) {
-    this.endTime = timestamp;
-  }
-
-  get duration(): number {
-    if (this.endTime === undefined) {
-      debug && console.error('Cannot calculate duration of an Interval with no endTime.');
-      return 0;
-    }
-    return this.endTime - this.startTime;
-  }
-
-  get ended(): boolean {
-    return this.endTime !== undefined;
-  }
-}
-
-class Intervals {
-  protected intervals: Interval[];
-
-  constructor() {
-    this.intervals = [];
-  };
-
-  startInterval(timestamp: number) {
-    if (this.isLastIntervalInProgress) {
-      debug && console.error('Intervals: cannot start a new interval because one is already in progress.')
-      return;
-    }
-
-    this.intervals.push(new Interval(timestamp));
-  }
-
-  endInterval(timestamp: number) {
-    if (!this.isLastIntervalInProgress) {
-      debug && console.error('Intervals: cannot end an interval because none are in progress.')
-      return;
-    }
-
-    this.intervals[this.intervals.length - 1].end(timestamp);
-  }
-
-  private get isLastIntervalInProgress() {
-    const length = this.intervals.length;
-    if (length === 0) {
-      return false;
-    }
-
-    return !this.intervals[length - 1].ended
-  }
-
-  get totalDuration() {
-    return this.intervals.reduce((acc, interval) => acc + interval.duration, 0)
   }
 }
 
