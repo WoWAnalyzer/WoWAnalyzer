@@ -1,14 +1,16 @@
 import React from 'react';
 
 import { formatNumber, formatPercentage } from 'common/format';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
+import SpellIcon from 'common/SpellIcon';
+import BoringValue from 'interface/statistics/components/BoringValueText';
 
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
@@ -137,6 +139,7 @@ class TreeOfLife extends Analyzer {
     const currentUptime = !(this.lastTolCast) ? 0 : Math.min(TOL_DURATION, this.owner.currentTimestamp - this.lastTolCast);
     return currentUptime + this.completedTolUptime;
   }
+
   get hardcastUptimePercent() {
     return this.hardcastUptime / this.owner.fightDuration;
   }
@@ -175,10 +178,9 @@ class TreeOfLife extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} />}
-        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this._getTotalHealing(this.hardcast)))} %`}
-        label="Tree of Life Healing"
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(20)}
+        size="flexible"
         tooltip={(
           <>
             The Tree of Life buff was active for <strong>{(this.hardcastUptime / 1000).toFixed(0)}s</strong>, or <strong>{formatPercentage(this.hardcastUptimePercent, 1)}%</strong> of the encounter. The displayed healing number is the sum of several benefits, listed below:
@@ -190,10 +192,15 @@ class TreeOfLife extends Analyzer {
             </ul>
           </>
         )}
-      />
+      >
+        <BoringValue label={<><SpellIcon id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} /> Tree of Life healing</>}>
+          <>
+            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this._getTotalHealing(this.hardcast)))} %
+          </>
+        </BoringValue>
+      </Statistic>
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default TreeOfLife;

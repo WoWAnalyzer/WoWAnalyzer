@@ -1,8 +1,10 @@
 import React from 'react';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatPercentage } from 'common/format';
-import SpellIcon from 'common/SpellIcon';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
 import SpellLink from 'common/SpellLink';
+import SpellIcon from 'common/SpellIcon';
+import BoringValue from 'interface/statistics/components/BoringValueText';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -64,7 +66,7 @@ class Clearcasting extends Analyzer {
   }
 
   onCast(event) {
-    if(this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
       return;
     }
 
@@ -90,7 +92,7 @@ class Clearcasting extends Analyzer {
     const effectiveHealing = event.amount + (event.absorbed || 0);
     const hitPointsBeforeHeal = event.hitPoints - effectiveHealing;
     const healthPercentage = hitPointsBeforeHeal / event.maxHitPoints;
-    if(healthPercentage<LOW_HEALTH_HEALING_THRESHOLD && !this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_BUFF.id, event.timestamp, MS_BUFFER)) {
+    if (healthPercentage < LOW_HEALTH_HEALING_THRESHOLD && !this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_BUFF.id, event.timestamp, MS_BUFFER)) {
       this.lowHealthRegrowthsNoCC += 1;
     }
   }
@@ -151,10 +153,9 @@ class Clearcasting extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.CLEARCASTING_BUFF.id} />}
-        value={`${formatPercentage(this.clearcastingUtilPercent, 1)} %`}
-        label="Clearcasting Util"
+      <Statistic
+        size="flexible"
+        position={STATISTIC_ORDER.CORE(20)}
         tooltip={(
           <>
             Clearcasting procced <strong>{this.totalProcs} free Regrowths</strong>
@@ -172,10 +173,15 @@ class Clearcasting extends Analyzer {
             {this.hadInvisibleRefresh && <em>* Mark of Clarity can sometimes 'invisibly refresh', which can make your total procs show as lower than you actually got. Basically, you invisibly overwrote some number of procs, but we aren't able to see how many.</em>}
           </>
         )}
-      />
+      >
+        <BoringValue label={<><SpellIcon id={SPELLS.CLEARCASTING_BUFF.id} /> Clearcasting Util</>} >
+          <>
+            {formatPercentage(this.clearcastingUtilPercent, 1)} %
+          </>
+        </BoringValue>
+      </Statistic>
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(20);
 
 }
 

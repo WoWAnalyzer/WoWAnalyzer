@@ -1,10 +1,11 @@
 import React from 'react';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import StatisticBox from 'interface/others/StatisticBox';
 import { formatPercentage, formatNumber } from 'common/format';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
+import SpellIcon from 'common/SpellIcon';
+import BoringValue from 'interface/statistics/components/BoringValueText';
 
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
@@ -26,6 +27,7 @@ const FLOURISH_HEALING_INCREASE = 1;
   Extends the duration of all of your heal over time effects on friendly targets within 60 yards by 8 sec,
   and increases the rate of your heal over time effects by 100% for 8 sec.
  */
+
 // TODO: Idea - Give suggestions on low amount/duration extended with flourish on other HoTs
 class Flourish extends Analyzer {
   static dependencies = {
@@ -218,7 +220,7 @@ class Flourish extends Analyzer {
   }
 
   suggestions(when) {
-    if(this.flourishCount === 0) {
+    if (this.flourishCount === 0) {
       return;
     }
 
@@ -228,7 +230,7 @@ class Flourish extends Analyzer {
           .actual(i18n._(t('druid.restoration.suggestions.flourish.wildGrowthExtended')`${formatPercentage(this.wgsExtended / this.flourishCount, 0)}% WGs extended.`))
           .recommended(`${formatPercentage(recommended)}% is recommended`));
 
-    if(this.hasCenarionWard) {
+    if (this.hasCenarionWard) {
       when(this.cenarionWardSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> should always aim to extend a <SpellLink id={SPELLS.CENARION_WARD_HEAL.id} /></>)
             .icon(SPELLS.FLOURISH_TALENT.icon)
@@ -241,11 +243,10 @@ class Flourish extends Analyzer {
     const extendPercent = this.owner.getPercentageOfTotalHealingDone(this.totalExtensionHealing);
     const increasedRatePercent = this.owner.getPercentageOfTotalHealingDone(this.increasedRateTotalHealing);
     const totalPercent = this.owner.getPercentageOfTotalHealingDone(this.totalExtensionHealing + this.increasedRateTotalHealing);
-    return(
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.FLOURISH_TALENT.id} />}
-        value={`${formatPercentage(totalPercent)} %`}
-        label="Flourish Healing"
+    return (
+      <Statistic
+        size="flexible"
+        position={STATISTIC_ORDER.OPTIONAL(15)}
         tooltip={(
           <>
             The HoT extension contributed: <strong>{formatPercentage(extendPercent)} %</strong><br />
@@ -278,32 +279,39 @@ class Flourish extends Analyzer {
             The Healing column shows how much additional healing was done by the 8 extra seconds of HoT time. Note that if you Flourished near the end of a fight, numbers might be lower than you expect because extension healing isn't tallied until a HoT falls.
           </>
         )}
-      >
-        <table className="table table-condensed">
-          <thead>
-            <tr>
-              <th>Cast</th>
-              <th># of HoTs</th>
-              <th>Healing</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              this.flourishes.map((flourish, index) => (
-                <tr key={index}>
-                  <th scope="row">{ index + 1 }</th>
-                  <td>{ flourish.procs }</td>
-                  <td>{ formatNumber(flourish.healing + flourish.masteryHealing) }</td>
+        dropdown={(
+          <>
+            <table className="table table-condensed">
+              <thead>
+                <tr>
+                  <th>Cast</th>
+                  <th># of HoTs</th>
+                  <th>Healing</th>
                 </tr>
-              ))
-            }
-          </tbody>
-        </table>
-      </StatisticBox>
+              </thead>
+              <tbody>
+                {
+                  this.flourishes.map((flourish, index) => (
+                    <tr key={index}>
+                      <th scope="row">{index + 1}</th>
+                      <td>{flourish.procs}</td>
+                      <td>{formatNumber(flourish.healing + flourish.masteryHealing)}</td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+          </>
+        )}
+      >
+        <BoringValue label={<><SpellIcon id={SPELLS.FLOURISH_TALENT.id} /> Flourish healing</>} >
+          <>
+            {formatPercentage(totalPercent)} %
+          </>
+        </BoringValue>
+      </Statistic>
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
-
 }
 
 export default Flourish;
