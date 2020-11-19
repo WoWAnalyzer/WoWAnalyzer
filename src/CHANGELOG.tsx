@@ -9,6 +9,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 11, 19), 'Final Interface and Restoration Shaman localization, correction of typos', Amani),
   change(date(2020, 11, 2), 'Converted the following components to TypeScript: ItemLink, ResourceLink, Rule and Expandable', Mae),
   change(date(2020, 10, 31), 'Update several component to Typescript and refactor to hooks', Guyius),
   change(date(2020, 11, 1), 'Eliminated x-axis padding in several charts.', emallson),
