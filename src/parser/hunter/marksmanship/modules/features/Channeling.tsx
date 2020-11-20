@@ -7,7 +7,7 @@ const debug = false;
 
 class Channeling extends CoreChanneling {
 
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BARRAGE_TALENT), this.onRemoveBuff);
   }

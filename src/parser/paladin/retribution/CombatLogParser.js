@@ -10,16 +10,18 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import Checklist from './modules/features/Checklist/Module';
 import ShieldOfVengeance from './modules/core/ShieldOfVengeance';
 
-import DivinePurpose from './modules/talents/DivinePurpose';
+import DivinePurpose from '../shared/talents/DivinePurpose';
+import HolyAvenger from '../shared/talents/HolyAvenger';
 import ArtOfWar from './modules/core/ArtOfWar';
 import BladeofJustice from './modules/core/BladeofJustice';
 import CrusaderStrike from './modules/core/CrusaderStrike';
 import Crusade from './modules/talents/Crusade';
 import WakeofAshes from './modules/core/WakeofAshes';
-import Consecration from './modules/talents/Consecration';
+import Consecration from './modules/core/Consecration';
 import HammerofWrathRetribution from './modules/core/HammerofWrath';
 import RighteousVerdict from './modules/talents/RighteousVerdict';
 import ExecutionSentence from './modules/talents/ExecutionSentence';
+import EmpyreanPower from './modules/talents/EmpyreanPower';
 
 import HolyPowerTracker from '../shared/holypower/HolyPowerTracker';
 import HolyPowerDetails from '../shared/holypower/HolyPowerDetails';
@@ -49,6 +51,8 @@ class CombatLogParser extends CoreCombatLogParser {
     hammerofWrathRetribution: HammerofWrathRetribution,
     righteousVerdict: RighteousVerdict,
     executionSentence: ExecutionSentence,
+    holyAvenger: HolyAvenger,
+    empyreanPower: EmpyreanPower,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,

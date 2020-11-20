@@ -23,7 +23,7 @@ export default {
   SCENT_OF_BLOOD_TALENT_FERAL: { id: 285564, name: "Scent of Blood", icon: "spell_druid_thrash"},
   PRIMAL_WRATH_TALENT: { id: 285381, name: "Primal Wrath", icon: "artifactability_feraldruid_ashamanesbite"},
   MOMENT_OF_CLARITY_TALENT: { id: 236068, name: "Moment of Clarity", icon: "spell_druid_momentofclarity" },
-  BLOODTALONS_TALENT: { id: 155672, name: "Bloodtalons", icon: "spell_druid_bloodythrash" },
+  BLOODTALONS_TALENT: { id: 319439, name: "Bloodtalons", icon: "spell_druid_bloodythrash" },
   FERAL_FRENZY_TALENT: { id: 274837, name: "Feral Frenzy", icon: "ability_druid_rake", energyCost: 25 },
   // Guardian
   BRAMBLES_TALENT: { id: 203953, name: 'Brambles', icon: 'inv_misc_thornnecklace' },

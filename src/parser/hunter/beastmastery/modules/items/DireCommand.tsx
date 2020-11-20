@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER, Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -17,7 +17,7 @@ import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
 /**
  * TODO Find a log with both Dire Command and Dire Beast talent and account for them using the same spell for buff
- * Kill Command has a 15% chance to also summon a Dire Beast to attack your target.
+ * Kill Command has a 20% chance to also summon a Dire Beast to attack your target.
  *
  * Example log:
  *

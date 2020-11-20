@@ -9,7 +9,6 @@ class Abilities extends CoreAbilities {
       /**
        * Shared spells handled in their own files:
        * Binding Shot
-       * Hunters Mark
        * Kill Shot
        * A Murder of Crows
        *
@@ -257,11 +256,20 @@ class Abilities extends CoreAbilities {
         cooldown: 45,
         enabled: combatant.hasTalent(SPELLS.VOLLEY_TALENT.id),
         gcd: {
-          base: 1500, //TODO: Follow up on Volley double dipping focus on it's GCD
+          base: 1500,
         },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
+        },
+      },
+      {
+        spell: SPELLS.CAMOUFLAGE_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 60,
+        enabled: combatant.hasTalent(SPELLS.CAMOUFLAGE_TALENT.id),
+        gcd: {
+          base: 1500,
         },
       },
       //endregion

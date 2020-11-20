@@ -10,6 +10,8 @@ import Contributor from 'interface/ContributorButton';
 // prettier-ignore
 export default [
   change(date(2020, 11, 19), 'Final Interface and Restoration Shaman localization, correction of typos', Amani),
+  change(date(2020, 11, 7), 'Adjust our Soulbind, Covenant, Conduit scripts per latest raid testing', Putro),
+  change(date(2020, 11, 4), 'Migrate Castle Nathria to TS', Guyius),
   change(date(2020, 11, 2), 'Converted the following components to TypeScript: ItemLink, ResourceLink, Rule and Expandable', Mae),
   change(date(2020, 10, 31), 'Update several component to Typescript and refactor to hooks', Guyius),
   change(date(2020, 11, 1), 'Eliminated x-axis padding in several charts.', emallson),
@@ -17,6 +19,7 @@ export default [
   change(date(2020, 10, 31), 'Added IDs to i18n of PlayerLoader', jos3p),
   change(date(2020, 10, 31), 'Added i18n of Premium page', jos3p),
   change(date(2020, 10, 29), 'Update game components to Typescript', jos3p),
+  change(date(2020, 10, 29), 'Update ResourceTracker to TypeScript', Khazak),
   change(date(2020, 10, 29), 'Updated Potions Checklist items to show potions used instead of pre Potions/second Potions.', Sharrq),
   change(date(2020, 10, 29), 'Update several component to Typescript, center player name in player gear header', Guyius),
   change(date(2020, 10, 28), 'Added more translateable elements.', niseko),

@@ -121,6 +121,17 @@ export const FOCUS_THRESHOLD_AVG = 0.05;
 export const FOCUS_THRESHOLD_MAJOR = 0.1;
 //The 8 focus regen buffs connected to Barbed Shot
 export const BARBED_SHOT_FOCUS_REGEN_BUFFS = [
+  SPELLS.BARBED_SHOT_BUFF,
+  SPELLS.BARBED_SHOT_BUFF_2,
+  SPELLS.BARBED_SHOT_BUFF_3,
+  SPELLS.BARBED_SHOT_BUFF_4,
+  SPELLS.BARBED_SHOT_BUFF_5,
+  SPELLS.BARBED_SHOT_BUFF_6,
+  SPELLS.BARBED_SHOT_BUFF_7,
+  SPELLS.BARBED_SHOT_BUFF_8,
+];
+
+export const BARBED_SHOT_FOCUS_REGEN_BUFFS_IDS = [
   SPELLS.BARBED_SHOT_BUFF.id,
   SPELLS.BARBED_SHOT_BUFF_2.id,
   SPELLS.BARBED_SHOT_BUFF_3.id,
@@ -174,15 +185,15 @@ export const ECHOING_CALL_INCREASED_WILD_CALL_CHANCE = [0, 0.05, 0.06, 0.06, 0.0
 
 //region Legendaries
 /** Dire Command */
-//Dire Command has a 15% chance to summon a dire beast
-export const DIRE_COMMAND_PROC_CHANCE = 0.15;
+//Dire Command has a 20% chance to summon a dire beast
+export const DIRE_COMMAND_PROC_CHANCE = 0.2;
 /** Flamewaker's Cobra Sting */
-//Flamewaker's Cobra Sting has a 15% chance to reduce focus cost of next Kill Command by 100%
-export const FLAMEWAKERS_PROC_CHANCE = 0.15;
+//Flamewaker's Cobra Sting has a 25% chance to reduce focus cost of next Kill Command by 100%
+export const FLAMEWAKERS_PROC_CHANCE = 0.25;
 /** Qa'pla, Eredun War Order */
-//Qa'pla reduces the cooldown of Kill Command by 4 seconds everytime you cast Barbed Shot
-export const QAPLA_KILL_COMMAND_REDUCTION_MS = 4000;
+//Qa'pla reduces the cooldown of Kill Command by 5 seconds everytime you cast Barbed Shot
+export const QAPLA_KILL_COMMAND_REDUCTION_MS = 5000;
 /** Rylakstalker's Piercing Fangs */
-//Rylakstalker's Piercing Fang increases pet crit damage by 15% during Bestial Wrath
-export const RYLAKSTALKERS_PIERCING_FANGS_CRIT_DMG_INCREASE = 0.15;
+//Rylakstalker's Piercing Fang increases pet crit damage by 20% during Bestial Wrath
+export const RYLAKSTALKERS_PIERCING_FANGS_CRIT_DMG_INCREASE = 0.20;
 //endregion

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
@@ -36,6 +36,22 @@ class PreciseShots extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM, SPELLS.CHIMAERA_SHOT_MM_TALENT]), this.onPreciseCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.checkForBuff);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM, SPELLS.CHIMAERA_SHOT_MM_FROST_DAMAGE, SPELLS.CHIMAERA_SHOT_MM_NATURE_DAMAGE]), this.onPreciseDamage);
+  }
+
+  get preciseShotsUtilizationPercentage() {
+    return this.minOverwrittenProcs / (this.buffsSpent + this.minOverwrittenProcs);
+  }
+
+  get preciseShotsWastedThreshold() {
+    return {
+      actual: this.preciseShotsUtilizationPercentage,
+      isLessThan: {
+        minor: 0.9,
+        average: 0.85,
+        major: 0.8,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
   }
 
   onPreciseShotsApplication() {
@@ -85,22 +101,6 @@ class PreciseShots extends Analyzer {
     if (this.buffedShotInFlight > event.timestamp + ARCANE_SHOT_MAX_TRAVEL_TIME) {
       this.buffedShotInFlight = null;
     }
-  }
-
-  get preciseShotsUtilizationPercentage() {
-    return this.minOverwrittenProcs / (this.buffsSpent + this.minOverwrittenProcs);
-  }
-
-  get preciseShotsWastedThreshold() {
-    return {
-      actual: this.preciseShotsUtilizationPercentage,
-      isLessThan: {
-        minor: 0.9,
-        average: 0.85,
-        major: 0.8,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
   }
 
   statistic() {

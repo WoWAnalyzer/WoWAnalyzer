@@ -1,14 +1,14 @@
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, DamageEvent, RefreshBuffEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import React from 'react';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { BRUTAL_PROJECTILES_RAMP_DAMAGE } from 'parser/hunter/marksmanship/constants';
+import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
 
 /**
  * Your auto attacks have a 10% chance to cause your next Rapid Fire to deal 1.0% increased damage for each shot.
@@ -22,11 +22,12 @@ import { BRUTAL_PROJECTILES_RAMP_DAMAGE } from 'parser/hunter/marksmanship/const
  */
 class BrutalProjectiles extends Analyzer {
 
-  conduitRank: number = 0;
-  addedDamage: number = 0;
-  currentTick: number = 0;
-  procs: number = 0;
-  overwrittenProcs: number = 0;
+  conduitRank = 0;
+  addedDamage = 0;
+  currentTick = 0;
+  procs = 0;
+  overwrittenProcs = 0;
+  usedProcs = 0;
 
   constructor(options: Options) {
     super(options);
@@ -44,6 +45,7 @@ class BrutalProjectiles extends Analyzer {
 
   onApplyBrutalProjectiles(event: ApplyBuffEvent) {
     this.procs += 1;
+
   }
 
   onRefreshBrutalProjectiles(event: RefreshBuffEvent) {
@@ -53,6 +55,9 @@ class BrutalProjectiles extends Analyzer {
 
   onRapidFireCast(event: CastEvent) {
     this.currentTick = 0;
+    if(this.selectedCombatant.hasBuff(SPELLS.BRUTAL_PROJECTILES_NEXT_RF_BUFF.id)) {
+      this.usedProcs += 1;
+    }
   }
 
   onRapidFireDamage(event: DamageEvent) {
@@ -71,16 +76,16 @@ class BrutalProjectiles extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={(
           <>
+            You used {this.usedProcs} out of {this.procs} gained.
             You overwrote the Brutal Projectiles buff {this.overwrittenProcs} times.
           </>
         )}
       >
-        <BoringSpellValueText spell={SPELLS.BRUTAL_PROJECTILES_CONDUIT}>
+        <ConduitSpellText spell={SPELLS.BRUTAL_PROJECTILES_CONDUIT} rank={this.conduitRank}>
           <>
             <ItemDamageDone amount={this.addedDamage} />
-            {this.procs} <small>procs</small>
           </>
-        </BoringSpellValueText>
+        </ConduitSpellText>
       </Statistic>
     );
   }

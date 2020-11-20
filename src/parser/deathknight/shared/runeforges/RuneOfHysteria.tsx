@@ -15,6 +15,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
+import SPECS from 'game/SPECS';
 
 const RP_BUFF_BY_HYSTERIA = 0.2;
 const DEATH_STRIKE_COST = 45;
@@ -67,8 +68,16 @@ class RuneOfHysteria extends Analyzer {
     return this.runicPowerWastedDuringHysteria / this.runicPowerGainedByHysteria
   }
 
-  get gainedDeathStrikes() {
+  get potentiallyGainedDeathStrikes() {
     return Math.floor(this.potentialRunicPowerGainedByHysteria / DEATH_STRIKE_COST)
+  }
+
+  get gainedDeathStrikes() {
+    return Math.floor(this.runicPowerGainedByHysteria / DEATH_STRIKE_COST)
+  }
+
+  get wastedDeathStrikes() {
+    return this.potentiallyGainedDeathStrikes - this.gainedDeathStrikes
   }
 
   get efficiencySuggestionThresholds() {
@@ -92,15 +101,23 @@ class RuneOfHysteria extends Analyzer {
   }
 
   statistic() {
+    let gainedSpell: React.ReactNode = <></>
+    let wastedSpell: React.ReactNode = <></>
+
+    if (this.selectedCombatant.spec === SPECS.BLOOD_DEATH_KNIGHT) {
+      gainedSpell = <>, resulting in {this.gainedDeathStrikes} additional {SPELLS.DEATH_STRIKE.name}</>
+      wastedSpell = <>, losing out on {this.wastedDeathStrikes} {SPELLS.DEATH_STRIKE.name}</>
+    }
+
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(2)}
         size="flexible"
         tooltip={(
           <>
-            You gained {Math.floor(this.runicPowerGainedByHysteria)} RP by using {SPELLS.RUNE_OF_HYSTERIA.name}, resulting in {this.gainedDeathStrikes} additional Death Strikes.<br />
+            You gained {Math.floor(this.runicPowerGainedByHysteria)} RP by using {SPELLS.RUNE_OF_HYSTERIA.name}{gainedSpell}.<br />
             {this.runicPowerWastedDuringHysteria > 1 && <>
-              You wasted {this.runicPowerWastedDuringHysteria} RP ({formatPercentage(this.wastedPercentage)} %) from Hysteria by being RP capped.
+              You wasted {this.runicPowerWastedDuringHysteria} RP ({formatPercentage(this.wastedPercentage)} %) from Hysteria by being RP capped{wastedSpell}.
             </>}
           </>
         )}

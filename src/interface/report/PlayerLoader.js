@@ -221,7 +221,7 @@ class PlayerLoader extends React.PureComponent {
           <div className="flex wrapable">
             <div className="flex-main" style={{ minWidth: 400 }}>
               <Trans id="interface.report.renderClassicWarning.classicUnsupportedDetails">
-              The current report contains encounters from World of Warcraft: Classic. Currently WoWAnalyzer does not support, and does not have plans to support, Classic WoW logs.
+                The current report contains encounters from World of Warcraft: Classic. Currently WoWAnalyzer does not support, and does not have plans to support, Classic WoW logs.
               </Trans><br /><br />
             </div>
           </div>

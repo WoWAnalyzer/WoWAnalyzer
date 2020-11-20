@@ -254,7 +254,7 @@ const spells: SpellList = {
   TRICK_SHOTS_BUFF: {
     id: 257622,
     name: 'Trick Shots',
-    icon: 'ability_hunter_focusfire',
+    icon: 'inv_trickshot',
   },
   LONE_WOLF_BUFF: {
     id: 164273,

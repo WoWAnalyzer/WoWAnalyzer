@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -13,7 +13,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
 /**
- * Barbed Shot reduces the cooldown of Kill Command by 4.0 sec.
+ * Barbed Shot reduces the cooldown of Kill Command by 5.0 sec.
  *
  * Example log:
  *

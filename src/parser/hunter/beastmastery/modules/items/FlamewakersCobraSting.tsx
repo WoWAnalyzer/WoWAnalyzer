@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -11,7 +11,7 @@ import { FLAMEWAKERS_PROC_CHANCE, KILL_COMMAND_BM_FOCUS_COST } from 'parser/hunt
 import SpellLink from 'common/SpellLink';
 
 /**
- * Cobra Shot has a 15% chance to make your next Kill Command consume no Focus.
+ * Cobra Shot has a 25% chance to make your next Kill Command consume no Focus.
  *
  * Example log:
  *

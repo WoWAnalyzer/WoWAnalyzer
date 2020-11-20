@@ -44,9 +44,9 @@ interface Props {
 
 const PlayerInfo = ({combatant}: Props) => {
   const gear: Item[] = _parseGear(combatant._combatantInfo.gear);
-  const traits: AzeriteByItemSlot = _parseTraits(combatant._combatantInfo.artifact);
+  const traits: AzeriteByItemSlot = _parseTraits(combatant._combatantInfo.artifact as Trait[]);
   const talents: number[] = _parseTalents(combatant._combatantInfo.talents);
-  const essences: Essence[] = combatant._combatantInfo.heartOfAzeroth; 
+  const essences: Essence[] = combatant._combatantInfo.heartOfAzeroth as Trait[];
 
   const averageIlvl = getAverageItemLevel(gear);
 

@@ -19,10 +19,10 @@ import UnlimitedPower from 'parser/shaman/elemental/modules/talents/UnlimitedPow
 import UnlimitedPowerTimesByStacks from 'parser/shaman/elemental/modules/talents/UnlimitedPowerTimesByStacks';
 import SurgeOfPower from 'parser/shaman/elemental/modules/talents/SurgeOfPower';
 import Icefury from 'parser/shaman/elemental/modules/talents/Icefury';
+import StaticDischarge from 'parser/shaman/elemental/modules/talents/StaticDischarge';
 import EchoingShock from 'parser/shaman/elemental/modules/talents/EchoingShock';
 
 import LavaSurge from 'parser/shaman/elemental/modules/core/LavaSurge';
-import FlameShock from 'parser/shaman/elemental/modules/core/FlameShock';
 import CancelledCasts from 'parser/shaman/elemental/modules/features/CancelledCasts';
 import Checklist from 'parser/shaman/elemental/modules/checklist/Module';
 
@@ -37,6 +37,7 @@ import ElementalBlast from '../shared/talents/ElementalBlast';
 import MaelstromDetails from '../shared/maelstromchart/MaelstromDetails';
 import MaelstromTracker from '../shared/maelstromchart/MaelstromTracker';
 import MaelstromTab from '../shared/maelstromchart/MaelstromTab';
+import FlameShock from '../shared/spells/FlameShock';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -68,6 +69,7 @@ class CombatLogParser extends CoreCombatLogParser {
     unlimitedPower: UnlimitedPower,
     stormkeeper: Stormkeeper,
     ascendance: Ascendance,
+    staticDischarge: StaticDischarge,
     echoingShock: EchoingShock,
 
     maelstromTracker: MaelstromTracker,
