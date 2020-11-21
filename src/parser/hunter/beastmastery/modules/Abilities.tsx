@@ -74,7 +74,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ASPECT_OF_THE_WILD,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 120,
+        cooldown: this.selectedCombatant.hasEssence(SPELLS.VISION_OF_PERFECTION.traitId) ? 120 * 0.75 : 120, //Assuming people have max'd HoA enough to have 25% reduction in the prepatch.
         gcd: {
           static: 0,
         },
@@ -262,6 +262,15 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
+        },
+      },
+      {
+        spell: SPELLS.CAMOUFLAGE_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 60,
+        enabled: combatant.hasTalent(SPELLS.CAMOUFLAGE_TALENT.id),
+        gcd: {
+          base: 1500,
         },
       },
       //endregion

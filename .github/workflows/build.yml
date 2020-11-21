@@ -117,6 +117,7 @@ jobs:
     needs: [prepare]
     name: 'Build'
     runs-on: ubuntu-latest
+    if: github.repository == 'wowanalyzer/wowanalyzer'
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -152,7 +153,7 @@ jobs:
       [typecheck, linting, test-interface, test-parser, test-integration, build]
     name: 'Publish Docker image'
     runs-on: ubuntu-latest
-    if: github.event_name != 'pull_request'
+    if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer'
     steps:
       - uses: actions/checkout@v2
       - uses: actions/download-artifact@v1

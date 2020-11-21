@@ -25,6 +25,7 @@ import { abbreviateBossNames } from 'common/abbreviateLongNames';
  */
 class CarefulAim extends ExecuteHelper {
   static dependencies = {
+    ...ExecuteHelper.dependencies,
     statTracker: StatTracker,
     enemies: Enemies,
   };

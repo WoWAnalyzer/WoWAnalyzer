@@ -1,10 +1,11 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
 
-import { Yajinni, blazyb, fel1ne, Qbz, Zerotorescue, Abelito75, Anatta336, JeremyDwayne, Zeboot } from 'CONTRIBUTORS';
+import { Yajinni, blazyb, fel1ne, Qbz, Zerotorescue, Abelito75, Anatta336, JeremyDwayne, Zeboot, LeoZhekov } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
-export default [  
+export default [
+  change(date(2020, 11, 19), 'Replaced the deprecated StatisticBoxes with the new Statistics', LeoZhekov),
   change(date(2020, 10, 25), 'Updated spell book and to use common libraries', Abelito75),
   change(date(2020, 10, 18), 'Converted legacy listeners to new event filters', Zeboot),
   change(date(2020, 9, 26), 'Added Flash of Clarity conduit.', [Abelito75]),

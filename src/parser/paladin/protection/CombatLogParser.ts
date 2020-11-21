@@ -9,6 +9,7 @@ import Checklist from './modules/features/Checklist/Module';
 import MitigationCheck from './modules/features/MitigationCheck';
 import Haste from './modules/core/Haste';
 
+import OvercapShieldOfTheRighteous from './modules/features/OvercapShieldOfTheRighteous';
 
 //Spells
 import Consecration from './modules/spells/Consecration';
@@ -56,6 +57,7 @@ class CombatLogParser extends CoreCombatLogParser {
     consecration: Consecration,
     mitigationcheck: MitigationCheck,
     noDamageSOTR: NoDamageShieldOfTheRighteous,
+    overcapSOTR: OvercapShieldOfTheRighteous,
     //cooldownTracker: CooldownTracker,
 
     // Talents

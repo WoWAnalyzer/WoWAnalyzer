@@ -138,6 +138,7 @@ exports[`Blood Death Knight integration test: example log ArchiveOfTheTitans mat
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=280555"
             rel="noopener noreferrer"
             target="_blank"
@@ -150,6 +151,7 @@ exports[`Blood Death Knight integration test: example log ArchiveOfTheTitans mat
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=280555"
             rel="noopener noreferrer"
             target="_blank"
@@ -182,6 +184,7 @@ exports[`Blood Death Knight integration test: example log ArchiveOfTheTitans mat
           <small>
             Enabled the 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=280573"
               rel="noopener noreferrer"
               target="_blank"
@@ -218,6 +221,7 @@ exports[`Blood Death Knight integration test: example log BloodPlagueUptime matc
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=55078"
             rel="noopener noreferrer"
             target="_blank"
@@ -230,6 +234,7 @@ exports[`Blood Death Knight integration test: example log BloodPlagueUptime matc
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=55078"
             rel="noopener noreferrer"
             target="_blank"
@@ -278,6 +283,7 @@ exports[`Blood Death Knight integration test: example log Blooddrinker matches t
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=206931"
             rel="noopener noreferrer"
             target="_blank"
@@ -290,6 +296,7 @@ exports[`Blood Death Knight integration test: example log Blooddrinker matches t
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=206931"
             rel="noopener noreferrer"
             target="_blank"
@@ -348,6 +355,7 @@ exports[`Blood Death Knight integration test: example log Bloodworms matches the
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=195679"
             rel="noopener noreferrer"
             target="_blank"
@@ -360,6 +368,7 @@ exports[`Blood Death Knight integration test: example log Bloodworms matches the
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=195679"
             rel="noopener noreferrer"
             target="_blank"
@@ -428,6 +437,7 @@ exports[`Blood Death Knight integration test: example log BoneShield matches the
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=195181"
             rel="noopener noreferrer"
             target="_blank"
@@ -440,6 +450,7 @@ exports[`Blood Death Knight integration test: example log BoneShield matches the
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=195181"
             rel="noopener noreferrer"
             target="_blank"
@@ -512,6 +523,7 @@ exports[`Blood Death Knight integration test: example log Bonestorm matches the 
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=194844"
             rel="noopener noreferrer"
             target="_blank"
@@ -647,6 +659,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=50842"
                 rel="noopener noreferrer"
                 style={
@@ -746,6 +759,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=206931"
                 rel="noopener noreferrer"
                 style={
@@ -845,6 +859,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=49998"
                 rel="noopener noreferrer"
                 style={
@@ -930,6 +945,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=195292"
                 rel="noopener noreferrer"
                 style={
@@ -1015,6 +1031,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=43265"
                 rel="noopener noreferrer"
                 style={
@@ -1112,6 +1129,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=206930"
                 rel="noopener noreferrer"
                 style={
@@ -1197,6 +1215,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=195182"
                 rel="noopener noreferrer"
                 style={
@@ -1331,6 +1350,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=194844"
                 rel="noopener noreferrer"
                 style={
@@ -1477,6 +1497,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=46585"
                 rel="noopener noreferrer"
                 style={
@@ -1623,6 +1644,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=48792"
                 rel="noopener noreferrer"
                 style={
@@ -1722,6 +1744,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=55233"
                 rel="noopener noreferrer"
                 style={
@@ -1821,6 +1844,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=48707"
                 rel="noopener noreferrer"
                 style={
@@ -1920,6 +1944,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=51052"
                 rel="noopener noreferrer"
                 style={
@@ -2017,6 +2042,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=194679"
                 rel="noopener noreferrer"
                 style={
@@ -2165,6 +2191,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=49028"
                 rel="noopener noreferrer"
                 style={
@@ -2311,6 +2338,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=111673"
                 rel="noopener noreferrer"
                 style={
@@ -2445,6 +2473,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=47528"
                 rel="noopener noreferrer"
                 style={
@@ -2542,6 +2571,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=56222"
                 rel="noopener noreferrer"
                 style={
@@ -2639,6 +2669,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=49576"
                 rel="noopener noreferrer"
                 style={
@@ -2736,6 +2767,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=48265"
                 rel="noopener noreferrer"
                 style={
@@ -2833,6 +2865,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=108199"
                 rel="noopener noreferrer"
                 style={
@@ -2930,6 +2963,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=61999"
                 rel="noopener noreferrer"
                 style={
@@ -3015,6 +3049,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=221562"
                 rel="noopener noreferrer"
                 style={
@@ -3161,6 +3196,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=6262"
                 rel="noopener noreferrer"
                 style={
@@ -3258,6 +3294,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171267"
                 rel="noopener noreferrer"
                 style={
@@ -3355,6 +3392,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171273"
                 rel="noopener noreferrer"
                 style={
@@ -3717,6 +3755,7 @@ exports[`Blood Death Knight integration test: example log CrimsonScourge matches
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=81141"
             rel="noopener noreferrer"
             target="_blank"
@@ -3729,6 +3768,7 @@ exports[`Blood Death Knight integration test: example log CrimsonScourge matches
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=81141"
             rel="noopener noreferrer"
             target="_blank"
@@ -3808,7 +3848,7 @@ exports[`Blood Death Knight integration test: example log DarkmoonDeckFathoms ma
       >
         <label>
           <a
-            className="unknown"
+            className="unknownitem-link-text"
             href="http://wowhead.com/item=159125"
             rel="noopener noreferrer"
             target="_blank"
@@ -3822,7 +3862,7 @@ exports[`Blood Death Knight integration test: example log DarkmoonDeckFathoms ma
           </a>
            
           <a
-            className="unknown"
+            className="unknownitem-link-text"
             href="http://wowhead.com/item=159125"
             rel="noopener noreferrer"
             target="_blank"
@@ -4210,6 +4250,7 @@ exports[`Blood Death Knight integration test: example log Gutripper matches the 
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=266937"
             rel="noopener noreferrer"
             target="_blank"
@@ -4222,6 +4263,7 @@ exports[`Blood Death Knight integration test: example log Gutripper matches the 
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=266937"
             rel="noopener noreferrer"
             target="_blank"
@@ -4278,6 +4320,7 @@ exports[`Blood Death Knight integration test: example log HeedMyCall matches the
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=263987"
             rel="noopener noreferrer"
             target="_blank"
@@ -4290,6 +4333,7 @@ exports[`Blood Death Knight integration test: example log HeedMyCall matches the
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=263987"
             rel="noopener noreferrer"
             target="_blank"
@@ -4342,6 +4386,7 @@ exports[`Blood Death Knight integration test: example log Hemostasis matches the
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=273946"
             rel="noopener noreferrer"
             target="_blank"
@@ -4354,6 +4399,7 @@ exports[`Blood Death Knight integration test: example log Hemostasis matches the
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=273946"
             rel="noopener noreferrer"
             target="_blank"
@@ -4414,6 +4460,7 @@ exports[`Blood Death Knight integration test: example log LaserMatrix matches th
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=280559"
             rel="noopener noreferrer"
             target="_blank"
@@ -4426,6 +4473,7 @@ exports[`Blood Death Knight integration test: example log LaserMatrix matches th
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=280559"
             rel="noopener noreferrer"
             target="_blank"
@@ -4444,6 +4492,7 @@ exports[`Blood Death Knight integration test: example log LaserMatrix matches th
           <br />
           Gained 
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=280573"
             rel="noopener noreferrer"
             target="_blank"
@@ -4496,6 +4545,7 @@ exports[`Blood Death Knight integration test: example log MarrowrendUsage matche
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=195182"
             rel="noopener noreferrer"
             target="_blank"
@@ -4508,6 +4558,7 @@ exports[`Blood Death Knight integration test: example log MarrowrendUsage matche
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=195182"
             rel="noopener noreferrer"
             target="_blank"
@@ -4570,6 +4621,7 @@ exports[`Blood Death Knight integration test: example log MitigationCheck matche
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=195181"
             rel="noopener noreferrer"
             target="_blank"
@@ -4673,6 +4725,7 @@ exports[`Blood Death Knight integration test: example log RuneOfTheFallenCrusade
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=53344"
             rel="noopener noreferrer"
             target="_blank"
@@ -4685,6 +4738,7 @@ exports[`Blood Death Knight integration test: example log RuneOfTheFallenCrusade
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=53344"
             rel="noopener noreferrer"
             target="_blank"
@@ -4912,7 +4966,7 @@ exports[`Blood Death Knight integration test: example log SyringeOfBloodborneInf
       >
         <label>
           <a
-            className="unknown"
+            className="unknownitem-link-text"
             href="http://wowhead.com/item=160655"
             rel="noopener noreferrer"
             target="_blank"
@@ -4926,7 +4980,7 @@ exports[`Blood Death Knight integration test: example log SyringeOfBloodborneInf
           </a>
            
           <a
-            className="unknown"
+            className="unknownitem-link-text"
             href="http://wowhead.com/item=160655"
             rel="noopener noreferrer"
             target="_blank"
@@ -5301,6 +5355,7 @@ exports[`Blood Death Knight integration test: example log WillOfTheNecropolis ma
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=206967"
             rel="noopener noreferrer"
             target="_blank"
@@ -5313,6 +5368,7 @@ exports[`Blood Death Knight integration test: example log WillOfTheNecropolis ma
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=206967"
             rel="noopener noreferrer"
             target="_blank"
@@ -5463,6 +5519,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=50842"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5535,6 +5592,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=206931"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5820,6 +5878,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=195182"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5893,6 +5952,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=195292"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -6059,6 +6119,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=49028"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -6131,6 +6192,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=194844"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -6297,6 +6359,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=55078"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -6370,6 +6433,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=195181"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -6536,6 +6600,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=55233"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -6608,6 +6673,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=48792"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -6680,6 +6746,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=48707"
                   rel="noopener noreferrer"
                   target="_blank"

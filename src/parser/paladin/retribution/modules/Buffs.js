@@ -17,7 +17,7 @@ class Buffs extends CoreBuffs {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.THE_FIRES_OF_JUSTICE_BUFF.id,
+        spellId: SPELLS.FIRES_OF_JUSTICE_BUFF.id,
       },
       {
         spellId: SPELLS.RIGHTEOUS_VERDICT_BUFF.id,

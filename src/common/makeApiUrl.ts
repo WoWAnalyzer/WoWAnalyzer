@@ -37,7 +37,7 @@ export function makeItemApiUrl(itemId: string) {
   return makeApiUrl(parts.map(part => encodeURIComponent(part)).join('/'));
 }
 
-export function makeSpellApiUrl(spellId: string) {
+export function makeSpellApiUrl(spellId: number) {
   const parts = ['spell', spellId];
   return makeApiUrl(parts.map(part => encodeURIComponent(part)).join('/'));
 }

@@ -339,6 +339,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=316099"
                 rel="noopener noreferrer"
                 style={
@@ -424,6 +425,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=48181"
                 rel="noopener noreferrer"
                 style={
@@ -523,6 +525,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=980"
                 rel="noopener noreferrer"
                 style={
@@ -608,6 +611,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=172"
                 rel="noopener noreferrer"
                 style={
@@ -693,6 +697,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=324536"
                 rel="noopener noreferrer"
                 style={
@@ -778,6 +783,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=63106"
                 rel="noopener noreferrer"
                 style={
@@ -863,6 +869,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=232670"
                 rel="noopener noreferrer"
                 style={
@@ -948,6 +955,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=198590"
                 rel="noopener noreferrer"
                 style={
@@ -1082,6 +1090,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=205179"
                 rel="noopener noreferrer"
                 style={
@@ -1179,6 +1188,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=27243"
                 rel="noopener noreferrer"
                 style={
@@ -1313,6 +1323,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=205180"
                 rel="noopener noreferrer"
                 style={
@@ -1410,6 +1421,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=113860"
                 rel="noopener noreferrer"
                 style={
@@ -1558,6 +1570,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=104773"
                 rel="noopener noreferrer"
                 style={
@@ -1706,6 +1719,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=111400"
                 rel="noopener noreferrer"
                 style={
@@ -1791,6 +1805,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=234153"
                 rel="noopener noreferrer"
                 style={
@@ -1876,6 +1891,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=6789"
                 rel="noopener noreferrer"
                 style={
@@ -1973,6 +1989,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=48018"
                 rel="noopener noreferrer"
                 style={
@@ -2070,6 +2087,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=48020"
                 rel="noopener noreferrer"
                 style={
@@ -2167,6 +2185,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=20707"
                 rel="noopener noreferrer"
                 style={
@@ -2252,6 +2271,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=111771"
                 rel="noopener noreferrer"
                 style={
@@ -2349,6 +2369,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=710"
                 rel="noopener noreferrer"
                 style={
@@ -2434,6 +2455,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=6201"
                 rel="noopener noreferrer"
                 style={
@@ -2519,6 +2541,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=29893"
                 rel="noopener noreferrer"
                 style={
@@ -2616,6 +2639,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=1098"
                 rel="noopener noreferrer"
                 style={
@@ -2701,6 +2725,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=126"
                 rel="noopener noreferrer"
                 style={
@@ -2786,6 +2811,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=5782"
                 rel="noopener noreferrer"
                 style={
@@ -2871,6 +2897,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=1714"
                 rel="noopener noreferrer"
                 style={
@@ -2956,6 +2983,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=702"
                 rel="noopener noreferrer"
                 style={
@@ -3041,6 +3069,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=334275"
                 rel="noopener noreferrer"
                 style={
@@ -3126,6 +3155,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=755"
                 rel="noopener noreferrer"
                 style={
@@ -3211,6 +3241,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=688"
                 rel="noopener noreferrer"
                 style={
@@ -3296,6 +3327,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=30283"
                 rel="noopener noreferrer"
                 style={
@@ -3393,6 +3425,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=5697"
                 rel="noopener noreferrer"
                 style={
@@ -3478,6 +3511,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=333889"
                 rel="noopener noreferrer"
                 style={
@@ -3624,6 +3658,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=6262"
                 rel="noopener noreferrer"
                 style={
@@ -3721,6 +3756,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171267"
                 rel="noopener noreferrer"
                 style={
@@ -3818,6 +3854,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171273"
                 rel="noopener noreferrer"
                 style={
@@ -4080,6 +4117,7 @@ exports[`Affliction Warlock integration test: example log Darkglare matches the 
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=205180"
             rel="noopener noreferrer"
             target="_blank"
@@ -4092,6 +4130,7 @@ exports[`Affliction Warlock integration test: example log Darkglare matches the 
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=205180"
             rel="noopener noreferrer"
             target="_blank"
@@ -4271,6 +4310,7 @@ exports[`Affliction Warlock integration test: example log DotUptimeStatisticBox 
           className="flex-sub icon"
         >
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=980"
             rel="noopener noreferrer"
             target="_blank"
@@ -4338,6 +4378,7 @@ exports[`Affliction Warlock integration test: example log DotUptimeStatisticBox 
           className="flex-sub icon"
         >
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=172"
             rel="noopener noreferrer"
             target="_blank"
@@ -4413,6 +4454,7 @@ exports[`Affliction Warlock integration test: example log DotUptimeStatisticBox 
           className="flex-sub icon"
         >
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=316099"
             rel="noopener noreferrer"
             target="_blank"
@@ -4503,6 +4545,7 @@ exports[`Affliction Warlock integration test: example log DotUptimeStatisticBox 
           className="flex-sub icon"
         >
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=63106"
             rel="noopener noreferrer"
             target="_blank"
@@ -4592,6 +4635,7 @@ exports[`Affliction Warlock integration test: example log DrainSoul matches the 
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=198590"
             rel="noopener noreferrer"
             target="_blank"
@@ -4604,6 +4648,7 @@ exports[`Affliction Warlock integration test: example log DrainSoul matches the 
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=198590"
             rel="noopener noreferrer"
             target="_blank"
@@ -4683,6 +4728,7 @@ exports[`Affliction Warlock integration test: example log ElementalWhirl matches
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=263984"
             rel="noopener noreferrer"
             target="_blank"
@@ -4695,6 +4741,7 @@ exports[`Affliction Warlock integration test: example log ElementalWhirl matches
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=263984"
             rel="noopener noreferrer"
             target="_blank"
@@ -5097,6 +5144,7 @@ exports[`Affliction Warlock integration test: example log EssenceOfTheFocusingIr
         >
           <label>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=299337"
               rel="noopener noreferrer"
               target="_blank"
@@ -5197,6 +5245,7 @@ exports[`Affliction Warlock integration test: example log Haunt matches the stat
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=48181"
             rel="noopener noreferrer"
             target="_blank"
@@ -5209,6 +5258,7 @@ exports[`Affliction Warlock integration test: example log Haunt matches the stat
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=48181"
             rel="noopener noreferrer"
             target="_blank"
@@ -5295,6 +5345,7 @@ exports[`Affliction Warlock integration test: example log OverwhelmingPower matc
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=266180"
             rel="noopener noreferrer"
             target="_blank"
@@ -5307,6 +5358,7 @@ exports[`Affliction Warlock integration test: example log OverwhelmingPower matc
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=266180"
             rel="noopener noreferrer"
             target="_blank"
@@ -5389,6 +5441,7 @@ exports[`Affliction Warlock integration test: example log PhantomSingularity mat
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=205179"
             rel="noopener noreferrer"
             target="_blank"
@@ -5401,6 +5454,7 @@ exports[`Affliction Warlock integration test: example log PhantomSingularity mat
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=205179"
             rel="noopener noreferrer"
             target="_blank"
@@ -5505,6 +5559,7 @@ exports[`Affliction Warlock integration test: example log QuickNavigation matche
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=268887"
             rel="noopener noreferrer"
             target="_blank"
@@ -5517,6 +5572,7 @@ exports[`Affliction Warlock integration test: example log QuickNavigation matche
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=268887"
             rel="noopener noreferrer"
             target="_blank"
@@ -5608,6 +5664,7 @@ exports[`Affliction Warlock integration test: example log ShadowEmbrace matches 
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=32388"
             rel="noopener noreferrer"
             target="_blank"
@@ -5620,6 +5677,7 @@ exports[`Affliction Warlock integration test: example log ShadowEmbrace matches 
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=32388"
             rel="noopener noreferrer"
             target="_blank"
@@ -5716,6 +5774,7 @@ exports[`Affliction Warlock integration test: example log SoulShardDetails match
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=246985"
             rel="noopener noreferrer"
             target="_blank"
@@ -5728,6 +5787,7 @@ exports[`Affliction Warlock integration test: example log SoulShardDetails match
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=246985"
             rel="noopener noreferrer"
             target="_blank"
@@ -5783,6 +5843,7 @@ exports[`Affliction Warlock integration test: example log Strife matches the sta
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=304056"
             rel="noopener noreferrer"
             target="_blank"
@@ -6172,6 +6233,7 @@ exports[`Affliction Warlock integration test: example log UnstableCatalyst match
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=281514"
             rel="noopener noreferrer"
             target="_blank"
@@ -6184,6 +6246,7 @@ exports[`Affliction Warlock integration test: example log UnstableCatalyst match
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=281514"
             rel="noopener noreferrer"
             target="_blank"
@@ -6252,7 +6315,7 @@ exports[`Affliction Warlock integration test: example log VitaChargedTitanshard 
       >
         <label>
           <a
-            className="epic"
+            className="epicitem-link-text"
             href="http://wowhead.com/item=174500&bonus=4823:6515:1502:4786"
             rel="noopener noreferrer"
             target="_blank"
@@ -6412,6 +6475,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=980"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -6485,6 +6549,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=172"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -6558,6 +6623,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=316099"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -6631,6 +6697,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=63106"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -6958,6 +7025,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=205180"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -7030,6 +7098,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=113860"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -7102,6 +7171,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=205179"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -7253,6 +7323,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
           >
             Use other spells in your toolkit to your advantage. For example, you can try to minimize necessary movement by using 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=111771"
               rel="noopener noreferrer"
               target="_blank"
@@ -7267,6 +7338,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
             </a>
             , 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=268358"
               rel="noopener noreferrer"
               target="_blank"
@@ -7281,6 +7353,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
             </a>
             , 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=111400"
               rel="noopener noreferrer"
               target="_blank"
@@ -7295,6 +7368,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
             </a>
              or mitigate incoming damage with 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=104773"
               rel="noopener noreferrer"
               target="_blank"
@@ -7309,6 +7383,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
             </a>
             /
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=108416"
               rel="noopener noreferrer"
               target="_blank"
@@ -7339,6 +7414,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=48020"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -7411,6 +7487,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=104773"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -7562,6 +7639,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
           >
             You should try to avoid doing nothing during the fight. When you're out of Soul Shards, cast 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=232670"
               rel="noopener noreferrer"
               target="_blank"
@@ -7576,6 +7654,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
             </a>
             /
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=198590"
               rel="noopener noreferrer"
               target="_blank"
@@ -7590,6 +7669,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
             </a>
             , refresh your DoTs etc. When you have to move, use your instant abilities or try to utilize 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=268358"
               rel="noopener noreferrer"
               target="_blank"
@@ -7604,6 +7684,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
             </a>
              or 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=111771"
               rel="noopener noreferrer"
               target="_blank"

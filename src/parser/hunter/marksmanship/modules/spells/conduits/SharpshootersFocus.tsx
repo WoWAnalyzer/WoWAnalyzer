@@ -1,13 +1,12 @@
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import React from 'react';
 import Events, { ApplyBuffEvent, FightEndEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import SPELLS from 'common/SPELLS';
 import { SHARPSHOOTERS_FOCUS_INCREASE_TRUESHOT_DURATION, TRUESHOT_DURATION_BASELINE } from 'parser/hunter/marksmanship/constants';
-import { formatNumber } from 'common/format';
+import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
 
 /**
  * Trueshot lasts 20.0% longer.
@@ -35,6 +34,10 @@ class SharpshootersFocus extends Analyzer {
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.TRUESHOT), this.onTrueshotRemove);
     this.addEventListener(Events.fightend.by(SELECTED_PLAYER).spell(SPELLS.TRUESHOT), this.onFightEnd);
     this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.TRUESHOT), this.onTrueshotRefresh);
+  }
+
+  get maximumAddedTrueshotUptime() {
+    return this.casts * (TRUESHOT_DURATION_BASELINE * SHARPSHOOTERS_FOCUS_INCREASE_TRUESHOT_DURATION[this.conduitRank]);
   }
 
   onTrueshotApply(event: ApplyBuffEvent) {
@@ -69,22 +72,23 @@ class SharpshootersFocus extends Analyzer {
     this.increasedTrueshotUptime += Math.max(event.timestamp - this.trueshotApplicationTimestamp - TRUESHOT_DURATION_BASELINE, 0);
   }
 
-  get maximumAddedTrueshotUptime() {
-    return this.casts * (TRUESHOT_DURATION_BASELINE * SHARPSHOOTERS_FOCUS_INCREASE_TRUESHOT_DURATION[this.conduitRank]);
-  }
-
   statistic() {
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
-      >
-        <BoringSpellValueText spell={SPELLS.SHARPSHOOTERS_FOCUS_CONDUIT}>
+        tooltip={(
           <>
-            {formatNumber(this.increasedTrueshotUptime / 1000)}/{this.maximumAddedTrueshotUptime / 1000}s <small>increased Trueshot uptime</small>
+            You lost out on {((this.maximumAddedTrueshotUptime - this.increasedTrueshotUptime) / 1000).toFixed(1)}s of increased uptime due to combat ending or refreshing Trueshot.
           </>
-        </BoringSpellValueText>
+        )}
+      >
+        <ConduitSpellText spell={SPELLS.SHARPSHOOTERS_FOCUS_CONDUIT} rank={this.conduitRank}>
+          <>
+            {(this.increasedTrueshotUptime / 1000).toFixed(1)}s <small>increased Trueshot uptime</small>
+          </>
+        </ConduitSpellText>
       </Statistic>
     );
   }

@@ -81,7 +81,7 @@ Object.keys(conduitItemInfo).forEach((itemInfoKey, idx) => {
     }
   });
 
-  if (!conduitKeyName.length > 0) {
+  if (!(conduitKeyName.length > 0)) {
     return;
   }
   fullOutput +=

@@ -1,9 +1,12 @@
 import React from 'react';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatPercentage } from 'common/format';
-import SpellIcon from 'common/SpellIcon';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import UptimeIcon from 'interface/icons/Uptime';
+import Statistic from 'interface/statistics/Statistic';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
+import SpellIcon from 'common/SpellIcon';
+import BoringValue from 'interface/statistics/components/BoringValueText';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
@@ -48,15 +51,18 @@ class Lifebloom extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.LIFEBLOOM_HOT_HEAL.id} />}
-        value={`${formatPercentage(this.uptimePercent)} %`}
-        label="Lifebloom Uptime"
-      />
+      <Statistic
+        size="flexible"
+        position={STATISTIC_ORDER.CORE(10)}
+      >
+        <BoringValue label={<><SpellIcon id={SPELLS.LIFEBLOOM_HOT_HEAL.id} /> Lifebloom Uptime</>} >
+          <>
+            <UptimeIcon /> {formatPercentage(this.uptimePercent)} %
+          </>
+        </BoringValue>
+      </Statistic>
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(10);
-
 }
 
 export default Lifebloom;

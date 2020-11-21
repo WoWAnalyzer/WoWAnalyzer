@@ -84,7 +84,7 @@ import DireCommand from './modules/items/DireCommand';
 import FlamewakersCobraSting from './modules/items/FlamewakersCobraSting';
 import QaplaEredunWarOrder from './modules/items/QaplaEredunWarOrder';
 import RylakstalkersPiercingFangs from './modules/items/RylakstalkersPiercingFangs';
-import NessingwarysTrappingApparatus from '../shared/modules/items/NessingwarysTrappingApparatus';
+import NesingwarysTrappingApparatus from '../shared/modules/items/NesingwarysTrappingApparatus';
 import SoulforgeEmbers from '../shared/modules/items/SoulforgeEmbers';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -165,13 +165,15 @@ class CombatLogParser extends CoreCombatLogParser {
     ferociousAppetite: FerociousAppetite,
     oneWithTheBeast: OneWithTheBeast,
 
-    //Legendaries
+    //Generic Legendaries
+    nesingwarysTrappingApparatus: NesingwarysTrappingApparatus,
+    soulforgeEmbers: SoulforgeEmbers,
+
+    //Beast Mastery Legendaries
     direCommand: DireCommand,
     flamewakersCobraSting: FlamewakersCobraSting,
     qaplaEredunWarOrder: QaplaEredunWarOrder,
     rylakstalkersPiercingFangs: RylakstalkersPiercingFangs,
-    nessingwarysTrappingApparatus: NessingwarysTrappingApparatus,
-    soulforgeEmbers: SoulforgeEmbers,
   };
 }
 

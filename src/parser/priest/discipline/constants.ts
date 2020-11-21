@@ -44,3 +44,5 @@ export const SHADOW_MEND_ATONEMENT_DUR = 15000;
 
 // https://www.wowhead.com/spell=137032/discipline-priest
 export const DISC_PRIEST_DAMAGE_REDUCTION = 0.67;
+
+export const SHINING_RADIANCE_INCREASE = [0, 0.4, 0.44, 0.48, 0.52, 0.56, 0.60, 0.64, 0.68, 0.72, 0.76, 0.80, 0.84, 0.88, 0.92, 0.96];
