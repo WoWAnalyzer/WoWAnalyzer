@@ -1,4 +1,5 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
+import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Abilities from './modules/Abilities';
@@ -52,7 +53,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Runes
     runeOfTheFallenCrusader: RuneOfTheFallenCrusader,
-    runeOfHysteria: RuneOfHysteria
+    runeOfHysteria: RuneOfHysteria,
+
+    arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,
   };
 }
 

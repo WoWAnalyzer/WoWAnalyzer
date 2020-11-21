@@ -392,6 +392,13 @@ const spells: SpellList = {
     icon: 'achievement_boss_svalasorrowgrave',
   },
 
+  EPIDEMIC: { 
+    id: 207317, 
+    name: 'Epidemic', 
+    icon: 'spell_nature_nullifydisease' 
+  },
+
+
   // Shared:
   RUNEFORGING: {
     id: 53428,

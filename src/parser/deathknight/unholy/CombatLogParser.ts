@@ -1,4 +1,5 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
+import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -43,7 +44,9 @@ class CombatLogParser extends CoreCombatLogParser {
     
     // Runes
     runeOfTheFallenCrusader: RuneOfTheFallenCrusader,
-    runeOfHysteria: RuneOfHysteria
+    runeOfHysteria: RuneOfHysteria,
+
+    arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,
   };
 }
 
