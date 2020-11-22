@@ -16,10 +16,18 @@ import { VisualizationSpec } from 'react-vega';
 import { formatNumber } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
+import StaggerFabricator from '../../core/StaggerFabricator';
+
 const BASE_PROC_CHANCE = 0.025;
 const BONUS_PROC_CHANCE = 0.0025;
 
 export default class EvasiveStride extends Analyzer {
+  static dependencies = {
+    fab: StaggerFabricator,
+  };
+
+  fab!: StaggerFabricator;
+
   rank?: number;
   chance?: number;
 
@@ -66,8 +74,13 @@ export default class EvasiveStride extends Analyzer {
   private heal(event: HealEvent) {
     this.procChances += 1;
     this.procs += 1;
-    this.healingDone += event.amount + (event.absorbed || 0);
-    this.overhealingDone += event.overheal || 0;
+    const amount = event.amount + (event.absorbed || 0);
+    const overheal = event.overheal || 0;
+    this.healingDone += amount;
+    this.overhealingDone += overheal;
+
+    // TODO: this may remove too much due to vers / healing amps. unsure
+    this.fab.removeStagger(event, amount + overheal)
   }
 
   statistic() {
