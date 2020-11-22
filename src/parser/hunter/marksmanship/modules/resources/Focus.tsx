@@ -30,13 +30,6 @@ class Focus extends Analyzer {
       major: 0.1,
       extraSuggestion: mmFocusExtraSuggestion,
     });
-    resourceSuggest(when, this.focusTracker, {
-      spell: SPELLS.FOCUSED_FIRE_FOCUS,
-      minor: 0.025,
-      avg: 0.05,
-      major: 0.1,
-      extraSuggestion: mmFocusExtraSuggestion,
-    });
   }
 }
 
