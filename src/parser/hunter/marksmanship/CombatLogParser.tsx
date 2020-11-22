@@ -58,14 +58,6 @@ import ChimaeraShot from './modules/talents/ChimaeraShot';
 import LethalShots from './modules/talents/LethalShots';
 import Streamline from './modules/talents/Streamline';
 
-//Azerite Traits
-import FocusedFire from './modules/spells/azeritetraits/FocusedFire';
-import SteadyAim from './modules/spells/azeritetraits/SteadyAim';
-import SurgingShotsAzerite from './modules/spells/azeritetraits/SurgingShotsAzerite';
-import InTheRhythm from './modules/spells/azeritetraits/InTheRhythm';
-import UnerringVision from './modules/spells/azeritetraits/UnerringVision';
-import RapidReload from '../shared/modules/spells/azeritetraits/RapidReload';
-
 //Covenants
 import ResonatingArrow from '../shared/modules/spells/covenants/kyrian/ResonatingArrow';
 import DeathChakrams from '../shared/modules/spells/covenants/necrolord/DeathChakrams';
@@ -144,14 +136,6 @@ class CombatLogParser extends CoreCombatLogParser {
     deadEye: DeadEye,
     lethalShots: LethalShots,
     streamline: Streamline,
-
-    //Azerite Traits
-    focusedFire: FocusedFire,
-    steadyAim: SteadyAim,
-    surgingShotsAzerite: SurgingShotsAzerite,
-    inTheRhythm: InTheRhythm,
-    unerringVision: UnerringVision,
-    rapidReload: RapidReload,
 
     //Covenants
     resonatingArrow: ResonatingArrow,

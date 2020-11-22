@@ -55,14 +55,6 @@ import BeastMasteryFocusCapTracker from './modules/resources/BeastMasteryFocusCa
 import Focus from './modules/resources/Focus';
 import BeastMasteryFocusUsage from './modules/resources/BeastMasteryFocusUsage';
 
-//Azerite Traits
-import DanceOfDeath from './modules/spells/azeritetraits/DanceOfDeath';
-import HazeOfRage from './modules/spells/azeritetraits/HazeOfRage';
-import FeedingFrenzy from './modules/spells/azeritetraits/FeedingFrenzy';
-import PrimalInstincts from './modules/spells/azeritetraits/PrimalInstincts';
-import DireConsequences from '../shared/modules/spells/azeritetraits/DireConsequences';
-import RapidReload from '../shared/modules/spells/azeritetraits/RapidReload';
-
 //Covenants
 import ResonatingArrow from '../shared/modules/spells/covenants/kyrian/ResonatingArrow';
 import DeathChakrams from '../shared/modules/spells/covenants/necrolord/DeathChakrams';
@@ -140,14 +132,6 @@ class CombatLogParser extends CoreCombatLogParser {
     bornToBeWild: BornToBeWild,
     bindingShot: BindingShot,
     animalCompanion: AnimalCompanion,
-
-    //Azerite Traits
-    danceOfDeath: DanceOfDeath,
-    hazeOfRage: HazeOfRage,
-    feedingFrenzy: FeedingFrenzy,
-    primalInstincts: PrimalInstincts,
-    direConsequences: DireConsequences,
-    rapidReload: RapidReload,
 
     //Covenants
     resonatingArrow: ResonatingArrow,
