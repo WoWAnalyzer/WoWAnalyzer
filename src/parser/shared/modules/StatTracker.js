@@ -156,7 +156,6 @@ class StatTracker extends Analyzer {
     [SPELLS.WOUNDBINDER.id]: { haste: 584 }, // based on 340 TODO: Scale with item level
     // endregion
     // region Hunter
-    [SPELLS.HAZE_OF_RAGE.id]: { agility: 316 },
     // endregion
     // region Warlock
     // endregion
