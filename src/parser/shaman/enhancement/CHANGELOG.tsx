@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 11, 11), <>Added stacks and time spent at cap statisctics for <SpellLink id={SPELLS.MAELSTROM_WEAPON.id} /></>, [Mae]),
   change(date(2020, 11, 8), <>Added uptime statisctics for <SpellLink id={SPELLS.WINDFURY_TOTEM.id} /></>, [Mae]),
   change(date(2020, 11, 8), <>Added uptime statistic and suggestion for <SpellLink id={SPELLS.LASHING_FLAMES_DEBUFF.id} /></>, [Mae]),
   change(date(2020, 11, 8), <>Added stack statictics for <SpellLink id={SPELLS.HAILSTORM_TALENT.id}/></>, [Mae]),

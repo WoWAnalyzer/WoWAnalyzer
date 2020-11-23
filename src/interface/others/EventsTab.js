@@ -89,7 +89,7 @@ const FILTERABLE_TYPES = {
   resurrect: {
     name: 'Resurrect',
   },
-  dispel:{
+  dispel: {
     name: 'Dispel',
   },
 };
@@ -132,12 +132,14 @@ class EventsTab extends React.Component {
     }
     return null;
   }
+
   renderEntity(entity) {
     if (!entity) {
       return null;
     }
     return <span className={entity.type}>{entity.name}</span>;
   }
+
   renderAbility(ability) {
     if (!ability) {
       return null;
@@ -150,6 +152,7 @@ class EventsTab extends React.Component {
       </SpellLink>
     );
   }
+
   eventTypeName(type) {
     return this.state.rawNames ? type : (FILTERABLE_TYPES[type] ? FILTERABLE_TYPES[type].name : type);
   }
@@ -159,6 +162,7 @@ class EventsTab extends React.Component {
     const explanation = FILTERABLE_TYPES[type] ? FILTERABLE_TYPES[type].explanation : undefined;
     return this.renderToggle(type, name, explanation);
   }
+
   renderToggle(prop, label, explanation = null) {
     return (
       <div key={prop} className="flex toggle-control">
@@ -184,6 +188,7 @@ class EventsTab extends React.Component {
       </div>
     );
   }
+
   renderRow(props) {
     const event = props.rowData;
     return defaultTableRowRenderer({
@@ -191,6 +196,7 @@ class EventsTab extends React.Component {
       className: `${props.className} ${event.__modified ? 'modified' : ''} ${event.__fabricated ? 'fabricated' : ''}`,
     });
   }
+
   handleRowClick({ rowData }) {
     console.log(rowData);
   }
@@ -275,7 +281,7 @@ class EventsTab extends React.Component {
             <br />
             {Object.keys(FILTERABLE_TYPES).map(type => this.renderEventTypeToggle(type))}
             <br />
-            <div className="flex" style={{ paddingLeft: 5 }} >
+            <div className="flex" style={{ paddingLeft: 5 }}>
               <button className="btn btn-link" onClick={() => this.toggleAllFiltersOff()}>
                 Toggle off all filters
               </button>
@@ -411,7 +417,7 @@ class EventsTab extends React.Component {
                           return (
                             <>
                               <span className={resource.url}>
-                                {formatThousands(rowData.resourceChange)} {resource.name}
+                                {formatThousands(rowData.resourceChange - rowData.waste)} {resource.name}
                               </span>{' '}
                               {resource.icon && <Icon icon={resource.icon} alt={resource.name} />}
                             </>
@@ -442,6 +448,18 @@ class EventsTab extends React.Component {
                             {rowData.overheal ? <span className="overheal">O: {formatThousands(rowData.overheal)}</span> : null}
                           </span>
                         );
+                      }
+                      if (rowData.type === EventType.Energize) {
+                        const resource = RESOURCE_TYPES[rowData.resourceChangeType];
+                        if (resource) {
+                          return (
+                            <>
+                              <span className={resource.url}>
+                                {rowData.waste > 0 ? `${formatThousands(rowData.waste)} wasted` : ''}
+                              </span>
+                            </>
+                          );
+                        }
                       }
                       return null;
                     }}
