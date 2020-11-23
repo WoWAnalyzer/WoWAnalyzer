@@ -6,7 +6,6 @@ import suggest from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesSu
 import Events, { CastEvent, SpendResourceEvent } from 'parser/core/Events';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { When } from 'parser/core/ParseResults';
-import Spell from 'common/SPELLS/Spell';
 
 const MINOR_THRESHOLD = 0.975;
 const AVERAGE_THRESHOLD = 0.95;
