@@ -4,6 +4,7 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { Options } from 'parser/core/Analyzer';
+import { CastEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
@@ -32,8 +33,8 @@ class Subterfuge extends StealthCasts {
 
   get stealthsWithAtleastOneGarrote() {
     let stealthsWithGarrote = 0;
-    this.stealthSequences.forEach((sequence: any) => {
-      const firstGarroteCast = sequence.find((e: any) => e.ability.guid === SPELLS.GARROTE.id);
+    this.stealthSequences.forEach((sequence: CastEvent[]) => {
+      const firstGarroteCast = sequence.find((e: CastEvent) => e.ability.guid === SPELLS.GARROTE.id);
       if (firstGarroteCast) {
         stealthsWithGarrote += 1;
       }

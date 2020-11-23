@@ -24,10 +24,10 @@ const MS_BUFFER = 100;
  */
 class Blindside extends Analyzer {
   static dependencies = {
-    enemies: EnemyInstances,
+    enemyInstances: EnemyInstances,
   };
 
-  protected enemies!: EnemyInstances;
+  protected enemyInstances!: EnemyInstances;
 
   constructor(options: Options) {
     super(options);
@@ -55,13 +55,13 @@ class Blindside extends Analyzer {
     if (this.selectedCombatant.hasBuff(SPELLS.BLINDSIDE_BUFF.id, event.timestamp - MS_BUFFER)) {
       this.registerBadMutilate(event, "you had a Blindside Proc");
     }
-    const target = this.enemies.getEntity(event);
+    const target = this.enemyInstances.getEntity(event);
     if (target && target.hpPercent < BLINDSIDE_EXECUTE) {
       this.registerBadMutilate(event, `health of your target was < ${BLINDSIDE_EXECUTE}% `);
     }
   }
 
-  registerBadMutilate(event: any, reason: string) {
+  registerBadMutilate(event: CastEvent, reason: string) {
     this.badMutilates += 1;
     event.meta = event.meta || {};
     event.meta.isInefficientCast = true;

@@ -44,7 +44,7 @@ class EarlyDotRefresh extends EarlyDotRefreshesCore {
   }
   
   // Checks the status of the last cast and marks it accordingly.
-  getLastBadCastText(event: CastEvent, dot: any) {    
+  getLastBadCastText(event: CastEvent, dot: {castId: number}) {    
     if (dot.castId === SPELLS.RUPTURE.id) {
       return super.getLastBadCastText(event,dot) + " *Based on the amount of CPs spent.";
     }
