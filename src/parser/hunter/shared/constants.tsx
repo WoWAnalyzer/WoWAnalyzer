@@ -75,8 +75,6 @@ export const RESOURCES_HUNTER_MINOR_THRESHOLD = 0.05;
 export const RESOURCES_HUNTER_AVERAGE_THRESHOLD = 0.1;
 //Generic major threshold for focus waste
 export const RESOURCES_HUNTER_MAJOR_THRESHOLD = 0.15;
-//Chimaera Shot regenerates 10 focus per hit
-export const CHIM_REGEN = 10;
 /** Focus Spenders that are shared across the specs */
 export const LIST_OF_FOCUS_SPENDERS_SHARED = [
   SPELLS.REVIVE_PET,
@@ -86,7 +84,7 @@ export const LIST_OF_FOCUS_SPENDERS_SHARED = [
 ];
 //endregion
 
-//region Items
+//region Legendaries
 export const CALL_OF_THE_WILD_AFFECTED_SPELLS = [
   SPELLS.ASPECT_OF_THE_CHEETAH,
   SPELLS.ASPECT_OF_THE_TURTLE,
@@ -95,6 +93,8 @@ export const CALL_OF_THE_WILD_AFFECTED_SPELLS = [
   SPELLS.TRUESHOT,
   SPELLS.COORDINATED_ASSAULT,
 ];
+//Nesingwary's Trapping Apparatus increases focus generation by 100%
+export const NESINGWARY_FOCUS_GAIN_MULTIPLIER = 2;
 //endregion
 
 //region Covenants

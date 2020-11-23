@@ -1,9 +1,11 @@
 import React from 'react';
 import { formatPercentage } from 'common/format';
-import StatisticBox from 'interface/others/StatisticBox';
-import SpellIcon from 'common/SpellIcon';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
 import SpellLink from 'common/SpellLink';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import SpellIcon from 'common/SpellIcon';
+import BoringValue from 'interface/statistics/components/BoringValueText';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -42,7 +44,7 @@ class WildGrowth extends Analyzer {
   }
 
   onCast(event) {
-    if(this.wgTracker.wgBuffs.length > 0) {
+    if (this.wgTracker.wgBuffs.length > 0) {
       this.wgTracker.badPrecast = (this.wgTracker.firstTicksOverheal / this.wgTracker.firstTicksRaw) > PRECAST_THRESHOLD;
       this.wgHistory.push(this.wgTracker);
     }
@@ -62,7 +64,7 @@ class WildGrowth extends Analyzer {
     this.wgTracker.overheal += healVal.overheal;
 
     // Track overhealing first couple ticks to determine if WG was precast before damaging event.
-    if(event.timestamp - this.wgTracker.startTimestamp < PRECAST_PERIOD) {
+    if (event.timestamp - this.wgTracker.startTimestamp < PRECAST_PERIOD) {
       this.wgTracker.firstTicksRaw += healVal.raw;
       this.wgTracker.firstTicksOverheal += healVal.overheal;
     }
@@ -77,7 +79,7 @@ class WildGrowth extends Analyzer {
   }
 
   get averageEffectiveHits() {
-    return (this.wgHistory.reduce((a,b) => a + b.wgBuffs.length, 0) / this.wgs) || 0;
+    return (this.wgHistory.reduce((a, b) => a + b.wgBuffs.length, 0) / this.wgs) || 0;
   }
 
   get belowRecommendedCasts() {
@@ -166,12 +168,17 @@ class WildGrowth extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.WILD_GROWTH.id} />}
-        value={`${this.averageEffectiveHits.toFixed(2)}`}
-        label="Average Wild Growth hits"
+      <Statistic
+        size="flexible"
+        position={STATISTIC_ORDER.CORE(19)}
         tooltip={`Your Wild Growth hit on average ${this.averageEffectiveHits.toFixed(2)} players. ${this.belowRecommendedCasts} of your cast(s) hit fewer than 5 players which is the recommended targets.`}
-      />
+      >
+        <BoringValue label={<><SpellIcon id={SPELLS.WILD_GROWTH.id} /> Average Wild Growth Hits</>} >
+          <>
+            {this.averageEffectiveHits.toFixed(2)}
+          </>
+        </BoringValue>
+      </Statistic>
     );
   }
 }

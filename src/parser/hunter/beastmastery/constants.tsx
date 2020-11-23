@@ -151,6 +151,8 @@ export const BEAST_MASTERY_SPELLS_WITHOUT_WASTE = [
 export const BARBED_SHOT_REGEN = 5;
 //Aspect of the Wild regenerates 5 focus per tick
 export const AOTW_REGEN = 5;
+//Chimaera Shot regenerates 10 focus per hit for BM hunters
+export const CHIM_REGEN = 10;
 /** Focus Spenders specific to BM */
 export const LIST_OF_FOCUS_SPENDERS_BM = [
   SPELLS.COBRA_SHOT,
