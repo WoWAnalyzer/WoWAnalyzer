@@ -221,6 +221,14 @@ export interface BaseCastEvent<T extends string> extends Event<T> {
   absorb?: number;
   armor?: number;
   attackPower?: number;
+  channel?: {
+    type: EventType.BeginChannel;
+    timestamp: number;
+    ability: Ability;
+    sourceID: number;
+    isCancelled: boolean;
+    start: number;
+  };
   classResources?: Array<ClassResources & { cost: number }>;
   facing?: number;
   hitPoints?: number;

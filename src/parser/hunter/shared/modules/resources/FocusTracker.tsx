@@ -2,8 +2,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 import SPELLS from 'common/SPELLS';
 import { CastEvent, EnergizeEvent } from 'parser/core/Events';
-import { CHIM_REGEN } from 'parser/hunter/shared/constants';
-import { AOTW_REGEN, BARBED_SHOT_FOCUS_REGEN_BUFFS_IDS, BARBED_SHOT_REGEN, BEAST_MASTERY_SPELLS_WITHOUT_WASTE } from 'parser/hunter/beastmastery/constants';
+import { AOTW_REGEN, BARBED_SHOT_FOCUS_REGEN_BUFFS_IDS, BARBED_SHOT_REGEN, BEAST_MASTERY_SPELLS_WITHOUT_WASTE, CHIM_REGEN } from 'parser/hunter/beastmastery/constants';
 import { Options } from 'parser/core/Analyzer';
 
 class FocusTracker extends ResourceTracker {

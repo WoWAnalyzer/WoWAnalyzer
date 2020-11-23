@@ -12,7 +12,7 @@ import HIT_TYPES from 'game/HIT_TYPES';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import { formatNumber } from 'common/format';
 
-const COOLDOWN_REDUCTION_MS = [0, 900, 1000, 1100, 1200, 1300, 1400, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200];
+const COOLDOWN_REDUCTION_MS = [0, 750, 830, 900, 980, 1005, 1130, 1200, 1280, 1350, 1430, 1500, 1580, 1650, 1730, 1800];
 
 class IcyPropulsion extends Analyzer {
   static dependencies = {

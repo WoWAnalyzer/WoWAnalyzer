@@ -199,7 +199,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 45,
+        cooldown: 60,
         enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
         castEfficiency: {
           suggestion: true,
