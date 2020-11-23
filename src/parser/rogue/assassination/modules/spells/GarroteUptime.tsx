@@ -46,7 +46,7 @@ class GarroteUptime extends Analyzer {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.GENERAL}>
         <BoringValueText label={<><SpellIcon id={SPELLS.GARROTE.id} /> Garrote Uptime</>}>
-          {formatPercentage(this.percentUptime)} %
+          {formatPercentage(this.percentUptime)}%
         </BoringValueText>
       </Statistic>
     );

@@ -27,7 +27,7 @@ class SerratedBoneSpike extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.NECROLORD.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SERRATED_BONE_SPIKE), this.onDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.SERRATED_BONE_SPIKE, SPELLS.SERRATED_BONE_SPIKE_DEBUFF]), this.onDamage);
     this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.SERRATED_BONE_SPIKE_ENERGIZE), this.onEnergize);
     this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.SERRATED_BONE_SPIKE_DEBUFF), this.onSBSRemoveDebuff);
   }
@@ -47,7 +47,7 @@ class SerratedBoneSpike extends Analyzer {
     if (this.spellUsable.isOnCooldown(SPELLS.SERRATED_BONE_SPIKE.id)) {
       const expectedCooldownDuration = this.abilities.getExpectedCooldownDuration(SPELLS.SERRATED_BONE_SPIKE.id, this.spellUsable.cooldownTriggerEvent(SPELLS.SERRATED_BONE_SPIKE.id));
       if (expectedCooldownDuration) {
-        this.spellUsable.reduceCooldown(SPELLS.SERRATED_BONE_SPIKE, expectedCooldownDuration, event.timestamp);
+        this.spellUsable.reduceCooldown(SPELLS.SERRATED_BONE_SPIKE.id, expectedCooldownDuration, event.timestamp);
       }
     }
   }

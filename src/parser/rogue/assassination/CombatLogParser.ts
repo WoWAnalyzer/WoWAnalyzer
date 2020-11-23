@@ -3,7 +3,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 import Abilities from './modules/Abilities';
-import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import AlwaysBeCasting from './modules/features/AlwaysBeCasting'
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Checklist from './modules/features/Checklist/Module';
 import SpellUsable from '../shared/SpellUsable';

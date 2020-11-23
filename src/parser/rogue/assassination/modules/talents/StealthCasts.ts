@@ -6,8 +6,8 @@ const STEALTH_CHECK_BUFFER_MS = 50;
 
 class StealthCasts extends Analyzer {
 
-  stealthSequences: any = [];
-  latestStealth: any = null;
+  stealthSequences: CastEvent[][] = [];
+  latestStealth: CastEvent[] = [];
   usedStealthOnPull = false;
 
   constructor(options: Options) {
@@ -27,7 +27,7 @@ class StealthCasts extends Analyzer {
       !this.selectedCombatant.hasBuff(SPELLS.MASTER_ASSASSIN_BUFF.id)) {
 
       if (this.latestStealth) {
-        this.latestStealth = null;
+        this.latestStealth = [];
       }
       return;
     }

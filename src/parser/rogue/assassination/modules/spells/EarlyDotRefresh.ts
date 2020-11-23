@@ -3,9 +3,10 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 import EarlyDotRefreshesCore from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshes';
 import suggest from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesSuggestion';
-import Events, { SpendResourceEvent } from 'parser/core/Events';
+import Events, { CastEvent, SpendResourceEvent } from 'parser/core/Events';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { When } from 'parser/core/ParseResults';
+import Spell from 'common/SPELLS/Spell';
 
 const MINOR_THRESHOLD = 0.975;
 const AVERAGE_THRESHOLD = 0.95;
@@ -43,7 +44,7 @@ class EarlyDotRefresh extends EarlyDotRefreshesCore {
   }
   
   // Checks the status of the last cast and marks it accordingly.
-  getLastBadCastText(event: any, dot: any) {    
+  getLastBadCastText(event: CastEvent, dot: any) {    
     if (dot.castId === SPELLS.RUPTURE.id) {
       return super.getLastBadCastText(event,dot) + " *Based on the amount of CPs spent.";
     }

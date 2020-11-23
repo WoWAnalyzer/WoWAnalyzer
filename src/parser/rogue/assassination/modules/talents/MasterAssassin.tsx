@@ -7,7 +7,7 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { SuggestionFactory, ThresholdStyle, When } from 'parser/core/ParseResults';
-import Events, { DamageEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -57,10 +57,10 @@ class MasterAssassin extends StealthCasts {
 
   get goodStealthCasts() {
     let goodCasts = 0;
-    this.stealthSequences.forEach((sequence: any) => {
+    this.stealthSequences.forEach((sequence: CastEvent[]) => {
       const goodSpells = sequence === this.stealthSequences[0] || (this.usedStealthOnPull && sequence === this.stealthSequences[1]) ? GOOD_OPENER_CASTS : GOOD_MASTER_ASSASSIN_ABILITIES;
       let goodCastsSeq = 0;
-      sequence.forEach((e: any) => {
+      sequence.forEach((e: CastEvent) => {
         if (goodSpells.includes(e.ability.guid)) {
           goodCastsSeq += 1;
         }
