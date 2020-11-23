@@ -16,7 +16,7 @@ const spells: SpellList = {
     id: 77130,
     name: 'Purify Spirit',
     icon: 'ability_shaman_cleansespirit',
-    manaCost: 130,
+    manaCost: 650,
   },
   WIND_SHEAR: {
     id: 57994,
@@ -27,7 +27,7 @@ const spells: SpellList = {
     id: 2484,
     name: 'Earthbind Totem',
     icon: 'spell_nature_strengthofearthtotem02',
-    manaCost: 50,
+    manaCost: 250,
   },
   RESONANCE_TOTEM_HASTE: {
     id: 262417,
@@ -38,7 +38,7 @@ const spells: SpellList = {
     id: 370,
     name: 'Purge',
     icon: 'spell_nature_purge',
-    manaCost: 160, // enh/ele cost is higher
+    manaCost: 800, // enh/ele cost is higher
   },
   FAR_SIGHT: {
     id: 6196,
@@ -69,7 +69,7 @@ const spells: SpellList = {
     id: 8143,
     name: 'Tremor Totem',
     icon: 'spell_nature_tremortotem',
-    manaCost: 46,
+    manaCost: 230,
   },
   SPIRIT_WOLF_BUFF: {
     id: 260881,
@@ -80,7 +80,7 @@ const spells: SpellList = {
     id: 974,
     name: 'Earth Shield',
     icon: 'spell_nature_skinofearth',
-    manaCost: 200,
+    manaCost: 1000,
   },
   EARTH_SHIELD_HEAL: {
     id: 379,
@@ -91,7 +91,7 @@ const spells: SpellList = {
     id: 192058,
     name: 'Capacitor Totem',
     icon: 'spell_nature_brilliance',
-    manaCost: 200,
+    manaCost: 1000,
   },
   EARTH_ELEMENTAL: {
     id: 198103,
@@ -108,19 +108,19 @@ const spells: SpellList = {
     id: 192106,
     name: 'Lightning Shield',
     icon: 'spell_nature_lightningshield',
-    manaCost: 30,
+    manaCost: 150,
   },
   FROST_SHOCK: {
     id: 196840,
     name: 'Frost Shock',
     icon: 'spell_frost_frostshock',
-    manaCost: 20,
+    manaCost: 100,
   },
   PRIMAL_STRIKE: {
     id: 73899,
     name: 'Primal Strike',
     icon: 'spell_shaman_primalstrike',
-    manaCost: 188,
+    manaCost: 940,
   },
   // Hex and its variations
   HEX: {
@@ -189,7 +189,7 @@ const spells: SpellList = {
     id: 51505,
     name: 'Lava Burst',
     icon: 'spell_shaman_lavaburst',
-    manaCost: 50,
+    manaCost: 250,
   },
   LAVA_BURST_DAMAGE: {
     id: 285452,
@@ -210,7 +210,7 @@ const spells: SpellList = {
     id: 188196,
     name: 'Lightning Bolt',
     icon: 'spell_nature_lightning',
-    manaCost: 20,
+    manaCost: 100,
   },
   LIGHTNING_BOLT_INSTANT: {
     id: 214815,
@@ -266,7 +266,7 @@ const spells: SpellList = {
     id: 188443,
     name: 'Chain Lightning',
     icon: 'spell_nature_chainlightning',
-    manaCost: 20,
+    manaCost: 100,
   },
   CHAIN_LIGHTNING_INSTANT: {
     id: 195897,
@@ -547,13 +547,13 @@ const spells: SpellList = {
     id: 2825,
     name: 'Bloodlust',
     icon: 'spell_nature_bloodlust',
-    manaCost: 430,
+    manaCost: 2150,
   },
   HEROISM: {
     id: 32182,
     name: 'Heroism',
     icon: 'ability_shaman_heroism',
-    manaCost: 430,
+    manaCost: 2150,
   },
   REINCARNATION: {
     id: 21169,
@@ -661,25 +661,25 @@ const spells: SpellList = {
     id: 1064,
     name: 'Chain Heal',
     icon: 'spell_nature_healingwavegreater',
-    manaCost: 600,
+    manaCost: 3000,
   },
   HEALING_WAVE: {
     id: 77472,
     name: 'Healing Wave',
     icon: 'spell_nature_healingwavelesser',
-    manaCost: 300,
+    manaCost: 1500,
   },
   HEALING_SURGE: {
     id: 8004,
     name: 'Healing Surge',
     icon: 'spell_nature_healingway',
-    manaCost: 480, // enh/ele cost is higher
+    manaCost: 2400, // enh/ele cost is higher
   },
   RIPTIDE: {
     id: 61295,
     name: 'Riptide',
     icon: 'spell_nature_riptide',
-    manaCost: 160,
+    manaCost: 800,
   },
   TIDAL_WAVES_BUFF: {
     id: 53390,
@@ -690,7 +690,7 @@ const spells: SpellList = {
     id: 73920,
     name: 'Healing Rain',
     icon: 'spell_nature_giftofthewaterspirit',
-    manaCost: 432,
+    manaCost: 2160,
   },
   HEALING_RAIN_HEAL: {
     id: 73921,
@@ -701,7 +701,7 @@ const spells: SpellList = {
     id: 5394,
     name: 'Healing Stream Totem',
     icon: 'inv_spear_04',
-    manaCost: 180,
+    manaCost: 900,
   },
   HEALING_STREAM_TOTEM_HEAL: {
     id: 52042,
@@ -712,7 +712,7 @@ const spells: SpellList = {
     id: 108280,
     name: 'Healing Tide Totem',
     icon: 'ability_shaman_healingtide',
-    manaCost: 112,
+    manaCost: 560,
   },
   HEALING_TIDE_TOTEM_HEAL: {
     id: 114942,
@@ -733,7 +733,7 @@ const spells: SpellList = {
     id: 98008,
     name: 'Spirit Link Totem',
     icon: 'spell_shaman_spiritlink',
-    manaCost: 220,
+    manaCost: 1100,
   },
   SPIRIT_LINK_TOTEM_REDISTRIBUTE: {
     id: 98021,
@@ -779,7 +779,7 @@ const spells: SpellList = {
     id: 79206,
     name: 'Spiritwalker\'s Grace',
     icon: 'spell_shaman_spiritwalkersgrace',
-    manaCost: 282,
+    manaCost: 1410,
   },
   WELLSPRING_HEAL: {
     id: 197997,
