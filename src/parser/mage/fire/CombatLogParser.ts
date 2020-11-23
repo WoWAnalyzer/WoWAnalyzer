@@ -3,8 +3,9 @@ import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent'
 
 import FlamestrikeNormalizer from './normalizers/Flamestrike';
 import CombustionNormalizer from './normalizers/Combustion';
-import Scorch from './normalizers/Scorch';
-import PyroclasmBuff from './normalizers/PyroclasmBuff';
+import ScorchNormalizer from './normalizers/Scorch';
+import PyroclasmBuffNormalizer from './normalizers/PyroclasmBuff';
+import ShiftingPowerNormalizer from '../shared/normalizers/ShiftingPower'
 
 import Checklist from './modules/Checklist/Module';
 import Buffs from './modules/features/Buffs';
@@ -38,6 +39,10 @@ import Kindling from './modules/talents/Kindling';
 //Legendaries
 import FeveredIncantation from './modules/items/FeveredIncantation';
 
+//Covenants
+import ShiftingPower from '../shared/modules/features/ShiftingPower';
+import MirrorsOfTorment from '../shared/modules/features/MirrorsOfTorment';
+
 //Conduits
 import MasterFlame from './modules/items/MasterFlame';
 import ControlledDestruction from './modules/items/ControlledDestruction';
@@ -53,9 +58,10 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Normalizers
     FlameStrikeNormalizer: FlamestrikeNormalizer,
-    scorch: Scorch,
-    pyroclasmBuff: PyroclasmBuff,
+    scorchNormalizer: ScorchNormalizer,
+    pyroclasmBuffNormalizer: PyroclasmBuffNormalizer,
     combustionNormalizer: CombustionNormalizer,
+    shiftingPowerNormalizer: ShiftingPowerNormalizer,
 
     //Checklist
     checklist: Checklist,
@@ -89,6 +95,10 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Legendaries
     feveredIncantation: FeveredIncantation,
+
+    //Covenants
+    shiftingPower: ShiftingPower,
+    mirrorsOfTorment: MirrorsOfTorment,
 
     //Conduits
     masterFlame: MasterFlame,
