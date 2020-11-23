@@ -68,7 +68,6 @@ class HotStreakWastedCrits extends Analyzer {
   //Pyromaniac doesnt trigger an event, so we need to check to see if the player immediately got a new Hot Streak immediately after using a Hot Streak
   checkForPyromaniacProc(event: ApplyBuffEvent) {
     if (this.hasPyromaniac && event.timestamp - this.hotStreakRemoved < MS_BUFFER_250) {
-      this.log("Pyromaniac Proc")
       this.hasPyromaniacProc = true;
     }
   }
