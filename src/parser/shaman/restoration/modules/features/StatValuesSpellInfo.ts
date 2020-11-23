@@ -160,4 +160,5 @@ export default {
     hasteHpm: true,
     vers: true,
   },
+  // TODO add covenant abilities
 };
