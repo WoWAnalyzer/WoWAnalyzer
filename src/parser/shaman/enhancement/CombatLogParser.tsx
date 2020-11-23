@@ -32,6 +32,7 @@ import ElementalAssault from './modules/talents/ElementalAssault';
 import FeralSpirit from './modules/core/FeralSpirit';
 import FlameShock from '../shared/spells/FlameShock';
 import WindfuryTotem from './modules/core/WindfuryTotem';
+import MaelstromWeapon from './modules/core/MaelstromWeapon';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -56,6 +57,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     flameShock: FlameShock,
     windfuryTotem: WindfuryTotem,
+    maelstromWeapon: MaelstromWeapon,
 
     // Talents
     lashingFlames: LashingFlames,

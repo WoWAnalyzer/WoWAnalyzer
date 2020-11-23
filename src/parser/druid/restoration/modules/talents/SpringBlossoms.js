@@ -1,14 +1,15 @@
 import React from 'react';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatPercentage } from 'common/format';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
+import BoringValue from 'interface/statistics/components/BoringValueText';
 import SpellIcon from 'common/SpellIcon';
+import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import Analyzer from 'parser/core/Analyzer';
 
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
-
-import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
 
 import Mastery from '../core/Mastery';
 
@@ -49,10 +50,9 @@ class SpringBlossoms extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.SPRING_BLOSSOMS.id} />}
-        value={`${formatPercentage(this.totalPercent)} %`}
-        label="Spring Blossoms Healing"
+      <Statistic
+        size="flexible"
+        position={STATISTIC_ORDER.OPTIONAL(20)}
         tooltip={(
           <>
             This is the sum of the direct healing from Spring Blossoms and the healing enabled by Spring Blossom's extra mastery stack.
@@ -62,18 +62,23 @@ class SpringBlossoms extends Analyzer {
             </ul>
           </>
         )}
-      />
+      >
+        <BoringValue label={<><SpellIcon id={SPELLS.SPRING_BLOSSOMS.id} /> Spring Blossoms healing</>}>
+          <>
+            {formatPercentage(this.totalPercent)} %
+          </>
+        </BoringValue>
+      </Statistic>
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>Your healing from <SpellLink id={SPELLS.SPRING_BLOSSOMS.id} /> could be improved.
           Either your efflorescence uptime could be improved or the encounter doesn't fit this talent very well.</span>)
-          .icon(SPELLS.SPRING_BLOSSOMS.icon)
-          .actual(i18n._(t('druid.restoration.suggestions.springBlossoms.efficiency')`${formatPercentage(this.totalPercent)}% healing`))
-          .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`));
+        .icon(SPELLS.SPRING_BLOSSOMS.icon)
+        .actual(i18n._(t('druid.restoration.suggestions.springBlossoms.efficiency')`${formatPercentage(this.totalPercent)}% healing`))
+        .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`));
   }
 }
 
