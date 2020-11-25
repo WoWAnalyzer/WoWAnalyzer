@@ -18,7 +18,7 @@ import { TooltipElement } from 'common/Tooltip';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 
-const WATER_SHIELD_MANA_REGEN_PER_SECOND = 30 / 5;
+const WATER_SHIELD_MANA_REGEN_PER_SECOND = 50 / 5;
 
 class WaterShield extends Analyzer {
   manaGain = 0;

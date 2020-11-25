@@ -1,5 +1,11 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
+//Normalizers
+import ArcaneChargesNormalizer from './normalizers/ArcaneCharges';
+import ArcanePowerNormalizer from './normalizers/ArcanePower';
+import ShiftingPowerNormalizer from '../shared/normalizers/ShiftingPower';
+
+//Features
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Abilities from './modules/features/Abilities';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
@@ -8,8 +14,6 @@ import Checklist from './modules/Checklist/Module';
 import Buffs from './modules/features/Buffs';
 import Mana from './modules/ManaChart/Mana';
 import ManaValues from './modules/ManaChart/ManaValues';
-import ArcaneCharges from './normalizers/ArcaneCharges';
-import ArcanePowerNormalizer from './normalizers/ArcanePower';
 import ArcaneChargeTracker from './modules/features/ArcaneChargeTracker';
 import ArcanePower from './modules/features/ArcanePower';
 import ArcaneMissiles from './modules/features/ArcaneMissiles';
@@ -30,6 +34,9 @@ import MasterOfTime from './modules/talents/MasterOfTime';
 import ArcaneHarmony from './modules/items/ArcaneHarmony';
 import ArcaneBombardment from './modules/items/ArcaneBombardment';
 
+//Covenants
+import ShiftingPower from '../shared/modules/features/ShiftingPower';
+
 //Conduits
 import ArcaneProdigy from './modules/items/ArcaneProdigy';
 import ArtificeOfTheArchmage from './modules/items/ArtificeOfTheArchmage';
@@ -43,8 +50,9 @@ import SiphonedMalice from '../shared/modules/items/SiphonedMalice';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Normalizers
-    arcaneCharges: ArcaneCharges,
+    arcaneChargesNormalizer: ArcaneChargesNormalizer,
     arcanePowerNormalizer: ArcanePowerNormalizer,
+    shiftingPowerNormalizer: ShiftingPowerNormalizer,
 
     // Features
     checklist: Checklist,
@@ -74,6 +82,9 @@ class CombatLogParser extends CoreCombatLogParser {
     //Legendaries
     arcaneHarmony: ArcaneHarmony,
     arcaneBombardment: ArcaneBombardment,
+
+    //Covenants
+    shiftingPower: ShiftingPower,
 
     //Conduits
     arcaneProdigy: ArcaneProdigy,
