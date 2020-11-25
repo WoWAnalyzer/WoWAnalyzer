@@ -90,7 +90,7 @@ class LastEmperorsCapacitor extends Analyzer {
     };
   }
 
-  get wastedStacksSuggestionsThresholds() {
+  get wastedStacksSuggestionThresholds() {
     return {
       actual: this.stacksWastedPerMinute,
       isGreaterThan: {
@@ -127,7 +127,7 @@ class LastEmperorsCapacitor extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.wastedStacksSuggestionsThresholds).addSuggestion((suggest, actual, recommended) => {
+    when(this.wastedStacksSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       suggest(<Trans> You wasted your <SpellLink id={SPELLS.LAST_EMPERORS_CAPACITOR_BUFF.id}/> stacks by using chi spenders while at 20 stacks </Trans>)
         .icon(SPELLS.LAST_EMPERORS_CAPACITOR.icon)
         .actual(`${actual.toFixed(2)} Wasted stacks per minute`)
