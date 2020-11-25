@@ -1,7 +1,9 @@
-export default function makeQueryString(queryParams = {}) {
+import { QueryParams } from 'common/makeApiUrl';
+
+export default function makeQueryString(queryParams: QueryParams = {}) {
   const keys = Object.keys(queryParams);
 
-  const parts = [];
+  const parts: string[] = [];
   keys.forEach((key) => {
     const value = queryParams[key];
     if (value === undefined) {
