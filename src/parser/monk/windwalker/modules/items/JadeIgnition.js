@@ -21,8 +21,6 @@ class JadeIgnition extends Analyzer {
   totalStacks = 0;
   currentStacks = 0;
   stacksWasted = 0;
-  damage = 0;
-  buffedCast = false;
 
   constructor(...args) {
     super(...args);
@@ -54,7 +52,6 @@ class JadeIgnition extends Analyzer {
 
   castSpinningCraneKick() {
     if (this.currentStacks > 0) {
-      this.buffedCast = true;
       this.currentStacks = 0;
     }
   }
