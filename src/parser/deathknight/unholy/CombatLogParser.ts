@@ -10,6 +10,7 @@ import ScourgeStrikeEfficiency from './modules/features/ScourgeStrikeEfficiency'
 import Apocalypse from './modules/features/Apocalypse';
 import VirulentPlagueEfficiency from './modules/features/VirulentPlagueEfficiency';
 import WoundTracker from './modules/features/WoundTracker';
+import SpellUsable from './modules/features/SpellUsable'
 
 import RunicPowerDetails from './modules/runicpower/RunicPowerDetails';
 import RunicPowerTracker from './modules/runicpower/RunicPowerTracker';
@@ -33,6 +34,7 @@ class CombatLogParser extends CoreCombatLogParser {
   	apocalypse: Apocalypse,
     virulentPlagueEfficiency: VirulentPlagueEfficiency,
     woundTracker: WoundTracker,
+    spellUsable: SpellUsable,
 
     // RunicPower
     runicPowerTracker: RunicPowerTracker,

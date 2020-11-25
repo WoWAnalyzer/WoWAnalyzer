@@ -34,7 +34,6 @@ const UnholyDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }) =
       >
         <AbilityRequirement spell={SPELLS.APOCALYPSE.id} />
         <AbilityRequirement spell={SPELLS.DARK_TRANSFORMATION.id} />
-        <AbilityRequirement spell={SPELLS.ARMY_OF_THE_DEAD.id} />
         {combatant.hasTalent(SPELLS.SOUL_REAPER_TALENT.id) && <AbilityRequirement spell={SPELLS.SOUL_REAPER_TALENT.id} />}
         {combatant.hasTalent(SPELLS.SUMMON_GARGOYLE_TALENT.id) && <AbilityRequirement spell={SPELLS.SUMMON_GARGOYLE_TALENT.id} />}
         {combatant.hasTalent(SPELLS.UNHOLY_ASSAULT_TALENT.id) && <AbilityRequirement spell={SPELLS.UNHOLY_ASSAULT_TALENT.id} />}
