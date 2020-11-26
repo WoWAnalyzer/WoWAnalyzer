@@ -4,8 +4,10 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, AbsorbedEvent, RemoveBuffEvent, ApplyBuffEvent, ApplyBuffStackEvent } from 'parser/core/Events';
-import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
+import BoringValue from 'interface/statistics/components/BoringValueText';
 import { formatNumber, formatPercentage } from 'common/format';
 import FooterChart, { formatTime } from 'interface/others/FooterChart';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
@@ -132,9 +134,9 @@ class CelestialBrew extends Analyzer {
   }
 
   statistic() {
-    const avgAbsorb = this._absorbs.reduce((total, absorb) => total + absorb.amount, 0) / this._absorbs.length;
+    const avgAbsorb =  this._absorbs.length === 0 ? 0 : this._absorbs.reduce((total, absorb) => total + absorb.amount, 0) / this._absorbs.length;
     const wastedAbsorb = this._absorbs.reduce((total, absorb) => total + absorb.wasted, 0);
-    const avgStacks = this._absorbs.reduce((total, absorb) => total + absorb.stacks, 0) / this._absorbs.length;
+    const avgStacks = this._absorbs.length === 0 ? 0 : this._absorbs.reduce((total, absorb) => total + absorb.stacks, 0) / this._absorbs.length;
 
     const spec = {
       mark: 'bar' as const,
@@ -191,12 +193,10 @@ class CelestialBrew extends Analyzer {
         ],
       },
     };
-
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.CELESTIAL_BREW.id} />}
-        value={formatNumber(avgAbsorb)}
-        label="Avg. Absorb per Celestial Brew"
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL()}
+        size="flexible"
         tooltip={(
           <>
             Does not include <strong>{formatNumber(wastedAbsorb)} wasted absorb</strong> (avg: <strong>{formatNumber(wastedAbsorb / this._absorbs.length)}</strong>).<br />
@@ -204,8 +204,14 @@ class CelestialBrew extends Analyzer {
             You cast Celestial Brew with an average of <strong>{avgStacks.toFixed(2)} stacks</strong> of Purified Chi, increasing the absorb amount by <strong>{formatPercentage(avgStacks * PURIFIED_CHI_PCT)}%</strong>.
           </>
         )}
-        footer={(<FooterChart spec={spec} data={this._absorbs} />)}
-      />
+      >
+        <BoringValue label={<><SpellIcon id={SPELLS.CELESTIAL_BREW.id} /> Avg. Absorb per Celestial Brew</>} >
+          <>
+            {formatNumber(avgAbsorb)} % <br />
+            <FooterChart spec={spec} data={this._absorbs} />
+          </>
+        </BoringValue>
+      </Statistic>
     );
   }
 }

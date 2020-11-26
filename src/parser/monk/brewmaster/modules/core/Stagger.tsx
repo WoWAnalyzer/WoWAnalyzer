@@ -6,7 +6,9 @@ import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { EventType } from 'parser/core/Events';
 import EventFilter from 'parser/core/EventFilter';
-import StatisticBox from 'interface/others/StatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
+import BoringValue from 'interface/statistics/components/BoringValueText';
 
 import StaggerFabricator, { AddStaggerEvent, RemoveStaggerEvent } from './StaggerFabricator';
 
@@ -69,10 +71,9 @@ class Stagger extends Analyzer {
   statistic() {
     const damageAvoided = this.totalStaggered - this.totalStaggerTaken - this.staggerMissingFromFight;
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.STAGGER.id} />}
-        value={formatNumber(this.totalStaggered)}
-        label="Damage staggered"
+      <Statistic
+        position={STATISTIC_ORDER.CORE(2)}
+        size="flexible"
         tooltip={(
           <>
             Incoming damage added to stagger:
@@ -87,7 +88,13 @@ class Stagger extends Analyzer {
             </ul>
           </>
         )}
-      />
+      >
+        <BoringValue label={<><SpellIcon id={SPELLS.STAGGER.id} /> Damage staggered</>} >
+          <>
+            {formatNumber(this.totalStaggered)}
+          </>
+        </BoringValue>
+      </Statistic>
     );
   }
 }
