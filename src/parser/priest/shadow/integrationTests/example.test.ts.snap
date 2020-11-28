@@ -1,100 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Shadow Priest integration test: example log AlwaysBeCasting matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad"
-      >
-        <label>
-          <img
-            alt="Downtime"
-            className="icon game "
-            src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
-          />
-           
-          shared.alwaysBeCasting.statistic.label
-        </label>
-        <div
-          className="value"
-        >
-          9.38 %
-        </div>
-        <div
-          style={
-            Object {
-              "marginTop": "0.5em",
-            }
-          }
-        >
-          <div
-            className="statistic-box-bar"
-          >
-            <div
-              className="stat-health-bg"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={[Function]}
-              style={
-                Object {
-                  "width": "90.62281728342391%",
-                }
-              }
-            >
-              <img
-                alt="Active time"
-                src="/img/sword.png"
-              />
-            </div>
-            <div
-              className="remainder DeathKnight-bg"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={[Function]}
-            >
-              <img
-                alt="Downtime"
-                src="/img/afk.png"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`Shadow Priest integration test: example log AuspiciousSpirits matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -408,7 +313,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               24
-              /24
+              /23
                
               casts
             </td>
@@ -427,7 +332,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "100.26758284736079%",
+                      "width": "101.90830023208844%",
                     }
                   }
                 />
@@ -442,7 +347,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              100.27%
+              101.91%
             </td>
             <td
               style={
@@ -611,7 +516,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "13.408119198575399%",
+                      "width": "13.5431810947756%",
                     }
                   }
                 />
@@ -626,7 +531,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              13.41%
+              13.54%
             </td>
             <td
               style={
@@ -1788,7 +1693,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "13.382307154120523%",
+                      "width": "13.48811997725826%",
                     }
                   }
                 />
@@ -1803,7 +1708,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              13.38%
+              13.49%
             </td>
             <td
               style={
@@ -3612,116 +3517,6 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
 </div>
 `;
 
-exports[`Shadow Priest integration test: example log DeadlyNavigation matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad"
-      >
-        <label>
-          <a
-            className="spell-link-text"
-            href="http://wowhead.com/spell=268905"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Deadly Navigation"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/ability_skyreach_flash_bang.jpg"
-            />
-          </a>
-           
-          <a
-            className="spell-link-text"
-            href="http://wowhead.com/spell=268905"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Deadly Navigation
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          <svg
-            className="icon"
-            viewBox="10 10 80 80"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M50,86.4865c17.4361,0,31.6216-14.1855,31.6216-31.6216c0-16.6168-12.8865-30.2714-29.1892-31.5189v-4.9677h7.2973v-4.8649  H40.2703v4.8649h7.2973v4.9677c-16.3027,1.2475-29.1892,14.902-29.1892,31.5189C18.3784,72.3009,32.5639,86.4865,50,86.4865z M52.4324,28.2236c3.1101,0.2817,6.0664,1.0982,8.7798,2.356l-8.7798,15.2073V28.2236z M47.5676,28.2236v26.6412 c0,1.1008,0.7393,2.0647,1.8029,2.3497c0.209,0.0561,0.4205,0.0827,0.6295,0.0827c0.8533,0,1.6642-0.4504,2.1065-1.2162 l13.3146-23.0616c6.8507,4.8503,11.3357,12.8315,11.3357,21.8454c0,14.7537-12.0031,26.7567-26.7568,26.7567 s-26.7568-12.003-26.7568-26.7567C23.2432,40.9315,33.9501,29.4573,47.5676,28.2236z"
-            />
-          </svg>
-           
-          72
-          % 
-          <small>
-            uptime
-          </small>
-          <br />
-          <svg
-            className="icon"
-            version="1.1"
-            viewBox="16 16 32 32"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle
-              cx="32.111"
-              cy="32.678"
-              r="2.989"
-            />
-            <path
-              d="M41.603,33.535l9.219-0.857l-9.219-0.857c-0.41-4.574-4.06-8.223-8.634-8.633l-0.857-9.218l-0.857,9.218 c-4.574,0.41-8.224,4.06-8.634,8.633l-9.219,0.857l9.219,0.857c0.41,4.573,4.06,8.224,8.634,8.633l0.857,9.218l0.857-9.218 C37.542,41.758,41.193,38.108,41.603,33.535z M33.076,41.007l0.215-2.313h-2.36l0.215,2.313c-3.856-0.444-6.921-3.509-7.365-7.364 l2.313,0.215v-2.359l-2.313,0.215c0.444-3.855,3.509-6.92,7.365-7.364l-0.215,2.313h2.36l-0.215-2.313 c3.856,0.444,6.921,3.509,7.365,7.364l-2.314-0.215v2.359l2.314-0.215C39.998,37.498,36.932,40.563,33.076,41.007z"
-            />
-          </svg>
-           
-          159
-           
-          <small>
-            average 
-            Crit
-             gained
-          </small>
-        </div>
-      </div>
-      <div
-        className="row"
-      >
-        <div
-          className="col-xs-12"
-        />
-      </div>
-      <div
-        className="statistic-expansion-button-holster"
-      >
-        <button
-          className="btn btn-primary"
-          onClick={[Function]}
-        >
-          <span
-            className="glyphicon glyphicon-chevron-down"
-          />
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`Shadow Priest integration test: example log DeathTracker matches the suggestions snapshot 1`] = `
 Array [
   Object {
@@ -4113,93 +3908,6 @@ Array [
 ]
 `;
 
-exports[`Shadow Priest integration test: example log EssenceOfTheFocusingIris matches the statistic snapshot 1`] = `
-<div
-  category="ITEMS"
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "padding": 0,
-    }
-  }
->
-  <div
-    className="col-md-12"
-  >
-    <div
-      category="ITEMS"
-      className="panel statistic standard "
-      position={1000}
-    >
-      <div
-        className="panel-body"
-      >
-        <div
-          className="pad"
-        >
-          <label>
-            <a
-              className="spell-link-text"
-              href="http://wowhead.com/spell=299337"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/inv_azeriteareadenial.jpg"
-              />
-               
-              Focused Energy
-            </a>
-             - Minor Rank 
-            4
-          </label>
-          <div
-            className="value"
-          >
-            <svg
-              className="icon"
-              version="1.1"
-              viewBox="16 16 32 32"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M33.446,23.135c-0.89,0-1.612,0.722-1.612,1.612v8.049l-4.079,4.078c-0.63,0.629-0.63,1.65,0,2.28 c0.315,0.314,0.728,0.472,1.14,0.472c0.413,0,0.825-0.157,1.14-0.472l4.551-4.55c0.302-0.302,0.472-0.712,0.472-1.14v-8.716 C35.059,23.856,34.337,23.135,33.446,23.135z M32.111,16.668c-8.509,0-15.431,6.92-15.431,15.427 c0,8.506,6.922,15.426,15.431,15.426c8.509,0,15.431-6.92,15.431-15.426C47.542,23.588,40.62,16.668,32.111,16.668z M19.179,38.606c-1.025-2.031-1.545-4.222-1.545-6.511c0-7.981,6.495-14.473,14.477-14.473v2.097 c-6.826,0-12.379,5.552-12.379,12.376c0,1.959,0.444,3.831,1.32,5.566L19.179,38.606z M32.111,43.516 c-6.3,0-11.426-5.124-11.426-11.422c0-6.298,5.126-11.422,11.426-11.422s11.426,5.124,11.426,11.422 C43.537,38.392,38.411,43.516,32.111,43.516z"
-              />
-            </svg>
-             
-            10
-             
-            <small>
-              average Haste gained
-            </small>
-             
-            <br />
-            <svg
-              className="icon"
-              viewBox="10 10 80 80"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M50,86.4865c17.4361,0,31.6216-14.1855,31.6216-31.6216c0-16.6168-12.8865-30.2714-29.1892-31.5189v-4.9677h7.2973v-4.8649  H40.2703v4.8649h7.2973v4.9677c-16.3027,1.2475-29.1892,14.902-29.1892,31.5189C18.3784,72.3009,32.5639,86.4865,50,86.4865z M52.4324,28.2236c3.1101,0.2817,6.0664,1.0982,8.7798,2.356l-8.7798,15.2073V28.2236z M47.5676,28.2236v26.6412 c0,1.1008,0.7393,2.0647,1.8029,2.3497c0.209,0.0561,0.4205,0.0827,0.6295,0.0827c0.8533,0,1.6642-0.4504,2.1065-1.2162 l13.3146-23.0616c6.8507,4.8503,11.3357,12.8315,11.3357,21.8454c0,14.7537-12.0031,26.7567-26.7568,26.7567 s-26.7568-12.003-26.7568-26.7567C23.2432,40.9315,33.9501,29.4573,47.5676,28.2236z"
-              />
-            </svg>
-             
-            99.21
-            % 
-            <small>
-              uptime
-            </small>
-                        
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`Shadow Priest integration test: example log FlaskChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
@@ -4222,146 +3930,6 @@ Array [
     "stat": null,
   },
 ]
-`;
-
-exports[`Shadow Priest integration test: example log Gutripper matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad"
-      >
-        <label>
-          <a
-            className="spell-link-text"
-            href="http://wowhead.com/spell=266937"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Gutripper"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/ability_criticalstrike.jpg"
-            />
-          </a>
-           
-          <a
-            className="spell-link-text"
-            href="http://wowhead.com/spell=266937"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Gutripper
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          0.46 % / 27 DPS
-        </div>
-      </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Shadow Priest integration test: example log HeedMyCall matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad"
-      >
-        <label>
-          <a
-            className="spell-link-text"
-            href="http://wowhead.com/spell=263987"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Heed My Call"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_shaman_thunderstorm.jpg"
-            />
-          </a>
-           
-          <a
-            className="spell-link-text"
-            href="http://wowhead.com/spell=263987"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Heed My Call
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          0.27 % / 16 DPS
-        </div>
-      </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
-    </div>
-  </div>
-</div>
 `;
 
 exports[`Shadow Priest integration test: example log PotionChecker matches the suggestions snapshot 1`] = `
@@ -4436,86 +4004,6 @@ exports[`Shadow Priest integration test: example log ShadowWordPain matches the 
           <small>
             Uptime
           </small>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Shadow Priest integration test: example log TheCrucibleofFlame matches the statistic snapshot 1`] = `
-<div
-  category="ITEMS"
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "padding": 0,
-    }
-  }
->
-  <div
-    className="col-md-12"
-  >
-    <div
-      category="ITEMS"
-      className="panel statistic standard "
-      position={1000}
-    >
-      <div
-        className="panel-body"
-      >
-        <div
-          className="pad"
-        >
-          <label>
-            <a
-              className="spell-link-text"
-              href="http://wowhead.com/spell=299348"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/inv_radientazeritematrix.jpg"
-              />
-               
-              Ancient Flame
-            </a>
-             - Minor Rank 
-            3
-          </label>
-          <div
-            className="value"
-          >
-            <img
-              alt="Damage"
-              className="icon"
-              src="/img/sword.png"
-            />
-             
-            203
-             DPS
-             
-            <small>
-              3.39
-               % of total
-            </small>
-            <br />
-            <img
-              alt="Healing"
-              className="icon"
-              src="/img/healing.png"
-            />
-             
-            0
-             HPS
-             
-            <small>
-              0.00
-              % of total
-            </small>
-          </div>
         </div>
       </div>
     </div>
@@ -4932,79 +4420,6 @@ exports[`Shadow Priest integration test: example log VampiricTouch matches the s
           <small>
             Uptime
           </small>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Shadow Priest integration test: example log VitaChargedTitanshard matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    category="ITEMS"
-    className="panel statistic flexible "
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad"
-      >
-        <label>
-          <a
-            className="epicitem-link-text"
-            href="http://wowhead.com/item=174500&gems=168638&bonus=4824:1517:4786:6514"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Vita-Charged Titanshard"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_nature_lightningoverload.jpg"
-            />
-             
-            Vita-Charged Titanshard
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          <svg
-            className="icon"
-            viewBox="10 10 80 80"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M50,86.4865c17.4361,0,31.6216-14.1855,31.6216-31.6216c0-16.6168-12.8865-30.2714-29.1892-31.5189v-4.9677h7.2973v-4.8649  H40.2703v4.8649h7.2973v4.9677c-16.3027,1.2475-29.1892,14.902-29.1892,31.5189C18.3784,72.3009,32.5639,86.4865,50,86.4865z M52.4324,28.2236c3.1101,0.2817,6.0664,1.0982,8.7798,2.356l-8.7798,15.2073V28.2236z M47.5676,28.2236v26.6412 c0,1.1008,0.7393,2.0647,1.8029,2.3497c0.209,0.0561,0.4205,0.0827,0.6295,0.0827c0.8533,0,1.6642-0.4504,2.1065-1.2162 l13.3146-23.0616c6.8507,4.8503,11.3357,12.8315,11.3357,21.8454c0,14.7537-12.0031,26.7567-26.7568,26.7567 s-26.7568-12.003-26.7568-26.7567C23.2432,40.9315,33.9501,29.4573,47.5676,28.2236z"
-            />
-          </svg>
-           
-          13
-          % 
-          <small>
-            uptime
-          </small>
-          <br />
-          <svg
-            className="icon"
-            version="1.1"
-            viewBox="16 16 32 32"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M33.446,23.135c-0.89,0-1.612,0.722-1.612,1.612v8.049l-4.079,4.078c-0.63,0.629-0.63,1.65,0,2.28 c0.315,0.314,0.728,0.472,1.14,0.472c0.413,0,0.825-0.157,1.14-0.472l4.551-4.55c0.302-0.302,0.472-0.712,0.472-1.14v-8.716 C35.059,23.856,34.337,23.135,33.446,23.135z M32.111,16.668c-8.509,0-15.431,6.92-15.431,15.427 c0,8.506,6.922,15.426,15.431,15.426c8.509,0,15.431-6.92,15.431-15.426C47.542,23.588,40.62,16.668,32.111,16.668z M19.179,38.606c-1.025-2.031-1.545-4.222-1.545-6.511c0-7.981,6.495-14.473,14.477-14.473v2.097 c-6.826,0-12.379,5.552-12.379,12.376c0,1.959,0.444,3.831,1.32,5.566L19.179,38.606z M32.111,43.516 c-6.3,0-11.426-5.124-11.426-11.422c0-6.298,5.126-11.422,11.426-11.422s11.426,5.124,11.426,11.422 C43.537,38.392,38.411,43.516,32.111,43.516z"
-            />
-          </svg>
-           
-          26
-           
-          <small>
-            average Haste gained
-          </small>
-          <br />
         </div>
       </div>
     </div>
@@ -5582,7 +4997,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  100.00%
+                  101.91%
                    
                    
                 </div>
@@ -6019,7 +5434,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  9.38%
+                  7.71%
                    
                    
                 </div>
