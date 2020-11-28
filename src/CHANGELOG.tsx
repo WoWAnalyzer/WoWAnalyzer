@@ -9,6 +9,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 11, 28), 'Removed all BFA Modules', Sharrq),
   change(date(2020, 11, 19), 'Final Interface and Restoration Shaman localization, correction of typos', Amani),
   change(date(2020, 11, 7), 'Adjust our Soulbind, Covenant, Conduit scripts per latest raid testing', Putro),
   change(date(2020, 11, 4), 'Migrate Castle Nathria to TS', Guyius),
