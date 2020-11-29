@@ -12,6 +12,7 @@ import RimeEfficiency from './modules/features/RimeEfficiency';
 import HardHowlingBlastCasts from './modules/features/HardHowlingBlastCasts';
 import KillingMachineEfficiency from './modules/features/KillingMachine';
 import BreathOfSindragosa from './modules/talents/BreathOfSindragosa';
+import HypothermicPresence from './modules/talents/HypothermicPresence';
 
 import RuneTracker from './modules/features/RuneTracker';
 import RuneDetails from '../shared/RuneDetails';
@@ -40,6 +41,7 @@ class CombatLogParser extends CoreCombatLogParser {
     rimeEfficiency: RimeEfficiency,
     killingMachineEfficiency: KillingMachineEfficiency,
     breathofSindragoa: BreathOfSindragosa,
+    hypothermicPresence: HypothermicPresence,
 
     //resource tracker
     runeTracker: RuneTracker,
