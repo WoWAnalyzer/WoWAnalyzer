@@ -40,6 +40,9 @@ const spells: number[] = [
 
   //region Death Knight
   SPELLS.BREATH_OF_SINDRAGOSA_TALENT_DAMAGE_TICK.id,
+  SPELLS.RUNE_1.id,
+  SPELLS.RUNE_2.id,
+  SPELLS.RUNE_3.id,
   //endregion
 
   //region Hunter
