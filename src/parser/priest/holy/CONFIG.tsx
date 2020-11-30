@@ -24,7 +24,7 @@ const config: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: 'http://localhost:3000/report/dhPc7Z3VaHkfKrTj/1-Heroic+Wrathion+-+Kill+(3:39)/Canddoris/standard',
+  exampleReport: '/report/dhPc7Z3VaHkfKrTj/1-Heroic+Wrathion+-+Kill+(3:39)/Canddoris',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
