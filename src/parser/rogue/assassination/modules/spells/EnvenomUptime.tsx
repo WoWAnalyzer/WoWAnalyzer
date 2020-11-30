@@ -21,7 +21,7 @@ class EnvenomUptime extends Analyzer {
         category={STATISTIC_CATEGORY.GENERAL}
       >
         <BoringValueText label={<><SpellIcon id={SPELLS.ENVENOM.id} /> Envenom Uptime</>}>
-          {formatPercentage(this.percentUptime)} %
+          {formatPercentage(this.percentUptime)}%
         </BoringValueText>
       </Statistic>
     );

@@ -47,7 +47,7 @@ class RuptureUptime extends Analyzer {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.GENERAL}>
         <BoringValueText label={<><SpellIcon id={SPELLS.RUPTURE.id} /> Rupture Uptime</>}>
-          {formatPercentage(this.percentUptime)} %
+          {formatPercentage(this.percentUptime)}%
         </BoringValueText>
       </Statistic>
     );
