@@ -36,6 +36,9 @@ class HolyWordBase extends Analyzer {
   holyWordHealingDuringApotheosis = 0;
   holyWordOverhealingDuringApotheosis = 0;
 
+  // Legendary https://www.wowhead.com/spell=336314/harmonious-apparatus
+  harmoniousApparatusActive = false;
+
   get baseCooldownReduction() {
     let totalCDR = 0;
 
@@ -116,6 +119,10 @@ class HolyWordBase extends Analyzer {
     // Set up proper serendipity reduction values
     if (this.selectedCombatant.hasTalent(SPELLS.LIGHT_OF_THE_NAARU_TALENT.id)) {
       this.lightOfTheNaruActive = true;
+    }
+
+    if (this.selectedCombatant.hasLegendaryByBonusID(SPELLS.HARMONIOUS_APPARATUS.bonusID)) {
+      this.harmoniousApparatusActive = true
     }
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
