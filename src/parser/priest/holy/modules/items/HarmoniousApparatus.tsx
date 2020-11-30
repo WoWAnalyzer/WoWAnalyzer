@@ -1,30 +1,14 @@
-import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import React from 'react';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import SPELLS from 'common/SPELLS';
-import Events, { CastEvent, DamageEvent, SummonEvent } from 'parser/core/Events';
-import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
-import SpellLink from 'common/SpellLink';
-import { DIRE_COMMAND_PROC_CHANCE } from 'parser/hunter/beastmastery/constants';
-import ItemDamageDone from 'interface/ItemDamageDone';
-import Haste from 'interface/icons/Haste';
-import { formatPercentage } from 'common/format';
-import { DIRE_BEAST_HASTE_PERCENT } from 'parser/hunter/shared/constants';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import HolyWordSanctify from 'parser/priest/holy/modules/spells/holyword/HolyWordSanctify';
 import HolyWordSerenity from 'parser/priest/holy/modules/spells/holyword/HolyWordSerenity';
 import HolyWordChastise from 'parser/priest/holy/modules/spells/holyword/HolyWordChastise';
 
-/**
- * TODO Find a log with both Dire Command and Dire Beast talent and account for them using the same spell for buff
- * Kill Command has a 20% chance to also summon a Dire Beast to attack your target.
- *
- * Example log:
- *
- */
 class HarmoniousApparatus extends Analyzer {
   static dependencies = {
     sanctify: HolyWordSanctify,

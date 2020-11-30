@@ -7,10 +7,9 @@ import HolyWordSerenity from 'parser/priest/holy/modules/spells/holyword/HolyWor
 import SPELLS from 'common/SPELLS';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import BoringValueText from 'interface/statistics/components/BoringValueText';
 
 class HolyWordsReductionBySpell extends Analyzer {
   lightOfTheNaaruActive = false;
