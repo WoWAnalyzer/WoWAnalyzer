@@ -160,6 +160,15 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.9,
         },
       },
+      {
+        spell: SPELLS.CAMOUFLAGE_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 60,
+        enabled: combatant.hasTalent(SPELLS.CAMOUFLAGE_TALENT.id),
+        gcd: {
+          base: 1500,
+        },
+      },
       //endregion
 
       //region Defensives

@@ -393,6 +393,11 @@ const spells: SpellList = {
   },
 
   // Shared:
+  RUNEFORGING: {
+    id: 53428,
+    name: 'Runeforging',
+    icon: 'spell_deathknight_frozenruneweapon'
+  },
   //Rune of the Fallen Crusader Proc
   UNHOLY_STRENGTH_BUFF: {
     id: 53365,

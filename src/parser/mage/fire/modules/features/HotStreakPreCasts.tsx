@@ -4,7 +4,8 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import Events, { CastEvent, DamageEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
+import Events, { DamageEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
+import EventHistory from 'parser/shared/modules/EventHistory';
 import { COMBUSTION_END_BUFFER, FIRESTARTER_THRESHOLD, SEARING_TOUCH_THRESHOLD, FIRE_DIRECT_DAMAGE_SPELLS } from 'parser/mage/shared/constants';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
@@ -14,16 +15,18 @@ const PROC_BUFFER = 200;
 const debug = false;
 
 class HotStreakPreCasts extends Analyzer {
+  static dependencies = {
+    eventHistory: EventHistory,
+  }
+  protected eventHistory!: EventHistory;
+
   hasPyroclasm: boolean;
   hasFirestarter: boolean;
   hasSearingTouch: boolean;
-  lastCastTimestamp = 0;
-  hotStreakRemoved = 0;
   pyroclasmProcRemoved = 0;
   castedBeforeHotStreak = 0;
   noCastBeforeHotStreak = 0;
   healthPercent = 1;
-  castTimestamp = 0;
   combustionEnded = 0;
 
   constructor(options: Options) {
@@ -31,19 +34,12 @@ class HotStreakPreCasts extends Analyzer {
     this.hasPyroclasm = this.selectedCombatant.hasTalent(SPELLS.PYROCLASM_TALENT.id);
     this.hasFirestarter = this.selectedCombatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id);
     this.hasSearingTouch = this.selectedCombatant.hasTalent(SPELLS.SEARING_TOUCH_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FIREBALL), this.getCastTimestamp);
     if (this.hasFirestarter || this.hasSearingTouch) {this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(FIRE_DIRECT_DAMAGE_SPELLS), this.checkHealthPercent);}
-    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.HOT_STREAK), this.onHotStreakRemoved);
     this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF), this.onPyroclasmRemoved);
     this.addEventListener(Events.removebuffstack.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF), this.onPyroclasmRemoved);
     this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.HOT_STREAK), this.checkForHotStreakPreCasts);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION), this.onCombustionEnd);
 
-  }
-
-  //When the player casts Fireball, get the timestamp. This timestamp is used for determining if the spell was cast before using Hot Streak
-  getCastTimestamp(event: CastEvent) {
-    this.castTimestamp = event.timestamp;
   }
 
   //If the player has the Searing Touch or Firestarter talents, then we need to get the health percentage on damage events so we can know whether we are in the Firestarter or Searing Touch execute windows
@@ -55,11 +51,6 @@ class HotStreakPreCasts extends Analyzer {
 
   onCombustionEnd(event: RemoveBuffEvent) {
     this.combustionEnded = event.timestamp;
-  }
-
-  //Get the timestamp that Hot Streak was removed. This is used for comparing the cast Timestamp to see if there was a hard cast immediately before Hot Streak was removed (and therefore they pre-casted before Hot Streak)
-  onHotStreakRemoved(event: RemoveBuffEvent) {
-    this.hotStreakRemoved = event.timestamp;
   }
 
   //Get the timestamp that Pyroclasm was removed. Because using Hot Streak involves casting Pyroblast, it isnt possible to tell if they hard casted Pyroblast immediately before using their Hot Streak Pyroblast.
@@ -76,7 +67,8 @@ class HotStreakPreCasts extends Analyzer {
       return;
     }
 
-    if (this.hotStreakRemoved - PROC_BUFFER < this.castTimestamp || this.hotStreakRemoved - PROC_BUFFER < this.pyroclasmProcRemoved) {
+    const lastFireballCast = this.eventHistory.last(1, PROC_BUFFER, Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FIREBALL));
+    if (lastFireballCast.length > 0 || event.timestamp - PROC_BUFFER < this.pyroclasmProcRemoved) {
       this.castedBeforeHotStreak += 1;
     } else {
       this.noCastBeforeHotStreak += 1;

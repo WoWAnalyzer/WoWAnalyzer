@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
@@ -8,7 +8,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import React from 'react';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
 
 /**
  * Kill Command critical hits reduce the cooldown of Aspect of the Wild by 1.0 sec.
@@ -60,11 +60,11 @@ class FerociousAppetite extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spell={SPELLS.FEROCIOUS_APPETITE_CONDUIT}>
+        <ConduitSpellText spell={SPELLS.FEROCIOUS_APPETITE_CONDUIT} rank={this.conduitRank}>
           <>
             {this.effectiveCDR}/{this.effectiveCDR + this.wastedCDR} <small>effective cooldown reduction</small>
           </>
-        </BoringSpellValueText>
+        </ConduitSpellText>
       </Statistic>
     );
   }

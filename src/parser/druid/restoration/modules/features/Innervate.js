@@ -1,8 +1,10 @@
 import React from 'react';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatNumber } from 'common/format';
-import SpellIcon from 'common/SpellIcon';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
 import SpellLink from 'common/SpellLink';
+import SpellIcon from 'common/SpellIcon';
+import BoringValue from 'interface/statistics/components/BoringValueText';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -31,7 +33,7 @@ class Innervate extends Analyzer {
   lastInnervateTimestamp = 0;
   depleted = false;
 
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.INNERVATE), this.onApplyBuff);
     this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.INNERVATE), this.onRemoveBuff);
@@ -43,6 +45,7 @@ class Innervate extends Analyzer {
     this.innervateCount += 1;
     this.lastInnervateTimestamp = event.timestamp;
   }
+
   onRemoveBuff(event) {
     this.depleted = false;
   }
@@ -162,7 +165,7 @@ class Innervate extends Analyzer {
   }
 
   suggestions(when) {
-    if(this.innervateCount === 0) {
+    if (this.innervateCount === 0) {
       return;
     }
 
@@ -181,11 +184,10 @@ class Innervate extends Analyzer {
   }
 
   statistic() {
-    return(
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.INNERVATE.id} />}
-        value={`${formatNumber(this.averageManaSaved)} mana`}
-        label="Mana saved per Innervate"
+    return (
+      <Statistic
+        position={STATISTIC_ORDER.CORE(14)}
+        size="flexible"
         tooltip={(
           <>
             During your {this.innervateCount} Innervates you cast:
@@ -201,11 +203,15 @@ class Innervate extends Analyzer {
             </ul>
           </>
         )}
-      />
+      >
+        <BoringValue label={<><SpellIcon id={SPELLS.INNERVATE.id} /> Mana saved per Innervate</>} >
+          <>
+            {formatNumber(this.averageManaSaved)}
+          </>
+        </BoringValue>
+      </Statistic>
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(14);
-
 }
 
 export default Innervate;

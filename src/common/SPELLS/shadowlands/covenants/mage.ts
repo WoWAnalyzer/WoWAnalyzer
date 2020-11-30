@@ -29,6 +29,11 @@ const covenants: SpellList = {
     name: 'Shifting Power',
     icon: 'ability_ardenweald_mage',
   },
+  SHIFTING_POWER_TICK: {
+    id: 325130,
+    name: 'Shifting Power',
+    icon: 'ability_ardenweald_mage',
+  },
 
 };
 export default covenants;

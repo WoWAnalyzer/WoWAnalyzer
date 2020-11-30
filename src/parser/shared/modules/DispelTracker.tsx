@@ -46,7 +46,7 @@ class DispelTracker extends Analyzer {
     }
 
     return (
-      <Statistic position={STATISTIC_ORDER.OPTIONAL(1)}>
+      <Statistic position={STATISTIC_ORDER.OPTIONAL(1)} size='flexible'>
         <div className="pad">
           <Trans id="shared.dispelTracker.label" render="label">
             Dispels

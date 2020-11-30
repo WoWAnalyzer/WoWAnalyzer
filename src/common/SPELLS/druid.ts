@@ -55,9 +55,9 @@ const spells: SpellList = {
     id: 164862,
     name: 'Flap',
     icon: 'inv_feather_12',
-  },  
+  },
   // the action of wild charging
-  WILD_CHARGE_TALENT: { 
+  WILD_CHARGE_TALENT: {
     id: 102401,
     name: 'Wild Charge',
     icon: 'spell_druid_wildcharge'
@@ -734,7 +734,7 @@ const spells: SpellList = {
     icon: 'spell_druid_thrash',
   },
   BERSERK: {
-    id: 106951,
+    id: 343216,
     name: 'Berserk',
     icon: 'ability_druid_berserk',
   },

@@ -2,10 +2,12 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import UptimeIcon from 'interface/icons/Uptime';
+import Statistic from 'interface/statistics/Statistic';
 import { TooltipElement } from 'common/Tooltip';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
@@ -47,12 +49,16 @@ class RipUptime extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.RIP.id} />}
-        value={`${formatPercentage(this.uptime)}%`}
-        label="Rip uptime"
+      <Statistic
         position={STATISTIC_ORDER.CORE(4)}
-      />
+        size="flexible"
+      >
+        <BoringSpellValueText spell={SPELLS.RIP}>
+          <>
+            <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

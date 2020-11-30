@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatNumber, formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import SPELLS from 'common/SPELLS';

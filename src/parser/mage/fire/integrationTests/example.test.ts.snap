@@ -17,7 +17,7 @@ exports[`Fire Mage integration test: example log Ashjrakamas matches the statist
       >
         <label>
           <a
-            className="legendary"
+            className="legendaryitem-link-text"
             href="http://wowhead.com/item=169223"
             rel="noopener noreferrer"
             target="_blank"
@@ -31,7 +31,7 @@ exports[`Fire Mage integration test: example log Ashjrakamas matches the statist
           </a>
            
           <a
-            className="legendary"
+            className="legendaryitem-link-text"
             href="http://wowhead.com/item=169223"
             rel="noopener noreferrer"
             target="_blank"
@@ -95,7 +95,7 @@ exports[`Fire Mage integration test: example log AzsharasFontofPower matches the
       >
         <label>
           <a
-            className="unknown"
+            className="unknownitem-link-text"
             href="http://wowhead.com/item=169314"
             rel="noopener noreferrer"
             target="_blank"
@@ -109,7 +109,7 @@ exports[`Fire Mage integration test: example log AzsharasFontofPower matches the
           </a>
            
           <a
-            className="unknown"
+            className="unknownitem-link-text"
             href="http://wowhead.com/item=169314"
             rel="noopener noreferrer"
             target="_blank"
@@ -176,7 +176,7 @@ exports[`Fire Mage integration test: example log BalefireBranch matches the stat
       >
         <label>
           <a
-            className="unknown"
+            className="unknownitem-link-text"
             href="http://wowhead.com/item=159630"
             rel="noopener noreferrer"
             target="_blank"
@@ -190,7 +190,7 @@ exports[`Fire Mage integration test: example log BalefireBranch matches the stat
           </a>
            
           <a
-            className="unknown"
+            className="unknownitem-link-text"
             href="http://wowhead.com/item=159630"
             rel="noopener noreferrer"
             target="_blank"
@@ -259,6 +259,7 @@ exports[`Fire Mage integration test: example log BlightborneInfusion matches the
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=273823"
             rel="noopener noreferrer"
             target="_blank"
@@ -271,6 +272,7 @@ exports[`Fire Mage integration test: example log BlightborneInfusion matches the
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=273823"
             rel="noopener noreferrer"
             target="_blank"
@@ -498,6 +500,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=133"
                 rel="noopener noreferrer"
                 style={
@@ -583,6 +586,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=116"
                 rel="noopener noreferrer"
                 style={
@@ -668,6 +672,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=11366"
                 rel="noopener noreferrer"
                 style={
@@ -753,6 +758,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=2948"
                 rel="noopener noreferrer"
                 style={
@@ -838,6 +844,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=257541"
                 rel="noopener noreferrer"
                 style={
@@ -937,6 +944,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=108853"
                 rel="noopener noreferrer"
                 style={
@@ -1034,6 +1042,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=153561"
                 rel="noopener noreferrer"
                 style={
@@ -1180,6 +1189,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=1449"
                 rel="noopener noreferrer"
                 style={
@@ -1265,6 +1275,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=31661"
                 rel="noopener noreferrer"
                 style={
@@ -1362,6 +1373,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=2120"
                 rel="noopener noreferrer"
                 style={
@@ -1496,6 +1508,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=268999"
                 rel="noopener noreferrer"
                 style={
@@ -1593,6 +1606,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=296971"
                 rel="noopener noreferrer"
                 style={
@@ -1739,6 +1753,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=80353"
                 rel="noopener noreferrer"
                 style={
@@ -1836,6 +1851,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=190319"
                 rel="noopener noreferrer"
                 style={
@@ -1933,6 +1949,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=116011"
                 rel="noopener noreferrer"
                 style={
@@ -2079,6 +2096,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=235313"
                 rel="noopener noreferrer"
                 style={
@@ -2176,6 +2194,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=45438"
                 rel="noopener noreferrer"
                 style={
@@ -2273,6 +2292,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=55342"
                 rel="noopener noreferrer"
                 style={
@@ -2419,6 +2439,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=1459"
                 rel="noopener noreferrer"
                 style={
@@ -2504,6 +2525,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=122"
                 rel="noopener noreferrer"
                 style={
@@ -2601,6 +2623,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=212653"
                 rel="noopener noreferrer"
                 style={
@@ -2698,6 +2721,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=2139"
                 rel="noopener noreferrer"
                 style={
@@ -2795,6 +2819,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=475"
                 rel="noopener noreferrer"
                 style={
@@ -2892,6 +2917,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=130"
                 rel="noopener noreferrer"
                 style={
@@ -2977,6 +3003,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=30449"
                 rel="noopener noreferrer"
                 style={
@@ -3062,6 +3089,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=321358"
                 rel="noopener noreferrer"
                 style={
@@ -3147,6 +3175,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=342247"
                 rel="noopener noreferrer"
                 style={
@@ -3232,6 +3261,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=66"
                 rel="noopener noreferrer"
                 style={
@@ -3329,6 +3359,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=118"
                 rel="noopener noreferrer"
                 style={
@@ -3463,6 +3494,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171267"
                 rel="noopener noreferrer"
                 style={
@@ -3560,6 +3592,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171273"
                 rel="noopener noreferrer"
                 style={
@@ -3882,6 +3915,7 @@ exports[`Fire Mage integration test: example log ElementalBarrier matches the st
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=235313"
             rel="noopener noreferrer"
             target="_blank"
@@ -3894,6 +3928,7 @@ exports[`Fire Mage integration test: example log ElementalBarrier matches the st
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=235313"
             rel="noopener noreferrer"
             target="_blank"
@@ -3962,6 +3997,7 @@ exports[`Fire Mage integration test: example log ElementalWhirl matches the stat
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=263984"
             rel="noopener noreferrer"
             target="_blank"
@@ -3974,6 +4010,7 @@ exports[`Fire Mage integration test: example log ElementalWhirl matches the stat
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=263984"
             rel="noopener noreferrer"
             target="_blank"
@@ -4371,6 +4408,7 @@ exports[`Fire Mage integration test: example log EssenceOfTheFocusingIris matche
         >
           <label>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=299337"
               rel="noopener noreferrer"
               target="_blank"
@@ -4471,6 +4509,7 @@ exports[`Fire Mage integration test: example log HeatingUp matches the statistic
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=48107"
             rel="noopener noreferrer"
             target="_blank"
@@ -4483,6 +4522,7 @@ exports[`Fire Mage integration test: example log HeatingUp matches the statistic
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=48107"
             rel="noopener noreferrer"
             target="_blank"
@@ -4494,6 +4534,7 @@ exports[`Fire Mage integration test: example log HeatingUp matches the statistic
           className="value"
         >
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=108853"
             rel="noopener noreferrer"
             target="_blank"
@@ -4512,6 +4553,7 @@ exports[`Fire Mage integration test: example log HeatingUp matches the statistic
           </small>
           <br />
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=257541"
             rel="noopener noreferrer"
             target="_blank"
@@ -4603,6 +4645,7 @@ exports[`Fire Mage integration test: example log HotStreak matches the statistic
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=48108"
             rel="noopener noreferrer"
             target="_blank"
@@ -4615,6 +4658,7 @@ exports[`Fire Mage integration test: example log HotStreak matches the statistic
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=48108"
             rel="noopener noreferrer"
             target="_blank"
@@ -4762,6 +4806,7 @@ exports[`Fire Mage integration test: example log Meteor matches the statistic sn
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=153561"
             rel="noopener noreferrer"
             target="_blank"
@@ -4774,6 +4819,7 @@ exports[`Fire Mage integration test: example log Meteor matches the statistic sn
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=153561"
             rel="noopener noreferrer"
             target="_blank"
@@ -4878,6 +4924,7 @@ exports[`Fire Mage integration test: example log MirrorImage matches the statist
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=55342"
             rel="noopener noreferrer"
             target="_blank"
@@ -4890,6 +4937,7 @@ exports[`Fire Mage integration test: example log MirrorImage matches the statist
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=55342"
             rel="noopener noreferrer"
             target="_blank"
@@ -4972,6 +5020,7 @@ exports[`Fire Mage integration test: example log RuneOfPower matches the statist
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=116011"
             rel="noopener noreferrer"
             target="_blank"
@@ -4984,6 +5033,7 @@ exports[`Fire Mage integration test: example log RuneOfPower matches the statist
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=116011"
             rel="noopener noreferrer"
             target="_blank"
@@ -5045,6 +5095,7 @@ exports[`Fire Mage integration test: example log SearingTouch matches the statis
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=269644"
             rel="noopener noreferrer"
             target="_blank"
@@ -5057,6 +5108,7 @@ exports[`Fire Mage integration test: example log SearingTouch matches the statis
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=269644"
             rel="noopener noreferrer"
             target="_blank"
@@ -5122,6 +5174,7 @@ exports[`Fire Mage integration test: example log TheCrucibleofFlame matches the 
         >
           <label>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=299348"
               rel="noopener noreferrer"
               target="_blank"
@@ -5565,6 +5618,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=190319"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5637,6 +5691,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=108853"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5709,6 +5764,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=257541"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5781,6 +5837,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=55342"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5853,6 +5910,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=116011"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5925,6 +5983,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=153561"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -6076,6 +6135,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
           >
             Using 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=190319"
               rel="noopener noreferrer"
               target="_blank"
@@ -7027,7 +7087,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#ffc84a",
-                  "width": "63.07152323529412%",
+                  "width": "64.78930373529413%",
                 }
               }
             />
@@ -7262,7 +7322,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "22.90374%",
+                        "width": "29.774862000000002%",
                       }
                     }
                   />

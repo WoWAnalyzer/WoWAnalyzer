@@ -2,11 +2,15 @@ import SPELLS from 'common/SPELLS';
 
 //region Spells
 /** Rapid Fire */
-//Rapid Fire ticks 10 times per cast baseline
-export const RAPID_FIRE_TICKS_PER_CAST = 10;
+//Rapid Fire ticks 7 times per cast baseline
+export const RAPID_FIRE_TICKS_PER_CAST = 7;
+//Rapid Fire generates 1 focus per hit
+export const RAPID_FIRE_FOCUS_PER_TICK = 1;
 /** Aimed Shot */
 //Aimed Shot has a baseline casttime of 2.5s
 export const AIMED_SHOT_BASELINE_CAST_TIME = 2500;
+//Aimed Shot costs 35 focus baseline
+export const AIMED_SHOT_FOCUS_COST = 35;
 /** Trueshot */
 //Trueshot makes Aimed Shot recharge 225% faster despite what its tooltip says
 export const TRUESHOT_AIMED_SHOT_RECHARGE_INCREASE = 2.25;
@@ -16,6 +20,8 @@ export const TRUESHOT_RAPID_FIRE_RECHARGE_INCREASE = 2.4;
 export const TRUESHOT_AIMED_SHOT_CAST_TIME_SPEED_UP = 0.5;
 //Trueshot lasts 15 seconds by default
 export const TRUESHOT_DURATION_BASELINE = 15000;
+//Trueshot increases focus regen by 50%
+export const TRUESHOT_FOCUS_INCREASE = 0.5;
 /** Lone Wolf */
 //Lone Wolf increases damage done by up to 10%
 export const MAX_LONE_WOLF_MODIFIER = 0.10;
@@ -53,6 +59,9 @@ export const ARCANE_SHOT_MAX_TRAVEL_TIME = 500;
 /** Trick Shots */
 //Trick Shots baseline does 50% damage to secondary targets
 export const TRICK_SHOTS_BASELINE_DAMAGE = 0.5;
+/** Steady Shot */
+//Steady Shot regenerates 10 focus baseline on cast
+export const STEADY_SHOT_FOCUS_REGEN = 10;
 //endregion
 
 //region Talents
@@ -140,4 +149,20 @@ export const POWERFUL_PRECISION_DAMAGE_INCREASE = [0, 0.05, 0.06, 0.07, 0.08, 0.
 /** Sharpshooter's Focus */
 //With Sharpshooter's Focus, Trueshot lasts x% longer
 export const SHARPSHOOTERS_FOCUS_INCREASE_TRUESHOT_DURATION = [0, 0.20, 0.22, 0.24, 0.27, 0.29, 0.31, 0.33, 0.36, 0.38, 0.40, 0.42, 0.44, 0.46, 0.48, 0.50];
+//endregion
+
+//region Legendaries
+/** Surging Shots */
+//Surging Shots increases the damage of Rapid Fire by 25%
+export const SURGING_SHOTS_DAMAGE_INCREASE = 0.25;
+//Surging Shots gives 15% chance for Aimed Shot to reset the cooldown of Rapid Fire
+export const SURGING_SHOTS_RESET_CHANCE = 0.15;
+/** Eagletalon's True Focus */
+//Eagletalon's True Focus makes Trueshot reduces focus cost of all abilities by 50%
+export const EAGLETALONS_TRUE_FOCUS_COST_REDUCTION = 0.5;
+/** Secrets of the Unblinking Vigil */
+//Secrets of the Unblinking Vigil has 50% chance to proc on gaining Trick Shots
+export const SECRETS_UNBLINKING_PROC_CHANCE = 0.5;
+//The Secrets of the Unblinking Vigil buff makes Aimed Shot cost 0 focus (100% reduction).
+export const SECRETS_UNBLINKING_FOCUS_COST_REDUCTION = 1;
 //endregion

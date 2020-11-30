@@ -1,0 +1,80 @@
+import React from 'react';
+
+import traitIdMap from 'common/TraitIdMap';
+import getAverageItemLevel from 'game/getAverageItemLevel';
+import Combatant, { Essence } from 'parser/core/Combatant';
+import { Item, Trait } from "parser/core/Events";
+
+import './PlayerInfo.scss';
+import Azerite, {AzeriteByItemSlot} from './Azerite';
+import { default as EssenceComponent } from './Essence';
+import Enchants from './Enchants';
+import Gear from './Gear';
+import Gems from './Gems';
+import PlayerGearHeader from './PlayerGearHeader';
+import Talents from './Talents';
+
+function _parseTalents(talents: TalentsType[]): number[] {
+  return talents.reduce((talentsByRow: number[], talent: TalentsType) => talentsByRow.concat(talent.id), []);
+}
+
+function _parseTraits(traits: Trait[]) {
+  const traitsBySlot: AzeriteByItemSlot = {0: [], 2: [], 4: []};
+  traits.forEach(({ traitID, slot }) => {
+    const spellId = traitIdMap[traitID];
+    if(spellId === undefined || !traitsBySlot[slot]) {
+      return;
+    }
+    traitsBySlot[slot].push(spellId);
+  });
+
+  return traitsBySlot;
+}
+function _parseGear(gear: Item[]) {
+  return gear.reduce((gearItemsBySlotId: Item[], item: Item) => gearItemsBySlotId.concat(item), []);
+}
+
+interface TalentsType {
+  icon: string;
+  id: number;
+}
+interface Props {
+  combatant: Combatant;
+}
+
+const PlayerInfo = ({combatant}: Props) => {
+  const gear: Item[] = _parseGear(combatant._combatantInfo.gear);
+  const traits: AzeriteByItemSlot = _parseTraits(combatant._combatantInfo.artifact as Trait[]);
+  const talents: number[] = _parseTalents(combatant._combatantInfo.talents);
+  const essences: Essence[] = combatant._combatantInfo.heartOfAzeroth as Trait[];
+
+  const averageIlvl = getAverageItemLevel(gear);
+
+    const background = combatant.characterProfile && combatant.characterProfile.thumbnail ? `https://render-${combatant.characterProfile.region}.worldofwarcraft.com/character/${combatant.characterProfile.thumbnail.replace('avatar', 'main')}` : '/img/fallback-character.jpg';
+
+    return (
+      <div className="player-info">
+        <div className="player-background" style={{ backgroundImage: `url(${background})` }}>
+          <div className="player-gear">
+            <PlayerGearHeader player={combatant} averageIlvl={averageIlvl} />
+            <Gear gear={gear} />
+            <Gems gear={gear} />
+            <Enchants gear={gear} />
+          </div>
+        </div>
+        <div className="player-details">
+          <div className="player-details-talents">
+            <Talents talents={talents} />
+          </div>
+          <div className="player-details-traits">
+            <Azerite azerite={traits} />
+          </div>
+          <div className="player-details-essences">
+            <EssenceComponent essences={essences} />
+          </div>
+        </div>
+      </div>
+    );
+}
+
+export default PlayerInfo;

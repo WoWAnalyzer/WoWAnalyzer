@@ -8,6 +8,7 @@ import ITEMS from 'common/ITEMS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 11, 13),  <>Implementation of <SpellLink id={SPELLS.SHINING_RADIANCE.id} />.</>, [Oratio]),
   change(date(2020, 10, 18), 'Converted legacy listeners to new event filters', Zeboot),
   change(date(2020, 10, 10), <>Implementation of <SpellLink id={SPELLS.BOON_OF_THE_ASCENDED.id} />.</>, [Ogofo]),
   change(date(2020, 10, 3), <>Update <SpellLink id={SPELLS.POWER_WORD_SOLACE_TALENT.id} /> cooldown.</>, [Reglitch]),

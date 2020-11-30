@@ -6,23 +6,30 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemHealingDone from 'interface/ItemHealingDone';
+import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
+import { HEAVY_RAINFALL_RANKS } from 'parser/shaman/restoration/constants';
 
 /**
  * Whenever you cast healing tide totem you gain a buff that increases your healing rain healing by x% for 20 seconds
+ * https://www.warcraftlogs.com/reports/8HtnKrqLJ7y9VFQ6#fight=21&type=summary&source=88
  */
 class HeavyRainfall extends Analyzer {
+  conduitRank = 0;
   healingBoost = 0;
   healing = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = false;//TODO actually check if conduit is active
-    this.healingBoost = 1.6;//TODO Get from combat data when they EXPORT IT >:c
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.HEAVY_RAINFALL.id);
+    if (!this.conduitRank) {
+      this.active = false;
+      return;
+    }
+    this.healingBoost = HEAVY_RAINFALL_RANKS[this.conduitRank] / 100;
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_HEAL), this.normalizeBoost);
   }
@@ -40,9 +47,9 @@ class HeavyRainfall extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spell={SPELLS.HEAVY_RAINFALL}>
+        <ConduitSpellText spell={SPELLS.HEAVY_RAINFALL} rank={this.conduitRank}>
           <ItemHealingDone amount={this.healing} /><br />
-        </BoringSpellValueText>
+        </ConduitSpellText>
       </Statistic>
     );
   }

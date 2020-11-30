@@ -2,7 +2,6 @@ import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
 import Events from 'parser/core/Events';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
 import ExecuteHelper from 'parser/shared/ExecuteHelper';
 
 const MINUTE = 600000;
@@ -17,7 +16,7 @@ class TouchOfDeath extends ExecuteHelper {
   static modifiesDamage = false;
 
   static dependencies = {
-    spellUsable: SpellUsable,
+    ...ExecuteHelper.dependencies,
     abilities: Abilities,
   };
 

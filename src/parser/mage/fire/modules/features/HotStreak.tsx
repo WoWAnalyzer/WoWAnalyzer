@@ -7,39 +7,36 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import Events, { CastEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import EventHistory from 'parser/shared/modules/EventHistory';
 import { MS_BUFFER_250 } from 'parser/mage/shared/constants';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import HotStreakPreCasts from './HotStreakPreCasts';
 
+
 const debug = false;
 
 class HotStreak extends Analyzer {
   static dependencies = {
     hotStreakPreCasts: HotStreakPreCasts,
+    eventHistory: EventHistory,
   };
   protected hotStreakPreCasts!: HotStreakPreCasts;
+  protected eventHistory!: EventHistory;
 
   hasPyroclasm: boolean;
   totalHotStreakProcs = 0;
   expiredProcs = 0;
   hotStreakRemoved = 0;
-  castTimestamp = 0;
 
   constructor(options: Options) {
     super(options);
     this.hasPyroclasm = this.selectedCombatant.hasTalent(SPELLS.PYROCLASM_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.PYROBLAST,SPELLS.FLAMESTRIKE]), this.onHotStreakSpenderCast);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.HOT_STREAK), this.onHotStreakApplied);
     this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.HOT_STREAK), this.checkForExpiredProcs);
 
-  }
-
-  //When Pyroblast is cast, get the timestamp. This is used for determining if pyroblast was cast immediately before Hot Streak was removed.
-  onHotStreakSpenderCast(event: CastEvent) {
-    this.castTimestamp = event.timestamp;
   }
 
   //Count the number of times Hot Streak was applied
@@ -49,7 +46,8 @@ class HotStreak extends Analyzer {
 
   //Checks to see if there was a Hot Streak spender cast immediately before Hot Streak was removed. If there was not, then it must have expired.
   checkForExpiredProcs(event: RemoveBuffEvent) {
-    if (!this.castTimestamp || this.castTimestamp + MS_BUFFER_250 < event.timestamp) {
+    const lastCastEvent = this.eventHistory.last(1, MS_BUFFER_250, Events.cast.by(SELECTED_PLAYER).spell([SPELLS.PYROBLAST,SPELLS.FLAMESTRIKE]))
+    if (lastCastEvent.length === 0) {
       debug && this.log("Hot Streak proc expired");
       this.expiredProcs += 1;
     }

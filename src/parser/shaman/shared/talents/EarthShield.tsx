@@ -18,8 +18,9 @@ import Combatants from 'parser/shared/modules/Combatants';
 import { Trans } from '@lingui/macro';
 
 import { HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD } from 'parser/shaman/shared/constants';
+import { EMBRACE_OF_EARTH_RANKS } from 'parser/shaman/restoration/constants';
 
-const EARTHSHIELD_HEALING_INCREASE = 0.20; // TODO add conduit
+export const EARTHSHIELD_HEALING_INCREASE = 0.20;
 
 class EarthShield extends Analyzer {
   static dependencies = {
@@ -30,6 +31,7 @@ class EarthShield extends Analyzer {
 
   healing = 0;
   buffHealing = 0;
+  earthShieldHealingIncrease = EARTHSHIELD_HEALING_INCREASE;
   category = STATISTIC_CATEGORY.TALENTS;
 
   constructor(options: Options) {
@@ -39,6 +41,11 @@ class EarthShield extends Analyzer {
 
     if (isRsham) {
       this.category = STATISTIC_CATEGORY.GENERAL;
+    }
+
+    const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.EMBRACE_OF_EARTH.id);
+    if (conduitRank) {
+      this.earthShieldHealingIncrease += EMBRACE_OF_EARTH_RANKS[conduitRank] / 100;
     }
 
     // event listener for direct heals when taking damage with earth shield
@@ -76,7 +83,7 @@ class EarthShield extends Analyzer {
   onEarthShieldAmpSpellHeal(event: HealEvent) {
     const combatant = this.combatants.getEntity(event);
     if (combatant && combatant.hasBuff(SPELLS.EARTH_SHIELD.id, event.timestamp)) {
-      this.buffHealing += calculateEffectiveHealing(event, EARTHSHIELD_HEALING_INCREASE);
+      this.buffHealing += calculateEffectiveHealing(event, this.earthShieldHealingIncrease);
     }
   }
 

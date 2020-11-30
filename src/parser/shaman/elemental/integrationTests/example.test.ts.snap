@@ -17,6 +17,7 @@ exports[`Elemental Shaman integration test: example log Aftershock matches the s
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=273221"
             rel="noopener noreferrer"
             target="_blank"
@@ -29,6 +30,7 @@ exports[`Elemental Shaman integration test: example log Aftershock matches the s
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=273221"
             rel="noopener noreferrer"
             target="_blank"
@@ -197,6 +199,7 @@ exports[`Elemental Shaman integration test: example log AstralShift matches the 
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=108271"
             rel="noopener noreferrer"
             target="_blank"
@@ -427,6 +430,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=51505"
                 rel="noopener noreferrer"
                 style={
@@ -524,6 +528,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=188196"
                 rel="noopener noreferrer"
                 style={
@@ -609,6 +614,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=188389"
                 rel="noopener noreferrer"
                 style={
@@ -706,6 +712,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=196840"
                 rel="noopener noreferrer"
                 style={
@@ -791,6 +798,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=8042"
                 rel="noopener noreferrer"
                 style={
@@ -925,6 +933,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=188443"
                 rel="noopener noreferrer"
                 style={
@@ -1010,6 +1019,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=114074"
                 rel="noopener noreferrer"
                 style={
@@ -1095,6 +1105,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=61882"
                 rel="noopener noreferrer"
                 style={
@@ -1229,6 +1240,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=198067"
                 rel="noopener noreferrer"
                 style={
@@ -1326,6 +1338,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=191634"
                 rel="noopener noreferrer"
                 style={
@@ -1425,6 +1438,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=210714"
                 rel="noopener noreferrer"
                 style={
@@ -1522,6 +1536,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=2825"
                 rel="noopener noreferrer"
                 style={
@@ -1607,6 +1622,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=32182"
                 rel="noopener noreferrer"
                 style={
@@ -1741,6 +1757,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=108271"
                 rel="noopener noreferrer"
                 style={
@@ -1887,6 +1904,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=21169"
                 rel="noopener noreferrer"
                 style={
@@ -2021,6 +2039,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=192058"
                 rel="noopener noreferrer"
                 style={
@@ -2118,6 +2137,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=51490"
                 rel="noopener noreferrer"
                 style={
@@ -2215,6 +2235,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=8143"
                 rel="noopener noreferrer"
                 style={
@@ -2300,6 +2321,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=57994"
                 rel="noopener noreferrer"
                 style={
@@ -2446,6 +2468,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=6262"
                 rel="noopener noreferrer"
                 style={
@@ -2543,6 +2566,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171267"
                 rel="noopener noreferrer"
                 style={
@@ -2640,6 +2664,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171273"
                 rel="noopener noreferrer"
                 style={
@@ -3180,6 +3205,7 @@ exports[`Elemental Shaman integration test: example log EssenceOfTheFocusingIris
         >
           <label>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=299337"
               rel="noopener noreferrer"
               target="_blank"
@@ -3251,49 +3277,72 @@ exports[`Elemental Shaman integration test: example log FlameShock matches the s
     <div
       className="panel-body"
     >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=188389"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Flame Shock"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_fire_flameshock.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=188389"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Flame Shock
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          <svg
+            className="icon"
+            viewBox="10 10 80 80"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M50,86.4865c17.4361,0,31.6216-14.1855,31.6216-31.6216c0-16.6168-12.8865-30.2714-29.1892-31.5189v-4.9677h7.2973v-4.8649  H40.2703v4.8649h7.2973v4.9677c-16.3027,1.2475-29.1892,14.902-29.1892,31.5189C18.3784,72.3009,32.5639,86.4865,50,86.4865z M52.4324,28.2236c3.1101,0.2817,6.0664,1.0982,8.7798,2.356l-8.7798,15.2073V28.2236z M47.5676,28.2236v26.6412 c0,1.1008,0.7393,2.0647,1.8029,2.3497c0.209,0.0561,0.4205,0.0827,0.6295,0.0827c0.8533,0,1.6642-0.4504,2.1065-1.2162 l13.3146-23.0616c6.8507,4.8503,11.3357,12.8315,11.3357,21.8454c0,14.7537-12.0031,26.7567-26.7568,26.7567 s-26.7568-12.003-26.7568-26.7567C23.2432,40.9315,33.9501,29.4573,47.5676,28.2236z"
+            />
+          </svg>
+           
+          99.82
+          % 
+          <small>
+            uptime
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
       <svg
         className="icon"
-        viewBox="10 10 80 80"
+        viewBox="0 0 100 100"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M50,86.4865c17.4361,0,31.6216-14.1855,31.6216-31.6216c0-16.6168-12.8865-30.2714-29.1892-31.5189v-4.9677h7.2973v-4.8649  H40.2703v4.8649h7.2973v4.9677c-16.3027,1.2475-29.1892,14.902-29.1892,31.5189C18.3784,72.3009,32.5639,86.4865,50,86.4865z M52.4324,28.2236c3.1101,0.2817,6.0664,1.0982,8.7798,2.356l-8.7798,15.2073V28.2236z M47.5676,28.2236v26.6412 c0,1.1008,0.7393,2.0647,1.8029,2.3497c0.209,0.0561,0.4205,0.0827,0.6295,0.0827c0.8533,0,1.6642-0.4504,2.1065-1.2162 l13.3146-23.0616c6.8507,4.8503,11.3357,12.8315,11.3357,21.8454c0,14.7537-12.0031,26.7567-26.7568,26.7567 s-26.7568-12.003-26.7568-26.7567C23.2432,40.9315,33.9501,29.4573,47.5676,28.2236z"
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
         />
       </svg>
-       
-      99.82
-      % uptime on Flame Shock
-      value=
-      99.82 %
-      label="Uptime" tooltip="Flame Shock Uptime"
     </div>
   </div>
 </div>
-`;
-
-exports[`Elemental Shaman integration test: example log FlameShock matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "spell_fire_flameshock",
-    "importance": "major",
-    "issue": <React.Fragment>
-      You refreshed 
-      <ForwardRef
-        id={188389}
-      />
-       early 
-      11
-       times. The individual casts are highlighted on the timeline.
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      73.33% effective duration
-       (
-      &lt;10.00% is recommended
-      )
-    </React.Fragment>,
-  },
-]
 `;
 
 exports[`Elemental Shaman integration test: example log FlaskChecker matches the suggestions snapshot 1`] = `
@@ -3408,13 +3457,13 @@ Array [
               Ability
             </th>
             <th
-              colSpan="2"
+              colSpan={2}
             >
               Maelstrom
                generated
             </th>
             <th
-              colSpan="2"
+              colSpan={2}
             >
               <dfn
                 className=""
@@ -3439,6 +3488,7 @@ Array [
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=51505"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -3532,6 +3582,7 @@ Array [
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=210712"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -3625,6 +3676,7 @@ Array [
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=214815"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -3718,6 +3770,7 @@ Array [
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=289439"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -3811,6 +3864,7 @@ Array [
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=210714"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -3904,6 +3958,7 @@ Array [
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=263819"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -3997,6 +4052,7 @@ Array [
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=195897"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -4090,6 +4146,7 @@ Array [
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=77451"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -4183,6 +4240,7 @@ Array [
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=218558"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -4276,6 +4334,7 @@ Array [
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=214816"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -4369,6 +4428,7 @@ Array [
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=219271"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -4464,13 +4524,13 @@ Array [
               Ability
             </th>
             <th
-              colSpan="2"
+              colSpan={2}
             >
               Maelstrom
                spent
             </th>
             <th
-              colSpan="2"
+              colSpan={2}
             >
               Casts
             </th>
@@ -4486,6 +4546,7 @@ Array [
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=8042"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -4579,6 +4640,7 @@ Array [
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=61882"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -4708,6 +4770,7 @@ exports[`Elemental Shaman integration test: example log MasterOfTheElements matc
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=16166"
             rel="noopener noreferrer"
             target="_blank"
@@ -4720,6 +4783,7 @@ exports[`Elemental Shaman integration test: example log MasterOfTheElements matc
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=16166"
             rel="noopener noreferrer"
             target="_blank"
@@ -4786,6 +4850,7 @@ exports[`Elemental Shaman integration test: example log OverwhelmingPower matche
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=266180"
             rel="noopener noreferrer"
             target="_blank"
@@ -4798,6 +4863,7 @@ exports[`Elemental Shaman integration test: example log OverwhelmingPower matche
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=266180"
             rel="noopener noreferrer"
             target="_blank"
@@ -4912,6 +4978,7 @@ exports[`Elemental Shaman integration test: example log SpiritWolf matches the s
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=260878"
             rel="noopener noreferrer"
             target="_blank"
@@ -4969,6 +5036,7 @@ exports[`Elemental Shaman integration test: example log Stormkeeper matches the 
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=191634"
             rel="noopener noreferrer"
             target="_blank"
@@ -4981,6 +5049,7 @@ exports[`Elemental Shaman integration test: example log Stormkeeper matches the 
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=191634"
             rel="noopener noreferrer"
             target="_blank"
@@ -5037,6 +5106,7 @@ exports[`Elemental Shaman integration test: example log TheCrucibleofFlame match
         >
           <label>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=299348"
               rel="noopener noreferrer"
               target="_blank"
@@ -5488,6 +5558,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=210714"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5560,6 +5631,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=191634"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5711,6 +5783,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
           >
             Downtime is the time where you are not casting and not GCD locked. Ensure you are casting as much as possible by avoiding movement when you could be casting. Elemental shaman has many GCDs available from 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=8042"
               rel="noopener noreferrer"
               target="_blank"
@@ -5725,6 +5798,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
             </a>
             , 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=77762"
               rel="noopener noreferrer"
               target="_blank"
@@ -5739,6 +5813,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
             </a>
              empowered 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=51505"
               rel="noopener noreferrer"
               target="_blank"
@@ -5753,6 +5828,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
             </a>
             s, 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=196840"
               rel="noopener noreferrer"
               target="_blank"
@@ -5896,7 +5972,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
     </div>
   </li>
   <li
-    className="expandable expanded failed"
+    className="expandable  passed"
   >
     <div
       className="meta"
@@ -5920,8 +5996,8 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ffc84a",
-                  "width": "56.81136363636363%",
+                  "backgroundColor": "#4ec04e",
+                  "width": "100%",
                 }
               }
             />
@@ -5980,6 +6056,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
           >
             It's important to maintain flame shock on your target to guarantee 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=51505"
               rel="noopener noreferrer"
               target="_blank"
@@ -5994,6 +6071,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
             </a>
              will crit and to allow for 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=77762"
               rel="noopener noreferrer"
               target="_blank"
@@ -6008,6 +6086,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
             </a>
              procs. Applying 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=188389"
               rel="noopener noreferrer"
               target="_blank"
@@ -6036,6 +6115,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=188389"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -6110,6 +6190,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
               >
                  Bad 
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=188389"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -6143,7 +6224,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                   }
                 >
                    
-                  73.33%
+                  0.00%
                    
                    
                 </div>
@@ -6163,9 +6244,9 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "13.622727272727275%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -6261,6 +6342,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
             className="col-md-12"
           >
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=210714"
               rel="noopener noreferrer"
               target="_blank"
@@ -6275,6 +6357,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
             </a>
             's damage component itself is not a strong spell so it's important to fully utilize the talent by consuming all 4 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=210714"
               rel="noopener noreferrer"
               target="_blank"
@@ -6289,6 +6372,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
             </a>
              buff stacks with 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=196840"
               rel="noopener noreferrer"
               target="_blank"
@@ -6304,6 +6388,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
              casts during the buff's duration.
              While you should try to buff as many 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=210714"
               rel="noopener noreferrer"
               target="_blank"
@@ -6318,6 +6403,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
             </a>
              empowered 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=196840"
               rel="noopener noreferrer"
               target="_blank"
@@ -6332,6 +6418,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
             </a>
              as you can with 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=16166"
               rel="noopener noreferrer"
               target="_blank"
@@ -6361,6 +6448,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
               >
                 Average 
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=196840"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -6375,6 +6463,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                 </a>
                  Casts within 
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=210714"
                   rel="noopener noreferrer"
                   target="_blank"

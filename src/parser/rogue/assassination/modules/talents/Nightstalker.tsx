@@ -8,7 +8,7 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { DamageEvent } from 'parser/core/Events';
+import Events, { DamageEvent, CastEvent } from 'parser/core/Events';
 import { SuggestionFactory, ThresholdStyle, When } from 'parser/core/ParseResults';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
@@ -56,11 +56,11 @@ class Nightstalker extends StealthCasts {
 
   get vanishCastsSpentOnRupture() {
     let vanishWithRupture = 0;
-    this.stealthSequences.forEach((sequence: any) => {
+    this.stealthSequences.forEach((sequence: CastEvent[]) => {
       if (this.usedStealthOnPull && sequence === this.stealthSequences[0]) {
         return;
       }
-      const firstRuptureCast = sequence.find((e: any) => e.ability.guid === SPELLS.RUPTURE.id);
+      const firstRuptureCast = sequence.find((e: CastEvent) => e.ability.guid === SPELLS.RUPTURE.id);
       if (firstRuptureCast) {
         vanishWithRupture += 1;
       }
@@ -73,8 +73,8 @@ class Nightstalker extends StealthCasts {
       return false;
     }
 
-    const RuptureOpener = this.stealthSequences[0].find((e: any) => e.ability.guid === SPELLS.RUPTURE.id);
-    const GarroteOpener = this.stealthSequences[0].find((e: any) => e.ability.guid === SPELLS.GARROTE.id);
+    const RuptureOpener = this.stealthSequences[0].find((e: CastEvent) => e.ability.guid === SPELLS.RUPTURE.id);
+    const GarroteOpener = this.stealthSequences[0].find((e: CastEvent) => e.ability.guid === SPELLS.GARROTE.id);
     if (RuptureOpener || GarroteOpener) {
       return true;
     }

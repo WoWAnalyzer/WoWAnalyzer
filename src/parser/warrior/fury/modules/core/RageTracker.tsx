@@ -24,11 +24,11 @@ class RageTracker extends ResourceTracker {
   }
 
   getReducedCost(event: CastEvent) {
-
-    if (!this.getResource(event).cost) {
+    let cost = this.getResource(event)?.cost;
+    if (!cost) {
       return 0;
     }
-    let cost = this.getResource(event).cost / 10;
+    cost /= 10;
     const abilityId = event.ability.guid;
     if (abilityId === SPELLS.REVENGE.id) {
       if (this.selectedCombatant.hasBuff(SPELLS.VENGEANCE_REVENGE.id, event.timestamp)) {

@@ -1,9 +1,9 @@
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import Events, { ApplyBuffEvent, EnergizeEvent, RemoveBuffEvent, AnyEvent } from 'parser/core/Events';
+import Events, { AnyEvent, ApplyBuffEvent, EnergizeEvent, RemoveBuffEvent } from 'parser/core/Events';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import React from 'react';
 import SpellLink from 'common/SpellLink';

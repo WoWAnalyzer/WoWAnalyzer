@@ -1,15 +1,15 @@
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { DamageEvent } from 'parser/core/Events';
 import PreciseShots from 'parser/hunter/marksmanship/modules/spells/PreciseShots';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { POWERFUL_PRECISION_DAMAGE_INCREASE, PRECISE_SHOTS_MODIFIER } from 'parser/hunter/marksmanship/constants';
+import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
 
 /**
  * Precise Shots increases the damage of your next Arcane Shot, Chimaera Shot or Multi-Shot by an additional x%.
@@ -52,11 +52,11 @@ class PowerfulPrecision extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spell={SPELLS.POWERFUL_PRECISION_CONDUIT}>
+        <ConduitSpellText spell={SPELLS.POWERFUL_PRECISION_CONDUIT} rank={this.conduitRank}>
           <>
             <ItemDamageDone amount={this.addedDamage} />
           </>
-        </BoringSpellValueText>
+        </ConduitSpellText>
       </Statistic>
     );
   }

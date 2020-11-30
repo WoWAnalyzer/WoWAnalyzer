@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
@@ -52,7 +52,7 @@ class PrimevalIntuition extends Analyzer {
     (options.statTracker as StatTracker).add(SPELLS.PRIMEVAL_INTUITION_BUFF.id, {
       crit: this.crit,
     });
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.PRIMEVAL_INTUITION_BUFF),this.handleStacks);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.PRIMEVAL_INTUITION_BUFF), this.handleStacks);
     this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.PRIMEVAL_INTUITION_BUFF), this.handleStacks);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.PRIMEVAL_INTUITION_BUFF), this.handleStacks);
     this.addEventListener(Events.fightend, this.handleStacks);
