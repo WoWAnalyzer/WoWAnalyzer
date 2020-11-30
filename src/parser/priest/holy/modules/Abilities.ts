@@ -337,6 +337,17 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: () => this.owner.fightDuration / 1000,
       },
+      {
+        spell: SPELLS.POWER_INFUSION,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 120,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.35,
+          averageIssueEfficiency: 0.20,
+          majorIssueEfficiency: 0,
+        },
+      },
     ];
   }
 }
