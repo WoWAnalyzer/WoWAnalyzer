@@ -50,7 +50,7 @@ import HealingEfficiencyTracker from './modules/features/HolyPriestHealingEffici
 import ManaTracker from '../../core/healingEfficiency/ManaTracker';
 
 // Items
-import HarmoniousApparatus from 'parser/priest/holy/modules/items/HarmoniousApparatus';
+import HarmoniousApparatus from './modules/items/HarmoniousApparatus';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
