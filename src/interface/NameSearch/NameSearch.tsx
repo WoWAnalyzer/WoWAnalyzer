@@ -58,13 +58,13 @@ class NameSearch extends React.PureComponent<Props, State> {
     const makePageUrl =
       this.props.type === SearchType.CHARACTER ? makeCharacterPageUrl : makeGuildPageUrl;
     if (!region || !realm || !name) {
-      alert(i18n._(t`Please select a region, realm, and guild.`));
+      alert(i18n._(t('interface.nameSearch.pleaseSelect')`Please select a region, realm, and guild.`));
       return;
     }
 
     // Checking for guild-exists here makes it more userfriendly and saves WCL-requests when guild doesn't exist
     if (this.state.loading) {
-      alert(i18n._(t`Still working...`));
+      alert(i18n._(t('interface.nameSearch.stillWorking')`Still working...`));
       return;
     }
     this.setState({ loading: true });
@@ -79,7 +79,7 @@ class NameSearch extends React.PureComponent<Props, State> {
       if (response.status === 500) {
         alert(
           i18n._(
-            t`It looks like we couldn't get a response in time from the API. Try and paste your report-code manually.`,
+            t('interface.nameSearch.noResponse')`It looks like we couldn't get a response in time from the API. Try and paste your report-code manually.`,
           ),
         );
         this.setState({
@@ -87,7 +87,7 @@ class NameSearch extends React.PureComponent<Props, State> {
         });
         return;
       } else if (response.status === 404) {
-        alert(i18n._(t`${name} not found on ${realm}. Double check the region, realm, and name.`));
+        alert(i18n._(t('interface.nameSearch.nameNotFound')`${name} not found on ${realm}. Double check the region, realm, and name.`));
         this.setState({
           loading: false,
         });
@@ -95,7 +95,7 @@ class NameSearch extends React.PureComponent<Props, State> {
       } else if (!response.ok) {
         alert(
           i18n._(
-            t`It looks like we couldn't get a response in time from the API, this usually happens when the servers are under heavy load. Please try and use your report-code or try again later.`,
+            t('interface.nameSearch.noAPIResponse')`It looks like we couldn't get a response in time from the API, this usually happens when the servers are under heavy load. Please try and use your report-code or try again later.`,
           ),
         );
         this.setState({
@@ -120,7 +120,7 @@ class NameSearch extends React.PureComponent<Props, State> {
   }
 
   render() {
-    const namePlaceholder = this.props.type === SearchType.CHARACTER ? t`Character` : t`Guild`;
+    const namePlaceholder = this.props.type === SearchType.CHARACTER ? t('interface.nameSearch.character')`Character` : t('interface.nameSearch.guild')`Guild`;
     return (
       <form onSubmit={this.handleSubmit} className="character-guild-selector">
         <select
@@ -149,7 +149,7 @@ class NameSearch extends React.PureComponent<Props, State> {
               currentRealm: value,
             });
           }}
-          placeholder={i18n._(t`Realm`)}
+          placeholder={i18n._(t('interface.nameSearch.realm')`Realm`)}
         />
         <input
           type="text"
@@ -167,7 +167,7 @@ class NameSearch extends React.PureComponent<Props, State> {
             this.state.loading ? 'fill-button' : ''
           }`}
         >
-          <Trans>Search</Trans> <span className="glyphicon glyphicon-chevron-right" aria-hidden />
+          <Trans id="interface.nameSearch.search">Search</Trans> <span className="glyphicon glyphicon-chevron-right" aria-hidden />
         </button>
       </form>
     );

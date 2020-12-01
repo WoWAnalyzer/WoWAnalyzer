@@ -78,9 +78,9 @@ class BeaconHealingBreakdown extends React.Component {
                   </td>
                   <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
                     <TooltipElement
-                      content={<Trans>Total: {formatNumber(healing.effective)}</Trans>}
+                      content={<Trans id="paladin.holy.modules.beacons.beaconHealingBreakdown.total">Total: {formatNumber(healing.effective)}</Trans>}
                     >
-                      <Trans>{formatNumber((healing.effective / fightDuration) * 1000)} HPS</Trans>
+                      <Trans id="paladin.holy.modules.beacons.beaconHealingBreakdown.hps">{formatNumber((healing.effective / fightDuration) * 1000)} HPS</Trans>
                     </TooltipElement>
                   </td>
                   <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
@@ -99,11 +99,11 @@ class BeaconHealingBreakdown extends React.Component {
         <thead>
           <tr>
             <th style={{ fontWeight: 700, textTransform: 'uppercase' }}>
-              <Trans>Name</Trans>
+              <Trans id="paladin.holy.modules.beacons.beaconHealingBreakdown.name">Name</Trans>
             </th>
             <th colSpan="3">
               <span style={{ fontWeight: 700, textTransform: 'uppercase' }}>
-                <Trans>Beacon healing caused</Trans>
+                <Trans id="paladin.holy.modules.beacons.beaconHealingBreakdown.beaconHealingCaused">Beacon healing caused</Trans>
               </span>
               <div className="pull-right toggle-control">
                 <Toggle
@@ -113,12 +113,12 @@ class BeaconHealingBreakdown extends React.Component {
                   id="absolute-toggle"
                 />
                 <label htmlFor="absolute-toggle" style={{ marginLeft: '0.5em' }}>
-                  <Trans>relative to total healing</Trans>
+                  <Trans id="paladin.holy.modules.beacons.beaconHealingBreakdown.relativeToTotalHealing">relative to total healing</Trans>
                 </label>
               </div>
             </th>
             <th style={{ fontWeight: 700, textTransform: 'uppercase' }}>
-              <Trans>Overheal</Trans>
+              <Trans id="paladin.holy.modules.beacons.beaconHealingBreakdown.overheal">Overheal</Trans>
             </th>
           </tr>
         </thead>
