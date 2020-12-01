@@ -25,17 +25,17 @@ const NavigationBar = ({ makeTabUrl, tabs, selectedTab }: Props) => {
   const pages = [
     {
       icon: ChecklistIcon,
-      name: <Trans>Overview</Trans>,
+      name: <Trans id="interface.report.results.navigationBar.overview">Overview</Trans>,
       url: 'overview',
     },
     {
       icon: StatisticsIcon,
-      name: <Trans>Statistics</Trans>,
+      name: <Trans id="interface.report.results.navigationBar.statistics">Statistics</Trans>,
       url: 'statistics',
     },
     {
       icon: TimelineIcon,
-      name: <Trans>Timeline</Trans>,
+      name: <Trans id="interface.report.results.navigationBar.timeline">Timeline</Trans>,
       url: 'timeline',
     },
     ...(tabs
@@ -47,12 +47,12 @@ const NavigationBar = ({ makeTabUrl, tabs, selectedTab }: Props) => {
       })) || []),
     {
       icon: ArmorIcon,
-      name: <Trans>Character</Trans>,
+      name: <Trans id="interface.report.results.navigationBar.character">Character</Trans>,
       url: 'character',
     },
     {
       icon: AboutIcon,
-      name: <Trans>About</Trans>,
+      name: <Trans id="interface.report.results.navigationBar.about">About</Trans>,
       url: 'about',
     },
   ];
@@ -60,7 +60,7 @@ const NavigationBar = ({ makeTabUrl, tabs, selectedTab }: Props) => {
   if (selectedTab === 'events') {
     pages.push({
       icon: EventsIcon,
-      name: <Trans>Events</Trans>,
+      name: <Trans id="interface.report.results.navigationBar.events">Events</Trans>,
       url: 'events',
     });
   }

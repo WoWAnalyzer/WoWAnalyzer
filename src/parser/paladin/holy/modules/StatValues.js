@@ -159,7 +159,7 @@ class StatValues extends BaseHealerStatValues {
       {
         stat: STAT.HASTE_HPCT,
         tooltip: (
-          <Trans>
+          <Trans id="paladin.holy.modules.statValues.hpct">
             HPCT stands for "Healing per Cast Time". This is the max value that Haste would be worth
             if you would cast everything you are already casting (that scales with Haste) faster.
             Mana and overhealing are not accounted for in any way.
