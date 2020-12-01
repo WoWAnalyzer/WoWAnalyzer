@@ -450,18 +450,22 @@ https://github.com/WoWAnalyzer/WoWAnalyzer/issues?q=is%3Aopen+is%3Aissue+label%3
         {timeFilter && (
           <div className="container">
             <Warning style={{ marginBottom: 30 }}>
-              These results are filtered to the selected time period. Time filtered results are
-              under development and may not be entirely accurate. <br /> Please report any issues
-              you may find on our GitHub or Discord.
+              <Trans id="interface.report.results.warning.timeFilter">
+                These results are filtered to the selected time period. Time filtered results are
+                under development and may not be entirely accurate. <br /> Please report any issues
+                you may find on our GitHub or Discord.
+              </Trans>
             </Warning>
           </div>
         )}
         {build && (
           <div className="container">
             <Warning style={{ marginBottom: 30 }}>
-              These results are analyzed under build different from the standard build. While this
-              will make some modules more accurate, some may also not provide the information you
-              expect them to. <br /> Please report any issues you may find on our GitHub or Discord.
+              <Trans id="interface.report.results.warning.build">
+                These results are analyzed under build different from the standard build. While this
+                will make some modules more accurate, some may also not provide the information you
+                expect them to. <br /> Please report any issues you may find on our GitHub or Discord.
+              </Trans>
             </Warning>
           </div>
         )}
@@ -472,7 +476,7 @@ https://github.com/WoWAnalyzer/WoWAnalyzer/issues?q=is%3Aopen+is%3Aissue+label%3
             <div className="col-md-8">
               <Trans id="interface.report.results.providedBy" render="small">Provided by</Trans>
               <div style={{ fontSize: 16 }}>
-                <Trans>
+                <Trans id="interface.report.results.providedByDetails">
                   {config.spec.specName} {config.spec.className} analysis has been provided by{' '}
                   {contributorinfo}. They love hearing what you think, so please let them know!{' '}
                   <Link to={makeTabUrl('about')}>More information about this spec's analyzer.</Link>
@@ -482,7 +486,7 @@ https://github.com/WoWAnalyzer/WoWAnalyzer/issues?q=is%3Aopen+is%3Aissue+label%3
             <div className="col-md-3">
               <Trans id="interface.report.results.viewOn" render="small">View on</Trans>
               <br />
-              <Tooltip content={i18n._(t`Opens in a new tab. View the original report.`)}>
+              <Tooltip content={i18n._(t('interface.report.results.tooltip.newTab.originalReport')`Opens in a new tab. View the original report.`)}>
                 <a
                   href={makeWclUrl(report.code, {
                     fight: fight.id,
@@ -500,7 +504,7 @@ https://github.com/WoWAnalyzer/WoWAnalyzer/issues?q=is%3Aopen+is%3Aissue+label%3
               <br />
               <Tooltip
                 content={i18n._(
-                  t`Opens in a new tab. View insights and timelines for raid encounters.`,
+                  t('interface.report.results.tooltip.newTab.insightsAndTimelines')`Opens in a new tab. View insights and timelines for raid encounters.`,
                 )}
               >
                 <a
@@ -515,7 +519,7 @@ https://github.com/WoWAnalyzer/WoWAnalyzer/issues?q=is%3Aopen+is%3Aissue+label%3
               </Tooltip>
             </div>
             <div className="col-md-1">
-              <Tooltip content={<Trans>Scroll back to the top.</Trans>}>
+              <Tooltip content={<Trans id="interface.report.results.tooltip.backToTop">Scroll back to the top.</Trans>}>
                 <ScrollToTop />
               </Tooltip>
             </div>

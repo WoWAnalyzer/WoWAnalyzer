@@ -140,19 +140,14 @@ exports[`Brewmaster Monk integration test: example log BrewCDR matches the stati
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={1000}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -167,13 +162,13 @@ exports[`Brewmaster Monk integration test: example log BrewCDR matches the stati
               src="//render-us.worldofwarcraft.com/icons/56/ability_monk_tigerpalm.jpg"
             />
           </a>
-           
-          Effective Brew CDR
+           Effective Brew CDR
         </label>
         <div
           className="value"
         >
-          23.97%
+          23.97
+           %
         </div>
       </div>
     </div>
@@ -3122,14 +3117,16 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 34,
@@ -3140,7 +3137,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "80",
@@ -3163,14 +3161,16 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 29,
@@ -3181,7 +3181,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "80",
@@ -3204,14 +3205,16 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 22,
@@ -3222,7 +3225,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "95",
@@ -3245,14 +3249,16 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 4,
@@ -3263,7 +3269,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "90",
@@ -3286,14 +3293,16 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 0,
@@ -3304,7 +3313,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "85",
@@ -3322,19 +3332,14 @@ exports[`Brewmaster Monk integration test: example log CelestialBrew matches the
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={1000}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -3349,21 +3354,14 @@ exports[`Brewmaster Monk integration test: example log CelestialBrew matches the
               src="//render-us.worldofwarcraft.com/icons/56/ability_monk_ironskinbrew.jpg"
             />
           </a>
-           
-          Avg. Absorb per Celestial Brew
+           Avg. Absorb per Celestial Brew
         </label>
         <div
           className="value"
         >
           33k
-        </div>
-        <div
-          style={
-            Object {
-              "marginTop": "0.5em",
-            }
-          }
-        >
+           % 
+          <br />
           <div
             style={
               Object {
@@ -3410,19 +3408,14 @@ exports[`Brewmaster Monk integration test: example log CelestialFortune matches 
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={1000}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -3437,13 +3430,13 @@ exports[`Brewmaster Monk integration test: example log CelestialFortune matches 
               src="//render-us.worldofwarcraft.com/icons/56/inv_celestialserpentmount.jpg"
             />
           </a>
-           
-          Celestial Fortune Healing
+           Celestial Fortune Healing
         </label>
         <div
           className="value"
         >
-          452 HPS
+          452
+           HPS
         </div>
       </div>
     </div>
@@ -3693,19 +3686,14 @@ exports[`Brewmaster Monk integration test: example log GiftOfTheOx matches the s
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={1000}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -3720,13 +3708,13 @@ exports[`Brewmaster Monk integration test: example log GiftOfTheOx matches the s
               src="//render-us.worldofwarcraft.com/icons/56/ability_monk_healthsphere.jpg"
             />
           </a>
-           
-          Gift of the Ox Healing
+           Gift of the Ox Healing
         </label>
         <div
           className="value"
         >
-          447 HPS
+          447
+           HPS
         </div>
       </div>
     </div>
@@ -3756,19 +3744,14 @@ exports[`Brewmaster Monk integration test: example log HighTolerance matches the
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={1000}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -3783,13 +3766,24 @@ exports[`Brewmaster Monk integration test: example log HighTolerance matches the
               src="//render-us.worldofwarcraft.com/icons/56/monk_ability_avertharm.jpg"
             />
           </a>
-           
-          Avg. Haste from High Tolerance
+           Avg. Haste from High Tolerance
         </label>
         <div
           className="value"
         >
-          10.83%
+          <svg
+            className="icon"
+            version="1.1"
+            viewBox="16 16 32 32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M33.446,23.135c-0.89,0-1.612,0.722-1.612,1.612v8.049l-4.079,4.078c-0.63,0.629-0.63,1.65,0,2.28 c0.315,0.314,0.728,0.472,1.14,0.472c0.413,0,0.825-0.157,1.14-0.472l4.551-4.55c0.302-0.302,0.472-0.712,0.472-1.14v-8.716 C35.059,23.856,34.337,23.135,33.446,23.135z M32.111,16.668c-8.509,0-15.431,6.92-15.431,15.427 c0,8.506,6.922,15.426,15.431,15.426c8.509,0,15.431-6.92,15.431-15.426C47.542,23.588,40.62,16.668,32.111,16.668z M19.179,38.606c-1.025-2.031-1.545-4.222-1.545-6.511c0-7.981,6.495-14.473,14.477-14.473v2.097 c-6.826,0-12.379,5.552-12.379,12.376c0,1.959,0.444,3.831,1.32,5.566L19.179,38.606z M32.111,43.516 c-6.3,0-11.426-5.124-11.426-11.422c0-6.298,5.126-11.422,11.426-11.422s11.426,5.124,11.426,11.422 C43.537,38.392,38.411,43.516,32.111,43.516z"
+            />
+          </svg>
+           
+          10.83
+           %
         </div>
       </div>
     </div>
@@ -3862,19 +3856,14 @@ exports[`Brewmaster Monk integration test: example log PurifyingBrew matches the
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={1000}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -3889,21 +3878,14 @@ exports[`Brewmaster Monk integration test: example log PurifyingBrew matches the
               src="//render-us.worldofwarcraft.com/icons/56/inv_misc_beer_06.jpg"
             />
           </a>
-           
-          Avg. Mitigation per Purifying Brew
+           Avg. Mitigation per Purifying Brew
         </label>
         <div
           className="value"
         >
           19k
-        </div>
-        <div
-          style={
-            Object {
-              "marginTop": "0.5em",
-            }
-          }
-        >
+           
+          <br />
           <div
             style={
               Object {
@@ -3973,19 +3955,14 @@ exports[`Brewmaster Monk integration test: example log Stagger matches the stati
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={2}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -4000,8 +3977,7 @@ exports[`Brewmaster Monk integration test: example log Stagger matches the stati
               src="//render-us.worldofwarcraft.com/icons/56/monk_stance_drunkenox.jpg"
             />
           </a>
-           
-          Damage staggered
+           Damage staggered
         </label>
         <div
           className="value"
@@ -5778,7 +5754,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
         <div
           className="flex-main name"
         >
-          Be well prepared
+          shared.modules.features.checklist.wellPrepared
         </div>
         <div
           className="flex-sub perf"
@@ -5848,7 +5824,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
           <div
             className="col-md-12"
           >
-            Being well prepared with food, flasks, potions and enchants is an easy way to improve your performance.
+            shared.modules.features.checklist.wellPreparedDetails
           </div>
         </div>
         <div
@@ -5863,7 +5839,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                All items enchanted
+                shared.modules.features.checklist.enchanted
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -5924,7 +5900,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                Using high quality enchants
+                shared.modules.features.checklist.enchantedHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -5985,7 +5961,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                Combat potions used
+                shared.modules.features.checklist.combatPotionsUsed
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6046,7 +6022,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                High quality combat potions used
+                shared.modules.features.checklist.highQualityCombatPotionsUsed
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6107,7 +6083,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                High quality flask used
+                shared.modules.features.checklist.flaskHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6167,7 +6143,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                Flask used
+                shared.modules.features.checklist.flask
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6227,7 +6203,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                High quality food used
+                shared.modules.features.checklist.foodHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6287,7 +6263,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                Food used
+                shared.modules.features.checklist.food
               </div>
               <div
                 className="flex-sub content-middle text-muted"

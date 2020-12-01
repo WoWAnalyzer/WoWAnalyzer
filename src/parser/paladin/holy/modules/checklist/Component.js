@@ -27,9 +27,9 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
   return (
     <Checklist>
       <Rule
-        name={<Trans>Use your primary healing spells as often as possible</Trans>}
+        name={<Trans id="paladin.holy.modules.checklist.usePrimarySpells">Use your primary healing spells as often as possible</Trans>}
         description={
-          <Trans>
+          <Trans id="paladin.holy.modules.checklist.usePrimarySpells.description">
             <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />
             {combatant.hasTalent(SPELLS.BESTOW_FAITH_TALENT) ? (
               <SpellLink id={SPELLS.BESTOW_FAITH_TALENT.id} />
@@ -54,7 +54,7 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
             )}
             are your most efficient healing spells available. Try to cast them as much as possible
             without overhealing.
-            <TooltipElement content={<Trans>When you're not bringing too many healers.</Trans>}>
+            <TooltipElement content={<Trans id="paladin.holy.modules.checklist.usePrimarySpells.descriptionTooltipElement">When you're not bringing too many healers.</Trans>}>
               On Mythic
             </TooltipElement>{' '}
             you can often still cast these spells more even if you were overhealing by casting it
@@ -98,7 +98,7 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
         )}
         <Requirement
           name={
-            <Trans>
+            <Trans id="paladin.holy.modules.checklist.totalFillerWhileHolyShock">
               Total filler <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />s cast while{' '}
               <span style={{ whiteSpace: 'nowrap' }}>
                 <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />
@@ -110,9 +110,9 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
         />
       </Rule>
       <Rule
-        name={<Trans>Use your cooldowns effectively</Trans>}
+        name={<Trans id="paladin.holy.modules.checklist.useCooldownsEffectively">Use your cooldowns effectively</Trans>}
         description={
-          <Trans>
+          <Trans id="paladin.holy.modules.checklist.useCooldownsEffectively.description">
             Your cooldowns are an important contributor to your healing throughput. Try to get in as
             many efficient casts as the fight allows.{' '}
             <a
@@ -143,14 +143,14 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
       </Rule>
       <Rule
         name={
-          <Trans>
+          <Trans id="paladin.holy.modules.checklist.useLightOfTheMartyrOnlyWhenNecessary">
             Only use{' '}
             <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} onClick={e => e.preventDefault()} /> when
             absolutely necessary
           </Trans>
         }
         description={
-          <Trans>
+          <Trans id="paladin.holy.modules.checklist.useLightOfTheMartyrOnlyWhenNecessary.description">
             <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> is an inefficient spell to cast
             compared to the alternatives. Try to only cast{' '}
             <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> when it will save someone's life or
@@ -159,12 +159,12 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
         }
       >
         <Requirement
-          name={<Trans>Total filler casts per minute</Trans>}
+          name={<Trans id="paladin.holy.modules.checklist.totalFillerPerMinute">Total filler casts per minute</Trans>}
           thresholds={thresholds.fillerLightOfTheMartyrsCpm}
         />
         <Requirement
           name={
-            <Trans>
+            <Trans id="paladin.holy.modules.checklist.totalFillerPerMinuteWhileHolyShock">
               Total filler casts while <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was available
             </Trans>
           }
@@ -172,9 +172,9 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
         />
       </Rule>
       <Rule
-        name={<Trans>Don't tunnel the tanks</Trans>}
+        name={<Trans id="paladin.holy.modules.checklist.dontTunnelTanks">Don't tunnel the tanks</Trans>}
         description={
-          <Trans>
+          <Trans id="paladin.holy.modules.checklist.dontTunnelTanks.description">
             A common misconception about Holy Paladins is that we should focus tanks when healing.
             This is actually inefficient. Let your beacons do most of the work, ask your co-healers
             to keep efficient HoTs on the tanks and only directly heal the tanks when they would
@@ -183,19 +183,19 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
         }
       >
         <Requirement
-          name={<Trans>Direct beacon healing</Trans>}
+          name={<Trans id="paladin.holy.modules.checklist.directBeaconHealing">Direct beacon healing</Trans>}
           thresholds={thresholds.directBeaconHealing}
         />
       </Rule>
       <Rule
         name={
-          <Trans>
+          <Trans id="paladin.holy.modules.checklist.positionWell">
             Position yourself well to maximize{' '}
             <SpellLink id={SPELLS.MASTERY_LIGHTBRINGER.id} onClick={e => e.preventDefault()} />
           </Trans>
         }
         description={
-          <Trans>
+          <Trans id="paladin.holy.modules.checklist.positionWell.description">
             <SpellLink id={SPELLS.MASTERY_LIGHTBRINGER.id} /> has a big impact on the strength of
             your heals. Try to stay close to the people you are healing to benefit the most from
             your Mastery. Use <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> when healing people
@@ -204,40 +204,40 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
         }
       >
         <Requirement
-          name={<Trans>Mastery effectiveness</Trans>}
+          name={<Trans id="paladin.holy.modules.checklist.masteryEffectiveness">Mastery effectiveness</Trans>}
           thresholds={thresholds.masteryEffectiveness}
         />
       </Rule>
       {!owner.builds.GLIMMER.active && (
         <Rule
           name={
-            <Trans>
+            <Trans id="paladin.holy.modules.checklist.useAllOfMana">
               Use all of your{' '}
               <ResourceLink id={RESOURCE_TYPES.MANA.id} onClick={e => e.preventDefault()} />
             </Trans>
           }
           description={
-            <Trans>
+            <Trans id="paladin.holy.modules.checklist.useAllOfMana.description">
               If you have a large amount of mana left at the end of the fight that's mana you could
               have turned into healing. Try to use all your mana during a fight. A good rule of
               thumb is to try to match your mana level with the boss's health.
             </Trans>
           }
         >
-          <Requirement name={<Trans>Mana left</Trans>} thresholds={thresholds.manaLeft} />
+          <Requirement name={<Trans id="paladin.holy.modules.checklist.manaLeft">Mana left</Trans>} thresholds={thresholds.manaLeft} />
         </Rule>
       )}
       <Rule
-        name={<Trans>Try to avoid being inactive for a large portion of the fight</Trans>}
+        name={<Trans id="paladin.holy.modules.checklist.avoidBeingInactive">Try to avoid being inactive for a large portion of the fight</Trans>}
         description={
-          <Trans>
+          <Trans id="paladin.holy.modules.checklist.avoidBeingInactive.description">
             While it's suboptimal to always be casting as a healer you should still try to always be
             doing something during the entire fight and high downtime is inexcusable. You can reduce
             your downtime by reducing the delay between casting spells, anticipating movement,
             moving during the GCD, and{' '}
             <TooltipElement
               content={
-                <Trans>
+                <Trans id="paladin.holy.modules.checklist.avoidBeingInactive.description.ignoreDamage">
                   While helping with damage would be optimal, it's much less important as a healer
                   than any of the other suggestions on this checklist. You should ignore this
                   suggestion while you are having difficulties with anything else.
@@ -251,18 +251,18 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
         }
       >
         <Requirement
-          name={<Trans>Non healing time</Trans>}
+          name={<Trans id="paladin.holy.modules.checklist.nonHealingTime">Non healing time</Trans>}
           thresholds={thresholds.nonHealingTimeSuggestionThresholds}
         />
         <Requirement
-          name={<Trans>Downtime</Trans>}
+          name={<Trans id="paladin.holy.modules.checklist.downtime">Downtime</Trans>}
           thresholds={thresholds.downtimeSuggestionThresholds}
         />
       </Rule>
       <Rule
-        name={<Trans>Avoid overhealing</Trans>}
+        name={<Trans id="paladin.holy.modules.checklist.avoidOverhealing">Avoid overhealing</Trans>}
         description={
-          <Trans>
+          <Trans id="paladin.holy.modules.checklist.avoidOverhealing.description">
             Pick the right targets when healing and use the right abilities at the right time. While
             overhealing still transfers to your beacons, it remains inefficient. Overhealing might
             be unavoidable when there's not a lot of damage taken (such as in normal mode) or when
@@ -291,9 +291,9 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
       </Rule>
       {!combatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT.id) && (
         <Rule
-          name={<Trans>Keep your beacons active</Trans>}
+          name={<Trans id="paladin.holy.modules.checklist.keepBeaconsActive">Keep your beacons active</Trans>}
           description={
-            <Trans>
+            <Trans id="paladin.holy.modules.checklist.keepBeaconsActive.description">
               Beacon of Light and Beacon of Faith, if talented, should be applied prior to the fight
               starting and maintained active for as long as the paladin is alive. Any beacon
               downtime will result in lost healing and efficiency.
@@ -303,7 +303,7 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
           {!combatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT.id) && (
             <Requirement
               name={
-                <Trans>
+                <Trans id="paladin.holy.modules.checklist.beaconOfLightAppliedPrepull">
                   <SpellLink
                     id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id}
                     onClick={e => e.preventDefault()}
@@ -317,7 +317,7 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
           {!combatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT.id) && (
             <Requirement
               name={
-                <Trans>
+                <Trans id="paladin.holy.modules.checklist.beaconOfVirtueTalentUptime">
                   <SpellLink
                     id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id}
                     onClick={e => e.preventDefault()}
@@ -331,7 +331,7 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
           {combatant.hasTalent(SPELLS.BEACON_OF_FAITH_TALENT.id) && (
             <Requirement
               name={
-                <Trans>
+                <Trans id="paladin.holy.modules.checklist.beaconOfFaithTalentAppliedPrepull">
                   <SpellLink
                     id={SPELLS.BEACON_OF_FAITH_TALENT.id}
                     onClick={e => e.preventDefault()}
@@ -345,7 +345,7 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
           {combatant.hasTalent(SPELLS.BEACON_OF_FAITH_TALENT.id) && (
             <Requirement
               name={
-                <Trans>
+                <Trans id="paladin.holy.modules.checklist.beaconOfFaithTalentUptime">
                   <SpellLink
                     id={SPELLS.BEACON_OF_FAITH_TALENT.id}
                     onClick={e => e.preventDefault()}
@@ -360,9 +360,9 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
       )}
       <PreparationRule thresholds={thresholds} />
       <Rule
-        name={<Trans>Use your supportive abilities</Trans>}
+        name={<Trans id="paladin.holy.modules.checklist.useSupportiveAbilities">Use your supportive abilities</Trans>}
         description={
-          <Trans>
+          <Trans id="paladin.holy.modules.checklist.useSupportiveAbilities.description">
             While you shouldn't aim to cast defensives and externals on cooldown, be aware of them
             and try to use them whenever effective. Not using them at all indicates you might not be
             aware of them enough or not utilizing them optimally.

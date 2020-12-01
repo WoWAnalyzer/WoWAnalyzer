@@ -9,7 +9,9 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 11, 23), 'Updated i18n ids', jos3p),
   change(date(2020, 11, 19), 'Final Interface and Restoration Shaman localization, correction of typos', Amani),
+  change(date(2020, 11, 15), 'Added ability to get the active time/downtime for a specified time frame', Sharrq),
   change(date(2020, 11, 7), 'Adjust our Soulbind, Covenant, Conduit scripts per latest raid testing', Putro),
   change(date(2020, 11, 4), 'Migrate Castle Nathria to TS', Guyius),
   change(date(2020, 11, 2), 'Converted the following components to TypeScript: ItemLink, ResourceLink, Rule and Expandable', Mae),

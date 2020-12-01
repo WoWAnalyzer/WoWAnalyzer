@@ -5,6 +5,7 @@ import { SpellList } from "common/SPELLS/Spell";
 import DEATH_KNIGHT from './deathknight';
 import DEMON_HUNTER from './demonhunter';
 import DRUID from './druid';
+import GENERAL from './general';
 import HUNTER from './hunter';
 import MAGE from './mage';
 import MONK from './monk';
@@ -20,6 +21,7 @@ const covenants: SpellList =  safeMerge(
   DEATH_KNIGHT,
   DEMON_HUNTER,
   DRUID,
+  GENERAL,
   HUNTER,
   MAGE,
   MONK,

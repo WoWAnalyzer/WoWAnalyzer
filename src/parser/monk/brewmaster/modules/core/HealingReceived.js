@@ -1,8 +1,12 @@
 import React from 'react';
-import { formatThousands, formatNumber } from 'common/format';
+import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
+import SpellIcon from 'common/SpellIcon';
+import BoringValue from 'interface/statistics/components/BoringValueText';
 import Events from 'parser/core/Events';
+import SPELLS from 'common/SPELLS';
 
 class HealingReceived extends Analyzer {
   HealingReceivedExternal = 0;
@@ -24,16 +28,9 @@ class HealingReceived extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={(
-          <img
-            src="/img/healing.png"
-            style={{ border: 0 }}
-            alt="Healing"
-          />
-        )}
-        value={`${formatNumber((this.HealingReceivedExternal) / this.owner.fightDuration * 1000)} HPS`}
-        label="External healing received"
+      <Statistic
+        position={STATISTIC_ORDER.CORE(2)}
+        size="flexible"
         tooltip={(
           <>
             Healing received:
@@ -44,10 +41,20 @@ class HealingReceived extends Analyzer {
             The total healing received was {formatThousands(this.HealingReceivedSelf + this.HealingReceivedExternal)}
           </>
         )}
-      />
+      >
+        {/*dunno if this works here. I couldn't see it in the page then saw it was disabled. Updated the element nonetheless.*/}
+        <BoringValue label={<><img
+          src="/img/healing.png"
+          style={{ border: 0 }}
+          alt="Healing"
+        /> External healing received</>} >
+          <>
+            {formatNumber((this.HealingReceivedExternal) / this.owner.fightDuration * 1000)} HPS
+          </>
+        </BoringValue>
+      </Statistic>
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
 export default HealingReceived;

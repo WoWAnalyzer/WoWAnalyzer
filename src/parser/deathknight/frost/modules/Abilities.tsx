@@ -143,14 +143,18 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.GLACIAL_ADVANCE_TALENT.id),
       },
       {
-        spell: SPELLS.CHILL_STREAK_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 45,
+        spell: SPELLS.SACRIFICIAL_PACT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 120,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasMajor(32),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
       },
+
       // DEFENSIVE
       {
         spell: SPELLS.ANTI_MAGIC_SHELL,

@@ -114,7 +114,7 @@ const ReportSelecter = () => {
       <div className="report-selector">
         <Tooltip
           content={
-            <Trans>
+            <Trans id="interface.reportSelecter.reportSelecter.tooltip.supportedLinks">
               Supported links:
               <br />
               <ul>
@@ -143,7 +143,7 @@ const ReportSelecter = () => {
               ref={reportCodeRef}
               onChange={e => setReportCode(e.target.value)}
               value={reportCode}
-              placeholder={i18n._(t`https://www.warcraftlogs.com/reports/<report code>`)}
+              placeholder={i18n._(t('interface.reportSelecter.reportSelecter.placeholder')`https://www.warcraftlogs.com/reports/<report code>`)}
               autoCorrect="off"
               autoCapitalize="off"
               spellCheck="false"
@@ -152,7 +152,7 @@ const ReportSelecter = () => {
         </Tooltip>
 
         <button type="submit" className="btn btn-primary analyze">
-          <Trans>Analyze</Trans> <span className="glyphicon glyphicon-chevron-right" aria-hidden />
+          <Trans id="interface.reportSelecter.reportSelecter.button">Analyze</Trans> <span className="glyphicon glyphicon-chevron-right" aria-hidden />
         </button>
       </div>
     </form>
