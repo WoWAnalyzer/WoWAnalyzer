@@ -30,30 +30,27 @@ class JadeIgnition extends Analyzer {
     }
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.JADE_IGNITION_BUFF), this.applyBuff);
     this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.JADE_IGNITION_BUFF), this.applyBuffStack);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FISTS_OF_FURY_CAST), this.castFistsOfFury);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FISTS_OF_FURY_DAMAGE), this.onFistsDamage);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SPINNING_CRANE_KICK), this.castSpinningCraneKick);
   }
 
   applyBuff() {
-    this.totalStacks += 1;
     this.currentStacks += 1;
   }
 
   applyBuffStack() {
-    this.totalStacks += 1;
     this.currentStacks += 1;
    }
 
-  castFistsOfFury() {
+  onFistsDamage() {
+    this.totalStacks += 1;
     if (this.currentStacks === MAX_STACKS) {
       this.stacksWasted += 1;
     }
   }
 
   castSpinningCraneKick() {
-    if (this.currentStacks > 0) {
-      this.currentStacks = 0;
-    }
+    this.currentStacks = 0;
   }
 
   get damageDone () {
@@ -94,7 +91,7 @@ class JadeIgnition extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      suggest(<Trans> You wasted your <SpellLink id={SPELLS.JADE_IGNITION_BUFF.id}/> stacks by using Fists of Fury at full stacks</Trans>)
+      suggest(<Trans id="monk.windwalker.suggestions.jadeIgnitionWastedStacks"> You wasted your <SpellLink id={SPELLS.JADE_IGNITION_BUFF.id}/> stacks by using Fists of Fury at full stacks</Trans>)
         .icon(SPELLS.JADE_IGNITION.icon)
         .actual(`${formatPercentage(actual, 0)}% Stacks used`)
         .recommended(`${formatPercentage(recommended, 0)}% Stacks used is recommended`)
