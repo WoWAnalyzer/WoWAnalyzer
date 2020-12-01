@@ -16,7 +16,7 @@ import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import { When } from 'parser/core/ParseResults';
 import { Trans } from '@lingui/macro';
 
-const RECOMMENDED_EFFICIENCY = 0.75;
+const RECOMMENDED_EFFICIENCY = 0.8;
 const MAGHAR_ORC_PET_HEALTH_INCREASE = 0.1;
 
 interface EarthenWallTotemInfo {

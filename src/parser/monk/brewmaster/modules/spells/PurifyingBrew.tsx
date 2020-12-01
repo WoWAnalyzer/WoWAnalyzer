@@ -10,7 +10,9 @@ import Events, { EventType, RemoveDebuffEvent, CastEvent } from 'parser/core/Eve
 import EventFilter from 'parser/core/EventFilter';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import StatisticBox from 'interface/others/StatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
+import BoringValue from 'interface/statistics/components/BoringValueText';
 import FooterChart, { formatTime } from 'interface/others/FooterChart';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
@@ -212,10 +214,9 @@ class PurifyingBrew extends Analyzer {
     };
 
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.PURIFYING_BREW.id} />}
-        value={formatNumber(this.meanPurify)}
-        label="Avg. Mitigation per Purifying Brew"
+      <Statistic
+        size="flexible"
+        position={STATISTIC_ORDER.OPTIONAL()}
         tooltip={(
           <>
             Purifying Brew removed <strong>{formatNumber(this.totalPurified)}</strong> damage in total over {this.totalPurifies} casts.<br />
@@ -223,8 +224,14 @@ class PurifyingBrew extends Analyzer {
             Your purifies were delayed from the nearest peak by <strong>{(this.avgPurifyDelay / 1000).toFixed(2)}s</strong> on average.
           </>
         )}
-        footer={(<FooterChart data={this.purifies} spec={spec} />)}
-      />
+      >
+        <BoringValue label={<><SpellIcon id={SPELLS.PURIFYING_BREW.id} /> Avg. Mitigation per Purifying Brew</>} >
+          <>
+            {formatNumber(this.meanPurify)} <br />
+            <FooterChart data={this.purifies} spec={spec} />
+          </>
+        </BoringValue>
+      </Statistic>
     );
   }
 }

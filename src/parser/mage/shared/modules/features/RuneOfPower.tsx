@@ -23,7 +23,7 @@ import { t } from '@lingui/macro';
 const SUGGEST_ROP = { [SPECS.FROST_MAGE.id]: false, [SPECS.ARCANE_MAGE.id]: true, [SPECS.FIRE_MAGE.id]: true };
 
 const DAMAGE_BONUS = 0.4;
-const RUNE_DURATION = 15;
+const RUNE_DURATION = 12;
 const INCANTERS_FLOW_EXPECTED_BOOST = 0.12;
 
 // FIXME due to interactions with Ignite, the damage boost number will be underrated for Fire Mages. Still fine for Arcane and Frost.

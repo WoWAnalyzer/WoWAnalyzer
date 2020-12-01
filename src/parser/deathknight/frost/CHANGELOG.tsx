@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+    change(date(2020, 11, 13), <>Added analyzer for <SpellLink id={SPELLS.HYPOTHERMIC_PRESENCE_TALENT.id} /></>, [Khazak]),
     change(date(2020, 11, 5), <>Added manual RP tracking for <SpellLink id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} /> and updated suggestion to target a 25+ second duration</>, [Khazak]),
     change(date(2020, 10, 27), <>Created statistics for <SpellLink id={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER.id} /> and <SpellLink id={SPELLS.RUNE_OF_HYSTERIA.id} /></>, joshinator),
     change(date(2020, 10, 22), 'Replaced deprecated StatisticBoxes with Statistic', [LeoZhekov]),

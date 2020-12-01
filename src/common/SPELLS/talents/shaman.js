@@ -68,7 +68,7 @@ export default {
     id: 73685,
     name: 'Unleash Life',
     icon: 'spell_shaman_unleashweapon_life',
-    manaCost: 80
+    manaCost: 400
   },
   DELUGE_TALENT: {
     id: 200076,
@@ -79,13 +79,13 @@ export default {
     id: 320746,
     name: 'Surge of Earth',
     icon: 'inv_elementalearth2',
-    manaCost: 200
+    manaCost: 1000
   },
   EARTHGRAB_TOTEM_TALENT: {
     id: 51485,
     name: 'Earthgrab Totem',
     icon: 'spell_nature_stranglevines',
-    manaCost: 50
+    manaCost: 250
   },
   ANCESTRAL_VIGOR_TALENT: {
     id: 207401,
@@ -96,13 +96,13 @@ export default {
     id: 198838,
     name: 'Earthen Wall Totem',
     icon: 'spell_nature_stoneskintotem',
-    manaCost: 220
+    manaCost: 1100
   },
   ANCESTRAL_PROTECTION_TOTEM_TALENT: {
     id: 207399,
     name: 'Ancestral Protection Totem',
     icon: 'spell_nature_reincarnation',
-    manaCost: 220
+    manaCost: 1100
   },
   GRACEFUL_SPIRIT_TALENT: {
     id: 192088,
@@ -118,13 +118,13 @@ export default {
     id: 207778,
     name: 'Downpour',
     icon: 'ability_mage_waterjet',
-    manaCost: 300
+    manaCost: 1500
   },
   CLOUDBURST_TOTEM_TALENT: {
     id: 157153,
     name: 'Cloudburst Totem',
     icon: 'ability_shaman_condensationtotem',
-    manaCost: 172
+    manaCost: 860
   },
   HIGH_TIDE_TALENT: {
     id: 157154,
@@ -135,7 +135,7 @@ export default {
     id: 197995,
     name: 'Wellspring',
     icon: 'ability_shawaterelemental_split',
-    manaCost: 400
+    manaCost: 2000
   },
   ASCENDANCE_TALENT_RESTORATION: {
     id: 114052,
