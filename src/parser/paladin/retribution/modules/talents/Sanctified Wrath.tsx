@@ -43,12 +43,9 @@ class SanctifiedWrath extends Analyzer {
     }
 
     let totalIncrease = 0;
-    let totalDuration = 0;
-    const castRows = hist.map((buff: any, idx: any) => {
+    hist.map((buff: any, idx: any) => {
       const end = buff.end || this.owner.currentTimestamp;
-      const castTime = (buff.start - this.owner.fight.start_time) / 1000;
       const duration = (end - buff.start) / 1000;
-      totalDuration += duration;
       // If the buff ended early because of death or fight end, don't blame the talent
       const increase = Math.max(0, duration - AW_BASE_DURATION);
       totalIncrease += increase;
