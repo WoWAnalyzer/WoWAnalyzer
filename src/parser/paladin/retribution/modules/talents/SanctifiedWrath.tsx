@@ -40,7 +40,7 @@ class SanctifiedWrath extends Analyzer {
     }
 
     let totalIncrease = 0;
-    hist.map((buff: any, idx: any) => {
+    hist.forEach((buff: any, idx: any) => {
       const end = buff.end || this.owner.currentTimestamp;
       const duration = (end - buff.start) / 1000;
       // If the buff ended early because of death or fight end, don't blame the talent
