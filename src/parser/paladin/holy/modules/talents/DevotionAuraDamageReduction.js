@@ -179,7 +179,7 @@ class DevotionAuraDamageReduction extends Analyzer {
 
   statistic() {
     const tooltip = (
-      <Trans>
+      <Trans id="paladin.holy.modules.talents.devotionAuraDamageReduction.tooltip">
         The total estimated damage reduced <strong>by the passive</strong> was{' '}
         {formatThousands(this.passiveDamageReduced)} ({formatNumber(this.passiveDrps)} DRPS). This
         has high accuracy.
@@ -213,8 +213,8 @@ class DevotionAuraDamageReduction extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(60)}
         loader={this.load.bind(this)}
         icon={<SpellIcon id={SPELLS.DEVOTION_AURA.id} />}
-        value={<Trans>≈{formatNumber(this.totalDrps)} DRPS</Trans>}
-        label={<Trans>Damage reduction</Trans>}
+        value={<Trans id="paladin.holy.modules.talents.devotionAuraDamageReduction.drps">≈{formatNumber(this.totalDrps)} DRPS</Trans>}
+        label={<Trans id="paladin.holy.modules.talents.devotionAuraDamageReduction.damageReduction">Damage reduction</Trans>}
         tooltip={tooltip}
         drilldown={makeWclUrl(this.owner.report.code, {
           fight: this.owner.fightId,

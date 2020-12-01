@@ -75,25 +75,25 @@ export class PremiumLoginPanel extends React.PureComponent {
           <div className="text">
             <h1>
               <Textfit mode="single">
-                <Trans id="interface.PremiumLoginPanel.logged-in.greeting">Hello {user.name}.</Trans>
+                <Trans id="interface.premiumLoginPanel.logged-in.greeting">Hello {user.name}.</Trans>
               </Textfit>
             </h1>
             {hasPremium ? (
               <div className="description">
-                <Trans id="interface.PremiumLoginPanel.logged-in.hasPremium">
+                <Trans id="interface.premiumLoginPanel.logged-in.hasPremium">
                   Super thank you for your support! We hope you'll enjoy WoWAnalyzer Premium.
                 </Trans>
               </div>
             ) : (
               <div className="description">
-                <Trans id="interface.PremiumLoginPanel.logged-in.PremiumNotUnlocked">
+                <Trans id="interface.premiumLoginPanel.logged-in.premiumNotUnlocked">
                   You haven't unlocked Premium yet. See the panel to the right for more info.
                 </Trans>
               </div>
             )}
             <div className="logout">
               <a href="/logout" onClick={this.handleClickLogout}>
-                <LogoutIcon /> <Trans id="interface.PremiumLoginPanel.logged-in.logout">Logout</Trans>
+                <LogoutIcon /> <Trans id="interface.premiumLoginPanel.logged-in.logout">Logout</Trans>
               </a>
             </div>
           </div>
@@ -127,9 +127,9 @@ export class PremiumLoginPanel extends React.PureComponent {
               />
             </div>
             <div className="col-md-12">
-              <h1><Trans id="interface.PremiumLoginPanel.panel.sign-in">Premium sign in</Trans></h1>
+              <h1><Trans id="interface.premiumLoginPanel.panel.sign-in">Premium sign in</Trans></h1>
               <div className="description">
-              <Trans id="interface.PremiumLoginPanel.panel.sign-in.description">Sign in with your Patreon or GitHub account using the buttons below.</Trans>
+              <Trans id="interface.premiumLoginPanel.panel.sign-in.description">Sign in with your Patreon or GitHub account using the buttons below.</Trans>
               </div>
             </div>
           </div>

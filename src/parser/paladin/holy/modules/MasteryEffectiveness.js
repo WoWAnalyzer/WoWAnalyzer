@@ -258,7 +258,7 @@ class MasteryEffectiveness extends Analyzer {
       <Statistic key="Statistic" position={STATISTIC_ORDER.CORE(10)}>
         <div className="pad" style={{ position: 'relative' }}>
           <label>
-            <Trans>Mastery effectiveness</Trans>
+            <Trans id="paladin.holy.modules.masteryEffectiveness.masteryEffectiveness">Mastery effectiveness</Trans>
           </label>
           <div className="value">
             {formatPercentage(this.masteryEffectivenessMasteryHealingGainAverage, 0)}%
@@ -287,16 +287,16 @@ class MasteryEffectiveness extends Analyzer {
                 fontSize: 13,
               }}
             >
-              <Trans>Average distance</Trans>
+              <Trans id="paladin.holy.modules.masteryEffectiveness.averageDistance">Average distance</Trans>
             </div>
           </div>
         </div>
       </Statistic>,
       <Panel
         key="Panel"
-        title={<Trans>Mastery effectiveness breakdown</Trans>}
+        title={<Trans id="paladin.holy.modules.masteryEffectiveness.masteryEffectivenessBreakdown">Mastery effectiveness breakdown</Trans>}
         explanation={
-          <Trans>
+          <Trans id="paladin.holy.modules.masteryEffectiveness.masteryEffectivenessBreakdownDetails">
             This shows you your mastery effectiveness on each individual player and the amount of
             healing done to those players.
           </Trans>
@@ -323,14 +323,14 @@ class MasteryEffectiveness extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <Trans>
+        <Trans id="paladin.holy.modules.masteryEffectiveness.suggestion">
           Your Mastery Effectiveness can be improved. Try to improve your positioning, usually by
           sticking with melee.
         </Trans>,
       )
         .icon('inv_hammer_04')
-        .actual(i18n._(t`${formatPercentage(actual)}% mastery effectiveness`))
-        .recommended(i18n._(t`>${formatPercentage(recommended)}% is recommended`)),
+        .actual(i18n._(t('paladin.holy.modules.masteryEffectiveness.suggestion.actual')`${formatPercentage(actual)}% mastery effectiveness`))
+        .recommended(i18n._(t('paladin.holy.modules.masteryEffectiveness.suggestion.recommended')`>${formatPercentage(recommended)}% is recommended`)),
     );
   }
 }

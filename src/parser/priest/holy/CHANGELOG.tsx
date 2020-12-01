@@ -6,7 +6,8 @@ import SPELLS from 'common/SPELLS';
 import { change, date } from 'common/changelog';
 
 export default [
-  change(date(2020, 11, 30), 'Updating Holy to 9.0.1', Khadaj),
+  change(date(2020, 12, 1), 'Updating Holy to 9.0.2', Khadaj),
+  change(date(2020, 11, 30), <>Fixing a bug with <SpellLink id={SPELLS.PRAYER_OF_MENDING_CAST.id} /> tracking</>, Khadaj),
   change(date(2020, 10, 18), 'Converted legacy listeners to new event filters', Zeboot),
   change(date(2020, 10, 2), `Removing Perseverance and adding BodyAndSoul.`, Khadaj),
   change(date(2020, 10, 1), `Making CoH baseline and adding Prayer Circle Talent.`, Khadaj),

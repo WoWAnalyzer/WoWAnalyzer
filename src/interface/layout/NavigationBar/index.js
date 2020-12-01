@@ -40,31 +40,31 @@ const NavigationBar = props => {
         {report && (
           <div className="menu-item">
             <Link to={makeAnalyzerUrl(report)}>
-              {fight ? getFightName(report, fight) : <Trans>Fight selection</Trans>}
+              {fight ? getFightName(report, fight) : <Trans id="interface.layout.navigationBar.fightSelection">Fight selection</Trans>}
             </Link>
           </div>
         )}
         {report && (fight || playerName) && (
           <div className="menu-item">
             <Link to={makeAnalyzerUrl(report, fight ? fight.id : undefined)}>
-              {playerName || <Trans>Player selection</Trans>}
+              {playerName || <Trans id="interface.layout.navigationBar.playerSelection">Player selection</Trans>}
             </Link>
           </div>
         )}
         <div className="spacer" />
         <div className="menu-item required">
           {user && user.premium ? (
-            <Tooltip content={<Trans>Premium active</Trans>}>
+            <Tooltip content={<Trans id="interface.layout.navigationBar.premiumActive">Premium active</Trans>}>
               <Link to="/premium">
                 <PremiumIcon /> <span className="optional">{user.name}</span>
               </Link>
             </Tooltip>
           ) : (
-            <Tooltip content={<Trans>Premium</Trans>}>
+            <Tooltip content={<Trans id="interface.layout.navigationBar.premium">Premium</Trans>}>
               <Link to="/premium" className="premium">
                 <PremiumIcon />{' '}
                 <span className="optional">
-                  <Trans>Premium</Trans>
+                  <Trans id="interface.layout.navigationBar.premium">Premium</Trans>
                 </span>
               </Link>
             </Tooltip>
