@@ -25,7 +25,7 @@ import EmpyreanPower from './modules/talents/EmpyreanPower';
 
 import HolyPowerTracker from '../shared/holypower/HolyPowerTracker';
 import HolyPowerDetails from '../shared/holypower/HolyPowerDetails';
-import SanctifiedWrath from './modules/talents/Sanctified Wrath';
+import SanctifiedWrath from './modules/talents/SanctifiedWrath';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

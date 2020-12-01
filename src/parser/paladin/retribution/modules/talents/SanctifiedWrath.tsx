@@ -46,6 +46,7 @@ class SanctifiedWrath extends Analyzer {
       // If the buff ended early because of death or fight end, don't blame the talent
       const increase = Math.max(0, duration - AW_BASE_DURATION);
       totalIncrease += increase;
+      return;
     });
 
     return (
