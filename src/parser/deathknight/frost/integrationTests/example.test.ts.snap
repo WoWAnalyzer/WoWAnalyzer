@@ -4000,14 +4000,16 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 0,
@@ -4018,7 +4020,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "90",
