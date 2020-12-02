@@ -48,9 +48,9 @@ class BeaconHealingDone extends Analyzer {
   statistic() {
     return (
       <Panel
-        title={<Trans>Beacon healing sources</Trans>}
+        title={<Trans id="paladin.holy.modules.beacons.beaconHealingDone.beaconHealingSources">Beacon healing sources</Trans>}
         explanation={
-          <Trans>
+          <Trans id="paladin.holy.modules.beacons.beaconHealingDone.beaconHealingSources.explanation">
             Beacon healing is triggered by the <b>raw</b> healing done of your primary spells. This
             breakdown shows the amount of effective beacon healing replicated by each beacon
             transfering heal.

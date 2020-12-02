@@ -46,12 +46,12 @@ class FailedBeaconTransfers extends Analyzer {
         icon={<SpellIcon id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id} />}
         value={
           <span style={{ fontSize: '75%' }}>
-            <Trans>Up to {lostBeaconHealing}</Trans>
+            <Trans id="paladin.holy.modules.beacons.failedBeaconTransfers.lostBeaconHealing">Up to {lostBeaconHealing}</Trans>
           </span>
         }
-        label={<Trans>Beacon healing lost (line of sight)</Trans>}
+        label={<Trans id="paladin.holy.modules.beacons.failedBeaconTransfers.lostBeaconHealingLabel">Beacon healing lost (line of sight)</Trans>}
         tooltip={
-          <Trans>
+          <Trans id="paladin.holy.modules.beacons.failedBeaconTransfers.lostBeaconHealingTooltip">
             The amount of <strong>raw</strong> healing that didn't transfer to one or more beacon
             targets due to an issue such as Line of Sight or phasing.
           </Trans>

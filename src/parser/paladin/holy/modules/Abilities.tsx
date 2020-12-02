@@ -27,7 +27,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           extraSuggestion: (
-            <Trans>Casting Holy Shock regularly is very important for performing well.</Trans>
+            <Trans id="paladin.holy.modules.abilities.castHolyShockRegularly">Casting Holy Shock regularly is very important for performing well.</Trans>
           ),
         },
         timelineSortIndex: 0,
@@ -54,7 +54,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id),
           extraSuggestion: (
-            <Trans>
+            <Trans id="paladin.holy.modules.abilities.judgmentOfLightTalent">
               You should cast it whenever <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_TALENT.id} /> has
               dropped, which is usually on cooldown without delay. Alternatively you can ignore the
               debuff and just cast it whenever Judgment is available; there's nothing wrong with
@@ -76,7 +76,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.7,
           extraSuggestion: (
-            <Trans>
+            <Trans id="paladin.holy.modules.abilities.bestowFaithTalent">
               If you can't or don't want to cast it more consider using{' '}
               <SpellLink id={SPELLS.LIGHTS_HAMMER_TALENT.id} /> or{' '}
               <SpellLink id={SPELLS.CRUSADERS_MIGHT_TALENT.id} /> instead.
@@ -120,7 +120,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           extraSuggestion: (
-            <Trans>
+            <Trans id="paladin.holy.modules.abilities.crusadersMightTalent">
               When you are using <SpellLink id={SPELLS.CRUSADERS_MIGHT_TALENT.id} /> it is important
               to use <SpellLink id={SPELLS.CRUSADER_STRIKE.id} /> often enough to benefit from the
               talent. Use a different talent if you are unable to.

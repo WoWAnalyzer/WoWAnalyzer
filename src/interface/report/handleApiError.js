@@ -13,12 +13,12 @@ export default function handleApiError(error, onBack) {
   if (error instanceof LogNotFoundError) {
     return (
       <FullscreenError
-        error={i18n._(t`Report not found.`)}
-        details={i18n._(t`Either you entered a wrong report, or it is private.`)}
+        error={i18n._(t('interface.report.handleApiError.reportNotFound')`Report not found.`)}
+        details={i18n._(t('interface.report.handleApiError.wrongOrPrivateReport')`Either you entered a wrong report, or it is private.`)}
         background="https://media.giphy.com/media/DAgxA6qRfa5La/giphy.gif"
       >
         <div className="text-muted">
-          <Trans>Private reports can not be used, if your guild has private reports you will have to <a href="https://www.warcraftlogs.com/help/start/">upload your own logs</a> or change the existing reports to the <i>unlisted</i> privacy option instead.</Trans>
+          <Trans id="interface.report.handleApiError.wrongOrPrivateReportDetails">Private reports can not be used, if your guild has private reports you will have to <a href="https://www.warcraftlogs.com/help/start/">upload your own logs</a> or change the existing reports to the <i>unlisted</i> privacy option instead.</Trans>
         </div>
         <div>
           <button
@@ -26,7 +26,7 @@ export default function handleApiError(error, onBack) {
             className="btn btn-primary"
             onClick={onBack}
           >
-            &lt; <Trans>Back</Trans>
+            &lt; <Trans id="interface.report.handleApiError.back">Back</Trans>
           </button>
         </div>
       </FullscreenError>
@@ -34,12 +34,12 @@ export default function handleApiError(error, onBack) {
   } else if (error instanceof ApiDownError) {
     return (
       <FullscreenError
-        error={i18n._(t`The API is down.`)}
-        details={i18n._(t`This is usually because we're leveling up with another patch.`)}
+        error={i18n._(t('interface.report.handleApiError.apiDown')`The API is down.`)}
+        details={i18n._(t('interface.report.handleApiError.apiDownDetails')`This is usually because we're leveling up with another patch.`)}
         background={ApiDownBackground}
       >
         <div className="text-muted">
-          <Trans>Aside from the great news that you'll be the first to experience something new that is probably going to pretty amazing, you'll probably also enjoy knowing that our updates usually only take less than 10 seconds. So just <a href={window.location.href}>give it another try</a>.</Trans>
+          <Trans id="interface.report.handleApiError.retry">Aside from the great news that you'll be the first to experience something new that is probably going to pretty amazing, you'll probably also enjoy knowing that our updates usually only take less than 10 seconds. So just <a href={window.location.href}>give it another try</a>.</Trans>
         </div>
         {/* I couldn't resist */}
         <audio autoPlay>
@@ -50,8 +50,8 @@ export default function handleApiError(error, onBack) {
   } else if (error instanceof CorruptResponseError) {
     return (
       <FullscreenError
-        error={i18n._(t`Corrupt Warcraft Logs API response`)}
-        details={i18n._(t`Corrupt Warcraft Logs API response received, this report can not be processed.`)}
+        error={i18n._(t('interface.report.handleApiError.corruptWCLResponse')`Corrupt Warcraft Logs API response`)}
+        details={i18n._(t('interface.report.handleApiError.corruptWCLResponseDetails')`Corrupt Warcraft Logs API response received, this report can not be processed.`)}
         background="https://media.giphy.com/media/m4TbeLYX5MaZy/giphy.gif"
       >
         <div>
@@ -60,7 +60,7 @@ export default function handleApiError(error, onBack) {
             className="btn btn-primary"
             onClick={onBack}
           >
-            &lt; <Trans>Back</Trans>
+            &lt; <Trans id="interface.report.handleApiError.back">Back</Trans>
           </button>
         </div>
       </FullscreenError>
@@ -68,8 +68,8 @@ export default function handleApiError(error, onBack) {
   } else if (error instanceof JsonParseError) {
     return (
       <FullscreenError
-        error={i18n._(t`Failed to parse API response`)}
-        details={i18n._(t`JSON parse error, the API response is probably corrupt. Let us know on Discord and we may be able to fix it for you.`)}
+        error={i18n._(t('interface.report.handleApiError.apiParseFailed')`Failed to parse API response`)}
+        details={i18n._(t('interface.report.handleApiError.apiParseFailedDetails')`JSON parse error, the API response is probably corrupt. Let us know on Discord and we may be able to fix it for you.`)}
         background="https://media.giphy.com/media/m4TbeLYX5MaZy/giphy.gif"
       >
         <div>
@@ -78,7 +78,7 @@ export default function handleApiError(error, onBack) {
             className="btn btn-primary"
             onClick={onBack}
           >
-            &lt; <Trans>Back</Trans>
+            &lt; <Trans id="interface.report.handleApiError.back">Back</Trans>
           </button>
         </div>
       </FullscreenError>
@@ -86,8 +86,8 @@ export default function handleApiError(error, onBack) {
   } else if (error instanceof EventsParseError) {
     return (
       <FullscreenError
-        error={i18n._(t`An error occured during analysis`)}
-        details={i18n._(t`We fucked up and our code broke like the motherfucker that it is. Please let us know on Discord and we will fix it for you.`)}
+        error={i18n._(t('interface.report.handleApiError.analysisError')`An error occured during analysis`)}
+        details={i18n._(t('interface.report.handleApiError.analysisErrorDetails')`We fucked up and our code broke like the motherfucker that it is. Please let us know on Discord and we will fix it for you.`)}
         background="https://media.giphy.com/media/2sdHZ0iBuI45s6fqc9/giphy.gif"
       >
         <div>
@@ -96,7 +96,7 @@ export default function handleApiError(error, onBack) {
             className="btn btn-primary"
             onClick={onBack}
           >
-            &lt; <Trans>Back</Trans>
+            &lt; <Trans id="interface.report.handleApiError.back">Back</Trans>
           </button>
         </div>
       </FullscreenError>
@@ -105,15 +105,15 @@ export default function handleApiError(error, onBack) {
     // Some kind of network error, internet may be down.
     return (
       <FullscreenError
-        error={i18n._(t`A connection error occured.`)}
-        details={i18n._(t`Something went wrong talking to our servers, please try again.`)}
+        error={i18n._(t('interface.report.handleApiError.connectionError')`A connection error occured.`)}
+        details={i18n._(t('interface.report.handleApiError.connectionErrorDetails')`Something went wrong talking to our servers, please try again.`)}
         background="https://media.giphy.com/media/m4TbeLYX5MaZy/giphy.gif"
       >
         <div className="text-muted">
           {error.message}
         </div>
         <div>
-          <a className="btn btn-primary" href={window.location.href}><Trans>Refresh</Trans></a>
+          <a className="btn btn-primary" href={window.location.href}><Trans id="interface.report.handleApiError.refresh">Refresh</Trans></a>
         </div>
       </FullscreenError>
     );

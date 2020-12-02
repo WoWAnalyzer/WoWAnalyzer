@@ -63,13 +63,13 @@ class PatchChecker extends React.PureComponent {
           <h1>{report.title} - {reportDate}</h1>
 
           <Panel
-            title={isThisExpansion ? <Trans>This report is for an earlier patch</Trans> : <Trans>This report is for a previous expansion</Trans>}
+            title={isThisExpansion ? <Trans id="interface.report.patchChecker.earlierPatch">This report is for an earlier patch</Trans> : <Trans id="interface.report.patchChecker.previousExpansion">This report is for a previous expansion</Trans>}
             pad={false}
           >
             <div className="flex wrapable">
               <div className="flex-main pad">
                 {isThisExpansion ? (
-                  <Trans>
+                  <Trans id="interface.report.patchChecker.viewAnalysisOnOlderVersion">
                     WoWAnalyzer is constantly being updated to support the latest changes. This can cause some functionality to be modified for the latest talents/traits/trinkets or be removed.<br /><br />
 
                     This could mean that some parts of your report will no longer be analysed accurately.<br /><br />
@@ -79,13 +79,13 @@ class PatchChecker extends React.PureComponent {
                       onClick={this.handleClickContinue}
                       style={{ fontSize: '1.1em' }}
                     >
-                      <Trans>click here</Trans>
+                      <Trans id="interface.report.patchChecker.clickHere">click here</Trans>
                     </a>.<br /><br />
 
                     If you would still like to view the analysis using the latest updates, you can click 'Continue anyway' below.
                   </Trans>
                 ) : (
-                  <Trans>
+                  <Trans id="interface.report.patchChecker.viewAnalysisOldExpansion">
                     Due to the number of class changes since the last expansion (class abilities, talents, etc.), the analysis provided by WoWAnalyzer will most likely be inaccurate.<br /><br />
 
                     You can still access the Analysis by clicking 'Continue anyway' below if required.
@@ -96,13 +96,13 @@ class PatchChecker extends React.PureComponent {
                   <GitHubButton />{' '}
                   <DiscordButton />
                 </div>
-                <Tooltip content={<Trans>Khadgar approves your bravery</Trans>}>
+                <Tooltip content={<Trans id="interface.report.patchChecker.khadgarApproves">Khadgar approves your bravery</Trans>}>
                   <Link
                     to={window.location.pathname}
                     onClick={this.handleClickContinue}
                     style={{ fontSize: '1.1em' }}
                   >
-                    <Icon icon="quest_khadgar" /> <Trans>Continue anyway</Trans>
+                    <Icon icon="quest_khadgar" /> <Trans id="interface.report.patchChecker.continueAnyway">Continue anyway</Trans>
                   </Link>
                 </Tooltip>
               </div>
