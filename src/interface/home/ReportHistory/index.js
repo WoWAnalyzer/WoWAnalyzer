@@ -26,7 +26,7 @@ const ReportHistory = props => {
                 <div className="flex wrapable">
                   <div>{report.playerRealm} ({report.playerRegion})</div>
                   <div className="flex-sub">
-                    <Trans>viewed {Math.floor(Math.max(0, now - report.end) / 86400)}d ago</Trans>
+                    <Trans id="interface.home.ReportHistory.viewedXDAgo">viewed {Math.floor(Math.max(0, now - report.end) / 86400)}d ago</Trans>
                   </div>
                 </div>
               </div>
@@ -42,7 +42,7 @@ const ReportHistory = props => {
                 <div className="flex wrapable">
                   <div>{report.fightName}</div>
                   <div className="flex-sub">
-                    <Trans>{Math.floor(Math.max(0, now - report.end) / 86400)}d old report</Trans>
+                    <Trans id="interface.home.ReportHistory.xDOldReport">{Math.floor(Math.max(0, now - report.end) / 86400)}d old report</Trans>
                   </div>
                 </div>
               </div>
@@ -52,7 +52,7 @@ const ReportHistory = props => {
       ))}
       {reportHistory.length === 0 && (
         <li style={{ padding: '10px 22px' }}>
-          <Trans>You haven't viewed anything yet.</Trans>
+          <Trans id="interface.home.ReportHistory.notViewedAnythingYet">You haven't viewed anything yet.</Trans>
         </li>
       )}
     </ul>

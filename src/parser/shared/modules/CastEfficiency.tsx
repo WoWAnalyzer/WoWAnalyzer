@@ -406,7 +406,7 @@ class CastEfficiency extends Analyzer {
       when(suggestionThresholds).addSuggestion(
         (suggest, actual, recommended) => suggest(
           <>
-            <Trans>
+            <Trans id="shared.modules.castEfficiency.suggest">
               Try to cast <SpellLink id={mainSpell.id} /> more often.
             </Trans>{' '}
             {ability.castEfficiency.extraSuggestion || ''}
@@ -414,14 +414,14 @@ class CastEfficiency extends Analyzer {
         )
           .icon(mainSpell.icon)
           .actual(
-            <Trans>
+            <Trans id="shared.modules.castEfficiency.actual">
               {abilityInfo.casts} out of {abilityInfo.maxCasts} possible
               casts. You kept it on cooldown {formatPercentage(actual, 0)}% of
               the time.
             </Trans>,
           )
           .recommended(
-            <Trans>
+            <Trans id="shared.modules.castEfficiency.recommended">
               &gt;{formatPercentage(recommended, 0)}% is recommended
             </Trans>,
           )

@@ -23,7 +23,7 @@ const AboutPage = () => (
         className="pull-right"
         style={{ margin: 15 }}
       />
-      <Trans>
+      <Trans id="interface.aboutPage.about">
         WoWAnalyzer is a tool to help you analyze and improve your World of
         Warcraft raiding performance through various relevant metrics and
         gameplay suggestions.
@@ -56,7 +56,7 @@ const AboutPage = () => (
       </Trans>
       <br />
       <br />
-      <Trans>
+      <Trans id="interface.aboutPage.howToUse">
         Wondering how to use WoWAnalyzer? See the{' '}
         <a href="https://www.wowhead.com/how-to-use-wowanalyzer">
           <img
@@ -93,19 +93,23 @@ const AboutPage = () => (
               className="flex-main"
               style={{ fontSize: 24, padding: '5px 15px', lineHeight: 1.4 }}
             >
-              Introducing the <b>WoWAnalyzer</b>{' '}
-              <img
-                src={DiscordLogo}
-                alt="Discord logo"
-                style={{ height: '2em', marginTop: 3 }}
-              />{' '}
-              bot
+              <Trans id="interface.aboutPage.introducingWOWABot">
+                Introducing the <b>WoWAnalyzer</b>{' '}
+                <img
+                  src={DiscordLogo}
+                  alt="Discord logo"
+                  style={{ height: '2em', marginTop: 3 }}
+                />{' '}
+                bot
+              </Trans>
             </div>
           </div>
           <div className="text-center">
             <div style={{ fontSize: 16, margin: '10px 25px 20px 25px' }}>
-              Get users to analyze themselves without lifting a finger (even if
-              they don't read the pins).
+              <Trans id="interface.aboutPage.introducingWOWABotDetails">
+                Get users to analyze themselves without lifting a finger (even if
+                they don't read the pins).
+              </Trans>
               <br />
             </div>
             <div style={{ marginBottom: 7 }}>
@@ -114,12 +118,16 @@ const AboutPage = () => (
                 style={{ borderRadius: 0 }}
                 href="https://discordapp.com/oauth2/authorize?&client_id=368144406181838861&scope=bot&permissions=3072"
               >
-                Add to Discord
+                <Trans id="interface.aboutPage.addBot">
+                  Add to Discord
+                </Trans>
               </a>
             </div>
 
             <a href="https://github.com/WoWAnalyzer/DiscordBot#wowanalyzer-discord-bot-">
-              More info
+              <Trans id="interface.aboutPage.moreInfo">
+                More info
+              </Trans>
             </a>
           </div>
         </div>

@@ -31,12 +31,12 @@ const REPORTS_TO_SHOW_DEFAULT = 25;
 const MONTHS_BACK_SEARCH = 3;
 
 const ERRORS = {
-  GUILD_NOT_FOUND: t`We couldn't find your guild on Warcraft Logs`,
-  NO_REPORTS_FOR_FILTER: t`We couldn't find any reports`,
-  WCL_API_ERROR: t`Something went wrong talking to Warcraft Logs`,
-  UNKNOWN_API_ERROR: t`Something went wrong talking to the server`,
-  UNEXPECTED: t`Something went wrong`,
-  NOT_RESPONDING: t`Request timed out`,
+  GUILD_NOT_FOUND: t('interface.guildReports.errors.guildNotFound')`We couldn't find your guild on Warcraft Logs`,
+  NO_REPORTS_FOR_FILTER: t('interface.guildReports.errors.noReportsForFilter')`We couldn't find any reports`,
+  WCL_API_ERROR: t('interface.guildReports.errors.wclAPIError')`Something went wrong talking to Warcraft Logs`,
+  UNKNOWN_API_ERROR: t('interface.guildReports.errors.unknownAPIError')`Something went wrong talking to the server`,
+  UNEXPECTED: t('interface.guildReports.errors.unexpected')`Something went wrong`,
+  NOT_RESPONDING: t('interface.guildReports.errors.notResponding')`Request timed out`,
 };
 
 interface Props {
@@ -242,7 +242,7 @@ class GuildReports extends React.Component<Props, State> {
 
     if (this.state.error === ERRORS.GUILD_NOT_FOUND) {
       errorMessage = (
-        <Trans>
+        <Trans id="interface.guildReports.errors.guildNotFoundDetails">
           Please check your input and make sure that you've selected the correct region and realm.
           <br />
           If your input was correct, then make sure that someone in your raid logged the fight for
@@ -255,7 +255,7 @@ class GuildReports extends React.Component<Props, State> {
       );
     } else if (this.state.error === ERRORS.NOT_RESPONDING) {
       errorMessage = (
-        <Trans>
+        <Trans id="interface.guildReports.errors.notRespondingDetails">
           It looks like we couldn't get a response in time from the API, this usually happens when
           the servers are under heavy load.
           <br />
@@ -271,7 +271,7 @@ class GuildReports extends React.Component<Props, State> {
       this.state.error === ERRORS.UNEXPECTED
     ) {
       errorMessage = (
-        <Trans>
+        <Trans id="interface.guildReports.errors.details">
           {this.state.errorMessage}
           <br />
           Please message us on {DISCORD} or create an issue on {GITHUB}
@@ -283,7 +283,7 @@ class GuildReports extends React.Component<Props, State> {
       filteredReports.length === 0
     ) {
       errorMessage = (
-        <Trans>
+        <Trans id="interface.guildReports.errors.noReportsForFilterDetails">
           Please check your filters and make sure that you logged those fights on Warcraft Logs.
           <br />
           <br />
@@ -395,7 +395,7 @@ class GuildReports extends React.Component<Props, State> {
               {this.state.error && (
                 <span>
                   <Link to="/">
-                    <Trans>Home</Trans>
+                    <Trans id="interface.guildReports.home">Home</Trans>
                   </Link>{' '}
                   &gt;{' '}
                   <span>
@@ -421,18 +421,18 @@ class GuildReports extends React.Component<Props, State> {
                           className="glyphicon glyphicon-refresh"
                           aria-hidden="true"
                         />{' '}
-                        <Trans>Refresh</Trans>
+                        <Trans id="interface.guildReports.refresh">Refresh</Trans>
                       </Link>
                     </div>
                     <h1 style={{ display: 'inline-block' }}>
                       {this.state.error ? (
                         i18n._(this.state.error)
                       ) : (
-                        <Trans>Guild Reports</Trans>
+                        <Trans id="interface.guildReports.guildReports">Guild Reports</Trans>
                       )}
                     </h1>
                     <small>
-                      <Trans>
+                      <Trans id="interface.guildReports.guildReportsDetails">
                         This page will only show guild reports that are public and listed on
                         Warcraft Logs. If your reports are unlisted, you need to manually find the
                         report on Warcraft Logs and copy the direct report link to analyze a fight
@@ -455,7 +455,7 @@ class GuildReports extends React.Component<Props, State> {
                         }}
                       >
                         <ActivityIndicator
-                          text={<Trans>Fetching reports...</Trans>}
+                          text={<Trans id="interface.guildReports.fetchingReports">Fetching reports...</Trans>}
                         />
                       </div>
                     )}

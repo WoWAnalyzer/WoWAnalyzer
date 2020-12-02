@@ -98,7 +98,7 @@ class ReportLoader extends React.PureComponent {
     });
   }
   renderLoading() {
-    return <ActivityIndicator text={i18n._(t`Pulling report info...`)} />;
+    return <ActivityIndicator text={i18n._(t('interface.report.reportLoader')`Pulling report info...`)} />;
   }
   render() {
     const error = this.state.error;
