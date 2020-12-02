@@ -20,7 +20,7 @@ class Dispatch extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.betweenTheEyesDamageTracker.subscribeInefficientCast([SPELLS.DISPATCH], `Between The Eyes should be prioritized as your spender during Ruthless Precision`);
+    this.betweenTheEyesDamageTracker.subscribeInefficientCast([SPELLS.DISPATCH], (s) => `Between The Eyes should be prioritized as your spender during Ruthless Precision`);
   }
 
   get thresholds() {

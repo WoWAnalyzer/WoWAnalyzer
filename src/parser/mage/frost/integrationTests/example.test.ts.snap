@@ -6821,7 +6821,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
         <div
           className="flex-main name"
         >
-          Be well prepared
+          shared.modules.features.checklist.wellPrepared
         </div>
         <div
           className="flex-sub perf"
@@ -6891,7 +6891,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
           <div
             className="col-md-12"
           >
-            Being well prepared with food, flasks, potions and enchants is an easy way to improve your performance.
+            shared.modules.features.checklist.wellPreparedDetails
           </div>
         </div>
         <div
@@ -6906,7 +6906,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               <div
                 className="flex-main"
               >
-                All items enchanted
+                shared.modules.features.checklist.enchanted
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6967,7 +6967,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               <div
                 className="flex-main"
               >
-                Using high quality enchants
+                shared.modules.features.checklist.enchantedHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -7028,7 +7028,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               <div
                 className="flex-main"
               >
-                Combat potions used
+                shared.modules.features.checklist.combatPotionsUsed
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -7089,7 +7089,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               <div
                 className="flex-main"
               >
-                High quality combat potions used
+                shared.modules.features.checklist.highQualityCombatPotionsUsed
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -7150,7 +7150,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               <div
                 className="flex-main"
               >
-                High quality flask used
+                shared.modules.features.checklist.flaskHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -7210,7 +7210,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               <div
                 className="flex-main"
               >
-                Flask used
+                shared.modules.features.checklist.flask
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -7270,7 +7270,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               <div
                 className="flex-main"
               >
-                High quality food used
+                shared.modules.features.checklist.foodHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -7330,7 +7330,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               <div
                 className="flex-main"
               >
-                Food used
+                shared.modules.features.checklist.food
               </div>
               <div
                 className="flex-sub content-middle text-muted"

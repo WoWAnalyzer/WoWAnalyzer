@@ -349,14 +349,10 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
         }
       }
     >
-      Beacon healing sources
+      paladin.holy.modules.beacons.beaconHealingDone.beaconHealingSources
     </h1>
     <small>
-      Beacon healing is triggered by the 
-      <b>
-        raw
-      </b>
-       healing done of your primary spells. This breakdown shows the amount of effective beacon healing replicated by each beacon transfering heal.
+      paladin.holy.modules.beacons.beaconHealingDone.beaconHealingSources.explanation
     </small>
   </div>
   <div
@@ -375,7 +371,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
               }
             }
           >
-            Name
+            paladin.holy.modules.beacons.beaconHealingBreakdown.name
           </th>
           <th
             colSpan="3"
@@ -388,7 +384,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
                 }
               }
             >
-              Beacon healing caused
+              paladin.holy.modules.beacons.beaconHealingBreakdown.beaconHealingCaused
             </span>
             <div
               className="pull-right toggle-control"
@@ -431,7 +427,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
                   }
                 }
               >
-                relative to total healing
+                paladin.holy.modules.beacons.beaconHealingBreakdown.relativeToTotalHealing
               </label>
             </div>
           </th>
@@ -443,7 +439,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
               }
             }
           >
-            Overheal
+            paladin.holy.modules.beacons.beaconHealingBreakdown.overheal
           </th>
         </tr>
       </thead>
@@ -514,7 +510,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
               onTouchStart={[Function]}
               style={Object {}}
             >
-              {0} HPS
+              paladin.holy.modules.beacons.beaconHealingBreakdown.hps
             </dfn>
           </td>
           <td
@@ -595,7 +591,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
               onTouchStart={[Function]}
               style={Object {}}
             >
-              {0} HPS
+              paladin.holy.modules.beacons.beaconHealingBreakdown.hps
             </dfn>
           </td>
           <td
@@ -676,7 +672,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
               onTouchStart={[Function]}
               style={Object {}}
             >
-              {0} HPS
+              paladin.holy.modules.beacons.beaconHealingBreakdown.hps
             </dfn>
           </td>
           <td
@@ -757,7 +753,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
               onTouchStart={[Function]}
               style={Object {}}
             >
-              {0} HPS
+              paladin.holy.modules.beacons.beaconHealingBreakdown.hps
             </dfn>
           </td>
           <td
@@ -838,7 +834,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
               onTouchStart={[Function]}
               style={Object {}}
             >
-              {0} HPS
+              paladin.holy.modules.beacons.beaconHealingBreakdown.hps
             </dfn>
           </td>
           <td
@@ -919,7 +915,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
               onTouchStart={[Function]}
               style={Object {}}
             >
-              {0} HPS
+              paladin.holy.modules.beacons.beaconHealingBreakdown.hps
             </dfn>
           </td>
           <td
@@ -1000,7 +996,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
               onTouchStart={[Function]}
               style={Object {}}
             >
-              {0} HPS
+              paladin.holy.modules.beacons.beaconHealingBreakdown.hps
             </dfn>
           </td>
           <td
@@ -1081,7 +1077,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
               onTouchStart={[Function]}
               style={Object {}}
             >
-              {0} HPS
+              paladin.holy.modules.beacons.beaconHealingBreakdown.hps
             </dfn>
           </td>
           <td
@@ -1162,7 +1158,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
               onTouchStart={[Function]}
               style={Object {}}
             >
-              {0} HPS
+              paladin.holy.modules.beacons.beaconHealingBreakdown.hps
             </dfn>
           </td>
           <td
@@ -1201,7 +1197,7 @@ exports[`Holy Paladin integration test: example log BeaconUptime matches the sta
           }
         }
       >
-        Beacon Uptime
+        paladin.holy.modules.beacons.beaconUptime.beaconUptime
       </label>
       <div
         style={
@@ -1237,7 +1233,7 @@ exports[`Holy Paladin integration test: example log BeaconUptime matches the sta
               100%
             </div>
             <small>
-              BoL Uptime
+              paladin.holy.modules.beacons.beaconUptime.bolUptime
             </small>
           </div>
         </div>
@@ -1276,7 +1272,7 @@ exports[`Holy Paladin integration test: example log BeaconUptime matches the sta
               100%
             </div>
             <small>
-              BoF Uptime
+              paladin.holy.modules.beacons.beaconUptime.bofUptime
             </small>
           </div>
         </div>
@@ -1309,21 +1305,7 @@ exports[`Holy Paladin integration test: example log CastBehavior matches the sta
           className="pad"
         >
           <label>
-            <a
-              className="spell-link-text"
-              href="http://wowhead.com/spell=54149"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_infusionoflight.jpg"
-              />
-               
-              Infusion of Light
-            </a>
-             usage
+            paladin.holy.modules.castBehavior.infusionOfLightUsage
           </label>
           <div
             className="donut-chart"
@@ -1452,7 +1434,7 @@ exports[`Holy Paladin integration test: example log CastBehavior matches the sta
                     onTouchStart={[Function]}
                     style={Object {}}
                   >
-                    Wasted procs
+                    paladin.holy.modules.castBehavior.wastedProcs
                   </dfn>
                 </div>
                 <div
@@ -1494,7 +1476,7 @@ exports[`Holy Paladin integration test: example log CastBehavior matches the sta
           className="pad"
         >
           <label>
-            Fillers
+            paladin.holy.modules.castBehavior.fillers
           </label>
           <div
             className="donut-chart"
@@ -4868,16 +4850,19 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       <WithI18n
-        id="Casting Holy Shock regularly is very important for performing well."
+        defaults="Casting Holy Shock regularly is very important for performing well."
+        id="paladin.holy.modules.abilities.castHolyShockRegularly"
       />
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 34,
@@ -4888,7 +4873,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "80",
@@ -4911,7 +4897,8 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       <WithI18n
@@ -4922,12 +4909,14 @@ Array [
             />,
           ]
         }
-        id="You should cast it whenever <0/> has dropped, which is usually on cooldown without delay. Alternatively you can ignore the debuff and just cast it whenever Judgment is available; there's nothing wrong with ignoring unimportant things to focus on important things."
+        defaults="You should cast it whenever <0/> has dropped, which is usually on cooldown without delay. Alternatively you can ignore the debuff and just cast it whenever Judgment is available; there's nothing wrong with ignoring unimportant things to focus on important things."
+        id="paladin.holy.modules.abilities.judgmentOfLightTalent"
       />
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 21,
@@ -4938,7 +4927,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "85",
@@ -4961,7 +4951,8 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       <WithI18n
@@ -4975,12 +4966,14 @@ Array [
             />,
           ]
         }
-        id="If you can't or don't want to cast it more consider using <0/> or <1/> instead."
+        defaults="If you can't or don't want to cast it more consider using <0/> or <1/> instead."
+        id="paladin.holy.modules.abilities.bestowFaithTalent"
       />
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 4,
@@ -4991,7 +4984,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "70",
@@ -5014,14 +5008,16 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 2,
@@ -5032,7 +5028,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "60",
@@ -5055,14 +5052,16 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 3,
@@ -5073,7 +5072,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "80",
@@ -5096,14 +5096,16 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 0,
@@ -5114,7 +5116,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "85",
@@ -5162,7 +5165,7 @@ exports[`Holy Paladin integration test: example log DevotionAuraDamageReduction 
             />
           </a>
            
-          Damage reduction
+          paladin.holy.modules.talents.devotionAuraDamageReduction.damageReduction
         </label>
         <div
           className="value"
@@ -5275,7 +5278,7 @@ exports[`Holy Paladin integration test: example log DirectBeaconHealing matches 
           </a>
         </div>
         <label>
-          Direct beacon healing
+          paladin.holy.modules.beacons.directBeaconHealing.directBeaconHealing
         </label>
         <div
           className="flex"
@@ -5316,7 +5319,7 @@ exports[`Holy Paladin integration test: example log DirectBeaconHealing matches 
                 }
               >
                 <small>
-                  HL/FoL
+                  paladin.holy.modules.beacons.directBeaconHealing.hlFol
                 </small>
                 <div
                   className="value"
@@ -5334,7 +5337,7 @@ exports[`Holy Paladin integration test: example log DirectBeaconHealing matches 
                 className="flex-main"
               >
                 <small>
-                  Other spells
+                  paladin.holy.modules.beacons.directBeaconHealing.otherSpells
                 </small>
                 <div
                   className="value"
@@ -5725,7 +5728,7 @@ exports[`Holy Paladin integration test: example log FailedBeaconTransfers matche
             />
           </a>
            
-          Beacon healing lost (line of sight)
+          paladin.holy.modules.beacons.failedBeaconTransfers.lostBeaconHealingLabel
         </label>
         <div
           className="value"
@@ -5737,7 +5740,7 @@ exports[`Holy Paladin integration test: example log FailedBeaconTransfers matche
               }
             }
           >
-            Up to {lostBeaconHealing}
+            paladin.holy.modules.beacons.failedBeaconTransfers.lostBeaconHealing
           </span>
         </div>
       </div>
@@ -5782,7 +5785,8 @@ Array [
             className=""
             content={
               <WithI18n
-                id="It was either already available or going to be available within {HOLY_SHOCK_COOLDOWN_WAIT_TIME}ms."
+                defaults="It was either already available or going to be available within {HOLY_SHOCK_COOLDOWN_WAIT_TIME}ms."
+                id="paladin.holy.modules.fillerFlashOfLight.suggestion.tooltip"
                 values={
                   Object {
                     "HOLY_SHOCK_COOLDOWN_WAIT_TIME": 200,
@@ -5802,7 +5806,8 @@ Array [
             className=""
             content={
               <WithI18n
-                id="There are very rare exceptions to this. For example it may be worth saving Holy Shock when you know you're going to be moving soon and you may have to heal yourself."
+                defaults="There are very rare exceptions to this. For example it may be worth saving Holy Shock when you know you're going to be moving soon and you may have to heal yourself."
+                id="paladin.holy.modules.fillerFlashOfLight.suggestion.exceptions"
               />
             }
             direction="down"
@@ -5812,7 +5817,8 @@ Array [
           />,
         ]
       }
-      id="You started casting {0} filler <0/>s while <1/> was <2>available</2> (at {1} ). <3/> is a much more efficient spell and should be prioritized<4>*</4>."
+      defaults="You started casting {0} filler <0/>s while <1/> was <2>available</2> (at {1} ). <3/> is a much more efficient spell and should be prioritized<4>*</4>."
+      id="paladin.holy.modules.fillerFlashOfLight.suggestion"
       values={
         Object {
           "0": 36,
@@ -5822,7 +5828,8 @@ Array [
     />,
     "stat": <React.Fragment>
       <WithI18n
-        id="{actual} casts while Holy Shock was available"
+        defaults="{actual} casts while Holy Shock was available"
+        id="paladin.holy.modules.fillerFlashOfLight.actualInefficient"
         values={
           Object {
             "actual": 36,
@@ -5831,7 +5838,8 @@ Array [
       />
        (
       <WithI18n
-        id="No inefficient casts is recommended"
+        defaults="No inefficient casts is recommended"
+        id="paladin.holy.modules.fillerFlashOfLight.recommendedInefficient"
       />
       )
     </React.Fragment>,
@@ -5853,11 +5861,13 @@ Array [
           />,
         ]
       }
-      id="You cast many <0/>s. Light of the Martyr is an inefficient spell to cast, try to only cast Light of the Martyr when it will save someone's life or when moving and all other instant cast spells are on cooldown."
+      defaults="You cast many <0/>s. Light of the Martyr is an inefficient spell to cast, try to only cast Light of the Martyr when it will save someone's life or when moving and all other instant cast spells are on cooldown."
+      id="paladin.holy.modules.fillerLightOfTheMatyrs.suggestion"
     />,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} casts per minute - {1} casts total"
+        defaults="{0} casts per minute - {1} casts total"
+        id="paladin.holy.modules.fillerLightOfTheMatyrs.actual"
         values={
           Object {
             "0": "2.08",
@@ -5867,7 +5877,8 @@ Array [
       />
        (
       <WithI18n
-        id="<{recommended} casts per minute is recommended"
+        defaults="<{recommended} casts per minute is recommended"
+        id="paladin.holy.modules.fillerLightOfTheMatyrs.recommended"
         values={
           Object {
             "recommended": 1.5,
@@ -5894,7 +5905,8 @@ Array [
             className=""
             content={
               <WithI18n
-                id="It was either already available or going to be available within {HOLY_SHOCK_COOLDOWN_WAIT_TIME}ms."
+                defaults="It was either already available or going to be available within {HOLY_SHOCK_COOLDOWN_WAIT_TIME}ms."
+                id="paladin.holy.modules.fillerLightOfTheMatyrs.inefficientSuggestion.availableWithin"
                 values={
                   Object {
                     "HOLY_SHOCK_COOLDOWN_WAIT_TIME": 200,
@@ -5915,7 +5927,8 @@ Array [
             className=""
             content={
               <WithI18n
-                id="There are very rare exceptions to this. For example it may be worth saving Holy Shock when you know you're going to be moving soon and you may have to heal yourself."
+                defaults="There are very rare exceptions to this. For example it may be worth saving Holy Shock when you know you're going to be moving soon and you may have to heal yourself."
+                id="paladin.holy.modules.fillerLightOfTheMatyrs.inefficientSuggestion.exceptions"
               />
             }
             direction="down"
@@ -5925,7 +5938,8 @@ Array [
           />,
         ]
       }
-      id="You cast {0} <0/>s while <1/> was <2>available</2> (at {1} ). Try to <3>never</3> cast <4/> when something else is available<5>*</5>."
+      defaults="You cast {0} <0/>s while <1/> was <2>available</2> (at {1} ). Try to <3>never</3> cast <4/> when something else is available<5>*</5>."
+      id="paladin.holy.modules.fillerLightOfTheMatyrs.inefficientSuggestion"
       values={
         Object {
           "0": 7,
@@ -5935,7 +5949,8 @@ Array [
     />,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} casts while Holy Shock was available"
+        defaults="{0} casts while Holy Shock was available"
+        id="paladin.holy.modules.fillerLightOfTheMatyrs.inefficientSuggestion.actual"
         values={
           Object {
             "0": 7,
@@ -5944,7 +5959,8 @@ Array [
       />
        (
       <WithI18n
-        id="No inefficient casts is recommended"
+        defaults="No inefficient casts is recommended"
+        id="paladin.holy.modules.fillerLightOfTheMatyrs.inefficientSuggestion.recommended"
       />
       )
     </React.Fragment>,
@@ -6297,7 +6313,7 @@ exports[`Holy Paladin integration test: example log LightOfDawn matches the stat
             4.75
           </div>
           <small>
-            Average targets hit per cast
+            paladin.holy.modules.lightOfDawn.avgHitPerCast
           </small>
           <div
             className="characters-hit-per-cast"
@@ -6490,7 +6506,7 @@ Array [
           }
         >
           <label>
-            Mastery effectiveness
+            paladin.holy.modules.masteryEffectiveness.masteryEffectiveness
           </label>
           <div
             className="value"
@@ -6624,7 +6640,7 @@ Array [
                 }
               }
             >
-              Average distance
+              paladin.holy.modules.masteryEffectiveness.averageDistance
             </div>
           </div>
         </div>
@@ -6644,10 +6660,10 @@ Array [
           }
         }
       >
-        Mastery effectiveness breakdown
+        paladin.holy.modules.masteryEffectiveness.masteryEffectivenessBreakdown
       </h1>
       <small>
-        This shows you your mastery effectiveness on each individual player and the amount of healing done to those players.
+        paladin.holy.modules.masteryEffectiveness.masteryEffectivenessBreakdownDetails
       </small>
     </div>
     <div
@@ -6665,12 +6681,12 @@ Array [
             }
           >
             <th>
-              Name
+              interface.playerBreakdown.name
             </th>
             <th
               colSpan="2"
             >
-              Mastery effectiveness
+              interface.playerBreakdown.masteryEffectiveness
             </th>
             <th
               colSpan="3"
@@ -6682,7 +6698,7 @@ Array [
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Healing done
+                interface.playerBreakdown.healingDone
               </dfn>
             </th>
           </tr>
@@ -8133,7 +8149,8 @@ Array [
           />,
         ]
       }
-      id="Try to avoid overhealing with <0/>. Cast it just before someone is about to take damage and consider casting it on targets other than tanks."
+      defaults="Try to avoid overhealing with <0/>. Cast it just before someone is about to take damage and consider casting it on targets other than tanks."
+      id="paladin.holy.modules.overhealing.bestowFaithSuggestion"
     />,
     "stat": <React.Fragment>
       45.94% overhealing
@@ -8307,10 +8324,7 @@ exports[`Holy Paladin integration test: example log RuleOfLaw matches the statis
         <div
           className="flex-sub value"
         >
-          {0}% 
-          <small>
-            uptime
-          </small>
+          paladin.holy.modules.talents.ruleOfLaw.smallUptime
         </div>
         <div
           className="flex-main chart"
@@ -8349,11 +8363,13 @@ Array [
           />,
         ]
       }
-      id="Your <0/> uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges."
+      defaults="Your <0/> uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges."
+      id="paladin.holy.modules.talents.ruleOfLaw.suggestion"
     />,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0}% uptime"
+        defaults="{0}% uptime"
+        id="paladin.holy.modules.talents.ruleOfLaw.actual"
         values={
           Object {
             "0": "0.00",
@@ -8362,7 +8378,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="paladin.holy.modules.talents.ruleOfLaw.recommended"
         values={
           Object {
             "0": "25.00",
@@ -8679,7 +8696,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
         <div
           className="flex-main name"
         >
-          Use your primary healing spells as often as possible
+          paladin.holy.modules.checklist.usePrimarySpells
         </div>
         <div
           className="flex-sub perf"
@@ -8749,31 +8766,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
           <div
             className="col-md-12"
           >
-            <a
-              className="spell-link-text"
-              href="http://wowhead.com/spell=20473"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/spell_holy_searinglight.jpg"
-              />
-               
-              Holy Shock
-            </a>
-            {0} {1} {2} {3} {4} are your most efficient healing spells available. Try to cast them as much as possible without overhealing.
-            <dfn
-              className=""
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={[Function]}
-              style={Object {}}
-            >
-              On Mythic
-            </dfn>
-             you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and improving your target selection. {5}
+            paladin.holy.modules.checklist.usePrimarySpells.description
           </div>
         </div>
         <div
@@ -9080,45 +9073,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               <div
                 className="flex-main"
               >
-                Total filler 
-                <a
-                  className="spell-link-text"
-                  href="http://wowhead.com/spell=19750"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/spell_holy_flashheal.jpg"
-                  />
-                   
-                  Flash of Light
-                </a>
-                s cast while 
-                <span
-                  style={
-                    Object {
-                      "whiteSpace": "nowrap",
-                    }
-                  }
-                >
-                  <a
-                    className="spell-link-text"
-                    href="http://wowhead.com/spell=20473"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    <img
-                      alt=""
-                      className="icon game "
-                      src="//render-us.worldofwarcraft.com/icons/56/spell_holy_searinglight.jpg"
-                    />
-                     
-                    Holy Shock
-                  </a>
-                </span>
-                 was available
+                paladin.holy.modules.checklist.totalFillerWhileHolyShock
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -9186,7 +9141,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
         <div
           className="flex-main name"
         >
-          Use your cooldowns effectively
+          paladin.holy.modules.checklist.useCooldownsEffectively
         </div>
         <div
           className="flex-sub perf"
@@ -9256,14 +9211,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
           <div
             className="col-md-12"
           >
-            Your cooldowns are an important contributor to your healing throughput. Try to get in as many efficient casts as the fight allows. 
-            <a
-              href="https://www.wowhead.com/holy-paladin-rotation-guide#gameplay-and-priority-list"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              More info.
-            </a>
+            paladin.holy.modules.checklist.useCooldownsEffectively.description
           </div>
         </div>
         <div
@@ -9432,23 +9380,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
         <div
           className="flex-main name"
         >
-          Only use 
-          <a
-            className="spell-link-text"
-            href="http://wowhead.com/spell=183998"
-            onClick={[Function]}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt=""
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_lightofthemartyr.jpg"
-            />
-             
-            Light of the Martyr
-          </a>
-           when absolutely necessary
+          paladin.holy.modules.checklist.useLightOfTheMartyrOnlyWhenNecessary
         </div>
         <div
           className="flex-sub perf"
@@ -9518,36 +9450,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
           <div
             className="col-md-12"
           >
-            <a
-              className="spell-link-text"
-              href="http://wowhead.com/spell=183998"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_lightofthemartyr.jpg"
-              />
-               
-              Light of the Martyr
-            </a>
-             is an inefficient spell to cast compared to the alternatives. Try to only cast 
-            <a
-              className="spell-link-text"
-              href="http://wowhead.com/spell=183998"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_lightofthemartyr.jpg"
-              />
-               
-              Light of the Martyr
-            </a>
-             when it will save someone's life or when you have to move and all other instant cast spells are on cooldown.
+            paladin.holy.modules.checklist.useLightOfTheMartyrOnlyWhenNecessary.description
           </div>
         </div>
         <div
@@ -9562,7 +9465,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               <div
                 className="flex-main"
               >
-                Total filler casts per minute
+                paladin.holy.modules.checklist.totalFillerPerMinute
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -9622,22 +9525,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               <div
                 className="flex-main"
               >
-                Total filler casts while 
-                <a
-                  className="spell-link-text"
-                  href="http://wowhead.com/spell=20473"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/spell_holy_searinglight.jpg"
-                  />
-                   
-                  Holy Shock
-                </a>
-                 was available
+                paladin.holy.modules.checklist.totalFillerPerMinuteWhileHolyShock
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -9705,7 +9593,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
         <div
           className="flex-main name"
         >
-          Don't tunnel the tanks
+          paladin.holy.modules.checklist.dontTunnelTanks
         </div>
         <div
           className="flex-sub perf"
@@ -9775,7 +9663,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
           <div
             className="col-md-12"
           >
-            A common misconception about Holy Paladins is that we should focus tanks when healing. This is actually inefficient. Let your beacons do most of the work, ask your co-healers to keep efficient HoTs on the tanks and only directly heal the tanks when they would otherwise die.
+            paladin.holy.modules.checklist.dontTunnelTanks.description
           </div>
         </div>
         <div
@@ -9790,7 +9678,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               <div
                 className="flex-main"
               >
-                Direct beacon healing
+                paladin.holy.modules.checklist.directBeaconHealing
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -9858,22 +9746,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
         <div
           className="flex-main name"
         >
-          Position yourself well to maximize 
-          <a
-            className="spell-link-text"
-            href="http://wowhead.com/spell=183997"
-            onClick={[Function]}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt=""
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/inv_hammer_04.jpg"
-            />
-             
-            Mastery: Lightbringer
-          </a>
+          paladin.holy.modules.checklist.positionWell
         </div>
         <div
           className="flex-sub perf"
@@ -9943,36 +9816,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
           <div
             className="col-md-12"
           >
-            <a
-              className="spell-link-text"
-              href="http://wowhead.com/spell=183997"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/inv_hammer_04.jpg"
-              />
-               
-              Mastery: Lightbringer
-            </a>
-             has a big impact on the strength of your heals. Try to stay close to the people you are healing to benefit the most from your Mastery. Use 
-            <a
-              className="spell-link-text"
-              href="http://wowhead.com/spell=214202"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_longarmofthelaw.jpg"
-              />
-               
-              Rule of Law
-            </a>
-             when healing people further away.
+            paladin.holy.modules.checklist.positionWell.description
           </div>
         </div>
         <div
@@ -9987,7 +9831,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               <div
                 className="flex-main"
               >
-                Mastery effectiveness
+                paladin.holy.modules.checklist.masteryEffectiveness
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -10055,21 +9899,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
         <div
           className="flex-main name"
         >
-          Use all of your 
-          <a
-            href="http://wowhead.com/mana"
-            onClick={[Function]}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Mana"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/inv_elemental_mote_mana.jpg"
-            />
-             
-            Mana
-          </a>
+          paladin.holy.modules.checklist.useAllOfMana
         </div>
         <div
           className="flex-sub perf"
@@ -10139,7 +9969,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
           <div
             className="col-md-12"
           >
-            If you have a large amount of mana left at the end of the fight that's mana you could have turned into healing. Try to use all your mana during a fight. A good rule of thumb is to try to match your mana level with the boss's health.
+            paladin.holy.modules.checklist.useAllOfMana.description
           </div>
         </div>
         <div
@@ -10154,7 +9984,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               <div
                 className="flex-main"
               >
-                Mana left
+                paladin.holy.modules.checklist.manaLeft
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -10222,7 +10052,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
         <div
           className="flex-main name"
         >
-          Try to avoid being inactive for a large portion of the fight
+          paladin.holy.modules.checklist.avoidBeingInactive
         </div>
         <div
           className="flex-sub perf"
@@ -10292,17 +10122,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
           <div
             className="col-md-12"
           >
-            While it's suboptimal to always be casting as a healer you should still try to always be doing something during the entire fight and high downtime is inexcusable. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and 
-            <dfn
-              className=""
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={[Function]}
-              style={Object {}}
-            >
-              when you're not healing try to contribute some damage*
-            </dfn>
-            .
+            paladin.holy.modules.checklist.avoidBeingInactive.description
           </div>
         </div>
         <div
@@ -10317,7 +10137,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               <div
                 className="flex-main"
               >
-                Non healing time
+                paladin.holy.modules.checklist.nonHealingTime
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -10377,7 +10197,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               <div
                 className="flex-main"
               >
-                Downtime
+                paladin.holy.modules.checklist.downtime
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -10445,7 +10265,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
         <div
           className="flex-main name"
         >
-          Avoid overhealing
+          paladin.holy.modules.checklist.avoidOverhealing
         </div>
         <div
           className="flex-sub perf"
@@ -10515,7 +10335,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
           <div
             className="col-md-12"
           >
-            Pick the right targets when healing and use the right abilities at the right time. While overhealing still transfers to your beacons, it remains inefficient. Overhealing might be unavoidable when there's not a lot of damage taken (such as in normal mode) or when bringing too many healers.
+            paladin.holy.modules.checklist.avoidOverhealing.description
           </div>
         </div>
         <div
@@ -10830,7 +10650,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
         <div
           className="flex-main name"
         >
-          Keep your beacons active
+          paladin.holy.modules.checklist.keepBeaconsActive
         </div>
         <div
           className="flex-sub perf"
@@ -10900,7 +10720,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
           <div
             className="col-md-12"
           >
-            Beacon of Light and Beacon of Faith, if talented, should be applied prior to the fight starting and maintained active for as long as the paladin is alive. Any beacon downtime will result in lost healing and efficiency.
+            paladin.holy.modules.checklist.keepBeaconsActive.description
           </div>
         </div>
         <div
@@ -10915,22 +10735,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               <div
                 className="flex-main"
               >
-                <a
-                  className="spell-link-text"
-                  href="http://wowhead.com/spell=53563"
-                  onClick={[Function]}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_beaconoflight.jpg"
-                  />
-                   
-                  Beacon of Light
-                </a>
-                 applied prepull
+                paladin.holy.modules.checklist.beaconOfLightAppliedPrepull
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -10990,22 +10795,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               <div
                 className="flex-main"
               >
-                <a
-                  className="spell-link-text"
-                  href="http://wowhead.com/spell=53563"
-                  onClick={[Function]}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_beaconoflight.jpg"
-                  />
-                   
-                  Beacon of Light
-                </a>
-                 Uptime
+                paladin.holy.modules.checklist.beaconOfVirtueTalentUptime
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -11065,22 +10855,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               <div
                 className="flex-main"
               >
-                <a
-                  className="spell-link-text"
-                  href="http://wowhead.com/spell=156910"
-                  onClick={[Function]}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_beaconsoflight.jpg"
-                  />
-                   
-                  Beacon of Faith
-                </a>
-                 applied prepull
+                paladin.holy.modules.checklist.beaconOfFaithTalentAppliedPrepull
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -11140,22 +10915,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               <div
                 className="flex-main"
               >
-                <a
-                  className="spell-link-text"
-                  href="http://wowhead.com/spell=156910"
-                  onClick={[Function]}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_beaconsoflight.jpg"
-                  />
-                   
-                  Beacon of Faith
-                </a>
-                 Uptime
+                paladin.holy.modules.checklist.beaconOfFaithTalentUptime
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -11223,7 +10983,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
         <div
           className="flex-main name"
         >
-          Be well prepared
+          shared.modules.features.checklist.wellPrepared
         </div>
         <div
           className="flex-sub perf"
@@ -11293,7 +11053,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
           <div
             className="col-md-12"
           >
-            Being well prepared with food, flasks, potions and enchants is an easy way to improve your performance.
+            shared.modules.features.checklist.wellPreparedDetails
           </div>
         </div>
         <div
@@ -11308,7 +11068,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               <div
                 className="flex-main"
               >
-                All items enchanted
+                shared.modules.features.checklist.enchanted
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -11369,7 +11129,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               <div
                 className="flex-main"
               >
-                Using high quality enchants
+                shared.modules.features.checklist.enchantedHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -11430,7 +11190,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               <div
                 className="flex-main"
               >
-                Combat potions used
+                shared.modules.features.checklist.combatPotionsUsed
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -11491,7 +11251,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               <div
                 className="flex-main"
               >
-                High quality combat potions used
+                shared.modules.features.checklist.highQualityCombatPotionsUsed
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -11552,7 +11312,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               <div
                 className="flex-main"
               >
-                High quality flask used
+                shared.modules.features.checklist.flaskHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -11612,7 +11372,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               <div
                 className="flex-main"
               >
-                Flask used
+                shared.modules.features.checklist.flask
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -11672,7 +11432,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               <div
                 className="flex-main"
               >
-                High quality food used
+                shared.modules.features.checklist.foodHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -11732,7 +11492,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               <div
                 className="flex-main"
               >
-                Food used
+                shared.modules.features.checklist.food
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -11800,7 +11560,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
         <div
           className="flex-main name"
         >
-          Use your supportive abilities
+          paladin.holy.modules.checklist.useSupportiveAbilities
         </div>
         <div
           className="flex-sub perf"
@@ -11870,7 +11630,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
           <div
             className="col-md-12"
           >
-            While you shouldn't aim to cast defensives and externals on cooldown, be aware of them and try to use them whenever effective. Not using them at all indicates you might not be aware of them enough or not utilizing them optimally.
+            paladin.holy.modules.checklist.useSupportiveAbilities.description
           </div>
         </div>
         <div
