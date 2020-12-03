@@ -988,7 +988,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               41
-              /44
+              /39
                
               casts
             </td>
@@ -1007,7 +1007,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "96.92373305881756%",
+                      "width": "107.45910689418572%",
                     }
                   }
                 />
@@ -1022,7 +1022,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              96.92%
+              107.46%
             </td>
             <td
               style={
@@ -3737,6 +3737,43 @@ Array [
 ]
 `;
 
+exports[`Fire Mage integration test: example log CombustionCharges matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_fire_sealoffire",
+    "importance": "regular",
+    "issue": <React.Fragment>
+      You cast 
+      <ForwardRef
+        id={190319}
+      />
+       
+      1
+       times with less than 
+      2
+       charges of 
+      <ForwardRef
+        id={108853}
+      />
+      . Make sure you are saving at least 
+      2
+       charges while Combustion is on cooldown so you can get as many 
+      <ForwardRef
+        id={48108}
+      />
+       procs as possible before Combustion ends.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      50.00% Utilization
+       (
+      100.00 is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
 exports[`Fire Mage integration test: example log CombustionSpellUsage matches the suggestions snapshot 1`] = `
 Array [
   Object {
@@ -5727,7 +5764,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  96.92%
+                  107.46%
                    
                    
                 </div>
@@ -6079,7 +6116,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "87.51249999999999%",
+                  "width": "72.91875000000002%",
                 }
               }
             />
@@ -6217,7 +6254,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  100.00%
+                  50.00%
                    
                    
                 </div>
@@ -6237,9 +6274,9 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "41.625%",
                       }
                     }
                   />
@@ -7543,7 +7580,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#ffc84a",
-                  "width": "55.10386993603411%",
+                  "width": "57.325205689301164%",
                 }
               }
             />
@@ -7636,7 +7673,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  19.57%
+                  13.64%
                    
                    
                 </div>
@@ -7658,7 +7695,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "10.207739872068228%",
+                        "width": "14.650411378602321%",
                       }
                     }
                   />

@@ -1,34 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Protection Paladin integration test: example log AlwaysBeCasting matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "spell_mage_altertime",
-    "importance": "minor",
-    "issue": <React.Fragment>
-      Your downtime can be improved. Try to cast more, for example by reducing the delay between casting spells. Even if you have to move, try to cast something instant with range like 
-      <ForwardRef
-        icon={true}
-        id={20271}
-      />
-       or 
-      <ForwardRef
-        icon={true}
-        id={31935}
-      />
-      .
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      33.99% downtime
-       (
-      &lt;20.00% is recommended
-      )
-    </React.Fragment>,
-  },
-]
-`;
-
 exports[`Protection Paladin integration test: example log BlessedHammerDamageReduction matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -231,7 +202,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               25
-              /58
+              /45
                
               casts
             </td>
@@ -250,7 +221,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "43.15486728412316%",
+                      "width": "55.65805085008976%",
                     }
                   }
                 />
@@ -265,7 +236,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              43.15%
+              55.66%
             </td>
             <td
               style={
@@ -329,7 +300,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               18
-              /46
+              /37
                
               casts
             </td>
@@ -348,7 +319,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "40.91798512886454%",
+                      "width": "52.716125305156446%",
                     }
                   }
                 />
@@ -363,7 +334,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              40.92%
+              52.72%
             </td>
             <td
               style={
@@ -427,7 +398,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               11
-              /23
+              /65
                
               casts
             </td>
@@ -446,7 +417,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "49.49355592931948%",
+                      "width": "17.082995881335783%",
                     }
                   }
                 />
@@ -461,7 +432,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              49.49%
+              17.08%
             </td>
             <td
               style={
@@ -613,7 +584,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               38
-              /49
+              /46
                
               casts
             </td>
@@ -631,8 +602,8 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#ff8000",
-                      "width": "79.7518992688669%",
+                      "backgroundColor": "#70b570",
+                      "width": "84.84001416298615%",
                     }
                   }
                 />
@@ -647,7 +618,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              79.75%
+              84.84%
             </td>
             <td
               style={
@@ -656,9 +627,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   "width": "25%",
                 }
               }
-            >
-              shared.castEfficiency.canBeImproved
-            </td>
+            />
           </tr>
           <tr>
             <td
@@ -713,7 +682,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               0
-              /36
+              /27
                
               casts
             </td>
@@ -2735,8 +2704,8 @@ Array [
         values={
           Object {
             "0": 11,
-            "1": 23,
-            "2": "49",
+            "1": 65,
+            "2": "17",
           }
         }
       />
@@ -2747,50 +2716,6 @@ Array [
         values={
           Object {
             "0": "90",
-          }
-        }
-      />
-      )
-    </React.Fragment>,
-  },
-  Object {
-    "details": null,
-    "icon": "spell_holy_righteousfury",
-    "importance": "minor",
-    "issue": <React.Fragment>
-      <WithI18n
-        components={
-          Array [
-            <ForwardRef
-              id={275779}
-            />,
-          ]
-        }
-        defaults="Try to cast <0/> more often."
-        id="shared.modules.castEfficiency.suggest"
-      />
-       
-      
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      <WithI18n
-        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
-        id="shared.modules.castEfficiency.actual"
-        values={
-          Object {
-            "0": 38,
-            "1": 49,
-            "2": "80",
-          }
-        }
-      />
-       (
-      <WithI18n
-        defaults=">{0}% is recommended"
-        id="shared.modules.castEfficiency.recommended"
-        values={
-          Object {
-            "0": "80",
           }
         }
       />
@@ -3576,7 +3501,7 @@ exports[`Protection Paladin integration test: example log GrandCrusader matches 
           className="flex-main value"
         >
           <div>
-            4 Resets
+            14 Resets
           </div>
           <small>
             Grand Crusader
@@ -3629,7 +3554,7 @@ Array [
   Object {
     "details": null,
     "icon": "paladin_retribution",
-    "importance": "regular",
+    "importance": "major",
     "issue": <React.Fragment>
       You should avoid casting 
       <ForwardRef
@@ -3650,7 +3575,7 @@ Array [
        ability and should only be used when you have no better spells to cast.
     </React.Fragment>,
     "stat": <React.Fragment>
-      22.22% of casts while better spells were available
+      38.89% of casts while better spells were available
        (
       &lt; 10.00% is recommended
       )
@@ -5046,8 +4971,8 @@ exports[`Protection Paladin integration test: example log matches the checklist 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ffc84a",
-                  "width": "53.812483926874265%",
+                  "backgroundColor": "#df7102",
+                  "width": "43.24105535544569%",
                 }
               }
             />
@@ -5153,7 +5078,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                   }
                 >
                    
-                  49.49%
+                  17.08%
                    
                    
                 </div>
@@ -5175,7 +5100,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "21.975138832617848%",
+                        "width": "7.5848501713130885%",
                       }
                     }
                   />
@@ -5226,7 +5151,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                   }
                 >
                    
-                  79.75%
+                  84.84%
                    
                    
                 </div>
@@ -5246,9 +5171,9 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "98.24764913065353%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -5331,7 +5256,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                   }
                 >
                    
-                  22.22%
+                  38.89%
                    
                    
                 </div>
@@ -5351,9 +5276,9 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#df7102",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "42.55000000000001%",
+                        "width": "21.40714285714286%",
                       }
                     }
                   />
