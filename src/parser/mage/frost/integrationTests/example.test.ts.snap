@@ -132,7 +132,7 @@ exports[`Frost Mage integration test: example log AlwaysBeCasting matches the st
                   Object {
                     "fill": "none",
                     "margin": 0,
-                    "transform": "rotate(86.63796263217236deg)",
+                    "transform": "rotate(95.49480346216146deg)",
                     "transformOrigin": "5px 27px",
                   }
                 }
@@ -162,7 +162,7 @@ exports[`Frost Mage integration test: example log AlwaysBeCasting matches the st
                 }
               }
             >
-              81
+              84
               %
             </div>
           </div>
@@ -225,7 +225,7 @@ Array [
       .
     </React.Fragment>,
     "stat": <React.Fragment>
-      19.06% downtime
+      15.89% downtime
        (
       &lt;5.00% is recommended
       )
@@ -924,7 +924,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
               }
             >
               0
-              /45
+              /34
                
               casts
             </td>
@@ -1709,7 +1709,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
               }
             >
               0
-              /67
+              /50
                
               casts
             </td>
@@ -7300,7 +7300,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "76.54364563663106%",
+                  "width": "81.81030277303529%",
                 }
               }
             />
@@ -7393,7 +7393,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  19.06%
+                  15.89%
                    
                    
                 </div>
@@ -7415,7 +7415,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                       Object {
                         "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "53.08729127326212%",
+                        "width": "63.6206055460706%",
                       }
                     }
                   />
