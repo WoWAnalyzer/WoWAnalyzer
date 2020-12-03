@@ -6,6 +6,7 @@ import { Juko8, Skeletor, Abelito75, Zeboot, Hordehobbs } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 12, 1), <>Added <SpellLink id={SPELLS.SANCTIFIED_WRATH_TALENT_RETRIBUTION.id} icon /> module and minor housekeeping.</>, Skeletor),
   change(date(2020, 11, 8), <>Added <SpellLink id={SPELLS.EMPYREAN_POWER_TALENT.id} icon /> module.</>, Skeletor),
   change(date(2020, 11, 7), <>Added <SpellLink id={SPELLS.HOLY_AVENGER_TALENT.id} icon /> module from new Shared module.</>, Skeletor),
   change(date(2020, 11, 7), <>Updated <SpellLink id={SPELLS.DIVINE_PURPOSE_TALENT.id} icon /> module to new Shared module.</>, Skeletor),
