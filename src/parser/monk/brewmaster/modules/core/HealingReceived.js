@@ -1,12 +1,10 @@
 import React from 'react';
-import { formatThousands, formatNumber, formatPercentage } from 'common/format';
+import { formatThousands, formatNumber } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
-import SpellIcon from 'common/SpellIcon';
 import BoringValue from 'interface/statistics/components/BoringValueText';
 import Events from 'parser/core/Events';
-import SPELLS from 'common/SPELLS';
 
 class HealingReceived extends Analyzer {
   HealingReceivedExternal = 0;

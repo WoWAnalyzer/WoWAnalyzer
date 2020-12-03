@@ -1,5 +1,5 @@
 import React from 'react';
-import { plural, t, Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
