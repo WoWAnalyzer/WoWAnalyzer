@@ -90,7 +90,7 @@ class Resurgence extends Analyzer {
   }
 
   get totalMana() {
-    const naturalManaRegen = (this.owner.fightDuration / 1000) * MANA_REGEN_PER_SECOND;//Prepatch value
+    const naturalManaRegen = (this.owner.fightDuration / 1000) * MANA_REGEN_PER_SECOND;
     const mttMana = this.manaTideTotem.regenOnPlayer;
     const wsMana = this.waterShield.regenOnPlayer;
     return naturalManaRegen + this.totalResurgenceGain + this.manaTracker.maxResource + this.otherManaGain + mttMana + wsMana;

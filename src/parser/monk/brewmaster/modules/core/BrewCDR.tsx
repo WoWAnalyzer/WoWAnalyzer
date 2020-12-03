@@ -5,7 +5,9 @@ import { formatPercentage } from 'common/format';
 import Events, { EventType, ChangeHasteEvent } from 'parser/core/Events';
 import EventFilter from 'parser/core/EventFilter';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
+import BoringValue from 'interface/statistics/components/BoringValueText';
 
 import Abilities from '../Abilities';
 import KegSmash from '../spells/KegSmash';
@@ -85,10 +87,9 @@ class BrewCDR extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.TIGER_PALM.id} />}
-        value={`${formatPercentage(this.cooldownReductionRatio)}%`}
-        label="Effective Brew CDR"
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL()}
+        size="flexible"
         tooltip={(
           <>
             Your cooldowns were reduced by:
@@ -101,10 +102,15 @@ class BrewCDR extends Analyzer {
             <strong>Total cooldown reduction:</strong> {(this.totalCDR / 1000).toFixed(2)}s.<br />
           </>
         )}
-      />
+      >
+        <BoringValue label={<><SpellIcon id={SPELLS.TIGER_PALM.id} /> Effective Brew CDR</>} >
+          <>
+            {formatPercentage(this.cooldownReductionRatio)} %
+          </>
+        </BoringValue>
+      </Statistic>
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default BrewCDR;

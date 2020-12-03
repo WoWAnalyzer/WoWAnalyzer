@@ -1,6 +1,9 @@
 import React from 'react';
 import SpellIcon from 'common/SpellIcon';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
+import HasteIcon from 'interface/icons/Haste';
+import BoringValue from 'interface/statistics/components/BoringValueText';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatThousands } from 'common/format';
 
@@ -91,10 +94,9 @@ class HighTolerance extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.HIGH_TOLERANCE_TALENT.id} />}
-        value={`${formatPercentage(this.meanHaste)}%`}
-        label="Avg. Haste from High Tolerance"
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL()}
+        size="flexible"
         tooltip={(
           <>
             You spent:
@@ -106,10 +108,15 @@ class HighTolerance extends Analyzer {
             </ul>
           </>
         )}
-      />
+      >
+        <BoringValue label={<><SpellIcon id={SPELLS.HIGH_TOLERANCE_TALENT.id} /> Avg. Haste from High Tolerance</>} >
+          <>
+            <HasteIcon /> {formatPercentage(this.meanHaste)} %
+          </>
+        </BoringValue>
+      </Statistic>
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default HighTolerance;
