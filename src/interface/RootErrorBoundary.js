@@ -74,8 +74,8 @@ class RootErrorBoundary extends React.Component {
       if (this.state.error instanceof EventsParseError) {
         return (
           <FullscreenError
-            error={i18n._(t`An error occured during analysis`)}
-            details={i18n._(t`We fucked up and our code broke like the motherfucker that it is. Please let us know on Discord and we will fix it for you.`)}
+            error={i18n._(t('interface.rootErrorBoundary.errorDuringAnalysis')`An error occured during analysis`)}
+            details={i18n._(t('interface.rootErrorBoundary.errorDuringAnalysisDetails')`We fucked up and our code broke like the motherfucker that it is. Please let us know on Discord and we will fix it for you.`)}
             background="https://media.giphy.com/media/2sdHZ0iBuI45s6fqc9/giphy.gif"
           />
         );
@@ -83,8 +83,8 @@ class RootErrorBoundary extends React.Component {
 
       return (
         <FullscreenError
-          error={<Trans>An error occured.</Trans>}
-          details={<Trans>An unexpected error occured in the app. Please try again.</Trans>}
+          error={<Trans id="interface.rootErrorBoundary.errorOccured">An error occured.</Trans>}
+          details={<Trans id="interface.rootErrorBoundary.errorOccuredDetails">An unexpected error occured in the app. Please try again.</Trans>}
           background={ApiDownBackground}
           errorDetails={(
             <>
@@ -101,7 +101,7 @@ class RootErrorBoundary extends React.Component {
           )}
         >
           <div className="text-muted">
-            <Trans>This is usually caused by a bug, please let us know about the issue on GitHub or Discord so we can fix it.</Trans>
+            <Trans id="interface.rootErrorBoundary.bug">This is usually caused by a bug, please let us know about the issue on GitHub or Discord so we can fix it.</Trans>
           </div>
         </FullscreenError>
       );
