@@ -342,18 +342,17 @@ class StatTracker extends Analyzer {
     [SPELLS.WARSCROLL_OF_BATTLE_SHOUT.id]: { strength: 1.03, agility: 1.03 },
   };
 
-  //TODO Update these values on Shadowlands Launch
   //Values taken from https://github.com/simulationcraft/simc/blob/shadowlands/engine/dbc/generated/sc_scale_data.inc
   statBaselineRatingPerPercent = {
     /** Secondaries */
-    [STAT.CRITICAL_STRIKE]: 10.67, //33 @ 60
-    [STAT.HASTE]: 10.06, //35 @ 60
-    [STAT.MASTERY]: 10.67, //33 @ 60
-    [STAT.VERSATILITY]: 12.20, //40 @ 60
+    [STAT.CRITICAL_STRIKE]: 33,
+    [STAT.HASTE]: 35,
+    [STAT.MASTERY]: 33,
+    [STAT.VERSATILITY]: 40,
     /** Tertiaries */
-    [STAT.AVOIDANCE]: 4.27, //14 @ 60
-    [STAT.LEECH]: 6.4, //21 @ 60
-    [STAT.SPEED]: 3.05, // 10 @ 60
+    [STAT.AVOIDANCE]: 14,
+    [STAT.LEECH]: 21,
+    [STAT.SPEED]: 10,
   };
 
   /** Secondary stat scaling thresholds

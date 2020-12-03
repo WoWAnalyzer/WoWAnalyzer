@@ -9,6 +9,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 12, 3), 'Removed Azerite Overview from the character panel', niseko),
   change(date(2020, 11, 23), 'Updated i18n ids', jos3p),
   change(date(2020, 11, 19), 'Final Interface and Restoration Shaman localization, correction of typos', Amani),
   change(date(2020, 11, 15), 'Added ability to get the active time/downtime for a specified time frame', Sharrq),

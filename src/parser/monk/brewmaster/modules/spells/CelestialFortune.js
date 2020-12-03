@@ -14,7 +14,7 @@ import SpecIcon from 'common/SpecIcon';
 import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 import Panel from 'interface/others/Panel';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber } from 'common/format';
 import Events from 'parser/core/Events';
 
 /**
