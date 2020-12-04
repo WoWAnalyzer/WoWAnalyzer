@@ -27,6 +27,7 @@ import Serenity from './modules/talents/Serenity';
 
 // Items
 import LastEmperorsCapacitor from './modules/items/LastEmperorsCapacitor';
+import JadeIgnition from './modules/items/JadeIgnition';
 
 // Covenants
 import FallenOrder from '../shared/modules/covenants/FallenOrder';
@@ -65,6 +66,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Items:
     lastEmperorsCapacitor: LastEmperorsCapacitor,
+    jadeIgnition: JadeIgnition,
 
     // Covenants
     fallenOrder: FallenOrder,

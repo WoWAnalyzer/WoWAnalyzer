@@ -132,7 +132,7 @@ exports[`Destruction Warlock integration test: example log AlwaysBeCasting match
                   Object {
                     "fill": "none",
                     "margin": 0,
-                    "transform": "rotate(50.30406911652514deg)",
+                    "transform": "rotate(51.90975551576861deg)",
                     "transformOrigin": "5px 27px",
                   }
                 }
@@ -162,7 +162,7 @@ exports[`Destruction Warlock integration test: example log AlwaysBeCasting match
                 }
               }
             >
-              68
+              69
               %
             </div>
           </div>
@@ -221,7 +221,7 @@ Array [
        when you can.
     </React.Fragment>,
     "stat": <React.Fragment>
-      32.03% downtime
+      31.46% downtime
        (
       &lt;20.00% is recommended
       )
@@ -584,7 +584,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
               }
             >
               40
-              /43
+              /40
                
               casts
             </td>
@@ -602,8 +602,8 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#ff8000",
-                      "width": "94.57242453290836%",
+                      "backgroundColor": "#70b570",
+                      "width": "100.50754936331488%",
                     }
                   }
                 />
@@ -618,7 +618,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
                 }
               }
             >
-              94.57%
+              100.51%
             </td>
             <td
               style={
@@ -627,9 +627,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
                   "width": "25%",
                 }
               }
-            >
-              shared.castEfficiency.canBeImproved
-            </td>
+            />
           </tr>
           <tr>
             <td
@@ -3907,50 +3905,6 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
 Array [
   Object {
     "details": null,
-    "icon": "spell_fire_fireball",
-    "importance": "minor",
-    "issue": <React.Fragment>
-      <WithI18n
-        components={
-          Array [
-            <ForwardRef
-              id={17962}
-            />,
-          ]
-        }
-        defaults="Try to cast <0/> more often."
-        id="shared.modules.castEfficiency.suggest"
-      />
-       
-      
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      <WithI18n
-        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
-        id="shared.modules.castEfficiency.actual"
-        values={
-          Object {
-            "0": 40,
-            "1": 43,
-            "2": "95",
-          }
-        }
-      />
-       (
-      <WithI18n
-        defaults=">{0}% is recommended"
-        id="shared.modules.castEfficiency.recommended"
-        values={
-          Object {
-            "0": "95",
-          }
-        }
-      />
-      )
-    </React.Fragment>,
-  },
-  Object {
-    "details": null,
     "icon": "spell_shadow_demonictactics",
     "importance": "minor",
     "issue": <React.Fragment>
@@ -5614,8 +5568,8 @@ exports[`Destruction Warlock integration test: example log matches the checklist
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "99.01744912972325%",
+                  "backgroundColor": "#4ec04e",
+                  "width": "100%",
                 }
               }
             />
@@ -5855,7 +5809,7 @@ exports[`Destruction Warlock integration test: example log matches the checklist
                   }
                 >
                    
-                  94.57%
+                  100.00%
                    
                    
                 </div>
@@ -5875,9 +5829,9 @@ exports[`Destruction Warlock integration test: example log matches the checklist
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "97.05234738916973%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -6853,7 +6807,7 @@ exports[`Destruction Warlock integration test: example log matches the checklist
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "73.28394051381635%",
+                  "width": "74.5570204446451%",
                 }
               }
             />
@@ -6991,7 +6945,7 @@ exports[`Destruction Warlock integration test: example log matches the checklist
                   }
                 >
                    
-                  32.03%
+                  31.46%
                    
                    
                 </div>
@@ -7013,7 +6967,7 @@ exports[`Destruction Warlock integration test: example log matches the checklist
                       Object {
                         "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "73.28394051381635%",
+                        "width": "74.5570204446451%",
                       }
                     }
                   />

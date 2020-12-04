@@ -84,7 +84,7 @@ exports[`Elemental Shaman integration test: example log AlwaysBeCasting matches 
         <div
           className="value"
         >
-          26.73 %
+          14.75 %
         </div>
         <div
           style={
@@ -103,7 +103,7 @@ exports[`Elemental Shaman integration test: example log AlwaysBeCasting matches 
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "73.27453822659619%",
+                  "width": "85.25351507318135%",
                 }
               }
             >
@@ -153,7 +153,7 @@ Array [
   Object {
     "details": null,
     "icon": "spell_mage_altertime",
-    "importance": "major",
+    "importance": "minor",
     "issue": <React.Fragment>
       Your downtime can be improved. If you need to move use 
       <ForwardRef
@@ -169,7 +169,7 @@ Array [
       />
     </React.Fragment>,
     "stat": <React.Fragment>
-      26.73% downtime
+      14.75% downtime
        (
       &lt;5.00% is recommended
       )
@@ -474,7 +474,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
               }
             >
               57
-              /89
+              /69
                
               casts
             </td>
@@ -493,7 +493,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "63.51840529130346%",
+                      "width": "82.2678248358402%",
                     }
                   }
                 />
@@ -508,7 +508,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 }
               }
             >
-              63.52%
+              82.27%
             </td>
             <td
               style={
@@ -5774,7 +5774,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
               style={
                 Object {
                   "backgroundColor": "#df7102",
-                  "width": "33.67879785112661%",
+                  "width": "36.715285260020195%",
                 }
               }
             />
@@ -5927,7 +5927,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                   }
                 >
                    
-                  26.73%
+                  14.75%
                    
                    
                 </div>
@@ -5949,7 +5949,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "7.476016754884794%",
+                        "width": "13.548991572671964%",
                       }
                     }
                   />

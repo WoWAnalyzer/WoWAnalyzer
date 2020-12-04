@@ -155,7 +155,7 @@ exports[`Affliction Warlock integration test: example log AlwaysBeCasting matche
                   Object {
                     "fill": "none",
                     "margin": 0,
-                    "transform": "rotate(65.38810139289913deg)",
+                    "transform": "rotate(84.96625855627508deg)",
                     "transformOrigin": "5px 27px",
                   }
                 }
@@ -185,7 +185,7 @@ exports[`Affliction Warlock integration test: example log AlwaysBeCasting matche
                 }
               }
             >
-              73
+              80
               %
             </div>
           </div>
@@ -223,7 +223,7 @@ Array [
   Object {
     "details": null,
     "icon": "spell_mage_altertime",
-    "importance": "major",
+    "importance": "regular",
     "issue": <React.Fragment>
       Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting something instant - maybe refresh your dots. Make good use of your 
       <ForwardRef
@@ -236,7 +236,7 @@ Array [
        when you can.
     </React.Fragment>,
     "stat": <React.Fragment>
-      26.65% downtime
+      19.65% downtime
        (
       &lt;10.00% is recommended
       )
@@ -7646,8 +7646,8 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ac1f39",
-                  "width": "24.99333262942227%",
+                  "backgroundColor": "#df7102",
+                  "width": "35.59831499456859%",
                 }
               }
             />
@@ -7800,7 +7800,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  26.65%
+                  19.65%
                    
                    
                 </div>
@@ -7820,9 +7820,9 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "24.99333262942227%",
+                        "width": "35.59831499456859%",
                       }
                     }
                   />

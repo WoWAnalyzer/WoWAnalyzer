@@ -1,100 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Shadow Priest integration test: example log AlwaysBeCasting matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad"
-      >
-        <label>
-          <img
-            alt="Downtime"
-            className="icon game "
-            src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
-          />
-           
-          shared.alwaysBeCasting.statistic.label
-        </label>
-        <div
-          className="value"
-        >
-          9.38 %
-        </div>
-        <div
-          style={
-            Object {
-              "marginTop": "0.5em",
-            }
-          }
-        >
-          <div
-            className="statistic-box-bar"
-          >
-            <div
-              className="stat-health-bg"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={[Function]}
-              style={
-                Object {
-                  "width": "90.62281728342391%",
-                }
-              }
-            >
-              <img
-                alt="Active time"
-                src="/img/sword.png"
-              />
-            </div>
-            <div
-              className="remainder DeathKnight-bg"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={[Function]}
-            >
-              <img
-                alt="Downtime"
-                src="/img/afk.png"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`Shadow Priest integration test: example log AuspiciousSpirits matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -310,7 +215,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               19
-              /15
+              /13
                
               casts
             </td>
@@ -408,7 +313,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               24
-              /24
+              /22
                
               casts
             </td>
@@ -427,7 +332,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "100.26758284736079%",
+                      "width": "109.05240973823706%",
                     }
                   }
                 />
@@ -442,7 +347,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              100.27%
+              109.05%
             </td>
             <td
               style={
@@ -592,7 +497,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               1
-              /8
+              /7
                
               casts
             </td>
@@ -611,7 +516,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "13.408119198575399%",
+                      "width": "15.910635479125625%",
                     }
                   }
                 />
@@ -626,7 +531,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              13.41%
+              15.91%
             </td>
             <td
               style={
@@ -1769,7 +1674,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               4
-              /25
+              /22
                
               casts
             </td>
@@ -1788,7 +1693,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "13.382307154120523%",
+                      "width": "15.459564634362092%",
                     }
                   }
                 />
@@ -1803,7 +1708,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              13.38%
+              15.46%
             </td>
             <td
               style={
@@ -5639,7 +5544,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  100.00%
+                  109.05%
                    
                    
                 </div>
@@ -6076,7 +5981,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  9.38%
+                  -6.24%
                    
                    
                 </div>
