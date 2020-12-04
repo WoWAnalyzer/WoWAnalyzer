@@ -78,6 +78,11 @@ const legendaries: SpellList<LegendarySpell> = {
     icon: 'inv_trickshot',
     bonusID: 7015,
   },
+  WILDFIRE_CLUSTER_DAMAGE: {
+    id: 272745,
+    name: 'Wildfire Cluster',
+    icon: 'spell_mage_flameorb',
+  },
   RYLAKSTALKERS_CONFOUNDING_STRIKES_EFFECT: {
     id: 336901,
     name: 'Rylakstalker\'s Confounding Strikes',
@@ -90,16 +95,16 @@ const legendaries: SpellList<LegendarySpell> = {
     icon: 'ability_poisonarrow',
     bonusID: 7017,
   },
+  LATENT_POISON_INJECTORS_DEBUFF: {
+    id: 336903,
+    name: 'Latent Poison Injectors',
+    icon: 'ability_poisonarrow',
+  },
   BUTCHERS_BONE_FRAGMENTS_EFFECT: {
     id: 336907,
     name: 'Butcher\'s Bone Fragments',
     icon: 'inv_skinning_80_bloodsoakedbone',
     bonusID: 7018,
-  },
-  LATENT_POISON_INJECTORS_DEBUFF: {
-    id: 336903,
-    name: 'Latent Poison Injectors',
-    icon: 'ability_poisonarrow',
   },
   BUTCHERS_BONE_FRAGMENTS_BUFF: {
     id: 336908,

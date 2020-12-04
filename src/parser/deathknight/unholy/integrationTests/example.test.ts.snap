@@ -31,7 +31,7 @@ exports[`Unholy Death Knight integration test: example log AlwaysBeCasting match
         <div
           className="value"
         >
-          18.40 %
+          19.39 %
         </div>
         <div
           style={
@@ -50,7 +50,7 @@ exports[`Unholy Death Knight integration test: example log AlwaysBeCasting match
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "81.5963536183335%",
+                  "width": "80.60514864837737%",
                 }
               }
             >
@@ -4480,7 +4480,7 @@ exports[`Unholy Death Knight integration test: example log RuneTracker matches t
           className="flex-main value"
         >
           <div>
-            9.13 %
+            10.91 %
           </div>
           <small>
             Runes overcapped
@@ -5614,7 +5614,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  18.40%
+                  19.39%
                    
                    
                 </div>
@@ -5767,7 +5767,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  90.87%
+                  89.09%
                    
                    
                 </div>

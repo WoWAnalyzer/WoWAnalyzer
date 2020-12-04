@@ -1,4 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
+import { SpellList } from 'common/SPELLS/Spell';
 
 const spells: SpellList = {
   ETERNAL_CAULDRON: {

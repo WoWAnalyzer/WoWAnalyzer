@@ -332,7 +332,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "109.05240973823706%",
+                      "width": "108.85216788518315%",
                     }
                   }
                 />
@@ -347,7 +347,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              109.05%
+              108.85%
             </td>
             <td
               style={
@@ -516,7 +516,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "15.910635479125625%",
+                      "width": "15.837512796469467%",
                     }
                   }
                 />
@@ -531,7 +531,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              15.91%
+              15.84%
             </td>
             <td
               style={
@@ -1693,7 +1693,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "15.459564634362092%",
+                      "width": "15.41674500666389%",
                     }
                   }
                 />
@@ -1708,7 +1708,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              15.46%
+              15.42%
             </td>
             <td
               style={
@@ -5544,7 +5544,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  109.05%
+                  108.85%
                    
                    
                 </div>
@@ -5981,7 +5981,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  -6.24%
+                  -5.77%
                    
                    
                 </div>

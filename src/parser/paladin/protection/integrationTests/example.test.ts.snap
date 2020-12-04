@@ -202,7 +202,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               25
-              /45
+              /46
                
               casts
             </td>
@@ -221,7 +221,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "55.65805085008976%",
+                      "width": "55.22446469502991%",
                     }
                   }
                 />
@@ -236,7 +236,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              55.66%
+              55.22%
             </td>
             <td
               style={
@@ -319,7 +319,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "52.716125305156446%",
+                      "width": "52.2645248256027%",
                     }
                   }
                 />
@@ -334,7 +334,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              52.72%
+              52.26%
             </td>
             <td
               style={
@@ -398,7 +398,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               11
-              /65
+              /66
                
               casts
             </td>
@@ -417,7 +417,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "17.082995881335783%",
+                      "width": "16.77151317569056%",
                     }
                   }
                 />
@@ -432,7 +432,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              17.08%
+              16.77%
             </td>
             <td
               style={
@@ -584,7 +584,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               38
-              /46
+              /47
                
               casts
             </td>
@@ -603,7 +603,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "84.84001416298615%",
+                      "width": "84.36232397209643%",
                     }
                   }
                 />
@@ -618,7 +618,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              84.84%
+              84.36%
             </td>
             <td
               style={
@@ -2704,7 +2704,7 @@ Array [
         values={
           Object {
             "0": 11,
-            "1": 65,
+            "1": 66,
             "2": "17",
           }
         }
@@ -5133,7 +5133,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                   }
                 >
                    
-                  17.08%
+                  16.77%
                    
                    
                 </div>
@@ -5155,7 +5155,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "7.5848501713130885%",
+                        "width": "7.4465518500066095%",
                       }
                     }
                   />
@@ -5206,7 +5206,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                   }
                 >
                    
-                  84.84%
+                  84.36%
                    
                    
                 </div>
