@@ -42,7 +42,7 @@ class Schism extends Analyzer {
   protected sins!: SinsOfTheMany;
 
   // Spell metadata
-  static bonus = 0.4;
+  static bonus = 0.25;
   static duration = 9000;
   static synergisticAbilities = [
     SPELLS.HALO_TALENT.id,
