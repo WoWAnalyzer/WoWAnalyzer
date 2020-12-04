@@ -1,4 +1,6 @@
 {
+  "All weapons enhanced (oils/stones)": "",
+  "Using high quality weapon enhancements": "",
   "common.abilities": "Abilities",
   "common.ability": "Ability",
   "common.cast": "Cast",
@@ -541,6 +543,7 @@
   "monk.windwalker.suggestions.comboBreaker.procsUsed": "{0}% used Combo Breaker procs",
   "monk.windwalker.suggestions.fistOfFury.avgTicksPerCast": "{0} average ticks on each Fists of Fury cast",
   "monk.windwalker.suggestions.hitCombo.uptime": "{0} % uptime",
+  "monk.windwalker.suggestions.jadeIgnitionWastedStacks": "You wasted your <0/> stacks by using Fists of Fury at full stacks",
   "monk.windwalker.suggestions.touchOfKarma.absorbUsed": "{0}% Touch of Karma absorb used",
   "paladin.holy.modules.abilities.bestowFaithTalent": "If you can't or don't want to cast it more consider using <0/> or <1/> instead.",
   "paladin.holy.modules.abilities.castHolyShockRegularly": "Casting Holy Shock regularly is very important for performing well.",
