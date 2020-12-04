@@ -3,7 +3,6 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 // import SPELLS from 'common/SPELLS';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import { formatPercentage } from 'common/format';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 // import SpellLink from 'common/SpellLink';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
