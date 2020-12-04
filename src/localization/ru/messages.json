@@ -1,4 +1,6 @@
 {
+  "All weapons enhanced (oils/stones)": "",
+  "Using high quality weapon enhancements": "",
   "common.abilities": "Способности",
   "common.ability": "Способность",
   "common.cast": "Заклинание",
@@ -541,6 +543,7 @@
   "monk.windwalker.suggestions.comboBreaker.procsUsed": "{0}% used Combo Breaker procs",
   "monk.windwalker.suggestions.fistOfFury.avgTicksPerCast": "{0} average ticks on each Fists of Fury cast",
   "monk.windwalker.suggestions.hitCombo.uptime": "{0} % uptime",
+  "monk.windwalker.suggestions.jadeIgnitionWastedStacks": "",
   "monk.windwalker.suggestions.touchOfKarma.absorbUsed": "{0}% Touch of Karma absorb used",
   "paladin.holy.modules.abilities.bestowFaithTalent": "Если Вы не можете или не хотите использовать его чаще попробуйте заменить его на <0/> или <1/>.",
   "paladin.holy.modules.abilities.castHolyShockRegularly": "Регулярное использование Шока небес крайне важно для достижения хороших результатов",
