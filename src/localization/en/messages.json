@@ -207,8 +207,6 @@
   "hunter.marksmanship.suggestions.serpentSting.uptime": "You had an uptime of {0}%",
   "hunter.marksmanship.suggestions.steadyFocus.uptime": "{0}% uptime",
   "hunter.shared.suggestions.barrage.efficiency": "{actual} inefficient {0}",
-  "hunter.shared.suggestions.rapidReload.multiShotCasts": "You cast Multi-Shot 0 times",
-  "hunter.shared.suggestions.rapidReload.procs": "{actual} {0} without a Rapid Reload proc",
   "hunter.survival.suggestions.alwaysBeCasting.downtime": "{0}% downtime",
   "hunter.survival.suggestions.birdOfPrey.efficiency": "{0}% of abilities extending CA were used on your pets target",
   "hunter.survival.suggestions.butcheryCarve.averageTargets": "{actual} average targets hit per cast",
