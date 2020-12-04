@@ -1,4 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
+import { SpellList } from 'common/SPELLS/Spell';
 
 const spells: SpellList = {
   ETERNAL_CAULDRON: {
@@ -9,7 +9,7 @@ const spells: SpellList = {
   SPECTRAL_FLASK_OF_POWER: {
     id: 171276,
     name: 'Spectral Flask of Power',
-  icon: 'inv_alchemy_90_flask_green',
+    icon: 'inv_alchemy_90_flask_green',
   },
   SPECTRAL_FLASK_OF_STAMINA: {
     id: 171278,

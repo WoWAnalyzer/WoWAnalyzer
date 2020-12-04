@@ -132,7 +132,7 @@ exports[`Destruction Warlock integration test: example log AlwaysBeCasting match
                   Object {
                     "fill": "none",
                     "margin": 0,
-                    "transform": "rotate(51.90975551576861deg)",
+                    "transform": "rotate(51.33074361814559deg)",
                     "transformOrigin": "5px 27px",
                   }
                 }
@@ -162,7 +162,7 @@ exports[`Destruction Warlock integration test: example log AlwaysBeCasting match
                 }
               }
             >
-              69
+              68
               %
             </div>
           </div>
@@ -221,7 +221,7 @@ Array [
        when you can.
     </React.Fragment>,
     "stat": <React.Fragment>
-      31.46% downtime
+      31.67% downtime
        (
       &lt;20.00% is recommended
       )
@@ -603,7 +603,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "100.50754936331488%",
+                      "width": "100.34250983159865%",
                     }
                   }
                 />
@@ -618,7 +618,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
                 }
               }
             >
-              100.51%
+              100.34%
             </td>
             <td
               style={
@@ -6807,7 +6807,7 @@ exports[`Destruction Warlock integration test: example log matches the checklist
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "74.5570204446451%",
+                  "width": "74.09794672581542%",
                 }
               }
             />
@@ -6945,7 +6945,7 @@ exports[`Destruction Warlock integration test: example log matches the checklist
                   }
                 >
                    
-                  31.46%
+                  31.67%
                    
                    
                 </div>
@@ -6967,7 +6967,7 @@ exports[`Destruction Warlock integration test: example log matches the checklist
                       Object {
                         "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "74.5570204446451%",
+                        "width": "74.09794672581542%",
                       }
                     }
                   />
