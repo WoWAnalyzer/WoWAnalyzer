@@ -132,7 +132,7 @@ exports[`Destruction Warlock integration test: example log AlwaysBeCasting match
                   Object {
                     "fill": "none",
                     "margin": 0,
-                    "transform": "rotate(50.30406911652514deg)",
+                    "transform": "rotate(53.334795537412504deg)",
                     "transformOrigin": "5px 27px",
                   }
                 }
@@ -162,7 +162,7 @@ exports[`Destruction Warlock integration test: example log AlwaysBeCasting match
                 }
               }
             >
-              68
+              69
               %
             </div>
           </div>
@@ -221,7 +221,7 @@ Array [
        when you can.
     </React.Fragment>,
     "stat": <React.Fragment>
-      32.03% downtime
+      30.95% downtime
        (
       &lt;20.00% is recommended
       )
@@ -506,7 +506,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
               }
             >
               40
-              /43
+              /40
                
               casts
             </td>
@@ -524,8 +524,8 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#ff8000",
-                      "width": "94.57242453290836%",
+                      "backgroundColor": "#70b570",
+                      "width": "100.96168904863889%",
                     }
                   }
                 />
@@ -540,7 +540,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
                 }
               }
             >
-              94.57%
+              100.96%
             </td>
             <td
               style={
@@ -549,9 +549,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
                   "width": "25%",
                 }
               }
-            >
-              shared.castEfficiency.canBeImproved
-            </td>
+            />
           </tr>
           <tr>
             <td
@@ -3829,50 +3827,6 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
 Array [
   Object {
     "details": null,
-    "icon": "spell_fire_fireball",
-    "importance": "minor",
-    "issue": <React.Fragment>
-      <WithI18n
-        components={
-          Array [
-            <ForwardRef
-              id={17962}
-            />,
-          ]
-        }
-        defaults="Try to cast <0/> more often."
-        id="shared.modules.castEfficiency.suggest"
-      />
-       
-      
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      <WithI18n
-        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
-        id="shared.modules.castEfficiency.actual"
-        values={
-          Object {
-            "0": 40,
-            "1": 43,
-            "2": "95",
-          }
-        }
-      />
-       (
-      <WithI18n
-        defaults=">{0}% is recommended"
-        id="shared.modules.castEfficiency.recommended"
-        values={
-          Object {
-            "0": "95",
-          }
-        }
-      />
-      )
-    </React.Fragment>,
-  },
-  Object {
-    "details": null,
     "icon": "spell_shadow_demonictactics",
     "importance": "minor",
     "issue": <React.Fragment>
@@ -5115,6 +5069,55 @@ exports[`Destruction Warlock integration test: example log ThroughputStatisticGr
 </div>
 `;
 
+exports[`Destruction Warlock integration test: example log WeaponEnhancementChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_misc_bone_01.jpg",
+    "importance": "regular",
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  6536,
+                  6578,
+                  6513,
+                  1532,
+                  4786,
+                  6476,
+                  6470,
+                ],
+                "icon": "inv_misc_bone_01.jpg",
+                "id": 169062,
+                "itemLevel": 475,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={169062}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone) . Apply an enhancement to very easily increase your throughput slightly."
+      id="shared.weaponEnhancementChecker.suggestions.noWeaponEnhancement.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Weapon"
+            id="common.slots.weapon"
+          />,
+        }
+      }
+    />,
+    "stat": null,
+  },
+]
+`;
+
 exports[`Destruction Warlock integration test: example log matches the checklist snapshot 1`] = `
 <ul
   className="checklist"
@@ -5144,8 +5147,8 @@ exports[`Destruction Warlock integration test: example log matches the checklist
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "99.01744912972325%",
+                  "backgroundColor": "#4ec04e",
+                  "width": "100%",
                 }
               }
             />
@@ -5385,7 +5388,7 @@ exports[`Destruction Warlock integration test: example log matches the checklist
                   }
                 >
                    
-                  94.57%
+                  100.00%
                    
                    
                 </div>
@@ -5405,9 +5408,9 @@ exports[`Destruction Warlock integration test: example log matches the checklist
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "97.05234738916973%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -6383,7 +6386,7 @@ exports[`Destruction Warlock integration test: example log matches the checklist
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "73.28394051381635%",
+                  "width": "75.68687360466276%",
                 }
               }
             />
@@ -6521,7 +6524,7 @@ exports[`Destruction Warlock integration test: example log matches the checklist
                   }
                 >
                    
-                  32.03%
+                  30.95%
                    
                    
                 </div>
@@ -6543,7 +6546,7 @@ exports[`Destruction Warlock integration test: example log matches the checklist
                       Object {
                         "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "73.28394051381635%",
+                        "width": "75.68687360466276%",
                       }
                     }
                   />
@@ -6738,6 +6741,128 @@ exports[`Destruction Warlock integration test: example log matches the checklist
                   0
                    
                   / 6
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                All weapons enhanced (oils/stones)
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Using high quality weapon enhancements
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
                    
                 </div>
               </div>

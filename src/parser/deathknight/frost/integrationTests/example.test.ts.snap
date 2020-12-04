@@ -31,7 +31,7 @@ exports[`Frost Death Knight integration test: example log AlwaysBeCasting matche
         <div
           className="value"
         >
-          50.72 %
+          38.18 %
         </div>
         <div
           style={
@@ -50,7 +50,7 @@ exports[`Frost Death Knight integration test: example log AlwaysBeCasting matche
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "49.28095065727934%",
+                  "width": "61.8228414537681%",
                 }
               }
             >
@@ -100,7 +100,7 @@ Array [
   Object {
     "details": null,
     "icon": "spell_mage_altertime",
-    "importance": "major",
+    "importance": "regular",
     "issue": <React.Fragment>
       Your downtime can be improved. Try to Always Be Casting (ABC), reducing time away from the boss unless due to mechanics.  If you do have to move, try casting filler spells, such as 
       <ForwardRef
@@ -113,7 +113,7 @@ Array [
       .
     </React.Fragment>,
     "stat": <React.Fragment>
-      50.72% downtime
+      38.18% downtime
        (
       &lt;30.00% is recommended
       )
@@ -4510,7 +4510,7 @@ exports[`Frost Death Knight integration test: example log RuneTracker matches th
           className="flex-main value"
         >
           <div>
-            37.45 %
+            21.10 %
           </div>
           <small>
             Runes overcapped
@@ -4563,14 +4563,14 @@ Array [
   Object {
     "details": null,
     "icon": "spell_deathknight_frozenruneweapon",
-    "importance": "major",
+    "importance": "regular",
     "issue": <React.Fragment>
       You overcapped 
-      37.45
+      21.10
       % of your runes. Try to always have at least 3 runes on cooldown.
     </React.Fragment>,
     "stat": <React.Fragment>
-      37.45% runes overcapped
+      21.10% runes overcapped
        (
       &lt;10.00% is recommended
       )
@@ -4929,6 +4929,94 @@ exports[`Frost Death Knight integration test: example log ThroughputStatisticGro
 </div>
 `;
 
+exports[`Frost Death Knight integration test: example log WeaponEnhancementChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_sword_1h_nazjatarraid_d_01.jpg",
+    "importance": "regular",
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  6348,
+                  1522,
+                  4786,
+                  5843,
+                ],
+                "icon": "inv_sword_1h_nazjatarraid_d_01.jpg",
+                "id": 169713,
+                "itemLevel": 410,
+                "permanentEnchant": 3370,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={169713}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone) . Apply an enhancement to very easily increase your throughput slightly."
+      id="shared.weaponEnhancementChecker.suggestions.noWeaponEnhancement.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Weapon"
+            id="common.slots.weapon"
+          />,
+        }
+      }
+    />,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_mace_1h_kultirasquest_b_01.jpg",
+    "importance": "regular",
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4803,
+                  1592,
+                  4786,
+                ],
+                "icon": "inv_mace_1h_kultirasquest_b_01.jpg",
+                "id": 158092,
+                "itemLevel": 400,
+                "permanentEnchant": 3368,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={158092}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone) . Apply an enhancement to very easily increase your throughput slightly."
+      id="shared.weaponEnhancementChecker.suggestions.noWeaponEnhancement.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="OffHand"
+            id="common.slots.offhand"
+          />,
+        }
+      }
+    />,
+    "stat": null,
+  },
+]
+`;
+
 exports[`Frost Death Knight integration test: example log matches the checklist snapshot 1`] = `
 <ul
   className="checklist"
@@ -5278,8 +5366,8 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ac1f39",
-                  "width": "29.545112130834305%",
+                  "backgroundColor": "#ffc84a",
+                  "width": "56.02006204104776%",
                 }
               }
             />
@@ -5387,7 +5475,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  50.72%
+                  38.18%
                    
                    
                 </div>
@@ -5407,9 +5495,9 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "29.545112130834305%",
+                        "width": "56.02006204104776%",
                       }
                     }
                   />
@@ -5446,8 +5534,8 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ac1f39",
-                  "width": "29.753806706679462%",
+                  "backgroundColor": "#ffc84a",
+                  "width": "62.9304221397774%",
                 }
               }
             />
@@ -5540,7 +5628,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  62.55%
+                  78.90%
                    
                    
                 </div>
@@ -5560,9 +5648,9 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "29.753806706679462%",
+                        "width": "62.9304221397774%",
                       }
                     }
                   />
@@ -5946,6 +6034,128 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
                         "width": "28.57142857142857%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                All weapons enhanced (oils/stones)
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 2
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Using high quality weapon enhancements
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 2
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
                       }
                     }
                   />

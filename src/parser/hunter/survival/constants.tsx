@@ -98,20 +98,6 @@ export const BASE_FOCUS_REGEN_SV = 5;
 export const BASE_MAX_FOCUS_SV = 100;
 //endregion
 
-//region Azerite Traits
-/** Blur of Talons */
-//Blur of Talons cannot get more than 5 stacks at a time
-export const MAX_BLUR_OF_TALONS_STACKS = 5;
-/** Latent Poison */
-//Latent Poison stacks up to 10 times
-export const LATENT_POISON_MAX_STACKS = 10;
-/** Primeval Intuition */
-//Primeval Intuition increases max focus to 120
-export const PRIMEVAL_INTUITION_MAX_FOCUS_SV = 120;
-//Primeval Intuition increased crit stacks up to 5 times
-export const MAX_PRIMEVAL_INTUITION_STACKS = 5;
-//endregion
-
 //region Conduits
 /** Deadly Tandem */
 //Deadly Tandem increases the duration of Coordinated Assault by a flat amount

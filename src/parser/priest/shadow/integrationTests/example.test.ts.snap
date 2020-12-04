@@ -215,7 +215,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               19
-              /15
+              /13
                
               casts
             </td>
@@ -313,7 +313,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               24
-              /23
+              /22
                
               casts
             </td>
@@ -332,7 +332,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "101.90830023208844%",
+                      "width": "109.35356983811837%",
                     }
                   }
                 />
@@ -347,7 +347,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              101.91%
+              109.35%
             </td>
             <td
               style={
@@ -497,7 +497,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               1
-              /8
+              /7
                
               casts
             </td>
@@ -516,7 +516,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "13.5431810947756%",
+                      "width": "15.895150675739615%",
                     }
                   }
                 />
@@ -531,7 +531,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              13.54%
+              15.90%
             </td>
             <td
               style={
@@ -1674,7 +1674,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               4
-              /25
+              /22
                
               casts
             </td>
@@ -1693,7 +1693,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "13.48811997725826%",
+                      "width": "15.445994079726352%",
                     }
                   }
                 />
@@ -1708,7 +1708,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              13.49%
+              15.45%
             </td>
             <td
               style={
@@ -4427,6 +4427,63 @@ exports[`Shadow Priest integration test: example log VampiricTouch matches the s
 </div>
 `;
 
+exports[`Shadow Priest integration test: example log WeaponEnhancementChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_mace_1h_battledungeon_c_01.jpg",
+    "importance": "regular",
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  6536,
+                  6578,
+                  1543,
+                  4786,
+                  6482,
+                  6470,
+                  6514,
+                ],
+                "gems": Array [
+                  Object {
+                    "icon": "inv_misc_gem_x4_uncommon_perfectcut_orange.jpg",
+                    "id": 168639,
+                    "itemLevel": 50,
+                  },
+                ],
+                "icon": "inv_mace_1h_battledungeon_c_01.jpg",
+                "id": 159652,
+                "itemLevel": 130,
+                "permanentEnchant": 5965,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={159652}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone) . Apply an enhancement to very easily increase your throughput slightly."
+      id="shared.weaponEnhancementChecker.suggestions.noWeaponEnhancement.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Weapon"
+            id="common.slots.weapon"
+          />,
+        }
+      }
+    />,
+    "stat": null,
+  },
+]
+`;
+
 exports[`Shadow Priest integration test: example log matches the checklist snapshot 1`] = `
 <ul
   className="checklist"
@@ -4997,7 +5054,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  101.91%
+                  109.35%
                    
                    
                 </div>
@@ -5434,7 +5491,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  7.71%
+                  -6.67%
                    
                    
                 </div>
@@ -5494,7 +5551,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "25%",
+                  "width": "0%",
                 }
               }
             />
@@ -5651,6 +5708,128 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   0
                    
                   / 6
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                All weapons enhanced (oils/stones)
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Using high quality weapon enhancements
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
                    
                 </div>
               </div>

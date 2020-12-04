@@ -13,7 +13,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
-import { LIFE_COCOON_HEALING_BOOST } from '../../../constants';
+import { LIFE_COCOON_HEALING_BOOST, NOURISHING_CHI_RANK_ONE, conduitScaling } from '../../../constants';
 
 /**
  * HoT Healing during Life cocoon is buffed by x% and this boost lasts for an extra 6 second after cocoon breaks or ends.
@@ -30,14 +30,18 @@ class NourishingChi extends Analyzer {
   healing: number = 0;
 
   boost: number = 0;
+  conduitRank: number = 0;
 
   constructor(options: Options){
     super(options);
-    this.active = false;
-    this.boost = .15;//TODO Get from combat data when they EXPORT IT >:c
-    if (!this.active) {
+
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.NOURISHING_CHI.id);
+    if (!this.conduitRank) {
+      this.active = false;
       return;
     }
+
+    this.boost = conduitScaling(NOURISHING_CHI_RANK_ONE, this.conduitRank);
     this.addEventListener(Events.heal, this.heal);
   }
 

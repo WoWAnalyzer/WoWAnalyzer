@@ -132,7 +132,7 @@ exports[`Mistweaver Monk integration test: example log AlwaysBeCasting matches t
                   Object {
                     "fill": "none",
                     "margin": 0,
-                    "transform": "rotate(9.8037992282147deg)",
+                    "transform": "rotate(28.17017856401162deg)",
                     "transformOrigin": "5px 27px",
                   }
                 }
@@ -162,7 +162,7 @@ exports[`Mistweaver Monk integration test: example log AlwaysBeCasting matches t
                 }
               }
             >
-              54
+              60
               %
             </div>
           </div>
@@ -226,22 +226,10 @@ Array [
   Object {
     "details": null,
     "icon": "petbattle_health-down",
-    "importance": "major",
+    "importance": "regular",
     "issue": "Your non healing time can be improved. Try to reduce the delay between casting spells and try to continue healing when you have to move.",
     "stat": <React.Fragment>
-      55.07% non healing time
-       (
-      &lt;40.00% is recommended
-      )
-    </React.Fragment>,
-  },
-  Object {
-    "details": null,
-    "icon": "spell_mage_altertime",
-    "importance": "minor",
-    "issue": "Your downtime can be improved. Try to Always Be Casting (ABC); try to reduce the delay between casting spells and when you're not healing try to contribute some damage.",
-    "stat": <React.Fragment>
-      46.50% downtime
+      51.82% non healing time
        (
       &lt;40.00% is recommended
       )
@@ -2935,7 +2923,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               12
-              /422
+              /312
                
               casts
             </td>
@@ -2954,7 +2942,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "2.8440535631558435%",
+                      "width": "3.8538411195023126%",
                     }
                   }
                 />
@@ -2969,7 +2957,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              2.84%
+              3.85%
             </td>
             <td
               style={
@@ -3033,7 +3021,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               20
-              /111
+              /83
                
               casts
             </td>
@@ -3052,7 +3040,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "18.061902065608248%",
+                      "width": "24.2035752891778%",
                     }
                   }
                 />
@@ -3067,7 +3055,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              18.06%
+              24.20%
             </td>
             <td
               style={
@@ -5900,7 +5888,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            1.09m
+            802k
           </td>
           <td
             width="20%"
@@ -5968,7 +5956,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            279k
+            205k
           </td>
           <td
             width="20%"
@@ -5982,7 +5970,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#ac1f39",
                     "transition": "background-color 800ms",
-                    "width": "25.596330275229356%",
+                    "width": "25.561097256857856%",
                   }
                 }
               />
@@ -6036,7 +6024,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            398k
+            293k
           </td>
           <td
             width="20%"
@@ -6050,7 +6038,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#df7102",
                     "transition": "background-color 800ms",
-                    "width": "36.51376146788991%",
+                    "width": "36.53366583541147%",
                   }
                 }
               />
@@ -6104,7 +6092,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            457k
+            336k
           </td>
           <td
             width="20%"
@@ -6118,7 +6106,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#df7102",
                     "transition": "background-color 800ms",
-                    "width": "41.92660550458716%",
+                    "width": "41.895261845386536%",
                   }
                 }
               />
@@ -6186,7 +6174,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#ac1f39",
                     "transition": "background-color 800ms",
-                    "width": "5.5045871559633035%",
+                    "width": "7.4812967581047385%",
                   }
                 }
               />
@@ -6622,7 +6610,7 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
             <td
               className="text-right"
             >
-              2.98
+              2.80
             </td>
             <td
               style={
@@ -6690,7 +6678,7 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
               className="text-right"
             >
               0.00 - 
-              1.45
+              1.08
             </td>
             <td
               style={
@@ -6757,7 +6745,7 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
             <td
               className="text-right"
             >
-              3.72
+              2.77
             </td>
             <td
               style={
@@ -6816,7 +6804,7 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
             <td
               className="text-right"
             >
-              1.83
+              2.18
             </td>
             <td
               style={
@@ -6996,7 +6984,7 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
             <td
               className="text-right"
             >
-              33.50
+              10.21
             </td>
             <td
               style={
@@ -7791,6 +7779,63 @@ exports[`Mistweaver Monk integration test: example log Vivify matches the statis
     </div>
   </div>
 </div>
+`;
+
+exports[`Mistweaver Monk integration test: example log WeaponEnhancementChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_axe_1h_nzothraid_d_02.jpg",
+    "importance": "regular",
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4824,
+                  6570,
+                  6578,
+                  6579,
+                  1517,
+                  4786,
+                  6514,
+                ],
+                "gems": Array [
+                  Object {
+                    "icon": "inv_misc_gem_x4_uncommon_perfectcut_blue.jpg",
+                    "id": 168642,
+                    "itemLevel": 120,
+                  },
+                ],
+                "icon": "inv_axe_1h_nzothraid_d_02.jpg",
+                "id": 172198,
+                "itemLevel": 475,
+                "permanentEnchant": 5962,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={172198}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone) . Apply an enhancement to very easily increase your throughput slightly."
+      id="shared.weaponEnhancementChecker.suggestions.noWeaponEnhancement.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Weapon"
+            id="common.slots.weapon"
+          />,
+        }
+      }
+    />,
+    "stat": null,
+  },
+]
 `;
 
 exports[`Mistweaver Monk integration test: example log matches the checklist snapshot 1`] = `
@@ -9725,8 +9770,8 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ac1f39",
-                  "width": "33.26024253934685%",
+                  "backgroundColor": "#ffc84a",
+                  "width": "54.46004214978994%",
                 }
               }
             />
@@ -9829,7 +9874,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  55.07%
+                  51.82%
                    
                    
                 </div>
@@ -9849,9 +9894,9 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "33.26024253934685%",
+                        "width": "54.46004214978994%",
                       }
                     }
                   />
@@ -9889,7 +9934,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  46.50%
+                  39.94%
                    
                    
                 </div>
@@ -9909,9 +9954,9 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "85.57301224522739%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -10660,6 +10705,128 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                   0
                    
                   / 6
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                All weapons enhanced (oils/stones)
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Using high quality weapon enhancements
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
                    
                 </div>
               </div>

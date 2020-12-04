@@ -84,7 +84,7 @@ exports[`Elemental Shaman integration test: example log AlwaysBeCasting matches 
         <div
           className="value"
         >
-          24.22 %
+          11.44 %
         </div>
         <div
           style={
@@ -103,7 +103,7 @@ exports[`Elemental Shaman integration test: example log AlwaysBeCasting matches 
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "75.78085098989077%",
+                  "width": "88.55870274924793%",
                 }
               }
             >
@@ -153,7 +153,7 @@ Array [
   Object {
     "details": null,
     "icon": "spell_mage_altertime",
-    "importance": "regular",
+    "importance": "minor",
     "issue": <React.Fragment>
       Your downtime can be improved. If you need to move use 
       <ForwardRef
@@ -169,7 +169,7 @@ Array [
       />
     </React.Fragment>,
     "stat": <React.Fragment>
-      24.22% downtime
+      11.44% downtime
        (
       &lt;5.00% is recommended
       )
@@ -474,7 +474,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
               }
             >
               57
-              /80
+              /67
                
               casts
             </td>
@@ -493,7 +493,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "70.68502049515085%",
+                      "width": "85.425147191068%",
                     }
                   }
                 />
@@ -508,7 +508,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 }
               }
             >
-              70.69%
+              85.43%
             </td>
             <td
               style={
@@ -5186,6 +5186,53 @@ exports[`Elemental Shaman integration test: example log ThroughputStatisticGroup
 </div>
 `;
 
+exports[`Elemental Shaman integration test: example log WeaponEnhancementChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_mace_1h_pandaraid_d_01.jpg",
+    "importance": "regular",
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  5010,
+                  40,
+                  1612,
+                  4783,
+                ],
+                "icon": "inv_mace_1h_pandaraid_d_01.jpg",
+                "id": 158369,
+                "itemLevel": 440,
+                "permanentEnchant": 5949,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={158369}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone) . Apply an enhancement to very easily increase your throughput slightly."
+      id="shared.weaponEnhancementChecker.suggestions.noWeaponEnhancement.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Weapon"
+            id="common.slots.weapon"
+          />,
+        }
+      }
+    />,
+    "stat": null,
+  },
+]
+`;
+
 exports[`Elemental Shaman integration test: example log matches the checklist snapshot 1`] = `
 <ul
   className="checklist"
@@ -5463,7 +5510,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
               style={
                 Object {
                   "backgroundColor": "#df7102",
-                  "width": "34.065624741773156%",
+                  "width": "38.67231683553414%",
                 }
               }
             />
@@ -5616,7 +5663,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                   }
                 >
                    
-                  24.22%
+                  11.44%
                    
                    
                 </div>
@@ -5638,7 +5685,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "8.249670536177888%",
+                        "width": "17.463054723699848%",
                       }
                     }
                   />
@@ -6296,7 +6343,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "25%",
+                  "width": "0%",
                 }
               }
             />
@@ -6453,6 +6500,128 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                   0
                    
                   / 6
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                All weapons enhanced (oils/stones)
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Using high quality weapon enhancements
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
                    
                 </div>
               </div>

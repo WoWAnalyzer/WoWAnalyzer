@@ -1,28 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Fire Mage integration test: example log AlwaysBeCasting matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "spell_mage_altertime",
-    "importance": "minor",
-    "issue": <span>
-      Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. If you have to move, try casting 
-      <ForwardRef
-        id={2948}
-      />
-      .
-    </span>,
-    "stat": <React.Fragment>
-      22.22% downtime
-       (
-      &lt;20.00% is recommended
-      )
-    </React.Fragment>,
-  },
-]
-`;
-
 exports[`Fire Mage integration test: example log CancelledCasts matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -683,7 +660,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               41
-              /41
+              /39
                
               casts
             </td>
@@ -702,7 +679,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "102.36479131736291%",
+                      "width": "107.75454447242565%",
                     }
                   }
                 />
@@ -717,7 +694,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              102.36%
+              107.75%
             </td>
             <td
               style={
@@ -3187,6 +3164,43 @@ Array [
 ]
 `;
 
+exports[`Fire Mage integration test: example log CombustionCharges matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_fire_sealoffire",
+    "importance": "regular",
+    "issue": <React.Fragment>
+      You cast 
+      <ForwardRef
+        id={190319}
+      />
+       
+      1
+       times with less than 
+      2
+       charges of 
+      <ForwardRef
+        id={108853}
+      />
+      . Make sure you are saving at least 
+      2
+       charges while Combustion is on cooldown so you can get as many 
+      <ForwardRef
+        id={48108}
+      />
+       procs as possible before Combustion ends.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      50.00% Utilization
+       (
+      100.00 is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
 exports[`Fire Mage integration test: example log CombustionSpellUsage matches the suggestions snapshot 1`] = `
 Array [
   Object {
@@ -4665,6 +4679,64 @@ exports[`Fire Mage integration test: example log ThroughputStatisticGroup matche
 </div>
 `;
 
+exports[`Fire Mage integration test: example log WeaponEnhancementChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_sword_1h_nzothraid_d_01.jpg",
+    "importance": "regular",
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4823,
+                  1808,
+                  6553,
+                  6578,
+                  6579,
+                  1502,
+                  4786,
+                  6513,
+                ],
+                "gems": Array [
+                  Object {
+                    "icon": "inv_jewelcrafting_80_cutgem02_blue.jpg",
+                    "id": 154128,
+                    "itemLevel": 120,
+                  },
+                ],
+                "icon": "inv_sword_1h_nzothraid_d_01.jpg",
+                "id": 174108,
+                "itemLevel": 470,
+                "permanentEnchant": 5949,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={174108}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone) . Apply an enhancement to very easily increase your throughput slightly."
+      id="shared.weaponEnhancementChecker.suggestions.noWeaponEnhancement.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Weapon"
+            id="common.slots.weapon"
+          />,
+        }
+      }
+    />,
+    "stat": null,
+  },
+]
+`;
+
 exports[`Fire Mage integration test: example log matches the checklist snapshot 1`] = `
 <ul
   className="checklist"
@@ -4874,7 +4946,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  100.00%
+                  107.75%
                    
                    
                 </div>
@@ -5226,7 +5298,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "87.51249999999999%",
+                  "width": "72.91875000000002%",
                 }
               }
             />
@@ -5364,7 +5436,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  100.00%
+                  50.00%
                    
                    
                 </div>
@@ -5384,9 +5456,9 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "41.625%",
                       }
                     }
                   />
@@ -6690,7 +6762,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#ffc84a",
-                  "width": "54.496512761643515%",
+                  "width": "56.553215782623%",
                 }
               }
             />
@@ -6783,7 +6855,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  22.22%
+                  15.24%
                    
                    
                 </div>
@@ -6805,7 +6877,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "8.993025523287017%",
+                        "width": "13.106431565246005%",
                       }
                     }
                   />
@@ -6902,8 +6974,8 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#df7102",
-                  "width": "50%",
+                  "backgroundColor": "#ac1f39",
+                  "width": "0%",
                 }
               }
             />
@@ -7060,6 +7132,128 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   0
                    
                   / 6
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                All weapons enhanced (oils/stones)
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Using high quality weapon enhancements
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
                    
                 </div>
               </div>
