@@ -71,6 +71,7 @@ import FoodChecker from '../shared/modules/items/FoodChecker';
 import Healthstone from '../shared/modules/items/Healthstone';
 import HealthPotion from '../shared/modules/items/HealthPotion';
 import CombatPotion from '../shared/modules/items/CombatPotion';
+import WeaponEnhancementChecker from '../shared/modules/items/WeaponEnhancementChecker';
 import PreparationRuleAnalyzer from '../shared/modules/features/Checklist/PreparationRuleAnalyzer';
 // Racials
 import ArcaneTorrent from '../shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -295,6 +296,7 @@ class CombatLogParser {
     healthstone: Healthstone,
     healthPotion: HealthPotion,
     combatPotion: CombatPotion,
+    weaponEnhancementChecker: WeaponEnhancementChecker,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
 
     // Racials
