@@ -990,5 +990,35 @@ export const Amani: Contributor = {
   nickname: 'Amani',
   github: 'AmaniZandalari',
   discord: 'Amani#0001',
+  about: 'Russian localizator and leader of Russian Shaman Discord community Vodovorot',
+  avatar: require('./interface/images/avatars/amani_avatar.png'),
+  mains: [{
+      name: 'Аманя',
+      spec: SPECS.ELEMENTAL_SHAMAN,
+      link: 'https://www.warcraftlogs.com/character/id/42517322',
+    }],
+};
+export const Haelrail: Contributor = {
+  nickname: 'Haelrail',
+  github: 'Haelrail',
+  discord: 'Haelrail#9202',
   about: 'Russian localizator',
 };
+export const Kruzershtern: Contributor = {
+  nickname: 'Kruzershtern',
+  github: 'Kruzershtern',
+  discord: 'Kruzer#6980',
+  about: 'Russian localizator',
+};
+
+export const Mae: Contributor = {
+  nickname: 'Mae',
+  github: 'invfo',
+  discord: 'Mae#3348',
+  avatar: require('./interface/images/avatars/Mae_avatar.png'),
+  mains: [{
+    name: 'Maerstrom',
+    spec: SPECS.RESTORATION_SHAMAN,
+    link: 'https://worldofwarcraft.com/en-gb/character/eu/draenor/maerstrom'
+  }]
+}

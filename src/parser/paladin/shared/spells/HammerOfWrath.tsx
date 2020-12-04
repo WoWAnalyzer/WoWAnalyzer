@@ -2,13 +2,12 @@ import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
 import Events, { FightEndEvent } from 'parser/core/Events';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
 import ExecuteHelper from 'parser/shared/ExecuteHelper';
 import Spell from 'common/SPELLS/Spell';
 
 class HammerofWrath extends ExecuteHelper {
   static dependencies = {
-    spellUsable: SpellUsable,
+    ...ExecuteHelper.dependencies,
     abilities: Abilities,
   };
 

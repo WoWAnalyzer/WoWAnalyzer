@@ -1,15 +1,15 @@
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { ONE_SECOND_IN_MS } from 'parser/hunter/shared/constants';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { DEADLY_CHAIN_TRICKSHOTS_DAMAGE_INCREASE, TRICK_SHOTS_BASELINE_DAMAGE } from 'parser/hunter/marksmanship/constants';
+import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
 
 /**
  * Trick Shots secondary damage is increased by 10.0%.
@@ -61,11 +61,11 @@ class DeadlyChain extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spell={SPELLS.DEADLY_CHAIN_CONDUIT}>
+        <ConduitSpellText spell={SPELLS.DEADLY_CHAIN_CONDUIT} rank={this.conduitRank}>
           <>
             <ItemDamageDone amount={this.addedDamage} />
           </>
-        </BoringSpellValueText>
+        </ConduitSpellText>
       </Statistic>
     );
   }

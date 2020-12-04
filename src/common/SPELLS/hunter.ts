@@ -4,8 +4,8 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import { SpellList, HunterSpell } from "./Spell";
-const spells: SpellList<HunterSpell> = {
+import { SpellList } from "./Spell";
+const spells: SpellList = {
 
   //region Beast Mastery
   ASPECT_OF_THE_WILD: {
@@ -32,7 +32,6 @@ const spells: SpellList<HunterSpell> = {
     id: 34026,
     name: 'Kill Command',
     icon: 'ability_hunter_killcommand',
-    focusCost: 30,
   },
   KILL_COMMAND_DAMAGE_BM: {
     id: 83381,
@@ -255,7 +254,7 @@ const spells: SpellList<HunterSpell> = {
   TRICK_SHOTS_BUFF: {
     id: 257622,
     name: 'Trick Shots',
-    icon: 'ability_hunter_focusfire',
+    icon: 'inv_trickshot',
   },
   LONE_WOLF_BUFF: {
     id: 164273,

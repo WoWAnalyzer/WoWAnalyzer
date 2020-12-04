@@ -1,7 +1,8 @@
 import React from 'react';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Statistic from 'interface/statistics/Statistic';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -40,7 +41,7 @@ class PredatorySwiftness extends Analyzer {
    */
   timeLastGain = null;
 
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.fightend, this.onFightend);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.PREDATORY_SWIFTNESS), this.onApplyBuff);
@@ -83,7 +84,7 @@ class PredatorySwiftness extends Analyzer {
 
   onRemoveBuff(event) {
     if (!this.hasSwiftness || !this.expireTime ||
-        Math.abs(this.expireTime - event.timestamp) > EXPIRE_WINDOW) {
+      Math.abs(this.expireTime - event.timestamp) > EXPIRE_WINDOW) {
       return;
     }
     debug && console.log(`${this.owner.formatTimestamp(event.timestamp, 3)} Predatory Swiftness expired, unused`);
@@ -101,7 +102,7 @@ class PredatorySwiftness extends Analyzer {
     this.hasSwiftness = false;
     this.expireTime = null;
   }
-  
+
   get wasted() {
     return this.expired + this.overwritten + this.remainAfterFight;
   }
@@ -139,10 +140,7 @@ class PredatorySwiftness extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.PREDATORY_SWIFTNESS.id} />}
-        value={`${formatPercentage(1 - this.wastedFraction)}%`}
-        label="Predatory Swiftness buffs used"
+      <Statistic
         tooltip={(
           <>
             You used <strong>{this.used}</strong> out of <strong>{this.generated}</strong> Predatory Swiftness buffs to instant-cast Regrowth or Entangling Roots{this.selectedCombatant.hasTalent(SPELLS.BLOODTALONS_TALENT.id) ? ' and trigger the Bloodtalons buff' : ''}. <br />
@@ -153,8 +151,15 @@ class PredatorySwiftness extends Analyzer {
             </ul>
           </>
         )}
+        size="flexible"
         position={STATISTIC_ORDER.OPTIONAL(5)}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.PREDATORY_SWIFTNESS}>
+          <>
+            {formatPercentage(1 - this.wastedFraction)}% <small>buffs used</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

@@ -1,19 +1,22 @@
 import React from 'react';
 
-import { Khazak, LeoZhekov } from 'CONTRIBUTORS';
+import { joshinator, Khazak, LeoZhekov } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+    change(date(2020, 11, 13), <>Added analyzer for <SpellLink id={SPELLS.HYPOTHERMIC_PRESENCE_TALENT.id} /></>, [Khazak]),
+    change(date(2020, 11, 5), <>Added manual RP tracking for <SpellLink id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} /> and updated suggestion to target a 25+ second duration</>, [Khazak]),
+    change(date(2020, 10, 27), <>Created statistics for <SpellLink id={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER.id} /> and <SpellLink id={SPELLS.RUNE_OF_HYSTERIA.id} /></>, joshinator),
     change(date(2020, 10, 22), 'Replaced deprecated StatisticBoxes with Statistic', [LeoZhekov]),
     change(date(2020, 10, 22), 'Tweaked spells for prepatch, fixed bug where abilities that only wasted Runic Power and generated none were not showing up in the resource tab', [Khazak]),
     change(date(2020, 10, 16), 'Updated Abilities with pre-patch spells', [Khazak]),
-    change(date(2020, 8, 11), 'Converted Frost Death Knight modules to Typescript', [Khazak]),
+    change(date(2020, 8, 11), 'Converted modules to Typescript', [Khazak]),
     change(date(2020, 5, 11), <>Fixed issue where <SpellLink id={SPELLS.ICECAP_TALENT.id} /> was not properly counting the internal cooldown</>, [Khazak]),
     change(date(2020, 4, 28), <>Added <SpellLink id={SPELLS.CHILL_STREAK_TALENT.id} /> to Abilities</>, [Khazak]),
     change(date(2020, 4, 28), 'Cleaned up old text and fixed a couple bugs', [Khazak]),
-    change(date(2020, 2, 2), 'Switched Frost Death Knight modules to use new event listeners', [Khazak]),
+    change(date(2020, 2, 2), 'Switched modules to use new event listeners', [Khazak]),
     change(date(2020, 1, 25), 'Add integration test', [Khazak]),
     change(date(2020, 1, 18), 'Updated patch compatibility to 8.3', [Khazak]),
     change(date(2019, 11, 17), <>Fixed rune gain from <SpellLink id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} /> crashing the runes tab</>, [Khazak]),

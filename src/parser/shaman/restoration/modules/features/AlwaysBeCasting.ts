@@ -10,7 +10,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   static HEALING_ABILITIES_ON_GCD = [
     SPELLS.HEALING_WAVE.id,
     SPELLS.CHAIN_HEAL.id,
-    SPELLS.HEALING_SURGE_RESTORATION.id,
+    SPELLS.HEALING_SURGE.id,
     SPELLS.RIPTIDE.id,
     SPELLS.HEALING_RAIN_CAST.id,
     SPELLS.HEALING_STREAM_TOTEM_CAST.id,
@@ -24,6 +24,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.DOWNPOUR_TALENT.id,
     SPELLS.MANA_TIDE_TOTEM_CAST.id,
     SPELLS.SURGE_OF_EARTH_TALENT.id,
+    SPELLS.PRIMORDIAL_WAVE_CAST.id, // TODO add other covenant abilities
   ];
 
   suggestions(when: When) {

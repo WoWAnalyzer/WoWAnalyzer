@@ -40,6 +40,7 @@ import AbilityTracker from '../shared/modules/AbilityTracker';
 import Haste from '../shared/modules/Haste';
 import StatTracker from '../shared/modules/StatTracker';
 import AlwaysBeCasting from '../shared/modules/AlwaysBeCasting';
+import FilteredActiveTime from '../shared/modules/FilteredActiveTime';
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import AbilitiesMissing from '../shared/modules/AbilitiesMissing';
@@ -63,13 +64,14 @@ import RaidHealthTab from '../shared/modules/features/RaidHealthTab';
 
 import CritEffectBonus from '../shared/modules/helpers/CritEffectBonus';
 
-import PrePotion from '../shared/modules/items/PrePotion';
+import PotionChecker from '../shared/modules/items/PotionChecker';
 import EnchantChecker from '../shared/modules/items/EnchantChecker';
 import FlaskChecker from '../shared/modules/items/FlaskChecker';
 import FoodChecker from '../shared/modules/items/FoodChecker';
 import Healthstone from '../shared/modules/items/Healthstone';
 import HealthPotion from '../shared/modules/items/HealthPotion';
 import CombatPotion from '../shared/modules/items/CombatPotion';
+import WeaponEnhancementChecker from '../shared/modules/items/WeaponEnhancementChecker';
 import PreparationRuleAnalyzer from '../shared/modules/features/Checklist/PreparationRuleAnalyzer';
 // Racials
 import ArcaneTorrent from '../shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -268,6 +270,7 @@ class CombatLogParser {
     haste: Haste,
     statTracker: StatTracker,
     alwaysBeCasting: AlwaysBeCasting,
+    filteredActiveTime: FilteredActiveTime,
     abilities: Abilities,
     buffs: Buffs,
     abilitiesMissing: AbilitiesMissing,
@@ -286,13 +289,14 @@ class CombatLogParser {
     // Tabs
     raidHealthTab: RaidHealthTab,
 
-    prePotion: PrePotion,
+    potionChecker: PotionChecker,
     enchantChecker: EnchantChecker,
     flaskChecker: FlaskChecker,
     foodChecker: FoodChecker,
     healthstone: Healthstone,
     healthPotion: HealthPotion,
     combatPotion: CombatPotion,
+    weaponEnhancementChecker: WeaponEnhancementChecker,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
 
     // Racials

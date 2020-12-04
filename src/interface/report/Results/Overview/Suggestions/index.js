@@ -27,8 +27,8 @@ class Suggestions extends React.PureComponent {
 
     return (
       <Panel
-        title={<Trans>Suggestions</Trans>}
-        explanation="Based on what you did here are some things we think you might be able to improve."
+        title={<Trans id="interface.report.results.overview.suggestions.suggestions">Suggestions</Trans>}
+        explanation={<Trans id="interface.report.results.overview.suggestions.explanation">"Based on what you did here are some things we think you might be able to improve."</Trans>}
         actions={(
           <div className="pull-right toggle-control">
             <Toggle
@@ -38,7 +38,7 @@ class Suggestions extends React.PureComponent {
               id="minor-issues-toggle"
             />
             <label htmlFor="minor-issues-toggle">
-              <Trans>Minor importance</Trans>
+              <Trans id="interface.report.results.overview.suggestions.minorImportance">Minor importance</Trans>
             </label>
           </div>
         )}
@@ -52,7 +52,7 @@ class Suggestions extends React.PureComponent {
                 <Icon icon="thumbsup" alt="Thumbsup" />
               </div>
               <div className="suggestion">
-                <Trans>There are no major issues in this fight. Good job!</Trans>
+                <Trans id="interface.report.results.overview.suggestions.noMajorIssues">There are no major issues in this fight. Good job!</Trans>
               </div>
             </li>
           )}
@@ -60,7 +60,7 @@ class Suggestions extends React.PureComponent {
             .filter(issue => this.state.showMinorIssues || issue.importance !== ISSUE_IMPORTANCE.MINOR)
             .map((issue, i) => <Suggestion key={i} {...issue} />)}
           <li>
-            <small><Trans>Some of these suggestions may be nitpicky or fight dependent, but often it's still something you could look to improve. Try to focus on improving one thing at a time - don't try to improve everything at once.</Trans></small>
+            <small><Trans id="interface.report.results.overview.suggestions.improve">Some of these suggestions may be nitpicky or fight dependent, but often it's still something you could look to improve. Try to focus on improving one thing at a time - don't try to improve everything at once.</Trans></small>
           </li>
         </ul>
       </Panel>

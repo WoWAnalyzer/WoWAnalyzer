@@ -17,7 +17,7 @@ exports[`Fire Mage integration test: example log Ashjrakamas matches the statist
       >
         <label>
           <a
-            className="legendary"
+            className="legendaryitem-link-text"
             href="http://wowhead.com/item=169223"
             rel="noopener noreferrer"
             target="_blank"
@@ -31,7 +31,7 @@ exports[`Fire Mage integration test: example log Ashjrakamas matches the statist
           </a>
            
           <a
-            className="legendary"
+            className="legendaryitem-link-text"
             href="http://wowhead.com/item=169223"
             rel="noopener noreferrer"
             target="_blank"
@@ -95,7 +95,7 @@ exports[`Fire Mage integration test: example log AzsharasFontofPower matches the
       >
         <label>
           <a
-            className="unknown"
+            className="unknownitem-link-text"
             href="http://wowhead.com/item=169314"
             rel="noopener noreferrer"
             target="_blank"
@@ -109,7 +109,7 @@ exports[`Fire Mage integration test: example log AzsharasFontofPower matches the
           </a>
            
           <a
-            className="unknown"
+            className="unknownitem-link-text"
             href="http://wowhead.com/item=169314"
             rel="noopener noreferrer"
             target="_blank"
@@ -176,7 +176,7 @@ exports[`Fire Mage integration test: example log BalefireBranch matches the stat
       >
         <label>
           <a
-            className="unknown"
+            className="unknownitem-link-text"
             href="http://wowhead.com/item=159630"
             rel="noopener noreferrer"
             target="_blank"
@@ -190,7 +190,7 @@ exports[`Fire Mage integration test: example log BalefireBranch matches the stat
           </a>
            
           <a
-            className="unknown"
+            className="unknownitem-link-text"
             href="http://wowhead.com/item=159630"
             rel="noopener noreferrer"
             target="_blank"
@@ -259,6 +259,7 @@ exports[`Fire Mage integration test: example log BlightborneInfusion matches the
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=273823"
             rel="noopener noreferrer"
             target="_blank"
@@ -271,6 +272,7 @@ exports[`Fire Mage integration test: example log BlightborneInfusion matches the
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=273823"
             rel="noopener noreferrer"
             target="_blank"
@@ -418,12 +420,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
         }
       }
     >
-      <a
-        href="#Abilities"
-        id="Abilities"
-      >
-        Abilities
-      </a>
+      common.abilities
     </h1>
   </div>
   <div
@@ -503,6 +500,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=133"
                 rel="noopener noreferrer"
                 style={
@@ -588,6 +586,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=116"
                 rel="noopener noreferrer"
                 style={
@@ -673,6 +672,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=11366"
                 rel="noopener noreferrer"
                 style={
@@ -758,6 +758,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=2948"
                 rel="noopener noreferrer"
                 style={
@@ -843,6 +844,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=257541"
                 rel="noopener noreferrer"
                 style={
@@ -886,7 +888,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               0
-              /8
+              /9
                
               casts
             </td>
@@ -942,6 +944,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=108853"
                 rel="noopener noreferrer"
                 style={
@@ -985,7 +988,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               41
-              /44
+              /39
                
               casts
             </td>
@@ -1004,7 +1007,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "96.92373305881756%",
+                      "width": "107.45910689418572%",
                     }
                   }
                 />
@@ -1019,7 +1022,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              96.92%
+              107.46%
             </td>
             <td
               style={
@@ -1039,6 +1042,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=153561"
                 rel="noopener noreferrer"
                 style={
@@ -1185,6 +1189,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=1449"
                 rel="noopener noreferrer"
                 style={
@@ -1270,6 +1275,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=31661"
                 rel="noopener noreferrer"
                 style={
@@ -1367,6 +1373,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=2120"
                 rel="noopener noreferrer"
                 style={
@@ -1501,6 +1508,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=268999"
                 rel="noopener noreferrer"
                 style={
@@ -1598,6 +1606,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=296971"
                 rel="noopener noreferrer"
                 style={
@@ -1744,6 +1753,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=80353"
                 rel="noopener noreferrer"
                 style={
@@ -1841,6 +1851,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=190319"
                 rel="noopener noreferrer"
                 style={
@@ -1938,6 +1949,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=116011"
                 rel="noopener noreferrer"
                 style={
@@ -2084,6 +2096,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=235313"
                 rel="noopener noreferrer"
                 style={
@@ -2181,6 +2194,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=45438"
                 rel="noopener noreferrer"
                 style={
@@ -2278,6 +2292,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=55342"
                 rel="noopener noreferrer"
                 style={
@@ -2424,6 +2439,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=1459"
                 rel="noopener noreferrer"
                 style={
@@ -2509,6 +2525,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=122"
                 rel="noopener noreferrer"
                 style={
@@ -2606,6 +2623,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=212653"
                 rel="noopener noreferrer"
                 style={
@@ -2703,6 +2721,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=2139"
                 rel="noopener noreferrer"
                 style={
@@ -2800,6 +2819,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=475"
                 rel="noopener noreferrer"
                 style={
@@ -2897,6 +2917,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=130"
                 rel="noopener noreferrer"
                 style={
@@ -2982,6 +3003,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=30449"
                 rel="noopener noreferrer"
                 style={
@@ -3067,6 +3089,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=321358"
                 rel="noopener noreferrer"
                 style={
@@ -3152,7 +3175,8 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
-                href="http://wowhead.com/spell=109878"
+                className="spell-link-text"
+                href="http://wowhead.com/spell=342247"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3237,6 +3261,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=66"
                 rel="noopener noreferrer"
                 style={
@@ -3334,6 +3359,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=118"
                 rel="noopener noreferrer"
                 style={
@@ -3468,6 +3494,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171267"
                 rel="noopener noreferrer"
                 style={
@@ -3565,6 +3592,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171273"
                 rel="noopener noreferrer"
                 style={
@@ -3675,31 +3703,71 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 0,
-            "1": 8,
+            "1": 9,
             "2": "0",
           }
         }
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "90",
           }
         }
       />
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`Fire Mage integration test: example log CombustionCharges matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_fire_sealoffire",
+    "importance": "regular",
+    "issue": <React.Fragment>
+      You cast 
+      <ForwardRef
+        id={190319}
+      />
+       
+      1
+       times with less than 
+      2
+       charges of 
+      <ForwardRef
+        id={108853}
+      />
+      . Make sure you are saving at least 
+      2
+       charges while Combustion is on cooldown so you can get as many 
+      <ForwardRef
+        id={48108}
+      />
+       procs as possible before Combustion ends.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      50.00% Utilization
+       (
+      100.00 is recommended
       )
     </React.Fragment>,
   },
@@ -3887,6 +3955,7 @@ exports[`Fire Mage integration test: example log ElementalBarrier matches the st
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=235313"
             rel="noopener noreferrer"
             target="_blank"
@@ -3899,6 +3968,7 @@ exports[`Fire Mage integration test: example log ElementalBarrier matches the st
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=235313"
             rel="noopener noreferrer"
             target="_blank"
@@ -3967,6 +4037,7 @@ exports[`Fire Mage integration test: example log ElementalWhirl matches the stat
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=263984"
             rel="noopener noreferrer"
             target="_blank"
@@ -3979,6 +4050,7 @@ exports[`Fire Mage integration test: example log ElementalWhirl matches the stat
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=263984"
             rel="noopener noreferrer"
             target="_blank"
@@ -4376,6 +4448,7 @@ exports[`Fire Mage integration test: example log EssenceOfTheFocusingIris matche
         >
           <label>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=299337"
               rel="noopener noreferrer"
               target="_blank"
@@ -4476,6 +4549,7 @@ exports[`Fire Mage integration test: example log HeatingUp matches the statistic
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=48107"
             rel="noopener noreferrer"
             target="_blank"
@@ -4488,6 +4562,7 @@ exports[`Fire Mage integration test: example log HeatingUp matches the statistic
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=48107"
             rel="noopener noreferrer"
             target="_blank"
@@ -4499,6 +4574,7 @@ exports[`Fire Mage integration test: example log HeatingUp matches the statistic
           className="value"
         >
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=108853"
             rel="noopener noreferrer"
             target="_blank"
@@ -4517,6 +4593,7 @@ exports[`Fire Mage integration test: example log HeatingUp matches the statistic
           </small>
           <br />
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=257541"
             rel="noopener noreferrer"
             target="_blank"
@@ -4608,6 +4685,7 @@ exports[`Fire Mage integration test: example log HotStreak matches the statistic
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=48108"
             rel="noopener noreferrer"
             target="_blank"
@@ -4620,6 +4698,7 @@ exports[`Fire Mage integration test: example log HotStreak matches the statistic
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=48108"
             rel="noopener noreferrer"
             target="_blank"
@@ -4767,6 +4846,7 @@ exports[`Fire Mage integration test: example log Meteor matches the statistic sn
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=153561"
             rel="noopener noreferrer"
             target="_blank"
@@ -4779,6 +4859,7 @@ exports[`Fire Mage integration test: example log Meteor matches the statistic sn
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=153561"
             rel="noopener noreferrer"
             target="_blank"
@@ -4883,6 +4964,7 @@ exports[`Fire Mage integration test: example log MirrorImage matches the statist
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=55342"
             rel="noopener noreferrer"
             target="_blank"
@@ -4895,6 +4977,7 @@ exports[`Fire Mage integration test: example log MirrorImage matches the statist
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=55342"
             rel="noopener noreferrer"
             target="_blank"
@@ -4934,43 +5017,28 @@ exports[`Fire Mage integration test: example log MirrorImage matches the statist
 </div>
 `;
 
-exports[`Fire Mage integration test: example log PrePotion matches the suggestions snapshot 1`] = `
+exports[`Fire Mage integration test: example log PotionChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
     "icon": "inv_alchemy_90_combat2_purple",
     "importance": "minor",
-    "issue": <React.Fragment>
-      You forgot to use a potion during combat. Using a potion during combat allows you the benefit of 
-      
-       increasing output through 
-      <ItemLink
-        icon={true}
-        id={171273}
-      />
-      
-      . 
-      
-    </React.Fragment>,
-    "stat": null,
-  },
-  Object {
-    "details": null,
-    "icon": "inv_alchemy_90_combat2_purple",
-    "importance": "minor",
-    "issue": <React.Fragment>
-      You used a weak potion. 
-      <ItemLink
-        icon={true}
-        id={171273}
-      />
-       can be used instead of 
-      <ItemLink
-        icon={true}
-        id={171273}
-      />
-       in order to get a slightly higher damage output.
-    </React.Fragment>,
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            icon={true}
+            id={171273}
+          />,
+          <ItemLink
+            icon={true}
+            id={171273}
+          />,
+        ]
+      }
+      defaults="You used a weak potion. <0/> can be used instead of <1/> in order to get a slightly higher damage output."
+      id="shared.modules.items.potionChecker.suggestions.weakPotion"
+    />,
     "stat": null,
   },
 ]
@@ -4992,6 +5060,7 @@ exports[`Fire Mage integration test: example log RuneOfPower matches the statist
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=116011"
             rel="noopener noreferrer"
             target="_blank"
@@ -5004,6 +5073,7 @@ exports[`Fire Mage integration test: example log RuneOfPower matches the statist
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=116011"
             rel="noopener noreferrer"
             target="_blank"
@@ -5065,6 +5135,7 @@ exports[`Fire Mage integration test: example log SearingTouch matches the statis
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=269644"
             rel="noopener noreferrer"
             target="_blank"
@@ -5077,6 +5148,7 @@ exports[`Fire Mage integration test: example log SearingTouch matches the statis
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=269644"
             rel="noopener noreferrer"
             target="_blank"
@@ -5142,6 +5214,7 @@ exports[`Fire Mage integration test: example log TheCrucibleofFlame matches the 
         >
           <label>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=299348"
               rel="noopener noreferrer"
               target="_blank"
@@ -5482,6 +5555,64 @@ exports[`Fire Mage integration test: example log ThroughputStatisticGroup matche
 </div>
 `;
 
+exports[`Fire Mage integration test: example log WeaponEnhancementChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_sword_1h_nzothraid_d_01.jpg",
+    "importance": "regular",
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4823,
+                  1808,
+                  6553,
+                  6578,
+                  6579,
+                  1502,
+                  4786,
+                  6513,
+                ],
+                "gems": Array [
+                  Object {
+                    "icon": "inv_jewelcrafting_80_cutgem02_blue.jpg",
+                    "id": 154128,
+                    "itemLevel": 120,
+                  },
+                ],
+                "icon": "inv_sword_1h_nzothraid_d_01.jpg",
+                "id": 174108,
+                "itemLevel": 470,
+                "permanentEnchant": 5949,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={174108}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone) . Apply an enhancement to very easily increase your throughput slightly."
+      id="shared.weaponEnhancementChecker.suggestions.noWeaponEnhancement.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Weapon"
+            id="common.slots.weapon"
+          />,
+        }
+      }
+    />,
+    "stat": null,
+  },
+]
+`;
+
 exports[`Fire Mage integration test: example log matches the checklist snapshot 1`] = `
 <ul
   className="checklist"
@@ -5585,6 +5716,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=190319"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5657,6 +5789,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=108853"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5689,7 +5822,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  96.92%
+                  107.46%
                    
                    
                 </div>
@@ -5729,6 +5862,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=257541"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5801,6 +5935,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=55342"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5873,6 +6008,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=116011"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5945,6 +6081,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=153561"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -6037,7 +6174,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "87.51249999999999%",
+                  "width": "72.91875000000002%",
                 }
               }
             />
@@ -6096,6 +6233,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
           >
             Using 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=190319"
               rel="noopener noreferrer"
               target="_blank"
@@ -6174,7 +6312,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  100.00%
+                  50.00%
                    
                    
                 </div>
@@ -6194,9 +6332,9 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "41.625%",
                       }
                     }
                   />
@@ -7047,7 +7185,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#ffc84a",
-                  "width": "63.07152323529412%",
+                  "width": "64.78930373529413%",
                 }
               }
             />
@@ -7282,7 +7420,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "22.90374%",
+                        "width": "29.774862000000002%",
                       }
                     }
                   />
@@ -7500,7 +7638,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#ffc84a",
-                  "width": "55.10386993603411%",
+                  "width": "57.325205689301164%",
                 }
               }
             />
@@ -7593,7 +7731,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  19.57%
+                  13.64%
                    
                    
                 </div>
@@ -7615,7 +7753,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "10.207739872068228%",
+                        "width": "14.650411378602321%",
                       }
                     }
                   />
@@ -7700,7 +7838,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
         <div
           className="flex-main name"
         >
-          Be well prepared
+          shared.modules.features.checklist.wellPrepared
         </div>
         <div
           className="flex-sub perf"
@@ -7713,7 +7851,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "25%",
+                  "width": "0%",
                 }
               }
             />
@@ -7770,7 +7908,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
           <div
             className="col-md-12"
           >
-            Being well prepared with food, flasks, potions and enchants is an easy way to improve your performance.
+            shared.modules.features.checklist.wellPreparedDetails
           </div>
         </div>
         <div
@@ -7785,7 +7923,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               <div
                 className="flex-main"
               >
-                All items enchanted
+                shared.modules.features.checklist.enchanted
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -7846,7 +7984,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               <div
                 className="flex-main"
               >
-                Using high quality enchants
+                shared.modules.features.checklist.enchantedHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -7907,7 +8045,311 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               <div
                 className="flex-main"
               >
-                Used a pre-potion
+                All weapons enhanced (oils/stones)
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Using high quality weapon enhancements
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                shared.modules.features.checklist.combatPotionsUsed
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  1
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                shared.modules.features.checklist.highQualityCombatPotionsUsed
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                shared.modules.features.checklist.flaskHigh
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  common.no
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                shared.modules.features.checklist.flask
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -7967,7 +8409,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               <div
                 className="flex-main"
               >
-                Used a second potion
+                shared.modules.features.checklist.foodHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -8027,247 +8469,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               <div
                 className="flex-main"
               >
-                Used a high quality pre-potion
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  common.no
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                High quality flask used
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  common.no
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                Flask used
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  common.yes
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#4ec04e",
-                        "transition": "background-color 800ms",
-                        "width": "100%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                High quality food used
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  common.no
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                Food used
+                shared.modules.features.checklist.food
               </div>
               <div
                 className="flex-sub content-middle text-muted"

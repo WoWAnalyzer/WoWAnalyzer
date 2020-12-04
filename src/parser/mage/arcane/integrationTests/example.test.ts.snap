@@ -5,7 +5,7 @@ Array [
   Object {
     "details": null,
     "icon": "spell_mage_altertime",
-    "importance": "regular",
+    "importance": "minor",
     "issue": <span>
       Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. If a fight requires movement, try saving 
       <ForwardRef
@@ -18,7 +18,7 @@ Array [
        casts instant.
     </span>,
     "stat": <React.Fragment>
-      35.63% downtime
+      32.59% downtime
        (
       &lt;20.00% is recommended
       )
@@ -113,6 +113,7 @@ exports[`Arcane Mage integration test: example log ArcanePower matches the stati
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=205022"
             rel="noopener noreferrer"
             target="_blank"
@@ -125,6 +126,7 @@ exports[`Arcane Mage integration test: example log ArcanePower matches the stati
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=205022"
             rel="noopener noreferrer"
             target="_blank"
@@ -136,6 +138,7 @@ exports[`Arcane Mage integration test: example log ArcanePower matches the stati
           className="value"
         >
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=12042"
             rel="noopener noreferrer"
             target="_blank"
@@ -160,6 +163,7 @@ exports[`Arcane Mage integration test: example log ArcanePower matches the stati
           </small>
           <br />
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=30451"
             rel="noopener noreferrer"
             target="_blank"
@@ -333,12 +337,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
         }
       }
     >
-      <a
-        href="#Abilities"
-        id="Abilities"
-      >
-        Abilities
-      </a>
+      common.abilities
     </h1>
   </div>
   <div
@@ -418,6 +417,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=30451"
                 rel="noopener noreferrer"
                 style={
@@ -503,6 +503,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=116"
                 rel="noopener noreferrer"
                 style={
@@ -588,6 +589,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=108853"
                 rel="noopener noreferrer"
                 style={
@@ -631,7 +633,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               0
-              /36
+              /26
                
               casts
             </td>
@@ -685,6 +687,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=5143"
                 rel="noopener noreferrer"
                 style={
@@ -770,6 +773,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=44425"
                 rel="noopener noreferrer"
                 style={
@@ -855,6 +859,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=1449"
                 rel="noopener noreferrer"
                 style={
@@ -989,6 +994,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=313148"
                 rel="noopener noreferrer"
                 style={
@@ -1135,6 +1141,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=80353"
                 rel="noopener noreferrer"
                 style={
@@ -1232,6 +1239,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=12042"
                 rel="noopener noreferrer"
                 style={
@@ -1331,6 +1339,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=12051"
                 rel="noopener noreferrer"
                 style={
@@ -1430,6 +1439,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=205025"
                 rel="noopener noreferrer"
                 style={
@@ -1576,6 +1586,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=235450"
                 rel="noopener noreferrer"
                 style={
@@ -1673,6 +1684,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=45438"
                 rel="noopener noreferrer"
                 style={
@@ -1770,6 +1782,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=55342"
                 rel="noopener noreferrer"
                 style={
@@ -1916,6 +1929,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=1459"
                 rel="noopener noreferrer"
                 style={
@@ -2001,6 +2015,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=122"
                 rel="noopener noreferrer"
                 style={
@@ -2098,6 +2113,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=31589"
                 rel="noopener noreferrer"
                 style={
@@ -2183,6 +2199,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=212653"
                 rel="noopener noreferrer"
                 style={
@@ -2280,6 +2297,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=2139"
                 rel="noopener noreferrer"
                 style={
@@ -2377,6 +2395,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=475"
                 rel="noopener noreferrer"
                 style={
@@ -2474,6 +2493,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=130"
                 rel="noopener noreferrer"
                 style={
@@ -2559,6 +2579,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=30449"
                 rel="noopener noreferrer"
                 style={
@@ -2644,6 +2665,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=321358"
                 rel="noopener noreferrer"
                 style={
@@ -2729,7 +2751,8 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
-                href="http://wowhead.com/spell=109878"
+                className="spell-link-text"
+                href="http://wowhead.com/spell=342247"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2814,6 +2837,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=110959"
                 rel="noopener noreferrer"
                 style={
@@ -2911,6 +2935,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=118"
                 rel="noopener noreferrer"
                 style={
@@ -3045,6 +3070,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171267"
                 rel="noopener noreferrer"
                 style={
@@ -3142,6 +3168,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171273"
                 rel="noopener noreferrer"
                 style={
@@ -3252,14 +3279,16 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 2,
@@ -3270,7 +3299,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "90",
@@ -3293,14 +3323,16 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 1,
@@ -3311,7 +3343,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "90",
@@ -3428,6 +3461,7 @@ exports[`Arcane Mage integration test: example log ElementalBarrier matches the 
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=235450"
             rel="noopener noreferrer"
             target="_blank"
@@ -3440,6 +3474,7 @@ exports[`Arcane Mage integration test: example log ElementalBarrier matches the 
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=235450"
             rel="noopener noreferrer"
             target="_blank"
@@ -3508,6 +3543,7 @@ exports[`Arcane Mage integration test: example log ElementalWhirl matches the st
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=263984"
             rel="noopener noreferrer"
             target="_blank"
@@ -3520,6 +3556,7 @@ exports[`Arcane Mage integration test: example log ElementalWhirl matches the st
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=263984"
             rel="noopener noreferrer"
             target="_blank"
@@ -3919,7 +3956,7 @@ exports[`Arcane Mage integration test: example log ForbiddenObsidianClaw matches
       >
         <label>
           <a
-            className="epic"
+            className="epicitem-link-text"
             href="http://wowhead.com/item=173944&bonus=4823:6513:1502:4786"
             rel="noopener noreferrer"
             target="_blank"
@@ -4006,6 +4043,7 @@ exports[`Arcane Mage integration test: example log Gemhide matches the statistic
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=268596"
             rel="noopener noreferrer"
             target="_blank"
@@ -4018,6 +4056,7 @@ exports[`Arcane Mage integration test: example log Gemhide matches the statistic
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=268596"
             rel="noopener noreferrer"
             target="_blank"
@@ -4101,6 +4140,7 @@ exports[`Arcane Mage integration test: example log MirrorImage matches the stati
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=55342"
             rel="noopener noreferrer"
             target="_blank"
@@ -4113,6 +4153,7 @@ exports[`Arcane Mage integration test: example log MirrorImage matches the stati
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=55342"
             rel="noopener noreferrer"
             target="_blank"
@@ -4152,39 +4193,44 @@ exports[`Arcane Mage integration test: example log MirrorImage matches the stati
 </div>
 `;
 
-exports[`Arcane Mage integration test: example log PrePotion matches the suggestions snapshot 1`] = `
+exports[`Arcane Mage integration test: example log PotionChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
     "icon": "inv_alchemy_90_combat2_purple",
-    "importance": "minor",
-    "issue": <React.Fragment>
-      You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as 
-      <ItemLink
-        icon={true}
-        id={171273}
-      />
-       can be very effective, especially during shorter encounters. 
-      
-    </React.Fragment>,
+    "importance": "regular",
+    "issue": <WithI18n
+      defaults="You used {0} combat potions during this encounter, but you could have used {1}. Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter."
+      id="shared.modules.items.potionChecker.suggestions.potionsUsed"
+      values={
+        Object {
+          "0": 0,
+          "1": 1,
+        }
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_alchemy_90_combat2_purple",
     "importance": "minor",
-    "issue": <React.Fragment>
-      You forgot to use a potion during combat. Using a potion during combat allows you the benefit of 
-      
-       increasing output through 
-      <ItemLink
-        icon={true}
-        id={171273}
-      />
-      
-      . 
-      
-    </React.Fragment>,
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            icon={true}
+            id={171273}
+          />,
+          <ItemLink
+            icon={true}
+            id={171273}
+          />,
+        ]
+      }
+      defaults="You used a weak potion. <0/> can be used instead of <1/> in order to get a slightly higher damage output."
+      id="shared.modules.items.potionChecker.suggestions.weakPotion"
+    />,
     "stat": null,
   },
 ]
@@ -4279,6 +4325,7 @@ exports[`Arcane Mage integration test: example log TheCrucibleofFlame matches th
         >
           <label>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=299348"
               rel="noopener noreferrer"
               target="_blank"
@@ -4619,6 +4666,54 @@ exports[`Arcane Mage integration test: example log ThroughputStatisticGroup matc
 </div>
 `;
 
+exports[`Arcane Mage integration test: example log WeaponEnhancementChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_knife_1h_nzothraid_d_03.jpg",
+    "importance": "regular",
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4823,
+                  6516,
+                  6513,
+                  1502,
+                  4786,
+                ],
+                "icon": "inv_knife_1h_nzothraid_d_03.jpg",
+                "id": 172201,
+                "itemLevel": 460,
+                "permanentEnchant": 5949,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={172201}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone) . Apply an enhancement to very easily increase your throughput slightly."
+      id="shared.weaponEnhancementChecker.suggestions.noWeaponEnhancement.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Weapon"
+            id="common.slots.weapon"
+          />,
+        }
+      }
+    />,
+    "stat": null,
+  },
+]
+`;
+
 exports[`Arcane Mage integration test: example log matches the checklist snapshot 1`] = `
 <ul
   className="checklist"
@@ -4722,6 +4817,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=12042"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -4794,6 +4890,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=12051"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -4945,6 +5042,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
           >
             Using 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=12042"
               rel="noopener noreferrer"
               target="_blank"
@@ -5356,7 +5454,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "27.462673896982093%",
+                  "width": "27.72409314329607%",
                 }
               }
             />
@@ -5449,7 +5547,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  35.63%
+                  32.59%
                    
                    
                 </div>
@@ -5471,7 +5569,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "5.607626274976842%",
+                        "width": "6.130464767604797%",
                       }
                     }
                   />
@@ -5628,6 +5726,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
           >
             You should ensure that you maintain 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=1459"
               rel="noopener noreferrer"
               target="_blank"
@@ -5642,6 +5741,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
             </a>
              for the entire fight and recast it whenever you are ressurected and likewise, if you have the appropriate classes/specs in your group you should also ensure that you maintain their buffs as possible. Additionally, you should also maintain other buffs such as 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=205022"
               rel="noopener noreferrer"
               target="_blank"
@@ -5809,6 +5909,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
           >
             The biggest aspect of playing Arcane properly is managing your mana effectively. Essentially your mana dictates how much damage you can do and therefore needs to be managed properly. Things such as running out of mana during 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=12042"
               rel="noopener noreferrer"
               target="_blank"
@@ -6024,7 +6125,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
         <div
           className="flex-main name"
         >
-          Be well prepared
+          shared.modules.features.checklist.wellPrepared
         </div>
         <div
           className="flex-sub perf"
@@ -6094,7 +6195,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
           <div
             className="col-md-12"
           >
-            Being well prepared with food, flasks, potions and enchants is an easy way to improve your performance.
+            shared.modules.features.checklist.wellPreparedDetails
           </div>
         </div>
         <div
@@ -6109,7 +6210,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               <div
                 className="flex-main"
               >
-                All items enchanted
+                shared.modules.features.checklist.enchanted
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6170,7 +6271,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               <div
                 className="flex-main"
               >
-                Using high quality enchants
+                shared.modules.features.checklist.enchantedHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6231,7 +6332,251 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               <div
                 className="flex-main"
               >
-                Used a pre-potion
+                All weapons enhanced (oils/stones)
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Using high quality weapon enhancements
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                shared.modules.features.checklist.combatPotionsUsed
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                shared.modules.features.checklist.highQualityCombatPotionsUsed
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                shared.modules.features.checklist.flaskHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6291,187 +6636,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               <div
                 className="flex-main"
               >
-                Used a second potion
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  common.no
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                Used a high quality pre-potion
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  common.no
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                High quality flask used
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  common.no
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                Flask used
+                shared.modules.features.checklist.flask
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6531,7 +6696,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               <div
                 className="flex-main"
               >
-                High quality food used
+                shared.modules.features.checklist.foodHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6591,7 +6756,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               <div
                 className="flex-main"
               >
-                Food used
+                shared.modules.features.checklist.food
               </div>
               <div
                 className="flex-sub content-middle text-muted"

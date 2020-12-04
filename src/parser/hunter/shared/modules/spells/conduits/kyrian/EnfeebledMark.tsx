@@ -1,17 +1,17 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { ENFEEBLED_MARK_DAMAGE_INCREASE } from 'parser/hunter/shared/constants';
 import Events, { DamageEvent } from 'parser/core/Events';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Enemies from 'parser/shared/modules/Enemies';
 import COVENANTS from 'game/shadowlands/COVENANTS';
+import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
 
 /**
  * Your attacks and abilities deal 5.0% increased damage to enemies inside Resonating Arrow.
@@ -56,11 +56,11 @@ class EnfeebledMark extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spell={SPELLS.ENFEEBLED_MARK_CONDUIT}>
+        <ConduitSpellText spell={SPELLS.ENFEEBLED_MARK_CONDUIT} rank={this.conduitRank}>
           <>
             <ItemDamageDone amount={this.addedDamage} />
           </>
-        </BoringSpellValueText>
+        </ConduitSpellText>
       </Statistic>
     );
   }

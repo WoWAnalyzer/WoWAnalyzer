@@ -4,8 +4,9 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import { SpellList, ShamanSpell } from "./Spell";
-const spells: SpellList<ShamanSpell> = {
+import { SpellList } from './Spell';
+
+const spells: SpellList = {
   ASTRAL_SHIFT: {
     id: 108271,
     name: 'Astral Shift',
@@ -15,7 +16,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 77130,
     name: 'Purify Spirit',
     icon: 'ability_shaman_cleansespirit',
-    manaCost: 130,
+    manaCost: 650,
   },
   WIND_SHEAR: {
     id: 57994,
@@ -26,9 +27,9 @@ const spells: SpellList<ShamanSpell> = {
     id: 2484,
     name: 'Earthbind Totem',
     icon: 'spell_nature_strengthofearthtotem02',
-    manaCost: 50,
+    manaCost: 250,
   },
-  RESONANCE_TOTEM: {
+  RESONANCE_TOTEM_HASTE: {
     id: 262417,
     name: 'Resonance Totem',
     icon: 'spell_nature_stoneskintotem',
@@ -37,7 +38,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 370,
     name: 'Purge',
     icon: 'spell_nature_purge',
-    manaCost: 1000,
+    manaCost: 800, // enh/ele cost is higher
   },
   FAR_SIGHT: {
     id: 6196,
@@ -68,7 +69,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 8143,
     name: 'Tremor Totem',
     icon: 'spell_nature_tremortotem',
-    manaCost: 46,
+    manaCost: 230,
   },
   SPIRIT_WOLF_BUFF: {
     id: 260881,
@@ -79,7 +80,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 974,
     name: 'Earth Shield',
     icon: 'spell_nature_skinofearth',
-    manaCost: 200,
+    manaCost: 1000,
   },
   EARTH_SHIELD_HEAL: {
     id: 379,
@@ -90,7 +91,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 192058,
     name: 'Capacitor Totem',
     icon: 'spell_nature_brilliance',
-    manaCost: 200,
+    manaCost: 1000,
   },
   EARTH_ELEMENTAL: {
     id: 198103,
@@ -107,19 +108,19 @@ const spells: SpellList<ShamanSpell> = {
     id: 192106,
     name: 'Lightning Shield',
     icon: 'spell_nature_lightningshield',
-    manaCost: 30,
+    manaCost: 150,
   },
   FROST_SHOCK: {
     id: 196840,
     name: 'Frost Shock',
     icon: 'spell_frost_frostshock',
-    manaCost: 20,
+    manaCost: 100,
   },
   PRIMAL_STRIKE: {
     id: 73899,
     name: 'Primal Strike',
     icon: 'spell_shaman_primalstrike',
-    manaCost: 188,
+    manaCost: 940,
   },
   // Hex and its variations
   HEX: {
@@ -174,7 +175,7 @@ const spells: SpellList<ShamanSpell> = {
     name: 'Elemental Overload',
     icon: 'spell_nature_lightningoverload',
   },
-  Resonance_Totem: {
+  RESONANCE_TOTEM_FULMINATION: {
     id: 202192,
     name: 'Resonance Totem',
     icon: 'spell_nature_stoneskintotem',
@@ -188,8 +189,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 51505,
     name: 'Lava Burst',
     icon: 'spell_shaman_lavaburst',
-    manaCost: 50,
-    coefficient: 0.53125,
+    manaCost: 250,
   },
   LAVA_BURST_DAMAGE: {
     id: 285452,
@@ -210,7 +210,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 188196,
     name: 'Lightning Bolt',
     icon: 'spell_nature_lightning',
-    manaCost: 20,
+    manaCost: 100,
   },
   LIGHTNING_BOLT_INSTANT: {
     id: 214815,
@@ -266,7 +266,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 188443,
     name: 'Chain Lightning',
     icon: 'spell_nature_chainlightning',
-    manaCost: 20,
+    manaCost: 100,
   },
   CHAIN_LIGHTNING_INSTANT: {
     id: 195897,
@@ -307,7 +307,6 @@ const spells: SpellList<ShamanSpell> = {
     id: 61882,
     name: 'Earthquake',
     icon: 'spell_shaman_earthquake',
-    maelstrom: 50,
   },
   EARTHQUAKE_DAMAGE: {
     id: 77478,
@@ -343,13 +342,11 @@ const spells: SpellList<ShamanSpell> = {
     id: 188389,
     name: 'Flame Shock',
     icon: 'spell_fire_flameshock',
-    manaCost: 30,
-    max_maelstrom: 20,
   },
   FROST_SHOCK_ENERGIZE: {
-    icon: "spell_frost_frostshock",
+    icon: 'spell_frost_frostshock',
     id: 289439,
-    name: "Frost Shock",
+    name: 'Frost Shock',
   },
   ICEFURY_OVERLOAD: {
     id: 219271,
@@ -368,23 +365,23 @@ const spells: SpellList<ShamanSpell> = {
   },
   MASTER_OF_THE_ELEMENTS_BUFF: {
     id: 260734,
-    name: "Master Of The Elements Buff",
-    icon: "spell_nature_elementalabsorption",
+    name: 'Master Of The Elements Buff',
+    icon: 'spell_nature_elementalabsorption',
   },
   SURGE_OF_POWER_BUFF: {
     id: 285514,
-    name: "Surge of Power",
-    icon: "spell_nature_shamanrage",
+    name: 'Surge of Power',
+    icon: 'spell_nature_shamanrage',
   },
   UNLIMITED_POWER_BUFF: {
     id: 272737,
-    name: "Unlimited Power Buff",
-    icon: "ability_shaman_ascendance",
+    name: 'Unlimited Power Buff',
+    icon: 'ability_shaman_ascendance',
   },
   THUNDERSTORM: {
-    icon: "spell_shaman_thunderstorm",
+    icon: 'spell_shaman_thunderstorm',
     id: 51490,
-    name: "Thunderstorm",
+    name: 'Thunderstorm',
   },
   // Elemental Pet Spells
   WIND_GUST: {
@@ -550,13 +547,13 @@ const spells: SpellList<ShamanSpell> = {
     id: 2825,
     name: 'Bloodlust',
     icon: 'spell_nature_bloodlust',
-    manaCost: 430,
+    manaCost: 2150,
   },
   HEROISM: {
     id: 32182,
     name: 'Heroism',
     icon: 'ability_shaman_heroism',
-    manaCost: 430,
+    manaCost: 2150,
   },
   REINCARNATION: {
     id: 21169,
@@ -664,33 +661,25 @@ const spells: SpellList<ShamanSpell> = {
     id: 1064,
     name: 'Chain Heal',
     icon: 'spell_nature_healingwavegreater',
-    manaCost: 600,
-    color: '#203755',
-    coefficient: 1.4,
+    manaCost: 3000,
   },
   HEALING_WAVE: {
     id: 77472,
     name: 'Healing Wave',
     icon: 'spell_nature_healingwavelesser',
-    manaCost: 300,
-    color: '#146585',
-    coefficient: 1.7,
-    castTime: 2.5,
+    manaCost: 1500,
   },
-  HEALING_SURGE_RESTORATION: {
+  HEALING_SURGE: {
     id: 8004,
     name: 'Healing Surge',
     icon: 'spell_nature_healingway',
-    manaCost: 2400, // TODO enh/ele cost is 2616 for some reason
-    color: '#40b3bf',
-    coefficient: 1.57,
+    manaCost: 2400, // enh/ele cost is higher
   },
   RIPTIDE: {
     id: 61295,
     name: 'Riptide',
     icon: 'spell_nature_riptide',
-    manaCost: 160,
-    color: '#a3dbce',
+    manaCost: 800,
   },
   TIDAL_WAVES_BUFF: {
     id: 53390,
@@ -701,7 +690,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 73920,
     name: 'Healing Rain',
     icon: 'spell_nature_giftofthewaterspirit',
-    manaCost: 432,
+    manaCost: 2160,
   },
   HEALING_RAIN_HEAL: {
     id: 73921,
@@ -712,7 +701,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 5394,
     name: 'Healing Stream Totem',
     icon: 'inv_spear_04',
-    manaCost: 180,
+    manaCost: 900,
   },
   HEALING_STREAM_TOTEM_HEAL: {
     id: 52042,
@@ -723,13 +712,12 @@ const spells: SpellList<ShamanSpell> = {
     id: 108280,
     name: 'Healing Tide Totem',
     icon: 'ability_shaman_healingtide',
-    manaCost: 112,
+    manaCost: 560,
   },
   HEALING_TIDE_TOTEM_HEAL: {
     id: 114942,
     name: 'Healing Tide Totem',
     icon: 'ability_shaman_healingtide',
-    coefficient: 0.24,
   },
   ASCENDANCE_HEAL: {
     id: 114083,
@@ -745,7 +733,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 98008,
     name: 'Spirit Link Totem',
     icon: 'spell_shaman_spiritlink',
-    manaCost: 220,
+    manaCost: 1100,
   },
   SPIRIT_LINK_TOTEM_REDISTRIBUTE: {
     id: 98021,
@@ -791,7 +779,7 @@ const spells: SpellList<ShamanSpell> = {
     id: 79206,
     name: 'Spiritwalker\'s Grace',
     icon: 'spell_shaman_spiritwalkersgrace',
-    manaCost: 282,
+    manaCost: 1410,
   },
   WELLSPRING_HEAL: {
     id: 197997,
@@ -827,7 +815,6 @@ const spells: SpellList<ShamanSpell> = {
     id: 288675,
     name: 'High Tide',
     icon: 'spell_shaman_hightide',
-    coefficient: 1.68,
   },
   MANA_TIDE_TOTEM_CAST: {
     id: 16191,
@@ -841,6 +828,11 @@ const spells: SpellList<ShamanSpell> = {
   },
   WATER_SHIELD: {
     id: 52127,
+    name: 'Water Shield',
+    icon: 'ability_shaman_watershield',
+  },
+  WATER_SHIELD_ENERGIZE: {
+    id: 52128,
     name: 'Water Shield',
     icon: 'ability_shaman_watershield',
   },

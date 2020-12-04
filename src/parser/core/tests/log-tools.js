@@ -63,6 +63,7 @@ export function parseLog(
   );
   const fight = {
     ...log.report.fights.find(({ id }) => id === log.meta.fight.id),
+    // eslint-disable-next-line @typescript-eslint/camelcase
     offset_time: 0,
   };
   const builds = ConfigLoader.getConfig(log.meta.player.specID).builds;

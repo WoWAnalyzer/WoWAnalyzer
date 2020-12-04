@@ -9,28 +9,11 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
-export const DAMAGE_BONUS: {[rank: number]: number } = {
-  1: .05,
-  2: .06,
-  3: .07,
-  4: .08,
-  5: .09,
-  6: .10,
-  7: .11,
-  8: .13,
-  9: .14,
-  10: .15,
-  11: .16,
-  12: .17,
-  13: .18,
-  14: .19,
-  15: .2,
-};
+const DAMAGE_BONUS = [0, .04, .04, .05, .05, .06, .06, .06, .07, .07, .08, .08, .08, .09, .09, .10];
 
 class ControlledDestruction extends Analyzer {
 
-  conduitRank: number = 0;
-
+  conduitRank = 0;
   bonusDamage = 0;
 
   constructor(props: Options) {

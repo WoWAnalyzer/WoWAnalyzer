@@ -26,12 +26,12 @@ exports[`Demonology Warlock integration test: example log AlwaysBeCasting matche
             src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
           />
            
-          Downtime
+          shared.alwaysBeCasting.statistic.label
         </label>
         <div
           className="value"
         >
-          29.52 %
+          27.32 %
         </div>
         <div
           style={
@@ -50,7 +50,7 @@ exports[`Demonology Warlock integration test: example log AlwaysBeCasting matche
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "70.48358435200312%",
+                  "width": "72.67669931720219%",
                 }
               }
             >
@@ -113,7 +113,7 @@ Array [
        when you can.
     </React.Fragment>,
     "stat": <React.Fragment>
-      29.52% downtime
+      27.32% downtime
        (
       &lt;10.00% is recommended
       )
@@ -139,7 +139,7 @@ exports[`Demonology Warlock integration test: example log Ashjrakamas matches th
       >
         <label>
           <a
-            className="legendary"
+            className="legendaryitem-link-text"
             href="http://wowhead.com/item=169223"
             rel="noopener noreferrer"
             target="_blank"
@@ -153,7 +153,7 @@ exports[`Demonology Warlock integration test: example log Ashjrakamas matches th
           </a>
            
           <a
-            className="legendary"
+            className="legendaryitem-link-text"
             href="http://wowhead.com/item=169223"
             rel="noopener noreferrer"
             target="_blank"
@@ -214,12 +214,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
         }
       }
     >
-      <a
-        href="#Abilities"
-        id="Abilities"
-      >
-        Abilities
-      </a>
+      common.abilities
     </h1>
   </div>
   <div
@@ -299,6 +294,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=104316"
                 rel="noopener noreferrer"
                 style={
@@ -398,6 +394,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=105174"
                 rel="noopener noreferrer"
                 style={
@@ -483,6 +480,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=264178"
                 rel="noopener noreferrer"
                 style={
@@ -568,6 +566,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=172"
                 rel="noopener noreferrer"
                 style={
@@ -653,6 +652,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=264057"
                 rel="noopener noreferrer"
                 style={
@@ -752,6 +752,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=686"
                 rel="noopener noreferrer"
                 style={
@@ -886,6 +887,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=196277"
                 rel="noopener noreferrer"
                 style={
@@ -1020,6 +1022,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=265187"
                 rel="noopener noreferrer"
                 style={
@@ -1117,6 +1120,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=267171"
                 rel="noopener noreferrer"
                 style={
@@ -1265,6 +1269,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=104773"
                 rel="noopener noreferrer"
                 style={
@@ -1413,6 +1418,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=111400"
                 rel="noopener noreferrer"
                 style={
@@ -1498,6 +1504,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=234153"
                 rel="noopener noreferrer"
                 style={
@@ -1583,6 +1590,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=6789"
                 rel="noopener noreferrer"
                 style={
@@ -1680,6 +1688,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=48018"
                 rel="noopener noreferrer"
                 style={
@@ -1777,6 +1786,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=48020"
                 rel="noopener noreferrer"
                 style={
@@ -1874,6 +1884,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=20707"
                 rel="noopener noreferrer"
                 style={
@@ -1959,6 +1970,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=111771"
                 rel="noopener noreferrer"
                 style={
@@ -2056,6 +2068,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=710"
                 rel="noopener noreferrer"
                 style={
@@ -2141,6 +2154,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=6201"
                 rel="noopener noreferrer"
                 style={
@@ -2226,6 +2240,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=29893"
                 rel="noopener noreferrer"
                 style={
@@ -2323,6 +2338,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=1098"
                 rel="noopener noreferrer"
                 style={
@@ -2408,6 +2424,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=126"
                 rel="noopener noreferrer"
                 style={
@@ -2493,6 +2510,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=5782"
                 rel="noopener noreferrer"
                 style={
@@ -2578,6 +2596,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=1714"
                 rel="noopener noreferrer"
                 style={
@@ -2663,6 +2682,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=702"
                 rel="noopener noreferrer"
                 style={
@@ -2748,6 +2768,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=334275"
                 rel="noopener noreferrer"
                 style={
@@ -2833,6 +2854,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=755"
                 rel="noopener noreferrer"
                 style={
@@ -2918,6 +2940,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=688"
                 rel="noopener noreferrer"
                 style={
@@ -3003,6 +3026,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=30283"
                 rel="noopener noreferrer"
                 style={
@@ -3100,6 +3124,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=333889"
                 rel="noopener noreferrer"
                 style={
@@ -3197,6 +3222,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=5697"
                 rel="noopener noreferrer"
                 style={
@@ -3331,6 +3357,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=6262"
                 rel="noopener noreferrer"
                 style={
@@ -3428,6 +3455,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171267"
                 rel="noopener noreferrer"
                 style={
@@ -3525,6 +3553,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171273"
                 rel="noopener noreferrer"
                 style={
@@ -3635,14 +3664,16 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 8,
@@ -3653,7 +3684,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "90",
@@ -3676,14 +3708,16 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 14,
@@ -3694,7 +3728,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "90",
@@ -3717,14 +3752,16 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 3,
@@ -3735,7 +3772,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "90",
@@ -3758,14 +3796,16 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 0,
@@ -3776,7 +3816,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "33",
@@ -3834,6 +3875,7 @@ exports[`Demonology Warlock integration test: example log DemonicCalling matches
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=205145"
             rel="noopener noreferrer"
             target="_blank"
@@ -3846,6 +3888,7 @@ exports[`Demonology Warlock integration test: example log DemonicCalling matches
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=205145"
             rel="noopener noreferrer"
             target="_blank"
@@ -3884,6 +3927,7 @@ exports[`Demonology Warlock integration test: example log DemonicConsumption mat
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=267215"
             rel="noopener noreferrer"
             target="_blank"
@@ -3896,6 +3940,7 @@ exports[`Demonology Warlock integration test: example log DemonicConsumption mat
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=267215"
             rel="noopener noreferrer"
             target="_blank"
@@ -3959,6 +4004,7 @@ exports[`Demonology Warlock integration test: example log DemonicStrength matche
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=267171"
             rel="noopener noreferrer"
             target="_blank"
@@ -3971,6 +4017,7 @@ exports[`Demonology Warlock integration test: example log DemonicStrength matche
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=267171"
             rel="noopener noreferrer"
             target="_blank"
@@ -4399,6 +4446,7 @@ exports[`Demonology Warlock integration test: example log EssenceOfTheFocusingIr
         >
           <label>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=299337"
               rel="noopener noreferrer"
               target="_blank"
@@ -4500,6 +4548,7 @@ exports[`Demonology Warlock integration test: example log Gemhide matches the st
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=268596"
             rel="noopener noreferrer"
             target="_blank"
@@ -4512,6 +4561,7 @@ exports[`Demonology Warlock integration test: example log Gemhide matches the st
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=268596"
             rel="noopener noreferrer"
             target="_blank"
@@ -4600,6 +4650,7 @@ exports[`Demonology Warlock integration test: example log Gutripper matches the 
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=266937"
             rel="noopener noreferrer"
             target="_blank"
@@ -4612,6 +4663,7 @@ exports[`Demonology Warlock integration test: example log Gutripper matches the 
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=266937"
             rel="noopener noreferrer"
             target="_blank"
@@ -4663,7 +4715,7 @@ exports[`Demonology Warlock integration test: example log HummingBlackDragonscal
       >
         <label>
           <a
-            className="epic"
+            className="epicitem-link-text"
             href="http://wowhead.com/item=174044&gems=168641&bonus=4824:1517:4786:6514"
             rel="noopener noreferrer"
             target="_blank"
@@ -4731,6 +4783,7 @@ exports[`Demonology Warlock integration test: example log LegionStrike matches t
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=30213"
             rel="noopener noreferrer"
             target="_blank"
@@ -4743,6 +4796,7 @@ exports[`Demonology Warlock integration test: example log LegionStrike matches t
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=30213"
             rel="noopener noreferrer"
             target="_blank"
@@ -4807,6 +4861,7 @@ exports[`Demonology Warlock integration test: example log OverwhelmingPower matc
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=266180"
             rel="noopener noreferrer"
             target="_blank"
@@ -4819,6 +4874,7 @@ exports[`Demonology Warlock integration test: example log OverwhelmingPower matc
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=266180"
             rel="noopener noreferrer"
             target="_blank"
@@ -4885,39 +4941,28 @@ exports[`Demonology Warlock integration test: example log OverwhelmingPower matc
 </div>
 `;
 
-exports[`Demonology Warlock integration test: example log PrePotion matches the suggestions snapshot 1`] = `
+exports[`Demonology Warlock integration test: example log PotionChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
     "icon": "inv_alchemy_90_combat2_purple",
     "importance": "minor",
-    "issue": <React.Fragment>
-      You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as 
-      <ItemLink
-        icon={true}
-        id={171273}
-      />
-       can be very effective, especially during shorter encounters. 
-      
-    </React.Fragment>,
-    "stat": null,
-  },
-  Object {
-    "details": null,
-    "icon": "inv_alchemy_90_combat2_purple",
-    "importance": "minor",
-    "issue": <React.Fragment>
-      You forgot to use a potion during combat. Using a potion during combat allows you the benefit of 
-      
-       increasing output through 
-      <ItemLink
-        icon={true}
-        id={171273}
-      />
-      
-      . 
-      
-    </React.Fragment>,
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            icon={true}
+            id={171273}
+          />,
+          <ItemLink
+            icon={true}
+            id={171273}
+          />,
+        ]
+      }
+      defaults="You used a weak potion. <0/> can be used instead of <1/> in order to get a slightly higher damage output."
+      id="shared.modules.items.potionChecker.suggestions.weakPotion"
+    />,
     "stat": null,
   },
 ]
@@ -4939,6 +4984,7 @@ exports[`Demonology Warlock integration test: example log SoulConduit matches th
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=215941"
             rel="noopener noreferrer"
             target="_blank"
@@ -4951,6 +4997,7 @@ exports[`Demonology Warlock integration test: example log SoulConduit matches th
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=215941"
             rel="noopener noreferrer"
             target="_blank"
@@ -5006,6 +5053,7 @@ exports[`Demonology Warlock integration test: example log SoulShardDetails match
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=246985"
             rel="noopener noreferrer"
             target="_blank"
@@ -5018,6 +5066,7 @@ exports[`Demonology Warlock integration test: example log SoulShardDetails match
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=246985"
             rel="noopener noreferrer"
             target="_blank"
@@ -5090,6 +5139,7 @@ exports[`Demonology Warlock integration test: example log SoulStrike matches the
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=264057"
             rel="noopener noreferrer"
             target="_blank"
@@ -5102,6 +5152,7 @@ exports[`Demonology Warlock integration test: example log SoulStrike matches the
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=264057"
             rel="noopener noreferrer"
             target="_blank"
@@ -5177,6 +5228,7 @@ exports[`Demonology Warlock integration test: example log SummonDemonicTyrant ma
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=265187"
             rel="noopener noreferrer"
             target="_blank"
@@ -5189,6 +5241,7 @@ exports[`Demonology Warlock integration test: example log SummonDemonicTyrant ma
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=265187"
             rel="noopener noreferrer"
             target="_blank"
@@ -5534,6 +5587,62 @@ exports[`Demonology Warlock integration test: example log ThroughputStatisticGro
 </div>
 `;
 
+exports[`Demonology Warlock integration test: example log WeaponEnhancementChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_staff_2h_mechagnome_c_01.jpg",
+    "importance": "regular",
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  6536,
+                  6578,
+                  1532,
+                  4786,
+                  6514,
+                  6554,
+                ],
+                "gems": Array [
+                  Object {
+                    "icon": "inv_misc_metagem_b.jpg",
+                    "id": 168638,
+                    "itemLevel": 120,
+                  },
+                ],
+                "icon": "inv_staff_2h_mechagnome_c_01.jpg",
+                "id": 168973,
+                "itemLevel": 475,
+                "permanentEnchant": 6112,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={168973}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone) . Apply an enhancement to very easily increase your throughput slightly."
+      id="shared.weaponEnhancementChecker.suggestions.noWeaponEnhancement.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Weapon"
+            id="common.slots.weapon"
+          />,
+        }
+      }
+    />,
+    "stat": null,
+  },
+]
+`;
+
 exports[`Demonology Warlock integration test: example log matches the checklist snapshot 1`] = `
 <ul
   className="checklist"
@@ -5623,6 +5732,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
           >
             Demonology has a lot of short cooldowns that make up majority of your rotation, such as 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=104316"
               rel="noopener noreferrer"
               target="_blank"
@@ -5637,6 +5747,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
             </a>
              or Felguard's 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=89751"
               rel="noopener noreferrer"
               target="_blank"
@@ -5665,6 +5776,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=104316"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5737,6 +5849,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=89751"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5809,6 +5922,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=264057"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -6135,6 +6249,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=265187"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -6207,6 +6322,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=267171"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -6358,6 +6474,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
           >
             Use other spells in your toolkit to your advantage. For example, you can try to minimize necessary movement by using 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=111771"
               rel="noopener noreferrer"
               target="_blank"
@@ -6372,6 +6489,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
             </a>
             , 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=268358"
               rel="noopener noreferrer"
               target="_blank"
@@ -6386,6 +6504,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
             </a>
             , 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=111400"
               rel="noopener noreferrer"
               target="_blank"
@@ -6400,6 +6519,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
             </a>
              or mitigate incoming damage with 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=104773"
               rel="noopener noreferrer"
               target="_blank"
@@ -6414,6 +6534,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
             </a>
             /
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=108416"
               rel="noopener noreferrer"
               target="_blank"
@@ -6444,6 +6565,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=48020"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -6516,6 +6638,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=104773"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -6608,7 +6731,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
               style={
                 Object {
                   "backgroundColor": "#df7102",
-                  "width": "34.910335892170366%",
+                  "width": "42.213408726283284%",
                 }
               }
             />
@@ -6667,6 +6790,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
           >
             You should try to avoid doing nothing during the fight. When you're waiting for cooldowns, keep building Soul Shards to summon additional Wild Imps. When you have to move, use your instant abilities like 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=264178"
               rel="noopener noreferrer"
               target="_blank"
@@ -6681,6 +6805,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
             </a>
              (with Demonic Core) or 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=264057"
               rel="noopener noreferrer"
               target="_blank"
@@ -6695,6 +6820,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
             </a>
              or try to utilize 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=268358"
               rel="noopener noreferrer"
               target="_blank"
@@ -6709,6 +6835,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
             </a>
              or 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=111771"
               rel="noopener noreferrer"
               target="_blank"
@@ -6757,7 +6884,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  29.52%
+                  27.32%
                    
                    
                 </div>
@@ -6779,7 +6906,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                       Object {
                         "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "34.910335892170366%",
+                        "width": "42.213408726283284%",
                       }
                     }
                   />
@@ -6804,7 +6931,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
         <div
           className="flex-main name"
         >
-          Be well prepared
+          shared.modules.features.checklist.wellPrepared
         </div>
         <div
           className="flex-sub perf"
@@ -6874,7 +7001,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
           <div
             className="col-md-12"
           >
-            Being well prepared with food, flasks, potions and enchants is an easy way to improve your performance.
+            shared.modules.features.checklist.wellPreparedDetails
           </div>
         </div>
         <div
@@ -6889,7 +7016,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                All items enchanted
+                shared.modules.features.checklist.enchanted
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6950,7 +7077,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                Using high quality enchants
+                shared.modules.features.checklist.enchantedHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -7011,7 +7138,251 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                Used a pre-potion
+                All weapons enhanced (oils/stones)
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Using high quality weapon enhancements
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                shared.modules.features.checklist.combatPotionsUsed
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  1
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                shared.modules.features.checklist.highQualityCombatPotionsUsed
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                shared.modules.features.checklist.flaskHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -7071,187 +7442,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                Used a second potion
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  common.no
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                Used a high quality pre-potion
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  common.no
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                High quality flask used
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  common.no
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                Flask used
+                shared.modules.features.checklist.flask
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -7311,7 +7502,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                High quality food used
+                shared.modules.features.checklist.foodHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -7371,7 +7562,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                Food used
+                shared.modules.features.checklist.food
               </div>
               <div
                 className="flex-sub content-middle text-muted"

@@ -85,6 +85,27 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: any) =>
         )}
       </Rule>
       <Rule
+        name={<Trans id="shaman.restoration.checklist.buffUptime">Keep your buffs up</Trans>}
+        description={<Trans id="shaman.restoration.checklist.buffUptime.description">Water Shield and Earth Shield should be applied prior to the fight starting and maintained.</Trans>}
+      >
+          <Requirement
+            name={<Trans id="shaman.restoration.checklist.appliedPrepull"><SpellLink id={SPELLS.WATER_SHIELD.id}/> applied prepull</Trans>}
+            thresholds={thresholds.waterShieldPrepull}
+          />
+          <Requirement
+            name={<Trans id="shaman.restoration.checklist.uptime"><SpellLink id={SPELLS.WATER_SHIELD.id} /> Uptime</Trans>}
+            thresholds={thresholds.waterShieldUptime}
+          />
+          <Requirement
+            name={<Trans id="shaman.restoration.checklist.appliedPrepull"><SpellLink id={SPELLS.EARTH_SHIELD.id} /> applied prepull</Trans>}
+            thresholds={thresholds.earthShieldPrepull}
+          />
+          <Requirement
+            name={<Trans id="shaman.restoration.checklist.uptime"><SpellLink id={SPELLS.EARTH_SHIELD.id} /> Uptime</Trans>}
+            thresholds={thresholds.earthShieldUptime}
+          />
+      </Rule>
+      <Rule
         name={<Trans id="shaman.restoration.checklist.inactivity">Try to avoid being inactive for a large portion of the fight</Trans>}
         description={(
           <Trans id="shaman.restoration.checklist.inactivity.description">

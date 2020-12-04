@@ -11,10 +11,11 @@ import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import EventHistory from 'parser/shared/modules/EventHistory';
+import { FIRESTARTER_THRESHOLD, SEARING_TOUCH_THRESHOLD } from 'parser/mage/shared/constants';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
-import { FIRESTARTER_THRESHOLD, SEARING_TOUCH_THRESHOLD } from '../../constants';
 
 const debug = false;
 
@@ -22,16 +23,16 @@ class HeatingUp extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     enemies: EnemyInstances,
+    eventHistory: EventHistory,
   };
   protected abilityTracker!: AbilityTracker;
   protected enemies!: EnemyInstances;
+  protected eventHistory!: EventHistory;
 
   hasFirestarter: boolean;
   hasSearingTouch: boolean;
   phoenixFlamesCastEvent?: CastEvent;
-
   fireBlastWithoutHeatingUp = 0;
-  phoenixFlamesWithoutHeatingUp = 0;
   fireBlastWithHotStreak = 0;
   phoenixFlamesWithHotStreak = 0;
   healthPercent = 1;
@@ -40,21 +41,16 @@ class HeatingUp extends Analyzer {
     super(options);
     this.hasFirestarter = this.selectedCombatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id);
     this.hasSearingTouch = this.selectedCombatant.hasTalent(SPELLS.SEARING_TOUCH_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PHOENIX_FLAMES), this.onPhoenixFlamesCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.PHOENIX_FLAMES), this.onPhoenixFlamesDamage);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FIRE_BLAST), this.onFireBlastDamage);
-  }
-
-  //Need to get the cast event for Phoenix Flames to filter out it's cleave
-  onPhoenixFlamesCast(event: CastEvent) {
-    this.phoenixFlamesCastEvent = event;
   }
 
   onPhoenixFlamesDamage(event: DamageEvent) {
     const hasCombustion = this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id);
     const hasHotStreak = this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id);
     const hasHeatingUp = this.selectedCombatant.hasBuff(SPELLS.HEATING_UP.id);
-    const castTarget = this.phoenixFlamesCastEvent ? encodeTargetString(this.phoenixFlamesCastEvent.targetID, event.targetInstance) : null;
+    const phoenixFlamesCastEvent = this.eventHistory.last(1, 500, Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PHOENIX_FLAMES))[0];
+    const castTarget = phoenixFlamesCastEvent ? encodeTargetString(phoenixFlamesCastEvent.targetID, event.targetInstance) : null;
     const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
     if (event.hitPoints && event.maxHitPoints && event.hitPoints > 0) {
       this.healthPercent = event.hitPoints / event.maxHitPoints;
@@ -70,13 +66,10 @@ class HeatingUp extends Analyzer {
       return;
     }
 
-    //If the player cast Phoenix Flames with Hot Streak or if they cast it without Heating Up, then count it as a mistake
+    //If the player cast Phoenix Flames with Hot Streak, then count it as a mistake
     if (hasHotStreak) {
       this.phoenixFlamesWithHotStreak += 1;
       debug && this.log("Phoenix Flames with Hot Streak");
-    } else {
-      this.phoenixFlamesWithoutHeatingUp += 1;
-      debug && this.log("Phoenix Flames without Heating Up");
     }
   }
 
@@ -112,12 +105,8 @@ class HeatingUp extends Analyzer {
     return this.fireBlastWithoutHeatingUp + this.fireBlastWithHotStreak;
   }
 
-  get phoenixFlamesWasted() {
-    return this.phoenixFlamesWithoutHeatingUp + this.phoenixFlamesWithHotStreak;
-  }
-
   get totalWasted() {
-    return this.fireBlastWasted + this.phoenixFlamesWasted;
+    return this.fireBlastWasted + this.phoenixFlamesWithHotStreak;
   }
 
   get fireBlastUtil() {
@@ -133,7 +122,7 @@ class HeatingUp extends Analyzer {
   }
 
   get phoenixFlamesMissedPercent() {
-    return this.phoenixFlamesWasted / this.abilityTracker.getAbility(SPELLS.PHOENIX_FLAMES.id).casts;
+    return this.phoenixFlamesWithHotStreak / this.abilityTracker.getAbility(SPELLS.PHOENIX_FLAMES.id).casts;
   }
 
   get fireBlastUtilSuggestionThresholds() {
@@ -167,7 +156,7 @@ class HeatingUp extends Analyzer {
 					.actual(i18n._(t('mage.fire.suggestions.heatingUp.fireBlastUtilization')`${formatPercentage(this.fireBlastUtil)}% Utilization`))
 					.recommended(`<${formatPercentage(recommended)}% is recommended`));
     when(this.phoenixFlamesUtilSuggestionThresholds)
-			.addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.PHOENIX_FLAMES.id} /> {this.phoenixFlamesWithHotStreak} times while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active and {this.phoenixFlamesWithoutHeatingUp} times while you didnt have <SpellLink id={SPELLS.HEATING_UP.id} />. While ideally you should only be using these to convert Heating Up into Hot Streak, there are some minor circumstances where it is acceptable (i.e. If you are about to cap on Phoenixs Flames charges or when used alongside <SpellLink id={SPELLS.FIREBALL.id} /> to bait Heating Up or Hot Streak just before <SpellLink id={SPELLS.COMBUSTION.id} />.</>)
+			.addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.PHOENIX_FLAMES.id} /> {this.phoenixFlamesWithHotStreak} times while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active. This is a waste as the <SpellLink id={SPELLS.PHOENIX_FLAMES.id} /> could have contributed towards the next <SpellLink id={SPELLS.HEATING_UP.id} /> or <SpellLink id={SPELLS.HOT_STREAK.id} />.</>)
 					.icon(SPELLS.PHOENIX_FLAMES.icon)
 					.actual(i18n._(t('mage.fire.suggestions.heatingUp.phoenixFlames.utilization')`${formatPercentage(this.phoenixFlamesUtil)}% Utilization`))
 					.recommended(`<${formatPercentage(recommended)}% is recommended`));
@@ -184,7 +173,6 @@ statistic() {
           <ul>
             <li>Fireblast Used with no procs: {this.fireBlastWithoutHeatingUp}</li>
             <li>Fireblast used during Hot Streak: {this.fireBlastWithHotStreak}</li>
-            <li>Phoenix Flames used with no procs: {this.phoenixFlamesWithoutHeatingUp}</li>
             <li>Phoenix Flames used during Hot Streak: {this.phoenixFlamesWithHotStreak}</li>
           </ul>
         </>

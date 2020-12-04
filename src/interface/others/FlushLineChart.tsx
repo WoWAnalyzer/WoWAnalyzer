@@ -20,6 +20,7 @@ export default function FlushLineChart(props: Props) {
 
   const x = props.x || 'time';
   const y = props.y || 'val';
+
   const spec = {
     mark: {
       type: 'area' as const,
@@ -39,7 +40,7 @@ export default function FlushLineChart(props: Props) {
         key: x,
         keyvals: {
           start: 0,
-          stop: props.duration || Math.max.apply(null, props.data.map((obj: any) => obj[x])),
+          stop: props.duration ? Math.ceil(props.duration) : Math.max.apply(null, props.data.map((obj: any) => obj[x])),
         },
         method: 'value' as const,
         value: 0,
@@ -59,6 +60,9 @@ export default function FlushLineChart(props: Props) {
         field: x,
         type: 'quantitative' as const,
         axis: null,
+        scale: {
+          nice: false
+        },
       },
       y: {
         field: 'sum_val',

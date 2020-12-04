@@ -26,12 +26,12 @@ exports[`Frost Death Knight integration test: example log AlwaysBeCasting matche
             src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
           />
            
-          Downtime
+          shared.alwaysBeCasting.statistic.label
         </label>
         <div
           className="value"
         >
-          49.91 %
+          38.50 %
         </div>
         <div
           style={
@@ -50,7 +50,7 @@ exports[`Frost Death Knight integration test: example log AlwaysBeCasting matche
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "50.09408956355389%",
+                  "width": "61.499333923668566%",
                 }
               }
             >
@@ -100,7 +100,7 @@ Array [
   Object {
     "details": null,
     "icon": "spell_mage_altertime",
-    "importance": "major",
+    "importance": "regular",
     "issue": <React.Fragment>
       Your downtime can be improved. Try to Always Be Casting (ABC), reducing time away from the boss unless due to mechanics.  If you do have to move, try casting filler spells, such as 
       <ForwardRef
@@ -113,7 +113,7 @@ Array [
       .
     </React.Fragment>,
     "stat": <React.Fragment>
-      49.91% downtime
+      38.50% downtime
        (
       &lt;30.00% is recommended
       )
@@ -139,7 +139,7 @@ exports[`Frost Death Knight integration test: example log AshvanesRazorCoral mat
       >
         <label>
           <a
-            className="unknown"
+            className="unknownitem-link-text"
             href="http://wowhead.com/item=169311"
             rel="noopener noreferrer"
             target="_blank"
@@ -153,7 +153,7 @@ exports[`Frost Death Knight integration test: example log AshvanesRazorCoral mat
           </a>
            
           <a
-            className="unknown"
+            className="unknownitem-link-text"
             href="http://wowhead.com/item=169311"
             rel="noopener noreferrer"
             target="_blank"
@@ -256,6 +256,7 @@ exports[`Frost Death Knight integration test: example log BloodOfTheEnemy matche
         >
           <label>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=297147"
               rel="noopener noreferrer"
               target="_blank"
@@ -336,6 +337,7 @@ exports[`Frost Death Knight integration test: example log BreathOfSindragosa mat
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=152279"
             rel="noopener noreferrer"
             target="_blank"
@@ -348,6 +350,7 @@ exports[`Frost Death Knight integration test: example log BreathOfSindragosa mat
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=152279"
             rel="noopener noreferrer"
             target="_blank"
@@ -398,25 +401,17 @@ Array [
       <ForwardRef
         id={152279}
       />
-       casts. Your cast should last 
-      <b>
-        at least
-      </b>
-       15 seconds to take full advantage of the 
-      <ForwardRef
-        id={51271}
-      />
-       buff.  A good cast is one that lasts 20 seconds or more.  To ensure a good duration, make you sure have 60+ Runic Power pooled and have less than 5 Runes available before you start the cast.  Also make sure to use 
+       casts. A good cast is one that lasts 25 seconds or more.  To ensure a good duration, make sure you have 70+ Runic Power pooled and have less than 4 Runes available before you start the cast.  Also make sure to use 
       <ForwardRef
         id={47568}
       />
-       before you cast Breath of Sindragosa. 
+       within a few seconds of casting Breath of Sindragosa. Pay close attention to your Runic Power and make sure you are not overcapping. 
       
     </React.Fragment>,
     "stat": <React.Fragment>
       You averaged 14.1 seconds of uptime per cast
        (
-      &gt;20 seconds is recommended
+      &gt;25 seconds is recommended
       )
     </React.Fragment>,
   },
@@ -437,12 +432,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
         }
       }
     >
-      <a
-        href="#Abilities"
-        id="Abilities"
-      >
-        Abilities
-      </a>
+      common.abilities
     </h1>
   </div>
   <div
@@ -522,6 +512,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=49020"
                 rel="noopener noreferrer"
                 style={
@@ -607,6 +598,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=196770"
                 rel="noopener noreferrer"
                 style={
@@ -704,6 +696,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=49184"
                 rel="noopener noreferrer"
                 style={
@@ -789,6 +782,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=49143"
                 rel="noopener noreferrer"
                 style={
@@ -874,6 +868,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=45524"
                 rel="noopener noreferrer"
                 style={
@@ -1008,6 +1003,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=207230"
                 rel="noopener noreferrer"
                 style={
@@ -1142,6 +1138,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=295373"
                 rel="noopener noreferrer"
                 style={
@@ -1239,6 +1236,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=303564"
                 rel="noopener noreferrer"
                 style={
@@ -1385,6 +1383,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=51271"
                 rel="noopener noreferrer"
                 style={
@@ -1482,6 +1481,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=47568"
                 rel="noopener noreferrer"
                 style={
@@ -1579,6 +1579,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=152279"
                 rel="noopener noreferrer"
                 style={
@@ -1676,6 +1677,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=279302"
                 rel="noopener noreferrer"
                 style={
@@ -1775,6 +1777,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=46585"
                 rel="noopener noreferrer"
                 style={
@@ -1863,6 +1866,106 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             />
           </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=327574"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_corpseexplode.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Sacrificial Pact
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /1
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#ff8000",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            >
+              shared.castEfficiency.canBeImproved
+            </td>
+          </tr>
         </tbody>
         <tbody>
           <tr>
@@ -1921,6 +2024,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=48707"
                 rel="noopener noreferrer"
                 style={
@@ -2018,6 +2122,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=48792"
                 rel="noopener noreferrer"
                 style={
@@ -2115,6 +2220,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=49998"
                 rel="noopener noreferrer"
                 style={
@@ -2200,6 +2306,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=51052"
                 rel="noopener noreferrer"
                 style={
@@ -2297,6 +2404,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=49039"
                 rel="noopener noreferrer"
                 style={
@@ -2443,6 +2551,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=49576"
                 rel="noopener noreferrer"
                 style={
@@ -2540,6 +2649,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=48265"
                 rel="noopener noreferrer"
                 style={
@@ -2637,6 +2747,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=56222"
                 rel="noopener noreferrer"
                 style={
@@ -2734,6 +2845,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=61999"
                 rel="noopener noreferrer"
                 style={
@@ -2831,6 +2943,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=47528"
                 rel="noopener noreferrer"
                 style={
@@ -2928,6 +3041,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=3714"
                 rel="noopener noreferrer"
                 style={
@@ -3013,6 +3127,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=108194"
                 rel="noopener noreferrer"
                 style={
@@ -3110,6 +3225,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=111673"
                 rel="noopener noreferrer"
                 style={
@@ -3195,6 +3311,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=212552"
                 rel="noopener noreferrer"
                 style={
@@ -3292,6 +3409,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=43265"
                 rel="noopener noreferrer"
                 style={
@@ -3389,6 +3507,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=47541"
                 rel="noopener noreferrer"
                 style={
@@ -3523,6 +3642,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=6262"
                 rel="noopener noreferrer"
                 style={
@@ -3620,6 +3740,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171267"
                 rel="noopener noreferrer"
                 style={
@@ -3717,6 +3838,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171273"
                 rel="noopener noreferrer"
                 style={
@@ -3827,7 +3949,8 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       <React.Fragment>
@@ -3841,7 +3964,8 @@ Array [
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 0,
@@ -3852,7 +3976,52 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
+        values={
+          Object {
+            "0": "90",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
+  Object {
+    "details": null,
+    "icon": "spell_shadow_corpseexplode",
+    "importance": "major",
+    "issue": <React.Fragment>
+      <WithI18n
+        components={
+          Array [
+            <ForwardRef
+              id={327574}
+            />,
+          ]
+        }
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
+      />
+       
+      
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <WithI18n
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
+        values={
+          Object {
+            "0": 0,
+            "1": 1,
+            "2": "0",
+          }
+        }
+      />
+       (
+      <WithI18n
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "90",
@@ -4235,6 +4404,7 @@ exports[`Frost Death Knight integration test: example log FrostFeverUptime match
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=55095"
             rel="noopener noreferrer"
             target="_blank"
@@ -4247,6 +4417,7 @@ exports[`Frost Death Knight integration test: example log FrostFeverUptime match
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=55095"
             rel="noopener noreferrer"
             target="_blank"
@@ -4295,6 +4466,7 @@ exports[`Frost Death Knight integration test: example log Frostscythe matches th
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=207230"
             rel="noopener noreferrer"
             target="_blank"
@@ -4307,6 +4479,7 @@ exports[`Frost Death Knight integration test: example log Frostscythe matches th
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=207230"
             rel="noopener noreferrer"
             target="_blank"
@@ -4362,6 +4535,7 @@ exports[`Frost Death Knight integration test: example log GatheringStorm matches
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=194912"
             rel="noopener noreferrer"
             target="_blank"
@@ -4374,6 +4548,7 @@ exports[`Frost Death Knight integration test: example log GatheringStorm matches
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=194912"
             rel="noopener noreferrer"
             target="_blank"
@@ -4442,6 +4617,7 @@ exports[`Frost Death Knight integration test: example log Gutripper matches the 
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=266937"
             rel="noopener noreferrer"
             target="_blank"
@@ -4454,6 +4630,7 @@ exports[`Frost Death Knight integration test: example log Gutripper matches the 
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=266937"
             rel="noopener noreferrer"
             target="_blank"
@@ -4505,6 +4682,7 @@ exports[`Frost Death Knight integration test: example log HardHowlingBlastCasts 
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=49184"
             rel="noopener noreferrer"
             target="_blank"
@@ -4517,6 +4695,7 @@ exports[`Frost Death Knight integration test: example log HardHowlingBlastCasts 
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=49184"
             rel="noopener noreferrer"
             target="_blank"
@@ -4572,6 +4751,7 @@ exports[`Frost Death Knight integration test: example log KillingMachineEfficien
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=51124"
             rel="noopener noreferrer"
             target="_blank"
@@ -4584,6 +4764,7 @@ exports[`Frost Death Knight integration test: example log KillingMachineEfficien
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=51124"
             rel="noopener noreferrer"
             target="_blank"
@@ -4594,7 +4775,7 @@ exports[`Frost Death Knight integration test: example log KillingMachineEfficien
         <div
           className="value"
         >
-          90.00
+          100.00
            % 
           <small>
             efficiency
@@ -4623,37 +4804,6 @@ exports[`Frost Death Knight integration test: example log KillingMachineEfficien
 </div>
 `;
 
-exports[`Frost Death Knight integration test: example log KillingMachineEfficiency matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "inv_sword_122",
-    "importance": "minor",
-    "issue": <React.Fragment>
-       You wasted 
-      <ForwardRef
-        id={51124}
-      />
-       procs. You should be casting 
-      <ForwardRef
-        id={49020}
-      />
-       or 
-      <ForwardRef
-        id={207230}
-      />
-       within 1 or 2 GCDs of gaining a Killing Machine proc to avoid wasting it. See one of the guides on the About tab for more information on when another ability takes precedence over spending Killing Machine
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      10.00% of Killing Machine procs were either refreshed and lost or expired without being used
-       (
-      &lt;5.00% is recommended
-      )
-    </React.Fragment>,
-  },
-]
-`;
-
 exports[`Frost Death Knight integration test: example log OverwhelmingPower matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -4671,6 +4821,7 @@ exports[`Frost Death Knight integration test: example log OverwhelmingPower matc
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=266180"
             rel="noopener noreferrer"
             target="_blank"
@@ -4683,6 +4834,7 @@ exports[`Frost Death Knight integration test: example log OverwhelmingPower matc
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=266180"
             rel="noopener noreferrer"
             target="_blank"
@@ -4749,39 +4901,44 @@ exports[`Frost Death Knight integration test: example log OverwhelmingPower matc
 </div>
 `;
 
-exports[`Frost Death Knight integration test: example log PrePotion matches the suggestions snapshot 1`] = `
+exports[`Frost Death Knight integration test: example log PotionChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
     "icon": "inv_alchemy_90_combat2_yellow",
-    "importance": "minor",
-    "issue": <React.Fragment>
-      You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as 
-      <ItemLink
-        icon={true}
-        id={171275}
-      />
-       can be very effective, especially during shorter encounters. 
-      
-    </React.Fragment>,
+    "importance": "regular",
+    "issue": <WithI18n
+      defaults="You used {0} combat potions during this encounter, but you could have used {1}. Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter."
+      id="shared.modules.items.potionChecker.suggestions.potionsUsed"
+      values={
+        Object {
+          "0": 0,
+          "1": 1,
+        }
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_alchemy_90_combat2_yellow",
     "importance": "minor",
-    "issue": <React.Fragment>
-      You forgot to use a potion during combat. Using a potion during combat allows you the benefit of 
-      
-       increasing output through 
-      <ItemLink
-        icon={true}
-        id={171275}
-      />
-      
-      . 
-      
-    </React.Fragment>,
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            icon={true}
+            id={171275}
+          />,
+          <ItemLink
+            icon={true}
+            id={171275}
+          />,
+        ]
+      }
+      defaults="You used a weak potion. <0/> can be used instead of <1/> in order to get a slightly higher damage output."
+      id="shared.modules.items.potionChecker.suggestions.weakPotion"
+    />,
     "stat": null,
   },
 ]
@@ -4803,6 +4960,7 @@ exports[`Frost Death Knight integration test: example log RimeEfficiency matches
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=59052"
             rel="noopener noreferrer"
             target="_blank"
@@ -4815,6 +4973,7 @@ exports[`Frost Death Knight integration test: example log RimeEfficiency matches
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=59052"
             rel="noopener noreferrer"
             target="_blank"
@@ -4829,6 +4988,75 @@ exports[`Frost Death Knight integration test: example log RimeEfficiency matches
            % 
           <small>
             efficiency
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Frost Death Knight integration test: example log RuneOfTheFallenCrusader matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic flexible "
+    position={1002}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=53344"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Rune of the Fallen Crusader"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_holy_retributionaura.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=53344"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Rune of the Fallen Crusader
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          10.33
+           % 
+          <small>
+            average Strength
           </small>
         </div>
       </div>
@@ -4893,7 +5121,7 @@ exports[`Frost Death Knight integration test: example log RuneTracker matches th
           className="flex-main value"
         >
           <div>
-            42.35 %
+            25.00 %
           </div>
           <small>
             Runes overcapped
@@ -4946,14 +5174,14 @@ Array [
   Object {
     "details": null,
     "icon": "spell_deathknight_frozenruneweapon",
-    "importance": "major",
+    "importance": "regular",
     "issue": <React.Fragment>
       You overcapped 
-      42.35
+      25.00
       % of your runes. Try to always have at least 3 runes on cooldown.
     </React.Fragment>,
     "stat": <React.Fragment>
-      42.35% runes overcapped
+      25.00% runes overcapped
        (
       &lt;10.00% is recommended
       )
@@ -5051,6 +5279,7 @@ exports[`Frost Death Knight integration test: example log TheCrucibleofFlame mat
         >
           <label>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=299348"
               rel="noopener noreferrer"
               target="_blank"
@@ -5117,6 +5346,7 @@ exports[`Frost Death Knight integration test: example log TheCrucibleofFlame mat
         >
           <label>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=299349"
               rel="noopener noreferrer"
               target="_blank"
@@ -5457,6 +5687,94 @@ exports[`Frost Death Knight integration test: example log ThroughputStatisticGro
 </div>
 `;
 
+exports[`Frost Death Knight integration test: example log WeaponEnhancementChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_sword_1h_nazjatarraid_d_01.jpg",
+    "importance": "regular",
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  6348,
+                  1522,
+                  4786,
+                  5843,
+                ],
+                "icon": "inv_sword_1h_nazjatarraid_d_01.jpg",
+                "id": 169713,
+                "itemLevel": 410,
+                "permanentEnchant": 3370,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={169713}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone) . Apply an enhancement to very easily increase your throughput slightly."
+      id="shared.weaponEnhancementChecker.suggestions.noWeaponEnhancement.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Weapon"
+            id="common.slots.weapon"
+          />,
+        }
+      }
+    />,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_mace_1h_kultirasquest_b_01.jpg",
+    "importance": "regular",
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4803,
+                  1592,
+                  4786,
+                ],
+                "icon": "inv_mace_1h_kultirasquest_b_01.jpg",
+                "id": 158092,
+                "itemLevel": 400,
+                "permanentEnchant": 3368,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={158092}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone) . Apply an enhancement to very easily increase your throughput slightly."
+      id="shared.weaponEnhancementChecker.suggestions.noWeaponEnhancement.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="OffHand"
+            id="common.slots.offhand"
+          />,
+        }
+      }
+    />,
+    "stat": null,
+  },
+]
+`;
+
 exports[`Frost Death Knight integration test: example log matches the checklist snapshot 1`] = `
 <ul
   className="checklist"
@@ -5568,6 +5886,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=51271"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5640,6 +5959,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=152279"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5712,6 +6032,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=47568"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5803,8 +6124,8 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ac1f39",
-                  "width": "30.026503612398802%",
+                  "backgroundColor": "#ffc84a",
+                  "width": "54.94278196581632%",
                 }
               }
             />
@@ -5863,6 +6184,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
           >
             While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes.  In a worst case scenario, you can cast 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=49184"
               rel="noopener noreferrer"
               target="_blank"
@@ -5911,7 +6233,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  49.91%
+                  38.50%
                    
                    
                 </div>
@@ -5931,9 +6253,9 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "30.026503612398802%",
+                        "width": "54.94278196581632%",
                       }
                     }
                   />
@@ -5970,8 +6292,8 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ac1f39",
-                  "width": "27.423385999341075%",
+                  "backgroundColor": "#df7102",
+                  "width": "49.94165246164647%",
                 }
               }
             />
@@ -6064,7 +6386,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  57.65%
+                  75.00%
                    
                    
                 </div>
@@ -6084,9 +6406,9 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "27.423385999341075%",
+                        "width": "49.94165246164647%",
                       }
                     }
                   />
@@ -6183,6 +6505,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
           >
             Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities.  Cast 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=49143"
               rel="noopener noreferrer"
               target="_blank"
@@ -6278,7 +6601,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
         <div
           className="flex-main name"
         >
-          Be well prepared
+          shared.modules.features.checklist.wellPrepared
         </div>
         <div
           className="flex-sub perf"
@@ -6348,7 +6671,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
           <div
             className="col-md-12"
           >
-            Being well prepared with food, flasks, potions and enchants is an easy way to improve your performance.
+            shared.modules.features.checklist.wellPreparedDetails
           </div>
         </div>
         <div
@@ -6363,7 +6686,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                All items enchanted
+                shared.modules.features.checklist.enchanted
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6424,7 +6747,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                Using high quality enchants
+                shared.modules.features.checklist.enchantedHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6485,7 +6808,251 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                Used a pre-potion
+                All weapons enhanced (oils/stones)
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 2
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Using high quality weapon enhancements
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 2
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                shared.modules.features.checklist.combatPotionsUsed
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                shared.modules.features.checklist.highQualityCombatPotionsUsed
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                shared.modules.features.checklist.flaskHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6545,7 +7112,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                Used a second potion
+                shared.modules.features.checklist.flask
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6605,7 +7172,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                Used a high quality pre-potion
+                shared.modules.features.checklist.foodHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6665,187 +7232,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                High quality flask used
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  common.no
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                Flask used
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  common.no
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                High quality food used
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  common.no
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                Food used
+                shared.modules.features.checklist.food
               </div>
               <div
                 className="flex-sub content-middle text-muted"

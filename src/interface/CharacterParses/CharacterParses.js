@@ -47,13 +47,13 @@ const BOSS_DEFAULT_ALL_BOSSES = 0;
 const TRINKET_SLOTS = [12, 13];
 const FALLBACK_PICTURE = '/img/fallback-character.jpg';
 const ERRORS = {
-  CHARACTER_NOT_FOUND: t`We couldn't find your character on Warcraft Logs`,
-  NO_PARSES_FOR_TIER: t`We couldn't find any logs`,
-  CHARACTER_HIDDEN: t`We could find your character but he's very shy`,
-  WCL_API_ERROR: t`Something went wrong talking to Warcraft Logs`,
-  UNKNOWN_API_ERROR: t`Something went wrong talking to the server`,
-  UNEXPECTED: t`Something went wrong`,
-  NOT_RESPONDING: t`Request timed out`,
+  CHARACTER_NOT_FOUND: t('interface.characterParses.characterParses.errors.characterNotFound')`We couldn't find your character on Warcraft Logs`,
+  NO_PARSES_FOR_TIER: t('interface.characterParses.characterParses.errors.noParsesForTier')`We couldn't find any logs`,
+  CHARACTER_HIDDEN: t('interface.characterParses.characterParses.errors.characterHidden')`We could find your character but he's very shy`,
+  WCL_API_ERROR: t('interface.characterParses.characterParses.errors.wclAPIError')`Something went wrong talking to Warcraft Logs`,
+  UNKNOWN_API_ERROR: t('interface.characterParses.characterParses.errors.unknownAPIError')`Something went wrong talking to the server`,
+  UNEXPECTED: t('interface.characterParses.characterParses.errors.unexpected')`Something went wrong`,
+  NOT_RESPONDING: t('interface.characterParses.characterParses.errors.notResponding')`Request timed out`,
 };
 
 class CharacterParses extends React.Component {
@@ -201,11 +201,16 @@ class CharacterParses extends React.Component {
         name: elem.encounterName,
         spec: elem.spec.replace(' ', ''),
         difficulty: elem.difficulty,
+        // eslint-disable-next-line @typescript-eslint/camelcase
         report_code: elem.reportID,
+        // eslint-disable-next-line @typescript-eslint/camelcase
         report_fight: elem.fightID,
+        // eslint-disable-next-line @typescript-eslint/camelcase
         historical_percent: 100 - (elem.rank / elem.outOf) * 100,
         persecondamount: elem.total,
+        // eslint-disable-next-line @typescript-eslint/camelcase
         start_time: elem.startTime,
+        // eslint-disable-next-line @typescript-eslint/camelcase
         character_name: elem.characterName,
         talents: elem.talents,
         gear: elem.gear,
@@ -443,7 +448,7 @@ class CharacterParses extends React.Component {
     let errorMessage;
     if (this.state.error === ERRORS.CHARACTER_NOT_FOUND) {
       errorMessage = (
-        <Trans>
+        <Trans id="interface.characterParses.characterParses.errors.characterNotFoundDetails">
           Please check your input and make sure that you've selected the correct
           region and realm.
           <br />
@@ -481,7 +486,7 @@ class CharacterParses extends React.Component {
       );
     } else if (this.state.error === ERRORS.NOT_RESPONDING) {
       errorMessage = (
-        <Trans>
+        <Trans id="interface.characterParses.characterParses.errors.notRespondingDetails">
           It looks like we couldn't get a response in time from the API, this
           usually happens when the servers are under heavy load.
           <br />
@@ -495,7 +500,7 @@ class CharacterParses extends React.Component {
       );
     } else if (this.state.error === ERRORS.CHARACTER_HIDDEN) {
       errorMessage = (
-        <Trans>
+        <Trans id="interface.characterParses.characterParses.errors.characterHiddenDetails">
           This character is hidden on warcraftlogs and we can't access the
           parses.
           <br />
@@ -517,7 +522,7 @@ class CharacterParses extends React.Component {
       this.state.error === ERRORS.UNEXPECTED
     ) {
       errorMessage = (
-        <Trans>
+        <Trans id="interface.characterParses.characterParses.errors.details">
           {this.state.errorMessage} Please message us on{' '}
           <a
             href="https://discord.gg/AxphPxU"
@@ -542,7 +547,7 @@ class CharacterParses extends React.Component {
       this.filterParses.length === 0
     ) {
       errorMessage = (
-        <Trans>
+        <Trans id="interface.characterParses.characterParses.errors.noParsesForTierDetails">
           Please check your filters and make sure that you logged those fights
           on Warcraft Logs.
           <br />
@@ -746,7 +751,7 @@ class CharacterParses extends React.Component {
               {this.state.error && (
                 <span>
                   <Link to="/">
-                    <Trans>Home</Trans>
+                    <Trans id="interface.characterParses.characterParses.home">Home</Trans>
                   </Link>{' '}
                   &gt;{' '}
                   <span>
@@ -772,18 +777,18 @@ class CharacterParses extends React.Component {
                           className="glyphicon glyphicon-refresh"
                           aria-hidden="true"
                         />{' '}
-                        <Trans>Refresh</Trans>
+                        <Trans id="interface.characterParses.characterParses.refresh">Refresh</Trans>
                       </Link>
                     </div>
                     <h1 style={{ display: 'inline-block' }}>
                       {this.state.error ? (
                         i18n._(this.state.error)
                       ) : (
-                        <Trans>Parses</Trans>
+                        <Trans id="interface.characterParses.characterParses.parses">Parses</Trans>
                       )}
                     </h1>
                     <small>
-                      <Trans>
+                      <Trans id="interface.characterParses.characterParses.parsesDetails">
                         This page will only show fights that have been ranked by
                         Warcraft Logs. Wipes are not included and during busy
                         periods there might be a delay before new reports
@@ -808,7 +813,7 @@ class CharacterParses extends React.Component {
                         }}
                       >
                         <ActivityIndicator
-                          text={<Trans>Fetching logs...</Trans>}
+                          text={<Trans id="interface.characterParses.characterParses.fetchingLogs">Fetching logs...</Trans>}
                         />
                       </div>
                     )}

@@ -26,7 +26,7 @@ exports[`Brewmaster Monk integration test: example log AlwaysBeCasting matches t
             src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
           />
            
-          Downtime
+          shared.alwaysBeCasting.statistic.label
         </label>
         <div
           className="value"
@@ -140,22 +140,18 @@ exports[`Brewmaster Monk integration test: example log BrewCDR matches the stati
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={1000}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=100780"
             rel="noopener noreferrer"
             target="_blank"
@@ -166,13 +162,13 @@ exports[`Brewmaster Monk integration test: example log BrewCDR matches the stati
               src="//render-us.worldofwarcraft.com/icons/56/ability_monk_tigerpalm.jpg"
             />
           </a>
-           
-          Effective Brew CDR
+           Effective Brew CDR
         </label>
         <div
           className="value"
         >
-          23.97%
+          26.34
+           %
         </div>
       </div>
     </div>
@@ -211,12 +207,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
         }
       }
     >
-      <a
-        href="#Abilities"
-        id="Abilities"
-      >
-        Abilities
-      </a>
+      common.abilities
     </h1>
   </div>
   <div
@@ -296,6 +287,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=121253"
                 rel="noopener noreferrer"
                 style={
@@ -339,7 +331,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               34
-              /59
+              /51
                
               casts
             </td>
@@ -358,7 +350,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "57.66436219183467%",
+                      "width": "66.18291935945663%",
                     }
                   }
                 />
@@ -373,7 +365,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              57.66%
+              66.18%
             </td>
             <td
               style={
@@ -395,6 +387,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=205523"
                 rel="noopener noreferrer"
                 style={
@@ -494,6 +487,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=115181"
                 rel="noopener noreferrer"
                 style={
@@ -591,6 +585,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=100780"
                 rel="noopener noreferrer"
                 style={
@@ -676,6 +671,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=116847"
                 rel="noopener noreferrer"
                 style={
@@ -719,7 +715,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               26
-              /72
+              /58
                
               casts
             </td>
@@ -738,7 +734,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "36.31610346282019%",
+                      "width": "45.109379215479144%",
                     }
                   }
                 />
@@ -753,7 +749,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              36.32%
+              45.11%
             </td>
             <td
               style={
@@ -773,6 +769,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=117952"
                 rel="noopener noreferrer"
                 style={
@@ -907,6 +904,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=322729"
                 rel="noopener noreferrer"
                 style={
@@ -1041,6 +1039,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=132578"
                 rel="noopener noreferrer"
                 style={
@@ -1138,6 +1137,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=322109"
                 rel="noopener noreferrer"
                 style={
@@ -1286,6 +1286,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=119582"
                 rel="noopener noreferrer"
                 style={
@@ -1329,7 +1330,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               22
-              /45
+              /36
                
               casts
             </td>
@@ -1348,7 +1349,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "47.62570690807401%",
+                      "width": "60.10487894812135%",
                     }
                   }
                 />
@@ -1363,7 +1364,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              47.63%
+              60.10%
             </td>
             <td
               style={
@@ -1385,6 +1386,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=322507"
                 rel="noopener noreferrer"
                 style={
@@ -1484,6 +1486,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=322101"
                 rel="noopener noreferrer"
                 style={
@@ -1581,6 +1584,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=115203"
                 rel="noopener noreferrer"
                 style={
@@ -1678,6 +1682,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=115176"
                 rel="noopener noreferrer"
                 style={
@@ -1824,6 +1829,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=115008"
                 rel="noopener noreferrer"
                 style={
@@ -1921,6 +1927,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=101643"
                 rel="noopener noreferrer"
                 style={
@@ -2006,6 +2013,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=119996"
                 rel="noopener noreferrer"
                 style={
@@ -2091,6 +2099,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=115315"
                 rel="noopener noreferrer"
                 style={
@@ -2176,6 +2185,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=115078"
                 rel="noopener noreferrer"
                 style={
@@ -2273,6 +2283,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=119381"
                 rel="noopener noreferrer"
                 style={
@@ -2370,6 +2381,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=115546"
                 rel="noopener noreferrer"
                 style={
@@ -2467,6 +2479,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=116705"
                 rel="noopener noreferrer"
                 style={
@@ -2564,6 +2577,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=218164"
                 rel="noopener noreferrer"
                 style={
@@ -2661,6 +2675,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=116670"
                 rel="noopener noreferrer"
                 style={
@@ -2795,6 +2810,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=6262"
                 rel="noopener noreferrer"
                 style={
@@ -2892,6 +2908,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171267"
                 rel="noopener noreferrer"
                 style={
@@ -2989,6 +3006,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171273"
                 rel="noopener noreferrer"
                 style={
@@ -3089,7 +3107,7 @@ Array [
   Object {
     "details": null,
     "icon": "achievement_brewery_2",
-    "importance": "major",
+    "importance": "regular",
     "issue": <React.Fragment>
       <WithI18n
         components={
@@ -3099,25 +3117,28 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 34,
-            "1": 59,
-            "2": "58",
+            "1": 51,
+            "2": "66",
           }
         }
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "80",
@@ -3140,14 +3161,16 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 29,
@@ -3158,7 +3181,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "80",
@@ -3181,25 +3205,28 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 22,
-            "1": 45,
-            "2": "48",
+            "1": 36,
+            "2": "60",
           }
         }
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "95",
@@ -3222,14 +3249,16 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 4,
@@ -3240,7 +3269,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "90",
@@ -3263,14 +3293,16 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 0,
@@ -3281,7 +3313,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "85",
@@ -3299,22 +3332,18 @@ exports[`Brewmaster Monk integration test: example log CelestialBrew matches the
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={1000}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=322507"
             rel="noopener noreferrer"
             target="_blank"
@@ -3325,21 +3354,14 @@ exports[`Brewmaster Monk integration test: example log CelestialBrew matches the
               src="//render-us.worldofwarcraft.com/icons/56/ability_monk_ironskinbrew.jpg"
             />
           </a>
-           
-          Avg. Absorb per Celestial Brew
+           Avg. Absorb per Celestial Brew
         </label>
         <div
           className="value"
         >
           33k
-        </div>
-        <div
-          style={
-            Object {
-              "marginTop": "0.5em",
-            }
-          }
-        >
+           % 
+          <br />
           <div
             style={
               Object {
@@ -3386,22 +3408,18 @@ exports[`Brewmaster Monk integration test: example log CelestialFortune matches 
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={1000}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=216521"
             rel="noopener noreferrer"
             target="_blank"
@@ -3412,13 +3430,13 @@ exports[`Brewmaster Monk integration test: example log CelestialFortune matches 
               src="//render-us.worldofwarcraft.com/icons/56/inv_celestialserpentmount.jpg"
             />
           </a>
-           
-          Celestial Fortune Healing
+           Celestial Fortune Healing
         </label>
         <div
           className="value"
         >
-          452 HPS
+          415
+           HPS
         </div>
       </div>
     </div>
@@ -3543,95 +3561,6 @@ exports[`Brewmaster Monk integration test: example log DistanceMoved matches the
 </div>
 `;
 
-exports[`Brewmaster Monk integration test: example log EnchantChecker matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "inv_mace_1h_oribosdungeon_c_02.jpg",
-    "importance": "minor",
-    "issue": <WithI18n
-      components={
-        Array [
-          <ItemLink
-            details={
-              Object {
-                "bonusIDs": Array [
-                  7157,
-                  1507,
-                  6646,
-                ],
-                "icon": "inv_mace_1h_oribosdungeon_c_02.jpg",
-                "id": 183433,
-                "itemLevel": 213,
-                "permanentEnchant": 6229,
-                "quality": 3,
-                "temporaryEnchant": 6190,
-              }
-            }
-            icon={false}
-            id={183433}
-            quality={3}
-          />,
-        ]
-      }
-      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
-      id="shared.enchantChecker.suggestions.weakEnchant.label"
-      values={
-        Object {
-          "slotName": <WithI18n
-            defaults="Weapon"
-            id="common.slots.weapon"
-          />,
-        }
-      }
-    />,
-    "stat": null,
-  },
-  Object {
-    "details": null,
-    "icon": "inv_mace_1h_oribosdungeon_c_02.jpg",
-    "importance": "minor",
-    "issue": <WithI18n
-      components={
-        Array [
-          <ItemLink
-            details={
-              Object {
-                "bonusIDs": Array [
-                  7157,
-                  1507,
-                  6646,
-                ],
-                "icon": "inv_mace_1h_oribosdungeon_c_02.jpg",
-                "id": 183433,
-                "itemLevel": 213,
-                "permanentEnchant": 6227,
-                "quality": 3,
-                "temporaryEnchant": 6188,
-              }
-            }
-            icon={false}
-            id={183433}
-            quality={3}
-          />,
-        ]
-      }
-      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
-      id="shared.enchantChecker.suggestions.weakEnchant.label"
-      values={
-        Object {
-          "slotName": <WithI18n
-            defaults="OffHand"
-            id="common.slots.offhand"
-          />,
-        }
-      }
-    />,
-    "stat": null,
-  },
-]
-`;
-
 exports[`Brewmaster Monk integration test: example log FlaskChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
@@ -3668,22 +3597,18 @@ exports[`Brewmaster Monk integration test: example log GiftOfTheOx matches the s
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={1000}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=124507"
             rel="noopener noreferrer"
             target="_blank"
@@ -3694,13 +3619,13 @@ exports[`Brewmaster Monk integration test: example log GiftOfTheOx matches the s
               src="//render-us.worldofwarcraft.com/icons/56/ability_monk_healthsphere.jpg"
             />
           </a>
-           
-          Gift of the Ox Healing
+           Gift of the Ox Healing
         </label>
         <div
           className="value"
         >
-          447 HPS
+          447
+           HPS
         </div>
       </div>
     </div>
@@ -3730,22 +3655,18 @@ exports[`Brewmaster Monk integration test: example log HighTolerance matches the
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={1000}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=196737"
             rel="noopener noreferrer"
             target="_blank"
@@ -3756,13 +3677,24 @@ exports[`Brewmaster Monk integration test: example log HighTolerance matches the
               src="//render-us.worldofwarcraft.com/icons/56/monk_ability_avertharm.jpg"
             />
           </a>
-           
-          Avg. Haste from High Tolerance
+           Avg. Haste from High Tolerance
         </label>
         <div
           className="value"
         >
-          10.83%
+          <svg
+            className="icon"
+            version="1.1"
+            viewBox="16 16 32 32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M33.446,23.135c-0.89,0-1.612,0.722-1.612,1.612v8.049l-4.079,4.078c-0.63,0.629-0.63,1.65,0,2.28 c0.315,0.314,0.728,0.472,1.14,0.472c0.413,0,0.825-0.157,1.14-0.472l4.551-4.55c0.302-0.302,0.472-0.712,0.472-1.14v-8.716 C35.059,23.856,34.337,23.135,33.446,23.135z M32.111,16.668c-8.509,0-15.431,6.92-15.431,15.427 c0,8.506,6.922,15.426,15.431,15.426c8.509,0,15.431-6.92,15.431-15.426C47.542,23.588,40.62,16.668,32.111,16.668z M19.179,38.606c-1.025-2.031-1.545-4.222-1.545-6.511c0-7.981,6.495-14.473,14.477-14.473v2.097 c-6.826,0-12.379,5.552-12.379,12.376c0,1.959,0.444,3.831,1.32,5.566L19.179,38.606z M32.111,43.516 c-6.3,0-11.426-5.124-11.426-11.422c0-6.298,5.126-11.422,11.426-11.422s11.426,5.124,11.426,11.422 C43.537,38.392,38.411,43.516,32.111,43.516z"
+            />
+          </svg>
+           
+          10.83
+           %
         </div>
       </div>
     </div>
@@ -3787,39 +3719,44 @@ exports[`Brewmaster Monk integration test: example log HighTolerance matches the
 </div>
 `;
 
-exports[`Brewmaster Monk integration test: example log PrePotion matches the suggestions snapshot 1`] = `
+exports[`Brewmaster Monk integration test: example log PotionChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
     "icon": "inv_alchemy_90_combat2_green",
-    "importance": "minor",
-    "issue": <React.Fragment>
-      You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as 
-      <ItemLink
-        icon={true}
-        id={171270}
-      />
-       can be very effective, especially during shorter encounters. 
-      
-    </React.Fragment>,
+    "importance": "regular",
+    "issue": <WithI18n
+      defaults="You used {0} combat potions during this encounter, but you could have used {1}. Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter."
+      id="shared.modules.items.potionChecker.suggestions.potionsUsed"
+      values={
+        Object {
+          "0": 0,
+          "1": 1,
+        }
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
     "icon": "inv_alchemy_90_combat2_green",
     "importance": "minor",
-    "issue": <React.Fragment>
-      You forgot to use a potion during combat. Using a potion during combat allows you the benefit of 
-      
-       increasing output through 
-      <ItemLink
-        icon={true}
-        id={171270}
-      />
-      
-      . 
-      
-    </React.Fragment>,
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            icon={true}
+            id={171270}
+          />,
+          <ItemLink
+            icon={true}
+            id={171270}
+          />,
+        ]
+      }
+      defaults="You used a weak potion. <0/> can be used instead of <1/> in order to get a slightly higher damage output."
+      id="shared.modules.items.potionChecker.suggestions.weakPotion"
+    />,
     "stat": null,
   },
 ]
@@ -3830,22 +3767,18 @@ exports[`Brewmaster Monk integration test: example log PurifyingBrew matches the
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={1000}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=119582"
             rel="noopener noreferrer"
             target="_blank"
@@ -3856,21 +3789,14 @@ exports[`Brewmaster Monk integration test: example log PurifyingBrew matches the
               src="//render-us.worldofwarcraft.com/icons/56/inv_misc_beer_06.jpg"
             />
           </a>
-           
-          Avg. Mitigation per Purifying Brew
+           Avg. Mitigation per Purifying Brew
         </label>
         <div
           className="value"
         >
           19k
-        </div>
-        <div
-          style={
-            Object {
-              "marginTop": "0.5em",
-            }
-          }
-        >
+           
+          <br />
           <div
             style={
               Object {
@@ -3940,22 +3866,18 @@ exports[`Brewmaster Monk integration test: example log Stagger matches the stati
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={2}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=115069"
             rel="noopener noreferrer"
             target="_blank"
@@ -3966,8 +3888,7 @@ exports[`Brewmaster Monk integration test: example log Stagger matches the stati
               src="//render-us.worldofwarcraft.com/icons/56/monk_stance_drunkenox.jpg"
             />
           </a>
-           
-          Damage staggered
+           Damage staggered
         </label>
         <div
           className="value"
@@ -4305,7 +4226,7 @@ Array [
        available.
     </React.Fragment>,
     "stat": <React.Fragment>
-      52.63% of casts while better spells were available
+      50.00% of casts while better spells were available
        (
       &lt; 5.00% is recommended
       )
@@ -4333,6 +4254,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
         >
           Use 
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=322507"
             onClick={[Function]}
             rel="noopener noreferrer"
@@ -4417,6 +4339,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
             className="col-md-12"
           >
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=322507"
               rel="noopener noreferrer"
               target="_blank"
@@ -4431,6 +4354,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
             </a>
              is a key part of your defensive toolkit. While it might be tempting to wait to cast it until you have max 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=325092"
               rel="noopener noreferrer"
               target="_blank"
@@ -4459,6 +4383,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=322507"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -4532,6 +4457,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=322507"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -4644,6 +4570,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
         >
           Use 
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=119582"
             onClick={[Function]}
             rel="noopener noreferrer"
@@ -4669,8 +4596,8 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#df7102",
-                  "width": "42.587384513657014%",
+                  "backgroundColor": "#ffc84a",
+                  "width": "50.02486829701374%",
                 }
               }
             />
@@ -4729,6 +4656,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
           >
             Effective use of 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=119582"
               rel="noopener noreferrer"
               target="_blank"
@@ -4750,6 +4678,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               <li>
                 Spend all of your charges of 
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=119582"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -4767,6 +4696,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               <li>
                 Avoid casting 
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=119582"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -4781,6 +4711,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                 </a>
                  at less than 
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=124273"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -4795,6 +4726,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                 </a>
                 —but not if it would waste charges! In a raid environment, 
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=124273"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -4809,6 +4741,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                 </a>
                  is not dangerous in itself. While not every fight will put you into 
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=124273"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -4826,6 +4759,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               <li>
                 If you are going to purify a hit, do so as soon as possible after it lands. Every half-second delayed after the hit causes you to take 5% of the hit's damage from 
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=115069"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -4843,6 +4777,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
             </ul>
             For more information on effective use of 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=119582"
               rel="noopener noreferrer"
               target="_blank"
@@ -4877,6 +4812,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=119582"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -4910,7 +4846,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  47.63%
+                  60.10%
                    
                    
                 </div>
@@ -4932,7 +4868,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "19.82420050048581%",
+                        "width": "25.018655862155516%",
                       }
                     }
                   />
@@ -4951,6 +4887,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               >
                 Maintain 
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=215479"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5104,7 +5041,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  0.43s
+                  0.11s
                    
                    
                 </div>
@@ -5164,7 +5101,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "21.167016191745983%",
+                  "width": "22.53313704909545%",
                 }
               }
             />
@@ -5251,6 +5188,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=121253"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5283,7 +5221,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  57.66%
+                  66.18%
                    
                    
                 </div>
@@ -5303,9 +5241,9 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "29.54189632289377%",
+                        "width": "37.239121466990596%",
                       }
                     }
                   />
@@ -5323,6 +5261,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=205523"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5395,6 +5334,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=132578"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5467,6 +5407,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=322109"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5539,6 +5480,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=100780"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5602,7 +5544,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  52.63%
+                  50.00%
                    
                    
                 </div>
@@ -5624,7 +5566,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "9.4905%",
+                        "width": "9.99%",
                       }
                     }
                   />
@@ -5642,6 +5584,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=148187"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5722,7 +5665,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
         <div
           className="flex-main name"
         >
-          Be well prepared
+          shared.modules.features.checklist.wellPrepared
         </div>
         <div
           className="flex-sub perf"
@@ -5792,7 +5735,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
           <div
             className="col-md-12"
           >
-            Being well prepared with food, flasks, potions and enchants is an easy way to improve your performance.
+            shared.modules.features.checklist.wellPreparedDetails
           </div>
         </div>
         <div
@@ -5807,7 +5750,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                All items enchanted
+                shared.modules.features.checklist.enchanted
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -5868,7 +5811,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                Using high quality enchants
+                shared.modules.features.checklist.enchantedHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -5889,7 +5832,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  5
+                  7
                    
                   / 7
                    
@@ -5910,9 +5853,9 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "71.42857142857143%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -5929,7 +5872,251 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                Used a pre-potion
+                All weapons enhanced (oils/stones)
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  2
+                   
+                  / 2
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Using high quality weapon enhancements
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  2
+                   
+                  / 2
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                shared.modules.features.checklist.combatPotionsUsed
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                shared.modules.features.checklist.highQualityCombatPotionsUsed
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                shared.modules.features.checklist.flaskHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -5989,7 +6176,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                Used a second potion
+                shared.modules.features.checklist.flask
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6049,7 +6236,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                Used a high quality pre-potion
+                shared.modules.features.checklist.foodHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6109,187 +6296,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                High quality flask used
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  common.no
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                Flask used
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  common.no
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                High quality food used
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  common.no
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                Food used
+                shared.modules.features.checklist.food
               </div>
               <div
                 className="flex-sub content-middle text-muted"

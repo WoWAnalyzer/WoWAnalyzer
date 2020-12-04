@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
@@ -105,7 +105,9 @@ class LockAndLoad extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.LOCK_AND_LOAD_TALENT}>
           <>
-            {this.noGainLNLProcs} ({formatPercentage(this.noGainLNLProcs / (this.totalProcs))}%) <small>lost procs</small>
+            {this.totalProcs} <small>procs</small>
+            <br />
+            {this.noGainLNLProcs} <small>wasted procs</small>
           </>
         </BoringSpellValueText>
       </Statistic>

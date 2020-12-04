@@ -25,7 +25,10 @@ class FightSelectionPanelList extends React.PureComponent {
       id: PropTypes.number.isRequired,
       difficulty: PropTypes.number,
       boss: PropTypes.number.isRequired,
+      // use fight interface when converting to TS
+      // eslint-disable-next-line @typescript-eslint/camelcase
       start_time: PropTypes.number.isRequired,
+      // eslint-disable-next-line @typescript-eslint/camelcase
       end_time: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
       kill: PropTypes.bool,
@@ -97,7 +100,7 @@ class FightSelectionPanelList extends React.PureComponent {
                         >
                           <div className="flex">
                             <div className="flex-main">
-                              <Icon /> {pull.kill ? <Trans>Kill</Trans> : <Trans>Wipe {getWipeCount(fights, pull)}</Trans>}
+                              <Icon /> {pull.kill ? <Trans id="interface.report.fightSelectionPanelList.kill">Kill</Trans> : <Trans id="interface.report.fightSelectionPanelList.wipe">Wipe {getWipeCount(fights, pull)}</Trans>}
                             </div>
                             <div className="flex-sub">
                               <small>{formatDuration(duration)}</small>{' '}
@@ -118,7 +121,7 @@ class FightSelectionPanelList extends React.PureComponent {
           );
         })}
         <li className="item clearfix text-muted" style={{ paddingTop: 10, paddingBottom: 10 }}>
-          <InformationIcon /> <Trans>You will usually get the most helpful results using raid fights where you're being challenged, such as progress raids.</Trans>
+          <InformationIcon /> <Trans id="interface.report.fightSelectionPanelList.information">You will usually get the most helpful results using raid fights where you're being challenged, such as progress raids.</Trans>
         </li>
       </ul>
     );

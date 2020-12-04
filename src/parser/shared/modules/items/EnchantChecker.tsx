@@ -10,6 +10,7 @@ import { Item } from 'parser/core/Events';
 
 import React from 'react';
 import { Trans } from '@lingui/macro';
+import SPELLS from 'common/SPELLS';
 
 // Example logs with missing enchants:
 // https://www.warcraftlogs.com/reports/ydxavfGq1mBrM9Vc/#fight=1&source=14
@@ -123,9 +124,20 @@ class EnchantChecker extends Analyzer {
     ITEMS.ENCHANT_CLOAK_FORTIFIED_LEECH.effectId,
     ITEMS.ENCHANT_CLOAK_FORTIFIED_SPEED.effectId,
     ITEMS.ENCHANT_CLOAK_SOUL_VITALITY.effectId,
-    3368, // Rune of the Fallen Crusader - Death Knight Only
-    3370, // Rune of Razorice - Death Knight Only
-    3847, // Rune of the Stoneskin Gargoyle - Death Knight Only
+    ITEMS.ENCHANT_WEAPON_SINFUL_REVELATION.effectId, 
+    ITEMS.ENCHANT_WEAPON_ASCENDED_VIGOR.effectId,
+    ITEMS.ENCHANT_WEAPON_CELESTIAL_GUIDANCE.effectId,
+    ITEMS.ENCHANT_WEAPON_LIGHTLESS_FORCE.effectId,
+
+    // Death Knight only
+    SPELLS.RUNE_OF_THE_FALLEN_CRUSADER.effectId,
+    SPELLS.RUNE_OF_RAZORICE.effectId,
+    SPELLS.RUNE_OF_THE_STONESKIN_GARGOYLE.effectId,
+    SPELLS.RUNE_OF_HYSTERIA.effectId,
+    SPELLS.RUNE_OF_SANGUINATION.effectId,
+    SPELLS.RUNE_OF_APOCALYPSE.effectId,
+    SPELLS.RUNE_OF_UNENDING_THIRST.effectId,
+    SPELLS.RUNE_OF_SPELLWARDING.effectId,
   ];
 
   get enchantableGear() {

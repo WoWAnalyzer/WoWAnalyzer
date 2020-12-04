@@ -6,6 +6,7 @@ import Covenants from './covenants';
 import Legendaries from './legendaries';
 import Enchants from './enchants';
 import Potions from './potions';
+import Oils from './oils';
 import Others from './others';
 
-export default safeMerge(Conduits, Soulbinds, Covenants, Legendaries, Enchants, Potions, Others);
+export default safeMerge(Conduits, Soulbinds, Covenants, Legendaries, Enchants, Potions, Oils, Others);

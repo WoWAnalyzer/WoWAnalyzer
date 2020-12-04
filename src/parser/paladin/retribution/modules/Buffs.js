@@ -7,7 +7,7 @@ class Buffs extends CoreBuffs {
     const combatant = this.selectedCombatant;
     return [
       {
-        spellId: SPELLS.EMPYREAN_POWER_BUFF.id,
+        spellId: SPELLS.EMPYREAN_POWER_TALENT_BUFF.id,
         enabled: combatant.hasTalent(SPELLS.EMPYREAN_POWER_TALENT.id),
         timelineHighlight: true,
       },
@@ -17,7 +17,7 @@ class Buffs extends CoreBuffs {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.THE_FIRES_OF_JUSTICE_BUFF.id,
+        spellId: SPELLS.FIRES_OF_JUSTICE_BUFF.id,
       },
       {
         spellId: SPELLS.RIGHTEOUS_VERDICT_BUFF.id,
@@ -53,12 +53,6 @@ class Buffs extends CoreBuffs {
       },
       {
         spellId: SPELLS.BLESSING_OF_PROTECTION.id,
-      },
-      {
-        spellId: SPELLS.GREATER_BLESSING_OF_KINGS.id,
-      },
-      {
-        spellId: SPELLS.GREATER_BLESSING_OF_WISDOM.id,
       },
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),

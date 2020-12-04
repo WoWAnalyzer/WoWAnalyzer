@@ -2,8 +2,10 @@ import React from 'react';
 import SPELLS from 'common/SPELLS/index';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
-import StatisticBox from 'interface/others/StatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringValue from 'interface/statistics/components/BoringValueText';
 import SpellIcon from 'common/SpellIcon';
+import Statistic from 'interface/statistics/Statistic';
 import SpellLink from 'common/SpellLink';
 import Combatants from 'parser/shared/modules/Combatants';
 import Events from 'parser/core/Events';
@@ -58,7 +60,7 @@ class PrematureRejuvenations extends Analyzer {
 
       const oldRejuv = this.rejuvenations.find(e => e.targetId === event.targetID);
       if (oldRejuv == null) {
-        this.rejuvenations.push({ "targetId": event.targetID, "timestamp": event.timestamp });
+        this.rejuvenations.push({ 'targetId': event.targetID, 'timestamp': event.timestamp });
         return;
       }
 
@@ -72,27 +74,27 @@ class PrematureRejuvenations extends Analyzer {
       let pandemicTime = 0;
       if (event.timestamp >= pandemicTimestamp && event.timestamp <= oldRejuv.timestamp + REJUV_DURATION) {
         pandemicTime = (oldRejuv.timestamp + REJUV_DURATION) - event.timestamp;
-      } else if(event.timestamp <= pandemicTime) {
+      } else if (event.timestamp <= pandemicTime) {
         pandemicTime = REJUV_DURATION - (REJUV_DURATION * PANDEMIC_THRESHOLD);
       }
-      debug && console.log("Extended within pandemic time frame: " + pandemicTime);
+      debug && console.log('Extended within pandemic time frame: ' + pandemicTime);
 
       // Set the new timestamp
       oldRejuv.timestamp = event.timestamp + pandemicTime;
-    } else if(event.ability.guid === SPELLS.FLOURISH_TALENT.id) {
+    } else if (event.ability.guid === SPELLS.FLOURISH_TALENT.id) {
       // TODO - Flourish extends all active rejuvenations within 60 yards by 8 seconds. Add range check possible?
-      this.rejuvenations = this.rejuvenations.map(o => ({ ...o, timestamp: o.timestamp + FLOURISH_EXTENSION}));
+      this.rejuvenations = this.rejuvenations.map(o => ({ ...o, timestamp: o.timestamp + FLOURISH_EXTENSION }));
     }
   }
 
   onFightend() {
-    debug && console.log("Finished: %o", this.rejuvenations);
-    debug && console.log("Early refreshments: "+ this.earlyRefreshments);
-    debug && console.log("Time lost: " + this.timeLost);
+    debug && console.log('Finished: %o', this.rejuvenations);
+    debug && console.log('Early refreshments: ' + this.earlyRefreshments);
+    debug && console.log('Time lost: ' + this.timeLost);
   }
 
   get timeLostInSeconds() {
-    return (this.timeLost/1000).toFixed(2);
+    return (this.timeLost / 1000).toFixed(2);
   }
 
   get timeLostThreshold() {
@@ -117,12 +119,17 @@ class PrematureRejuvenations extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.REJUVENATION.id} />}
-        value={this.earlyRefreshments}
-        label="Early rejuvenation refreshments"
+      <Statistic
+        position={STATISTIC_ORDER.CORE(18)}
+        size="flexible"
         tooltip={`The total time lost from your early refreshments was ${this.timeLostInSeconds} seconds.`}
-      />
+      >
+        <BoringValue label={<><SpellIcon id={SPELLS.REJUVENATION.id} /> Early Rejuvenation refreshes</>} >
+          <>
+            {this.earlyRefreshments}
+          </>
+        </BoringValue>
+      </Statistic>
     );
   }
 }

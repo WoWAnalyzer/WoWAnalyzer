@@ -15,7 +15,7 @@ import SPELLS from 'common/SPELLS';
 // This only works with actual healing events; casts are not recognized.
 
 export default {
-  [SPELLS.HEALING_SURGE_RESTORATION.id]: {
+  [SPELLS.HEALING_SURGE.id]: {
     int: true,
     crit: true,
     hasteHpct: true,
@@ -160,4 +160,5 @@ export default {
     hasteHpm: true,
     vers: true,
   },
+  // TODO add covenant abilities
 };

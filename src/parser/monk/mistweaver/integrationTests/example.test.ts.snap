@@ -16,7 +16,7 @@ exports[`Mistweaver Monk integration test: example log AlchemistStone matches th
       >
         <label>
           <a
-            className="unknown"
+            className="unknownitem-link-text"
             href="http://wowhead.com/item=171085"
             rel="noopener noreferrer"
             target="_blank"
@@ -30,7 +30,7 @@ exports[`Mistweaver Monk integration test: example log AlchemistStone matches th
           </a>
            
           <a
-            className="unknown"
+            className="unknownitem-link-text"
             href="http://wowhead.com/item=171085"
             rel="noopener noreferrer"
             target="_blank"
@@ -96,7 +96,7 @@ exports[`Mistweaver Monk integration test: example log AlwaysBeCasting matches t
         className="pad"
       >
         <label>
-          Active time
+          shared.alwaysBeCastingHealing.statistic
         </label>
         <div
           className="flex"
@@ -109,15 +109,8 @@ exports[`Mistweaver Monk integration test: example log AlwaysBeCasting matches t
         >
           <div
             className="flex-main text-right text-muted"
-            style={
-              Object {
-                "fontSize": 12,
-                "paddingRight": 8,
-                "paddingTop": 23,
-              }
-            }
           >
-            Low
+            interface.statistics.components.gauge.low
           </div>
           <div
             className="flex-sub"
@@ -220,7 +213,7 @@ exports[`Mistweaver Monk integration test: example log AlwaysBeCasting matches t
                   Object {
                     "fill": "none",
                     "margin": 0,
-                    "transform": "rotate(10.07890435169071deg)",
+                    "transform": "rotate(29.51055042692971deg)",
                     "transformOrigin": "5px 27px",
                   }
                 }
@@ -250,21 +243,14 @@ exports[`Mistweaver Monk integration test: example log AlwaysBeCasting matches t
                 }
               }
             >
-              54
+              61
               %
             </div>
           </div>
           <div
             className="flex-main text-left text-muted"
-            style={
-              Object {
-                "fontSize": 12,
-                "paddingLeft": 8,
-                "paddingTop": 23,
-              }
-            }
           >
-            High
+            interface.statistics.components.gauge.high
           </div>
         </div>
       </div>
@@ -324,19 +310,7 @@ Array [
     "importance": "regular",
     "issue": "Your non healing time can be improved. Try to reduce the delay between casting spells and try to continue healing when you have to move.",
     "stat": <React.Fragment>
-      55.00% non healing time
-       (
-      &lt;40.00% is recommended
-      )
-    </React.Fragment>,
-  },
-  Object {
-    "details": null,
-    "icon": "spell_mage_altertime",
-    "importance": "minor",
-    "issue": "Your downtime can be improved. Try to Always Be Casting (ABC); try to reduce the delay between casting spells and when you're not healing try to contribute some damage.",
-    "stat": <React.Fragment>
-      46.40% downtime
+      51.59% non healing time
        (
       &lt;40.00% is recommended
       )
@@ -362,7 +336,7 @@ exports[`Mistweaver Monk integration test: example log Ashjrakamas matches the s
       >
         <label>
           <a
-            className="legendary"
+            className="legendaryitem-link-text"
             href="http://wowhead.com/item=169223"
             rel="noopener noreferrer"
             target="_blank"
@@ -376,7 +350,7 @@ exports[`Mistweaver Monk integration test: example log Ashjrakamas matches the s
           </a>
            
           <a
-            className="legendary"
+            className="legendaryitem-link-text"
             href="http://wowhead.com/item=169223"
             rel="noopener noreferrer"
             target="_blank"
@@ -437,12 +411,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
         }
       }
     >
-      <a
-        href="#Abilities"
-        id="Abilities"
-      >
-        Abilities
-      </a>
+      common.abilities
     </h1>
   </div>
   <div
@@ -522,6 +491,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=115151"
                 rel="noopener noreferrer"
                 style={
@@ -619,6 +589,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=115175"
                 rel="noopener noreferrer"
                 style={
@@ -753,6 +724,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=313148"
                 rel="noopener noreferrer"
                 style={
@@ -899,6 +871,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=116680"
                 rel="noopener noreferrer"
                 style={
@@ -996,6 +969,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=197908"
                 rel="noopener noreferrer"
                 style={
@@ -1095,6 +1069,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=123986"
                 rel="noopener noreferrer"
                 style={
@@ -1194,6 +1169,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=116849"
                 rel="noopener noreferrer"
                 style={
@@ -1293,6 +1269,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=115310"
                 rel="noopener noreferrer"
                 style={
@@ -1390,6 +1367,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=322118"
                 rel="noopener noreferrer"
                 style={
@@ -1489,6 +1467,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=322109"
                 rel="noopener noreferrer"
                 style={
@@ -1637,6 +1616,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=122783"
                 rel="noopener noreferrer"
                 style={
@@ -1734,6 +1714,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=243435"
                 rel="noopener noreferrer"
                 style={
@@ -1880,6 +1861,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=124682"
                 rel="noopener noreferrer"
                 style={
@@ -1965,6 +1947,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=116670"
                 rel="noopener noreferrer"
                 style={
@@ -2050,6 +2033,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=191837"
                 rel="noopener noreferrer"
                 style={
@@ -2147,6 +2131,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=322101"
                 rel="noopener noreferrer"
                 style={
@@ -2281,6 +2266,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=115450"
                 rel="noopener noreferrer"
                 style={
@@ -2378,6 +2364,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=115078"
                 rel="noopener noreferrer"
                 style={
@@ -2475,6 +2462,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=116844"
                 rel="noopener noreferrer"
                 style={
@@ -2572,6 +2560,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=119381"
                 rel="noopener noreferrer"
                 style={
@@ -2669,6 +2658,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=109132"
                 rel="noopener noreferrer"
                 style={
@@ -2766,6 +2756,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=116841"
                 rel="noopener noreferrer"
                 style={
@@ -2863,6 +2854,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=101643"
                 rel="noopener noreferrer"
                 style={
@@ -2960,6 +2952,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=119996"
                 rel="noopener noreferrer"
                 style={
@@ -3106,6 +3099,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=100780"
                 rel="noopener noreferrer"
                 style={
@@ -3191,6 +3185,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=100784"
                 rel="noopener noreferrer"
                 style={
@@ -3234,7 +3229,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               12
-              /422
+              /308
                
               casts
             </td>
@@ -3253,7 +3248,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "2.8440535631558435%",
+                      "width": "3.9032568810712633%",
                     }
                   }
                 />
@@ -3268,7 +3263,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              2.84%
+              3.90%
             </td>
             <td
               style={
@@ -3288,6 +3283,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=107428"
                 rel="noopener noreferrer"
                 style={
@@ -3331,7 +3327,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               20
-              /111
+              /82
                
               casts
             </td>
@@ -3350,7 +3346,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "18.144261668223166%",
+                      "width": "24.583753097677018%",
                     }
                   }
                 />
@@ -3365,7 +3361,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              18.14%
+              24.58%
             </td>
             <td
               style={
@@ -3385,6 +3381,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=101546"
                 rel="noopener noreferrer"
                 style={
@@ -3470,6 +3467,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=117952"
                 rel="noopener noreferrer"
                 style={
@@ -3604,6 +3602,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=6262"
                 rel="noopener noreferrer"
                 style={
@@ -3701,6 +3700,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171267"
                 rel="noopener noreferrer"
                 style={
@@ -3798,6 +3798,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171273"
                 rel="noopener noreferrer"
                 style={
@@ -3908,14 +3909,16 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 2,
@@ -3926,7 +3929,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "80",
@@ -3949,14 +3953,16 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 13,
@@ -3967,7 +3973,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "80",
@@ -3990,14 +3997,16 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 1,
@@ -4008,7 +4017,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "80",
@@ -4031,14 +4041,16 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 0,
@@ -4049,7 +4061,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "80",
@@ -4072,14 +4085,16 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 0,
@@ -4090,7 +4105,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "85",
@@ -4124,6 +4140,7 @@ exports[`Mistweaver Monk integration test: example log CastRatio matches the sta
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=124682"
             rel="noopener noreferrer"
             target="_blank"
@@ -4136,6 +4153,7 @@ exports[`Mistweaver Monk integration test: example log CastRatio matches the sta
           </a>
            : 
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=116670"
             rel="noopener noreferrer"
             target="_blank"
@@ -4540,6 +4558,7 @@ exports[`Mistweaver Monk integration test: example log EnvelopingBreath matches 
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=325209"
             rel="noopener noreferrer"
             target="_blank"
@@ -4552,6 +4571,7 @@ exports[`Mistweaver Monk integration test: example log EnvelopingBreath matches 
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=325209"
             rel="noopener noreferrer"
             target="_blank"
@@ -4638,6 +4658,7 @@ exports[`Mistweaver Monk integration test: example log EnvelopingMists matches t
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=124682"
             rel="noopener noreferrer"
             target="_blank"
@@ -4650,6 +4671,7 @@ exports[`Mistweaver Monk integration test: example log EnvelopingMists matches t
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=124682"
             rel="noopener noreferrer"
             target="_blank"
@@ -4711,6 +4733,7 @@ exports[`Mistweaver Monk integration test: example log EssenceFont matches the s
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=191837"
             rel="noopener noreferrer"
             target="_blank"
@@ -4759,6 +4782,7 @@ exports[`Mistweaver Monk integration test: example log EssenceFontHealingBreakdo
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=191837"
             rel="noopener noreferrer"
             target="_blank"
@@ -4798,6 +4822,7 @@ exports[`Mistweaver Monk integration test: example log EssenceFontHealingBreakdo
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=191837"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -4845,6 +4870,7 @@ exports[`Mistweaver Monk integration test: example log EssenceFontHealingBreakdo
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=191840"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -4892,6 +4918,7 @@ exports[`Mistweaver Monk integration test: example log EssenceFontHealingBreakdo
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=191894"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -4954,6 +4981,7 @@ exports[`Mistweaver Monk integration test: example log EssenceFontMastery matche
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=191894"
             rel="noopener noreferrer"
             target="_blank"
@@ -5057,7 +5085,7 @@ exports[`Mistweaver Monk integration test: example log ForbiddenObsidianClaw mat
       >
         <label>
           <a
-            className="epic"
+            className="epicitem-link-text"
             href="http://wowhead.com/item=173944&bonus=4824:6515:1517:4786"
             rel="noopener noreferrer"
             target="_blank"
@@ -5143,6 +5171,7 @@ exports[`Mistweaver Monk integration test: example log InvokeYulon matches the s
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=322118"
             rel="noopener noreferrer"
             target="_blank"
@@ -5155,6 +5184,7 @@ exports[`Mistweaver Monk integration test: example log InvokeYulon matches the s
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=322118"
             rel="noopener noreferrer"
             target="_blank"
@@ -5219,6 +5249,7 @@ exports[`Mistweaver Monk integration test: example log LifeCocoon matches the st
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=116849"
             rel="noopener noreferrer"
             target="_blank"
@@ -5231,6 +5262,7 @@ exports[`Mistweaver Monk integration test: example log LifeCocoon matches the st
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=116849"
             rel="noopener noreferrer"
             target="_blank"
@@ -5326,6 +5358,7 @@ exports[`Mistweaver Monk integration test: example log ManaTea matches the stati
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=197908"
             rel="noopener noreferrer"
             target="_blank"
@@ -5475,6 +5508,7 @@ exports[`Mistweaver Monk integration test: example log MasteryStats matches the 
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=191894"
             rel="noopener noreferrer"
             target="_blank"
@@ -5514,6 +5548,7 @@ exports[`Mistweaver Monk integration test: example log MasteryStats matches the 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=116670"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5561,6 +5596,7 @@ exports[`Mistweaver Monk integration test: example log MasteryStats matches the 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=115151"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5608,6 +5644,7 @@ exports[`Mistweaver Monk integration test: example log MasteryStats matches the 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=124682"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5655,6 +5692,7 @@ exports[`Mistweaver Monk integration test: example log MasteryStats matches the 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=115175"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5702,6 +5740,7 @@ exports[`Mistweaver Monk integration test: example log MasteryStats matches the 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=191837"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5749,6 +5788,7 @@ exports[`Mistweaver Monk integration test: example log MasteryStats matches the 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=322101"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5813,6 +5853,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
     </h1>
     <small>
       <a
+        className="spell-link-text"
         href="http://wowhead.com/spell=191894"
         rel="noopener noreferrer"
         target="_blank"
@@ -5829,6 +5870,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
       <br />
        
       <a
+        className="spell-link-text"
         href="http://wowhead.com/spell=191837"
         rel="noopener noreferrer"
         target="_blank"
@@ -5843,6 +5885,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
       </a>
        is given the healing from duplicated gusts, since without 
       <a
+        className="spell-link-text"
         href="http://wowhead.com/spell=191837"
         rel="noopener noreferrer"
         target="_blank"
@@ -5859,6 +5902,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
       <br />
        
       <a
+        className="spell-link-text"
         href="http://wowhead.com/spell=115151"
         rel="noopener noreferrer"
         target="_blank"
@@ -5873,6 +5917,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
       </a>
        is given the splash healing of 
       <a
+        className="spell-link-text"
         href="http://wowhead.com/spell=116670"
         rel="noopener noreferrer"
         target="_blank"
@@ -5887,6 +5932,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
       </a>
       's heal since without 
       <a
+        className="spell-link-text"
         href="http://wowhead.com/spell=115151"
         rel="noopener noreferrer"
         target="_blank"
@@ -5901,6 +5947,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
       </a>
       , 
       <a
+        className="spell-link-text"
         href="http://wowhead.com/spell=116670"
         rel="noopener noreferrer"
         target="_blank"
@@ -5917,6 +5964,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
       <br />
        
       <a
+        className="spell-link-text"
         href="http://wowhead.com/spell=124682"
         rel="noopener noreferrer"
         target="_blank"
@@ -5931,6 +5979,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
       </a>
        is given the healing of 
       <a
+        className="spell-link-text"
         href="http://wowhead.com/spell=325209"
         rel="noopener noreferrer"
         target="_blank"
@@ -5945,6 +5994,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
       </a>
        since without casting 
       <a
+        className="spell-link-text"
         href="http://wowhead.com/spell=124682"
         rel="noopener noreferrer"
         target="_blank"
@@ -5959,6 +6009,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
       </a>
       , 
       <a
+        className="spell-link-text"
         href="http://wowhead.com/spell=325209"
         rel="noopener noreferrer"
         target="_blank"
@@ -6185,6 +6236,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
         <tr>
           <td>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=191837"
               rel="noopener noreferrer"
               target="_blank"
@@ -6228,7 +6280,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            1.09m
+            783k
           </td>
           <td
             width="20%"
@@ -6252,6 +6304,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
         <tr>
           <td>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=115151"
               rel="noopener noreferrer"
               target="_blank"
@@ -6295,7 +6348,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            279k
+            201k
           </td>
           <td
             width="20%"
@@ -6309,7 +6362,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#ac1f39",
                     "transition": "background-color 800ms",
-                    "width": "25.596330275229356%",
+                    "width": "25.67049808429119%",
                   }
                 }
               />
@@ -6319,6 +6372,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
         <tr>
           <td>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=115175"
               rel="noopener noreferrer"
               target="_blank"
@@ -6362,7 +6416,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            398k
+            286k
           </td>
           <td
             width="20%"
@@ -6376,7 +6430,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#df7102",
                     "transition": "background-color 800ms",
-                    "width": "36.51376146788991%",
+                    "width": "36.52618135376756%",
                   }
                 }
               />
@@ -6386,6 +6440,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
         <tr>
           <td>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=124682"
               rel="noopener noreferrer"
               target="_blank"
@@ -6429,7 +6484,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            457k
+            328k
           </td>
           <td
             width="20%"
@@ -6443,7 +6498,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#df7102",
                     "transition": "background-color 800ms",
-                    "width": "41.92660550458716%",
+                    "width": "41.89016602809706%",
                   }
                 }
               />
@@ -6453,6 +6508,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
         <tr>
           <td>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=116670"
               rel="noopener noreferrer"
               target="_blank"
@@ -6510,7 +6566,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#ac1f39",
                     "transition": "background-color 800ms",
-                    "width": "5.5045871559633035%",
+                    "width": "7.662835249042145%",
                   }
                 }
               />
@@ -6520,6 +6576,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
         <tr>
           <td>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=101546"
               rel="noopener noreferrer"
               target="_blank"
@@ -6587,6 +6644,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
         <tr>
           <td>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=107428"
               rel="noopener noreferrer"
               target="_blank"
@@ -6657,50 +6715,44 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
 </div>
 `;
 
-exports[`Mistweaver Monk integration test: example log PrePotion matches the suggestions snapshot 1`] = `
+exports[`Mistweaver Monk integration test: example log PotionChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
-    "icon": "trade_alchemy_potione2",
-    "importance": "minor",
-    "issue": <React.Fragment>
-      You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as 
-      <ItemLink
-        icon={true}
-        id={168498}
-      />
-       can be very effective, especially during shorter encounters. 
-      
-    </React.Fragment>,
+    "icon": "inv_alchemy_90_combat2_purple",
+    "importance": "regular",
+    "issue": <WithI18n
+      defaults="You used {0} combat potions during this encounter, but you could have used {1}. Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter."
+      id="shared.modules.items.potionChecker.suggestions.potionsUsed"
+      values={
+        Object {
+          "0": 0,
+          "1": 3,
+        }
+      }
+    />,
     "stat": null,
   },
   Object {
     "details": null,
-    "icon": "trade_alchemy_potione2",
+    "icon": "inv_alchemy_90_combat2_purple",
     "importance": "minor",
-    "issue": <React.Fragment>
-      You forgot to use a potion during combat. Using a potion during combat allows you the benefit of 
-      either
-       increasing output through 
-      <ItemLink
-        icon={true}
-        id={168498}
-      />
-      <React.Fragment>
-         or allowing you to gain mana using 
-        <ItemLink
-          icon={true}
-          id={152495}
-        />
-         or 
-        <ItemLink
-          icon={true}
-          id={152561}
-        />
-      </React.Fragment>
-      . 
-      
-    </React.Fragment>,
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            icon={true}
+            id={171273}
+          />,
+          <ItemLink
+            icon={true}
+            id={168498}
+          />,
+        ]
+      }
+      defaults="You used a weak potion. <0/> can be used instead of <1/> in order to get a slightly higher damage output."
+      id="shared.modules.items.potionChecker.suggestions.weakPotion"
+    />,
     "stat": null,
   },
 ]
@@ -6723,6 +6775,7 @@ exports[`Mistweaver Monk integration test: example log RenewingMistDuringManaTea
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=197908"
             rel="noopener noreferrer"
             target="_blank"
@@ -6949,7 +7002,7 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
             <td
               className="text-right"
             >
-              2.98
+              2.82
             </td>
             <td
               style={
@@ -7017,7 +7070,7 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
               className="text-right"
             >
               0.00 - 
-              1.46
+              1.05
             </td>
             <td
               style={
@@ -7084,7 +7137,7 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
             <td
               className="text-right"
             >
-              3.74
+              2.70
             </td>
             <td
               style={
@@ -7143,7 +7196,7 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
             <td
               className="text-right"
             >
-              1.83
+              2.22
             </td>
             <td
               style={
@@ -7323,7 +7376,7 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
             <td
               className="text-right"
             >
-              33.45
+              10.19
             </td>
             <td
               style={
@@ -7378,6 +7431,7 @@ exports[`Mistweaver Monk integration test: example log Strife matches the statis
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=304056"
             rel="noopener noreferrer"
             target="_blank"
@@ -7462,6 +7516,7 @@ exports[`Mistweaver Monk integration test: example log TheEverRisingTide matches
         >
           <label>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=299879"
               rel="noopener noreferrer"
               target="_blank"
@@ -7542,6 +7597,7 @@ exports[`Mistweaver Monk integration test: example log TheFormlessVoid matches t
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=313922"
             rel="noopener noreferrer"
             target="_blank"
@@ -7910,6 +7966,7 @@ exports[`Mistweaver Monk integration test: example log ThunderFocusTea matches t
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=116680"
             rel="noopener noreferrer"
             target="_blank"
@@ -7949,6 +8006,7 @@ exports[`Mistweaver Monk integration test: example log ThunderFocusTea matches t
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=116670"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -7996,6 +8054,7 @@ exports[`Mistweaver Monk integration test: example log ThunderFocusTea matches t
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=115151"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -8043,6 +8102,7 @@ exports[`Mistweaver Monk integration test: example log ThunderFocusTea matches t
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=124682"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -8090,6 +8150,7 @@ exports[`Mistweaver Monk integration test: example log ThunderFocusTea matches t
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=107428"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -8184,6 +8245,7 @@ exports[`Mistweaver Monk integration test: example log Tier45Comparison matches 
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=197908"
             rel="noopener noreferrer"
             target="_blank"
@@ -8262,6 +8324,7 @@ exports[`Mistweaver Monk integration test: example log Upwelling matches the sta
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=274963"
             rel="noopener noreferrer"
             target="_blank"
@@ -8324,6 +8387,7 @@ exports[`Mistweaver Monk integration test: example log VersatileNavigation match
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=268854"
             rel="noopener noreferrer"
             target="_blank"
@@ -8336,6 +8400,7 @@ exports[`Mistweaver Monk integration test: example log VersatileNavigation match
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=268854"
             rel="noopener noreferrer"
             target="_blank"
@@ -8433,6 +8498,7 @@ exports[`Mistweaver Monk integration test: example log Vivify matches the statis
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=116670"
             rel="noopener noreferrer"
             target="_blank"
@@ -8465,6 +8531,63 @@ exports[`Mistweaver Monk integration test: example log Vivify matches the statis
 </div>
 `;
 
+exports[`Mistweaver Monk integration test: example log WeaponEnhancementChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_axe_1h_nzothraid_d_02.jpg",
+    "importance": "regular",
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4824,
+                  6570,
+                  6578,
+                  6579,
+                  1517,
+                  4786,
+                  6514,
+                ],
+                "gems": Array [
+                  Object {
+                    "icon": "inv_misc_gem_x4_uncommon_perfectcut_blue.jpg",
+                    "id": 168642,
+                    "itemLevel": 120,
+                  },
+                ],
+                "icon": "inv_axe_1h_nzothraid_d_02.jpg",
+                "id": 172198,
+                "itemLevel": 475,
+                "permanentEnchant": 5962,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={172198}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone) . Apply an enhancement to very easily increase your throughput slightly."
+      id="shared.weaponEnhancementChecker.suggestions.noWeaponEnhancement.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Weapon"
+            id="common.slots.weapon"
+          />,
+        }
+      }
+    />,
+    "stat": null,
+  },
+]
+`;
+
 exports[`Mistweaver Monk integration test: example log WoundBinder matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -8482,6 +8605,7 @@ exports[`Mistweaver Monk integration test: example log WoundBinder matches the s
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=267880"
             rel="noopener noreferrer"
             target="_blank"
@@ -8494,6 +8618,7 @@ exports[`Mistweaver Monk integration test: example log WoundBinder matches the s
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=267880"
             rel="noopener noreferrer"
             target="_blank"
@@ -8633,6 +8758,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
           >
             As a Mistweaver you only have a single rotational spell that should be cast on CD 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=115151"
               rel="noopener noreferrer"
               target="_blank"
@@ -8647,6 +8773,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
             </a>
             . The other piece is ensuring you have enough 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=115151"
               rel="noopener noreferrer"
               target="_blank"
@@ -8661,6 +8788,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
             </a>
             's on the raid so that you maximize the cleave healing from 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=116670"
               rel="noopener noreferrer"
               target="_blank"
@@ -8689,6 +8817,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=115151"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -8761,6 +8890,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=115151"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -8935,6 +9065,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=116680"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -9007,6 +9138,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=197908"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -9079,6 +9211,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=115151"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -9093,6 +9226,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 </a>
                  active during 
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=197908"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -9165,6 +9299,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=123986"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -9237,6 +9372,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=115310"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -9309,6 +9445,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=322118"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -9381,6 +9518,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=322109"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -9453,6 +9591,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=325209"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -9467,6 +9606,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 </a>
                  applied per  
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=124682"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -9619,6 +9759,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
           >
             Effective use of 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=191837"
               rel="noopener noreferrer"
               target="_blank"
@@ -9633,6 +9774,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
             </a>
              has a big impact on your healing. Ensure you stay in melee to maximize the number of targets that can be in range of both 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=191837"
               rel="noopener noreferrer"
               target="_blank"
@@ -9647,6 +9789,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
             </a>
              and other spells such as 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=196725"
               rel="noopener noreferrer"
               target="_blank"
@@ -9675,6 +9818,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=191837"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -9748,6 +9892,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=123986"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -9821,6 +9966,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=101546"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -10047,6 +10193,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=197908"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -10120,6 +10267,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=197908"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -10286,6 +10434,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=116680"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -10359,6 +10508,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=191837"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -10451,8 +10601,8 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#df7102",
-                  "width": "33.309863245177965%",
+                  "backgroundColor": "#ffc84a",
+                  "width": "56.00994260945128%",
                 }
               }
             />
@@ -10555,7 +10705,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  55.00%
+                  51.59%
                    
                    
                 </div>
@@ -10575,9 +10725,9 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#df7102",
+                        "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "33.309863245177965%",
+                        "width": "56.00994260945128%",
                       }
                     }
                   />
@@ -10615,7 +10765,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  46.40%
+                  39.46%
                    
                    
                 </div>
@@ -10635,9 +10785,9 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "85.79113130741193%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -10656,6 +10806,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
               >
                 Effective 
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=115175"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -10822,6 +10973,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=243435"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -10894,6 +11046,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=116849"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -10966,6 +11119,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=122783"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -11212,7 +11366,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
         <div
           className="flex-main name"
         >
-          Be well prepared
+          shared.modules.features.checklist.wellPrepared
         </div>
         <div
           className="flex-sub perf"
@@ -11282,7 +11436,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
           <div
             className="col-md-12"
           >
-            Being well prepared with food, flasks, potions and enchants is an easy way to improve your performance.
+            shared.modules.features.checklist.wellPreparedDetails
           </div>
         </div>
         <div
@@ -11297,7 +11451,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                All items enchanted
+                shared.modules.features.checklist.enchanted
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -11358,7 +11512,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                Using high quality enchants
+                shared.modules.features.checklist.enchantedHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -11419,7 +11573,251 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                Used a pre-potion
+                All weapons enhanced (oils/stones)
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Using high quality weapon enhancements
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                shared.modules.features.checklist.combatPotionsUsed
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 3
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                shared.modules.features.checklist.highQualityCombatPotionsUsed
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 3
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                shared.modules.features.checklist.flaskHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -11479,187 +11877,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                Used a second potion
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  common.no
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                Used a high quality pre-potion
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  common.no
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                High quality flask used
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  common.no
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                Flask used
+                shared.modules.features.checklist.flask
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -11719,7 +11937,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                High quality food used
+                shared.modules.features.checklist.foodHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -11779,7 +11997,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                Food used
+                shared.modules.features.checklist.food
               </div>
               <div
                 className="flex-sub content-middle text-muted"

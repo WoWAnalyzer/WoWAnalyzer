@@ -1,42 +1,8 @@
 import SPELLS from 'common/SPELLS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 
 import CoreAbilities from 'parser/core/modules/Abilities';
-
-const WINTERS_PROTECTION_REDUCTION_MS: {[rank: number]: number } = {
-  1: 30,
-  2: 34,
-  3: 38,
-  4: 43,
-  5: 47,
-  6: 51,
-  7: 55,
-  8: 60,
-  9: 64,
-  10: 68,
-  11: 72,
-  12: 77,
-  13: 81,
-  14: 85,
-  15: 90,
-};
-
-const FLOW_OF_TIME_REDUCTION_SEC: {[rank: number]: number } = {
-  1: 1,
-  2: 1.25,
-  3: 1.5,
-  4: 1.75,
-  5: 2,
-  6: 2.25,
-  7: 2.5,
-  8: 2.75,
-  9: 3,
-  10: 3.25,
-  11: 3.5,
-  12: 3.75,
-  13: 4,
-  14: 4.250,
-  15: 5,
-};
+import { WINTERS_PROTECTION_REDUCTION_SEC, FLOW_OF_TIME_REDUCTION_SEC } from 'parser/mage/shared/constants'
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -205,9 +171,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ICY_VEINS,
         buffSpellId: SPELLS.ICY_VEINS.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        gcd: {
-          base: 1500,
-        },
+        gcd: null,
         cooldown: 180,
         castEfficiency: {
           suggestion: true,
@@ -223,6 +187,55 @@ class Abilities extends CoreAbilities {
         cooldown: 300,
         timelineSortIndex: 18,
       },
+      {
+        spell: SPELLS.RADIANT_SPARK,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 30,
+        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
+      },
+      {
+        spell: SPELLS.DEATHBORNE,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 180,
+        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
+      },
+      {
+        spell: SPELLS.MIRRORS_OF_TORMENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 90,
+        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
+      },
+      {
+        spell: SPELLS.SHIFTING_POWER,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 60,
+        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+      },
+
 
       //Defensives
       {
@@ -237,7 +250,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ICE_BLOCK,
         buffSpellId: SPELLS.ICE_BLOCK.id,
-        cooldown: combatant.hasConduitBySpellID(SPELLS.WINTERS_PROTECTION.id) ? 240 - WINTERS_PROTECTION_REDUCTION_MS[combatant.conduitRankBySpellID(SPELLS.WINTERS_PROTECTION.id)] : 240,
+        cooldown: combatant.hasConduitBySpellID(SPELLS.WINTERS_PROTECTION.id) ? 240 - WINTERS_PROTECTION_REDUCTION_SEC[combatant.conduitRankBySpellID(SPELLS.WINTERS_PROTECTION.id)] : 240,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         gcd: {
           base: 1500,

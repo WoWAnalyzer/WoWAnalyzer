@@ -9,28 +9,11 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
-const DAMAGE_BONUS: {[rank: number]: number } = {
-  1: .01,
-  2: .01,
-  3: .01,
-  4: .01,
-  5: .01,
-  6: .02,
-  7: .02,
-  8: .02,
-  9: .02,
-  10: .02,
-  11: .02,
-  12: .02,
-  13: .02,
-  14: .02,
-  15: .02,
-};
+const DAMAGE_BONUS = [0, .02, .02, .02, .03, .03, .03, .03, .03, .04, .04, .04, .04, .04, .05, .05];
 
 class SiphonedMalice extends Analyzer {
 
-  conduitRank: number = 0;
-
+  conduitRank = 0;
   bonusDamage = 0;
 
   constructor(props: Options) {

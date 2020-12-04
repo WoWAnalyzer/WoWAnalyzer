@@ -1,8 +1,11 @@
 import React from 'react';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatPercentage } from 'common/format';
-import SpellIcon from 'common/SpellIcon';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import UptimeIcon from 'interface/icons/Uptime';
+import Statistic from 'interface/statistics/Statistic';
 import SpellLink from 'common/SpellLink';
+import SpellIcon from 'common/SpellIcon';
+import BoringValue from 'interface/statistics/components/BoringValueText';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -17,7 +20,7 @@ class Efflorescence extends Analyzer {
   castUptime = 0;
   castTimestamps = []; // TODO this array not really used yet, but I plan to use it to catch early refreshes
 
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EFFLORESCENCE_CAST), this.onCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EFFLORESCENCE_HEAL), this.onHeal);
@@ -75,14 +78,18 @@ class Efflorescence extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.EFFLORESCENCE_CAST.id} />}
-        value={`${formatPercentage(this.uptimePercent)} %`}
-        label="Efflorescence Uptime"
-      />
+      <Statistic
+        position={STATISTIC_ORDER.CORE(12)}
+        size="flexible"
+      >
+        <BoringValue label={<><SpellIcon id={SPELLS.EFFLORESCENCE_CAST.id} /> Efflorescence uptime</>} >
+          <>
+            <UptimeIcon /> {formatPercentage(this.uptimePercent)} %
+          </>
+        </BoringValue>
+      </Statistic>
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(12);
 }
 
 export default Efflorescence;

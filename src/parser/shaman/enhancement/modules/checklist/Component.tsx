@@ -47,6 +47,18 @@ const EnhancementShamanChecklist = ({ castEfficiency, combatant, thresholds }: a
         <AbilityRequirement spell={SPELLS.STORMKEEPER_TALENT_ENHANCEMENT.id} />}
         {combatant.hasTalent(SPELLS.EARTHEN_SPIKE_TALENT.id) &&
         <AbilityRequirement spell={SPELLS.EARTHEN_SPIKE_TALENT.id} />}
+        {combatant.hasTalent(SPELLS.SUNDERING_TALENT.id) && 
+        <AbilityRequirement spell={SPELLS.SUNDERING_TALENT.id} />}
+      </Rule>
+      <Rule
+        name="Keep your Windfury Totem active"
+        description={
+          <>
+            You should aim to have 100% uptime on <SpellLink id={SPELLS.WINDFURY_TOTEM_BUFF.id} />
+          </>
+        }
+      >
+        <Requirement name={(<><SpellLink id={SPELLS.WINDFURY_TOTEM_BUFF.id} /> uptime</> )} thresholds={thresholds.windfuryTotemUptime} />
       </Rule>
 
       {/* <Rule

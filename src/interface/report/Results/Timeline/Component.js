@@ -100,6 +100,10 @@ class Timeline extends React.PureComponent {
       //ignore restore charge events if they happen before the phase
       return false;
     }
+    const spellId = event.ability.guid;
+    if (CASTS_THAT_ARENT_CASTS.includes(spellId)) {
+      return false;
+    }
     return true;
   }
   /**

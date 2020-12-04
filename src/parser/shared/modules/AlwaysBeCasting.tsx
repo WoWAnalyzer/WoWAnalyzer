@@ -8,7 +8,7 @@ import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Tooltip from 'common/Tooltip';
 import { i18n } from '@lingui/core';
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 
 import Abilities from '../../core/modules/Abilities';
 import GlobalCooldown from './GlobalCooldown';
@@ -46,7 +46,7 @@ class AlwaysBeCasting extends Analyzer {
   activeTime = 0;
   _lastGlobalCooldownDuration = 0;
 
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.GlobalCooldown, this.onGCD);
     this.addEventListener(Events.EndChannel, this.onEndChannel);
@@ -98,19 +98,19 @@ class AlwaysBeCasting extends Analyzer {
         position={this.position}
         icon={<Icon icon="spell_mage_altertime" alt="Downtime" />}
         value={`${formatPercentage(this.downtimePercentage)} %`}
-        label="Downtime"
+        label={<Trans id="shared.alwaysBeCasting.statistic.label">Downtime</Trans>}
         tooltip={(
-          <>
+          <Trans id="shared.alwaysBeCasting.statistic.tooltip">
             Downtime is available time not used to cast anything (including not having your GCD rolling). This can be caused by delays between casting spells, latency, cast interrupting or just simply not casting anything (e.g. due to movement/stunned).<br />
             <ul>
               <li>You spent <strong>{formatPercentage(this.activeTimePercentage)}%</strong> of your time casting something.</li>
               <li>You spent <strong>{formatPercentage(this.downtimePercentage)}%</strong> of your time casting nothing at all.</li>
             </ul>
-          </>
+          </Trans>
         )}
         footer={(
           <div className="statistic-box-bar">
-            <Tooltip content={<>You spent <strong>{formatPercentage(this.activeTimePercentage)}%</strong> of your time casting something.</>}>
+            <Tooltip content={<Trans id="shared.alwaysBeCasting.statistic.footer.activetime.tooltip">You spent <strong>{formatPercentage(this.activeTimePercentage)}%</strong> of your time casting something.</Trans>}>
               <div
                 className="stat-health-bg"
                 style={{
@@ -120,7 +120,7 @@ class AlwaysBeCasting extends Analyzer {
                 <img src={ctor.icons.activeTime} alt="Active time" />
               </div>
             </Tooltip>
-            <Tooltip content={<>You spent <strong>{formatPercentage(this.downtimePercentage)}%</strong> of your time casting nothing at all.</>}>
+            <Tooltip content={<Trans id="shared.alwaysBeCasting.statistic.footer.downtime.tooltip">You spent <strong>{formatPercentage(this.downtimePercentage)}%</strong> of your time casting nothing at all.</Trans>}>
               <div className="remainder DeathKnight-bg">
                 <img src={ctor.icons.downtime} alt="Downtime" />
               </div>
@@ -145,11 +145,11 @@ class AlwaysBeCasting extends Analyzer {
 
   suggestions(when: When) {
     when(this.downtimeSuggestionThresholds.actual).isGreaterThan(this.downtimeSuggestionThresholds.isGreaterThan.minor)
-      .addSuggestion((suggest, actual, recommended) => suggest('Your downtime can be improved. Try to Always Be Casting (ABC), avoid delays between casting spells and cast instant spells when you have to move.')
-          .icon('spell_mage_altertime')
-          .actual(`${formatPercentage(actual)}% ${i18n._(t('shared.suggestions.alwaysBeCasting.downtime')`downtime`)}`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(this.downtimeSuggestionThresholds.isGreaterThan.average).major(this.downtimeSuggestionThresholds.isGreaterThan.major));
+      .addSuggestion((suggest, actual, recommended) => suggest(`${<Trans id="shared.suggestions.alwaysBeCasting.suggestion">Your downtime can be improved. Try to Always Be Casting (ABC), avoid delays between casting spells and cast instant spells when you have to move.</Trans>}`)
+        .icon('spell_mage_altertime')
+        .actual(`${formatPercentage(actual)}% ${i18n._(t('shared.suggestions.alwaysBeCasting.downtime')`downtime`)}`)
+        .recommended(`<${formatPercentage(recommended)}% is recommended`)
+        .regular(this.downtimeSuggestionThresholds.isGreaterThan.average).major(this.downtimeSuggestionThresholds.isGreaterThan.major));
   }
 }
 

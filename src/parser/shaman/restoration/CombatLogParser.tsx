@@ -52,11 +52,17 @@ import HealingWave from './modules/spells/HealingWave';
 import LavaSurge from './modules/spells/LavaSurge';
 import Resurgence from './modules/spells/Resurgence';
 import ManaTideTotem from './modules/spells/ManaTideTotem';
+import WaterShield from './modules/spells/WaterShield';
 import SpiritLinkDamageReduction from './modules/spells/SpiritLinkDamageReduction';
 // Potency Conduits
 import EmbraceOfEarth from './modules/shadowlands/conduits/EmbraceOfEarth';
 import HeavyRainfall from './modules/shadowlands/conduits/HeavyRainfall';
 import SwirlingCurrents from './modules/shadowlands/conduits/SwirlingCurrents';
+import NaturesFocus from './modules/shadowlands/conduits/NaturesFocus';
+// Legendaries
+import PrimalTideCore from './modules/shadowlands/legendaries/PrimalTideCore'
+import JonatsNaturalFocus from './modules/shadowlands/legendaries/JonatsNaturalFocus'
+import EarthenHarmony from './modules/shadowlands/legendaries/EarthenHarmony'
 // Shared
 import SpiritWolf from '../shared/talents/SpiritWolf';
 import StaticCharge from '../shared/talents/StaticCharge';
@@ -94,7 +100,7 @@ class CombatLogParser extends CoreCombatLogParser {
     spellUsable: SpellUsable,
     statValues: StatValues,
 
-    // Talents:
+    // Talents
     torrent: Torrent,
     unleashLife: UnleashLife,
     undulation: Undulation,
@@ -112,7 +118,7 @@ class CombatLogParser extends CoreCombatLogParser {
     ancestralProtectionTotem: AncestralProtectionTotem,
     talentStatisticBox: TalentStatisticBox,
 
-    // Spells:
+    // Spells
     chainHeal: ChainHeal,
     healingSurge: HealingSurge,
     healingRain: HealingRain,
@@ -120,9 +126,10 @@ class CombatLogParser extends CoreCombatLogParser {
     lavaSurge: LavaSurge,
     resurgence: Resurgence,
     manaTideTotem: ManaTideTotem,
+    waterShield: WaterShield,
     spiritLinkDamageReduction: SpiritLinkDamageReduction,
 
-    // Shared:
+    // Shared
     spiritWolf: SpiritWolf,
     staticCharge: StaticCharge,
     astralShift: AstralShift,
@@ -131,13 +138,19 @@ class CombatLogParser extends CoreCombatLogParser {
     // Essences
     lucidDreams: LucidDreams,
 
-    // Normalizers:
+    // Normalizers
     cloudburstNormalizer: CloudburstNormalizer,
 
-    // Potency Conduits
+    // Conduits
     embraceOfEarth: EmbraceOfEarth,
     heavyRainfall: HeavyRainfall,
     swirlingCurrents: SwirlingCurrents,
+    naturesFocus: NaturesFocus,
+
+    // Legendaries
+    primalTideCore: PrimalTideCore,
+    jonatsNaturalFocus: JonatsNaturalFocus,
+    earthenHarmony: EarthenHarmony,
   };
 
   generateResults(options: any) {

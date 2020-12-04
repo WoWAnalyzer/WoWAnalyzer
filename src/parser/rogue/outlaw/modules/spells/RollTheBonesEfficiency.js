@@ -29,13 +29,13 @@ class RollTheBonesEfficiency extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = !this.selectedCombatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id);
+    this.active = !this.selectedCombatant.hasTalent(SPELLS.SLICE_AND_DICE.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.DISPATCH, SPELLS.BETWEEN_THE_EYES]), this.onCast);
   }
 
   get goodLowValueRolls(){
     const delayedRolls = this.rollTheBonesCastTracker.rolltheBonesCastValues[ROLL_THE_BONES_CATEGORIES.LOW_VALUE]
-      .filter(cast => cast.RTB_IsDelayed).length;
+      .filter(cast => cast.RTBIsDelayed).length;
     const totalRolls = this.rollTheBonesCastTracker.rolltheBonesCastValues[ROLL_THE_BONES_CATEGORIES.LOW_VALUE].length;
 
     return totalRolls - delayedRolls;
@@ -60,7 +60,7 @@ class RollTheBonesEfficiency extends Analyzer {
     const lastCast = this.rollTheBonesCastTracker.lastCast;
     if(lastCast && this.rollTheBonesCastTracker.categorizeCast(lastCast) === ROLL_THE_BONES_CATEGORIES.LOW_VALUE){
       //FIX WHEN UPDATING ROGUE TO TS
-      lastCast.RTB_IsDelayed = true;
+      lastCast.RTBIsDelayed = true;
     }
   }
 

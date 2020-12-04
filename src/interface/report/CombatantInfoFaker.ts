@@ -2,34 +2,35 @@ import SPECS from 'game/SPECS';
 import { specificGearSets } from 'interface/report/CombatantInfoFakerGearsets';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import SOULBINDS from 'game/shadowlands/SOULBINDS';
-import { Conduit, Covenant, Soulbind } from 'parser/core/Events';
+import { CombatantInfo } from 'parser/core/Combatant';
 
 const debugGear = false;
 
 type FakeInfo = {
-  covenant: Covenant,
-  soulbind: Soulbind,
-  conduits: Conduit[]
+  covenantID: CombatantInfo['covenantID'],
+  soulbindID: CombatantInfo['soulbindID'],
+  heartOfAzeroth: CombatantInfo['heartOfAzeroth'],
+  artifact?: CombatantInfo['artifact'],
   legendaryInfo: { slotId: number, bonusId: number } //slotId 0 would be head slot, and bonusID is the bonusID that is added to an item with the given legendary effect
 }
 
 const SPEC_CONFIGS: { [specId: number]: FakeInfo } = {
   [SPECS.MARKSMANSHIP_HUNTER.id]: {
-    covenant: COVENANTS.VENTHYR,
-    soulbind: SOULBINDS.GENERAL_DRAVEN,
-    conduits: [{ spellID: 340033, name: 'Powerful Precision', icon: 'ability_hunter_markedshot', soulbindConduitID: 199, rank: 1 }],
+    covenantID: COVENANTS.VENTHYR.id,
+    soulbindID: SOULBINDS.GENERAL_DRAVEN.id,
+    heartOfAzeroth: [{ traitID: 199, rank: 1, spellID: 340033, icon: 'ability_hunter_markedshot' }],
     legendaryInfo: { slotId: 0, bonusId: 7003 },
   },
   [SPECS.BEAST_MASTERY_HUNTER.id]: {
-    covenant: COVENANTS.NIGHT_FAE,
-    soulbind: SOULBINDS.NIYA,
-    conduits: [{ spellID: 339750, name: 'One With the Beast', icon: 'spell_winston_rage', soulbindConduitID: 185, rank: 1 }],
+    covenantID: COVENANTS.NIGHT_FAE.id,
+    soulbindID: SOULBINDS.NIYA.id,
+    heartOfAzeroth: [{ traitID: 185, rank: 1, spellID: 339750, icon: 'spell_winston_rage' }],
     legendaryInfo: { slotId: 0, bonusId: 7003 },
   },
   [SPECS.FROST_MAGE.id]: {
-    covenant: COVENANTS.VENTHYR,
-    soulbind: SOULBINDS.NADJIA_THE_MISTBLADE,
-    conduits: [{ spellID: 336569, name: 'Ice Bite', icon: 'spell_frost_frostblast', soulbindConduitID: 21, rank: 1 }],
+    covenantID: COVENANTS.VENTHYR.id,
+    soulbindID: SOULBINDS.NADJIA_THE_MISTBLADE.id,
+    heartOfAzeroth: [{ traitID: 21, rank: 1, spellID: 336569, icon: 'spell_frost_frostblast' }],
     legendaryInfo: { slotId: 14, bonusId: 6828 },
   },
 };
@@ -39,9 +40,10 @@ export function generateFakeCombatantInfo(player: any) {
   fakedPlayer.gear = fakeGearGenerator(player.specID);
   fakedPlayer.gear = fakeLegendaryGeneration(player.gear, SPEC_CONFIGS[player.specID]?.legendaryInfo);
   fakedPlayer.auras = fakeBuffGenerator();
-  fakedPlayer.covenant = SPEC_CONFIGS[player.specID]?.covenant;
-  fakedPlayer.soulbind = SPEC_CONFIGS[player.specID]?.soulbind;
-  fakedPlayer.conduits = SPEC_CONFIGS[player.specID]?.conduits;
+  fakedPlayer.covenantID = SPEC_CONFIGS[player.specID]?.covenantID;
+  fakedPlayer.soulbindID = SPEC_CONFIGS[player.specID]?.soulbindID;
+  fakedPlayer.heartOfAzeroth = SPEC_CONFIGS[player.specID]?.heartOfAzeroth;
+  fakedPlayer.artifact = SPEC_CONFIGS[player.specID]?.artifact;
   fakedPlayer.error = null;
   return fakedPlayer;
 }

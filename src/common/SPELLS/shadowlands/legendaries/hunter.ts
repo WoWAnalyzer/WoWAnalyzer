@@ -1,4 +1,4 @@
-import { SpellList, LegendarySpell } from "common/SPELLS/Spell";
+import { LegendarySpell, SpellList } from 'common/SPELLS/Spell';
 
 const legendaries: SpellList<LegendarySpell> = {
   //region Beast Mastery
@@ -40,6 +40,11 @@ const legendaries: SpellList<LegendarySpell> = {
     icon: 'ability_trueshot',
     bonusID: 7011,
   },
+  EAGLETALONS_TRUE_FOCUS_BUFF: {
+    id: 336851,
+    name: 'Eagletalon\'s True Focus',
+    icon: 'ability_trueshot',
+  },
   SURGING_SHOTS_EFFECT: {
     id: 336867,
     name: 'Surging Shots',
@@ -58,16 +63,12 @@ const legendaries: SpellList<LegendarySpell> = {
     icon: 'inv_trickshot',
     bonusID: 7014,
   },
-  EAGLETALONS_TRUE_FOCUS_BUFF: {
-    id: 336851,
-    name: 'Eagletalon\'s True Focus',
-    icon: 'ability_trueshot',
-  },
   SECRETS_OF_THE_UNBLINKING_VIGIL_BUFF: {
     id: 336892,
     name: 'Secrets of the Unblinking Vigil',
     icon: 'inv_trickshot',
   },
+
   //endregion
 
   //region Survival
@@ -114,11 +115,16 @@ const legendaries: SpellList<LegendarySpell> = {
     icon: 'ability_hunter_invigeration',
     bonusID: 7003,
   },
-  NESSINGWARYS_TRAPPING_APPARATUS_EFFECT: {
+  NESINGWARYS_TRAPPING_APPARATUS_EFFECT: {
     id: 336743,
-    name: 'Nessingwary\'s Trapping Apparatus',
+    name: 'Nesingwary\'s Trapping Apparatus',
     icon: 'ability_hunter_invigeration',
     bonusID: 7004,
+  },
+  NESINGWARYS_TRAPPING_APPARATUS_ENERGIZE: {
+    id: 336744,
+    name: 'Nesingwary\'s Trapping Apparatus',
+    icon: 'ability_hunter_traplauncher',
   },
   SOULFORGE_EMBERS_EFFECT: {
     id: 336745,
@@ -126,21 +132,16 @@ const legendaries: SpellList<LegendarySpell> = {
     icon: 'ability_warlock_burningembers',
     bonusID: 7005,
   },
+  SOULFORGE_EMBERS_DAMAGE: {
+    id: 336746,
+    name: 'Soulforge Embers',
+    icon: 'ability_warlock_burningembers',
+  },
   CRAVEN_STRATEGEM_EFFECT: {
     id: 336747,
     name: 'Craven Strategem',
     icon: 'ability_rogue_feigndeath',
     bonusID: 7006,
-  },
-  NESSINGWARYS_TRAPPING_APPARATUS_ENERGIZE: {
-    id: 336744,
-    name: 'Nessingwary\'s Trapping Apparatus',
-    icon: 'ability_hunter_traplauncher',
-  },
-  SOULFORGE_EMBERS_DAMAGE: {
-    id: 336746,
-    name: 'Soulforge Embers',
-    icon: 'ability_warlock_burningembers',
   },
   //endregion
 };

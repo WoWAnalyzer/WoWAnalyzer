@@ -1,5 +1,5 @@
 import React from 'react';
-import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Stui, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8, fluffels, Draenal, JeremyDwayne, axelkic, Khazak, layday, Vetyst, Moonrabbit, AdamKelly, ChristopherKiss, ChagriAli, Barter, Ssabbar, Jafowler, Guyius, Amani } from 'CONTRIBUTORS';
+import { Abelito75, ackwell, AdamKelly, Aelexe, Amani, Amrux, Anatta336, axelkic, Barter, blazyb, ChagriAli, Chizu, ChristopherKiss, Dambroda, Dorixius, Draenal, emallson, fluffels, Fyruna, Gebuz, Guyius, Haelrail, Hartra344, HawkCorrigan, HolySchmidt, Hordehobbs, Jafowler, JeremyDwayne, jos3p, joshinator, Juko8, Khadaj, Khazak, Kruzershtern, layday, Mae, Mamtooth, Matardarix, Moonrabbit, Nalhan, niseko, Putro, Qbz, Satyric, Scotsoo, Sharrq, Ssabbar, Stui, Vetyst, Viridis, Yajinni, Zeboot, Zerotorescue } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -7,14 +7,34 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
-
 // prettier-ignore
 export default [
+  change(date(2020, 12, 3), 'Removed Azerite Overview from the character panel', niseko),
+  change(date(2020, 12, 1), 'Added Weapon Oils and Sharpening Stones/Weightstones to Checklist and added Weapon Enchants', Sharrq),
+  change(date(2020, 11, 23), 'Updated i18n ids', jos3p),
+  change(date(2020, 11, 19), 'Final Interface and Restoration Shaman localization, correction of typos', Amani),
+  change(date(2020, 11, 15), 'Added ability to get the active time/downtime for a specified time frame', Sharrq),
+  change(date(2020, 11, 7), 'Adjust our Soulbind, Covenant, Conduit scripts per latest raid testing', Putro),
+  change(date(2020, 11, 4), 'Migrate Castle Nathria to TS', Guyius),
+  change(date(2020, 11, 2), 'Converted the following components to TypeScript: ItemLink, ResourceLink, Rule and Expandable', Mae),
+  change(date(2020, 10, 31), 'Update several component to Typescript and refactor to hooks', Guyius),
+  change(date(2020, 11, 1), 'Eliminated x-axis padding in several charts.', emallson),
+  change(date(2020, 11, 1), 'Shifted all spells to use the same generic Spell type', Putro),
+  change(date(2020, 10, 31), 'Added IDs to i18n of PlayerLoader', jos3p),
+  change(date(2020, 10, 31), 'Added i18n of Premium page', jos3p),
+  change(date(2020, 10, 29), 'Update game components to Typescript', jos3p),
+  change(date(2020, 10, 29), 'Update ResourceTracker to TypeScript', Khazak),
+  change(date(2020, 10, 29), 'Updated Potions Checklist items to show potions used instead of pre Potions/second Potions.', Sharrq),
+  change(date(2020, 10, 29), 'Update several component to Typescript, center player name in player gear header', Guyius),
+  change(date(2020, 10, 28), 'Added more translateable elements.', niseko),
+  change(date(2020, 10, 27), 'Fix encounter stats on the character pane', joshinator),
+  change(date(2020, 10, 27), 'Russian localization of Interface and Restoration Shaman', [Amani, Haelrail, Kruzershtern]),
+  change(date(2020, 10, 25), 'Enabled additional code quality rule (enforce camelcase).', Zeboot),
   change(date(2020, 10, 25), 'Update PlayerTile, characters to Typescript, create new HOA type file, refactor PlayerTile to hooks', Guyius),
   change(date(2020, 10, 25), 'Fixed Healing Efficiency Tracker showing errors', niseko),
   change(date(2020, 10, 24), 'Update Regular Article to Typescript', Ssabbar),
   change(date(2020, 10, 24), 'Update PlayerSection to Typescript', Guyius),
-  change(date(2020, 10, 23), 'Added initial Russian localization', Amani),
+  change(date(2020, 10, 23), 'Added initial Russian localization', [Amani, Haelrail, Kruzershtern]),
   change(date(2020, 10, 23), 'Healing Efficiency Tracker TypeScript conversion', niseko),
   change(date(2020, 10, 22), 'Update Footer to Typescript', Ssabbar),
   change(date(2020, 10, 22), 'Update Progressbar to Typescript', Guyius),
@@ -22,7 +42,7 @@ export default [
   change(date(2020, 10, 21), 'Update to "2018-01-31-1st-Anniversary" Typescript', ChagriAli),
   change(date(2020, 10, 19), 'Converted Boring components to TypeScript', Khazak),
   change(date(2020, 10, 19), 'Updated some react components, and adjusted our ContributorDetails modal to more accurately show what it represents', Putro),
-  change(date(2020, 10, 19), 'Removed legacy event listener support', Zeboot),
+  change(date(2020, 10, 19), 'Removed legacy event listener support and enabled camelcase lint rule', Zeboot),
   change(date(2020, 10, 18), 'Updated talent row levels.', Abelito75),
   change(date(2020, 10, 18), 'Added drain event', Zeboot),
   change(date(2020, 10, 18), 'Converted components in interface/common to functional components in TypeScript.', Barter),

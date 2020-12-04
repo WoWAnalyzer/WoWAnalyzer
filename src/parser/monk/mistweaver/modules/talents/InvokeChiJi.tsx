@@ -1,5 +1,5 @@
 import React from 'react';
-import {Trans} from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import BoringValueText from 'interface/statistics/components/BoringValueText';
 import Analyzer, {Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
@@ -148,7 +148,7 @@ class InvokeChiJi extends Analyzer {
           category={STATISTIC_CATEGORY.TALENTS}
           size="flexible"
           tooltip={
-            <Trans>
+            <Trans id="monk.mistweaver.modules.talents.invokeChiJi.breakdown">
                   Healing Breakdown:
                   <ul>
                     <li>{formatNumber(this.gustHealing)} healing from Chi-Ji Gust of Mist.</li>
@@ -172,7 +172,9 @@ class InvokeChiJi extends Analyzer {
           >
             <>
             <ItemHealingDone amount={this.gustHealing + this.envelopHealing} /><br />
-            {formatNumber(this.missedGlobals)} missed GCDs
+            <Trans id="monk.mistweaver.modules.talents.invokeChiJi.missedGCDs">
+              {formatNumber(this.missedGlobals)} missed GCDs
+            </Trans>
             </>
           </BoringValueText>
         </Statistic>

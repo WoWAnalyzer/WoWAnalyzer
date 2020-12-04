@@ -26,12 +26,12 @@ exports[`Blood Death Knight integration test: example log AlwaysBeCasting matche
             src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
           />
            
-          Downtime
+          shared.alwaysBeCasting.statistic.label
         </label>
         <div
           className="value"
         >
-          39.80 %
+          32.29 %
         </div>
         <div
           style={
@@ -50,7 +50,7 @@ exports[`Blood Death Knight integration test: example log AlwaysBeCasting matche
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "60.19854106744514%",
+                  "width": "67.70891892254836%",
                 }
               }
             >
@@ -112,7 +112,7 @@ Array [
       />
     </React.Fragment>,
     "stat": <React.Fragment>
-      39.80% downtime
+      32.29% downtime
        (
       &lt;20.00% is recommended
       )
@@ -138,6 +138,7 @@ exports[`Blood Death Knight integration test: example log ArchiveOfTheTitans mat
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=280555"
             rel="noopener noreferrer"
             target="_blank"
@@ -150,6 +151,7 @@ exports[`Blood Death Knight integration test: example log ArchiveOfTheTitans mat
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=280555"
             rel="noopener noreferrer"
             target="_blank"
@@ -182,6 +184,7 @@ exports[`Blood Death Knight integration test: example log ArchiveOfTheTitans mat
           <small>
             Enabled the 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=280573"
               rel="noopener noreferrer"
               target="_blank"
@@ -218,6 +221,7 @@ exports[`Blood Death Knight integration test: example log BloodPlagueUptime matc
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=55078"
             rel="noopener noreferrer"
             target="_blank"
@@ -230,6 +234,7 @@ exports[`Blood Death Knight integration test: example log BloodPlagueUptime matc
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=55078"
             rel="noopener noreferrer"
             target="_blank"
@@ -278,6 +283,7 @@ exports[`Blood Death Knight integration test: example log Blooddrinker matches t
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=206931"
             rel="noopener noreferrer"
             target="_blank"
@@ -290,6 +296,7 @@ exports[`Blood Death Knight integration test: example log Blooddrinker matches t
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=206931"
             rel="noopener noreferrer"
             target="_blank"
@@ -348,6 +355,7 @@ exports[`Blood Death Knight integration test: example log Bloodworms matches the
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=195679"
             rel="noopener noreferrer"
             target="_blank"
@@ -360,6 +368,7 @@ exports[`Blood Death Knight integration test: example log Bloodworms matches the
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=195679"
             rel="noopener noreferrer"
             target="_blank"
@@ -428,6 +437,7 @@ exports[`Blood Death Knight integration test: example log BoneShield matches the
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=195181"
             rel="noopener noreferrer"
             target="_blank"
@@ -440,6 +450,7 @@ exports[`Blood Death Knight integration test: example log BoneShield matches the
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=195181"
             rel="noopener noreferrer"
             target="_blank"
@@ -512,6 +523,7 @@ exports[`Blood Death Knight integration test: example log Bonestorm matches the 
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=194844"
             rel="noopener noreferrer"
             target="_blank"
@@ -567,12 +579,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
         }
       }
     >
-      <a
-        href="#Abilities"
-        id="Abilities"
-      >
-        Abilities
-      </a>
+      common.abilities
     </h1>
   </div>
   <div
@@ -652,6 +659,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=50842"
                 rel="noopener noreferrer"
                 style={
@@ -695,7 +703,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               27
-              /50
+              /34
                
               casts
             </td>
@@ -714,7 +722,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "54.66125424064838%",
+                      "width": "79.85322153749708%",
                     }
                   }
                 />
@@ -729,7 +737,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 }
               }
             >
-              54.66%
+              79.85%
             </td>
             <td
               style={
@@ -751,6 +759,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=206931"
                 rel="noopener noreferrer"
                 style={
@@ -850,6 +859,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=49998"
                 rel="noopener noreferrer"
                 style={
@@ -935,6 +945,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=195292"
                 rel="noopener noreferrer"
                 style={
@@ -1020,6 +1031,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=43265"
                 rel="noopener noreferrer"
                 style={
@@ -1117,6 +1129,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=206930"
                 rel="noopener noreferrer"
                 style={
@@ -1202,6 +1215,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=195182"
                 rel="noopener noreferrer"
                 style={
@@ -1336,6 +1350,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=194844"
                 rel="noopener noreferrer"
                 style={
@@ -1482,6 +1497,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=46585"
                 rel="noopener noreferrer"
                 style={
@@ -1628,6 +1644,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=48792"
                 rel="noopener noreferrer"
                 style={
@@ -1727,6 +1744,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=55233"
                 rel="noopener noreferrer"
                 style={
@@ -1826,6 +1844,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=48707"
                 rel="noopener noreferrer"
                 style={
@@ -1925,6 +1944,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=51052"
                 rel="noopener noreferrer"
                 style={
@@ -2022,6 +2042,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=194679"
                 rel="noopener noreferrer"
                 style={
@@ -2170,6 +2191,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=49028"
                 rel="noopener noreferrer"
                 style={
@@ -2316,6 +2338,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=111673"
                 rel="noopener noreferrer"
                 style={
@@ -2450,6 +2473,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=47528"
                 rel="noopener noreferrer"
                 style={
@@ -2547,6 +2571,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=56222"
                 rel="noopener noreferrer"
                 style={
@@ -2644,6 +2669,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=49576"
                 rel="noopener noreferrer"
                 style={
@@ -2741,6 +2767,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=48265"
                 rel="noopener noreferrer"
                 style={
@@ -2838,6 +2865,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=108199"
                 rel="noopener noreferrer"
                 style={
@@ -2935,6 +2963,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=61999"
                 rel="noopener noreferrer"
                 style={
@@ -3020,6 +3049,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=221562"
                 rel="noopener noreferrer"
                 style={
@@ -3166,6 +3196,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=6262"
                 rel="noopener noreferrer"
                 style={
@@ -3263,6 +3294,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171267"
                 rel="noopener noreferrer"
                 style={
@@ -3360,6 +3392,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171273"
                 rel="noopener noreferrer"
                 style={
@@ -3470,14 +3503,16 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 0,
@@ -3488,7 +3523,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "50",
@@ -3511,14 +3547,16 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 1,
@@ -3529,7 +3567,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "50",
@@ -3542,7 +3581,7 @@ Array [
   Object {
     "details": null,
     "icon": "spell_deathknight_bloodboil",
-    "importance": "major",
+    "importance": "regular",
     "issue": <React.Fragment>
       <WithI18n
         components={
@@ -3552,25 +3591,28 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       Should be casting it so you have at least one recharging.
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 27,
-            "1": 50,
-            "2": "55",
+            "1": 34,
+            "2": "80",
           }
         }
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "85",
@@ -3593,14 +3635,16 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       Mostly used as a dps CD. Should be almost casted on CD. Good to use when your running to the boss or cant melee them.
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 4,
@@ -3611,7 +3655,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "90",
@@ -3634,14 +3679,16 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 1,
@@ -3652,7 +3699,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "50",
@@ -3675,14 +3723,16 @@ Array [
             />,
           ]
         }
-        id="Try to cast <0/> more often."
+        defaults="Try to cast <0/> more often."
+        id="shared.modules.castEfficiency.suggest"
       />
        
       Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.
     </React.Fragment>,
     "stat": <React.Fragment>
       <WithI18n
-        id="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        id="shared.modules.castEfficiency.actual"
         values={
           Object {
             "0": 0,
@@ -3693,7 +3743,8 @@ Array [
       />
        (
       <WithI18n
-        id=">{0}% is recommended"
+        defaults=">{0}% is recommended"
+        id="shared.modules.castEfficiency.recommended"
         values={
           Object {
             "0": "50",
@@ -3722,6 +3773,7 @@ exports[`Blood Death Knight integration test: example log CrimsonScourge matches
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=81141"
             rel="noopener noreferrer"
             target="_blank"
@@ -3734,6 +3786,7 @@ exports[`Blood Death Knight integration test: example log CrimsonScourge matches
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=81141"
             rel="noopener noreferrer"
             target="_blank"
@@ -3813,7 +3866,7 @@ exports[`Blood Death Knight integration test: example log DarkmoonDeckFathoms ma
       >
         <label>
           <a
-            className="unknown"
+            className="unknownitem-link-text"
             href="http://wowhead.com/item=159125"
             rel="noopener noreferrer"
             target="_blank"
@@ -3827,7 +3880,7 @@ exports[`Blood Death Knight integration test: example log DarkmoonDeckFathoms ma
           </a>
            
           <a
-            className="unknown"
+            className="unknownitem-link-text"
             href="http://wowhead.com/item=159125"
             rel="noopener noreferrer"
             target="_blank"
@@ -4215,6 +4268,7 @@ exports[`Blood Death Knight integration test: example log Gutripper matches the 
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=266937"
             rel="noopener noreferrer"
             target="_blank"
@@ -4227,6 +4281,7 @@ exports[`Blood Death Knight integration test: example log Gutripper matches the 
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=266937"
             rel="noopener noreferrer"
             target="_blank"
@@ -4283,6 +4338,7 @@ exports[`Blood Death Knight integration test: example log HeedMyCall matches the
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=263987"
             rel="noopener noreferrer"
             target="_blank"
@@ -4295,6 +4351,7 @@ exports[`Blood Death Knight integration test: example log HeedMyCall matches the
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=263987"
             rel="noopener noreferrer"
             target="_blank"
@@ -4347,6 +4404,7 @@ exports[`Blood Death Knight integration test: example log Hemostasis matches the
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=273946"
             rel="noopener noreferrer"
             target="_blank"
@@ -4359,6 +4417,7 @@ exports[`Blood Death Knight integration test: example log Hemostasis matches the
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=273946"
             rel="noopener noreferrer"
             target="_blank"
@@ -4419,6 +4478,7 @@ exports[`Blood Death Knight integration test: example log LaserMatrix matches th
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=280559"
             rel="noopener noreferrer"
             target="_blank"
@@ -4431,6 +4491,7 @@ exports[`Blood Death Knight integration test: example log LaserMatrix matches th
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=280559"
             rel="noopener noreferrer"
             target="_blank"
@@ -4449,6 +4510,7 @@ exports[`Blood Death Knight integration test: example log LaserMatrix matches th
           <br />
           Gained 
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=280573"
             rel="noopener noreferrer"
             target="_blank"
@@ -4501,6 +4563,7 @@ exports[`Blood Death Knight integration test: example log MarrowrendUsage matche
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=195182"
             rel="noopener noreferrer"
             target="_blank"
@@ -4513,6 +4576,7 @@ exports[`Blood Death Knight integration test: example log MarrowrendUsage matche
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=195182"
             rel="noopener noreferrer"
             target="_blank"
@@ -4575,6 +4639,7 @@ exports[`Blood Death Knight integration test: example log MitigationCheck matche
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=195181"
             rel="noopener noreferrer"
             target="_blank"
@@ -4635,46 +4700,100 @@ exports[`Blood Death Knight integration test: example log MitigationCheck matche
 </div>
 `;
 
-exports[`Blood Death Knight integration test: example log PrePotion matches the suggestions snapshot 1`] = `
+exports[`Blood Death Knight integration test: example log PotionChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
     "icon": "inv_alchemy_90_combat2_yellow",
     "importance": "minor",
-    "issue": <React.Fragment>
-      You forgot to use a potion during combat. Using a potion during combat allows you the benefit of 
-      
-       increasing output through 
-      <ItemLink
-        icon={true}
-        id={171275}
-      />
-      
-      . 
-      
-    </React.Fragment>,
-    "stat": null,
-  },
-  Object {
-    "details": null,
-    "icon": "inv_alchemy_90_combat2_yellow",
-    "importance": "minor",
-    "issue": <React.Fragment>
-      You used a weak potion. 
-      <ItemLink
-        icon={true}
-        id={171275}
-      />
-       can be used instead of 
-      <ItemLink
-        icon={true}
-        id={171275}
-      />
-       in order to get a slightly higher damage output.
-    </React.Fragment>,
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            icon={true}
+            id={171275}
+          />,
+          <ItemLink
+            icon={true}
+            id={171275}
+          />,
+        ]
+      }
+      defaults="You used a weak potion. <0/> can be used instead of <1/> in order to get a slightly higher damage output."
+      id="shared.modules.items.potionChecker.suggestions.weakPotion"
+    />,
     "stat": null,
   },
 ]
+`;
+
+exports[`Blood Death Knight integration test: example log RuneOfTheFallenCrusader matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic flexible "
+    position={1002}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=53344"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Rune of the Fallen Crusader"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_holy_retributionaura.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=53344"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Rune of the Fallen Crusader
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          11.00
+           % 
+          <small>
+            average Strength
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
 `;
 
 exports[`Blood Death Knight integration test: example log RuneTracker matches the statistic snapshot 1`] = `
@@ -4716,7 +4835,7 @@ exports[`Blood Death Knight integration test: example log RuneTracker matches th
           className="flex-main value"
         >
           <div>
-            43.20 %
+            16.86 %
           </div>
           <small>
             Runes overcapped
@@ -4769,14 +4888,14 @@ Array [
   Object {
     "details": null,
     "icon": "spell_deathknight_frozenruneweapon",
-    "importance": "major",
+    "importance": "regular",
     "issue": <React.Fragment>
       You overcapped 
-      43.20
+      16.86
       % of your runes. Try to always have at least 3 runes on cooldown.
     </React.Fragment>,
     "stat": <React.Fragment>
-      43.20% runes overcapped
+      16.86% runes overcapped
        (
       &lt;5.00% is recommended
       )
@@ -4865,7 +4984,7 @@ exports[`Blood Death Knight integration test: example log SyringeOfBloodborneInf
       >
         <label>
           <a
-            className="unknown"
+            className="unknownitem-link-text"
             href="http://wowhead.com/item=160655"
             rel="noopener noreferrer"
             target="_blank"
@@ -4879,7 +4998,7 @@ exports[`Blood Death Knight integration test: example log SyringeOfBloodborneInf
           </a>
            
           <a
-            className="unknown"
+            className="unknownitem-link-text"
             href="http://wowhead.com/item=160655"
             rel="noopener noreferrer"
             target="_blank"
@@ -5237,6 +5356,52 @@ exports[`Blood Death Knight integration test: example log ThroughputStatisticGro
 </div>
 `;
 
+exports[`Blood Death Knight integration test: example log WeaponEnhancementChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_sword_2h_nazmirraid_d_01.jpg",
+    "importance": "regular",
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4800,
+                  1512,
+                  4783,
+                ],
+                "icon": "inv_sword_2h_nazmirraid_d_01.jpg",
+                "id": 160686,
+                "itemLevel": 390,
+                "permanentEnchant": 3368,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={160686}
+            quality={4}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone) . Apply an enhancement to very easily increase your throughput slightly."
+      id="shared.weaponEnhancementChecker.suggestions.noWeaponEnhancement.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Weapon"
+            id="common.slots.weapon"
+          />,
+        }
+      }
+    />,
+    "stat": null,
+  },
+]
+`;
+
 exports[`Blood Death Knight integration test: example log WillOfTheNecropolis matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -5254,6 +5419,7 @@ exports[`Blood Death Knight integration test: example log WillOfTheNecropolis ma
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=206967"
             rel="noopener noreferrer"
             target="_blank"
@@ -5266,6 +5432,7 @@ exports[`Blood Death Knight integration test: example log WillOfTheNecropolis ma
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=206967"
             rel="noopener noreferrer"
             target="_blank"
@@ -5342,8 +5509,8 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#df7102",
-                  "width": "41.65655928648794%",
+                  "backgroundColor": "#ffc84a",
+                  "width": "61.71060338775207%",
                 }
               }
             />
@@ -5416,6 +5583,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=50842"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5448,7 +5616,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  54.66%
+                  79.85%
                    
                    
                 </div>
@@ -5468,9 +5636,9 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "26.003139517337022%",
+                        "width": "66.11122771986528%",
                       }
                     }
                   />
@@ -5488,6 +5656,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=206931"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5580,7 +5749,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "80.9104621835931%",
+                  "width": "85.9384764770437%",
                 }
               }
             />
@@ -5733,7 +5902,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  56.80%
+                  83.14%
                    
                    
                 </div>
@@ -5753,9 +5922,9 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "23.641848734372424%",
+                        "width": "43.75390590817477%",
                       }
                     }
                   />
@@ -5773,6 +5942,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=195182"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5846,6 +6016,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=195292"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -6012,6 +6183,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=49028"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -6084,6 +6256,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=194844"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -6250,6 +6423,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=55078"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -6323,6 +6497,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=195181"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -6489,6 +6664,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=55233"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -6561,6 +6737,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=48792"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -6633,6 +6810,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=48707"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -6712,7 +6890,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
         <div
           className="flex-main name"
         >
-          Be well prepared
+          shared.modules.features.checklist.wellPrepared
         </div>
         <div
           className="flex-sub perf"
@@ -6782,7 +6960,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
           <div
             className="col-md-12"
           >
-            Being well prepared with food, flasks, potions and enchants is an easy way to improve your performance.
+            shared.modules.features.checklist.wellPreparedDetails
           </div>
         </div>
         <div
@@ -6797,7 +6975,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                All items enchanted
+                shared.modules.features.checklist.enchanted
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6858,7 +7036,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                Using high quality enchants
+                shared.modules.features.checklist.enchantedHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6919,7 +7097,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                Used a pre-potion
+                All weapons enhanced (oils/stones)
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6940,8 +7118,131 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  common.yes
+                  0
                    
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Using high quality weapon enhancements
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                shared.modules.features.checklist.combatPotionsUsed
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  2
+                   
+                  / 1
                    
                 </div>
               </div>
@@ -6962,7 +7263,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                       Object {
                         "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "200%",
                       }
                     }
                   />
@@ -6979,7 +7280,68 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                Used a second potion
+                shared.modules.features.checklist.highQualityCombatPotionsUsed
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                shared.modules.features.checklist.flaskHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -7039,7 +7401,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                Used a high quality pre-potion
+                shared.modules.features.checklist.flask
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -7099,7 +7461,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                High quality flask used
+                shared.modules.features.checklist.foodHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -7159,127 +7521,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                Flask used
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  common.no
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                High quality food used
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  common.no
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                Food used
+                shared.modules.features.checklist.food
               </div>
               <div
                 className="flex-sub content-middle text-muted"

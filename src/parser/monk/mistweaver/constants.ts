@@ -37,3 +37,7 @@ export function conduitScaling(rankOne: number, requiredRank: number){
 export const NOURISHING_CHI_RANK_ONE = .1875;
 export const JADE_BOND_RANK_ONE = .0625;
 export const RISING_SUN_REVIVAL = .125;
+
+export const LIFECYCLES_MANA_PERC_REDUCTION = 0.25;
+
+export const TEACHINGS_OF_THE_MONASTERY_DURATION = 20000;

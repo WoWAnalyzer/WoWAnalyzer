@@ -6,7 +6,6 @@ import SPELLS from 'common/SPELLS';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Events from 'parser/core/Events';
 import { KILL_SHOT_EXECUTE_RANGE } from 'parser/hunter/shared/constants';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
@@ -16,17 +15,13 @@ import ExecuteHelper from 'parser/shared/ExecuteHelper';
 import FlayedShot from 'parser/hunter/shared/modules/spells/covenants/venthyr/FlayedShot';
 
 class KillShot extends ExecuteHelper {
-  static executeSpells = [
-    SPELLS.KILL_SHOT_SV,
-    SPELLS.KILL_SHOT_MM_BM,
-  ];
   static executeSources = SELECTED_PLAYER;
   static lowerThreshold = KILL_SHOT_EXECUTE_RANGE;
   static executeOutsideRangeEnablers = [SPELLS.FLAYERS_MARK];
   static modifiesDamage = false;
 
   static dependencies = {
-    spellUsable: SpellUsable,
+    ...ExecuteHelper.dependencies,
     abilities: Abilities,
     flayedShot: FlayedShot,
   };
@@ -34,7 +29,6 @@ class KillShot extends ExecuteHelper {
   maxCasts: number = 0;
   activeKillShotSpell = this.selectedCombatant.spec === SPECS.SURVIVAL_HUNTER ? SPELLS.KILL_SHOT_SV : SPELLS.KILL_SHOT_MM_BM;
 
-  protected spellUsable!: SpellUsable;
   protected abilities!: Abilities;
   protected flayedShot!: FlayedShot;
 
@@ -42,6 +36,8 @@ class KillShot extends ExecuteHelper {
     super(options);
 
     this.addEventListener(Events.fightend, this.adjustMaxCasts);
+    const ctor = this.constructor as typeof ExecuteHelper;
+    ctor.executeSpells.push(this.activeKillShotSpell);
 
     (options.abilities as Abilities).add({
       spell: this.activeKillShotSpell,

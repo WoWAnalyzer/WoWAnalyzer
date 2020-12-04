@@ -1,100 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Shadow Priest integration test: example log AlwaysBeCasting matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad"
-      >
-        <label>
-          <img
-            alt="Downtime"
-            className="icon game "
-            src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
-          />
-           
-          Downtime
-        </label>
-        <div
-          className="value"
-        >
-          9.38 %
-        </div>
-        <div
-          style={
-            Object {
-              "marginTop": "0.5em",
-            }
-          }
-        >
-          <div
-            className="statistic-box-bar"
-          >
-            <div
-              className="stat-health-bg"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={[Function]}
-              style={
-                Object {
-                  "width": "90.62281728342391%",
-                }
-              }
-            >
-              <img
-                alt="Active time"
-                src="/img/sword.png"
-              />
-            </div>
-            <div
-              className="remainder DeathKnight-bg"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={[Function]}
-            >
-              <img
-                alt="Downtime"
-                src="/img/afk.png"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`Shadow Priest integration test: example log AuspiciousSpirits matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -111,6 +16,7 @@ exports[`Shadow Priest integration test: example log AuspiciousSpirits matches t
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=155271"
             rel="noopener noreferrer"
             target="_blank"
@@ -123,6 +29,7 @@ exports[`Shadow Priest integration test: example log AuspiciousSpirits matches t
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=155271"
             rel="noopener noreferrer"
             target="_blank"
@@ -184,12 +91,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
         }
       }
     >
-      <a
-        href="#Abilities"
-        id="Abilities"
-      >
-        Abilities
-      </a>
+      common.abilities
     </h1>
   </div>
   <div
@@ -269,6 +171,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=205448"
                 rel="noopener noreferrer"
                 style={
@@ -312,7 +215,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               19
-              /15
+              /13
                
               casts
             </td>
@@ -366,6 +269,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=8092"
                 rel="noopener noreferrer"
                 style={
@@ -409,7 +313,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               24
-              /24
+              /22
                
               casts
             </td>
@@ -428,7 +332,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "100.26758284736079%",
+                      "width": "109.05240973823706%",
                     }
                   }
                 />
@@ -443,7 +347,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              100.27%
+              109.05%
             </td>
             <td
               style={
@@ -463,6 +367,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=15407"
                 rel="noopener noreferrer"
                 style={
@@ -548,6 +453,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=32379"
                 rel="noopener noreferrer"
                 style={
@@ -591,7 +497,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               1
-              /8
+              /7
                
               casts
             </td>
@@ -610,7 +516,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "13.408119198575399%",
+                      "width": "15.910635479125625%",
                     }
                   }
                 />
@@ -625,7 +531,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              13.41%
+              15.91%
             </td>
             <td
               style={
@@ -645,6 +551,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=589"
                 rel="noopener noreferrer"
                 style={
@@ -730,6 +637,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=335467"
                 rel="noopener noreferrer"
                 style={
@@ -815,6 +723,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=34914"
                 rel="noopener noreferrer"
                 style={
@@ -949,6 +858,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=48045"
                 rel="noopener noreferrer"
                 style={
@@ -1083,6 +993,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=228260"
                 rel="noopener noreferrer"
                 style={
@@ -1180,6 +1091,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=200174"
                 rel="noopener noreferrer"
                 style={
@@ -1277,6 +1189,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=265314"
                 rel="noopener noreferrer"
                 style={
@@ -1423,6 +1336,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=47585"
                 rel="noopener noreferrer"
                 style={
@@ -1520,6 +1434,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=15487"
                 rel="noopener noreferrer"
                 style={
@@ -1617,6 +1532,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=15286"
                 rel="noopener noreferrer"
                 style={
@@ -1714,6 +1630,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=17"
                 rel="noopener noreferrer"
                 style={
@@ -1757,7 +1674,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               4
-              /25
+              /22
                
               casts
             </td>
@@ -1776,7 +1693,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "13.382307154120523%",
+                      "width": "15.459564634362092%",
                     }
                   }
                 />
@@ -1791,7 +1708,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              13.38%
+              15.46%
             </td>
             <td
               style={
@@ -1811,6 +1728,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=186263"
                 rel="noopener noreferrer"
                 style={
@@ -1896,6 +1814,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=19236"
                 rel="noopener noreferrer"
                 style={
@@ -1993,6 +1912,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=73325"
                 rel="noopener noreferrer"
                 style={
@@ -2090,6 +2010,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=586"
                 rel="noopener noreferrer"
                 style={
@@ -2187,6 +2108,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=21562"
                 rel="noopener noreferrer"
                 style={
@@ -2272,6 +2194,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=1706"
                 rel="noopener noreferrer"
                 style={
@@ -2357,6 +2280,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=453"
                 rel="noopener noreferrer"
                 style={
@@ -2442,6 +2366,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=32375"
                 rel="noopener noreferrer"
                 style={
@@ -2539,6 +2464,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=528"
                 rel="noopener noreferrer"
                 style={
@@ -2624,6 +2550,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=605"
                 rel="noopener noreferrer"
                 style={
@@ -2709,6 +2636,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=9484"
                 rel="noopener noreferrer"
                 style={
@@ -2794,6 +2722,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=8122"
                 rel="noopener noreferrer"
                 style={
@@ -2891,6 +2820,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=2096"
                 rel="noopener noreferrer"
                 style={
@@ -2976,6 +2906,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=213634"
                 rel="noopener noreferrer"
                 style={
@@ -3073,6 +3004,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=232698"
                 rel="noopener noreferrer"
                 style={
@@ -3158,6 +3090,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=2006"
                 rel="noopener noreferrer"
                 style={
@@ -3292,6 +3225,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=6262"
                 rel="noopener noreferrer"
                 style={
@@ -3389,6 +3323,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171267"
                 rel="noopener noreferrer"
                 style={
@@ -3486,6 +3421,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=171273"
                 rel="noopener noreferrer"
                 style={
@@ -3602,6 +3538,7 @@ exports[`Shadow Priest integration test: example log DeadlyNavigation matches th
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=268905"
             rel="noopener noreferrer"
             target="_blank"
@@ -3614,6 +3551,7 @@ exports[`Shadow Priest integration test: example log DeadlyNavigation matches th
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=268905"
             rel="noopener noreferrer"
             target="_blank"
@@ -4106,6 +4044,7 @@ exports[`Shadow Priest integration test: example log EssenceOfTheFocusingIris ma
         >
           <label>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=299337"
               rel="noopener noreferrer"
               target="_blank"
@@ -4211,6 +4150,7 @@ exports[`Shadow Priest integration test: example log Gutripper matches the stati
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=266937"
             rel="noopener noreferrer"
             target="_blank"
@@ -4223,6 +4163,7 @@ exports[`Shadow Priest integration test: example log Gutripper matches the stati
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=266937"
             rel="noopener noreferrer"
             target="_blank"
@@ -4279,6 +4220,7 @@ exports[`Shadow Priest integration test: example log HeedMyCall matches the stat
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=263987"
             rel="noopener noreferrer"
             target="_blank"
@@ -4291,6 +4233,7 @@ exports[`Shadow Priest integration test: example log HeedMyCall matches the stat
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=263987"
             rel="noopener noreferrer"
             target="_blank"
@@ -4326,43 +4269,28 @@ exports[`Shadow Priest integration test: example log HeedMyCall matches the stat
 </div>
 `;
 
-exports[`Shadow Priest integration test: example log PrePotion matches the suggestions snapshot 1`] = `
+exports[`Shadow Priest integration test: example log PotionChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
     "icon": "inv_alchemy_90_combat2_purple",
     "importance": "minor",
-    "issue": <React.Fragment>
-      You forgot to use a potion during combat. Using a potion during combat allows you the benefit of 
-      
-       increasing output through 
-      <ItemLink
-        icon={true}
-        id={171273}
-      />
-      
-      . 
-      
-    </React.Fragment>,
-    "stat": null,
-  },
-  Object {
-    "details": null,
-    "icon": "inv_alchemy_90_combat2_purple",
-    "importance": "minor",
-    "issue": <React.Fragment>
-      You used a weak potion. 
-      <ItemLink
-        icon={true}
-        id={171273}
-      />
-       can be used instead of 
-      <ItemLink
-        icon={true}
-        id={171273}
-      />
-       in order to get a slightly higher damage output.
-    </React.Fragment>,
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            icon={true}
+            id={171273}
+          />,
+          <ItemLink
+            icon={true}
+            id={171273}
+          />,
+        ]
+      }
+      defaults="You used a weak potion. <0/> can be used instead of <1/> in order to get a slightly higher damage output."
+      id="shared.modules.items.potionChecker.suggestions.weakPotion"
+    />,
     "stat": null,
   },
 ]
@@ -4384,6 +4312,7 @@ exports[`Shadow Priest integration test: example log ShadowWordPain matches the 
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=589"
             rel="noopener noreferrer"
             target="_blank"
@@ -4396,6 +4325,7 @@ exports[`Shadow Priest integration test: example log ShadowWordPain matches the 
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=589"
             rel="noopener noreferrer"
             target="_blank"
@@ -4444,6 +4374,7 @@ exports[`Shadow Priest integration test: example log TheCrucibleofFlame matches 
         >
           <label>
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=299348"
               rel="noopener noreferrer"
               target="_blank"
@@ -4800,6 +4731,7 @@ exports[`Shadow Priest integration test: example log VampiricEmbrace matches the
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=15286"
             rel="noopener noreferrer"
             target="_blank"
@@ -4812,6 +4744,7 @@ exports[`Shadow Priest integration test: example log VampiricEmbrace matches the
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=15286"
             rel="noopener noreferrer"
             target="_blank"
@@ -4875,6 +4808,7 @@ exports[`Shadow Priest integration test: example log VampiricTouch matches the s
       >
         <label>
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=34914"
             rel="noopener noreferrer"
             target="_blank"
@@ -4887,6 +4821,7 @@ exports[`Shadow Priest integration test: example log VampiricTouch matches the s
           </a>
            
           <a
+            className="spell-link-text"
             href="http://wowhead.com/spell=34914"
             rel="noopener noreferrer"
             target="_blank"
@@ -4925,7 +4860,7 @@ exports[`Shadow Priest integration test: example log VitaChargedTitanshard match
       >
         <label>
           <a
-            className="epic"
+            className="epicitem-link-text"
             href="http://wowhead.com/item=174500&gems=168638&bonus=4824:1517:4786:6514"
             rel="noopener noreferrer"
             target="_blank"
@@ -4980,6 +4915,63 @@ exports[`Shadow Priest integration test: example log VitaChargedTitanshard match
     </div>
   </div>
 </div>
+`;
+
+exports[`Shadow Priest integration test: example log WeaponEnhancementChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_mace_1h_battledungeon_c_01.jpg",
+    "importance": "regular",
+    "issue": <WithI18n
+      components={
+        Array [
+          <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  6536,
+                  6578,
+                  1543,
+                  4786,
+                  6482,
+                  6470,
+                  6514,
+                ],
+                "gems": Array [
+                  Object {
+                    "icon": "inv_misc_gem_x4_uncommon_perfectcut_orange.jpg",
+                    "id": 168639,
+                    "itemLevel": 50,
+                  },
+                ],
+                "icon": "inv_mace_1h_battledungeon_c_01.jpg",
+                "id": 159652,
+                "itemLevel": 130,
+                "permanentEnchant": 5965,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={159652}
+            quality={3}
+          />,
+        ]
+      }
+      defaults="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone) . Apply an enhancement to very easily increase your throughput slightly."
+      id="shared.weaponEnhancementChecker.suggestions.noWeaponEnhancement.label"
+      values={
+        Object {
+          "slotName": <WithI18n
+            defaults="Weapon"
+            id="common.slots.weapon"
+          />,
+        }
+      }
+    />,
+    "stat": null,
+  },
+]
 `;
 
 exports[`Shadow Priest integration test: example log matches the checklist snapshot 1`] = `
@@ -5071,6 +5063,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
           >
             When not in 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=228264"
               rel="noopener noreferrer"
               target="_blank"
@@ -5085,6 +5078,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
             </a>
             , it's important to keep your DoTs up on the boss. While in 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=228264"
               rel="noopener noreferrer"
               target="_blank"
@@ -5099,6 +5093,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
             </a>
             ,  your 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=34914"
               rel="noopener noreferrer"
               target="_blank"
@@ -5113,6 +5108,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
             </a>
             , 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=335467"
               rel="noopener noreferrer"
               target="_blank"
@@ -5127,6 +5123,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
             </a>
             , and 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=589"
               rel="noopener noreferrer"
               target="_blank"
@@ -5141,6 +5138,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
             </a>
              durations are extended when the target or a nearby target gets hit by 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=205448"
               rel="noopener noreferrer"
               target="_blank"
@@ -5169,6 +5167,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=589"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5242,6 +5241,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=34914"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5394,6 +5394,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
           >
             Spells such as 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=205448"
               rel="noopener noreferrer"
               target="_blank"
@@ -5408,6 +5409,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
             </a>
              or 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=8092"
               rel="noopener noreferrer"
               target="_blank"
@@ -5436,6 +5438,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=205448"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5508,6 +5511,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=8092"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5540,7 +5544,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  100.00%
+                  109.05%
                    
                    
                 </div>
@@ -5673,6 +5677,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=228260"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5745,6 +5750,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                 className="flex-main"
               >
                 <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=200174"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -5896,6 +5902,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
           >
             Try to minimize your time not casting. Use your core spells on cooldown and fillers when they are not available. If you know you have an upcoming position requirement, stutterstep with each 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=205448"
               rel="noopener noreferrer"
               target="_blank"
@@ -5910,6 +5917,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
             </a>
              or 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=335467"
               rel="noopener noreferrer"
               target="_blank"
@@ -5924,6 +5932,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
             </a>
              cast towards that location. During high movement you can use 
             <a
+              className="spell-link-text"
               href="http://wowhead.com/spell=589"
               rel="noopener noreferrer"
               target="_blank"
@@ -5972,7 +5981,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  9.38%
+                  -6.24%
                    
                    
                 </div>
@@ -6019,7 +6028,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
         <div
           className="flex-main name"
         >
-          Be well prepared
+          shared.modules.features.checklist.wellPrepared
         </div>
         <div
           className="flex-sub perf"
@@ -6089,7 +6098,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
           <div
             className="col-md-12"
           >
-            Being well prepared with food, flasks, potions and enchants is an easy way to improve your performance.
+            shared.modules.features.checklist.wellPreparedDetails
           </div>
         </div>
         <div
@@ -6104,7 +6113,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
               <div
                 className="flex-main"
               >
-                All items enchanted
+                shared.modules.features.checklist.enchanted
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6165,7 +6174,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
               <div
                 className="flex-main"
               >
-                Using high quality enchants
+                shared.modules.features.checklist.enchantedHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6226,7 +6235,311 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
               <div
                 className="flex-main"
               >
-                Used a pre-potion
+                All weapons enhanced (oils/stones)
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Using high quality weapon enhancements
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                shared.modules.features.checklist.combatPotionsUsed
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  1
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                shared.modules.features.checklist.highQualityCombatPotionsUsed
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                shared.modules.features.checklist.flaskHigh
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  common.no
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                shared.modules.features.checklist.flask
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6286,7 +6599,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
               <div
                 className="flex-main"
               >
-                Used a second potion
+                shared.modules.features.checklist.foodHigh
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6346,247 +6659,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
               <div
                 className="flex-main"
               >
-                Used a high quality pre-potion
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  common.no
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                High quality flask used
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  common.no
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                Flask used
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  common.yes
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#4ec04e",
-                        "transition": "background-color 800ms",
-                        "width": "100%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                High quality food used
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  common.no
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                Food used
+                shared.modules.features.checklist.food
               </div>
               <div
                 className="flex-sub content-middle text-muted"

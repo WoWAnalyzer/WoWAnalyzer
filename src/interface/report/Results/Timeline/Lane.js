@@ -72,7 +72,7 @@ class Lane extends React.PureComponent {
       <Tooltip
         key={`cooldown-${left}`}
         content={(
-          <Trans>
+          <Trans id="interface.report.results.timeline.lane.tooltip.eventOrAbilityCooldown">
             {event.name || event.ability.name} cooldown: {((event.timestamp - event.start) / 1000).toFixed(1)}s
           </Trans>
         )}
@@ -94,7 +94,7 @@ class Lane extends React.PureComponent {
     }
     const left = this.getOffsetLeft(event.timestamp);
     return (
-      <Tooltip content={<Trans>Charge restored</Trans>}>
+      <Tooltip content={<Trans id="interface.report.results.timeline.lane.tooltip.chargeRestored">Charge restored</Trans>}>
         <div
           key={`recharge-${left}`}
           className="recharge"

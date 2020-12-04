@@ -16,13 +16,13 @@ const About = (
 ) => {
   const { spec, description, contributors, patchCompatibility } = config;
 
-  const contributorinfo = (contributors.length !== 0) ? contributors.map(contributor => <Contributor key={contributor.nickname} {...contributor} />) : <Trans>CURRENTLY UNMAINTAINED</Trans>;
+  const contributorinfo = (contributors.length !== 0) ? contributors.map(contributor => <Contributor key={contributor.nickname} {...contributor} />) : <Trans id="interface.report.results.about.unmaintained">CURRENTLY UNMAINTAINED</Trans>;
 
   return (
     <Panel
-      title={<Trans>About {spec.specName} {spec.className}</Trans>}
+      title={<Trans id="interface.report.results.about.aboutSpecnameClassname">About {spec.specName} {spec.className}</Trans>}
       actions={(
-        <Link to="events">View all events</Link>
+        <Link to="events"><Trans id="interface.report.results.about.viewEvents">View all events</Trans></Link>
       )}
     >
       {description}
@@ -43,7 +43,7 @@ const About = (
       </div>
       <div className="row" style={{ marginTop: '0.5em' }}>
         <div className="col-lg-4" style={{ fontWeight: 'bold', paddingRight: 0 }}>
-          <Trans>Updated for patch</Trans>
+          <Trans id="interface.report.results.about.updatedForPatch">Updated for patch</Trans>
         </div>
         <div className="col-lg-8">
           {patchCompatibility}
@@ -51,7 +51,7 @@ const About = (
       </div>
       {!isLatestPatch(patchCompatibility) && (
         <Warning style={{ marginTop: '1em' }}>
-          <Trans>The analysis for this spec is outdated. It may be inaccurate for spells that were changed since patch {patchCompatibility}.</Trans>
+          <Trans id="interface.report.results.about.outdated">The analysis for this spec is outdated. It may be inaccurate for spells that were changed since patch {patchCompatibility}.</Trans>
         </Warning>
       )}
     </Panel>

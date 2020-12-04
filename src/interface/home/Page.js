@@ -48,27 +48,27 @@ class Home extends React.PureComponent {
     return [
       {
         icon: NewsIcon,
-        name: <Trans>News</Trans>,
+        name: <Trans id="interface.home.page.news">News</Trans>,
         url: 'news',
       },
       {
         icon: FingerprintFilledIcon,
-        name: <Trans>Specs</Trans>,
+        name: <Trans id="interface.home.page.specs">Specs</Trans>,
         url: 'specs',
       },
       {
         icon: Logo,
-        name: <Trans>About</Trans>,
+        name: <Trans id="interface.home.page.about">About</Trans>,
         url: 'about',
       },
       {
         icon: PremiumIcon,
-        name: <Trans>Premium</Trans>,
+        name: <Trans id="interface.home.page.premium">Premium</Trans>,
         url: 'premium',
       },
       {
         icon: HelpWantedIcon,
-        name: <Trans>Help wanted</Trans>,
+        name: <Trans id="interface.home.page.helpWanted">Help wanted</Trans>,
         url: 'help-wanted',
       },
     ];

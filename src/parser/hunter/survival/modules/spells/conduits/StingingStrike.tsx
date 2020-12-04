@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -7,8 +7,8 @@ import React from 'react';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { RAPTOR_MONGOOSE_VARIANTS, STINGING_STRIKE_RS_MB_DMG_INCREASE } from 'parser/hunter/survival/constants';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import SPELLS from 'common/SPELLS';
+import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
 
 /**
  * Raptor Strike and Mongoose Bite damage increased by 14.0%.
@@ -45,11 +45,11 @@ class StingingStrike extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spell={SPELLS.STINGING_STRIKE_CONDUIT}>
+        <ConduitSpellText spell={SPELLS.STINGING_STRIKE_CONDUIT} rank={this.conduitRank}>
           <>
             <ItemDamageDone amount={this.addedDamage} />
           </>
-        </BoringSpellValueText>
+        </ConduitSpellText>
       </Statistic>
     );
   }

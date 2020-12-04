@@ -46,7 +46,6 @@ class Checklist extends BaseChecklist {
     //endregion
   };
 
-
   //region Core
   protected combatants!: Combatants;
   protected castEfficiency!: CastEfficiency;

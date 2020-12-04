@@ -12,6 +12,11 @@ const covenants: SpellList = {
     name: 'Resonating Arrow',
     icon: 'ability_bastion_hunter',
   },
+  RESONATING_ARROW_DAMAGE: {
+    id: 308495,
+    name: 'Resonating Arrow',
+    icon: 'ability_bastion_hunter',
+  },
   //endregion
 
   //region Necrolord

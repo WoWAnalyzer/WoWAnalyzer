@@ -9,27 +9,11 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
-export const DAMAGE_BONUS: {[rank: number]: number } = {
-  1: .06,
-  2: .07,
-  3: .08,
-  4: .09,
-  5: .1,
-  6: .11,
-  7: .12,
-  8: .13,
-  9: .14,
-  10: .15,
-  11: .16,
-  12: .17,
-  13: .18,
-  14: .19,
-  15: .2,
-};
+const DAMAGE_BONUS = [0, .08, .09, .10, .10, .11, .12, .13, .14, .14, .15, .16, .17, .18, .18, .19];
 
 class MasterFlame extends Analyzer {
-  conduitRank: number = 0;
-
+  
+  conduitRank = 0;
   bonusDamage = 0;
 
   constructor(props: Options) {

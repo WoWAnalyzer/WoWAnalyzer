@@ -74,8 +74,16 @@ const legendaries: SpellList<LegendarySpell> = {
     name: 'Ancient Teachings of the Monastery',
     icon: 'inv_jewelcrafting_jadeserpent',
   },
-
-
+  ANCIENT_TEACHINGS_OF_THE_MONASTERY_CRIT_HEAL:{
+    id: 347572,
+    name: 'Ancient Teachings of the Monastery',
+    icon: 'inv_jewelcrafting_jadeserpent',
+  },
+  ANCIENT_TEACHINGS_OF_THE_MONASTERY_BUFF:{
+    id: 347553,
+    name: 'Ancient Teachings of the Monastery',
+    icon: 'inv_misc_book_07',
+  },
   //endregion
 
   //region Windwalker

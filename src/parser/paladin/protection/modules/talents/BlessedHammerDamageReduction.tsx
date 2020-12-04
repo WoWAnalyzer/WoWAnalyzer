@@ -37,9 +37,7 @@ class BlessedHammerDamageReduction extends Analyzer {
     if (!event.sourceID || !this.enemies.enemies[event.sourceID]) {
       return;
     }
-    console.dir(this.enemies.enemies[event.sourceID]);
     const sourceIsDebuffed = this.enemies.enemies[event.sourceID].hasBuff(SPELLS.BLESSED_HAMMER_DEBUFF.id, event.timestamp, undefined, undefined, this.owner.playerId);
-    console.log(`Enemy has debuff ${SPELLS.BLESSED_HAMMER_DEBUFF.id}? ${sourceIsDebuffed}`);
     if (sourceIsDebuffed) {
       this.reducedDamageHits += 1;
       this.totalReducedDamage += this.blessedHammerDamageReduction;
@@ -47,9 +45,7 @@ class BlessedHammerDamageReduction extends Analyzer {
   }
 
   trackCurrentAttackPower(event: DamageEvent) {
-    console.dir(event);
     if ('attackPower' in event && event.attackPower) {
-      console.log(`Setting attack power to ${event.attackPower}`);
       this.currentAttackPower = event.attackPower;
     }
   }

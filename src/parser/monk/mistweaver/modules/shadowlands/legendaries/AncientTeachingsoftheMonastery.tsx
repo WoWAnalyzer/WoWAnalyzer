@@ -20,7 +20,7 @@ class AncientTeachingsoftheMonastery extends Analyzer {
   lastDamageSpellID: number = 0;
 
   /**
-   * Tiger Palm, Blackout Kick, and Rising Sun Kick heal an injured ally within 20 yards for 120% of the damage done.
+   * After you cast Essence Font, Tiger Palm, Blackout Kick, and Rising Sun Kick heal an injured ally within 20 yards for 250% of the damage done. Lasts 15s.
    */
   constructor(options: Options){
     super(options);
@@ -32,9 +32,13 @@ class AncientTeachingsoftheMonastery extends Analyzer {
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.RISING_SUN_KICK_SECOND, SPELLS.BLACKOUT_KICK, SPELLS.BLACKOUT_KICK_TOTM, SPELLS.TIGER_PALM]), this.lastDamageEvent);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ANCIENT_TEACHINGS_OF_THE_MONASTERY_HEAL), this.calculateEffectiveHealing);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ANCIENT_TEACHINGS_OF_THE_MONASTERY_CRIT_HEAL), this.calculateEffectiveHealing);
   }
 
   lastDamageEvent(event: DamageEvent) {
+    if(!this.selectedCombatant.hasBuff(SPELLS.ANCIENT_TEACHINGS_OF_THE_MONASTERY_BUFF)) {
+      return;
+    }
     this.lastDamageSpellID = event.ability.guid;
     if(!this.damageSpellToHealing.has(this.lastDamageSpellID)){
       this.damageSpellToHealing.set(this.lastDamageSpellID, 0);

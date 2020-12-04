@@ -2,7 +2,9 @@ import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Combatants from 'parser/shared/modules/Combatants';
-import StatisticBox from 'interface/others/StatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
+import BoringValue from 'interface/statistics/components/BoringValueText';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import ItemIcon from 'common/ItemIcon';
@@ -12,7 +14,7 @@ import SpecIcon from 'common/SpecIcon';
 import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 import Panel from 'interface/others/Panel';
-import {formatNumber} from 'common/format';
+import { formatNumber } from 'common/format';
 import Events from 'parser/core/Events';
 
 /**
@@ -165,11 +167,16 @@ class CelestialFortune extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.CELESTIAL_FORTUNE_HEAL.id} />}
-        value={`${formatNumber(this.hps)} HPS`}
-        label="Celestial Fortune Healing"
-      />
+      <Statistic
+        size="flexible"
+        position={STATISTIC_ORDER.OPTIONAL()}
+      >
+        <BoringValue label={<><SpellIcon id={SPELLS.CELESTIAL_FORTUNE_HEAL.id} /> Celestial Fortune Healing</>} >
+          <>
+            {formatNumber(this.hps)} HPS
+          </>
+        </BoringValue>
+      </Statistic>
     );
   }
 
@@ -210,7 +217,7 @@ class CelestialFortune extends Analyzer {
                   <td />
                   <td>
                     <SpellLink id={Number(id)} icon={false}>
-                      {SPELLS[id] ? <><Icon icon={SPELLS[id].icon} /> {SPELLS[id].name}</> : ITEMS[id] ? <><ItemIcon icon={ITEMS[id].icon} /> {ITEMS[id].name}</> : id}
+                      {SPELLS[id] ? <><Icon icon={SPELLS[id].icon} /> {SPELLS[id].name}</> : ITEMS[id] ? <><ItemIcon id={ITEMS[id]} /> {ITEMS[id].name}</> : id}
                     </SpellLink>
                   </td>
                   <td>{absorb ? '≈': ''}{`${formatNumber(amount / (this.owner.fightDuration / 1000))} HPS`}</td>

@@ -7,8 +7,12 @@ import Enemies from 'parser/shared/modules/Enemies';
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatThousands, formatDuration } from 'common/format';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import UptimeIcon from 'interface/icons/Uptime';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
@@ -38,12 +42,13 @@ class SpiritBombFrailtyDebuff extends Analyzer {
       style: 'percentage',
     };
   }
+
   suggestions(when) {
     when(this.uptimeSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id} /> uptime can be improved. This is easy to maintain and an important source of healing.</>)
-          .icon(SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.icon)
-          .actual(i18n._(t('demonhunter.vengeance.spiritBombFrailtyBuff.uptime')`${formatPercentage(actual)}% Frailty uptime`))
-          .recommended(`>${formatPercentage(recommended)}% is recommended`));
+        .icon(SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.icon)
+        .actual(i18n._(t('demonhunter.vengeance.spiritBombFrailtyBuff.uptime')`${formatPercentage(actual)}% Frailty uptime`))
+        .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {
@@ -51,13 +56,23 @@ class SpiritBombFrailtyDebuff extends Analyzer {
     const spiritBombDamage = this.abilityTracker.getAbility(SPELLS.SPIRIT_BOMB_DAMAGE.id).damageEffective;
 
     return (
-      <TalentStatisticBox
-        talent={SPELLS.SPIRIT_BOMB_TALENT.id}
+      <Statistic
         position={STATISTIC_ORDER.CORE(5)}
-        value={`${formatPercentage(this.uptime)}%`}
-        label="Spirit Bomb debuff uptime"
-        tooltip={<>Total damage was {formatThousands(spiritBombDamage)}.<br />Total uptime was {formatDuration(spiritBombUptime / 1000)}.</>}
-      />
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
+        tooltip={
+          <>
+            Total damage was {formatThousands(spiritBombDamage)}.<br />
+            Total uptime was {formatDuration(spiritBombUptime / 1000)}.
+          </>
+        }
+      >
+        <BoringSpellValueText spell={SPELLS.SPIRIT_BOMB_TALENT}>
+          <>
+            <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

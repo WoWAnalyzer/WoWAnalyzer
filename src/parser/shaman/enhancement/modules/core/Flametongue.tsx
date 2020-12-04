@@ -38,18 +38,18 @@ class Flametongue extends Analyzer {
     when(this.flametongueUptimeThreshold)
       .addSuggestion(
         (suggest, actual, recommended) => suggest(
-            <Trans>
+            <Trans id="shaman.enhancement.modules.core.flametongue.suggestion">
               Your Flametongue uptime of {formatPercentage(this.flametongueUptime)}% is below 95%, try to get as close to 100% as possible
             </Trans>,
           )
             .icon(SPELLS.FLAMETONGUE_BUFF.icon)
             .actual(
-              <Trans>
+              <Trans id="shaman.enhancement.modules.core.flametongue.actual">
                 {formatPercentage(actual)}% uptime
               </Trans>,
             )
             .recommended(
-              <Trans>
+              <Trans id="shaman.enhancement.modules.core.flametongue.recommended">
                 {formatPercentage(recommended, 0)}% is recommended
               </Trans>,
             ),

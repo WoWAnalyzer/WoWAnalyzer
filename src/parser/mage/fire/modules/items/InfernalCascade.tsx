@@ -9,27 +9,11 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
-export const DAMAGE_BONUS: {[rank: number]: number } = {
-  1: .03,
-  2: .035,
-  3: .04,
-  4: .045,
-  5: .05,
-  6: .055,
-  7: .06,
-  8: .065,
-  9: .07,
-  10: .075,
-  11: .08,
-  12: .085,
-  13: .09,
-  14: .095,
-  15: .1,
-};
+const DAMAGE_BONUS = [0, .09, .099, .108, .117, .126, .135, .144, .153, .162, .171, .18, .189, .198, .207, .216];
 
 class InfernalCascade extends Analyzer {
-  conduitRank: number = 0;
-
+  
+  conduitRank = 0;
   bonusDamage = 0;
   buffStack = 0;
   totalBuffs = 0;

@@ -6,29 +6,35 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemHealingDone from 'interface/ItemHealingDone';
+import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
+import { SWIRLING_CURRENTS_RANKS } from 'parser/shaman/restoration/constants';
 
 /**
  * Using Healing stream totem/Cloudburst totem increases the healing of your next 3 healing surges, healing waves or riptides by x%
+ * https://www.warcraftlogs.com/reports/8HtnKrqLJ7y9VFQ6#fight=21&type=summary&source=88
  */
 class SwirlingCurrents extends Analyzer {
-
+  conduitRank = 0;
   healingBoost = 0;
   healing = 0;
   targetsWithBoostedRiptides: boolean[] = [];
 
   constructor(options: Options) {
     super(options);
-    this.active = false;
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.SWIRLING_CURRENTS.id);
+    if (!this.conduitRank) {
+      this.active = false;
+      return;
+    }
 
-    this.healingBoost = .2;//TODO Get from combat data when they EXPORT IT >:c
+    this.healingBoost = SWIRLING_CURRENTS_RANKS[this.conduitRank] / 100;
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.riptideHeal);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.HEALING_SURGE_RESTORATION, SPELLS.HEALING_WAVE]), this.notRiptideHeal);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.HEALING_SURGE, SPELLS.HEALING_WAVE]), this.notRiptideHeal);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.trackRiptide);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.trackRiptide);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.removeRiptide);
@@ -77,9 +83,9 @@ class SwirlingCurrents extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spell={SPELLS.SWIRLING_CURRENTS}>
+        <ConduitSpellText spell={SPELLS.SWIRLING_CURRENTS} rank={this.conduitRank}>
           <ItemHealingDone amount={this.healing} /><br />
-        </BoringSpellValueText>
+        </ConduitSpellText>
       </Statistic>
     );
   }

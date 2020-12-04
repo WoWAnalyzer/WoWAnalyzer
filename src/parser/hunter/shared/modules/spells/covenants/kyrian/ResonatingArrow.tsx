@@ -1,16 +1,16 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
-import Events from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Enemies from 'parser/shared/modules/Enemies';
 import UptimeIcon from 'interface/icons/Uptime';
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import CritIcon from 'interface/icons/CriticalStrike';
 import { RESONATING_ARROW_CRIT_INCREASE } from 'parser/hunter/shared/constants';
 import COVENANTS from 'game/shadowlands/COVENANTS';
@@ -23,6 +23,7 @@ class ResonatingArrow extends Analyzer {
 
   casts: number = 0;
   debuffs: number = 0;
+  damage = 0;
 
   protected abilities!: Abilities;
   protected enemies!: Enemies;
@@ -51,6 +52,7 @@ class ResonatingArrow extends Analyzer {
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RESONATING_ARROW), this.onCast);
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.RESONATING_ARROW_DEBUFF), this.onDebuff);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RESONATING_ARROW_DAMAGE), this.onDamage);
   }
 
   get uptime() {
@@ -65,6 +67,10 @@ class ResonatingArrow extends Analyzer {
     this.debuffs += 1;
   }
 
+  onDamage(event: DamageEvent) {
+    this.damage += event.amount + (event.absorbed || 0);
+  }
+
   statistic() {
     return (
       <Statistic
@@ -74,6 +80,8 @@ class ResonatingArrow extends Analyzer {
         tooltip={(
           <>
             You had {this.casts} {this.casts === 1 ? 'cast' : 'casts'} of Resonating Arrow and applied the debuff {this.debuffs} {this.debuffs === 1 ? 'time' : 'times'}.
+            <br />
+            The direct damage of Resonating Arrow did {this.damage} damage or {formatNumber((this.damage / this.owner.fightDuration) * 1000)} DPS
           </>
         )}
       >

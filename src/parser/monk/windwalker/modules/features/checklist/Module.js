@@ -15,6 +15,7 @@ import HitCombo from '../../talents/HitCombo';
 import ChiDetails from '../../resources/ChiDetails';
 
 import LastEmperorsCapacitor from '../../items/LastEmperorsCapacitor';
+import JadeIgnition from '../../items/JadeIgnition';
 
 import Component from './Component';
 
@@ -34,6 +35,7 @@ class Checklist extends BaseChecklist {
     chiDetails: ChiDetails,
 
     lastEmperorsCapacitor: LastEmperorsCapacitor,
+    jadeIgnition: JadeIgnition,
   };
 
   render() {
@@ -54,7 +56,8 @@ class Checklist extends BaseChecklist {
           chiDetails: this.chiDetails.suggestionThresholds,
 
           lastEmperorsCapacitorAverageStacks: this.lastEmperorsCapacitor.averageStacksSuggestionThresholds,
-          lastEmperorsCapacitorWastedStacks: this.lastEmperorsCapacitor.wastedStacksSuggestionsThresholds,
+          lastEmperorsCapacitorWastedStacks: this.lastEmperorsCapacitor.wastedStacksSuggestionThresholds,
+          jadeIgnition: this.jadeIgnition.suggestionThresholds,
        }}
      />
     );

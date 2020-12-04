@@ -2,8 +2,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 import SPELLS from 'common/SPELLS';
 import { CastEvent, EnergizeEvent } from 'parser/core/Events';
-import { CHIM_REGEN } from 'parser/hunter/shared/constants';
-import { AOTW_REGEN, BARBED_SHOT_FOCUS_REGEN_BUFFS, BARBED_SHOT_REGEN, BEAST_MASTERY_SPELLS_WITHOUT_WASTE } from 'parser/hunter/beastmastery/constants';
+import { AOTW_REGEN, BARBED_SHOT_FOCUS_REGEN_BUFFS_IDS, BARBED_SHOT_REGEN, BEAST_MASTERY_SPELLS_WITHOUT_WASTE, CHIM_REGEN } from 'parser/hunter/beastmastery/constants';
 import { Options } from 'parser/core/Analyzer';
 
 class FocusTracker extends ResourceTracker {
@@ -18,11 +17,11 @@ class FocusTracker extends ResourceTracker {
       return;
     }
     const spellId = event.ability.guid;
-    let waste;
+    let waste = 0;
     let gain;
     if (BEAST_MASTERY_SPELLS_WITHOUT_WASTE.includes(spellId)) {
       gain = event.resourceChange;
-      if (BARBED_SHOT_FOCUS_REGEN_BUFFS.includes(spellId)) {
+      if (BARBED_SHOT_FOCUS_REGEN_BUFFS_IDS.includes(spellId)) {
         waste = BARBED_SHOT_REGEN - event.resourceChange;
       } else if (spellId === SPELLS.ASPECT_OF_THE_WILD.id) {
         waste = AOTW_REGEN - event.resourceChange;
@@ -34,7 +33,7 @@ class FocusTracker extends ResourceTracker {
       gain = event.resourceChange - waste;
     }
 
-    this._applyBuilder(spellId, this.getResource(event), gain, waste, event.timestamp);
+    this._applyBuilder(spellId, gain, waste, this.getResource(event), event.timestamp);
   }
 
   //We're not interested in the fabricated events that are created prepull, as these tend to add focus costs things such as potion usage, Bestial Wrath, Trueshot or the likes whereas these don't cost focus.

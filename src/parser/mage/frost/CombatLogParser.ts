@@ -4,6 +4,10 @@ import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent'
 import Checklist from './modules/checklist/Module';
 import Buffs from './modules/features/Buffs';
 
+//Normalizers
+import ShiftingPowerNormalizer from '../shared/normalizers/ShiftingPower';
+
+//Features
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
@@ -29,7 +33,9 @@ import FocusMagic from '../shared/modules/features/FocusMagic';
 
 //Legendaries
 import ColdFront from './modules/items/ColdFront';
-import FreezingWinds from './modules/items/FreezingWinds';
+
+//Covenants
+import ShiftingPower from '../shared/modules/features/ShiftingPower';
 
 //Conduits
 import IceBite from './modules/items/IceBite';
@@ -46,6 +52,9 @@ class CombatLogParser extends CoreCombatLogParser {
    static specModules = {
     checklist: Checklist,
     buffs: Buffs,
+
+    //Normalizers
+    shiftingPowerNormalizer: ShiftingPowerNormalizer,
 
     // Features
     abilities: Abilities,
@@ -75,7 +84,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Legendaries
     coldFront: ColdFront,
-    freezingWinds: FreezingWinds,
+
+    //Covenants
+    shiftingPower: ShiftingPower,
 
     //Conduits
     iceBite: IceBite,

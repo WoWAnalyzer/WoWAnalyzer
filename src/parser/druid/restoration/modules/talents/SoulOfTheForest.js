@@ -1,11 +1,12 @@
 import React from 'react';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatPercentage } from 'common/format';
-import SpellIcon from 'common/SpellIcon';
-
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import SpellIcon from 'common/SpellIcon';
+import BoringValue from 'interface/statistics/components/BoringValueText';
 
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
@@ -146,10 +147,9 @@ class SoulOfTheForest extends Analyzer {
     const regrowthPercent = this.owner.getPercentageOfTotalHealingDone(this.regrowthHealing);
 
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} />}
-        value={`${formatPercentage(totalPercent)} %`}
-        label="Soul of the Forest"
+      <Statistic
+        size="flexible"
+        position={STATISTIC_ORDER.OPTIONAL(20)}
         tooltip={(
           <>
             You gained {this.proccs} total Soul of the Forest procs.
@@ -160,11 +160,15 @@ class SoulOfTheForest extends Analyzer {
             </ul>
           </>
         )}
-      />
+      >
+        <BoringValue label={<><SpellIcon id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> Soul of the Forest healing</>} >
+          <>
+            {formatPercentage(totalPercent)} %
+          </>
+        </BoringValue>
+      </Statistic>
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
-
 }
 
 export default SoulOfTheForest;

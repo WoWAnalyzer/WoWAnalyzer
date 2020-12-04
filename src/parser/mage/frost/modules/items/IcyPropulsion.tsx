@@ -12,23 +12,7 @@ import HIT_TYPES from 'game/HIT_TYPES';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import { formatNumber } from 'common/format';
 
-const COOLDOWN_REDUCTION_MS: {[rank: number]: number } = {
-  1: 250,
-  2: 300,
-  3: 400,
-  4: 500,
-  5: 600,
-  6: 700,
-  7: 800,
-  8: 900,
-  9: 1000,
-  10: 1100,
-  11: 1200,
-  12: 1300,
-  13: 1400,
-  14: 1500,
-  15: 1600,
-};
+const COOLDOWN_REDUCTION_MS = [0, 750, 830, 900, 980, 1005, 1130, 1200, 1280, 1350, 1430, 1500, 1580, 1650, 1730, 1800];
 
 class IcyPropulsion extends Analyzer {
   static dependencies = {
@@ -38,8 +22,7 @@ class IcyPropulsion extends Analyzer {
   protected spellUsable!: SpellUsable;
   protected abilityTracker!: AbilityTracker;
 
-  conduitRank: number = 0;
-
+  conduitRank = 0;
   cooldownReduction = 0;
 
   constructor(props: Options) {
