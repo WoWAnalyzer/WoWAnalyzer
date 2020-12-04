@@ -33,10 +33,13 @@ class RisingSunRevival extends Analyzer {
 
   constructor(options: Options){
     super(options);
-    this.active = false;
-    if (!this.active) {
+    const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.RISING_SUN_REVIVAL.id);
+    
+    if (!conduitRank) {
+      this.active = false;
       return;
     }
+
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RISING_SUN_KICK), this.rskCast);
   }
 

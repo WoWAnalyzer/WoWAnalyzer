@@ -26,3 +26,14 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
 ];
 
 export const LIFE_COCOON_HEALING_BOOST = .5;
+
+export function conduitScaling(rankOne: number, requiredRank: number){
+  const scalingFactor = rankOne * .1;
+  const rankZero = rankOne - scalingFactor;
+  const rankRequested = rankZero + scalingFactor * requiredRank;
+  return rankRequested;
+}
+
+export const NOURISHING_CHI_RANK_ONE = .1875;
+export const JADE_BOND_RANK_ONE = .0625;
+export const RISING_SUN_REVIVAL = .125;
