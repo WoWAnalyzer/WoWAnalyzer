@@ -49,7 +49,7 @@ class JadeBond extends Analyzer {
       return;
     }
 
-    this.boost = conduitScaling(JADE_BOND_RANK_ONE, this.conduitRank);
+    this.healingBoost = conduitScaling(JADE_BOND_RANK_ONE, this.conduitRank);
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.EXPEL_HARM, SPELLS.VIVIFY, SPELLS.RENEWING_MIST, SPELLS.ENVELOPING_MIST]), this.gustProcingSpell);
 
