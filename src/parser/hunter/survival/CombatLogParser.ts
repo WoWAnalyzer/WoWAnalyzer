@@ -73,7 +73,7 @@ import StingingStrike from './modules/spells/conduits/StingingStrike';
 import StrengthOfThePack from './modules/spells/conduits/StrengthOfThePack';
 
 //Legendaries
-import NesingwarysTrappingApparatus from '../shared/modules/items/NesingwarysTrappingApparatus';
+import NesingwarysTrappingApparatus from './modules/items/NesingwarysTrappingApparatus';
 import SoulforgeEmbers from '../shared/modules/items/SoulforgeEmbers';
 import WildfireCluster from './modules/items/WildfireCluster';
 

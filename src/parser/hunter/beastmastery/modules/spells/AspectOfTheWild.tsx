@@ -1,13 +1,15 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/hunter/beastmastery/modules/core/SpellUsable';
-import Events, { CastEvent } from 'parser/core/Events';
+import Events, { EnergizeEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import UptimeIcon from 'interface/icons/Uptime';
 import { formatPercentage } from 'common/format';
 import React from 'react';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { ASPECT_OF_THE_WILD_FOCUS } from 'parser/hunter/beastmastery/constants';
+import { NESINGWARY_FOCUS_GAIN_MULTIPLIER } from 'parser/hunter/shared/constants';
 
 /**
  * Grants you and your pet 5 Focus per sec and 10% increased critical strike
@@ -24,29 +26,23 @@ class AspectOfTheWild extends Analyzer {
 
   protected spellUsable!: SpellUsable;
 
+  additionalFocusFromNesingwary = 0;
+  possibleAdditionalFocusFromNesingwary = 0;
+
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ASPECT_OF_THE_WILD), this.markCastAsInefficient);
+    this.selectedCombatant.hasLegendaryByBonusID(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT.bonusID) && this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.ASPECT_OF_THE_WILD), this.checkNesingwaryFocusGain);
   }
 
   get uptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.ASPECT_OF_THE_WILD.id) / this.owner.fightDuration;
   }
 
-  markCastAsInefficient(event: CastEvent) {
-    if (event.meta === undefined) {
-      event.meta = {
-        isInefficientCast: false,
-        inefficientCastReason: '',
-      };
-    }
-    const hasPrimalInstincts = this.selectedCombatant.hasTrait(SPELLS.PRIMAL_INSTINCTS.id);
-    const hasTwoBarbedStacks = this.spellUsable.chargesAvailable(SPELLS.BARBED_SHOT.id) === 2;
-
-    if (hasPrimalInstincts && hasTwoBarbedStacks) {
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = 'Aspect of the Wild was cast while having two charges of Barbed Shot and using Primal Instincts.';
-      return;
+  checkNesingwaryFocusGain(event: EnergizeEvent) {
+    const waste = ASPECT_OF_THE_WILD_FOCUS - event.resourceChange;
+    if (this.selectedCombatant.hasBuff(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_ENERGIZE.id)) {
+      this.additionalFocusFromNesingwary += event.resourceChange * (1 - 1 / NESINGWARY_FOCUS_GAIN_MULTIPLIER) - waste;
+      this.possibleAdditionalFocusFromNesingwary += ASPECT_OF_THE_WILD_FOCUS;
     }
   }
 

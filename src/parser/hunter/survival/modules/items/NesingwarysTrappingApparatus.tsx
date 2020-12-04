@@ -8,18 +8,25 @@ import SPELLS from 'common/SPELLS';
 import Events, { EnergizeEvent } from 'parser/core/Events';
 import ResourceIcon from 'common/ResourceIcon';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { formatNumber } from 'common/format';
+import KillCommand from 'parser/hunter/survival/modules/spells/KillCommand';
 
 /**
  * Whenever a trap is triggered, gain 45 Focus and increase all Focus gained by 100% for 5 sec.
  *
  * Example log:
  *
- * TODO: This is kinda messy atm after rework, look into it later with more logs.
  */
 class NesingwarysTrappingApparatus extends Analyzer {
 
+  static dependencies = {
+    killCommand: KillCommand,
+  };
+
   focusGained: number = 0;
   focusWasted: number = 0;
+
+  protected killCommand!: KillCommand;
 
   constructor(options: Options) {
     super(options);
@@ -35,6 +42,14 @@ class NesingwarysTrappingApparatus extends Analyzer {
     this.focusWasted += event.waste;
   }
 
+  get effectiveFocus() {
+    return formatNumber(this.killCommand.additionalFocusFromNesingwary);
+  }
+
+  get possibleFocus() {
+    return formatNumber(this.killCommand.possibleAdditionalFocusFromNesingwary);
+  }
+
   statistic() {
     return (
       <Statistic
@@ -43,7 +58,9 @@ class NesingwarysTrappingApparatus extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
       >
         <BoringSpellValueText spell={SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT}>
-          <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /> {this.focusGained}/{this.focusWasted + this.focusGained}<small> gained Focus</small>
+          <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /> {this.focusGained}/{this.focusWasted + this.focusGained} <small>gained Focus immediately</small>
+          <br />
+          <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /> {this.effectiveFocus}/{this.possibleFocus} <small>gained Focus from generators</small>
         </BoringSpellValueText>
       </Statistic>
     );

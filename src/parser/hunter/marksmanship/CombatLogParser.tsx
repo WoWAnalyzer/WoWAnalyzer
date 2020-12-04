@@ -79,7 +79,7 @@ import SerpentstalkersTrickery from './modules/items/SerpentstalkersTrickery';
 import SurgingShots from './modules/items/SurgingShots';
 import SecretsOfTheUnblinkingVigil from './modules/items/SecretsOfTheUnblinkingVigil';
 import EagletalonsTrueFocus from './modules/items/EagletalonsTrueFocus';
-import NesingwarysTrappingApparatus from '../shared/modules/items/NesingwarysTrappingApparatus';
+import NesingwarysTrappingApparatus from './modules/items/NesingwarysTrappingApparatus';
 import SoulforgeEmbers from '../shared/modules/items/SoulforgeEmbers';
 
 class CombatLogParser extends CoreCombatLogParser {
