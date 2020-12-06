@@ -53,7 +53,7 @@ class SpinningCraneKick extends Analyzer {
     );
   }
 
-  cycloneStrikesMarks: Array<MarkOfTheCrane> = [];
+  cycloneStrikesMarks: MarkOfTheCrane[] = [];
   spinningCraneKickHits = 0;
   totalMarksDuringHits = 0;
 

@@ -12,10 +12,11 @@ import Events, { CastEvent } from 'parser/core/Events';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
-import { ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
-interface masteryCast {
+import { ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
+
+interface MasteryCast {
   ability: number,
   timestamp: number,
 };
@@ -24,8 +25,8 @@ const HIT_COMBO_STRING = " and dropping the Hit Combo damage buff";
 
 class ComboStrikes extends Analyzer {
   _lastSpellUsed: number|null = null;
-  _lastThreeSpellsUsed: Array<masteryCast> = [];
-  masteryDropSpellSequence: Array<masteryCast[]>= [];
+  _lastThreeSpellsUsed: MasteryCast[] = [];
+  masteryDropSpellSequence: MasteryCast[][]= [];
   hasHitCombo = false;
 
   constructor(options: Options) {
