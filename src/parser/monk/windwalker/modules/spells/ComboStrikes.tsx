@@ -16,7 +16,6 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 import { ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
 
-
 interface MasteryCast {
   ability: number,
   timestamp: number,
