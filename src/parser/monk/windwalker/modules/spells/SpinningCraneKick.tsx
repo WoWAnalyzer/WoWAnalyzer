@@ -1,15 +1,25 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import Events from 'parser/core/Events';
+import Events, { ApplyDebuffEvent, CastEvent, RefreshDebuffEvent } from 'parser/core/Events';
 
-const isEqual = (a, b) => a.id === b.id && a.instance === b.instance;
+interface MarkOfTheCrane {
+  target: MarkOfTheCraneTarget,
+  timestamp: number
+};
+
+interface MarkOfTheCraneTarget {
+  id: number,
+  instance: number
+}
+
+const isEqual = (a: MarkOfTheCraneTarget, b: MarkOfTheCraneTarget) => a.id === b.id && a.instance === b.instance;
 
 class SpinningCraneKick extends Analyzer {
   static dependencies = {
@@ -17,8 +27,11 @@ class SpinningCraneKick extends Analyzer {
     statTracker: StatTracker,
   };
 
-  constructor(...args) {
-    super(...args);
+  protected abilityTracker!: AbilityTracker;
+  protected statTracker!: StatTracker;
+
+  constructor(options: Options) {
+    super(options);
     this.addEventListener(
       Events.applydebuff.by(SELECTED_PLAYER | SELECTED_PLAYER_PET).spell(SPELLS.MARK_OF_THE_CRANE),
       this.onMarkApplication,
@@ -41,27 +54,27 @@ class SpinningCraneKick extends Analyzer {
     );
   }
 
-  cycloneStrikesMarks = [];
+  cycloneStrikesMarks: MarkOfTheCrane[] = [];
   spinningCraneKickHits = 0;
   totalMarksDuringHits = 0;
 
   // targetInstance is undefined when it's the first one.
-  _verifyTargetInstance(targetInstance) {
+  _verifyTargetInstance(targetInstance: number | undefined) {
     return targetInstance === undefined ? 1 : targetInstance;
   }
 
-  onMarkApplication(event) {
+  onMarkApplication(event: ApplyDebuffEvent) {
     const targetInstance = this._verifyTargetInstance(event.targetInstance);
-    const markOfTheCrane = {
+    const markOfTheCrane: MarkOfTheCrane = {
       target: { id: event.targetID, instance: targetInstance },
       timestamp: event.timestamp,
     };
     this.cycloneStrikesMarks.push(markOfTheCrane);
   }
 
-  onMarkRefresh(event) {
+  onMarkRefresh(event: RefreshDebuffEvent) {
     const targetInstance = this._verifyTargetInstance(event.targetInstance);
-    const refreshedMark = {
+    const refreshedMark: MarkOfTheCrane = {
       target: { id: event.targetID, instance: targetInstance },
       timestamp: event.timestamp,
     };
@@ -72,7 +85,7 @@ class SpinningCraneKick extends Analyzer {
     });
   }
 
-  onSCKCast(event) {
+  onSCKCast(event: CastEvent) {
     // Filter out expired targets
     this.cycloneStrikesMarks = this.cycloneStrikesMarks.filter(
       (mark) => event.timestamp - mark.timestamp <= 15000,

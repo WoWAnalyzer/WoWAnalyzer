@@ -3,17 +3,36 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
-import Events from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 const TOUCH_OF_KARMA_HP_SCALING = 0.5;
 
 class TouchOfKarma extends Analyzer {
+
+  static dependencies = {
+    healingDone: HealingDone,
+  };
+
+  protected healingDone!: HealingDone;
+
+  totalPossibleAbsorb = 0;
+
+  constructor(options: Options) {
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TOUCH_OF_KARMA_CAST), this.onCast);
+  }
+
+  onCast(event: CastEvent) {
+    this.totalPossibleAbsorb += (event.maxHitPoints || 0) * TOUCH_OF_KARMA_HP_SCALING;
+  }
+
   get absorbUsed() {
     return this.healingDone.byAbility(SPELLS.TOUCH_OF_KARMA_CAST.id).effective / this.totalPossibleAbsorb;
   }
@@ -26,25 +45,11 @@ class TouchOfKarma extends Analyzer {
         average: 0.65,
         major: 0.5,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  static dependencies = {
-    healingDone: HealingDone,
-  };
-  totalPossibleAbsorb = 0;
-
-  constructor(options) {
-    super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TOUCH_OF_KARMA_CAST), this.onCast);
-  }
-
-  onCast(event) {
-    this.totalPossibleAbsorb += event.maxHitPoints * TOUCH_OF_KARMA_HP_SCALING;
-  }
-
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<> You consumed a low amount of your total <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} /> absorb. It's best used when you can take enough damage to consume most of the absorb. Getting full absorb usage shouldn't be expected on lower difficulty encounters </>)
       .icon(SPELLS.TOUCH_OF_KARMA_CAST.icon)
       .actual(i18n._(t('monk.windwalker.suggestions.touchOfKarma.absorbUsed')`${formatPercentage(actual)}% Touch of Karma absorb used`))
