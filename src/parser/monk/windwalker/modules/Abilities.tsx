@@ -11,7 +11,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FISTS_OF_FURY_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 24 / (1 + haste),
+        cooldown: (haste: number) => 24 / (1 + haste),
         gcd: {
           static: 1000,
         },
@@ -24,7 +24,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RISING_SUN_KICK,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => (10 / (1 + haste)),
+        cooldown: (haste: number) => (10 / (1 + haste)),
         gcd: {
           static: 1000,
         },
@@ -35,7 +35,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.WHIRLING_DRAGON_PUNCH_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 24 / (1 + haste),
+        cooldown: (haste: number) => 24 / (1 + haste),
         gcd: {
           static: 1000,
         },
@@ -120,7 +120,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RUSHING_JADE_WIND_TALENT_WINDWALKER,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        cooldown: haste => 6 / (1 + haste),
+        cooldown: (haste: number) => 6 / (1 + haste),
         gcd: {
           static: 1000,
         },
