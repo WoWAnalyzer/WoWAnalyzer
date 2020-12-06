@@ -1,11 +1,12 @@
 import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import SPELLS from 'common/SPELLS';
+import { CastEvent } from 'parser/core/Events';
 
 /**
  * The Global Cooldown of Fists of Fury is also being triggered by fabricated channeling events
  */
 class GlobalCooldown extends CoreGlobalCooldown {
-  onCast(event) {
+  onCast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.FISTS_OF_FURY_CAST.id) {
       return;
