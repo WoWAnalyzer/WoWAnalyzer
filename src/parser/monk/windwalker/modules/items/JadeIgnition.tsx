@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -11,29 +11,11 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Events from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 const MAX_STACKS = 30;
 
 class JadeIgnition extends Analyzer {
-  get damageDone() {
-    return this.abilityTracker.getAbility(SPELLS.JADE_IGNITION_DAMAGE.id).damageEffective;
-  }
-
-  get stackUsage() {
-    return 1 - (this.stacksWasted / this.totalStacks);
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.stackUsage,
-      isLessThan: {
-        minor: 1,
-        average: 0.95,
-        major: 0.9,
-      },
-      style: 'percentage',
-    };
-  }
 
   static dependencies = {
     abilityTracker: AbilityTracker,
@@ -42,8 +24,10 @@ class JadeIgnition extends Analyzer {
   currentStacks = 0;
   stacksWasted = 0;
 
-  constructor(...args) {
-    super(...args);
+  protected abilityTracker!: AbilityTracker;
+
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.JADE_IGNITION.bonusID);
     if (!this.active) {
       return;
@@ -73,6 +57,26 @@ class JadeIgnition extends Analyzer {
     this.currentStacks = 0;
   }
 
+  get damageDone() {
+    return this.abilityTracker.getAbility(SPELLS.JADE_IGNITION_DAMAGE.id).damageEffective;
+  }
+
+  get stackUsage() {
+    return 1 - (this.stacksWasted / this.totalStacks);
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.stackUsage,
+      isLessThan: {
+        minor: 1,
+        average: 0.95,
+        major: 0.9,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
   statistic() {
     return (
       <Statistic
@@ -89,13 +93,13 @@ class JadeIgnition extends Analyzer {
     );
   }
 
-  suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      suggest(<Trans id="monk.windwalker.suggestions.jadeIgnitionWastedStacks"> You wasted your <SpellLink id={SPELLS.JADE_IGNITION_BUFF.id} /> stacks by using Fists of Fury at full stacks</Trans>)
-        .icon(SPELLS.JADE_IGNITION.icon)
-        .actual(`${formatPercentage(actual, 0)}% Stacks used`)
-        .recommended(`${formatPercentage(recommended, 0)}% Stacks used is recommended`);
-    });
+  suggestions(when: When) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
+      <Trans id="monk.windwalker.suggestions.jadeIgnitionWastedStacks"> You wasted your <SpellLink id={SPELLS.JADE_IGNITION_BUFF.id} /> stacks by using Fists of Fury at full stacks</Trans>)
+      .icon(SPELLS.JADE_IGNITION.icon)
+      .actual(`${formatPercentage(actual, 0)}% Stacks used`)
+      .recommended(`${formatPercentage(recommended, 0)}% Stacks used is recommended`),
+    );
   }
 }
 
