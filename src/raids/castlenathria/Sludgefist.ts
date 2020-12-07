@@ -1,7 +1,7 @@
 import { Boss } from "raids/index";
 
-import Background from './images/backgrounds/CastleNathria.jpg';
-import Headshot from './images/headshots/CastleNathriaHeadshot.png';
+import Background from './images/backgrounds/Sludgefist.jpg';
+import Headshot from './images/headshots/Sludgefist.jpg';
 
 const Sludgefist: Boss = {
   id: 2399,
