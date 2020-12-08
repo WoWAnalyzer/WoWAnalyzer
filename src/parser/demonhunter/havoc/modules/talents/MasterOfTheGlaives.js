@@ -9,7 +9,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
  * Example Report: https://www.warcraftlogs.com/reports/QDMVJtvnBz43NZLk/#fight=2&source=1
  */
 
-class MasterOfTheGlaives extends Analyzer{
+class MasterOfTheGlaives extends Analyzer {
 
   slows = 0;
 
@@ -26,7 +26,7 @@ class MasterOfTheGlaives extends Analyzer{
     this.slows += 1;
   }
 
-  statistic(){
+  statistic() {
     return (
       <TalentStatisticBox
         talent={SPELLS.MASTER_OF_THE_GLAIVE_TALENT.id}
@@ -36,4 +36,5 @@ class MasterOfTheGlaives extends Analyzer{
     );
   }
 }
+
 export default MasterOfTheGlaives;

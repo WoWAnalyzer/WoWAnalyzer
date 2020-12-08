@@ -10,6 +10,7 @@ import Contributor from 'interface/ContributorButton';
 // prettier-ignore
 export default [
   change(date(2020, 12, 9), 'Updated Potions and Flask!', Abelito75),
+  change(date(2020, 12, 8), 'Removed Azerite traits, Essences, and anything else BFA related from WoWAnalyzer.', Putro),
   change(date(2020, 12, 8), 'Updated Stat Tracking to use squished stat values, and added shadowlands food, potions, and flasks.', Sharrq),
   change(date(2020, 12, 7), 'Added background and headshot graphics for Castle Nathria bosses', Sharrq),
   change(date(2020, 12, 3), 'Removed Azerite Overview from the character panel', niseko),

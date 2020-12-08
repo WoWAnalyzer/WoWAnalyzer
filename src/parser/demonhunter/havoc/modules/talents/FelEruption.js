@@ -12,6 +12,22 @@ import SpellLink from 'common/SpellLink';
 
 class FelEruption extends Analyzer {
 
+  get badCasts() {
+    return this.casts - this.stuns;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.badCasts,
+      isGreaterThan: {
+        minor: 0,
+        average: 0,
+        major: 1,
+      },
+      style: 'number',
+    };
+  }
+
   casts = 0;
   stuns = 0;
 
@@ -33,45 +49,30 @@ class FelEruption extends Analyzer {
     this.stuns += 1;
   }
 
-  get badCasts() {
-    return this.casts - this.stuns;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.badCasts,
-      isGreaterThan: {
-        minor: 0,
-        average: 0,
-        major: 1,
-      },
-      style: 'number',
-    };
-  }
-
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Try to cast <SpellLink id={SPELLS.FEL_ERUPTION_TALENT.id} /> only for its stun. It's not worth casting for its damage since it's a DPS loss.</>)
-          .icon(SPELLS.FEL_ERUPTION_TALENT.icon)
-          .actual(<>{actual} bad <SpellLink id={SPELLS.FEL_ERUPTION_TALENT.id} /> casts that didn't stun the target </>)
-          .recommended('No bad casts are recommended.'));
+        .icon(SPELLS.FEL_ERUPTION_TALENT.icon)
+        .actual(<>{actual} bad <SpellLink id={SPELLS.FEL_ERUPTION_TALENT.id} /> casts that didn't stun the target </>)
+        .recommended('No bad casts are recommended.'));
   }
 
-  statistic(){
+  statistic() {
     return (
       <TalentStatisticBox
         talent={SPELLS.FEL_ERUPTION_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
         value={<>{this.badCasts} <small>bad casts that didn't stun the target</small> </>}
         tooltip={(
-<>
-                  This ability should only be used for its stun. Its a DPS loss. <br /> <br />
-                  You casted this ability a total of {this.casts} time(s). <br />
-                  It stunned a target {this.stuns} time(s).
-                </>
-)}
+          <>
+            This ability should only be used for its stun. Its a DPS loss. <br /> <br />
+            You casted this ability a total of {this.casts} time(s). <br />
+            It stunned a target {this.stuns} time(s).
+          </>
+        )}
       />
     );
   }
 }
+
 export default FelEruption;

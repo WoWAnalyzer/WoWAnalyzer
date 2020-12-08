@@ -14,7 +14,6 @@ class AgonizingFlames extends Analyzer {
 
   damage = 0;
 
-
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.AGONIZING_FLAMES_TALENT.id);

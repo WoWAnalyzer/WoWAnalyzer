@@ -12,7 +12,19 @@ import SpellLink from 'common/SpellLink';
 
 const META_BUFF_DURATION_EYEBEAM = 10000;
 
-class Demonic extends Analyzer{
+class Demonic extends Analyzer {
+
+  get suggestionThresholds() {
+    return {
+      actual: this.badCasts,
+      isGreaterThan: {
+        minor: 0,
+        average: 0,
+        major: 1,
+      },
+      style: 'number',
+    };
+  }
 
   eyeBeamCasts = 0;
   goodDeathSweep = 0;
@@ -58,40 +70,29 @@ class Demonic extends Analyzer{
     }
   }
 
-  get suggestionThresholds() {
-    return {
-      actual: this.badCasts,
-      isGreaterThan: {
-        minor: 0,
-        average: 0,
-        major: 1,
-      },
-      style: 'number',
-    };
-  }
-
   suggestions(when) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>Try to have <SpellLink id={SPELLS.BLADE_DANCE.id} /> almost off cooldown before casting <SpellLink id={SPELLS.EYE_BEAM.id} />. This will allow for two casts of <SpellLink id={SPELLS.DEATH_SWEEP.id} /> during the <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} />  buff you get from the <SpellLink id={SPELLS.DEMONIC_TALENT.id} /> talent.</>)
-          .icon(SPELLS.DEMONIC_TALENT.icon)
-          .actual(<>{actual} time(s) during <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} /> <SpellLink id={SPELLS.DEATH_SWEEP.id} /> wasn't casted twice.</>)
-          .recommended(`No bad casts is recommended.`));
+      .addSuggestion((suggest, actual, recommended) => suggest(<>Try to have <SpellLink id={SPELLS.BLADE_DANCE.id} /> almost off cooldown before casting <SpellLink id={SPELLS.EYE_BEAM.id} />. This will allow for two casts of <SpellLink id={SPELLS.DEATH_SWEEP.id} /> during the <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} /> buff you get from the <SpellLink id={SPELLS.DEMONIC_TALENT.id} /> talent.</>)
+        .icon(SPELLS.DEMONIC_TALENT.icon)
+        .actual(<>{actual} time(s) during <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} /> <SpellLink id={SPELLS.DEATH_SWEEP.id} /> wasn't casted twice.</>)
+        .recommended(`No bad casts is recommended.`));
   }
 
-  statistic(){
+  statistic() {
     return (
       <TalentStatisticBox
         talent={SPELLS.DEMONIC_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
         value={(
-<>
-        {this.badCasts} <small>Bad casts</small><br />
-                </>
-)}
+          <>
+            {this.badCasts} <small>Bad casts</small><br />
+          </>
+        )}
         tooltip={`A bad cast is triggered when you don't do atleast 2 Death Sweep casts inside
                   the Metamorphosis window you get from Eye Beam due to the Demonic talent.`}
       />
     );
   }
 }
+
 export default Demonic;
