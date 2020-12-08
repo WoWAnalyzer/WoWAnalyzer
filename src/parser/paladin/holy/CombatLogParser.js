@@ -45,6 +45,7 @@ import AvengingCrusader from './modules/talents/AvengingCrusader';
 import JudgmentOfLight from './modules/talents/JudgmentOfLight';
 import GlimmerOfLight from './modules/talents/GlimmerOfLight';
 
+
 import HolyPowerTracker from '../shared/holypower/HolyPowerTracker';
 import HolyPowerDetails from '../shared/holypower/HolyPowerDetails';
 
@@ -105,7 +106,6 @@ class CombatLogParser extends CoreCombatLogParser {
     avengingCrusader: AvengingCrusader,
     judgmentOfLight: JudgmentOfLight,
     glimmerOfLight: GlimmerOfLight,
-
 
     // Azerite Essences //
     lucidDream: LucidDreamsHealers,
