@@ -4,7 +4,7 @@ import { formatPercentage, formatThousands } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 
 import SpellUsable from '../features/SpellUsable';
@@ -24,17 +24,14 @@ class SuddenDeath extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
-
-  protected spellUsable!: SpellUsable;
-
   suddenDeathProcs: number = 0;
   suddenDeathProcsUsed: number = 0;
   executeDamageEvents: ExecuteDamageTracker[] = [];
-
   lastExecuteCast: number = 0;
   lastSuddenDeathExecuteCast: number = 0;
   lastSuddenDeathTargetID: number | undefined = 0;
   executeThreshold: number = 0.2;
+  protected spellUsable!: SpellUsable;
 
   constructor(options: Options) {
     super(options);
@@ -50,6 +47,22 @@ class SuddenDeath extends Analyzer {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.EXECUTE_DAMAGE_FURY, SPELLS.EXECUTE_DAMAGE_OH_FURY]), this.onExecuteDamage);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SUDDEN_DEATH_TALENT_FURY_BUFF), this.onSuddenDeathProc);
     this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.SUDDEN_DEATH_TALENT_FURY_BUFF), this.onSuddenDeathProc);
+  }
+
+  get damageAboveThreshold() {
+    return this.executeDamageEvents.reduce((total, event) => event.isMainTargetAboveThreshold ? total + event.damageDone : total, 0);
+  }
+
+  get damagePercent() {
+    return this.owner.getPercentageOfTotalDamageDone(this.damageAboveThreshold);
+  }
+
+  get executeCastsAboveThreshold() {
+    return this.executeDamageEvents.filter(e => e.isMainTargetAboveThreshold && e.isSuddenDeath).length;
+  }
+
+  get effectiveExecuteCDR() {
+    return this.spellUsable.executeCdrEvents.reduce((total, cdrValue, index) => this.executeDamageEvents[index] && !this.executeDamageEvents[index].isMainTargetAboveThreshold ? total + cdrValue : total, 0);
   }
 
   onExecuteCast(event: CastEvent) {
@@ -76,7 +89,6 @@ class SuddenDeath extends Analyzer {
     }
   }
 
-
   isExecuteAboveThreshold(event: DamageEvent) {
     if (!event.hitPoints || !event.maxHitPoints) {
       return false;
@@ -86,21 +98,6 @@ class SuddenDeath extends Analyzer {
 
   onSuddenDeathProc() {
     this.suddenDeathProcs += 1;
-  }
-  get damageAboveThreshold() {
-    return this.executeDamageEvents.reduce((total, event) => event.isMainTargetAboveThreshold ? total + event.damageDone : total, 0);
-  }
-
-  get damagePercent() {
-    return this.owner.getPercentageOfTotalDamageDone(this.damageAboveThreshold);
-  }
-
-  get executeCastsAboveThreshold() {
-    return this.executeDamageEvents.filter(e => e.isMainTargetAboveThreshold && e.isSuddenDeath).length;
-  }
-
-  get effectiveExecuteCDR() {
-    return this.spellUsable.executeCdrEvents.reduce((total, cdrValue, index) => this.executeDamageEvents[index] && !this.executeDamageEvents[index].isMainTargetAboveThreshold ? total + cdrValue : total, 0);
   }
 
   statistic() {

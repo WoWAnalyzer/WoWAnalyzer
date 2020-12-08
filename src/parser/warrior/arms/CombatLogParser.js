@@ -17,6 +17,7 @@ import RageDetail from './modules/features/RageDetails';
 import TacticianProc from './modules/core/TacticianProc';
 import Overpower from './modules/core/Overpower';
 import Slam from './modules/core/Slam';
+import SweepingStrikes from './modules/core/SweepingStrikes';
 // Execute Range
 import Rend from './modules/core/Execute/Rend';
 import MortalStrike from './modules/core/Execute/MortalStrike';
@@ -40,13 +41,6 @@ import Cleave from './modules/talents/Cleave';
 import Warbreaker from './modules/talents/Warbreaker';
 import Avatar from './modules/talents/Avatar';
 import Ravager from './modules/talents/Ravager';
-// Azerite Traits
-import SeismicWave from './modules/spells/azeritetraits/SeismicWave';
-import TestOfMight from './modules/spells/azeritetraits/TestOfMight';
-import CrushingAssault from './modules/spells/azeritetraits/CrushingAssault';
-import StrikingTheAnvil from './modules/spells/azeritetraits/StrikingTheAnvil';
-import LordOfWar from './modules/spells/azeritetraits/LordOfWar';
-import SweepingStrikes from './modules/core/SweepingStrikes';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -99,13 +93,6 @@ class CombatLogParser extends CoreCombatLogParser {
     warbreaker: Warbreaker,
     avatar: Avatar,
     ravager: Ravager,
-
-    // Azerite traits
-    seismicWave: SeismicWave,
-    testOfMight: TestOfMight,
-    crushingAssault: CrushingAssault,
-    strikingTheAnvil: StrikingTheAnvil,
-    lordOfWar: LordOfWar,
   };
 }
 

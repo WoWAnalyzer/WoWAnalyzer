@@ -8,7 +8,7 @@ class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
     let btThreashhold = .3;
-    if(this.selectedCombatant.hasTrait(SPELLS.COLD_STEEL_HOT_BLOOD.id)){
+    if (this.selectedCombatant.hasTrait(SPELLS.COLD_STEEL_HOT_BLOOD.id)) {
       btThreashhold = this.selectedCombatant.traitsBySpellId[SPELLS.COLD_STEEL_HOT_BLOOD.id].length > 1 ? .85 : .3;
     }
     return [

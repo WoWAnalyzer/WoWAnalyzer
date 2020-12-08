@@ -12,7 +12,6 @@ import MitigationCheck from './modules/features/MitigationCheck';
 import Buffs from './modules/features/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 
-
 import ShieldBlock from './modules/spells/ShieldBlock';
 import BlockCheck from './modules/features/BlockCheck';
 import Checklist from './modules/features/Checklist/Module';
@@ -30,7 +29,6 @@ import WarMachine from './modules/talents/WarMachine';
 import Punish from './modules/talents/Punish';
 import DragonRoar from './modules/talents/DragonRoar';
 import SpellReflect from './modules/spells/SpellReflect';
-
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
