@@ -152,6 +152,7 @@ jobs:
           restore-keys: ${{ runner.os }}-node_modules-
           read-only: true
       - name: Extract messages
+        if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer'
         # We need to run extraction twice as Lingui has a bug where the second pass removes the default for messages with the same id as the default
         run: |
           yarn extract
@@ -171,6 +172,34 @@ jobs:
         with:
           name: build
           path: build.tar.gz
+  # This only runs on PRs since it's not a part of the build step. This is
+  # required as mistakes in i18n tags may trigger errors, and we skip the
+  # extraction in the build for performance in PRs.
+  extract-verify:
+    needs: [prepare]
+    name: 'Verify i18n messages'
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+      - name: Cache "node_modules"
+        uses: martijnhols/cache@read-only
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('yarn.lock') }}
+          restore-keys: ${{ runner.os }}-node_modules-
+          read-only: true
+      - name: Extract messages
+        if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer'
+        # We need to run extraction twice as Lingui has a bug where the second pass removes the default for messages with the same id as the default
+        run: |
+          yarn extract
+          yarn extract
+      - name: Compile messages
+        run: yarn lingui compile
 
   docker-image:
     needs: [typecheck, linting, test-interface, test-parser, test-integration, build]
@@ -213,7 +242,7 @@ jobs:
 
   # TODO: Sentry releases https://blog.sentry.io/2019/12/17/using-github-actions-to-create-sentry-releases
 
-  extract:
+  extract-messages:
     needs: [prepare]
     name: 'Extract messages'
     runs-on: ubuntu-latest
