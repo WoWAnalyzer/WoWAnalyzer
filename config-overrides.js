@@ -1,15 +1,16 @@
-const { override } = require('customize-cra');
+const { override, disableEsLint } = require('customize-cra');
 // eslint-disable-next-line import/no-extraneous-dependencies
-const EslintPlugin = require('eslint-webpack-plugin');
+// const EslintPlugin = require('eslint-webpack-plugin');
 // eslint-disable-next-line import/no-extraneous-dependencies
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 
-// customize-cra's disableEsLint disables the rules, but disabling the entire
-// plugin seem to give us more performance.
-const disableEsLint = () => (config) => ({
-  ...config,
-  plugins: config.plugins.filter((plugin) => !(plugin instanceof EslintPlugin)),
-});
+// Enable when we upgrade to CRA v4:
+// // customize-cra's disableEsLint disables the rules, but disabling the entire
+// // plugin seem to give us more performance.
+// const disableEsLint = () => (config) => ({
+//   ...config,
+//   plugins: config.plugins.filter((plugin) => !(plugin instanceof EslintPlugin)),
+// });
 const disableTypeChecking = () => (config) => ({
   ...config,
   plugins: config.plugins.filter((plugin) => !(plugin instanceof ForkTsCheckerWebpackPlugin)),
