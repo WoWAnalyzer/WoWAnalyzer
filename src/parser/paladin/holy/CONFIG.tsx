@@ -5,9 +5,9 @@ import SPECS from 'game/SPECS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Config from 'parser/Config';
+import SpellIcon from 'common/SpellIcon';
 
 import CHANGELOG from './CHANGELOG';
-import SpellIcon from 'common/SpellIcon';
 
 const config: Config = {
   contributors: [Abelito75, HolySchmidt],
