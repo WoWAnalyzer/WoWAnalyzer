@@ -15,30 +15,6 @@ import { t } from '@lingui/macro';
 const FISTS_OF_FURY_MINIMUM_TICK_TIME = 100; // This is to check that additional ticks aren't just hitting secondary targets
 
 class FistsofFury extends Analyzer {
-  static dependencies = {
-    abilityTracker: AbilityTracker,
-  };
-
-  constructor(...args) {
-    super(...args);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FISTS_OF_FURY_DAMAGE), this.onFistsDamage);
-  }
-
-  previousTickTimestamp = null;
-  fistsTicks = 0;
-
-  isNewFistsTick(timestamp) {
-    return !this.previousTickTimestamp || (timestamp - this.previousTickTimestamp) > FISTS_OF_FURY_MINIMUM_TICK_TIME;
-  }
-
-  onFistsDamage(event) {
-    if (!this.isNewFistsTick(event.timestamp)) {
-      return;
-    }
-    this.fistsTicks += 1;
-    this.previousTickTimestamp = event.timestamp;
-  }
-
   get averageTicks() {
     return this.fistsTicks / this.casts;
   }
@@ -59,10 +35,33 @@ class FistsofFury extends Analyzer {
     };
   }
 
+  static dependencies = {
+    abilityTracker: AbilityTracker,
+  };
+  previousTickTimestamp = null;
+  fistsTicks = 0;
+
+  constructor(...args) {
+    super(...args);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FISTS_OF_FURY_DAMAGE), this.onFistsDamage);
+  }
+
+  isNewFistsTick(timestamp) {
+    return !this.previousTickTimestamp || (timestamp - this.previousTickTimestamp) > FISTS_OF_FURY_MINIMUM_TICK_TIME;
+  }
+
+  onFistsDamage(event) {
+    if (!this.isNewFistsTick(event.timestamp)) {
+      return;
+    }
+    this.fistsTicks += 1;
+    this.previousTickTimestamp = event.timestamp;
+  }
+
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<span> You are cancelling your <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /> casts early and losing ticks </span>)
-        .icon(SPELLS.FISTS_OF_FURY_CAST.icon).actual(i18n._(t('monk.windwalker.suggestions.fistOfFury.avgTicksPerCast')`${actual.toFixed(2)} average ticks on each Fists of Fury cast`))
-        .recommended(`Aim to get ${recommended} ticks with each Fists of Fury cast.`));
+      .icon(SPELLS.FISTS_OF_FURY_CAST.icon).actual(i18n._(t('monk.windwalker.suggestions.fistOfFury.avgTicksPerCast')`${actual.toFixed(2)} average ticks on each Fists of Fury cast`))
+      .recommended(`Aim to get ${recommended} ticks with each Fists of Fury cast.`));
   }
 
   statistic() {
@@ -72,9 +71,9 @@ class FistsofFury extends Analyzer {
         size="flexible"
         tooltip="Fists of Fury ticks 5 times over the duration of the channel"
       >
-      <BoringSpellValueText spell={SPELLS.FISTS_OF_FURY_CAST}>
-        {this.averageTicks.toFixed(2)} <small>Average ticks per cast</small>
-      </BoringSpellValueText>
+        <BoringSpellValueText spell={SPELLS.FISTS_OF_FURY_CAST}>
+          {this.averageTicks.toFixed(2)} <small>Average ticks per cast</small>
+        </BoringSpellValueText>
       </Statistic>
     );
   }

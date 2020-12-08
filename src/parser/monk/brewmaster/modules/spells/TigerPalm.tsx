@@ -1,13 +1,13 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Combatant from 'parser/core/Combatant';
 import { SpellInfo } from 'parser/core/EventFilter';
-import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent, CastEvent, DamageEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, CastEvent, DamageEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { formatPercentage } from 'common/format';
 
 import BlackoutCombo from './BlackoutCombo';
@@ -49,29 +49,35 @@ class TigerPalm extends Analyzer {
     statTracker: StatTracker,
     spellUsable: SpellUsable,
   };
-
+  totalCasts = 0;
+  badCasts = 0;
+  normalHits = 0;
+  bocHits = 0;
+  cdr = 0;
+  wastedCDR = 0;
+  bocBuffActive = false;
+  bocApplyToTP = false;
   protected boc!: BlackoutCombo;
   protected brews!: SharedBrews;
   protected statTracker!: StatTracker;
   protected spellUsable!: SpellUsable;
 
-  totalCasts = 0;
-  badCasts = 0;
-  normalHits = 0;
-  bocHits = 0;
-
-  cdr = 0;
-  wastedCDR = 0;
-
-  bocBuffActive = false;
-  bocApplyToTP = false;
+  constructor(options: Options) {
+    super(options);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF), this.onGainBOC);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF), this.onGainBOC);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF), this.onLoseBOC);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TIGER_PALM), this.onCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TIGER_PALM), this.checkBadTP);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.TIGER_PALM), this.onDamage);
+  }
 
   get totalBocHits() {
     return this.bocHits;
   }
 
   get bocEmpoweredThreshold() {
-    if(!this.selectedCombatant.hasTalent(SPELLS.BLACKOUT_COMBO_TALENT.id)) {
+    if (!this.selectedCombatant.hasTalent(SPELLS.BLACKOUT_COMBO_TALENT.id)) {
       return null;
     }
     return {
@@ -85,21 +91,24 @@ class TigerPalm extends Analyzer {
     };
   }
 
-  constructor(options: Options){
-    super(options);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF), this.onGainBOC);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF), this.onGainBOC);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF), this.onLoseBOC);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TIGER_PALM), this.onCast);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TIGER_PALM), this.checkBadTP);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.TIGER_PALM), this.onDamage);
+  get badCastSuggestion() {
+    const actual = this.badCasts / this.totalCasts;
+    return {
+      actual,
+      isGreaterThan: {
+        minor: 0.05,
+        average: 0.1,
+        major: 0.15,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
   }
 
-  onGainBOC(event: ApplyBuffEvent | RefreshBuffEvent){
+  onGainBOC(event: ApplyBuffEvent | RefreshBuffEvent) {
     this.bocBuffActive = true;
   }
 
-  onLoseBOC(event: RemoveBuffEvent){
+  onLoseBOC(event: RemoveBuffEvent) {
     this.bocBuffActive = false;
   }
 
@@ -107,6 +116,8 @@ class TigerPalm extends Analyzer {
     this.totalCasts += 1;
     this.bocApplyToTP = this.bocBuffActive;
   }
+
+  // a Tiger Palm cast is bad if it is cast while one of the `BETTER_SPELLS` is
 
   onDamage(event: DamageEvent) {
     // OK SO we have a hit, lets reduce the CD by the base amount...
@@ -121,10 +132,9 @@ class TigerPalm extends Analyzer {
     }
   }
 
-  // a Tiger Palm cast is bad if it is cast while one of the `BETTER_SPELLS` is
   // off cooldown, or if casting it delayed Keg Smash due to energy starvation.
   checkBadTP(event: CastEvent) {
-    if(this.bocBuffActive) {
+    if (this.bocBuffActive) {
       return; // TP+BoC is highest prio
     }
 
@@ -148,34 +158,21 @@ class TigerPalm extends Analyzer {
         <>
           The following better spells were available during this GCD:
           <ul>
-        {availableSpells.map(({ id }) => <li key={id}><SpellLink id={id} /></li>)}
+            {availableSpells.map(({ id }) => <li key={id}><SpellLink id={id} /></li>)}
           </ul>
         </>
-      )
+      ),
     };
 
     this.badCasts += 1;
   }
 
-  get badCastSuggestion() {
-    const actual = this.badCasts / this.totalCasts;
-    return {
-      actual,
-      isGreaterThan: {
-        minor: 0.05,
-        average: 0.1,
-        major: 0.15,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
   suggestions(when: When) {
     when(this.badCastSuggestion)
       .addSuggestion((suggest, actual, recommended) => suggest(<><SpellLink id={SPELLS.TIGER_PALM.id} /> is your lowest priority ability. You should avoid casting it when you have other damaging abilities like <SpellLink id={SPELLS.KEG_SMASH.id} /> or <SpellLink id={SPELLS.BLACKOUT_KICK_BRM.id} /> available.</>)
-          .icon(SPELLS.TIGER_PALM.icon)
-          .actual(`${formatPercentage(actual)}% of casts while better spells were available`)
-          .recommended(`< ${formatPercentage(recommended)}% is recommended`));
+        .icon(SPELLS.TIGER_PALM.icon)
+        .actual(`${formatPercentage(actual)}% of casts while better spells were available`)
+        .recommended(`< ${formatPercentage(recommended)}% is recommended`));
   }
 }
 

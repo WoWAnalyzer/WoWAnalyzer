@@ -19,14 +19,33 @@ import { t } from '@lingui/macro';
 const COOLDOWN_REDUCTION_MS = 1000;
 
 class BlackoutKick extends Analyzer {
+  get totalWastedReductionPerMinute() {
+    return (this.wastedFistsOfFuryReductionMs + this.wastedRisingSunKickReductionMs) / (this.owner.fightDuration) * 60;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.totalWastedReductionPerMinute,
+      isGreaterThan: {
+        minor: 0,
+        average: 2,
+        major: 4,
+      },
+      style: 'decimal',
+    };
+  }
+
   static dependencies = {
     spellUsable: SpellUsable,
   };
-
   IMPORTANT_SPELLS = [
     SPELLS.RISING_SUN_KICK.id,
     SPELLS.FISTS_OF_FURY_CAST.id,
   ];
+  effectiveRisingSunKickReductionMs = 0;
+  wastedRisingSunKickReductionMs = 0;
+  effectiveFistsOfFuryReductionMs = 0;
+  wastedFistsOfFuryReductionMs = 0;
 
   constructor(...args) {
     super(...args);
@@ -36,11 +55,6 @@ class BlackoutKick extends Analyzer {
     }
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_KICK), this.onCast);
   }
-
-  effectiveRisingSunKickReductionMs = 0;
-  wastedRisingSunKickReductionMs = 0;
-  effectiveFistsOfFuryReductionMs = 0;
-  wastedFistsOfFuryReductionMs = 0;
 
   onCast(event) {
     const hasImportantCastsAvailable = this.IMPORTANT_SPELLS.some(spellId => this.spellUsable.isAvailable(spellId));
@@ -67,27 +81,11 @@ class BlackoutKick extends Analyzer {
     }
   }
 
-  get totalWastedReductionPerMinute() {
-    return (this.wastedFistsOfFuryReductionMs + this.wastedRisingSunKickReductionMs) / (this.owner.fightDuration) * 60;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.totalWastedReductionPerMinute,
-      isGreaterThan: {
-        minor: 0,
-        average: 2,
-        major: 4,
-      },
-      style: 'decimal',
-    };
-  }
-
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest('You are wasting cooldown reduction by casting Blackout Kick while having important casts available')
-        .icon(SPELLS.BLACKOUT_KICK.icon)
-        .actual(i18n._(t('monk.windwalker.suggestions.blackoutKick.cdrWasted')`${actual.toFixed(2)} seconds of wasted cooldown reduction per minute`))
-        .recommended(`${recommended} is recommended`));
+      .icon(SPELLS.BLACKOUT_KICK.icon)
+      .actual(i18n._(t('monk.windwalker.suggestions.blackoutKick.cdrWasted')`${actual.toFixed(2)} seconds of wasted cooldown reduction per minute`))
+      .recommended(`${recommended} is recommended`));
   }
 
   statistic() {

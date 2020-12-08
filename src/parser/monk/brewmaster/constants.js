@@ -18,7 +18,7 @@ export const GIFT_OF_THE_OX_SPELLS = [
   SPELLS.GIFT_OF_THE_OX_8,
 ];
 
-export const GIFT_OF_THE_OX_SPELL_IDS = GIFT_OF_THE_OX_SPELLS.map(({id}) => id);
+export const GIFT_OF_THE_OX_SPELL_IDS = GIFT_OF_THE_OX_SPELLS.map(({ id }) => id);
 
 export const SPELLS_WHICH_REMOVE_BOC = [
   SPELLS.TIGER_PALM,

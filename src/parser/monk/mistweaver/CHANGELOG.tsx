@@ -1,10 +1,9 @@
 import React from 'react';
 
-import { Anomoly, Gao, Zerotorescue, Abelito75, niseko, blazyb, JeremyDwayne, FraunchToost, Tyndi, Moonrabbit, Vohrr } from 'CONTRIBUTORS';
+import { Abelito75, Anomoly, blazyb, FraunchToost, Gao, JeremyDwayne, Moonrabbit, niseko, Tyndi, Vohrr, Zerotorescue } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
-
 
 export default [
   change(date(2020, 12, 4), <>Enabled conduits.</>, Abelito75),
@@ -48,13 +47,13 @@ export default [
   change(date(2020, 9, 21), <>Added all endurance conduits.</>, [Abelito75]),
   change(date(2020, 9, 1), <>Initial Shadowlands cleanup activities.</>, [Anomoly]),
   change(date(2020, 5, 24), <>Updated the <SpellLink id={SPELLS.RISING_MIST_TALENT.id} /> modules and generally made tracking hots better.</>, [Abelito75]),
-  change(date(2020, 4, 22), <>Corrected cooldown for Rising Sun Kick and Blackout Kick.</>,[Abelito75]),
+  change(date(2020, 4, 22), <>Corrected cooldown for Rising Sun Kick and Blackout Kick.</>, [Abelito75]),
   change(date(2020, 4, 1), <>Added average haste gained statistic from Mist Peaks azerite trait.</>, [FraunchToost]),
   change(date(2020, 3, 22), <>Fixed <SpellLink id={SPELLS.RISING_MIST_TALENT.id} /> healing for hot extensions.</>, [Abelito75]),
   change(date(2020, 3, 5), <>Added average time between <SpellLink id={SPELLS.RISING_SUN_KICK.id} /> casts statistic when <SpellLink id={SPELLS.RISING_MIST_TALENT.id} /> is talented.</>, [FraunchToost]),
   change(date(2020, 2, 27), <>Bugfix to only show <SpellLink id={SPELLS.RISING_SUN_KICK.id} /> cast efficiency suggestion when <SpellLink id={SPELLS.RISING_MIST_TALENT.id} /> is talented.</>, [FraunchToost]),
   change(date(2020, 1, 8), <>Updated for 8.3.</>, [Abelito75]),
-  change(date(2020, 1, 8), <>Updated stat weight calculation for <SpellLink id={SPELLS.RISING_MIST_TALENT.id} />, added new essence font statistic, tft rsk with rm is a correct use of tft now.</>,[ Abelito75]),
+  change(date(2020, 1, 8), <>Updated stat weight calculation for <SpellLink id={SPELLS.RISING_MIST_TALENT.id} />, added new essence font statistic, tft rsk with rm is a correct use of tft now.</>, [Abelito75]),
   change(date(2019, 12, 5), <>Updated stat weight calculation for Way of the Crane and Lucid Dreams.</>, [Anomoly]),
   change(date(2019, 11, 25), <>Added a Essence Font healing breakdown donut.</>, [Abelito75]),
   change(date(2019, 11, 25), <>Fixed upwelling randomly bugging out.</>, [Abelito75]),
@@ -64,7 +63,7 @@ export default [
   change(date(2019, 11, 9), <>Added upwelling statistic.</>, [Abelito75]),
   change(date(2019, 11, 9), <>Fixed Tier45 comparison if you didn't play in a way where mana would be returned/saved.</>, [Abelito75]),
   change(date(2019, 10, 14), <>Fixed small typos for <SpellLink id={SPELLS.RISING_MIST_TALENT.id} /> statistic box.</>, [Abelito75]),
-  change(date(2019, 10, 14), <>Spelling and grammar corrections in Tier 45 comparison tool.</>,JeremyDwayne),
+  change(date(2019, 10, 14), <>Spelling and grammar corrections in Tier 45 comparison tool.</>, JeremyDwayne),
   change(date(2019, 10, 13), <>Fixed Tier 45 comparison tool.</>, [Abelito75]),
   change(date(2019, 10, 13), <>New Tier 45 comparison tool to see if you picked the best talent for your playstyle.</>, [Abelito75]),
   change(date(2019, 10, 4), <>Added missing array declaration for enemiesHitSCK <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} />.</>, [JeremyDwayne]),
@@ -84,12 +83,12 @@ export default [
   change(date(2019, 3, 30), <>Added a check to make sure you cast <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> when there are enough targets around.</>, [Abelito75]),
   change(date(2019, 3, 23), <>Updated <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> to check if you have innervate before counting mana.</>, [Abelito75]),
   change(date(2019, 3, 21), <>Updated mastery tracking to more accurately reflect the spell that triggered the <SpellLink id={SPELLS.GUSTS_OF_MISTS.id} />. This includes updates to the statistic and healing efficiency sections.</>, [Abelito75]),
-  change(date(2019, 3, 15), <>Updated Mistweaver Spreadsheet tab to include  <SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} /> efficiency.</>, [Abelito75]),
+  change(date(2019, 3, 15), <>Updated Mistweaver Spreadsheet tab to include <SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} /> efficiency.</>, [Abelito75]),
   change(date(2019, 3, 15), <>Added SI to buffs to buffs module to track Secret Infusion.</>, [Abelito75]),
   change(date(2019, 3, 11), <>Added new Buffs module to track and highlight Mistweaver specific buffs on the timeline.</>, [Anomoly]),
   change(date(2019, 3, 11), <>Updated look and feel of Mistweaver Azerite traits to conform to new 3.0 style.</>, [Anomoly]),
   change(date(2019, 3, 10), <>Added overhealing check for <SpellLink id={SPELLS.MANA_TEA_TALENT.id} />.</>, [Abelito75]),
-  change(date(2019, 2, 25), <>Added statistics, suggestion, and checklist item for  <SpellLink id={SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.id} /> casting uptime.</>, [Anomoly]),
+  change(date(2019, 2, 25), <>Added statistics, suggestion, and checklist item for <SpellLink id={SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.id} /> casting uptime.</>, [Anomoly]),
   change(date(2019, 2, 21), <>Added statistics for tracking the average stat gain from Secret Infusion.</>, [Anomoly]),
   change(date(2019, 2, 7), <>Added statistics for tracking the number of <SpellLink id={SPELLS.RENEWING_MIST.id} /> during <SpellLink id={SPELLS.VIVIFY.id} /> casts. Also, did a quick bug fix for the Monk Spreadsheet import.</>, [Anomoly]),
   change(date(2019, 2, 7), <>Added statistics, suggestions, and checklist item for tracking the number of <SpellLink id={SPELLS.RENEWING_MIST.id} /> during <SpellLink id={SPELLS.MANA_TEA_TALENT.id} />. Also, adding some additional tooltips to the Healing Efficiency page.</>, [Anomoly]),

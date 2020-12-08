@@ -4,9 +4,8 @@ import General from './general';
 import Paladin from './paladin';
 import Shaman from './shaman';
 import Warlock from './warlock';
-import Monk from './monk';
 import Priest from './priest';
 import Warrior from './warrior';
 import Rogue from './rogue';
 
-export default safeMerge(General, Paladin, Shaman, Warlock, Monk, Priest, Warrior, Rogue);
+export default safeMerge(General, Paladin, Shaman, Warlock, Priest, Warrior, Rogue);

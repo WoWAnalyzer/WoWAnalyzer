@@ -40,14 +40,14 @@ class ImbuedReflections extends Analyzer {
     //mistweaver spells
     this.addEventListener(Events.heal.by(SELECTED_PLAYER_PET).spell([SPELLS.FALLEN_ORDER_ENVELOPING_MIST, SPELLS.FALLEN_ORDER_SOOTHING_MIST]), this.normalizeHealingBoost);
     //brewmaster spells
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell([SPELLS.FALLEN_ORDER_KEG_SMASH, SPELLS.FALLEN_ORDER_BREATH_OF_FIRE,SPELLS.BREATH_OF_FIRE_DEBUFF]), this.normalizeDamageBoost);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell([SPELLS.FALLEN_ORDER_KEG_SMASH, SPELLS.FALLEN_ORDER_BREATH_OF_FIRE, SPELLS.BREATH_OF_FIRE_DEBUFF]), this.normalizeDamageBoost);
     //windwalker spells
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell([SPELLS.FALLEN_ORDER_SPINNING_CRANE_KICK, SPELLS.FISTS_OF_FURY_DAMAGE]), this.normalizeDamageBoost);
     //shared
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.MELEE), this.handleMelee);
   }
 
-  trackSummons(event){
+  trackSummons(event) {
     this.cloneIDs.add(event.targetID);
   }
 
@@ -57,12 +57,12 @@ class ImbuedReflections extends Analyzer {
 
   normalizeDamageBoost(event) {
     const damage = event.amount;
-    const amount = (damage - damage/(1+this.boost)) || 0;
+    const amount = (damage - damage / (1 + this.boost)) || 0;
     this.damage += amount;
   }
 
   handleMelee(event) {
-    if(this.cloneIDs.has(event.sourceID)){
+    if (this.cloneIDs.has(event.sourceID)) {
       this.normalizeDamageBoost(event);
     }
   }
