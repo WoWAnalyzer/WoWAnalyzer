@@ -23,9 +23,7 @@ import BeaconHealSource from '../beacons/BeaconHealSource.js';
  */
 
 const BUFF_DURATION = 30;
-export const GLIMMER_CAP_8_3 = 8;
-export const IS_IT_8_3_YET = new Date() > new Date(2020, 1, 14);
-const GLIMMER_CAP = IS_IT_8_3_YET ? GLIMMER_CAP_8_3 : 99;
+const GLIMMER_CAP = 8;
 
 class GlimmerOfLight extends Analyzer {
   static dependencies = {
@@ -46,7 +44,7 @@ class GlimmerOfLight extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTrait(SPELLS.GLIMMER_OF_LIGHT_TRAIT.id) || this.selectedCombatant.hasTalent(SPELLS.GLIMMER_OF_LIGHT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.GLIMMER_OF_LIGHT_TALENT.id);
     if (!this.active) {
       return;
     }
@@ -241,29 +239,6 @@ class GlimmerOfLight extends Analyzer {
             )}%`,
           )
           .recommended(`< ${this.suggestEarlyRefresh.isGreaterThan.minor * 100}% is recommended`));
-    }
-
-    if (this.owner.builds.GLIMMER.active) {
-      when(this.suggestGlimmerCap).addSuggestion((suggest, actual, recommended) => suggest(
-          <Trans id="paladin.holy.modules.azeritetraits.glimmerOfLight.patch83">
-            Patch 8.3 implemented a{' '}
-            <a href="https://www.wowhead.com/news=295502.3/blizzard-official-class-changes-for-patch-8-3-visions-of-nzoth">
-              glimmer cap{' '}
-            </a>
-            limiting the number of active <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> buffs to{' '}
-            {GLIMMER_CAP}.<br />
-            Avoid stacking haste cooldowns to prevent over-capping on{' '}
-            <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} />.
-            <a href="https://questionablyepic.com/glimmer-8-3/">More info here.</a>
-          </Trans>,
-        )
-          .icon(SPELLS.GLIMMER_OF_LIGHT.icon)
-          .actual(
-            `Uptime lost to overcapping active Glimmers was ${formatPercentage(
-              this.overCapGlimmerLoss,
-            )}%`,
-          )
-          .recommended(`< ${this.suggestGlimmerCap.isGreaterThan.minor * 100}% is reccommended`));
     }
   }
 }

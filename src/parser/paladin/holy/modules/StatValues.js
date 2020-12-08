@@ -36,7 +36,7 @@ class StatValues extends BaseHealerStatValues {
 
   spellInfo = SPELL_INFO;
   qeLive = true;
-  active = false;
+  active = true;
 
   constructor(options){
     super(options);
