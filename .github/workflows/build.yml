@@ -185,12 +185,31 @@ jobs:
       - run: tar -xzf build.tar.gz
       # Remove files we no longer need to speed up sending context to Docker
       - run: rm build.tar.gz
-      - name: Publish to Registry
-        uses: elgohr/Publish-Docker-Github-Action@2.11
+      - name: Docker meta
+        id: docker_meta
+        uses: crazy-max/ghaction-docker-meta@v1
         with:
-          name: wowanalyzer/wowanalyzer
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          images: wowanalyzer/wowanalyzer
+          tag-sha: true
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{secrets.DOCKER_USERNAME}}
+          password: ${{secrets.DOCKER_PASSWORD}}
+      - name: 'Build martijnhols/healfie:${{env.DOCKER_BUILD_TAG}}'
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}
+
   # TODO: Sentry releases https://blog.sentry.io/2019/12/17/using-github-actions-to-create-sentry-releases
 
   extract:
