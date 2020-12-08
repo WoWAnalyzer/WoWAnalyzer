@@ -1,5 +1,5 @@
 import React from 'react';
-import { Abelito75, ackwell, AdamKelly, Aelexe, Amani, Amrux, Anatta336, axelkic, Barter, blazyb, ChagriAli, Chizu, ChristopherKiss, Dambroda, Dorixius, Draenal, emallson, fluffels, Fyruna, Gebuz, Guyius, Haelrail, Hartra344, HawkCorrigan, HolySchmidt, Hordehobbs, Jafowler, JeremyDwayne, jos3p, joshinator, Juko8, Khadaj, Khazak, Kruzershtern, layday, Mae, Mamtooth, Matardarix, Moonrabbit, Nalhan, niseko, Putro, Qbz, Satyric, Scotsoo, Sharrq, Ssabbar, Stui, Vetyst, Viridis, Yajinni, Zeboot, Zerotorescue } from 'CONTRIBUTORS';
+import { Abelito75, ackwell, AdamKelly, Aelexe, Amani, Amrux, Anatta336, axelkic, Barter, blazyb, ChagriAli, Chizu, ChristopherKiss, Dambroda, Dorixius, Draenal, emallson, fluffels, Fyruna, Gebuz, Guyius, Haelrail, Hartra344, HawkCorrigan, HolySchmidt, Hordehobbs, Jafowler, JeremyDwayne, jos3p, joshinator, Juko8, Keraldi, Khadaj, Khazak, Kruzershtern, layday, Mae, Mamtooth, Matardarix, Moonrabbit, Nalhan, niseko, Putro, Qbz, Satyric, Scotsoo, Sharrq, Ssabbar, Stui, Vetyst, Viridis, Yajinni, Zeboot, Zerotorescue } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -9,6 +9,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 12, 08), 'Converted some root files from JS to TS', Keraldi),
   change(date(2020, 11, 19), 'Final Interface and Restoration Shaman localization, correction of typos', Amani),
   change(date(2020, 11, 7), 'Adjust our Soulbind, Covenant, Conduit scripts per latest raid testing', Putro),
   change(date(2020, 11, 4), 'Migrate Castle Nathria to TS', Guyius),
