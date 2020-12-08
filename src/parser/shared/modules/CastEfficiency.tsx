@@ -10,8 +10,10 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellHistory from 'parser/shared/modules/SpellHistory';
 import Abilities from 'parser/core/modules/Abilities';
 
-import AbilityTracker from './AbilityTracker';
 import Haste from 'parser/shared/modules/Haste';
+
+import AbilityTracker from './AbilityTracker';
+
 import { EventType, UpdateSpellUsableEvent } from '../../core/Events';
 import Combatant from '../../core/Combatant';
 import Ability, { SpellbookAbility } from '../../core/modules/Ability';

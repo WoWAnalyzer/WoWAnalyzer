@@ -10,10 +10,11 @@ import Tooltip from 'common/Tooltip';
 import { i18n } from '@lingui/core';
 import { t, Trans } from '@lingui/macro';
 
+import Haste from 'parser/shared/modules/Haste';
+
 import Abilities from '../../core/modules/Abilities';
 import GlobalCooldown from './GlobalCooldown';
 import Channeling from './Channeling';
-import Haste from 'parser/shared/modules/Haste';
 
 class AlwaysBeCasting extends Analyzer {
   static dependencies = {

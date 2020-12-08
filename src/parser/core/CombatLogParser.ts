@@ -13,6 +13,8 @@ import {
   MappedEvent,
 } from 'parser/core/Events';
 
+import Haste from 'parser/shared/modules/Haste';
+
 import Module, { Options } from './Module';
 import Fight from './Fight';
 import Analyzer from './Analyzer';
@@ -37,7 +39,6 @@ import DeathTracker from '../shared/modules/DeathTracker';
 
 import Combatants from '../shared/modules/Combatants';
 import AbilityTracker from '../shared/modules/AbilityTracker';
-import Haste from 'parser/shared/modules/Haste';
 import StatTracker from '../shared/modules/StatTracker';
 import AlwaysBeCasting from '../shared/modules/AlwaysBeCasting';
 import FilteredActiveTime from '../shared/modules/FilteredActiveTime';

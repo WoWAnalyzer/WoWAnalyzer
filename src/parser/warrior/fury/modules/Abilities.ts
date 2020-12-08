@@ -7,7 +7,6 @@ import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
-    let btThreashhold = .3;
     return [
       // Rotational
       {
@@ -19,7 +18,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: btThreashhold,
+          recommendedEfficiency: 0.3,
         },
       },
       {
