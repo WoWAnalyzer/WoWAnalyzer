@@ -117,73 +117,6 @@ class StatTracker extends Analyzer {
     // endregion
 
     /****************************************\
-<<<<<<< Updated upstream
-     *                    BFA:                *
-     \****************************************/
-
-    // region Azerite Traits
-    // region General
-    [SPELLS.SECRETS_OF_THE_DEEP_SURGING_DROPLET.id]: { strength: 442, agility: 442, intellect: 442 }, // TODO: Implement primaryStat
-    [SPELLS.SECRETS_OF_THE_DEEP_VOID_DROPLET.id]: { strength: 885, agility: 885, intellect: 885 }, // TODO: Implement primaryStat
-    [SPELLS.CHAMPION_OF_AZEROTH.id]: { versatility: 87 },
-    [SPELLS.VAMPIRIC_SPEED.id]: { speed: 196 },
-    [SPELLS.WOUNDBINDER.id]: { haste: 584 }, // based on 340 TODO: Scale with item level
-    // endregion
-    // region Hunter
-    // endregion
-    // region Warlock
-    // endregion
-    // region Death Knight
-    // endregion
-    // region Monk
-    // endregion
-    // region Paladin
-    // endregion
-    // region Priest
-    // endregion
-    // region Enchants
-    [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 50 },
-    [SPELLS.DEADLY_NAVIGATION_BUFF_BIG.id]: { crit: 600 },
-    [SPELLS.QUICK_NAVIGATION_BUFF_SMALL.id]: { haste: 50 },
-    [SPELLS.QUICK_NAVIGATION_BUFF_BIG.id]: { haste: 600 },
-    264878: { crit: 650 }, // Crow's Nest Scope
-    300693: { intellect: 264 }, // machinistts
-    298431: { crit: 170 },
-    300762: { mastery: 170 },
-    //endregion
-
-    // DEFINING STAT BUFFS HERE IS DEPRECATED.
-    // Instead you should lazily add the buffs by adding the StatTracker as a dependency to your module, and calling `add` in the constructor.
-
-    // region Trinkets
-    [SPELLS.LOADED_DIE_CRITICAL_STRIKE_SMALL.id]: {
-      itemId: ITEMS.HARLANS_LOADED_DICE.id,
-      crit: (_, item) => calculateSecondaryStatDefault(355, 169, item.itemLevel),
-    },
-    [SPELLS.LOADED_DIE_HASTE_SMALL.id]: {
-      itemId: ITEMS.HARLANS_LOADED_DICE.id,
-      haste: (_, item) => calculateSecondaryStatDefault(355, 169, item.itemLevel),
-    },
-    [SPELLS.LOADED_DIE_MASTERY_SMALL.id]: {
-      itemId: ITEMS.HARLANS_LOADED_DICE.id,
-      mastery: (_, item) => calculateSecondaryStatDefault(355, 169, item.itemLevel),
-    },
-    [SPELLS.LOADED_DIE_CRITICAL_STRIKE_BIG.id]: {
-      itemId: ITEMS.HARLANS_LOADED_DICE.id,
-      crit: (_, item) => calculateSecondaryStatDefault(355, 284, item.itemLevel),
-    },
-    [SPELLS.LOADED_DIE_HASTE_BIG.id]: {
-      itemId: ITEMS.HARLANS_LOADED_DICE.id,
-      haste: (_, item) => calculateSecondaryStatDefault(355, 284, item.itemLevel),
-    },
-    [SPELLS.LOADED_DIE_MASTERY_BIG.id]: {
-      itemId: ITEMS.HARLANS_LOADED_DICE.id,
-      mastery: (_, item) => calculateSecondaryStatDefault(355, 284, item.itemLevel),
-    },
-    [SPELLS.GALECALLERS_BOON_BUFF.id]: {
-      itemId: ITEMS.GALECALLERS_BOON.id,
-      haste: (_, item) => calculateSecondaryStatDefault(340, 753, item.itemLevel),
-=======
      *               SHADOWLANDS:             *
      \****************************************/
 
@@ -191,7 +124,6 @@ class StatTracker extends Analyzer {
      [SPELLS.INSCRUTABLE_QUANTUM_DEVICE_CRIT.id]: {
       itemId: ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id,
       crit: (_, item) => calculateSecondaryStatDefault(184, 568, item.itemLevel),
->>>>>>> Stashed changes
     },
     [SPELLS.INSCRUTABLE_QUANTUM_DEVICE_HASTE.id]: {
       itemId: ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id,
