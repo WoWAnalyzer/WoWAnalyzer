@@ -233,3 +233,17 @@ jobs:
           title: Extract new i18n messages
           body: New i18n messages need to be added to the messages files so translators can translate them.
           branch: update-messages
+
+  require-changelog-entry:
+    name: 'Has new changelog entry'
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    env:
+      YARN_CACHE_FOLDER: .yarn-cache
+    steps:
+      - uses: actions/checkout@v2
+      - run: git fetch --no-tags --depth=1 origin $GITHUB_BASE_REF:$GITHUB_BASE_REF
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+      - run: node scripts/require-changelog-entry.js
