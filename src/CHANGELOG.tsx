@@ -10,6 +10,7 @@ import Contributor from 'interface/ContributorButton';
 // prettier-ignore
 export default [
   change(date(2020, 12, 8), 'Updated Stat Tracking to use squished stat values, and added shadowlands food, potions, and flasks.', Sharrq),
+  change(date(2020, 12, 7), 'Added background and headshot graphics for Castle Nathria bosses', Sharrq),
   change(date(2020, 12, 3), 'Removed Azerite Overview from the character panel', niseko),
   change(date(2020, 12, 1), 'Added Weapon Oils and Sharpening Stones/Weightstones to Checklist and added Weapon Enchants', Sharrq),
   change(date(2020, 11, 28), 'Removed all BFA Modules', Sharrq),
