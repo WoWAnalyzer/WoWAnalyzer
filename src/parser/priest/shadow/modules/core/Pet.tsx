@@ -2,9 +2,8 @@ import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 
 class Pet extends Analyzer {
-  _damageDone: number = 0;
   _sourceId: number | null = null;
-  _pets: any = {}
+  _pets: any = {};
 
   constructor(options: Options) {
     super(options);
@@ -13,22 +12,26 @@ class Pet extends Analyzer {
 
     if (this._pets !== undefined) {
       const pet = this.fetchPet(this._pets);
-      if (pet) {this._sourceId = pet.id;}
+      if (pet) {
+        this._sourceId = pet.id;
+      }
     }
   }
 
-  onPetDamage(event: DamageEvent) {
-    if (this._sourceId !== undefined && event.sourceID === this._sourceId) {
-      this._damageDone += event.amount;
-    }
+  _damageDone: number = 0;
+
+  get damageDone() {
+    return this._damageDone;
   }
 
   get fetchPets() {
     return this._pets;
   }
 
-  get damageDone() {
-    return this._damageDone;
+  onPetDamage(event: DamageEvent) {
+    if (this._sourceId !== undefined && event.sourceID === this._sourceId) {
+      this._damageDone += event.amount;
+    }
   }
 
   fetchPet(pet: any) {

@@ -11,6 +11,12 @@ class AtonementApplicationSource extends Analyzer {
     [SPELLS.SHADOW_MEND.id, SHADOW_MEND_ATONEMENT_DUR],
   ]);
 
+  constructor(options: Options) {
+    super(options);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.onApplyBuff);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+  }
+
   get duration() {
     return this.atonementApplicators;
   }
@@ -19,11 +25,6 @@ class AtonementApplicationSource extends Analyzer {
 
   get event() {
     return this._event;
-  }
-  constructor(options: Options){
-    super(options);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.onApplyBuff);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
   }
 
   onApplyBuff(event: ApplyBuffEvent) {

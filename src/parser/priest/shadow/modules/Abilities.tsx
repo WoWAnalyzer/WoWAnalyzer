@@ -105,7 +105,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.DAMNATION_TALENT.id), 
+        enabled: combatant.hasTalent(SPELLS.DAMNATION_TALENT.id),
       },
 
       // Cooldowns
@@ -168,7 +168,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
-      
+
       {
         spell: SPELLS.SURRENDER_TO_MADNESS_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,

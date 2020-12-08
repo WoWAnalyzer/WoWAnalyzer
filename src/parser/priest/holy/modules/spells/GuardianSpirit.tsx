@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
 import fetchWcl from 'common/fetchWclApi';
-import { WCLHealingTableResponse, WCLHealing } from "common/WCL_TYPES";
+import { WCLHealing, WCLHealingTableResponse } from 'common/WCL_TYPES';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 
@@ -19,11 +19,9 @@ class GuardianSpirit extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
-
-  protected abilityTracker!: AbilityTracker;
-
   // This is an approximation. See the reasoning below.
   totalHealingFromGSBuff = 0;
+  protected abilityTracker!: AbilityTracker;
 
   get totalGSCasts() {
     return this.abilityTracker.getAbility(SPELLS.GUARDIAN_SPIRIT.id).casts;

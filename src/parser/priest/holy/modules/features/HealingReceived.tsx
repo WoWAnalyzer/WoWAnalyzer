@@ -5,7 +5,7 @@ class HealingReceived extends Analyzer {
   HealingReceivedExternal = 0;
   HealingReceivedSelf = 0;
 
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.onHeal);
   }

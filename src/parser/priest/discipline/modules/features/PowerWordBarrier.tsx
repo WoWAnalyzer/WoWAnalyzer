@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import fetchWcl from 'common/fetchWclApi';
 import SpellIcon from 'common/SpellIcon';
-import { formatThousands, formatNumber } from 'common/format';
+import { formatNumber, formatThousands } from 'common/format';
 
 import LazyLoadStatisticBox from 'interface/others/LazyLoadStatisticBox';
 
@@ -14,6 +14,8 @@ const POWER_WORD_BARRIER_REDUCTION = 0.25;
 
 class PowerWordBarrier extends Analyzer {
 
+  totalDamageTakenDuringPWB = 0;
+
   get damageReducedDuringPowerWordBarrier() {
     return this.totalDamageTakenDuringPWB / (1 - POWER_WORD_BARRIER_REDUCTION) * POWER_WORD_BARRIER_REDUCTION;
   }
@@ -21,8 +23,6 @@ class PowerWordBarrier extends Analyzer {
   get damageReduced() {
     return this.damageReducedDuringPowerWordBarrier;
   }
-
-  totalDamageTakenDuringPWB = 0;
 
   load() {
     return fetchWcl(`report/tables/damage-taken/${this.owner.report.code}`, {
