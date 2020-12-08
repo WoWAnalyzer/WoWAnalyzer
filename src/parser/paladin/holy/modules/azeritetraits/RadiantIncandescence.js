@@ -26,7 +26,7 @@ class RadiantIncandescence extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTrait(SPELLS.RADIANT_INCANDESCENCE_TRAIT.id);
+    this.active = false; //this.selectedCombatant.hasTrait(SPELLS.RADIANT_INCANDESCENCE_TRAIT.id);
     if (!this.active) {
       return;
     }

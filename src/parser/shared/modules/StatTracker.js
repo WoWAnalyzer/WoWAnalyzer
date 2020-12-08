@@ -171,9 +171,7 @@ class StatTracker extends Analyzer {
   };
   statMultiplierBuffs = {
     [SPELLS.ARCANE_INTELLECT.id]: { intellect: 1.05 },
-    [SPELLS.WARSCROLL_OF_INTELLECT.id]: { intellect: 1.03 },
     [SPELLS.BATTLE_SHOUT.id]: { strength: 1.05, agility: 1.05 },
-    [SPELLS.WARSCROLL_OF_BATTLE_SHOUT.id]: { strength: 1.03, agility: 1.03 },
   };
 
   //Values taken from https://github.com/simulationcraft/simc/blob/shadowlands/engine/dbc/generated/sc_scale_data.inc

@@ -49,7 +49,7 @@ class LightsDecree extends Analyzer {
   constructor(...args) {
     super(...args);
 
-    this.active = this.selectedCombatant.hasTrait(SPELLS.LIGHTS_DECREE.id);
+    this.active = false; //this.selectedCombatant.hasTrait(SPELLS.LIGHTS_DECREE.id);
     if (!this.active) {
       return;
     }
