@@ -30,20 +30,56 @@ const FLOURISH_HEALING_INCREASE = 1;
 
 // TODO: Idea - Give suggestions on low amount/duration extended with flourish on other HoTs
 class Flourish extends Analyzer {
+  get totalExtensionHealing() {
+    return this.flourishes.reduce((acc, flourish) => acc + flourish.healing + flourish.masteryHealing, 0);
+  }
+
+  get averageHealing() {
+    return this.flourishCount === 0 ? 0 : this.totalExtensionHealing / this.flourishCount;
+  }
+
+  get percentWgsExtended() {
+    return this.flourishCount === 0 ? 0 : this.wgsExtended / this.flourishCount;
+  }
+
+  get wildGrowthSuggestionThresholds() {
+    return {
+      actual: this.percentWgsExtended,
+      isLessThan: {
+        minor: 1.00,
+        average: 0.75,
+        major: 0.50,
+      },
+      style: 'percentage',
+    };
+  }
+
+  get percentCwsExtended() {
+    return (this.cwsExtended / this.flourishCount) || 0;
+  }
+
+  get cenarionWardSuggestionThresholds() {
+    return {
+      actual: this.percentCwsExtended,
+      isLessThan: {
+        minor: 1.00,
+        average: 0.00,
+        major: 0.00,
+      },
+      style: 'percentage',
+    };
+  }
+
   static dependencies = {
     hotTracker: HotTrackerRestoDruid,
   };
-
   // Counters for hot extension
   flourishCount = 0;
   flourishes = [];
-
   wgsExtended = 0; // tracks how many flourishes extended Wild Growth
   cwsExtended = 0; // tracks how many flourishes extended Cenarion Ward
   tranqsExtended = 0;
-
   hasCenarionWard = false;
-
   rejuvCount = 0;
   wgCount = 0;
   lbCount = 0;
@@ -52,10 +88,8 @@ class Flourish extends Analyzer {
   cultCount = 0;
   tranqCount = 0;
   groveTendingCount = 0;
-
   // Counters for increased ticking rate of hots
   increasedRateTotalHealing = 0;
-
   increasedRateRejuvenationHealing = 0;
   increasedRateWildGrowthHealing = 0;
   increasedRateCenarionWardHealing = 0;
@@ -179,46 +213,6 @@ class Flourish extends Analyzer {
     }
   }
 
-  get totalExtensionHealing() {
-    return this.flourishes.reduce((acc, flourish) => acc + flourish.healing + flourish.masteryHealing, 0);
-  }
-
-  get averageHealing() {
-    return this.flourishCount === 0 ? 0 : this.totalExtensionHealing / this.flourishCount;
-  }
-
-  get percentWgsExtended() {
-    return this.flourishCount === 0 ? 0 : this.wgsExtended / this.flourishCount;
-  }
-
-  get wildGrowthSuggestionThresholds() {
-    return {
-      actual: this.percentWgsExtended,
-      isLessThan: {
-        minor: 1.00,
-        average: 0.75,
-        major: 0.50,
-      },
-      style: 'percentage',
-    };
-  }
-
-  get percentCwsExtended() {
-    return (this.cwsExtended / this.flourishCount) || 0;
-  }
-
-  get cenarionWardSuggestionThresholds() {
-    return {
-      actual: this.percentCwsExtended,
-      isLessThan: {
-        minor: 1.00,
-        average: 0.00,
-        major: 0.00,
-      },
-      style: 'percentage',
-    };
-  }
-
   suggestions(when) {
     if (this.flourishCount === 0) {
       return;
@@ -226,16 +220,16 @@ class Flourish extends Analyzer {
 
     when(this.wildGrowthSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> should always aim to extend a <SpellLink id={SPELLS.WILD_GROWTH.id} /></>)
-          .icon(SPELLS.FLOURISH_TALENT.icon)
-          .actual(i18n._(t('druid.restoration.suggestions.flourish.wildGrowthExtended')`${formatPercentage(this.wgsExtended / this.flourishCount, 0)}% WGs extended.`))
-          .recommended(`${formatPercentage(recommended)}% is recommended`));
+        .icon(SPELLS.FLOURISH_TALENT.icon)
+        .actual(i18n._(t('druid.restoration.suggestions.flourish.wildGrowthExtended')`${formatPercentage(this.wgsExtended / this.flourishCount, 0)}% WGs extended.`))
+        .recommended(`${formatPercentage(recommended)}% is recommended`));
 
     if (this.hasCenarionWard) {
       when(this.cenarionWardSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> should always aim to extend a <SpellLink id={SPELLS.CENARION_WARD_HEAL.id} /></>)
-            .icon(SPELLS.FLOURISH_TALENT.icon)
-            .actual(i18n._(t('druid.restoration.suggestions.flourish.cenarionWardExtended')`${this.cwsExtended}/${this.flourishCount} CWs extended.`))
-            .recommended(`${formatPercentage(recommended)}% is recommended`));
+          .icon(SPELLS.FLOURISH_TALENT.icon)
+          .actual(i18n._(t('druid.restoration.suggestions.flourish.cenarionWardExtended')`${this.cwsExtended}/${this.flourishCount} CWs extended.`))
+          .recommended(`${formatPercentage(recommended)}% is recommended`));
     }
   }
 
@@ -304,7 +298,7 @@ class Flourish extends Analyzer {
           </>
         )}
       >
-        <BoringValue label={<><SpellIcon id={SPELLS.FLOURISH_TALENT.id} /> Flourish healing</>} >
+        <BoringValue label={<><SpellIcon id={SPELLS.FLOURISH_TALENT.id} /> Flourish healing</>}>
           <>
             {formatPercentage(totalPercent)} %
           </>

@@ -18,27 +18,27 @@ class EmpowermentNormalizer extends EventsNormalizer {
   normalize(events) {
     const fixedEvents = [];
     events.forEach((event, eventIndex) => {
-    fixedEvents.push(event);
+      fixedEvents.push(event);
 
-    // find a cast event for Starsurge
-    if(event.type === EventType.Cast && event.ability.guid === SPELLS.STARSURGE_MOONKIN.id) {
-      const castTimestamp = event.timestamp;
+      // find a cast event for Starsurge
+      if (event.type === EventType.Cast && event.ability.guid === SPELLS.STARSURGE_MOONKIN.id) {
+        const castTimestamp = event.timestamp;
 
-      // look for matching recent applybuff or applybuffstack
-      for (let previousEventIndex = eventIndex; previousEventIndex >= 0; previousEventIndex -= 1) {
-        const previousEvent = fixedEvents[previousEventIndex];
-        if ((castTimestamp - previousEvent.timestamp) > CAST_WINDOW) {
-          break;
-        }
-        if ((previousEvent.type === EventType.ApplyBuff || previousEvent.type === EventType.ApplyBuffStack) &&
+        // look for matching recent applybuff or applybuffstack
+        for (let previousEventIndex = eventIndex; previousEventIndex >= 0; previousEventIndex -= 1) {
+          const previousEvent = fixedEvents[previousEventIndex];
+          if ((castTimestamp - previousEvent.timestamp) > CAST_WINDOW) {
+            break;
+          }
+          if ((previousEvent.type === EventType.ApplyBuff || previousEvent.type === EventType.ApplyBuffStack) &&
             previousEvent.ability.guid === this.empowermentBuff.id) {
-          fixedEvents.splice(previousEventIndex, 1);
-          fixedEvents.push(previousEvent);
-          previousEvent.__modified = true;
-          break;
+            fixedEvents.splice(previousEventIndex, 1);
+            fixedEvents.push(previousEvent);
+            previousEvent.__modified = true;
+            break;
+          }
         }
       }
-    }
     });
 
     return fixedEvents;

@@ -164,9 +164,6 @@ class Abilities extends CoreAbilities {
           majorIssueEfficiency: -1,
           importance: ISSUE_IMPORTANCE.MINOR,
         },
-        healSpellIds: [
-          SPELLS.GROVE_TENDING.id,
-        ],
       },
       {
         spell: SPELLS.RENEWAL_TALENT,

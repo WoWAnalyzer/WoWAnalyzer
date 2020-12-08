@@ -5,6 +5,8 @@ import Empowerment from './Empowerment';
 
 class SolarEmpowerment extends Empowerment {
   empowermentBuff = SPELLS.SOLAR_EMP_BUFF;
+  statisticOrder = STATISTIC_ORDER.CORE(6);
+
   constructor(...args) {
     super(...args);
     this.empoweredSpell = SPELLS.SOLAR_WRATH_MOONKIN;
@@ -12,8 +14,6 @@ class SolarEmpowerment extends Empowerment {
     this.spellGenerateAmount = 8;
     this.icon = 'ability_druid_eclipseorange';
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(6);
 }
 
 export default SolarEmpowerment;

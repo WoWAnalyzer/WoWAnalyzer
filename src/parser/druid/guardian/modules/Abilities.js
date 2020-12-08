@@ -82,9 +82,9 @@ class Abilities extends CoreAbilities {
             }
             return true;
           },
-          isHighPriority: ({ timestamp }, selectedCombatant) => 
+          isHighPriority: ({ timestamp }, selectedCombatant) =>
             // Account for reaction time; the player must have had the proc for at least this long
-             selectedCombatant.hasBuff(SPELLS.GALACTIC_GUARDIAN.id, timestamp - REACTION_TIME_THRESHOLD)
+            selectedCombatant.hasBuff(SPELLS.GALACTIC_GUARDIAN.id, timestamp - REACTION_TIME_THRESHOLD)
           ,
         },
         timelineSortIndex: 3,

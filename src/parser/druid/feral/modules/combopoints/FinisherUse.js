@@ -37,12 +37,29 @@ const MAX_COMBO = 5;
  *
  */
 class FinisherUse extends Analyzer {
+  get fractionBadFinishers() {
+    if (this.totalFinishers === 0) {
+      return 0;
+    }
+    return this.badFinishers / this.totalFinishers;
+  }
+
+  get badFinishersThresholds() {
+    return {
+      actual: this.fractionBadFinishers,
+      isGreaterThan: {
+        minor: 0,
+        average: 0.05,
+        major: 0.10,
+      },
+      style: 'percentage',
+    };
+  }
+
   static dependencies = {
     ripSnapshot: RipSnapshot,
   };
-
   hasSabertooth = false;
-
   totalFinishers = 0;
   notFullComboFinishers = 0;
   badFinishers = 0;
@@ -98,34 +115,15 @@ class FinisherUse extends Analyzer {
     this.badFinishers += 1;
   }
 
-  get fractionBadFinishers() {
-    if (this.totalFinishers === 0) {
-      return 0;
-    }
-    return this.badFinishers / this.totalFinishers;
-  }
-
-  get badFinishersThresholds() {
-    return {
-      actual: this.fractionBadFinishers,
-      isGreaterThan: {
-        minor: 0,
-        average: 0.05,
-        major: 0.10,
-      },
-      style: 'percentage',
-    };
-  }
-
   suggestions(when) {
     when(this.badFinishersThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-        <>
-          You are unnecessarily using finishers at less than full combo points. Generally the only finisher you should use without full combo points is <SpellLink id={SPELLS.RIP.id} /> when applying it to a target that doesn't have it active yet.
-        </>,
-      )
-        .icon('creatureportrait_bubble')
-        .actual(i18n._(t('druid.feral.suggestions.finishers.efficiency')`${(actual * 100).toFixed(0)}% of finishers were incorrectly used without full combo points`))
-        .recommended(`${(recommended * 100).toFixed(0)}% is recommended`));
+      <>
+        You are unnecessarily using finishers at less than full combo points. Generally the only finisher you should use without full combo points is <SpellLink id={SPELLS.RIP.id} /> when applying it to a target that doesn't have it active yet.
+      </>,
+    )
+      .icon('creatureportrait_bubble')
+      .actual(i18n._(t('druid.feral.suggestions.finishers.efficiency')`${(actual * 100).toFixed(0)}% of finishers were incorrectly used without full combo points`))
+      .recommended(`${(recommended * 100).toFixed(0)}% is recommended`));
   }
 
   statistic() {

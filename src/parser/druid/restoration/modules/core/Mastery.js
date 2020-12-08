@@ -50,9 +50,11 @@ class Mastery extends Analyzer {
       [SPELLS.JACINS_RUSE.id]: { amount: 3000 },
     };
 
-    if(this.selectedCombatant.hasTrait(SPELLS.SYNERGISTIC_GROWTH.id)) {
-      this.masteryBuffs[SPELLS.SYNERGISTIC_GROWTH_BUFF.id] = {amount: this.selectedCombatant.traitsBySpellId[SPELLS.SYNERGISTIC_GROWTH.id]
-          .reduce((sum, rank) => sum + calculateAzeriteEffects(SPELLS.SYNERGISTIC_GROWTH.id, rank)[0], 0)};
+    if (this.selectedCombatant.hasTrait(SPELLS.SYNERGISTIC_GROWTH.id)) {
+      this.masteryBuffs[SPELLS.SYNERGISTIC_GROWTH_BUFF.id] = {
+        amount: this.selectedCombatant.traitsBySpellId[SPELLS.SYNERGISTIC_GROWTH.id]
+          .reduce((sum, rank) => sum + calculateAzeriteEffects(SPELLS.SYNERGISTIC_GROWTH.id, rank)[0], 0),
+      };
     }
 
     Object.values(this.masteryBuffs).forEach(entry => {

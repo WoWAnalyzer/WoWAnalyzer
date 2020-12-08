@@ -317,14 +317,14 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }) => {
         🗵 Only use Predator if it's allowing you to reset Tiger's Fury by killing adds
       */}
       {(combatant.hasTalent(SPELLS.PREDATOR_TALENT.id)) && (
-          <Rule
-            name="Pick the most suitable Talents"
-            description={(
-              <>
-                The <SpellLink id={SPELLS.PREDATOR_TALENT.id} /> talent is generally only effective on fights with multiple enemies and should be swapped out for single target encounters.
-              </>
-            )}
-          >
+        <Rule
+          name="Pick the most suitable Talents"
+          description={(
+            <>
+              The <SpellLink id={SPELLS.PREDATOR_TALENT.id} /> talent is generally only effective on fights with multiple enemies and should be swapped out for single target encounters.
+            </>
+          )}
+        >
           {combatant.hasTalent(SPELLS.PREDATOR_TALENT.id) && (
             <Requirement
               name={(
