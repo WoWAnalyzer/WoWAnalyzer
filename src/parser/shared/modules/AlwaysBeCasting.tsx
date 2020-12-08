@@ -13,7 +13,7 @@ import { t, Trans } from '@lingui/macro';
 import Abilities from '../../core/modules/Abilities';
 import GlobalCooldown from './GlobalCooldown';
 import Channeling from './Channeling';
-import Haste from './Haste';
+import Haste from 'parser/shared/modules/Haste';
 
 class AlwaysBeCasting extends Analyzer {
   static dependencies = {

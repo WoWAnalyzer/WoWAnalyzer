@@ -37,7 +37,7 @@ import DeathTracker from '../shared/modules/DeathTracker';
 
 import Combatants from '../shared/modules/Combatants';
 import AbilityTracker from '../shared/modules/AbilityTracker';
-import Haste from '../shared/modules/Haste';
+import Haste from 'parser/shared/modules/Haste';
 import StatTracker from '../shared/modules/StatTracker';
 import AlwaysBeCasting from '../shared/modules/AlwaysBeCasting';
 import FilteredActiveTime from '../shared/modules/FilteredActiveTime';

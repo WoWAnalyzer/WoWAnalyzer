@@ -5,7 +5,7 @@ import { t } from '@lingui/macro';
 import { AnyEvent } from '../Events';
 import Ability, { SpellbookAbility } from './Ability';
 import AbilityTracker from '../../shared/modules/AbilityTracker';
-import Haste from '../../shared/modules/Haste';
+import Haste from 'parser/shared/modules/Haste';
 
 class Abilities extends Module {
   static dependencies = {

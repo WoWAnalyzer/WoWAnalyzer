@@ -14,7 +14,7 @@ import SpellLink from 'common/SpellLink';
 const MAX_STACKS = 5;
 const HASTE_PER_STACK = 2;
 
-//update haste per stack in ./core/Haste.js aswell
+//update haste per stack in ./core/Haste.tsx aswell
 
 class IntoTheFray extends Analyzer {
   buffStacks: number[][];

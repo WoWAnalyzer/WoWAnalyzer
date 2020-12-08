@@ -124,8 +124,8 @@ class PotionChecker extends Analyzer {
   potionsUsed = 0;
   weakPotionsUsed = 0;
   strongPotionsUsed = 0;
-  potionId = ITEMS.SUPERIOR_BATTLE_POTION_OF_INTELLECT.id; //Giving it an initial value to prevent crashing
-  potionIcon = ITEMS.SUPERIOR_BATTLE_POTION_OF_INTELLECT.icon; //Giving it an initial value to prevent crashing
+  potionId = ITEMS.POTION_OF_SPECTRAL_INTELLECT.id; //Giving it an initial value to prevent crashing
+  potionIcon = ITEMS.POTION_OF_SPECTRAL_INTELLECT.icon; //Giving it an initial value to prevent crashing
   strongPotionId = ITEMS.POTION_OF_SPECTRAL_INTELLECT.id;
   strongPotionIcon = ITEMS.POTION_OF_SPECTRAL_INTELLECT.icon;
   neededManaSecondPotion = false;
