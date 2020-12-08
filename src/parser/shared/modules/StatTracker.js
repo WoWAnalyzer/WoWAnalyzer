@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS/index';
 import ITEMS from 'common/ITEMS/index';
-import { calculateSecondaryStatDefault, calculatePrimaryStat } from 'common/stats';
+import { calculateSecondaryStatDefault } from 'common/stats';
 import { formatMilliseconds } from 'common/format';
 import SPECS from 'game/SPECS';
 import RACES from 'game/RACES';
@@ -30,105 +30,78 @@ class StatTracker extends Analyzer {
 
   static DEFAULT_BUFFS = {
     // region Potions
-    [SPELLS.POTION_OF_PROLONGED_POWER.id]: { stamina: 113, strength: 113, agility: 113, intellect: 113 },
-    [SPELLS.BATTLE_POTION_OF_STRENGTH.id]: { strength: 900 },
-    [SPELLS.BATTLE_POTION_OF_INTELLECT.id]: { intellect: 900 },
-    [SPELLS.BATTLE_POTION_OF_AGILITY.id]: { agility: 900 },
-    [SPELLS.BATTLE_POTION_OF_STAMINA.id]: { stamina: 1100 },
-    [SPELLS.STEELSKIN_POTION.id]: { armor: 900 },
-    [SPELLS.SUPERIOR_BATTLE_POTION_OF_STRENGTH.id]: { strength: 1215 },
-    [SPELLS.SUPERIOR_BATTLE_POTION_OF_AGILITY.id]: { agility: 1215 },
-    [SPELLS.SUPERIOR_BATTLE_POTION_OF_INTELLECT.id]: { intellect: 1215 },
-    [SPELLS.SUPERIOR_BATTLE_POTION_OF_STAMINA.id]: { stamina: 1485 },
-    [SPELLS.SUPERIOR_STEELSKIN_POTION.id]: { armor: 1215 },
+    [SPELLS.BATTLE_POTION_OF_STRENGTH.id]: { strength: 95 },
+    [SPELLS.BATTLE_POTION_OF_INTELLECT.id]: { intellect: 95 },
+    [SPELLS.BATTLE_POTION_OF_AGILITY.id]: { agility: 95 },
+    [SPELLS.BATTLE_POTION_OF_STAMINA.id]: { stamina: 117 },
+    [SPELLS.SUPERIOR_BATTLE_POTION_OF_STRENGTH.id]: { strength: 129 },
+    [SPELLS.SUPERIOR_BATTLE_POTION_OF_AGILITY.id]: { agility: 129 },
+    [SPELLS.SUPERIOR_BATTLE_POTION_OF_INTELLECT.id]: { intellect: 129 },
+    [SPELLS.SUPERIOR_BATTLE_POTION_OF_STAMINA.id]: { stamina: 158 },
+    [SPELLS.SUPERIOR_STEELSKIN_POTION.id]: { armor: 129 },
+    [SPELLS.POTION_OF_SPECTRAL_AGILITY.id]: { agility: 190 },
+    [SPELLS.POTION_OF_SPECTRAL_INTELLECT.id]: { intellect: 190 },
+    [SPELLS.POTION_OF_SPECTRAL_STRENGTH.id]: { strength: 190 },
+    [SPELLS.POTION_OF_SPECTRAL_STAMINA.id]: { stamina: 285 },
+    [SPELLS.POTION_OF_HARDENED_SHADOWS.id]: { armor: 275 },
     // endregion
 
     // region Runes
     [SPELLS.DEFILED_AUGMENT_RUNE.id]: { strength: 15, agility: 15, intellect: 15 },
+    [SPELLS.VEILED_AUGMENT_RUNE.id]: { strength: 18, agility: 18, intellect: 18 },
     // endregion
 
     //region Flasks
-    [SPELLS.FLASK_OF_THE_WHISPERED_PACT.id]: { intellect: 59 },
-    [SPELLS.FLASK_OF_THE_SEVENTH_DEMON.id]: { agility: 59 },
-    [SPELLS.FLASK_OF_THE_COUNTLESS_ARMIES.id]: { strength: 59 },
-    [SPELLS.FLASK_OF_TEN_THOUSAND_SCARS.id]: { stamina: 88 },
-    [SPELLS.FLASK_OF_THE_CURRENTS.id]: { agility: 238 },
-    [SPELLS.FLASK_OF_ENDLESS_FATHOMS.id]: { intellect: 238 },
-    [SPELLS.FLASK_OF_THE_UNDERTOW.id]: { strength: 238 },
-    [SPELLS.FLASK_OF_THE_VAST_HORIZON.id]: { stamina: 357 },
-    [SPELLS.GREATER_FLASK_OF_THE_CURRENTS.id]: { agility: 360 },
-    [SPELLS.GREATER_FLASK_OF_ENDLESS_FATHOMS.id]: { intellect: 360 },
-    [SPELLS.GREATER_FLASK_OF_THE_UNDERTOW.id]: { strength: 360 },
-    [SPELLS.GREATER_FLASK_OF_THE_VAST_HORIZON.id]: { stamina: 540 },
+    [SPELLS.FLASK_OF_THE_CURRENTS.id]: { agility: 25 },
+    [SPELLS.FLASK_OF_ENDLESS_FATHOMS.id]: { intellect: 25 },
+    [SPELLS.FLASK_OF_THE_UNDERTOW.id]: { strength: 25 },
+    [SPELLS.FLASK_OF_THE_VAST_HORIZON.id]: { stamina: 38 },
+    [SPELLS.GREATER_FLASK_OF_THE_CURRENTS.id]: { agility: 38 },
+    [SPELLS.GREATER_FLASK_OF_ENDLESS_FATHOMS.id]: { intellect: 38 },
+    [SPELLS.GREATER_FLASK_OF_THE_UNDERTOW.id]: { strength: 38 },
+    [SPELLS.GREATER_FLASK_OF_THE_VAST_HORIZON.id]: { stamina: 57 },
+    [SPELLS.SPECTRAL_FLASK_OF_POWER.id]: { strength: 70, agility: 70, intellect: 70 },
+    [SPELLS.SPECTRAL_FLASK_OF_STAMINA.id]: { stamina: 105 },
     // endregion
 
     //region Food
-    [SPELLS.THE_HUNGRY_MAGISTER.id]: { crit: 17 },
-    [SPELLS.AZSHARI_SALAD.id]: { haste: 17 },
-    [SPELLS.NIGHTBORNE_DELICACY_PLATTER.id]: { mastery: 17 },
-    [SPELLS.SEED_BATTERED_FISH_PLATE.id]: { versatility: 17 },
-    [SPELLS.STAM_FEAST.id]: { stamina: 27 },
-    [SPELLS.STR_FEAST.id]: { strength: 23 },
-    [SPELLS.AGI_FEAST.id]: { agility: 23 },
-    [SPELLS.INT_FEAST.id]: { intellect: 23 },
-    [SPELLS.DARKMOON_VERS_FOOD.id]: { versatility: 45 },
-    [SPELLS.KUL_TIRAMISU.id]: { crit: 41 },
-    [SPELLS.LOA_LEAF.id]: { mastery: 41 },
-    [SPELLS.RAVENBERRY_TARTS.id]: { haste: 41 },
-    [SPELLS.MON_DAZI.id]: { versatility: 41 },
-    [SPELLS.HONEY_GLAZED_HAUNCHES.id]: { crit: 55 },
-    [SPELLS.SAILOR_PIE.id]: { mastery: 55 },
-    [SPELLS.SWAMP_FISH_N_CHIPS.id]: { haste: 55 },
-    [SPELLS.SPICED_SNAPPER.id]: { versatility: 55 },
-    [SPELLS.GALLEY_BANQUET_INT.id]: { intellect: 75 },
-    [SPELLS.GALLEY_BANQUET_STR.id]: { strength: 75 },
-    [SPELLS.GALLEY_BANQUET_AGI.id]: { agility: 75 },
-    [SPELLS.GALLEY_BANQUET_STA.id]: { stamina: 113 },
-    [SPELLS.WELL_FED_WILD_BERRY_BREAD.id]: { stamina: 113 },
-    [SPELLS.BOUNTIFUL_CAPTAIN_FEAST_INT.id]: { intellect: 100 },
-    [SPELLS.BOUNTIFUL_CAPTAIN_FEAST_STR.id]: { strength: 100 },
-    [SPELLS.BOUNTIFUL_CAPTAIN_FEAST_AGI.id]: { agility: 100 },
-    [SPELLS.BOUNTIFUL_CAPTAIN_FEAST_STA.id]: { stamina: 150 },
-    [SPELLS.FAMINE_EVALUATOR_AND_SNACK_TABLE_FEAST_INT.id]: { intellect: 131 },
-    [SPELLS.FAMINE_EVALUATOR_AND_SNACK_TABLE_FEAST_STR.id]: { strength: 131 },
-    [SPELLS.FAMINE_EVALUATOR_AND_SNACK_TABLE_FEAST_AGI.id]: { agility: 131 },
-    [SPELLS.FAMINE_EVALUATOR_AND_SNACK_TABLE_FEAST_STA.id]: { stamina: 198 },
-    [SPELLS.ABYSSAL_FRIED_RISSOLE.id]: { mastery: 93 },
-    [SPELLS.BIL_TONG.id]: { versatility: 93 },
-    [SPELLS.MECH_DOWELS_BIG_MECH.id]: { crit: 93 },
-    [SPELLS.BAKED_PORT_TATO.id]: { haste: 93 },
-    [SPELLS.FRAGRANT_KAKAVIA.id]: { stamina: 198 },
-    [SPELLS.BORALUS_BLOOD_SAUSAGE_AGI.id]: { agility: 85 },
-    [SPELLS.BORALUS_BLOOD_SAUSAGE_INT.id]: { intellect: 85 },
-    [SPELLS.BORALUS_BLOOD_SAUSAGE_STR.id]: { strength: 85 },
-    [SPELLS.WELL_FED_REAWAKENING_INT.id]: { intellect: 60 },
-    [SPELLS.WELL_FED_REAWAKENING_STR.id]: { strength: 60 },
-    [SPELLS.WELL_FED_REAWAKENING_AGI.id]: { agility: 60 },
-    [SPELLS.WELL_FED_SEASONED_STEAK_AND_POTATOES.id]: { stamina: 150 },
-    //endregion
+    [SPELLS.BOUNTIFUL_CAPTAIN_FEAST_INT.id]: { intellect: 15 },
+    [SPELLS.BOUNTIFUL_CAPTAIN_FEAST_STR.id]: { strength: 15 },
+    [SPELLS.BOUNTIFUL_CAPTAIN_FEAST_AGI.id]: { agility: 15 },
+    [SPELLS.FAMINE_EVALUATOR_AND_SNACK_TABLE_FEAST_INT.id]: { intellect: 16 },
+    [SPELLS.FAMINE_EVALUATOR_AND_SNACK_TABLE_FEAST_STR.id]: { strength: 16 },
+    [SPELLS.FAMINE_EVALUATOR_AND_SNACK_TABLE_FEAST_AGI.id]: { agility: 16 },
+    [SPELLS.ABYSSAL_FRIED_RISSOLE.id]: { mastery: 14 },
+    [SPELLS.BIL_TONG.id]: { versatility: 14 },
+    [SPELLS.MECH_DOWELS_BIG_MECH.id]: { crit: 14 },
+    [SPELLS.BAKED_PORT_TATO.id]: { haste: 14 },
+    [SPELLS.FRAGRANT_KAKAVIA.id]: { stamina: 29 },
+    [SPELLS.BORALUS_BLOOD_SAUSAGE_AGI.id]: { agility: 13 },
+    [SPELLS.BORALUS_BLOOD_SAUSAGE_INT.id]: { intellect: 13 },
+    [SPELLS.BORALUS_BLOOD_SAUSAGE_STR.id]: { strength: 13 },
+    [SPELLS.WELL_FED_SEASONED_STEAK_AND_POTATOES.id]: { stamina: 22 },
 
-    // BFA quests
-    [SPELLS.DIEMETRADON_FRENZY.id]: {
-      itemId: ITEMS.ENGRANGED_DIEMETRADON_FIN.id,
-      haste: (_, item) => calculateSecondaryStatDefault(172, 159, item.itemLevel),
-    },
-    [SPELLS.WILL_OF_THE_LOA.id]: {
-      itemId: ITEMS.GILDED_LOA_FIGURINE.id,
-      strength: (_, item) => calculatePrimaryStat(280, 676, item.itemLevel),
-      agility: (_, item) => calculatePrimaryStat(280, 676, item.itemLevel),
-      intellect: (_, item) => calculatePrimaryStat(280, 676, item.itemLevel),
-    },
-    [SPELLS.SPYGLASS_SIGHT.id]: {
-      itemId: ITEMS.FIRST_MATES_SPYGLASS.id,
-      crit: (_, item) => calculateSecondaryStatDefault(280, 544, item.itemLevel),
-    },
-
+    [SPELLS.PICKLED_MEAT_SMOOTHIE.id]: { stamina: 14 },
+    [SPELLS.SWEET_SILVERGILL_SAUSAGES.id]: { versatility: 18 },
+    [SPELLS.BUTTERSCOTCH_MARINATED_RIBS.id]: { crit: 18 },
+    [SPELLS.MEATY_APPLE_DUMPLINGS.id]: { mastery: 18 },
+    [SPELLS.CINNAMON_BONEFISH_STEW.id]: { haste: 18 },
+    [SPELLS.BANANA_BEEF_PUDDING.id]: { stamina: 22 },
+    [SPELLS.STEAK_A_LA_MODE.id]: { versatility: 30 },
+    [SPELLS.TENEBROUS_CROWN_ROAST_ASPIC.id]: { haste: 30 },
+    [SPELLS.SPINEFIN_SOUFFLE_AND_FRIES.id]: { crit: 30 },
+    [SPELLS.IRIDESCENT_RAVIOLI_WITH_APPLE_SAUCE.id]: { mastery: 30 },
+    [SPELLS.SURPRISINGLY_PALATABLE_FEAST_INT.id]: { intellect: 18 },
+    [SPELLS.SURPRISINGLY_PALATABLE_FEAST_STR.id]: { strength: 18 },
+    [SPELLS.SURPRISINGLY_PALATABLE_FEAST_AGI.id]: { agility: 18 },
+    [SPELLS.FEAST_OF_GLUTTONOUS_HEDONISM_INT.id]: { intellect: 20 },
+    [SPELLS.FEAST_OF_GLUTTONOUS_HEDONISM_STR.id]: { strength: 20 },
+    [SPELLS.FEAST_OF_GLUTTONOUS_HEDONISM_AGI.id]: { agility: 20 },
     //endregion
 
     // region Misc
-    [SPELLS.JACINS_RUSE.id]: { mastery: 136 },
+    [SPELLS.JACINS_RUSE.id]: { mastery: 48 },
     [SPELLS.MARK_OF_THE_CLAW.id]: { crit: 45, haste: 45 },
-    [SPELLS.OPULENCE_QUICKENED_PULSE.id]: { haste: 261, crit: 261, mastery: 261, versatility: 261 }, // Quickened Pulse by Opulence (BoD - BFA)
     // endregion
 
     // region Death Knight
@@ -148,6 +121,7 @@ class StatTracker extends Analyzer {
     // endregion
 
     /****************************************\
+<<<<<<< Updated upstream
      *                    BFA:                *
     \****************************************/
 
@@ -214,109 +188,38 @@ class StatTracker extends Analyzer {
     [SPELLS.GALECALLERS_BOON_BUFF.id]: {
       itemId: ITEMS.GALECALLERS_BOON.id,
       haste: (_, item) => calculateSecondaryStatDefault(340, 753, item.itemLevel),
+=======
+     *               SHADOWLANDS:             *
+     \****************************************/
+
+     //Trinkets
+     [SPELLS.INSCRUTABLE_QUANTUM_DEVICE_CRIT.id]: {
+      itemId: ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id,
+      crit: (_, item) => calculateSecondaryStatDefault(184, 568, item.itemLevel),
+>>>>>>> Stashed changes
     },
-    [SPELLS.TITANIC_OVERCHARGE.id]: {
-      itemId: ITEMS.CONSTRUCT_OVERCHARGER.id,
-      haste: (_, item) => calculateSecondaryStatDefault(385, 60, item.itemLevel),
+    [SPELLS.INSCRUTABLE_QUANTUM_DEVICE_HASTE.id]: {
+      itemId: ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id,
+      crit: (_, item) => calculateSecondaryStatDefault(184, 568, item.itemLevel),
     },
-    [SPELLS.RAPID_ADAPTATION.id]: {
-      itemId: ITEMS.DREAD_GLADIATORS_MEDALLION.id,
-      versatility: (_, item) => calculateSecondaryStatDefault(300, 576, item.itemLevel),
+    [SPELLS.INSCRUTABLE_QUANTUM_DEVICE_MASTERY.id]: {
+      itemId: ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id,
+      crit: (_, item) => calculateSecondaryStatDefault(184, 568, item.itemLevel),
     },
-    [SPELLS.TASTE_OF_VICTORY.id]: {
-      itemId: ITEMS.DREAD_GLADIATORS_INSIGNIA.id,
-      strength: (_, item) => calculatePrimaryStat(335, 462, item.itemLevel),
-      agility: (_, item) => calculatePrimaryStat(335, 462, item.itemLevel),
-      intellect: (_, item) => calculatePrimaryStat(335, 462, item.itemLevel),
-    },
-    [SPELLS.DIG_DEEP.id]: {
-      itemId: ITEMS.DREAD_GLADIATORS_BADGE.id,
-      strength: (_, item) => calculatePrimaryStat(385, 1746, item.itemLevel),
-      agility: (_, item) => calculatePrimaryStat(385, 3174651, item.itemLevel),
-      intellect: (_, item) => calculatePrimaryStat(385, 1746, item.itemLevel),
-    },
-    [SPELLS.GOLDEN_LUSTER.id]: {
-      itemId: ITEMS.LUSTROUS_GOLDEN_PLUMAGE.id,
-      versatility: (_, item) => calculateSecondaryStatDefault(380, 864, item.itemLevel),
-    },
-    // region Quests
-    // Mostly implemented for beta/PTR, don't expect to ever need those spells/trinkets elsewhere, so hard-coding the ids here
-    269887: { // Boiling Time
-      itemId: 159978, // Junji's Egg Timer
-      haste: (_, item) => calculateSecondaryStatDefault(172, 170, item.itemLevel),
-    },
-    268623: { // Shark's Bite
-      itemId: 159765, // Empowered Shark's Tooth
-      crit: (_, item) => calculateSecondaryStatDefault(172, 170, item.itemLevel),
-    },
-    268602: { // Master's Sight
-      itemId: 159074, // Jarkadiax's Other Eye
-      mastery: (_, item) => calculateSecondaryStatDefault(172, 114, item.itemLevel),
-    },
-    268616: { // Swell of Voodoo
-      itemId: 159763, // Idol of Vol'jamba
-      mastery: (_, item) => calculateSecondaryStatDefault(172, 114, item.itemLevel),
-    },
-    273988: { // Primal Instinct
-      itemId: 158155, // Dinobone Charm
-      strength: (_, item) => calculatePrimaryStat(280, 351, item.itemLevel),
-      agility: (_, item) => calculatePrimaryStat(280, 351, item.itemLevel),
-      intellect: (_, item) => calculatePrimaryStat(280, 351, item.itemLevel),
-    },
-    269885: { // Residual Viciousness
-      itemId: 159977, // Vindictive Golem Core
-      crit: (_, item) => calculateSecondaryStatDefault(172, 170, item.itemLevel),
-    },
-    273992: { // Speed of the Spirits
-      itemId: 158154, // Zandalari Bijou
-      haste: (_, item) => calculateSecondaryStatDefault(280, 414, item.itemLevel),
-    },
-    268604: { // Blood Crazed
-      itemId: 159075, // Bloodhex Talisman
-      crit: (_, item) => calculateSecondaryStatDefault(172, 207, item.itemLevel),
-    },
-    271103: { // Rezan's Gleaming Eye
-      itemId: 158712, // Rezan's Gleaming Eye
-      haste: (_, item) => calculateSecondaryStatDefault(300, 455, item.itemLevel),
-    },
-    268836: { // Blood of My Enemies
-      itemId: 159625, // Vial of Animated Blood
-      strength: (_, item) => calculatePrimaryStat(300, 705, item.itemLevel),
+    [SPELLS.INSCRUTABLE_QUANTUM_DEVICE_VERS.id]: {
+      itemId: ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id,
+      crit: (_, item) => calculateSecondaryStatDefault(184, 568, item.itemLevel),
     },
 
-    // endregion
-    // region World boss
-    278227: { // Barkspines
-      itemId: 161411, // T'zane's Barkspines active TODO: Make an analyzer
-      crit: (_, item) => calculateSecondaryStatDefault(355, 1160, item.itemLevel), // TODO: Verify stats and if it scales with this formula (might be trinket/jewerly scaling)
-    },
-    // endregion
-    // region Dungeons
-    [SPELLS.CONCH_OF_DARK_WHISPERS_BUFF.id]: { // Conch of Dark Whispers
-      itemId: ITEMS.CONCH_OF_DARK_WHISPERS.id,
-      crit: (_, item) => calculateSecondaryStatDefault(300, 455, item.itemLevel),
-    },
-    271115: { // Ignition Mage's Fuse
-      itemId: ITEMS.IGNITION_MAGES_FUSE.id,
-      haste: (_, item) => calculateSecondaryStatDefault(310, 233, item.itemLevel),
-    },
-    [SPELLS.KINDLED_SOUL.id]: { // Balefire Branch trinket's buff (stack starts at 100)
-      itemId: ITEMS.BALEFIRE_BRANCH.id,
-      intellect: (_, item) => calculatePrimaryStat(340, 12, item.itemLevel),
-    },
-    [SPELLS.BENEFICIAL_VIBRATIONS.id]: {
-      itemId: ITEMS.AZEROKKS_RESONATING_HEART.id,
-      agility: (_, item) => calculatePrimaryStat(300, 593, item.itemLevel),
-    },
-    // endregion
-    // endregion
+    //endregion
+    //endregion
 
     // region Racials
     // Mag'har Orc
-    [SPELLS.RICTUS_OF_THE_LAUGHING_SKULL.id]: { crit: 411 },
-    [SPELLS.ZEAL_OF_THE_BURNING_BLADE.id]: { haste: 411 },
-    [SPELLS.FEROCITY_OF_THE_FROSTWOLF.id]: { mastery: 411 },
-    [SPELLS.MIGHT_OF_THE_BLACKROCK.id]: { versatility: 411 },
+    [SPELLS.RICTUS_OF_THE_LAUGHING_SKULL.id]: { crit: 125 },
+    [SPELLS.ZEAL_OF_THE_BURNING_BLADE.id]: { haste: 125 },
+    [SPELLS.FEROCITY_OF_THE_FROSTWOLF.id]: { mastery: 125 },
+    [SPELLS.MIGHT_OF_THE_BLACKROCK.id]: { versatility: 125 },
     // endregion
   };
 

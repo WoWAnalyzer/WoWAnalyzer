@@ -55,6 +55,41 @@ const HIGHER_FOOD_IDS = [
   SPELLS.BAKED_PORT_TATO.id,
 ];
 
+<<<<<<< Updated upstream:src/parser/shared/modules/items/FoodChecker.js
+=======
+const MID_TIER_FOOD_IDS = [
+  //18 Primary Stat
+  SPELLS.SURPRISINGLY_PALATABLE_FEAST_INT.id,
+  SPELLS.SURPRISINGLY_PALATABLE_FEAST_AGI.id,
+  SPELLS.SURPRISINGLY_PALATABLE_FEAST_STR.id,
+
+  //14 Stam
+  SPELLS.PICKLED_MEAT_SMOOTHIE.id,
+
+  //18 Secondary Stat
+  SPELLS.BUTTERSCOTCH_MARINATED_RIBS.id,
+  SPELLS.CINNAMON_BONEFISH_STEW.id,
+  SPELLS.MEATY_APPLE_DUMPLINGS.id,
+  SPELLS.SWEET_SILVERGILL_SAUSAGES.id,
+];
+
+const HIGHER_FOOD_IDS = [
+  //20 Primary Stat
+  SPELLS.FEAST_OF_GLUTTONOUS_HEDONISM_INT.id,
+  SPELLS.FEAST_OF_GLUTTONOUS_HEDONISM_AGI.id,
+  SPELLS.FEAST_OF_GLUTTONOUS_HEDONISM_STR.id,
+
+  //22 Stam
+  SPELLS.BANANA_BEEF_PUDDING.id,
+
+  //30 Secondary Stat
+  SPELLS.SPINEFIN_SOUFFLE_AND_FRIES.id,
+  SPELLS.TENEBROUS_CROWN_ROAST_ASPIC.id,
+  SPELLS.IRIDESCENT_RAVIOLI_WITH_APPLE_SAUCE.id,
+  SPELLS.STEAK_A_LA_MODE.id,
+];
+
+>>>>>>> Stashed changes:src/parser/shared/modules/items/FoodChecker.ts
 class FoodChecker extends Analyzer {
   lowerFoodUp = false;
   midTierFoodUp = false;
