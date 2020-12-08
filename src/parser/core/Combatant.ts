@@ -90,8 +90,8 @@ class Combatant extends Entity {
     this._parsePrepullBuffs(combatantInfo.auras);
     this._parseCovenant(combatantInfo.covenantID);
     this._parseSoulbind(combatantInfo.soulbindID);
-    this._parseSoulbindTraits(combatantInfo.artifact as SoulbindTrait[]);
-    this._parseConduits(combatantInfo.heartOfAzeroth as Conduit[]);
+    this._parseSoulbindTraits(combatantInfo.artifact);
+    this._parseConduits(combatantInfo.heartOfAzeroth);
 
   }
 
