@@ -172,8 +172,7 @@ jobs:
           path: build.tar.gz
 
   docker-image:
-    needs:
-      [typecheck, linting, test-interface, test-parser, test-integration, build]
+    needs: [typecheck, linting, test-interface, test-parser, test-integration, build]
     name: 'Publish Docker image'
     runs-on: ubuntu-latest
     if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer'
@@ -192,4 +191,45 @@ jobs:
           name: wowanalyzer/wowanalyzer
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-# TODO: Sentry releases https://blog.sentry.io/2019/12/17/using-github-actions-to-create-sentry-releases
+  # TODO: Sentry releases https://blog.sentry.io/2019/12/17/using-github-actions-to-create-sentry-releases
+
+  extract:
+    needs: [prepare]
+    name: 'Extract messages'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+      - name: Cache "node_modules"
+        uses: martijnhols/cache@read-only
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('yarn.lock') }}
+          restore-keys: ${{ runner.os }}-node_modules-
+          read-only: true
+      - name: Extract messages
+        # We need to run extraction twice as Lingui has a bug where the second pass removes the default for messages with the same id as the default
+        run: |
+          yarn extract
+          yarn extract
+      - name: Has changes
+        id: has-changes
+        run: echo "::set-output name=changed::$(if [[ `git status --porcelain` ]]; then echo "true"; else echo "false"; fi)"
+      - name: Commit changes
+        if: steps.has-changes.outputs.changed == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -m "Update i18n messages" -a
+      - name: Create Pull Request
+        if: steps.has-changes.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v3
+        with:
+          commit-message: Extract new i18n messages
+          title: Extract new i18n messages
+          body: New i18n messages need to be added to the messages files so translators can translate them.
+          branch: update-messages
