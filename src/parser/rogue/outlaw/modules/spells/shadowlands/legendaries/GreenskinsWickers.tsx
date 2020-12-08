@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
@@ -33,7 +33,7 @@ class GreenskinsWickers extends Analyzer {
           <SpellIcon id={SPELLS.GREENSKINS_WICKERS.id} /> {this.greenskinProcs} <small>Procs gained</small>
         </BoringSpellValueText>
       </Statistic>
-    )
+    );
   }
 }
 

@@ -8,7 +8,6 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import DarkShadow from './DarkShadow';
 import DanceDamageTracker from '../../core/DanceDamageTracker';
 
-
 class DarkShadowContribution extends DarkShadow {
   static dependencies = {
     ...DarkShadow.dependencies,

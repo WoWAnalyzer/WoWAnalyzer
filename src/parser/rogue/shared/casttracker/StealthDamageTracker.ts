@@ -4,7 +4,6 @@ import { Options } from 'parser/core/Analyzer';
 import FilteredDamageTracker from './FilteredDamageTracker';
 import { isStealth } from '../stealth/IsStealth';
 
-
 class StealthDamageTracker extends FilteredDamageTracker {
   // Workaround for stealth getting removed "before" the cast.
   delayWindow: number = 100;
