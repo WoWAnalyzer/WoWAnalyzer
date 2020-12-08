@@ -70,6 +70,7 @@ import EarthShield from './modules/spells/EarthShield'; // technically shared
 import AstralShift from '../shared/spells/AstralShift';
 
 import CloudburstNormalizer from './normalizers/CloudburstNormalizer';
+import RiptideNormalizer from './normalizers/RiptideNormalizer';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
@@ -140,6 +141,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Normalizers
     cloudburstNormalizer: CloudburstNormalizer,
+    riptideNormalizer: RiptideNormalizer,
 
     // Conduits
     embraceOfEarth: EmbraceOfEarth,

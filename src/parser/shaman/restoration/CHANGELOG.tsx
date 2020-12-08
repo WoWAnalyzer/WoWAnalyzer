@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 11, 8), <>Fixed <SpellLink id={SPELLS.PRIMAL_TIDE_CORE.id} /> module not catching the <SpellLink id={SPELLS.RIPTIDE.id} /> initial heal.</>, niseko),
   change(date(2020, 11, 23), `Updated everything to Shadowlands Level 60 values, prepatch logs will be showing inaccurate results.`, niseko),
   change(date(2020, 11, 8), <>Added the legendaries <SpellLink id={SPELLS.JONATS_NATURAL_FOCUS.id} /> and <SpellLink id={SPELLS.EARTHEN_HARMONY.id} />.</>, niseko),
   change(date(2020, 11, 8), <>Added the legendary <SpellLink id={SPELLS.PRIMAL_TIDE_CORE.id} />.</>, niseko),
