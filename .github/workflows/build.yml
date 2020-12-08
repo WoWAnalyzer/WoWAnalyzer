@@ -156,6 +156,7 @@ jobs:
         run: |
           yarn extract
           yarn extract
+          yarn lingui compile
       - name: Production build
         run: |
           # Needed to ignore the mini-css-extract-plugin warnings which can not be fixed with a good solution
