@@ -1,4 +1,5 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
+import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Abilities from './modules/Abilities';
@@ -11,6 +12,7 @@ import RimeEfficiency from './modules/features/RimeEfficiency';
 import HardHowlingBlastCasts from './modules/features/HardHowlingBlastCasts';
 import KillingMachineEfficiency from './modules/features/KillingMachine';
 import BreathOfSindragosa from './modules/talents/BreathOfSindragosa';
+import HypothermicPresence from './modules/talents/HypothermicPresence';
 
 import RuneTracker from './modules/features/RuneTracker';
 import RuneDetails from '../shared/RuneDetails';
@@ -39,6 +41,7 @@ class CombatLogParser extends CoreCombatLogParser {
     rimeEfficiency: RimeEfficiency,
     killingMachineEfficiency: KillingMachineEfficiency,
     breathofSindragoa: BreathOfSindragosa,
+    hypothermicPresence: HypothermicPresence,
 
     //resource tracker
     runeTracker: RuneTracker,
@@ -52,7 +55,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Runes
     runeOfTheFallenCrusader: RuneOfTheFallenCrusader,
-    runeOfHysteria: RuneOfHysteria
+    runeOfHysteria: RuneOfHysteria,
+
+    arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,
   };
 }
 

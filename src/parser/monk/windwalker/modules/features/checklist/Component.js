@@ -60,6 +60,16 @@ const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }) => {
           )}
           thresholds={thresholds.fistsofFury}
         />
+        {combatant.hasLegendaryByBonusID(SPELLS.JADE_IGNITION.bonusID) && (
+          <Requirement
+            name={(
+              <>
+                <SpellLink id={SPELLS.JADE_IGNITION_BUFF.id} /> stacks used
+              </>
+            )}
+            thresholds={thresholds.jadeIgnition}
+          />
+        )}
       </Rule>
       <Rule
         name="Use your cooldowns effectively"

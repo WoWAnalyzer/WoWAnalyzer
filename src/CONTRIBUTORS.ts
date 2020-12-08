@@ -1027,4 +1027,19 @@ export const Keraldi: Contributor = {
   nickname: 'Keraldi',
   github: 'Keraldi',
   discord: 'Keraldi#0001',
-}
+};
+
+export const VMakaev: Contributor = {
+  nickname: 'VMakaev',
+  github: 'vladimirmakaev',
+  discord: 'Vladimir#5076',
+  mains: [{
+    name: 'Kaylleen',
+    spec: SPECS.DISCIPLINE_PRIEST,
+    link: 'https://worldofwarcraft.com/en-gb/character/eu/silvermoon/kaylleen'
+  }, {
+    name: 'Elastan',
+    spec: SPECS.PROTECTION_PALADIN,
+    link: 'https://worldofwarcraft.com/en-gb/character/eu/silvermoon/elastan'
+  }]
+};

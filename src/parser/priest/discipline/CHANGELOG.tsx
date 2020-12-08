@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Ogofo, Oratio, Reglitch, Zerotorescue, niseko, Khadaj, blazyb, Adoraci, Tiphess, Putro, Zeboot } from 'CONTRIBUTORS';
+import { Ogofo, Oratio, Reglitch, Zerotorescue, niseko, Khadaj, blazyb, Adoraci, Tiphess, Putro, Zeboot, VMakaev } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
@@ -8,7 +8,8 @@ import ITEMS from 'common/ITEMS';
 import { change, date } from 'common/changelog';
 
 export default [
-  change(date(2020, 11, 13),  <>Implementation of <SpellLink id={SPELLS.SHINING_RADIANCE.id} />.</>, [Oratio]),
+  change(date(2020, 12, 2), <>Fixed damage bonus of <SpellLink id={SPELLS.SCHISM_TALENT.id} /> to 25% to match Shadowlands nerf.</>, [VMakaev]),
+  change(date(2020, 11, 13), <>Implementation of <SpellLink id={SPELLS.SHINING_RADIANCE.id} />.</>, [Oratio]),
   change(date(2020, 10, 18), 'Converted legacy listeners to new event filters', Zeboot),
   change(date(2020, 10, 10), <>Implementation of <SpellLink id={SPELLS.BOON_OF_THE_ASCENDED.id} />.</>, [Ogofo]),
   change(date(2020, 10, 3), <>Update <SpellLink id={SPELLS.POWER_WORD_SOLACE_TALENT.id} /> cooldown.</>, [Reglitch]),

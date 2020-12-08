@@ -29,7 +29,7 @@ class RollTheBonesEfficiency extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = !this.selectedCombatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id);
+    this.active = !this.selectedCombatant.hasTalent(SPELLS.SLICE_AND_DICE.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.DISPATCH, SPELLS.BETWEEN_THE_EYES]), this.onCast);
   }
 

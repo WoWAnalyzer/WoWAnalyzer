@@ -38,6 +38,7 @@ import Kindling from './modules/talents/Kindling';
 
 //Legendaries
 import FeveredIncantation from './modules/items/FeveredIncantation';
+import Firestorm from './modules/items/Firestorm';
 
 //Covenants
 import ShiftingPower from '../shared/modules/features/ShiftingPower';
@@ -95,6 +96,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Legendaries
     feveredIncantation: FeveredIncantation,
+    firestorm: Firestorm,
 
     //Covenants
     shiftingPower: ShiftingPower,

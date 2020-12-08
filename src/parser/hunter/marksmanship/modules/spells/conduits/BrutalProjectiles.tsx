@@ -55,7 +55,7 @@ class BrutalProjectiles extends Analyzer {
 
   onRapidFireCast(event: CastEvent) {
     this.currentTick = 0;
-    if(this.selectedCombatant.hasBuff(SPELLS.BRUTAL_PROJECTILES_NEXT_RF_BUFF.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.BRUTAL_PROJECTILES_NEXT_RF_BUFF.id)) {
       this.usedProcs += 1;
     }
   }

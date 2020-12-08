@@ -225,7 +225,7 @@ class GlimmerOfLight extends Analyzer {
   suggestions(when) {
     if (this.owner.builds.GLIMMER.active) {
       when(this.suggestEarlyRefresh).addSuggestion((suggest, actual, recommended) => suggest(
-          <Trans>
+          <Trans id="paladin.holy.modules.azeritetraits.glimmerOfLight">
             Your usage of <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> can be improved. To maximize
             the healing/damage done by <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} />, try to keep as
             many buffs up as possible. Avoid overwritting buffs early, this suggestion does not take
@@ -245,7 +245,7 @@ class GlimmerOfLight extends Analyzer {
 
     if (this.owner.builds.GLIMMER.active) {
       when(this.suggestGlimmerCap).addSuggestion((suggest, actual, recommended) => suggest(
-          <Trans>
+          <Trans id="paladin.holy.modules.azeritetraits.glimmerOfLight.patch83">
             Patch 8.3 implemented a{' '}
             <a href="https://www.wowhead.com/news=295502.3/blizzard-official-class-changes-for-patch-8-3-visions-of-nzoth">
               glimmer cap{' '}

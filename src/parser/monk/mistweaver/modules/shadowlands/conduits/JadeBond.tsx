@@ -17,6 +17,8 @@ import ItemHealingDone from 'interface/ItemHealingDone';
 import { formatNumber } from 'common/format';
 import Spell from 'common/SPELLS/Spell';
 
+import {JADE_BOND_RANK_ONE, conduitScaling} from '../../../constants';
+
 const JADE_BOND_REDUCTION = 300;
 
 class JadeBond extends Analyzer {
@@ -31,25 +33,23 @@ class JadeBond extends Analyzer {
 
   cooldownReductionUsed: number = 0;
   cooldownReductionWasted: number = 0;
-
   spellToReduce: Spell = SPELLS.INVOKE_YULON_THE_JADE_SERPENT;
-
   healingBoost: number = 0;
-
   healing: number = 0;
+  conduitRank: number = 0;
 
   /**
    * Whenever you cast a Gust of Mist procing ability it reduces the cooldown of Yu'lon or Chi-ji by .5 seconds as well as increasing their healing by x%
    */
   constructor(options: Options) {
     super(options);
-    this.active = false;
-
-    this.healingBoost = .05;//TODO Get from combat data when they EXPORT IT >:c
-
-    if (!this.active) {
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.JADE_BOND.id);
+    if (!this.conduitRank) {
+      this.active = false;
       return;
     }
+
+    this.healingBoost = conduitScaling(JADE_BOND_RANK_ONE, this.conduitRank);
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.EXPEL_HARM, SPELLS.VIVIFY, SPELLS.RENEWING_MIST, SPELLS.ENVELOPING_MIST]), this.gustProcingSpell);
 

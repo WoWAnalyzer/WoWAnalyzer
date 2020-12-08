@@ -14,11 +14,11 @@ export default DIFFICULTIES;
 
 export function getLabel(difficulty?: number) {
   switch (difficulty) {
-    case DIFFICULTIES.LFR_RAID: return i18n._(t`LFR`);
-    case DIFFICULTIES.NORMAL_RAID: return i18n._(t`Normal`);
-    case DIFFICULTIES.HEROIC_RAID: return i18n._(t`Heroic`);
-    case DIFFICULTIES.MYTHIC_RAID: return i18n._(t`Mythic`);
-    case DIFFICULTIES.MYTHIC_PLUS_DUNGEON: return i18n._(t`Mythic+`);
-    default: return i18n._(t`Unknown difficulty`);
+    case DIFFICULTIES.LFR_RAID: return i18n._(t('game.difficulties.lfr')`LFR`);
+    case DIFFICULTIES.NORMAL_RAID: return i18n._(t('game.difficulties.nhc')`Normal`);
+    case DIFFICULTIES.HEROIC_RAID: return i18n._(t('game.difficulties.hc')`Heroic`);
+    case DIFFICULTIES.MYTHIC_RAID: return i18n._(t('game.difficulties.mythic')`Mythic`);
+    case DIFFICULTIES.MYTHIC_PLUS_DUNGEON: return i18n._(t('game.difficulties.mythicPlus')`Mythic+`);
+    default: return i18n._(t('game.difficulties.unknown')`Unknown difficulty`);
   }
 }

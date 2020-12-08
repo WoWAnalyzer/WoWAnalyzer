@@ -5,7 +5,9 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
+import BoringValue from 'interface/statistics/components/BoringValueText';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
@@ -85,10 +87,9 @@ class BlackoutCombo extends Analyzer {
     const wastedPerc = (this.blackoutComboBuffs - this.blackoutComboConsumed) / this.blackoutComboBuffs;
 
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.BLACKOUT_COMBO_BUFF.id} />}
-        value={`${formatPercentage(wastedPerc)}%`}
-        label="Wasted Blackout Combo"
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL()}
+        size="flexible"
         tooltip={(
           <>
             You got total <strong>{this.blackoutComboBuffs}</strong> Blackout Combo procs and used <strong>{this.blackoutComboConsumed}</strong> of them.<br />
@@ -102,7 +103,13 @@ class BlackoutCombo extends Analyzer {
             </ul>
           </>
         )}
-      />
+      >
+        <BoringValue label={<><SpellIcon id={SPELLS.BLACKOUT_COMBO_BUFF.id} /> Wasted Blackout Combo</>} >
+          <>
+            {formatPercentage(wastedPerc)}%
+          </>
+        </BoringValue>
+      </Statistic>
     );
   }
   statisticOrder = STATISTIC_ORDER.OPTIONAL();
