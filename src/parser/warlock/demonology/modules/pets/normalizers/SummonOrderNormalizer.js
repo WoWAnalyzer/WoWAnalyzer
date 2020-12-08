@@ -35,9 +35,11 @@ class SummonOrderNormalizer extends EventsNormalizer {
   isSharpenedDreadfangs(previousEvent, event) {
     return previousEvent.type === EventType.Cast && previousEvent.ability.guid === SPELLS.SHARPENED_DREADFANGS.id && previousEvent.sourceInstance === event.targetInstance;
   }
+
   isTyrantSummon(event) {
     return event.type === EventType.Summon && event.ability.guid === SPELLS.SUMMON_DEMONIC_TYRANT.id;
   }
+
   isDogSummon(event) {
     return event.type === EventType.Summon && (event.ability.guid === SPELLS.DREADSTALKER_SUMMON_1.id || event.ability.guid === SPELLS.DREADSTALKER_SUMMON_2.id);
   }

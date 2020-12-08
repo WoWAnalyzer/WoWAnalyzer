@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import Enemies from 'parser/shared/modules/Enemies';
@@ -50,6 +50,13 @@ class EarthenSpike extends Analyzer {
     );
   }
 
+  get buffedSchools() {
+    return [
+      MAGIC_SCHOOLS.ids.PHYSICAL,
+      MAGIC_SCHOOLS.ids.NATURE,
+    ];
+  }
+
   onEarthenSpikeDamage(event: DamageEvent) {
     this.damageGained += event.amount + (event.absorbed || 0);
   }
@@ -69,13 +76,6 @@ class EarthenSpike extends Analyzer {
     }
 
     this.damageGained += calculateEffectiveDamage(event, EARTHEN_SPIKE.INCREASE);
-  }
-
-  get buffedSchools() {
-    return [
-      MAGIC_SCHOOLS.ids.PHYSICAL,
-      MAGIC_SCHOOLS.ids.NATURE,
-    ];
   }
 
   statistic() {

@@ -11,6 +11,14 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 const BUFFER = 350;
 
 class PowerSiphon extends Analyzer {
+  get totalCores() {
+    return this.casts.reduce((total, current) => total + current, 0);
+  }
+
+  get averageCores() {
+    return (this.totalCores / this.casts.length) || 0;
+  }
+
   _cast = null;
   _count = 0;
   casts = [];
@@ -41,13 +49,6 @@ class PowerSiphon extends Analyzer {
 
   onFinished() {
     this.casts.push(this._count);
-  }
-
-  get totalCores() {
-    return this.casts.reduce((total, current) => total + current, 0);
-  }
-  get averageCores() {
-    return (this.totalCores / this.casts.length) || 0;
   }
 
   statistic() {

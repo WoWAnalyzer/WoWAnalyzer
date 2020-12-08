@@ -25,26 +25,26 @@ const FRAGMENTS_PER_CHAOS_SHARDS_ENERGIZE = 2;
 const FULL_SHARD_GAINED_EVENT_TYPE = 'fullshardgained';
 
 class SoulShardTracker extends ResourceTracker {
+  static get fullshardgained() {
+    return new EventFilter(FULL_SHARD_GAINED_EVENT_TYPE);
+  }
+
   static dependencies = {
     ...ResourceTracker.dependencies,
     enemies: Enemies,
   };
-
   lastInfernalSummon = null;
   lastInfernalTick = null;
-
   immolateCrits = 0;
   rainOfFireHits = 0;
-
   hasInferno = false;
-
   currentChaosShardsEnergizes = 0;
 
   constructor(...args) {
     super(...args);
     // a copy of the object since I don't want to change it in the Events tab, only in the Resource tab
     this.resource = Object.assign({}, RESOURCE_TYPES.SOUL_SHARDS);
-    this.resource.name = "Soul Shard Fragments";
+    this.resource.name = 'Soul Shard Fragments';
     this.current = 30;
     this.hasInferno = this.selectedCombatant.hasTalent(SPELLS.INFERNO_TALENT.id);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.CHAOS_SHARDS_BUFF_ENERGIZE), this.onApplyBuff);
@@ -168,10 +168,6 @@ class SoulShardTracker extends ResourceTracker {
       // makes no sense to even show this if the player doesn't have Inferno
       this.processInvisibleEnergize(SPELLS.RAIN_OF_FIRE_DAMAGE.id, distribution.rainOfFire);
     }
-  }
-
-  static get fullshardgained() {
-    return new EventFilter(FULL_SHARD_GAINED_EVENT_TYPE);
   }
 
   _applyBuilder(spellId, resource, gain, waste) {

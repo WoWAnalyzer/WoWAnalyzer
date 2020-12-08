@@ -17,6 +17,11 @@ const FRAGMENTS_PER_SHARD = 10;
 const SC_PROC_CHANCE = 0.15;
 
 class SoulConduit extends Analyzer {
+  get averageChaosBoltDamage() {
+    const chaosBolt = this.abilityTracker.getAbility(SPELLS.CHAOS_BOLT.id);
+    return ((chaosBolt.damageEffective + chaosBolt.damageAbsorbed) / chaosBolt.casts) || 0;
+  }
+
   static dependencies = {
     soulShardTracker: SoulShardTracker,
     abilityTracker: AbilityTracker,
@@ -25,11 +30,6 @@ class SoulConduit extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SOUL_CONDUIT_TALENT.id);
-  }
-
-  get averageChaosBoltDamage() {
-    const chaosBolt = this.abilityTracker.getAbility(SPELLS.CHAOS_BOLT.id);
-    return ((chaosBolt.damageEffective + chaosBolt.damageAbsorbed) / chaosBolt.casts) || 0;
   }
 
   statistic() {
