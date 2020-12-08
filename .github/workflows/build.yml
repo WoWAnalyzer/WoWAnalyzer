@@ -193,7 +193,6 @@ jobs:
           restore-keys: ${{ runner.os }}-node_modules3-
           read-only: true
       - name: Extract messages
-        if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer'
         # We need to run extraction twice as Lingui has a bug where the second pass removes the default for messages with the same id as the default
         run: |
           yarn extract
