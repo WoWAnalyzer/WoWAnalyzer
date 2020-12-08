@@ -17,7 +17,6 @@ import safeMerge from 'common/safeMerge';
 
 import OTHERS from './others';
 import RACIALS from './racials';
-import BFA from './bfa';
 import SHADOWLANDS from './shadowlands';
 import ENCOUNTER from './encounter';
 
@@ -81,7 +80,6 @@ const ABILITIES: SpellList = {
     SHAMAN,
     WARLOCK,
     WARRIOR,
-    BFA,
     SHADOWLANDS,
   ),
 };

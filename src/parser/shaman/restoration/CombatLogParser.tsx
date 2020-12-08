@@ -8,7 +8,6 @@ import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
-import LucidDreams from 'parser/shared/modules/spells/bfa/essences/LucidDreamsHealers';
 
 import HealingEfficiencyDetails from './modules/core/HealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/core/HealingEfficiencyTracker';
@@ -135,9 +134,6 @@ class CombatLogParser extends CoreCombatLogParser {
     staticCharge: StaticCharge,
     astralShift: AstralShift,
     earthShield: EarthShield,
-
-    // Essences
-    lucidDreams: LucidDreams,
 
     // Normalizers
     cloudburstNormalizer: CloudburstNormalizer,
