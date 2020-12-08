@@ -2,7 +2,6 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 // Normalizers
 import OverpowerStacks from './normalizers/OverpowerStacks';
-import CrushingAssaultBuff from './normalizers/CrushingAssaultBuff';
 // Features
 import Checklist from './modules/features/Checklist/Module';
 import Abilities from './modules/Abilities';
@@ -46,7 +45,6 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Normalizers
     overpowerStacks: OverpowerStacks,
-    crushingAssaulBuff: CrushingAssaultBuff,
 
     // WarriorCore
     abilities: Abilities,
