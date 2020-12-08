@@ -1021,4 +1021,10 @@ export const Mae: Contributor = {
     spec: SPECS.RESTORATION_SHAMAN,
     link: 'https://worldofwarcraft.com/en-gb/character/eu/draenor/maerstrom'
   }]
+};
+
+export const Keraldi: Contributor = {
+  nickname: 'Keraldi',
+  github: 'Keraldi',
+  discord: 'Keraldi#0001',
 }
