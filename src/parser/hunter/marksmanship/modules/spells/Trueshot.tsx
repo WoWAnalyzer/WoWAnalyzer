@@ -12,6 +12,8 @@ import { HUNTER_BASE_FOCUS_MAX, MS_BUFFER } from 'parser/hunter/shared/constants
 import { TRUESHOT_FOCUS_INCREASE } from 'parser/hunter/marksmanship/constants';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatNumber } from 'common/format';
+import ResourceIcon from 'common/ResourceIcon';
+import SpellIcon from 'common/SpellIcon';
 
 /**
  * Reduces the cooldown of your Aimed Shot and Rapid Fire by 60%, and causes Aimed Shot to cast 50% faster for 15 sec.
@@ -109,9 +111,9 @@ class Trueshot extends Analyzer {
         size="flexible"
       >
         <BoringSpellValueText spell={SPELLS.TRUESHOT}>
-          {this.averageAimedShots.toFixed(1)} <small>Aimed Shots per Trueshot</small>
+          <SpellIcon id={SPELLS.AIMED_SHOT.id} noLink /> {this.averageAimedShots.toFixed(1)} <small>per Trueshot</small>
           <br />
-          {this.effectiveFocus}/{this.possibleFocus} <small>focus gained</small>
+          <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /> {this.effectiveFocus}/{this.possibleFocus} <small>Focus gained</small>
         </BoringSpellValueText>
       </Statistic>
     );

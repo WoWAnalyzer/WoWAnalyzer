@@ -1,7 +1,7 @@
 import { Boss } from "raids/index";
 
-import Background from './images/backgrounds/CastleNathria.jpg';
-import Headshot from './images/headshots/CastleNathriaHeadshot.png';
+import Background from './images/backgrounds/HungeringDestroyer.jpg';
+import Headshot from './images/headshots/HungeringDestroyer.jpg';
 
 const HungeringDestroyer: Boss = {
   id: 2383,

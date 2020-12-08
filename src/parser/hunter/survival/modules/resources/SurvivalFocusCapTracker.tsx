@@ -1,6 +1,5 @@
 import FocusCapTracker from 'parser/hunter/shared/modules/resources/FocusCapTracker';
-import { BASE_FOCUS_REGEN_SV, BASE_MAX_FOCUS_SV, PRIMEVAL_INTUITION_MAX_FOCUS_SV } from 'parser/hunter/survival/constants';
-import SPELLS from 'common/SPELLS';
+import { BASE_FOCUS_REGEN_SV, BASE_MAX_FOCUS_SV } from 'parser/hunter/survival/constants';
 
 class SurvivalFocusCapTracker extends FocusCapTracker {
 
@@ -10,7 +9,7 @@ class SurvivalFocusCapTracker extends FocusCapTracker {
   }
 
   currentMaxResource() {
-    const max = this.selectedCombatant.hasTrait(SPELLS.PRIMEVAL_INTUITION.id) ? PRIMEVAL_INTUITION_MAX_FOCUS_SV : BASE_MAX_FOCUS_SV;
+    const max = BASE_MAX_FOCUS_SV;
     return max;
   }
 

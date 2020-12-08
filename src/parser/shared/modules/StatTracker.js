@@ -156,7 +156,6 @@ class StatTracker extends Analyzer {
     [SPELLS.WOUNDBINDER.id]: { haste: 584 }, // based on 340 TODO: Scale with item level
     // endregion
     // region Hunter
-    [SPELLS.HAZE_OF_RAGE.id]: { agility: 316 },
     // endregion
     // region Warlock
     // endregion
@@ -345,9 +344,9 @@ class StatTracker extends Analyzer {
   //Values taken from https://github.com/simulationcraft/simc/blob/shadowlands/engine/dbc/generated/sc_scale_data.inc
   statBaselineRatingPerPercent = {
     /** Secondaries */
-    [STAT.CRITICAL_STRIKE]: 33,
-    [STAT.HASTE]: 35,
-    [STAT.MASTERY]: 33,
+    [STAT.CRITICAL_STRIKE]: 35,
+    [STAT.HASTE]: 33,
+    [STAT.MASTERY]: 35,
     [STAT.VERSATILITY]: 40,
     /** Tertiaries */
     [STAT.AVOIDANCE]: 14,
