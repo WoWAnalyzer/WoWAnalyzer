@@ -132,7 +132,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.90,
         },
       },
-      
+
       // defensives
       {
         spell: SPELLS.SACRIFICIAL_PACT,
@@ -140,10 +140,6 @@ class Abilities extends CoreAbilities {
         cooldown: 120,
         gcd: {
           base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.90,
         },
       },
       {
@@ -191,15 +187,6 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: .90,
         },
-      },
-      {
-        spell: SPELLS.SOUL_REAPER_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 6,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(SPELLS.SOUL_REAPER_TALENT.id),
       },
       {
         spell: SPELLS.UNHOLY_BLIGHT_TALENT,
