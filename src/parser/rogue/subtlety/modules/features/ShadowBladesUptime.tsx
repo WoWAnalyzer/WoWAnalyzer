@@ -11,7 +11,6 @@ import Enemies from 'parser/shared/modules/Enemies';
 
 import BoringValueText from 'interface/statistics/components/BoringValueText';
 
-
 class ShadowBladesUptime extends Analyzer {
   static dependencies = {
     enemies: Enemies,

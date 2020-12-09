@@ -17,6 +17,35 @@ const MS_BUFFER = 100;
 
 class SpiritBombSoulsConsume extends Analyzer {
 
+  get totalGoodCasts() {
+    return this.soulsConsumedByAmount[4] + this.soulsConsumedByAmount[5];
+  }
+
+  get totalCasts() {
+    return Object.values(this.soulsConsumedByAmount).reduce((total, casts) => total + casts, 0);
+  }
+
+  get percentGoodCasts() {
+    return this.totalGoodCasts / this.totalCasts;
+  }
+
+  get suggestionThresholdsEfficiency() {
+    return {
+      actual: this.percentGoodCasts,
+      isLessThan: {
+        minor: 0.90,
+        average: 0.85,
+        major: .80,
+      },
+      style: 'percentage',
+    };
+  }
+
+  castTimestamp = 0;
+  castSoulsConsumed = 0;
+  cast = 0;
+  soulsConsumedByAmount = Array.from({ length: 6 }, x => 0);
+
   /* Feed The Demon talent is taken in defensive builds. In those cases you want to generate and consume souls as quickly
    as possible. So how you consume your souls down matter. If you dont take that talent your taking a more balanced
    build meaning you want to consume souls in a way that boosts your dps. That means feeding the souls into spirit
@@ -30,12 +59,6 @@ class SpiritBombSoulsConsume extends Analyzer {
     this.addEventListener(Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.SOUL_FRAGMENT_STACK), this.onChangeBuffStack);
     this.addEventListener(Events.fightend, this.onFightend);
   }
-
-  castTimestamp = 0;
-  castSoulsConsumed = 0;
-  cast = 0;
-
-  soulsConsumedByAmount = Array.from({ length: 6 }, x => 0);
 
   onCast(event) {
     if (this.cast > 0) {
@@ -67,30 +90,6 @@ class SpiritBombSoulsConsume extends Analyzer {
 
   onFightend() {
     this.countHits();
-  }
-
-  get totalGoodCasts() {
-    return this.soulsConsumedByAmount[4] + this.soulsConsumedByAmount[5];
-  }
-
-  get totalCasts() {
-    return Object.values(this.soulsConsumedByAmount).reduce((total, casts) => total + casts, 0);
-  }
-
-  get percentGoodCasts() {
-    return this.totalGoodCasts / this.totalCasts;
-  }
-
-  get suggestionThresholdsEfficiency() {
-    return {
-      actual: this.percentGoodCasts,
-      isLessThan: {
-        minor: 0.90,
-        average: 0.85,
-        major: .80,
-      },
-      style: 'percentage',
-    };
   }
 
   suggestions(when) {

@@ -12,13 +12,13 @@ import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
  */
 
 class WarMachine extends Analyzer {
+  get uptime() {
+    return this.selectedCombatant.getBuffUptime(SPELLS.WAR_MACHINE_TALENT_BUFF.id) / this.owner.fightDuration;
+  }
+
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.WAR_MACHINE_TALENT.id);
-  }
-
-  get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.WAR_MACHINE_TALENT_BUFF.id) / this.owner.fightDuration;
   }
 
   subStatistic() {

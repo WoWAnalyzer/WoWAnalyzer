@@ -10,10 +10,12 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 
-const AFFECTED_ABILITIES = [SPELLS.LIGHTNING_BOLT_OVERLOAD.id,
-                           SPELLS.LIGHTNING_BOLT.id,
-                           SPELLS.CHAIN_LIGHTNING_OVERLOAD.id,
-                           SPELLS.CHAIN_LIGHTNING.id];
+const AFFECTED_ABILITIES = [
+  SPELLS.LIGHTNING_BOLT_OVERLOAD.id,
+  SPELLS.LIGHTNING_BOLT.id,
+  SPELLS.CHAIN_LIGHTNING_OVERLOAD.id,
+  SPELLS.CHAIN_LIGHTNING.id,
+];
 
 class Stormkeeper extends Analyzer {
   damageDoneByBuffedCasts = 0;
@@ -21,12 +23,14 @@ class Stormkeeper extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.STORMKEEPER_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(AFFECTED_ABILITIES),
-      this.onSKDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(AFFECTED_ABILITIES),
+      this.onSKDamage,
+    );
   }
 
   onSKDamage(event: DamageEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.STORMKEEPER_TALENT.id)){
+    if (!this.selectedCombatant.hasBuff(SPELLS.STORMKEEPER_TALENT.id)) {
       return;
     }
 
@@ -38,10 +42,10 @@ class Stormkeeper extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
-          >
+      >
         <BoringSpellValueText spell={SPELLS.STORMKEEPER_TALENT}>
           <>
-          <ItemDamageDone amount={this.damageDoneByBuffedCasts} />
+            <ItemDamageDone amount={this.damageDoneByBuffedCasts} />
           </>
         </BoringSpellValueText>
       </Statistic>

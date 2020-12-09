@@ -18,29 +18,27 @@ class LifeCocoon extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
-
+  healing: number = 0;
   protected combatants!: Combatants;
 
-  healing: number = 0;
-
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.heal, this.cocoonBuff);
   }
 
   cocoonBuff(event: HealEvent) {
     //Life Cocoon works on any HoT that has this flag checked even if they don't come from the mistweaver themselves
-    if(!event.tick){
+    if (!event.tick) {
       return;
     }
 
     const target = this.combatants.players[event.targetID];
 
-    if(!target){
+    if (!target) {
       return;
     }
 
-    if(target.hasBuff(SPELLS.LIFE_COCOON.id, event.timestamp, 0, 0)){
+    if (target.hasBuff(SPELLS.LIFE_COCOON.id, event.timestamp, 0, 0)) {
       this.healing += calculateEffectiveHealing(event, LIFE_COCOON_HEALING_BOOST);
     }
   }

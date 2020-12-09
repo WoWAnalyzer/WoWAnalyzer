@@ -8,6 +8,7 @@ export type Boss = {
   id: number,
   name: string,
   background?: string,
+  backgroundPosition?: string,
   headshot?: string,
   icon?: string,
   fight: EncounterConfig,
@@ -40,11 +41,6 @@ export interface Phase extends PhaseConfig {
 const raids = {
   // Battle for Azeroth
   Dungeons: require('./dungeons').default,
-  Uldir: require('./uldir').default, // tier 22
-  BattleOfDazaralor: require('./battleofdazaralor').default, // tier 23
-  CrucibleOfStorms: require('./crucibleofstorms').default, //tier 23.5
-  AzsharasEternalPalace: require('./azsharaseternalpalace').default, //tier 24
-  NyalothaTheWakingCity: require('./nyalothathewakingcity').default, //tier 25
   CastleNathria: require('./castlenathria').default, //tier 26
 };
 export default raids;

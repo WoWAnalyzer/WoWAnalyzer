@@ -1,16 +1,15 @@
 import React from 'react';
-import { formatThousands, formatNumber, formatPercentage } from 'common/format';
+import { formatThousands, formatNumber } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
-import SpellIcon from 'common/SpellIcon';
 import BoringValue from 'interface/statistics/components/BoringValueText';
 import Events from 'parser/core/Events';
-import SPELLS from 'common/SPELLS';
 
 class HealingReceived extends Analyzer {
   HealingReceivedExternal = 0;
   HealingReceivedSelf = 0;
+
   constructor(...args) {
     super(...args);
     // Disabling this module i don't think its right and it might add confusion.
@@ -43,11 +42,13 @@ class HealingReceived extends Analyzer {
         )}
       >
         {/*dunno if this works here. I couldn't see it in the page then saw it was disabled. Updated the element nonetheless.*/}
-        <BoringValue label={<><img
-          src="/img/healing.png"
-          style={{ border: 0 }}
-          alt="Healing"
-        /> External healing received</>} >
+        <BoringValue
+          label={<><img
+            src="/img/healing.png"
+            style={{ border: 0 }}
+            alt="Healing"
+          /> External healing received</>}
+        >
           <>
             {formatNumber((this.HealingReceivedExternal) / this.owner.fightDuration * 1000)} HPS
           </>

@@ -13,6 +13,10 @@ import Events, { EventType } from 'parser/core/Events';
 const IRONBARK_BASE_DR = 0.20;
 
 class Ironbark extends Analyzer {
+  get damageReduced() {
+    return this.damageTakenDuringIronbark / (1 - IRONBARK_BASE_DR) * IRONBARK_BASE_DR;
+  }
+
   ironbarkCount = 0;
   damageTakenDuringIronbark = 0;
 
@@ -24,10 +28,6 @@ class Ironbark extends Analyzer {
 
   onCast(event) {
     this.ironbarkCount += 1;
-  }
-
-  get damageReduced() {
-    return this.damageTakenDuringIronbark / (1 - IRONBARK_BASE_DR) * IRONBARK_BASE_DR;
   }
 
   loadDamageTakenDuringIronbark() {
@@ -57,7 +57,7 @@ class Ironbark extends Analyzer {
             </>
           )}
         >
-          <BoringValue label={<><SpellIcon id={SPELLS.IRONBARK.id} /> Average Ironbark mitigation</>} >
+          <BoringValue label={<><SpellIcon id={SPELLS.IRONBARK.id} /> Average Ironbark mitigation</>}>
             <>
               {formatNumber(this.damageReduced / this.ironbarkCount)}
             </>

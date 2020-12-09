@@ -34,7 +34,7 @@ class ComboPointTracker extends ResourceTracker {
 
     // primal fury procs that happen right after a cast that brought us to max CP shouldn't count as waste because it was out of the player's control
     if ((spellId === SPELLS.PRIMAL_FURY.id) &&
-        ((this.owner.currentTimestamp - this.castToMaxCpTimestamp) < PRIMAL_FURY_WINDOW)) {
+      ((this.owner.currentTimestamp - this.castToMaxCpTimestamp) < PRIMAL_FURY_WINDOW)) {
       this.unavoidableWaste += 1;
     }
   }

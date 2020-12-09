@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
 import CoreAbilities from 'parser/core/modules/Abilities';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -214,9 +215,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        healSpellIds: [
-          SPELLS.TWIST_MAGIC_HEAL.id,
-        ],
       },
       {
         spell: SPELLS.HOLY_FIRE,
@@ -347,6 +345,46 @@ class Abilities extends CoreAbilities {
           averageIssueEfficiency: 0.20,
           majorIssueEfficiency: 0,
         },
+      },
+      {
+        spell: SPELLS.SHADOW_WORD_PAIN,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.MIND_BLAST,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.MIND_SOOTHE,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.SHADOW_WORD_DEATH,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.FLESHCRAFT,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 120,
+        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+      },
+      {
+        spell: SPELLS.UNHOLY_NOVA_BUFF,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 120,
+        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },
     ];
   }

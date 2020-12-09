@@ -1,4 +1,4 @@
-import { calculatePrimaryStat, calculateSecondaryStatDefault, calculateSecondaryStatJewelry, calculateAzeriteEffects } from './stats';
+import { calculatePrimaryStat, calculateSecondaryStatDefault, calculateSecondaryStatJewelry } from './stats';
 
 describe('stats', () => {
   expect.extend({
@@ -81,69 +81,5 @@ describe('stats', () => {
     expect(rotScourRingHaste(355)).toBeWithin(260, 1); // Normal
     expect(rotScourRingHaste(370)).toBeWithin(278, 1); // Heroic
     expect(rotScourRingHaste(385)).toBeWithin(296, 1); // Mythic
-  });
-
-  describe('azerite powers', () => {
-    const verifyAzeritePower = (spellId, values) => {
-      Object.keys(values).forEach(itemLevel => {
-        expect(calculateAzeriteEffects(spellId, itemLevel)).toEqual(values[itemLevel]);
-      });
-    };
-
-    it('correct scales -1 scaling azerite powers', () => { // uses primary stat scaling formula
-      // Elusive Footwork
-      verifyAzeritePower(278571, {
-        310: [331],
-        315: [348],
-        340: [438],
-        355: [507],
-        370: [580],
-        385: [670],
-      });
-    });
-    it('correct scales -7 scaling azerite powers', () => { // uses secondary stat scaling formula
-      // Woundbinder
-      verifyAzeritePower(267880, {
-        340: [544],
-        355: [584],
-        370: [625],
-        385: [666],
-      });
-    });
-    it('correct scales -8 scaling azerite powers', () => { // uses a custom healing stat scaling formula
-      // Moment of Repose
-      verifyAzeritePower(272775, {
-        280: [5693],
-        310: [7558],
-        325: [8736],
-        340: [10012],
-      });
-    });
-    it('correct scales essence powers', () => { // uses a custom essence scaling formula
-      // Vision of Perfection Minor
-      verifyAzeritePower(296320, {
-        439: [-4482, 68],
-        443: [-4545, 69],
-        447: [-4602, 70],
-      });
-    });
-    it('correctly computes Gemhide armor and avoidance', () => {
-      const spellId = 268596;
-      const values = {
-        340: [111, 160],
-        355: [120, 184],
-        370: [128, 211],
-        385: [136, 243],
-      };
-      Object.keys(values).forEach(itemLevel => {
-        const [avoidance, armor] = calculateAzeriteEffects(spellId, itemLevel);
-        expect(armor).toEqual(values[itemLevel][1]);
-        // couple of values are off-by-1, but the only way to fix is
-        // with better coefficients that I don't have. Willing to accept
-        // it saying "112 Avoidance" when it should be "111 Avoidance",
-        // at least for now
-        expect(Math.abs(avoidance - values[itemLevel][0])).toBeLessThanOrEqual(1);
-      });
-    });
   });
 });

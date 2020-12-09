@@ -10,7 +10,6 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 class EchoingShock extends Analyzer {
 
-
   badCasts = 0;
   casts = 0;
 
@@ -18,19 +17,6 @@ class EchoingShock extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ECHOING_SHOCK_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
-    }
-
-
-  onCast(event: CastEvent) {
-    if(!this.selectedCombatant.hasBuff(SPELLS.ECHOING_SHOCK_TALENT.id)){
-      return;
-    }
-
-    this.casts += 1;
-
-    if(event.ability.guid !== SPELLS.LAVA_BURST.id){
-      this.badCasts += 1;
-    }
   }
 
   get efficiency() {
@@ -48,13 +34,25 @@ class EchoingShock extends Analyzer {
     };
   }
 
+  onCast(event: CastEvent) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.ECHOING_SHOCK_TALENT.id)) {
+      return;
+    }
+
+    this.casts += 1;
+
+    if (event.ability.guid !== SPELLS.LAVA_BURST.id) {
+      this.badCasts += 1;
+    }
+  }
+
   suggestions(when: When) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) =>
         suggest(
           <span>
             Maximize your damage with Echoing Shock by always duplicating Lava Burst.
-          </span>
+          </span>,
         )
           .icon(SPELLS.ECHOING_SHOCK_TALENT.icon)
           .actual(`${formatPercentage(actual)}% of Echoing Shocks used on Lava Burst`)

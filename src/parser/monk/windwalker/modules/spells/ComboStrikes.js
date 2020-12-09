@@ -14,43 +14,9 @@ import { t } from '@lingui/macro';
 
 import { ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
 
-const HIT_COMBO_STRING = " and dropping the Hit Combo damage buff";
+const HIT_COMBO_STRING = ' and dropping the Hit Combo damage buff';
 
 class ComboStrikes extends Analyzer {
-  _lastSpellUsed = null;
-  _lastThreeSpellsUsed = [];
-  masteryDropSpellSequence = [];
-  hasHitCombo = false;
-
-  constructor(...args) {
-    super(...args);
-    this.hasHitCombo = this.selectedCombatant.hasTalent(SPELLS.HIT_COMBO_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_MASTERY), this.onMasteryCast);
-  }
-
-  onMasteryCast(event) {
-    const spellId = event.ability.guid;
-    const eventTimestamp = event.timestamp;
-    // Track Details on the last 3 spells used - Need to populate up to 3 first, then begin to modify the array.
-    if(this._lastThreeSpellsUsed.length < 3) {
-        this._lastThreeSpellsUsed.push({
-            ability: spellId,
-            timestamp: eventTimestamp,
-        });
-    } else {
-        this._lastThreeSpellsUsed = this._lastThreeSpellsUsed.slice(1);
-        this._lastThreeSpellsUsed.push({
-            ability: spellId,
-            timestamp: eventTimestamp,
-        });
-    }
-
-    if(this._lastSpellUsed === spellId) {
-        this.masteryDropSpellSequence.push(this._lastThreeSpellsUsed);
-    }
-    this._lastSpellUsed = spellId;
-  }
-
   get masteryDropEvents() {
     return this.masteryDropSpellSequence.length;
   }
@@ -72,11 +38,45 @@ class ComboStrikes extends Analyzer {
     };
   }
 
+  _lastSpellUsed = null;
+  _lastThreeSpellsUsed = [];
+  masteryDropSpellSequence = [];
+  hasHitCombo = false;
+
+  constructor(...args) {
+    super(...args);
+    this.hasHitCombo = this.selectedCombatant.hasTalent(SPELLS.HIT_COMBO_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_MASTERY), this.onMasteryCast);
+  }
+
+  onMasteryCast(event) {
+    const spellId = event.ability.guid;
+    const eventTimestamp = event.timestamp;
+    // Track Details on the last 3 spells used - Need to populate up to 3 first, then begin to modify the array.
+    if (this._lastThreeSpellsUsed.length < 3) {
+      this._lastThreeSpellsUsed.push({
+        ability: spellId,
+        timestamp: eventTimestamp,
+      });
+    } else {
+      this._lastThreeSpellsUsed = this._lastThreeSpellsUsed.slice(1);
+      this._lastThreeSpellsUsed.push({
+        ability: spellId,
+        timestamp: eventTimestamp,
+      });
+    }
+
+    if (this._lastSpellUsed === spellId) {
+      this.masteryDropSpellSequence.push(this._lastThreeSpellsUsed);
+    }
+    this._lastSpellUsed = spellId;
+  }
+
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<span>You ignored your <SpellLink id={SPELLS.COMBO_STRIKES.id} /> buff by casting the same spell twice in a row, missing out on the damage increase from your mastery{HIT_COMBO_STRING}.</span>)
-          .icon(SPELLS.COMBO_STRIKES.icon)
-          .actual(i18n._(t('monk.windwalker.comboStrikes.masteryBreaksPerMinute')`${actual.toFixed(2)} mastery breaks per minute.`))
-          .recommended(`mastery should be broken ${recommended} times`));
+      .icon(SPELLS.COMBO_STRIKES.icon)
+      .actual(i18n._(t('monk.windwalker.comboStrikes.masteryBreaksPerMinute')`${actual.toFixed(2)} mastery breaks per minute.`))
+      .recommended(`mastery should be broken ${recommended} times`));
   }
 
   statistic() {

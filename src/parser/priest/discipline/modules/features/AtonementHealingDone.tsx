@@ -18,29 +18,27 @@ class AtonementHealingDone extends Analyzer {
     atonementDamageSource: AtonementDamageSource,
     penance: Penance,
   };
-  protected atonementDamageSource!: AtonementDamageSource;
-  protected penance!: Penance;
-
-  _totalAtonement = new HealingValue();
   total = 0;
-
   _lastPenanceBoltNumber = 0;
-
-  get totalAtonement() {
-    return this._totalAtonement;
-  }
-
   bySource: Record<string, {
     ability: Ability;
     healing: HealingValue;
     bolts?: HealingValue[];
   }> = {};
+  protected atonementDamageSource!: AtonementDamageSource;
+  protected penance!: Penance;
 
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.absorbed.by(SELECTED_PLAYER), this.onAbsorb);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.PENANCE), this.onDamage);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+  }
+
+  _totalAtonement = new HealingValue();
+
+  get totalAtonement() {
+    return this._totalAtonement;
   }
 
   onAbsorb(event: AbsorbedEvent) {

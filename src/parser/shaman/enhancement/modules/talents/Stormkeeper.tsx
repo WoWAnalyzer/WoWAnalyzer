@@ -14,7 +14,7 @@ const AFFECTED_SPELLS = [
   SPELLS.LIGHTNING_BOLT_OVERLOAD,
   SPELLS.LIGHTNING_BOLT,
   SPELLS.CHAIN_LIGHTNING_OVERLOAD,
-  SPELLS.CHAIN_LIGHTNING
+  SPELLS.CHAIN_LIGHTNING,
 ];
 
 /**
@@ -35,18 +35,10 @@ class Stormkeeper extends Analyzer {
     AFFECTED_SPELLS.forEach(affectedSpell => {
       this.addEventListener(
         Events.damage.by(SELECTED_PLAYER)
-        .spell(affectedSpell),
+          .spell(affectedSpell),
         this.onSpellDamage,
       );
     });
-  }
-
-  onSpellDamage(event: DamageEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.STORMKEEPER_TALENT_ENHANCEMENT.id)){
-      return;
-    }
-
-    this.damageDoneByBuffedCasts += event.amount;
   }
 
   get damagePercent() {
@@ -55,6 +47,14 @@ class Stormkeeper extends Analyzer {
 
   get damagePerSecond() {
     return this.damageDoneByBuffedCasts / (this.owner.fightDuration / 1000);
+  }
+
+  onSpellDamage(event: DamageEvent) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.STORMKEEPER_TALENT_ENHANCEMENT.id)) {
+      return;
+    }
+
+    this.damageDoneByBuffedCasts += event.amount;
   }
 
   statistic() {

@@ -15,14 +15,17 @@ import { t } from '@lingui/macro';
 
 class DesperatePrayer extends Analyzer {
 
+  get lastDesperatePrayerUsage() {
+    return this.desperatePrayerUsages[this.desperatePrayerUsages.length - 1];
+  }
+
   static dependencies = {
     spellUsable: SpellUsable,
   };
-
   desperatePrayerUsages = [];
   deathsWithDPReady = 0;
 
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DESPERATE_PRAYER), this.onApplyBuff);
     this.addEventListener(Events.heal.to(SELECTED_PLAYER).spell(SPELLS.DESPERATE_PRAYER), this.onHeal);
@@ -44,7 +47,7 @@ class DesperatePrayer extends Analyzer {
   }
 
   onDamageTaken(event) {
-    if(!this.selectedCombatant.hasBuff(SPELLS.DESPERATE_PRAYER.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.DESPERATE_PRAYER.id)) {
       return;
     }
 
@@ -52,13 +55,9 @@ class DesperatePrayer extends Analyzer {
   }
 
   onDeath(event) {
-    if(!this.spellUsable.isOnCooldown(SPELLS.DESPERATE_PRAYER.id)){
+    if (!this.spellUsable.isOnCooldown(SPELLS.DESPERATE_PRAYER.id)) {
       this.deathsWithDPReady += 1;
     }
-  }
-
-  get lastDesperatePrayerUsage() {
-    return this.desperatePrayerUsages[this.desperatePrayerUsages.length - 1];
   }
 
   statistic() {
@@ -66,7 +65,8 @@ class DesperatePrayer extends Analyzer {
       <StatisticBox
         value={`${this.desperatePrayerUsages.length}`}
         label="Desperate Prayer Usage(s)"
-        icon={<SpellIcon id={SPELLS.DESPERATE_PRAYER.id} />}>
+        icon={<SpellIcon id={SPELLS.DESPERATE_PRAYER.id} />}
+      >
         <table className="table table-condensed">
           <thead>
             <tr>
@@ -80,9 +80,9 @@ class DesperatePrayer extends Analyzer {
               this.desperatePrayerUsages
                 .map((dp, index) => (
                   <tr key={index}>
-                    <th scope="row">{ index + 1 }</th>
-                    <td>{ formatPercentage(dp.damageTaken / dp.originalMaxHealth) } %</td>
-                    <td>{ formatPercentage(dp.originalHealth / dp.originalMaxHealth) } %</td>
+                    <th scope="row">{index + 1}</th>
+                    <td>{formatPercentage(dp.damageTaken / dp.originalMaxHealth)} %</td>
+                    <td>{formatPercentage(dp.originalHealth / dp.originalMaxHealth)} %</td>
                   </tr>
                 ))
             }
@@ -97,9 +97,9 @@ class DesperatePrayer extends Analyzer {
     if (!boss || !boss.fight.disableDeathSuggestion) {
       when(this.deathsWithDPReady).isGreaterThan(0)
         .addSuggestion((suggest, actual, recommended) => suggest(<>You died with <SpellLink id={SPELLS.DESPERATE_PRAYER.id} /> available.</>)
-            .icon(SPELLS.DESPERATE_PRAYER.icon)
-            .actual(i18n._(t('priest.shared.suggestions.DesperatePrayer.efficiency')`You died ${this.deathsWithDPReady} time(s) with Desperate Prayer available.`))
-            .recommended(`0 is recommended`));
+          .icon(SPELLS.DESPERATE_PRAYER.icon)
+          .actual(i18n._(t('priest.shared.suggestions.DesperatePrayer.efficiency')`You died ${this.deathsWithDPReady} time(s) with Desperate Prayer available.`))
+          .recommended(`0 is recommended`));
     }
   }
 }

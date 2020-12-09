@@ -43,9 +43,9 @@ const MASTER_OF_THE_ELEMENTS = {
 };
 
 class MasterOfTheElements extends Analyzer {
-  moteBuffedAbilities: {[key: number]: number} = {};
-  moteActivationTimestamp: number|null = null;
-  moteConsumptionTimestamp: number|null = null;
+  moteBuffedAbilities: { [key: number]: number } = {};
+  moteActivationTimestamp: number | null = null;
+  moteConsumptionTimestamp: number | null = null;
   damageGained = 0;
 
   constructor(options: Options) {
@@ -54,7 +54,7 @@ class MasterOfTheElements extends Analyzer {
 
     for (const key in MASTER_OF_THE_ELEMENTS.AFFECTED_CASTS) {
       const spellid = MASTER_OF_THE_ELEMENTS.AFFECTED_CASTS[key].id;
-      if(this.selectedCombatant.hasTalent(spellid) || !MASTER_OF_THE_ELEMENTS.TALENTS.includes(spellid)) {
+      if (this.selectedCombatant.hasTalent(spellid) || !MASTER_OF_THE_ELEMENTS.TALENTS.includes(spellid)) {
         this.moteBuffedAbilities[spellid] = 0;
       }
     }
@@ -64,8 +64,8 @@ class MasterOfTheElements extends Analyzer {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(MASTER_OF_THE_ELEMENTS.AFFECTED_DAMAGE), this._onDamage);
   }
 
-  _onCast(event: CastEvent){
-    if(this.moteActivationTimestamp === null){ //the buff is a clusterfuck so we just track it manually
+  _onCast(event: CastEvent) {
+    if (this.moteActivationTimestamp === null) { //the buff is a clusterfuck so we just track it manually
       return;
     }
     this.moteConsumptionTimestamp = event.timestamp;
@@ -76,15 +76,15 @@ class MasterOfTheElements extends Analyzer {
 
   }
 
-  _onLvBCast(event: CastEvent){
+  _onLvBCast(event: CastEvent) {
     this.moteActivationTimestamp = event.timestamp;
   }
 
-  _onDamage(event: DamageEvent){
+  _onDamage(event: DamageEvent) {
     if (event.timestamp < (this.moteConsumptionTimestamp || 0)) {
       return;
     }
-    if (event.timestamp>(this.moteConsumptionTimestamp || Infinity) +MASTER_OF_THE_ELEMENTS.WINDOW_DURATION){
+    if (event.timestamp > (this.moteConsumptionTimestamp || Infinity) + MASTER_OF_THE_ELEMENTS.WINDOW_DURATION) {
       return;
     }
     this.damageGained += calculateEffectiveDamage(event, MASTER_OF_THE_ELEMENTS.INCREASE);
@@ -97,28 +97,28 @@ class MasterOfTheElements extends Analyzer {
         size="flexible"
         dropdown={(
           <>
-        <table className="table table-condensed">
-          <thead>
-            <tr>
-              <th>Ability</th>
-              <th>Number of Buffed Casts</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.keys(this.moteBuffedAbilities).map((e) => (
-              <tr key={e}>
-                <th><SpellLink id={Number(e)} /></th>
-                <td>{this.moteBuffedAbilities[Number(e)]}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+            <table className="table table-condensed">
+              <thead>
+                <tr>
+                  <th>Ability</th>
+                  <th>Number of Buffed Casts</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.keys(this.moteBuffedAbilities).map((e) => (
+                  <tr key={e}>
+                    <th><SpellLink id={Number(e)} /></th>
+                    <td>{this.moteBuffedAbilities[Number(e)]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </>
         )}
       >
         <BoringSpellValueText spell={SPELLS.MASTER_OF_THE_ELEMENTS_TALENT}>
           <>
-            <ItemDamageDone amount={this.damageGained}/>
+            <ItemDamageDone amount={this.damageGained} />
           </>
         </BoringSpellValueText>
       </Statistic>

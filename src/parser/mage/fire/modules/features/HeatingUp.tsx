@@ -8,14 +8,14 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import Events, { EventType, CastEvent, DamageEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import EventHistory from 'parser/shared/modules/EventHistory';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { FIRESTARTER_THRESHOLD, SEARING_TOUCH_THRESHOLD } from 'parser/mage/shared/constants';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
-
 
 const debug = false;
 
@@ -24,13 +24,16 @@ class HeatingUp extends Analyzer {
     abilityTracker: AbilityTracker,
     enemies: EnemyInstances,
     eventHistory: EventHistory,
+    spellUsable: SpellUsable,
   };
   protected abilityTracker!: AbilityTracker;
   protected enemies!: EnemyInstances;
   protected eventHistory!: EventHistory;
+  protected spellUsable!: SpellUsable;
 
   hasFirestarter: boolean;
   hasSearingTouch: boolean;
+  hasFlameOn: boolean;
   phoenixFlamesCastEvent?: CastEvent;
   fireBlastWithoutHeatingUp = 0;
   fireBlastWithHotStreak = 0;
@@ -41,6 +44,7 @@ class HeatingUp extends Analyzer {
     super(options);
     this.hasFirestarter = this.selectedCombatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id);
     this.hasSearingTouch = this.selectedCombatant.hasTalent(SPELLS.SEARING_TOUCH_TALENT.id);
+    this.hasFlameOn = this.selectedCombatant.hasTalent(SPELLS.FLAME_ON_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.PHOENIX_FLAMES), this.onPhoenixFlamesDamage);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FIRE_BLAST), this.onFireBlastDamage);
   }
@@ -81,6 +85,12 @@ class HeatingUp extends Analyzer {
       this.healthPercent = event.hitPoints / event.maxHitPoints;
     }
     if (hasHeatingUp) {
+      return;
+    }
+
+    //If the player is Venthyr and uses a Fire Blast without Heating Up during their Mirrors of Torment cast, that is acceptable
+    const lastCast = this.eventHistory.last(1, 1000)
+    if (lastCast.length > 0 && lastCast[0].type === EventType.BeginCast && lastCast[0].ability.guid === SPELLS.MIRRORS_OF_TORMENT.id) {
       return;
     }
 

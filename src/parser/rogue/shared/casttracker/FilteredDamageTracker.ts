@@ -1,26 +1,32 @@
 import Spell from 'common/SPELLS/Spell';
-import { HealEvent, DamageEvent, CastEvent } from 'parser/core/Events';
+import { CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 
 class FilteredDamageTracker extends DamageTracker {
   castObservers: any[] = [];
-  
+
   onDamage(event: DamageEvent) {
-    if(!this.shouldProcessEvent(event)) {return;}
+    if (!this.shouldProcessEvent(event)) {
+      return;
+    }
     super.onDamage(event);
   }
 
   onHeal(event: HealEvent) {
-    if(!this.shouldProcessEvent(event)) {return;}
+    if (!this.shouldProcessEvent(event)) {
+      return;
+    }
     super.onHeal(event);
   }
 
   onCast(event: CastEvent) {
-    if(!this.shouldProcessEvent(event)) {return;}
+    if (!this.shouldProcessEvent(event)) {
+      return;
+    }
     this.broadcastCastEvent(event);
     super.onCast(event);
   }
-    
+
   shouldProcessEvent(event: any) {
     return false;
   }
@@ -31,12 +37,12 @@ class FilteredDamageTracker extends DamageTracker {
 
   subscribeInefficientCast(spells: Spell[], messageFunction: any) {
     this.subscribeToCastEvent((event: any) => {
-      const spell = spells.find(s=>event.ability.guid === s.id);
-      if(spell) {
+      const spell = spells.find(s => event.ability.guid === s.id);
+      if (spell) {
         event.meta = event.meta || {};
         event.meta.isInefficientCast = true;
         event.meta.inefficientCastReason = messageFunction(spell);
-      }      
+      }
     });
   }
 

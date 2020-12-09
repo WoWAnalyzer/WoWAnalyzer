@@ -15,15 +15,6 @@ import PETS from '../pets/PETS';
 import { isRandomPet } from '../pets/helpers';
 
 class InnerDemons extends Analyzer {
-  static dependencies = {
-    demoPets: DemoPets,
-  };
-
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.INNER_DEMONS_TALENT.id);
-  }
-
   get damage() {
     const wildImps = this.demoPets.getPetDamage(PETS.WILD_IMP_INNER_DEMONS.guid);
     const otherPetsSummonedByID = this.demoPets.timeline.filter(pet => isRandomPet(pet.guid) && pet.summonedBy === SPELLS.INNER_DEMONS_TALENT.id);
@@ -31,6 +22,15 @@ class InnerDemons extends Analyzer {
       .map(pet => this.demoPets.getPetDamage(pet.guid, pet.instance))
       .reduce((total, current) => total + current, 0);
     return wildImps + other;
+  }
+
+  static dependencies = {
+    demoPets: DemoPets,
+  };
+
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.INNER_DEMONS_TALENT.id);
   }
 
   statistic() {

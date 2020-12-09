@@ -14,6 +14,34 @@ import SpellIcon from 'common/SpellIcon';
 
 // Abstract class used for lunar & solar empowerments.
 class Empowerment extends Analyzer {
+  get wastedPercentage() {
+    return this.wasted / this.generated;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: 1 - this.wastedPercentage,
+      isLessThan: {
+        minor: 0.98,
+        average: 0.95,
+        major: 0.9,
+      },
+      style: 'percentage',
+    };
+  }
+
+  get suggestionThresholdsInverted() {
+    return {
+      actual: this.wastedPercentage,
+      isGreaterThan: {
+        minor: 0.02,
+        average: 0.05,
+        major: 0.1,
+      },
+      style: 'percentage',
+    };
+  }
+
   empowermentBuff = null;
   empoweredSpell = null;
   empowermentPrefix = null;
@@ -48,34 +76,6 @@ class Empowerment extends Analyzer {
 
   onApplyBuffStack(event) {
     this.generated += 1;
-  }
-
-  get wastedPercentage() {
-    return this.wasted / this.generated;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: 1 - this.wastedPercentage,
-      isLessThan: {
-        minor: 0.98,
-        average: 0.95,
-        major: 0.9,
-      },
-      style: 'percentage',
-    };
-  }
-
-  get suggestionThresholdsInverted() {
-    return {
-      actual: this.wastedPercentage,
-      isGreaterThan: {
-        minor: 0.02,
-        average: 0.05,
-        major: 0.1,
-      },
-      style: 'percentage',
-    };
   }
 
   suggestions(when) {

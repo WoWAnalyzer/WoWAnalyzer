@@ -11,7 +11,7 @@ class Abilities extends CoreAbilities {
     const combatant = this.selectedCombatant;
 
     const standardGcd = combatant => 1000 * (1 - (combatant.hasBuff(SPELLS.ADRENALINE_RUSH.id) ? 0.2 : 0));
-    
+
     return [
       // // Base class resource
       {
@@ -82,7 +82,7 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
         gcd: {
           static: standardGcd,
-        },        
+        },
       },
       {
         spell: SPELLS.PISTOL_SHOT,

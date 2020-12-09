@@ -63,6 +63,17 @@ class Snapshot extends Analyzer {
   damageFromTigersFury = 0;
   damageFromBloodtalons = 0;
 
+  constructor(...args) {
+    super(...args);
+    if (!this.constructor.spell || !this.constructor.debuff) {
+      this.active = false;
+      throw new Error('Snapshot should be extended and provided with spellCastId and debuffId.');
+    }
+
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.constructor.spell), this._castSnapshotSpell);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(this.constructor.debuff), this._damageFromDebuff);
+  }
+
   static wasStateFreshlyApplied(state) {
     if (!state) {
       return false;
@@ -93,24 +104,13 @@ class Snapshot extends Analyzer {
     return false;
   }
 
-  constructor(...args) {
-    super(...args);
-    if (!this.constructor.spell || !this.constructor.debuff) {
-      this.active = false;
-      throw new Error('Snapshot should be extended and provided with spellCastId and debuffId.');
-    }
-
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.constructor.spell), this._castSnapshotSpell);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(this.constructor.debuff), this._damageFromDebuff);
-  }
-
   _castSnapshotSpell(event) {
     this.castCount += 1;
     this.lastDoTCastEvent = event;
     event.debuffEvents.forEach(event => this._debuffApplied(event));
   }
 
- _damageFromDebuff(event) {
+  _damageFromDebuff(event) {
     if (event.targetIsFriendly || !event.tick) {
       // ignore damage on friendlies and any non-DoT damage
       return;
@@ -171,7 +171,7 @@ class Snapshot extends Analyzer {
       expireTime: expireNew,
       pandemicTime: expireNew - durationNew * PANDEMIC_FRACTION,
       tigersFury: this.constructor.isTigersFuryAffected &&
-      combatant.hasBuff(SPELLS.TIGERS_FURY.id),
+        combatant.hasBuff(SPELLS.TIGERS_FURY.id),
       prowl: this.constructor.isProwlAffected && (
         combatant.hasBuff(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id) ||
         combatant.hasBuff(SPELLS.PROWL.id, null, BUFF_WINDOW_TIME) ||
@@ -179,7 +179,7 @@ class Snapshot extends Analyzer {
         combatant.hasBuff(SPELLS.SHADOWMELD.id, null, BUFF_WINDOW_TIME)
       ),
       bloodtalons: this.constructor.isBloodtalonsAffected &&
-      combatant.hasBuff(SPELLS.BLOODTALONS_BUFF.id, null, BUFF_WINDOW_TIME),
+        combatant.hasBuff(SPELLS.BLOODTALONS_BUFF.id, null, BUFF_WINDOW_TIME),
       power: 1,
       startTime: debuffEvent.timestamp,
       castEvent: this.lastDoTCastEvent,

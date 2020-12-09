@@ -5,6 +5,7 @@ import SpellLink from 'common/SpellLink';
 
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -322,6 +323,83 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.HIDDEN,
         cooldown: haste => 10 / (1 + haste),
         charges: 2,
+      },
+      // covenants
+      {
+        spell: SPELLS.SWARMING_MIST,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,     
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
+        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+      },
+      {
+        spell: SPELLS.DOOR_OF_SHADOWS,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,     
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+      },
+      {
+        spell: SPELLS.ABOMINATION_LIMB,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,     
+        cooldown: 120,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
+        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+      },
+      {
+        spell: SPELLS.FLESHCRAFT,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,     
+        cooldown: 120,
+        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+      },
+      {
+        spell: SPELLS.SHACKLE_THE_UNWORTHY,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,     
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
+        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+      },
+      {
+        spell: SPELLS.DEATHS_DUE,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,     
+        cooldown: 30,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
+        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+      },
+      {
+        spell: SPELLS.SOULSHAPE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,     
+        cooldown: 30,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
       },
     ];
   }

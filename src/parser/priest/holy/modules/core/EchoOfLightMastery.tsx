@@ -20,7 +20,7 @@ import { ABILITIES_THAT_TRIGGER_MASTERY } from '../../constants';
 const DEBUG = false;
 const CUTOFF_PERCENT = .01;
 
-interface EoLHealEvent extends HealEvent{
+interface EoLHealEvent extends HealEvent {
   eolCritAmount: number;
 }
 
@@ -30,11 +30,6 @@ class EchoOfLightMastery extends Analyzer {
     healingDone: HealingDone,
     combatants: Combatants,
   };
-
-  protected abilityTracker!: AbilityTracker;
-  protected healingDone!: HealingDone;
-  protected combatants!: Combatants;
-
   // All healing done by spells that can proc mastery
   masteryHealingBySpell: any = {};
   // The eol pools currently on a target
@@ -55,12 +50,21 @@ class EchoOfLightMastery extends Analyzer {
     overhealing: 0,
     rawHealing: 0,
   };
-
   precastValues = {
     effectiveHealing: 0,
     overhealing: 0,
     rawHealing: 0,
   };
+  protected abilityTracker!: AbilityTracker;
+  protected healingDone!: HealingDone;
+  protected combatants!: Combatants;
+
+  constructor(options: Options) {
+    super(options);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.onApplyBuff);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER), this.onRefreshBuff);
+  }
 
   get effectiveHealing() {
     return this.abilityTracker.getAbility(SPELLS.ECHO_OF_LIGHT_HEAL.id).healingEffective + this.abilityTracker.getAbility(SPELLS.ECHO_OF_LIGHT_HEAL.id).healingAbsorbed;
@@ -78,6 +82,49 @@ class EchoOfLightMastery extends Analyzer {
     return this.effectiveHealing + this.overHealing;
   }
 
+  get masteryTable() {
+    const spellDetails = Object.keys(this.masteryHealingBySpell).map((key) => ({
+      spellId: key,
+      ...this.masteryHealingBySpell[key],
+    })).sort((a, b) => b.effectiveHealing - a.effectiveHealing);
+
+    const rows = [];
+
+    for (let i = 0; i < spellDetails.length; i += 1) {
+      if (DEBUG || this.getPercentOfTotalHealingBySpell(spellDetails[i].spellId) > CUTOFF_PERCENT) {
+        rows.push(
+          <tr key={'mastery_' + spellDetails[i].spellId}>
+            <td><SpellIcon id={Number(spellDetails[i].spellId)} style={{ height: '2.4em' }} /></td>
+            <td>{formatNumber(spellDetails[i].effectiveHealing)}</td>
+            <td>{formatPercentage(this.getPercentOfTotalHealingBySpell(spellDetails[i].spellId))}%</td>
+            <td>
+              <TooltipElement content={`${formatNumber(spellDetails[i].overHealing)} Overhealing`}>
+                {formatPercentage(this.getMasteryOverhealPercentBySpell(spellDetails[i].spellId))}%
+              </TooltipElement>
+            </td>
+          </tr>,
+        );
+      }
+    }
+
+    if (DEBUG) {
+      // Add precasted EoL
+      rows.push(
+        <tr key="mastery_precast">
+          <td>Precast</td>
+          <td>{formatNumber(this.precastValues.effectiveHealing)}</td>
+          <td>{formatPercentage(this.precastValues.effectiveHealing / this.healingDone.total.effective)}%</td>
+          <td>
+            <TooltipElement content={`${formatNumber(this.precastValues.overhealing)} Overhealing`}>
+              {formatPercentage(this.precastValues.overhealing / this.precastValues.rawHealing)}%
+            </TooltipElement>
+          </td>
+        </tr>,
+      );
+    }
+    return rows;
+  }
+
   getPercentOfTotalMasteryBySpell(spellId: number) {
     return this.masteryHealingBySpell[spellId].rawHealing / this.rawHealing;
   }
@@ -88,13 +135,6 @@ class EchoOfLightMastery extends Analyzer {
 
   getMasteryOverhealPercentBySpell(spellId: number) {
     return this.masteryHealingBySpell[spellId].overHealing / this.masteryHealingBySpell[spellId].rawHealing;
-  }
-
-  constructor(options: Options){
-    super(options);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.onApplyBuff);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER), this.onRefreshBuff);
   }
 
   onHeal(event: EoLHealEvent) {
@@ -247,49 +287,6 @@ class EchoOfLightMastery extends Analyzer {
     }
   }
 
-  get masteryTable() {
-    const spellDetails = Object.keys(this.masteryHealingBySpell).map((key) => ({
-        spellId: key,
-        ...this.masteryHealingBySpell[key],
-      })).sort((a, b) => b.effectiveHealing - a.effectiveHealing);
-
-    const rows = [];
-
-    for (let i = 0; i < spellDetails.length; i += 1) {
-      if (DEBUG || this.getPercentOfTotalHealingBySpell(spellDetails[i].spellId) > CUTOFF_PERCENT) {
-        rows.push(
-          <tr key={'mastery_' + spellDetails[i].spellId}>
-            <td><SpellIcon id={Number(spellDetails[i].spellId)} style={{ height: '2.4em' }} /></td>
-            <td>{formatNumber(spellDetails[i].effectiveHealing)}</td>
-            <td>{formatPercentage(this.getPercentOfTotalHealingBySpell(spellDetails[i].spellId))}%</td>
-            <td>
-              <TooltipElement content={`${formatNumber(spellDetails[i].overHealing)} Overhealing`}>
-                {formatPercentage(this.getMasteryOverhealPercentBySpell(spellDetails[i].spellId))}%
-              </TooltipElement>
-            </td>
-          </tr>,
-        );
-      }
-    }
-
-    if (DEBUG) {
-      // Add precasted EoL
-      rows.push(
-        <tr key="mastery_precast">
-          <td>Precast</td>
-          <td>{formatNumber(this.precastValues.effectiveHealing)}</td>
-          <td>{formatPercentage(this.precastValues.effectiveHealing / this.healingDone.total.effective)}%</td>
-          <td>
-            <TooltipElement content={`${formatNumber(this.precastValues.overhealing)} Overhealing`}>
-              {formatPercentage(this.precastValues.overhealing / this.precastValues.rawHealing)}%
-            </TooltipElement>
-          </td>
-        </tr>,
-      );
-    }
-    return rows;
-  }
-
   statistic() {
     return (
       <Statistic
@@ -323,7 +320,7 @@ class EchoOfLightMastery extends Analyzer {
         }
       >
         <BoringSpellValueText spell={SPELLS.ECHO_OF_LIGHT_MASTERY}>
-            <ItemHealingDone amount={this.effectiveHealing} />
+          <ItemHealingDone amount={this.effectiveHealing} />
         </BoringSpellValueText>
       </Statistic>
     );

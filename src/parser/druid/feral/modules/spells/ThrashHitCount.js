@@ -13,12 +13,6 @@ import HitCountAoE from '../core/HitCountAoE';
  * spent on Shred against a single target.
  */
 class ThrashHitCount extends HitCountAoE {
-  static spell = SPELLS.THRASH_FERAL;
-  
-  statistic() {
-    return this.generateStatistic(STATISTIC_ORDER.OPTIONAL(11));
-  }
-
   get hitNoneThresholds() {
     return {
       actual: this.hitZeroPerMinute,
@@ -43,15 +37,21 @@ class ThrashHitCount extends HitCountAoE {
     };
   }
 
+  static spell = SPELLS.THRASH_FERAL;
+
+  statistic() {
+    return this.generateStatistic(STATISTIC_ORDER.OPTIONAL(11));
+  }
+
   suggestions(when) {
     when(this.hitNoneThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-        <>
-          You are using <SpellLink id={SPELLS.THRASH_FERAL.id} /> out of range of any targets. Try to get familiar with the range of your area of effect abilities so you can avoid wasting energy when they'll not hit anything.
-        </>,
-      )
-        .icon(SPELLS.THRASH_FERAL.icon)
-        .actual(i18n._(t('druid.feral.suggestions.thrash.hitcount.outOfRange')`${actual.toFixed(1)} uses per minute that hit nothing.`))
-        .recommended(`${recommended} is recommended`));
+      <>
+        You are using <SpellLink id={SPELLS.THRASH_FERAL.id} /> out of range of any targets. Try to get familiar with the range of your area of effect abilities so you can avoid wasting energy when they'll not hit anything.
+      </>,
+    )
+      .icon(SPELLS.THRASH_FERAL.icon)
+      .actual(i18n._(t('druid.feral.suggestions.thrash.hitcount.outOfRange')`${actual.toFixed(1)} uses per minute that hit nothing.`))
+      .recommended(`${recommended} is recommended`));
   }
 }
 

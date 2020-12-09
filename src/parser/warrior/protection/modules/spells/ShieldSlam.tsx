@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -19,22 +19,36 @@ class ShieldBlock extends Analyzer {
     statTracker: StatTracker,
     abilityTracker: AbilityTracker,
   };
-  protected statTracker!: StatTracker;
-  protected abilityTracker!: AbilityTracker;
-
   timeOnCd = 0; //total time its not on cd
   currentCd = 0;
   lastCast = 0;
   averageCd = 0;
   actualCasts = 0;
-
   totalCastsAssumed = 0;
+  protected statTracker!: StatTracker;
+  protected abilityTracker!: AbilityTracker;
 
   constructor(options: Options) {
     super(options);
     this.lastCast = this.owner.fight.start_time / 1000;
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_SLAM), this.onSlamCast);
     this.addEventListener(Events.fightend, this.handleFightEnd);
+  }
+
+  get slamRatio() {
+    return this.actualCasts / this.totalCastsAssumed;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.slamRatio,
+      isLessThan: {
+        minor: .90,
+        average: .80,
+        major: .70,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
   }
 
   onSlamCast(event: CastEvent) {
@@ -74,31 +88,15 @@ class ShieldBlock extends Analyzer {
     }
   }
 
-  get slamRatio() {
-    return this.actualCasts / this.totalCastsAssumed;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.slamRatio,
-      isLessThan: {
-        minor: .90,
-        average: .80,
-        major: .70,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-        <>
-          Try to cast <SpellLink id={SPELLS.SHIELD_SLAM.id} /> more often - it is your main <ResourceLink id={RESOURCE_TYPES.RAGE.id} /> generator and damage source.
-        </>,
-      )
-        .icon(SPELLS.SHIELD_SLAM.icon)
-        .actual(i18n._(t('warrior.protection.suggestions.shieldSlam.casts')`${this.actualCasts} shield slam casts`))
-        .recommended(`${(recommended * this.totalCastsAssumed).toFixed(0)} recommended out of ${this.totalCastsAssumed} maximum`));
+      <>
+        Try to cast <SpellLink id={SPELLS.SHIELD_SLAM.id} /> more often - it is your main <ResourceLink id={RESOURCE_TYPES.RAGE.id} /> generator and damage source.
+      </>,
+    )
+      .icon(SPELLS.SHIELD_SLAM.icon)
+      .actual(i18n._(t('warrior.protection.suggestions.shieldSlam.casts')`${this.actualCasts} shield slam casts`))
+      .recommended(`${(recommended * this.totalCastsAssumed).toFixed(0)} recommended out of ${this.totalCastsAssumed} maximum`));
   }
 }
 

@@ -2,10 +2,11 @@ import Module, { Options } from 'parser/core/Module';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
+import Haste from 'parser/shared/modules/Haste';
+
 import { AnyEvent } from '../Events';
 import Ability, { SpellbookAbility } from './Ability';
 import AbilityTracker from '../../shared/modules/AbilityTracker';
-import Haste from '../../shared/modules/Haste';
 
 class Abilities extends Module {
   static dependencies = {

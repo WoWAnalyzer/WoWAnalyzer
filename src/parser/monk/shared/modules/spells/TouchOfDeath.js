@@ -35,18 +35,18 @@ class TouchOfDeath extends ExecuteHelper {
     // }
 
     options.abilities.add({
-        spell: SPELLS.TOUCH_OF_DEATH,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180,
-        gcd: {
-          static: 1000,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.85,
-          maxCasts: () => this.maxCasts || 0,
-        },
-      });
+      spell: SPELLS.TOUCH_OF_DEATH,
+      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+      cooldown: 180,
+      gcd: {
+        static: 1000,
+      },
+      castEfficiency: {
+        suggestion: true,
+        recommendedEfficiency: 0.85,
+        maxCasts: () => this.maxCasts || 0,
+      },
+    });
   }
 
   adjustMaxCasts(event) {

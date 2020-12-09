@@ -35,13 +35,6 @@ class Tier45Comparison extends Analyzer {
     spiritOfTheCrane: SpiritOfTheCrane,
     lifeCycles: Lifecycles,
   };
-
-  protected abilityTracker!: AbilityTracker;
-  protected manaTea!: ManaTea;
-  protected manaTracker!: ManaTracker;
-  protected spiritOfTheCrane!: SpiritOfTheCrane;
-  protected lifeCycles!: Lifecycles;
-
   manatea: BestTalent & { requiredPerTea: number; } = {
     selected: false,//is this the selected talent
     manaFrom: 0,//how much mana did they save/get from talent (will compute even if not selected)
@@ -70,11 +63,14 @@ class Tier45Comparison extends Analyzer {
     best: false,
     requiredTps: 0,
   };
-
   talents = [this.manatea, this.lifecycles, this.sotc];
-
   returnedFromSelected = 0;
   best!: BestTalent;
+  protected abilityTracker!: AbilityTracker;
+  protected manaTea!: ManaTea;
+  protected manaTracker!: ManaTracker;
+  protected spiritOfTheCrane!: SpiritOfTheCrane;
+  protected lifeCycles!: Lifecycles;
 
   constructor(options: Options) {
     super(options);
@@ -83,6 +79,14 @@ class Tier45Comparison extends Analyzer {
     this.lifecycles.selected = !(this.sotc.selected || this.manatea.selected);
     this.addEventListener(Events.fightend, this.endFight);
 
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.best.selected,
+      isEqual: false,
+      style: ThresholdStyle.BOOLEAN,
+    };
   }
 
   endFight() {
@@ -135,6 +139,8 @@ class Tier45Comparison extends Analyzer {
     }
   }
 
+  //sotc gives mana back while the other two save mana
+
   calculateOthers() {
 
     if (this.sotc !== this.best) {
@@ -158,7 +164,6 @@ class Tier45Comparison extends Analyzer {
     }
   }
 
-  //sotc gives mana back while the other two save mana
   //anaylze current play style and see how much mana they would have gained from this talent
   generateSotc() {
     const sotcBlackOutKicks = this.abilityTracker.getAbility(SPELLS.BLACKOUT_KICK_TOTM.id).damageHits || 0;
@@ -166,6 +171,8 @@ class Tier45Comparison extends Analyzer {
     const rawManaFromSotc = manaPercentFromSotc * this.manaTracker.maxResource;
     return rawManaFromSotc || 0;
   }
+
+  //anaylze current play style and see how much mana they would have saved (so avarage )
 
   //anaylze current play style and see how much mana they would have saved (so average mana per second / total mt time)
   generateManaTea() {
@@ -176,7 +183,6 @@ class Tier45Comparison extends Analyzer {
     return manaPerTea || 0;
   }
 
-  //anaylze current play style and see how much mana they would have saved (so avarage )
   //assume that each env casted has a viv before it and that first viv is not effected
   generateLifeCycles() {
     const envCasts = this.abilityTracker.getAbility(SPELLS.ENVELOPING_MIST.id).casts || 0;
@@ -196,14 +202,6 @@ class Tier45Comparison extends Analyzer {
       lastMana = event.current;
     });
     return manaSpent;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.best.selected,
-      isEqual: false,
-      style: ThresholdStyle.BOOLEAN,
-    };
   }
 
   suggestions(when: When) {

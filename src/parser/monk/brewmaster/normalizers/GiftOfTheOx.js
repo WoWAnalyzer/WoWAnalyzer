@@ -15,7 +15,7 @@ export const GOTOX_GENERATED_EVENT = 'orb-generated';
 class GiftOfTheOx extends EventsNormalizer {
   normalize(events) {
     return events.map(event => {
-      if(event.type === EventType.Cast && GIFT_OF_THE_OX_SPELL_IDS.includes(event.ability.guid)) {
+      if (event.type === EventType.Cast && GIFT_OF_THE_OX_SPELL_IDS.includes(event.ability.guid)) {
         event.type = GOTOX_GENERATED_EVENT;
         event.__modified = true;
       }

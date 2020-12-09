@@ -31,15 +31,6 @@ export const HIGH_TOLERANCE_HASTE_FNS = {
 };
 
 class HighTolerance extends Analyzer {
-  staggerDurations = {
-    [SPELLS.LIGHT_STAGGER_DEBUFF.id]: 0,
-    [SPELLS.MODERATE_STAGGER_DEBUFF.id]: 0,
-    [SPELLS.HEAVY_STAGGER_DEBUFF.id]: 0,
-  };
-
-  _staggerLevel = null;
-  _lastDebuffApplied = 0;
-
   get meanHaste() {
     return Object.keys(HIGH_TOLERANCE_HASTE)
       .map(key => this.staggerDurations[key] * HIGH_TOLERANCE_HASTE[key])
@@ -61,6 +52,14 @@ class HighTolerance extends Analyzer {
   get noneDuration() {
     return this.owner.fightDuration - this.lightDuration - this.moderateDuration - this.heavyDuration;
   }
+
+  staggerDurations = {
+    [SPELLS.LIGHT_STAGGER_DEBUFF.id]: 0,
+    [SPELLS.MODERATE_STAGGER_DEBUFF.id]: 0,
+    [SPELLS.HEAVY_STAGGER_DEBUFF.id]: 0,
+  };
+  _staggerLevel = null;
+  _lastDebuffApplied = 0;
 
   constructor(...args) {
     super(...args);
@@ -109,7 +108,7 @@ class HighTolerance extends Analyzer {
           </>
         )}
       >
-        <BoringValue label={<><SpellIcon id={SPELLS.HIGH_TOLERANCE_TALENT.id} /> Avg. Haste from High Tolerance</>} >
+        <BoringValue label={<><SpellIcon id={SPELLS.HIGH_TOLERANCE_TALENT.id} /> Avg. Haste from High Tolerance</>}>
           <>
             <HasteIcon /> {formatPercentage(this.meanHaste)} %
           </>

@@ -9,16 +9,16 @@ import Config from 'parser/Config';
 import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
-  contributors: [ Vonn ],
+  contributors: [Vonn],
   patchCompatibility: '9.0.1',
   isSupported: true,
   description: (
     <>
-    <Warning>
-      Right now the Enhancement Analyzer is a work-in-progress, and only holds very basic functionality.
-    </Warning>
-    <br />
-    Hey there! Thanks for checking out the Enhancement Analyzer. If you have any feedback or suggestions, feel free to reach out to Vonn via Discord (vønn#2776) or drop an issue in the GitHub repo.
+      <Warning>
+        Right now the Enhancement Analyzer is a work-in-progress, and only holds very basic functionality.
+      </Warning>
+      <br />
+      Hey there! Thanks for checking out the Enhancement Analyzer. If you have any feedback or suggestions, feel free to reach out to Vonn via Discord (vønn#2776) or drop an issue in the GitHub repo.
     </>
   ),
   exampleReport: '/report/wWHbPcydVKR2T8YQ/3-Mythic+Carapace+of+N\'Zoth+-+Kill+(6:17)/Terza',

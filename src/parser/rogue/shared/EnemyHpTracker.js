@@ -11,18 +11,18 @@ class EnemyHpTracker extends Analyzer {
     enemies: EnemyInstances,
   };
 
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.damage, this.onDamage);
   }
 
   onDamage(event) {
-    if(event.targetIsFriendly) {
+    if (event.targetIsFriendly) {
       return;
     }
 
     const enemy = this.enemies.getEntity(event);
-    if(enemy && event.hitPoints && event.maxHitPoints && event.maxHitPoints !== 0) {
+    if (enemy && event.hitPoints && event.maxHitPoints && event.maxHitPoints !== 0) {
       enemy.hpPercent = event.hitPoints / event.maxHitPoints;
     }
   }

@@ -1,8 +1,8 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Events, { HealEvent, CastEvent } from 'parser/core/Events';
-import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET, Options } from 'parser/core/Analyzer';
+import Events, { CastEvent, HealEvent } from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
@@ -17,6 +17,8 @@ import ItemHealingDone from 'interface/ItemHealingDone';
 import { formatNumber } from 'common/format';
 import Spell from 'common/SPELLS/Spell';
 
+import { conduitScaling, JADE_BOND_RANK_ONE } from '../../../constants';
+
 const JADE_BOND_REDUCTION = 300;
 
 class JadeBond extends Analyzer {
@@ -24,39 +26,34 @@ class JadeBond extends Analyzer {
     spellUsable: SpellUsable,
     healingDone: HealingDone,
   };
-
-  protected spellUsable!: SpellUsable;
-  protected healingDone!: HealingDone;
-
-
   cooldownReductionUsed: number = 0;
   cooldownReductionWasted: number = 0;
-
   spellToReduce: Spell = SPELLS.INVOKE_YULON_THE_JADE_SERPENT;
-
   healingBoost: number = 0;
-
   healing: number = 0;
+  conduitRank: number = 0;
+  protected spellUsable!: SpellUsable;
+  protected healingDone!: HealingDone;
 
   /**
    * Whenever you cast a Gust of Mist procing ability it reduces the cooldown of Yu'lon or Chi-ji by .5 seconds as well as increasing their healing by x%
    */
   constructor(options: Options) {
     super(options);
-    this.active = false;
-
-    this.healingBoost = .05;//TODO Get from combat data when they EXPORT IT >:c
-
-    if (!this.active) {
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.JADE_BOND.id);
+    if (!this.conduitRank) {
+      this.active = false;
       return;
     }
 
+    this.healingBoost = conduitScaling(JADE_BOND_RANK_ONE, this.conduitRank);
+
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.EXPEL_HARM, SPELLS.VIVIFY, SPELLS.RENEWING_MIST, SPELLS.ENVELOPING_MIST]), this.gustProcingSpell);
 
-    if(this.selectedCombatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id)){
+    if (this.selectedCombatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id)) {
       this.spellToReduce = SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT;
       this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUST_OF_MISTS_CHIJI), this.normalizeBoost);
-    }else{
+    } else {
       this.addEventListener(Events.heal.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_BREATH), this.normalizeBoost);
     }
 
@@ -70,7 +67,7 @@ class JadeBond extends Analyzer {
     }
   }
 
-  normalizeBoost(event: HealEvent){
+  normalizeBoost(event: HealEvent) {
     this.healing += calculateEffectiveHealing(event, this.healingBoost);
   }
 
@@ -81,10 +78,10 @@ class JadeBond extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={(
-        <>
-          Effective Cooldown Reduction: {formatNumber(this.cooldownReductionUsed/1000)} Seconds<br />
-          Wasted Cooldown Reduction: {formatNumber(this.cooldownReductionWasted/1000)} Seconds
-        </>
+          <>
+            Effective Cooldown Reduction: {formatNumber(this.cooldownReductionUsed / 1000)} Seconds<br />
+            Wasted Cooldown Reduction: {formatNumber(this.cooldownReductionWasted / 1000)} Seconds
+          </>
         )}
       >
         <BoringSpellValueText spell={SPELLS.JADE_BOND}>

@@ -6,14 +6,14 @@ import suggest from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesIn
 
 const DOTS = [
   {
-    name: "Moonfire",
+    name: 'Moonfire',
     debuffId: SPELLS.MOONFIRE_BEAR.id,
     castId: SPELLS.MOONFIRE.id,
     duration: 22000,
     movementFiller: true,
   },
   {
-    name: "Sunfire",
+    name: 'Sunfire',
     debuffId: SPELLS.SUNFIRE.id,
     castId: SPELLS.SUNFIRE_CAST.id,
     duration: 18000,
@@ -26,21 +26,6 @@ const AVERAGE_THRESHOLD = 0.8;
 const MAJOR_THRESHOLD = 0.6;
 
 class EarlyDotRefreshesInstants extends CoreEarlyDotRefreshesInstants {
-  static dependencies = {
-    ...CoreEarlyDotRefreshesInstants.dependencies,
-    statTracker: StatTracker,
-  };
-
-  static dots = DOTS;
-
-  // Check for Stellar Drift on both the cast event and the next event, since it might have expired mid GCD.
-  couldCastWhileMoving(castEvent, endEvent) {
-    if (this.selectedCombatant.hasBuff(SPELLS.STELLAR_DRIFT.id, castEvent.timestamp) && this.selectedCombatant.hasBuff(SPELLS.STELLAR_DRIFT.id, endEvent.timestamp)) {
-      return SPELLS.STELLAR_DRIFT.name;
-    }
-    return false;
-  }
-
   get suggestionThresholdsMoonfire() {
     return {
       spell: SPELLS.MOONFIRE_BEAR,
@@ -93,6 +78,20 @@ class EarlyDotRefreshesInstants extends CoreEarlyDotRefreshesInstants {
       },
       style: 'percentage',
     };
+  }
+
+  static dependencies = {
+    ...CoreEarlyDotRefreshesInstants.dependencies,
+    statTracker: StatTracker,
+  };
+  static dots = DOTS;
+
+  // Check for Stellar Drift on both the cast event and the next event, since it might have expired mid GCD.
+  couldCastWhileMoving(castEvent, endEvent) {
+    if (this.selectedCombatant.hasBuff(SPELLS.STELLAR_DRIFT.id, castEvent.timestamp) && this.selectedCombatant.hasBuff(SPELLS.STELLAR_DRIFT.id, endEvent.timestamp)) {
+      return SPELLS.STELLAR_DRIFT.name;
+    }
+    return false;
   }
 
   suggestions(when) {

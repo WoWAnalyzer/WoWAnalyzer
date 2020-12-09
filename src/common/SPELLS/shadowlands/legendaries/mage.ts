@@ -71,6 +71,11 @@ const legendaries: SpellList<LegendarySpell> = {
     icon: 'spell_fire_burnout',
     bonusID: 6932,
   },
+  FIRESTORM_BUFF: {
+    id: 333100,
+    name: 'Firestorm',
+    icon: 'spell_fire_burnout',
+  },
   SUN_KINGS_BLESSING: {
     id: 333313,
     name: 'Sun King\'s Blessing',

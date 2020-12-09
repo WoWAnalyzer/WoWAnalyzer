@@ -42,7 +42,7 @@ class Checklist extends BaseChecklist {
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
         thresholds={{
-          ...this.preparationRuleAnalyzer.thresholds,          
+          ...this.preparationRuleAnalyzer.thresholds,
 
           energyEfficiency: this.energyDetails.suggestionThresholds,
           energyCapEfficiency: this.energyCapTracker.suggestionThresholds,

@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import SPELLS from 'common/SPELLS';
 
@@ -8,7 +8,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import Events, { DamageEvent } from 'parser/core/Events';
 
 import Statistic from 'interface/statistics/Statistic';
-import BoringValueText from 'interface/statistics/components/BoringValueText'
+import BoringValueText from 'interface/statistics/components/BoringValueText';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellLink from 'common/SpellLink';
@@ -19,9 +19,9 @@ class Punish extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
-  protected enemies!: Enemies;
-
   bonusDmg: number = 0;
+  statisticOrder = STATISTIC_ORDER.CORE(5);
+  protected enemies!: Enemies;
 
   constructor(options: Options) {
     super(options);
@@ -58,7 +58,6 @@ class Punish extends Analyzer {
       </Statistic>
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default Punish;

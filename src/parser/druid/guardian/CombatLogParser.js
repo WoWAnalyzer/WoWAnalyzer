@@ -20,10 +20,6 @@ import Earthwarden from './modules/talents/Earthwarden';
 import Incarnation from './modules/talents/Incarnation';
 import FrenziedRegeneration from './modules/spells/FrenziedRegeneration';
 
-import MasterfulInstincts from './modules/azeritetraits/MasterfulInstincts';
-import TwistedClaws from './modules/azeritetraits/TwistedClaws';
-import LayeredMane from './modules/azeritetraits/LayeredMane';
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
@@ -50,11 +46,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents:
     earthwarden: Earthwarden,
     incarnation: Incarnation,
-
-    // Azerite Traits
-    twistedClaws: TwistedClaws,
-    layeredMane: LayeredMane,
-    masterfulInstincts: MasterfulInstincts,
   };
 }
 

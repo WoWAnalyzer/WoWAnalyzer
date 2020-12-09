@@ -30,14 +30,38 @@ const RAGE_GENERATORS = {
 };
 
 class RageWasted extends Analyzer {
+  get totalWastedRage() {
+    return Object.keys(this.rageWastedBySpell)
+      .map(key => this.rageWastedBySpell[key])
+      .reduce((total, waste) => total + waste, 0);
+  }
+
+  get wastedRageRatio() {
+    return this.totalWastedRage / this.totalRageGained;
+  }
+
+  get wastedRageBreakdown() {
+    return Object.keys(this.rageWastedBySpell)
+      .map((spellID) => {
+        if (!RAGE_GENERATORS[spellID]) {
+          console.warn('Unknown rage generator:', spellID);
+        }
+        return {
+          name: RAGE_GENERATORS[spellID],
+          waste: this.rageWastedBySpell[spellID],
+        };
+      })
+      .sort((a, b) => b.waste - a.waste)
+      .reduce((str, spell) => <>{str}<br />{spell.name}: {spell.waste}</>, 'Rage wasted per spell:');
+  }
+
   rageWastedBySpell = {};
   totalRageGained = 0;
   _currentRawRage = 0;
-
   // Currently always 1000, but in case a future tier set/talent/artifact trait increases this it should "just work"
   _currentMaxRage = 0;
 
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.energize.by(SELECTED_PLAYER), this.onEnergize);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
@@ -88,38 +112,13 @@ class RageWasted extends Analyzer {
     this.synchronizeRage(event);
   }
 
-  get totalWastedRage() {
-    return Object.keys(this.rageWastedBySpell)
-      .map(key => this.rageWastedBySpell[key])
-      .reduce((total, waste) => total + waste, 0);
-  }
-
-  get wastedRageRatio() {
-    return this.totalWastedRage / this.totalRageGained;
-  }
-
-  get wastedRageBreakdown() {
-    return Object.keys(this.rageWastedBySpell)
-      .map((spellID) => {
-        if (!RAGE_GENERATORS[spellID]) {
-          console.warn('Unknown rage generator:', spellID);
-        }
-        return {
-          name: RAGE_GENERATORS[spellID],
-          waste: this.rageWastedBySpell[spellID],
-        };
-      })
-      .sort((a, b) => b.waste - a.waste)
-      .reduce((str, spell) => <>{str}<br />{spell.name}: {spell.waste}</>, 'Rage wasted per spell:');
-  }
-
   suggestions(when) {
     when(this.wastedRageRatio).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>You are wasting rage.  Try to spend rage before you reach the rage cap so you aren't losing out on potential <SpellLink id={SPELLS.IRONFUR.id} />s or <SpellLink id={SPELLS.MAUL.id} />s.</span>)
-          .icon(SPELLS.BRISTLING_FUR.icon)
-          .actual(i18n._(t('druid.guardian.suggestions.rage.wasted')`${formatPercentage(actual)}% wasted rage`))
-          .recommended(`${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended + 0.02).major(recommended + 0.05));
+        .icon(SPELLS.BRISTLING_FUR.icon)
+        .actual(i18n._(t('druid.guardian.suggestions.rage.wasted')`${formatPercentage(actual)}% wasted rage`))
+        .recommended(`${formatPercentage(recommended)}% is recommended`)
+        .regular(recommended + 0.02).major(recommended + 0.05));
   }
 
   statistic() {

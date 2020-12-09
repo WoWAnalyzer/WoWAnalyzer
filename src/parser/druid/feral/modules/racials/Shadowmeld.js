@@ -20,39 +20,6 @@ const BUFF_WINDOW_TIME = 60;
  * This analyzer checks how often Shadowmeld is being to buff Rake's damage.
  */
 class Shadowmeld extends Analyzer {
-  static dependencies = {
-    abilities: Abilities,
-  };
-
-  wastedDuringStealth = 0;
-  correctUses = 0;
-  totalUses = 0;
-
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.race === RACES.NightElf;
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RAKE), this.onRake);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHADOWMELD), this.onShadowmeld);
-  }
-
-  onRake(event) {
-    if (this.selectedCombatant.hasBuff(SPELLS.SHADOWMELD.id, null, BUFF_WINDOW_TIME)) {
-      // using Rake when Shadowmeld is active means Shadowmeld was used correctly
-      this.correctUses += 1;
-    }
-  }
-
-  onShadowmeld(event) {
-    this.totalUses += 1;
-
-    if (this.selectedCombatant.hasBuff(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id) ||
-      this.selectedCombatant.hasBuff(SPELLS.PROWL.id, null, BUFF_WINDOW_TIME) ||
-      this.selectedCombatant.hasBuff(SPELLS.PROWL_INCARNATION.id, null, BUFF_WINDOW_TIME)) {
-      // using Shadowmeld when the player already has a stealth (or stealth-like) effect active is almost always a mistake
-      this.wastedDuringStealth += 1;
-    }
-  }
-
   get possibleUses() {
     const cooldown = this.abilities.getAbility(SPELLS.SHADOWMELD.id).cooldown * 1000;
     return Math.floor(this.owner.fightDuration / cooldown) + 1;
@@ -82,6 +49,38 @@ class Shadowmeld extends Analyzer {
     };
   }
 
+  static dependencies = {
+    abilities: Abilities,
+  };
+  wastedDuringStealth = 0;
+  correctUses = 0;
+  totalUses = 0;
+
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.race === RACES.NightElf;
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RAKE), this.onRake);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHADOWMELD), this.onShadowmeld);
+  }
+
+  onRake(event) {
+    if (this.selectedCombatant.hasBuff(SPELLS.SHADOWMELD.id, null, BUFF_WINDOW_TIME)) {
+      // using Rake when Shadowmeld is active means Shadowmeld was used correctly
+      this.correctUses += 1;
+    }
+  }
+
+  onShadowmeld(event) {
+    this.totalUses += 1;
+
+    if (this.selectedCombatant.hasBuff(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id) ||
+      this.selectedCombatant.hasBuff(SPELLS.PROWL.id, null, BUFF_WINDOW_TIME) ||
+      this.selectedCombatant.hasBuff(SPELLS.PROWL_INCARNATION.id, null, BUFF_WINDOW_TIME)) {
+      // using Shadowmeld when the player already has a stealth (or stealth-like) effect active is almost always a mistake
+      this.wastedDuringStealth += 1;
+    }
+  }
+
   statistic() {
     return (
       <Statistic
@@ -109,22 +108,22 @@ class Shadowmeld extends Analyzer {
 
   suggestions(when) {
     when(this.efficiencyThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-        <React.Fragment>
-          You could be using <SpellLink id={SPELLS.SHADOWMELD.id} /> to increase your <SpellLink id={SPELLS.RAKE.id} /> damage more often. Activating <SpellLink id={SPELLS.SHADOWMELD.id} /> and immediately using <SpellLink id={SPELLS.RAKE.id} /> will cause it to deal double damage.
-        </React.Fragment>,
-      )
-        .icon(SPELLS.SHADOWMELD.icon)
-        .actual(i18n._(t('druid.feral.suggetions.shadowmeld.efficiency')`${(actual * 100).toFixed(0)}% cast efficiency.`))
-        .recommended(`>${(recommended * 100).toFixed(0)}% is recommended`));
+      <React.Fragment>
+        You could be using <SpellLink id={SPELLS.SHADOWMELD.id} /> to increase your <SpellLink id={SPELLS.RAKE.id} /> damage more often. Activating <SpellLink id={SPELLS.SHADOWMELD.id} /> and immediately using <SpellLink id={SPELLS.RAKE.id} /> will cause it to deal double damage.
+      </React.Fragment>,
+    )
+      .icon(SPELLS.SHADOWMELD.icon)
+      .actual(i18n._(t('druid.feral.suggetions.shadowmeld.efficiency')`${(actual * 100).toFixed(0)}% cast efficiency.`))
+      .recommended(`>${(recommended * 100).toFixed(0)}% is recommended`));
 
     when(this.wastedDuringStealthThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-        <React.Fragment>
-          You are wasting <SpellLink id={SPELLS.SHADOWMELD.id} /> by using it when you already have a stealth effect active.
-        </React.Fragment>,
-      )
-        .icon(SPELLS.SHADOWMELD.icon)
-        .actual(i18n._(t('druid.feral.suggetions.shadowmeld.wasted')`${this.wastedDuringStealth} cast${this.wastedDuringStealth === 1 ? '' : 's'} when already stealthed.`))
-        .recommended('0 is recommended'));
+      <React.Fragment>
+        You are wasting <SpellLink id={SPELLS.SHADOWMELD.id} /> by using it when you already have a stealth effect active.
+      </React.Fragment>,
+    )
+      .icon(SPELLS.SHADOWMELD.icon)
+      .actual(i18n._(t('druid.feral.suggetions.shadowmeld.wasted')`${this.wastedDuringStealth} cast${this.wastedDuringStealth === 1 ? '' : 's'} when already stealthed.`))
+      .recommended('0 is recommended'));
   }
 }
 
