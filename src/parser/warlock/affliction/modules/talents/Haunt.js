@@ -38,14 +38,9 @@ class Haunt extends Analyzer {
     if (!target) {
       return;
     }
+    // TODO: If this has the same problem as UA, the warcraft logs events don't seem to include the aura apply if its pre-cast?
+    // So this could mean we are not counting the first haunt of the fight?
     const hasHaunt = target.hasBuff(SPELLS.HAUNT_TALENT.id, event.timestamp);
-
-    if (SPELLS.UNSTABLE_AFFLICTION.id === event.ability.guid) {
-      this.totalTicks += 1;
-      if (hasHaunt) {
-        this.buffedTicks += 1;
-      }
-    }
 
     if (hasHaunt) {
       this.bonusDmg += calculateEffectiveDamage(event, HAUNT_DAMAGE_BONUS);
@@ -85,7 +80,6 @@ class Haunt extends Analyzer {
   }
 
   statistic() {
-    const buffedTicksPercentage = (this.buffedTicks / this.totalTicks) || 1;
     return (
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
@@ -93,7 +87,6 @@ class Haunt extends Analyzer {
         tooltip={(
           <>
             {formatThousands(this.bonusDmg)} bonus damage<br />
-            You buffed {formatPercentage(buffedTicksPercentage)} % of your Unstable Affliction ticks with Haunt.
           </>
         )}
       >
