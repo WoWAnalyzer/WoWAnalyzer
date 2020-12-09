@@ -214,9 +214,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        healSpellIds: [
-          SPELLS.TWIST_MAGIC_HEAL.id,
-        ],
       },
       {
         spell: SPELLS.HOLY_FIRE,
