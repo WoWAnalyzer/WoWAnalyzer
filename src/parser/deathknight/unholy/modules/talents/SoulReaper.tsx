@@ -16,8 +16,6 @@ const SOUL_REAPER_EXECUTE_RANGE = .35
 class SoulReaper extends ExecuteHelper {
   static executeSources = SELECTED_PLAYER;
   static lowerThreshold = SOUL_REAPER_EXECUTE_RANGE;
-  static executeOutsideRangeEnablers = [SPELLS.FLAYERS_MARK];
-  static modifiesDamage = false;
 
   static dependencies = {
     ...ExecuteHelper.dependencies,
