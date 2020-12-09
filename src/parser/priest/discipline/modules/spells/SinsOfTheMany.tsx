@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage, formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import DualStatisticBox, { STATISTIC_ORDER } from 'interface/others/DualStatisticBox';
 import Combatants from 'parser/shared/modules/Combatants';
 import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
@@ -41,11 +41,11 @@ class SinsOfTheMany extends Analyzer {
     combatants: Combatants,
     atonement: Atonement,
   };
-  protected atonement!: Atonement;
-  protected combatants!: Combatants;
-
   bonusDamage = 0;
   bonusHealing = 0;
+  statisticOrder = STATISTIC_ORDER.OPTIONAL();
+  protected atonement!: Atonement;
+  protected combatants!: Combatants;
 
   constructor(options: Options) {
     super(options);
@@ -109,8 +109,6 @@ class SinsOfTheMany extends Analyzer {
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default SinsOfTheMany;

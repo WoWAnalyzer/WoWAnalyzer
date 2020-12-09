@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Events, { DamageEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
@@ -9,6 +9,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 
 class BlackPowder extends Analyzer {
   damage: number = 0;
+
   constructor(options: Options) {
     super(options);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLACK_POWDER), this.onDamage);
@@ -28,7 +29,7 @@ class BlackPowder extends Analyzer {
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>
-    )
+    );
   }
 }
 

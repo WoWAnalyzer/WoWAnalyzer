@@ -10,9 +10,8 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 import { TEACHINGS_OF_THE_MONASTERY_DURATION } from 'parser/monk/mistweaver/constants';
 
-
 import Statistic from 'interface/statistics/Statistic';
-import BoringValueText from 'interface/statistics/components/BoringValueText'
+import BoringValueText from 'interface/statistics/components/BoringValueText';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellIcon from 'common/SpellIcon';
@@ -39,11 +38,11 @@ class SpiritOfTheCrane extends Analyzer {
   manaReturnSotc: number = 0;
   sotcWasted: number = 0;
 
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id);
 
-    if(!this.active){
+    if (!this.active) {
       return;
     }
 
@@ -55,11 +54,27 @@ class SpiritOfTheCrane extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_KICK), this.blackoutKick);
   }
 
+  get manaReturn() {
+    return this.manaReturnSotc;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.manaReturn,
+      isLessThan: {
+        minor: SOTC_MANA_PER_SECOND_RETURN_MINOR * (this.owner.fightDuration / 1000),
+        average: SOTC_MANA_PER_SECOND_RETURN_AVERAGE * (this.owner.fightDuration / 1000),
+        major: SOTC_MANA_PER_SECOND_RETURN_MAJOR * (this.owner.fightDuration / 1000),
+      },
+      style: ThresholdStyle.NUMBER,
+    };
+  }
+
   firstStack(event: ApplyBuffEvent) {
 
-      this.buffTotm += 1;
-      this.lastTotmBuffTimestamp = event.timestamp;
-      debug && console.log(`ToTM at ${this.buffTotm}`);
+    this.buffTotm += 1;
+    this.lastTotmBuffTimestamp = event.timestamp;
+    debug && console.log(`ToTM at ${this.buffTotm}`);
 
   }
 
@@ -86,7 +101,7 @@ class SpiritOfTheCrane extends Analyzer {
     debug && console.log(`SotC Waste: ${event.waste} Total: ${this.sotcWasted} Timestamp: ${event.timestamp}`);
   }
 
-  tigerPalm(event: CastEvent){
+  tigerPalm(event: CastEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.TEACHINGS_OF_THE_MONASTERY.id)) {
       return;
     }
@@ -109,30 +124,15 @@ class SpiritOfTheCrane extends Analyzer {
     }
   }
 
-  get manaReturn() {
-    return this.manaReturnSotc;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.manaReturn,
-      isLessThan: {
-        minor: SOTC_MANA_PER_SECOND_RETURN_MINOR * (this.owner.fightDuration / 1000),
-        average: SOTC_MANA_PER_SECOND_RETURN_AVERAGE * (this.owner.fightDuration / 1000),
-        major: SOTC_MANA_PER_SECOND_RETURN_MAJOR * (this.owner.fightDuration / 1000),
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-        <>
-          You are not utilizing your <SpellLink id={SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id} /> talent as effectively as you could. Make sure you are using any available downtime to use <SpellLink id={SPELLS.TIGER_PALM.id} /> and <SpellLink id={SPELLS.BLACKOUT_KICK.id} /> to take advantage of this talent.
-        </>,
-      )
-        .icon(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.icon)
-        .actual(`${formatNumber(this.manaReturn)}${i18n._(t('monk.mistweaver.suggestions.spiritOfTheCrane.manaReturned')` mana returned through Spirit of the Crane`)}`)
-        .recommended(`${formatNumber(recommended)} is the recommended mana return`));
+      <>
+        You are not utilizing your <SpellLink id={SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id} /> talent as effectively as you could. Make sure you are using any available downtime to use <SpellLink id={SPELLS.TIGER_PALM.id} /> and <SpellLink id={SPELLS.BLACKOUT_KICK.id} /> to take advantage of this talent.
+      </>,
+    )
+      .icon(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.icon)
+      .actual(`${formatNumber(this.manaReturn)}${i18n._(t('monk.mistweaver.suggestions.spiritOfTheCrane.manaReturned')` mana returned through Spirit of the Crane`)}`)
+      .recommended(`${formatNumber(recommended)} is the recommended mana return`));
   }
 
   statistic() {

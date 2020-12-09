@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 
 const STARLORD_MULTIPLIER = 0.85;
-const NEW_MOON_MULTIPLIER = 2/3;
+const NEW_MOON_MULTIPLIER = 2 / 3;
 
 /**
  * The talent Starlord reduces GCD and cast time of empowered Lunar Strikes and Solar Wraths by 20%.

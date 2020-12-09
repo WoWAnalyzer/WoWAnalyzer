@@ -12,10 +12,11 @@ import { SELECTED_PLAYER } from 'parser/core/Analyzer';
  * To avoid Drain Soul as being marked "canceled" when we start a new spell we mark it as ended instead on the begincast/cast.
  */
 class Channeling extends CoreChanneling {
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.DRAIN_SOUL_TALENT), this.onRemoveDebuff);
   }
+
   // TODO: add shared module tracking Drain Life similarly, make this class extend that one instead
   onCast(event) {
     if (event.ability.guid === SPELLS.DRAIN_SOUL_TALENT.id) {

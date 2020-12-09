@@ -13,15 +13,6 @@ import GarroteSnapshot from '../features/GarroteSnapshot';
 import StealthCasts from './StealthCasts';
 
 class Subterfuge extends StealthCasts {
-  static dependencies = {
-    garroteSnapshot: GarroteSnapshot,
-  };
-
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id);
-  }
-
   get bonusDamage() {
     return this.garroteSnapshot.bonusDamage;
   }
@@ -57,11 +48,20 @@ class Subterfuge extends StealthCasts {
     };
   }
 
+  static dependencies = {
+    garroteSnapshot: GarroteSnapshot,
+  };
+
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id);
+  }
+
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your failed to cast atleast one <SpellLink id={SPELLS.GARROTE.id} /> during <SpellLink id={SPELLS.SUBTERFUGE_BUFF.id} /> {this.stealthCasts - this.stealthsWithAtleastOneGarrote} time(s). Make sure to prioritize snapshotting <SpellLink id={SPELLS.GARROTE.id} /> during <SpellLink id={SPELLS.SUBTERFUGE_BUFF.id} />.</>)
-        .icon(SPELLS.GARROTE.icon)
-        .actual(i18n._(t('rogue.assassinations.suggestions.subterfuge.efficiency')`${formatPercentage(actual)}% of Subterfuges with atleast one Garrote cast`))
-        .recommended(`>${formatPercentage(recommended)}% is recommended`));
+      .icon(SPELLS.GARROTE.icon)
+      .actual(i18n._(t('rogue.assassinations.suggestions.subterfuge.efficiency')`${formatPercentage(actual)}% of Subterfuges with atleast one Garrote cast`))
+      .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

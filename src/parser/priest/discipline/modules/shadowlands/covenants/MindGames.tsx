@@ -20,12 +20,10 @@ class Mindgames extends Analyzer {
   static dependencies = {
     atonementDamageSource: AtonementDamageSource,
   };
-
-  protected atonementDamageSource!: AtonementDamageSource;
-
   atonementHealing = 0;
   directHealing = 0;
   preventedDamage = 0;
+  protected atonementDamageSource!: AtonementDamageSource;
 
   constructor(options: Options) {
     super(options);

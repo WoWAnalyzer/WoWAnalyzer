@@ -29,18 +29,18 @@ class MasteryStats extends Analyzer {
 
   protected essenceFontMastery!: EssenceFontMastery;
   protected envelopingMists!: EnvelopingMists;
-  protected soothingMist!: SoothingMist; 
+  protected soothingMist!: SoothingMist;
   protected renewingMist!: RenewingMist;
   protected vivify!: Vivify;
   protected expelHarm!: ExpelHarm;
 
   get totalMasteryHealing() {
     return (this.vivify.gustsHealing || 0)
-            + (this.renewingMist.gustsHealing || 0)
-            + (this.envelopingMists.gustsHealing || 0)
-            + (this.soothingMist.gustsHealing || 0)
-            + (this.essenceFontMastery.healing || 0)
-            + (this.expelHarm.gustsHealing || 0);
+      + (this.renewingMist.gustsHealing || 0)
+      + (this.envelopingMists.gustsHealing || 0)
+      + (this.soothingMist.gustsHealing || 0)
+      + (this.essenceFontMastery.healing || 0)
+      + (this.expelHarm.gustsHealing || 0);
   }
 
   renderMasterySourceChart() {

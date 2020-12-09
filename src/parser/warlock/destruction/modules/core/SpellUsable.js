@@ -59,7 +59,6 @@ class SpellUsable extends CoreSpellUsable {
     };
   }
 
-
   onRemoveDebuff(event) {
     if (!this.hasSB) {
       return;

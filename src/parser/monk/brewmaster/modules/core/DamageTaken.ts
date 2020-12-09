@@ -4,13 +4,14 @@ import Events, { AbsorbedEvent } from 'parser/core/Events';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 class DamageTaken extends CoreDamageTaken {
+  _staggeredDamage: { [guid: number]: number } = {};
+
   constructor(options: Options) {
     super(options);
 
     this.addEventListener(Events.absorbed.to(SELECTED_PLAYER).spell(SPELLS.STAGGER), this.onToPlayerAbsorbed);
   }
 
-  _staggeredDamage: { [guid: number]: number } = {};
   onToPlayerAbsorbed(event: AbsorbedEvent) {
     // The `damage` events of Brewmaster Monks always includes the amount staggered as "absorbed" damage,
     // but this absorbed damage might also include absorbs received from other people (e.g. Power Word:

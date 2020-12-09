@@ -132,7 +132,7 @@ exports[`Frost Mage integration test: example log AlwaysBeCasting matches the st
                   Object {
                     "fill": "none",
                     "margin": 0,
-                    "transform": "rotate(97.25259458276989deg)",
+                    "transform": "rotate(97.36753250386008deg)",
                     "transformOrigin": "5px 27px",
                   }
                 }
@@ -225,7 +225,7 @@ Array [
       .
     </React.Fragment>,
     "stat": <React.Fragment>
-      15.27% downtime
+      15.23% downtime
        (
       &lt;5.00% is recommended
       )
@@ -763,7 +763,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
               }
             >
               0
-              /31
+              /28
                
               casts
             </td>
@@ -1548,7 +1548,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
               }
             >
               0
-              /46
+              /42
                
               casts
             </td>
@@ -4538,6 +4538,22 @@ Array [
   Object {
     "details": null,
     "icon": "inv_alchemy_90_combat2_purple",
+    "importance": "regular",
+    "issue": <WithI18n
+      defaults="You used {0} combat potions during this encounter, but you could have used {1}. Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter."
+      id="shared.modules.items.potionChecker.suggestions.potionsUsed"
+      values={
+        Object {
+          "0": 0,
+          "1": 1,
+        }
+      }
+    />,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_alchemy_90_combat2_purple",
     "importance": "minor",
     "issue": <WithI18n
       components={
@@ -6671,7 +6687,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "82.85556070725424%",
+                  "width": "82.92390772104538%",
                 }
               }
             />
@@ -6764,7 +6780,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  15.27%
+                  15.23%
                    
                    
                 </div>
@@ -6786,7 +6802,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                       Object {
                         "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "65.71112141450848%",
+                        "width": "65.84781544209075%",
                       }
                     }
                   />
@@ -7221,7 +7237,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  1
+                  0
                    
                   / 1
                    
@@ -7242,9 +7258,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />

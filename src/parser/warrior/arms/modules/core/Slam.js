@@ -13,12 +13,23 @@ import ExecuteRange from './Execute/ExecuteRange';
 import SpellUsable from '../features/SpellUsable';
 
 class Slam extends Analyzer {
+  get badCastSuggestionThresholds() {
+    return {
+      actual: (this.badCast / this.totalCast) || 0,
+      isGreaterThan: {
+        minor: 0,
+        average: 0.05,
+        major: 0.1,
+      },
+      style: 'percentage',
+    };
+  }
+
   static dependencies = {
     executeRange: ExecuteRange,
     enemies: Enemies,
     spellUsable: SpellUsable,
   };
-
   badCast = 0;
   totalCast = 0;
 
@@ -48,23 +59,11 @@ class Slam extends Analyzer {
     }
   }
 
-  get badCastSuggestionThresholds() {
-    return {
-      actual: (this.badCast / this.totalCast) || 0,
-      isGreaterThan: {
-        minor: 0,
-        average: 0.05,
-        major: 0.1,
-      },
-      style: 'percentage',
-    };
-  }
-
   suggestions(when) {
     when(this.badCastSuggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Try to avoid using <SpellLink id={SPELLS.SLAM.id} /> when <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> or <SpellLink id={SPELLS.EXECUTE.id} /> is available as it is more rage efficient.</>)
-        .icon(SPELLS.SLAM.icon)
-        .actual(i18n._(t('warrior.arms.suggestions.slam.efficiency')`Slam was cast ${this.badCast} times accounting for ${formatPercentage(actual)}% of total casts, while Mortal Strike or Execute was available.`))
-        .recommended(`${recommended}% is recommended`));
+      .icon(SPELLS.SLAM.icon)
+      .actual(i18n._(t('warrior.arms.suggestions.slam.efficiency')`Slam was cast ${this.badCast} times accounting for ${formatPercentage(actual)}% of total casts, while Mortal Strike or Execute was available.`))
+      .recommended(`${recommended}% is recommended`));
   }
 
 }

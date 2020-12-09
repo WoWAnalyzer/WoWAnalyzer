@@ -25,9 +25,9 @@ class FortitudeRaidBuff extends Analyzer {
   suggestions(when: When) {
     when(this.uptimeSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest('Remember to have Power Word: Fortitude always up and recast it on death/resurection.')
-          .icon(SPELLS.POWER_WORD_FORTITUDE.icon)
-          .actual(i18n._(t('priest.holy.suggestions.fortitudeRaidBuff.uptime')`${formatPercentage(actual)}% Power Word: Fortitude uptime`))
-          .recommended(`>${formatPercentage(recommended)}% is recommended`));
+        .icon(SPELLS.POWER_WORD_FORTITUDE.icon)
+        .actual(i18n._(t('priest.holy.suggestions.fortitudeRaidBuff.uptime')`${formatPercentage(actual)}% Power Word: Fortitude uptime`))
+        .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 }
 

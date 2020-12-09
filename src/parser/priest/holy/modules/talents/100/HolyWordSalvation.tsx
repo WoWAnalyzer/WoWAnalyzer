@@ -13,17 +13,22 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 // Example Log: /report/PNYB4zgrnR86h7Lc/6-Normal+Zek'voz,+Herald+of+N'zoth/Khadaj
 class HolyWordSalvation extends Analyzer {
-  salvTicks = 0;
-  healingFromSalv = 0;
-  overhealingFromSalv = 0;
-  absorptionFromSalv = 0;
-
   static dependencies = {
     renew: Renew,
     prayerOfMending: PrayerOfMending,
   };
+  salvTicks = 0;
+  healingFromSalv = 0;
+  overhealingFromSalv = 0;
+  absorptionFromSalv = 0;
   protected renew!: Renew;
   protected prayerOfMending!: PrayerOfMending;
+
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.HOLY_WORD_SALVATION_TALENT.id);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HOLY_WORD_SALVATION_TALENT), this.onHeal);
+  }
 
   get renewCount() {
     return this.renew.renewsFromSalvation;
@@ -67,12 +72,6 @@ class HolyWordSalvation extends Analyzer {
 
   get totalAbsorbed() {
     return this.absorptionFromSalv + this.absorptionFromRenew + this.absorptionFromPom;
-  }
-
-  constructor(options: Options) {
-    super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.HOLY_WORD_SALVATION_TALENT.id);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HOLY_WORD_SALVATION_TALENT), this.onHeal);
   }
 
   onHeal(event: HealEvent) {

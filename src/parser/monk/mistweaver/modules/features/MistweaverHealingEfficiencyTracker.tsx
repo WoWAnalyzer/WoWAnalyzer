@@ -1,4 +1,3 @@
-
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import DamageDone from 'parser/shared/modules/throughput/DamageDone';
@@ -139,6 +138,7 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
     spellInfo.overhealingDone = this.healingDone.byAbility(SPELLS.GUST_OF_MISTS_CHIJI.id).overheal;
     return spellInfo;
   }
+
   getExpelHarmDetails(spellInfo: SpellInfoDetails) {
     spellInfo.healingDone = spellInfo.healingDone + this.expelHarm.gustsHealing + this.expelHarm.selfHealing + this.expelHarm.targetHealing;
     spellInfo.overhealingDone = spellInfo.overhealingDone + this.expelHarm.selfOverheal + this.expelHarm.targetOverheal;

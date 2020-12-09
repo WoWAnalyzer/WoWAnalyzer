@@ -10,7 +10,6 @@ import BoringValueText from 'interface/statistics/components/BoringValueText';
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 
-
 class SymbolsOfDeathUptime extends Analyzer {
   static dependencies = {
     enemies: Enemies,
@@ -27,7 +26,7 @@ class SymbolsOfDeathUptime extends Analyzer {
       >
         <BoringValueText label={<><SpellIcon id={SPELLS.SYMBOLS_OF_DEATH.id} /> Symbols of Death Uptime</>}>
           {formatPercentage(symbolsOfDeathUptime)} %
-          </BoringValueText>
+        </BoringValueText>
       </Statistic>
     );
   }

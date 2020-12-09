@@ -8,9 +8,12 @@ import Events from 'parser/core/Events';
 //WCL https://www.warcraftlogs.com/reports/rz6WxLbAmTgnFXQP/#fight=3&source=3
 class Gluttony extends Analyzer {
 
+  get gluttonyProcs() {
+    return this.buffCasts - this.metaCast;
+  }
+
   buffCasts = 0;
   metaCast = 0;
-
 
   constructor(...args) {
     super(...args);
@@ -26,12 +29,6 @@ class Gluttony extends Analyzer {
   onCast(event) {
     this.metaCast += 1;
   }
-
-
-  get gluttonyProcs(){
-    return this.buffCasts - this.metaCast;
-  }
-
 
   statistic() {
     return (

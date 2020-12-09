@@ -341,21 +341,21 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
-        }
+        },
       },
       {
         spell: SPELLS.CURSE_OF_WEAKNESS,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
-        }
+        },
       },
       {
         spell: SPELLS.CURSE_OF_EXHAUSTION,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
-        }
+        },
       },
       {
         spell: SPELLS.HEALTH_FUNNEL_CAST,

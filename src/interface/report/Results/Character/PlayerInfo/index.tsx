@@ -1,11 +1,10 @@
 import React from 'react';
 
 import getAverageItemLevel from 'game/getAverageItemLevel';
-import Combatant, { Essence } from 'parser/core/Combatant';
-import { Item, Trait } from "parser/core/Events";
+import Combatant from 'parser/core/Combatant';
+import { Item } from 'parser/core/Events';
 
 import './PlayerInfo.scss';
-import { default as EssenceComponent } from './Essence';
 import Enchants from './Enchants';
 import Gear from './Gear';
 import Gems from './Gems';
@@ -24,39 +23,36 @@ interface TalentsType {
   icon: string;
   id: number;
 }
+
 interface Props {
   combatant: Combatant;
 }
 
-const PlayerInfo = ({combatant}: Props) => {
+const PlayerInfo = ({ combatant }: Props) => {
   const gear: Item[] = _parseGear(combatant._combatantInfo.gear);
   const talents: number[] = _parseTalents(combatant._combatantInfo.talents);
-  const essences: Essence[] = combatant._combatantInfo.heartOfAzeroth as Trait[];
 
   const averageIlvl = getAverageItemLevel(gear);
 
-    const background = combatant.characterProfile && combatant.characterProfile.thumbnail ? `https://render-${combatant.characterProfile.region}.worldofwarcraft.com/character/${combatant.characterProfile.thumbnail.replace('avatar', 'main')}` : '/img/fallback-character.jpg';
+  const background = combatant.characterProfile && combatant.characterProfile.thumbnail ? `https://render-${combatant.characterProfile.region}.worldofwarcraft.com/character/${combatant.characterProfile.thumbnail.replace('avatar', 'main')}` : '/img/fallback-character.jpg';
 
-    return (
-      <div className="player-info">
-        <div className="player-background" style={{ backgroundImage: `url(${background})` }}>
-          <div className="player-gear">
-            <PlayerGearHeader player={combatant} averageIlvl={averageIlvl} />
-            <Gear gear={gear} />
-            <Gems gear={gear} />
-            <Enchants gear={gear} />
-          </div>
-        </div>
-        <div className="player-details">
-          <div className="player-details-talents">
-            <Talents talents={talents} />
-          </div>
-          <div className="player-details-essences">
-            <EssenceComponent essences={essences} />
-          </div>
+  return (
+    <div className="player-info">
+      <div className="player-background" style={{ backgroundImage: `url(${background})` }}>
+        <div className="player-gear">
+          <PlayerGearHeader player={combatant} averageIlvl={averageIlvl} />
+          <Gear gear={gear} />
+          <Gems gear={gear} />
+          <Enchants gear={gear} />
         </div>
       </div>
-    );
-}
+      <div className="player-details">
+        <div className="player-details-talents">
+          <Talents talents={talents} />
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default PlayerInfo;

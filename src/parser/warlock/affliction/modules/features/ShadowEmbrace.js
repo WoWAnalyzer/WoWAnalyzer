@@ -19,14 +19,30 @@ const BUFFER = 50; // for some reason, changedebuffstack triggers twice on the s
 const debug = false;
 
 class ShadowEmbrace extends Analyzer {
+  get totalUptimePercentage() {
+    return this.enemies.getBuffUptime(SPELLS.SHADOW_EMBRACE_DEBUFF.id) / this.owner.fightDuration;
+  }
+
+  get stackedUptime() {
+    const duration = this.owner.fightDuration;
+    // it's easier to calculate no stack uptime as 1 - anyStackUptimePercentage, that's why we ignore this.debuffs[0]
+    return {
+      0: 1 - this.totalUptimePercentage,
+      1: this.debuffs[1].uptime / duration,
+      2: this.debuffs[2].uptime / duration,
+      3: this.debuffs[3].uptime / duration,
+    };
+  }
+
+  get dps() {
+    return this.damage / this.owner.fightDuration * 1000;
+  }
+
   static dependencies = {
     enemies: Enemies,
   };
-
   damage = 0;
-
   _lastEventTimestamp = null;
-
   debuffs = {
     0: {
       // ignored, see comment in stackedUptime getter
@@ -97,25 +113,6 @@ class ShadowEmbrace extends Analyzer {
     debug && console.log(`NEW (${event.newStacks}), count increased to ${newStacks.count}`);
   }
 
-  get totalUptimePercentage() {
-    return this.enemies.getBuffUptime(SPELLS.SHADOW_EMBRACE_DEBUFF.id) / this.owner.fightDuration;
-  }
-
-  get stackedUptime() {
-    const duration = this.owner.fightDuration;
-    // it's easier to calculate no stack uptime as 1 - anyStackUptimePercentage, that's why we ignore this.debuffs[0]
-    return {
-      0: 1 - this.totalUptimePercentage,
-      1: this.debuffs[1].uptime / duration,
-      2: this.debuffs[2].uptime / duration,
-      3: this.debuffs[3].uptime / duration,
-    };
-  }
-
-  get dps() {
-    return this.damage / this.owner.fightDuration * 1000;
-  }
-
   statistic() {
     const uptimes = this.stackedUptime;
     return (
@@ -126,16 +123,18 @@ class ShadowEmbrace extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.SHADOW_EMBRACE}>
           {formatPercentage(this.totalUptimePercentage)} %
-                <TooltipElement content={(
-                  <>
-                    No stacks: {formatPercentage(uptimes[0])} %<br />
-                    1 stack: {formatPercentage(uptimes[1])} %<br />
-                    2 stacks: {formatPercentage(uptimes[2])} %<br />
-                    3 stacks: {formatPercentage(uptimes[3])} %
-                  </>
-                )}>
-                  <small>uptime <sup>*</sup></small>
-                </TooltipElement><br />
+          <TooltipElement
+            content={(
+              <>
+                No stacks: {formatPercentage(uptimes[0])} %<br />
+                1 stack: {formatPercentage(uptimes[1])} %<br />
+                2 stacks: {formatPercentage(uptimes[2])} %<br />
+                3 stacks: {formatPercentage(uptimes[3])} %
+              </>
+            )}
+          >
+            <small>uptime <sup>*</sup></small>
+          </TooltipElement><br />
           {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total</small>
         </BoringSpellValueText>
       </Statistic>

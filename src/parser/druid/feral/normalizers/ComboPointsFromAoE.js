@@ -40,6 +40,7 @@ const MAX_COMBO = 5;
  */
 class ComboPointsFromAoE extends EventsNormalizer {
   playerId = null;
+
   constructor(options) {
     super(options);
 
@@ -64,18 +65,18 @@ class ComboPointsFromAoE extends EventsNormalizer {
       const eventComboResource = this.getResource(event, RESOURCE_TYPES.COMBO_POINTS.id);
 
       if ((event.type === EventType.Energize) && (event.targetID === this.playerId) &&
-          (event.resourceChangeType === RESOURCE_TYPES.COMBO_POINTS.id)) {
+        (event.resourceChangeType === RESOURCE_TYPES.COMBO_POINTS.id)) {
         // Gained combo points.
         combo = Math.min(MAX_COMBO, combo + (event.resourceChange - event.waste));
       }
       if ((event.type === EventType.Cast) && (event.sourceID === this.playerId) &&
-          eventComboResource && eventComboResource.cost) {
+        eventComboResource && eventComboResource.cost) {
         // Spent combo points, which always puts a Feral druid back to 0
         combo = 0;
       }
 
       if ((event.type === EventType.Cast) && (event.sourceID === this.playerId) &&
-          INVISIBLE_ENERGIZE_ATTACKS.includes(event.ability.guid)) {
+        INVISIBLE_ENERGIZE_ATTACKS.includes(event.ability.guid)) {
         // Cast an ability that may have generated a combo point, but we don't know until it does damage.
         castEvent = event;
         castEventIndex = fixedEventIndex;
@@ -84,10 +85,10 @@ class ComboPointsFromAoE extends EventsNormalizer {
       }
 
       if ((event.type === EventType.Energize) && (event.sourceID === this.playerId) &&
-          (event.resourceChangeType === RESOURCE_TYPES.COMBO_POINTS.id) &&
-          INVISIBLE_ENERGIZE_ATTACKS.includes(event.ability.guid) && !event.__fabricated &&
-          castEvent && (castEvent.ability.guid === event.ability.guid) &&
-          ((event.timestamp - castEvent.timestamp < 100))) {
+        (event.resourceChangeType === RESOURCE_TYPES.COMBO_POINTS.id) &&
+        INVISIBLE_ENERGIZE_ATTACKS.includes(event.ability.guid) && !event.__fabricated &&
+        castEvent && (castEvent.ability.guid === event.ability.guid) &&
+        ((event.timestamp - castEvent.timestamp < 100))) {
         // Detected a combo point energize event from an ability that should never be generating energize events, likely due to a Blizzard or WCL change.
         debug && console.warn(`Detected energize event from an ability that isn't expected to produce energize events. The ComboPointsFromAoE normalizer may no longer be needed for ${event.ability.name} (${event.ability.guid})`);
 
@@ -96,9 +97,9 @@ class ComboPointsFromAoE extends EventsNormalizer {
       }
 
       if ((event.type === EventType.Damage) && (event.sourceID === this.playerId) &&
-          castEvent && (castEvent.ability.guid === event.ability.guid) &&
-          ((event.timestamp - castEvent.timestamp) < ABILITY_DAMAGE_WINDOW) &&
-          !event.tick && !HIT_TYPES_THAT_DONT_ENERGIZE.includes(event.hitType)) {
+        castEvent && (castEvent.ability.guid === event.ability.guid) &&
+        ((event.timestamp - castEvent.timestamp) < ABILITY_DAMAGE_WINDOW) &&
+        !event.tick && !HIT_TYPES_THAT_DONT_ENERGIZE.includes(event.hitType)) {
         // We now know that the last castEvent hit and so did produce a combo point.
         const fabricatedEnergize = {
           __fabricated: true,

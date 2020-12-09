@@ -4,15 +4,15 @@ import Events, { DamageEvent } from 'parser/core/Events';
 import { ATONEMENT_DAMAGE_SOURCES } from '../../constants';
 
 class AtonementDamageSource extends Analyzer {
+  constructor(options: Options) {
+    super(options);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER | SELECTED_PLAYER_PET), this.onDamage);
+  }
+
   _event: DamageEvent | null = null;
 
   get event() {
     return this._event;
-  }
-
-  constructor(options: Options){
-    super(options);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER | SELECTED_PLAYER_PET), this.onDamage);
   }
 
   onDamage(event: DamageEvent) {

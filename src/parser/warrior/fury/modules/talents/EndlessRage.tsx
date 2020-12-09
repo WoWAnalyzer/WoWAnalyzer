@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { EnergizeEvent } from 'parser/core/Events';
 
 class EndlessRage extends Analyzer {
@@ -14,7 +14,7 @@ class EndlessRage extends Analyzer {
 
     this.active = this.selectedCombatant.hasTalent(SPELLS.ENDLESS_RAGE_TALENT.id);
 
-    if(!this.active) {
+    if (!this.active) {
       return;
     }
 
@@ -33,7 +33,7 @@ class EndlessRage extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.ENDLESS_RAGE_TALENT}>
           <>
-          {this.rageGen} rage generated
+            {this.rageGen} rage generated
           </>
         </BoringSpellValueText>
       </Statistic>

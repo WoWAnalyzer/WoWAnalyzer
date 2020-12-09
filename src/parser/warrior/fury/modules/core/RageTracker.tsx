@@ -23,6 +23,10 @@ class RageTracker extends ResourceTracker {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MELEE), this.onDamageTaken);
   }
 
+  get rageSavedByVengeance() {
+    return this.vengeanceRageSaved.toFixed(0);
+  }
+
   getReducedCost(event: CastEvent) {
     let cost = this.getResource(event)?.cost;
     if (!cost) {
@@ -59,10 +63,6 @@ class RageTracker extends ResourceTracker {
       this.processInvisibleEnergize(SPELLS.RAGE_DAMAGE_TAKEN.id, RAGE_PER_MELEE_HIT_TAKEN);
       this.lastMeleeTaken = event.timestamp;
     }
-  }
-
-  get rageSavedByVengeance() {
-    return this.vengeanceRageSaved.toFixed(0);
   }
 }
 

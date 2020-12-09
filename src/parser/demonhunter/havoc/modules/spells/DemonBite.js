@@ -15,6 +15,22 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
  */
 class DemonBite extends Analyzer {
 
+  get furyPerMin() {
+    return ((this.furyGain - this.furyWaste) / (this.owner.fightDuration / 60000)).toFixed(2);
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.furyWaste / this.furyGain,
+      isGreaterThan: {
+        minor: 0.03,
+        average: 0.07,
+        major: 0.1,
+      },
+      style: 'percentage',
+    };
+  }
+
   furyGain = 0;
   furyWaste = 0;
   damage = 0;
@@ -37,28 +53,12 @@ class DemonBite extends Analyzer {
     this.damage += event.amount;
   }
 
-  get furyPerMin() {
-    return ((this.furyGain - this.furyWaste) / (this.owner.fightDuration / 60000)).toFixed(2);
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.furyWaste / this.furyGain,
-      isGreaterThan: {
-        minor: 0.03,
-        average: 0.07,
-        major: 0.1,
-      },
-      style: 'percentage',
-    };
-  }
-
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<> Try not to cast <SpellLink id={SPELLS.DEMONS_BITE.id} /> when close to max Fury.</>)
-          .icon(SPELLS.DEMONS_BITE.icon)
-          .actual(i18n._(t('demonhunter.havoc.suggestions.demonsBite.furyWasted')`${formatPercentage(actual)}% Fury wasted`))
-          .recommended(`${formatPercentage(recommended)}% is recommended.`));
+        .icon(SPELLS.DEMONS_BITE.icon)
+        .actual(i18n._(t('demonhunter.havoc.suggestions.demonsBite.furyWasted')`${formatPercentage(actual)}% Fury wasted`))
+        .recommended(`${formatPercentage(recommended)}% is recommended.`));
   }
 
   statistic() {

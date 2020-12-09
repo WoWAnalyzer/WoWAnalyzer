@@ -15,6 +15,26 @@ import Events from 'parser/core/Events';
 const MAX_STACKS = 30;
 
 class JadeIgnition extends Analyzer {
+  get damageDone() {
+    return this.abilityTracker.getAbility(SPELLS.JADE_IGNITION_DAMAGE.id).damageEffective;
+  }
+
+  get stackUsage() {
+    return 1 - (this.stacksWasted / this.totalStacks);
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.stackUsage,
+      isLessThan: {
+        minor: 1,
+        average: 0.95,
+        major: 0.9,
+      },
+      style: 'percentage',
+    };
+  }
+
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
@@ -40,7 +60,7 @@ class JadeIgnition extends Analyzer {
 
   applyBuffStack() {
     this.currentStacks += 1;
-   }
+  }
 
   onFistsDamage() {
     this.totalStacks += 1;
@@ -53,26 +73,6 @@ class JadeIgnition extends Analyzer {
     this.currentStacks = 0;
   }
 
-  get damageDone () {
-    return this.abilityTracker.getAbility(SPELLS.JADE_IGNITION_DAMAGE.id).damageEffective;
-  }
-
-  get stackUsage() {
-    return 1 - (this.stacksWasted / this.totalStacks);
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.stackUsage,
-      isLessThan: {
-        minor: 1,
-        average: 0.95,
-        major: 0.9,
-      },
-      style: 'percentage',
-    };
-  }
-
   statistic() {
     return (
       <Statistic
@@ -82,8 +82,8 @@ class JadeIgnition extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.JADE_IGNITION}>
           <ItemDamageDone amount={this.damageDone} />
-					<br />
-					{formatPercentage(this.stackUsage, 0)}% <small>Stacks used</small>
+          <br />
+          {formatPercentage(this.stackUsage, 0)}% <small>Stacks used</small>
         </BoringSpellValueText>
       </Statistic>
     );
@@ -91,10 +91,10 @@ class JadeIgnition extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      suggest(<Trans id="monk.windwalker.suggestions.jadeIgnitionWastedStacks"> You wasted your <SpellLink id={SPELLS.JADE_IGNITION_BUFF.id}/> stacks by using Fists of Fury at full stacks</Trans>)
+      suggest(<Trans id="monk.windwalker.suggestions.jadeIgnitionWastedStacks"> You wasted your <SpellLink id={SPELLS.JADE_IGNITION_BUFF.id} /> stacks by using Fists of Fury at full stacks</Trans>)
         .icon(SPELLS.JADE_IGNITION.icon)
         .actual(`${formatPercentage(actual, 0)}% Stacks used`)
-        .recommended(`${formatPercentage(recommended, 0)}% Stacks used is recommended`)
+        .recommended(`${formatPercentage(recommended, 0)}% Stacks used is recommended`);
     });
   }
 }

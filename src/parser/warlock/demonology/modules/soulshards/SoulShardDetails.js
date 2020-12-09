@@ -16,10 +16,6 @@ import SoulShardTracker from './SoulShardTracker';
 const SOUL_SHARD_ICON = 'inv_misc_gem_amethyst_02';
 
 class SoulShardDetails extends Analyzer {
-  static dependencies = {
-    soulShardTracker: SoulShardTracker,
-  };
-
   get suggestionThresholds() {
     const shardsWasted = this.soulShardTracker.wasted;
     const shardsWastedPerMinute = (shardsWasted / this.owner.fightDuration) * 1000 * 60;
@@ -34,13 +30,18 @@ class SoulShardDetails extends Analyzer {
     };
   }
 
+  static dependencies = {
+    soulShardTracker: SoulShardTracker,
+  };
+  statisticOrder = STATISTIC_ORDER.CORE(2);
+
   suggestions(when) {
     const shardsWasted = this.soulShardTracker.wasted;
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest('You are wasting Soul Shards. Try to use them and not let them cap and go to waste unless you\'re preparing for bursting adds etc.')
-          .icon(SOUL_SHARD_ICON)
-          .actual(i18n._(t('warlock.demonology.suggestions.soulShards.wastedPerMinutes')`${shardsWasted} Soul Shards wasted (${actual.toFixed(2)} per minute)`))
-          .recommended(`< ${recommended.toFixed(2)} Soul Shards per minute wasted are recommended`));
+        .icon(SOUL_SHARD_ICON)
+        .actual(i18n._(t('warlock.demonology.suggestions.soulShards.wastedPerMinutes')`${shardsWasted} Soul Shards wasted (${actual.toFixed(2)} per minute)`))
+        .recommended(`< ${recommended.toFixed(2)} Soul Shards per minute wasted are recommended`));
   }
 
   statistic() {
@@ -72,8 +73,6 @@ class SoulShardDetails extends Analyzer {
       ),
     };
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
 export default SoulShardDetails;

@@ -12,13 +12,36 @@ const COOLDOWN_REDUCTION_MS = 500;
 
 //WCL https://www.warcraftlogs.com/reports/ZVJr2MPNx3RCvX6B/#fight=6&source=184
 class FeedTheDemon extends Analyzer {
+  get FTDReduction() {
+    return this.totalCooldownReduction;
+  }
+
+  get FTDReductionWasted() {
+    return this.totalCooldownReductionWasted;
+  }
+
+  get reduction() {
+    return this.FTDReduction / 1000;
+  }
+
+  get wastedReduction() {
+    return this.FTDReductionWasted / 1000;
+  }
+
+  get averageReduction() {
+    const casts = this.abilityTracker.getAbility(SPELLS.DEMON_SPIKES.id).casts;
+    return (this.reduction / casts) || 0;
+  }
+
+  get wastedPercent() {
+    return this.wastedReduction / (this.wastedReduction + this.reduction);
+  }
+
   static dependencies = {
     abilityTracker: AbilityTracker,
     spellUsable: SpellUsable,
   };
-
   casts = 0;
-
   totalCooldownReductionWasted = 0;
   totalCooldownReduction = 0;
 
@@ -29,38 +52,13 @@ class FeedTheDemon extends Analyzer {
   }
 
   onHeal(event) {
-    if (!this.spellUsable.isOnCooldown(SPELLS.DEMON_SPIKES.id)){
+    if (!this.spellUsable.isOnCooldown(SPELLS.DEMON_SPIKES.id)) {
       this.totalCooldownReductionWasted += COOLDOWN_REDUCTION_MS;
     } else {
       const effectiveReduction = this.spellUsable.reduceCooldown(SPELLS.DEMON_SPIKES.id, COOLDOWN_REDUCTION_MS);
       this.totalCooldownReduction += effectiveReduction;
       this.totalCooldownReductionWasted += COOLDOWN_REDUCTION_MS - effectiveReduction;
     }
-  }
-
-  get FTDReduction(){
-    return this.totalCooldownReduction;
-  }
-
-  get FTDReductionWasted(){
-    return this.totalCooldownReductionWasted;
-  }
-
-  get reduction(){
-    return this.FTDReduction / 1000;
-  }
-
-  get wastedReduction(){
-    return this.FTDReductionWasted / 1000;
-  }
-
-  get averageReduction(){
-    const casts = this.abilityTracker.getAbility(SPELLS.DEMON_SPIKES.id).casts;
-    return (this.reduction / casts) || 0;
-  }
-
-  get wastedPercent(){
-    return this.wastedReduction / (this.wastedReduction + this.reduction);
   }
 
   statistic() {

@@ -19,7 +19,7 @@ class SpellEnergyCost extends SpellResourceCost {
 
   getResourceCost(event) {
     const cost = super.getResourceCost(event);
-    
+
     if (this.discountShadowFocus && isStealthOrDance(this.selectedCombatant, 100)) {
       return cost * SHADOW_FOCUS_MULTIPLIER;
     }
