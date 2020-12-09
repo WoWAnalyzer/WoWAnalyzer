@@ -1389,7 +1389,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#ff8000",
+                      "backgroundColor": "#70b570",
                       "width": "0%",
                     }
                   }
@@ -1414,9 +1414,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                   "width": "25%",
                 }
               }
-            >
-              shared.castEfficiency.canBeImproved
-            </td>
+            />
           </tr>
           <tr>
             <td
@@ -3163,50 +3161,6 @@ Array [
       )
     </React.Fragment>,
   },
-  Object {
-    "details": null,
-    "icon": "spell_shadow_corpseexplode",
-    "importance": "major",
-    "issue": <React.Fragment>
-      <WithI18n
-        components={
-          Array [
-            <ForwardRef
-              id={327574}
-            />,
-          ]
-        }
-        defaults="Try to cast <0/> more often."
-        id="shared.modules.castEfficiency.suggest"
-      />
-       
-      
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      <WithI18n
-        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
-        id="shared.modules.castEfficiency.actual"
-        values={
-          Object {
-            "0": 0,
-            "1": 1,
-            "2": "0",
-          }
-        }
-      />
-       (
-      <WithI18n
-        defaults=">{0}% is recommended"
-        id="shared.modules.castEfficiency.recommended"
-        values={
-          Object {
-            "0": "90",
-          }
-        }
-      />
-      )
-    </React.Fragment>,
-  },
 ]
 `;
 
@@ -4438,23 +4392,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
           <div
             className="col-md-12"
           >
-            You should aim to use your cooldowns as often as you can to maximize your damage output. In the case of 
-            <a
-              className="spell-link-text"
-              href="http://wowhead.com/spell=343294"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/ability_deathknight_soulreaper.jpg"
-              />
-               
-              Soul Reaper
-            </a>
-            , you want to use it when you're at less than 2 runes. However, you also want to make sure you don't waste possible casts by holding on to it for too long.
-             
+            You should aim to use your cooldowns as often as you can to maximize your damage output.
             <a
               href="https://www.wowhead.com/unholy-death-knight-rotation-guide#cooldown-usage"
               rel="noopener noreferrer"
