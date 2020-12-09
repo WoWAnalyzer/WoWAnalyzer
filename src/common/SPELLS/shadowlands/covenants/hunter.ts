@@ -1,6 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const covenants: SpellList = {
+const covenants = {
   //region Kyrian
   RESONATING_ARROW: {
     id: 308491,
@@ -72,5 +70,5 @@ const covenants: SpellList = {
     icon: 'ability_hunter_assassinate2',
   },
   //endregion
-};
+} as const;
 export default covenants;

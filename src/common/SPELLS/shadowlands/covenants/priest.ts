@@ -1,6 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const covenants: SpellList = {
+const covenants = {
   //region Kyrian
   BOON_OF_THE_ASCENDED: {
     id: 325013,
@@ -87,5 +85,5 @@ const covenants: SpellList = {
     icon: 'ability_revendreth_priest',
   },
   //endregion
-};
+} as const;
 export default covenants;

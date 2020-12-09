@@ -4,8 +4,7 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import { SpellList } from "./Spell";
-const spells: SpellList = {
+const spells = {
   // Shared
   HOLY_NOVA: {
     id: 132157,
@@ -645,6 +644,6 @@ const spells: SpellList = {
     name: 'Shadow Crash',
     icon: 'spell_shadow_shadowfury',
   },
+} as const;
 
-};
 export default spells;

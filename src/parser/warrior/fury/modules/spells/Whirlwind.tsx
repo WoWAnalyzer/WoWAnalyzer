@@ -93,7 +93,7 @@ class Whirlwind extends Analyzer {
     this.bsWasAvailable = this.hasBladeStorm ? this.spellUsable.isAvailable(SPELLS.BLADESTORM_TALENT.id) : false;
     this.drWasAvailable = this.hasDragonsRoar ? this.spellUsable.isAvailable(SPELLS.DRAGON_ROAR_TALENT.id) : false;
 
-    this.wasEnraged = this.selectedCombatant.hasBuff(SPELLS.ENRAGE.ID);
+    this.wasEnraged = this.selectedCombatant.hasBuff(SPELLS.ENRAGE.id);
 
     this.enemiesHitWW = [];
     this.wwCast += 1;

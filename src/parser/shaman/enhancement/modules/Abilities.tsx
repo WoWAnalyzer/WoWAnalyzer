@@ -16,7 +16,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id),
-        damageSpellIds: [SPELLS.ASCENDANCE_INITIAL_DAMAGE],
+        damageSpellIds: [SPELLS.ASCENDANCE_INITIAL_DAMAGE.id],
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 1.0,
