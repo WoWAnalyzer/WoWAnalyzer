@@ -6,8 +6,8 @@ import SpellIcon from 'common/SpellIcon';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
 import SPELLS from 'common/SPELLS';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { DamageEvent } from 'parser/core/Events';
 import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from 'parser/monk/windwalker/constants';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { formatNumber, formatPercentage } from 'common/format';
@@ -18,12 +18,15 @@ class Serenity extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
+
+  protected spellUsable!: SpellUsable;
+
   damageGain = 0;
   effectiveRisingSunKickReductionMs = 0;
   effectiveFistsOfFuryReductionMs = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SERENITY_TALENT.id);
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RISING_SUN_KICK), this.onRSK);
@@ -79,7 +82,7 @@ class Serenity extends Analyzer {
     }
   }
 
-  onAffectedDamage(event) {
+  onAffectedDamage(event: DamageEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.SERENITY_TALENT.id)) {
       return;
     }
@@ -110,7 +113,7 @@ class Serenity extends Analyzer {
             className="icon"
           /> {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damageGain))} % of total</small>
           <br />
-          <span style={{ fontsize: '75%' }}>
+          <span style={{ fontSize: '75%' }}>
             <SpellIcon
               id={SPELLS.RISING_SUN_KICK.id}
               style={{

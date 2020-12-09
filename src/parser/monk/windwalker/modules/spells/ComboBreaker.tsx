@@ -4,18 +4,65 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
-import Events from 'parser/core/Events';
+import Events, { ApplyBuffEvent, CastEvent, RefreshBuffEvent } from 'parser/core/Events';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 const COMBO_BREAKER_DURATION = 15000;
 const COMBO_BREAKER_PROC_CHANCE = 0.08;
 const debug = false;
 
 class ComboBreaker extends Analyzer {
+
+  static dependencies = {
+    abilityTracker: AbilityTracker,
+  };
+
+  protected abilityTracker!: AbilityTracker;
+
+  CBProcsTotal = 0;
+  lastCBProcTime: number | null = null;
+  consumedCBProc = 0;
+  overwrittenCBProc = 0;
+
+  constructor(options: Options) {
+    super(options);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.COMBO_BREAKER_BUFF), this.onApplyBuff);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.COMBO_BREAKER_BUFF), this.onRefreshBuff);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_KICK), this.onCast);
+  }
+
+  onApplyBuff(event: ApplyBuffEvent) {
+    this.lastCBProcTime = event.timestamp;
+    debug && console.log('CB Proc Applied');
+    this.CBProcsTotal += 1;
+  }
+
+  onRefreshBuff(event: RefreshBuffEvent) {
+    this.lastCBProcTime = event.timestamp;
+    debug && console.log('CB Proc Overwritten');
+    this.CBProcsTotal += 1;
+    this.overwrittenCBProc += 1;
+  }
+
+  onCast(event: CastEvent) {
+    if (this.lastCBProcTime === null) {
+      return;
+    }
+    if (this.lastCBProcTime !== event.timestamp) {
+      const cbTimeframe = this.lastCBProcTime + COMBO_BREAKER_DURATION;
+      if (event.timestamp <= cbTimeframe) {
+        this.consumedCBProc += 1;
+        debug && console.log(`CB Proc Consumed / Timestamp: ${event.timestamp}`);
+        this.lastCBProcTime = null;
+      }
+    }
+  }
+
   get usedCBProcs() {
     return this.consumedCBProc / this.CBProcsTotal;
   }
@@ -28,53 +75,11 @@ class ComboBreaker extends Analyzer {
         average: 0.8,
         major: 0.7,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  static dependencies = {
-    abilityTracker: AbilityTracker,
-  };
-  CBProcsTotal = 0;
-  lastCBProcTime = null;
-  consumedCBProc = 0;
-  overwrittenCBProc = 0;
-
-  constructor(options) {
-    super(options);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.COMBO_BREAKER_BUFF), this.onApplyBuff);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.COMBO_BREAKER_BUFF), this.onRefreshBuff);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_KICK), this.onCast);
-  }
-
-  onApplyBuff(event) {
-    this.lastCBProcTime = event.timestamp;
-    debug && console.log('CB Proc Applied');
-    this.CBProcsTotal += 1;
-  }
-
-  onRefreshBuff(event) {
-    this.lastCBProcTime = event.timestamp;
-    debug && console.log('CB Proc Overwritten');
-    this.CBProcsTotal += 1;
-    this.overwrittenCBProc += 1;
-  }
-
-  onCast(event) {
-    if (this.lastCBProcTime !== event.timestamp) {
-      if (this.lastCBProcTime === null) {
-        return;
-      }
-      const cbTimeframe = this.lastCBProcTime + COMBO_BREAKER_DURATION;
-      if (event.timestamp <= cbTimeframe) {
-        this.consumedCBProc += 1;
-        debug && console.log(`CB Proc Consumed / Timestamp: ${event.timestamp}`);
-        this.lastCBProcTime = null;
-      }
-    }
-  }
-
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<span>Your <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs should be used before you tiger palm again so they are not overwritten. While some will be overwritten due to higher priority of getting Chi for spenders, wasting <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs is not optimal.</span>)
       .icon(SPELLS.COMBO_BREAKER_BUFF.icon)
       .actual(i18n._(t('monk.windwalker.suggestions.comboBreaker.procsUsed')`${formatPercentage(actual)}% used Combo Breaker procs`))

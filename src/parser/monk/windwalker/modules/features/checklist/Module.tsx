@@ -38,6 +38,19 @@ class Checklist extends BaseChecklist {
     jadeIgnition: JadeIgnition,
   };
 
+  protected combatants!: Combatants;
+  protected castEfficiency!: CastEfficiency;
+  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
+  protected comboBreaker!: ComboBreaker;
+  protected fistsofFury!: FistsofFury;
+  protected touchOfKarma!: TouchOfKarma;
+  protected comboStrikes!: ComboStrikes;
+  protected blackoutKick!: BlackoutKick;
+  protected hitCombo!: HitCombo;
+  protected chiDetails!: ChiDetails;
+  protected lastEmperorsCapacitor!: LastEmperorsCapacitor;
+  protected jadeIgnition!: JadeIgnition;
+
   render() {
     return (
       <Component

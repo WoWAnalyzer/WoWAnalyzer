@@ -4,13 +4,14 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
-import Events from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 /**
  *  Inspired by filler modules in Holy Paladin Analyzer
@@ -19,25 +20,11 @@ import { t } from '@lingui/macro';
 const COOLDOWN_REDUCTION_MS = 1000;
 
 class BlackoutKick extends Analyzer {
-  get totalWastedReductionPerMinute() {
-    return (this.wastedFistsOfFuryReductionMs + this.wastedRisingSunKickReductionMs) / (this.owner.fightDuration) * 60;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.totalWastedReductionPerMinute,
-      isGreaterThan: {
-        minor: 0,
-        average: 2,
-        major: 4,
-      },
-      style: 'decimal',
-    };
-  }
 
   static dependencies = {
     spellUsable: SpellUsable,
   };
+
   IMPORTANT_SPELLS = [
     SPELLS.RISING_SUN_KICK.id,
     SPELLS.FISTS_OF_FURY_CAST.id,
@@ -47,8 +34,10 @@ class BlackoutKick extends Analyzer {
   effectiveFistsOfFuryReductionMs = 0;
   wastedFistsOfFuryReductionMs = 0;
 
-  constructor(...args) {
-    super(...args);
+  protected spellUsable!: SpellUsable;
+
+  constructor(options: Options) {
+    super(options);
 
     if (this.selectedCombatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id)) {
       this.IMPORTANT_SPELLS.push(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id);
@@ -56,7 +45,7 @@ class BlackoutKick extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_KICK), this.onCast);
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     const hasImportantCastsAvailable = this.IMPORTANT_SPELLS.some(spellId => this.spellUsable.isAvailable(spellId));
     const currentCooldownReductionMS = (this.selectedCombatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? 0.5 : 1) * COOLDOWN_REDUCTION_MS;
     if (hasImportantCastsAvailable) {
@@ -81,7 +70,23 @@ class BlackoutKick extends Analyzer {
     }
   }
 
-  suggestions(when) {
+  get totalWastedReductionPerMinute() {
+    return (this.wastedFistsOfFuryReductionMs + this.wastedRisingSunKickReductionMs) / (this.owner.fightDuration) * 60;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.totalWastedReductionPerMinute,
+      isGreaterThan: {
+        minor: 0,
+        average: 2,
+        major: 4,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
+  }
+
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest('You are wasting cooldown reduction by casting Blackout Kick while having important casts available')
       .icon(SPELLS.BLACKOUT_KICK.icon)
       .actual(i18n._(t('monk.windwalker.suggestions.blackoutKick.cdrWasted')`${actual.toFixed(2)} seconds of wasted cooldown reduction per minute`))
@@ -95,7 +100,7 @@ class BlackoutKick extends Analyzer {
         size="flexible"
       >
         <BoringSpellValueText spell={SPELLS.BLACKOUT_KICK}>
-          <span style={{ fontsize: '75%' }}>
+          <span style={{ fontSize: '75%' }}>
             <SpellIcon
               id={SPELLS.RISING_SUN_KICK.id}
               style={{

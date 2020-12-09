@@ -1,9 +1,10 @@
 import SPELLS from 'common/SPELLS';
 
 import CoreAbilities from 'parser/core/modules/Abilities';
+import { SpellbookAbility } from 'parser/core/modules/Ability';
 
 class Abilities extends CoreAbilities {
-  spellbook() {
+  spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     // Windwalker GCD is 1 second by default and static in almost all cases, 750 is lowest recorded GCD
     // Serenity's interaction with cooldowns is handled in the Serenity module
@@ -274,7 +275,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1000,
-          mininum: 750,
+          minimum: 750,
         },
       },
       {
