@@ -45,14 +45,12 @@ class UnstableAfflictionUptime extends Analyzer {
   }
 
   get suggestionThresholds() {
-    // raises the thresholds by 5% if player has Cascading Calamity trait
-    const cascadingCalamityBonus = this.selectedCombatant.hasTrait(SPELLS.CASCADING_CALAMITY.id) ? 0.05 : 0;
     return {
       actual: this.uptime,
-      isLessThan: {
-        minor: 0.7 + cascadingCalamityBonus,
-        average: 0.6 + cascadingCalamityBonus,
-        major: 0.5 + cascadingCalamityBonus,
+     isLessThan: {
+        minor: 0.95,
+        average: 0.9,
+        major: 0.8,
       },
       style: 'percentage',
     };
