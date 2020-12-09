@@ -191,7 +191,7 @@ exports[`Fire Mage integration test: example log CancelledCasts matches the stat
             </g>
           </svg>
            
-          13.21
+          10.69
           % 
           <small>
             Casts Cancelled
@@ -228,7 +228,7 @@ Array [
     "importance": "regular",
     "issue": <React.Fragment>
       You cancelled 
-      13.21
+      10.69
       % of your spells. While it is expected that you will have to cancel a few casts to react to boss mechanics or move, you should try to ensure that you are cancelling as few casts as possible by utilizing movement abilities such as 
       <ForwardRef
         id={1953}
@@ -240,7 +240,7 @@ Array [
       .
     </React.Fragment>,
     "stat": <React.Fragment>
-      13.21% casts cancelled
+      10.69% casts cancelled
        (
       &lt;5.00% is recommended
       )
@@ -6597,8 +6597,8 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ac1f39",
-                  "width": "30.46506819934709%",
+                  "backgroundColor": "#df7102",
+                  "width": "34.65374744463011%",
                 }
               }
             />
@@ -6751,7 +6751,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  13.21%
+                  10.69%
                    
                    
                 </div>
@@ -6773,7 +6773,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "55.91886792452831%",
+                        "width": "64.29622641509435%",
                       }
                     }
                   />
