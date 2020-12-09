@@ -178,15 +178,6 @@ export const DRUID_HEAL_INFO = {
     masteryStack: false,
     vers: false,
   },
-  // [SPELLS.BRACING_CHILL_HEAL.id]: { //TODO Double check
-  //   int: true,
-  //   crit: true,
-  //   hasteHpm: false,
-  //   hasteHpct: false,
-  //   mastery: true,
-  //   masteryStack: false,
-  //   vers: true,
-  // },
 };
 
 export const getSpellInfo = id => DRUID_HEAL_INFO[id] || DEFAULT_INFO;

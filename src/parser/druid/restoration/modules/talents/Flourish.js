@@ -130,9 +130,6 @@ class Flourish extends Analyzer {
         case SPELLS.LIFEBLOOM_HOT_HEAL.id:
           this.increasedRateLifebloomHealing += calculateEffectiveHealing(event, FLOURISH_HEALING_INCREASE);
           break;
-        case SPELLS.GROVE_TENDING.id:
-          this.increasedRateGroveTendingHealing += calculateEffectiveHealing(event, FLOURISH_HEALING_INCREASE);
-          break;
         case SPELLS.REGROWTH.id:
           if (event.tick === true) {
             this.increasedRateRegrowthHealing += calculateEffectiveHealing(event, FLOURISH_HEALING_INCREASE);
@@ -193,8 +190,6 @@ class Flourish extends Analyzer {
           this.sbCount += 1;
         } else if (spellId === SPELLS.CULTIVATION.id) {
           this.cultCount += 1;
-        } else if (spellId === SPELLS.GROVE_TENDING.id) {
-          this.groveTendingCount += 1;
         } else if (spellId === SPELLS.TRANQUILITY_HEAL.id) {
           foundTranq = true;
           this.tranqCount += 1;

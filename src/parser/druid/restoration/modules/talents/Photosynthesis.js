@@ -104,9 +104,6 @@ class Photosynthesis extends Analyzer {
         case SPELLS.EFFLORESCENCE_HEAL.id:
           this.increasedRateEffloHealing += calculateEffectiveHealing(event, PHOTOSYNTHESIS_HOT_INCREASE);
           break;
-        case SPELLS.GROVE_TENDING.id:
-          this.increasedRateGroveTendingHealing += calculateEffectiveHealing(event, PHOTOSYNTHESIS_HOT_INCREASE);
-          break;
         case SPELLS.REGROWTH.id:
           if (event.tick === true) {
             this.increasedRateRegrowthHealing += calculateEffectiveHealing(event, PHOTOSYNTHESIS_HOT_INCREASE);
