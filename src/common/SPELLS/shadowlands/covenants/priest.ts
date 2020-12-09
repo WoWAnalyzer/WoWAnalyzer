@@ -30,7 +30,17 @@ const covenants: SpellList = {
     name: 'Unholy Nova',
     icon: 'ability_maldraxxus_priest',
   },
+  UNHOLY_NOVA_BUFF: {
+    id: 347788,
+    name: 'Unholy Nova',
+    icon: 'ability_maldraxxus_priest',
+  },
   UNHOLY_TRANSFUSION: {
+    id: 325118,
+    name: 'Unholy Transfusion',
+    icon: 'spell_animamaldraxxus_debuff',
+  },
+  UNHOLY_TRANSFUSION_DAMAGE: {
     id: 325203,
     name: 'Unholy Transfusion',
     icon: 'spell_animamaldraxxus_debuff',
