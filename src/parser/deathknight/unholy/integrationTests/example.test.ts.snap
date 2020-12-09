@@ -1269,6 +1269,55 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               shared.castEfficiency.canBeImproved
             </td>
           </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th>
+              <b>
+                Defensive Cooldown
+              </b>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                shared.castEfficiency.cpm
+              </dfn>
+            </th>
+            <th
+              className="text-right"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                shared.castEfficiency.casts
+              </dfn>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                shared.castEfficiency.timeOnCooldown
+              </dfn>
+            </th>
+            <th />
+          </tr>
           <tr>
             <td
               style={
@@ -1368,155 +1417,6 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               shared.castEfficiency.canBeImproved
             </td>
-          </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "35%",
-                }
-              }
-            >
-              <a
-                className="spell-link-text"
-                href="http://wowhead.com/spell=311648"
-                rel="noopener noreferrer"
-                style={
-                  Object {
-                    "color": "#fff",
-                  }
-                }
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/ability_revendreth_deathknight.jpg"
-                  style={
-                    Object {
-                      "height": undefined,
-                      "marginTop": undefined,
-                    }
-                  }
-                />
-                 
-                Swarming Mist
-              </a>
-            </td>
-            <td
-              className="text-center"
-              style={
-                Object {
-                  "minWidth": 80,
-                }
-              }
-            >
-              0.00
-            </td>
-            <td
-              className="text-right"
-              style={
-                Object {
-                  "minWidth": 110,
-                }
-              }
-            >
-              0
-              /2
-               
-              casts
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar"
-                  style={
-                    Object {
-                      "backgroundColor": "#ff8000",
-                      "width": "0%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              className="text-left"
-              style={
-                Object {
-                  "minWidth": 50,
-                  "paddingRight": 5,
-                }
-              }
-            >
-              0.00%
-            </td>
-            <td
-              style={
-                Object {
-                  "color": "orange",
-                  "width": "25%",
-                }
-              }
-            >
-              shared.castEfficiency.canBeImproved
-            </td>
-          </tr>
-        </tbody>
-        <tbody>
-          <tr>
-            <th>
-              <b>
-                Defensive Cooldown
-              </b>
-            </th>
-            <th
-              className="text-center"
-            >
-              <dfn
-                className=""
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onTouchStart={[Function]}
-                style={Object {}}
-              >
-                shared.castEfficiency.cpm
-              </dfn>
-            </th>
-            <th
-              className="text-right"
-            >
-              <dfn
-                className=""
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onTouchStart={[Function]}
-                style={Object {}}
-              >
-                shared.castEfficiency.casts
-              </dfn>
-            </th>
-            <th
-              className="text-center"
-            >
-              <dfn
-                className=""
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onTouchStart={[Function]}
-                style={Object {}}
-              >
-                shared.castEfficiency.timeOnCooldown
-              </dfn>
-            </th>
-            <th />
           </tr>
           <tr>
             <td
@@ -2867,104 +2767,6 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             />
           </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "35%",
-                }
-              }
-            >
-              <a
-                className="spell-link-text"
-                href="http://wowhead.com/spell=300728"
-                rel="noopener noreferrer"
-                style={
-                  Object {
-                    "color": "#fff",
-                  }
-                }
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/ability_venthyr_doorofshadows.jpg"
-                  style={
-                    Object {
-                      "height": undefined,
-                      "marginTop": undefined,
-                    }
-                  }
-                />
-                 
-                Door of Shadows
-              </a>
-            </td>
-            <td
-              className="text-center"
-              style={
-                Object {
-                  "minWidth": 80,
-                }
-              }
-            >
-              0.00
-            </td>
-            <td
-              className="text-right"
-              style={
-                Object {
-                  "minWidth": 110,
-                }
-              }
-            >
-              0
-              /2
-               
-              casts
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar"
-                  style={
-                    Object {
-                      "backgroundColor": "#70b570",
-                      "width": "0%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              className="text-left"
-              style={
-                Object {
-                  "minWidth": 50,
-                  "paddingRight": 5,
-                }
-              }
-            >
-              0.00%
-            </td>
-            <td
-              style={
-                Object {
-                  "color": "orange",
-                  "width": "25%",
-                }
-              }
-            />
-          </tr>
         </tbody>
         <tbody>
           <tr>
@@ -3388,50 +3190,6 @@ Array [
           Object {
             "0": 0,
             "1": 1,
-            "2": "0",
-          }
-        }
-      />
-       (
-      <WithI18n
-        defaults=">{0}% is recommended"
-        id="shared.modules.castEfficiency.recommended"
-        values={
-          Object {
-            "0": "90",
-          }
-        }
-      />
-      )
-    </React.Fragment>,
-  },
-  Object {
-    "details": null,
-    "icon": "ability_revendreth_deathknight",
-    "importance": "major",
-    "issue": <React.Fragment>
-      <WithI18n
-        components={
-          Array [
-            <ForwardRef
-              id={311648}
-            />,
-          ]
-        }
-        defaults="Try to cast <0/> more often."
-        id="shared.modules.castEfficiency.suggest"
-      />
-       
-      
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      <WithI18n
-        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
-        id="shared.modules.castEfficiency.actual"
-        values={
-          Object {
-            "0": 0,
-            "1": 2,
             "2": "0",
           }
         }
