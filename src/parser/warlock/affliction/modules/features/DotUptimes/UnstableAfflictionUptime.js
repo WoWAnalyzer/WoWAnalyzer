@@ -3,20 +3,17 @@ import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import Events from 'parser/core/Events';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
-import { formatPercentage, formatThousands } from 'common/format';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import Tooltip from 'common/Tooltip';
 
 import UptimeBar from 'interface/statistics/components/UptimeBar';
 
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
-const CONTAGION_DAMAGE_BONUS = 0.1; // former talent Contagion is now baked into UA
 class UnstableAfflictionUptime extends Analyzer {
   static dependencies = {
     enemies: Enemies,
@@ -31,7 +28,6 @@ class UnstableAfflictionUptime extends Analyzer {
     super(...args);
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.UNSTABLE_AFFLICTION), this.onUAapply);
     this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.UNSTABLE_AFFLICTION), this.onUAremove);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
   onUAapply(event) {
@@ -43,16 +39,6 @@ class UnstableAfflictionUptime extends Analyzer {
     this.buffedTime += event.timestamp - Math.max(this._buffStart, this.owner.fight.start_time);
   }
 
-  onDamage(event) {
-    const enemy = this.enemies.getEntity(event);
-    if (!enemy) {
-      return;
-    }
-    if (!enemy.hasBuff(SPELLS.UNSTABLE_AFFLICTION.id)) {
-      return;
-    }
-    this.damage += calculateEffectiveDamage(event, CONTAGION_DAMAGE_BONUS);
-  }
 
   get uptime() {
     return this.buffedTime / this.owner.fightDuration;
@@ -91,21 +77,15 @@ class UnstableAfflictionUptime extends Analyzer {
         <div className="flex-sub icon">
           <SpellIcon id={SPELLS.UNSTABLE_AFFLICTION.id} />
         </div>
-        <Tooltip content={(
-          <>
-            Bonus damage from internal Contagion effect: {formatThousands(this.damage)} ({this.owner.formatItemDamageDone(this.damage)})
-          </>
-        )}>
-          <div
+        <div
             className="flex-sub value"
             style={{
               width: 140,
               paddingRight: 8, // to compensate for the asterisk and align % values
             }}
           >
-            {formatPercentage(this.uptime, 0)} % <small>uptime <sup>*</sup></small>
-          </div>
-        </Tooltip>
+            {formatPercentage(this.uptime, 0)} % <small>uptime</small>
+        </div>
         <div className="flex-main chart" style={{ padding: 15 }}>
           <UptimeBar
             uptimeHistory={history}
