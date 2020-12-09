@@ -17,14 +17,13 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static castCooldowns = [
     ...CoreCooldownThroughputTracker.castCooldowns,
     {
-      spell: SPELLS.TOUCH_OF_DEATH,
-      duration: 8,
+      spell: SPELLS.STORM_EARTH_AND_FIRE_CAST,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
     },
     {
-      spell: SPELLS.STORM_EARTH_AND_FIRE_CAST,
+      spell: SPELLS.INVOKE_XUEN_THE_WHITE_TIGER,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
