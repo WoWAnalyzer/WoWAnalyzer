@@ -60,7 +60,7 @@ class UnstableAfflictionUptime extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(
           <>
-            Your <SpellLink id={SPELLS.UNSTABLE_AFFLICTION.id} /> uptime is too low.
+            Your <SpellLink id={SPELLS.UNSTABLE_AFFLICTION.id} /> uptime can be improved. Try to pay more attention to your Unstable Affliction on the boss, perhaps use some debuff tracker.
           </>,
         )
           .icon(SPELLS.UNSTABLE_AFFLICTION.icon)
