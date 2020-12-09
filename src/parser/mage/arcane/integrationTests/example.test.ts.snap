@@ -18,7 +18,7 @@ Array [
        casts instant.
     </span>,
     "stat": <React.Fragment>
-      37.79% downtime
+      37.56% downtime
        (
       &lt;20.00% is recommended
       )
@@ -397,7 +397,7 @@ exports[`Arcane Mage integration test: example log CancelledCasts matches the st
             </g>
           </svg>
            
-          11.69
+          7.79
           % 
           <small>
             Casts Cancelled
@@ -431,10 +431,10 @@ Array [
   Object {
     "details": null,
     "icon": "inv_misc_map_01",
-    "importance": "regular",
+    "importance": "minor",
     "issue": <React.Fragment>
       You cancelled 
-      11.69
+      7.79
       % of your spells. While it is expected that you will have to cancel a few casts to react to boss mechanics or move, you should try to ensure that you are cancelling as few casts as possible by utilizing movement abilities such as 
       <ForwardRef
         id={1953}
@@ -452,7 +452,7 @@ Array [
       .
     </React.Fragment>,
     "stat": <React.Fragment>
-      11.69% casts cancelled
+      7.79% casts cancelled
        (
       &lt;5.00% is recommended
       )
@@ -5599,8 +5599,8 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ac1f39",
-                  "width": "33.13237703499746%",
+                  "backgroundColor": "#df7102",
+                  "width": "43.3618032273797%",
                 }
               }
             />
@@ -5693,7 +5693,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  37.79%
+                  37.56%
                    
                    
                 </div>
@@ -5715,7 +5715,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "5.286831992072836%",
+                        "width": "5.319710350863295%",
                       }
                     }
                   />
@@ -5753,7 +5753,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  11.69%
+                  7.79%
                    
                    
                 </div>
@@ -5773,9 +5773,9 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ffc84a",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "60.97792207792209%",
+                        "width": "81.40389610389612%",
                       }
                     }
                   />
