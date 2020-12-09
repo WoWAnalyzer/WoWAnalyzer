@@ -33,6 +33,9 @@ const spells: number[] = [
   SPELLS.SHADOWCORE_OIL_BLAST.id,
   //endregion
 
+  //region Enchants
+  SPELLS.SINFUL_REVELATION_PROC.id,
+
   //region Death Knight
   SPELLS.BREATH_OF_SINDRAGOSA_TALENT_DAMAGE_TICK.id,
   SPELLS.RUNE_1.id,
@@ -47,6 +50,9 @@ const spells: number[] = [
   SPELLS.RESONATING_ARROW_DEBUFF.id, //The debuff applied to mobs inside Kyrian hunter ability resonating arrow area of effect
   SPELLS.RESONATING_ARROW_DAMAGE.id, //The damage event from the Kyrian Hunter Ability also has a cast event tied to it which we shouldn't track
   //endregion
+
+  //region Mage
+  SPELLS.RUNE_OF_POWER_BUFF.id,
 
   //region Covenants
   SPELLS.COMBAT_MEDITATION_TRIGGER.id, //The Spell ID when Combat Meditation from Kyrian Soulbind triggers, so that there is now a soul ready to pick up

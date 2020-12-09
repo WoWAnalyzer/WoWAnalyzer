@@ -31,6 +31,11 @@ const enchants: SpellList = {
     name: 'Sinful Revelation',
     icon: 'trade_engraving',
   },
+  SINFUL_REVELATION_PROC: {
+    id: 324260,
+    name: 'Sinful Revelation',
+    icon: 'spell_shaman_measuredinsight',
+  },
   FORTIFIED_AVOIDANCE: {
     id: 309530,
     name: 'Fortified Avoidance',

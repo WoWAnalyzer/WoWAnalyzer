@@ -6,6 +6,7 @@ import { change, date } from 'common/changelog';
 
 // prettier-ignore
 export default [
+  change(date(2020, 12, 9), 'Fixed a bug in Cancelled Casts that was counting enchant procs and other effects as abilities that interrupted casts', Sharrq),
   change(date(2020, 12, 9), 'Updated Potions and Flask!', Abelito75),
   change(date(2020, 12, 8), <>Removed all changelog entries before October 2020 that were not related to Shadowlands development, and updated spec contributors to match. If you're interested in older changelogs, visit our <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/tree/bfa">BFA GitHub branch</a>.</>, Putro),
   change(date(2020, 12, 8), 'Removed Azerite traits, Essences, and anything else BFA related from WoWAnalyzer.', Putro),
