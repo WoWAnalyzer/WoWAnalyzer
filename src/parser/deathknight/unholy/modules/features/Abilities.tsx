@@ -189,14 +189,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.SOUL_REAPER_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(SPELLS.SOUL_REAPER_TALENT.id),
-      },
-      {
         spell: SPELLS.UNHOLY_BLIGHT_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         enabled: combatant.hasTalent(SPELLS.UNHOLY_BLIGHT_TALENT.id),
