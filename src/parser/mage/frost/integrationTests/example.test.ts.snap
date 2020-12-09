@@ -3589,7 +3589,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=171267"
+                href="http://wowhead.com/spell=307192"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3687,7 +3687,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=171273"
+                href="http://wowhead.com/spell=307162"
                 rel="noopener noreferrer"
                 style={
                   Object {

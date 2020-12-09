@@ -6,13 +6,18 @@ const spells: SpellList = {
     name: 'Eternal Cauldron',
     icon: 'inv_alchemy_90_cauldron',
   },
+  ETERNAL_FLASK: {
+    id: 307166,
+    name: 'Eternal Flask',
+    icon: 'inv_potion_132',
+  },
   SPECTRAL_FLASK_OF_POWER: {
-    id: 171276,
+    id: 307185,
     name: 'Spectral Flask of Power',
     icon: 'inv_alchemy_90_flask_green',
   },
   SPECTRAL_FLASK_OF_STAMINA: {
-    id: 171278,
+    id: 307187,
     name: 'Spectral Flask of Stamina',
     icon: 'inv_alchemy_90_flask_red',
   },
