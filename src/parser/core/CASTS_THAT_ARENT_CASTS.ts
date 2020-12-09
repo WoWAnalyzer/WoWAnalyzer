@@ -38,6 +38,9 @@ const spells: number[] = [
   SPELLS.SHADOWCORE_OIL_BLAST.id,
   //endregion
 
+  //region Enchants
+  SPELLS.SINFUL_REVELATION_PROC.id,
+
   //region Death Knight
   SPELLS.BREATH_OF_SINDRAGOSA_TALENT_DAMAGE_TICK.id,
   SPELLS.RUNE_1.id,
@@ -49,6 +52,9 @@ const spells: number[] = [
   SPELLS.BARBED_SHOT_PET_BUFF.id, //The buff applied to BM Hunter pet when casting Barbed Shot
   SPELLS.DIRE_BEAST_SUMMON.id, //A secondary cast event from Dire Beast talent
   //endregion
+
+  //region Mage
+  SPELLS.RUNE_OF_POWER_BUFF.id,
 
   //region Covenants
   SPELLS.RESONATING_ARROW_DEBUFF.id, //The debuff applied to mobs inside Kyrian hunter ability resonating arrow area of effect

@@ -9,6 +9,7 @@ import Contributor from 'interface/ContributorButton';
 
 // prettier-ignore
 export default [
+  change(date(2020, 12, 9), 'Fixed a bug in Cancelled Casts that was counting enchant procs and other effects as abilities that interrupted casts', Sharrq),
   change(date(2020, 12, 9), 'Updated Potions and Flask!', Abelito75),
   change(date(2020, 12, 8), 'Updated Stat Tracking to use squished stat values, and added shadowlands food, potions, and flasks.', Sharrq),
   change(date(2020, 12, 7), 'Added background and headshot graphics for Castle Nathria bosses', Sharrq),
