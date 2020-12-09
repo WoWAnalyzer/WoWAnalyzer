@@ -15,23 +15,34 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      - uses: actions/cache@v2
+          node-version: '14.x'
+      - name: Cache "node_modules"
+        uses: martijnhols/cache@read-only
+        id: cache
         with:
           path: node_modules
-          # path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-node_modules2-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node_modules2-
-      - run: yarn --frozen-lockfile --production=false
-      - run: tar -czf dependencies.tar.gz node_modules
-      - uses: actions/upload-artifact@v1
+          key: ${{ runner.os }}-node_modules3-${{ hashFiles('yarn.lock') }}
+          restore-keys: ${{ runner.os }}-node_modules3-
+      - name: Get yarn cache directory path
+        if: steps.cache.outputs.cache-hit != 'true'
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      # Use week number for automatically purging the cache every week. This is
+      # useful because caching yarn-cache would otherwise lead it to grow
+      # indefinitely since old dependencies are never purged.
+      - name: Get week number
+        if: steps.cache.outputs.cache-hit != 'true'
+        id: week-number
+        run: echo "::set-output name=value::$(date +%W)"
+      - name: Cache "yarn-cache"
+        uses: martijnhols/cache@read-only
+        if: steps.cache.outputs.cache-hit != 'true'
         with:
-          name: dependencies
-          path: dependencies.tar.gz
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-${{ steps.week-number.outputs.value }}-yarn-cache-${{ hashFiles('yarn.lock') }}
+          restore-keys: ${{ runner.os }}-${{ steps.week-number.outputs.value }}-yarn-cache-
+      - run: yarn --frozen-lockfile --prefer-offline
+        if: steps.cache.outputs.cache-hit != 'true'
 
   # TODO: Update this when possible to include the node_modules folder. GH is updating artifact action soon to make this
   #  easier (https://github.com/actions/upload-artifact/issues/7#issuecomment-566114993), and cache action multiple path
@@ -45,12 +56,14 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
-      - uses: actions/download-artifact@v1
+          node-version: '14.x'
+      - name: Cache "node_modules"
+        uses: martijnhols/cache@read-only
         with:
-          name: dependencies
-          path: .
-      - run: tar -xzf dependencies.tar.gz
+          path: node_modules
+          key: ${{ runner.os }}-node_modules3-${{ hashFiles('yarn.lock') }}
+          restore-keys: ${{ runner.os }}-node_modules3-
+          read-only: true
       - run: yarn typecheck
   linting:
     needs: [prepare]
@@ -60,12 +73,14 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
-      - uses: actions/download-artifact@v1
+          node-version: '14.x'
+      - name: Cache "node_modules"
+        uses: martijnhols/cache@read-only
         with:
-          name: dependencies
-          path: .
-      - run: tar -xzf dependencies.tar.gz
+          path: node_modules
+          key: ${{ runner.os }}-node_modules3-${{ hashFiles('yarn.lock') }}
+          restore-keys: ${{ runner.os }}-node_modules3-
+          read-only: true
       - run: yarn lint --max-warnings=0
   test-interface:
     needs: [prepare]
@@ -76,12 +91,14 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
-      - uses: actions/download-artifact@v1
+          node-version: '14.x'
+      - name: Cache "node_modules"
+        uses: martijnhols/cache@read-only
         with:
-          name: dependencies
-          path: .
-      - run: tar -xzf dependencies.tar.gz
+          path: node_modules
+          key: ${{ runner.os }}-node_modules3-${{ hashFiles('yarn.lock') }}
+          restore-keys: ${{ runner.os }}-node_modules3-
+          read-only: true
       - run: yarn test:interface --runInBand
   test-parser:
     needs: [prepare]
@@ -91,12 +108,14 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
-      - uses: actions/download-artifact@v1
+          node-version: '14.x'
+      - name: Cache "node_modules"
+        uses: martijnhols/cache@read-only
         with:
-          name: dependencies
-          path: .
-      - run: tar -xzf dependencies.tar.gz
+          path: node_modules
+          key: ${{ runner.os }}-node_modules3-${{ hashFiles('yarn.lock') }}
+          restore-keys: ${{ runner.os }}-node_modules3-
+          read-only: true
       - run: yarn test:parser --runInBand
   test-integration:
     needs: [prepare]
@@ -106,12 +125,14 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
-      - uses: actions/download-artifact@v1
+          node-version: '14.x'
+      - name: Cache "node_modules"
+        uses: martijnhols/cache@read-only
         with:
-          name: dependencies
-          path: .
-      - run: tar -xzf dependencies.tar.gz
+          path: node_modules
+          key: ${{ runner.os }}-node_modules3-${{ hashFiles('yarn.lock') }}
+          restore-keys: ${{ runner.os }}-node_modules3-
+          read-only: true
       - run: yarn test:integration --runInBand
   build:
     needs: [prepare]
@@ -122,17 +143,21 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
-      - uses: actions/download-artifact@v1
+          node-version: '14.x'
+      - name: Cache "node_modules"
+        uses: martijnhols/cache@read-only
         with:
-          name: dependencies
-          path: .
-      - run: tar -xzf dependencies.tar.gz
+          path: node_modules
+          key: ${{ runner.os }}-node_modules3-${{ hashFiles('yarn.lock') }}
+          restore-keys: ${{ runner.os }}-node_modules3-
+          read-only: true
       - name: Extract messages
+        if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer'
         # We need to run extraction twice as Lingui has a bug where the second pass removes the default for messages with the same id as the default
         run: |
           yarn extract
           yarn extract
+          yarn lingui compile
       - name: Production build
         run: |
           # Needed to ignore the mini-css-extract-plugin warnings which can not be fixed with a good solution
@@ -147,10 +172,36 @@ jobs:
         with:
           name: build
           path: build.tar.gz
+  # This only runs on PRs since it's not a part of the build step. This is
+  # required as mistakes in i18n tags may trigger errors, and we skip the
+  # extraction in the build for performance in PRs.
+  extract-verify:
+    needs: [prepare]
+    name: 'Verify i18n messages'
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+      - name: Cache "node_modules"
+        uses: martijnhols/cache@read-only
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node_modules3-${{ hashFiles('yarn.lock') }}
+          restore-keys: ${{ runner.os }}-node_modules3-
+          read-only: true
+      - name: Extract messages
+        # We need to run extraction twice as Lingui has a bug where the second pass removes the default for messages with the same id as the default
+        run: |
+          yarn extract
+          yarn extract
+      - name: Compile messages
+        run: yarn lingui compile
 
   docker-image:
-    needs:
-      [typecheck, linting, test-interface, test-parser, test-integration, build]
+    needs: [typecheck, linting, test-interface, test-parser, test-integration, build]
     name: 'Publish Docker image'
     runs-on: ubuntu-latest
     if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer'
@@ -163,10 +214,85 @@ jobs:
       - run: tar -xzf build.tar.gz
       # Remove files we no longer need to speed up sending context to Docker
       - run: rm build.tar.gz
-      - name: Publish to Registry
-        uses: elgohr/Publish-Docker-Github-Action@2.11
+      - name: Docker meta
+        id: docker_meta
+        uses: crazy-max/ghaction-docker-meta@v1
         with:
-          name: wowanalyzer/wowanalyzer
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-# TODO: Sentry releases https://blog.sentry.io/2019/12/17/using-github-actions-to-create-sentry-releases
+          images: wowanalyzer/wowanalyzer
+          tag-sha: true
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{secrets.DOCKER_USERNAME}}
+          password: ${{secrets.DOCKER_PASSWORD}}
+      - name: 'Build martijnhols/healfie:${{env.DOCKER_BUILD_TAG}}'
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}
+
+  # TODO: Sentry releases https://blog.sentry.io/2019/12/17/using-github-actions-to-create-sentry-releases
+
+  extract-messages:
+    needs: [prepare]
+    name: 'Extract messages'
+    runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer'
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+      - name: Cache "node_modules"
+        uses: martijnhols/cache@read-only
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node_modules3-${{ hashFiles('yarn.lock') }}
+          restore-keys: ${{ runner.os }}-node_modules3-
+          read-only: true
+      - name: Extract messages
+        # We need to run extraction twice as Lingui has a bug where the second pass removes the default for messages with the same id as the default
+        run: |
+          yarn extract
+          yarn extract
+      - name: Has changes
+        id: has-changes
+        run: echo "::set-output name=changed::$(if [[ `git status --porcelain` ]]; then echo "true"; else echo "false"; fi)"
+      - name: Commit changes
+        if: steps.has-changes.outputs.changed == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -m "Update i18n messages" -a
+      - name: Create Pull Request
+        if: steps.has-changes.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v3
+        with:
+          commit-message: Extract new i18n messages
+          title: Extract new i18n messages
+          body: New i18n messages need to be added to the messages files so translators can translate them.
+          branch: update-messages
+
+  require-changelog-entry:
+    name: 'Has new changelog entry'
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    env:
+      YARN_CACHE_FOLDER: .yarn-cache
+    steps:
+      - uses: actions/checkout@v2
+      - run: git fetch --no-tags --depth=1 origin $GITHUB_BASE_REF:$GITHUB_BASE_REF
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+      - run: node scripts/require-changelog-entry.js
