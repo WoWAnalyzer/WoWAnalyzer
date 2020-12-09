@@ -56,7 +56,7 @@ const config: Config = {
     GLIMMER: {
       url: 'glimmer',
       name: 'Glimmer Paladin',
-      icon: <SpellIcon id={SPELLS.GLIMMER_OF_LIGHT.id} />,
+      icon: <SpellIcon id={SPELLS.GLIMMER_OF_LIGHT_TALENT.id} />,
       visible: true,
     },
   },
