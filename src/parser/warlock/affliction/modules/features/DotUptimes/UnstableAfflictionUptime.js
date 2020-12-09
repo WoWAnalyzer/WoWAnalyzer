@@ -35,17 +35,12 @@ class UnstableAfflictionUptime extends Analyzer {
   }
 
   onUAapply(event) {
-    if (this._count === 0) {
-      this._buffStart = event.timestamp;
-    }
-    this._count += 1;
+    this._buffStart = event.timestamp;
   }
 
   onUAremove(event) {
-    this._count -= 1;
-    if (this._count === 0) {
-      this.buffedTime += event.timestamp - this._buffStart;
-    }
+    // I noticed that if UA gets pre-cast, we don't get the UA apply event?
+    this.buffedTime += event.timestamp - Math.max(this._buffStart, this.owner.fight.start_time);
   }
 
   onDamage(event) {
