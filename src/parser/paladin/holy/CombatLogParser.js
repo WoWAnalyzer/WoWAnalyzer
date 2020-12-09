@@ -44,13 +44,6 @@ import AvengingCrusader from './modules/talents/AvengingCrusader';
 import JudgmentOfLight from './modules/talents/JudgmentOfLight';
 import GlimmerOfLight from './modules/talents/GlimmerOfLight';
 
-
-// azerite traits //
-import GraceOfTheJusticar from './modules/azeritetraits/GraceOfTheJusticar';
-import GlimmerOfLight from './modules/azeritetraits/GlimmerOfLight';
-import LightsDecree from './modules/azeritetraits/LightsDecree';
-import RadiantIncandescence from './modules/azeritetraits/RadiantIncandescence';
-
 import HolyPowerTracker from '../shared/holypower/HolyPowerTracker';
 import HolyPowerDetails from '../shared/holypower/HolyPowerDetails';
 
@@ -111,12 +104,6 @@ class CombatLogParser extends CoreCombatLogParser {
     avengingCrusader: AvengingCrusader,
     judgmentOfLight: JudgmentOfLight,
     glimmerOfLight: GlimmerOfLight,
-
-    // Azerite Traits //
-    graceOfTheJusticar: GraceOfTheJusticar,
-    radiantIncandescence: RadiantIncandescence,
-    glimmerOfLight: GlimmerOfLight,
-    lightsDecree: LightsDecree,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,
