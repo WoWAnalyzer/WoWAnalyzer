@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, CastEvent, EventType, HealEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 
 import Statistic from 'interface/statistics/Statistic';
