@@ -16,8 +16,6 @@ import UptimeBar from 'interface/statistics/components/UptimeBar';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
-import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../../constants';
-
 const CONTAGION_DAMAGE_BONUS = 0.1; // former talent Contagion is now baked into UA
 class UnstableAfflictionUptime extends Analyzer {
   static dependencies = {
@@ -31,8 +29,8 @@ class UnstableAfflictionUptime extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(UNSTABLE_AFFLICTION_DEBUFFS), this.onUAapply);
-    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(UNSTABLE_AFFLICTION_DEBUFFS), this.onUAremove);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.UNSTABLE_AFFLICTION), this.onUAapply);
+    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.UNSTABLE_AFFLICTION), this.onUAremove);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
@@ -55,7 +53,7 @@ class UnstableAfflictionUptime extends Analyzer {
     if (!enemy) {
       return;
     }
-    if (UNSTABLE_AFFLICTION_DEBUFFS.every(spell => !enemy.hasBuff(spell.id))) {
+    if (!enemy.hasBuff(SPELLS.UNSTABLE_AFFLICTION.id)) {
       return;
     }
     this.damage += calculateEffectiveDamage(event, CONTAGION_DAMAGE_BONUS);
@@ -92,7 +90,7 @@ class UnstableAfflictionUptime extends Analyzer {
   }
 
   subStatistic() {
-    const history = this.enemies.getCombinedDebuffHistory(UNSTABLE_AFFLICTION_DEBUFFS.map(spell => spell.id));
+    const history = this.enemies.getCombinedDebuffHistory([SPELLS.UNSTABLE_AFFLICTION.id]);
     return (
       <div className="flex">
         <div className="flex-sub icon">

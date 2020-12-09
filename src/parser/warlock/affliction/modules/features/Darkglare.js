@@ -12,14 +12,14 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
-import { getDotDurations, UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
+import { getDotDurations } from '../../constants';
 
 const BONUS_DURATION = 8000;
 const DOT_DEBUFFS = [
   SPELLS.AGONY,
   SPELLS.CORRUPTION_DEBUFF,
   SPELLS.SIPHON_LIFE_TALENT,
-  ...UNSTABLE_AFFLICTION_DEBUFFS,
+  SPELLS.UNSTABLE_AFFLICTION,
   SPELLS.PHANTOM_SINGULARITY_TALENT,
 ];
 const debug = false;

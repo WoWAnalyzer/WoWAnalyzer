@@ -5,8 +5,6 @@ import SPELLS from 'common/SPELLS';
 
 import { mapSpellsToIds } from 'parser/warlock/shared/helpers';
 
-import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
-
 const FEL_CELERITY_REDUCTION_SEC = {
   1: 48,
   2: 51,
@@ -36,7 +34,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        buffSpellId: [...mapSpellsToIds(UNSTABLE_AFFLICTION_DEBUFFS)],
+        buffSpellId: SPELLS.UNSTABLE_AFFLICTION.id,
       },
       {
         spell: SPELLS.HAUNT_TALENT,

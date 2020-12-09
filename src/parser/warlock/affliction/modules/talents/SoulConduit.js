@@ -11,7 +11,6 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { findMax, binomialPMF } from 'parser/shared/modules/helpers/Probability';
 
-import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
 import SoulShardTracker from '../soulshards/SoulShardTracker';
 
 const TICKS_PER_UA = 4;
@@ -28,7 +27,7 @@ class SoulConduit extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SOUL_CONDUIT_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(UNSTABLE_AFFLICTION_DEBUFFS), this.onUnstableAfflictionDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.UNSTABLE_AFFLICTION), this.onUnstableAfflictionDamage);
   }
 
   onUnstableAfflictionDamage(event) {

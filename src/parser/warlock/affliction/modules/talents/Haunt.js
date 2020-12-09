@@ -16,8 +16,6 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
-import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
-
 const HAUNT_DAMAGE_BONUS = 0.1;
 
 class Haunt extends Analyzer {
@@ -42,7 +40,7 @@ class Haunt extends Analyzer {
     }
     const hasHaunt = target.hasBuff(SPELLS.HAUNT_TALENT.id, event.timestamp);
 
-    if (UNSTABLE_AFFLICTION_DEBUFFS.some(spell => spell.id === event.ability.guid)) {
+    if (SPELLS.UNSTABLE_AFFLICTION.id === event.ability.guid) {
       this.totalTicks += 1;
       if (hasHaunt) {
         this.buffedTicks += 1;
