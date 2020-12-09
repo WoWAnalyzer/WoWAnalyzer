@@ -28,7 +28,7 @@ const spells = {
     id: 32379,
     name: 'Shadow Word: Death',
     icon: 'spell_shadow_demonicfortitude',
-    manaCost: 800,
+    manaCost: 250,
   },
   POWER_INFUSION: {
     id: 265314,
@@ -81,7 +81,7 @@ const spells = {
     id: 585,
     name: 'Smite',
     icon: 'spell_holy_holysmite',
-    manaCost: 200,
+    manaCost: 100,
   },
   POWER_WORD_RADIANCE: {
     id: 194509,
@@ -342,7 +342,7 @@ const spells = {
     id: 2060,
     name: 'Heal',
     icon: 'spell_holy_greaterheal',
-    manaCost: 1900,
+    manaCost: 1200,
   },
   CIRCLE_OF_HEALING_TALENT: {
     id: 204883,
@@ -354,7 +354,7 @@ const spells = {
     id: 2061,
     name: 'Flash Heal',
     icon: 'spell_holy_flashheal',
-    manaCost: 3000,
+    manaCost: 1800,
   },
   PRAYER_OF_MENDING_CAST: {
     id: 33076,

@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
 import CoreAbilities from 'parser/core/modules/Abilities';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -333,6 +334,53 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.SPIRIT_OF_REDEMPTION_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: () => this.owner.fightDuration / 1000,
+      },
+      {
+        spell: SPELLS.SHADOW_WORD_PAIN,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.MIND_BLAST,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.MIND_SOOTHE,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.POWER_INFUSION,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.SHADOW_WORD_DEATH,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.FLESHCRAFT,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 120,
+        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+      },
+      {
+        spell: SPELLS.UNHOLY_NOVA_BUFF,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 120,
+        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },
     ];
   }
