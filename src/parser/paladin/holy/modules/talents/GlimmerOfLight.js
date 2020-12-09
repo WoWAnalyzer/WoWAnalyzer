@@ -8,6 +8,7 @@ import { formatPercentage } from 'common/format';
 
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Events from 'parser/core/Events';
@@ -23,9 +24,7 @@ import BeaconHealSource from '../beacons/BeaconHealSource.js';
  */
 
 const BUFF_DURATION = 30;
-export const GLIMMER_CAP_8_3 = 8;
-export const IS_IT_8_3_YET = new Date() > new Date(2020, 1, 14);
-const GLIMMER_CAP = IS_IT_8_3_YET ? GLIMMER_CAP_8_3 : 99;
+const GLIMMER_CAP = 8;
 
 class GlimmerOfLight extends Analyzer {
   static dependencies = {
@@ -46,7 +45,7 @@ class GlimmerOfLight extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTrait(SPELLS.GLIMMER_OF_LIGHT_TRAIT.id) || this.selectedCombatant.hasTalent(SPELLS.GLIMMER_OF_LIGHT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.GLIMMER_OF_LIGHT_TALENT.id);
     if (!this.active) {
       return;
     }
@@ -55,7 +54,7 @@ class GlimmerOfLight extends Analyzer {
       this.onCast,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.GLIMMER_OF_LIGHT, SPELLS.GLIMMER_OF_LIGHT_HEAL_TALENT]),
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GLIMMER_OF_LIGHT_HEAL_TALENT),
       this.onHeal,
     );
     this.addEventListener(
@@ -63,7 +62,7 @@ class GlimmerOfLight extends Analyzer {
       this.onBeaconTransfer,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.GLIMMER_OF_LIGHT_DAMAGE, SPELLS.GLIMMER_OF_LIGHT_DAMAGE_TALENT]),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.GLIMMER_OF_LIGHT_DAMAGE_TALENT),
       this.onDamage,
     );
     this.addEventListener(
@@ -86,7 +85,7 @@ class GlimmerOfLight extends Analyzer {
 
   onBeaconTransfer(event) {
     const spellId = event.originalHeal.ability.guid;
-    if (spellId !== SPELLS.GLIMMER_OF_LIGHT.id) {
+    if (spellId !== SPELLS.GLIMMER_OF_LIGHT_TALENT.id) {
       return;
     }
     this.healingTransfered += event.amount + (event.absorbed || 0);
@@ -156,7 +155,8 @@ class GlimmerOfLight extends Analyzer {
     return (
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
-        trait={SPELLS.GLIMMER_OF_LIGHT.id}
+        category={STATISTIC_CATEGORY.TALENTS}
+        trait={SPELLS.GLIMMER_OF_LIGHT_TALENT.id}
         value={
           <>
             <ItemHealingDone amount={this.totalHealing} />
@@ -226,44 +226,21 @@ class GlimmerOfLight extends Analyzer {
     if (this.owner.builds.GLIMMER.active) {
       when(this.suggestEarlyRefresh).addSuggestion((suggest, actual, recommended) => suggest(
           <Trans id="paladin.holy.modules.azeritetraits.glimmerOfLight">
-            Your usage of <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> can be improved. To maximize
-            the healing/damage done by <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} />, try to keep as
+            Your usage of <SpellLink id={SPELLS.GLIMMER_OF_LIGHT_TALENT.id} /> can be improved. To maximize
+            the healing/damage done by <SpellLink id={SPELLS.GLIMMER_OF_LIGHT_TALENT.id} />, try to keep as
             many buffs up as possible. Avoid overwritting buffs early, this suggestion does not take
             priority over healing targets with low health. If two targets have similar health pools
             priorize the target without a glimmer as your{' '}
             <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> will heal all players with active buffs.
           </Trans>,
         )
-          .icon(SPELLS.GLIMMER_OF_LIGHT.icon)
+          .icon(SPELLS.GLIMMER_OF_LIGHT_TALENT.icon)
           .actual(
             `Uptime lost to early Glimmer refresh was ${formatPercentage(
               this.earlyGlimmerRefreshLoss,
             )}%`,
           )
           .recommended(`< ${this.suggestEarlyRefresh.isGreaterThan.minor * 100}% is recommended`));
-    }
-
-    if (this.owner.builds.GLIMMER.active) {
-      when(this.suggestGlimmerCap).addSuggestion((suggest, actual, recommended) => suggest(
-          <Trans id="paladin.holy.modules.azeritetraits.glimmerOfLight.patch83">
-            Patch 8.3 implemented a{' '}
-            <a href="https://www.wowhead.com/news=295502.3/blizzard-official-class-changes-for-patch-8-3-visions-of-nzoth">
-              glimmer cap{' '}
-            </a>
-            limiting the number of active <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> buffs to{' '}
-            {GLIMMER_CAP}.<br />
-            Avoid stacking haste cooldowns to prevent over-capping on{' '}
-            <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} />.
-            <a href="https://questionablyepic.com/glimmer-8-3/">More info here.</a>
-          </Trans>,
-        )
-          .icon(SPELLS.GLIMMER_OF_LIGHT.icon)
-          .actual(
-            `Uptime lost to overcapping active Glimmers was ${formatPercentage(
-              this.overCapGlimmerLoss,
-            )}%`,
-          )
-          .recommended(`< ${this.suggestGlimmerCap.isGreaterThan.minor * 100}% is reccommended`));
     }
   }
 }

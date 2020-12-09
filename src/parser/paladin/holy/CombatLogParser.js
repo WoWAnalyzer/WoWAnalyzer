@@ -43,13 +43,7 @@ import DivinePurpose from '../shared/talents/DivinePurpose';
 import CrusadersMight from './modules/talents/CrusadersMight';
 import AvengingCrusader from './modules/talents/AvengingCrusader';
 import JudgmentOfLight from './modules/talents/JudgmentOfLight';
-
-// azerite traits //
-import GraceOfTheJusticar from './modules/azeritetraits/GraceOfTheJusticar';
-import GlimmerOfLight from './modules/azeritetraits/GlimmerOfLight';
-import LightsDecree from './modules/azeritetraits/LightsDecree';
-import RadiantIncandescence from './modules/azeritetraits/RadiantIncandescence';
-import VisionOfPerfection from './modules/azeritetraits/VisionOfPerfection';
+import GlimmerOfLight from './modules/talents/GlimmerOfLight';
 
 import HolyPowerTracker from '../shared/holypower/HolyPowerTracker';
 import HolyPowerDetails from '../shared/holypower/HolyPowerDetails';
@@ -110,13 +104,8 @@ class CombatLogParser extends CoreCombatLogParser {
     crusadersMight: CrusadersMight,
     avengingCrusader: AvengingCrusader,
     judgmentOfLight: JudgmentOfLight,
-
-    // Azerite Traits //
-    graceOfTheJusticar: GraceOfTheJusticar,
-    radiantIncandescence: RadiantIncandescence,
     glimmerOfLight: GlimmerOfLight,
-    lightsDecree: LightsDecree,
-    visionOfPerfection: VisionOfPerfection,
+
 
     // Azerite Essences //
     lucidDream: LucidDreamsHealers,
