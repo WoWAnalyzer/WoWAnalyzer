@@ -4,8 +4,7 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import { SpellList } from "./Spell";
-const spells: SpellList = {
+const spells = {
   // Paladin:
   CRUSADER_STRIKE: {
     id: 35395,
@@ -590,5 +589,6 @@ const spells: SpellList = {
     name: 'Divine Shield',
     icon: 'spell_holy_divineshield',
   },
-};
+} as const;
+
 export default spells;

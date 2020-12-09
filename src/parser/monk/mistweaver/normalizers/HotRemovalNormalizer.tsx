@@ -48,4 +48,5 @@ class HotRemovalNormalizer extends EventsNormalizer {
   }
 
 }
+
 export default HotRemovalNormalizer;

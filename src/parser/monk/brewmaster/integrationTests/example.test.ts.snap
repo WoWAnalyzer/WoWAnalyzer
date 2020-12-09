@@ -2909,7 +2909,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=171267"
+                href="http://wowhead.com/spell=307192"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3007,7 +3007,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=171273"
+                href="http://wowhead.com/spell=307162"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3559,25 +3559,6 @@ exports[`Brewmaster Monk integration test: example log DistanceMoved matches the
     </div>
   </div>
 </div>
-`;
-
-exports[`Brewmaster Monk integration test: example log FlaskChecker matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "inv_alchemy_90_flask_green",
-    "importance": "minor",
-    "issue": "You did not have a flask up before combat. Having a flask during combat increases your primary stat significantly.",
-    "stat": null,
-  },
-  Object {
-    "details": null,
-    "icon": "inv_alchemy_90_flask_green",
-    "importance": "minor",
-    "issue": "You did not have the best flask active when starting the fight. Using the best flask available is an easy way to improve performance.",
-    "stat": null,
-  },
-]
 `;
 
 exports[`Brewmaster Monk integration test: example log FoodChecker matches the suggestions snapshot 1`] = `
@@ -5677,8 +5658,8 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ac1f39",
-                  "width": "0%",
+                  "backgroundColor": "#ffc84a",
+                  "width": "60%",
                 }
               }
             />
@@ -6137,7 +6118,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  common.no
+                  common.yes
                    
                    
                 </div>
@@ -6157,9 +6138,9 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "0%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -6197,7 +6178,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  common.no
+                  common.yes
                    
                    
                 </div>
@@ -6217,9 +6198,9 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "0%",
+                        "width": "100%",
                       }
                     }
                   />

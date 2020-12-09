@@ -17,11 +17,9 @@ class StatWeights extends BaseHealerStatValues {
     statTracker: StatTracker,
     mastery: Mastery,
   };
-
-  protected statTracker!: StatTracker;
-
   spellInfo = PRIEST_HEAL_INFO;
   qeLive = false;
+  protected statTracker!: StatTracker;
 
   _hasteHpm(event: any, healVal: any) {
     if (event.ability.guid === SPELLS.RENEW.id && !event.tick) {

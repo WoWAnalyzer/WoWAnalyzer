@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS/index';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { SpendResourceEvent } from 'parser/core/Events';
 
 /**
@@ -12,10 +12,8 @@ class DeepeningShadows extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
-
-  protected spellUsable!: SpellUsable;
-
   cdrPerComboPoint: number = 0;
+  protected spellUsable!: SpellUsable;
 
   constructor(options: Options) {
     super(options);

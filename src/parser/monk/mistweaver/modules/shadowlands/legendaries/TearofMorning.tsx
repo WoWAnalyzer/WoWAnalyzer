@@ -12,7 +12,6 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { formatThousands } from 'common/format';
 import DonutChart from 'interface/statistics/components/DonutChart';
 
-
 const POWER_TRANSFER = .25;
 
 class TearofMorning extends Analyzer {
@@ -26,7 +25,7 @@ class TearofMorning extends Analyzer {
   /**
    * When you cast renewing mist on a target you grant them extend life, Extend life makes it so all vivify and eveloping mist/breath is replicated on the target by 25%
    */
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
     this.active = false;
 
@@ -41,11 +40,11 @@ class TearofMorning extends Analyzer {
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.vivifyHealing);
   }
 
-  manageBuffApplied(event: ApplyBuffEvent){
+  manageBuffApplied(event: ApplyBuffEvent) {
     this.numberOExtendLifes += 1;
   }
 
-  manageBuffRemoved(event: RemoveBuffEvent){
+  manageBuffRemoved(event: RemoveBuffEvent) {
     this.numberOExtendLifes -= 1;
   }
 
@@ -57,15 +56,15 @@ class TearofMorning extends Analyzer {
     this.envbHealing += ((event.amount || 0) + (event.absorbed || 0) + (event.overheal || 0)) * POWER_TRANSFER * this.numberOExtendLifes;
   }
 
-  vivifyHealing(event: HealEvent){
+  vivifyHealing(event: HealEvent) {
     this.vivHealing += ((event.amount || 0) + (event.absorbed || 0) + (event.overheal || 0)) * POWER_TRANSFER * this.numberOExtendLifes;
   }
 
   renderDonutChart() {
     const totalHealing = this.vivHealing + this.envHealing + this.envbHealing;
-    const vivRatio = this.vivHealing/totalHealing;
-    const envRatio = this.envHealing/totalHealing;
-    const envbRatio = this.envbHealing/totalHealing;
+    const vivRatio = this.vivHealing / totalHealing;
+    const envRatio = this.envHealing / totalHealing;
+    const envbRatio = this.envbHealing / totalHealing;
     const items = [
       {
         color: '#00b159',

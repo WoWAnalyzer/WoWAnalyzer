@@ -15,9 +15,13 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 const debug = false;
-class FireAndBrimstone extends Analyzer {
-  _primaryTargets = [];
 
+class FireAndBrimstone extends Analyzer {
+  get dps() {
+    return this.bonusDmg / this.owner.fightDuration * 1000;
+  }
+
+  _primaryTargets = [];
   bonusFragments = 0;
   bonusDmg = 0;
 
@@ -59,14 +63,10 @@ class FireAndBrimstone extends Analyzer {
     // but because the second Incinerate "technically" doesn't have a cast event to pair with, it's incorrectly recognized as cleaved
     when(this.bonusFragments).isEqual(0)
       .addSuggestion(suggest => suggest(<>Your <SpellLink id={SPELLS.FIRE_AND_BRIMSTONE_TALENT.id} icon /> talent didn't contribute any bonus fragments. When there are no adds to cleave onto, this talent is useless and you should switch to a different talent.</>)
-          .icon(SPELLS.FIRE_AND_BRIMSTONE_TALENT.icon)
-          .actual('No bonus Soul Shard Fragments generated')
-          .recommended('Different talent is recommended')
-          .staticImportance(ISSUE_IMPORTANCE.MAJOR));
-  }
-
-  get dps() {
-    return this.bonusDmg / this.owner.fightDuration * 1000;
+        .icon(SPELLS.FIRE_AND_BRIMSTONE_TALENT.icon)
+        .actual('No bonus Soul Shard Fragments generated')
+        .recommended('Different talent is recommended')
+        .staticImportance(ISSUE_IMPORTANCE.MAJOR));
   }
 
   statistic() {

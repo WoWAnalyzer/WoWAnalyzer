@@ -12,19 +12,13 @@ class Icefury extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
-  protected abilityTracker!: AbilityTracker;
   empoweredFrostShockCasts = 0;
+  protected abilityTracker!: AbilityTracker;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ICEFURY_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FROST_SHOCK), this.onFrostShockCast);
-  }
-
-  onFrostShockCast() {
-    if (this.selectedCombatant.hasBuff(SPELLS.ICEFURY_TALENT.id)) {
-      this.empoweredFrostShockCasts += 1;
-    }
   }
 
   get suggestionThresholds() {
@@ -37,6 +31,12 @@ class Icefury extends Analyzer {
       },
       style: ThresholdStyle.DECIMAL,
     };
+  }
+
+  onFrostShockCast() {
+    if (this.selectedCombatant.hasBuff(SPELLS.ICEFURY_TALENT.id)) {
+      this.empoweredFrostShockCasts += 1;
+    }
   }
 
   suggestions(when: When) {

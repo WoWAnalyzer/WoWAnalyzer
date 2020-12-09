@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { EnergizeEvent, DamageEvent } from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { DamageEvent, EnergizeEvent } from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -22,10 +22,24 @@ class Recklessness extends Analyzer {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onPlayerDamage);
   }
 
+  get uptime() {
+    return this.selectedCombatant.getBuffUptime(SPELLS.RECKLESSNESS.id) / this.owner.fightDuration;
+  }
+
+  get ratioReckRageGen() {
+    return this.reckRageGen / this.totalRageGen;
+  }
+
+  get reckDPS() {
+    return this.owner.getPercentageOfTotalDamageDone(this.reckDamage);
+  }
+
   onPlayerEnergize(event: EnergizeEvent) {
     const resource = event.classResources && event.classResources.find(classResources => classResources.type === RESOURCE_TYPES.RAGE.id);
 
-    if (!resource) {return;}
+    if (!resource) {
+      return;
+    }
 
     if (this.selectedCombatant.hasBuff(SPELLS.RECKLESSNESS.id)) {
       this.reckRageGen += event.resourceChange / 2;
@@ -38,18 +52,6 @@ class Recklessness extends Analyzer {
     if (this.selectedCombatant.hasBuff(SPELLS.RECKLESSNESS.id)) {
       this.reckDamage += event.amount;
     }
-  }
-
-  get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.RECKLESSNESS.id) / this.owner.fightDuration;
-  }
-
-  get ratioReckRageGen() {
-    return this.reckRageGen / this.totalRageGen;
-  }
-
-  get reckDPS() {
-    return this.owner.getPercentageOfTotalDamageDone(this.reckDamage);
   }
 
   statistic() {

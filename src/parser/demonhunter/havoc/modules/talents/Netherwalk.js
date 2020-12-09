@@ -53,7 +53,7 @@ class Netherwalk extends Analyzer {
                 ))}
               </tbody>
             </table>
-          </> : ""
+          </> : ''
         )}
       >
         <BoringSpellValueText spell={SPELLS.NETHERWALK_TALENT}>

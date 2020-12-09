@@ -125,7 +125,7 @@ describe('Druid/Feral/Normalizers/BleedDebuffEvents', () => {
           event.debuffEvents.map(linkedEvent => (
             linkedEvent.testid
           ))
-         : null
+          : null
       ))).toEqual(scenario.result);
     });
   });

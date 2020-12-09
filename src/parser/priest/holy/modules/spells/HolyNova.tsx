@@ -9,7 +9,7 @@ import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import { formatPercentage, formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 
 class HolyNova extends Analyzer {
   static dependencies = {
@@ -94,15 +94,15 @@ class HolyNova extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.HOLY_NOVA.id} />}
         value={(
-<>
-          Average Hits:&nbsp;
-          <div style={{ 'color': 'green', display: 'inline-block' }}> {Math.floor(this.averageFriendlyTargetsHit)}</div>
-          |
-          <div style={{ 'color': 'red', display: 'inline-block' }}> {Math.floor(this.averageEnemyTargetsHit)}</div><br />
-          <ItemHealingDone amount={this.effectiveHealing} /><br />
-          <ItemDamageDone amount={this.damageDone} />
-        </>
-)}
+          <>
+            Average Hits:&nbsp;
+            <div style={{ 'color': 'green', display: 'inline-block' }}> {Math.floor(this.averageFriendlyTargetsHit)}</div>
+            |
+            <div style={{ 'color': 'red', display: 'inline-block' }}> {Math.floor(this.averageEnemyTargetsHit)}</div><br />
+            <ItemHealingDone amount={this.effectiveHealing} /><br />
+            <ItemDamageDone amount={this.damageDone} />
+          </>
+        )}
         label="Holy Nova"
         tooltip={(
           <>
@@ -117,9 +117,9 @@ class HolyNova extends Analyzer {
   suggestions(when: When) {
     when(this.holyNovaThreshold)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You should only cast <SpellLink id={SPELLS.HOLY_NOVA.id} /> when you will hit 5 or more targets.</>)
-            .icon(SPELLS.HOLY_NOVA.icon)
-            .actual(<>You hit an average of {actual} targets when you cast Holy Nova.</>)
-            .recommended(`An average of ${recommended} or more healing hits per cast is recommended.`),
+        .icon(SPELLS.HOLY_NOVA.icon)
+        .actual(<>You hit an average of {actual} targets when you cast Holy Nova.</>)
+        .recommended(`An average of ${recommended} or more healing hits per cast is recommended.`),
       );
   }
 }

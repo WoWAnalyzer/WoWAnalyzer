@@ -2483,7 +2483,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=171267"
+                href="http://wowhead.com/spell=307192"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2581,7 +2581,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=171273"
+                href="http://wowhead.com/spell=307162"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2891,7 +2891,7 @@ exports[`Protection Paladin integration test: example log Consecration matches t
           className="flex-main value"
         >
           <div>
-            75.86 %
+            55.93 %
           </div>
           <small>
             Hits Mitigated w/ Consecration
@@ -2911,7 +2911,7 @@ Array [
     "importance": "major",
     "issue": "Your Consecration usage can be improved. Maintain it to reduce all incoming damage and refresh it during rotational downtime.",
     "stat": <React.Fragment>
-      75.86% of hits were mitigated by Consecration
+      55.93% of hits were mitigated by Consecration
        (
       &gt;95.00% is recommended
       )
@@ -5178,7 +5178,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "22.27096638796493%",
+                  "width": "20.19701475149503%",
                 }
               }
             />
@@ -5511,7 +5511,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                   }
                 >
                    
-                  75.86%
+                  55.93%
                    
                    
                 </div>
@@ -5533,7 +5533,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "31.57758620689655%",
+                        "width": "23.281779661016948%",
                       }
                     }
                   />

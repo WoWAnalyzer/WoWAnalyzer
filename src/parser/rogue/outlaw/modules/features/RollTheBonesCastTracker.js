@@ -30,45 +30,44 @@ const PANDEMIC_WINDOW = 0.3;
  * CAST_SUCCESS for Roll the Bones
  */
 class RollTheBonesCastTracker extends Analyzer {
+  get lastCast() {
+    return this.rolltheBonesCastEvents[this.rolltheBonesCastEvents.length - 1];
+  }
+
   static dependencies = {
     energyCapTracker: EnergyCapTracker,
   };
-
-  constructor(...args) {
-    super(...args);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ROLL_THE_BONES), this.processCast);
-  }
-
   rolltheBonesCastEvents = [];
   rolltheBonesCastValues = Object.values(ROLL_THE_BONES_CATEGORIES).reduce((map, label) => {
     map[label] = [];
     return map;
   }, {});
 
-  get lastCast(){
-    return this.rolltheBonesCastEvents[this.rolltheBonesCastEvents.length-1];
+  constructor(...args) {
+    super(...args);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ROLL_THE_BONES), this.processCast);
   }
 
-  categorizeCast(cast){
-    if(cast.appliedBuffs.some(buff => buff.id === SPELLS.RUTHLESS_PRECISION.id || buff.id === SPELLS.GRAND_MELEE.id)){
+  categorizeCast(cast) {
+    if (cast.appliedBuffs.some(buff => buff.id === SPELLS.RUTHLESS_PRECISION.id || buff.id === SPELLS.GRAND_MELEE.id)) {
       return ROLL_THE_BONES_CATEGORIES.HIGH_VALUE;
-    } else if(cast.appliedBuffs.length > 1){
+    } else if (cast.appliedBuffs.length > 1) {
       return ROLL_THE_BONES_CATEGORIES.MID_VALUE;
     }
 
     return ROLL_THE_BONES_CATEGORIES.LOW_VALUE;
   }
 
-  castRemainingDuration(cast){
-    if(!cast.timestampEnd){
+  castRemainingDuration(cast) {
+    if (!cast.timestampEnd) {
       return 0;
     }
 
     return cast.duration - (cast.timestampEnd - cast.timestamp);
   }
 
-  processCast(event){
-    if(!event || !event.classResources){
+  processCast(event) {
+    if (!event || !event.classResources) {
       return;
     }
     const refresh = this.lastCast ? event.timestamp < (this.lastCast.timestamp + this.lastCast.duration) : false;
@@ -79,7 +78,7 @@ class RollTheBonesCastTracker extends Analyzer {
     let duration = ROLL_THE_BONES_DURATION;
 
     // If somehow logging starts in the middle of combat and the first cast is actually a refresh, pandemic timing and previous buffs will be missing
-    if(refresh && this.lastCast){
+    if (refresh && this.lastCast) {
       this.lastCast.timestampEnd = event.timestamp;
 
       // pandemic works a little differently for rogues. RTB works the same way Rupture works for Assassination

@@ -21,11 +21,6 @@ example report: https://www.warcraftlogs.com/reports/1HRhNZa2cCkgK9AV/#fight=48&
 
 class Momentum extends Analyzer {
 
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.MOMENTUM_TALENT.id);
-  }
-
   get buffUptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.MOMENTUM_BUFF.id) / this.owner.fightDuration;
   }
@@ -44,6 +39,11 @@ class Momentum extends Analyzer {
       },
       style: 'percentage',
     };
+  }
+
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.MOMENTUM_TALENT.id);
   }
 
   suggestions(when) {

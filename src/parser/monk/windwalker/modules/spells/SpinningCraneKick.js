@@ -9,7 +9,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Events from 'parser/core/Events';
 
-const isEqual = (a, b) => a.id === b.id && a.instance === b.instance
+const isEqual = (a, b) => a.id === b.id && a.instance === b.instance;
 
 class SpinningCraneKick extends Analyzer {
   static dependencies = {

@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELLS from 'common/SPELLS';
@@ -35,7 +35,7 @@ class BladeRush extends Analyzer {
       } else {
         this.spellUsable.reduceCooldown(SPELLS.BLADE_RUSH_TALENT.id, cooldownReduction, event.timestamp);
       }
-      
+
     }
   }
 }

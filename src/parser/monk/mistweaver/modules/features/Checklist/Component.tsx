@@ -56,7 +56,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: any)
         {!combatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id) && <AbilityRequirement spell={SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id} />}
         {combatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id) && <AbilityRequirement spell={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id} />}
         <AbilityRequirement spell={SPELLS.TOUCH_OF_DEATH.id} />
-        <Requirement name={(<><SpellLink id={SPELLS.ENVELOPING_BREATH.id} /> applied per  <SpellLink id={SPELLS.ENVELOPING_MIST.id} /> cast</>)} thresholds={thresholds.envelopingBreath} />
+        <Requirement name={(<><SpellLink id={SPELLS.ENVELOPING_BREATH.id} /> applied per <SpellLink id={SPELLS.ENVELOPING_MIST.id} /> cast</>)} thresholds={thresholds.envelopingBreath} />
         {/* We can't detect race, so disable this when it has never been cast. */}
         {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_MANA1.id) && (
           <AbilityRequirement spell={SPELLS.ARCANE_TORRENT_MANA1.id} />
@@ -71,14 +71,14 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: any)
           </>
         )}
       >
-      <Requirement
-        name={(<><SpellLink id={SPELLS.ESSENCE_FONT.id} /> targets hit</>)} thresholds={thresholds.essenceFont}
-      />
-      {combatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id) &&
-      <Requirement name={(<><SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} /> % targets hit</>)} thresholds={thresholds.refreshingJadeWind} />}
-      {combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id) &&
-      <Requirement name={(<><SpellLink id={SPELLS.CHI_BURST_TALENT.id} /> targets hit</>)} thresholds={thresholds.chiBurst} />}
-      <Requirement name={(<><SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> casts hitting 2 or fewer targets</>)} thresholds={thresholds.spinningCraneKick} />
+        <Requirement
+          name={(<><SpellLink id={SPELLS.ESSENCE_FONT.id} /> targets hit</>)} thresholds={thresholds.essenceFont}
+        />
+        {combatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id) &&
+        <Requirement name={(<><SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} /> % targets hit</>)} thresholds={thresholds.refreshingJadeWind} />}
+        {combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id) &&
+        <Requirement name={(<><SpellLink id={SPELLS.CHI_BURST_TALENT.id} /> targets hit</>)} thresholds={thresholds.chiBurst} />}
+        <Requirement name={(<><SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> casts hitting 2 or fewer targets</>)} thresholds={thresholds.spinningCraneKick} />
       </Rule>
 
       <Rule
@@ -88,7 +88,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: any)
         <Requirement
           name={<>Correct Tier 45 Talent </>}
           thresholds={thresholds.tier45Comparison}
-         />
+        />
 
         {combatant.hasTalent(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id) &&
         <Requirement name={(<><SpellLink id={SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id} /> mana returned</>)} thresholds={thresholds.spiritOfTheCrane} />}

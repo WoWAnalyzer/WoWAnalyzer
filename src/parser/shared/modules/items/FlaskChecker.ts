@@ -14,6 +14,7 @@ const MIN_FLASK_IDS = [
 const MAX_FLASK_IDS = [
   SPELLS.SPECTRAL_FLASK_OF_POWER.id,
   SPELLS.SPECTRAL_FLASK_OF_STAMINA.id,
+  SPELLS.ETERNAL_FLASK.id,
 ];
 
 class FlaskChecker extends Analyzer {

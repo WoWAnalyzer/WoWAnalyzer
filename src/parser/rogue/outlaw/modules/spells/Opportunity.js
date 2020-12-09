@@ -13,20 +13,6 @@ import { t } from '@lingui/macro';
 import OpportunityDamageTracker from './OpportunityDamageTracker';
 
 class Opportunity extends Analyzer {
-  static dependencies = {
-    damageTracker: DamageTracker,
-    opportunityDamageTracker: OpportunityDamageTracker,
-  };
-
-  constructor(...args) {
-    super(...args);
-
-    this.opportunityDamageTracker.subscribeInefficientCast(
-      [SPELLS.SINISTER_STRIKE],
-      (s) => `Pistol Shot should be used as your builder during Opportunity`,
-    );
-  }
-
   get thresholds() {
     const total = this.damageTracker.getAbility(SPELLS.SINISTER_STRIKE.id);
     const filtered = this.opportunityDamageTracker.getAbility(SPELLS.SINISTER_STRIKE.id);
@@ -42,11 +28,25 @@ class Opportunity extends Analyzer {
     };
   }
 
+  static dependencies = {
+    damageTracker: DamageTracker,
+    opportunityDamageTracker: OpportunityDamageTracker,
+  };
+
+  constructor(...args) {
+    super(...args);
+
+    this.opportunityDamageTracker.subscribeInefficientCast(
+      [SPELLS.SINISTER_STRIKE],
+      (s) => `Pistol Shot should be used as your builder during Opportunity`,
+    );
+  }
+
   suggestions(when) {
     when(this.thresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You casted <SpellLink id={SPELLS.SINISTER_STRIKE.id} /> while having an <SpellLink id={SPELLS.OPPORTUNITY.id} /> proc. Try to prioritize <SpellLink id={SPELLS.PISTOL_SHOT.id} /> as your combo point builder when you have <SpellLink id={SPELLS.OPPORTUNITY.id} /> active to avoid the possibility of missing additional procs.</>)
-        .icon(SPELLS.OPPORTUNITY.icon)
-        .actual(i18n._(t('rogue.outlaw.suggestions.opportunity.efficiency')`${formatPercentage(actual)}% inefficient casts`))
-        .recommended(`${formatPercentage(recommended)}% is recommended`));
+      .icon(SPELLS.OPPORTUNITY.icon)
+      .actual(i18n._(t('rogue.outlaw.suggestions.opportunity.efficiency')`${formatPercentage(actual)}% inefficient casts`))
+      .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 }
 

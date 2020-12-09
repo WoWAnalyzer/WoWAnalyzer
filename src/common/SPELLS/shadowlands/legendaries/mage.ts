@@ -1,6 +1,4 @@
-import { LegendarySpell, SpellList } from 'common/SPELLS/Spell';
-
-const legendaries: SpellList<LegendarySpell> = {
+const legendaries = {
   DISCIPLINARY_COMMAND: {
     id: 327365,
     name: 'Disciplinary Command',
@@ -106,5 +104,5 @@ const legendaries: SpellList<LegendarySpell> = {
     icon: 'inv_enchant_shardshadowfrostlarge',
     bonusID: 6823,
   },
-};
+} as const;
 export default legendaries;

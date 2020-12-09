@@ -155,7 +155,7 @@ exports[`Affliction Warlock integration test: example log AlwaysBeCasting matche
                   Object {
                     "fill": "none",
                     "margin": 0,
-                    "transform": "rotate(90.85522528777864deg)",
+                    "transform": "rotate(92.1865358815551deg)",
                     "transformOrigin": "5px 27px",
                   }
                 }
@@ -185,7 +185,7 @@ exports[`Affliction Warlock integration test: example log AlwaysBeCasting matche
                 }
               }
             >
-              82
+              83
               %
             </div>
           </div>
@@ -236,7 +236,7 @@ Array [
        when you can.
     </React.Fragment>,
     "stat": <React.Fragment>
-      17.55% downtime
+      17.08% downtime
        (
       &lt;10.00% is recommended
       )
@@ -3757,7 +3757,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=171267"
+                href="http://wowhead.com/spell=307192"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3855,7 +3855,7 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=171273"
+                href="http://wowhead.com/spell=307162"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -6985,8 +6985,8 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#df7102",
-                  "width": "49.605643005930645%",
+                  "backgroundColor": "#ffc84a",
+                  "width": "52.77226034684177%",
                 }
               }
             />
@@ -7139,7 +7139,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  17.55%
+                  17.08%
                    
                    
                 </div>
@@ -7159,9 +7159,9 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#df7102",
+                        "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "49.605643005930645%",
+                        "width": "52.77226034684177%",
                       }
                     }
                   />

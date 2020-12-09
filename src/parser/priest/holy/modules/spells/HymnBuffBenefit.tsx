@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
 import fetchWcl from 'common/fetchWclApi';
-import { WCLHealingTableResponse, WCLHealing } from "common/WCL_TYPES";
+import { WCLHealing, WCLHealingTableResponse } from 'common/WCL_TYPES';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 import LazyLoadStatisticBox from 'interface/others/LazyLoadStatisticBox';
@@ -41,7 +41,8 @@ class HymnBuffBenefit extends Analyzer {
           // assume all healing was fully effective, as this would drastically overweight the power of the buff in situations where a
           // lot of overhealing occurs.
           (healingFromBuff: any, entry: WCLHealing) => healingFromBuff + ((entry.total - entry.total / (1 + DIVINE_HYMN_HEALING_INCREASE)) * (entry.total / (entry.total + (entry.overheal || 0)))),
-          0);
+          0,
+        );
       });
   }
 

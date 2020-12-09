@@ -4,8 +4,7 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import { SpellList } from "./Spell";
-const spells: SpellList = {
+const spells = {
   // -------------
   // Shared spells
   // -------------
@@ -134,11 +133,11 @@ const spells: SpellList = {
     name: 'Fel Domination',
     icon: 'spell_shadow_felmending',
   },
-  DEMONIC_CIRCLE: { 
-    id: 268358, 
-    name: 'Demonic Circle', 
-    icon: 'spell_shadow_demoniccirclesummon', 
-    manaCost: 2000, 
+  DEMONIC_CIRCLE: {
+    id: 268358,
+    name: 'Demonic Circle',
+    icon: 'spell_shadow_demoniccirclesummon',
+    manaCost: 2000,
   },
   DEMONIC_CIRCLE_SUMMON: {
     id: 48018,
@@ -252,10 +251,10 @@ const spells: SpellList = {
     name: 'Unstable Affliction',
     icon: 'spell_shadow_unstableaffliction_3',
   },
-  SHADOW_EMBRACE: { 
-    id: 32388, 
-    name: 'Shadow Embrace', 
-    icon: 'spell_shadow_shadowembrace' 
+  SHADOW_EMBRACE: {
+    id: 32388,
+    name: 'Shadow Embrace',
+    icon: 'spell_shadow_shadowembrace'
   },
   MALEFIC_RAPTURE: {
     id: 324536,
@@ -721,5 +720,6 @@ const spells: SpellList = {
     name: 'Channel Demonfire',
     icon: 'spell_fire_ragnaros_lavaboltgreen',
   },
-};
+} as const;
+
 export default spells;

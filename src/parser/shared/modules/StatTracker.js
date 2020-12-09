@@ -31,15 +31,6 @@ class StatTracker extends Analyzer {
 
   static DEFAULT_BUFFS = {
     // region Potions
-    [SPELLS.BATTLE_POTION_OF_STRENGTH.id]: { strength: 95 },
-    [SPELLS.BATTLE_POTION_OF_INTELLECT.id]: { intellect: 95 },
-    [SPELLS.BATTLE_POTION_OF_AGILITY.id]: { agility: 95 },
-    [SPELLS.BATTLE_POTION_OF_STAMINA.id]: { stamina: 117 },
-    [SPELLS.SUPERIOR_BATTLE_POTION_OF_STRENGTH.id]: { strength: 129 },
-    [SPELLS.SUPERIOR_BATTLE_POTION_OF_AGILITY.id]: { agility: 129 },
-    [SPELLS.SUPERIOR_BATTLE_POTION_OF_INTELLECT.id]: { intellect: 129 },
-    [SPELLS.SUPERIOR_BATTLE_POTION_OF_STAMINA.id]: { stamina: 158 },
-    [SPELLS.SUPERIOR_STEELSKIN_POTION.id]: { armor: 129 },
     [SPELLS.POTION_OF_SPECTRAL_AGILITY.id]: { agility: 190 },
     [SPELLS.POTION_OF_SPECTRAL_INTELLECT.id]: { intellect: 190 },
     [SPELLS.POTION_OF_SPECTRAL_STRENGTH.id]: { strength: 190 },
@@ -48,7 +39,6 @@ class StatTracker extends Analyzer {
     // endregion
 
     // region Runes
-    [SPELLS.DEFILED_AUGMENT_RUNE.id]: { strength: 15, agility: 15, intellect: 15 },
     [SPELLS.VEILED_AUGMENT_RUNE.id]: { strength: 18, agility: 18, intellect: 18 },
     // endregion
 
@@ -171,9 +161,7 @@ class StatTracker extends Analyzer {
   };
   statMultiplierBuffs = {
     [SPELLS.ARCANE_INTELLECT.id]: { intellect: 1.05 },
-    [SPELLS.WARSCROLL_OF_INTELLECT.id]: { intellect: 1.03 },
     [SPELLS.BATTLE_SHOUT.id]: { strength: 1.05, agility: 1.05 },
-    [SPELLS.WARSCROLL_OF_BATTLE_SHOUT.id]: { strength: 1.03, agility: 1.03 },
   };
 
   //Values taken from https://github.com/simulationcraft/simc/blob/shadowlands/engine/dbc/generated/sc_scale_data.inc

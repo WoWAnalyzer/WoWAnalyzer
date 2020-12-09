@@ -16,10 +16,29 @@ import { t } from '@lingui/macro';
 import Events from 'parser/core/Events';
 
 class DemonSpikes extends Analyzer {
+  get mitigatedUptime() {
+    return formatPercentage(this.hitsWithDS / (this.hitsWithDS + this.hitsWithoutDS));
+  }
+
+  get hitsWithDSOffCDPercent() {
+    return this.hitsWithDSOffCD / (this.hitsWithDS + this.hitsWithoutDS);
+  }
+
+  get suggestionThresholdsEfficiency() {
+    return {
+      actual: this.hitsWithDSOffCDPercent,
+      isGreaterThan: {
+        minor: 0.20,
+        average: 0.30,
+        major: 0.40,
+      },
+      style: 'percentage',
+    };
+  }
+
   static dependencies = {
     spellUsable: SpellUsable,
   };
-
   hitsWithDS = 0;
   hitsWithoutDS = 0;
   hitsWithDSOffCD = 0;
@@ -44,26 +63,6 @@ class DemonSpikes extends Analyzer {
         this.hitsWithDSOffCD += 1;
       }
     }
-  }
-
-  get mitigatedUptime() {
-    return formatPercentage(this.hitsWithDS / (this.hitsWithDS + this.hitsWithoutDS));
-  }
-
-  get hitsWithDSOffCDPercent() {
-    return this.hitsWithDSOffCD / (this.hitsWithDS + this.hitsWithoutDS);
-  }
-
-  get suggestionThresholdsEfficiency() {
-    return {
-      actual: this.hitsWithDSOffCDPercent,
-      isGreaterThan: {
-        minor: 0.20,
-        average: 0.30,
-        major: 0.40,
-      },
-      style: 'percentage',
-    };
   }
 
   suggestions(when) {

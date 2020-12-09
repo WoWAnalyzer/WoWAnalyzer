@@ -22,41 +22,6 @@ const NEARBY_CASTS_BUFFER = 250;
 const NEARBY_CAST_COUNT = 3;
 
 class PetTimeline extends React.PureComponent {
-  static propTypes = {
-    selectedCombatant: PropTypes.object,
-    start: PropTypes.number.isRequired,
-    end: PropTypes.number.isRequired,
-    deaths: PropTypes.array.isRequired,
-    resurrections: PropTypes.array.isRequired,
-    petTimeline: PropTypes.object,
-    historyBySpellId: PropTypes.object,
-  };
-
-  constructor() {
-    super();
-    this.handleMouseWheel = this.handleMouseWheel.bind(this);
-    this.state = {
-      zoom: 2,
-    };
-  }
-
-  handleMouseWheel(e) {
-    // This translate vertical scrolling into horizontal scrolling
-    if (!this.gemini || !this.gemini.scrollbar) {
-      return;
-    }
-
-    e.preventDefault();
-    e.stopPropagation();
-    if (e.detail > 0) {
-      // noinspection JSSuspiciousNameCombination
-      this.gemini.scrollbar._viewElement.scrollLeft -= e.deltaY;
-    } else {
-      // noinspection JSSuspiciousNameCombination
-      this.gemini.scrollbar._viewElement.scrollLeft += e.deltaY;
-    }
-  }
-
   get pets() {
     const { petTimeline } = this.props;
     return petTimeline.groupPetsBySummonAbility();
@@ -97,7 +62,7 @@ class PetTimeline extends React.PureComponent {
             const casts = historyArray
               .filter(event => event.type === EventType.Cast
                 && netherPortalWindows.some(window => window.timestamp <= event.timestamp
-                                                  && event.timestamp <= window.endTimestamp))
+                  && event.timestamp <= window.endTimestamp))
               .map(event => ({
                 type: EventType.Cast,
                 timestamp: event.timestamp,
@@ -110,6 +75,42 @@ class PetTimeline extends React.PureComponent {
       importantEvents.push(...netherPortalCasts, ...netherPortalWindows, ...castsDuringNetherPortal);
     }
     return importantEvents.sort((event1, event2) => event1.timestamp - event2.timestamp);
+  }
+
+  static propTypes = {
+    selectedCombatant: PropTypes.object,
+    start: PropTypes.number.isRequired,
+    end: PropTypes.number.isRequired,
+    deaths: PropTypes.array.isRequired,
+    resurrections: PropTypes.array.isRequired,
+    petTimeline: PropTypes.object,
+    historyBySpellId: PropTypes.object,
+  };
+  gemini = null;
+
+  constructor() {
+    super();
+    this.handleMouseWheel = this.handleMouseWheel.bind(this);
+    this.state = {
+      zoom: 2,
+    };
+  }
+
+  handleMouseWheel(e) {
+    // This translate vertical scrolling into horizontal scrolling
+    if (!this.gemini || !this.gemini.scrollbar) {
+      return;
+    }
+
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.detail > 0) {
+      // noinspection JSSuspiciousNameCombination
+      this.gemini.scrollbar._viewElement.scrollLeft -= e.deltaY;
+    } else {
+      // noinspection JSSuspiciousNameCombination
+      this.gemini.scrollbar._viewElement.scrollLeft += e.deltaY;
+    }
   }
 
   decorateCloseCasts(events) {
@@ -163,7 +164,6 @@ class PetTimeline extends React.PureComponent {
       }));
   }
 
-  gemini = null;
   render() {
     const { start, end, deaths, resurrections, ...others } = this.props;
     delete others.selectedCombatant;

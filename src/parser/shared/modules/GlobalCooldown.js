@@ -4,8 +4,9 @@ import Events, { EventType } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 
+import Haste from 'parser/shared/modules/Haste';
+
 import Abilities from '../../core/modules/Abilities';
-import Haste from './Haste';
 import Channeling from './Channeling';
 
 const INVALID_GCD_CONFIG_LAG_MARGIN = 150; // not sure what this is based around, but <150 seems to catch most false positives

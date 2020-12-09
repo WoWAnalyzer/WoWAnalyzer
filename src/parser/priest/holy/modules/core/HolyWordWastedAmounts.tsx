@@ -1,7 +1,7 @@
 import React from 'react';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
-import { formatPercentage, formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
@@ -41,6 +41,5 @@ class HolyWordWastedAmounts extends Analyzer {
     );
   }
 }
-
 
 export default HolyWordWastedAmounts;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -19,17 +19,28 @@ class SpellReflect extends Analyzer {
     statTracker: StatTracker,
     abilityTracker: AbilityTracker,
   };
-  protected statTracker!: StatTracker;
-  protected abilityTracker!: AbilityTracker;
-
   magicDamage = 0;
   magicDamageReduced = 0;
   totalDamage = 0;
+  protected statTracker!: StatTracker;
+  protected abilityTracker!: AbilityTracker;
 
   constructor(options: Options) {
     super(options);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamage);
     debug && this.addEventListener(Events.fightend, this.fightEndDebug);
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.magicDamageReduced / this.magicDamage,
+      isLessThan: {
+        minor: .25,
+        average: .15,
+        major: .05,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
   }
 
   onDamage(event: DamageEvent) {
@@ -48,27 +59,15 @@ class SpellReflect extends Analyzer {
     console.log(`total damage ${this.totalDamage}`);
   }
 
-  get suggestionThresholds(){
-    return {
-      actual: this.magicDamageReduced / this.magicDamage,
-      isLessThan: {
-        minor: .25,
-        average: .15,
-        major: .05,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-        <>
-          Try to cast <SpellLink id={SPELLS.SPELL_REFLECTION.id} />  more often when magic damage is going out to take less damage.
-        </>,
-      )
-        .icon(SPELLS.SPELL_REFLECTION.icon)
-        .actual(i18n._(t('warrior.protection.suggestions.spellReflect.efficiency')`${formatPercentage(actual)} % magic damage With Spell Reflect Up`))
-        .recommended(`${formatPercentage(recommended)} % recommended`));
+      <>
+        Try to cast <SpellLink id={SPELLS.SPELL_REFLECTION.id} /> more often when magic damage is going out to take less damage.
+      </>,
+    )
+      .icon(SPELLS.SPELL_REFLECTION.icon)
+      .actual(i18n._(t('warrior.protection.suggestions.spellReflect.efficiency')`${formatPercentage(actual)} % magic damage With Spell Reflect Up`))
+      .recommended(`${formatPercentage(recommended)} % recommended`));
   }
 }
 
