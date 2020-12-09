@@ -2567,7 +2567,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=171267"
+                href="http://wowhead.com/spell=307192"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -2665,7 +2665,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=171273"
+                href="http://wowhead.com/spell=307162"
                 rel="noopener noreferrer"
                 style={
                   Object {

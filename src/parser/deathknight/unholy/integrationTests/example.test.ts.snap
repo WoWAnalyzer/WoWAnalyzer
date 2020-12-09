@@ -2924,7 +2924,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=171267"
+                href="http://wowhead.com/spell=307192"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3022,7 +3022,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=171273"
+                href="http://wowhead.com/spell=307162"
                 rel="noopener noreferrer"
                 style={
                   Object {
