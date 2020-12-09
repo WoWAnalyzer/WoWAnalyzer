@@ -178,21 +178,4 @@ export default {
     mastery: false,
     vers: true,
   },
-
-  // Azerite Traits
-  [SPELLS.SAVIOR_HEAL.id]: {
-    int: true,
-    crit: true,
-    hasteHpm: false,
-    hasteHpct: true,
-    mastery: false,
-    vers: true,
-  },
-  [SPELLS.CONCENTRATED_MENDING_HEALING.id]: {
-    int: false,
-    crit: true,
-    hasteHpm: false,
-    mastery: false, // Overwriting base value as holy is "special" with mastery.
-    vers: true,
-  },
 };
