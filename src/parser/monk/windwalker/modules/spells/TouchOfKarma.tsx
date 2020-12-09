@@ -29,7 +29,7 @@ class TouchOfKarma extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    this.totalPossibleAbsorb += event.maxHitPoints || 0 * TOUCH_OF_KARMA_HP_SCALING;
+    this.totalPossibleAbsorb += (event.maxHitPoints || 0) * TOUCH_OF_KARMA_HP_SCALING;
   }
 
   get absorbUsed() {

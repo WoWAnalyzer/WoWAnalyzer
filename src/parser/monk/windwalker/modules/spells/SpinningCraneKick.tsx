@@ -10,13 +10,14 @@ import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Events, { ApplyDebuffEvent, CastEvent, RefreshDebuffEvent } from 'parser/core/Events';
 
 interface MarkOfTheCrane {
-  target: MarkOfTheCraneTarget,
-  timestamp: number
+  target: MarkOfTheCraneTarget;
+  timestamp: number;
 };
 
 interface MarkOfTheCraneTarget {
-  id: number, instance: number
-}
+  id: number;
+  instance: number;
+};
 
 const isEqual = (a: MarkOfTheCraneTarget, b: MarkOfTheCraneTarget) => a.id === b.id && a.instance === b.instance;
 

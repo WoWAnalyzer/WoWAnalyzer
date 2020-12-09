@@ -1,9 +1,10 @@
 import SPELLS from 'common/SPELLS';
 
 import CoreAbilities from 'parser/core/modules/Abilities';
+import { SpellbookAbility } from 'parser/core/modules/Ability';
 
 class Abilities extends CoreAbilities {
-  spellbook() {
+  spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     // Windwalker GCD is 1 second by default and static in almost all cases, 750 is lowest recorded GCD
     // Serenity's interaction with cooldowns is handled in the Serenity module
@@ -11,7 +12,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FISTS_OF_FURY_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste: number) => 24 / (1 + haste),
+        cooldown: haste => 24 / (1 + haste),
         gcd: {
           static: 1000,
         },
@@ -24,7 +25,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RISING_SUN_KICK,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste: number) => (10 / (1 + haste)),
+        cooldown: haste => (10 / (1 + haste)),
         gcd: {
           static: 1000,
         },
@@ -35,7 +36,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.WHIRLING_DRAGON_PUNCH_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste: number) => 24 / (1 + haste),
+        cooldown: haste => 24 / (1 + haste),
         gcd: {
           static: 1000,
         },
@@ -120,7 +121,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RUSHING_JADE_WIND_TALENT_WINDWALKER,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        cooldown: (haste: number) => 6 / (1 + haste),
+        cooldown: haste => 6 / (1 + haste),
         gcd: {
           static: 1000,
         },
@@ -274,7 +275,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1000,
-          mininum: 750,
+          minimum: 750,
         },
       },
       {
