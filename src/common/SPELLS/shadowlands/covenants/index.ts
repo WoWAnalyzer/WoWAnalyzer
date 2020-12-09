@@ -1,7 +1,3 @@
-import safeMerge from 'common/safeMerge';
-
-import { SpellList } from "common/SPELLS/Spell";
-
 import DEATH_KNIGHT from './deathknight';
 import DEMON_HUNTER from './demonhunter';
 import DRUID from './druid';
@@ -15,7 +11,6 @@ import ROGUE from './rogue';
 import SHAMAN from './shaman';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
-
 
 const covenants = {
   ...DEATH_KNIGHT,
@@ -32,4 +27,5 @@ const covenants = {
   ...WARLOCK,
   ...WARRIOR,
 } as const;
+
 export default covenants;
