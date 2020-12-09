@@ -1,6 +1,4 @@
-import { SpellList } from 'common/SPELLS/Spell';
-
-const spells: SpellList = {
+const spells = {
   ETERNAL_CAULDRON: {
     id: 171281,
     name: 'Eternal Cauldron',
@@ -121,5 +119,5 @@ const spells: SpellList = {
     name: 'Veiled Augment Rune',
     icon: 'inv_misc_gem_azuredraenite_01',
   },
-};
+} as const;
 export default spells;

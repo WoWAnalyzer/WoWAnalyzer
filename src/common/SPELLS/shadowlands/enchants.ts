@@ -1,6 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const enchants: SpellList = {
+const enchants = {
   ASCENDED_VIGOR: {
     id: 309622,
     name: 'Ascended Vigor',
@@ -171,5 +169,6 @@ const enchants: SpellList = {
     name: 'Tenet of Versatility',
     icon: 'trade_engraving',
   },
-};
+} as const;
+
 export default enchants;

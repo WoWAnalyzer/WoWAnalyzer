@@ -17,19 +17,19 @@ import WARLOCK from './warlock';
 import WARRIOR from './warrior';
 
 
-const covenants: SpellList =  safeMerge(
-  DEATH_KNIGHT,
-  DEMON_HUNTER,
-  DRUID,
-  GENERAL,
-  HUNTER,
-  MAGE,
-  MONK,
-  PALADIN,
-  PRIEST,
-  ROGUE,
-  SHAMAN,
-  WARLOCK,
-  WARRIOR,
-);
+const covenants = {
+  ...DEATH_KNIGHT,
+  ...DEMON_HUNTER,
+  ...DRUID,
+  ...GENERAL,
+  ...HUNTER,
+  ...MAGE,
+  ...MONK,
+  ...PALADIN,
+  ...PRIEST,
+  ...ROGUE,
+  ...SHAMAN,
+  ...WARLOCK,
+  ...WARRIOR,
+} as const;
 export default covenants;

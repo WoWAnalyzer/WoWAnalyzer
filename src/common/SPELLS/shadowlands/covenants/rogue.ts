@@ -1,6 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const covenants: SpellList = {
+const covenants = {
   //region Kyrian
   ECHOING_REPRIMAND: {
     id: 323547,
@@ -62,5 +60,5 @@ const covenants: SpellList = {
     icon: 'ability_revendreth_rogue',
   },
   //endregion
-};
+} as const;
 export default covenants;
