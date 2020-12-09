@@ -3,8 +3,6 @@ import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
 import SPELLS from 'common/SPELLS';
 
-import { mapSpellsToIds } from 'parser/warlock/shared/helpers';
-
 const FEL_CELERITY_REDUCTION_SEC = {
   1: 48,
   2: 51,
