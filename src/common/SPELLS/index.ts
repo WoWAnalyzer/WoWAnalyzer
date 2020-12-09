@@ -78,4 +78,4 @@ const ABILITIES = {
   ...SHADOWLANDS,
 } as const;
 
-export default ABILITIES;
+export default indexById(ABILITIES);
