@@ -17,8 +17,8 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
 
 interface MasteryCast {
-  ability: number,
-  timestamp: number,
+  ability: number;
+  timestamp: number;
 }
 
 const HIT_COMBO_STRING = ' and dropping the Hit Combo damage buff';
