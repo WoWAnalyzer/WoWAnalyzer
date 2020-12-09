@@ -20,7 +20,8 @@ class FistsofFury extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
-  previousTickTimestamp = null;
+
+  previousTickTimestamp = 0;
   fistsTicks = 0;
 
   protected abilityTracker!: AbilityTracker;
@@ -30,8 +31,6 @@ class FistsofFury extends Analyzer {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FISTS_OF_FURY_DAMAGE), this.onFistsDamage);
   }
 
-  previousTickTimestamp = 0;
-  fistsTicks = 0;
 
   isNewFistsTick(timestamp: number) {
     return !this.previousTickTimestamp || (timestamp - this.previousTickTimestamp) > FISTS_OF_FURY_MINIMUM_TICK_TIME;
