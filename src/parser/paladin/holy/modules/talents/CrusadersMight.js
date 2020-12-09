@@ -95,7 +95,7 @@ class CrusadersMight extends Analyzer {
               <SpellLink id={SPELLS.CRUSADER_STRIKE.id} /> should be used to reduce the cooldown of
               <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> and should never be cast when{' '}
               <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> is avalible. This is a core component of
-              the <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} />{' '}
+              the <SpellLink id={SPELLS.GLIMMER_OF_LIGHT_TALENT.id} />{' '}
               <a
                 href="https://questionablyepic.com/glimmer-of-light/"
                 target="_blank"

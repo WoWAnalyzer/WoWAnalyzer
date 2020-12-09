@@ -46,9 +46,9 @@ const spells: SpellList = {
     name: 'Pickled Meat Smoothie',
     icon: 'inv_cooking_90_pickledmeatsmoothie',
   },
-  PHANTASMAL_SOUFFLE_AND_FRIES: {
+  SPINEFIN_SOUFFLE_AND_FRIES: {
     id: 308434,
-    name: 'Phantasmal Souffle and Fries',
+    name: 'Spinefin Souffle and Fries',
     icon: 'inv_cooking_90_phantasmalsoufflefries',
   },
   TENEBROUS_CROWN_ROAST_ASPIC: {
@@ -56,9 +56,9 @@ const spells: SpellList = {
     name: 'Tenebrous Crown Roast Aspic',
     icon: 'inv_cooking_90_tenebrouscrownroastaspic',
   },
-  CRAWLER_RAVIOLI_WITH_APPLE_SAUCE: {
+  IRIDESCENT_RAVIOLI_WITH_APPLE_SAUCE: {
     id: 308506,
-    name: 'Crawler Ravioli with Apple Sauce',
+    name: 'Iridescent Ravioli with Apple Sauce',
     icon: 'inv_cooking_90_crawlerravioliapplesauce',
   },
   STEAK_A_LA_MODE: {
@@ -115,6 +115,11 @@ const spells: SpellList = {
     id: 327706,
     name: 'Feast of Gluttonous Hedonism',
     icon: 'inv_tradeskill_cooking_shadowlandsfeast_large01',
+  },
+  VEILED_AUGMENT_RUNE: {
+    id: 347901,
+    name: 'Veiled Augment Rune',
+    icon: 'inv_misc_gem_azuredraenite_01',
   },
 };
 export default spells;
