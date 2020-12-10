@@ -155,7 +155,7 @@ exports[`Affliction Warlock integration test: example log AlwaysBeCasting matche
                   Object {
                     "fill": "none",
                     "margin": 0,
-                    "transform": "rotate(92.1865358815551deg)",
+                    "transform": "rotate(90.519143102627deg)",
                     "transformOrigin": "5px 27px",
                   }
                 }
@@ -185,7 +185,7 @@ exports[`Affliction Warlock integration test: example log AlwaysBeCasting matche
                 }
               }
             >
-              83
+              82
               %
             </div>
           </div>
@@ -236,7 +236,7 @@ Array [
        when you can.
     </React.Fragment>,
     "stat": <React.Fragment>
-      17.08% downtime
+      17.67% downtime
        (
       &lt;10.00% is recommended
       )
@@ -5808,7 +5808,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
         <div
           className="flex-main name"
         >
-          Maintain your DoTs on the boss
+          Maintain your DoTs and debuffs on the boss
         </div>
         <div
           className="flex-sub perf"
@@ -5821,7 +5821,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
               style={
                 Object {
                   "backgroundColor": "#df7102",
-                  "width": "35.269084661484335%",
+                  "width": "34.08962630824684%",
                 }
               }
             />
@@ -5878,7 +5878,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
           <div
             className="col-md-12"
           >
-            Affliction Warlocks rely on DoTs as a means of dealing damage to the target. You should try to keep as highest uptime on them as possible.
+            Affliction Warlocks rely on DoTs and debuffs as means of dealing damage to the target. You should try to keep as highest uptime on them as possible.
           </div>
         </div>
         <div
@@ -6117,6 +6117,80 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
               >
                 <a
                   className="spell-link-text"
+                  href="http://wowhead.com/spell=32388"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_shadowembrace.jpg"
+                  />
+                   
+                  Shadow Embrace
+                </a>
+                 uptime
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0.00%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  className="spell-link-text"
                   href="http://wowhead.com/spell=63106"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -6173,6 +6247,80 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                         "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
                         "width": "38.68056194901636%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  className="spell-link-text"
+                  href="http://wowhead.com/spell=48181"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_haunt.jpg"
+                  />
+                   
+                  Haunt
+                </a>
+                 uptime
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  79.94%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#df7102",
+                        "transition": "background-color 800ms",
+                        "width": "49.738865245147004%",
                       }
                     }
                   />
@@ -6998,8 +7146,8 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ffc84a",
-                  "width": "52.77226034684177%",
+                  "backgroundColor": "#df7102",
+                  "width": "48.806247522677054%",
                 }
               }
             />
@@ -7152,7 +7300,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  17.08%
+                  17.67%
                    
                    
                 </div>
@@ -7172,9 +7320,9 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ffc84a",
+                        "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "52.77226034684177%",
+                        "width": "48.806247522677054%",
                       }
                     }
                   />
