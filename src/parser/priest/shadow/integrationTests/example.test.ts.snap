@@ -1190,7 +1190,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=265314"
+                href="http://wowhead.com/spell=10060"
                 rel="noopener noreferrer"
                 style={
                   Object {
