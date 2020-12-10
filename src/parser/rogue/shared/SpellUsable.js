@@ -21,7 +21,7 @@ class SpellUsable extends CoreSpellUsable {
   onCast(event) {
     super.onCast(event);
 
-    if (!event.ability.guid === SPELLS.MARKED_FOR_DEATH_TALENT.id) {
+    if (event.ability.guid !== SPELLS.MARKED_FOR_DEATH_TALENT.id) {
       return;
     }
 

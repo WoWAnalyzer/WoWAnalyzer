@@ -44,7 +44,7 @@ const OutlawRogueChecklist = ({ combatant, castEfficiency, thresholds }) => {
       </Rule>
       <Rule
         name="Use your finishers efficiently"
-        description={<>Your two damaging finishers should typically be used at maximum combo points. If you have <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> active, or you are using either the <SpellLink id={SPELLS.ACE_UP_YOUR_SLEEVE.id} /> or <SpellLink id={SPELLS.DEADSHOT.id} /> traits, you should prioritize <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> as your damaging finisher.</>}
+        description={<>Your two damaging finishers should typically be used at maximum combo points. If you have <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> active you should prioritize <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> as your damaging finisher.</>}
       >
         <Requirement name="Finisher combo point inefficiency" thresholds={thresholds.finishers} />
         <Requirement

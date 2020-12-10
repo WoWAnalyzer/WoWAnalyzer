@@ -3,53 +3,40 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import { formatNumber, formatDuration } from 'common/format';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { formatDuration, formatNumber } from 'common/format';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
-import Events from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+
 import { ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
+
+interface MasteryCast {
+  ability: number;
+  timestamp: number;
+}
 
 const HIT_COMBO_STRING = ' and dropping the Hit Combo damage buff';
 
 class ComboStrikes extends Analyzer {
-  get masteryDropEvents() {
-    return this.masteryDropSpellSequence.length;
-  }
 
-  get masteryDropsPerMinute() {
-    return (this.masteryDropEvents / this.owner.fightDuration) * 1000 * 60;
-  }
-
-  get suggestionThresholds() {
-    const hitComboMultiplier = this.hasHitCombo ? 1 : 2;
-    return {
-      actual: this.masteryDropsPerMinute,
-      isGreaterThan: {
-        minor: 0,
-        average: 0.5 * hitComboMultiplier,
-        major: Number(hitComboMultiplier),
-      },
-      style: 'number',
-    };
-  }
-
-  _lastSpellUsed = null;
-  _lastThreeSpellsUsed = [];
-  masteryDropSpellSequence = [];
+  _lastSpellUsed: number | null = null;
+  _lastThreeSpellsUsed: MasteryCast[] = [];
+  masteryDropSpellSequence: MasteryCast[][] = [];
   hasHitCombo = false;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.hasHitCombo = this.selectedCombatant.hasTalent(SPELLS.HIT_COMBO_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_MASTERY), this.onMasteryCast);
   }
 
-  onMasteryCast(event) {
+  onMasteryCast(event: CastEvent) {
     const spellId = event.ability.guid;
     const eventTimestamp = event.timestamp;
     // Track Details on the last 3 spells used - Need to populate up to 3 first, then begin to modify the array.
@@ -72,7 +59,28 @@ class ComboStrikes extends Analyzer {
     this._lastSpellUsed = spellId;
   }
 
-  suggestions(when) {
+  get masteryDropEvents() {
+    return this.masteryDropSpellSequence.length;
+  }
+
+  get masteryDropsPerMinute() {
+    return (this.masteryDropEvents / this.owner.fightDuration) * 1000 * 60;
+  }
+
+  get suggestionThresholds() {
+    const hitComboMultiplier = this.hasHitCombo ? 1 : 2;
+    return {
+      actual: this.masteryDropsPerMinute,
+      isGreaterThan: {
+        minor: 0,
+        average: 0.5 * hitComboMultiplier,
+        major: Number(hitComboMultiplier),
+      },
+      style: ThresholdStyle.NUMBER,
+    };
+  }
+
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<span>You ignored your <SpellLink id={SPELLS.COMBO_STRIKES.id} /> buff by casting the same spell twice in a row, missing out on the damage increase from your mastery{HIT_COMBO_STRING}.</span>)
       .icon(SPELLS.COMBO_STRIKES.icon)
       .actual(i18n._(t('monk.windwalker.comboStrikes.masteryBreaksPerMinute')`${actual.toFixed(2)} mastery breaks per minute.`))

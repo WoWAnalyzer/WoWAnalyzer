@@ -1,7 +1,4 @@
-
-
-import { SpellList } from "./Spell";
-const spells: SpellList = {
+const spells = {
   // Antorus the Burning Throne
 
   // Garothi Worldbreaker
@@ -4235,6 +4232,6 @@ const spells: SpellList = {
     name: "Divide and Conquer",
     icon: "ability_hunter_killcommand",
   },
-};
+} as const;
 
 export default spells;

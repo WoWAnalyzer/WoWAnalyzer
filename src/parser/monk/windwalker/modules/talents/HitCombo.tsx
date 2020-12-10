@@ -3,9 +3,9 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import UptimeIcon from 'interface/icons/Uptime';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import Events from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 import { formatNumber, formatPercentage } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer , { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/EventFilter';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Statistic from 'interface/statistics/Statistic';
@@ -13,13 +13,14 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from 'parser/monk/windwalker/constants';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 const MOD_PER_STACK = 0.01;
 const MAX_STACKS = 6;
 
 class HitCombo extends Analyzer {
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.HIT_COMBO_TALENT.id);
     if (this.active) {
       this.addEventListener(Events.damage.by(SELECTED_PLAYER | SELECTED_PLAYER_PET).spell(ABILITIES_AFFECTED_BY_DAMAGE_INCREASES), this.onAffectedDamage);
@@ -27,7 +28,7 @@ class HitCombo extends Analyzer {
   }
   totalDamage = 0;
 
-  onAffectedDamage(event) {
+  onAffectedDamage(event: DamageEvent) {
     const buffInfo = this.selectedCombatant.getBuff(SPELLS.HIT_COMBO_BUFF.id);
     if (!buffInfo) {
       return;
@@ -53,11 +54,11 @@ class HitCombo extends Analyzer {
         average: 0.90,
         major: 0.85,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<span>You let your <SpellLink id={SPELLS.HIT_COMBO_TALENT.id} /> buff drop by casting a spell twice in a row. Dropping this buff is a large DPS decrease so be mindful of the spells being cast.</span>)
           .icon(SPELLS.HIT_COMBO_TALENT.icon)
           .actual(i18n._(t('monk.windwalker.suggestions.hitCombo.uptime')`${formatPercentage(actual)} % uptime`))

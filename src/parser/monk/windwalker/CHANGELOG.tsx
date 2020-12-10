@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 12, 6), 'Converted most Windwalker modules to TypeScript', Juko8),
   change(date(2020, 11, 25), <>Added <SpellLink id={SPELLS.JADE_IGNITION.id} /></>, Juko8),
   change(date(2020, 10, 20), <>Added <SpellLink id={SPELLS.EXPEL_HARM.id} icon /> cast efficiency to checklist</>, Juko8),
   change(date(2020, 10, 19), <>Added <SpellLink id={SPELLS.LAST_EMPERORS_CAPACITOR.id} /></>, Juko8),

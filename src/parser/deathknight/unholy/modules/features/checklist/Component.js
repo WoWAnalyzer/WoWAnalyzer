@@ -27,7 +27,7 @@ const UnholyDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }) =
         name="Use cooldowns as often as possible"
         description={(
           <>
-            You should aim to use your cooldowns as often as you can to maximize your damage output. In the case of <SpellLink id={SPELLS.SOUL_REAPER_TALENT.id} />, you want to use it when you're at less than 2 runes. However, you also want to make sure you don't waste possible casts by holding on to it for too long.{' '}
+            You should aim to use your cooldowns as often as you can to maximize your damage output.
             <a href="https://www.wowhead.com/unholy-death-knight-rotation-guide#cooldown-usage" target="_blank" rel="noopener noreferrer">More info.</a>
           </>
         )}

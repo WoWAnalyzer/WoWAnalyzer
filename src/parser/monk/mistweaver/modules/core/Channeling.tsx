@@ -18,7 +18,7 @@ class Channeling extends CoreChanneling {
     super(options);
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.CRACKLING_JADE_LIGHTNING), this.onApplyDebuff);
     this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.CRACKLING_JADE_LIGHTNING), this.onRemoveDebuff);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell([SPELLS.ESSENCE_FONT.id, SPELLS.SOOTHING_MIST]), this.onRemoveBuff);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell([SPELLS.ESSENCE_FONT, SPELLS.SOOTHING_MIST]), this.onRemoveBuff);
   }
 
   onCast(event: CastEvent) {

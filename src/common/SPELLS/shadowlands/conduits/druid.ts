@@ -1,6 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const conduits: SpellList = {
+const conduits = {
   //region Kyrian
 
   //endregion
@@ -31,5 +29,5 @@ const conduits: SpellList = {
     name: 'Ready for Anything',
     icon: 'spell_nature_ravenform',
   },
-};
+} as const;
 export default conduits;
