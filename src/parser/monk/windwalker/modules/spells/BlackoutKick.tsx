@@ -1,9 +1,7 @@
 import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Statistic from 'interface/statistics/Statistic';
@@ -68,7 +66,7 @@ class BlackoutKick extends Analyzer {
       this.wastedFistsOfFuryReductionMs += currentCooldownReductionMS - reductionMs;
     }
   }
-  
+
   get totalWastedReductionPerMinute() {
     return (this.wastedFistsOfFuryReductionMs + this.wastedRisingSunKickReductionMs) / (this.owner.fightDuration) * 60;
   }

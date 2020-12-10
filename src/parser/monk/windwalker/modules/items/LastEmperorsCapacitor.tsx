@@ -18,7 +18,6 @@ import { CHI_SPENDERS } from '../../constants';
 const MAX_STACKS = 20;
 
 class LastEmperorsCapacitor extends Analyzer {
-
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
@@ -75,7 +74,7 @@ class LastEmperorsCapacitor extends Analyzer {
       this.buffedCast = false;
     }
   }
-  
+
   get averageStacksUsed() {
     return this.stacksUsed / this.abilityTracker.getAbility(SPELLS.CRACKLING_JADE_LIGHTNING.id).casts;
   }
