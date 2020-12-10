@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import { formatNumber, formatDuration } from 'common/format';
+import { formatDuration, formatNumber } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
@@ -19,7 +19,7 @@ import { ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
 interface MasteryCast {
   ability: number;
   timestamp: number;
-};
+}
 
 const HIT_COMBO_STRING = ' and dropping the Hit Combo damage buff';
 
@@ -44,8 +44,8 @@ class ComboStrikes extends Analyzer {
       style: ThresholdStyle.NUMBER,
     };
   }
-
-  _lastSpellUsed: Number|null = null;
+  
+  _lastSpellUsed: number | null = null;
   _lastThreeSpellsUsed: MasteryCast[] = [];
   masteryDropSpellSequence: MasteryCast[][] = [];
   hasHitCombo = false;

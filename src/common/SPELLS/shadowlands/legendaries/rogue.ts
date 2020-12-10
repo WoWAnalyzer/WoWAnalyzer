@@ -1,6 +1,4 @@
-import { SpellList, LegendarySpell } from "common/SPELLS/Spell";
-
-const legendaries: SpellList<LegendarySpell> = {
+const legendaries = {
   //region Assassination
   DASHING_SCOUNDREL: {
     id: 340426,
@@ -137,5 +135,5 @@ const legendaries: SpellList<LegendarySpell> = {
     icon: 'ability_rogue_poisoned_knife',
   },
   //endregion
-};
+} as const;
 export default legendaries;

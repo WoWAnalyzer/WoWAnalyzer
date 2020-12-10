@@ -94,10 +94,10 @@ class JadeIgnition extends Analyzer {
 
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <Trans id="monk.windwalker.suggestions.jadeIgnitionWastedStacks"> You wasted your <SpellLink id={SPELLS.JADE_IGNITION_BUFF.id}/> stacks by using Fists of Fury at full stacks</Trans>)
-        .icon(SPELLS.JADE_IGNITION.icon)
-        .actual(`${formatPercentage(actual, 0)}% Stacks used`)
-        .recommended(`${formatPercentage(recommended, 0)}% Stacks used is recommended`)
+      <Trans id="monk.windwalker.suggestions.jadeIgnitionWastedStacks"> You wasted your <SpellLink id={SPELLS.JADE_IGNITION_BUFF.id} /> stacks by using Fists of Fury at full stacks</Trans>)
+      .icon(SPELLS.JADE_IGNITION.icon)
+      .actual(`${formatPercentage(actual, 0)}% Stacks used`)
+      .recommended(`${formatPercentage(recommended, 0)}% Stacks used is recommended`),
     );
   }
 }

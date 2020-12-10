@@ -296,7 +296,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.ECHOING_REPRIMAD,
+        spell: SPELLS.ECHOING_REPRIMAND,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
         gcd: {

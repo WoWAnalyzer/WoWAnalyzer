@@ -12,12 +12,12 @@ import Events, { ApplyDebuffEvent, CastEvent, RefreshDebuffEvent } from 'parser/
 interface MarkOfTheCrane {
   target: MarkOfTheCraneTarget;
   timestamp: number;
-};
+}
 
 interface MarkOfTheCraneTarget {
   id: number;
   instance: number;
-};
+}
 
 const isEqual = (a: MarkOfTheCraneTarget, b: MarkOfTheCraneTarget) => a.id === b.id && a.instance === b.instance;
 
@@ -59,7 +59,7 @@ class SpinningCraneKick extends Analyzer {
   totalMarksDuringHits = 0;
 
   // targetInstance is undefined when it's the first one.
-  _verifyTargetInstance(targetInstance: number|undefined) {
+  _verifyTargetInstance(targetInstance: number | undefined) {
     return targetInstance === undefined ? 1 : targetInstance;
   }
 

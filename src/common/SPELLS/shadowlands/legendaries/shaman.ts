@@ -1,6 +1,5 @@
-import { LegendarySpell, SpellList } from "common/SPELLS/Spell";
 //https://www.raidbots.com/static/data/live/bonuses.json
-const legendaries: SpellList<LegendarySpell> = {
+const legendaries = {
   //region Enhancement
 
   //endregion
@@ -38,5 +37,5 @@ const legendaries: SpellList<LegendarySpell> = {
   //region Shared
 
   //endregion
-};
+} as const;
 export default legendaries;

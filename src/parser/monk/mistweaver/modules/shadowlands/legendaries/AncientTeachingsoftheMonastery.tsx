@@ -35,7 +35,7 @@ class AncientTeachingsoftheMonastery extends Analyzer {
   }
 
   lastDamageEvent(event: DamageEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.ANCIENT_TEACHINGS_OF_THE_MONASTERY_BUFF)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.ANCIENT_TEACHINGS_OF_THE_MONASTERY_BUFF.id)) {
       return;
     }
     this.lastDamageSpellID = event.ability.guid;

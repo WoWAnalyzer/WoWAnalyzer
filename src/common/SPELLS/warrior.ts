@@ -4,8 +4,7 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import { SpellList } from "./Spell";
-const spells: SpellList = {
+const spells = {
   // Arms:
   // Rotational Spells
   COLOSSUS_SMASH: {
@@ -166,9 +165,9 @@ const spells: SpellList = {
     name: "In For The Kill",
     icon: "ability_blackhand_marked4death",
   },
-  SUDDEN_DEATH_TALENT_ARMS_BUFF: { 
-    id: 52437, 
-    name: "Sudden Death", 
+  SUDDEN_DEATH_TALENT_ARMS_BUFF: {
+    id: 52437,
+    name: "Sudden Death",
     icon: "abilty_warrior_improveddisciplines",
   },
 
@@ -300,7 +299,7 @@ const spells: SpellList = {
     id: 280283,
     name: 'Endless Rage',
     icon: 'ability_warrior_endlessrage',
-  },  
+  },
   FROTHING_BERSERKER: {
     id: 215572,
     name: 'Frothing Berserker',
@@ -312,9 +311,9 @@ const spells: SpellList = {
     icon: 'inv_sword_48',
   },
   // Talents
-  SUDDEN_DEATH_TALENT_FURY_BUFF: { 
-    id: 280776, 
-    name: "Sudden Death", 
+  SUDDEN_DEATH_TALENT_FURY_BUFF: {
+    id: 280776,
+    name: "Sudden Death",
     icon: "abilty_warrior_improveddisciplines",
   },
   BLADESTORM_OH_DAMAGE: {
@@ -323,9 +322,9 @@ const spells: SpellList = {
     icon: 'ability_warrior_bladestorm',
   },
   // Fury talents
-  SIEGEBREAKER_DEBUFF: { 
-    id: 280773, 
-    name: "Siegebreaker", 
+  SIEGEBREAKER_DEBUFF: {
+    id: 280773,
+    name: "Siegebreaker",
     icon: "inv_make_101",
   },
   // Fury tier sets
@@ -579,5 +578,6 @@ const spells: SpellList = {
     name: 'Shattering Throw',
     icon: 'ability_warrior_shatteringthrow',
   },
-};
+} as const;
+
 export default spells;

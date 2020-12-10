@@ -40,11 +40,11 @@ class ComboBreaker extends Analyzer {
   protected abilityTracker!: AbilityTracker;
 
   CBProcsTotal = 0;
-  lastCBProcTime: number|null = null;
+  lastCBProcTime: number | null = null;
   consumedCBProc = 0;
   overwrittenCBProc = 0;
 
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.COMBO_BREAKER_BUFF), this.onApplyBuff);
     this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.COMBO_BREAKER_BUFF), this.onRefreshBuff);

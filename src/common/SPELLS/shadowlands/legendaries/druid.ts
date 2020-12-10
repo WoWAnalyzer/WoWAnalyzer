@@ -1,6 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const legendaries: SpellList = {
+const legendaries = {
   //region Balance
 
   //endregion
@@ -20,5 +18,5 @@ const legendaries: SpellList = {
   //region Shared
 
   //endregion
-};
+} as const;
 export default legendaries;

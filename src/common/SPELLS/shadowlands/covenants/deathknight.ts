@@ -1,6 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const covenants: SpellList = {
+const covenants = {
   //region Kyrian
   SHACKLE_THE_UNWORTHY: {
     id: 312202,
@@ -36,5 +34,5 @@ const covenants: SpellList = {
   },
 
   //endregion
-};
+} as const;
 export default covenants;

@@ -4,8 +4,7 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import { SpellList } from "./Spell";
-const spells: SpellList = {
+const spells = {
   // Common Spells
   GLIDE: {
     id: 131347,
@@ -455,5 +454,6 @@ const spells: SpellList = {
     name: 'Master of the Glaive Debuff',
     icon: 'inv_glaive_1h_demonhunter_a_01',
   },
-};
+} as const;
+
 export default spells;

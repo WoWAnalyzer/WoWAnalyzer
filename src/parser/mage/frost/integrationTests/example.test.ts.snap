@@ -2415,7 +2415,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
               }
             >
               15
-              
+              /17
                
               casts
             </td>
@@ -2426,7 +2426,19 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "93.85647435732113%",
+                    }
+                  }
+                />
+              </div>
             </td>
             <td
               className="text-left"
@@ -2437,7 +2449,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              
+              93.86%
             </td>
             <td
               style={

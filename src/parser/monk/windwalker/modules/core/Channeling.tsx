@@ -13,7 +13,8 @@ import Ability from 'parser/core/modules/Ability';
  * To avoid Crackling Jade Lightning as being marked "canceled" when we start a new spell we mark it as ended instead on the begincast/cast.
  */
 class Channeling extends CoreChanneling {
-  constructor(options: Options){
+
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FISTS_OF_FURY_CAST), this.onApplyBuff);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.FISTS_OF_FURY_CAST), this.onRemoveBuff);
@@ -56,6 +57,7 @@ class Channeling extends CoreChanneling {
     }
     this.endChannel(event);
   }
+
   onRemoveBuff(event: RemoveBuffEvent) {
     if (!this.isChannelingSpell(SPELLS.FISTS_OF_FURY_CAST.id)) {
       // This may be true if we did the event-order fix in begincast/cast and it was already ended there.

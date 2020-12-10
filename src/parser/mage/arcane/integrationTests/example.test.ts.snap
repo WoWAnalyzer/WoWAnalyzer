@@ -2583,7 +2583,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               9
-              
+              /15
                
               casts
             </td>
@@ -2594,7 +2594,19 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "64.37305649411384%",
+                    }
+                  }
+                />
+              </div>
             </td>
             <td
               className="text-left"
@@ -2605,7 +2617,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              
+              64.37%
             </td>
             <td
               style={
