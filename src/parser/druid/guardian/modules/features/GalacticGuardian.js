@@ -18,6 +18,7 @@ class GalacticGuardian extends Analyzer {
   consumedGGProc = 0;
   overwrittenGGProc = 0;
   nonGGMoonFire = 0;
+  statisticOrder = STATISTIC_ORDER.CORE(6);
 
   constructor(...args) {
     super(...args);
@@ -62,10 +63,10 @@ class GalacticGuardian extends Analyzer {
     const unusedGGProcs = 1 - (this.consumedGGProc / this.GGProcsTotal);
     when(unusedGGProcs).isGreaterThan(0.3)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>You wasted {formatPercentage(unusedGGProcs)}% of your <SpellLink id={SPELLS.GALACTIC_GUARDIAN.id} /> procs. Try to use the procs as soon as you get them so they are not overwritten.</span>)
-          .icon(SPELLS.GALACTIC_GUARDIAN.icon)
-          .actual(i18n._(t('druid.guardian.suggestions.galacticGuardian.unused')`${formatPercentage(unusedGGProcs)}% unused`))
-          .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
-          .regular(recommended + 0.15).major(recommended + 0.3));
+        .icon(SPELLS.GALACTIC_GUARDIAN.icon)
+        .actual(i18n._(t('druid.guardian.suggestions.galacticGuardian.unused')`${formatPercentage(unusedGGProcs)}% unused`))
+        .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
+        .regular(recommended + 0.15).major(recommended + 0.3));
   }
 
   statistic() {
@@ -80,7 +81,6 @@ class GalacticGuardian extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(6);
 }
 
 export default GalacticGuardian;

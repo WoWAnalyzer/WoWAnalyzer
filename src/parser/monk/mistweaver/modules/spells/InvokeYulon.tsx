@@ -12,10 +12,12 @@ class InvokeYulon extends Analyzer {
   soothHealing: number = 0;
   envelopHealing: number = 0;
 
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
     this.active = !this.selectedCombatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id);
-    if (!this.active) {return;}
+    if (!this.active) {
+      return;
+    }
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH), this.handleEnvelopingBreath);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_BREATH), this.handleSoothingBreath);
   }
@@ -35,11 +37,11 @@ class InvokeYulon extends Analyzer {
         size="flexible"
         tooltip={
           <>
-                Healing Breakdown:
-                <ul>
-                  <li>{formatNumber(this.soothHealing)} healing from Soothing Breath.</li>
-                  <li>{formatNumber(this.envelopHealing)} healing from Enveloping Breath.</li>
-                </ul>
+            Healing Breakdown:
+            <ul>
+              <li>{formatNumber(this.soothHealing)} healing from Soothing Breath.</li>
+              <li>{formatNumber(this.envelopHealing)} healing from Enveloping Breath.</li>
+            </ul>
           </>
         }
       >

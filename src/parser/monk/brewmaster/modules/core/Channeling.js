@@ -12,12 +12,13 @@ import { SELECTED_PLAYER } from 'parser/core/Analyzer';
  * To avoid Crackling Jade Lightning as being marked "canceled" when we start a new spell we mark it as ended instead on the begincast/cast.
  */
 class Channeling extends CoreChanneling {
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.CRACKLING_JADE_LIGHTNING), this.onApplyDebuff);
     this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.CRACKLING_JADE_LIGHTNING), this.onRemoveDebuff);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.CRACKLING_JADE_LIGHTNING), this.onRemoveBuff);
   }
+
   onCast(event) {
     if (event.ability.guid === SPELLS.CRACKLING_JADE_LIGHTNING.id) {
       // We track Crackling Jade Lightning differently
@@ -53,6 +54,7 @@ class Channeling extends CoreChanneling {
     }
     this.endChannel(event);
   }
+
   onRemoveBuff(event) {
     if (event.ability.guid !== SPELLS.ZEN_MEDITATION.id) {
       return;

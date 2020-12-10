@@ -1,6 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const covenants: SpellList = {
+const covenants = {
   //region Kyrian
   BOON_OF_THE_ASCENDED: {
     id: 325013,
@@ -30,7 +28,17 @@ const covenants: SpellList = {
     name: 'Unholy Nova',
     icon: 'ability_maldraxxus_priest',
   },
+  UNHOLY_NOVA_BUFF: {
+    id: 347788,
+    name: 'Unholy Nova',
+    icon: 'ability_maldraxxus_priest',
+  },
   UNHOLY_TRANSFUSION: {
+    id: 325118,
+    name: 'Unholy Transfusion',
+    icon: 'spell_animamaldraxxus_debuff',
+  },
+  UNHOLY_TRANSFUSION_DAMAGE: {
     id: 325203,
     name: 'Unholy Transfusion',
     icon: 'spell_animamaldraxxus_debuff',
@@ -77,5 +85,5 @@ const covenants: SpellList = {
     icon: 'ability_revendreth_priest',
   },
   //endregion
-};
+} as const;
 export default covenants;

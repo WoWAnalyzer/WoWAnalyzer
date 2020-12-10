@@ -52,12 +52,12 @@ const VengeanceDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }
         <Requirement
           name={(
             <>
-            <SpellLink id={SPELLS.DEMON_SPIKES.id} />
+              <SpellLink id={SPELLS.DEMON_SPIKES.id} />
             </>
           )}
           thresholds={thresholds.demonSpikes}
         />
-        {combatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id) && !combatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id) &&(
+        {combatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id) && !combatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id) && (
           <Requirement
             name={(
               <>
@@ -67,7 +67,7 @@ const VengeanceDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }
             thresholds={thresholds.spiritBombSoulsConsume}
           />
         )}
-        {(!combatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id) && combatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id)) &&(
+        {(!combatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id) && combatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id)) && (
           <Requirement
             name={(
               <>
@@ -78,7 +78,7 @@ const VengeanceDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }
           />
         )}
         {combatant.hasTalent(SPELLS.SOUL_BARRIER_TALENT.id) && <AbilityRequirement spell={SPELLS.SOUL_BARRIER_TALENT.id} />}
-       </Rule>
+      </Rule>
 
       <Rule
         name="Use your long defensive/healing cooldowns"
@@ -91,39 +91,39 @@ const VengeanceDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }
       >
         <AbilityRequirement spell={SPELLS.METAMORPHOSIS_TANK.id} />
         <AbilityRequirement spell={SPELLS.FIERY_BRAND.id} />
-       </Rule>
+      </Rule>
 
       {(combatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id) || combatant.hasTalent(SPELLS.VOID_REAVER_TALENT.id)) && (
-      <Rule
-        name="Maintain your buffs and debuffs"
-        description={(
-          <>
-            It is important to maintain these as they contribute a large amount to your DPS and HPS.<br />
-            <a href="http://www.wowhead.com/vengeance-demon-hunter-rotation-guide#rotation-priority-list" target="_blank" rel="noopener noreferrer">More info.</a>
-          </>
-        )}
-      >
-        {combatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id) &&(
-          <Requirement
-            name={(
-              <>
-                <SpellLink id={SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id} /> debuff uptime
-              </>
-            )}
-            thresholds={thresholds.spiritBombFrailtyDebuff}
-          />
-        )}
-        {combatant.hasTalent(SPELLS.VOID_REAVER_TALENT.id) &&(
-          <Requirement
-            name={(
-              <>
-                <SpellLink id={SPELLS.VOID_REAVER_TALENT.id} /> debuff uptime
-              </>
-            )}
-            thresholds={thresholds.voidReaverDebuff}
-          />
-        )}
-      </Rule>
+        <Rule
+          name="Maintain your buffs and debuffs"
+          description={(
+            <>
+              It is important to maintain these as they contribute a large amount to your DPS and HPS.<br />
+              <a href="http://www.wowhead.com/vengeance-demon-hunter-rotation-guide#rotation-priority-list" target="_blank" rel="noopener noreferrer">More info.</a>
+            </>
+          )}
+        >
+          {combatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id) && (
+            <Requirement
+              name={(
+                <>
+                  <SpellLink id={SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id} /> debuff uptime
+                </>
+              )}
+              thresholds={thresholds.spiritBombFrailtyDebuff}
+            />
+          )}
+          {combatant.hasTalent(SPELLS.VOID_REAVER_TALENT.id) && (
+            <Requirement
+              name={(
+                <>
+                  <SpellLink id={SPELLS.VOID_REAVER_TALENT.id} /> debuff uptime
+                </>
+              )}
+              thresholds={thresholds.voidReaverDebuff}
+            />
+          )}
+        </Rule>
       )}
 
       <PreparationRule thresholds={thresholds} />

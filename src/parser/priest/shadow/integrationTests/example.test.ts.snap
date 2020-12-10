@@ -332,7 +332,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "109.35356983811837%",
+                      "width": "109.47916879891602%",
                     }
                   }
                 />
@@ -347,7 +347,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              109.35%
+              109.48%
             </td>
             <td
               style={
@@ -1190,7 +1190,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=265314"
+                href="http://wowhead.com/spell=10060"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3937,6 +3937,22 @@ Array [
   Object {
     "details": null,
     "icon": "inv_alchemy_90_combat2_purple",
+    "importance": "regular",
+    "issue": <WithI18n
+      defaults="You used {0} combat potions during this encounter, but you could have used {1}. Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter."
+      id="shared.modules.items.potionChecker.suggestions.potionsUsed"
+      values={
+        Object {
+          "0": 0,
+          "1": 1,
+        }
+      }
+    />,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_alchemy_90_combat2_purple",
     "importance": "minor",
     "issue": <WithI18n
       components={
@@ -4601,7 +4617,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                
               Voidform
             </a>
-            ,  your 
+            , your 
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=34914"
@@ -5054,7 +5070,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  109.35%
+                  109.48%
                    
                    
                 </div>
@@ -5491,7 +5507,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  -6.67%
+                  -8.95%
                    
                    
                 </div>
@@ -5888,7 +5904,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  1
+                  0
                    
                   / 1
                    
@@ -5909,9 +5925,9 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />

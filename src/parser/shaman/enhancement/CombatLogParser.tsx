@@ -12,7 +12,7 @@ import Buffs from './modules/Buffs';
 // Enhancement Core
 import Stormbringer from './modules/core/Stormbringer';
 // Talents
-import LashingFlames from "./modules/talents/LashingFlames";
+import LashingFlames from './modules/talents/LashingFlames';
 import HotHand from './modules/talents/HotHand';
 import ForcefulWinds from './modules/talents/ForcefulWinds';
 import SpiritWolf from '../shared/talents/SpiritWolf';

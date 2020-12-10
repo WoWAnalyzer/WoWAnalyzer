@@ -31,16 +31,24 @@ class Atonement extends Analyzer {
     combatants: Combatants,
     atonementApplicationSource: AtonementApplicationSource,
   };
-
-  protected eventEmitter!: EventEmitter;
-  protected combatants!: Combatants;
-  protected atonementApplicationSource!: AtonementApplicationSource;
-
   healing = 0;
   totalAtones = 0;
   totalAtonementRefreshes = 0;
   currentAtonementTargets: AtonementTarget[] = [];
   improperAtonementRefreshes: AtonementTarget[] = [];
+  statisticOrder = STATISTIC_ORDER.OPTIONAL();
+  protected eventEmitter!: EventEmitter;
+  protected combatants!: Combatants;
+  protected atonementApplicationSource!: AtonementApplicationSource;
+
+  constructor(options: Options) {
+    super(options);
+    this.active = true;
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ATONEMENT_BUFF), this.onApplyBuff);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.ATONEMENT_BUFF), this.onRefreshBuff);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.ATONEMENT_BUFF), this.onRemoveBuff);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+  }
 
   get atonementDuration() {
     const applicatorEvent = this.atonementApplicationSource.event;
@@ -63,15 +71,6 @@ class Atonement extends Analyzer {
 
   get giftActive() {
     return this.numAtonementsActive >= 3;
-  }
-
-  constructor(options: Options) {
-    super(options);
-    this.active = true;
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ATONEMENT_BUFF), this.onApplyBuff);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.ATONEMENT_BUFF), this.onRefreshBuff);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.ATONEMENT_BUFF), this.onRemoveBuff);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
@@ -170,8 +169,6 @@ class Atonement extends Analyzer {
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default Atonement;

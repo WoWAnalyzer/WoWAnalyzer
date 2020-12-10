@@ -11,17 +11,27 @@ import { t } from '@lingui/macro';
 
 import SpellUsable from '../features/SpellUsable';
 
-
 /**
  * Example report: /report/YXFby87mzNrLtwj1/12-Normal+King+Rastakhan+-+Wipe+1+(3:32)/30-Korebian/timeline
  */
 
 class SweepingStrikes extends Analyzer {
+  get suggestionThresholds() {
+    return {
+      actual: this.badCasts / this.totalCasts,
+      isGreaterThan: {
+        minor: 0,
+        average: 0.2,
+        major: 0.5,
+      },
+      style: 'percent',
+    };
+  }
+
   static dependencies = {
     spellUsable: SpellUsable,
     abilities: Abilities,
   };
-
   totalCasts = 0;
   badCasts = 0;
 
@@ -47,23 +57,11 @@ class SweepingStrikes extends Analyzer {
 
   }
 
-  get suggestionThresholds() {
-    return {
-      actual: this.badCasts / this.totalCasts,
-      isGreaterThan: {
-        minor: 0,
-        average: 0.2,
-        major: 0.5,
-      },
-      style: 'percent',
-    };
-  }
-
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Try to cast <SpellLink id={SPELLS.SWEEPING_STRIKES.id} icon /> before <SpellLink id={SPELLS.COLOSSUS_SMASH.id} /> (or <SpellLink id={SPELLS.WARBREAKER_TALENT.id} /> if talented).</>)
-        .icon(SPELLS.SWEEPING_STRIKES.icon)
-        .actual(i18n._(t('warrior.arms.suggestions.sweepingStrikes.efficiency')`Sweeping Strikes was used ${formatPercentage(actual)}% of the time shortly after Colossus Smash/Warbreaker.`))
-        .recommended(`${formatPercentage(recommended)}% is recommended`));
+      .icon(SPELLS.SWEEPING_STRIKES.icon)
+      .actual(i18n._(t('warrior.arms.suggestions.sweepingStrikes.efficiency')`Sweeping Strikes was used ${formatPercentage(actual)}% of the time shortly after Colossus Smash/Warbreaker.`))
+      .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 
 }

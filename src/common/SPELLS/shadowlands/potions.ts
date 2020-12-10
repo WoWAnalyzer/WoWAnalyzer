@@ -1,6 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const spells: SpellList = {
+const spells = {
   SPIRITUAL_HEALING_POTION: {
     id: 307192,
     name: 'Spiritual Healing Potion',
@@ -57,7 +55,7 @@ const spells: SpellList = {
     icon: 'inv_alchemy_90_combat1_pink',
   },
   POTION_OF_PHANTOM_FIRE: {
-    id: 307382,
+    id: 307495,
     name: 'Potion of Phantom Fire',
     icon: 'inv_alchemy_90_combat1_green',
   },
@@ -107,5 +105,5 @@ const spells: SpellList = {
     icon: 'inv_alchemy_90_utility_teal',
   },
 
-};
+} as const;
 export default spells;

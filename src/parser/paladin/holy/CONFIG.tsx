@@ -4,8 +4,8 @@ import { Abelito75, HolySchmidt } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 import Config from 'parser/Config';
+import SpellIcon from 'common/SpellIcon';
 
 import CHANGELOG from './CHANGELOG';
 

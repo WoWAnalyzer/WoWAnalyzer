@@ -25,6 +25,7 @@ const BUFFER = 50; // for some reason, changedebuffstack triggers twice on the s
 const debug = false;
 
 class ShadowEmbrace extends Analyzer {
+
   static dependencies = {
     enemies: Enemies,
   };

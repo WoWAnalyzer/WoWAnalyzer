@@ -16,23 +16,23 @@ const AVATAR_BONUS_DAMAGE = 0.2;
 
 class Avatar extends Analyzer {
 
+  get dps() {
+    return this.totalDamages / this.owner.fightDuration * 1000;
+  }
+
+  totalDamages = 0;
+
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.AVATAR_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this._onDamage);
   }
 
-  totalDamages = 0;
-
   _onDamage(event) {
     if (event.targetIsFriendly || !this.selectedCombatant.hasBuff(SPELLS.AVATAR_TALENT.id, event.timestamp)) {
       return;
     }
     this.totalDamages += calculateEffectiveDamage(event, AVATAR_BONUS_DAMAGE);
-  }
-
-  get dps() {
-    return this.totalDamages / this.owner.fightDuration * 1000;
   }
 
   subStatistic() {

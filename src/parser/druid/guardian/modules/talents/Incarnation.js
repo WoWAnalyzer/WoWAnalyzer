@@ -7,8 +7,8 @@ class Incarnation extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
-  
-  constructor(options){
+
+  constructor(options) {
     super(options);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT), this.onApplyBuff);
   }

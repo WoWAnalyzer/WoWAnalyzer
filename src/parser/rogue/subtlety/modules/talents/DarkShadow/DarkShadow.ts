@@ -15,13 +15,13 @@ class DarkShadow extends Analyzer {
 
   protected damageTracker!: DamageTracker;
 
-  get totalShadowDanceCast() {
-    return this.damageTracker.getAbility(SPELLS.SHADOW_DANCE.id).casts;
-  }
-
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DARK_SHADOW_TALENT.id);
+  }
+
+  get totalShadowDanceCast() {
+    return this.damageTracker.getAbility(SPELLS.SHADOW_DANCE.id).casts;
   }
 }
 

@@ -15,6 +15,7 @@ import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class UnstableAfflictionUptime extends Analyzer {
+
   static dependencies = {
     enemies: Enemies,
   };

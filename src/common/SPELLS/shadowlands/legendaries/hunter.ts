@@ -1,6 +1,4 @@
-import { LegendarySpell, SpellList } from 'common/SPELLS/Spell';
-
-const legendaries: SpellList<LegendarySpell> = {
+const legendaries = {
   //region Beast Mastery
   DIRE_COMMAND_EFFECT: {
     id: 336819,
@@ -149,5 +147,5 @@ const legendaries: SpellList<LegendarySpell> = {
     bonusID: 7006,
   },
   //endregion
-};
+} as const;
 export default legendaries;

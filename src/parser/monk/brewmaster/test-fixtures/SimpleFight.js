@@ -55,8 +55,7 @@ export const dpsCasts = [
 ];
 
 // Damage taken: amount: 0, absorbed: 0, overkill: 0
-export const isbCasts = [
-];
+export const isbCasts = [];
 
 // Damage taken: amount: 0, absorbed: 0, overkill: 0
 export const applybuff = [

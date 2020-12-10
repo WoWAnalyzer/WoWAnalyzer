@@ -16,15 +16,19 @@ import DemoPets from '../pets/DemoPets';
 const BONUS_DAMAGE_PER_PET = 0.04;
 const MAX_TRAVEL_TIME = 3000; // Shadow Bolt is the slowest, takes around 2 seconds to land from max distance, add a little more to account for target movement
 const debug = false;
+
 /*
   Sacrificed Souls:
     Shadow Bolt and Demonbolt deal 5% additional damage per demon you have summoned.
  */
 class SacrificedSouls extends Analyzer {
+  get totalBonusDamage() {
+    return this._shadowBoltDamage + this._demonboltDamage;
+  }
+
   static dependencies = {
     demoPets: DemoPets,
   };
-
   _shadowBoltDamage = 0;
   _demonboltDamage = 0;
   _queue = [];
@@ -54,8 +58,8 @@ class SacrificedSouls extends Analyzer {
     this._queue = this._queue.filter(cast => cast.timestamp > (event.timestamp - MAX_TRAVEL_TIME));
     const castIndex = this._queue
       .findIndex(cast => cast.targetID === event.targetID
-                      && cast.targetInstance === event.targetInstance
-                      && cast.spellId === event.ability.guid);
+        && cast.targetInstance === event.targetInstance
+        && cast.spellId === event.ability.guid);
     if (castIndex === -1) {
       debug && this.error('Encountered damage event with no cast associated. Queue', JSON.parse(JSON.stringify(this._queue)), 'event', event);
       return;
@@ -68,10 +72,6 @@ class SacrificedSouls extends Analyzer {
     } else {
       this._demonboltDamage += bonusDamage;
     }
-  }
-
-  get totalBonusDamage() {
-    return this._shadowBoltDamage + this._demonboltDamage;
   }
 
   statistic() {

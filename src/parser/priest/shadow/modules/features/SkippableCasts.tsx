@@ -17,19 +17,19 @@ class SkippableCasts extends Analyzer {
     haste: Haste,
     globalCooldown: GlobalCooldown,
   };
+  _castsSinceLastVoidBolt = 0;
   protected haste!: Haste;
   protected globalCooldown!: GlobalCooldown;
 
-  _castsSinceLastVoidBolt = 0;
+  constructor(options: Options) {
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+  }
+
   _skippableCastsBetweenVoidbolts = 0;
 
   get skippableCastsBetweenVoidbolts() {
     return this._skippableCastsBetweenVoidbolts;
-  }
-
-  constructor(options: Options){
-    super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
 
   onCast(event: CastEvent) {

@@ -23,6 +23,7 @@ class Castigation extends Analyzer {
   damage = 0;
 
   _isCastigationBolt = false;
+  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 
   constructor(options: Options) {
     super(options);
@@ -31,7 +32,7 @@ class Castigation extends Analyzer {
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
   }
 
-  onDamage(event: DamageEvent ) {
+  onDamage(event: DamageEvent) {
     if (!IsPenanceDamageEvent(event)) {
       return;
     }
@@ -83,8 +84,6 @@ class Castigation extends Analyzer {
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default Castigation;

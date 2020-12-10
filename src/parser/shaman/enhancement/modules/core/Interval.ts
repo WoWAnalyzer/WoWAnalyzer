@@ -8,16 +8,12 @@ export class Interval {
     this.startTime = timestamp;
   }
 
-  end(timestamp: number) {
-    this.endTime = timestamp;
-  }
-
   get duration(): number {
     if (this.endTime === undefined) {
       debug &&
-        console.error(
-          'Cannot calculate duration of an Interval with no endTime.',
-        );
+      console.error(
+        'Cannot calculate duration of an Interval with no endTime.',
+      );
       return 0;
     }
     return this.endTime - this.startTime;
@@ -25,5 +21,9 @@ export class Interval {
 
   get ended(): boolean {
     return this.endTime !== undefined;
+  }
+
+  end(timestamp: number) {
+    this.endTime = timestamp;
   }
 }

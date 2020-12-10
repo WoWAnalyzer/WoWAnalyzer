@@ -19,10 +19,29 @@ import { t } from '@lingui/macro';
 const HAUNT_DAMAGE_BONUS = 0.1;
 
 class Haunt extends Analyzer {
+  get uptime() {
+    return this.enemies.getBuffUptime(SPELLS.HAUNT_TALENT.id) / this.owner.fightDuration;
+  }
+
+  get dps() {
+    return this.bonusDmg / this.owner.fightDuration * 1000;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.uptime,
+      isLessThan: {
+        minor: 0.9,
+        average: 0.85,
+        major: 0.75,
+      },
+      style: 'percentage',
+    };
+  }
+
   static dependencies = {
     enemies: Enemies,
   };
-
   bonusDmg = 0;
   totalTicks = 0;
   buffedTicks = 0;
@@ -46,36 +65,16 @@ class Haunt extends Analyzer {
     }
   }
 
-  get uptime() {
-    return this.enemies.getBuffUptime(SPELLS.HAUNT_TALENT.id) / this.owner.fightDuration;
-  }
-
-  get dps() {
-    return this.bonusDmg / this.owner.fightDuration * 1000;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.uptime,
-      isLessThan: {
-        minor: 0.9,
-        average: 0.85,
-        major: 0.75,
-      },
-      style: 'percentage',
-    };
-  }
-
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(
-          <>
-            Your <SpellLink id={SPELLS.HAUNT_TALENT.id} /> debuff uptime is too low. While it's usually not possible to get 100% uptime due to travel and cast time, you should aim for as much uptime on the debuff as possible.
-          </>,
-        )
-          .icon(SPELLS.HAUNT_TALENT.icon)
-          .actual(i18n._(t('warlock.affliction.suggestions.haunt.uptime')`${formatPercentage(actual)}% Haunt uptime.`))
-          .recommended(`> ${formatPercentage(recommended)}% is recommended`));
+        <>
+          Your <SpellLink id={SPELLS.HAUNT_TALENT.id} /> debuff uptime is too low. While it's usually not possible to get 100% uptime due to travel and cast time, you should aim for as much uptime on the debuff as possible.
+        </>,
+      )
+        .icon(SPELLS.HAUNT_TALENT.icon)
+        .actual(i18n._(t('warlock.affliction.suggestions.haunt.uptime')`${formatPercentage(actual)}% Haunt uptime.`))
+        .recommended(`> ${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

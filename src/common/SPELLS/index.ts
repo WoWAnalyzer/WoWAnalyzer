@@ -13,11 +13,9 @@
  **************************************************************************************************************** */
 
 import indexById from 'common/indexById';
-import safeMerge from 'common/safeMerge';
 
 import OTHERS from './others';
 import RACIALS from './racials';
-import BFA from './bfa';
 import SHADOWLANDS from './shadowlands';
 import ENCOUNTER from './encounter';
 
@@ -46,44 +44,43 @@ import ROGUE from './rogue';
 import SHAMAN from './shaman';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
-import { SpellList } from './Spell';
 
-const ABILITIES: SpellList = {
+const ABILITIES = {
   // Talents are auto generated
-  ...safeMerge(
-    TALENTS_DEATH_KNIGHT,
-    TALENTS_DEMON_HUNTER,
-    TALENTS_DRUID,
-    TALENTS_HUNTER,
-    TALENTS_MAGE ,
-    TALENTS_MONK,
-    TALENTS_PALADIN,
-    TALENTS_PRIEST,
-    TALENTS_ROGUE,
-    TALENTS_SHAMAN,
-    TALENTS_WARLOCK,
-    TALENTS_WARRIOR,
-  ),
+  ...TALENTS_DEATH_KNIGHT,
+  ...TALENTS_DEMON_HUNTER,
+  ...TALENTS_DRUID,
+  ...TALENTS_HUNTER,
+  ...TALENTS_MAGE,
+  ...TALENTS_MONK,
+  ...TALENTS_PALADIN,
+  ...TALENTS_PRIEST,
+  ...TALENTS_ROGUE,
+  ...TALENTS_SHAMAN,
+  ...TALENTS_WARLOCK,
+  ...TALENTS_WARRIOR,
   // Talents can be overwritten with custom spell objects
-  ...safeMerge(
-    OTHERS,
-    ENCOUNTER,
-    RACIALS,
-    DEATH_KNIGHT,
-    DEMON_HUNTER,
-    DRUID,
-    HUNTER,
-    MAGE,
-    MONK,
-    PALADIN,
-    PRIEST,
-    ROGUE,
-    SHAMAN,
-    WARLOCK,
-    WARRIOR,
-    BFA,
-    SHADOWLANDS,
-  ),
-};
+  ...OTHERS,
+  ...ENCOUNTER,
+  ...RACIALS,
+  ...DEATH_KNIGHT,
+  ...DEMON_HUNTER,
+  ...DRUID,
+  ...HUNTER,
+  ...MAGE,
+  ...MONK,
+  ...PALADIN,
+  ...PRIEST,
+  ...ROGUE,
+  ...SHAMAN,
+  ...WARLOCK,
+  ...WARRIOR,
+  ...SHADOWLANDS,
+} as const;
 
+// If you remove this indexById you can see what spells are undefined.
+// But you'll get a lot of other errors.
+// We should type indexById properly some day to make this standard.
+// And then fix all those errors.
+// Which will prevent bugs.
 export default indexById(ABILITIES);

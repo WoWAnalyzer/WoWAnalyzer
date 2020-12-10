@@ -7,6 +7,7 @@ import SPELLS from 'common/SPELLS'
 import SpellLink from 'common/SpellLink';
 
 export default [
+  change(date(2020, 12, 9), <>Reworked <SpellLink id={SPELLS.SOUL_REAPER_TALENT.id}/> to use ExecuteHelper to provide cast efficiency and damage statistics</>, [Khazak]),
   change(date(2020, 12, 7), 'Updated Abilities with covenant signature and class abilities', [Khazak]),
   change(date(2020, 11, 25), <>Updated cooldown tracking to support <SpellLink id={SPELLS.DEATH_COIL.id} /> Rank 2 and <SpellLink id={SPELLS.ARMY_OF_THE_DAMNED_TALENT.id} /></>, [Khazak]),
   change(date(2020, 10, 27), <>Created statistics for <SpellLink id={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER.id} /> and <SpellLink id={SPELLS.RUNE_OF_HYSTERIA.id} /></>, joshinator),
@@ -14,5 +15,4 @@ export default [
   change(date(2020, 10, 13), <>Updated  <SpellLink id={SPELLS.FESTERING_WOUND.id} /> tracking to be more accurate for <SpellLink id={SPELLS.SCOURGE_STRIKE.id}/> and <SpellLink id={SPELLS.FESTERING_STRIKE.id} /> modules</>, [Khazak]),
   change(date(2020, 10, 11), 'Converted modules to Typescript', [Khazak]),
   change(date(2020, 8, 4), 'Behind the scenes clean up to prep for better support in Shadowlands', [Khazak]),
-  change(date(2018, 8, 30), 'Removed Legion modules and updated basic analysis for BFA', [Khazak]),
 ];

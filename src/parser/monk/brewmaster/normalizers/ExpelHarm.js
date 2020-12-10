@@ -24,12 +24,12 @@ export default class ExpelHarm extends EventsNormalizer {
     //
     // inb4 this introduces tons of bugs
     events.forEach((event, idx) => {
-      if(event.type !== EventType.Cast || event.ability.guid !== SPELLS.EXPEL_HARM.id) {
+      if (event.type !== EventType.Cast || event.ability.guid !== SPELLS.EXPEL_HARM.id) {
         return;
       }
 
       // quick check that EH is after ALL orbs
-      if(events[idx+1].timestamp === event.timestamp && isGotOxHeal(events[idx+1])) {
+      if (events[idx + 1].timestamp === event.timestamp && isGotOxHeal(events[idx + 1])) {
         console.error('gotox orb after eh');
       }
       // find the start of run of orbs consumed
@@ -37,13 +37,13 @@ export default class ExpelHarm extends EventsNormalizer {
       //
       // Celestial Fortune heals can occur between orb heals.
       let i = idx;
-      while(events[i-1].timestamp > event.timestamp - BUFFER_WINDOW && (isGotOxHeal(events[i-1]) || isCFHeal(events[i-1]))) {
+      while (events[i - 1].timestamp > event.timestamp - BUFFER_WINDOW && (isGotOxHeal(events[i - 1]) || isCFHeal(events[i - 1]))) {
         i -= 1;
       }
       const target = i;
       // move everything down
-      for(i = idx; i > target; i -= 1) {
-        events[i] = events[i-1];
+      for (i = idx; i > target; i -= 1) {
+        events[i] = events[i - 1];
       }
       // put EH at the start
       events[target] = event;

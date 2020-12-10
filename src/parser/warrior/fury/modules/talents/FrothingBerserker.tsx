@@ -6,8 +6,8 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { i18n } from '@lingui/core';
@@ -32,12 +32,6 @@ class FrothingBerserker extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.FROTHING_BERSERKER_TALENT.id);
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onPlayerDamage);
-  }
-
-  onPlayerDamage(event: DamageEvent) {
-    if (this.selectedCombatant.hasBuff(SPELLS.FROTHING_BERSERKER.id)) {
-      this.damage += calculateEffectiveDamage(event, DAMAGE_BONUS);
-    }
   }
 
   get damagePercent() {
@@ -67,12 +61,18 @@ class FrothingBerserker extends Analyzer {
     };
   }
 
+  onPlayerDamage(event: DamageEvent) {
+    if (this.selectedCombatant.hasBuff(SPELLS.FROTHING_BERSERKER.id)) {
+      this.damage += calculateEffectiveDamage(event, DAMAGE_BONUS);
+    }
+  }
+
   suggestions(when: When) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.FROTHING_BERSERKER.id} /> uptime can be improved.</>)
-          .icon(SPELLS.FROTHING_BERSERKER.icon)
-          .actual(i18n._(t('warrior.fury.suggestions.frothingBerserker.uptime')`${formatPercentage(actual)}% Frothing Berserker uptime`))
-          .recommended(`>${formatPercentage(recommended)}% is recommended`));
+        .icon(SPELLS.FROTHING_BERSERKER.icon)
+        .actual(i18n._(t('warrior.fury.suggestions.frothingBerserker.uptime')`${formatPercentage(actual)}% Frothing Berserker uptime`))
+        .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

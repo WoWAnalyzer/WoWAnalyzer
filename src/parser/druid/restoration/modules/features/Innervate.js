@@ -16,6 +16,38 @@ const debug = false;
 const TOL_REJUVENATION_REDUCTION = 0.3;
 
 class Innervate extends Analyzer {
+  get averageManaSaved() {
+    return (this.manaSaved / this.innervateCount) || 0;
+  }
+
+  get averageManaSavedSuggestionThresholds() {
+    return {
+      actual: this.averageManaSaved,
+      isLessThan: {
+        minor: 23000,
+        average: 19120,
+        major: 13200,
+      },
+      style: 'number',
+    };
+  }
+
+  get wholeSecondsCapped() {
+    return Math.round(this.secondsManaCapped);
+  }
+
+  get secondsCappedSuggestionThresholds() {
+    return {
+      actual: this.wholeSecondsCapped,
+      isGreaterThan: {
+        minor: 0,
+        average: 1,
+        major: 2,
+      },
+      style: 'number',
+    };
+  }
+
   manaSaved = 0;
   wildGrowths = 0;
   efflorescences = 0;
@@ -132,38 +164,6 @@ class Innervate extends Analyzer {
     }
   }
 
-  get averageManaSaved() {
-    return (this.manaSaved / this.innervateCount) || 0;
-  }
-
-  get averageManaSavedSuggestionThresholds() {
-    return {
-      actual: this.averageManaSaved,
-      isLessThan: {
-        minor: 23000,
-        average: 19120,
-        major: 13200,
-      },
-      style: 'number',
-    };
-  }
-
-  get wholeSecondsCapped() {
-    return Math.round(this.secondsManaCapped);
-  }
-
-  get secondsCappedSuggestionThresholds() {
-    return {
-      actual: this.wholeSecondsCapped,
-      isGreaterThan: {
-        minor: 0,
-        average: 1,
-        major: 2,
-      },
-      style: 'number',
-    };
-  }
-
   suggestions(when) {
     if (this.innervateCount === 0) {
       return;
@@ -171,16 +171,16 @@ class Innervate extends Analyzer {
 
     when(this.averageManaSavedSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your mana spent during an <SpellLink id={SPELLS.INNERVATE.id} /> can be improved.
-              Always aim to cast 1 wild growth, 1 efflorescence, and fill the rest with rejuvations for optimal usage.</>)
-          .icon(SPELLS.INNERVATE.icon)
-          .actual(i18n._(t('druid.restoration.suggestions.innervate.efficiency')`${formatNumber(this.averageManaSaved.toFixed(0))} avg mana spent.`))
-          .recommended(`>${formatNumber(recommended)} is recommended`));
+        Always aim to cast 1 wild growth, 1 efflorescence, and fill the rest with rejuvations for optimal usage.</>)
+        .icon(SPELLS.INNERVATE.icon)
+        .actual(i18n._(t('druid.restoration.suggestions.innervate.efficiency')`${formatNumber(this.averageManaSaved.toFixed(0))} avg mana spent.`))
+        .recommended(`>${formatNumber(recommended)} is recommended`));
 
     when(this.secondsCappedSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You were capped on mana during <SpellLink id={SPELLS.INNERVATE.id} />. Try to not use Innervate if you are above 90% mana.</>)
-          .icon(SPELLS.INNERVATE.icon)
-          .actual(i18n._(t('druid.restoration.suggestions.innervate.secondsCapped')`~${this.wholeSecondsCapped} seconds capped`))
-          .recommended(`${recommended} is recommended`));
+        .icon(SPELLS.INNERVATE.icon)
+        .actual(i18n._(t('druid.restoration.suggestions.innervate.secondsCapped')`~${this.wholeSecondsCapped} seconds capped`))
+        .recommended(`${recommended} is recommended`));
   }
 
   statistic() {
@@ -204,7 +204,7 @@ class Innervate extends Analyzer {
           </>
         )}
       >
-        <BoringValue label={<><SpellIcon id={SPELLS.INNERVATE.id} /> Mana saved per Innervate</>} >
+        <BoringValue label={<><SpellIcon id={SPELLS.INNERVATE.id} /> Mana saved per Innervate</>}>
           <>
             {formatNumber(this.averageManaSaved)}
           </>

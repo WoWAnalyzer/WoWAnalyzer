@@ -33,7 +33,6 @@ class ElementalAssault extends Analyzer {
   protected maelstromWeaponGained: number = 0;
   protected maelstromWeaponWasted: number = 0;
 
-
   constructor(options: Options) {
     super(options);
 

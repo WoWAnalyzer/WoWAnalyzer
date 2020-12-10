@@ -6354,7 +6354,7 @@ Array [
           />,
           <ItemLink
             icon={true}
-            id={168498}
+            id={171273}
           />,
         ]
       }
@@ -7567,7 +7567,7 @@ Array [
       <ForwardRef
         id={116670}
       />
-        or 
+       or 
       <ForwardRef
         id={115151}
       />
@@ -8773,7 +8773,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                    
                   Enveloping Breath
                 </a>
-                 applied per  
+                 applied per 
                 <a
                   className="spell-link-text"
                   href="http://wowhead.com/spell=124682"

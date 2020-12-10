@@ -14,10 +14,10 @@ export const MPLUS_K = 8467.2;
 // not necessarily the first boss, but the one with the lowest id
 const BOD_FIRST_BOSS = 2263;
 export const BOD_K = [
-     null,
-   8467.2, // LFR
-     null,
-   9311.4, // Normal
+  null,
+  8467.2, // LFR
+  null,
+  9311.4, // Normal
   10275.3, // Heroic
   11390.4, // Mythic
 ];
@@ -47,15 +47,15 @@ export function diminish(stat, K) {
 }
 
 export function lookupK(fight) {
-    if(fight.size === 5) {
-      return MPLUS_K;
-    } else if (fight.boss >= NYALOTHA_FIRST_BOSS) {
-      return NYALOTHA_K[fight.difficulty];
-    } else if (fight.boss >= EP_FIRST_BOSS) {
-      return EP_K[fight.difficulty];
-    } else if (fight.boss >= BOD_FIRST_BOSS) {
-      return BOD_K[fight.difficulty];
-    } else {
-      return ULDIR_K[fight.difficulty];
-    }
+  if (fight.size === 5) {
+    return MPLUS_K;
+  } else if (fight.boss >= NYALOTHA_FIRST_BOSS) {
+    return NYALOTHA_K[fight.difficulty];
+  } else if (fight.boss >= EP_FIRST_BOSS) {
+    return EP_K[fight.difficulty];
+  } else if (fight.boss >= BOD_FIRST_BOSS) {
+    return BOD_K[fight.difficulty];
+  } else {
+    return ULDIR_K[fight.difficulty];
+  }
 }

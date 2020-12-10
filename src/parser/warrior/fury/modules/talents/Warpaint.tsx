@@ -1,7 +1,7 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatThousands } from 'common/format';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -20,11 +20,19 @@ class Warpaint extends Analyzer {
 
     this.active = this.selectedCombatant.hasTalent(SPELLS.WARPAINT_TALENT.id);
 
-    if(!this.active){
+    if (!this.active) {
       return;
     }
 
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onPlayerDamageTaken);
+  }
+
+  get damageMitigatedPercent() {
+    if (this.damageTaken === 0) {
+      return 0;
+    }
+
+    return this.damageMitigated / this.damageTaken;
   }
 
   onPlayerDamageTaken(event: DamageEvent) {
@@ -35,14 +43,6 @@ class Warpaint extends Analyzer {
     }
 
     this.damageTaken += eventDamageTaken;
-  }
-
-  get damageMitigatedPercent() {
-    if(this.damageTaken === 0) {
-      return 0;
-    }
-
-    return this.damageMitigated / this.damageTaken;
   }
 
   statistic() {

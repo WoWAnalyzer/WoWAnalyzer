@@ -84,7 +84,7 @@ exports[`Elemental Shaman integration test: example log AlwaysBeCasting matches 
         <div
           className="value"
         >
-          11.44 %
+          10.48 %
         </div>
         <div
           style={
@@ -103,7 +103,7 @@ exports[`Elemental Shaman integration test: example log AlwaysBeCasting matches 
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "88.55870274924793%",
+                  "width": "89.52118328856126%",
                 }
               }
             >
@@ -169,7 +169,7 @@ Array [
       />
     </React.Fragment>,
     "stat": <React.Fragment>
-      11.44% downtime
+      10.48% downtime
        (
       &lt;5.00% is recommended
       )
@@ -474,7 +474,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
               }
             >
               57
-              /67
+              /66
                
               casts
             </td>
@@ -493,7 +493,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "85.425147191068%",
+                      "width": "85.82147912087726%",
                     }
                   }
                 />
@@ -508,7 +508,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 }
               }
             >
-              85.43%
+              85.82%
             </td>
             <td
               style={
@@ -4754,6 +4754,22 @@ Array [
   Object {
     "details": null,
     "icon": "inv_alchemy_90_combat2_purple",
+    "importance": "regular",
+    "issue": <WithI18n
+      defaults="You used {0} combat potions during this encounter, but you could have used {1}. Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter."
+      id="shared.modules.items.potionChecker.suggestions.potionsUsed"
+      values={
+        Object {
+          "0": 0,
+          "1": 1,
+        }
+      }
+    />,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_alchemy_90_combat2_purple",
     "importance": "minor",
     "issue": <WithI18n
       components={
@@ -5510,7 +5526,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
               style={
                 Object {
                   "backgroundColor": "#df7102",
-                  "width": "38.67231683553414%",
+                  "width": "39.474308643930655%",
                 }
               }
             />
@@ -5663,7 +5679,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                   }
                 >
                    
-                  11.44%
+                  10.48%
                    
                    
                 </div>
@@ -5685,7 +5701,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "17.463054723699848%",
+                        "width": "19.06703834049288%",
                       }
                     }
                   />
@@ -6680,7 +6696,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                   }
                 >
                    
-                  2
+                  0
                    
                   / 1
                    
@@ -6701,9 +6717,9 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "200%",
+                        "width": "0%",
                       }
                     }
                   />

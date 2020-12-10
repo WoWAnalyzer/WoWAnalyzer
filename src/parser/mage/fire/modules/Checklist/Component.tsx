@@ -32,7 +32,6 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
         <AbilityRequirement spell={SPELLS.COMBUSTION.id} />
         <AbilityRequirement spell={SPELLS.FIRE_BLAST.id} />
         <AbilityRequirement spell={SPELLS.PHOENIX_FLAMES.id} />
-        <AbilityRequirement spell={SPELLS.MIRROR_IMAGE.id} />
         {combatant.hasTalent(SPELLS.BLAST_WAVE_TALENT.id) && <AbilityRequirement spell={SPELLS.BLAST_WAVE_TALENT.id} />}
         {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) && <AbilityRequirement spell={SPELLS.RUNE_OF_POWER_TALENT.id} />}
         {combatant.hasTalent(SPELLS.LIVING_BOMB_TALENT.id) && <AbilityRequirement spell={SPELLS.LIVING_BOMB_TALENT.id} />}

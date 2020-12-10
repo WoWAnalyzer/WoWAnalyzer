@@ -121,7 +121,7 @@ export default {
     vers: true,
   },
   [SPELLS.GLIMMER_OF_LIGHT_HEAL_TALENT.id]: {
-    // Holy Paladin Talent 
+    // Holy Paladin Talent
     int: true,
     crit: true,
     hasteHpct: true,
