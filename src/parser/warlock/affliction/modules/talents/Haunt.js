@@ -38,8 +38,7 @@ class Haunt extends Analyzer {
     if (!target) {
       return;
     }
-    // TODO: If this has the same problem as UA, the warcraft logs events don't seem to include the aura apply if its pre-cast?
-    // So this could mean we are not counting the first haunt of the fight?
+
     const hasHaunt = target.hasBuff(SPELLS.HAUNT_TALENT.id, event.timestamp);
 
     if (hasHaunt) {
