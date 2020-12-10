@@ -35,7 +35,7 @@ class FallenOrder extends Analyzer {
       return;
     }
 
-    this.abilities.add({
+    (options.abilities as Abilities).add({
       spell: SPELLS.FALLEN_ORDER_CAST,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       cooldown: 180,
