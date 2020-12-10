@@ -459,7 +459,7 @@ const spells = {
     icon: 'spell_mage_icenova',
   },
   TOUCH_OF_THE_MAGI_DEBUFF: {
-    id: 210725,
+    id: 210824,
     name: 'Touch of the Magi',
     icon: 'spell_mage_icenova',
   },

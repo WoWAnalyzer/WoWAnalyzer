@@ -29,6 +29,7 @@ import RuleOfThrees from './modules/talents/RuleOfThrees';
 import TimeAnomaly from './modules/talents/TimeAnomaly';
 import ArcaneFamiliar from './modules/talents/ArcaneFamiliar';
 import MasterOfTime from './modules/talents/MasterOfTime';
+import ArcaneEcho from './modules/talents/ArcaneEcho';
 
 //Legendaries
 import ArcaneHarmony from './modules/items/ArcaneHarmony';
@@ -78,6 +79,7 @@ class CombatLogParser extends CoreCombatLogParser {
     ruleOfThrees: RuleOfThrees,
     timeAnomaly: TimeAnomaly,
     masterOfTime: MasterOfTime,
+    arcaneEcho: ArcaneEcho,
 
     //Legendaries
     arcaneHarmony: ArcaneHarmony,
