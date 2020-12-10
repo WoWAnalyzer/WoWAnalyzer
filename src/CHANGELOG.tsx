@@ -6,6 +6,7 @@ import { change, date } from 'common/changelog';
 
 // prettier-ignore
 export default [
+  change(date(2020, 12,10), 'Update character lookup to show Castle Nathria instead of Ny\'alotha', Putro),
   change(date(2020, 12, 10), 'Speed up build workflow.', Zerotorescue),
   change(date(2020, 12, 9), 'Fixed a crash here and there.', Zerotorescue),
   change(date(2020, 12, 9), 'Fixed a bug in Cancelled Casts that was counting enchant procs and other effects as abilities that interrupted casts', Sharrq),
