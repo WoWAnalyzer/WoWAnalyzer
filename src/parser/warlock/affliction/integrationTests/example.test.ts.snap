@@ -4477,9 +4477,6 @@ exports[`Affliction Warlock integration test: example log DotUptimeStatisticBox 
         </div>
         <div
           className="flex-sub value"
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          onTouchStart={[Function]}
           style={
             Object {
               "paddingRight": 8,
@@ -4490,10 +4487,7 @@ exports[`Affliction Warlock integration test: example log DotUptimeStatisticBox 
           52
            % 
           <small>
-            uptime 
-            <sup>
-              *
-            </sup>
+            uptime
           </small>
         </div>
         <div
@@ -5232,7 +5226,7 @@ exports[`Affliction Warlock integration test: example log ShadowEmbrace matches 
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    category="TALENTS"
+    category="GENERAL"
     className="panel statistic flexible "
   >
     <div
@@ -5277,7 +5271,7 @@ exports[`Affliction Warlock integration test: example log ShadowEmbrace matches 
             style={Object {}}
           >
             <small>
-              uptime 
+               uptime 
               <sup>
                 *
               </sup>
@@ -5312,6 +5306,29 @@ exports[`Affliction Warlock integration test: example log ShadowEmbrace matches 
     </div>
   </div>
 </div>
+`;
+
+exports[`Affliction Warlock integration test: example log ShadowEmbrace matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_shadow_shadowembrace",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <ForwardRef
+        id={32390}
+      />
+       uptime can be improved. Try to pay more attention to your Shadow Embrace on the boss, perhaps use some debuff tracker.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      0.00% Shadow Embrace uptime
+       (
+      &gt;95.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
 `;
 
 exports[`Affliction Warlock integration test: example log SiphonLifeUptime matches the suggestions snapshot 1`] = `
@@ -5698,22 +5715,18 @@ Array [
   Object {
     "details": null,
     "icon": "spell_shadow_unstableaffliction_3",
-    "importance": "regular",
+    "importance": "major",
     "issue": <React.Fragment>
       Your 
       <ForwardRef
         id={316099}
       />
-       uptime is too low. Try spacing out your UAs a little more so that you get the most out of the internal 10% damage bonus, unless you're pooling for 
-      <ForwardRef
-        id={205180}
-      />
-       or focusing priority targets.
+       uptime can be improved. Try to pay more attention to your Unstable Affliction on the boss, perhaps use some debuff tracker.
     </React.Fragment>,
     "stat": <React.Fragment>
       52.13% Unstable Affliction uptime.
        (
-      &gt; 70.00% is recommended
+      &gt; 95.00% is recommended
       )
     </React.Fragment>,
   },
@@ -5808,7 +5821,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
               style={
                 Object {
                   "backgroundColor": "#df7102",
-                  "width": "39.53932123159768%",
+                  "width": "35.269084661484335%",
                 }
               }
             />
@@ -6083,9 +6096,9 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#df7102",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "40.398080514179%",
+                        "width": "21.699760064272372%",
                       }
                     }
                   />
