@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 
+import COVENANTS from 'game/shadowlands/COVENANTS';
+
 import Checklist from 'parser/shared/modules/features/Checklist';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
@@ -66,6 +68,7 @@ const AfflictionWarlockChecklist = ({ combatant, castEfficiency, thresholds, sha
         {combatant.hasTalent(SPELLS.DARK_SOUL_MISERY_TALENT.id) && <AbilityRequirement spell={SPELLS.DARK_SOUL_MISERY_TALENT.id} />}
         {combatant.hasTalent(SPELLS.VILE_TAINT_TALENT.id) && <AbilityRequirement spell={SPELLS.VILE_TAINT_TALENT.id} />}
         {combatant.hasTalent(SPELLS.PHANTOM_SINGULARITY_TALENT.id) && <AbilityRequirement spell={SPELLS.PHANTOM_SINGULARITY_TALENT.id} />}
+        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && <AbilityRequirement spell={SPELLS.SOUL_ROT.id} />}
       </Rule>
       <Rule
         name="Use your utility and defensive spells"
@@ -79,6 +82,7 @@ const AfflictionWarlockChecklist = ({ combatant, castEfficiency, thresholds, sha
         <AbilityRequirement spell={SPELLS.DEMONIC_CIRCLE_TELEPORT.id} />
         {combatant.hasTalent(SPELLS.DARK_PACT_TALENT.id) && <AbilityRequirement spell={SPELLS.DARK_PACT_TALENT.id} />}
         <AbilityRequirement spell={SPELLS.UNENDING_RESOLVE.id} />
+        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && <AbilityRequirement spell={SPELLS.SOULSHAPE.id} />}
       </Rule>
       <Rule
         name="Always be casting"
