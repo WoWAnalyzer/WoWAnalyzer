@@ -454,6 +454,11 @@ const spells = {
     icon: 'spell_nature_wispsplode',
   },
   TOUCH_OF_THE_MAGI: {
+    id: 321507,
+    name: 'Touch of the Magi',
+    icon: 'spell_mage_icenova',
+  },
+  TOUCH_OF_THE_MAGI_DEBUFF: {
     id: 210725,
     name: 'Touch of the Magi',
     icon: 'spell_mage_icenova',
