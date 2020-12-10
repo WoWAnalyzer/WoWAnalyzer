@@ -39,27 +39,6 @@ export const ABILITIES_THAT_TRIGGER_MASTERY = [
   SPELLS.TRAIL_OF_LIGHT_TALENT.id,
   SPELLS.HOLY_NOVA_HEAL.id,
   SPELLS.GUARDIAN_SPIRIT_HEAL.id,
-
-  // Azerite
-  SPELLS.BLESSED_PORTENTS_HEAL.id,
-  SPELLS.LASER_MATRIX_HEAL.id,
-  280658, // Cauterized from Ricocheting Inflatable Pyrosaw (280168)
-  SPELLS.TWIST_MAGIC_HEAL.id,
-  SPELLS.BRACING_CHILL_HEAL.id,
-  SPELLS.SAVIOR_HEAL.id,
-  280583, // M.E.N.D. from Auto-Self-Cauterizer (280172)
-
-  // Trinkets
-  SPELLS.HARMONIOUS_CHORD.id,
-  SPELLS.MUTATING_ANTIBODY.id,
-  276136, // Darkmoon Deck Ace
-  276137, // Darkmoon Deck 2
-  276138, // Darkmoon Deck 3
-  276139, // Darkmoon Deck 4
-  276140, // Darkmoon Deck 5
-  276141, // Darkmoon Deck 6
-  276142, // Darkmoon Deck 7
-  276143, // Darkmoon Deck 8
 ];
 
 export const ABILITIES_AFFECTED_BY_APOTHEOSIS_TALENT = [

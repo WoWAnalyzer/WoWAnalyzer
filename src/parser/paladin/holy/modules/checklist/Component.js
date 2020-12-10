@@ -59,23 +59,13 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
             </TooltipElement>{' '}
             you can often still cast these spells more even if you were overhealing by casting it
             quicker when it comes off cooldown and improving your target selection.{' '}
-            {owner.builds.GLIMMER.active ? (
-              <a
-                href="https://questionablyepic.com/glimmer-of-light/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                More info.
-              </a>
-            ) : (
-              <a
-                href="https://www.wowhead.com/holy-paladin-rotation-guide#gameplay-and-priority-list"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                More info.
-              </a>
-            )}
+            <a
+              href="https://www.wowhead.com/holy-paladin-rotation-guide#gameplay-and-priority-list"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              More info.
+            </a>
           </Trans>
         }
       >
@@ -208,25 +198,23 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
           thresholds={thresholds.masteryEffectiveness}
         />
       </Rule>
-      {!owner.builds.GLIMMER.active && (
-        <Rule
-          name={
-            <Trans id="paladin.holy.modules.checklist.useAllOfMana">
-              Use all of your{' '}
-              <ResourceLink id={RESOURCE_TYPES.MANA.id} onClick={e => e.preventDefault()} />
-            </Trans>
-          }
-          description={
-            <Trans id="paladin.holy.modules.checklist.useAllOfMana.description">
-              If you have a large amount of mana left at the end of the fight that's mana you could
-              have turned into healing. Try to use all your mana during a fight. A good rule of
-              thumb is to try to match your mana level with the boss's health.
-            </Trans>
-          }
-        >
-          <Requirement name={<Trans id="paladin.holy.modules.checklist.manaLeft">Mana left</Trans>} thresholds={thresholds.manaLeft} />
-        </Rule>
-      )}
+      <Rule
+        name={
+          <Trans id="paladin.holy.modules.checklist.useAllOfMana">
+            Use all of your{' '}
+            <ResourceLink id={RESOURCE_TYPES.MANA.id} onClick={e => e.preventDefault()} />
+          </Trans>
+        }
+        description={
+          <Trans id="paladin.holy.modules.checklist.useAllOfMana.description">
+            If you have a large amount of mana left at the end of the fight that's mana you could
+            have turned into healing. Try to use all your mana during a fight. A good rule of
+            thumb is to try to match your mana level with the boss's health.
+          </Trans>
+        }
+      >
+        <Requirement name={<Trans id="paladin.holy.modules.checklist.manaLeft">Mana left</Trans>} thresholds={thresholds.manaLeft} />
+      </Rule>
       <Rule
         name={<Trans id="paladin.holy.modules.checklist.avoidBeingInactive">Try to avoid being inactive for a large portion of the fight</Trans>}
         description={

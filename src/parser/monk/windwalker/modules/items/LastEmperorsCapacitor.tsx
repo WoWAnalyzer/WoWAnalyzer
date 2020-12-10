@@ -18,6 +18,38 @@ import { CHI_SPENDERS } from '../../constants';
 const MAX_STACKS = 20;
 
 class LastEmperorsCapacitor extends Analyzer {
+  get averageStacksUsed() {
+    return this.stacksUsed / this.abilityTracker.getAbility(SPELLS.CRACKLING_JADE_LIGHTNING.id).casts;
+  }
+
+  get stacksWastedPerMinute() {
+    return this.stacksWasted / this.owner.fightDuration * 1000 / 60;
+  }
+
+  get averageStacksSuggestionThresholds() {
+    return {
+      actual: this.averageStacksUsed,
+      isLessThan: {
+        minor: 18,
+        average: 16,
+        major: 14,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
+  }
+
+  get wastedStacksSuggestionThresholds() {
+    return {
+      actual: this.stacksWastedPerMinute,
+      isGreaterThan: {
+        minor: 0,
+        average: 2,
+        major: 4,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
+  }
+
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
@@ -52,7 +84,7 @@ class LastEmperorsCapacitor extends Analyzer {
   applyBuffStack() {
     this.totalStacks += 1;
     this.currentStacks += 1;
-   }
+  }
 
   castChiSpender() {
     if (this.currentStacks === MAX_STACKS) {
@@ -75,38 +107,6 @@ class LastEmperorsCapacitor extends Analyzer {
     }
   }
 
-  get averageStacksUsed() {
-    return this.stacksUsed / this.abilityTracker.getAbility(SPELLS.CRACKLING_JADE_LIGHTNING.id).casts;
-  }
-
-  get stacksWastedPerMinute() {
-    return this.stacksWasted / this.owner.fightDuration * 1000 / 60;
-  }
-
-  get averageStacksSuggestionThresholds() {
-    return {
-      actual: this.averageStacksUsed,
-      isLessThan: {
-        minor: 18,
-        average: 16,
-        major: 14,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
-  get wastedStacksSuggestionThresholds() {
-    return {
-      actual: this.stacksWastedPerMinute,
-      isGreaterThan: {
-        minor: 0,
-        average: 2,
-        major: 4,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
   statistic() {
     return (
       <Statistic
@@ -115,13 +115,13 @@ class LastEmperorsCapacitor extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
         tooltip={
           <Trans id="monk.windwalker.modules.items.lastEmperorsCapacitor.tooltip">Damage dealt does not account for opportunity cost
-            <br/>
+            <br />
             Stacks generated <b>{this.totalStacks}</b>
-            <br/>
+            <br />
             Stacks consumed: <b>{this.stacksUsed}</b>
-            <br/>
+            <br />
             Stacks wasted by generating at cap: <b>{this.stacksWasted}</b>
-            <br/>
+            <br />
             Average stacks spent on each cast: <b>{this.averageStacksUsed.toFixed(2)}</b></Trans>}
       >
         <BoringSpellValueText spell={SPELLS.LAST_EMPERORS_CAPACITOR}>

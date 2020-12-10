@@ -42,12 +42,6 @@ import WillOfTheNecropolis from './modules/talents/WillOfTheNecropolis';
 import Consumption from './modules/talents/Consumption';
 import RelishInBlood from './modules/talents/RelishInBlood';
 
-// Azerite Traits
-import BonesOfTheDamned from './modules/spells/azeritetraits/BonesOfTheDamned';
-import BoneSpikeGraveyard from '../shared/spells/azeritetraits/BoneSpikeGraveyard';
-import EternalRuneWeapon from './modules/spells/azeritetraits/EternalRuneWeapon';
-import BloodyRuneblade from './modules/spells/azeritetraits/BloodyRuneblade';
-
 // Runes
 import RuneForgeChecker from './modules/core/RuneForgeChecker';
 import RuneOfTheFallenCrusader from '../shared/runeforges/RuneOfTheFallenCrusader';
@@ -101,12 +95,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // ossuary: Ossuary,
     consumption: Consumption,
     relishInBlood: RelishInBlood,
-
-    // Azerite Traits
-    bonesOfTheDamned: BonesOfTheDamned,
-    boneSpikeGraveyard: BoneSpikeGraveyard,
-    eternalRuneWeapon: EternalRuneWeapon,
-    bloodyRuneblade: BloodyRuneblade,
 
     // Runes
     runeForgeChecker: RuneForgeChecker,

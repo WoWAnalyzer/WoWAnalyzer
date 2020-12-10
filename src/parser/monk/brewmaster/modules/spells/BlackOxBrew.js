@@ -13,11 +13,22 @@ import Events from 'parser/core/Events';
 import Abilities from '../Abilities';
 
 class BlackOxBrew extends Analyzer {
+  get suggestionThreshold() {
+    return {
+      actual: this.wastedCDR / (this.cdr + this.wastedCDR),
+      isGreaterThan: {
+        minor: 0.10,
+        average: 0.2,
+        major: 0.3,
+      },
+      style: 'percentage',
+    };
+  }
+
   static dependencies = {
     spellUsable: SpellUsable,
     abilities: Abilities,
   };
-
   cdr = {
     [SPELLS.PURIFYING_BREW.id]: 0,
     [SPELLS.CELESTIAL_BREW.id]: 0,
@@ -45,7 +56,7 @@ class BlackOxBrew extends Analyzer {
     // loop until we've reset all the charges individually, recording
     // the amount of cooldown reduction for each charge.
     const spellId = SPELLS.PURIFYING_BREW.id;
-    while(this.spellUsable.isOnCooldown(spellId)) {
+    while (this.spellUsable.isOnCooldown(spellId)) {
       this._trackCdr(spellId);
       this.spellUsable.endCooldown(spellId, false);
     }
@@ -53,7 +64,7 @@ class BlackOxBrew extends Analyzer {
 
   _resetCB() {
     const spellId = SPELLS.CELESTIAL_BREW.id;
-    if(this.spellUsable.isOnCooldown(spellId)) {
+    if (this.spellUsable.isOnCooldown(spellId)) {
       this._trackCdr(spellId);
       this.spellUsable.endCooldown(spellId, false);
     } else {
@@ -68,24 +79,12 @@ class BlackOxBrew extends Analyzer {
     this._resetCB();
   }
 
-  get suggestionThreshold() {
-    return {
-      actual: this.wastedCDR / (this.cdr + this.wastedCDR),
-      isGreaterThan: {
-        minor: 0.10,
-        average: 0.2,
-        major: 0.3,
-      },
-      style: 'percentage',
-    };
-  }
-
   suggestions(when) {
     when(this.suggestionThreshold)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.BLACK_OX_BREW_TALENT.id} /> usage can be improved.</>)
-          .icon(SPELLS.BLACK_OX_BREW_TALENT.icon)
-          .actual(i18n._(t('monk.brewmaster.suggestions.blackOxBrew.cdrWasted')`${formatPercentage(actual)}% of Cooldown Reduction wasted`))
-          .recommended(`< ${formatPercentage(recommended)}% is recommended`));
+        .icon(SPELLS.BLACK_OX_BREW_TALENT.icon)
+        .actual(i18n._(t('monk.brewmaster.suggestions.blackOxBrew.cdrWasted')`${formatPercentage(actual)}% of Cooldown Reduction wasted`))
+        .recommended(`< ${formatPercentage(recommended)}% is recommended`));
   }
 }
 

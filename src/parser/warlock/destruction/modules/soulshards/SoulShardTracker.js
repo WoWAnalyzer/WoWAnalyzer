@@ -20,49 +20,33 @@ const IMMO_PROB = 0.5;
 const ROF_PROB = 0.2;
 const INFERNAL_DURATION = 30000;
 const INFERNAL_FRAGMENT_TICK_PERIOD = 500;
-const CHAOS_SHARDS_COUNT = 5; // Chaos Shards trait regenerates full Soul Shard (10 fragments) in 2 seconds (5 "ticks", each worth 2 fragments)
-const FRAGMENTS_PER_CHAOS_SHARDS_ENERGIZE = 2;
 const FULL_SHARD_GAINED_EVENT_TYPE = 'fullshardgained';
 
 class SoulShardTracker extends ResourceTracker {
+  static get fullshardgained() {
+    return new EventFilter(FULL_SHARD_GAINED_EVENT_TYPE);
+  }
+
   static dependencies = {
     ...ResourceTracker.dependencies,
     enemies: Enemies,
   };
-
   lastInfernalSummon = null;
   lastInfernalTick = null;
-
   immolateCrits = 0;
   rainOfFireHits = 0;
-
   hasInferno = false;
-
-  currentChaosShardsEnergizes = 0;
 
   constructor(...args) {
     super(...args);
     // a copy of the object since I don't want to change it in the Events tab, only in the Resource tab
     this.resource = Object.assign({}, RESOURCE_TYPES.SOUL_SHARDS);
-    this.resource.name = "Soul Shard Fragments";
+    this.resource.name = 'Soul Shard Fragments';
     this.current = 30;
     this.hasInferno = this.selectedCombatant.hasTalent(SPELLS.INFERNO_TALENT.id);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.CHAOS_SHARDS_BUFF_ENERGIZE), this.onApplyBuff);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.CHAOS_SHARDS_BUFF_ENERGIZE), this.onRemoveBuff);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(Events.any, this.onEvent);
     this.addEventListener(Events.fightend, this.onFightend);
-  }
-
-  onApplyBuff(event) {
-    this.currentChaosShardsEnergizes = 0;
-  }
-
-  onRemoveBuff(event) {
-    // if player has max shards and the traits procs, the energize events don't trigger
-    // keep track of the energizes and count the missing ones as wasted
-    const wastedTicks = CHAOS_SHARDS_COUNT - this.currentChaosShardsEnergizes;
-    this._applyBuilder(SPELLS.CHAOS_SHARDS_BUFF_ENERGIZE.id, null, 0, wastedTicks * FRAGMENTS_PER_CHAOS_SHARDS_ENERGIZE);
   }
 
   // this accounts for Soul Conduit and possibly Feretory of Souls (they grant whole Soul Shards and appear as energize events, but their resourceChange field is in values 0 - 5 and we want 0 - 50
@@ -72,11 +56,6 @@ class SoulShardTracker extends ResourceTracker {
     }
     if (event.resourceChange < 10) {
       event.resourceChange = event.resourceChange * 10;
-    }
-    if (event.ability.guid === SPELLS.CHAOS_SHARDS_BUFF_ENERGIZE.id) {
-      // even though this trait's effect triggers an energize event, it's "0.2" Soul Shards and has "resourceChange" = 0, that's why I have to trigger it manually
-      this.currentChaosShardsEnergizes += 1;
-      this.processInvisibleEnergize(event.ability.guid, FRAGMENTS_PER_CHAOS_SHARDS_ENERGIZE);
     }
     super.onEnergize(event);
   }
@@ -170,10 +149,6 @@ class SoulShardTracker extends ResourceTracker {
     }
   }
 
-  static get fullshardgained() {
-    return new EventFilter(FULL_SHARD_GAINED_EVENT_TYPE);
-  }
-
   _applyBuilder(spellId, resource, gain, waste) {
     const beforeBuilder = this.current % 10;
     super._applyBuilder(spellId, resource, gain, waste);
@@ -183,7 +158,7 @@ class SoulShardTracker extends ResourceTracker {
     // or over full shard (39 => 41, before = 9, after = 1)
     // but not something like 34 => 39, before = 4, after = 9
     // also, Chaos Shards can't proc off itself
-    if (spellId !== SPELLS.CHAOS_SHARDS_BUFF_ENERGIZE.id && beforeBuilder > afterBuilder) {
+    if (beforeBuilder > afterBuilder) {
       this.eventEmitter.fabricateEvent({
         timestamp: this.owner.currentTimestamp,
         type: FULL_SHARD_GAINED_EVENT_TYPE,

@@ -16,6 +16,26 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 const MAX_STACKS = 30;
 
 class JadeIgnition extends Analyzer {
+  get damageDone() {
+    return this.abilityTracker.getAbility(SPELLS.JADE_IGNITION_DAMAGE.id).damageEffective;
+  }
+
+  get stackUsage() {
+    return 1 - (this.stacksWasted / this.totalStacks);
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.stackUsage,
+      isLessThan: {
+        minor: 1,
+        average: 0.95,
+        major: 0.9,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
@@ -43,7 +63,7 @@ class JadeIgnition extends Analyzer {
 
   applyBuffStack() {
     this.currentStacks += 1;
-   }
+  }
 
   onFistsDamage() {
     this.totalStacks += 1;
@@ -56,26 +76,6 @@ class JadeIgnition extends Analyzer {
     this.currentStacks = 0;
   }
 
-  get damageDone () {
-    return this.abilityTracker.getAbility(SPELLS.JADE_IGNITION_DAMAGE.id).damageEffective;
-  }
-
-  get stackUsage() {
-    return 1 - (this.stacksWasted / this.totalStacks);
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.stackUsage,
-      isLessThan: {
-        minor: 1,
-        average: 0.95,
-        major: 0.9,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
   statistic() {
     return (
       <Statistic
@@ -85,8 +85,8 @@ class JadeIgnition extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.JADE_IGNITION}>
           <ItemDamageDone amount={this.damageDone} />
-					<br />
-					{formatPercentage(this.stackUsage, 0)}% <small>Stacks used</small>
+          <br />
+          {formatPercentage(this.stackUsage, 0)}% <small>Stacks used</small>
         </BoringSpellValueText>
       </Statistic>
     );

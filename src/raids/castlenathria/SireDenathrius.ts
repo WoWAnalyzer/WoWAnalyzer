@@ -1,13 +1,14 @@
 import DIFFICULTIES from 'game/DIFFICULTIES';
 import { Boss } from "raids/index";
 
-import Background from './images/backgrounds/CastleNathria.jpg';
-import Headshot from './images/headshots/CastleNathriaHeadshot.png';
+import Background from './images/backgrounds/SireDenathrius.jpg';
+import Headshot from './images/headshots/SireDenathrius.jpg';
 
 const SireDenathrius: Boss = {
   id: 2407,
   name: 'Sire Denathrius',
   background: Background,
+  backgroundPosition: 'center top',
   headshot: Headshot,
   icon: 'achievement_raid_revendrethraid_siredenathrius',
   fight: {

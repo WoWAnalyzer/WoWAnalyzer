@@ -193,6 +193,32 @@ const enchants: ItemList<Enchant> = {
     icon: 'inv_misc_enchantedscroll',
     effectId: 6170,
   },
+
+  //Weapon Oils & Stones
+  SHADOWCORE_OIL: {
+    id: 171285,
+    name: 'Shadowcore Oil',
+    icon: 'inv_misc_potionseta',
+    effectId: 6188,
+  },
+  EMBALMERS_OIL: {
+    id: 171286,
+    name: 'Embalmer\'s Oil',
+    icon: 'inv_misc_potionsetb',
+    effectId: 6190,
+  },
+  SHADED_SHARPENING_STONE: {
+    id: 171437,
+    name: 'Shaded Sharpening Stone',
+    icon: 'inv_blacksmithing_greatersharpeningstone',
+    effectId: 6200,
+  },
+  SHADED_WEIGHTSTONE: {
+    id: 171439,
+    name: 'Shaded Weightstone',
+    icon: 'inv_blacksmithing_greaterweightstone',
+    effectId: 6201,
+  },
 };
 
 export default enchants;

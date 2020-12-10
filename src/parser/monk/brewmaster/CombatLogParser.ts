@@ -39,7 +39,6 @@ import ExpelHarmNorm from './normalizers/ExpelHarm';
 // Covenants
 import FallenOrder from '../shared/modules/covenants/FallenOrder';
 
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core

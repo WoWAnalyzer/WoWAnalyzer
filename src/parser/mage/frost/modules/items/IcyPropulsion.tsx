@@ -36,7 +36,7 @@ class IcyPropulsion extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.ICY_VEINS.id) || event.hitType !== HIT_TYPES.CRIT) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.ICY_VEINS.id) || event.hitType !== HIT_TYPES.CRIT || !this.spellUsable.isOnCooldown(SPELLS.ICY_VEINS.id)) {
       return;
     }
 

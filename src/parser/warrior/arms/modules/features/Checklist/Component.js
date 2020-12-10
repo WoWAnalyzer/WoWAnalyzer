@@ -59,14 +59,14 @@ const ArmWarriorChecklist = ({ combatant, castEfficiency, thresholds }) => {
           </>
         )}
       >
-          <Requirement
-            name={(<><SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> outside execution phase</>)}
-            thresholds={thresholds.goodMortalStrike}
-          />
-          <Requirement
-            name={(<><SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> during execution phase</>)}
-            thresholds={thresholds.badMortalStrike}
-          />
+        <Requirement
+          name={(<><SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> outside execution phase</>)}
+          thresholds={thresholds.goodMortalStrike}
+        />
+        <Requirement
+          name={(<><SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> during execution phase</>)}
+          thresholds={thresholds.badMortalStrike}
+        />
       </Rule>
       <Rule
         name="Use your defensive cooldowns"

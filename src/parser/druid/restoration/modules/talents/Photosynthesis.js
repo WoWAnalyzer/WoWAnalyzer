@@ -44,6 +44,8 @@ class Photosynthesis extends Analyzer {
   increasedRateSpringBlossomsHealing = 0;
   increasedRateEffloHealing = 0;
   increasedRateGroveTendingHealing = 0;
+  randomProccs = 0;
+  naturalProccs = 0;
 
   constructor(...args) {
     super(...args);
@@ -61,9 +63,6 @@ class Photosynthesis extends Analyzer {
   onRemoveBuff(event) {
     this.lastRealBloomTimestamp = event.timestamp;
   }
-
-  randomProccs = 0;
-  naturalProccs = 0;
 
   onLifebloomProc(event) {
     // Lifebloom random bloom procc
@@ -104,9 +103,6 @@ class Photosynthesis extends Analyzer {
           break;
         case SPELLS.EFFLORESCENCE_HEAL.id:
           this.increasedRateEffloHealing += calculateEffectiveHealing(event, PHOTOSYNTHESIS_HOT_INCREASE);
-          break;
-        case SPELLS.GROVE_TENDING.id:
-          this.increasedRateGroveTendingHealing += calculateEffectiveHealing(event, PHOTOSYNTHESIS_HOT_INCREASE);
           break;
         case SPELLS.REGROWTH.id:
           if (event.tick === true) {
@@ -174,7 +170,7 @@ class Photosynthesis extends Analyzer {
           </>
         )}
       >
-        <BoringValue label={<><SpellIcon id={SPELLS.PHOTOSYNTHESIS_TALENT.id} /> Photosynthesis healing</>} >
+        <BoringValue label={<><SpellIcon id={SPELLS.PHOTOSYNTHESIS_TALENT.id} /> Photosynthesis healing</>}>
           <>
             {formatPercentage(totalPercent)} %
           </>

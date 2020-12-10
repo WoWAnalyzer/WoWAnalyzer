@@ -16,9 +16,10 @@ class RageDetails extends Analyzer {
   static dependencies = {
     rageTracker: RageTracker,
   };
+  statisticOrder = STATISTIC_ORDER.CORE(3);
   protected rageTracker!: RageTracker;
 
-  get wastedPercent(){
+  get wastedPercent() {
     return this.rageTracker.wasted / (this.rageTracker.wasted + this.rageTracker.generated) || 0;
   }
 
@@ -48,9 +49,9 @@ class RageDetails extends Analyzer {
 
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Rage.`)
-          .icon('spell_nature_reincarnation')
-          .actual(i18n._(t('warrior.protection.suggestions.rage.wasted')`${formatPercentage(actual)}% wasted`))
-          .recommended(`<${formatPercentage(recommended)}% is recommended`));
+      .icon('spell_nature_reincarnation')
+      .actual(i18n._(t('warrior.protection.suggestions.rage.wasted')`${formatPercentage(actual)}% wasted`))
+      .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {
@@ -63,7 +64,6 @@ class RageDetails extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(3);
 
   tab() {
     return {
@@ -78,7 +78,7 @@ class RageDetails extends Analyzer {
         </Panel>
       ),
     };
- }
+  }
 
 }
 

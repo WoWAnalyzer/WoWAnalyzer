@@ -12,6 +12,21 @@ import Events from 'parser/core/Events';
 const PENANCE_MINIMUM_RECAST_TIME = 3500; // Minimum duration from one Penance to Another
 
 class Penance extends Analyzer {
+  get missedBolts() {
+    return [...this.eventGrouper].reduce(
+      (missedBolts, cast) => missedBolts + (this._boltCount - cast.length),
+      0,
+    );
+  }
+
+  get casts() {
+    return [...this.eventGrouper].length;
+  }
+
+  get currentBoltNumber() {
+    return [...this.eventGrouper].slice(-1)[0].length - 1; // -1 here for legacy code
+  }
+
   _boltCount = 3;
   hits = 0;
   eventGrouper = new EventGrouper(PENANCE_MINIMUM_RECAST_TIME);
@@ -27,21 +42,6 @@ class Penance extends Analyzer {
 
   static isPenance = (spellId) =>
     spellId === SPELLS.PENANCE.id || spellId === SPELLS.PENANCE_HEAL.id || spellId === SPELLS.PENANCE_CAST.id;
-
-  get missedBolts() {
-    return [...this.eventGrouper].reduce(
-      (missedBolts, cast) => missedBolts + (this._boltCount - cast.length),
-      0,
-    );
-  }
-
-  get casts() {
-    return [...this.eventGrouper].length;
-  }
-
-  get currentBoltNumber() {
-    return [...this.eventGrouper].slice(-1)[0].length - 1; // -1 here for legacy code
-  }
 
   onDamage(event) {
     if (!Penance.isPenance(event.ability.guid)) {

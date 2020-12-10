@@ -13,16 +13,6 @@ import { t } from '@lingui/macro';
 import BetweenTheEyesDamageTracker from './BetweenTheEyesDamageTracker';
 
 class Dispatch extends Analyzer {
-  static dependencies = {
-    damageTracker: DamageTracker,
-    betweenTheEyesDamageTracker: BetweenTheEyesDamageTracker,
-  };
-
-  constructor(...args) {
-    super(...args);
-    this.betweenTheEyesDamageTracker.subscribeInefficientCast([SPELLS.DISPATCH], (s) => `Between The Eyes should be prioritized as your spender during Ruthless Precision`);
-  }
-
   get thresholds() {
     const total = this.damageTracker.getAbility(SPELLS.DISPATCH.id);
     const filtered = this.betweenTheEyesDamageTracker.getAbility(SPELLS.DISPATCH.id);
@@ -42,11 +32,21 @@ class Dispatch extends Analyzer {
     return <>Whenever you have the <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> buff, you should prioritize <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> as your damaging spender.</>;
   }
 
+  static dependencies = {
+    damageTracker: DamageTracker,
+    betweenTheEyesDamageTracker: BetweenTheEyesDamageTracker,
+  };
+
+  constructor(...args) {
+    super(...args);
+    this.betweenTheEyesDamageTracker.subscribeInefficientCast([SPELLS.DISPATCH], (s) => `Between The Eyes should be prioritized as your spender during Ruthless Precision`);
+  }
+
   suggestions(when) {
     when(this.thresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You casted <SpellLink id={SPELLS.DISPATCH.id} /> while <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> was available. {this.delayedCastSuggestion}</>)
-        .icon(SPELLS.DISPATCH.icon)
-        .actual(i18n._(t('rogue.outlaw.dispatch.efficiency')`${formatPercentage(actual)}% inefficient casts`))
-          .recommended(`${formatPercentage(recommended)}% is recommended`));
+      .icon(SPELLS.DISPATCH.icon)
+      .actual(i18n._(t('rogue.outlaw.dispatch.efficiency')`${formatPercentage(actual)}% inefficient casts`))
+      .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 }
 

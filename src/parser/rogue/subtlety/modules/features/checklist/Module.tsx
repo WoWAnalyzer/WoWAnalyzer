@@ -44,6 +44,7 @@ class Checklist extends BaseChecklist {
   //region Base
   protected castsInShadowDance!: CastsInShadowDance;
   protected castsInStealth!: CastsInStealth;
+
   //endregion
 
   render() {

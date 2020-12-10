@@ -24,7 +24,7 @@ class FeastOfSouls extends Analyzer {
   }
 
   statistic() {
-    const overHealPercent = this.overHeal/(this.overHeal + this.heal);
+    const overHealPercent = this.overHeal / (this.overHeal + this.heal);
     return (
       <TalentStatisticBox
         talent={SPELLS.FEAST_OF_SOULS_TALENT.id}

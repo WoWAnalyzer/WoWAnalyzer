@@ -13,7 +13,7 @@ class SpellUsable extends CoreSpellUsable {
    */
   markMap = {};
 
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.MARKED_FOR_DEATH_TALENT), this.onRemoveBuff);
   }

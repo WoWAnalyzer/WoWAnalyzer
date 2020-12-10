@@ -40,7 +40,6 @@ class Stormflurry extends Analyzer {
   protected extraHits: number = 0;
   protected extraDamage: number = 0;
 
-
   constructor(options: Options) {
     super(options);
 

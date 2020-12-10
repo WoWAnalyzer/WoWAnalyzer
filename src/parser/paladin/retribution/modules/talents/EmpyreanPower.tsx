@@ -44,8 +44,8 @@ class EmpyreanPower extends Analyzer {
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CRUSADER_STRIKE), this.castCounter);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_STORM), this.divineStormDamage);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.EMPYREAN_POWER_BUFF), this.applyBuff);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.EMPYREAN_POWER_BUFF), this.removeBuff);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.EMPYREAN_POWER_TALENT_BUFF), this.applyBuff);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.EMPYREAN_POWER_TALENT_BUFF), this.removeBuff);
   }
 
   castCounter() {

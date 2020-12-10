@@ -18,6 +18,10 @@ const STACKS_PER_CAST = 2;
 const debug = false;
 
 class Flashover extends Analyzer {
+  get dps() {
+    return this.damage / this.owner.fightDuration * 1000;
+  }
+
   _currentStacks = 0;
   bonusStacks = 0;
   wastedStacks = 0;
@@ -58,10 +62,6 @@ class Flashover extends Analyzer {
   onBackdraftRemoveBuff() {
     this._currentStacks = 0;
     debug && this.log(`Remove buff, current: ${this._currentStacks}`);
-  }
-
-  get dps() {
-    return this.damage / this.owner.fightDuration * 1000;
   }
 
   statistic() {

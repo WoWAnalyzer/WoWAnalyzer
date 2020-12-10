@@ -59,11 +59,11 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
 
     when(deadTimePercentage).isGreaterThan(SuggestionThresholds.ABC_NOT_CASTING.minor)
       .addSuggestion((suggest: SuggestionFactory, actual: number, recommended: number) => suggest('Your downtime can be improved. Try to Always Be Casting (ABC); try to reduce the delay between casting spells and when you\'re not healing try to contribute some damage.')
-          .icon('spell_mage_altertime')
-          .actual(i18n._(t('priest.discipline.suggestions.alwaysBeCasting.downtime')`${formatPercentage(actual)}% downtime`))
-          .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(SuggestionThresholds.ABC_NOT_CASTING.regular)
-          .major(SuggestionThresholds.ABC_NOT_CASTING.major));
+        .icon('spell_mage_altertime')
+        .actual(i18n._(t('priest.discipline.suggestions.alwaysBeCasting.downtime')`${formatPercentage(actual)}% downtime`))
+        .recommended(`<${formatPercentage(recommended)}% is recommended`)
+        .regular(SuggestionThresholds.ABC_NOT_CASTING.regular)
+        .major(SuggestionThresholds.ABC_NOT_CASTING.major));
   }
 }
 

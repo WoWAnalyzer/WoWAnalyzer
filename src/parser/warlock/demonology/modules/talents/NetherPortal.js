@@ -13,6 +13,13 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import DemoPets from '../pets/DemoPets';
 
 class NetherPortal extends Analyzer {
+  get damage() {
+    const petsSummonedByNP = this.demoPets.timeline.filter(pet => pet.summonedBy === SPELLS.NETHER_PORTAL_TALENT.id);
+    return petsSummonedByNP
+      .map(pet => this.demoPets.getPetDamage(pet.guid, pet.instance))
+      .reduce((total, current) => total + current, 0);
+  }
+
   static dependencies = {
     demoPets: DemoPets,
   };
@@ -20,13 +27,6 @@ class NetherPortal extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.NETHER_PORTAL_TALENT.id);
-  }
-
-  get damage() {
-    const petsSummonedByNP = this.demoPets.timeline.filter(pet => pet.summonedBy === SPELLS.NETHER_PORTAL_TALENT.id);
-    return petsSummonedByNP
-      .map(pet => this.demoPets.getPetDamage(pet.guid, pet.instance))
-      .reduce((total, current) => total + current, 0);
   }
 
   statistic() {
@@ -43,4 +43,5 @@ class NetherPortal extends Analyzer {
     );
   }
 }
+
 export default NetherPortal;

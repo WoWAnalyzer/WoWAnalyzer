@@ -43,6 +43,7 @@ class FuriousSlashTimesByStacks extends Analyzer {
     this.lastFuriousSlashUpdate = event.timestamp;
     this.lastFuriousSlashStack = stack;
   }
+
   onRemoveBuff(event: RemoveBuffEvent) {
     this.furiousSlashStacks[this.lastFuriousSlashStack].push(event.timestamp - this.lastFuriousSlashUpdate);
     this.lastFuriousSlashUpdate = event.timestamp;

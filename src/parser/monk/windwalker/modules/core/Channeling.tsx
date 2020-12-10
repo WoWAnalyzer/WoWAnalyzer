@@ -64,4 +64,5 @@ class Channeling extends CoreChanneling {
     this.endChannel(event);
   }
 }
+
 export default Channeling;

@@ -43,7 +43,7 @@ class Buffs extends CoreBuffs {
       {
         spellId: SPELLS.DIFFUSE_MAGIC_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.DIFFUSE_MAGIC_TALENT),
-      },      
+      },
       {
         spellId: SPELLS.DAMPEN_HARM_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.DAMPEN_HARM_TALENT),

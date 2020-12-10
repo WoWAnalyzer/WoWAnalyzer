@@ -2,27 +2,17 @@ import SPECS from 'game/SPECS';
 import RACES from 'game/RACES';
 import TALENT_ROWS from 'game/TALENT_ROWS';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
-import traitIdMap from 'common/TraitIdMap';
 import { Enchant } from 'common/ITEMS/Item';
 import SPELLS from 'common/SPELLS';
 import { findByBossId } from 'raids';
 import CombatLogParser, { Player } from 'parser/core/CombatLogParser';
-import { Buff, CombatantInfoEvent, Conduit, EventType, Item, SoulbindTrait, Trait } from 'parser/core/Events';
+import { Buff, CombatantInfoEvent, Conduit, EventType, Item, SoulbindTrait } from 'parser/core/Events';
 
 import Entity from './Entity';
 
 export interface CombatantInfo extends CombatantInfoEvent {
   name: string;
 }
-
-export type Essence = {
-  icon: string;
-  isMajor: boolean;
-  rank: number;
-  spellID: number;
-  traitID: number;
-  slot?: number;
-};
 
 type Spell = {
   id: number;
@@ -96,16 +86,13 @@ class Combatant extends Entity {
     };
 
     this._parseTalents(combatantInfo.talents);
-    this._parseTraits(combatantInfo.artifact as Trait[]);
-    this._parseEssences(combatantInfo.heartOfAzeroth as Essence[]);
     this._parseGear(combatantInfo.gear);
     this._parsePrepullBuffs(combatantInfo.auras);
-    if (combatantInfo.expansion === 'shadowlands') {
-      this._parseCovenant(combatantInfo.covenantID);
-      this._parseSoulbind(combatantInfo.soulbindID);
-      this._parseSoulbindTraits(combatantInfo.artifact as SoulbindTrait[]);
-      this._parseConduits(combatantInfo.heartOfAzeroth as Conduit[]);
-    }
+    this._parseCovenant(combatantInfo.covenantID);
+    this._parseSoulbind(combatantInfo.soulbindID);
+    this._parseSoulbindTraits(combatantInfo.artifact);
+    this._parseConduits(combatantInfo.heartOfAzeroth);
+
   }
 
   // region Talents
@@ -179,63 +166,6 @@ class Combatant extends Entity {
 
     return false;
   }
-
-  // region Traits
-  traitsBySpellId: { [key: number]: number[] } = {};
-
-  _parseTraits(traits: Trait[]) {
-    traits.forEach(({ traitID, rank }) => {
-      const spellId = traitIdMap[traitID];
-      if (spellId === undefined) {
-        return;
-      }
-      if (!this.traitsBySpellId[spellId]) {
-        this.traitsBySpellId[spellId] = [];
-      }
-      this.traitsBySpellId[spellId].push(rank);
-    });
-  }
-
-  hasTrait(spellId: number) {
-    return Boolean(this.traitsBySpellId[spellId]);
-  }
-
-  traitRanks(spellId: number) {
-    return this.traitsBySpellId[spellId];
-  }
-
-  // endregion
-
-  // region Essences
-  essencesByTraitID: { [key: number]: Essence } = {};
-
-  _parseEssences(essences: Essence[]) {
-    if (essences === undefined) {
-      return;
-    }
-    essences.forEach((essence: Essence) => {
-      if (this.essencesByTraitID[essence.traitID]) {
-        essence.isMajor = true;
-      }
-      this.essencesByTraitID[essence.traitID] = essence;
-      //essence = {icon:string, isMajor:bool, rank:int, slot:int, spellID:int,
-      // traitID:int}
-    });
-  }
-
-  hasEssence(traitId: number) {
-    return Boolean(this.essencesByTraitID[traitId]);
-  }
-
-  hasMajor(traitId: number) {
-    return this.essencesByTraitID[traitId] && this.essencesByTraitID[traitId].isMajor;
-  }
-
-  essenceRank(traitId: number) {
-    return this.essencesByTraitID[traitId] && this.essencesByTraitID[traitId].rank;
-  }
-
-  // endregion
 
   //region Shadowlands Systems
 

@@ -11,8 +11,13 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import Events from 'parser/core/Events';
 
 class TwinMoons extends Analyzer {
+  get percentTwoHits() {
+    return (this.moonfireHits - this.moonfireCasts) / this.moonfireCasts;
+  }
+
   moonfireCasts = 0;
   moonfireHits = 0;
+  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 
   constructor(...args) {
     super(...args);
@@ -32,10 +37,6 @@ class TwinMoons extends Analyzer {
     this.moonfireCasts += 1;
   }
 
-  get percentTwoHits() {
-    return (this.moonfireHits - this.moonfireCasts) / this.moonfireCasts;
-  }
-
   statistic() {
     return (
       <Statistic
@@ -51,8 +52,6 @@ class TwinMoons extends Analyzer {
       </Statistic>
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default TwinMoons;

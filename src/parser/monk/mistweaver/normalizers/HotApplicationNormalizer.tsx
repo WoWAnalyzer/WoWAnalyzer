@@ -47,4 +47,5 @@ class HotApplicationNormalizer extends EventsNormalizer {
   }
 
 }
+
 export default HotApplicationNormalizer;

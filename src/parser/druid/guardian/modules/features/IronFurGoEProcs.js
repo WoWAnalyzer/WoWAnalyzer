@@ -11,6 +11,7 @@ class IronFurGoEProcs extends Analyzer {
   static dependencies = {
     guardianOfElune: GuardianOfElune,
   };
+  statisticOrder = STATISTIC_ORDER.CORE(9);
 
   constructor(...args) {
     super(...args);
@@ -29,7 +30,6 @@ class IronFurGoEProcs extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(9);
 }
 
 export default IronFurGoEProcs;

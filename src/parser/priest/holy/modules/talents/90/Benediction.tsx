@@ -15,6 +15,11 @@ class Benediction extends Analyzer {
   };
   protected renew!: Renew;
 
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.BENEDICTION_TALENT.id);
+  }
+
   get renewsFromBenediction() {
     return this.renew.renewsFromBenediction;
   }
@@ -22,11 +27,6 @@ class Benediction extends Analyzer {
   get healingFromBenedictionRenews() {
     const healing = this.renew.healingFromRenew(this.renew.renewsFromBenediction);
     return healing;
-  }
-
-  constructor(options: Options) {
-    super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.BENEDICTION_TALENT.id);
   }
 
   statistic() {

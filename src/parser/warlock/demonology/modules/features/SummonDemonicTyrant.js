@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer , {SELECTED_PLAYER} from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Events from 'parser/core/Events';
 
@@ -22,8 +22,7 @@ class SummonDemonicTyrant extends Analyzer {
 
   _petsPerCast = [];
 
-
-  constructor(...args){
+  constructor(...args) {
     super(...args);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SUMMON_DEMONIC_TYRANT), this.summonDemonicTyrantCast);
     this._hasDemonicConsumption = this.selectedCombatant.hasTalent(SPELLS.DEMONIC_CONSUMPTION_TALENT.id);
@@ -47,7 +46,7 @@ class SummonDemonicTyrant extends Analyzer {
   statistic() {
     const avgPets = (this._petsPerCast.reduce((total, cast) =>
       total + Object.values(cast).reduce((totalPerSource, source) =>
-        totalPerSource + source, 0)
+      totalPerSource + source, 0)
       , 0) / this._petsPerCast.length) || 0;
     const mergedPets = {};
     this._petsPerCast.forEach(cast => {
@@ -61,7 +60,7 @@ class SummonDemonicTyrant extends Analyzer {
       petTableRows.push(
         <tr key={demonSource}>
           <td align="left"><SpellLink id={Number(demonSource)} /></td>
-          <td align="middle">{(mergedPets[demonSource]/this._petsPerCast.length).toFixed(2)}</td>
+          <td align="middle">{(mergedPets[demonSource] / this._petsPerCast.length).toFixed(2)}</td>
         </tr>,
       );
     });

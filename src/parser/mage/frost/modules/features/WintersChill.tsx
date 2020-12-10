@@ -6,6 +6,7 @@ import Events, { CastEvent, DamageEvent, ApplyDebuffEvent, RemoveDebuffEvent, Fi
 import EventHistory from 'parser/shared/modules/EventHistory';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import SPELLS from 'common/SPELLS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
@@ -61,11 +62,12 @@ class WintersChill extends Analyzer {
 
   hasGlacialSpike: boolean;
   hasEbonbolt: boolean;
-  //isKyrian: boolean;
+  isVenthyr: boolean;
 
   totalProcs = 0;
   totalChillStacks = 0;
   preCastFound = false;
+  preCastIgnored = false;
   preCastSpellId = 0;
   wintersChillHits: number[] = [];
   lastCastEvent?: CastEvent;
@@ -80,7 +82,7 @@ class WintersChill extends Analyzer {
     super(options);
     this.hasGlacialSpike = this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id);
     this.hasEbonbolt = this.selectedCombatant.hasTalent(SPELLS.EBONBOLT_TALENT.id);
-    //this.isKyrian = this.selectedCombatant.hasCovenant()
+    this.isVenthyr = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id);
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(AFFECTED_CASTS), this.onCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(AFFECTED_DAMAGE), this.onDamage);
@@ -101,7 +103,9 @@ class WintersChill extends Analyzer {
       return;
     }
 
-    if (WINTERS_CHILL_HARDCASTS.some(acceptable => acceptable.id === spellId) || this.preCastSpellId === SPELLS.RADIANT_SPARK.id) {
+    if (this.isVenthyr && enemy.hasBuff(SPELLS.MIRRORS_OF_TORMENT.id)) {
+      this.preCastIgnored = true;
+    } else if (WINTERS_CHILL_HARDCASTS.some(acceptable => acceptable.id === spellId) || this.preCastSpellId === SPELLS.RADIANT_SPARK.id) {
       this.preCastFound = true;
     } else if (WINTERS_CHILL_SPENDERS.some(acceptable => acceptable.id === spellId)) {
       this.goodShatteredCasts += 1;
@@ -115,6 +119,7 @@ class WintersChill extends Analyzer {
 
   onDebuffApplied(event: ApplyDebuffEvent) {
     this.preCastFound = false;
+    this.preCastIgnored = false;
     this.preCastSpellId = 0;
     this.goodShatteredCasts = 0;
     this.badShatteredCasts = 0;
@@ -140,7 +145,7 @@ class WintersChill extends Analyzer {
       this.log("Winter Chill Hits: " + this.wintersChillHits);
     }
 
-    if (!this.preCastFound) {
+    if (!this.preCastFound && !this.preCastIgnored) {
       this.missedHardcasts += 1;
     }
 

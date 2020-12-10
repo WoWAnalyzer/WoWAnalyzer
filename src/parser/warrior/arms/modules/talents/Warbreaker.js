@@ -17,10 +17,13 @@ import Events from 'parser/core/Events';
 const WARBREAKER_BONUS_DAMAGES = 0.3;
 
 class Warbreaker extends Analyzer {
+  get dps() {
+    return this.totalDamages / this.owner.fightDuration * 1000;
+  }
+
   static dependencies = {
     enemies: Enemies,
   };
-
   totalDamages = 0;
 
   constructor(...args) {
@@ -40,10 +43,6 @@ class Warbreaker extends Analyzer {
     if (target !== null && target.hasBuff(SPELLS.COLOSSUS_SMASH_DEBUFF.id, event.timestamp)) {
       this.totalDamages += calculateEffectiveDamage(event, WARBREAKER_BONUS_DAMAGES);
     }
-  }
-
-  get dps() {
-    return this.totalDamages / this.owner.fightDuration * 1000;
   }
 
   subStatistic() {

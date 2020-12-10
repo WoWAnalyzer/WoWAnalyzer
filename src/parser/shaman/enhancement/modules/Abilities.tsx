@@ -1,4 +1,3 @@
-
 import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
@@ -17,7 +16,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id),
-        damageSpellIds: [ SPELLS.ASCENDANCE_INITIAL_DAMAGE ],
+        damageSpellIds: [SPELLS.ASCENDANCE_INITIAL_DAMAGE],
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 1.0,
@@ -91,7 +90,7 @@ class Abilities extends CoreAbilities {
       },
       {
         name: `${SPELLS.FLAME_SHOCK.name} / ${SPELLS.FROST_SHOCK.name}`,
-        spell: [ SPELLS.FROST_SHOCK, SPELLS.FLAME_SHOCK ],
+        spell: [SPELLS.FROST_SHOCK, SPELLS.FLAME_SHOCK],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 6 / (1 + haste),
         gcd: {
@@ -294,7 +293,7 @@ class Abilities extends CoreAbilities {
           static: 1000,
         },
         cooldown: 30,
-        healSpellIds: [ SPELLS.HEALING_STREAM_TOTEM_HEAL.id ],
+        healSpellIds: [SPELLS.HEALING_STREAM_TOTEM_HEAL.id],
       },
       {
         spell: SPELLS.CHAIN_HEAL,

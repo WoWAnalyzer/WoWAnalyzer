@@ -93,7 +93,7 @@ class CombatLogParser extends CoreCombatLogParser {
     theRotten: TheRotten,
     essenceOfBloodfang: EssenceOfBloodfang,
     invigoratingShadowdust: InvigoratingShadowdust,
-    
+
     // Conduits
     deeperDaggers: DeeperDaggers,
 

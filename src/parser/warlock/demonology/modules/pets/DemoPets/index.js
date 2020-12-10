@@ -6,14 +6,22 @@ import PetDamage from '../PetDamage';
 const debug = false;
 
 class DemoPets extends Analyzer {
-  damage = new PetDamage();
-  timeline = new Timeline();
-
-  // API
-
   get currentPets() {
     return this._getPets();
   }
+
+  get permanentPetDamage() {
+    return this.damage.permanentPetDamage;
+  }
+
+  // API
+
+  get petsBySummonAbility() {
+    return this.timeline.groupPetsBySummonAbility();
+  }
+
+  damage = new PetDamage();
+  timeline = new Timeline();
 
   getPetDamage(id, instance = null, isGuid = true) {
     // if instance = null, returns total damage from all instances, otherwise from a specific instance
@@ -27,16 +35,8 @@ class DemoPets extends Analyzer {
     return this.damage.getDamageForGuid(guid, instance);
   }
 
-  get permanentPetDamage() {
-    return this.damage.permanentPetDamage;
-  }
-
   getPetCount(timestamp = this.owner.currentTimestamp, petId = null) {
     return this.timeline.getPetsAtTimestamp(timestamp).filter(pet => petId ? pet.id === petId : true).length;
-  }
-
-  get petsBySummonAbility() {
-    return this.timeline.groupPetsBySummonAbility();
   }
 
   // HELPER METHODS

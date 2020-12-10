@@ -15,23 +15,6 @@ import SpellUsable from '../features/SpellUsable';
 import Abilities from '../Abilities';
 
 class Predator extends Analyzer {
-  static dependencies = {
-    spellUsable: SpellUsable,
-    abilities: Abilities,
-  };
-
-  totalCasts = 0;
-
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.PREDATOR_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TIGERS_FURY), this.onCast);
-  }
-
-  onCast(event) {
-    this.totalCasts += 1;
-  }
-
   get baseCasts() {
     const tigersFury = this.abilities.getAbility(SPELLS.TIGERS_FURY.id);
     return 1 + Math.floor(this.owner.fightDuration / (tigersFury.cooldown * 1000));
@@ -61,15 +44,31 @@ class Predator extends Analyzer {
     };
   }
 
+  static dependencies = {
+    spellUsable: SpellUsable,
+    abilities: Abilities,
+  };
+  totalCasts = 0;
+
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.PREDATOR_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TIGERS_FURY), this.onCast);
+  }
+
+  onCast(event) {
+    this.totalCasts += 1;
+  }
+
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-        <>
-          You're not gaining much benefit from <SpellLink id={SPELLS.PREDATOR_TALENT.id} />. If the fight has adds make sure they have bleeds on them when they die, and make use of your <SpellLink id={SPELLS.TIGERS_FURY.id} /> cooldown being reset. If the fight doesn't have adds it would be a good idea to switch to another talent.
-        </>,
-      )
-        .icon(SPELLS.PREDATOR_TALENT.icon)
-        .actual(i18n._(t('druid.feral.suggestions.predator.efficiency')`${actual.toFixed(1)} extra casts of Tiger's Fury per minute.`))
-        .recommended(`>${recommended.toFixed(1)} is recommended`));
+      <>
+        You're not gaining much benefit from <SpellLink id={SPELLS.PREDATOR_TALENT.id} />. If the fight has adds make sure they have bleeds on them when they die, and make use of your <SpellLink id={SPELLS.TIGERS_FURY.id} /> cooldown being reset. If the fight doesn't have adds it would be a good idea to switch to another talent.
+      </>,
+    )
+      .icon(SPELLS.PREDATOR_TALENT.icon)
+      .actual(i18n._(t('druid.feral.suggestions.predator.efficiency')`${actual.toFixed(1)} extra casts of Tiger's Fury per minute.`))
+      .recommended(`>${recommended.toFixed(1)} is recommended`));
   }
 
   statistic() {

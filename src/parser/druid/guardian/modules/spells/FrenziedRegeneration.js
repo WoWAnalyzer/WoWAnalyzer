@@ -17,12 +17,6 @@ const HEAL_THRESHOLD = 0.2;
 const HP_THRESHOLD = 0.7;
 
 class FrenziedRegeneration extends Analyzer {
-  static dependencies = {
-    statTracker: StatTracker,
-  };
-
-  castData = [];
-  damageEventsInWindow = [];
   _healModifier = 0.5;
 
   get healModifier() {
@@ -33,12 +27,16 @@ class FrenziedRegeneration extends Analyzer {
     return this._charges;
   }
 
-  pruneDamageEvents(currentTimestamp) {
-    // Remove old damage events that occurred outside the FR window
-    while (this.damageEventsInWindow.length && this.damageEventsInWindow[0].timestamp + FR_WINDOW_MS < currentTimestamp) {
-      this.damageEventsInWindow.shift();
-    }
+  // and the target is above 70% HP at the time of the cast.
+  get inefficientCasts() {
+    return this.castData.filter(cast => cast.percentHeal <= HEAL_THRESHOLD && cast.percentHP >= HP_THRESHOLD);
   }
+
+  static dependencies = {
+    statTracker: StatTracker,
+  };
+  castData = [];
+  damageEventsInWindow = [];
 
   constructor(...args) {
     super(...args);
@@ -50,6 +48,13 @@ class FrenziedRegeneration extends Analyzer {
     this._healModifier += versModifier; // TODO: Account for Haste buffs by asking the actual value on each event instead of in here
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FRENZIED_REGENERATION), this.onCast);
     this.addEventListener(Events.cast.to(SELECTED_PLAYER), this.onDamage);
+  }
+
+  pruneDamageEvents(currentTimestamp) {
+    // Remove old damage events that occurred outside the FR window
+    while (this.damageEventsInWindow.length && this.damageEventsInWindow[0].timestamp + FR_WINDOW_MS < currentTimestamp) {
+      this.damageEventsInWindow.shift();
+    }
   }
 
   onCast(event) {
@@ -77,6 +82,8 @@ class FrenziedRegeneration extends Analyzer {
     });
   }
 
+  // A cast is considered inefficient if the expected heal is less than 20% of max HP,
+
   onDamage(event) {
     this.damageEventsInWindow.push({
       timestamp: event.timestamp,
@@ -84,24 +91,18 @@ class FrenziedRegeneration extends Analyzer {
     });
   }
 
-  // A cast is considered inefficient if the expected heal is less than 20% of max HP,
-  // and the target is above 70% HP at the time of the cast.
-  get inefficientCasts() {
-    return this.castData.filter(cast => cast.percentHeal <= HEAL_THRESHOLD && cast.percentHP >= HP_THRESHOLD);
-  }
-
   suggestions(when) {
     const inefficiency = this.inefficientCasts.length / this.castData.length;
     when(inefficiency).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => suggest(
-          <>
-            You are casting <SpellLink id={SPELLS.FRENZIED_REGENERATION.id} /> inefficiently (at high HP and after low damage intake).  It is almost always better to wait until after you have taken a big hit to cast it, even if that means spending extended periods of time at maximum charges.  If you don't already have one, consider getting an FR prediction weakaura to assist you in casting it more effectively.
-          </>,
-        )
-          .icon(SPELLS.FRENZIED_REGENERATION.icon)
-          .actual(i18n._(t('druid.guardian.suggestions.frenziedRegeneration.efficiency')`${formatPercentage(actual, 0)}% of casts had a predicted heal of less than ${formatPercentage(HEAL_THRESHOLD, 0)}% and were cast above ${formatPercentage(HP_THRESHOLD, 0)}% HP`))
-          .recommended(`${recommended}% is recommended`)
-          .regular(recommended + 0.05).major(recommended + 0.1));
+        <>
+          You are casting <SpellLink id={SPELLS.FRENZIED_REGENERATION.id} /> inefficiently (at high HP and after low damage intake). It is almost always better to wait until after you have taken a big hit to cast it, even if that means spending extended periods of time at maximum charges. If you don't already have one, consider getting an FR prediction weakaura to assist you in casting it more effectively.
+        </>,
+      )
+        .icon(SPELLS.FRENZIED_REGENERATION.icon)
+        .actual(i18n._(t('druid.guardian.suggestions.frenziedRegeneration.efficiency')`${formatPercentage(actual, 0)}% of casts had a predicted heal of less than ${formatPercentage(HEAL_THRESHOLD, 0)}% and were cast above ${formatPercentage(HP_THRESHOLD, 0)}% HP`))
+        .recommended(`${recommended}% is recommended`)
+        .regular(recommended + 0.05).major(recommended + 0.1));
   }
 }
 

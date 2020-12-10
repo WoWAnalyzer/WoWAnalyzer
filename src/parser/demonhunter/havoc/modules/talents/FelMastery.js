@@ -4,13 +4,13 @@ import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Events from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { formatThousands} from 'common/format';
+import { formatThousands } from 'common/format';
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/AZMDnzrG48KJLgP6/#fight=1&source=1
  */
 
-class FelMastery extends Analyzer{
+class FelMastery extends Analyzer {
 
   damage = 0;
 
@@ -28,21 +28,22 @@ class FelMastery extends Analyzer{
     this.damage += event.amount / 2;
   }
 
-  statistic(){
+  statistic() {
     return (
       <TalentStatisticBox
         talent={SPELLS.FEL_MASTERY_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
         value={this.owner.formatItemDamageDone(this.damage)}
         tooltip={(
-<>
-                  {formatThousands(this.damage)} Total damage <br /> <br />
-                  This shows the extra damage done by Fel Rush due to the Fel Mastery talent.
-                </>
-)}
+          <>
+            {formatThousands(this.damage)} Total damage <br /> <br />
+            This shows the extra damage done by Fel Rush due to the Fel Mastery talent.
+          </>
+        )}
 
       />
     );
   }
 }
+
 export default FelMastery;

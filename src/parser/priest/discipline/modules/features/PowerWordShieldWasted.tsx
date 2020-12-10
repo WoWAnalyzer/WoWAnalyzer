@@ -13,8 +13,9 @@ class PowerWordShieldWasted extends Analyzer {
   wasted = 0;
   count = 0;
   totalCount = 0;
+  statisticOrder = STATISTIC_ORDER.CORE(10);
 
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.POWER_WORD_SHIELD), this.onRemoveBuff);
   }
@@ -44,8 +45,6 @@ class PowerWordShieldWasted extends Analyzer {
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(10);
 }
 
 export default PowerWordShieldWasted;

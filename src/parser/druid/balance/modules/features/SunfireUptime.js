@@ -14,10 +14,6 @@ import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class SunfireUptime extends Analyzer {
-  static dependencies = {
-    enemies: Enemies,
-  };
-
   get suggestionThresholds() {
     const sunfireUptime = this.enemies.getBuffUptime(SPELLS.SUNFIRE.id) / this.owner.fightDuration;
     return {
@@ -30,6 +26,11 @@ class SunfireUptime extends Analyzer {
       style: 'percentage',
     };
   }
+
+  static dependencies = {
+    enemies: Enemies,
+  };
+  statisticOrder = STATISTIC_ORDER.CORE(7);
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.SUNFIRE.id} /> uptime can be improved. Try to pay more attention to your Sunfire on the boss.</>)
@@ -54,8 +55,6 @@ class SunfireUptime extends Analyzer {
       </Statistic>
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(7);
 }
 
 export default SunfireUptime;

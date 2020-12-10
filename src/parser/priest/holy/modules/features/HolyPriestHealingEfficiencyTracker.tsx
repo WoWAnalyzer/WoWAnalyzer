@@ -13,8 +13,6 @@ import HolyWordSalvation from 'parser/priest/holy/modules/talents/100/HolyWordSa
 import EchoOfLightMastery from 'parser/priest/holy/modules/core/EchoOfLightMastery';
 
 class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
-  includeEchoOfLight = false;
-
   static dependencies = {
     manaTracker: ManaTracker,
     abilityTracker: AbilityTracker,
@@ -29,7 +27,7 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
     prayerOfMending: PrayerOfMending,
     echoOfLight: EchoOfLightMastery,
   };
-
+  includeEchoOfLight = false;
   protected salvation!: HolyWordSalvation;
   protected renew!: Renew;
   protected prayerOfMending!: PrayerOfMending;

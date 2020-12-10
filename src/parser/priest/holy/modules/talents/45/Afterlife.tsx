@@ -22,16 +22,16 @@ class Afterlife extends Analyzer {
 
   healingInAfterlife = 0;
 
-  get extraTimeInSoR() {
-    return this.timeInSoR - (SPIRIT_OF_REDEMPTION_DURATION * this.sorCount);
-  }
-
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.AFTERLIFE_TALENT.id);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SPIRIT_OF_REDEMPTION_BUFF), this.onApplyBuff);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SPIRIT_OF_REDEMPTION_BUFF), this.onRemoveBuff);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+  }
+
+  get extraTimeInSoR() {
+    return this.timeInSoR - (SPIRIT_OF_REDEMPTION_DURATION * this.sorCount);
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
