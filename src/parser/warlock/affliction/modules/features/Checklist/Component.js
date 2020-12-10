@@ -38,13 +38,15 @@ const AfflictionWarlockChecklist = ({ combatant, castEfficiency, thresholds, sha
   return (
     <Checklist>
       <Rule
-        name="Maintain your DoTs on the boss"
-        description="Affliction Warlocks rely on DoTs as a means of dealing damage to the target. You should try to keep as highest uptime on them as possible."
+        name="Maintain your DoTs and debuffs on the boss"
+        description="Affliction Warlocks rely on DoTs and debuffs as means of dealing damage to the target. You should try to keep as highest uptime on them as possible."
       >
         <DotUptime id={SPELLS.AGONY.id} thresholds={thresholds.agony} />
         <DotUptime id={SPELLS.CORRUPTION_CAST.id} thresholds={thresholds.corruption} />
         <DotUptime id={SPELLS.UNSTABLE_AFFLICTION.id} thresholds={thresholds.unstableAffliction} />
+        <DotUptime id={SPELLS.SHADOW_EMBRACE.id} thresholds={thresholds.shadowEmbrace} />
         {combatant.hasTalent(SPELLS.SIPHON_LIFE_TALENT.id) && <DotUptime id={SPELLS.SIPHON_LIFE_TALENT.id} thresholds={thresholds.siphonLife} />}
+        {combatant.hasTalent(SPELLS.HAUNT_TALENT.id) && <DotUptime id={SPELLS.HAUNT_TALENT.id} thresholds={thresholds.haunt} />}
       </Rule>
       <Rule
         name="Don't cap your Soul Shards"

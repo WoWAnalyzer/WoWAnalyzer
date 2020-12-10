@@ -10,6 +10,8 @@ import AgonyUptime from '../DotUptimes/AgonyUptime';
 import CorruptionUptime from '../DotUptimes/CorruptionUptime';
 import UnstableAfflictionUptime from '../DotUptimes/UnstableAfflictionUptime';
 import SiphonLifeUptime from '../../talents/SiphonLifeUptime';
+import Haunt from '../../talents/Haunt';
+import ShadowEmbrace from '../../features/ShadowEmbrace';
 import SoulShardDetails from '../../soulshards/SoulShardDetails';
 import SoulShardTracker from '../../soulshards/SoulShardTracker';
 
@@ -26,6 +28,8 @@ class Checklist extends BaseChecklist {
     corruptionUptime: CorruptionUptime,
     siphonLifeUptime: SiphonLifeUptime,
     unstableAfflictionUptime: UnstableAfflictionUptime,
+    haunt: Haunt,
+    shadowEmbrace: ShadowEmbrace,
     soulShardDetails: SoulShardDetails,
     soulShardTracker: SoulShardTracker,
   };
@@ -42,6 +46,8 @@ class Checklist extends BaseChecklist {
           corruption: this.corruptionUptime.suggestionThresholds,
           unstableAffliction: this.unstableAfflictionUptime.suggestionThresholds,
           siphonLife: this.siphonLifeUptime.suggestionThresholds,
+          haunt: this.haunt.suggestionThresholds,
+          shadowEmbrace: this.shadowEmbrace.suggestionThresholds,
           soulShards: this.soulShardDetails.suggestionThresholds,
           downtime: this.alwaysBeCasting.suggestionThresholds,
         }}

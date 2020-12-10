@@ -1,8 +1,7 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
-import Events from 'parser/core/Events';
 
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -20,28 +19,8 @@ class UnstableAfflictionUptime extends Analyzer {
     enemies: Enemies,
   };
 
-  buffedTime = 0;
-  damage = 0;
-  _buffStart = 0;
-  _count = 0;
-
-  constructor(...args) {
-    super(...args);
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.UNSTABLE_AFFLICTION), this.onUAapply);
-    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.UNSTABLE_AFFLICTION), this.onUAremove);
-  }
-
-  onUAapply(event) {
-    this._buffStart = event.timestamp;
-  }
-
-  onUAremove(event) {
-    this.buffedTime += event.timestamp - this._buffStart;
-  }
-
-
   get uptime() {
-    return this.buffedTime / this.owner.fightDuration;
+    return this.enemies.getBuffUptime(SPELLS.UNSTABLE_AFFLICTION.id) / this.owner.fightDuration;
   }
 
   get suggestionThresholds() {
