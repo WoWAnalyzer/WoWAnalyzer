@@ -123,7 +123,6 @@ class Abilities extends CoreAbilities {
         },
         healSpellIds: [
           SPELLS.REJUVENATION_GERMINATION.id,
-          SPELLS.AUTUMN_LEAVES.id,
           SPELLS.CULTIVATION.id,
           // TODO - Add part of ysera's gift to be included if you have azerite trait waking dream
         ],
