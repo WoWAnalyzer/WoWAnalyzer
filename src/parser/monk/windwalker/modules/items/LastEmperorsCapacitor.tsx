@@ -1,6 +1,6 @@
 import React from 'react';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { Trans,t } from '@lingui/macro';
+import { Trans, t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Statistic from 'interface/statistics/Statistic';
