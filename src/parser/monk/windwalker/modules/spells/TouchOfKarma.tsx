@@ -15,7 +15,6 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 const TOUCH_OF_KARMA_HP_SCALING = 0.5;
 
 class TouchOfKarma extends Analyzer {
-
   static dependencies = {
     healingDone: HealingDone,
   };

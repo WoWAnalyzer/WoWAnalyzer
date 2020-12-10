@@ -17,7 +17,6 @@ const COMBO_BREAKER_PROC_CHANCE = 0.08;
 const debug = false;
 
 class ComboBreaker extends Analyzer {
-
   static dependencies = {
     abilityTracker: AbilityTracker,
   };

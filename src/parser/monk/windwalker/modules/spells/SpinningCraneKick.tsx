@@ -15,7 +15,6 @@ interface MarkOfTheCrane {
 }
 
 interface MarkOfTheCraneTarget {
-
   id: number;
   instance: number;
 }
