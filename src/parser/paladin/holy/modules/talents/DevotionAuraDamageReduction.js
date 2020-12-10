@@ -16,7 +16,7 @@ import Events, { EventType } from 'parser/core/Events';
 
 // Source: https://github.com/MartijnHols/HolyPaladin/blob/master/Spells/Talents/60/DevotionAura.md#about-the-passive-effect
 const DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION = .03;
-const DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION = 0.2;
+const DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION = 0.15;
 
 /**
  * Falling damage is considered "pure" or w/e damage meaning it doesn't get reduced by damage reductions. The ability description of such an event can look like this: {
@@ -81,21 +81,21 @@ class DevotionAuraDamageReduction extends Analyzer {
     if (!isAuraMasteryActive) {
       const damageTaken = event.amount + (event.absorbed || 0);
       const damageReduced =
-        (damageTaken / (1 - this.totalPassiveDamageReduction)) * this.totalPassiveDamageReduction;
+        (damageTaken / (1 - this.singleTargetDamageReduction)) * this.totalPassiveDamageReduction;
       this.passiveDamageReduced += damageReduced;
     }
   }
 
   buffsActive = 1;
   get singleTargetDamageReduction() {
-    return DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION * this.buffsActive;
+    return DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION;
   }
   get totalPassiveDamageReduction() {
     return this.singleTargetDamageReduction * this.buffsActive;
   }
   isApplicableBuffEvent(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.DEVOTION_AURA_BUFF.id) {
+    if (spellId !== SPELLS.DEVOTION_AURA.id) {
       return false;
     }
     if (this.owner.toPlayer(event)) {
