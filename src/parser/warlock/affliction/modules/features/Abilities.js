@@ -3,6 +3,8 @@ import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
 import SPELLS from 'common/SPELLS';
 
+import COVENANTS from 'game/shadowlands/COVENANTS';
+
 const FEL_CELERITY_REDUCTION_SEC = {
   1: 48,
   2: 51,
@@ -130,6 +132,19 @@ class Abilities extends CoreAbilities {
         },
         buffSpellId: SPELLS.VILE_TAINT_TALENT.id,
       },
+      {
+        spell: SPELLS.SOUL_ROT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 60,
+        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        castEfficiency: {
+          suggestion: false,
+        },
+        buffSpellId: SPELLS.SOUL_ROT.id,
+      },
 
       // Cooldowns
       {
@@ -148,9 +163,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DARK_SOUL_MISERY_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
-        gcd: {
-          base: 1500,
-        },
+        gcd: null,
         enabled: combatant.hasTalent(SPELLS.DARK_SOUL_MISERY_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -261,6 +274,16 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+      },
+      {
+        spell: SPELLS.SOULSHAPE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 90,
+        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        gcd: {
+          base: 1500,
+        },
+        buffSpellId: SPELLS.SOULSHAPE.id,
       },
       {
         spell: SPELLS.BANISH,

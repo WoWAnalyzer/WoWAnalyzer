@@ -4,7 +4,7 @@ export default {
   BURNING_RUSH_TALENT: { id: 111400, name: 'Burning Rush', icon: 'ability_deathwing_sealarmorbreachtga' },
   DARK_PACT_TALENT: { id: 108416, name: 'Dark Pact', icon: 'warlock_sacrificial_pact' },
   DARKFURY_TALENT: { id: 264874, name: 'Darkfury', icon: 'ability_warlock_shadowfurytga' },
-  MORTAL_COIL_TALENT: { id: 6789, name: 'Mortal Coil', icon: 'ability_warlock_mortalcoil', manaCost: 2000 },
+  MORTAL_COIL_TALENT: { id: 6789, name: 'Mortal Coil', icon: 'ability_warlock_mortalcoil', manaCost: 1000 },
   HOWL_OF_TERROR_TALENT: { id: 5184, name: 'Howl of Terror', icon: ''},
   GRIMOIRE_OF_SACRIFICE_TALENT: { id: 108503, name: 'Grimoire of Sacrifice', icon: 'warlock_grimoireofsacrifice' },
   SOUL_CONDUIT_TALENT: { id: 215941, name: 'Soul Conduit', icon: 'spell_shadow_soulleech_2' },
@@ -49,7 +49,7 @@ export default {
   PHANTOM_SINGULARITY_TALENT: { id: 205179, name: 'Phantom Singularity', icon: 'inv_enchant_voidsphere' },
   VILE_TAINT_TALENT: { id: 278350, name: 'Vile Taint', icon: 'sha_spell_shadow_shadesofdarkness_nightborne' },
   DARK_CALLER_TALENT: { id: 334183, name: 'Dark Caller', icon: '' },
-  HAUNT_TALENT: { id: 48181, name: 'Haunt', icon: 'ability_warlock_haunt', manaCost: 2000 },
+  HAUNT_TALENT: { id: 48181, name: 'Haunt', icon: 'ability_warlock_haunt', manaCost: 1000 },
   CREEPING_DEATH_TALENT: { id: 264000, name: 'Creeping Death', icon: 'ability_creature_cursed_03' },
   DARK_SOUL_MISERY_TALENT: { id: 113860, name: 'Dark Soul: Misery', icon: 'spell_warlock_soulburn' },
 };
