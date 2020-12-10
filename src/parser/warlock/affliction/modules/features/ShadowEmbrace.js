@@ -140,7 +140,7 @@ class ShadowEmbrace extends Analyzer {
           </>,
         )
           .icon(SPELLS.SHADOW_EMBRACE_DEBUFF.icon)
-          .actual(i18n._(t('warlock.affliction.suggestions.corruption.uptime')`${formatPercentage(actual)}% Shadow Embrace uptime`))
+          .actual(i18n._(t('warlock.affliction.suggestions.shadowembrace.uptime')`${formatPercentage(actual)}% Shadow Embrace uptime`))
           .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
