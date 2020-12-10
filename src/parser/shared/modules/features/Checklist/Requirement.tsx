@@ -27,6 +27,14 @@ class Requirement extends React.PureComponent<Props> {
   constructor(props: Props) {
     super(props);
     props.setPerformance(this.performance);
+
+    if(props.thresholds as NumberThreshold){
+      const testy = (props.thresholds as NumberThreshold);
+      if(testy.isLessThan !== null && testy.isLessThan === 0){
+        console.log("hi");
+      }
+    }
+
   }
 
   get performance() {

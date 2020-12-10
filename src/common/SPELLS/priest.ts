@@ -31,7 +31,7 @@ const spells = {
     manaCost: 250,
   },
   POWER_INFUSION: {
-    id: 265314,
+    id: 10060,
     name: 'Power Infusion',
     icon: 'spell_holy_powerinfusion',
   },

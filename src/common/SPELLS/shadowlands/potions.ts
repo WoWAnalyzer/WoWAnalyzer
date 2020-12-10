@@ -55,7 +55,7 @@ const spells = {
     icon: 'inv_alchemy_90_combat1_pink',
   },
   POTION_OF_PHANTOM_FIRE: {
-    id: 307382,
+    id: 307495,
     name: 'Potion of Phantom Fire',
     icon: 'inv_alchemy_90_combat1_green',
   },

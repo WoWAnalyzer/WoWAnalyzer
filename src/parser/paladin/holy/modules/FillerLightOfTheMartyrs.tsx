@@ -1,5 +1,6 @@
 import React from 'react';
 import { t, Trans } from '@lingui/macro';
+import { i18n } from 'interface/RootLocalizationProvider';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -42,8 +43,7 @@ class FillerLightOfTheMartyrs extends Analyzer {
     this.inefficientCasts.push(event);
     event.meta = event.meta || {};
     event.meta.isInefficientCast = true;
-    event.meta.inefficientCastReason =
-      t('paladin.holy.modules.fillerLightOfTheMatyrs.holyShockWasAvailable')`Holy Shock was available and should have been cast instead as it is a much more efficient spell.`;
+    event.meta.inefficientCastReason =i18n._(t('paladin.holy.modules.fillerLightOfTheMatyrs.holyShockWasAvailable')`Holy Shock was available and should have been cast instead as it is a much more efficient spell.`);
   }
 
   get cpm() {
