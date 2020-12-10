@@ -82,7 +82,6 @@ class DevotionAuraDamageReduction extends Analyzer {
       const damageTaken = event.amount + (event.absorbed || 0);
       const damageReduced =
         (damageTaken / (1 - this.singleTargetDamageReduction)) * this.totalPassiveDamageReduction;
-        console.log(this.totalPassiveDamageReduction);
       this.passiveDamageReduced += damageReduced;
     }
   }
