@@ -29,11 +29,8 @@ class ShadowEmbrace extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
-
   damage = 0;
-
   _lastEventTimestamp = null;
-
   debuffs = {
     0: {
       // ignored, see comment in stackedUptime getter
