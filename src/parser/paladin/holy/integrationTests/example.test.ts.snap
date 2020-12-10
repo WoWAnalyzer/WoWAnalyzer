@@ -5033,7 +5033,7 @@ exports[`Holy Paladin integration test: example log DevotionAuraDamageReduction 
       className="drilldown"
     >
       <a
-        href="https://www.warcraftlogs.com/reports/TEST/#fight=8&type=damage-taken&pins=2%24Off%24%23244F4B%24expression%24(IN%20RANGE%20FROM%20target.name%3D'Villahseen'%20AND%20type%3D'applybuff'%20AND%20ability.id%3D31821%20TO%20target.name%3D'Villahseen'%20AND%20type%3D'removebuff'%20AND%20ability.id%3D31821%20END)%0A%20%20%20%20%20%20AND%20(mitigatedDamage%2FrawDamage*100)%3E19&view=events"
+        href="https://www.warcraftlogs.com/reports/TEST/#fight=8&type=damage-taken&pins=2%24Off%24%23244F4B%24expression%24(IN%20RANGE%20FROM%20target.name%3D'Villahseen'%20AND%20type%3D'applybuff'%20AND%20ability.id%3D31821%20TO%20target.name%3D'Villahseen'%20AND%20type%3D'removebuff'%20AND%20ability.id%3D31821%20END)%0A%20%20%20%20%20%20AND%20(mitigatedDamage%2FrawDamage*100)%3E14&view=events"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={[Function]}

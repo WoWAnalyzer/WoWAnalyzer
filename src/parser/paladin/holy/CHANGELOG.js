@@ -5,6 +5,7 @@ import { change, date } from 'common/changelog';
 
 // prettier-ignore
 export default [
+  change(date(2020, 12, 10), <>Fixed a bug that made devo aura inaccurate.</>, Abelito75),
   change(date(2020, 12, 10), <>Fixed bug where Light of the Martyr's ineffiecent tooltip would crash the page.</>, Abelito75),
   change(date(2020, 12, 9), <>Re-enabled stat weights :).</>, Abelito75),
   change(date(2020, 10, 18), <>Updating wording and translation tags.</>, Abelito75),
