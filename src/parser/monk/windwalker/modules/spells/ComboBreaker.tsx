@@ -17,22 +17,6 @@ const COMBO_BREAKER_PROC_CHANCE = 0.08;
 const debug = false;
 
 class ComboBreaker extends Analyzer {
-  get usedCBProcs() {
-    return this.consumedCBProc / this.CBProcsTotal;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.usedCBProcs,
-      isLessThan: {
-        minor: 0.9,
-        average: 0.8,
-        major: 0.7,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
@@ -76,6 +60,22 @@ class ComboBreaker extends Analyzer {
         this.lastCBProcTime = null;
       }
     }
+  }
+
+  get usedCBProcs() {
+    return this.consumedCBProc / this.CBProcsTotal;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.usedCBProcs,
+      isLessThan: {
+        minor: 0.9,
+        average: 0.8,
+        major: 0.7,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
   }
 
   suggestions(when: When) {

@@ -24,27 +24,6 @@ interface MasteryCast {
 const HIT_COMBO_STRING = ' and dropping the Hit Combo damage buff';
 
 class ComboStrikes extends Analyzer {
-  get masteryDropEvents() {
-    return this.masteryDropSpellSequence.length;
-  }
-
-  get masteryDropsPerMinute() {
-    return (this.masteryDropEvents / this.owner.fightDuration) * 1000 * 60;
-  }
-
-  get suggestionThresholds() {
-    const hitComboMultiplier = this.hasHitCombo ? 1 : 2;
-    return {
-      actual: this.masteryDropsPerMinute,
-      isGreaterThan: {
-        minor: 0,
-        average: 0.5 * hitComboMultiplier,
-        major: Number(hitComboMultiplier),
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-  
   _lastSpellUsed: number | null = null;
   _lastThreeSpellsUsed: MasteryCast[] = [];
   masteryDropSpellSequence: MasteryCast[][] = [];
@@ -79,6 +58,27 @@ class ComboStrikes extends Analyzer {
     this._lastSpellUsed = spellId;
   }
 
+  get masteryDropEvents() {
+    return this.masteryDropSpellSequence.length;
+  }
+
+  get masteryDropsPerMinute() {
+    return (this.masteryDropEvents / this.owner.fightDuration) * 1000 * 60;
+  }
+
+  get suggestionThresholds() {
+    const hitComboMultiplier = this.hasHitCombo ? 1 : 2;
+    return {
+      actual: this.masteryDropsPerMinute,
+      isGreaterThan: {
+        minor: 0,
+        average: 0.5 * hitComboMultiplier,
+        major: Number(hitComboMultiplier),
+      },
+      style: ThresholdStyle.NUMBER,
+    };
+  }
+  
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<span>You ignored your <SpellLink id={SPELLS.COMBO_STRIKES.id} /> buff by casting the same spell twice in a row, missing out on the damage increase from your mastery{HIT_COMBO_STRING}.</span>)
       .icon(SPELLS.COMBO_STRIKES.icon)

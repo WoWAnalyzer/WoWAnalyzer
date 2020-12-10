@@ -20,22 +20,6 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 const COOLDOWN_REDUCTION_MS = 1000;
 
 class BlackoutKick extends Analyzer {
-  get totalWastedReductionPerMinute() {
-    return (this.wastedFistsOfFuryReductionMs + this.wastedRisingSunKickReductionMs) / (this.owner.fightDuration) * 60;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.totalWastedReductionPerMinute,
-      isGreaterThan: {
-        minor: 0,
-        average: 2,
-        major: 4,
-      },
-      style: ThresholdStyle.DECIMAL,
-    };
-  }
-
   static dependencies = {
     spellUsable: SpellUsable,
   };
@@ -83,6 +67,22 @@ class BlackoutKick extends Analyzer {
       this.effectiveFistsOfFuryReductionMs += reductionMs;
       this.wastedFistsOfFuryReductionMs += currentCooldownReductionMS - reductionMs;
     }
+  }
+  
+  get totalWastedReductionPerMinute() {
+    return (this.wastedFistsOfFuryReductionMs + this.wastedRisingSunKickReductionMs) / (this.owner.fightDuration) * 60;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.totalWastedReductionPerMinute,
+      isGreaterThan: {
+        minor: 0,
+        average: 2,
+        major: 4,
+      },
+      style: ThresholdStyle.DECIMAL,
+    };
   }
 
   suggestions(when: When) {

@@ -15,22 +15,6 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 const TOUCH_OF_KARMA_HP_SCALING = 0.5;
 
 class TouchOfKarma extends Analyzer {
-  get absorbUsed() {
-    return this.healingDone.byAbility(SPELLS.TOUCH_OF_KARMA_CAST.id).effective / this.totalPossibleAbsorb;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.absorbUsed,
-      isLessThan: {
-        minor: 0.8,
-        average: 0.65,
-        major: 0.5,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
   static dependencies = {
     healingDone: HealingDone,
   };
@@ -53,6 +37,22 @@ class TouchOfKarma extends Analyzer {
       .icon(SPELLS.TOUCH_OF_KARMA_CAST.icon)
       .actual(i18n._(t('monk.windwalker.suggestions.touchOfKarma.absorbUsed')`${formatPercentage(actual)}% Touch of Karma absorb used`))
       .recommended(`>${formatPercentage(recommended)}% is recommended`));
+  }
+
+  get absorbUsed() {
+    return this.healingDone.byAbility(SPELLS.TOUCH_OF_KARMA_CAST.id).effective / this.totalPossibleAbsorb;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.absorbUsed,
+      isLessThan: {
+        minor: 0.8,
+        average: 0.65,
+        major: 0.5,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
   }
 
   statistic() {

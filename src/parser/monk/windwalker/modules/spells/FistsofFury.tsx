@@ -16,26 +16,6 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 const FISTS_OF_FURY_MINIMUM_TICK_TIME = 100; // This is to check that additional ticks aren't just hitting secondary targets
 
 class FistsofFury extends Analyzer {
-  get averageTicks() {
-    return this.fistsTicks / this.casts;
-  }
-
-  get casts() {
-    return this.abilityTracker.getAbility(SPELLS.FISTS_OF_FURY_CAST.id).casts;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.averageTicks,
-      isLessThan: {
-        minor: 5,
-        average: 4.75,
-        major: 4.5,
-      },
-      style: ThresholdStyle.DECIMAL,
-    };
-  }
-
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
@@ -65,6 +45,26 @@ class FistsofFury extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<span> You are cancelling your <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /> casts early and losing ticks </span>)
       .icon(SPELLS.FISTS_OF_FURY_CAST.icon).actual(i18n._(t('monk.windwalker.suggestions.fistOfFury.avgTicksPerCast')`${actual.toFixed(2)} average ticks on each Fists of Fury cast`))
       .recommended(`Aim to get ${recommended} ticks with each Fists of Fury cast.`));
+  }
+
+  get averageTicks() {
+    return this.fistsTicks / this.casts;
+  }
+
+  get casts() {
+    return this.abilityTracker.getAbility(SPELLS.FISTS_OF_FURY_CAST.id).casts;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.averageTicks,
+      isLessThan: {
+        minor: 5,
+        average: 4.75,
+        major: 4.5,
+      },
+      style: ThresholdStyle.DECIMAL,
+    };
   }
 
   statistic() {

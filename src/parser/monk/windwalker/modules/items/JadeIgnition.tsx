@@ -16,26 +16,6 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 const MAX_STACKS = 30;
 
 class JadeIgnition extends Analyzer {
-  get damageDone() {
-    return this.abilityTracker.getAbility(SPELLS.JADE_IGNITION_DAMAGE.id).damageEffective;
-  }
-
-  get stackUsage() {
-    return 1 - (this.stacksWasted / this.totalStacks);
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.stackUsage,
-      isLessThan: {
-        minor: 1,
-        average: 0.95,
-        major: 0.9,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
@@ -74,6 +54,26 @@ class JadeIgnition extends Analyzer {
 
   castSpinningCraneKick() {
     this.currentStacks = 0;
+  }
+
+  get damageDone() {
+    return this.abilityTracker.getAbility(SPELLS.JADE_IGNITION_DAMAGE.id).damageEffective;
+  }
+
+  get stackUsage() {
+    return 1 - (this.stacksWasted / this.totalStacks);
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.stackUsage,
+      isLessThan: {
+        minor: 1,
+        average: 0.95,
+        major: 0.9,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
   }
 
   statistic() {
