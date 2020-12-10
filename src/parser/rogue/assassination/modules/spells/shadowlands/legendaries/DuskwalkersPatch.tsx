@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -33,14 +33,14 @@ class DuskwalkersPatch extends Analyzer {
       return;
 
     }
-    this.lastEnergyCost = resource.cost || 0;    
+    this.lastEnergyCost = resource.cost || 0;
     const cooldownReductionMs = ASS_VEN_CDR_PER_ENERGY * (resource.cost || 0);
     const effectiveReductionMs = cooldownReductionMs - this.spellUsable.cooldownRemaining(SPELLS.EXHILERATION.id);
     if (effectiveReductionMs < cooldownReductionMs) {
       this.wastedVendettaReductionMs += (cooldownReductionMs - effectiveReductionMs);
     }
-      this.effectiveVendettaReductionMs += this.spellUsable.reduceCooldown(SPELLS.EXHILERATION.id, cooldownReductionMs);
-    }
+    this.effectiveVendettaReductionMs += this.spellUsable.reduceCooldown(SPELLS.EXHILERATION.id, cooldownReductionMs);
+  }
 
   statistic() {
     return (
@@ -50,7 +50,7 @@ class DuskwalkersPatch extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
       >
         <BoringSpellValueText spell={SPELLS.DUSKWALKERS_PATCH}>
-            {formatNumber(this.effectiveVendettaReductionMs / 1000)}s/{formatNumber((this.wastedVendettaReductionMs + this.effectiveVendettaReductionMs) / 1000)}s <small> cooldown reduction</small>
+          {formatNumber(this.effectiveVendettaReductionMs / 1000)}s/{formatNumber((this.wastedVendettaReductionMs + this.effectiveVendettaReductionMs) / 1000)}s <small> cooldown reduction</small>
         </BoringSpellValueText>
       </Statistic>
     );

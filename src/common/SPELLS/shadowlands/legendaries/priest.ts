@@ -22,5 +22,5 @@ const legendaries: SpellList<LegendarySpell> = {
   //region Shared
 
   //endregion
-};
+} as const;
 export default legendaries;

@@ -18,10 +18,10 @@ class HolyPriestHealingEfficiencyDetails extends Analyzer {
       title: 'Mana Efficiency',
       url: 'mana-efficiency',
       render: () => (
-          <Panel>
-            <HealingEfficiencyBreakdown tracker={this.healingEfficiencyTracker} />
-          </Panel>
-        ),
+        <Panel>
+          <HealingEfficiencyBreakdown tracker={this.healingEfficiencyTracker} />
+        </Panel>
+      ),
     };
   }
 }

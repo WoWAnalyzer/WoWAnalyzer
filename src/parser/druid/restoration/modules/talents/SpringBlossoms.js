@@ -14,16 +14,6 @@ import { t } from '@lingui/macro';
 import Mastery from '../core/Mastery';
 
 class SpringBlossoms extends Analyzer {
-  static dependencies = {
-    mastery: Mastery,
-  };
-
-  constructor(...args) {
-    super(...args);
-    const hasSpringBlossoms = this.selectedCombatant.hasTalent(SPELLS.SPRING_BLOSSOMS_TALENT.id);
-    this.active = hasSpringBlossoms;
-  }
-
   get directPercent() {
     return this.owner.getPercentageOfTotalHealingDone(this.mastery.getDirectHealing(SPELLS.SPRING_BLOSSOMS.id));
   }
@@ -46,6 +36,16 @@ class SpringBlossoms extends Analyzer {
       },
       style: 'percentage',
     };
+  }
+
+  static dependencies = {
+    mastery: Mastery,
+  };
+
+  constructor(...args) {
+    super(...args);
+    const hasSpringBlossoms = this.selectedCombatant.hasTalent(SPELLS.SPRING_BLOSSOMS_TALENT.id);
+    this.active = hasSpringBlossoms;
   }
 
   statistic() {

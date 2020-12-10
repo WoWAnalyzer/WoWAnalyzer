@@ -24,7 +24,7 @@ export default {
       All recommendations and analysis should be in line with <a href="http://www.ravenholdt.net/subtlety-guide/"> wEak's guide </a> and Simcraft APL.
 
       <br /> <br />
-       If there is something missing, incorrect, or inaccurate, please report it on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact <kbd>@Tyndi</kbd> on <a href="https://discord.gg/AxphPxU">Discord</a>.<br /><br />
+      If there is something missing, incorrect, or inaccurate, please report it on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact <kbd>@Tyndi</kbd> on <a href="https://discord.gg/AxphPxU">Discord</a>.<br /><br />
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.

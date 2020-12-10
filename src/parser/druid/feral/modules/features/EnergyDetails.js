@@ -24,7 +24,7 @@ class EnergyDetails extends Analyzer {
         </Panel>
       ),
     };
- }
+  }
 }
 
 export default EnergyDetails;

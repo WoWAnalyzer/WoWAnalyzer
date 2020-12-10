@@ -1,9 +1,9 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import Events, { EnergizeEvent, ApplyBuffEvent, DamageEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, DamageEvent, EnergizeEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 
 const BUFFER_MS = 50;
@@ -37,6 +37,22 @@ class MeatCleaver extends Analyzer {
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.ENRAGE), this.onEnrage);
   }
 
+  get numberOfEnrageTriggers() {
+    return this.whirlwindEvents.filter((e) => e.triggeredEnrage).length;
+  }
+
+  get rageGainedByMeatCleaver() {
+    return this.whirlwindEvents.reduce((total: number, event) => {
+      const rageGained = event.resourceChange;
+      // WW generates 3 rage on cast (6 during recklessness). Subtract this to get rage gained from hitting targets
+      const rageFromHit = rageGained - (event.hasRecklessness ? RAGE_GAIN_WW_ON_USE * 2 : RAGE_GAIN_WW_ON_USE);
+      // WW generates 1 rage per target hit (2 during recklessness) up to 5 targets. Subtract this to get rage gained from trait
+      const rageFromMeatCleaver = rageFromHit - (event.targetsHit > WW_ON_HIT_RAGE_CAP ? WW_ON_HIT_RAGE_CAP : event.targetsHit) * (event.hasRecklessness ? RAGE_GAIN_WW_ON_HIT * 2 : RAGE_GAIN_WW_ON_HIT);
+      // Due to calculating this backwards, if WW was cast near to full rage, rageFromMeatCleaver could be negative but should just be 0.
+      return rageFromMeatCleaver < 0 ? total : total + rageFromMeatCleaver;
+    }, 0);
+  }
+
   // The Energize event ligns up with the cast, so using it for both the rage gain, and timings of the cast.
   onWhirlwindEnergize(event: EnergizeEvent) {
     this.lastWhirlwindCast = event.timestamp;
@@ -64,22 +80,6 @@ class MeatCleaver extends Analyzer {
         this.whirlwindEvents[this.lastWhirlwindCast].isFirstRoundOfDamage = false;
       }
     }
-  }
-
-  get numberOfEnrageTriggers() {
-    return this.whirlwindEvents.filter((e) => e.triggeredEnrage).length;
-  }
-
-  get rageGainedByMeatCleaver() {
-    return this.whirlwindEvents.reduce((total: number, event) => {
-      const rageGained = event.resourceChange;
-      // WW generates 3 rage on cast (6 during recklessness). Subtract this to get rage gained from hitting targets
-      const rageFromHit = rageGained - (event.hasRecklessness ? RAGE_GAIN_WW_ON_USE * 2 : RAGE_GAIN_WW_ON_USE);
-      // WW generates 1 rage per target hit (2 during recklessness) up to 5 targets. Subtract this to get rage gained from trait
-      const rageFromMeatCleaver = rageFromHit - (event.targetsHit > WW_ON_HIT_RAGE_CAP ? WW_ON_HIT_RAGE_CAP : event.targetsHit) * (event.hasRecklessness ? RAGE_GAIN_WW_ON_HIT * 2 : RAGE_GAIN_WW_ON_HIT);
-      // Due to calculating this backwards, if WW was cast near to full rage, rageFromMeatCleaver could be negative but should just be 0.
-      return rageFromMeatCleaver < 0 ? total : total + rageFromMeatCleaver;
-    }, 0);
   }
 
   statistic() {

@@ -9,7 +9,6 @@ import GarroteUptime from '../../spells/GarroteUptime';
 import RuptureUptime from '../../spells/RuptureUptime';
 import EarlyDotRefresh from '../../spells/EarlyDotRefresh';
 
-
 import Blindside from '../../talents/Blindside';
 
 import EnergyDetails from '../../../../shared/resources/EnergyDetails';

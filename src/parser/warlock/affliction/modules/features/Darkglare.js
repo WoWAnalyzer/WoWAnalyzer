@@ -159,7 +159,7 @@ class Darkglare extends Analyzer {
     // if it's a dot, refresh its data in this.dots
     const spellId = event.ability.guid;
     // Corruption cast has different spell ID than the debuff (it's not in DOT_DEBUFF_IDS)
-    if (!DOT_DEBUFFS.some(spell => spell.id === spellId) && spellId !== SPELLS.CORRUPTION_CAST.id){
+    if (!DOT_DEBUFFS.some(spell => spell.id === spellId) && spellId !== SPELLS.CORRUPTION_CAST.id) {
       return;
     }
     if (event.targetIsFriendly) {

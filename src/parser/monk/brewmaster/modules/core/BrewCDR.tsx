@@ -2,7 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import Events, { EventType, ChangeHasteEvent } from 'parser/core/Events';
+import Events, { ChangeHasteEvent, EventType } from 'parser/core/Events';
 import EventFilter from 'parser/core/EventFilter';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -21,15 +21,13 @@ class BrewCDR extends Analyzer {
     bob: BlackOxBrew,
     abilities: Abilities,
   };
-
+  _totalHaste = 0;
+  _newHaste = 0;
+  _lastHasteChange = 0;
   protected ks!: KegSmash;
   protected tp!: TigerPalm;
   protected bob!: BlackOxBrew;
   protected abilities!: Abilities;
-
-  _totalHaste = 0;
-  _newHaste = 0;
-  _lastHasteChange = 0;
 
   constructor(options: Options) {
     super(options);
@@ -75,16 +73,6 @@ class BrewCDR extends Analyzer {
     return ability.getCooldown(this.meanHaste);
   }
 
-  private _updateHaste(event: ChangeHasteEvent) {
-    this._totalHaste += event.oldHaste! * (event.timestamp - this._lastHasteChange);
-    this._lastHasteChange = event.timestamp;
-    this._newHaste = event.newHaste!;
-  }
-
-  private _finalizeHaste() {
-    this._totalHaste += this._newHaste * (this.owner.fight.end_time - this._lastHasteChange);
-  }
-
   statistic() {
     return (
       <Statistic
@@ -103,13 +91,23 @@ class BrewCDR extends Analyzer {
           </>
         )}
       >
-        <BoringValue label={<><SpellIcon id={SPELLS.TIGER_PALM.id} /> Effective Brew CDR</>} >
+        <BoringValue label={<><SpellIcon id={SPELLS.TIGER_PALM.id} /> Effective Brew CDR</>}>
           <>
             {formatPercentage(this.cooldownReductionRatio)} %
           </>
         </BoringValue>
       </Statistic>
     );
+  }
+
+  private _updateHaste(event: ChangeHasteEvent) {
+    this._totalHaste += event.oldHaste! * (event.timestamp - this._lastHasteChange);
+    this._lastHasteChange = event.timestamp;
+    this._newHaste = event.newHaste!;
+  }
+
+  private _finalizeHaste() {
+    this._totalHaste += this._newHaste * (this.owner.fight.end_time - this._lastHasteChange);
   }
 }
 

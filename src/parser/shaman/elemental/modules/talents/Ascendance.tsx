@@ -21,13 +21,8 @@ class Ascendance extends Analyzer {
     abilities: Abilities,
     enemies: EnemyInstances,
   };
-
-  protected abilities!: Abilities;
-  protected enemies!: Enemies;
-
   justEnteredAscendance = false;
   checkDelay = 0;
-
   numCasts = {
     [SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id]: 0,
     [SPELLS.LAVA_BURST.id]: 0,
@@ -35,6 +30,8 @@ class Ascendance extends Analyzer {
     [SPELLS.ELEMENTAL_BLAST_TALENT.id]: 0,
     others: 0,
   };
+  protected abilities!: Abilities;
+  protected enemies!: Enemies;
 
   constructor(options: Options) {
     super(options);
@@ -47,6 +44,16 @@ class Ascendance extends Analyzer {
 
   get averageLavaBurstCasts() {
     return (this.numCasts[SPELLS.LAVA_BURST.id] / this.numCasts[SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id]) || 0;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.numCasts.others,
+      isGreaterThan: {
+        major: 0,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
   }
 
   statistic() {
@@ -79,24 +86,14 @@ class Ascendance extends Analyzer {
     );
   }
 
-  get suggestionThresholds() {
-    return {
-      actual: this.numCasts.others,
-      isGreaterThan: {
-        major: 0,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
   suggestions(when: When) {
     const abilities = `Lava Burst ${this.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id) ? `, Elemental Blast ` : ``} and Earth Shock`;
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) =>
         suggest(<span>Maximize your damage during ascendance by only using ${abilities}.</span>)
-        .icon(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.icon)
-        .actual(`${actual} other casts during Ascendence`)
-        .recommended(`Only cast ${abilities} during Ascendence.`));
+          .icon(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.icon)
+          .actual(`${actual} other casts during Ascendence`)
+          .recommended(`Only cast ${abilities} during Ascendence.`));
   }
 }
 

@@ -1,6 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const conduits: SpellList = {
+const conduits = {
   //region Kyrian
 
   //endregion
@@ -29,5 +27,5 @@ const conduits: SpellList = {
     icon: 'ability_rogue_focusedattacks',
   },
   //endregion
-};
+} as const;
 export default conduits;

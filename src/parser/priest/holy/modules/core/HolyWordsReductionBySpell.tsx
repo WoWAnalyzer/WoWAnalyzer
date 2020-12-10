@@ -12,16 +12,14 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 class HolyWordsReductionBySpell extends Analyzer {
-  lightOfTheNaaruActive = false;
-  apotheosisActive = false;
-
   static dependencies = {
     sanctify: HolyWordSanctify,
     serenity: HolyWordSerenity,
     chastise: HolyWordChastise,
     salvation: HolyWordSalvation,
   };
-
+  lightOfTheNaaruActive = false;
+  apotheosisActive = false;
   protected sanctify!: HolyWordSanctify;
   protected serenity!: HolyWordSerenity;
   protected chastise!: HolyWordChastise;

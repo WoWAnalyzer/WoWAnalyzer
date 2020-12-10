@@ -2,15 +2,13 @@ export default {
   name: 'Dungeons',
   background: undefined, // TODO: Set up
   bosses: {
-    AtalDazar: require('./AtalDazar').default,
-    Freehold: require('./Freehold').default,
-    KingsRest: require('./KingsRest').default,
-    ShrineOfTheStorm: require('./ShrineOfTheStorm').default,
-    SiegeOfBoralus: require('./SiegeOfBoralus').default,
-    TempleOfSethraliss: require('./TempleOfSethraliss').default,
-    TheMotherlode: require('./TheMotherlode').default,
-    TheUnderrot: require('./TheUnderrot').default,
-    TolDagor: require('./TolDagor').default,
-    WaycrestManor: require('./WaycrestManor').default,
+    DeOtherSide: require('./DeOtherSide').default,
+    HallsOfAtonement: require('./HallsOfAtonement').default,
+    MistsOfTirnaScithe: require('./MistsOfTirnaScithe').default,
+    Plaguefall: require('./Plaguefall').default,
+    SanguineDepths: require('./SanguineDepths').default,
+    SpiresOfAscension: require('./SpiresOfAscension').default,
+    TheaterOfPain: require('./TheaterOfPain').default,
+    TheNecroticWake: require('./TheNecroticWake').default,
   },
 };

@@ -8,7 +8,7 @@ class Channeling extends CoreChanneling {
     ...CoreChanneling.dependencies,
   };
 
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLADESTORM), this.onApplyBuff);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BLADESTORM), this.onRemoveBuff);

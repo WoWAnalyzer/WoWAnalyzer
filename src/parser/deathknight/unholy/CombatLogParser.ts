@@ -12,6 +12,8 @@ import VirulentPlagueEfficiency from './modules/features/VirulentPlagueEfficienc
 import WoundTracker from './modules/features/WoundTracker';
 import SpellUsable from './modules/features/SpellUsable'
 
+import SoulReaper from './modules/talents/SoulReaper';
+
 import RunicPowerDetails from './modules/runicpower/RunicPowerDetails';
 import RunicPowerTracker from './modules/runicpower/RunicPowerTracker';
 
@@ -35,6 +37,9 @@ class CombatLogParser extends CoreCombatLogParser {
     virulentPlagueEfficiency: VirulentPlagueEfficiency,
     woundTracker: WoundTracker,
     spellUsable: SpellUsable,
+
+    // Talents
+    soulReaper: SoulReaper,
 
     // RunicPower
     runicPowerTracker: RunicPowerTracker,

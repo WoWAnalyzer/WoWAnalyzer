@@ -21,11 +21,14 @@ import SoulShardTracker from '../soulshards/SoulShardTracker';
 const FRAGMENTS_PER_CHAOS_BOLT = 20;
 
 class Shadowburn extends Analyzer {
+  get dps() {
+    return this.damage / this.owner.fightDuration * 1000;
+  }
+
   static dependencies = {
     soulShardTracker: SoulShardTracker,
     abilityTracker: AbilityTracker,
   };
-
   damage = 0;
 
   constructor(...args) {
@@ -36,10 +39,6 @@ class Shadowburn extends Analyzer {
 
   onShadowburnDamage(event) {
     this.damage += (event.amount || 0) + (event.absorbed || 0);
-  }
-
-  get dps() {
-    return this.damage / this.owner.fightDuration * 1000;
   }
 
   statistic() {

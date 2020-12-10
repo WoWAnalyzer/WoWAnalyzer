@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import Events, { CastEvent } from 'parser/core/Events';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
@@ -14,8 +14,8 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import { formatNumber } from 'common/format';
 
-
 const RISING_SUN_REDUCTION = 1000;
+
 /**
  * Every time you cast rising sun kick it reduces revival's cooldown by 1 second and whenever you cast revival x% of that healing is done again as a hot over 10 seconds
  */
@@ -24,29 +24,30 @@ class RisingSunRevival extends Analyzer {
     spellUsable: SpellUsable,
     healingDone: HealingDone,
   };
-
+  cooldownReductionUsed: number = 0;
+  cooldownReductionWasted: number = 0;
   protected spellUsable!: SpellUsable;
   protected healingDone!: HealingDone;
 
-  cooldownReductionUsed: number = 0;
-  cooldownReductionWasted: number = 0;
-
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
-    this.active = false;
-    if (!this.active) {
+    const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.RISING_SUN_REVIVAL.id);
+
+    if (!conduitRank) {
+      this.active = false;
       return;
     }
+
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RISING_SUN_KICK), this.rskCast);
   }
 
   rskCast(event: CastEvent) {
     // Cooldown Reduction on Revival
-      if (this.spellUsable.isOnCooldown(SPELLS.REVIVAL.id)) {
-        this.cooldownReductionUsed += this.spellUsable.reduceCooldown(SPELLS.REVIVAL.id, RISING_SUN_REDUCTION);
-      } else {
-        this.cooldownReductionWasted += RISING_SUN_REDUCTION;
-      }
+    if (this.spellUsable.isOnCooldown(SPELLS.REVIVAL.id)) {
+      this.cooldownReductionUsed += this.spellUsable.reduceCooldown(SPELLS.REVIVAL.id, RISING_SUN_REDUCTION);
+    } else {
+      this.cooldownReductionWasted += RISING_SUN_REDUCTION;
+    }
   }
 
   statistic() {
@@ -57,10 +58,10 @@ class RisingSunRevival extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={(
-        <>
-          Effective Cooldown Reduction: {formatNumber(this.cooldownReductionUsed/1000)} Seconds<br />
-          Wasted Cooldown Reduction: {formatNumber(this.cooldownReductionWasted/1000)} Seconds
-        </>
+          <>
+            Effective Cooldown Reduction: {formatNumber(this.cooldownReductionUsed / 1000)} Seconds<br />
+            Wasted Cooldown Reduction: {formatNumber(this.cooldownReductionWasted / 1000)} Seconds
+          </>
         )}
       >
         <BoringSpellValueText spell={SPELLS.RISING_SUN_REVIVAL}>

@@ -17,11 +17,11 @@ export default {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      The suggestions and statistics here are provided to give you an idea of how to improve your play, both defensively and offensively.  A great player can manage both aspects of the role, and both are important to being an effective tank.<br /><br />
+      The suggestions and statistics here are provided to give you an idea of how to improve your play, both defensively and offensively. A great player can manage both aspects of the role, and both are important to being an effective tank.<br /><br />
 
-      The guardian toolkit is big and diverse, and knowing every corner of it is the key to success.  The most important thing is to keep your hard-hitting, rage generating spells on cooldown at all times (<SpellLink id={SPELLS.THRASH_BEAR.id} />, <SpellLink id={SPELLS.MANGLE_BEAR.id} />, <SpellLink id={SPELLS.MOONFIRE.id} /> with <SpellLink id={SPELLS.GALACTIC_GUARDIAN_TALENT.id} />). Keep <SpellLink id={SPELLS.IRONFUR.id} /> up when you're tanking the boss, use <SpellLink id={SPELLS.FRENZIED_REGENERATION.id} /> when you're low or taking heavy damage, use <SpellLink id={SPELLS.BARKSKIN.id} /> frequently to mitigate damage, and save <SpellLink id={SPELLS.SURVIVAL_INSTINCTS.id} /> for big hits.<br /><br />
+      The guardian toolkit is big and diverse, and knowing every corner of it is the key to success. The most important thing is to keep your hard-hitting, rage generating spells on cooldown at all times (<SpellLink id={SPELLS.THRASH_BEAR.id} />, <SpellLink id={SPELLS.MANGLE_BEAR.id} />, <SpellLink id={SPELLS.MOONFIRE.id} /> with <SpellLink id={SPELLS.GALACTIC_GUARDIAN_TALENT.id} />). Keep <SpellLink id={SPELLS.IRONFUR.id} /> up when you're tanking the boss, use <SpellLink id={SPELLS.FRENZIED_REGENERATION.id} /> when you're low or taking heavy damage, use <SpellLink id={SPELLS.BARKSKIN.id} /> frequently to mitigate damage, and save <SpellLink id={SPELLS.SURVIVAL_INSTINCTS.id} /> for big hits.<br /><br />
 
-      If you have any suggestions or feedback on the analyzer, check out the Github issue below. If you'd like to know more about Guardian Druid, head over to the <a href="https://discord.gg/dreamgrove" target="_blank" rel="noopener noreferrer">Dreamgrove</a> discord server.  We have tons of resources and guides to get you started.
+      If you have any suggestions or feedback on the analyzer, check out the Github issue below. If you'd like to know more about Guardian Druid, head over to the <a href="https://discord.gg/dreamgrove" target="_blank" rel="noopener noreferrer">Dreamgrove</a> discord server. We have tons of resources and guides to get you started.
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.

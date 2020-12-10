@@ -29,7 +29,7 @@ class SharedBrews extends Analyzer {
       .forEach(spell => this.spellUsable.reduceCooldown(spell.id, amount));
 
     const finalBrew = BREWS[BREWS.length - 1];
-    if(!this.spellUsable.isOnCooldown(finalBrew.id)) {
+    if (!this.spellUsable.isOnCooldown(finalBrew.id)) {
       return 0;
     }
     return this.spellUsable.reduceCooldown(finalBrew.id, amount);

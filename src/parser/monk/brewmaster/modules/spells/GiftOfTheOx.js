@@ -2,7 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
@@ -30,7 +30,7 @@ const WDPS_310_AGI_POLEARM = 122.8;
 export default class GiftOfTheOx extends Analyzer {
   static dependencies = {
     stats: StatTracker,
-  }
+  };
 
   totalHealing = 0;
   agiBonusHealing = 0;
@@ -91,7 +91,7 @@ export default class GiftOfTheOx extends Analyzer {
     //                  = Heal * BonusMastery / (1 + BonusMastery + BaseMastery)
     this.masteryBonusHealing += amount * (this.stats.currentMasteryPercentage - this.stats.masteryPercentage(0, true)) / (1 + this.stats.currentMasteryPercentage);
 
-    if(event.timestamp === this._lastEHTimestamp) {
+    if (event.timestamp === this._lastEHTimestamp) {
       this.expelHarmOrbsConsumed += 1;
       this.expelHarmOverhealing += event.overheal || 0;
     }
@@ -109,7 +109,7 @@ export default class GiftOfTheOx extends Analyzer {
           </>
         )}
       >
-        <BoringValue label={<><SpellIcon id={GIFT_OF_THE_OX_SPELLS[0].id} /> Gift of the Ox Healing</>} >
+        <BoringValue label={<><SpellIcon id={GIFT_OF_THE_OX_SPELLS[0].id} /> Gift of the Ox Healing</>}>
           <>
             {formatNumber(this.totalHealing / (this.owner.fightDuration / 1000))} HPS
           </>

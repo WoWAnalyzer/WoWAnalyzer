@@ -13,10 +13,6 @@ import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class RakeUptime extends Analyzer {
-  static dependencies = {
-    enemies: Enemies,
-  };
-
   get uptime() {
     return this.enemies.getBuffUptime(SPELLS.RAKE_BLEED.id) / this.owner.fightDuration;
   }
@@ -33,15 +29,19 @@ class RakeUptime extends Analyzer {
     };
   }
 
+  static dependencies = {
+    enemies: Enemies,
+  };
+
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-        <>
-          Your <SpellLink id={SPELLS.RAKE.id} /> uptime can be improved. Unless the current application was buffed by Prowl you should refresh the DoT once it has reached its <TooltipElement content="The last 30% of the DoT's duration. When you refresh during this time you don't lose any duration in the process.">pandemic window</TooltipElement>, don't wait for it to wear off.
-        </>,
-      )
-        .icon(SPELLS.RAKE.icon)
-        .actual(i18n._(t('druid.feral.suggestions.rake.uptime')`${formatPercentage(actual)}% uptime`))
-        .recommended(`>${formatPercentage(recommended)}% is recommended`));
+      <>
+        Your <SpellLink id={SPELLS.RAKE.id} /> uptime can be improved. Unless the current application was buffed by Prowl you should refresh the DoT once it has reached its <TooltipElement content="The last 30% of the DoT's duration. When you refresh during this time you don't lose any duration in the process.">pandemic window</TooltipElement>, don't wait for it to wear off.
+      </>,
+    )
+      .icon(SPELLS.RAKE.icon)
+      .actual(i18n._(t('druid.feral.suggestions.rake.uptime')`${formatPercentage(actual)}% uptime`))
+      .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

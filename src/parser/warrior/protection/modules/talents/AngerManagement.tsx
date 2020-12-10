@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatDuration } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -7,7 +7,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Events, { CastEvent } from 'parser/core/Events';
 
 import Statistic from 'interface/statistics/Statistic';
-import BoringValueText from 'interface/statistics/components/BoringValueText'
+import BoringValueText from 'interface/statistics/components/BoringValueText';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellLink from 'common/SpellLink';
@@ -23,12 +23,11 @@ class AngerManagement extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
-
-  protected spellUsable!: SpellUsable;
-
   totalRageSpend = 0;
-  wastedReduction: { [spellId: number]: number } = { };
-  effectiveReduction: { [spellId: number]: number } = { };
+  wastedReduction: { [spellId: number]: number } = {};
+  effectiveReduction: { [spellId: number]: number } = {};
+  statisticOrder = STATISTIC_ORDER.CORE(4);
+  protected spellUsable!: SpellUsable;
 
   constructor(options: Options) {
     super(options);
@@ -38,6 +37,29 @@ class AngerManagement extends Analyzer {
       this.wastedReduction[e] = 0;
       this.effectiveReduction[e] = 0;
     });
+  }
+
+  get tooltip() {
+    return (
+      <table className="table table-condensed">
+        <thead>
+          <tr>
+            <th>Spell</th>
+            <th>Effective</th>
+            <th>Wasted</th>
+          </tr>
+        </thead>
+        <tbody>
+          {COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.map(value => (
+            <tr key={value}>
+              <td>{SPELLS[value].name}</td>
+              <td>{formatDuration(this.effectiveReduction[value] / 1000)}</td>
+              <td>{formatDuration(this.wastedReduction[value] / 1000)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
   }
 
   onCast(event: CastEvent) {
@@ -59,29 +81,6 @@ class AngerManagement extends Analyzer {
     this.totalRageSpend += rageSpend;
   }
 
-  get tooltip() {
-    return (
-      <table className="table table-condensed">
-        <thead>
-          <tr>
-            <th>Spell</th>
-            <th>Effective</th>
-            <th>Wasted</th>
-          </tr>
-        </thead>
-        <tbody>
-          {COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.map(value => (
-          <tr key={value}>
-            <td>{SPELLS[value].name}</td>
-            <td>{formatDuration(this.effectiveReduction[value] / 1000)}</td>
-            <td>{formatDuration(this.wastedReduction[value] / 1000)}</td>
-          </tr>
-        ))}
-        </tbody>
-      </table>
-    );
-  }
-
   statistic() {
     return (
       <Statistic
@@ -90,12 +89,11 @@ class AngerManagement extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         dropdown={this.tooltip}
       >
-      <BoringValueText label={<><SpellLink id={SPELLS.ANGER_MANAGEMENT_TALENT.id} /> Possible cooldown reduction</>}>
+        <BoringValueText label={<><SpellLink id={SPELLS.ANGER_MANAGEMENT_TALENT.id} /> Possible cooldown reduction</>}>
         </BoringValueText>
       </Statistic>
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default AngerManagement;

@@ -660,6 +660,7 @@ export interface Item {
   itemLevel: number;
   bonusIDs?: number | number[];
   permanentEnchant?: number;
+  temporaryEnchant?: number;
   gems?: Gem[];
 }
 
@@ -675,15 +676,6 @@ export interface Buff {
   stacks: number;
   icon: string;
   name?: string;
-}
-
-export interface Trait {
-  traitID: number;
-  rank: number;
-  spellID: number;
-  icon: string;
-  slot: number;
-  isMajor: boolean;
 }
 
 export interface Covenant {
@@ -752,8 +744,8 @@ export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
     Spell,
   ];
   pvpTalents: Spell[];
-  artifact: Trait[] | SoulbindTrait[];
-  heartOfAzeroth: Trait[] | Conduit[];
+  artifact: SoulbindTrait[];
+  heartOfAzeroth: Conduit[];
   covenantID: number,
   soulbindID: number,
   error?: any, //TODO: Verify, is this a bool? string?

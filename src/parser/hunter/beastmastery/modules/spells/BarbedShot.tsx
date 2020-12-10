@@ -9,12 +9,14 @@ import { formatDuration, formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
-import Events, { ApplyBuffEvent, ApplyBuffStackEvent, EventType, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, ApplyBuffStackEvent, EnergizeEvent, EventType, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
-import { MAX_FRENZY_STACKS } from '../../constants';
+import { NESINGWARY_FOCUS_GAIN_MULTIPLIER } from 'parser/hunter/shared/constants';
+
+import { BARBED_SHOT_FOCUS_REGEN_BUFFS, BARBED_SHOT_REGEN, MAX_FRENZY_STACKS } from '../../constants';
 
 /**
  * Fire a shot that tears through your enemy, causing them to bleed for X damage over 8 sec. Sends your pet into a frenzy, increasing attack speed by 30% for 8 sec, stacking up to 3 times.
@@ -24,9 +26,12 @@ import { MAX_FRENZY_STACKS } from '../../constants';
  */
 
 class BarbedShot extends Analyzer {
+
   barbedShotStacks: number[][] = [];
   lastBarbedShotStack: number = 0;
   lastBarbedShotUpdate: number = this.owner.fight.start_time;
+  additionalFocusFromNesingwary = 0;
+  possibleAdditionalFocusFromNesingwary = 0;
 
   constructor(options: Options) {
     super(options);
@@ -35,6 +40,8 @@ class BarbedShot extends Analyzer {
     this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.BARBED_SHOT_PET_BUFF), this.handleStacks);
     this.addEventListener(Events.removebuff.to(SELECTED_PLAYER_PET).spell(SPELLS.BARBED_SHOT_PET_BUFF), this.handleStacks);
     this.addEventListener(Events.fightend, this.handleStacks);
+    this.selectedCombatant.hasLegendaryByBonusID(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT.bonusID) && this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(BARBED_SHOT_FOCUS_REGEN_BUFFS), this.checkNesingwaryFocusGain);
+
   }
 
   get barbedShotTimesByStacks() {
@@ -72,27 +79,15 @@ class BarbedShot extends Analyzer {
   }
 
   get frenzy3StackThreshold() {
-    if (this.selectedCombatant.hasTrait(SPELLS.FEEDING_FRENZY.id)) {
-      return {
-        actual: this.percentUptimeMaxStacks,
-        isLessThan: {
-          minor: 0.85,
-          average: 0.80,
-          major: 0.75,
-        },
-        style: ThresholdStyle.PERCENTAGE,
-      };
-    } else {
-      return {
-        actual: this.percentUptimeMaxStacks,
-        isLessThan: {
-          minor: 0.75,
-          average: 0.70,
-          major: 0.65,
-        },
-        style: ThresholdStyle.PERCENTAGE,
-      };
-    }
+    return {
+      actual: this.percentUptimeMaxStacks,
+      isLessThan: {
+        minor: 0.75,
+        average: 0.70,
+        major: 0.65,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
   }
 
   handleStacks(event: RemoveBuffEvent | ApplyBuffEvent | ApplyBuffStackEvent | FightEndEvent) {
@@ -110,6 +105,14 @@ class BarbedShot extends Analyzer {
       avgStacks += elem.reduce((a: number, b: number) => a + b, 0) / this.owner.fightDuration * index;
     });
     return avgStacks;
+  }
+
+  checkNesingwaryFocusGain(event: EnergizeEvent) {
+    const waste = BARBED_SHOT_REGEN - event.resourceChange;
+    if (this.selectedCombatant.hasBuff(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_ENERGIZE.id)) {
+      this.additionalFocusFromNesingwary += event.resourceChange * (1 - 1 / NESINGWARY_FOCUS_GAIN_MULTIPLIER) - waste;
+      this.possibleAdditionalFocusFromNesingwary += BARBED_SHOT_REGEN;
+    }
   }
 
   suggestions(when: When) {

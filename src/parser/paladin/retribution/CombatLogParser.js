@@ -1,8 +1,6 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import Judgment from 'parser/paladin/shared/spells/Judgment';
 
-import Haste from './modules/core/Haste';
-
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/Buffs';
@@ -25,10 +23,10 @@ import EmpyreanPower from './modules/talents/EmpyreanPower';
 
 import HolyPowerTracker from '../shared/holypower/HolyPowerTracker';
 import HolyPowerDetails from '../shared/holypower/HolyPowerDetails';
+import SanctifiedWrath from './modules/talents/SanctifiedWrath';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
-    haste: Haste,
     // PaladinCore
     artOfWar: ArtOfWar,
 
@@ -53,6 +51,7 @@ class CombatLogParser extends CoreCombatLogParser {
     executionSentence: ExecutionSentence,
     holyAvenger: HolyAvenger,
     empyreanPower: EmpyreanPower,
+    sanctifiedWrath: SanctifiedWrath,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,

@@ -15,6 +15,7 @@ class Overload extends Analyzer {
   };
 
   spells = [];
+  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 
   constructor(...args) {
     super(...args);
@@ -93,7 +94,6 @@ class Overload extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default Overload;

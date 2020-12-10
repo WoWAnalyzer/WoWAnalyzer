@@ -52,6 +52,10 @@ import ManaTracker from '../../core/healingEfficiency/ManaTracker';
 // Items
 import HarmoniousApparatus from './modules/items/HarmoniousApparatus';
 
+// Conduits
+import ResonantWords from './modules/shadowlands/conduits/ResonantWords';
+
+
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
@@ -131,6 +135,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Items
     harmoniousApparatus: HarmoniousApparatus,
+
+    // Conduits
+    resonantWords: ResonantWords,
   };
 
   generateResults(adjustForDowntime: boolean) {

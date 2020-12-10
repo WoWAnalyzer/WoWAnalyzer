@@ -15,15 +15,6 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import UptimeIcon from 'interface/icons/Uptime';
 
 class StellarFlareUptime extends Analyzer {
-  static dependencies = {
-    enemies: Enemies,
-  };
-
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.STELLAR_FLARE_TALENT.id);
-  }
-
   get suggestionThresholds() {
     const stellarFlareUptime = this.enemies.getBuffUptime(SPELLS.STELLAR_FLARE_TALENT.id) / this.owner.fightDuration;
     return {
@@ -35,6 +26,16 @@ class StellarFlareUptime extends Analyzer {
       },
       style: 'percentage',
     };
+  }
+
+  static dependencies = {
+    enemies: Enemies,
+  };
+  statisticOrder = STATISTIC_ORDER.OPTIONAL();
+
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.STELLAR_FLARE_TALENT.id);
   }
 
   suggestions(when) {
@@ -59,8 +60,6 @@ class StellarFlareUptime extends Analyzer {
       </Statistic>
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default StellarFlareUptime;

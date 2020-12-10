@@ -8,7 +8,9 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
-import Events, { ApplyBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, EnergizeEvent } from 'parser/core/Events';
+import { NESINGWARY_FOCUS_GAIN_MULTIPLIER } from 'parser/hunter/shared/constants';
+import { SV_KILL_COMMAND_FOCUS_GAIN } from 'parser/hunter/survival/constants';
 
 /**
  * Give the command to kill, causing your pet to savagely deal [Attack power * 0.6 * (1 + Versatility)] Physical damage to the enemy.
@@ -27,6 +29,9 @@ class KillCommand extends Analyzer {
 
   resets = 0;
 
+  additionalFocusFromNesingwary = 0;
+  possibleAdditionalFocusFromNesingwary = 0;
+
   protected spellUsable!: SpellUsable;
   protected abilities!: Abilities;
   protected globalCooldown!: GlobalCooldown;
@@ -35,6 +40,8 @@ class KillCommand extends Analyzer {
     super(options);
 
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FLANKERS_ADVANTAGE), this.onFlankersProc);
+    this.selectedCombatant.hasLegendaryByBonusID(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT.bonusID) && this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.KILL_COMMAND_CAST_SV), this.checkNesingwaryFocusGain);
+
   }
 
   onFlankersProc(event: ApplyBuffEvent) {
@@ -46,6 +53,13 @@ class KillCommand extends Analyzer {
     const expectedCooldownDuration = this.abilities.getExpectedCooldownDuration(SPELLS.KILL_COMMAND_CAST_SV.id, this.spellUsable.cooldownTriggerEvent(SPELLS.KILL_COMMAND_CAST_SV.id));
     if (expectedCooldownDuration) {
       this.spellUsable.reduceCooldown(SPELLS.KILL_COMMAND_CAST_SV.id, expectedCooldownDuration - globalCooldown);
+    }
+  }
+
+  checkNesingwaryFocusGain(event: EnergizeEvent) {
+    if (this.selectedCombatant.hasBuff(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_ENERGIZE.id)) {
+      this.additionalFocusFromNesingwary += event.resourceChange * (1 - 1 / NESINGWARY_FOCUS_GAIN_MULTIPLIER) - event.waste;
+      this.possibleAdditionalFocusFromNesingwary += SV_KILL_COMMAND_FOCUS_GAIN;
     }
   }
 

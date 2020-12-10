@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import { formatNumber,  } from 'common/format';
+import { formatNumber } from 'common/format';
 
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 
@@ -21,7 +21,7 @@ class PrimalStormElemental extends Analyzer {
   pseCasts = 0;
   lastCLCastTimestamp = 0;
 
-  usedCasts: {[key: number]: boolean};
+  usedCasts: { [key: number]: boolean };
 
   damageGained = 0;
   maelstromGained = 0;
@@ -30,8 +30,8 @@ class PrimalStormElemental extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.usedCasts = {
-      [SPELLS.EYE_OF_THE_STORM.id] : false,
-      [SPELLS.WIND_GUST.id] : false,
+      [SPELLS.EYE_OF_THE_STORM.id]: false,
+      [SPELLS.WIND_GUST.id]: false,
       [SPELLS.CALL_LIGHTNING.id]: false,
     };
     this.active = this.selectedCombatant.hasTalent(SPELLS.PRIMAL_ELEMENTALIST_TALENT.id)
@@ -39,6 +39,32 @@ class PrimalStormElemental extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER_PET).spell(damagingCasts), this.onPetCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(damagingCasts), this.onPetDamage);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STORM_ELEMENTAL_TALENT), this.onPSECast);
+  }
+
+  get unusedSpells() {
+    return Object.keys(this.usedCasts).filter(key => !this.usedCasts[Number(key)]);
+  }
+
+  get unusedSpellsSuggestionTresholds() {
+    return {
+      actual: this.unusedSpells.length,
+      isGreaterThan: {
+        minor: 1,
+        major: 1,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
+  }
+
+  get badCastsSuggestionTresholds() {
+    return {
+      actual: this.unusedSpells.length,
+      isGreaterThan: {
+        minor: 1,
+        major: 5,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
   }
 
   onPSECast(event: CastEvent) {
@@ -52,36 +78,10 @@ class PrimalStormElemental extends Analyzer {
   onPetDamage(event: DamageEvent) {
     this.damageGained += event.amount + (event.absorbed || 0);
 
-    if(event.ability.guid !== SPELLS.CALL_LIGHTNING.id) {
-      if(event.timestamp>this.lastCLCastTimestamp+CALL_LIGHTNING_BUFF_DURATION){
-        this.badCasts+=1;
+    if (event.ability.guid !== SPELLS.CALL_LIGHTNING.id) {
+      if (event.timestamp > this.lastCLCastTimestamp + CALL_LIGHTNING_BUFF_DURATION) {
+        this.badCasts += 1;
       }
-    }
-  }
-
-  get unusedSpells(){
-    return Object.keys(this.usedCasts).filter(key => !this.usedCasts[Number(key)]);
-  }
-
-  get unusedSpellsSuggestionTresholds() {
-    return {
-      actual: this.unusedSpells.length,
-      isGreaterThan: {
-        minor: 1,
-        major: 1,
-      },
-      style: ThresholdStyle.NUMBER,
-    }
-  }
-
-  get badCastsSuggestionTresholds() {
-    return {
-      actual: this.unusedSpells.length,
-      isGreaterThan: {
-        minor: 1,
-        major: 5,
-      },
-      style: ThresholdStyle.NUMBER,
     }
   }
 

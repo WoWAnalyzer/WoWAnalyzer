@@ -31,14 +31,8 @@ class AtonementApplicatorBreakdown extends Analyzer {
   _atonementHealingFromPowerWordShields = 0;
   _prepullApplicatorHealing = 0;
 
-  _hasEL = false;
-  _hasDepth = false;
-
   constructor(options: Options) {
     super(options);
-
-    this._hasEL = this.selectedCombatant.hasTrait(SPELLS.ENDURING_LUMINESCENCE.id);
-    this._hasDepth = this.selectedCombatant.hasTrait(SPELLS.DEPTH_OF_THE_SHADOWS.id);
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EVANGELISM_TALENT), this.handleEvangelismCasts);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_MEND), this.storeShadowMendsCasts);

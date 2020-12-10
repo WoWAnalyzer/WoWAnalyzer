@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 
 import CoreAbilities from 'parser/core/modules/Abilities';
 import calculateMaxCasts from 'parser/core/calculateMaxCasts';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -105,7 +106,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.DAMNATION_TALENT.id), 
+        enabled: combatant.hasTalent(SPELLS.DAMNATION_TALENT.id),
       },
 
       // Cooldowns
@@ -168,7 +169,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
-      
+
       {
         spell: SPELLS.SURRENDER_TO_MADNESS_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
@@ -349,6 +350,18 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+      },
+      {
+        spell: SPELLS.FLESHCRAFT,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 120,
+        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+      },
+      {
+        spell: SPELLS.UNHOLY_NOVA,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 100,
+        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },
     ];
   }

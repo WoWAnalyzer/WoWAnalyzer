@@ -14,7 +14,16 @@ import Events from 'parser/core/Events';
 const STARFALL_BONUS_DAMAGE = 0.25;
 
 class StellarDrift extends Analyzer {
+  get damagePercent() {
+    return this.owner.getPercentageOfTotalDamageDone(this.bonusDamage);
+  }
+
+  get perSecond() {
+    return this.bonusDamage / (this.owner.fightDuration / 1000);
+  }
+
   bonusDamage = 0;
+  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 
   constructor(...args) {
     super(...args);
@@ -24,14 +33,6 @@ class StellarDrift extends Analyzer {
 
   onDamage(event) {
     this.bonusDamage += calculateEffectiveDamage(event, STARFALL_BONUS_DAMAGE);
-  }
-
-  get damagePercent() {
-    return this.owner.getPercentageOfTotalDamageDone(this.bonusDamage);
-  }
-
-  get perSecond() {
-    return this.bonusDamage / (this.owner.fightDuration / 1000);
   }
 
   statistic() {
@@ -49,8 +50,6 @@ class StellarDrift extends Analyzer {
       </Statistic>
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default StellarDrift;

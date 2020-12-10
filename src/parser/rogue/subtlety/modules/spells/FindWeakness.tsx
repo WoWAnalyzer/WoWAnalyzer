@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
@@ -22,10 +22,9 @@ class FindWeakness extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
-
-  protected enemies!: Enemies;
-
   badVanishCasts = 0;
+  latestTs = 0;
+  protected enemies!: Enemies;
 
   constructor(options: Options) {
     super(options);
@@ -33,7 +32,18 @@ class FindWeakness extends Analyzer {
     this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.FIND_WEAKNESS), this.onRefreshDebuff);
   }
 
-  latestTs = 0;
+  get vanishThresholds() {
+    return {
+      actual: this.badVanishCasts,
+      isGreaterThan: {
+        minor: 0,
+        average: 0,
+        major: 0,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
+  }
+
   onRefreshDebuff(event: RefreshDebuffEvent) {
     this.latestTs = event.timestamp;
   }
@@ -51,18 +61,6 @@ class FindWeakness extends Analyzer {
       event.meta.isInefficientCast = true;
       event.meta.inefficientCastReason = `Use Vanish only when Find Weakness is not up or is about to run out.`;
     }
-  }
-
-  get vanishThresholds() {
-    return {
-      actual: this.badVanishCasts,
-      isGreaterThan: {
-        minor: 0,
-        average: 0,
-        major: 0,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
   }
 
   suggestions(when: When) {

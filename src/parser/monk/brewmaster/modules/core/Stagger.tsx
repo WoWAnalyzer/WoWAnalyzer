@@ -19,13 +19,11 @@ class Stagger extends Analyzer {
   static dependencies = {
     fab: StaggerFabricator,
   };
-
-  protected fab!: StaggerFabricator;
-
   totalPhysicalStaggered = 0;
   totalMagicalStaggered = 0;
   totalStaggerTaken = 0;
   staggerMissingFromFight = 0;
+  protected fab!: StaggerFabricator;
 
   constructor(options: Options) {
     super(options);
@@ -33,31 +31,6 @@ class Stagger extends Analyzer {
     this.addEventListener(new EventFilter(EventType.AddStagger), this._addstagger);
     this.addEventListener(new EventFilter(EventType.RemoveStagger), this._removestagger);
     this.addEventListener(Events.fightend, this._fightend);
-  }
-
-  private _addstagger(event: AddStaggerEvent) {
-    if (event.trigger!.extraAbility.type === PHYSICAL_DAMAGE) {
-      this.totalPhysicalStaggered += event.amount;
-    } else {
-      this.totalMagicalStaggered += event.amount;
-    }
-  }
-
-  private _removestagger(event: RemoveStaggerEvent) {
-    if (event.trigger!.ability && event.trigger!.ability.guid === SPELLS.STAGGER_TAKEN.id) {
-      this.totalStaggerTaken += event.amount;
-    }
-  }
-
-  private _fightend() {
-    this.staggerMissingFromFight = this.fab.staggerPool;
-    if (debug) {
-      console.log(`Total physical staggered: ${formatNumber(this.totalPhysicalStaggered)}`);
-      console.log(`Total magical staggered: ${formatNumber(this.totalMagicalStaggered)}`);
-      console.log(`Total taken: ${formatNumber(this.totalStaggerTaken)}`);
-      console.log(`Stagger taken after fight: ${formatNumber(this.staggerMissingFromFight)}`);
-      console.log(`Damage avoided: ${formatNumber(this.totalPhysicalStaggered + this.totalMagicalStaggered - this.totalStaggerTaken)}`);
-    }
   }
 
   get totalStaggered() {
@@ -89,13 +62,38 @@ class Stagger extends Analyzer {
           </>
         )}
       >
-        <BoringValue label={<><SpellIcon id={SPELLS.STAGGER.id} /> Damage staggered</>} >
+        <BoringValue label={<><SpellIcon id={SPELLS.STAGGER.id} /> Damage staggered</>}>
           <>
             {formatNumber(this.totalStaggered)}
           </>
         </BoringValue>
       </Statistic>
     );
+  }
+
+  private _addstagger(event: AddStaggerEvent) {
+    if (event.trigger!.extraAbility.type === PHYSICAL_DAMAGE) {
+      this.totalPhysicalStaggered += event.amount;
+    } else {
+      this.totalMagicalStaggered += event.amount;
+    }
+  }
+
+  private _removestagger(event: RemoveStaggerEvent) {
+    if (event.trigger!.ability && event.trigger!.ability.guid === SPELLS.STAGGER_TAKEN.id) {
+      this.totalStaggerTaken += event.amount;
+    }
+  }
+
+  private _fightend() {
+    this.staggerMissingFromFight = this.fab.staggerPool;
+    if (debug) {
+      console.log(`Total physical staggered: ${formatNumber(this.totalPhysicalStaggered)}`);
+      console.log(`Total magical staggered: ${formatNumber(this.totalMagicalStaggered)}`);
+      console.log(`Total taken: ${formatNumber(this.totalStaggerTaken)}`);
+      console.log(`Stagger taken after fight: ${formatNumber(this.staggerMissingFromFight)}`);
+      console.log(`Damage avoided: ${formatNumber(this.totalPhysicalStaggered + this.totalMagicalStaggered - this.totalStaggerTaken)}`);
+    }
   }
 }
 

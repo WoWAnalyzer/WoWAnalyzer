@@ -1,12 +1,13 @@
 import { Boss } from "raids/index";
 
-import Background from './images/backgrounds/CastleNathria.jpg';
-import Headshot from './images/headshots/CastleNathriaHeadshot.png';
+import Background from './images/backgrounds/HuntsmanAltimor.jpg';
+import Headshot from './images/headshots/HuntsmanAltimor.jpg';
 
 const HuntsmanAltimor: Boss = {
   id: 2418,
   name: 'Huntsman Altimor',
   background: Background,
+  backgroundPosition: 'center top',
   headshot: Headshot,
   icon: 'achievement_raid_revendrethraid_altimor',
   fight: {

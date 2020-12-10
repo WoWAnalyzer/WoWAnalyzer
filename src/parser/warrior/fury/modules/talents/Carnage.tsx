@@ -1,7 +1,7 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import { formatPercentage, formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
@@ -10,7 +10,6 @@ import Events, { DamageEvent } from 'parser/core/Events';
 
 const DAMAGE_BONUS = 0.15;
 const RAGE_REDUCTION_RATIO = 75 / 85;
-
 
 // Example log: /reports/tBFv8P9R3kdDgHKJ#fight=1&type=damage-done
 class Carnage extends Analyzer {
@@ -30,20 +29,20 @@ class Carnage extends Analyzer {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.RAMPAGE_1, SPELLS.RAMPAGE_2, SPELLS.RAMPAGE_3, SPELLS.RAMPAGE_4]), this.onRampageDamage);
   }
 
-  onRampageCast() {
-    this.rampageCasts += 1;
-  }
-
-  onRampageDamage(event: DamageEvent) {
-    this.damage += calculateEffectiveDamage(event, DAMAGE_BONUS);
-  }
-
   get damagePercent() {
     return this.owner.getPercentageOfTotalDamageDone(this.damage);
   }
 
   get additionalRampageCasts() {
     return this.rampageCasts - Math.floor(this.rampageCasts * RAGE_REDUCTION_RATIO);
+  }
+
+  onRampageCast() {
+    this.rampageCasts += 1;
+  }
+
+  onRampageDamage(event: DamageEvent) {
+    this.damage += calculateEffectiveDamage(event, DAMAGE_BONUS);
   }
 
   statistic() {

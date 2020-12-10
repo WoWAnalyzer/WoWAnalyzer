@@ -14,7 +14,6 @@ import DamageTracker from 'parser/shared/modules/AbilityTracker';
 import CastsInStealthBase from './CastsInStealthBase';
 import DanceDamageTracker from './DanceDamageTracker';
 
-
 class CastsInShadowDance extends CastsInStealthBase {
   static dependencies = {
     damageTracker: DamageTracker,
@@ -29,7 +28,7 @@ class CastsInShadowDance extends CastsInStealthBase {
 
     this.maxCastsPerStealth = 5 + (this.selectedCombatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id) ? 1 : 0);
 
-    this.stealthCondition = "Shadow Dance";
+    this.stealthCondition = 'Shadow Dance';
 
     options.danceDamageTracker.subscribeInefficientCast(
       this.badStealthSpells,
@@ -41,16 +40,17 @@ class CastsInShadowDance extends CastsInStealthBase {
     return this.createWrongCastThresholds(this.backstabSpell, this.danceDamageTracker);
   }
 
-  suggestions(when: When) {
-    this.suggestWrongCast(when, this.backstabSpell, this.danceBackstabThresholds);
-    this.suggestAvgCasts(when, SPELLS.SHADOW_DANCE);
-  }
-
   get stealthMaxCasts() {
     return this.maxCastsPerStealth * this.damageTracker.getAbility(SPELLS.SHADOW_DANCE.id).casts || 0;
   }
+
   get stealthActualCasts() {
     return this.validStealthSpellIds.map(s => this.danceDamageTracker.getAbility(s).casts || 0).reduce((p, c) => p + c);
+  }
+
+  suggestions(when: When) {
+    this.suggestWrongCast(when, this.backstabSpell, this.danceBackstabThresholds);
+    this.suggestAvgCasts(when, SPELLS.SHADOW_DANCE);
   }
 
   statistic() {

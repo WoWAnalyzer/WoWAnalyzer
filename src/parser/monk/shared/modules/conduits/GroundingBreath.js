@@ -36,13 +36,13 @@ class GroundingBreath extends Analyzer {
   }
 
   vivifyBoost(event) {
-    if(event.targetID !== event.sourceID){
+    if (event.targetID !== event.sourceID) {
       return;
     }
     this.healing += (calculateEffectiveHealing(event, this.healingBoost) || 0);
   }
 
-  onResourceRefund(event){
+  onResourceRefund(event) {
     this.resourceReturned += event.resourceChange;
   }
 
