@@ -233,7 +233,7 @@ exports[`Arcane Mage integration test: example log ArcanePower matches the stati
             />
           </a>
            
-          50
+          100
           % 
           <small>
              Cooldown utilization
@@ -285,67 +285,6 @@ exports[`Arcane Mage integration test: example log ArcanePower matches the stati
     </div>
   </div>
 </div>
-`;
-
-exports[`Arcane Mage integration test: example log ArcanePower matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "spell_nature_lightning",
-    "importance": "major",
-    "issue": <React.Fragment>
-      You cast 
-      <ForwardRef
-        id={12042}
-      />
-       without proper setup 
-      2
-       times. Arcane Power has a short duration so you should get the most out of it by meeting all requirements before casting it.
-      <ul>
-        <li>
-          You have 4 
-          <ForwardRef
-            id={36032}
-          />
-           - You had this 
-          2
-           out of 
-          2
-           casts.
-        </li>
-        <li>
-          You cast 
-          <ForwardRef
-            id={116011}
-          />
-           
-          <TooltipElement
-            className=""
-            content="Arcane Power should be cast right on the end of the Rune of Power cast. There should not be any casts or any delay in between Rune of Power and Arcane Power to ensure that Rune of Power is up for the entire duration of Arcane Power."
-            direction="down"
-            hoverable={false}
-            style={Object {}}
-            tooltipClassName=""
-          >
-            immediately
-          </TooltipElement>
-           before Arcane Power - You did this 
-          0
-           out of 
-          2
-           casts.
-        </li>
-        
-      </ul>
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      2 Bad Casts
-       (
-      0 is recommended
-      )
-    </React.Fragment>,
-  },
-]
 `;
 
 exports[`Arcane Mage integration test: example log CancelledCasts matches the statistic snapshot 1`] = `
@@ -5026,7 +4965,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
     </div>
   </li>
   <li
-    className="expandable expanded failed"
+    className="expandable  passed"
   >
     <div
       className="meta"
@@ -5050,8 +4989,8 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ffc84a",
-                  "width": "63.87500000000001%",
+                  "backgroundColor": "#4ec04e",
+                  "width": "100%",
                 }
               }
             />
@@ -5279,7 +5218,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  50.00%
+                  100.00%
                    
                    
                 </div>
@@ -5299,9 +5238,9 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "27.750000000000004%",
+                        "width": "100%",
                       }
                     }
                   />
