@@ -185,7 +185,7 @@ exports[`Affliction Warlock integration test: example log AlwaysBeCasting matche
                 }
               }
             >
-              83
+              82
               %
             </div>
           </div>
@@ -7320,7 +7320,7 @@ exports[`Affliction Warlock integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ffc84a",
+                        "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
                         "width": "48.806247522677054%",
                       }
