@@ -583,7 +583,7 @@ const spells = {
     icon: 'ability_monk_summontigerstatue',
   },
   DANCE_OF_CHI_JI_BUFF: {
-    id: 325201,
+    id: 325202,
     name: 'Dance of Chi-Ji',
     icon: 'ability_monk_quitornado',
   },
