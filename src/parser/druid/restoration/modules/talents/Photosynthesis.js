@@ -1,12 +1,11 @@
 import React from 'react';
 
-import StatisticBox from 'interface/others/StatisticBox';
-
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
-
 import { formatPercentage } from 'common/format';
-
+import SpellIcon from 'common/SpellIcon';
+import BoringValue from 'interface/statistics/components/BoringValueText';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
@@ -45,6 +44,8 @@ class Photosynthesis extends Analyzer {
   increasedRateSpringBlossomsHealing = 0;
   increasedRateEffloHealing = 0;
   increasedRateGroveTendingHealing = 0;
+  randomProccs = 0;
+  naturalProccs = 0;
 
   constructor(...args) {
     super(...args);
@@ -55,22 +56,17 @@ class Photosynthesis extends Analyzer {
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_BLOOM_HEAL), this.onLifebloomProc);
   }
 
-
   onCast(event) {
     this.lastRealBloomTimestamp = event.timestamp;
   }
 
-
-  onRemoveBuff(event){
+  onRemoveBuff(event) {
     this.lastRealBloomTimestamp = event.timestamp;
   }
 
-  randomProccs = 0;
-  naturalProccs = 0;
-
-  onLifebloomProc(event){
+  onLifebloomProc(event) {
     // Lifebloom random bloom procc
-    if(this.lastRealBloomTimestamp === null || (event.timestamp - this.lastRealBloomTimestamp) > BLOOM_BUFFER_MS) {
+    if (this.lastRealBloomTimestamp === null || (event.timestamp - this.lastRealBloomTimestamp) > BLOOM_BUFFER_MS) {
       this.lifebloomIncrease += event.amount;
       this.randomProccs += 1;
     } else {
@@ -82,7 +78,7 @@ class Photosynthesis extends Analyzer {
     const spellId = event.ability.guid;
 
     // Yes it actually buffs efflorescence, confirmed by Voulk and Bastas
-    if(this.selectedCombatant.hasBuff(SPELLS.LIFEBLOOM_HOT_HEAL.id, null, 0, 0, this.selectedCombatant.sourceID)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.LIFEBLOOM_HOT_HEAL.id, null, 0, 0, this.selectedCombatant.sourceID)) {
       switch (spellId) {
         case SPELLS.REJUVENATION.id:
           this.increasedRateRejuvenationHealing += calculateEffectiveHealing(event, PHOTOSYNTHESIS_HOT_INCREASE);
@@ -107,9 +103,6 @@ class Photosynthesis extends Analyzer {
           break;
         case SPELLS.EFFLORESCENCE_HEAL.id:
           this.increasedRateEffloHealing += calculateEffectiveHealing(event, PHOTOSYNTHESIS_HOT_INCREASE);
-          break;
-        case SPELLS.GROVE_TENDING.id:
-          this.increasedRateGroveTendingHealing += calculateEffectiveHealing(event, PHOTOSYNTHESIS_HOT_INCREASE);
           break;
         case SPELLS.REGROWTH.id:
           if (event.tick === true) {
@@ -144,14 +137,13 @@ class Photosynthesis extends Analyzer {
     const selfUptime = this.selectedCombatant.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id, sourceID);
     const totalUptime =
       Object.keys(this.combatants.players)
-          .map(key => this.combatants.players[key])
-          .reduce((uptime, player) => uptime + player.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id), sourceID);
+        .map(key => this.combatants.players[key])
+        .reduce((uptime, player) => uptime + player.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id), sourceID);
 
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.PHOTOSYNTHESIS_TALENT.id} />}
-        value={`${formatPercentage(totalPercent)} %`}
-        label="Photosynthesis"
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(20)}
+        size="flexible"
         tooltip={(
           <>
             Healing contribution
@@ -167,17 +159,23 @@ class Photosynthesis extends Analyzer {
               <li>Efflorescence: <strong>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateEffloHealing))} %</strong></li>
               <li>Grove Tending: <strong>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateGroveTendingHealing))} %</strong></li>
               <hr />
-              <li>Total HoT increase part: <strong>{formatPercentage(totalPercent-this.owner.getPercentageOfTotalHealingDone(this.lifebloomIncrease))} %</strong></li>
+              <li>Total HoT increase part: <strong>{formatPercentage(totalPercent - this.owner.getPercentageOfTotalHealingDone(this.lifebloomIncrease))} %</strong></li>
               <li>Lifebloom random bloom: <strong>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.lifebloomIncrease))} %</strong> (Random proccs: {this.randomProccs}, Natural proccs: {this.naturalProccs})</li>
             </ul>
             Lifebloom uptime
             <ul>
-              <li>On Self: <strong>{formatPercentage(selfUptime/ this.owner.fightDuration)} %</strong></li>
+              <li>On Self: <strong>{formatPercentage(selfUptime / this.owner.fightDuration)} %</strong></li>
               <li>On Others: <strong>{formatPercentage((totalUptime - selfUptime) / this.owner.fightDuration)} %</strong></li>
             </ul>
           </>
         )}
-      />
+      >
+        <BoringValue label={<><SpellIcon id={SPELLS.PHOTOSYNTHESIS_TALENT.id} /> Photosynthesis healing</>}>
+          <>
+            {formatPercentage(totalPercent)} %
+          </>
+        </BoringValue>
+      </Statistic>
     );
   }
 }

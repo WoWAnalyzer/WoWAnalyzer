@@ -10,8 +10,10 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellHistory from 'parser/shared/modules/SpellHistory';
 import Abilities from 'parser/core/modules/Abilities';
 
+import Haste from 'parser/shared/modules/Haste';
+
 import AbilityTracker from './AbilityTracker';
-import Haste from './Haste';
+
 import { EventType, UpdateSpellUsableEvent } from '../../core/Events';
 import Combatant from '../../core/Combatant';
 import Ability, { SpellbookAbility } from '../../core/modules/Ability';
@@ -406,7 +408,7 @@ class CastEfficiency extends Analyzer {
       when(suggestionThresholds).addSuggestion(
         (suggest, actual, recommended) => suggest(
           <>
-            <Trans>
+            <Trans id="shared.modules.castEfficiency.suggest">
               Try to cast <SpellLink id={mainSpell.id} /> more often.
             </Trans>{' '}
             {ability.castEfficiency.extraSuggestion || ''}
@@ -414,14 +416,14 @@ class CastEfficiency extends Analyzer {
         )
           .icon(mainSpell.icon)
           .actual(
-            <Trans>
+            <Trans id="shared.modules.castEfficiency.actual">
               {abilityInfo.casts} out of {abilityInfo.maxCasts} possible
               casts. You kept it on cooldown {formatPercentage(actual, 0)}% of
               the time.
             </Trans>,
           )
           .recommended(
-            <Trans>
+            <Trans id="shared.modules.castEfficiency.recommended">
               &gt;{formatPercentage(recommended, 0)}% is recommended
             </Trans>,
           )

@@ -2,7 +2,9 @@ import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Combatants from 'parser/shared/modules/Combatants';
-import StatisticBox from 'interface/others/StatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
+import BoringValue from 'interface/statistics/components/BoringValueText';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import ItemIcon from 'common/ItemIcon';
@@ -12,7 +14,7 @@ import SpecIcon from 'common/SpecIcon';
 import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 import Panel from 'interface/others/Panel';
-import {formatNumber} from 'common/format';
+import { formatNumber } from 'common/format';
 import Events from 'parser/core/Events';
 
 /**
@@ -29,32 +31,32 @@ import Events from 'parser/core/Events';
  * player.
  */
 class CelestialFortune extends Analyzer {
-  static dependencies = {
-    stats: StatTracker,
-    combatants: Combatants,
-  };
-
-  critBonusHealing = 0;
   _totalHealing = 0;
-  _overhealing = 0;
-  _healingByEntityBySpell = {};
-  _currentAbsorbs = {};
-
-  _lastMaxHp = 0;
-
-  get hps() {
-    return this._totalHealing / (this.owner.fightDuration / 1000);
-  }
 
   get totalHealing() {
     return this._totalHealing;
+  }
+
+  get hps() {
+    return this._totalHealing / (this.owner.fightDuration / 1000);
   }
 
   get bonusCritRatio() {
     return 1 - this.stats.baseCritPercentage / this.stats.currentCritPercentage;
   }
 
-  constructor(options){
+  static dependencies = {
+    stats: StatTracker,
+    combatants: Combatants,
+  };
+  critBonusHealing = 0;
+  _overhealing = 0;
+  _healingByEntityBySpell = {};
+  _currentAbsorbs = {};
+  _lastMaxHp = 0;
+  _nextCFHeal = null;
+
+  constructor(options) {
     super(options);
     this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.onHeal);
     this.addEventListener(Events.absorbed.to(SELECTED_PLAYER), this.onAbsorb);
@@ -63,7 +65,7 @@ class CelestialFortune extends Analyzer {
 
   onHeal(event) {
     this._lastMaxHp = event.maxHitPoints ? event.maxHitPoints : this._lastMaxHp;
-    if(event.ability.guid === SPELLS.CELESTIAL_FORTUNE_HEAL.id) {
+    if (event.ability.guid === SPELLS.CELESTIAL_FORTUNE_HEAL.id) {
       const amount = event.amount + (event.absorbed || 0);
       const overheal = event.overheal || 0;
       this._totalHealing += amount;
@@ -79,11 +81,11 @@ class CelestialFortune extends Analyzer {
 
   // track damage being absorbed
   onAbsorb(event) {
-    if(event.ability.guid === SPELLS.STAGGER.id) {
+    if (event.ability.guid === SPELLS.STAGGER.id) {
       return;
     }
 
-    if(!this._currentAbsorbs[event.sourceID]) {
+    if (!this._currentAbsorbs[event.sourceID]) {
       this._currentAbsorbs[event.sourceID] = {};
     }
 
@@ -92,13 +94,13 @@ class CelestialFortune extends Analyzer {
   }
 
   onRemoveBuff(event) {
-    if(!this._currentAbsorbs[event.sourceID]) {
+    if (!this._currentAbsorbs[event.sourceID]) {
       return; // no absorbs from this source
     }
 
     const sourceAbsorbs = this._currentAbsorbs[event.sourceID];
 
-    if(!sourceAbsorbs[event.ability.guid]) {
+    if (!sourceAbsorbs[event.ability.guid]) {
       return; // no absorbs from this (source, ability) pair
     }
 
@@ -107,21 +109,20 @@ class CelestialFortune extends Analyzer {
     sourceAbsorbs[event.ability.guid] = undefined;
   }
 
-  _nextCFHeal = null;
   _queueHealing(event) {
-    if(this._nextCFHeal !== null) {
-      console.warn("Resetting CF healing", event);
+    if (this._nextCFHeal !== null) {
+      console.warn('Resetting CF healing', event);
     }
     this._nextCFHeal = event;
   }
 
   _initHealing(sourceId, id, absorb) {
-    if(!this._healingByEntityBySpell[sourceId]) {
+    if (!this._healingByEntityBySpell[sourceId]) {
       this._healingByEntityBySpell[sourceId] = {
         _totalHealing: 0,
       };
     }
-    if(!this._healingByEntityBySpell[sourceId][id]) {
+    if (!this._healingByEntityBySpell[sourceId][id]) {
       this._healingByEntityBySpell[sourceId][id] = {
         amount: 0,
         absorb,
@@ -130,13 +131,13 @@ class CelestialFortune extends Analyzer {
   }
 
   _addHealing(event) {
-    if(this._nextCFHeal === null) {
+    if (this._nextCFHeal === null) {
       return;
     }
     const totalCFAmount = this._nextCFHeal.amount + (this._nextCFHeal.overheal || 0);
     const totalAmount = event.amount + (event.overheal || 0);
-    if(Math.abs(totalCFAmount - 0.65 * totalAmount) > 0.1 * totalAmount && totalAmount > 100) {
-      console.warn("Potential CF misalignment", event, this._nextCFHeal);
+    if (Math.abs(totalCFAmount - 0.65 * totalAmount) > 0.1 * totalAmount && totalAmount > 100) {
+      console.warn('Potential CF misalignment', event, this._nextCFHeal);
     }
 
     const spellId = event.ability.guid;
@@ -165,18 +166,23 @@ class CelestialFortune extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.CELESTIAL_FORTUNE_HEAL.id} />}
-        value={`${formatNumber(this.hps)} HPS`}
-        label="Celestial Fortune Healing"
-      />
+      <Statistic
+        size="flexible"
+        position={STATISTIC_ORDER.OPTIONAL()}
+      >
+        <BoringValue label={<><SpellIcon id={SPELLS.CELESTIAL_FORTUNE_HEAL.id} /> Celestial Fortune Healing</>}>
+          <>
+            {formatNumber(this.hps)} HPS
+          </>
+        </BoringValue>
+      </Statistic>
     );
   }
 
   entries() {
-    function playerSpan(id, style={float: 'left'}) {
+    function playerSpan(id, style = { float: 'left' }) {
       const combatant = this.combatants.players[id];
-      if(!combatant) {
+      if (!combatant) {
         return '';
       }
       const spec = SPECS[combatant.specId];
@@ -188,62 +194,62 @@ class CelestialFortune extends Analyzer {
 
     const playerTable = ([sourceId, obj]) => {
       const tableEntries = Object.entries(obj)
-        .filter(([id, {amount}]) => amount > this._lastMaxHp * 0.01)
+        .filter(([id, { amount }]) => amount > this._lastMaxHp * 0.01)
         .sort(([idA, objA], [idB, objB]) => objB.amount - objA.amount);
 
-      if(tableEntries.length === 0) {
+      if (tableEntries.length === 0) {
         return null; // a few small healing sources, skipping
       }
       return (
         <tbody key={sourceId}>
           <tr>
-            <th style={{width: '20%'}}>{playerSpan.call(this, sourceId)}</th>
-            <th style={{width: '20%'}}>Spell</th>
-            <th style={{width: '10%'}}>HPS</th>
+            <th style={{ width: '20%' }}>{playerSpan.call(this, sourceId)}</th>
+            <th style={{ width: '20%' }}>Spell</th>
+            <th style={{ width: '10%' }}>HPS</th>
             <th>Fraction of CF Healing</th>
             <th />
           </tr>
           {tableEntries
-              .filter(([id, obj]) => id !== '_totalHealing')
-              .map(([id, {absorb, amount}]) => (
-                <tr key={id}>
-                  <td />
-                  <td>
-                    <SpellLink id={Number(id)} icon={false}>
-                      {SPELLS[id] ? <><Icon icon={SPELLS[id].icon} /> {SPELLS[id].name}</> : ITEMS[id] ? <><ItemIcon id={ITEMS[id]} /> {ITEMS[id].name}</> : id}
-                    </SpellLink>
-                  </td>
-                  <td>{absorb ? '≈': ''}{`${formatNumber(amount / (this.owner.fightDuration / 1000))} HPS`}</td>
-                  <td style={{width: '20%'}}>
-                    <div className="flex performance-bar-container">
-                      <div
-                        className="flex-sub performance-bar"
-                        style={{ width: `${amount / this._totalHealing * 100}%`, backgroundColor: '#70b570' }}
-                      />
-                    </div>
-                  </td>
-                  <td className="text-left">
-                    {`${(amount / this._totalHealing * 100).toFixed(2)}%`}
-                  </td>
-                </tr>
-              ))}
-              <tr>
+            .filter(([id, obj]) => id !== '_totalHealing')
+            .map(([id, { absorb, amount }]) => (
+              <tr key={id}>
                 <td />
-                <td>Total from {playerSpan.call(this, sourceId, {})}</td>
-                <td>{`${formatNumber(obj._totalHealing / (this.owner.fightDuration / 1000))} HPS`}</td>
-                <td style={{width: '20%'}}>
+                <td>
+                  <SpellLink id={Number(id)} icon={false}>
+                    {SPELLS[id] ? <><Icon icon={SPELLS[id].icon} /> {SPELLS[id].name}</> : ITEMS[id] ? <><ItemIcon id={ITEMS[id]} /> {ITEMS[id].name}</> : id}
+                  </SpellLink>
+                </td>
+                <td>{absorb ? '≈' : ''}{`${formatNumber(amount / (this.owner.fightDuration / 1000))} HPS`}</td>
+                <td style={{ width: '20%' }}>
                   <div className="flex performance-bar-container">
                     <div
                       className="flex-sub performance-bar"
-                      style={{ width: `${obj._totalHealing / this._totalHealing * 100}%`, backgroundColor: '#ff8000' }}
+                      style={{ width: `${amount / this._totalHealing * 100}%`, backgroundColor: '#70b570' }}
                     />
                   </div>
                 </td>
                 <td className="text-left">
-                  {`${(obj._totalHealing / this._totalHealing * 100).toFixed(2)}%`}
+                  {`${(amount / this._totalHealing * 100).toFixed(2)}%`}
                 </td>
               </tr>
-            </tbody>
+            ))}
+          <tr>
+            <td />
+            <td>Total from {playerSpan.call(this, sourceId, {})}</td>
+            <td>{`${formatNumber(obj._totalHealing / (this.owner.fightDuration / 1000))} HPS`}</td>
+            <td style={{ width: '20%' }}>
+              <div className="flex performance-bar-container">
+                <div
+                  className="flex-sub performance-bar"
+                  style={{ width: `${obj._totalHealing / this._totalHealing * 100}%`, backgroundColor: '#ff8000' }}
+                />
+              </div>
+            </td>
+            <td className="text-left">
+              {`${(obj._totalHealing / this._totalHealing * 100).toFixed(2)}%`}
+            </td>
+          </tr>
+        </tbody>
       );
     };
 
@@ -260,7 +266,7 @@ class CelestialFortune extends Analyzer {
       render: () => (
         <Panel>
           <div style={{ marginTop: -10, marginBottom: -10 }}>
-            <div style={{padding: '1em'}}>Bonus healing provided by <SpellLink id={SPELLS.CELESTIAL_FORTUNE_HEAL.id} />, broken down by triggering spell and which player cast that spell.</div>
+            <div style={{ padding: '1em' }}>Bonus healing provided by <SpellLink id={SPELLS.CELESTIAL_FORTUNE_HEAL.id} />, broken down by triggering spell and which player cast that spell.</div>
             <table className="data-table" style={{ marginTop: 10, marginBottom: 10 }}>
               {this.entries()}
             </table>

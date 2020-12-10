@@ -74,7 +74,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ASPECT_OF_THE_WILD,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: this.selectedCombatant.hasEssence(SPELLS.VISION_OF_PERFECTION.traitId) ? 120 * 0.75 : 120, //Assuming people have max'd HoA enough to have 25% reduction in the prepatch.
+        cooldown: 120,
         gcd: {
           static: 0,
         },

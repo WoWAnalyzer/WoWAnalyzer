@@ -17,16 +17,6 @@ import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class SpiritBombFrailtyDebuff extends Analyzer {
-  static dependencies = {
-    abilityTracker: AbilityTracker,
-    enemies: Enemies,
-  };
-
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id);
-  }
-
   get uptime() {
     return this.enemies.getBuffUptime(SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id) / this.owner.fightDuration;
   }
@@ -41,6 +31,16 @@ class SpiritBombFrailtyDebuff extends Analyzer {
       },
       style: 'percentage',
     };
+  }
+
+  static dependencies = {
+    abilityTracker: AbilityTracker,
+    enemies: Enemies,
+  };
+
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id);
   }
 
   suggestions(when) {

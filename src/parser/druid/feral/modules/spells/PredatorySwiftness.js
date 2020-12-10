@@ -27,14 +27,32 @@ const POTENTIAL_SPENDERS = [
  * part of the damage rotation.
  */
 class PredatorySwiftness extends Analyzer {
-  hasSwiftness = false;
+  get wasted() {
+    return this.expired + this.overwritten + this.remainAfterFight;
+  }
 
+  get wastedFraction() {
+    return this.wasted / this.generated;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.wastedFraction,
+      isGreaterThan: {
+        minor: 0,
+        average: 0.10,
+        major: 0.20,
+      },
+      style: 'percentage',
+    };
+  }
+
+  hasSwiftness = false;
   generated = 0;
   used = 0;
   expired = 0;
   remainAfterFight = 0;
   overwritten = 0;
-
   /**
    * The combat log sometimes reports the player gaining Predatory Swiftness twice from a single finisher.
    * Avoid this by tracking time of last gain event.
@@ -103,39 +121,19 @@ class PredatorySwiftness extends Analyzer {
     this.expireTime = null;
   }
 
-  get wasted() {
-    return this.expired + this.overwritten + this.remainAfterFight;
-  }
-
-  get wastedFraction() {
-    return this.wasted / this.generated;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.wastedFraction,
-      isGreaterThan: {
-        minor: 0,
-        average: 0.10,
-        major: 0.20,
-      },
-      style: 'percentage',
-    };
-  }
-
   suggestions(when) {
     if (!this.selectedCombatant.hasTalent(SPELLS.BLOODTALONS_TALENT.id)) {
       // Predatory Swiftness is only important to damage rotation if the player has Bloodtalons
       return;
     }
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-        <>
-          You are not making use of all your chances to trigger <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> through <SpellLink id={SPELLS.PREDATORY_SWIFTNESS.id} />. Try to use it to instant-cast <SpellLink id={SPELLS.REGROWTH.id} /> or <SpellLink id={SPELLS.ENTANGLING_ROOTS.id} /> before you generate another charge of the buff, and before it wears off.
-        </>,
-      )
-        .icon(SPELLS.PREDATORY_SWIFTNESS.icon)
-        .actual(i18n._(t('druid.feral.suggestions.predatorySwiftness.wasted')`${formatPercentage(actual)}% of Predatory Swiftness buffs wasted.`))
-        .recommended(`${recommended}% is recommended`));
+      <>
+        You are not making use of all your chances to trigger <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> through <SpellLink id={SPELLS.PREDATORY_SWIFTNESS.id} />. Try to use it to instant-cast <SpellLink id={SPELLS.REGROWTH.id} /> or <SpellLink id={SPELLS.ENTANGLING_ROOTS.id} /> before you generate another charge of the buff, and before it wears off.
+      </>,
+    )
+      .icon(SPELLS.PREDATORY_SWIFTNESS.icon)
+      .actual(i18n._(t('druid.feral.suggestions.predatorySwiftness.wasted')`${formatPercentage(actual)}% of Predatory Swiftness buffs wasted.`))
+      .recommended(`${recommended}% is recommended`));
   }
 
   statistic() {

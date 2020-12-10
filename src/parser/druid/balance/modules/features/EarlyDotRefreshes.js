@@ -17,13 +17,6 @@ const AVERAGE_THRESHOLD = 0.8;
 const MAJOR_THRESHOLD = 0.6;
 
 class EarlyDotRefreshes extends EarlyDotRefreshesCore {
-  static dots = DOTS;
-
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.STELLAR_FLARE_TALENT.id);
-  }
-
   get suggestionThresholdsStellarFlare() {
     return {
       spell: SPELLS.STELLAR_FLARE_TALENT,
@@ -49,6 +42,13 @@ class EarlyDotRefreshes extends EarlyDotRefreshesCore {
       },
       style: 'percentage',
     };
+  }
+
+  static dots = DOTS;
+
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.STELLAR_FLARE_TALENT.id);
   }
 
   suggestions(when) {

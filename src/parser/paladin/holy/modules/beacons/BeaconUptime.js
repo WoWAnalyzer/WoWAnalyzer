@@ -451,7 +451,7 @@ class BeaconUptime extends Analyzer {
     const boringSpellValueContainer = { display: 'flex', flexDirection: 'row' };
     const missingPrepullContainer = (
       <div style={{ color: 'red', margin: 'auto', textAlign: 'center' }}>
-        <Trans>
+        <Trans id="paladin.holy.modules.beacons.beaconUptime.notCastedPrepull">
           Not
           <br />
           casted
@@ -464,7 +464,7 @@ class BeaconUptime extends Analyzer {
     return (
       <Statistic position={STATISTIC_ORDER.CORE(60)} size="flexible">
         <label style={{ margin: '10px' }}>
-          <Trans>Beacon Uptime</Trans>
+          <Trans id="paladin.holy.modules.beacons.beaconUptime.beaconUptime">Beacon Uptime</Trans>
         </label>
 
         {/*  adds a section for BoL stats if BoV talent is not taken */}
@@ -473,7 +473,7 @@ class BeaconUptime extends Analyzer {
             <BoringSpellValue
               spell={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF}
               value={`${this.uptimeBoLPerc}%`}
-              label={<Trans>BoL Uptime</Trans>}
+              label={<Trans id="paladin.holy.modules.beacons.beaconUptime.bolUptime">BoL Uptime</Trans>}
             />
             {this.missingBoLPrepull && missingPrepullContainer}
           </div>
@@ -485,7 +485,7 @@ class BeaconUptime extends Analyzer {
             <BoringSpellValue
               spell={SPELLS.BEACON_OF_FAITH_TALENT}
               value={`${this.uptimeBoFPerc}%`}
-              label={<Trans>BoF Uptime</Trans>}
+              label={<Trans id="paladin.holy.modules.beacons.beaconUptime.bofUptime">BoF Uptime</Trans>}
             />
 
             {this.missingBoFPrepull && missingPrepullContainer}
@@ -498,7 +498,7 @@ class BeaconUptime extends Analyzer {
             <BoringSpellValue
               spell={SPELLS.BEACON_OF_VIRTUE_TALENT}
               value={`${this.uptimeBoVPerc}%`}
-              label={<Trans>BoV Uptime</Trans>}
+              label={<Trans id="paladin.holy.modules.beacons.beaconUptime.bovUptime">BoV Uptime</Trans>}
             />
           </div>
         )}

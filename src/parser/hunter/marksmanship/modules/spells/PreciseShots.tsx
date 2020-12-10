@@ -39,7 +39,7 @@ class PreciseShots extends Analyzer {
   }
 
   get preciseShotsUtilizationPercentage() {
-    return this.minOverwrittenProcs / (this.buffsSpent + this.minOverwrittenProcs);
+    return this.buffsSpent / (this.buffsSpent + this.minOverwrittenProcs);
   }
 
   get preciseShotsWastedThreshold() {

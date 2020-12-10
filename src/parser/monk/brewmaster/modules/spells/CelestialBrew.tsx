@@ -2,13 +2,15 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { CastEvent, AbsorbedEvent, RemoveBuffEvent, ApplyBuffEvent, ApplyBuffStackEvent } from 'parser/core/Events';
-import StatisticBox from 'interface/others/StatisticBox';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { AbsorbedEvent, ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, RemoveBuffEvent } from 'parser/core/Events';
 import SpellIcon from 'common/SpellIcon';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
+import BoringValue from 'interface/statistics/components/BoringValueText';
 import { formatNumber, formatPercentage } from 'common/format';
 import FooterChart, { formatTime } from 'interface/others/FooterChart';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 const PURIFIED_CHI_PCT = 0.2;
 const PURIFIED_CHI_WINDOW = 150;
@@ -43,21 +45,10 @@ class CelestialBrew extends Analyzer {
     this.addEventListener(Events.fightend, this._finalize);
   }
 
-  private _expirePurifiedChi(event: RemoveBuffEvent) {
-    this._expireTime = event.timestamp;
-  }
-
-  expireChi(timestamp: number) {
-    if(this._expireTime && timestamp - this._expireTime > PURIFIED_CHI_WINDOW) {
-      this._expireTime = null;
-      this._currentChiStacks = 0;
-    }
-  }
-
   get goodCastSuggestion() {
     const actual = this._absorbs
-                       .filter(({ amount, wasted }) => amount / (amount + wasted) >= WASTED_THRESHOLD)
-                       .length / this._absorbs.length;
+      .filter(({ amount, wasted }) => amount / (amount + wasted) >= WASTED_THRESHOLD)
+      .length / this._absorbs.length;
     return {
       actual,
       isLessThan: {
@@ -69,72 +60,27 @@ class CelestialBrew extends Analyzer {
     };
   }
 
-  private _purifiedChiApplied(event: ApplyBuffEvent) {
-    this.expireChi(event.timestamp);
-
-    this._currentChiStacks = 1;
-  }
-
-  private _purifiedChiStackApplied(event: ApplyBuffStackEvent) {
-    this._currentChiStacks = event.stack;
-  }
-
-  private _resetAbsorb(cast: CastEvent) {
-    this.expireChi(cast.timestamp);
-
-    if(this._currentAbsorb) {
-      this._absorbs.push(this._currentAbsorb);
-    }
-
-    this._currentAbsorb = {
-      cast,
-      timestamp: cast.timestamp - this.owner.fight.start_time,
-      amount: 0,
-      wasted: 0,
-      stacks: this._currentChiStacks,
-    };
-
-    this._currentChiStacks = 0;
-  }
-
-  private _cbAbsorb(event: AbsorbedEvent) {
-    if(this._currentAbsorb === undefined) {
-      console.error("CB absorb detected without CB active!", event);
-      return;
-    }
-
-    this._currentAbsorb.amount += event.amount;
-  }
-
-  private _expireAbsorb(event: RemoveBuffEvent) {
-    if(this._currentAbsorb === undefined) {
-      console.error("CB expired but was never applied!", event);
-      return;
-    }
-
-    this._currentAbsorb.wasted = event.absorb || 0;
-  }
-
-  private _finalize() {
-    if(this._currentAbsorb) {
-      this._absorbs.push(this._currentAbsorb);
+  expireChi(timestamp: number) {
+    if (this._expireTime && timestamp - this._expireTime > PURIFIED_CHI_WINDOW) {
+      this._expireTime = null;
+      this._currentChiStacks = 0;
     }
   }
 
   suggestions(when: When) {
     when(this.goodCastSuggestion)
       .addSuggestion((suggest, actual, recommended) => suggest(
-        <>You should try to use <SpellLink id={SPELLS.CELESTIAL_BREW.id} /> when most or all of the absorb will be consumed.</>
+        <>You should try to use <SpellLink id={SPELLS.CELESTIAL_BREW.id} /> when most or all of the absorb will be consumed.</>,
       )
-      .icon(SPELLS.CELESTIAL_BREW.icon)
-      .actual(`${formatPercentage(actual)}% of your absorbs expired with more than 25% remaining.`)
-      .recommended(`< ${formatPercentage(recommended)}% is recommended`));
+        .icon(SPELLS.CELESTIAL_BREW.icon)
+        .actual(`${formatPercentage(actual)}% of your absorbs expired with more than 25% remaining.`)
+        .recommended(`< ${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {
-    const avgAbsorb = this._absorbs.reduce((total, absorb) => total + absorb.amount, 0) / this._absorbs.length;
+    const avgAbsorb = this._absorbs.length === 0 ? 0 : this._absorbs.reduce((total, absorb) => total + absorb.amount, 0) / this._absorbs.length;
     const wastedAbsorb = this._absorbs.reduce((total, absorb) => total + absorb.wasted, 0);
-    const avgStacks = this._absorbs.reduce((total, absorb) => total + absorb.stacks, 0) / this._absorbs.length;
+    const avgStacks = this._absorbs.length === 0 ? 0 : this._absorbs.reduce((total, absorb) => total + absorb.stacks, 0) / this._absorbs.length;
 
     const spec = {
       mark: 'bar' as const,
@@ -143,7 +89,7 @@ class CelestialBrew extends Analyzer {
           fold: ['amount', 'wasted'],
         },
         {
-          calculate: "datum.timestamp / 60000",
+          calculate: 'datum.timestamp / 60000',
           as: 'time_min',
         },
         {
@@ -178,8 +124,8 @@ class CelestialBrew extends Analyzer {
           type: 'nominal' as const,
           legend: null,
           scale: {
-            domain: ["amount", "wasted"],
-            range: ["rgb(112, 181, 112)", "rgb(255, 128, 0)"],
+            domain: ['amount', 'wasted'],
+            range: ['rgb(112, 181, 112)', 'rgb(255, 128, 0)'],
           },
         },
         order: { field: 'key' },
@@ -191,12 +137,10 @@ class CelestialBrew extends Analyzer {
         ],
       },
     };
-
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.CELESTIAL_BREW.id} />}
-        value={formatNumber(avgAbsorb)}
-        label="Avg. Absorb per Celestial Brew"
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL()}
+        size="flexible"
         tooltip={(
           <>
             Does not include <strong>{formatNumber(wastedAbsorb)} wasted absorb</strong> (avg: <strong>{formatNumber(wastedAbsorb / this._absorbs.length)}</strong>).<br />
@@ -204,9 +148,71 @@ class CelestialBrew extends Analyzer {
             You cast Celestial Brew with an average of <strong>{avgStacks.toFixed(2)} stacks</strong> of Purified Chi, increasing the absorb amount by <strong>{formatPercentage(avgStacks * PURIFIED_CHI_PCT)}%</strong>.
           </>
         )}
-        footer={(<FooterChart spec={spec} data={this._absorbs} />)}
-      />
+      >
+        <BoringValue label={<><SpellIcon id={SPELLS.CELESTIAL_BREW.id} /> Avg. Absorb per Celestial Brew</>}>
+          <>
+            {formatNumber(avgAbsorb)} % <br />
+            <FooterChart spec={spec} data={this._absorbs} />
+          </>
+        </BoringValue>
+      </Statistic>
     );
+  }
+
+  private _expirePurifiedChi(event: RemoveBuffEvent) {
+    this._expireTime = event.timestamp;
+  }
+
+  private _purifiedChiApplied(event: ApplyBuffEvent) {
+    this.expireChi(event.timestamp);
+
+    this._currentChiStacks = 1;
+  }
+
+  private _purifiedChiStackApplied(event: ApplyBuffStackEvent) {
+    this._currentChiStacks = event.stack;
+  }
+
+  private _resetAbsorb(cast: CastEvent) {
+    this.expireChi(cast.timestamp);
+
+    if (this._currentAbsorb) {
+      this._absorbs.push(this._currentAbsorb);
+    }
+
+    this._currentAbsorb = {
+      cast,
+      timestamp: cast.timestamp - this.owner.fight.start_time,
+      amount: 0,
+      wasted: 0,
+      stacks: this._currentChiStacks,
+    };
+
+    this._currentChiStacks = 0;
+  }
+
+  private _cbAbsorb(event: AbsorbedEvent) {
+    if (this._currentAbsorb === undefined) {
+      console.error('CB absorb detected without CB active!', event);
+      return;
+    }
+
+    this._currentAbsorb.amount += event.amount;
+  }
+
+  private _expireAbsorb(event: RemoveBuffEvent) {
+    if (this._currentAbsorb === undefined) {
+      console.error('CB expired but was never applied!', event);
+      return;
+    }
+
+    this._currentAbsorb.wasted = event.absorb || 0;
+  }
+
+  private _finalize() {
+    if (this._currentAbsorb) {
+      this._absorbs.push(this._currentAbsorb);
+    }
   }
 }
 

@@ -1,6 +1,9 @@
 import React from 'react';
 import SpellIcon from 'common/SpellIcon';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
+import HasteIcon from 'interface/icons/Haste';
+import BoringValue from 'interface/statistics/components/BoringValueText';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatThousands } from 'common/format';
 
@@ -28,15 +31,6 @@ export const HIGH_TOLERANCE_HASTE_FNS = {
 };
 
 class HighTolerance extends Analyzer {
-  staggerDurations = {
-    [SPELLS.LIGHT_STAGGER_DEBUFF.id]: 0,
-    [SPELLS.MODERATE_STAGGER_DEBUFF.id]: 0,
-    [SPELLS.HEAVY_STAGGER_DEBUFF.id]: 0,
-  };
-
-  _staggerLevel = null;
-  _lastDebuffApplied = 0;
-
   get meanHaste() {
     return Object.keys(HIGH_TOLERANCE_HASTE)
       .map(key => this.staggerDurations[key] * HIGH_TOLERANCE_HASTE[key])
@@ -58,6 +52,14 @@ class HighTolerance extends Analyzer {
   get noneDuration() {
     return this.owner.fightDuration - this.lightDuration - this.moderateDuration - this.heavyDuration;
   }
+
+  staggerDurations = {
+    [SPELLS.LIGHT_STAGGER_DEBUFF.id]: 0,
+    [SPELLS.MODERATE_STAGGER_DEBUFF.id]: 0,
+    [SPELLS.HEAVY_STAGGER_DEBUFF.id]: 0,
+  };
+  _staggerLevel = null;
+  _lastDebuffApplied = 0;
 
   constructor(...args) {
     super(...args);
@@ -91,10 +93,9 @@ class HighTolerance extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.HIGH_TOLERANCE_TALENT.id} />}
-        value={`${formatPercentage(this.meanHaste)}%`}
-        label="Avg. Haste from High Tolerance"
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL()}
+        size="flexible"
         tooltip={(
           <>
             You spent:
@@ -106,10 +107,15 @@ class HighTolerance extends Analyzer {
             </ul>
           </>
         )}
-      />
+      >
+        <BoringValue label={<><SpellIcon id={SPELLS.HIGH_TOLERANCE_TALENT.id} /> Avg. Haste from High Tolerance</>}>
+          <>
+            <HasteIcon /> {formatPercentage(this.meanHaste)} %
+          </>
+        </BoringValue>
+      </Statistic>
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default HighTolerance;

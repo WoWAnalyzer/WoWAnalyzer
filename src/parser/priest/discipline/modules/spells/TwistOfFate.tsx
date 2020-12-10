@@ -21,6 +21,7 @@ const TWIST_OF_FATE_HEALING_INCREASE = 0.2;
 class TwistOfFate extends Analyzer {
   healing = 0;
   damage = 0;
+  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 
   constructor(options: Options) {
     super(options);
@@ -62,11 +63,11 @@ class TwistOfFate extends Analyzer {
   suggestions(when: When) {
     when(this.owner.getPercentageOfTotalHealingDone(this.healing)).isLessThan(0.05)
       .addSuggestion((suggest: SuggestionFactory, actual: number, recommended: number) => suggest(<span>Consider picking a different talent than <SpellLink id={SPELLS.TWIST_OF_FATE_TALENT_DISCIPLINE.id} />. Castigation will give a consistent 3-5% increase and Schism provides a significant DPS increase if more healing is not needed.</span>)
-          .icon(SPELLS.TWIST_OF_FATE_TALENT_DISCIPLINE.icon)
-          .actual(i18n._(t('priest.discipline.suggestions.twistOfFate.efficiency')`${formatPercentage(actual)}% of total healing`))
-          .recommended(`>${formatPercentage(recommended)}% is recommended.`)
-          .regular(0.045)
-          .major(0.025));
+        .icon(SPELLS.TWIST_OF_FATE_TALENT_DISCIPLINE.icon)
+        .actual(i18n._(t('priest.discipline.suggestions.twistOfFate.efficiency')`${formatPercentage(actual)}% of total healing`))
+        .recommended(`>${formatPercentage(recommended)}% is recommended.`)
+        .regular(0.045)
+        .major(0.025));
 
   }
 
@@ -96,7 +97,6 @@ class TwistOfFate extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default TwistOfFate;

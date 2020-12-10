@@ -9,6 +9,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { Trans } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
 
 // I have observed massive delays of the copied application
 // the linked log has
@@ -27,6 +28,7 @@ import { Trans } from '@lingui/macro';
  */
 class PrimalTideCore extends Analyzer {
   healing = 0;
+  overhealing = 0;
   targetsWithBoostedRiptides: boolean[] = [];
 
   castEvent: CastEvent | null = null;
@@ -38,7 +40,8 @@ class PrimalTideCore extends Analyzer {
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.RIPTIDE, SPELLS.PRIMORDIAL_WAVE_CAST]), this.castedRiptide);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.trackRiptide);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.trackRiptide);
+    // we figured out it can never refresh a riptide
+    // this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.trackRiptide);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.riptideHeal);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.removeRiptide);
   }
@@ -47,6 +50,8 @@ class PrimalTideCore extends Analyzer {
     this.castEvent = event;
   }
 
+  // this relies on castevent coming 1st which does not actually happen every time
+  // should reorder that as well
   trackRiptide(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (!HasTarget(event)) {
       return;
@@ -65,6 +70,7 @@ class PrimalTideCore extends Analyzer {
   riptideHeal(event: HealEvent) {
     if (this.targetsWithBoostedRiptides[event.targetID]) {
       this.healing += event.amount + (event.absorbed || 0);
+      this.overhealing += (event.overheal || 0);
     }
   }
 
@@ -77,7 +83,10 @@ class PrimalTideCore extends Analyzer {
       <Statistic
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
-        tooltip={<Trans id="shaman.restoration.legendaries.primalTideCore.statistic.tooltip">{this.gainedRiptideCasts} Riptide applications</Trans>}
+        tooltip={<>
+          <Trans id="shaman.restoration.legendaries.primalTideCore.statistic.tooltip">{this.gainedRiptideCasts} Riptide applications</Trans><br />
+          <Trans id="shaman.restoration.legendaries.primalTideCore.statistic.tooltip2">{formatPercentage(this.overhealing / (this.healing + this.overhealing))}% Overhealing</Trans>
+        </>}
       >
         <BoringSpellValueText spell={SPELLS.PRIMAL_TIDE_CORE}>
           <ItemHealingDone amount={this.healing} />

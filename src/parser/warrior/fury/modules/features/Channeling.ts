@@ -8,7 +8,7 @@ class Channeling extends CoreChanneling {
     ...CoreChanneling.dependencies,
   };
 
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.onApplyBuff);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER), this.onRemoveBuff);

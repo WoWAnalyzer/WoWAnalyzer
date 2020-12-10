@@ -54,35 +54,35 @@ class FightSelection extends React.PureComponent {
         <div className="flex wrapable" style={{ marginBottom: 15 }}>
           <div className="flex-main" style={{ position: 'relative' }}>
             <div className="back-button">
-              <Tooltip content={i18n._(t`Back to home`)}>
+              <Tooltip content={i18n._(t('interface.report.fightSelection.tooltip.backToHome')`Back to home`)}>
                 <Link to="/">
                   <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
                   <label>
                     {' '}
-                    <Trans>Home</Trans>
+                    <Trans id="interface.report.fightSelection.tooltip.home">Home</Trans>
                   </label>
                 </Link>
               </Tooltip>
             </div>
             <h1 style={{ lineHeight: 1.4, margin: 0 }}>
-              <Trans>Fight selection</Trans>
+              <Trans id="interface.report.fightSelection.fightSelection">Fight selection</Trans>
             </h1>
             <small style={{ marginTop: -5 }}>
-              <Trans>Select the fight you wish to analyze.</Trans>
+              <Trans id="interface.report.fightSelection.fightSelectionDetails">Select the fight you wish to analyze.</Trans>
             </small>
           </div>
           <div className="flex-sub">
             <div>
               <Tooltip
                 content={
-                  <Trans>
+                  <Trans id="interface.report.fightSelection.tooltip.refreshFightsList">
                     This will refresh the fights list which can be useful if you're live logging.
                   </Trans>
                 }
               >
                 <Link to={makeAnalyzerUrl(report)} onClick={refreshReport}>
                   <span className="glyphicon glyphicon-refresh" aria-hidden="true" />{' '}
-                  <Trans>Refresh</Trans>
+                  <Trans id="interface.report.fightSelection.refresh">Refresh</Trans>
                 </Link>
               </Tooltip>
               <span className="toggle-control" style={{ marginLeft: 5 }}>
@@ -94,7 +94,7 @@ class FightSelection extends React.PureComponent {
                 />
                 <label htmlFor="kills-only-toggle">
                   {' '}
-                  <Trans>Kills only</Trans>
+                  <Trans id="interface.report.fightSelection.killsOnly">Kills only</Trans>
                 </label>
               </span>
             </div>
@@ -128,7 +128,7 @@ class FightSelection extends React.PureComponent {
         {/* TODO: Refactor the DocumentTitle away */}
         <DocumentTitle
           title={
-            fight ? i18n._(t`${getFightName(report, fight)} in ${report.title}`) : report.title
+            fight ? i18n._(t('interface.report.fightSelection.documentTitle')`${getFightName(report, fight)} in ${report.title}`) : report.title
           }
         />
 

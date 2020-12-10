@@ -4,8 +4,8 @@ import { Abelito75, HolySchmidt } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 import Config from 'parser/Config';
+import SpellIcon from 'common/SpellIcon';
 
 import CHANGELOG from './CHANGELOG';
 
@@ -56,7 +56,7 @@ const config: Config = {
     GLIMMER: {
       url: 'glimmer',
       name: 'Glimmer Paladin',
-      icon: <SpellIcon id={SPELLS.GLIMMER_OF_LIGHT.id} />,
+      icon: <SpellIcon id={SPELLS.GLIMMER_OF_LIGHT_TALENT.id} />,
       visible: true,
     },
   },

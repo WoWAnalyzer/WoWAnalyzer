@@ -5,8 +5,10 @@ import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-import StatisticBox from 'interface/others/StatisticBox';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
+import BoringValue from 'interface/statistics/components/BoringValueText';
 import { calculatePrimaryStat } from 'common/stats';
 
 import { BASE_AGI, GIFT_OF_THE_OX_SPELLS } from '../../constants';
@@ -28,7 +30,7 @@ const WDPS_310_AGI_POLEARM = 122.8;
 export default class GiftOfTheOx extends Analyzer {
   static dependencies = {
     stats: StatTracker,
-  }
+  };
 
   totalHealing = 0;
   agiBonusHealing = 0;
@@ -89,7 +91,7 @@ export default class GiftOfTheOx extends Analyzer {
     //                  = Heal * BonusMastery / (1 + BonusMastery + BaseMastery)
     this.masteryBonusHealing += amount * (this.stats.currentMasteryPercentage - this.stats.masteryPercentage(0, true)) / (1 + this.stats.currentMasteryPercentage);
 
-    if(event.timestamp === this._lastEHTimestamp) {
+    if (event.timestamp === this._lastEHTimestamp) {
       this.expelHarmOrbsConsumed += 1;
       this.expelHarmOverhealing += event.overheal || 0;
     }
@@ -97,17 +99,22 @@ export default class GiftOfTheOx extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={GIFT_OF_THE_OX_SPELLS[0].id} />}
-        label="Gift of the Ox Healing"
-        value={`${formatNumber(this.totalHealing / (this.owner.fightDuration / 1000))} HPS`}
+      <Statistic
+        size="flexible"
+        position={STATISTIC_ORDER.OPTIONAL()}
         tooltip={(
           <>
             You generated {formatNumber(this.orbsGenerated)} healing spheres and consumed {formatNumber(this.orbsConsumed)} of them, healing for <b>{formatNumber(this.totalHealing)}</b>.<br />
             {formatNumber(this.expelHarmOrbsConsumed)} of these were consumed with Expel Harm over {formatNumber(this.expelHarmCasts)} casts.
           </>
         )}
-      />
+      >
+        <BoringValue label={<><SpellIcon id={GIFT_OF_THE_OX_SPELLS[0].id} /> Gift of the Ox Healing</>}>
+          <>
+            {formatNumber(this.totalHealing / (this.owner.fightDuration / 1000))} HPS
+          </>
+        </BoringValue>
+      </Statistic>
     );
   }
 }

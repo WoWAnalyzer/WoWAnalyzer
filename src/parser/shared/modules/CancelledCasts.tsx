@@ -11,6 +11,8 @@ import CrossIcon from 'interface/icons/Cross';
 import Statistic from 'interface/statistics/Statistic';
 import BoringValueText from 'interface/statistics/components/BoringValueText';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
+import CASTABLE_WHILE_CASTING_SPELLS from 'parser/core/CASTABLE_WHILE_CASTING_SPELLS';
 
 import Events, { CastEvent, BeginCastEvent } from '../../core/Events';
 
@@ -39,7 +41,7 @@ class CancelledCasts extends Analyzer {
 
   onBeginCast(event: BeginCastEvent) {
     const spellId = event.ability.guid;
-    if (this.IGNORED_ABILITIES.includes(spellId)) {
+    if (this.IGNORED_ABILITIES.includes(spellId) || CASTS_THAT_ARENT_CASTS.includes(spellId) || CASTABLE_WHILE_CASTING_SPELLS.includes(spellId)) {
       return;
     }
     if (this.wasCastStarted && this.beginCastSpell !== undefined &&
@@ -56,7 +58,7 @@ class CancelledCasts extends Analyzer {
   onCast(event: CastEvent) {
     const spellId = event.ability.guid;
     const beginCastAbility = this.beginCastSpell && this.beginCastSpell.ability;
-    if (this.IGNORED_ABILITIES.includes(spellId) || !beginCastAbility) {
+    if (this.IGNORED_ABILITIES.includes(spellId) || CASTS_THAT_ARENT_CASTS.includes(spellId) || CASTABLE_WHILE_CASTING_SPELLS.includes(spellId) || !beginCastAbility) {
       return;
     }
     if (beginCastAbility.guid !== spellId && this.wasCastStarted) {

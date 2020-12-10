@@ -16,9 +16,18 @@ const HASTE_PER_STACK = 3;
 
 class Starlord extends Analyzer {
 
+  get averageHaste() {
+    let avgStacks = 0;
+    this.buffStacks.forEach((elem, index) => {
+      avgStacks += elem.reduce((a, b) => a + b) / this.owner.fightDuration * index;
+    });
+    return (avgStacks * HASTE_PER_STACK).toFixed(2);
+  }
+
   buffStacks = [];
   lastStacks = 0;
   lastUpdate = this.owner.fight.start_time;
+  statisticOrder = STATISTIC_ORDER.OPTIONAL(5);
 
   constructor(...args) {
     super(...args);
@@ -39,14 +48,6 @@ class Starlord extends Analyzer {
     }
     this.lastUpdate = event.timestamp;
     this.lastStacks = currentStacks(event);
-  }
-
-  get averageHaste() {
-    let avgStacks = 0;
-    this.buffStacks.forEach((elem, index) => {
-      avgStacks += elem.reduce((a, b) => a + b) / this.owner.fightDuration * index;
-    });
-    return (avgStacks * HASTE_PER_STACK).toFixed(2);
   }
 
   statistic() {
@@ -85,8 +86,6 @@ class Starlord extends Analyzer {
       </Statistic>
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(5);
 }
 
 export default Starlord;

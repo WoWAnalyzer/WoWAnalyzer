@@ -2,10 +2,12 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import Events, { EventType, ChangeHasteEvent } from 'parser/core/Events';
+import Events, { ChangeHasteEvent, EventType } from 'parser/core/Events';
 import EventFilter from 'parser/core/EventFilter';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
+import BoringValue from 'interface/statistics/components/BoringValueText';
 
 import Abilities from '../Abilities';
 import KegSmash from '../spells/KegSmash';
@@ -19,15 +21,13 @@ class BrewCDR extends Analyzer {
     bob: BlackOxBrew,
     abilities: Abilities,
   };
-
+  _totalHaste = 0;
+  _newHaste = 0;
+  _lastHasteChange = 0;
   protected ks!: KegSmash;
   protected tp!: TigerPalm;
   protected bob!: BlackOxBrew;
   protected abilities!: Abilities;
-
-  _totalHaste = 0;
-  _newHaste = 0;
-  _lastHasteChange = 0;
 
   constructor(options: Options) {
     super(options);
@@ -73,22 +73,11 @@ class BrewCDR extends Analyzer {
     return ability.getCooldown(this.meanHaste);
   }
 
-  private _updateHaste(event: ChangeHasteEvent) {
-    this._totalHaste += event.oldHaste! * (event.timestamp - this._lastHasteChange);
-    this._lastHasteChange = event.timestamp;
-    this._newHaste = event.newHaste!;
-  }
-
-  private _finalizeHaste() {
-    this._totalHaste += this._newHaste * (this.owner.fight.end_time - this._lastHasteChange);
-  }
-
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.TIGER_PALM.id} />}
-        value={`${formatPercentage(this.cooldownReductionRatio)}%`}
-        label="Effective Brew CDR"
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL()}
+        size="flexible"
         tooltip={(
           <>
             Your cooldowns were reduced by:
@@ -101,10 +90,25 @@ class BrewCDR extends Analyzer {
             <strong>Total cooldown reduction:</strong> {(this.totalCDR / 1000).toFixed(2)}s.<br />
           </>
         )}
-      />
+      >
+        <BoringValue label={<><SpellIcon id={SPELLS.TIGER_PALM.id} /> Effective Brew CDR</>}>
+          <>
+            {formatPercentage(this.cooldownReductionRatio)} %
+          </>
+        </BoringValue>
+      </Statistic>
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
+
+  private _updateHaste(event: ChangeHasteEvent) {
+    this._totalHaste += event.oldHaste! * (event.timestamp - this._lastHasteChange);
+    this._lastHasteChange = event.timestamp;
+    this._newHaste = event.newHaste!;
+  }
+
+  private _finalizeHaste() {
+    this._totalHaste += this._newHaste * (this.owner.fight.end_time - this._lastHasteChange);
+  }
 }
 
 export default BrewCDR;

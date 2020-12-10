@@ -38,9 +38,9 @@ class AimedShot extends Analyzer {
 
     this.addEventListener(Events.any, this.onEvent);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT), this.onCast);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.TRUESHOT, SPELLS.DEAD_EYE_BUFF]), (event: ApplyBuffEvent) => this.onAffectingBuffChange(event));
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell([SPELLS.TRUESHOT, SPELLS.DEAD_EYE_BUFF]), (event: RefreshBuffEvent) => this.onAffectingBuffChange(event));
-    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell([SPELLS.TRUESHOT, SPELLS.DEAD_EYE_BUFF]), (event: RemoveBuffEvent) => this.onAffectingBuffChange(event));
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.TRUESHOT, SPELLS.DEAD_EYE_BUFF]), this.onAffectingBuffChange);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell([SPELLS.TRUESHOT, SPELLS.DEAD_EYE_BUFF]), this.onAffectingBuffChange);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell([SPELLS.TRUESHOT, SPELLS.DEAD_EYE_BUFF]), this.onAffectingBuffChange);
   }
 
   onEvent(event: AnyEvent) {

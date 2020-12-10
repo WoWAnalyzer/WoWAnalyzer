@@ -15,14 +15,14 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
-const damagingCasts = [SPELLS.FIRE_ELEMENTAL_METEOR, SPELLS.FIRE_ELEMENTAL_IMMOLATE, SPELLS.FIRE_ELEMENTAL_FIRE_BLAST];
 
+const damagingCasts = [SPELLS.FIRE_ELEMENTAL_METEOR, SPELLS.FIRE_ELEMENTAL_IMMOLATE, SPELLS.FIRE_ELEMENTAL_FIRE_BLAST];
 
 class PrimalFireElemental extends Analyzer {
   meteorCasts = 0;
   PFEcasts = 0;
 
-  usedCasts: {[key: number]: boolean};
+  usedCasts: { [key: number]: boolean };
 
   damageGained = 0;
   maelstromGained = 0;
@@ -30,8 +30,8 @@ class PrimalFireElemental extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.usedCasts = {
-      [SPELLS.FIRE_ELEMENTAL_METEOR.id] : false,
-      [SPELLS.IMMOLATE.id] : false,
+      [SPELLS.FIRE_ELEMENTAL_METEOR.id]: false,
+      [SPELLS.IMMOLATE.id]: false,
       [SPELLS.FIRE_BLAST.id]: false,
     };
     this.active = this.selectedCombatant.hasTalent(SPELLS.PRIMAL_ELEMENTALIST_TALENT.id)
@@ -39,6 +39,10 @@ class PrimalFireElemental extends Analyzer {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(damagingCasts), this.onDamage);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FIRE_ELEMENTAL), this.onFECast);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER_PET).spell(damagingCasts), this.onDamagingCast);
+  }
+
+  get missedMeteorCasts() {
+    return this.PFEcasts - this.meteorCasts;
   }
 
   onDamage(event: DamageEvent) {
@@ -53,26 +57,22 @@ class PrimalFireElemental extends Analyzer {
     this.usedCasts[event.ability.guid] = true;
   }
 
-  get missedMeteorCasts() {
-    return this.PFEcasts-this.meteorCasts;
-  }
-
   suggestions(when: When) {
     const unusedSpells = Object.keys(this.usedCasts).filter(key => !this.usedCasts[Number(key)]);
     const unusedSpellsString = unusedSpells.join(', ');
     const unusedSpellsCount = unusedSpells.length;
     when(unusedSpellsCount).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => suggest(<span> Your Fire Elemental is not using all of it's spells. Check if immolate and Fire Blast are set to autocast and you are using Meteor.</span>)
-          .icon(SPELLS.FIRE_ELEMENTAL.icon)
-          .actual(i18n._(t('shaman.elemental.suggestions.primalElemental.unusedSpells')`${formatNumber(unusedSpellsCount)} spells not used by your Fire Elemental (${unusedSpellsString})`))
-          .recommended(`You should be using all spells of your Fire Elemental.`)
-          .major(recommended+1));
+        .icon(SPELLS.FIRE_ELEMENTAL.icon)
+        .actual(i18n._(t('shaman.elemental.suggestions.primalElemental.unusedSpells')`${formatNumber(unusedSpellsCount)} spells not used by your Fire Elemental (${unusedSpellsString})`))
+        .recommended(`You should be using all spells of your Fire Elemental.`)
+        .major(recommended + 1));
     when(this.missedMeteorCasts).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>You are not using <SpellLink id={SPELLS.FIRE_ELEMENTAL_METEOR.id} /> every time you cast <SpellLink id={SPELLS.FIRE_ELEMENTAL.id} /> if you are using <SpellLink id={SPELLS.PRIMAL_ELEMENTALIST_TALENT.id} />. Only wait with casting meteor if you wait for adds to spawn.</span>)
-          .icon(SPELLS.FIRE_ELEMENTAL.icon)
-          .actual(i18n._(t('shaman.elemental.suggestions.primalElemental.meteorCastsMissed')`${formatNumber(this.missedMeteorCasts)} missed Meteor Casts.`))
-          .recommended(`You should cast Meteor every time you summon your Fire Elemental `)
-          .major(recommended+1));
+        .icon(SPELLS.FIRE_ELEMENTAL.icon)
+        .actual(i18n._(t('shaman.elemental.suggestions.primalElemental.meteorCastsMissed')`${formatNumber(this.missedMeteorCasts)} missed Meteor Casts.`))
+        .recommended(`You should cast Meteor every time you summon your Fire Elemental `)
+        .major(recommended + 1));
   }
 
   statistic() {
@@ -80,7 +80,7 @@ class PrimalFireElemental extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
-        >
+      >
         <>
           <BoringSpellValueText spell={SPELLS.FIRE_ELEMENTAL}>
             <ItemDamageDone amount={this.damageGained} />

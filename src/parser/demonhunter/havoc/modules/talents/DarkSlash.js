@@ -45,7 +45,7 @@ class DarkSlash extends Analyzer {
     }
   }
 
-  statistic(){
+  statistic() {
     return (
       <TalentStatisticBox
         talent={SPELLS.DARK_SLASH_TALENT.id}

@@ -13,15 +13,6 @@ import { t } from '@lingui/macro';
  */
 
 class RendUptime extends Analyzer {
-  static dependencies = {
-    enemies: Enemies,
-  };
-
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.REND_TALENT.id);
-  }
-
   get uptime() {
     return this.enemies.getBuffUptime(SPELLS.REND_TALENT.id) / this.owner.fightDuration;
   }
@@ -38,11 +29,20 @@ class RendUptime extends Analyzer {
     };
   }
 
+  static dependencies = {
+    enemies: Enemies,
+  };
+
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.REND_TALENT.id);
+  }
+
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.REND_TALENT.id} /> uptime can be improved. If you choose this talent, you better use it !</>)
-        .icon(SPELLS.REND_TALENT.icon)
-        .actual(i18n._(t('warrior.arms.suggestions.rend.uptime')`${formatPercentage(actual)}% Rend uptime`))
-        .recommended(`>${formatPercentage(recommended)}% is recommended`));
+      .icon(SPELLS.REND_TALENT.icon)
+      .actual(i18n._(t('warrior.arms.suggestions.rend.uptime')`${formatPercentage(actual)}% Rend uptime`))
+      .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   subStatistic() {

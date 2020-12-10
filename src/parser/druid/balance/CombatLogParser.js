@@ -31,15 +31,6 @@ import Starlord from './modules/talents/Starlord';
 import AstralPowerDetails from './modules/resourcetracker/AstralPowerDetails';
 import AstralPowerTracker from './modules/resourcetracker/AstralPowerTracker';
 
-//azerite
-import DawningSun from './modules/talents/azeritetraits/DawningSun';
-import HighNoon from './modules/talents/azeritetraits/HighNoon';
-import PowerOfTheMoon from './modules/talents/azeritetraits/PowerOfTheMoon';
-import StreakingStars from './modules/talents/azeritetraits/StreakingStars';
-import ArcanicPulsar from './modules/talents/azeritetraits/ArcanicPulsar';
-
-//Items
-
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     haste: Haste,
@@ -72,15 +63,6 @@ class CombatLogParser extends MainCombatLogParser {
     //Resources
     astralPowerTracker: AstralPowerTracker,
     astralPowerDetails: AstralPowerDetails,
-
-    //Items
-
-    //azerite
-    dawningSun: DawningSun,
-    highNoon: HighNoon,
-    powerOfTheMoon: PowerOfTheMoon,
-    streakingStars: StreakingStars,
-    arcanicPulsar: ArcanicPulsar,
   };
 }
 

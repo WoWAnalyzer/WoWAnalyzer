@@ -23,17 +23,7 @@ const HIGH_TIER_REFRESH_TIME = 3000;
  * 4 - High value rolls (1 'good' buff, 2 buffs where at least one is a 'good' buff, or 5 buffs, keep as long as you can, rerolling under 3 seconds is considered fine)
  */
 class RollTheBonesEfficiency extends Analyzer {
-  static dependencies = {
-    rollTheBonesCastTracker: RollTheBonesCastTracker,
-  };
-
-  constructor(...args) {
-    super(...args);
-    this.active = !this.selectedCombatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.DISPATCH, SPELLS.BETWEEN_THE_EYES]), this.onCast);
-  }
-
-  get goodLowValueRolls(){
+  get goodLowValueRolls() {
     const delayedRolls = this.rollTheBonesCastTracker.rolltheBonesCastValues[ROLL_THE_BONES_CATEGORIES.LOW_VALUE]
       .filter(cast => cast.RTBIsDelayed).length;
     const totalRolls = this.rollTheBonesCastTracker.rolltheBonesCastValues[ROLL_THE_BONES_CATEGORIES.LOW_VALUE].length;
@@ -41,42 +31,18 @@ class RollTheBonesEfficiency extends Analyzer {
     return totalRolls - delayedRolls;
   }
 
-  get goodMidValueRolls(){
+  get goodMidValueRolls() {
     // todo get the actual pandemic window. it's tricky because it's based on the next cast, and it's not really important that the player is exact anyway
     return this.rollTheBonesCastTracker.rolltheBonesCastValues[ROLL_THE_BONES_CATEGORIES.MID_VALUE]
       .filter(cast => this.rollTheBonesCastTracker.castRemainingDuration(cast) > HIGH_TIER_REFRESH_TIME && this.rollTheBonesCastTracker.castRemainingDuration(cast) < MID_TIER_REFRESH_TIME).length;
   }
 
-  get goodHighValueRolls(){
+  get goodHighValueRolls() {
     return this.rollTheBonesCastTracker.rolltheBonesCastValues[ROLL_THE_BONES_CATEGORIES.HIGH_VALUE]
       .filter(cast => this.rollTheBonesCastTracker.castRemainingDuration(cast) <= HIGH_TIER_REFRESH_TIME).length;
   }
 
-  onCast(event){
-    if(event.ability.guid !== SPELLS.DISPATCH.id && event.ability.guid !== SPELLS.BETWEEN_THE_EYES.id){
-      return;
-    }
-
-    const lastCast = this.rollTheBonesCastTracker.lastCast;
-    if(lastCast && this.rollTheBonesCastTracker.categorizeCast(lastCast) === ROLL_THE_BONES_CATEGORIES.LOW_VALUE){
-      //FIX WHEN UPDATING ROGUE TO TS
-      lastCast.RTBIsDelayed = true;
-    }
-  }
-
-  rollSuggestionThreshold(pass, total){
-    return {
-      actual: total === 0 ? 1 : pass / total,
-      isLessThan: {
-        minor: 1,
-        average: 0.9,
-        major: 0.8,
-      },
-      style: 'percentage',
-    };
-  }
-
-  get rollSuggestions(){
+  get rollSuggestions() {
     const rtbCastValues = this.rollTheBonesCastTracker.rolltheBonesCastValues;
     return [
       // Percentage of low rolls that weren't rerolled right away, meaning a different finisher was cast first
@@ -107,12 +73,46 @@ class RollTheBonesEfficiency extends Analyzer {
     ];
   }
 
+  static dependencies = {
+    rollTheBonesCastTracker: RollTheBonesCastTracker,
+  };
+
+  constructor(...args) {
+    super(...args);
+    this.active = !this.selectedCombatant.hasTalent(SPELLS.SLICE_AND_DICE.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.DISPATCH, SPELLS.BETWEEN_THE_EYES]), this.onCast);
+  }
+
+  onCast(event) {
+    if (event.ability.guid !== SPELLS.DISPATCH.id && event.ability.guid !== SPELLS.BETWEEN_THE_EYES.id) {
+      return;
+    }
+
+    const lastCast = this.rollTheBonesCastTracker.lastCast;
+    if (lastCast && this.rollTheBonesCastTracker.categorizeCast(lastCast) === ROLL_THE_BONES_CATEGORIES.LOW_VALUE) {
+      //FIX WHEN UPDATING ROGUE TO TS
+      lastCast.RTBIsDelayed = true;
+    }
+  }
+
+  rollSuggestionThreshold(pass, total) {
+    return {
+      actual: total === 0 ? 1 : pass / total,
+      isLessThan: {
+        minor: 1,
+        average: 0.9,
+        major: 0.8,
+      },
+      style: 'percentage',
+    };
+  }
+
   suggestions(when) {
     this.rollSuggestions.forEach(suggestion => {
       when(suggestion.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your efficiency with refreshing <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> after a {suggestion.label} roll could be improved. <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> and <SpellLink id={SPELLS.GRAND_MELEE.id} /> are your highest value buffs from <SpellLink id={SPELLS.ROLL_THE_BONES.id} />. {suggestion.extraSuggestion || ''}</>)
-          .icon(SPELLS.ROLL_THE_BONES.icon)
-          .actual(i18n._(t('rogue.outlaw.suggestions.rollTheBones.efficiency')`${formatPercentage(actual)}% (${suggestion.pass} out of ${suggestion.total}) efficient rerolls`))
-          .recommended(`${formatPercentage(recommended)}% is recommended`));
+        .icon(SPELLS.ROLL_THE_BONES.icon)
+        .actual(i18n._(t('rogue.outlaw.suggestions.rollTheBones.efficiency')`${formatPercentage(actual)}% (${suggestion.pass} out of ${suggestion.total}) efficient rerolls`))
+        .recommended(`${formatPercentage(recommended)}% is recommended`));
     });
   }
 }

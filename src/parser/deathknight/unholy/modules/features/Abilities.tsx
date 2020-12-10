@@ -6,6 +6,8 @@ import SpellLink from 'common/SpellLink';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 
+import COVENANTS from 'game/shadowlands/COVENANTS';
+
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
@@ -73,8 +75,17 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.EPIDEMIC_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        spell: SPELLS.EPIDEMIC,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.DEATH_AND_DECAY,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        enabled: !combatant.hasTalent(SPELLS.DEFILE_TALENT.id),
+        cooldown: 30,
         gcd: {
           base: 1500,
         },
@@ -84,7 +95,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.APOCALYPSE,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 90,
+        cooldown: 75,
         gcd: {
           base: 1500,
         },
@@ -116,8 +127,21 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
       },
+
       // defensives
+      {
+        spell: SPELLS.SACRIFICIAL_PACT,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 120,
+        gcd: {
+          base: 1500,
+        },
+      },
       {
         spell: SPELLS.ICEBOUND_FORTITUDE,
         buffSpellId: SPELLS.ICEBOUND_FORTITUDE.id,
@@ -155,43 +179,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.UNHOLY_FRENZY_TALENT,
+        spell: SPELLS.UNHOLY_ASSAULT_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 75,
-        enabled: combatant.hasTalent(SPELLS.UNHOLY_FRENZY_TALENT.id),
-        castEfficiency:{
-          suggestion: true,
-          recommendedEfficiency: .90,
-        },
-      },
-      {
-        spell: SPELLS.SOUL_REAPER_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 45,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(SPELLS.SOUL_REAPER_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.UNHOLY_ASSAULT_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.85,
-        },
-      },
-      {
-        spell: SPELLS.EPIDEMIC_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(SPELLS.EPIDEMIC_TALENT.id),
-      },
-      {
-        spell: SPELLS.DEATH_AND_DECAY,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: !combatant.hasTalent(SPELLS.DEFILE_TALENT.id),
-        cooldown: 30,
-        gcd: {
-          base: 1500,
+          recommendedEfficiency: .90,
         },
       },
       {
@@ -201,6 +195,10 @@ class Abilities extends CoreAbilities {
         cooldown: 45,
         gcd: {
           base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: .90,
         },
       },
       {
@@ -310,6 +308,84 @@ class Abilities extends CoreAbilities {
           return 10 / (1 + haste) / (1 + multiplier);
         },
         charges: 2,
+      },
+
+      // covenants
+      {
+        spell: SPELLS.SWARMING_MIST,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,     
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
+        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+      },
+      {
+        spell: SPELLS.DOOR_OF_SHADOWS,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,     
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+      },
+      {
+        spell: SPELLS.ABOMINATION_LIMB,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,     
+        cooldown: 120,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
+        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+      },
+      {
+        spell: SPELLS.FLESHCRAFT,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,     
+        cooldown: 120,
+        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+      },
+      {
+        spell: SPELLS.SHACKLE_THE_UNWORTHY,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,     
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
+        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+      },
+      {
+        spell: SPELLS.DEATHS_DUE,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,     
+        cooldown: 30,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
+        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+      },
+      {
+        spell: SPELLS.SOULSHAPE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,     
+        cooldown: 30,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
       },
     ];
   }

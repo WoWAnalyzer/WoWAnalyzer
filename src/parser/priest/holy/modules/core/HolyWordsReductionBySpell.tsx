@@ -5,22 +5,19 @@ import HolyWordChastise from 'parser/priest/holy/modules/spells/holyword/HolyWor
 import HolyWordSalvation from 'parser/priest/holy/modules/spells/holyword/HolyWordSalvation';
 import HolyWordSerenity from 'parser/priest/holy/modules/spells/holyword/HolyWordSerenity';
 import SPELLS from 'common/SPELLS';
-import StatisticBox from 'interface/others/StatisticBox';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 
 class HolyWordsReductionBySpell extends Analyzer {
-  lightOfTheNaaruActive = false;
-  apotheosisActive = false;
-
   static dependencies = {
     sanctify: HolyWordSanctify,
     serenity: HolyWordSerenity,
     chastise: HolyWordChastise,
     salvation: HolyWordSalvation,
   };
-
+  lightOfTheNaaruActive = false;
+  apotheosisActive = false;
   protected sanctify!: HolyWordSanctify;
   protected serenity!: HolyWordSerenity;
   protected chastise!: HolyWordChastise;

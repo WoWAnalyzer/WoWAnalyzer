@@ -24,9 +24,9 @@ class FuryTracker extends ResourceTracker {
     const blindFuryId = SPELLS.BLIND_FURY_TALENT.id;
     //TODO: Account for Eye Beam clipping
     // Blind Fury resource gain does not have an energize event so it is handled here
-    if(spellId === SPELLS.EYE_BEAM.id && this.selectedCombatant.hasTalent(blindFuryId)) {
+    if (spellId === SPELLS.EYE_BEAM.id && this.selectedCombatant.hasTalent(blindFuryId)) {
       this.waste = event.classResources[0].amount - BLIND_FURY_WASTE_CUTOFF;
-      if(this.waste <= 0){
+      if (this.waste <= 0) {
         this.waste = 0;
       }
       const AMOUNT = (event.classResources[0].max - event.classResources[0].amount) + this.waste;

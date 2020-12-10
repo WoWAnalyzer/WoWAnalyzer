@@ -1021,4 +1021,19 @@ export const Mae: Contributor = {
     spec: SPECS.RESTORATION_SHAMAN,
     link: 'https://worldofwarcraft.com/en-gb/character/eu/draenor/maerstrom'
   }]
-}
+};
+export const VMakaev: Contributor = {
+  nickname: 'VMakaev',
+  github: 'vladimirmakaev',
+  discord: 'Vladimir#5076',
+  mains: [{
+    name: 'Kaylleen',
+    spec: SPECS.DISCIPLINE_PRIEST,
+    link: 'https://worldofwarcraft.com/en-gb/character/eu/silvermoon/kaylleen'
+  }, {
+    name: 'Elastan',
+    spec: SPECS.PROTECTION_PALADIN,
+    link: 'https://worldofwarcraft.com/en-gb/character/eu/silvermoon/elastan'
+  }]
+};
+

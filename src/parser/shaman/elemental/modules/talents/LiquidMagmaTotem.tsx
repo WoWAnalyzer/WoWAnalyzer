@@ -28,11 +28,11 @@ class LiquidMagmaTotem extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
-        >
+      >
         <BoringSpellValueText spell={SPELLS.LIQUID_MAGMA_TOTEM_TALENT}>
           <>
             <ItemDamageDone amount={this.damageGained} />
-            </>
+          </>
         </BoringSpellValueText>
       </Statistic>
     );

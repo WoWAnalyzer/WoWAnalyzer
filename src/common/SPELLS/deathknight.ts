@@ -4,12 +4,7 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import safeMerge from 'common/safeMerge';
-import { Enchant } from 'common/ITEMS/Item';
-
-import { SpellList } from "./Spell";
-
-const spells: SpellList = {
+const spells = {
   // Blood:
 
   //Summons
@@ -233,10 +228,10 @@ const spells: SpellList = {
     name: 'Chill Streak',
     icon: 'spell_frost_piercing-chill',
   },
-  FROSTWYRMS_FURY: { 
-    id: 279302, 
-    name: 'Frostwyrm\'s Fury', 
-    icon: 'achievement_boss_sindragosa' 
+  FROSTWYRMS_FURY: {
+    id: 279302,
+    name: 'Frostwyrm\'s Fury',
+    icon: 'achievement_boss_sindragosa'
   },
   // Buffs
   EMPOWER_RUNE_WEAPON: {
@@ -303,7 +298,7 @@ const spells: SpellList = {
     name: 'Obliteration',
     icon: 'inv_axe_114',
   },
-  
+
   // Unholy:
   // Spells
   APOCALYPSE: {
@@ -392,6 +387,13 @@ const spells: SpellList = {
     icon: 'achievement_boss_svalasorrowgrave',
   },
 
+  EPIDEMIC: {
+    id: 207317,
+    name: 'Epidemic',
+    icon: 'spell_nature_nullifydisease'
+  },
+
+
   // Shared:
   RUNEFORGING: {
     id: 53428,
@@ -411,7 +413,7 @@ const spells: SpellList = {
     name: 'Rune of Unending Thirst',
     icon: 'spell_nzinsanity_bloodthirst',
   },
-  
+
   //Rune of Spellwarding
   RUNE_OF_SPELLWARDING_BUFF_SHIELD: {
     id: 326867,
@@ -600,7 +602,7 @@ const spells: SpellList = {
   },
 };
 
-const runeforges: SpellList<Enchant> = {
+const runeforges = {
   RUNE_OF_THE_FALLEN_CRUSADER: {
     id: 53344,
     name: 'Rune of the Fallen Crusader',
@@ -656,6 +658,9 @@ const runeforges: SpellList<Enchant> = {
     icon: 'spell_fire_twilightfireward',
     effectId: 6242,
   },
-};
+} as const;
 
-export default safeMerge(spells, runeforges);
+export default {
+  ...spells,
+  ...runeforges
+} as const;

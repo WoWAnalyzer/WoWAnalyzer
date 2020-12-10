@@ -19,12 +19,11 @@ class Apotheosis extends Analyzer {
     serenity: HolyWordSerenity,
     chastise: HolyWordChastise,
   };
+  apotheosisCasts = 0;
+  apotheosisActive = false;
   protected sanctify!: HolyWordSanctify;
   protected serenity!: HolyWordSerenity;
   protected chastise!: HolyWordChastise;
-
-  apotheosisCasts = 0;
-  apotheosisActive = false;
 
   constructor(options: Options) {
     super(options);

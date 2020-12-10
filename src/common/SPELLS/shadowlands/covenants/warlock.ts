@@ -1,6 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const covenants: SpellList = {
+const covenants = {
   //Kyrian
   SCOURING_TITHE: {
     id: 312321,
@@ -28,5 +26,5 @@ const covenants: SpellList = {
     name: 'Soul Rot',
     icon: 'ability_ardenweald_warlock',
   },
-};
+} as const;
 export default covenants;

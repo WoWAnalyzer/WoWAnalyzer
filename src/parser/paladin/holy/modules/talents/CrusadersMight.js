@@ -1,5 +1,5 @@
 import React from 'react';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -64,7 +64,7 @@ class CrusadersMight extends Analyzer {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
       event.meta.inefficientCastReason = (
-        <Trans>
+        <Trans id="paladin.holy.modules.talents.crusadersMight.inefficientCast">
           Holy Shock was off cooldown when you cast Crusader Strike. You should cast Holy Shock
           before Crusader Strike for maximum healing or damage.
         </Trans>
@@ -88,34 +88,36 @@ class CrusadersMight extends Analyzer {
     if (this.owner.builds.GLIMMER.active) {
       when(this.holyShocksMissedThresholds).addSuggestion((suggest, actual, recommended) => suggest(
           <>
-            You cast <SpellLink id={SPELLS.CRUSADER_STRIKE.id} />{' '}
-            {this.wastedHolyShockReductionCount} times when
-            <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was off cooldown.{' '}
-            <SpellLink id={SPELLS.CRUSADER_STRIKE.id} /> should be used to reduce the cooldown of
-            <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> and should never be cast when{' '}
-            <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> is avalible. This is a core component of
-            the <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} />{' '}
-            <a
-              href="https://questionablyepic.com/glimmer-of-light/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              build.
-            </a>
+            <Trans id="paladin.holy.modules.talents.crusadersMight.suggestion">
+              You cast <SpellLink id={SPELLS.CRUSADER_STRIKE.id} />{' '}
+              {this.wastedHolyShockReductionCount} times when
+              <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was off cooldown.{' '}
+              <SpellLink id={SPELLS.CRUSADER_STRIKE.id} /> should be used to reduce the cooldown of
+              <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> and should never be cast when{' '}
+              <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> is avalible. This is a core component of
+              the <SpellLink id={SPELLS.GLIMMER_OF_LIGHT_TALENT.id} />{' '}
+              <a
+                href="https://questionablyepic.com/glimmer-of-light/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                build.
+              </a>
+            </Trans>
           </>,
         )
           .icon(SPELLS.HOLY_SHOCK_CAST.icon)
           .actual(
-            `${Math.floor(this.holyShocksCastsLost)} Holy Shock cast${
+            t('paladin.holy.modules.talents.crusadersMight.actual')`${Math.floor(this.holyShocksCastsLost)} Holy Shock cast${
               Math.floor(this.holyShocksCastsLost) === 1 ? '' : 's'
             } missed.`,
           )
-          .recommended(`Casting Holy Shock on cooldown is recommended.`));
+          .recommended(t('paladin.holy.modules.talents.crusadersMight.recommended')`Casting Holy Shock on cooldown is recommended.`));
     }
   }
 
   statistic() {
-    const formatSeconds = seconds => <Trans>{seconds}s</Trans>;
+    const formatSeconds = seconds => <Trans id="paladin.holy.modules.talents.crusadersMight.formatSeconds">{seconds}s</Trans>;
 
     return (
       <StatisticBox
@@ -133,9 +135,10 @@ class CrusadersMight extends Analyzer {
             />{' '}
           </>
         }
-        label={<Trans>Cooldown reduction</Trans>}
+        label={<Trans id="paladin.holy.modules.talents.crusadersMight.cdr">Cooldown reduction</Trans>}
         tooltip={
           <>
+            <Trans id="paladin.holy.modules.talents.crusadersMight.tooltip">
             You cast Crusader Strike <b>{this.wastedHolyShockReductionCount}</b> time
             {this.wastedHolyShockReductionCount === 1 ? '' : 's'} when Holy Shock was off cooldown.
             <br />
@@ -148,6 +151,7 @@ class CrusadersMight extends Analyzer {
             <br />
             {this.wastedLightOfDawnReductionCount === 1 ? '' : 's'} when Light of Dawn
             {this.owner.builds.GLIMMER.active ? ' and Holy Shock were' : ' was'} off cooldown.
+            </Trans>
           </>
         }
       />

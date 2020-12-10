@@ -13,10 +13,6 @@ import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class RipUptime extends Analyzer {
-  static dependencies = {
-    enemies: Enemies,
-  };
-
   get uptime() {
     return this.enemies.getBuffUptime(SPELLS.RIP.id) / this.owner.fightDuration;
   }
@@ -33,18 +29,22 @@ class RipUptime extends Analyzer {
     };
   }
 
+  static dependencies = {
+    enemies: Enemies,
+  };
+
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-        <>
-          Your <SpellLink id={SPELLS.RIP.id} /> uptime can be improved. You can refresh the DoT once it has reached its <TooltipElement content="The last 30% of the DoT's duration. When you refresh during this time you don't lose any duration in the process.">pandemic window</TooltipElement>, don't wait for it to wear off.
-          {!this.selectedCombatant.hasTalent(SPELLS.SABERTOOTH_TALENT.id) ?
-            <> Avoid spending combo points on <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> if <SpellLink id={SPELLS.RIP.id} /> will need refreshing soon.</> : <></>
-          }
-        </>,
-      )
-        .icon(SPELLS.RIP.icon)
-        .actual(i18n._(t('druid.feral.suggestions.rip.uptime')`${formatPercentage(actual)}% uptime`))
-        .recommended(`>${formatPercentage(recommended)}% is recommended`));
+      <>
+        Your <SpellLink id={SPELLS.RIP.id} /> uptime can be improved. You can refresh the DoT once it has reached its <TooltipElement content="The last 30% of the DoT's duration. When you refresh during this time you don't lose any duration in the process.">pandemic window</TooltipElement>, don't wait for it to wear off.
+        {!this.selectedCombatant.hasTalent(SPELLS.SABERTOOTH_TALENT.id) ?
+          <> Avoid spending combo points on <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> if <SpellLink id={SPELLS.RIP.id} /> will need refreshing soon.</> : <></>
+        }
+      </>,
+    )
+      .icon(SPELLS.RIP.icon)
+      .actual(i18n._(t('druid.feral.suggestions.rip.uptime')`${formatPercentage(actual)}% uptime`))
+      .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

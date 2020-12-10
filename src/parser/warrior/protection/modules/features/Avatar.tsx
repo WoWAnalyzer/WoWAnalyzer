@@ -13,14 +13,15 @@ const AVATAR_DAMAGE_INCREASE = 0.2;
 
 class Avatar extends Analyzer {
   bonusDmg = 0;
-
-  get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.AVATAR_TALENT.id) / this.owner.fightDuration;
-  }
+  statisticOrder = STATISTIC_ORDER.CORE(5);
 
   constructor(options: Options) {
     super(options);
     this.addEventListener(new EventFilter(EventType.Damage).by(SELECTED_PLAYER), this.handleDamage);
+  }
+
+  get uptime() {
+    return this.selectedCombatant.getBuffUptime(SPELLS.AVATAR_TALENT.id) / this.owner.fightDuration;
   }
 
   handleDamage(event: DamageEvent) {
@@ -47,7 +48,6 @@ class Avatar extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default Avatar;

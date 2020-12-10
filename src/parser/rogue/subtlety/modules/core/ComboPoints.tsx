@@ -15,10 +15,6 @@ class ComboPoints extends Analyzer {
 
   protected comboPointTracker!: ComboPointTracker;
 
-  makeExtraSuggestion(spell: Spell) {
-    return <>Avoid wasting combo points when casting <SpellLink id={spell.id} /> </>;
-  }
-
   get comboPointThresholds() {
     return {
       actual: this.comboPointTracker.wasted / this.comboPointTracker.generated,
@@ -29,6 +25,10 @@ class ComboPoints extends Analyzer {
       },
       style: 'percentage',
     };
+  }
+
+  makeExtraSuggestion(spell: Spell) {
+    return <>Avoid wasting combo points when casting <SpellLink id={spell.id} /> </>;
   }
 
   suggestions(when: When) {

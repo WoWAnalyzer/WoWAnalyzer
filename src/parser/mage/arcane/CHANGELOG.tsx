@@ -7,6 +7,8 @@ import { change, date } from 'common/changelog';
 
 // prettier-ignore
 export default [
+  change(date(2020, 11, 16), <>Added support for <SpellLink id={SPELLS.SHIFTING_POWER.id} />.</>, Sharrq),
+  change(date(2020, 11, 16), <>Updated numbers for <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> to match latest tuning.</>, Sharrq),
   change(date(2020, 10, 29), <>Added support for <SpellLink id={SPELLS.MASTER_OF_TIME_TALENT.id} />. </>, Sharrq),
   change(date(2020, 10, 20), <>Added Covenant Abilities to Spellbook. Updated <SpellLink id={SPELLS.ARCANE_ORB_TALENT.id} /> for Shadowlands and removed the GCD on <SpellLink id={SPELLS.ARCANE_POWER.id} />. </>, Sharrq),
   change(date(2020, 10, 13), <>Updated <SpellLink id={SPELLS.MIRROR_IMAGE.id} /> module, added a <SpellLink id={SPELLS.PRISMATIC_BARRIER.id} /> module, and adjusted <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> ... again. </>, Sharrq),

@@ -71,7 +71,7 @@ class FillerFlashOfLight extends Analyzer {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
       event.meta.inefficientCastReason = (
-        <Trans>
+        <Trans id="paladin.holy.modules.fillerFlashOfLight.inefficientCastReason">
           Holy Shock was off cooldown when you started casting this unbuffed Flash of Light. You
           should cast Holy Shock instead.
         </Trans>
@@ -97,13 +97,13 @@ class FillerFlashOfLight extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual) => suggest(
-        <Trans>
+        <Trans id="paladin.holy.modules.fillerFlashOfLight.suggestion">
           You started casting {this.inefficientCasts.length} filler{' '}
           <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />s while{' '}
           <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was{' '}
           <TooltipElement
             content={
-              <Trans>
+              <Trans id="paladin.holy.modules.fillerFlashOfLight.suggestion.tooltip">
                 It was either already available or going to be available within{' '}
                 {HOLY_SHOCK_COOLDOWN_WAIT_TIME}ms.
               </Trans>
@@ -119,7 +119,7 @@ class FillerFlashOfLight extends Analyzer {
           be prioritized
           <TooltipElement
             content={
-              <Trans>
+              <Trans id="paladin.holy.modules.fillerFlashOfLight.suggestion.exceptions">
                 There are very rare exceptions to this. For example it may be worth saving Holy
                 Shock when you know you're going to be moving soon and you may have to heal
                 yourself.
@@ -132,8 +132,8 @@ class FillerFlashOfLight extends Analyzer {
         </Trans>,
       )
         .icon(SPELLS.FLASH_OF_LIGHT.icon)
-        .actual(<Trans>{actual} casts while Holy Shock was available</Trans>)
-        .recommended(<Trans>No inefficient casts is recommended</Trans>));
+        .actual(<Trans id="paladin.holy.modules.fillerFlashOfLight.actualInefficient">{actual} casts while Holy Shock was available</Trans>)
+        .recommended(<Trans id="paladin.holy.modules.fillerFlashOfLight.recommendedInefficient">No inefficient casts is recommended</Trans>));
   }
 }
 

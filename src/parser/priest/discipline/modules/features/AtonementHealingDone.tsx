@@ -5,7 +5,7 @@ import SpellLink from 'common/SpellLink';
 import Panel from 'interface/statistics/Panel';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import HealingValue from 'parser/shared/modules/HealingValue';
-import Events, { AbsorbedEvent, DamageEvent, HealEvent } from 'parser/core/Events';
+import Events, { Ability, AbsorbedEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import { IsPenanceDamageEvent } from 'parser/priest/discipline/modules/spells/Helper';
 
 import isAtonement from '../core/isAtonement';
@@ -18,25 +18,27 @@ class AtonementHealingDone extends Analyzer {
     atonementDamageSource: AtonementDamageSource,
     penance: Penance,
   };
+  total = 0;
+  _lastPenanceBoltNumber = 0;
+  bySource: Record<string, {
+    ability: Ability;
+    healing: HealingValue;
+    bolts?: HealingValue[];
+  }> = {};
   protected atonementDamageSource!: AtonementDamageSource;
   protected penance!: Penance;
 
-  _totalAtonement = new HealingValue();
-  total = 0;
-
-  _lastPenanceBoltNumber = 0;
-
-  get totalAtonement() {
-    return this._totalAtonement;
-  }
-
-  bySource: any = {};
-
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.absorbed.by(SELECTED_PLAYER), this.onAbsorb);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.PENANCE), this.onDamage);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+  }
+
+  _totalAtonement = new HealingValue();
+
+  get totalAtonement() {
+    return this._totalAtonement;
   }
 
   onAbsorb(event: AbsorbedEvent) {
@@ -64,7 +66,7 @@ class AtonementHealingDone extends Analyzer {
   }
 
   // FIXME: 'byAbility()' added to HealingDone, this should no longer require custom code
-  _addHealing(source: any, amount = 0, absorbed = 0, overheal = 0) {
+  _addHealing(source: DamageEvent, amount = 0, absorbed = 0, overheal = 0) {
     const ability = source.ability;
     const spellId = ability.guid;
     this._totalAtonement = this._totalAtonement.add(amount, absorbed, overheal);

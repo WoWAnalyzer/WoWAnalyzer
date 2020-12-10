@@ -24,7 +24,7 @@ import DeathTracker from '../shared/modules/core/DeathTracker';
 import FocusTracker from '../shared/modules/resources/FocusTracker';
 import FocusDetails from '../shared/modules/resources/FocusDetails';
 import SpellFocusCost from '../shared/modules/resources/SpellFocusCost';
-import FocusCapTracker from '../shared/modules/resources/FocusCapTracker';
+import MarksmanshipFocusCapTracker from './modules/resources/MarksmanshipFocusCapTracker';
 import Focus from './modules/resources/Focus';
 import MarksmanshipFocusUsage from './modules/resources/MarksmanshipFocusUsage';
 
@@ -34,6 +34,7 @@ import LoneWolf from './modules/spells/LoneWolf';
 import PreciseShots from './modules/spells/PreciseShots';
 import AimedShot from './modules/spells/AimedShot';
 import RapidFire from './modules/spells/RapidFire';
+import SteadyShot from './modules/spells/SteadyShot';
 import KillShot from '../shared/modules/spells/KillShot';
 import BindingShot from '../shared/modules/talents/BindingShot';
 
@@ -57,14 +58,6 @@ import ChimaeraShot from './modules/talents/ChimaeraShot';
 import LethalShots from './modules/talents/LethalShots';
 import Streamline from './modules/talents/Streamline';
 
-//Azerite Traits
-import FocusedFire from './modules/spells/azeritetraits/FocusedFire';
-import SteadyAim from './modules/spells/azeritetraits/SteadyAim';
-import SurgingShotsAzerite from './modules/spells/azeritetraits/SurgingShotsAzerite';
-import InTheRhythm from './modules/spells/azeritetraits/InTheRhythm';
-import UnerringVision from './modules/spells/azeritetraits/UnerringVision';
-import RapidReload from '../shared/modules/spells/azeritetraits/RapidReload';
-
 //Covenants
 import ResonatingArrow from '../shared/modules/spells/covenants/kyrian/ResonatingArrow';
 import DeathChakrams from '../shared/modules/spells/covenants/necrolord/DeathChakrams';
@@ -86,7 +79,7 @@ import SerpentstalkersTrickery from './modules/items/SerpentstalkersTrickery';
 import SurgingShots from './modules/items/SurgingShots';
 import SecretsOfTheUnblinkingVigil from './modules/items/SecretsOfTheUnblinkingVigil';
 import EagletalonsTrueFocus from './modules/items/EagletalonsTrueFocus';
-import NesingwarysTrappingApparatus from '../shared/modules/items/NesingwarysTrappingApparatus';
+import NesingwarysTrappingApparatus from './modules/items/NesingwarysTrappingApparatus';
 import SoulforgeEmbers from '../shared/modules/items/SoulforgeEmbers';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -107,7 +100,7 @@ class CombatLogParser extends CoreCombatLogParser {
     focusTracker: FocusTracker,
     focusDetails: FocusDetails,
     spellFocusCost: SpellFocusCost,
-    focusCapTracker: FocusCapTracker,
+    marksmanshipFocusCapTracker: MarksmanshipFocusCapTracker,
     focus: Focus,
     marksmanshipFocusUsage: MarksmanshipFocusUsage,
 
@@ -120,8 +113,9 @@ class CombatLogParser extends CoreCombatLogParser {
     preciseShots: PreciseShots,
     aimedShot: AimedShot,
     rapidFire: RapidFire,
-    bindingShot: BindingShot,
+    steadyShot: SteadyShot,
     killShot: KillShot,
+    bindingShot: BindingShot,
 
     //Talents
     volley: Volley,
@@ -142,14 +136,6 @@ class CombatLogParser extends CoreCombatLogParser {
     deadEye: DeadEye,
     lethalShots: LethalShots,
     streamline: Streamline,
-
-    //Azerite Traits
-    focusedFire: FocusedFire,
-    steadyAim: SteadyAim,
-    surgingShotsAzerite: SurgingShotsAzerite,
-    inTheRhythm: InTheRhythm,
-    unerringVision: UnerringVision,
-    rapidReload: RapidReload,
 
     //Covenants
     resonatingArrow: ResonatingArrow,

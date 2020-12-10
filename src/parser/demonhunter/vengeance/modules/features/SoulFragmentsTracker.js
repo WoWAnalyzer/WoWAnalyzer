@@ -15,7 +15,7 @@ class SoulFragmentsTracker extends Analyzer {
   soulsSpent = 0;
   currentSouls = 0;
 
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.SOUL_FRAGMENT_STACK), this.onChangeBuffStack);
   }

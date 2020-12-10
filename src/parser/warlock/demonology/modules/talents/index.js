@@ -52,7 +52,8 @@ class TalentStatisticBox extends Analyzer {
     return (
       <StatisticsListBox
         position={STATISTIC_ORDER.CORE(4)}
-        title="Talents">
+        title="Talents"
+      >
         {
           Object.keys(this.constructor.dependencies)
             .map(name => this[name])

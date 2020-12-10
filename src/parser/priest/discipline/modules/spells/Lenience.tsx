@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import fetchWcl from 'common/fetchWclApi';
 import SpellIcon from 'common/SpellIcon';
-import { formatThousands, formatNumber } from 'common/format';
+import { formatNumber, formatThousands } from 'common/format';
 import { Options } from 'parser/core/Module';
 
 import LazyLoadStatisticBox from 'interface/others/LazyLoadStatisticBox';
@@ -16,13 +16,13 @@ const LENIENCE_DR = 0.03;
 class Lenience extends Analyzer {
   totalDamageTakenDuringAtonement = 0;
 
-  get damageReducedDuringLenience() {
-    return this.totalDamageTakenDuringAtonement / (1 - LENIENCE_DR) * LENIENCE_DR;
-  }
-
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.LENIENCE_TALENT.id);
+  }
+
+  get damageReducedDuringLenience() {
+    return this.totalDamageTakenDuringAtonement / (1 - LENIENCE_DR) * LENIENCE_DR;
   }
 
   load() {

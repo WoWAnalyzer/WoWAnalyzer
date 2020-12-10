@@ -54,8 +54,8 @@ class Statistics extends React.PureComponent {
           id="adjust-for-downtime-toggle"
         />
         <label htmlFor="adjust-for-downtime-toggle">
-          <Trans>
-            Adjust statistics for <TooltipElement content={i18n._(t`Fight downtime is any forced downtime caused by fight mechanics or dying. Downtime caused by simply not doing anything is not included.`)}>fight downtime</TooltipElement> (<TooltipElement content={i18n._(t`We're still working out the kinks of this feature, some modules might output weird results with this on. When we're finished this will be enabled by default.`)}>experimental</TooltipElement>)
+          <Trans id="interface.report.results.statistics.adjustStatistics">
+            Adjust statistics for <TooltipElement content={i18n._(t('interface.report.results.statistics.fightDowntime')`Fight downtime is any forced downtime caused by fight mechanics or dying. Downtime caused by simply not doing anything is not included.`)}>fight downtime</TooltipElement> (<TooltipElement content={i18n._(t('interface.report.results.statistics.fightDowntimeDetails')`We're still working out the kinks of this feature, some modules might output weird results with this on. When we're finished this will be enabled by default.`)}>experimental</TooltipElement>)
           </Trans>
         </label>
       </div>
@@ -64,15 +64,15 @@ class Statistics extends React.PureComponent {
   renderStatisticGroupName(key) {
     switch (key) {
       case STATISTIC_CATEGORY.GENERAL:
-        return i18n._(t`Statistics`);
+        return i18n._(t('interface.report.results.statistics.statistics')`Statistics`);
       case STATISTIC_CATEGORY.TALENTS:
-        return i18n._(t`Talents`);
+        return i18n._(t('interface.report.results.statistics.talents')`Talents`);
       case STATISTIC_CATEGORY.COVENANTS:
-        return i18n._(t`Covenants`);
+        return i18n._(t('interface.report.results.statistics.covenants')`Covenants`);
       case STATISTIC_CATEGORY.AZERITE_POWERS:
-        return i18n._(t`Azerite Powers`);
+        return i18n._(t('interface.report.results.statistics.azeritePowers')`Azerite Powers`);
       case STATISTIC_CATEGORY.ITEMS:
-        return i18n._(t`Items`);
+        return i18n._(t('interface.report.results.statistics.items')`Items`);
       default:
         throw new Error(`Unknown category: ${key}`);
     }

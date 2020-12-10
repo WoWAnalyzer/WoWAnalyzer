@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Anomoly, Abelito75 } from 'CONTRIBUTORS';
+import { Abelito75, Anomoly } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
 import Config from 'parser/Config';
 
@@ -17,8 +17,8 @@ const config: Config = {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      Hello all! Thanks so much for taking the time use this tool as a way to improve your play. The goal is to provide targeted suggestions to improve your overall Mistweaver Monk play. The suggestions are based on the current theorycrafting and practical knowledge from some of the best Mistweavers playing this game. (And even some former mistweavers who still like to help us dreamers out.) 
-      <br /> 
+      Hello all! Thanks so much for taking the time use this tool as a way to improve your play. The goal is to provide targeted suggestions to improve your overall Mistweaver Monk play. The suggestions are based on the current theorycrafting and practical knowledge from some of the best Mistweavers playing this game. (And even some former mistweavers who still like to help us dreamers out.)
+      <br />
       <br />
       The tool is not perfect so we am always looking to improve it. If you have any suggestions or comments, don't hesitated to swing by the <a href="https://discord.gg/0dkfBMAxzTkWj21F" target="_blank" rel="noopener noreferrer">Peak of Serenity</a> discord server or opening an issue on the Github repo. You can also contact either Abelito75 (Abelito75#0001) or Anomoly (Anomoly#0110) on Discord. Thanks and we hope you continue to enjoy the tool!
     </>

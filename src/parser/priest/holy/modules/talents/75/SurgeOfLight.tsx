@@ -21,16 +21,16 @@ class SurgeOfLight extends Analyzer {
 
   freeFlashHealPending = false;
 
-  get solManaSaved() {
-    return this.solFlashHeals * SPELLS.FLASH_HEAL.manaCost;
-  }
-
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SURGE_OF_LIGHT_TALENT.id);
     this.addEventListener(Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.SURGE_OF_LIGHT_BUFF), this.onChangeBuffStack);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLASH_HEAL), this.onCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.FLASH_HEAL), this.onHeal);
+  }
+
+  get solManaSaved() {
+    return this.solFlashHeals * SPELLS.FLASH_HEAL.manaCost;
   }
 
   onChangeBuffStack(event: ChangeBuffStackEvent) {

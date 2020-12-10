@@ -28,7 +28,7 @@ class RazorSpikes extends Analyzer {
       return;
     }
     if (this.selectedCombatant.hasBuff(SPELLS.DEMON_SPIKES_BUFF.id, event.timestamp)) {
-      this.damage += calculateEffectiveDamage(event,PHYSICAL_DAMAGE_INCREASE);
+      this.damage += calculateEffectiveDamage(event, PHYSICAL_DAMAGE_INCREASE);
     }
   }
 

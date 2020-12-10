@@ -7,10 +7,9 @@ import Events from 'parser/core/Events';
 
 import DemoPets from './index';
 import { isWildImp } from '../helpers';
-import { TimelinePet } from '../TimelinePet';
+import { TimelinePet, META_CLASSES } from '../TimelinePet';
 import PETS from '../PETS';
 import { SUMMON_TO_SPELL_MAP } from '../CONSTANTS';
-import { META_CLASSES } from '../TimelinePet';
 
 const debug = false;
 const test = false;
@@ -30,7 +29,7 @@ class PetSummonHandler extends Analyzer {
     y: 0,
   };
 
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.summon.by(SELECTED_PLAYER), this.onSummon);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
@@ -62,7 +61,7 @@ class PetSummonHandler extends Analyzer {
       // Wild Imps need few additional properties
       pet.setWildImpProperties(this._lastPlayerPosition);
     }
-    if (petInfo.name === "Demonic Tyrant" && this.selectedCombatant.hasTalent(SPELLS.DEMONIC_CONSUMPTION_TALENT.id)) {
+    if (petInfo.name === 'Demonic Tyrant' && this.selectedCombatant.hasTalent(SPELLS.DEMONIC_CONSUMPTION_TALENT.id)) {
       const power = this.demoPets.currentPets
         .filter(pet => isWildImp(pet.guid))
         .map(pet => pet.currentEnergy)

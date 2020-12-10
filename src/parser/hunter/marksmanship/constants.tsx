@@ -2,8 +2,10 @@ import SPELLS from 'common/SPELLS';
 
 //region Spells
 /** Rapid Fire */
-//Rapid Fire ticks 10 times per cast baseline
-export const RAPID_FIRE_TICKS_PER_CAST = 10;
+//Rapid Fire ticks 7 times per cast baseline
+export const RAPID_FIRE_TICKS_PER_CAST = 7;
+//Rapid Fire generates 1 focus per hit
+export const RAPID_FIRE_FOCUS_PER_TICK = 1;
 /** Aimed Shot */
 //Aimed Shot has a baseline casttime of 2.5s
 export const AIMED_SHOT_BASELINE_CAST_TIME = 2500;
@@ -18,6 +20,8 @@ export const TRUESHOT_RAPID_FIRE_RECHARGE_INCREASE = 2.4;
 export const TRUESHOT_AIMED_SHOT_CAST_TIME_SPEED_UP = 0.5;
 //Trueshot lasts 15 seconds by default
 export const TRUESHOT_DURATION_BASELINE = 15000;
+//Trueshot increases focus regen by 50%
+export const TRUESHOT_FOCUS_INCREASE = 0.5;
 /** Lone Wolf */
 //Lone Wolf increases damage done by up to 10%
 export const MAX_LONE_WOLF_MODIFIER = 0.10;
@@ -55,6 +59,9 @@ export const ARCANE_SHOT_MAX_TRAVEL_TIME = 500;
 /** Trick Shots */
 //Trick Shots baseline does 50% damage to secondary targets
 export const TRICK_SHOTS_BASELINE_DAMAGE = 0.5;
+/** Steady Shot */
+//Steady Shot regenerates 10 focus baseline on cast
+export const STEADY_SHOT_FOCUS_REGEN = 10;
 //endregion
 
 //region Talents
@@ -108,23 +115,6 @@ export const LIST_OF_FOCUS_SPENDERS_MM = [
   SPELLS.BURSTING_SHOT,
   SPELLS.EXPLOSIVE_SHOT_TALENT,
 ];
-//endregion
-
-//region Azerite Traits
-/** In The Rhythm */
-//In The Rhythm lasts for 8 seconds, we use this to determine too early refreshes
-export const IN_THE_RHYTHM_DURATION = 8000;
-/** Steady Aim */
-//Steady Aim can stack up to 5 times
-export const STEADY_AIM_MAX_STACKS = 5;
-/** Surging Shots */
-//Surging Shots starts by increasing damage by 50%
-export const SUS_INITIAL_DAMAGE_MOD = 0.5;
-//Surging Shots then increases its rampdamage by 20% per tick
-export const SUS_RAMP_UP_MOD = 0.2;
-/** Unerring Vision */
-//Unerring Vision stacks up to 10 times, regardless of Trueshot increasing in duration
-export const UV_MAX_STACKS = 10;
 //endregion
 
 //region Conduits

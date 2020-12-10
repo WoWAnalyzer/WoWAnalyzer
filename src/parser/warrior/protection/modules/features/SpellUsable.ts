@@ -9,16 +9,14 @@ class SpellUsable extends CoreSpellUsable {
     ...CoreSpellUsable.dependencies,
     globalCooldown: GlobalCooldown,
   };
-  protected globalCooldown!: GlobalCooldown;
-
   hasDevastator: boolean;
+  lastPotentialTriggerForShieldSlam: CastEvent | null = null;
+  protected globalCooldown!: GlobalCooldown;
 
   constructor(options: Options) {
     super(options);
     this.hasDevastator = this.selectedCombatant.hasTalent(SPELLS.DEVASTATOR_TALENT.id);
   }
-
-  lastPotentialTriggerForShieldSlam: CastEvent | null = null;
 
   onCast(event: CastEvent) {
     super.onCast(event);

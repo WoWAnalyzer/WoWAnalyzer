@@ -6,6 +6,10 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 12, 9), <>Adjusted <SpellLink id={SPELLS.WINTERS_CHILL.id} /> to not require a precast if the target has <SpellLink id={SPELLS.MIRRORS_OF_TORMENT.id} />.</>, Sharrq),
+  change(date(2020, 12, 8), <>Fixed a potential crash with <SpellLink id={SPELLS.ICY_PROPULSION.id} />.</>, Sharrq),
+  change(date(2020, 11, 16), <>Added support for <SpellLink id={SPELLS.SHIFTING_POWER.id} />.</>, Sharrq),
+  change(date(2020, 11, 16), <>Updated numbers for <SpellLink id={SPELLS.ICY_PROPULSION.id} /> and <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> to match latest tuning.</>, Sharrq),
   change(date(2020, 11, 8), <>Resolved an issue where <SpellLink id={SPELLS.ICE_LANCE.id} /> was miscounting Non Shattered casts. </>, Sharrq),
   change(date(2020, 10, 29), <>Updated <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> module to check for overlapping <SpellLink id={SPELLS.FLURRY.id} /> (Using a Brain Freeze while Winters Chill is still on the target). </>, Sharrq),
   change(date(2020, 10, 20), 'Cleaned up variable types and constants.', Sharrq),

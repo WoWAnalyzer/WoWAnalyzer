@@ -1,7 +1,9 @@
 import React from 'react';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatPercentage } from 'common/format';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
 import SpellIcon from 'common/SpellIcon';
+import BoringValue from 'interface/statistics/components/BoringValueText';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
@@ -29,10 +31,9 @@ class CenarionWard extends Analyzer {
     const totalPercent = directPercent + masteryPercent;
 
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.CENARION_WARD_HEAL.id} />}
-        value={`${formatPercentage(totalPercent)} %`}
-        label="Cenarion Ward Healing"
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL}
+        size="flexible"
         tooltip={(
           <>
             This is the sum of the direct healing from Cenarion Ward and the healing enabled by Cenarion Ward's extra mastery stack.
@@ -42,11 +43,15 @@ class CenarionWard extends Analyzer {
             </ul>
           </>
         )}
-      />
+      >
+        <BoringValue label={<><SpellIcon id={SPELLS.CENARION_WARD_HEAL.id} /> Cenarion Ward healing</>}>
+          <>
+            {formatPercentage(totalPercent)} %
+          </>
+        </BoringValue>
+      </Statistic>
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
-
 }
 
 export default CenarionWard;

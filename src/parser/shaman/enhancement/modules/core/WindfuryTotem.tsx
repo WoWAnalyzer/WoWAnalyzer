@@ -21,10 +21,10 @@ class WindfuryTotem extends Analyzer {
     return {
       actual: this.uptime,
       isLessThan: {
-      // To be adjusted once we know how much dps Windfury Totem contributes
-      minor: 0.99,
-      average: 0.95,
-      major: 0.9,
+        // To be adjusted once we know how much dps Windfury Totem contributes
+        minor: 0.99,
+        average: 0.95,
+        major: 0.9,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
@@ -33,12 +33,12 @@ class WindfuryTotem extends Analyzer {
   statistic() {
     return (
       <Statistic position={STATISTIC_ORDER.CORE()}>
-      <BoringSpellValueText spell={SPELLS.WINDFURY_TOTEM}>
-        <>
-          <UptimeIcon /> {formatPercentage(this.uptime)}%{' '}
-          <small>uptime</small>
-        </>
-      </BoringSpellValueText>
+        <BoringSpellValueText spell={SPELLS.WINDFURY_TOTEM}>
+          <>
+            <UptimeIcon /> {formatPercentage(this.uptime)}%{' '}
+            <small>uptime</small>
+          </>
+        </BoringSpellValueText>
       </Statistic>
     );
   }
@@ -51,7 +51,7 @@ class WindfuryTotem extends Analyzer {
         <SpellLink id={SPELLS.WINDFURY_TOTEM.id} /> if the buff is about to
         fall off or if all other spells are on cooldown.
       </>,
-      )
+    )
       .icon(SPELLS.WINDFURY_TOTEM_BUFF.icon)
       .actual(
         <>

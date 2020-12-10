@@ -1,6 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const conduits: SpellList = {
+const conduits = {
   //region Kyrian
   ENFEEBLED_MARK_CONDUIT: {
     id: 339018,
@@ -126,5 +124,5 @@ const conduits: SpellList = {
     icon: 'ability_ironmaidens_swirlingvortex',
   },
   //endregion
-};
+} as const;
 export default conduits;

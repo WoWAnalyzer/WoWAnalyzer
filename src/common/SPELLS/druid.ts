@@ -4,8 +4,7 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import { SpellList } from "./Spell";
-const spells: SpellList = {
+const spells = {
   // Shared
   HIBERNATE: {
     id: 2637,
@@ -838,5 +837,6 @@ const spells: SpellList = {
     name: 'Apex Predator',
     icon: 'ability_druid_primaltenacity',
   },
-};
+} as const;
+
 export default spells;

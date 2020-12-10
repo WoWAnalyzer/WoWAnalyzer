@@ -19,12 +19,10 @@ class StatValues extends BaseHealerStatValues {
     statTracker: StatTracker,
     critEffectBonus: CritEffectBonus,
   };
-
-  protected statTracker!: StatTracker;
-  protected critEffectBonus!: CritEffectBonus;
-
   spellInfo: {} = SPELL_INFO;
   qeLive: boolean = true;
+  protected statTracker!: StatTracker;
+  protected critEffectBonus!: CritEffectBonus;
 
   _mastery(event: HealEvent, healVal: HealingValue): number {
     if (healVal.overheal) {
@@ -35,8 +33,8 @@ class StatValues extends BaseHealerStatValues {
     // assuming gust heal vs. mastery % are linear and start at 0 ( gust_heal = K * mast_pct )
     // h2 / h1 = mast_pct(rat) / mast_pct(rat-1)
     // solving that for h2 - h1 brings...
-    return healVal.effective * ( 1 - (this.statTracker.masteryPercentage(this.statTracker.currentMasteryRating - 1, true) / this.statTracker.masteryPercentage(this.statTracker.currentMasteryRating, true)));
-   }
+    return healVal.effective * (1 - (this.statTracker.masteryPercentage(this.statTracker.currentMasteryRating - 1, true) / this.statTracker.masteryPercentage(this.statTracker.currentMasteryRating, true)));
+  }
 
   _prepareResults() {
     return [
@@ -45,7 +43,7 @@ class StatValues extends BaseHealerStatValues {
       {
         stat: STAT.HASTE_HPCT,
         tooltip: (
-          <Trans id="mistweaver.statvalues.hpct">
+          <Trans id="monk.mistweaver.modules.features.statValues.hpct">
             HPCT stands for "Healing per Cast Time". This is the max value that Haste would be worth if you would cast everything you are already casting (that scales with Haste) faster. Mana and overhealing are not accounted for in any way.<br /><br />
 
             The real value of Haste (HPCT) will be between 0 and the shown value. It depends on various things, such as if you have the mana left to spend, if the gained casts would overheal, and how well you are at casting spells end-to-end. If you are going OOM before the end of the fight you might instead want to drop some Haste or cast fewer bad heals. If you had mana left-over, Haste could help you convert that into healing. If your Haste usage is optimal Haste will then be worth the shown max value.<br /><br />

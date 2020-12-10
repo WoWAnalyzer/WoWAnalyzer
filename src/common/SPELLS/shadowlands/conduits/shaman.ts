@@ -1,6 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const conduits: SpellList = {
+const conduits = {
   //region Kyrian
 
   //endregion
@@ -48,5 +46,5 @@ const conduits: SpellList = {
     name: 'Swirling Currents',
     icon: 'spell_holy_serendipity',
   },
-};
+} as const;
 export default conduits;

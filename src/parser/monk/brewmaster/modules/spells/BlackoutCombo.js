@@ -5,7 +5,9 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
+import BoringValue from 'interface/statistics/components/BoringValueText';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
@@ -17,13 +19,8 @@ const debug = false;
 const BOC_DURATION = 15000;
 
 class BlackoutCombo extends Analyzer {
-  blackoutComboConsumed = 0;
-  blackoutComboBuffs = 0;
-  lastBlackoutComboCast = 0;
-  spellsBOCWasUsedOn = {};
-
   get dpsWasteThreshold() {
-    if(!this.active) {
+    if (!this.active) {
       return null;
     }
     return {
@@ -36,6 +33,12 @@ class BlackoutCombo extends Analyzer {
       style: 'percentage',
     };
   }
+
+  blackoutComboConsumed = 0;
+  blackoutComboBuffs = 0;
+  lastBlackoutComboCast = 0;
+  spellsBOCWasUsedOn = {};
+  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 
   constructor(...args) {
     super(...args);
@@ -75,20 +78,19 @@ class BlackoutCombo extends Analyzer {
 
     when(wastedPerc).isGreaterThan(0.1)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>You wasted {formatPercentage(actual)}% of your <SpellLink id={SPELLS.BLACKOUT_COMBO_BUFF.id} /> procs. Try to use the procs as soon as you get them so they are not overwritten.</span>)
-          .icon(SPELLS.BLACKOUT_COMBO_BUFF.icon)
-          .actual(i18n._(t('monk.brewmaster.suggestions.blackoutCombo.wasted')`${formatPercentage(actual)}% unused`))
-          .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
-          .regular(recommended + 0.1).major(recommended + 0.2));
+        .icon(SPELLS.BLACKOUT_COMBO_BUFF.icon)
+        .actual(i18n._(t('monk.brewmaster.suggestions.blackoutCombo.wasted')`${formatPercentage(actual)}% unused`))
+        .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
+        .regular(recommended + 0.1).major(recommended + 0.2));
   }
 
   statistic() {
     const wastedPerc = (this.blackoutComboBuffs - this.blackoutComboConsumed) / this.blackoutComboBuffs;
 
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.BLACKOUT_COMBO_BUFF.id} />}
-        value={`${formatPercentage(wastedPerc)}%`}
-        label="Wasted Blackout Combo"
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL()}
+        size="flexible"
         tooltip={(
           <>
             You got total <strong>{this.blackoutComboBuffs}</strong> Blackout Combo procs and used <strong>{this.blackoutComboConsumed}</strong> of them.<br />
@@ -102,10 +104,15 @@ class BlackoutCombo extends Analyzer {
             </ul>
           </>
         )}
-      />
+      >
+        <BoringValue label={<><SpellIcon id={SPELLS.BLACKOUT_COMBO_BUFF.id} /> Wasted Blackout Combo</>}>
+          <>
+            {formatPercentage(wastedPerc)}%
+          </>
+        </BoringValue>
+      </Statistic>
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default BlackoutCombo;

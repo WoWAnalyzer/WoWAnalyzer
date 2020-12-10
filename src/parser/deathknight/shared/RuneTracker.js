@@ -154,7 +154,7 @@ class RuneTracker extends ResourceTracker {
   addPassiveAccelerator(spellId, gained, wasted, increase) { //used to add passive rune gain accelerators like Runic Corruption
     //use uptime to get approximate contribution to passive regeneration
     const uptime = this.selectedCombatant.getBuffUptime(spellId) / this.owner.fightDuration;
-    if (!uptime > 0) {
+    if (!(uptime > 0)) {
       return 0;
     }
     this.initBuilderAbility(spellId);

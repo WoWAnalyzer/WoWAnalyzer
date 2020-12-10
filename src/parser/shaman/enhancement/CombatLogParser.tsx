@@ -12,7 +12,7 @@ import Buffs from './modules/Buffs';
 // Enhancement Core
 import Stormbringer from './modules/core/Stormbringer';
 // Talents
-import LashingFlames from "./modules/talents/LashingFlames";
+import LashingFlames from './modules/talents/LashingFlames';
 import HotHand from './modules/talents/HotHand';
 import ForcefulWinds from './modules/talents/ForcefulWinds';
 import SpiritWolf from '../shared/talents/SpiritWolf';
@@ -32,6 +32,7 @@ import ElementalAssault from './modules/talents/ElementalAssault';
 import FeralSpirit from './modules/core/FeralSpirit';
 import FlameShock from '../shared/spells/FlameShock';
 import WindfuryTotem from './modules/core/WindfuryTotem';
+import MaelstromWeapon from './modules/core/MaelstromWeapon';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -56,6 +57,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     flameShock: FlameShock,
     windfuryTotem: WindfuryTotem,
+    maelstromWeapon: MaelstromWeapon,
 
     // Talents
     lashingFlames: LashingFlames,

@@ -15,6 +15,14 @@ class PrayerOfMending extends Analyzer {
   lastSalvCastTime = 0;
   pomTicksFromSalv = 0;
 
+  constructor(options: Options) {
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.PRAYER_OF_MENDING_CAST, SPELLS.HOLY_WORD_SALVATION_TALENT]), this.onCast);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.PRAYER_OF_MENDING_HEAL, SPELLS.HOLY_WORD_SALVATION_TALENT]), this.onHeal);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.PRAYER_OF_MENDING_BUFF), this.onApplyBuff);
+    this.addEventListener(Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.PRAYER_OF_MENDING_BUFF), this.onChangeBuffstack);
+  }
+
   get pomTicksFromCast() {
     return this.pomCasts * 5;
   }
@@ -33,14 +41,6 @@ class PrayerOfMending extends Analyzer {
 
   get averagePomTickAbsorption() {
     return this.totalPoMAbsorption / this.pomHealTicks;
-  }
-
-  constructor(options: Options){
-    super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.PRAYER_OF_MENDING_CAST, SPELLS.HOLY_WORD_SALVATION_TALENT]), this.onCast);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.PRAYER_OF_MENDING_CAST, SPELLS.HOLY_WORD_SALVATION_TALENT]), this.onHeal);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.PRAYER_OF_MENDING_BUFF), this.onApplyBuff);
-    this.addEventListener(Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.PRAYER_OF_MENDING_BUFF), this.onChangeBuffstack);
   }
 
   onCast(event: CastEvent) {

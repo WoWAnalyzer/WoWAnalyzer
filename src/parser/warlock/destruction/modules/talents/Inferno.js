@@ -21,17 +21,6 @@ const FRAGMENTS_PER_RAIN_OF_FIRE = 30;
       Rain of Fire damage has a 20% chance to generate a Soul Shard Fragment.
  */
 class Inferno extends Analyzer {
-  static dependencies = {
-    rainOfFire: RainOfFire,
-    soulShardTracker: SoulShardTracker,
-    abilityTracker: AbilityTracker,
-  };
-
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.INFERNO_TALENT.id);
-  }
-
   get averageRainOfFireDamage() {
     // Rain of Fire has different spellId for cast and damage but AbilityTracker picks up both of them
     const rofDamage = this.abilityTracker.getAbility(SPELLS.RAIN_OF_FIRE_DAMAGE.id);
@@ -42,6 +31,17 @@ class Inferno extends Analyzer {
   get averageChaosBoltDamage() {
     const chaosBolt = this.abilityTracker.getAbility(SPELLS.CHAOS_BOLT.id);
     return ((chaosBolt.damageEffective + chaosBolt.damageAbsorbed) / chaosBolt.casts) || 0;
+  }
+
+  static dependencies = {
+    rainOfFire: RainOfFire,
+    soulShardTracker: SoulShardTracker,
+    abilityTracker: AbilityTracker,
+  };
+
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.INFERNO_TALENT.id);
   }
 
   statistic() {

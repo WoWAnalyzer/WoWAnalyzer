@@ -16,7 +16,7 @@ import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Che
 import Combatant from 'parser/core/Combatant';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 
-const DisciplinePriestChecklist = ({ combatant, castEfficiency, thresholds }: {combatant: Combatant, castEfficiency: CastEfficiency, thresholds: any }) => {
+const DisciplinePriestChecklist = ({ combatant, castEfficiency, thresholds }: { combatant: Combatant, castEfficiency: CastEfficiency, thresholds: any }) => {
   const AbilityRequirement = (props: { spell: number }) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}

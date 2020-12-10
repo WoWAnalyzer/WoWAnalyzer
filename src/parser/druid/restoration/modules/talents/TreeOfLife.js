@@ -1,14 +1,16 @@
 import React from 'react';
 
 import { formatNumber, formatPercentage } from 'common/format';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
+import SpellIcon from 'common/SpellIcon';
+import BoringValue from 'interface/statistics/components/BoringValueText';
 
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
@@ -44,19 +46,39 @@ const TOL_DURATION = 30000;
  *  - Wild Growth: +2 targets
  */
 class TreeOfLife extends Analyzer {
+  get hardcastUptime() {
+    const currentUptime = !(this.lastTolCast) ? 0 : Math.min(TOL_DURATION, this.owner.currentTimestamp - this.lastTolCast);
+    return currentUptime + this.completedTolUptime;
+  }
+
+  get hardcastUptimePercent() {
+    return this.hardcastUptime / this.owner.fightDuration;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.owner.getPercentageOfTotalHealingDone(this._getTotalHealing(this.hardcast)),
+      isLessThan: {
+        minor: 0.06,
+        average: 0.045,
+        major: 0.025,
+      },
+      style: 'percentage',
+    };
+  }
+
   static dependencies = {
     healingDone: HealingDone,
     abilityTracker: AbilityTracker,
     rejuvenation: Rejuvenation,
   };
-
   lastTolCast = null;
-
   lastTolApply = null;
   completedTolUptime = 0;
 
+  // gets the appropriate accumulator for tallying this event
+  // if ToL buff isn't active, returns null,
   wgCasts = 0;
-
   hardcast = {
     allBoostHealing: 0,
     rejuvBoostHealing: 0,
@@ -73,8 +95,6 @@ class TreeOfLife extends Analyzer {
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.INCARNATION_TOL_ALLOWED), this.onRemoveBuff);
   }
 
-  // gets the appropriate accumulator for tallying this event
-  // if ToL buff isn't active, returns null,
   // if ToL buff is due to hardcast, returns the hardcast accumulator,
   _getAccumulator(event) {
     if (!this.selectedCombatant.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)) {
@@ -133,14 +153,6 @@ class TreeOfLife extends Analyzer {
     this.lastTolApply = null;
   }
 
-  get hardcastUptime() {
-    const currentUptime = !(this.lastTolCast) ? 0 : Math.min(TOL_DURATION, this.owner.currentTimestamp - this.lastTolCast);
-    return currentUptime + this.completedTolUptime;
-  }
-  get hardcastUptimePercent() {
-    return this.hardcastUptime / this.owner.fightDuration;
-  }
-
   _getManaSavedHealing(accumulator) {
     return accumulator.rejuvManaSaved * this.rejuvenation.avgRejuvHealing;
   }
@@ -153,32 +165,19 @@ class TreeOfLife extends Analyzer {
     return accumulator.allBoostHealing + accumulator.rejuvBoostHealing + accumulator.extraWgHealing + this._getManaSavedHealing(accumulator);
   }
 
-  get suggestionThresholds() {
-    return {
-      actual: this.owner.getPercentageOfTotalHealingDone(this._getTotalHealing(this.hardcast)),
-      isLessThan: {
-        minor: 0.06,
-        average: 0.045,
-        major: 0.025,
-      },
-      style: 'percentage',
-    };
-  }
-
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} /> is not providing you much throughput. You may want to plan your CD usage better or pick another talent.</>)
-          .icon(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.icon)
-          .actual(i18n._(t('druid.restoration.suggestions.treeOfLife.efficiency')`${formatPercentage(actual)}% healing`))
-          .recommended(`>${formatPercentage(recommended, 0)}% is recommended`));
+        .icon(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.icon)
+        .actual(i18n._(t('druid.restoration.suggestions.treeOfLife.efficiency')`${formatPercentage(actual)}% healing`))
+        .recommended(`>${formatPercentage(recommended, 0)}% is recommended`));
   }
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} />}
-        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this._getTotalHealing(this.hardcast)))} %`}
-        label="Tree of Life Healing"
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(20)}
+        size="flexible"
         tooltip={(
           <>
             The Tree of Life buff was active for <strong>{(this.hardcastUptime / 1000).toFixed(0)}s</strong>, or <strong>{formatPercentage(this.hardcastUptimePercent, 1)}%</strong> of the encounter. The displayed healing number is the sum of several benefits, listed below:
@@ -190,10 +189,15 @@ class TreeOfLife extends Analyzer {
             </ul>
           </>
         )}
-      />
+      >
+        <BoringValue label={<><SpellIcon id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} /> Tree of Life healing</>}>
+          <>
+            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this._getTotalHealing(this.hardcast)))} %
+          </>
+        </BoringValue>
+      </Statistic>
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default TreeOfLife;

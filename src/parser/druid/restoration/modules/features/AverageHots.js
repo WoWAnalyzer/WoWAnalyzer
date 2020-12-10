@@ -1,6 +1,8 @@
 import React from 'react';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
 import SpellIcon from 'common/SpellIcon';
+import BoringValue from 'interface/statistics/components/BoringValueText';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
@@ -12,16 +14,14 @@ class AverageHots extends Analyzer {
     mastery: Mastery,
   };
 
-
   statistic() {
     const avgTotalHots = (this.mastery.getAverageTotalMasteryStacks()).toFixed(2);
     const avgDruidHots = (this.mastery.getAverageDruidSpellMasteryStacks()).toFixed(2);
 
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.MASTERY_HARMONY.id} />}
-        value={`${avgTotalHots}`}
-        label="Average Mastery Stacks"
+      <Statistic
+        position={STATISTIC_ORDER.CORE(11)}
+        size="flexible"
         tooltip={(
           <>
             This is the average number of mastery stacks your heals benefitted from, weighted by healing done. It can help show how much mileage you're getting out of your mastery.<br /><br />
@@ -31,10 +31,15 @@ class AverageHots extends Analyzer {
             This number counts all your healing, even heals that don't benefit from your mastery (like most trinkets). Your average mastery stacks counting only heals that benefit from mastery is <strong>{avgDruidHots}</strong>.
           </>
         )}
-      />
+      >
+        <BoringValue label={<><SpellIcon id={SPELLS.MASTERY_HARMONY.id} /> Average Mastery stacks</>}>
+          <>
+            {avgTotalHots}
+          </>
+        </BoringValue>
+      </Statistic>
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(11);
 
 }
 

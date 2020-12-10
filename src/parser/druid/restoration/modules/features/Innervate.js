@@ -1,8 +1,10 @@
 import React from 'react';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatNumber } from 'common/format';
-import SpellIcon from 'common/SpellIcon';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
 import SpellLink from 'common/SpellLink';
+import SpellIcon from 'common/SpellIcon';
+import BoringValue from 'interface/statistics/components/BoringValueText';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -14,6 +16,38 @@ const debug = false;
 const TOL_REJUVENATION_REDUCTION = 0.3;
 
 class Innervate extends Analyzer {
+  get averageManaSaved() {
+    return (this.manaSaved / this.innervateCount) || 0;
+  }
+
+  get averageManaSavedSuggestionThresholds() {
+    return {
+      actual: this.averageManaSaved,
+      isLessThan: {
+        minor: 23000,
+        average: 19120,
+        major: 13200,
+      },
+      style: 'number',
+    };
+  }
+
+  get wholeSecondsCapped() {
+    return Math.round(this.secondsManaCapped);
+  }
+
+  get secondsCappedSuggestionThresholds() {
+    return {
+      actual: this.wholeSecondsCapped,
+      isGreaterThan: {
+        minor: 0,
+        average: 1,
+        major: 2,
+      },
+      style: 'number',
+    };
+  }
+
   manaSaved = 0;
   wildGrowths = 0;
   efflorescences = 0;
@@ -31,7 +65,7 @@ class Innervate extends Analyzer {
   lastInnervateTimestamp = 0;
   depleted = false;
 
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.INNERVATE), this.onApplyBuff);
     this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.INNERVATE), this.onRemoveBuff);
@@ -43,6 +77,7 @@ class Innervate extends Analyzer {
     this.innervateCount += 1;
     this.lastInnervateTimestamp = event.timestamp;
   }
+
   onRemoveBuff(event) {
     this.depleted = false;
   }
@@ -129,63 +164,30 @@ class Innervate extends Analyzer {
     }
   }
 
-  get averageManaSaved() {
-    return (this.manaSaved / this.innervateCount) || 0;
-  }
-
-  get averageManaSavedSuggestionThresholds() {
-    return {
-      actual: this.averageManaSaved,
-      isLessThan: {
-        minor: 23000,
-        average: 19120,
-        major: 13200,
-      },
-      style: 'number',
-    };
-  }
-
-  get wholeSecondsCapped() {
-    return Math.round(this.secondsManaCapped);
-  }
-
-  get secondsCappedSuggestionThresholds() {
-    return {
-      actual: this.wholeSecondsCapped,
-      isGreaterThan: {
-        minor: 0,
-        average: 1,
-        major: 2,
-      },
-      style: 'number',
-    };
-  }
-
   suggestions(when) {
-    if(this.innervateCount === 0) {
+    if (this.innervateCount === 0) {
       return;
     }
 
     when(this.averageManaSavedSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your mana spent during an <SpellLink id={SPELLS.INNERVATE.id} /> can be improved.
-              Always aim to cast 1 wild growth, 1 efflorescence, and fill the rest with rejuvations for optimal usage.</>)
-          .icon(SPELLS.INNERVATE.icon)
-          .actual(i18n._(t('druid.restoration.suggestions.innervate.efficiency')`${formatNumber(this.averageManaSaved.toFixed(0))} avg mana spent.`))
-          .recommended(`>${formatNumber(recommended)} is recommended`));
+        Always aim to cast 1 wild growth, 1 efflorescence, and fill the rest with rejuvations for optimal usage.</>)
+        .icon(SPELLS.INNERVATE.icon)
+        .actual(i18n._(t('druid.restoration.suggestions.innervate.efficiency')`${formatNumber(this.averageManaSaved.toFixed(0))} avg mana spent.`))
+        .recommended(`>${formatNumber(recommended)} is recommended`));
 
     when(this.secondsCappedSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You were capped on mana during <SpellLink id={SPELLS.INNERVATE.id} />. Try to not use Innervate if you are above 90% mana.</>)
-          .icon(SPELLS.INNERVATE.icon)
-          .actual(i18n._(t('druid.restoration.suggestions.innervate.secondsCapped')`~${this.wholeSecondsCapped} seconds capped`))
-          .recommended(`${recommended} is recommended`));
+        .icon(SPELLS.INNERVATE.icon)
+        .actual(i18n._(t('druid.restoration.suggestions.innervate.secondsCapped')`~${this.wholeSecondsCapped} seconds capped`))
+        .recommended(`${recommended} is recommended`));
   }
 
   statistic() {
-    return(
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.INNERVATE.id} />}
-        value={`${formatNumber(this.averageManaSaved)} mana`}
-        label="Mana saved per Innervate"
+    return (
+      <Statistic
+        position={STATISTIC_ORDER.CORE(14)}
+        size="flexible"
         tooltip={(
           <>
             During your {this.innervateCount} Innervates you cast:
@@ -201,11 +203,15 @@ class Innervate extends Analyzer {
             </ul>
           </>
         )}
-      />
+      >
+        <BoringValue label={<><SpellIcon id={SPELLS.INNERVATE.id} /> Mana saved per Innervate</>}>
+          <>
+            {formatNumber(this.averageManaSaved)}
+          </>
+        </BoringValue>
+      </Statistic>
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(14);
-
 }
 
 export default Innervate;
