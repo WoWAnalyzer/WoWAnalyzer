@@ -51,6 +51,18 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
+      },
+      {
+        spell: SPELLS.TOUCH_OF_THE_MAGI,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 45,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.SUPERNOVA_TALENT,

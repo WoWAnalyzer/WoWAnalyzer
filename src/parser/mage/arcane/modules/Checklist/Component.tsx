@@ -66,6 +66,13 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: any) => 
             thresholds={thresholds.arcaneOrbMissedOrbs}
           />
         )}
+        {combatant.hasTalent(SPELLS.ARCANE_ECHO_TALENT.id) && (
+          <Requirement
+            name="Bad Touch of the Magi Uses"
+            tooltip="Arcane Echo causes direct damage abilities, like Arcane Missiles, to pulse damage to up to 8 nearby targets. Because of this, you should be non-stop casting Arcane Missiles (whether you have Clearcasting procs or not), into any target with the Touch of the Magi debuff until that debuff is removed."
+            thresholds={thresholds.arcaneEchoLowUsage}
+          />
+        )}
         {combatant.hasTalent(SPELLS.RULE_OF_THREES_TALENT.id) && (
           <Requirement
             name="Rule of Threes Buff Usage"
