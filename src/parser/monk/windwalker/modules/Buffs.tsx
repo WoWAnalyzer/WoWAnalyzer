@@ -18,6 +18,10 @@ class Buffs extends CoreBuffs {
         timelineHighlight: true,
       },
       {
+        spellId: SPELLS.DANCE_OF_CHIJI_BUFF.id,
+        timelineHighlight: true,
+      },
+      {
         spellId: SPELLS.COMBO_BREAKER_BUFF.id,
         timelineHighlight: true,
       },

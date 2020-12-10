@@ -90,6 +90,11 @@ class SpinningCraneKick extends Analyzer {
     this.cycloneStrikesMarks = this.cycloneStrikesMarks.filter(
       (mark) => event.timestamp - mark.timestamp <= 15000,
     );
+    if (this.selectedCombatant.hasBuff(SPELLS.DANCE_OF_CHIJI_BUFF.id)) {
+      event.meta = event.meta || {};
+      event.meta.isEnhancedCast = true;
+      event.meta.enhancedCastReason = 'This cast was empowered by Dance of Chi-Ji';
+    }
   }
 
   onSCKDamage() {
