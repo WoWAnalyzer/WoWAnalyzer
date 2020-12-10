@@ -2273,7 +2273,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               9
-              
+              /18
                
               casts
             </td>
@@ -2284,7 +2284,19 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "53.444991842606505%",
+                    }
+                  }
+                />
+              </div>
             </td>
             <td
               className="text-left"
@@ -2295,7 +2307,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              
+              53.44%
             </td>
             <td
               style={
