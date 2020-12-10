@@ -13,10 +13,13 @@ const COMBO_POINT_DURATION = 2000;
  * Identify inefficient refreshes of the Crimson Tempest DoT.
  */
 class CrimsonTempestSnapshot extends Snapshot {
+  get durationOfFresh() {
+    return BASE_DURATION + this.comboPointsOnLastCast * COMBO_POINT_DURATION;
+  }
+
   static spellCastId = SPELLS.CRIMSON_TEMPEST_TALENT.id;
   static debuffId = SPELLS.CRIMSON_TEMPEST_TALENT.id;
   static spellIcon = SPELLS.CRIMSON_TEMPEST_TALENT.icon;
-
   comboPointsOnLastCast = 0;
 
   constructor(...args) {
@@ -26,10 +29,6 @@ class CrimsonTempestSnapshot extends Snapshot {
       this.active = false;
     }
     this.addEventListener(Events.SpendResource.by(SELECTED_PLAYER).spell(SPELLS.CRIMSON_TEMPEST_TALENT), this.onSpendResource);
-  }
-
-  get durationOfFresh() {
-    return BASE_DURATION + this.comboPointsOnLastCast * COMBO_POINT_DURATION;
   }
 
   onSpendResource(event) {

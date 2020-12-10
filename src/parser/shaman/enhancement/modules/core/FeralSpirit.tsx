@@ -29,7 +29,7 @@ class FeralSpirit extends Analyzer {
     );
   }
 
-  onFeralSpiritCast(event: CastEvent): void{
+  onFeralSpiritCast(event: CastEvent): void {
     const expectedMaelstromGained =
       FERAL_SPIRIT.INITIAL_MAELSTROM_WEAPON_GAIN +
       FERAL_SPIRIT.MAELSTROM_WEAPON_GAIN_PER_INTERVAL *

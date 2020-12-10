@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import React from 'react';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -16,14 +16,24 @@ class GuardianAngel extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
+  guardianSpiritRemovalCount = 0;
+  guardianSpiritHealCount = 0;
   protected abilityTracker!: AbilityTracker;
+
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.GUARDIAN_ANGEL_TALENT.id);
+
+    if (!this.active) {
+      return;
+    }
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.GUARDIAN_SPIRIT), this._parseGsRemove);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUARDIAN_SPIRIT), this._parseGsHeal);
+  }
 
   get guardianSpiritCastCount() {
     return this.abilityTracker.getAbility(SPELLS.GUARDIAN_SPIRIT.id).casts;
   }
-
-  guardianSpiritRemovalCount = 0;
-  guardianSpiritHealCount = 0;
 
   get guardianSpiritRefreshCount() {
     return this.guardianSpiritRemovalCount - this.guardianSpiritHealCount;
@@ -40,17 +50,6 @@ class GuardianAngel extends Analyzer {
   get gsValue() {
     const castDelta = this.guardianSpiritCastCount - this.baseGuardianSpiritCastsPossible;
     return (castDelta) >= 0 ? (castDelta) : 0;
-  }
-
-  constructor(options: Options) {
-    super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.GUARDIAN_ANGEL_TALENT.id);
-
-    if (!this.active) {
-      return;
-    }
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.GUARDIAN_SPIRIT), this._parseGsRemove);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUARDIAN_SPIRIT), this._parseGsHeal);
   }
 
   _parseGsRemove() {

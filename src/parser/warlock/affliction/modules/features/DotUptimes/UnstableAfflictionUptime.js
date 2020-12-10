@@ -20,10 +20,25 @@ import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../../constants';
 
 const CONTAGION_DAMAGE_BONUS = 0.1; // former talent Contagion is now baked into UA
 class UnstableAfflictionUptime extends Analyzer {
+  get uptime() {
+    return this.buffedTime / this.owner.fightDuration;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.uptime,
+      isLessThan: {
+        minor: 0.7,
+        average: 0.6,
+        major: 0.5,
+      },
+      style: 'percentage',
+    };
+  }
+
   static dependencies = {
     enemies: Enemies,
   };
-
   buffedTime = 0;
   damage = 0;
   _buffStart = 0;
@@ -61,34 +76,16 @@ class UnstableAfflictionUptime extends Analyzer {
     this.damage += calculateEffectiveDamage(event, CONTAGION_DAMAGE_BONUS);
   }
 
-  get uptime() {
-    return this.buffedTime / this.owner.fightDuration;
-  }
-
-  get suggestionThresholds() {
-    // raises the thresholds by 5% if player has Cascading Calamity trait
-    const cascadingCalamityBonus = this.selectedCombatant.hasTrait(SPELLS.CASCADING_CALAMITY.id) ? 0.05 : 0;
-    return {
-      actual: this.uptime,
-      isLessThan: {
-        minor: 0.7 + cascadingCalamityBonus,
-        average: 0.6 + cascadingCalamityBonus,
-        major: 0.5 + cascadingCalamityBonus,
-      },
-      style: 'percentage',
-    };
-  }
-
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(
-          <>
-            Your <SpellLink id={SPELLS.UNSTABLE_AFFLICTION.id} /> uptime is too low. Try spacing out your UAs a little more so that you get the most out of the internal 10% damage bonus, unless you're pooling for <SpellLink id={SPELLS.SUMMON_DARKGLARE.id} /> or focusing priority targets.
-          </>,
-        )
-          .icon(SPELLS.UNSTABLE_AFFLICTION.icon)
-          .actual(i18n._(t('warlock.affliction.suggestions.unstableAffliction.uptime')`${formatPercentage(actual)}% Unstable Affliction uptime.`))
-          .recommended(`> ${formatPercentage(recommended)}% is recommended`));
+        <>
+          Your <SpellLink id={SPELLS.UNSTABLE_AFFLICTION.id} /> uptime is too low. Try spacing out your UAs a little more so that you get the most out of the internal 10% damage bonus, unless you're pooling for <SpellLink id={SPELLS.SUMMON_DARKGLARE.id} /> or focusing priority targets.
+        </>,
+      )
+        .icon(SPELLS.UNSTABLE_AFFLICTION.icon)
+        .actual(i18n._(t('warlock.affliction.suggestions.unstableAffliction.uptime')`${formatPercentage(actual)}% Unstable Affliction uptime.`))
+        .recommended(`> ${formatPercentage(recommended)}% is recommended`));
   }
 
   subStatistic() {
@@ -98,11 +95,13 @@ class UnstableAfflictionUptime extends Analyzer {
         <div className="flex-sub icon">
           <SpellIcon id={SPELLS.UNSTABLE_AFFLICTION.id} />
         </div>
-        <Tooltip content={(
-          <>
-            Bonus damage from internal Contagion effect: {formatThousands(this.damage)} ({this.owner.formatItemDamageDone(this.damage)})
-          </>
-        )}>
+        <Tooltip
+          content={(
+            <>
+              Bonus damage from internal Contagion effect: {formatThousands(this.damage)} ({this.owner.formatItemDamageDone(this.damage)})
+            </>
+          )}
+        >
           <div
             className="flex-sub value"
             style={{

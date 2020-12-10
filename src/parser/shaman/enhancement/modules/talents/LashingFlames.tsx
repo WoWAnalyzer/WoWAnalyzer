@@ -80,12 +80,12 @@ class LashingFlames extends Analyzer {
           To achieve this, you can strike the target with <SpellLink id={SPELLS.LAVA_LASH.id} />{` `}
           when <SpellLink id={SPELLS.LASHING_FLAMES_DEBUFF.id} /> is about to expire.
         </>
+      ),
       )
-    )
-      .icon(SPELLS.LASHING_FLAMES_TALENT.icon)
-      .actual(<><SpellLink id={SPELLS.LASHING_FLAMES_DEBUFF.id} /> was active for {formatPercentage(actual)}% of the fight</>)
-      .recommended(`recommended: ${formatPercentage(recommended)}%`)
-    )
+        .icon(SPELLS.LASHING_FLAMES_TALENT.icon)
+        .actual(<><SpellLink id={SPELLS.LASHING_FLAMES_DEBUFF.id} /> was active for {formatPercentage(actual)}% of the fight</>)
+        .recommended(`recommended: ${formatPercentage(recommended)}%`),
+    );
   }
 
   statistic() {
@@ -102,7 +102,8 @@ class LashingFlames extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.LASHING_FLAMES_TALENT}>
           <>
-            <><UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small></><br/>
+            <><UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small></>
+            <br />
             <ItemDamageDone amount={this.buffedFlameShockDmg} /><br />
           </>
         </BoringSpellValueText>

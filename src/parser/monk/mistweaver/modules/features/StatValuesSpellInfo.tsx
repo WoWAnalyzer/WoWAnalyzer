@@ -158,7 +158,7 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.ENVELOPING_BREATH.id]: { 
+  [SPELLS.ENVELOPING_BREATH.id]: {
     int: true,
     crit: true,
     hasteHpm: true,
@@ -166,7 +166,7 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.EXPEL_HARM.id]: { 
+  [SPELLS.EXPEL_HARM.id]: {
     int: true,
     crit: true,
     hasteHpm: false,
@@ -182,7 +182,7 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.TEAR_OF_MORNING_HEAL.id]: { 
+  [SPELLS.TEAR_OF_MORNING_HEAL.id]: {
     int: false,
     crit: false,
     hasteHpm: false,
@@ -190,7 +190,7 @@ export default {
     mastery: false,
     vers: false,
   },
-  [SPELLS.FALLEN_ORDER_ENVELOPING_MIST.id]: { 
+  [SPELLS.FALLEN_ORDER_ENVELOPING_MIST.id]: {
     int: true,
     crit: true,
     hasteHpm: true,
@@ -198,7 +198,7 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.FALLEN_ORDER_SOOTHING_MIST.id]: { 
+  [SPELLS.FALLEN_ORDER_SOOTHING_MIST.id]: {
     int: true,
     crit: true,
     hasteHpm: false,
@@ -206,7 +206,7 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.FAELINE_STOMP_HEAL.id]: { 
+  [SPELLS.FAELINE_STOMP_HEAL.id]: {
     int: true,
     crit: true,
     hasteHpm: false,
@@ -222,7 +222,7 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id]: { 
+  [SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id]: {
     int: true,
     crit: true,
     hasteHpm: false,
@@ -230,7 +230,7 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.BONEDUST_BREW_HEAL.id]: { 
+  [SPELLS.BONEDUST_BREW_HEAL.id]: {
     int: true,
     crit: false,
     hasteHpm: false,
@@ -238,7 +238,7 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.BONEDUST_BREW_GUST_OF_MIST.id]: { 
+  [SPELLS.BONEDUST_BREW_GUST_OF_MIST.id]: {
     int: true,
     crit: false,
     hasteHpm: false,

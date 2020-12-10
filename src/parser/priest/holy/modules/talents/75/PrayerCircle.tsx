@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import React from 'react';
 import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
@@ -17,16 +17,11 @@ class PrayerCircle extends Analyzer {
     abilityTracker: AbilityTracker,
     abilities: Abilities,
   };
-  protected abilityTracker!: AbilityTracker;
-  protected abilities!: Abilities;
-
   lastCohCastAt: number = 0;
   lastCastStartWasBuffed: boolean = false;
   buffedCohCasts = 0;
-
-  get unbuffedCohCasts() {
-    return (this.abilityTracker.getAbility(SPELLS.PRAYER_OF_HEALING.id).casts) - this.buffedCohCasts;
-  }
+  protected abilityTracker!: AbilityTracker;
+  protected abilities!: Abilities;
 
   constructor(options: Options) {
     super(options);
@@ -37,6 +32,10 @@ class PrayerCircle extends Analyzer {
       this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.PRAYER_OF_HEALING), this.startPohCast);
       this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PRAYER_OF_HEALING), this.finishPohCast);
     }
+  }
+
+  get unbuffedCohCasts() {
+    return (this.abilityTracker.getAbility(SPELLS.PRAYER_OF_HEALING.id).casts) - this.buffedCohCasts;
   }
 
   cohCast(event: CastEvent) {

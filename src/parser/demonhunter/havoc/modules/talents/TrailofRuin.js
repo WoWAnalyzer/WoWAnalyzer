@@ -4,13 +4,13 @@ import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Events from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { formatThousands} from 'common/format';
+import { formatThousands } from 'common/format';
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/RMPgqbz1BxpG9X8H/#fight=2&source=10
  */
 
-class TrailofRuin extends Analyzer{
+class TrailofRuin extends Analyzer {
 
   damage = 0;
 
@@ -27,7 +27,7 @@ class TrailofRuin extends Analyzer{
     this.damage += event.amount;
   }
 
-  statistic(){
+  statistic() {
     return (
       <TalentStatisticBox
         talent={SPELLS.TRAIL_OF_RUIN_TALENT.id}
@@ -38,4 +38,5 @@ class TrailofRuin extends Analyzer{
     );
   }
 }
+
 export default TrailofRuin;

@@ -10,10 +10,13 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
-
 const AC_DAMAGE_BONUS = 0.15;
 
 class AbsoluteCorruption extends Analyzer {
+  get dps() {
+    return this.bonusDmg / this.owner.fightDuration * 1000;
+  }
+
   bonusDmg = 0;
 
   constructor(...args) {
@@ -24,10 +27,6 @@ class AbsoluteCorruption extends Analyzer {
 
   onCorruptionDamage(event) {
     this.bonusDmg += calculateEffectiveDamage(event, AC_DAMAGE_BONUS);
-  }
-
-  get dps() {
-    return this.bonusDmg / this.owner.fightDuration * 1000;
   }
 
   statistic() {
@@ -44,7 +43,7 @@ class AbsoluteCorruption extends Analyzer {
         )}
       >
         <BoringSpellValueText spell={SPELLS.ABSOLUTE_CORRUPTION_TALENT}>
-        {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total</small>
+          {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total</small>
         </BoringSpellValueText>
       </Statistic>
     );

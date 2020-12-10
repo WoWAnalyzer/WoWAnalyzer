@@ -14,10 +14,6 @@ import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class MoonfireUptime extends Analyzer {
-  static dependencies = {
-    enemies: Enemies,
-  };
-
   get suggestionThresholds() {
     const moonfireUptime = this.enemies.getBuffUptime(SPELLS.MOONFIRE_BEAR.id) / this.owner.fightDuration;
     return {
@@ -30,6 +26,11 @@ class MoonfireUptime extends Analyzer {
       style: 'percentage',
     };
   }
+
+  static dependencies = {
+    enemies: Enemies,
+  };
+  statisticOrder = STATISTIC_ORDER.CORE(4);
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> uptime can be improved. Try to pay more attention to your Moonfire on the boss.</>)
@@ -53,8 +54,6 @@ class MoonfireUptime extends Analyzer {
       </Statistic>
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default MoonfireUptime;

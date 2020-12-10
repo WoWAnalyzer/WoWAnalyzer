@@ -19,7 +19,6 @@ import WARRIOR from './warrior';
 
 //Non class-specific
 import OTHERS from './others';
-import BFA from './bfa';
 import SHADOWLANDS from './shadowlands';
 
 
@@ -42,7 +41,6 @@ const ITEMS: ItemList = {
   //Any non class-specific items
   ...safeMerge(
     OTHERS,
-    BFA,
     SHADOWLANDS,
   ),
 };

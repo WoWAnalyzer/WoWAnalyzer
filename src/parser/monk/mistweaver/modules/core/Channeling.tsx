@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import Events, { ApplyDebuffEvent, CastEvent, RemoveDebuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { ApplyDebuffEvent, CastEvent, RemoveBuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
 import Ability from 'parser/core/modules/Ability';
 import CoreChanneling from 'parser/shared/modules/Channeling';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -14,11 +14,11 @@ import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
  */
 class Channeling extends CoreChanneling {
 
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.CRACKLING_JADE_LIGHTNING), this.onApplyDebuff);
     this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.CRACKLING_JADE_LIGHTNING), this.onRemoveDebuff);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell([SPELLS.ESSENCE_FONT.id, SPELLS.SOOTHING_MIST]), this.onRemoveBuff);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell([SPELLS.ESSENCE_FONT, SPELLS.SOOTHING_MIST]), this.onRemoveBuff);
   }
 
   onCast(event: CastEvent) {
@@ -56,6 +56,7 @@ class Channeling extends CoreChanneling {
     }
     this.endChannel(event);
   }
+
   onRemoveBuff(event: RemoveBuffEvent) {
     if (!this.isChannelingSpell(SPELLS.ESSENCE_FONT.id) || !this.isChannelingSpell(SPELLS.SOOTHING_MIST.id)) {
       // This may be true if we did the event-order fix in begincast/cast and it was already ended there.

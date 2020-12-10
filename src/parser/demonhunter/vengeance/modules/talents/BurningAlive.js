@@ -20,7 +20,7 @@ class BurningAlive extends Analyzer {
   onDamage(event) {
     this.damage += event.amount;
   }
-  
+
   statistic() {
     return (
       <TalentStatisticBox

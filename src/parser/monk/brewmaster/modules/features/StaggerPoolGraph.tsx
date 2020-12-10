@@ -3,14 +3,12 @@ import { AutoSizer } from 'react-virtualized';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { DeathEvent, DamageEvent, HealEvent, EventType } from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { DamageEvent, DeathEvent, EventType, HealEvent } from 'parser/core/Events';
 import Panel from 'interface/others/Panel';
 import BaseChart, { formatTime } from 'interface/others/BaseChart';
 
-import { AddStaggerEvent, RemoveStaggerEvent } from '../core/StaggerFabricator';
-
-import StaggerFabricator from '../core/StaggerFabricator';
+import StaggerFabricator, { AddStaggerEvent, RemoveStaggerEvent } from '../core/StaggerFabricator';
 
 interface StaggerEvent {
   timestamp: number;
@@ -59,37 +57,6 @@ class StaggerPoolGraph extends Analyzer {
     this.addEventListener(Events.heal.to(SELECTED_PLAYER), this._heal);
     this.addEventListener(EventType.AddStagger, this._addstagger);
     this.addEventListener(EventType.RemoveStagger, this._removestagger);
-  }
-
-  _addstagger(event: AddStaggerEvent) {
-    this._staggerEvents.push({...event, hitPoints: this._lastHp, maxHitPoints: this._lastMaxHp });
-  }
-
-  _removestagger(event: RemoveStaggerEvent) {
-    if (event.trigger!.ability && event.trigger!.ability.guid === SPELLS.PURIFYING_BREW.id) {
-      // record the *previous* timestamp for purification. this will
-      // make the purifies line up with peaks in the plot, instead of
-      // showing up *after* peaks
-      this._purifyEvents.push({...event, previousTimestamp: this._staggerEvents[this._staggerEvents.length - 1].timestamp});
-    }
-
-    this._staggerEvents.push({...event, hitPoints: this._lastHp, maxHitPoints: this._lastMaxHp });
-  }
-
-  _death(event: DeathEvent) {
-    this._deathEvents.push(event);
-  }
-
-  _damage(event: DamageEvent) {
-    this._hpEvents.push(event);
-    this._lastHp = event.hitPoints ? event.hitPoints : this._lastHp;
-    this._lastMaxHp = event.maxHitPoints ? event.maxHitPoints : this._lastMaxHp;
-  }
-
-  _heal(event: HealEvent) {
-    this._hpEvents.push(event);
-    this._lastHp = event.hitPoints ? event.hitPoints : this._lastHp;
-    this._lastMaxHp = event.maxHitPoints ? event.maxHitPoints : this._lastMaxHp;
   }
 
   get plot() {
@@ -250,7 +217,7 @@ class StaggerPoolGraph extends Analyzer {
       ],
     };
 
-    if(this._staggerEvents.length > 0) {
+    if (this._staggerEvents.length > 0) {
       const combined = [
         {
           timestamp: this.owner.fight.start_time,
@@ -262,10 +229,12 @@ class StaggerPoolGraph extends Analyzer {
       ];
 
       return (
-        <div className="graph-container" style={{
+        <div
+          className="graph-container" style={{
           width: '100%',
           minHeight: 200,
-        }}>
+        }}
+        >
           <AutoSizer>
             {({ width, height }) => (
               <BaseChart
@@ -276,7 +245,8 @@ class StaggerPoolGraph extends Analyzer {
                   deaths: this._deathEvents,
                 }}
                 width={width}
-                height={height} />
+                height={height}
+              />
             )}
           </AutoSizer>
         </div>
@@ -284,6 +254,37 @@ class StaggerPoolGraph extends Analyzer {
     } else {
       return null;
     }
+  }
+
+  _addstagger(event: AddStaggerEvent) {
+    this._staggerEvents.push({ ...event, hitPoints: this._lastHp, maxHitPoints: this._lastMaxHp });
+  }
+
+  _removestagger(event: RemoveStaggerEvent) {
+    if (event.trigger!.ability && event.trigger!.ability.guid === SPELLS.PURIFYING_BREW.id) {
+      // record the *previous* timestamp for purification. this will
+      // make the purifies line up with peaks in the plot, instead of
+      // showing up *after* peaks
+      this._purifyEvents.push({ ...event, previousTimestamp: this._staggerEvents[this._staggerEvents.length - 1].timestamp });
+    }
+
+    this._staggerEvents.push({ ...event, hitPoints: this._lastHp, maxHitPoints: this._lastMaxHp });
+  }
+
+  _death(event: DeathEvent) {
+    this._deathEvents.push(event);
+  }
+
+  _damage(event: DamageEvent) {
+    this._hpEvents.push(event);
+    this._lastHp = event.hitPoints ? event.hitPoints : this._lastHp;
+    this._lastMaxHp = event.maxHitPoints ? event.maxHitPoints : this._lastMaxHp;
+  }
+
+  _heal(event: HealEvent) {
+    this._hpEvents.push(event);
+    this._lastHp = event.hitPoints ? event.hitPoints : this._lastHp;
+    this._lastMaxHp = event.maxHitPoints ? event.maxHitPoints : this._lastMaxHp;
   }
 
   tab() {

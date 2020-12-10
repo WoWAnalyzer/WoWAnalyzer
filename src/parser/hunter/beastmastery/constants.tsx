@@ -51,6 +51,8 @@ export const AOTW_GCD_REDUCTION_AFFECTED_ABILITIES = [
   SPELLS.RESONATING_ARROW.id,
   SPELLS.DEATH_CHAKRAM_INITIAL_AND_AOE.id,
 ];
+//Aspect of the Wild gives 5 focus per second
+export const ASPECT_OF_THE_WILD_FOCUS = 5;
 //endregion
 
 //region Talents
@@ -145,7 +147,7 @@ export const BARBED_SHOT_FOCUS_REGEN_BUFFS_IDS = [
 export const BEAST_MASTERY_SPELLS_WITHOUT_WASTE = [
   SPELLS.ASPECT_OF_THE_WILD.id,
   SPELLS.CHIMAERA_SHOT_FOCUS.id,
-  ...BARBED_SHOT_FOCUS_REGEN_BUFFS,
+  ...BARBED_SHOT_FOCUS_REGEN_BUFFS_IDS,
 ];
 //Barbed Shot regenerates 5 focus per tick
 export const BARBED_SHOT_REGEN = 5;
@@ -160,12 +162,6 @@ export const LIST_OF_FOCUS_SPENDERS_BM = [
   SPELLS.KILL_COMMAND_CAST_BM,
   SPELLS.DIRE_BEAST_TALENT,
 ];
-//endregion
-
-//region Azerite Traits
-/** Feeding Frenzy */
-// Damage coefficient of Feeding Frenzy to accurately attribute damage to it
-export const FEEDING_FRENZY_DAMAGE_COEFFICIENT = 0.216;
 //endregion
 
 //region Conduits

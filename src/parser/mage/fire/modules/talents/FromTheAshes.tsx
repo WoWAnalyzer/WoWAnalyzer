@@ -31,7 +31,7 @@ class FromTheAshes extends Analyzer {
     if (!this.spellUsable.isOnCooldown(SPELLS.PHOENIX_FLAMES.id) || event.hitType !== HIT_TYPES.CRIT) {
       return;
     }
-    this.cooldownReduction += this.spellUsable.reduceCooldown(SPELLS.PHOENIX_FLAMES, MS_REDUCTION);
+    this.cooldownReduction += this.spellUsable.reduceCooldown(SPELLS.PHOENIX_FLAMES.id, MS_REDUCTION);
   }
 
   get cooldownReductionSeconds() {

@@ -13,11 +13,6 @@ import { t } from '@lingui/macro';
 import BetweenTheEyesDamageTracker from './BetweenTheEyesDamageTracker';
 
 class BetweenTheEyes extends Analyzer {
-  static dependencies = {
-    damageTracker: DamageTracker,
-    betweenTheEyesDamageTracker: BetweenTheEyesDamageTracker,
-  };
-
   get thresholds() {
     const total = this.damageTracker.getAbility(SPELLS.BETWEEN_THE_EYES.id);
     const filtered = this.betweenTheEyesDamageTracker.getAbility(SPELLS.BETWEEN_THE_EYES.id);
@@ -36,11 +31,16 @@ class BetweenTheEyes extends Analyzer {
     };
   }
 
+  static dependencies = {
+    damageTracker: DamageTracker,
+    betweenTheEyesDamageTracker: BetweenTheEyesDamageTracker,
+  };
+
   suggestions(when) {
     when(this.thresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You casted <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> without having <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> active.</>)
-        .icon(SPELLS.BETWEEN_THE_EYES.icon)
-        .actual(i18n._(t('rogue.outlaw.suggestions.betweentheEyes.efficiency')`${formatPercentage(actual)}% inefficient casts`))
-        .recommended(`${formatPercentage(recommended)}% is recommended`));
+      .icon(SPELLS.BETWEEN_THE_EYES.icon)
+      .actual(i18n._(t('rogue.outlaw.suggestions.betweentheEyes.efficiency')`${formatPercentage(actual)}% inefficient casts`))
+      .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 }
 

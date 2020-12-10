@@ -14,10 +14,6 @@ const AVERAGE_THRESHOLD = 0.1;
 const MAJOR_THRESHOLD = 0.2;
 
 class EnergyDetails extends Analyzer {
-  static dependencies = {
-    energyTracker: EnergyTracker,
-  };
-
   get wasted() {
     return this.energyTracker.wasted || 0;
   }
@@ -41,6 +37,10 @@ class EnergyDetails extends Analyzer {
       style: 'percentage',
     };
   }
+
+  static dependencies = {
+    energyTracker: EnergyTracker,
+  };
 
   statistic() {
     return (
@@ -67,7 +67,7 @@ class EnergyDetails extends Analyzer {
         </Panel>
       ),
     };
- }
+  }
 
 }
 

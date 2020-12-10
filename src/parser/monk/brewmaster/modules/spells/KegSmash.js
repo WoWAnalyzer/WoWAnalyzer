@@ -25,7 +25,7 @@ class KegSmash extends Analyzer {
 
   _bocBuffActive = false;
 
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF), this.onGainBOC);
     this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF), this.onGainBOC);
@@ -33,11 +33,11 @@ class KegSmash extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.KEG_SMASH), this.onCast);
   }
 
-  onGainBOC(event){
+  onGainBOC(event) {
     this._bocBuffActive = true;
   }
 
-  onLoseBOC(event){
+  onLoseBOC(event) {
     this._bocBuffActive = false;
   }
 
@@ -48,7 +48,7 @@ class KegSmash extends Analyzer {
     this.cdr += actualReduction;
     this.wastedCDR += KEG_SMASH_REDUCTION - actualReduction;
 
-    if(this._bocBuffActive) {
+    if (this._bocBuffActive) {
       this.bocHits += 1; // assuming (not a big assumption) that we get ≥ 1 hit per cast
 
       // possible for minor loss of correctness due to potential gap

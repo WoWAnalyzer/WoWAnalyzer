@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import Events, { Event, AbsorbedEvent, DeathEvent, DamageEvent, CastEvent, Ability, EventType, AnyEvent } from 'parser/core/Events';
+import Events, { Ability, AbsorbedEvent, AnyEvent, CastEvent, DamageEvent, DeathEvent, Event, EventType } from 'parser/core/Events';
 import Haste from 'parser/shared/modules/Haste';
 
 import HighTolerance, { HIGH_TOLERANCE_HASTE } from '../spells/HighTolerance';
@@ -43,14 +43,12 @@ class StaggerFabricator extends Analyzer {
     ht: HighTolerance,
     haste: Haste,
   };
-
+  _lastKnownMaxHp = 0;
+  _initialized = false;
+  _previousBuff: number = 0;
   protected eventEmitter!: EventEmitter;
   protected ht!: HighTolerance;
   protected haste!: Haste;
-
-  _staggerPool = 0;
-  _lastKnownMaxHp = 0;
-  _initialized = false;
 
   constructor(options: Options) {
     super(options);
@@ -64,12 +62,14 @@ class StaggerFabricator extends Analyzer {
     this.addEventListener(Events.death.to(SELECTED_PLAYER), this._death);
   }
 
-  get purifyPercentage() {
-    return PURIFY_BASE;
-  }
+  _staggerPool = 0;
 
   get staggerPool() {
     return this._staggerPool;
+  }
+
+  get purifyPercentage() {
+    return PURIFY_BASE;
   }
 
   addStagger(event: MaxHPEvent, amount: number) {
@@ -97,55 +97,6 @@ class StaggerFabricator extends Analyzer {
     return amount + overage;
   }
 
-  private _absorb(event: AbsorbedEvent) {
-    if (event.ability.guid !== SPELLS.STAGGER.id) {
-      return;
-    }
-    if (event.extraAbility && event.extraAbility.guid === SPELLS.SPIRIT_LINK_TOTEM_REDISTRIBUTE.id) {
-      return;
-    }
-    this.addStagger(event, event.amount);
-  }
-
-  private _damage(event: DamageEvent) {
-    // used for buff tracking
-    if(event.maxHitPoints) {
-      this._lastKnownMaxHp = event.maxHitPoints;
-    }
-
-    if (event.ability.guid !== SPELLS.STAGGER_TAKEN.id) {
-      return;
-    }
-    const amount = event.amount + (event.absorbed || 0);
-    if(!this._initialized){ //if stagger hasn't been initialized (aka new phase), send a fake add stagger event
-      this._staggerPool = amount*19; //stagger lasts for 10 seconds at 0.5s per tick, we can calculate the total stagger remaining in the pool to be 19*tick (1 out of 20 total stacks being removed this tick)
-      this.addStagger({
-        ...event,
-        __fabricated: true,
-        prepull: true,
-      }, 0); //send empty stagger event to initialized purify etc without tainting the damage staggered statistic
-      this._initialized = true;
-    }else{ //skip this tick's remove event as we only added 19 ticks to the pool
-      this.removeStagger(event, amount);
-    }
-
-  }
-
-  private _pbCast(event: CastEvent) {
-    // used for buff tracking
-    if(event.maxHitPoints) {
-      this._lastKnownMaxHp = event.maxHitPoints;
-    }
-
-    const amount = this._staggerPool * this.purifyPercentage;
-    this.removeStagger(event, amount);
-  }
-
-  private _death(event: DeathEvent) {
-    const amount = this._staggerPool;
-    this.removeStagger(event, amount);
-  }
-
   _fab(type: StaggerEventType, reason: MaxHPEvent, amount: number, overage: number = 0) {
     return {
       timestamp: reason.timestamp,
@@ -156,7 +107,6 @@ class StaggerFabricator extends Analyzer {
     };
   }
 
-  _previousBuff: number = 0;
   _updateHaste(sourceEvent: MaxHPEvent, staggerEvent: AddStaggerEvent | RemoveStaggerEvent) {
     let currentBuff;
     const staggerRatio = staggerEvent.newPooledDamage / (sourceEvent.maxHitPoints ? sourceEvent.maxHitPoints : this._lastKnownMaxHp);
@@ -175,6 +125,55 @@ class StaggerFabricator extends Analyzer {
       currentBuff && this.haste._applyHasteGain(staggerEvent, HIGH_TOLERANCE_HASTE[currentBuff]);
       this._previousBuff = currentBuff;
     }
+  }
+
+  private _absorb(event: AbsorbedEvent) {
+    if (event.ability.guid !== SPELLS.STAGGER.id) {
+      return;
+    }
+    if (event.extraAbility && event.extraAbility.guid === SPELLS.SPIRIT_LINK_TOTEM_REDISTRIBUTE.id) {
+      return;
+    }
+    this.addStagger(event, event.amount);
+  }
+
+  private _damage(event: DamageEvent) {
+    // used for buff tracking
+    if (event.maxHitPoints) {
+      this._lastKnownMaxHp = event.maxHitPoints;
+    }
+
+    if (event.ability.guid !== SPELLS.STAGGER_TAKEN.id) {
+      return;
+    }
+    const amount = event.amount + (event.absorbed || 0);
+    if (!this._initialized) { //if stagger hasn't been initialized (aka new phase), send a fake add stagger event
+      this._staggerPool = amount * 19; //stagger lasts for 10 seconds at 0.5s per tick, we can calculate the total stagger remaining in the pool to be 19*tick (1 out of 20 total stacks being removed this tick)
+      this.addStagger({
+        ...event,
+        __fabricated: true,
+        prepull: true,
+      }, 0); //send empty stagger event to initialized purify etc without tainting the damage staggered statistic
+      this._initialized = true;
+    } else { //skip this tick's remove event as we only added 19 ticks to the pool
+      this.removeStagger(event, amount);
+    }
+
+  }
+
+  private _pbCast(event: CastEvent) {
+    // used for buff tracking
+    if (event.maxHitPoints) {
+      this._lastKnownMaxHp = event.maxHitPoints;
+    }
+
+    const amount = this._staggerPool * this.purifyPercentage;
+    this.removeStagger(event, amount);
+  }
+
+  private _death(event: DeathEvent) {
+    const amount = this._staggerPool;
+    this.removeStagger(event, amount);
   }
 }
 

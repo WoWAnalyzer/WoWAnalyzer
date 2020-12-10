@@ -15,6 +15,10 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
     Conflagrate burns the target for an additional (48% of Spell power) Fire damage over 6 sec.
  */
 class RoaringBlaze extends Analyzer {
+  get dps() {
+    return this.damage / this.owner.fightDuration * 1000;
+  }
+
   damage = 0;
 
   constructor(...args) {
@@ -25,10 +29,6 @@ class RoaringBlaze extends Analyzer {
 
   onRoaringBlazeDamage(event) {
     this.damage += (event.amount || 0) + (event.absorbed || 0);
-  }
-
-  get dps() {
-    return this.damage / this.owner.fightDuration * 1000;
   }
 
   statistic() {

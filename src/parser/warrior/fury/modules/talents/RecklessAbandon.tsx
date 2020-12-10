@@ -1,8 +1,8 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import { formatPercentage, formatNumber } from 'common/format';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { EnergizeEvent, DamageEvent } from 'parser/core/Events';
+import { formatNumber, formatPercentage } from 'common/format';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { DamageEvent, EnergizeEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
@@ -29,6 +29,10 @@ class RecklessAbandon extends Analyzer {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onPlayerDamage);
   }
 
+  get damagePercent() {
+    return this.owner.getPercentageOfTotalDamageDone(this.damage);
+  }
+
   hasLast4SecondsOfRecklessness(event: EnergizeEvent | DamageEvent) {
     const reck = this.selectedCombatant.getBuff(SPELLS.RECKLESSNESS.id);
     return reck && ((event.timestamp - reck.start) > BASE_RECKLESSNESS_DURATION);
@@ -50,22 +54,18 @@ class RecklessAbandon extends Analyzer {
     }
   }
 
-  get damagePercent() {
-    return this.owner.getPercentageOfTotalDamageDone(this.damage);
-  }
-
   statistic() {
     return (
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={(
-            <>
-              In the 4 additional seconds of Recklessness caused by Reckless Abandon:<br />
-              Additional rage generated: <strong>{this.rageGained}</strong><br />
-              Damage dealt: <strong>{formatNumber(this.damage)} ({formatPercentage(this.damagePercent)}%)</strong>
-            </>
-          )}
+          <>
+            In the 4 additional seconds of Recklessness caused by Reckless Abandon:<br />
+            Additional rage generated: <strong>{this.rageGained}</strong><br />
+            Damage dealt: <strong>{formatNumber(this.damage)} ({formatPercentage(this.damagePercent)}%)</strong>
+          </>
+        )}
       >
         <BoringSpellValueText spell={SPELLS.RECKLESS_ABANDON_TALENT}>
           <>

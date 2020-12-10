@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 12, 8), <>Added support for <SpellLink id={SPELLS.FIRESTORM.id} /> and adjusted <SpellLink id={SPELLS.HEATING_UP.id} /> to check for a Venthyr edge case.</>, Sharrq),
   change(date(2020, 11, 16), <>Cleaned up some older modules, resolved an issue in <SpellLink id={SPELLS.PYROCLASM_TALENT.id} />, and added support for <SpellLink id={SPELLS.SHIFTING_POWER.id} /> and <SpellLink id={SPELLS.MIRRORS_OF_TORMENT.id} />.</>, Sharrq),
   change(date(2020, 11, 16), <>Updated numbers for <SpellLink id={SPELLS.INFERNAL_CASCADE.id} /> and <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> to match latest tuning.</>, Sharrq),
   change(date(2020, 10, 20), 'Cleaned up variable types and constants.', Sharrq),

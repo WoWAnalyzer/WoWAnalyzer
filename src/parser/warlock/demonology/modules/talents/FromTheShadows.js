@@ -13,6 +13,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import ItemDamageDone from 'interface/ItemDamageDone';
 
 const DAMAGE_BONUS = 0.2;
+
 /*
   From the Shadows:
     Casting Call Dreadstalkers causes the target to take 20% additional Shadowflame damage from you for the next 12 sec.

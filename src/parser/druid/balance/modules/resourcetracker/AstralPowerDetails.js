@@ -14,16 +14,11 @@ import { t } from '@lingui/macro';
 
 import AstralPowerTracker from './AstralPowerTracker';
 
-
 const MINOR_THRESHOLD = 0;
 const AVERAGE_THRESHOLD = 0.02;
 const MAJOR_THRESHOLD = 0.05;
 
 class AstralPowerDetails extends Analyzer {
-  static dependencies = {
-    astralPowerTracker: AstralPowerTracker,
-  };
-
   get wasted() {
     return this.astralPowerTracker.wasted || 0;
   }
@@ -64,12 +59,16 @@ class AstralPowerDetails extends Analyzer {
     };
   }
 
+  static dependencies = {
+    astralPowerTracker: AstralPowerTracker,
+  };
+
   suggestions(when) {
     when(this.suggestionThresholdsWasted)
       .addSuggestion((suggest, actual, recommended) => suggest(`You overcapped ${this.wasted} Astral Power. Always prioritize spending it over avoiding the overcap of any other ability.`)
-          .icon('ability_druid_cresentburn')
-          .actual(i18n._(t('druid.balance.suggestions.astralPower.overcapped')`${formatPercentage(actual)}% overcapped Astral Power`))
-          .recommended(`${formatPercentage(recommended)}% is recommended`));
+        .icon('ability_druid_cresentburn')
+        .actual(i18n._(t('druid.balance.suggestions.astralPower.overcapped')`${formatPercentage(actual)}% overcapped Astral Power`))
+        .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {
@@ -82,7 +81,8 @@ class AstralPowerDetails extends Analyzer {
         <BoringResourceValue
           resource={RESOURCE_TYPES.ASTRAL_POWER}
           value={`${formatPercentage(this.wastedPercent)} %`}
-          label="Overcapped Astral Power" />
+          label="Overcapped Astral Power"
+        />
       </Statistic>
     );
   }
@@ -100,7 +100,7 @@ class AstralPowerDetails extends Analyzer {
         </Panel>
       ),
     };
- }
+  }
 
 }
 

@@ -1,7 +1,7 @@
 import { Boss } from "raids/index";
 
-import Background from './images/backgrounds/CastleNathria.jpg';
-import Headshot from './images/headshots/CastleNathriaHeadshot.png';
+import Background from './images/backgrounds/ArtificerXymox.jpg';
+import Headshot from './images/headshots/ArtificerXymox.jpg';
 
 const ArtificerXymox: Boss = {
   id: 2405,

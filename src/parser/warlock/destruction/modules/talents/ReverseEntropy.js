@@ -11,13 +11,13 @@ import UptimeIcon from 'interface/icons/Uptime';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 class ReverseEntropy extends Analyzer {
+  get uptime() {
+    return this.selectedCombatant.getBuffUptime(SPELLS.REVERSE_ENTROPY_BUFF.id) / this.owner.fightDuration;
+  }
+
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.REVERSE_ENTROPY_TALENT.id);
-  }
-
-  get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.REVERSE_ENTROPY_BUFF.id) / this.owner.fightDuration;
   }
 
   statistic() {

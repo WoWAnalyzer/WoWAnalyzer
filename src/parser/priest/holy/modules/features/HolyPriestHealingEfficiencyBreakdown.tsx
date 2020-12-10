@@ -14,7 +14,7 @@ class HolyPriestHealingEfficiencyBreakdown extends HealingEfficiencyBreakdown {
   constructor(props: Props) {
     super(props);
 
-    super.setState({showEchoOfLight: false})
+    super.setState({ showEchoOfLight: false });
   }
 
   render() {

@@ -1,6 +1,7 @@
 import Analyzer from 'parser/core/Analyzer';
 import PotionChecker from 'parser/shared/modules/items/PotionChecker';
 import EnchantChecker from 'parser/shared/modules/items/EnchantChecker';
+import WeaponEnhancementChecker from 'parser/shared/modules/items/WeaponEnhancementChecker';
 import FlaskChecker from 'parser/shared/modules/items/FlaskChecker';
 import FoodChecker from 'parser/shared/modules/items/FoodChecker';
 import { ThresholdStyle } from 'parser/core/ParseResults';
@@ -9,6 +10,7 @@ class PreparationRuleAnalyzer extends Analyzer {
   static dependencies = {
     potionChecker: PotionChecker,
     enchantChecker: EnchantChecker,
+    weaponEnhancementChecker: WeaponEnhancementChecker,
     flaskChecker: FlaskChecker,
     foodChecker: FoodChecker,
   };
@@ -38,6 +40,18 @@ class PreparationRuleAnalyzer extends Analyzer {
         actual: this.enchantChecker.numEnchantableGear - this.enchantChecker.numSlotsMissingEnchant - this.enchantChecker.numSlotsMissingMaxEnchant,
         max: this.enchantChecker.numEnchantableGear,
         isLessThan: this.enchantChecker.numEnchantableGear,
+        style: ThresholdStyle.NUMBER,
+      },
+      weaponsEnhanced: {
+        actual: this.weaponEnhancementChecker.numWeapons - this.weaponEnhancementChecker.numWeaponsMissingEnhancement,
+        max: this.weaponEnhancementChecker.numWeapons,
+        isLessThan: this.weaponEnhancementChecker.numWeapons,
+        style: ThresholdStyle.NUMBER,
+      },
+      bestWeaponEnhancements: {
+        actual: this.weaponEnhancementChecker.numWeapons - this.weaponEnhancementChecker.numWeaponsMissingEnhancement - this.weaponEnhancementChecker.numWeaponsMissingMaxEnhancement,
+        max: this.weaponEnhancementChecker.numWeapons,
+        isLessThan: this.weaponEnhancementChecker.numWeapons,
         style: ThresholdStyle.NUMBER,
       },
       higherFlaskPresent: this.flaskChecker.flaskStrengthSuggestion,

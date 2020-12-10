@@ -66,7 +66,7 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }) => {
           <>
             Builders use energy and give you combo points. Keep your <TooltipElement content="Rake and Moonfire if you have the Lunar Inspiration talent, and Thrash if you the Wild Fleshrending azerite trait.">DoTs</TooltipElement> active, use <SpellLink id={SPELLS.BRUTAL_SLASH_TALENT.id} /> and <SpellLink id={SPELLS.FERAL_FRENZY_TALENT.id} /> if you have those talents, then fill with <SpellLink id={SPELLS.SHRED.id} />. Don't waste combo points by continuing to use builders when at full combo points.<br /><br />
 
-            You should adapt your behaviour in AoE situations (the analyzer only accounts for some of this, so use your discretion when looking at AoE-heavy fights.) If you'll hit 2 or more targets replace <SpellLink id={SPELLS.SHRED.id} /> with <SpellLink id={SPELLS.SWIPE_CAT.id} />. When fighting <TooltipElement content="The threshold varies slightly depending on your stats and azerite traits.">5 targets</TooltipElement> or more it's no longer worth using <SpellLink id={SPELLS.RAKE.id} /> and <SpellLink id={SPELLS.MOONFIRE_FERAL.id} />. Unlike in the Legion expansion you should never spam <SpellLink id={SPELLS.THRASH_FERAL.id} />, keep it active only if you have <SpellLink id={SPELLS.WILD_FLESHRENDING.id} /> traits or if you would otherwise be using <SpellLink id={SPELLS.SWIPE_CAT.id} /> on targets without any bleeds.
+            You should adapt your behaviour in AoE situations (the analyzer only accounts for some of this, so use your discretion when looking at AoE-heavy fights.) If you'll hit 2 or more targets replace <SpellLink id={SPELLS.SHRED.id} /> with <SpellLink id={SPELLS.SWIPE_CAT.id} />. When fighting <TooltipElement content="The threshold varies slightly depending on your stats and azerite traits.">5 targets</TooltipElement> or more it's no longer worth using <SpellLink id={SPELLS.RAKE.id} /> and <SpellLink id={SPELLS.MOONFIRE_FERAL.id} />. Unlike in the Legion expansion you should never spam <SpellLink id={SPELLS.THRASH_FERAL.id} />, only keep it active if you would otherwise be using <SpellLink id={SPELLS.SWIPE_CAT.id} /> on targets without any bleeds.
           </>
         )}
       >
@@ -317,14 +317,14 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }) => {
         🗵 Only use Predator if it's allowing you to reset Tiger's Fury by killing adds
       */}
       {(combatant.hasTalent(SPELLS.PREDATOR_TALENT.id)) && (
-          <Rule
-            name="Pick the most suitable Talents"
-            description={(
-              <>
-                The <SpellLink id={SPELLS.PREDATOR_TALENT.id} /> talent is generally only effective on fights with multiple enemies and should be swapped out for single target encounters.
-              </>
-            )}
-          >
+        <Rule
+          name="Pick the most suitable Talents"
+          description={(
+            <>
+              The <SpellLink id={SPELLS.PREDATOR_TALENT.id} /> talent is generally only effective on fights with multiple enemies and should be swapped out for single target encounters.
+            </>
+          )}
+        >
           {combatant.hasTalent(SPELLS.PREDATOR_TALENT.id) && (
             <Requirement
               name={(

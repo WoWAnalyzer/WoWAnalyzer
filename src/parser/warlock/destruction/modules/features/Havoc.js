@@ -12,10 +12,13 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 class Havoc extends Analyzer {
+  get dps() {
+    return this.damage / this.owner.fightDuration * 1000;
+  }
+
   static dependencies = {
     enemies: Enemies,
   };
-
   damage = 0;
 
   constructor(...args) {
@@ -32,9 +35,6 @@ class Havoc extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
-  get dps() {
-    return this.damage / this.owner.fightDuration * 1000;
-  }
   // TODO: this could perhaps be reworked somehow to be more accurate but not sure how yet. Take it as a Havoc v1.0
   statistic() {
     if (this.damage === 0) {

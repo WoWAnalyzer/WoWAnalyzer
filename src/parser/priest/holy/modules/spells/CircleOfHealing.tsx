@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemHealingDone from 'interface/ItemHealingDone';
@@ -16,6 +16,13 @@ class CircleOfHealing extends Analyzer {
   circleOfHealingOverhealing = 0;
   circleOfHealingTargetsHit = 0;
 
+  constructor(options: Options) {
+    super(options);
+
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CIRCLE_OF_HEALING_TALENT), this.onCohCast);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CIRCLE_OF_HEALING_TALENT), this.onCohHeal);
+  }
+
   get overHealPercent() {
     return this.circleOfHealingOverhealing / this.rawHealing;
   }
@@ -26,13 +33,6 @@ class CircleOfHealing extends Analyzer {
 
   get averageTargetsHit() {
     return this.circleOfHealingTargetsHit / this.circleOfHealingCasts;
-  }
-
-  constructor(options: Options) {
-    super(options);
-
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CIRCLE_OF_HEALING_TALENT), this.onCohCast);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CIRCLE_OF_HEALING_TALENT), this.onCohHeal);
   }
 
   onCohCast(event: CastEvent) {

@@ -15,7 +15,7 @@ import DevotionAuraPassiveDRTotal from './DevotionAuraPassiveDRTotal.png';
 
 export default (
   <RegularArticle title="Analyzing Devotion Aura's DRPS" publishedAt="2018-08-03" publishedBy={Zerotorescue}>
-    There are multiple methods to analyzing the value of damage reductions effects in World of Warcraft. In this article we take a close look at how the damage reduced by <SpellLink id={SPELLS.DEVOTION_AURA_TALENT.id} /> is analyzed. The first part of this article is a general explanation of how different damage reductions can be analyzed. The second part will be specifically about how the DRPS value for <SpellLink id={SPELLS.DEVOTION_AURA_TALENT.id} /> is established.<br /><br />
+    There are multiple methods to analyzing the value of damage reductions effects in World of Warcraft. In this article we take a close look at how the damage reduced by Devotion Aura is analyzed. The first part of this article is a general explanation of how different damage reductions can be analyzed. The second part will be specifically about how the DRPS value for Devotion Aura is established.<br /><br />
 
     <Warning>
       This article is part of the <i>theorycrafting</i> series and gets very technical. You do <b>not</b> need to understand any of this in order to play well.

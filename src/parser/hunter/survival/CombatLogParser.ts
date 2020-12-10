@@ -56,17 +56,6 @@ import HydrasBite from './modules/talents/HydrasBite';
 import FlankingStrike from './modules/talents/FlankingStrike';
 import TipOfTheSpear from './modules/talents/TipOfTheSpear';
 
-//Azerite Traits
-import WildernessSurvival from './modules/spells/azeritetraits/WildernessSurvival';
-import LatentPoison from './modules/spells/azeritetraits/LatentPoison';
-import BlurOfTalons from './modules/spells/azeritetraits/BlurOfTalons';
-import PrimevalIntuition from './modules/spells/azeritetraits/PrimevalIntuition';
-import DireConsequences from '../shared/modules/spells/azeritetraits/DireConsequences';
-import WildfireClusterAzerite from './modules/spells/azeritetraits/WildfireClusterAzerite';
-
-//Azerite Essences
-import MemoryOfLucidDreams from './modules/items/MemoryOfLucidDreams';
-
 //Covenants
 import ResonatingArrow from '../shared/modules/spells/covenants/kyrian/ResonatingArrow';
 import DeathChakrams from '../shared/modules/spells/covenants/necrolord/DeathChakrams';
@@ -84,7 +73,7 @@ import StingingStrike from './modules/spells/conduits/StingingStrike';
 import StrengthOfThePack from './modules/spells/conduits/StrengthOfThePack';
 
 //Legendaries
-import NesingwarysTrappingApparatus from '../shared/modules/items/NesingwarysTrappingApparatus';
+import NesingwarysTrappingApparatus from './modules/items/NesingwarysTrappingApparatus';
 import SoulforgeEmbers from '../shared/modules/items/SoulforgeEmbers';
 import WildfireCluster from './modules/items/WildfireCluster';
 
@@ -142,17 +131,6 @@ class CombatLogParser extends CoreCombatLogParser {
     pheromoneBomb: PheromoneBomb,
     shrapnelBomb: ShrapnelBomb,
     volatileBomb: VolatileBomb,
-
-    //Azerite Traits
-    wildernessSurvival: WildernessSurvival,
-    latentPoison: LatentPoison,
-    blurOfTalons: BlurOfTalons,
-    primevalIntuition: PrimevalIntuition,
-    direConsequences: DireConsequences,
-    wildfireClusterAzerite: WildfireClusterAzerite,
-
-    //Azerite Essences
-    memoryOfLucidDreams: MemoryOfLucidDreams,
 
     //Covenants
     resonatingArrow: ResonatingArrow,

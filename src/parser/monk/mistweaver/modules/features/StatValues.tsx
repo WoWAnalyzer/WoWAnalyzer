@@ -19,12 +19,10 @@ class StatValues extends BaseHealerStatValues {
     statTracker: StatTracker,
     critEffectBonus: CritEffectBonus,
   };
-
-  protected statTracker!: StatTracker;
-  protected critEffectBonus!: CritEffectBonus;
-
   spellInfo: {} = SPELL_INFO;
   qeLive: boolean = true;
+  protected statTracker!: StatTracker;
+  protected critEffectBonus!: CritEffectBonus;
 
   _mastery(event: HealEvent, healVal: HealingValue): number {
     if (healVal.overheal) {
@@ -35,8 +33,8 @@ class StatValues extends BaseHealerStatValues {
     // assuming gust heal vs. mastery % are linear and start at 0 ( gust_heal = K * mast_pct )
     // h2 / h1 = mast_pct(rat) / mast_pct(rat-1)
     // solving that for h2 - h1 brings...
-    return healVal.effective * ( 1 - (this.statTracker.masteryPercentage(this.statTracker.currentMasteryRating - 1, true) / this.statTracker.masteryPercentage(this.statTracker.currentMasteryRating, true)));
-   }
+    return healVal.effective * (1 - (this.statTracker.masteryPercentage(this.statTracker.currentMasteryRating - 1, true) / this.statTracker.masteryPercentage(this.statTracker.currentMasteryRating, true)));
+  }
 
   _prepareResults() {
     return [

@@ -26,19 +26,18 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.DIVINE_HYMN_CAST.id,
     SPELLS.HOLY_WORD_SALVATION_TALENT.id,
   ];
+  statisticOrder = STATISTIC_ORDER.CORE(1);
 
   suggestions(when: When) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;
 
     when(deadTimePercentage).isGreaterThan(0.15)
       .addSuggestion((suggest, actual, recommended) => suggest('Your downtime can be improved. Try to Always Be Casting (ABC).')
-          .icon('spell_mage_altertime')
-          .actual(i18n._(t('priest.holy.suggestions.alwaysBeCasting.downtime')`${formatPercentage(actual)}% downtime`))
-          .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended + 0.05).major(recommended + 0.05));
+        .icon('spell_mage_altertime')
+        .actual(i18n._(t('priest.holy.suggestions.alwaysBeCasting.downtime')`${formatPercentage(actual)}% downtime`))
+        .recommended(`<${formatPercentage(recommended)}% is recommended`)
+        .regular(recommended + 0.05).major(recommended + 0.05));
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 
 export default AlwaysBeCasting;

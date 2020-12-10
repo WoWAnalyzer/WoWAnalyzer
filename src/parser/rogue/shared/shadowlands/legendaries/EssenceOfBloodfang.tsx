@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
@@ -11,6 +11,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 class EssenceOfBloodfang extends Analyzer {
   bloodfangDamage: number = 0;
   bloodfangHealing: number = 0;
+
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.ESSENCE_OF_BLOODFANG.bonusID);

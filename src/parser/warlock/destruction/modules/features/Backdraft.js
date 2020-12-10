@@ -20,6 +20,19 @@ const BUFF_DURATION = 10000;
 const REMOVEBUFF_TOLERANCE = 20;
 
 class Backdraft extends Analyzer {
+  get suggestionThresholds() {
+    const wastedStacksPerMinute = this.wastedStacks / this.owner.fightDuration * 1000 * 60;
+    return {
+      actual: wastedStacksPerMinute,
+      isGreaterThan: {
+        minor: 1,
+        average: 1.5,
+        major: 2,
+      },
+      style: 'number',
+    };
+  }
+
   _maxStacks = 2;
   _stacksPerApplication = 1;
   _currentStacks = 0;
@@ -59,25 +72,12 @@ class Backdraft extends Analyzer {
     this._currentStacks = 0;
   }
 
-  get suggestionThresholds() {
-    const wastedStacksPerMinute = this.wastedStacks / this.owner.fightDuration * 1000 * 60;
-    return {
-      actual: wastedStacksPerMinute,
-      isGreaterThan: {
-        minor: 1,
-        average: 1.5,
-        major: 2,
-      },
-      style: 'number',
-    };
-  }
-
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You should use your <SpellLink id={SPELLS.BACKDRAFT.id} /> stacks more. You have wasted {this.wastedStacks} stacks this fight.</>)
-          .icon(SPELLS.BACKDRAFT.icon)
-          .actual(i18n._(t('warlock.destruction.suggestions.backdraft.wastedPerMinute')`${actual.toFixed(2)} wasted Backdraft stacks per minute`))
-          .recommended(`< ${recommended} is recommended`));
+        .icon(SPELLS.BACKDRAFT.icon)
+        .actual(i18n._(t('warlock.destruction.suggestions.backdraft.wastedPerMinute')`${actual.toFixed(2)} wasted Backdraft stacks per minute`))
+        .recommended(`< ${recommended} is recommended`));
   }
 
   statistic() {

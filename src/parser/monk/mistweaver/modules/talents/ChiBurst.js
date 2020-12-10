@@ -13,15 +13,29 @@ import { t } from '@lingui/macro';
 const debug = false;
 
 class ChiBurst extends Analyzer {
+  get avgTargetsHitPerCB() {
+    return this.targetsChiBurst / this.castChiBurst || 0;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.avgTargetsHitPerCB,
+      isLessThan: {
+        minor: this.raidSize * 0.3,
+        average: this.raidSize * 0.25,
+        major: this.raidSize * 0.2,
+      },
+      style: 'number',
+    };
+  }
+
   static dependencies = {
     combatants: Combatants,
   };
-
   castChiBurst = 0;
   healing = 0;
   targetsChiBurst = 0;
   raidSize = 0;
-
 
   constructor(...options) {
     super(...options);
@@ -46,31 +60,15 @@ class ChiBurst extends Analyzer {
     this.targetsChiBurst += 1;
   }
 
-  get avgTargetsHitPerCB() {
-    return this.targetsChiBurst / this.castChiBurst || 0;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.avgTargetsHitPerCB,
-      isLessThan: {
-        minor: this.raidSize * 0.3,
-        average: this.raidSize * 0.25,
-        major: this.raidSize * 0.2,
-      },
-      style: 'number',
-    };
-  }
-
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-          <>
-            You are not utilizing your <SpellLink id={SPELLS.CHI_BURST_TALENT.id} /> talent as effectively as you should. You should work on both your positioning and aiming of the spell. Always aim for the highest concentration of players, which is normally melee.
-          </>,
-        )
-          .icon(SPELLS.CHI_BURST_TALENT.icon)
-          .actual(`${this.avgTargetsHitPerCB.toFixed(2)} ${i18n._(t('monk.mistweaver.suggestions.chiBurst.targetsHit')`targets hit per Chi Burst cast - `)}${formatPercentage(this.avgTargetsHitPerCB / this.raidSize)}${i18n._(t('monk.mistweaver.suggestions.chiBurst.targetsHitPartTwo')`% of raid hit`)}`)
-          .recommended('30% of the raid hit is recommended'));
+      <>
+        You are not utilizing your <SpellLink id={SPELLS.CHI_BURST_TALENT.id} /> talent as effectively as you should. You should work on both your positioning and aiming of the spell. Always aim for the highest concentration of players, which is normally melee.
+      </>,
+    )
+      .icon(SPELLS.CHI_BURST_TALENT.icon)
+      .actual(`${this.avgTargetsHitPerCB.toFixed(2)} ${i18n._(t('monk.mistweaver.suggestions.chiBurst.targetsHit')`targets hit per Chi Burst cast - `)}${formatPercentage(this.avgTargetsHitPerCB / this.raidSize)}${i18n._(t('monk.mistweaver.suggestions.chiBurst.targetsHitPartTwo')`% of raid hit`)}`)
+      .recommended('30% of the raid hit is recommended'));
   }
 
   onFightend() {

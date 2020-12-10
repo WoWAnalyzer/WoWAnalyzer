@@ -16,10 +16,6 @@ import FuryTracker from './FuryTracker';
 const furyIcon = 'ability_demonhunter_eyebeam';
 
 class FuryDetails extends Analyzer {
-  static dependencies = {
-    furyTracker: FuryTracker,
-  };
-
   get wastedFuryPercent() {
     return this.furyTracker.wasted / (this.furyTracker.wasted + this.furyTracker.generated);
   }
@@ -36,11 +32,15 @@ class FuryDetails extends Analyzer {
     };
   }
 
+  static dependencies = {
+    furyTracker: FuryTracker,
+  };
+
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(`You wasted ${formatNumber(this.furyTracker.wasted)} Fury.`)
-        .icon(furyIcon)
-        .actual(i18n._(t('demonhunter.havoc.suggestions.fury.wasted')`${formatPercentage(actual)}% Fury wasted`))
-        .recommended(`<${formatPercentage(recommended)}% is recommended.`));
+      .icon(furyIcon)
+      .actual(i18n._(t('demonhunter.havoc.suggestions.fury.wasted')`${formatPercentage(actual)}% Fury wasted`))
+      .recommended(`<${formatPercentage(recommended)}% is recommended.`));
   }
 
   statistic() {

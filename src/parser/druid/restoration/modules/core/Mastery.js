@@ -4,7 +4,6 @@ import Combatants from 'parser/shared/modules/Combatants';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-import { calculateAzeriteEffects } from 'common/stats';
 import STAT from 'parser/shared/modules/features/STAT';
 
 import Events from 'parser/core/Events';
@@ -49,11 +48,6 @@ class Mastery extends Analyzer {
       [SPELLS.ASTRAL_HARMONY.id]: { amount: 4000 },
       [SPELLS.JACINS_RUSE.id]: { amount: 3000 },
     };
-
-    if(this.selectedCombatant.hasTrait(SPELLS.SYNERGISTIC_GROWTH.id)) {
-      this.masteryBuffs[SPELLS.SYNERGISTIC_GROWTH_BUFF.id] = {amount: this.selectedCombatant.traitsBySpellId[SPELLS.SYNERGISTIC_GROWTH.id]
-          .reduce((sum, rank) => sum + calculateAzeriteEffects(SPELLS.SYNERGISTIC_GROWTH.id, rank)[0], 0)};
-    }
 
     Object.values(this.masteryBuffs).forEach(entry => {
       entry.attributableHealing = 0;
