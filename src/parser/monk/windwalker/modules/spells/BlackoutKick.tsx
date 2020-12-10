@@ -1,9 +1,7 @@
 import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Statistic from 'interface/statistics/Statistic';
@@ -20,10 +18,11 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 const COOLDOWN_REDUCTION_MS = 1000;
 
 class BlackoutKick extends Analyzer {
-
   static dependencies = {
     spellUsable: SpellUsable,
   };
+
+  protected spellUsable!: SpellUsable;
 
   IMPORTANT_SPELLS = [
     SPELLS.RISING_SUN_KICK.id,
@@ -33,8 +32,6 @@ class BlackoutKick extends Analyzer {
   wastedRisingSunKickReductionMs = 0;
   effectiveFistsOfFuryReductionMs = 0;
   wastedFistsOfFuryReductionMs = 0;
-
-  protected spellUsable!: SpellUsable;
 
   constructor(options: Options) {
     super(options);
@@ -82,7 +79,7 @@ class BlackoutKick extends Analyzer {
         average: 2,
         major: 4,
       },
-      style: ThresholdStyle.NUMBER,
+      style: ThresholdStyle.DECIMAL,
     };
   }
 

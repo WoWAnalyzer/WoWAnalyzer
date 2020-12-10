@@ -16,11 +16,9 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 const FISTS_OF_FURY_MINIMUM_TICK_TIME = 100; // This is to check that additional ticks aren't just hitting secondary targets
 
 class FistsofFury extends Analyzer {
-
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
-
   previousTickTimestamp = 0;
   fistsTicks = 0;
 
@@ -30,7 +28,6 @@ class FistsofFury extends Analyzer {
     super(options);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FISTS_OF_FURY_DAMAGE), this.onFistsDamage);
   }
-
 
   isNewFistsTick(timestamp: number) {
     return !this.previousTickTimestamp || (timestamp - this.previousTickTimestamp) > FISTS_OF_FURY_MINIMUM_TICK_TIME;

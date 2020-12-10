@@ -24,7 +24,6 @@ interface MasteryCast {
 const HIT_COMBO_STRING = ' and dropping the Hit Combo damage buff';
 
 class ComboStrikes extends Analyzer {
-
   _lastSpellUsed: number | null = null;
   _lastThreeSpellsUsed: MasteryCast[] = [];
   masteryDropSpellSequence: MasteryCast[][] = [];
