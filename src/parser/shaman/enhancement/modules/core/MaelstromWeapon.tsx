@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Analyzer, { Options, SELECTED_PLAYER } from "parser/core/Analyzer";
-import Events, { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, RemoveBuffEvent, RemoveBuffStackEvent } from "parser/core/Events";
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS/index';
 import UptimeIcon from 'interface/icons/Uptime';
 import Spell from 'common/SPELLS/Spell';
@@ -19,14 +19,14 @@ const MAELSTROM_WEAPON_SPENDERS: Spell[] = [
   SPELLS.CHAIN_LIGHTNING,
   SPELLS.HEALING_SURGE,
   SPELLS.LIGHTNING_BOLT,
-]
+];
 const debug = false;
 
 class MaelstromWeapon extends Analyzer {
   protected stacksGained = 0;
   protected stacksUsed = 0;
   protected stacksExpired = 0;
-  
+
   protected currentStacks = 0;
 
   protected cappedIntervals: Intervals;
@@ -38,29 +38,33 @@ class MaelstromWeapon extends Analyzer {
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON_BUFF),
-      this.gainFirstStack
+      this.gainFirstStack,
     );
 
     this.addEventListener(
       Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON_BUFF),
-      this.gainSubsequentStack
+      this.gainSubsequentStack,
     );
 
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON_BUFF),
-      this.removeAllStacks
+      this.removeAllStacks,
     );
 
     // This only occurs when player casts a spender, because in case stacks expire, 'removebuff' event occurs.
     this.addEventListener(
       Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON_BUFF),
-      this.spendStacks
+      this.spendStacks,
     );
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(MAELSTROM_WEAPON_SPENDERS),
-      this.castMaelstromWeaponSpender
-    )
+      this.castMaelstromWeaponSpender,
+    );
+  }
+
+  get timePercentageSpentWithCappedStacks() {
+    return this.cappedIntervals.totalDuration / this.owner.fightDuration;
   }
 
   reachMaxStacks(timestamp: number) {
@@ -71,15 +75,11 @@ class MaelstromWeapon extends Analyzer {
     this.cappedIntervals.endInterval(timestamp);
   }
 
-  get timePercentageSpentWithCappedStacks() {
-    return this.cappedIntervals.totalDuration / this.owner.fightDuration;
-  }
-
   // this method is a helper for determining if removebuff event corresponds to stack expiration or spending
   castMaelstromWeaponSpender(event: CastEvent) {
     const stacksUsed = Math.min(
       this.currentStacks,
-      MAX_STACKS_SPENT_PER_CAST
+      MAX_STACKS_SPENT_PER_CAST,
     );
 
     if (stacksUsed === 0) {
@@ -110,7 +110,7 @@ class MaelstromWeapon extends Analyzer {
     this.stacksGained += 1;
 
     if (this.currentStacks === MAX_STACKS) {
-      this.reachMaxStacks(event.timestamp)
+      this.reachMaxStacks(event.timestamp);
     }
   }
 
@@ -128,10 +128,9 @@ class MaelstromWeapon extends Analyzer {
     this.currentStacks = 0;
   }
 
-
   spendStacks(event: RemoveBuffStackEvent) {
     if (this.currentStacks !== event.stack) {
-      debug && console.error('Maelstrom Weapon analyzer: stack mismatch in spendStacks')
+      debug && console.error('Maelstrom Weapon analyzer: stack mismatch in spendStacks');
     }
     if (this.currentStacks === MAX_STACKS) {
       this.stopHavingMaxStacks(event.timestamp);
@@ -152,7 +151,7 @@ class MaelstromWeapon extends Analyzer {
         <UptimeIcon /> {formatPercentage(this.timePercentageSpentWithCappedStacks)}% <small>of fight with max stacks</small><br />
         {formatPercentage(this.stacksUsed / this.stacksGained)}% <small>of stacks used</small>
       </BoringSpellValueText>
-    </Statistic>
+    </Statistic>;
   }
 }
 

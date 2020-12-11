@@ -774,7 +774,7 @@ export const Adoraci: Contributor = {
     name: 'Adoraci',
     spec: SPECS.SHADOW_PRIEST,
     link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/adoraci',
-  }], 
+  }],
   alts: [{
     name: 'Zenavi',
     spec: SPECS.FURY_WARRIOR,
@@ -1041,5 +1041,16 @@ export const VMakaev: Contributor = {
     name: 'Elastan',
     spec: SPECS.PROTECTION_PALADIN,
     link: 'https://worldofwarcraft.com/en-gb/character/eu/silvermoon/elastan'
+  }]
+};
+
+export const Maleficien: Contributor = {
+  nickname: 'Maleficien',
+  github: 'kevindqc',
+  discord: 'DaRkViRuS#1070',
+  mains: [{
+    name: 'Maleficien',
+    spec: SPECS.AFFLICTION_WARLOCK,
+    link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/maleficien'
   }]
 };

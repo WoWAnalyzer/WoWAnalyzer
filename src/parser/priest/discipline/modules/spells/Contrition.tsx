@@ -18,12 +18,12 @@ class Contrition extends Analyzer {
     statTracker: StatTracker,
     penance: Penance, // we need this to add `penanceBoltNumber` to the damage and heal events
   };
-  protected statTracker!: StatTracker;
-  protected penance!: Penance;
-
   healing = 0;
   damagePenalty = 0;
   penanceBoltEstimation: any;
+  statisticOrder = STATISTIC_ORDER.OPTIONAL();
+  protected statTracker!: StatTracker;
+  protected penance!: Penance;
 
   constructor(options: Options) {
     super(options);
@@ -90,8 +90,6 @@ class Contrition extends Analyzer {
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default Contrition;

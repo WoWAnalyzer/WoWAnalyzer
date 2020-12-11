@@ -144,7 +144,7 @@ export interface ClassResources {
 // TODO: Find a good place for this
 export enum Class {
   DemonHunter = 'DemonHunter',
-  DeathKnight = 'DeathKnight',
+  DeathKnight = 'Death Knight',
   Druid = 'Druid',
   Hunter = 'Hunter',
   Mage = 'Mage',
@@ -678,15 +678,6 @@ export interface Buff {
   name?: string;
 }
 
-export interface Trait {
-  traitID: number;
-  rank: number;
-  spellID: number;
-  icon: string;
-  slot: number;
-  isMajor: boolean;
-}
-
 export interface Covenant {
   name: string;
   description: string;
@@ -753,8 +744,8 @@ export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
     Spell,
   ];
   pvpTalents: Spell[];
-  artifact: Trait[] | SoulbindTrait[];
-  heartOfAzeroth: Trait[] | Conduit[];
+  artifact: SoulbindTrait[];
+  heartOfAzeroth: Conduit[];
   covenantID: number,
   soulbindID: number,
   error?: any, //TODO: Verify, is this a bool? string?

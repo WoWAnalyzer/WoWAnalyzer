@@ -26,10 +26,9 @@ class CloudedFocus extends Analyzer {
 
   stacks: number = 0;
 
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
-    this.active = false;
-
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.CLOUDED_FOCUS.bonusID);
     if (!this.active) {
       return;
     }
@@ -41,8 +40,7 @@ class CloudedFocus extends Analyzer {
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.VIVIFY, SPELLS.ENVELOPING_MIST]), this.calculateHealingEffect);
   }
 
-
-  calculateManaEffect(event: CastEvent){
+  calculateManaEffect(event: CastEvent) {
     if (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
       return;
     }
@@ -52,26 +50,24 @@ class CloudedFocus extends Analyzer {
       cost /= 2;
     }
 
-    this.manaSaved += cost - cost / (1 + this.stacks * BUFF_AMOUNT_PER_STACK);
+    this.manaSaved += cost - cost * (1 - this.stacks * BUFF_AMOUNT_PER_STACK);
   }
 
-  calculateHealingEffect(event: HealEvent){
+  calculateHealingEffect(event: HealEvent) {
     this.healingDone += calculateEffectiveHealing(event, this.stacks * BUFF_AMOUNT_PER_STACK);
   }
 
-  applybuff(event: ApplyBuffEvent){
+  applybuff(event: ApplyBuffEvent) {
     this.stacks = 1;
   }
 
-  applyBuffStack(event: ApplyBuffStackEvent){
+  applyBuffStack(event: ApplyBuffStackEvent) {
     this.stacks = event.stack;
   }
 
-  removeBuff(event: RemoveBuffEvent){
+  removeBuff(event: RemoveBuffEvent) {
     this.stacks = 0;
   }
-
-
 
   statistic() {
     return (

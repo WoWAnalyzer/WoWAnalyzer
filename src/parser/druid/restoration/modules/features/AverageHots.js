@@ -32,7 +32,7 @@ class AverageHots extends Analyzer {
           </>
         )}
       >
-        <BoringValue label={<><SpellIcon id={SPELLS.MASTERY_HARMONY.id} /> Average Mastery stacks</>} >
+        <BoringValue label={<><SpellIcon id={SPELLS.MASTERY_HARMONY.id} /> Average Mastery stacks</>}>
           <>
             {avgTotalHots}
           </>

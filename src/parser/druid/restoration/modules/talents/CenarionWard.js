@@ -44,7 +44,7 @@ class CenarionWard extends Analyzer {
           </>
         )}
       >
-        <BoringValue label={<><SpellIcon id={SPELLS.CENARION_WARD_HEAL.id} /> Cenarion Ward healing</>} >
+        <BoringValue label={<><SpellIcon id={SPELLS.CENARION_WARD_HEAL.id} /> Cenarion Ward healing</>}>
           <>
             {formatPercentage(totalPercent)} %
           </>

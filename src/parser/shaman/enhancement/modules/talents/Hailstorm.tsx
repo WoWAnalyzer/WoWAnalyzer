@@ -48,43 +48,43 @@ class Hailstorm extends Analyzer {
     this.addEventListener(
       Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON_BUFF),
       this.onMaelstromWeaponStackApply,
-    )
+    );
 
     const SPELLS_WITH_CAST_TIME: Spell[] = [
       SPELLS.CHAIN_HEAL,
       SPELLS.CHAIN_LIGHTNING,
       SPELLS.HEALING_SURGE,
       SPELLS.LIGHTNING_BOLT,
-    ]
+    ];
 
     SPELLS_WITH_CAST_TIME.forEach(spell => {
       this.addEventListener(
         Events.cast.by(SELECTED_PLAYER).spell(spell),
-        this.onSpellWithCastTimeCast
-      )
-    })
-    
+        this.onSpellWithCastTimeCast,
+      );
+    });
+
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER)
-      .spell(SPELLS.FROST_SHOCK),
+        .spell(SPELLS.FROST_SHOCK),
       this.onFrostShockCast,
     );
-      
+
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER)
-      .spell(SPELLS.FROST_SHOCK),
+        .spell(SPELLS.FROST_SHOCK),
       this.onFrostShockDamage,
     );
 
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.HAILSTORM_BUFF),
       this.onHailstormRemove,
-    )
+    );
 
     this.addEventListener(
       Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.HAILSTORM_BUFF),
-        this.onHailstormStackRemove
-    )
+      this.onHailstormStackRemove,
+    );
   }
 
   onMaelstromWeaponStackApply(event: ApplyBuffStackEvent) {
@@ -94,13 +94,13 @@ class Hailstorm extends Analyzer {
   onSpellWithCastTimeCast() {
     const maelstromWeaponStacksConsumed = Math.min(
       MAX_MAELSTROM_WEAPON_STACKS_CONSUMED_PER_CAST,
-      this.currentMaelstromWeaponStacks
-    )
+      this.currentMaelstromWeaponStacks,
+    );
     this.currentMaelstromWeaponStacks -= maelstromWeaponStacksConsumed;
 
     const hailstormStacksGained = Math.min(
       maelstromWeaponStacksConsumed,
-      MAX_STACKS - this.currentStacks
+      MAX_STACKS - this.currentStacks,
     );
     this.currentStacks += hailstormStacksGained;
     this.totalStacksGained += hailstormStacksGained;
@@ -164,10 +164,10 @@ class Hailstorm extends Analyzer {
         <BoringSpellValueText spell={SPELLS.HAILSTORM_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} approximate /><br />
-            <AverageTargetsHit casts={this.casts} hits={this.hits} /><br/>
+            <AverageTargetsHit casts={this.casts} hits={this.hits} /><br />
             <>
-                  {formatPercentage((this.totalStacksGained - this.lostStacks)/(this.totalStacksGained + this.overcappedStacks))}{'% '}
-                  <small>stacks used</small>
+              {formatPercentage((this.totalStacksGained - this.lostStacks) / (this.totalStacksGained + this.overcappedStacks))}{'% '}
+              <small>stacks used</small>
             </>
           </>
         </BoringSpellValueText>

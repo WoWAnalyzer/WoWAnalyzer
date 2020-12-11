@@ -95,7 +95,7 @@ class SpellUsable extends CoreSpellUsable {
 
   beginCooldown(spellId, cooldownTriggerEvent) {
     if (SPELLS.TIGERS_FURY.id === spellId &&
-        this.hasPredator && this.isOnCooldown(spellId)) {
+      this.hasPredator && this.isOnCooldown(spellId)) {
       const resetTime = this.possibleRecentKill ? this.possibleRecentKill : cooldownTriggerEvent.timestamp;
       this.earlyCastsOfTigersFury += 1;
       this.endCooldown(spellId, false, resetTime);

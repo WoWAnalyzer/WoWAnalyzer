@@ -1,6 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const covenants: SpellList = {
+const covenants = {
   //region Kyrian
   SUMMON_STEWARD: {
     id: 324739,
@@ -32,5 +30,5 @@ const covenants: SpellList = {
     icon: 'ability_venthyr_doorofshadows',
   }
   //endregion
-};
+} as const;
 export default covenants;

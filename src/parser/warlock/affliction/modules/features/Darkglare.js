@@ -12,14 +12,14 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
-import { getDotDurations, UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
+import { getDotDurations } from '../../constants';
 
 const BONUS_DURATION = 8000;
 const DOT_DEBUFFS = [
   SPELLS.AGONY,
   SPELLS.CORRUPTION_DEBUFF,
   SPELLS.SIPHON_LIFE_TALENT,
-  ...UNSTABLE_AFFLICTION_DEBUFFS,
+  SPELLS.UNSTABLE_AFFLICTION,
   SPELLS.PHANTOM_SINGULARITY_TALENT,
 ];
 const debug = false;
@@ -159,7 +159,7 @@ class Darkglare extends Analyzer {
     // if it's a dot, refresh its data in this.dots
     const spellId = event.ability.guid;
     // Corruption cast has different spell ID than the debuff (it's not in DOT_DEBUFF_IDS)
-    if (!DOT_DEBUFFS.some(spell => spell.id === spellId) && spellId !== SPELLS.CORRUPTION_CAST.id){
+    if (!DOT_DEBUFFS.some(spell => spell.id === spellId) && spellId !== SPELLS.CORRUPTION_CAST.id) {
       return;
     }
     if (event.targetIsFriendly) {

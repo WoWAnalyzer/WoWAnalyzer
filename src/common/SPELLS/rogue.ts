@@ -4,8 +4,7 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import { SpellList } from "./Spell";
-const spells: SpellList = {
+const spells = {
   // Defensive general spells
   FEINT: {
     id: 1966,
@@ -540,5 +539,6 @@ const spells: SpellList = {
     name: 'Opportunity',
     icon: 'ability_rogue_pistolshot',
   },
-};
+} as const;
+
 export default spells;

@@ -15,10 +15,6 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import PainTracker from './PainTracker';
 
 class PainDetails extends Analyzer {
-  static dependencies = {
-    painTracker: PainTracker,
-  };
-
   get wastedPercent() {
     return this.painTracker.wasted / (this.painTracker.wasted + this.painTracker.generated) || 0;
   }
@@ -46,6 +42,10 @@ class PainDetails extends Analyzer {
       style: 'percentage',
     };
   }
+
+  static dependencies = {
+    painTracker: PainTracker,
+  };
 
   suggestions(when) {
     when(this.suggestionThresholds)

@@ -3,11 +3,11 @@ import React from 'react';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS/index';
-import { formatPercentage} from 'common/format';
+import { formatPercentage } from 'common/format';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import SpellLink from 'common/SpellLink';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { i18n } from '@lingui/core';
@@ -20,36 +20,25 @@ class Whirlwind extends Analyzer {
     spellUsable: SpellUsable,
     rageTracker: RageTracker,
   };
-
-  protected spellUsable!: SpellUsable;
-  protected rageTracker!: RageTracker;
-
   hasDragonsRoar: boolean = false;
   hasBladeStorm: boolean = false;
-
   lastCastWW: boolean = false;
-
   drWasAvailable: boolean = false;//dragons roar
   bsWasAvailable: boolean = false;//blade storm
   btWasAvailable: boolean = false;//bloodthirst
   ramWasAvailable: boolean = false;//rampage
   rbWasAvailable: boolean = false;//raging blow
   exWasAvailable: boolean = false;//execute
-
   lastEvent: CastEvent | null = null;
-
   enemiesHitWW: string[] = [];
-
   wasEnraged = false;
-
   executeThreshold = 0;
-
   wwCast = 0;
   badWWCast = 0;
-
   hasWWBuff = false;
-
   rampageCost = 0;
+  protected spellUsable!: SpellUsable;
+  protected rageTracker!: RageTracker;
 
   constructor(options: Options) {
     super(options);
@@ -66,6 +55,22 @@ class Whirlwind extends Analyzer {
     this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.WHIRLWIND_BUFF), this.hadBuff);
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.wasValidWW);
+  }
+
+  get threshold() {
+    return ((this.wwCast - this.badWWCast) / this.wwCast);
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.threshold,
+      isLessThan: {
+        minor: .9,
+        average: .8,
+        major: .7,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
   }
 
   noHadBuff() {
@@ -88,7 +93,7 @@ class Whirlwind extends Analyzer {
     this.bsWasAvailable = this.hasBladeStorm ? this.spellUsable.isAvailable(SPELLS.BLADESTORM_TALENT.id) : false;
     this.drWasAvailable = this.hasDragonsRoar ? this.spellUsable.isAvailable(SPELLS.DRAGON_ROAR_TALENT.id) : false;
 
-    this.wasEnraged = this.selectedCombatant.hasBuff(SPELLS.ENRAGE.ID);
+    this.wasEnraged = this.selectedCombatant.hasBuff(SPELLS.ENRAGE.id);
 
     this.enemiesHitWW = [];
     this.wwCast += 1;
@@ -138,22 +143,6 @@ class Whirlwind extends Analyzer {
       this.lastEvent.meta.isInefficientCast = true;
       this.badWWCast += 1;
     }
-  }
-
-  get threshold() {
-    return ((this.wwCast - this.badWWCast) / this.wwCast);
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.threshold,
-      isLessThan: {
-        minor: .9,
-        average: .8,
-        major: .7,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
   }
 
   suggestions(when: When) {

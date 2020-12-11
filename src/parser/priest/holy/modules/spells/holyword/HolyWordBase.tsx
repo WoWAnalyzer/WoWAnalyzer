@@ -7,26 +7,20 @@ class HolyWordBase extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
-  protected spellUsable!: SpellUsable;
-
   spellId = 0;
   manaCost = 0;
   baseCooldown = 60000;
   serendipityReduction = 6000;
   remainingCooldown = 0;
   serendipityProccers: any = {};
-
   holyWordHealing = 0;
   holyWordOverhealing = 0;
   holyWordCasts = 0;
   holyWordWastedCooldown = 0;
-
   baseHolyWordReductionBySpell: any = {};
-
   lightOfTheNaruActive = false;
   lightOfTheNaruMultiplier = 1.333;
   lightOfTheNaruReductionBySpell: any = {};
-
   apotheosisCasts = 0;
   apotheosisActive = false;
   apotheosisMultiplier = 3;
@@ -35,6 +29,28 @@ class HolyWordBase extends Analyzer {
   holyWordApotheosisCasts = 0;
   holyWordHealingDuringApotheosis = 0;
   holyWordOverhealingDuringApotheosis = 0;
+  protected spellUsable!: SpellUsable;
+
+  constructor(options: Options) {
+    super(options);
+
+    // Set up proper serendipity reduction values
+    if (this.selectedCombatant.hasTalent(SPELLS.LIGHT_OF_THE_NAARU_TALENT.id)) {
+      this.lightOfTheNaruActive = true;
+    }
+
+    if (this.selectedCombatant.hasLegendaryByBonusID(SPELLS.HARMONIOUS_APPARATUS.bonusID)) {
+      this.harmoniousApparatusActive = true
+    }
+
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.APOTHEOSIS_TALENT), this.onApplyBuff);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.APOTHEOSIS_TALENT), this.onRemoveBuff);
+  }
+
+  // Legendary https://www.wowhead.com/spell=336314/harmonious-apparatus
+  harmoniousApparatusActive = false;
 
   get baseCooldownReduction() {
     let totalCDR = 0;
@@ -108,20 +124,6 @@ class HolyWordBase extends Analyzer {
 
   get totalCooldownReduction() {
     return this.baseCooldownReduction + this.lightOfTheNaaruCooldownReduction + this.apotheosisCooldownReduction;
-  }
-
-  constructor(options: Options) {
-    super(options);
-
-    // Set up proper serendipity reduction values
-    if (this.selectedCombatant.hasTalent(SPELLS.LIGHT_OF_THE_NAARU_TALENT.id)) {
-      this.lightOfTheNaruActive = true;
-    }
-
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.APOTHEOSIS_TALENT), this.onApplyBuff);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.APOTHEOSIS_TALENT), this.onRemoveBuff);
   }
 
   onCast(event: CastEvent) {

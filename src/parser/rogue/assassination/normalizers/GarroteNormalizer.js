@@ -17,7 +17,7 @@ class GarroteNormalizer extends EventsNormalizer {
       fixedEvents.push(event);
 
       // find an applybuff event for Garrote
-      if(event.type === EventType.ApplyDebuff && event.ability.guid === SPELLS.GARROTE.id) {
+      if (event.type === EventType.ApplyDebuff && event.ability.guid === SPELLS.GARROTE.id) {
 
         // look for matching removebuff
         for (let previousEventIndex = (eventIndex - eventsRemoved); previousEventIndex >= 0; previousEventIndex -= 1) {
@@ -26,7 +26,7 @@ class GarroteNormalizer extends EventsNormalizer {
             break;
           }
           if (previousEvent.type === EventType.RemoveDebuff &&
-              previousEvent.ability.guid === SPELLS.GARROTE.id) {
+            previousEvent.ability.guid === SPELLS.GARROTE.id) {
             event.type = EventType.RefreshDebuff;
             event.__modified = true;
             fixedEvents.splice(previousEventIndex, 1);

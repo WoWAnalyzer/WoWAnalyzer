@@ -53,7 +53,7 @@ class RejuvenationAttributor extends Analyzer {
   _getRejuvAttribution(event) {
     const spellId = event.ability.guid;
     const targetId = event.targetID;
-    if(!this.hotTracker.hots[targetId] || !this.hotTracker.hots[targetId][spellId]) {
+    if (!this.hotTracker.hots[targetId] || !this.hotTracker.hots[targetId][spellId]) {
       return;
     }
 

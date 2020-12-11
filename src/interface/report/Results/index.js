@@ -425,20 +425,6 @@ class Results extends React.PureComponent {
         {parser && parser.disabledModules && (
           <DegradedExperience disabledModules={parser.disabledModules} />
         )}
-        <div className="container">
-            <Warning style={{ marginBottom: 30 }}>
-              In an effort to focus on Shadowlands and Castle Nathria, we will be removing support
-              for Azerite, Essences, Corruption, and other BFA items with the launch of Prepatch. As
-              a result, analysis of Prepatch encounters may be inaccurate. If you would like to
-              follow your spec's Shadowlands development or provide suggestions/feedback,{' '}
-              <a
-                href="
-https://github.com/WoWAnalyzer/WoWAnalyzer/issues?q=is%3Aopen+is%3Aissue+label%3AShadowlands"
-              >
-                Click Here
-              </a>
-            </Warning>
-          </div>
         {boss && boss.fight.resultsWarning && (
           <div className="container">
             <Warning style={{ marginBottom: 30 }}>{boss.fight.resultsWarning}</Warning>

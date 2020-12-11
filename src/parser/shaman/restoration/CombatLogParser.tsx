@@ -8,7 +8,6 @@ import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
-import LucidDreams from 'parser/shared/modules/spells/bfa/essences/LucidDreamsHealers';
 
 import HealingEfficiencyDetails from './modules/core/HealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/core/HealingEfficiencyTracker';
@@ -70,6 +69,7 @@ import EarthShield from './modules/spells/EarthShield'; // technically shared
 import AstralShift from '../shared/spells/AstralShift';
 
 import CloudburstNormalizer from './normalizers/CloudburstNormalizer';
+import RiptideNormalizer from './normalizers/RiptideNormalizer';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
@@ -135,11 +135,9 @@ class CombatLogParser extends CoreCombatLogParser {
     astralShift: AstralShift,
     earthShield: EarthShield,
 
-    // Essences
-    lucidDreams: LucidDreams,
-
     // Normalizers
     cloudburstNormalizer: CloudburstNormalizer,
+    riptideNormalizer: RiptideNormalizer,
 
     // Conduits
     embraceOfEarth: EmbraceOfEarth,

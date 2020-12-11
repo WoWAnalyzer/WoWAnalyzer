@@ -1,6 +1,4 @@
-import { SpellList, LegendarySpell } from "common/SPELLS/Spell";
-
-const legendaries: SpellList<LegendarySpell> = {
+const legendaries = {
   //Shared
   CLAW_OF_ENDERETH: {
     id: 337038,
@@ -104,5 +102,5 @@ const legendaries: SpellList<LegendarySpell> = {
     icon: 'inv_cape_pandariapvp_d_01',
     bonusID: 7037,
   },
-};
+} as const;
 export default legendaries;

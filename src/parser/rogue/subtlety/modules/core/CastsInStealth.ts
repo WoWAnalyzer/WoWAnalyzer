@@ -22,8 +22,8 @@ class CastsInStealth extends CastsInStealthBase {
     this.maxCastsPerStealth = 1 + (this.selectedCombatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id) ? 2 : 0);
 
     this.stealthCondition = this.selectedCombatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id)
-      ? "Stealth or Vanish with Subterfuge"
-      : "Stealth or Vanish";
+      ? 'Stealth or Vanish with Subterfuge'
+      : 'Stealth or Vanish';
 
     options.stealthDamageTracker.subscribeInefficientCast(
       this.badStealthSpells,
@@ -35,16 +35,17 @@ class CastsInStealth extends CastsInStealthBase {
     return this.createWrongCastThresholds(this.backstabSpell, this.stealthDamageTracker);
   }
 
-  suggestions(when: When) {
-    this.suggestWrongCast(when, this.backstabSpell, this.stealthBackstabThresholds);
-    this.suggestAvgCasts(when, SPELLS.STEALTH);
-  }
-
   get stealthMaxCasts() {
     return this.maxCastsPerStealth * (this.damageTracker.getAbility(SPELLS.VANISH.id).casts + 1);
   }
+
   get stealthActualCasts() {
     return this.validStealthSpellIds.map(s => this.stealthDamageTracker.getAbility(s).casts || 0).reduce((p, c) => p + c);
+  }
+
+  suggestions(when: When) {
+    this.suggestWrongCast(when, this.backstabSpell, this.stealthBackstabThresholds);
+    this.suggestAvgCasts(when, SPELLS.STEALTH);
   }
 }
 

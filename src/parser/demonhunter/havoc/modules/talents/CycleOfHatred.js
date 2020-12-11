@@ -19,7 +19,6 @@ class CycleOfHatred extends Analyzer {
     spellUsable: SpellUsable,
   };
 
-
   totalCooldownReduction = 0;
 
   constructor(...args) {
@@ -35,8 +34,8 @@ class CycleOfHatred extends Analyzer {
     if (!this.spellUsable.isOnCooldown(SPELLS.METAMORPHOSIS_HAVOC.id)) {
       return;
     }
-      const effectiveReduction = this.spellUsable.reduceCooldown(SPELLS.METAMORPHOSIS_HAVOC.id, COOLDOWN_REDUCTION_MS);
-      this.totalCooldownReduction += effectiveReduction;
+    const effectiveReduction = this.spellUsable.reduceCooldown(SPELLS.METAMORPHOSIS_HAVOC.id, COOLDOWN_REDUCTION_MS);
+    this.totalCooldownReduction += effectiveReduction;
   }
 
   statistic() {
@@ -45,7 +44,7 @@ class CycleOfHatred extends Analyzer {
         talent={SPELLS.CYCLE_OF_HATRED_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(7)}
         value={<>{formatNumber(this.totalCooldownReduction / 1000)} sec <small>total <SpellIcon id={SPELLS.METAMORPHOSIS_HAVOC.id} />Meta cooldown reduction</small></>}
-        />
+      />
     );
   }
 }

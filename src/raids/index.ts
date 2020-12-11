@@ -8,6 +8,7 @@ export type Boss = {
   id: number,
   name: string,
   background?: string,
+  backgroundPosition?: string,
   headshot?: string,
   icon?: string,
   fight: EncounterConfig,

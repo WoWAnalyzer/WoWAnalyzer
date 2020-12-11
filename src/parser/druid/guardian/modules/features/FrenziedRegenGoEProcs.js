@@ -11,6 +11,7 @@ class FrenziedRegenGoEProcs extends Analyzer {
   static dependencies = {
     guardianOfElune: GuardianOfElune,
   };
+  statisticOrder = STATISTIC_ORDER.CORE(8);
 
   constructor(...args) {
     super(...args);
@@ -32,7 +33,6 @@ class FrenziedRegenGoEProcs extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(8);
 }
 
 export default FrenziedRegenGoEProcs;

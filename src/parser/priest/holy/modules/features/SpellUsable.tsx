@@ -8,7 +8,7 @@ class SpellUsable extends CoreSpellUsable {
     ...CoreSpellUsable.dependencies,
   };
 
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.dispel.by(SELECTED_PLAYER), this.onDispel);
   }

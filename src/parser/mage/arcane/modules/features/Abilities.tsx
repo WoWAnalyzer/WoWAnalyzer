@@ -51,6 +51,18 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
+      },
+      {
+        spell: SPELLS.TOUCH_OF_THE_MAGI,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 45,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.SUPERNOVA_TALENT,
@@ -272,7 +284,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SHIMMER_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: null,
-        cooldown: combatant.hasConduitBySpellID(SPELLS.FLOW_OF_TIME.id) ? 25 - FLOW_OF_TIME_REDUCTION_SEC[combatant.conduitRankBySpellID(SPELLS.FLOW_OF_TIME)] : 25,
+        cooldown: combatant.hasConduitBySpellID(SPELLS.FLOW_OF_TIME.id) ? 25 - FLOW_OF_TIME_REDUCTION_SEC[combatant.conduitRankBySpellID(SPELLS.FLOW_OF_TIME.id)] : 25,
         charges: 2,
         enabled: combatant.hasTalent(SPELLS.SHIMMER_TALENT.id),
       },

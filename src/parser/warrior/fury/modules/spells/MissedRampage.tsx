@@ -1,11 +1,11 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Events, { CastEvent } from 'parser/core/Events';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
@@ -36,21 +36,6 @@ class MissedRampage extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([...RAGE_GENERATORS]), this.onCast);
   }
 
-  onCast(event: CastEvent) {
-    if (!event.classResources) {
-      return;
-    }
-
-    if (!event.classResources.find(classResources => classResources.type === RESOURCE_TYPES.RAGE.id)) {
-      return;
-    }
-
-    const rage = event.classResources[0].amount / 10;
-    if (rage >= 90) {
-      this.missedRampages += 1;
-    }
-  }
-
   get suggestionThresholds() {
     if (this.hasFB) {
       return {
@@ -75,17 +60,32 @@ class MissedRampage extends Analyzer {
     }
   }
 
+  onCast(event: CastEvent) {
+    if (!event.classResources) {
+      return;
+    }
+
+    if (!event.classResources.find(classResources => classResources.type === RESOURCE_TYPES.RAGE.id)) {
+      return;
+    }
+
+    const rage = event.classResources[0].amount / 10;
+    if (rage >= 90) {
+      this.missedRampages += 1;
+    }
+  }
+
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-        <>
-          There were {actual} times you casted a rage generating ability when you should have cast <SpellLink id={SPELLS.RAMPAGE.id} />.
-          <SpellLink id={SPELLS.RAMPAGE.id} /> is your 2nd highest damage ability behind <SpellLink id={SPELLS.EXECUTE_FURY.id} /> and causes you to <SpellLink id={SPELLS.ENRAGE.id} />, increasing all of your damage done.
-          You should never hold a <SpellLink id={SPELLS.RAMPAGE.id} />, unless you are casting <SpellLink id={SPELLS.WHIRLWIND_FURY.id} /> to cleave it.
-        </>,
-      )
-        .icon(SPELLS.RAMPAGE.icon)
-        .actual(i18n._(t('warrior.fury.suggestions.rampages.missed')`${actual} missed Rampages.`))
-        .recommended(`${recommended} is recommended.`));
+      <>
+        There were {actual} times you casted a rage generating ability when you should have cast <SpellLink id={SPELLS.RAMPAGE.id} />.
+        <SpellLink id={SPELLS.RAMPAGE.id} /> is your 2nd highest damage ability behind <SpellLink id={SPELLS.EXECUTE_FURY.id} /> and causes you to <SpellLink id={SPELLS.ENRAGE.id} />, increasing all of your damage done.
+        You should never hold a <SpellLink id={SPELLS.RAMPAGE.id} />, unless you are casting <SpellLink id={SPELLS.WHIRLWIND_FURY.id} /> to cleave it.
+      </>,
+    )
+      .icon(SPELLS.RAMPAGE.icon)
+      .actual(i18n._(t('warrior.fury.suggestions.rampages.missed')`${actual} missed Rampages.`))
+      .recommended(`${recommended} is recommended.`));
   }
 }
 

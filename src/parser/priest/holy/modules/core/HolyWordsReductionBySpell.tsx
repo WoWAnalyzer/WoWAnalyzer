@@ -5,22 +5,21 @@ import HolyWordChastise from 'parser/priest/holy/modules/spells/holyword/HolyWor
 import HolyWordSalvation from 'parser/priest/holy/modules/spells/holyword/HolyWordSalvation';
 import HolyWordSerenity from 'parser/priest/holy/modules/spells/holyword/HolyWordSerenity';
 import SPELLS from 'common/SPELLS';
-import StatisticBox from 'interface/others/StatisticBox';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 class HolyWordsReductionBySpell extends Analyzer {
-  lightOfTheNaaruActive = false;
-  apotheosisActive = false;
-
   static dependencies = {
     sanctify: HolyWordSanctify,
     serenity: HolyWordSerenity,
     chastise: HolyWordChastise,
     salvation: HolyWordSalvation,
   };
-
+  lightOfTheNaaruActive = false;
+  apotheosisActive = false;
   protected sanctify!: HolyWordSanctify;
   protected serenity!: HolyWordSerenity;
   protected chastise!: HolyWordChastise;
@@ -66,11 +65,9 @@ class HolyWordsReductionBySpell extends Analyzer {
     const reductionBySpell: any = this.reductionBySpell;
 
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(6)}
-        icon={<SpellIcon id={Number(SPELLS.HOLY_WORDS.id)} />}
-        value={`${formatPercentage(reductionRatio)} %`}
-        label="Effective Holy Word reduction"
+        size="flexible"
         tooltip={(
           <>
             The % above is the total CD reduction normalize against the fight length.<br />
@@ -81,29 +78,33 @@ class HolyWordsReductionBySpell extends Analyzer {
             If you took the talent <strong>Holy Word Salvation, Holy Words Sanctify and Serenity</strong> will show since they provide CD reduction for <strong>Holy World Salvation</strong>.
           </>
         )}
-      >
-        <table className="table table-condensed">
-          <thead>
-            <tr>
-              <td className="text-left">Spell</td>
-              <td>Base</td>
-              {this.apotheosisActive && <th>Apotheosis</th>}
-              {this.lightOfTheNaaruActive && <th>Light of the Naaru</th>}
-            </tr>
-          </thead>
-          <tbody>
-            {Object.keys(reductionBySpell).map((e, i) => (
-              <tr key={i}>
-                <td className="text-left"><SpellIcon id={Number(e)} /> {SPELLS[e].name}</td>
-                <td>{Math.ceil(reductionBySpell[e].base / 1000)}s</td>
-                {this.apotheosisActive && <td>{Math.ceil(reductionBySpell[e].apotheosis / 1000)}s</td>}
-                {this.lightOfTheNaaruActive && <td>{Math.ceil(reductionBySpell[e].lightOfTheNaaru / 1000)}s</td>}
+        dropdown={<>
+          <table className="table table-condensed">
+            <thead>
+              <tr>
+                <td className="text-left">Spell</td>
+                <td>Base</td>
+                {this.apotheosisActive && <th>Apotheosis</th>}
+                {this.lightOfTheNaaruActive && <th>Light of the Naaru</th>}
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </StatisticBox>
-
+            </thead>
+            <tbody>
+              {Object.keys(reductionBySpell).map((e, i) => (
+                <tr key={i}>
+                  <td className="text-left"><SpellIcon id={Number(e)} /> {SPELLS[e].name}</td>
+                  <td>{Math.ceil(reductionBySpell[e].base / 1000)}s</td>
+                  {this.apotheosisActive && <td>{Math.ceil(reductionBySpell[e].apotheosis / 1000)}s</td>}
+                  {this.lightOfTheNaaruActive && <td>{Math.ceil(reductionBySpell[e].lightOfTheNaaru / 1000)}s</td>}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>}
+      >
+        <BoringSpellValueText spell={SPELLS.HOLY_WORDS}>
+          {formatPercentage(reductionRatio)}% Effective Holy Word Reduction
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 

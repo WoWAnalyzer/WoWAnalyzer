@@ -12,10 +12,13 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 class ChannelDemonfire extends Analyzer {
+  get dps() {
+    return this.damage / this.owner.fightDuration * 1000;
+  }
+
   static dependencies = {
     enemies: Enemies,
   };
-
   damage = 0;
 
   constructor(...args) {
@@ -26,10 +29,6 @@ class ChannelDemonfire extends Analyzer {
 
   onCDFdamage(event) {
     this.damage += event.amount + (event.absorbed || 0);
-  }
-
-  get dps() {
-    return this.damage / this.owner.fightDuration * 1000;
   }
 
   statistic() {

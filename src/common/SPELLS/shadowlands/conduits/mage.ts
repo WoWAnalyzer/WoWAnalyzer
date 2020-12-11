@@ -1,6 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const conduits: SpellList = {
+const conduits = {
 
   //Arcane
   ARCANE_PRODIGY: {
@@ -151,5 +149,5 @@ const conduits: SpellList = {
     name: 'Discipline of the Grove',
     icon: 'achievement_big_wineos',
   },
-};
+} as const;
 export default conduits;

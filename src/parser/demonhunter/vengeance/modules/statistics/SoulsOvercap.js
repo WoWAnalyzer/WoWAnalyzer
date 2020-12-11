@@ -16,6 +16,18 @@ import { t } from '@lingui/macro';
 import SoulFragmentsTracker from '../features/SoulFragmentsTracker';
 
 class SoulsOvercap extends Analyzer {
+  get suggestionThresholdsEfficiency() {
+    return {
+      actual: this.wasterPerGenerated(),
+      isGreaterThan: {
+        minor: 0.05,
+        average: 0.10,
+        major: 0.15,
+      },
+      style: 'percentage',
+    };
+  }
+
   static dependencies = {
     abilityTracker: AbilityTracker,
     soulFragmentsTracker: SoulFragmentsTracker,
@@ -34,18 +46,6 @@ class SoulsOvercap extends Analyzer {
 
   wasterPerGenerated() {
     return this.soulFragmentsTracker.soulsWasted / this.soulFragmentsTracker.soulsGenerated;
-  }
-
-  get suggestionThresholdsEfficiency() {
-    return {
-      actual: this.wasterPerGenerated(),
-      isGreaterThan: {
-        minor: 0.05,
-        average: 0.10,
-        major: 0.15,
-      },
-      style: 'percentage',
-    };
   }
 
   suggestions(when) {

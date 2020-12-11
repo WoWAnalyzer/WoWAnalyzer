@@ -18,9 +18,12 @@ const MAX_DELAY = 30;
 
 class FervorOfBattle extends Analyzer {
 
+  get dps() {
+    return this.bonusDamage / this.owner.fightDuration * 1000;
+  }
+
   bonusDamage = 0;
   lastWhirlwindCast = 0;
-
   whirlwind = 0;
 
   constructor(...args) {
@@ -41,10 +44,6 @@ class FervorOfBattle extends Analyzer {
     } else if (guid === SPELLS.SLAM.id && event.timestamp - this.lastWhirlwindCast < MAX_DELAY) {
       this.bonusDamage += event.amount + (event.absorbed || 0);
     }
-  }
-
-  get dps() {
-    return this.bonusDamage / this.owner.fightDuration * 1000;
   }
 
   subStatistic() {

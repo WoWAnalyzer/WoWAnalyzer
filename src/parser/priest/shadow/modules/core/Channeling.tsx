@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import CoreChanneling from 'parser/shared/modules/Channeling';
 import Events, { ApplyDebuffEvent, CastEvent } from 'parser/core/Events';
 import Ability from 'parser/core/modules/Ability';
-import { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EventHistory from 'parser/shared/modules/EventHistory';
 
 /**
@@ -22,7 +22,7 @@ class Channeling extends CoreChanneling {
   };
   protected eventHistory!: EventHistory;
 
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(CHANNEL_ABILITIES), this.onApplyDebuff);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(CHANNEL_ABILITIES), this.onCast);

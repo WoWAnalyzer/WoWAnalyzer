@@ -12,14 +12,34 @@ const DAMAGE_WINDOW = 250; //ms
  * an ability is being used.
  */
 class HitCountAoE extends Analyzer {
+  get averageTargetsHit() {
+    if (this.casts === 0) {
+      return 0;
+    }
+    return (this.totalHits / this.casts);
+  }
+
+  get averageTargetsHitNotIncludingZeroCasts() {
+    if (this.casts === 0) {
+      return 0;
+    }
+    return (this.totalHits / (this.casts - this.castsWithZeroHits));
+  }
+
+  get hitZeroPerMinute() {
+    return (this.castsWithZeroHits / this.owner.fightDuration) * (1000 * 60);
+  }
+
+  get hitJustOnePerMinute() {
+    return (this.castsWithOneHit / this.owner.fightDuration) * (1000 * 60);
+  }
+
   // A spell object from SPELLS
   static spell = null;
-
   casts = 0;
   totalHits = 0;
   castsWithZeroHits = 0;
   castsWithOneHit = 0;
-
   lastCastEvent = null;
   lastCastHits = 0;
 
@@ -61,28 +81,6 @@ class HitCountAoE extends Analyzer {
     if (this.lastCastHits === 1) {
       this.castsWithOneHit += 1;
     }
-  }
-
-  get averageTargetsHit() {
-    if (this.casts === 0) {
-      return 0;
-    }
-    return (this.totalHits / this.casts);
-  }
-
-  get averageTargetsHitNotIncludingZeroCasts() {
-    if (this.casts === 0) {
-      return 0;
-    }
-    return (this.totalHits / (this.casts - this.castsWithZeroHits));
-  }
-
-  get hitZeroPerMinute() {
-    return (this.castsWithZeroHits / this.owner.fightDuration) * (1000 * 60);
-  }
-
-  get hitJustOnePerMinute() {
-    return (this.castsWithOneHit / this.owner.fightDuration) * (1000 * 60);
   }
 
   generateStatistic(statisticPosition) {

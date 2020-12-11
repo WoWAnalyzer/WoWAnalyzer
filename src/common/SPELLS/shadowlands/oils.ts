@@ -1,6 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const oils: SpellList = {
+const oils = {
   SHADOWCORE_OIL: {
     id: 320798,
     name: 'Shadowcore Oil',
@@ -11,5 +9,6 @@ const oils: SpellList = {
     name: 'Shadowcore Oil Blast',
     icon: 'inv_misc_potionseta',
   },
-}
+} as const
+
 export default oils;

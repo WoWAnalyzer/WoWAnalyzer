@@ -1,6 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const covenants: SpellList = {
+const covenants = {
 
   //Kyrian
   RADIANT_SPARK: {
@@ -35,5 +33,5 @@ const covenants: SpellList = {
     icon: 'ability_ardenweald_mage',
   },
 
-};
+} as const;
 export default covenants;

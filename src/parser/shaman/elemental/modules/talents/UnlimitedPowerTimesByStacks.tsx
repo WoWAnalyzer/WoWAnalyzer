@@ -10,7 +10,7 @@ import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 const MAX_UP_STACKS = 20; //might need to be increased
 
 class UnlimitedPowerTimesByStacks extends Analyzer {
-  unlimitedPowerStacks: number[][]= [];
+  unlimitedPowerStacks: number[][] = [];
   lastUPStack = 0;
   lastUPUpdate = this.owner.fight.start_time;
 
@@ -26,15 +26,6 @@ class UnlimitedPowerTimesByStacks extends Analyzer {
     this.addEventListener(Events.fightend, this.handleStacks);
   }
 
-  handleStacks(event: ApplyBuffEvent|RemoveBuffEvent|ApplyBuffStackEvent|RemoveBuffStackEvent|FightEndEvent) {
-    this.unlimitedPowerStacks[this.lastUPStack].push(event.timestamp - this.lastUPUpdate);
-    if (event.type === EventType.FightEnd) {
-      return;
-    }
-    this.lastUPUpdate = event.timestamp;
-    this.lastUPStack = currentStacks(event);
-  }
-
   get unlimitedPowerTimesByStacks() {
     return this.unlimitedPowerStacks;
   }
@@ -45,6 +36,15 @@ class UnlimitedPowerTimesByStacks extends Analyzer {
       avgStacks += elem.reduce((a, b) => a + b, 0) / this.owner.fightDuration * index;
     });
     return avgStacks;
+  }
+
+  handleStacks(event: ApplyBuffEvent | RemoveBuffEvent | ApplyBuffStackEvent | RemoveBuffStackEvent | FightEndEvent) {
+    this.unlimitedPowerStacks[this.lastUPStack].push(event.timestamp - this.lastUPUpdate);
+    if (event.type === EventType.FightEnd) {
+      return;
+    }
+    this.lastUPUpdate = event.timestamp;
+    this.lastUPStack = currentStacks(event);
   }
 }
 

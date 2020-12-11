@@ -13,10 +13,13 @@ const COMBO_POINT_DURATION = 4000;
  * Identify inefficient refreshes of the Rupture DoT.
  */
 class RuptureSnapshot extends Snapshot {
+  get durationOfFresh() {
+    return BASE_DURATION + this.comboPointsOnLastCast * COMBO_POINT_DURATION;
+  }
+
   static spellCastId = SPELLS.RUPTURE.id;
   static debuffId = SPELLS.RUPTURE.id;
   static spellIcon = SPELLS.RUPTURE.icon;
-
   comboPointsOnLastCast = 0;
 
   constructor(...args) {
@@ -26,10 +29,6 @@ class RuptureSnapshot extends Snapshot {
       this.active = false;
     }
     this.addEventListener(Events.SpendResource.by(SELECTED_PLAYER).spell(SPELLS.RUPTURE), this.onSpendResource);
-  }
-
-  get durationOfFresh() {
-    return BASE_DURATION + this.comboPointsOnLastCast * COMBO_POINT_DURATION;
   }
 
   onSpendResource(event) {

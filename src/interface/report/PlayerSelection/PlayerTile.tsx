@@ -11,6 +11,8 @@ import SPECS from 'game/SPECS';
 import { getCharacterById } from 'interface/selectors/characters';
 import { fetchCharacter, SUPPORTED_REGIONS } from 'interface/actions/characters';
 
+import { getCovenantById } from 'game/shadowlands/COVENANTS';
+
 import { Player } from './index';
 
 interface Props {
@@ -51,7 +53,14 @@ const PlayerTile = (props: Props) => {
     : '/img/fallback-character.jpg';
   const spec = SPECS[player.combatant.specID];
   const analysisUrl = makeUrl(player.id);
-  const heartOfAzeroth = characterInfo?.heartOfAzeroth || null;
+  const covenant = player.combatant.covenantID || null;
+  let covenantIcon = "";
+  let covenantName: string | undefined = '';
+  if(covenant!==null){
+    covenantName = getCovenantById(covenant)?.name;
+    covenantIcon = '/covenant/' + covenantName + '.jpg';
+  }
+
   const isParsable = !player.combatant.error && spec;
 
   return isParsable ? (
@@ -70,16 +79,15 @@ const PlayerTile = (props: Props) => {
           <small title={`${spec.specName} ${spec.className}`}>
             <SpecIcon id={spec.id} /> {spec.specName} {spec.className}
           </small>
+          {covenant && (
+              <div className="flex-main text-muted text-small">
+                <img src={covenantIcon} className="icon game" alt="The icon for your Covenant!"/> {covenantName}
+              </div>
+            )}
           <div className="flex text-muted text-small">
             <div className="flex-main">
               <Icon icon="inv_helmet_03" /> {Math.round(getAverageItemLevel(player.combatant.gear))}
             </div>
-
-            {heartOfAzeroth && (
-              <div className="flex-main text-right">
-                <Icon icon={heartOfAzeroth.icon} /> {heartOfAzeroth.azeriteItemLevel}
-              </div>
-            )}
           </div>
         </div>
       </div>

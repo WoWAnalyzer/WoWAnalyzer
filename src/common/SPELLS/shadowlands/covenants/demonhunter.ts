@@ -1,6 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const covenants: SpellList = {
+const covenants = {
   //region Kyrian
 
   //endregion
@@ -16,5 +14,5 @@ const covenants: SpellList = {
   //region Venthyr
 
   //endregion
-};
+} as const;
 export default covenants;

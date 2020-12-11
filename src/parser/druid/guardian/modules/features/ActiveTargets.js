@@ -17,7 +17,7 @@ class ActiveTargets extends Analyzer {
   */
   _targetActivity = {};
 
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }

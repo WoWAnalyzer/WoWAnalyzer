@@ -13,10 +13,6 @@ import ResourceBreakdown from './ComboPointBreakdown';
 import ComboPointTracker from './ComboPointTracker';
 
 class ComboPointDetails extends Analyzer {
-  static dependencies = {
-    comboPointTracker: ComboPointTracker,
-  };
-
   get pointsWasted() {
     return this.comboPointTracker.wasted - this.comboPointTracker.unavoidableWaste;
   }
@@ -36,6 +32,10 @@ class ComboPointDetails extends Analyzer {
       style: 'number',
     };
   }
+
+  static dependencies = {
+    comboPointTracker: ComboPointTracker,
+  };
 
   suggestions(when) {
     when(this.wastingSuggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(

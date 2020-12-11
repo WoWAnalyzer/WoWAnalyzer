@@ -91,11 +91,13 @@ class CombatLogParser extends CoreCombatLogParser {
     sepsis: Sepsis,
 
     // Outlaw's throughput benefit isn't as big as for other classes since we don't have a lot of free gcds to use
-    arcaneTorrent: [ArcaneTorrent, {
-      gcd: 1000,
-      castEfficiency: 0.5,
-      extraSuggestion: 'You should be using Arcane Torrent whenever you have a free GCD for it.',
-    }] as const,
+    arcaneTorrent: [
+      ArcaneTorrent, {
+        gcd: 1000,
+        castEfficiency: 0.5,
+        extraSuggestion: 'You should be using Arcane Torrent whenever you have a free GCD for it.',
+      },
+    ] as const,
   };
 }
 

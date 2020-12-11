@@ -33,7 +33,6 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: any) => 
         <AbilityRequirement spell={SPELLS.EVOCATION.id} />
         {combatant.hasTalent(SPELLS.SUPERNOVA_TALENT.id) && <AbilityRequirement spell={SPELLS.SUPERNOVA_TALENT.id} />}
         {combatant.hasTalent(SPELLS.ARCANE_ORB_TALENT.id) && <AbilityRequirement spell={SPELLS.ARCANE_ORB_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.MIRROR_IMAGE.id) && <AbilityRequirement spell={SPELLS.MIRROR_IMAGE.id} />}
         {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) && <AbilityRequirement spell={SPELLS.RUNE_OF_POWER_TALENT.id} />}
       </Rule>
       <Rule
@@ -65,6 +64,13 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: any) => 
             name="Missed Arcane Orbs"
             tooltip="Arcane Orb is a skillshot which means that it is important for you to aim it properly in order to get the most out of it. Therefore, on single target you should always ensure that the enemy gets hit by it, and if there are multiple enemies then you should do what you can to ensure all or most of them will get hit by the Orb as well."
             thresholds={thresholds.arcaneOrbMissedOrbs}
+          />
+        )}
+        {combatant.hasTalent(SPELLS.ARCANE_ECHO_TALENT.id) && (
+          <Requirement
+            name="Bad Touch of the Magi Uses"
+            tooltip="Arcane Echo causes direct damage abilities, like Arcane Missiles, to pulse damage to up to 8 nearby targets. Because of this, you should be non-stop casting Arcane Missiles (whether you have Clearcasting procs or not), into any target with the Touch of the Magi debuff until that debuff is removed."
+            thresholds={thresholds.arcaneEchoLowUsage}
           />
         )}
         {combatant.hasTalent(SPELLS.RULE_OF_THREES_TALENT.id) && (

@@ -23,56 +23,54 @@ class UnlimitedPower extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.UNLIMITED_POWER_TALENT.id);
   }
 
-
   get unlimitedPowerTimesByStack() {
     return this.unlimitedPowerTimesByStacks.unlimitedPowerTimesByStacks;
   }
-
 
   get uptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.UNLIMITED_POWER_BUFF.id) / this.owner.fightDuration;
   }
 
   get averageHaste() {
-    return this.unlimitedPowerTimesByStacks.averageUnlimitedPowerStacks*HASTE_PER_STACK;
+    return this.unlimitedPowerTimesByStacks.averageUnlimitedPowerStacks * HASTE_PER_STACK;
   }
 
   statistic() {
-      return (
-        <Statistic
-          position={STATISTIC_ORDER.OPTIONAL()}
-          size="flexible"
-          category={STATISTIC_CATEGORY.TALENTS}
-          dropdown={(
-           <>
-             <table className="table table-condensed">
-               <thead>
-                 <tr>
-                   <th>Stacks</th>
-                   <th>Time (s)</th>
-                   <th>Time (%)</th>
-                 </tr>
-               </thead>
-               <tbody>
-                 {Object.values(this.unlimitedPowerTimesByStack).map((e, i) => (
-                   <tr key={i}>
-                     <th>{i}</th>
-                     <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
-                     <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
-                   </tr>
-                 ))}
-               </tbody>
-             </table>
-           </>
-          )}
-        >
-          <BoringSpellValueText spell={SPELLS.UNLIMITED_POWER_TALENT}>
-            <>
-              Unlimited Power Average Haste Gain (Uptime {formatPercentage(this.uptime)}%)
-            </>
-          </BoringSpellValueText>
-        </Statistic>
-      );
+    return (
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL()}
+        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
+        dropdown={(
+          <>
+            <table className="table table-condensed">
+              <thead>
+                <tr>
+                  <th>Stacks</th>
+                  <th>Time (s)</th>
+                  <th>Time (%)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.values(this.unlimitedPowerTimesByStack).map((e, i) => (
+                  <tr key={i}>
+                    <th>{i}</th>
+                    <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
+                    <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </>
+        )}
+      >
+        <BoringSpellValueText spell={SPELLS.UNLIMITED_POWER_TALENT}>
+          <>
+            Unlimited Power Average Haste Gain (Uptime {formatPercentage(this.uptime)}%)
+          </>
+        </BoringSpellValueText>
+      </Statistic>
+    );
   }
 }
 

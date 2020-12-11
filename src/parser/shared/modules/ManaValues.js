@@ -77,10 +77,6 @@ class ManaValues extends Analyzer {
       return;
     }
 
-    if (this.owner.builds && this.owner.builds.GLIMMER && this.owner.builds.GLIMMER.active){
-      return;
-    }
-
     when(this.suggestionThresholds.actual).isGreaterThan(this.suggestionThresholds.isGreaterThan.minor)
       .addSuggestion((suggest, actual, recommended) => suggest(<Trans id="shared.manaValues.suggestions.label">You had mana left at the end of the fight. A good rule of thumb is having the same mana percentage as the bosses health percentage. Mana is indirectly tied with healing throughput and should be optimized.</Trans>)
           .icon('inv_elemental_mote_mana')
