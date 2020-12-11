@@ -1022,6 +1022,13 @@ export const Mae: Contributor = {
     link: 'https://worldofwarcraft.com/en-gb/character/eu/draenor/maerstrom'
   }]
 };
+
+export const Keraldi: Contributor = {
+  nickname: 'Keraldi',
+  github: 'Keraldi',
+  discord: 'Keraldi#0001',
+};
+
 export const VMakaev: Contributor = {
   nickname: 'VMakaev',
   github: 'vladimirmakaev',
@@ -1036,6 +1043,7 @@ export const VMakaev: Contributor = {
     link: 'https://worldofwarcraft.com/en-gb/character/eu/silvermoon/elastan'
   }]
 };
+
 export const Maleficien: Contributor = {
   nickname: 'Maleficien',
   github: 'kevindqc',
@@ -1046,4 +1054,3 @@ export const Maleficien: Contributor = {
     link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/maleficien'
   }]
 };
-

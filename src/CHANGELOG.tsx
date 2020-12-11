@@ -1,13 +1,16 @@
 import React from 'react';
-import { Abelito75, AdamKelly, Amani, Barter, ChagriAli, ChristopherKiss, Dambroda, emallson, Guyius, Haelrail, HolySchmidt, Jafowler, jos3p, joshinator, Juko8, Khazak, Kruzershtern, Mae, Moonrabbit, niseko, Putro, Sharrq, Ssabbar, Zeboot, Zerotorescue } from 'CONTRIBUTORS';
+import { Abelito75, ackwell, AdamKelly, Aelexe, Amani, Amrux, Anatta336, axelkic, Barter, blazyb, ChagriAli, Chizu, ChristopherKiss, Dambroda, Dorixius, Draenal, emallson, fluffels, Fyruna, Gebuz, Guyius, Haelrail, Hartra344, HawkCorrigan, HolySchmidt, Hordehobbs, Jafowler, JeremyDwayne, jos3p, joshinator, Juko8, Keraldi, Khadaj, Khazak, Kruzershtern, layday, Mae, Mamtooth, Matardarix, Moonrabbit, Nalhan, niseko, Putro, Qbz, Satyric, Scotsoo, Sharrq, Ssabbar, Stui, Vetyst, Viridis, Yajinni, Zeboot, Zerotorescue, Keraldi } from 'CONTRIBUTORS';
+import ItemLink from 'common/ItemLink';
+import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 // prettier-ignore
 export default [
-  change(date(2020, 12,10), 'Removed Heart of Azeroth from player selection screen as well as added Anti-magic zone to the tracked cooldowns', Abelito75),
-  change(date(2020, 12,10), 'Update character lookup to show Castle Nathria instead of Ny\'alotha', Putro),
+  change(date(2020, 12, 11), 'Converted some root files from JS to TS', Keraldi),
+  change(date(2020, 12, 10), 'Removed Heart of Azeroth from player selection screen as well as added Anti-magic zone to the tracked cooldowns', Abelito75),
+  change(date(2020, 12, 10), 'Update character lookup to show Castle Nathria instead of Ny\'alotha', Putro),
   change(date(2020, 12, 10), 'Speed up build workflow.', Zerotorescue),
   change(date(2020, 12, 9), 'Fixed a crash here and there.', Zerotorescue),
   change(date(2020, 12, 9), 'Fixed a bug in Cancelled Casts that was counting enchant procs and other effects as abilities that interrupted casts', Sharrq),
