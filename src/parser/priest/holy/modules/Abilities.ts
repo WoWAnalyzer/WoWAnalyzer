@@ -336,6 +336,17 @@ class Abilities extends CoreAbilities {
         cooldown: () => this.owner.fightDuration / 1000,
       },
       {
+        spell: SPELLS.POWER_INFUSION,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 120,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.35,
+          averageIssueEfficiency: 0.20,
+          majorIssueEfficiency: 0,
+        },
+      },
+      {
         spell: SPELLS.SHADOW_WORD_PAIN,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
@@ -352,13 +363,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MIND_SOOTHE,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.POWER_INFUSION,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         gcd: {
           base: 1500,
         },
