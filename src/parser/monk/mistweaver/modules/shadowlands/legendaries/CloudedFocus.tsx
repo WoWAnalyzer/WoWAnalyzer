@@ -28,8 +28,7 @@ class CloudedFocus extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = false;
-
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.CLOUDED_FOCUS.bonusID);
     if (!this.active) {
       return;
     }
@@ -51,7 +50,7 @@ class CloudedFocus extends Analyzer {
       cost /= 2;
     }
 
-    this.manaSaved += cost - cost / (1 + this.stacks * BUFF_AMOUNT_PER_STACK);
+    this.manaSaved += cost - cost * (1 - this.stacks * BUFF_AMOUNT_PER_STACK);
   }
 
   calculateHealingEffect(event: HealEvent) {
