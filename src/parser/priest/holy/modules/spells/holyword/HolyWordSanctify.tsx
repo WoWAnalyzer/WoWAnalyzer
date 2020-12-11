@@ -6,6 +6,7 @@ import HolyWordBase from './HolyWordBase';
 const PRAYER_OF_HEALING_SERENDIPITY_REDUCTION = 6000;
 const RENEW_SERENDIPITY_REDUCTION = 2000;
 const BINDING_HEAL_SERENDIPITY_REDUCTION = 3000;
+const CIRCLE_OF_HEALING_SERENDIPITY_REDUCTION = 4000;
 
 class HolyWordSanctify extends HolyWordBase {
   constructor(options: Options) {
@@ -31,6 +32,13 @@ class HolyWordSanctify extends HolyWordBase {
         apotheosisReduction: () => RENEW_SERENDIPITY_REDUCTION * this.apotheosisMultiplier,
       },
     };
+    if (this.selectedCombatant.hasLegendaryByBonusID(SPELLS.HARMONIOUS_APPARATUS.bonusID)) {
+      this.serendipityProccers[SPELLS.CIRCLE_OF_HEALING_TALENT.id] = {
+        baseReduction: () => CIRCLE_OF_HEALING_SERENDIPITY_REDUCTION,
+        lightOfTheNaaruReduction: () => CIRCLE_OF_HEALING_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,
+        apotheosisReduction: () => CIRCLE_OF_HEALING_SERENDIPITY_REDUCTION * this.apotheosisMultiplier,
+      };
+    }
   }
 }
 

@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 12, 10), <>Adding card for <SpellLink id={SPELLS.HARMONIOUS_APPARATUS.id} /></>, Khadaj),
   change(date(2020, 12, 9), <>Adding <SpellLink id={SPELLS.RESONANT_WORDS.id} /> module</>, Khadaj),
   change(date(2020, 11, 30), <>Fixing a bug with <SpellLink id={SPELLS.PRAYER_OF_MENDING_CAST.id} /> tracking</>, Khadaj),
   change(date(2020, 10, 18), 'Converted legacy listeners to new event filters', Zeboot),
