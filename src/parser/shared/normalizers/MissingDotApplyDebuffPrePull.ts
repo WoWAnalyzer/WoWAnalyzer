@@ -31,12 +31,16 @@ class MissingDotApplyDebuffPrePull extends EventsNormalizer {
     const cutoff = fightStartTimestamp + CUTOFF;
 
     const dotStatusesMap: { [index: number]: DotStatus } = ctor.dots.reduce((map, debuff) => {
-      map[debuff.debuffId] = { handled: false, missingApplyDebuff: null };
+      map[debuff.debuffId] = { debuffId: debuff.debuffId, handled: false, missingApplyDebuff: null };
       return map;
     }, {} as any);
 
     for (let i = 0; i < events.length; i += 1) {
       const event = events[i];
+
+      if (!this.owner.byPlayer(event)) {
+        continue;
+      }
 
       if (event.timestamp > cutoff) {
         break;
@@ -61,10 +65,37 @@ class MissingDotApplyDebuffPrePull extends EventsNormalizer {
 
 
         if (dotStatus.missingApplyDebuff == null) {
-          // So we got a damage event but we didn't see an apply debuff event for it. Mark it and we'll fabricate one.
-          // We will need to create an applyDebuff.
-          dotStatus.missingApplyDebuff = true;
-          dotStatus.damageEvent = event as DamageEvent;
+          // So we got a damage event but we didn't see an apply debuff event for it beforehand. Mark it and we'll fabricate one.
+
+          // Sometimes the DoT ticks, and then we get the apply debuff.
+          // Example:
+          // 00:00:02.084	Swaggar Haunt Shriekwing 1329
+          // 00:00:02.084	Shriekwing is afflicted by Haunt from Swaggar
+
+          for (let j = i + 1; j < events.length; j++) {
+            const futureEvent = events[j];
+
+            if (!this.owner.byPlayer(futureEvent)) {
+              continue;
+            }
+
+            if (futureEvent.timestamp > event.timestamp) {
+              // It seems the apply debuff and damage happen at the same timestamp, just out of order sometimes.
+              break;
+            }
+
+            if (futureEvent.type === EventType.ApplyDebuff
+               && futureEvent.ability.guid === dotStatus.debuffId) {
+              // There is an out-of-order apply debuff, so won't need to fabricate one after all
+              dotStatus.missingApplyDebuff = false;
+              break;
+            }
+          }
+
+          if (dotStatus.missingApplyDebuff == null) {
+            dotStatus.missingApplyDebuff = true;
+            dotStatus.damageEvent = event as DamageEvent;
+          }
         }
       }
     }
