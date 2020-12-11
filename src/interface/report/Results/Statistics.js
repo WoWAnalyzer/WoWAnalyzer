@@ -54,49 +54,50 @@ class Statistics extends React.PureComponent {
         />
         <label htmlFor="adjust-for-downtime-toggle">
           <Trans id="interface.report.results.statistics.adjustStatistics">
-            Adjust statistics for <TooltipElement content={t({
-            id: "interface.report.results.statistics.fightDowntime",
-            message: `Fight downtime is any forced downtime caused by fight mechanics or dying. Downtime caused by simply not doing anything is not included.`
-          })}>fight downtime</TooltipElement> (<TooltipElement content={t({
-            id: "interface.report.results.statistics.fightDowntimeDetails",
-            message: `We're still working out the kinks of this feature, some modules might output weird results with this on. When we're finished this will be enabled by default.`
-          })}>experimental</TooltipElement>)
+            Adjust statistics for <TooltipElement
+            content={t({
+              id: 'interface.report.results.statistics.fightDowntime',
+              message: `Fight downtime is any forced downtime caused by fight mechanics or dying. Downtime caused by simply not doing anything is not included.`,
+            })}
+          >fight downtime</TooltipElement> (<TooltipElement
+            content={t({
+              id: 'interface.report.results.statistics.fightDowntimeDetails',
+              message: `We're still working out the kinks of this feature, some modules might output weird results with this on. When we're finished this will be enabled by default.`,
+            })}
+          >experimental</TooltipElement>)
           </Trans>
         </label>
       </div>
     );
   }
+
   renderStatisticGroupName(key) {
     switch (key) {
       case STATISTIC_CATEGORY.GENERAL:
         return t({
-          id: "interface.report.results.statistics.statistics",
-          message: `Statistics`
+          id: 'interface.report.results.statistics.statistics',
+          message: `Statistics`,
         });
       case STATISTIC_CATEGORY.TALENTS:
         return t({
-          id: "interface.report.results.statistics.talents",
-          message: `Talents`
+          id: 'interface.report.results.statistics.talents',
+          message: `Talents`,
         });
       case STATISTIC_CATEGORY.COVENANTS:
         return t({
-          id: "interface.report.results.statistics.covenants",
-          message: `Covenants`
-        });
-      case STATISTIC_CATEGORY.AZERITE_POWERS:
-        return t({
-          id: "interface.report.results.statistics.azeritePowers",
-          message: `Azerite Powers`
+          id: 'interface.report.results.statistics.covenants',
+          message: `Covenants`,
         });
       case STATISTIC_CATEGORY.ITEMS:
         return t({
-          id: "interface.report.results.statistics.items",
-          message: `Items`
+          id: 'interface.report.results.statistics.items',
+          message: `Items`,
         });
       default:
         throw new Error(`Unknown category: ${key}`);
     }
   }
+
   render() {
     const { parser, children } = this.props;
 

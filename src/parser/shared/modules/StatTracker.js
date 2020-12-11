@@ -425,8 +425,6 @@ class StatTracker extends Analyzer {
     let critChance = 0.05;
     if (this.selectedCombatant.race === RACES.BloodElf) {
       critChance += 0.01;
-    } else if (this.selectedCombatant.hasBuff(SPELLS.OPULENCE_BRILLAINT_AURA.id)) {
-      critChance += 1.0;
     }
     switch (this.selectedCombatant.spec) {
       case SPECS.FIRE_MAGE:
