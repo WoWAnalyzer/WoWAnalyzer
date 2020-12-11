@@ -81,7 +81,7 @@ const PlayerTile = (props: Props) => {
           </small>
           {covenant && (
               <div className="flex-main text-muted text-small">
-                <img src={covenantIcon} className="icon game"/> {covenantName}
+                <img src={covenantIcon} className="icon game" alt="The icon for your Covenant!"/> {covenantName}
               </div>
             )}
           <div className="flex text-muted text-small">
