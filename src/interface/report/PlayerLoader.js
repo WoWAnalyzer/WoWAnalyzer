@@ -108,29 +108,8 @@ class PlayerLoader extends React.PureComponent {
     if (report.gameVersion === 2) {
       return;
     }
-    let numberOfCombatantsWithLoadedHeart = 0;
     try {
-      const { fetchCharacter } = this.props;
       const combatants = await fetchCombatants(report.code, fight.start_time, fight.end_time);
-      const characterDataPromises = combatants.map(player => {
-        const friendly = report.friendlies.find(friendly => friendly.id === player.sourceID);
-        if (!friendly) {
-          // unsure why this happens, but it can
-          return Promise.resolve();
-        }
-        const exportedCharacter = report.exportedCharacters ? report.exportedCharacters.find(char => char.name === friendly.name) : null;
-        if (!exportedCharacter) {
-          return Promise.resolve();
-        }
-        return fetchCharacter(friendly.guid, exportedCharacter.region, exportedCharacter.server, exportedCharacter.name).then(data => Promise.resolve(data)).catch(() =>
-          // This guy failed to load - this is nice to have data
-          // We can ignore this and we'll just drop him from the overall averages later
-          Promise.resolve(),
-        );
-      });
-      let characterDatas = await Promise.all(characterDataPromises);
-      // Filter for only loaded characterDatas
-      characterDatas = characterDatas.filter(value => value);
       combatants.forEach(player => {
         if (process.env.NODE_ENV === 'development' && FAKE_PLAYER_IF_DEV_ENV) {
           console.error('This player (sourceID: ' + player.sourceID + ') has an error. Because you\'re in development environment, we have faked the missing information, see CombatantInfoFaker.ts for more information.');
@@ -144,7 +123,6 @@ class PlayerLoader extends React.PureComponent {
           console.error('friendly missing from report for player', player.sourceID);
           return;
         }
-        const characterData = characterDatas ? characterDatas.find(data => data.id === friendly.guid) : null;
         switch (SPECS[player.specID].role) {
           case ROLES.TANK:
             this.tanks += 1;
