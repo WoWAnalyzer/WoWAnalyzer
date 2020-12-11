@@ -982,6 +982,7 @@
   "warlock.affliction.suggestions.siphonLife.uptime": "{0}% Siphon Life uptime",
   "warlock.affliction.suggestions.soulShards.wastedPerMinute": "{shardsWasted} Soul Shards wasted ({0} per minute)",
   "warlock.affliction.suggestions.unstableAffliction.uptime": "{0}% Unstable Affliction uptime.",
+  "warlock.affliction.suggestions.shadowEmbrace.uptime": "{0}% Shadow Embrace uptime.",
   "warlock.demonology.suggestions.alwaysBeCasting.downtime": "{0}% downtime",
   "warlock.demonology.suggestions.demonicCalling.wastedProcsPerMinute": "{0} wasted procs per minute",
   "warlock.demonology.suggestions.doom.uptime": "{0}% Doom uptime",
