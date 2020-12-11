@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Icon from 'common/Icon';
 
 const RaidCompositionDetails = props => {
-  const { tanks, healers, dps, ranged, ilvl, heartLvl } = props;
+  const { tanks, healers, dps, ranged, ilvl } = props;
 
   return (
     <div className="raid-composition">
@@ -16,13 +16,6 @@ const RaidCompositionDetails = props => {
               <div className="role-count" style={{ fontSize: '0.78em' }}>
                 {/*Ilvl is gonna be a larger number than the composition so it's shrunk slightly to avoid different sized tiles */}
                 {Math.round(ilvl)}
-              </div>
-            </div>
-            <div className="flex-sub icon">
-              <Icon icon="inv_heartofazeroth" />
-              <div className="role-count" style={{ fontSize: '0.78em' }}>
-                {/*heartLvl is gonna be a larger number than the composition so it's shrunk slightly to avoid different sized tiles */}
-                {Math.round(heartLvl)}
               </div>
             </div>
             <div className="flex-sub icon">
@@ -75,7 +68,6 @@ RaidCompositionDetails.propTypes = {
   dps: PropTypes.number.isRequired,
   ranged: PropTypes.number.isRequired,
   ilvl: PropTypes.number.isRequired,
-  heartLvl: PropTypes.number.isRequired,
 };
 
 export default RaidCompositionDetails;

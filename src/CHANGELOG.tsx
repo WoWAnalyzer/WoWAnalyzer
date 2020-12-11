@@ -6,6 +6,7 @@ import { change, date } from 'common/changelog';
 
 // prettier-ignore
 export default [
+  change(date(2020, 12,10), 'Removed Heart of Azeroth from player selection screen as well as added Anti-magic zone to the tracked cooldowns', Abelito75),
   change(date(2020, 12,10), 'Update character lookup to show Castle Nathria instead of Ny\'alotha', Putro),
   change(date(2020, 12, 10), 'Speed up build workflow.', Zerotorescue),
   change(date(2020, 12, 9), 'Fixed a crash here and there.', Zerotorescue),

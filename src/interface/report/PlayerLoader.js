@@ -42,7 +42,6 @@ class PlayerLoader extends React.PureComponent {
   dps = 0;
   ranged = 0;
   ilvl = 0;
-  heartLvl = 0;
 
   static propTypes = {
     report: PropTypes.shape({
@@ -164,15 +163,8 @@ class PlayerLoader extends React.PureComponent {
         }
         // Gear may be null for broken combatants
         this.ilvl += player.gear ? getAverageItemLevel(player.gear) : 0;
-        if (characterData && characterData.heartOfAzeroth) {
-          numberOfCombatantsWithLoadedHeart += 1;
-          this.heartLvl += characterData.heartOfAzeroth.azeriteItemLevel;
-        }
       });
       this.ilvl /= combatants.length;
-      if (numberOfCombatantsWithLoadedHeart > 0) {
-        this.heartLvl /= numberOfCombatantsWithLoadedHeart;
-      }
       if (this.props.report !== report || this.props.fight !== fight) {
         return; // the user switched report/fight already
       }
@@ -289,7 +281,6 @@ class PlayerLoader extends React.PureComponent {
                   dps={this.dps}
                   ranged={this.ranged}
                   ilvl={this.ilvl}
-                  heartLvl={this.heartLvl}
                 />
               </div>
             </div>
