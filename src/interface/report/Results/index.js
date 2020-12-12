@@ -459,7 +459,7 @@ class Results extends React.PureComponent {
         <div className="container" style={{ marginTop: 40 }}>
           <div className="row">
             <div className="col-md-8">
-              <Trans id="interface.report.results.providedBy" render="small">Provided by</Trans>
+              <small><Trans id="interface.report.results.providedBy">Provided by</Trans></small>
               <div style={{ fontSize: 16 }}>
                 <Trans id="interface.report.results.providedByDetails">
                   {config.spec.specName} {config.spec.className} analysis has been provided by{' '}
@@ -469,7 +469,7 @@ class Results extends React.PureComponent {
               </div>
             </div>
             <div className="col-md-3">
-              <Trans id="interface.report.results.viewOn" render="small">View on</Trans>
+              <small><Trans id="interface.report.results.viewOn">View on</Trans></small>
               <br />
               <Tooltip content={t({
                 id: "interface.report.results.tooltip.newTab.originalReport",
