@@ -4,7 +4,6 @@ import Analyzer from 'parser/core/Analyzer';
 import Panel from 'interface/others/Panel';
 import { formatPercentage } from 'common/format';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -51,7 +50,10 @@ class PainDetails extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Pain.`)
         .icon('ability_demonhunter_demonspikes')
-        .actual(i18n._(t('demonhunter.vengeance.suggestions.pain.wasted')`${formatPercentage(actual)}% wasted`))
+        .actual(t({
+      id: "demonhunter.vengeance.suggestions.pain.wasted",
+      message: `${formatPercentage(actual)}% wasted`
+    }))
         .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 

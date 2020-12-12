@@ -10,7 +10,6 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import '../../../shared/modules/soulshards/SoulShardDetails.css';
@@ -40,7 +39,10 @@ class SoulShardDetails extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest('You are wasting Soul Shards. Try to use them and not let them cap and go to waste unless you\'re preparing for bursting adds etc.')
         .icon(SPELLS.SOUL_SHARDS.icon)
-        .actual(i18n._(t('warlock.affliction.suggestions.soulShards.wastedPerMinute')`${shardsWasted} Soul Shards wasted (${actual.toFixed(2)} per minute)`))
+        .actual(t({
+      id: "warlock.affliction.suggestions.soulShards.wastedPerMinute",
+      message: `${shardsWasted} Soul Shards wasted (${actual.toFixed(2)} per minute)`
+    }))
         .recommended(`< ${recommended.toFixed(2)} Soul Shards per minute wasted are recommended`));
   }
 

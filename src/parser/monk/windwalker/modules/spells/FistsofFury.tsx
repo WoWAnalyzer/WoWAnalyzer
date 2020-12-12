@@ -7,7 +7,6 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
 import Events, { DamageEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
@@ -63,7 +62,10 @@ class FistsofFury extends Analyzer {
 
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<span> You are cancelling your <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /> casts early and losing ticks </span>)
-      .icon(SPELLS.FISTS_OF_FURY_CAST.icon).actual(i18n._(t('monk.windwalker.suggestions.fistOfFury.avgTicksPerCast')`${actual.toFixed(2)} average ticks on each Fists of Fury cast`))
+      .icon(SPELLS.FISTS_OF_FURY_CAST.icon).actual(t({
+      id: "monk.windwalker.suggestions.fistOfFury.avgTicksPerCast",
+      message: `${actual.toFixed(2)} average ticks on each Fists of Fury cast`
+    }))
       .recommended(`Aim to get ${recommended} ticks with each Fists of Fury cast.`));
   }
 

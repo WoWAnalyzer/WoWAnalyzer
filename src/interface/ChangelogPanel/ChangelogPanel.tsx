@@ -15,16 +15,20 @@ const ChangelogPanel = () => {
   return (
     <div className="panel">
       <div className="panel-heading">
-        <Trans id="interface.changelogPanel.heading" render="h1">Changelog</Trans>
+        <h1>
+          <Trans id="interface.changelogPanel.heading">Changelog</Trans>
+        </h1>
       </div>
       <div className="panel-body pad">
         <select
           className="form-control"
           value={changelogType}
-          onChange={e => setChangelogType(Number(e.target.value))}
+          onChange={(e) => setChangelogType(Number(e.target.value))}
         >
-          <option value={0}><Trans id="interface.changelogPanel.option.core">Core</Trans></option>
-          {AVAILABLE_CONFIGS.map(config => (
+          <option value={0}>
+            <Trans id="interface.changelogPanel.option.core">Core</Trans>
+          </option>
+          {AVAILABLE_CONFIGS.map((config) => (
             <option value={config.spec.id} key={config.spec.id}>
               {config.spec.specName} {config.spec.className}
             </option>
@@ -35,9 +39,7 @@ const ChangelogPanel = () => {
           <Changelog
             changelog={
               changelogType
-                ? AVAILABLE_CONFIGS.find(
-                    config => config.spec.id === changelogType,
-                  )!.changelog
+                ? AVAILABLE_CONFIGS.find((config) => config.spec.id === changelogType)!.changelog
                 : CORE_CHANGELOG
             }
             limit={limit}
@@ -45,11 +47,7 @@ const ChangelogPanel = () => {
           />
         </div>
         {limit !== null && (
-          <button
-            className="btn btn-link"
-            onClick={() => setExpanded(true)}
-            style={{ padding: 0 }}
-          >
+          <button className="btn btn-link" onClick={() => setExpanded(true)} style={{ padding: 0 }}>
             More
           </button> // eslint-disable-line jsx-a11y/anchor-is-valid
         )}

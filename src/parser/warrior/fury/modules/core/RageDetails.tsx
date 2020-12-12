@@ -9,7 +9,6 @@ import { formatPercentage } from 'common/format';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import BoringResourceValue from 'interface/statistics/components/BoringResourceValue';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import RageTracker from './RageTracker';
@@ -52,7 +51,10 @@ class RageDetails extends Analyzer {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Rage.`)
       .icon('spell_nature_reincarnation')
-      .actual(i18n._(t('warrior.fury.suggestions.rage.wasted')`${formatPercentage(actual)}% wasted`))
+      .actual(t({
+      id: "warrior.fury.suggestions.rage.wasted",
+      message: `${formatPercentage(actual)}% wasted`
+    }))
       .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 

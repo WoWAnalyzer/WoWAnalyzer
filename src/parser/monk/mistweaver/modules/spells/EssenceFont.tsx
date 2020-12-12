@@ -12,7 +12,6 @@ import { formatNumber } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class EssenceFont extends Analyzer {
@@ -104,7 +103,10 @@ class EssenceFont extends Analyzer {
       </>,
     )
       .icon(SPELLS.ESSENCE_FONT.icon)
-      .actual(`${this.avgTargetsHitPerEF.toFixed(2)}${i18n._(t('monk.mistweaver.suggestions.essenceFont.averageTargetsHit')`average targets hit per cast`)}`)
+      .actual(`${this.avgTargetsHitPerEF.toFixed(2)}${t({
+      id: "monk.mistweaver.suggestions.essenceFont.averageTargetsHit",
+      message: `average targets hit per cast`
+    })}`)
       .recommended(`${recommended} targets hit is recommended`));
   }
 

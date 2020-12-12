@@ -2,7 +2,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import HitCountAoE from '../core/HitCountAoE';
@@ -49,7 +48,10 @@ class SwipeHitCount extends HitCountAoE {
       </>,
     )
       .icon(SPELLS.SWIPE_CAT.icon)
-      .actual(i18n._(t('druid.feral.suggestions.swipe.hitcount.outOfRange')`${actual.toFixed(1)} uses per minute that hit nothing.`))
+      .actual(t({
+      id: "druid.feral.suggestions.swipe.hitcount.outOfRange",
+      message: `${actual.toFixed(1)} uses per minute that hit nothing.`
+    }))
       .recommended(`${recommended} is recommended`));
 
     when(this.hitJustOneThresholds).addSuggestion((suggest, actual, recommended) => suggest(
@@ -58,7 +60,10 @@ class SwipeHitCount extends HitCountAoE {
       </>,
     )
       .icon(SPELLS.SWIPE_CAT.icon)
-      .actual(i18n._(t('druid.feral.suggestions.swipe.hitcount.efficiency')`${actual.toFixed(1)} uses per minute that hit just one target.`))
+      .actual(t({
+      id: "druid.feral.suggestions.swipe.hitcount.efficiency",
+      message: `${actual.toFixed(1)} uses per minute that hit just one target.`
+    }))
       .recommended(`${recommended} is recommended`));
   }
 }

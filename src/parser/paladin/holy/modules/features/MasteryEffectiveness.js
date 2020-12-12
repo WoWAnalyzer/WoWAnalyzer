@@ -7,7 +7,6 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import HealingValue from 'parser/shared/modules/HealingValue';
-import { i18n } from 'interface/RootLocalizationProvider';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Statistic from 'interface/statistics/Statistic';
 import Panel from 'interface/statistics/Panel';
@@ -329,8 +328,14 @@ class MasteryEffectiveness extends Analyzer {
         </Trans>,
       )
         .icon('inv_hammer_04')
-        .actual(i18n._(t('paladin.holy.modules.masteryEffectiveness.suggestion.actual')`${formatPercentage(actual)}% mastery effectiveness`))
-        .recommended(i18n._(t('paladin.holy.modules.masteryEffectiveness.suggestion.recommended')`>${formatPercentage(recommended)}% is recommended`)),
+        .actual(t({
+        id: "paladin.holy.modules.masteryEffectiveness.suggestion.actual",
+        message: `${formatPercentage(actual)}% mastery effectiveness`
+      }))
+        .recommended(t({
+        id: "paladin.holy.modules.masteryEffectiveness.suggestion.recommended",
+        message: `>${formatPercentage(recommended)}% is recommended`
+      })),
     );
   }
 }

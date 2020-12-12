@@ -13,11 +13,15 @@ const SpecListing = () => (
     <DocumentTitle title="Specializations" />
 
     <div>
-      <Trans id="interface.specList.specs" render="h1">Specializations</Trans>
+      <h1>
+        <Trans id="interface.specList.specs">Specializations</Trans>
+      </h1>
     </div>
-    <Trans id="interface.specList.specs.label" render="small">
-      Click any specialization to view an example report for that spec.
-    </Trans>
+    <small>
+      <Trans id="interface.specList.specs.label">
+        Click any specialization to view an example report for that spec.
+      </Trans>
+    </small>
 
     <div className="spec-listing">
       {AVAILABLE_CONFIGS.sort((a, b) => {
@@ -27,7 +31,7 @@ const SpecListing = () => (
           return 1;
         }
         return a.spec.id - b.spec.id;
-      }).map(config => (
+      }).map((config) => (
         <SpecListItem key={config.spec.id} {...config} />
       ))}
     </div>

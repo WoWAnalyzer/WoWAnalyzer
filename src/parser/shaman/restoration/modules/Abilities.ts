@@ -1,4 +1,3 @@
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
@@ -231,7 +230,10 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HEALING_WAVE,
-        name: i18n._(t('shaman.restoration.abilities.buffedByTidalWave')`Tidal Waved ${SPELLS.HEALING_WAVE.name}`),
+        name: t({
+          id: "shaman.restoration.abilities.buffedByTidalWave",
+          message: `Tidal Waved ${SPELLS.HEALING_WAVE.name}`
+        }),
         timelineSortIndex: 13,
         gcd: {
           base: 1500,
@@ -254,7 +256,10 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HEALING_SURGE,
-        name: i18n._(t('shaman.restoration.abilities.buffedByTidalWave')`Tidal Waved ${SPELLS.HEALING_SURGE.name}`),
+        name: t({
+          id: "shaman.restoration.abilities.buffedByTidalWave",
+          message: `Tidal Waved ${SPELLS.HEALING_SURGE.name}`
+        }),
         timelineSortIndex: 14,
         gcd: {
           base: 1500,

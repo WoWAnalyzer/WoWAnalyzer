@@ -10,7 +10,6 @@ import SpellIcon from 'common/SpellIcon';
 
 import UptimeBar from 'interface/statistics/components/UptimeBar';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class UnstableAfflictionUptime extends Analyzer {
@@ -43,7 +42,10 @@ class UnstableAfflictionUptime extends Analyzer {
           </>,
         )
           .icon(SPELLS.UNSTABLE_AFFLICTION.icon)
-          .actual(i18n._(t('warlock.affliction.suggestions.unstableAffliction.uptime')`${formatPercentage(actual)}% Unstable Affliction uptime.`))
+          .actual(t({
+      id: "warlock.affliction.suggestions.unstableAffliction.uptime",
+      message: `${formatPercentage(actual)}% Unstable Affliction uptime.`
+    }))
           .recommended(`> ${formatPercentage(recommended)}% is recommended`));
   }
 

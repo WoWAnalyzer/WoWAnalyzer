@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
@@ -61,7 +60,10 @@ class BreathOfSindragosa extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<> You are not getting good uptime from your <SpellLink id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} /> casts. A good cast is one that lasts 25 seconds or more.  To ensure a good duration, make sure you have 70+ Runic Power pooled and have less than 4 Runes available before you start the cast.  Also make sure to use <SpellLink id={SPELLS.EMPOWER_RUNE_WEAPON.id} /> within a few seconds of casting Breath of Sindragosa. Pay close attention to your Runic Power and make sure you are not overcapping. {this.tickingOnFinishedString}</>)
         .icon(SPELLS.BREATH_OF_SINDRAGOSA_TALENT.icon)
-        .actual(i18n._(t('deathknight.frost.suggestions.breathOfSindragosa.uptime')`You averaged ${(this.averageDuration).toFixed(1)} seconds of uptime per cast`))
+        .actual(t({
+      id: "deathknight.frost.suggestions.breathOfSindragosa.uptime",
+      message: `You averaged ${(this.averageDuration).toFixed(1)} seconds of uptime per cast`
+    }))
         .recommended(`>${recommended} seconds is recommended`));
   }
 

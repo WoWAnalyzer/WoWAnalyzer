@@ -6,7 +6,6 @@ import SelectSearch from 'react-select-search/dist/cjs';
 import { Trans, t } from '@lingui/macro';
 import REALMS from 'common/RealmList';
 import { makeGuildApiUrl, makeCharacterApiUrl } from 'common/makeApiUrl';
-import { i18n } from 'interface/RootLocalizationProvider';
 import makeGuildPageUrl from 'common/makeGuildPageUrl';
 import makeCharacterPageUrl from 'common/makeCharacterPageUrl';
 
@@ -58,13 +57,19 @@ class NameSearch extends React.PureComponent<Props, State> {
     const makePageUrl =
       this.props.type === SearchType.CHARACTER ? makeCharacterPageUrl : makeGuildPageUrl;
     if (!region || !realm || !name) {
-      alert(i18n._(t('interface.nameSearch.pleaseSelect')`Please select a region, realm, and guild.`));
+      alert(t({
+        id: "interface.nameSearch.pleaseSelect",
+        message: `Please select a region, realm, and guild.`
+      }));
       return;
     }
 
     // Checking for guild-exists here makes it more userfriendly and saves WCL-requests when guild doesn't exist
     if (this.state.loading) {
-      alert(i18n._(t('interface.nameSearch.stillWorking')`Still working...`));
+      alert(t({
+        id: "interface.nameSearch.stillWorking",
+        message: `Still working...`
+      }));
       return;
     }
     this.setState({ loading: true });
@@ -78,25 +83,30 @@ class NameSearch extends React.PureComponent<Props, State> {
       }
       if (response.status === 500) {
         alert(
-          i18n._(
-            t('interface.nameSearch.noResponse')`It looks like we couldn't get a response in time from the API. Try and paste your report-code manually.`,
-          ),
+          t({
+            id: "interface.nameSearch.noResponse",
+            message: `It looks like we couldn't get a response in time from the API. Try and paste your report-code manually.`
+          }),
         );
         this.setState({
           loading: false,
         });
         return;
       } else if (response.status === 404) {
-        alert(i18n._(t('interface.nameSearch.nameNotFound')`${name} not found on ${realm}. Double check the region, realm, and name.`));
+        alert(t({
+          id: "interface.nameSearch.nameNotFound",
+          message: `${name} not found on ${realm}. Double check the region, realm, and name.`
+        }));
         this.setState({
           loading: false,
         });
         return;
       } else if (!response.ok) {
         alert(
-          i18n._(
-            t('interface.nameSearch.noAPIResponse')`It looks like we couldn't get a response in time from the API, this usually happens when the servers are under heavy load. Please try and use your report-code or try again later.`,
-          ),
+          t({
+            id: "interface.nameSearch.noAPIResponse",
+            message: `It looks like we couldn't get a response in time from the API, this usually happens when the servers are under heavy load. Please try and use your report-code or try again later.`
+          }),
         );
         this.setState({
           loading: false,
@@ -120,7 +130,13 @@ class NameSearch extends React.PureComponent<Props, State> {
   }
 
   render() {
-    const namePlaceholder = this.props.type === SearchType.CHARACTER ? t('interface.nameSearch.character')`Character` : t('interface.nameSearch.guild')`Guild`;
+    const namePlaceholder = this.props.type === SearchType.CHARACTER ? t({
+      id: "interface.nameSearch.character",
+      message: `Character`
+    }) : t({
+      id: "interface.nameSearch.guild",
+      message: `Guild`
+    });
     return (
       <form onSubmit={this.handleSubmit} className="character-guild-selector">
         <select
@@ -149,7 +165,10 @@ class NameSearch extends React.PureComponent<Props, State> {
               currentRealm: value,
             });
           }}
-          placeholder={i18n._(t('interface.nameSearch.realm')`Realm`)}
+          placeholder={t({
+            id: "interface.nameSearch.realm",
+            message: `Realm`
+          })}
         />
         <input
           type="text"
@@ -159,7 +178,7 @@ class NameSearch extends React.PureComponent<Props, State> {
           autoCorrect="off"
           autoCapitalize="off"
           spellCheck="false"
-          placeholder={i18n._(namePlaceholder)}
+          placeholder={namePlaceholder}
         />
         <button
           type="submit"

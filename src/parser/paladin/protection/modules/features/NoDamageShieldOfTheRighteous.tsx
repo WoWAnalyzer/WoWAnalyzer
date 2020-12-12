@@ -8,7 +8,6 @@ import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 import { t, Trans } from '@lingui/macro';
-import { i18n } from '@lingui/core';
 
 /**
  * Analyzer to determine which, if any, SOTR casts did not result in a subsequent hit
@@ -68,10 +67,19 @@ class NoDamageShieldOfTheRighteous extends Analyzer {
 
     suggestions(when: When) {
         when(this.hitRatioSuggestionThresholds)
-            .addSuggestion((suggest, actual, recommended) => suggest(i18n._(t('paladin.protection.modules.features.noDamageShieldOfTheRighteous.suggestion')`SotR is a major source of damage. Make sure that each cast hits at least 1 enemy.`))
+            .addSuggestion((suggest, actual, recommended) => suggest(t({
+            id: "paladin.protection.modules.features.noDamageShieldOfTheRighteous.suggestion",
+            message: `SotR is a major source of damage. Make sure that each cast hits at least 1 enemy.`
+        }))
             .icon(SPELLS.SHIELD_OF_THE_RIGHTEOUS.icon)
-            .actual(i18n._(t('paladin.protection.modules.features.noDamageShieldOfTheRighteous.actual')`${formatPercentage(actual)}% of casts hit at least 1 target.`))
-            .recommended(i18n._(t('paladin.protection.modules.features.noDamageShieldOfTheRighteous.recommended')`>${formatPercentage(recommended)}% is recommended`)))
+            .actual(t({
+            id: "paladin.protection.modules.features.noDamageShieldOfTheRighteous.actual",
+            message: `${formatPercentage(actual)}% of casts hit at least 1 target.`
+        }))
+            .recommended(t({
+            id: "paladin.protection.modules.features.noDamageShieldOfTheRighteous.recommended",
+            message: `>${formatPercentage(recommended)}% is recommended`
+        })))
     }
 
     statistic() {

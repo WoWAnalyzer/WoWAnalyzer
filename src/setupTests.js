@@ -23,3 +23,13 @@ jest.mock('react-router-dom', () => ({
   Switch: props => <switch {...props} />,
   withRouter: Component => props => <routerified><Component {...props} /></routerified>,
 }));
+
+jest.mock('@lingui/core', () => ({
+  i18n: {
+    _: (props) => JSON.stringify(props)
+  },
+}));
+jest.mock('@lingui/react', () => ({
+  Trans: props => <trans {...props} />,
+  I18nProvider: props => <i18n-provider {...props} />
+}));

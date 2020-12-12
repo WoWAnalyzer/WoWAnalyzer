@@ -7,7 +7,6 @@ import { t } from '@lingui/macro';
 
 import { fetchFights, LogNotFoundError } from 'common/fetchWclApi';
 import { captureException } from 'common/errorLogger';
-import { i18n } from 'interface/RootLocalizationProvider';
 import { setReport } from 'interface/actions/report';
 import { getReportCode } from 'interface/selectors/url/report';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
@@ -98,7 +97,12 @@ class ReportLoader extends React.PureComponent {
     });
   }
   renderLoading() {
-    return <ActivityIndicator text={i18n._(t('interface.report.reportLoader')`Pulling report info...`)} />;
+    return (
+      <ActivityIndicator text={t({
+        id: "interface.report.reportLoader",
+        message: `Pulling report info...`
+      })} />
+    );
   }
   render() {
     const error = this.state.error;

@@ -7,7 +7,6 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import BoringValue from 'interface/statistics/components/BoringValueText';
 import SpellIcon from 'common/SpellIcon';
@@ -81,7 +80,10 @@ class Empowerment extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholdsInverted).addSuggestion((suggest, actual, recommended) => suggest(<>You overcapped {this.wasted} {this.empowermentPrefix} Empowerments by casting <SpellLink id={SPELLS.STARSURGE_MOONKIN.id} /> while already at 3 stacks. Try to always spend your empowerments before casting <SpellLink id={SPELLS.STARSURGE_MOONKIN.id} /> if you are not going to overcap Astral Power.</>)
       .icon(this.icon)
-      .actual(i18n._(t('druid.balance.suggestions.empowerment.overcapped')`${formatPercentage(actual)}% overcapped ${this.empowermentPrefix} Empowerments`))
+      .actual(t({
+      id: "druid.balance.suggestions.empowerment.overcapped",
+      message: `${formatPercentage(actual)}% overcapped ${this.empowermentPrefix} Empowerments`
+    }))
       .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 

@@ -11,7 +11,6 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent, DamageEvent, ChangeBuffStackEvent } from 'parser/core/Events';
 import { MS_BUFFER_100, SHATTER_DEBUFFS } from 'parser/mage/shared/constants';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class IceLance extends Analyzer {
@@ -114,7 +113,10 @@ class IceLance extends Analyzer {
     when(this.nonShatteredIceLanceThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.ICE_LANCE.id} /> {this.nonShatteredCasts} times ({formatPercentage(actual)}%) without <SpellLink id={SPELLS.SHATTER.id} />. Make sure that you are only casting Ice Lance when the target has <SpellLink id={SPELLS.WINTERS_CHILL.id} /> (or other Shatter effects), if you have a <SpellLink id={SPELLS.FINGERS_OF_FROST.id} /> proc, or if you are moving and you cant cast anything else.</>)
           .icon(SPELLS.ICE_LANCE.icon)
-          .actual(i18n._(t('mage.frost.suggestions.iceLance.nonShatterCasts')`${formatPercentage(actual)}% missed`))
+          .actual(t({
+      id: "mage.frost.suggestions.iceLance.nonShatterCasts",
+      message: `${formatPercentage(actual)}% missed`
+    }))
           .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 

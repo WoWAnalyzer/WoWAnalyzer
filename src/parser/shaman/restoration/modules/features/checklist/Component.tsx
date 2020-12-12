@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { t, Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -11,7 +12,6 @@ import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
-import { Trans } from '@lingui/macro';
 
 const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
   const AbilityRequirement = (props: any) => (
@@ -30,7 +30,7 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: any) =>
         name={<Trans id="shaman.restoration.checklist.efficientSpells">Use core efficient spells as often as possible</Trans>}
         description={(
           <Trans id="shaman.restoration.checklist.efficientSpells.description">
-            Spells such as <SpellLink id={SPELLS.RIPTIDE.id} />, <SpellLink id={SPELLS.HEALING_RAIN_CAST.id} /> and <SpellLink id={SPELLS.HEALING_STREAM_TOTEM_CAST.id} /> are your most efficient spells available. Try to cast them as much as possible without overhealing. <TooltipElement content={<Trans id="shaman.restoration.checklist.efficientSpells.description.tooltip">When you're not bringing too many healers.</Trans>}>On Mythic*</TooltipElement> you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and improving your target selection.
+            Spells such as <SpellLink id={SPELLS.RIPTIDE.id} />, <SpellLink id={SPELLS.HEALING_RAIN_CAST.id} /> and <SpellLink id={SPELLS.HEALING_STREAM_TOTEM_CAST.id} /> are your most efficient spells available. Try to cast them as much as possible without overhealing. <TooltipElement content={t({ id: 'shaman.restoration.checklist.efficientSpells.description.tooltip', message: `When you're not bringing too many healers.` })}>On Mythic*</TooltipElement> you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and improving your target selection.
             <a href="http://www.wowhead.com/restoration-shaman-rotation-guide#raid-healing-priority-list" target="_blank" rel="noopener noreferrer">More info.</a>
           </Trans>
         )}
@@ -109,7 +109,10 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: any) =>
         name={<Trans id="shaman.restoration.checklist.inactivity">Try to avoid being inactive for a large portion of the fight</Trans>}
         description={(
           <Trans id="shaman.restoration.checklist.inactivity.description">
-            While it's suboptimal to always be casting as a healer you should still try to always be doing something during the entire fight and high downtime is inexcusable. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and <TooltipElement wrapperStyles={{ display: 'inline' }} content={<Trans id="shaman.restoration.checklist.inactivity.description.tooltip">While helping with damage would be optimal, it's much less important as a healer than any of the other suggestions on this checklist. You should ignore this suggestion while you are having difficulties with anything else.</Trans>}>when you're not healing try to contribute some damage*</TooltipElement>.
+            While it's suboptimal to always be casting as a healer you should still try to always be doing something during the entire fight and high downtime is inexcusable. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and <TooltipElement wrapperStyles={{ display: 'inline' }} content={t({
+            id: 'shaman.restoration.checklist.inactivity.description.tooltip',
+            message: `While helping with damage would be optimal, it's much less important as a healer than any of the other suggestions on this checklist. You should ignore this suggestion while you are having difficulties with anything else.`
+          })}>when you're not healing try to contribute some damage*</TooltipElement>.
           </Trans>
         )}
       >

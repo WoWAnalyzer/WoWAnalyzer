@@ -4,7 +4,6 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class ArcaneIntellect extends Analyzer {
@@ -28,7 +27,10 @@ class ArcaneIntellect extends Analyzer {
 		when(this.suggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => suggest(<><SpellLink id={SPELLS.ARCANE_INTELLECT.id} /> was up for {formatPercentage(this.uptime)}% of the fight. Ensure you are casting this before the pull and recasting it every time you are ressurected.</>)
 					.icon(SPELLS.ARCANE_INTELLECT.icon)
-					.actual(i18n._(t('mage.shared.suggestions.arcaneIntellect.uptime')`${formatPercentage(this.uptime)}% Uptime`))
+					.actual(t({
+          id: "mage.shared.suggestions.arcaneIntellect.uptime",
+          message: `${formatPercentage(this.uptime)}% Uptime`
+        }))
 					.recommended(`${formatPercentage(recommended)}% is recommended`));
 	}
 }

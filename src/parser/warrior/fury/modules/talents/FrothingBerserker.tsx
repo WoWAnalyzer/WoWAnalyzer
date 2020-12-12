@@ -10,7 +10,6 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events, { DamageEvent } from 'parser/core/Events';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 /*  Example log:
@@ -71,7 +70,10 @@ class FrothingBerserker extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.FROTHING_BERSERKER.id} /> uptime can be improved.</>)
         .icon(SPELLS.FROTHING_BERSERKER.icon)
-        .actual(i18n._(t('warrior.fury.suggestions.frothingBerserker.uptime')`${formatPercentage(actual)}% Frothing Berserker uptime`))
+        .actual(t({
+      id: "warrior.fury.suggestions.frothingBerserker.uptime",
+      message: `${formatPercentage(actual)}% Frothing Berserker uptime`
+    }))
         .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
