@@ -192,6 +192,7 @@
   "hunter.beastmastery.suggestions.pet.basicAttacks": "Your pet didn't cast any Basic Attacks this fight",
   "hunter.beastmastery.suggestions.stampede.efficiency": "{actual} inefficient {0}",
   "hunter.marksmanship.suggestions.alwaysBeCasting.downtime": "{0}% downtime",
+  "hunter.marksmanship.suggestions.alwaysBeCasting.recommended": "",
   "hunter.marksmanship.suggestions.callingTheShots.efficiency": "You had {0}% effective cooldown reduction from Calling the Shots",
   "hunter.marksmanship.suggestions.castsCanceled.efficiency": "{0}% casts cancelled",
   "hunter.marksmanship.suggestions.focusCapTracker.focusLost": "{0}% regenerated focus lost due to being capped.",
