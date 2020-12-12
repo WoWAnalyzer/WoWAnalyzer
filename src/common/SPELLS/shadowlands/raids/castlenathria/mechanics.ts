@@ -19,6 +19,16 @@ export default {
   //Sun King
 
   //Council of Blood
+  DANCE_AREA_TRIGGER: {
+    id: 347376,
+    name: 'Dance Area Trigger',
+    icon: '',
+  },
+  OPPRESSIVE_ATMOSPHERE: {
+    id: 334909,
+    name: 'Oppressive Atmosphere',
+    icon: '',
+  },
 
   //Sludgefist
 
