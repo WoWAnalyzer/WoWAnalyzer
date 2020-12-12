@@ -1,6 +1,5 @@
 import React from 'react';
 import { t, Trans } from '@lingui/macro';
-import { i18n } from 'interface/RootLocalizationProvider';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';

@@ -10,7 +10,6 @@ import SpellIcon from 'common/SpellIcon';
 
 import UptimeBar from 'interface/statistics/components/UptimeBar';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class SiphonLifeUptime extends Analyzer {

@@ -6,7 +6,6 @@ import Events from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 /**

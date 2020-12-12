@@ -10,7 +10,6 @@ import ChiTracker from 'parser/monk/windwalker/modules/resources/ChiTracker';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import BoringResourceValue from 'interface/statistics/components/BoringResourceValue/index';
 import { formatPercentage } from 'common/format';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class ChiDetails extends Analyzer {

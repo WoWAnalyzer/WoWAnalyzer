@@ -12,7 +12,6 @@ import Events, { CastEvent, SummonEvent, DamageEvent } from 'parser/core/Events'
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 /*

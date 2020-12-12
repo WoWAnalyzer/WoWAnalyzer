@@ -6,7 +6,6 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Events, { ApplyBuffEvent, GlobalCooldownEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';

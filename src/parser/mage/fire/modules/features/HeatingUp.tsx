@@ -14,7 +14,6 @@ import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyI
 import EventHistory from 'parser/shared/modules/EventHistory';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { FIRESTARTER_THRESHOLD, SEARING_TOUCH_THRESHOLD } from 'parser/mage/shared/constants';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const debug = false;

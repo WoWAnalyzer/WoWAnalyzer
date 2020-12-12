@@ -14,7 +14,6 @@ import Events, { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, DamageEvent, Ev
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { MONGOOSE_BITE_MAX_STACKS, MONGOOSE_BITE_MAX_TRAVEL_TIME, RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 /**

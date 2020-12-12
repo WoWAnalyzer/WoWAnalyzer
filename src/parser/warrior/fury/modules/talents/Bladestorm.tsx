@@ -8,7 +8,6 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { CastEvent, DamageEvent, EnergizeEvent } from 'parser/core/Events';
 import SpellLink from 'common/SpellLink';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 // Example log: /reports/P3FbCaGB4DMyNQxA#fight=47&type=damage-done

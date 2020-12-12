@@ -10,7 +10,6 @@ import SpellLink from 'common/SpellLink';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const BUFF_DURATION = 20000;

@@ -8,7 +8,6 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Events from 'parser/core/Events';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const FELSTORM_COOLDOWN = 30;

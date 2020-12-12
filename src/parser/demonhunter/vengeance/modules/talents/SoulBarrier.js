@@ -9,7 +9,6 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatNumber } from 'common/format';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import Events from 'parser/core/Events';
 

@@ -9,7 +9,6 @@ import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import StatisticBox from 'interface/others/StatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class RuptureUptime extends Analyzer {

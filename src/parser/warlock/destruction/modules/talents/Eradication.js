@@ -15,7 +15,6 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import UptimeIcon from 'interface/icons/Uptime';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const MAX_TRAVEL_TIME = 3000; // Chaos Bolt being the slowest, takes around 2 seconds to land from max range, added a second to account for maybe target movement?

@@ -8,7 +8,6 @@ import Events from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import ExecuteRange from './Execute/ExecuteRange';

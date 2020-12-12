@@ -8,7 +8,6 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import BoringResourceValue from 'interface/statistics/components/BoringResourceValue/index';
 import Statistic from 'interface/statistics/Statistic';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import FuryTracker from './FuryTracker';

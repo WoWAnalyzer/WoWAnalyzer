@@ -1,7 +1,6 @@
 import { t } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
-import { i18n } from 'interface/RootLocalizationProvider';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 

@@ -6,7 +6,6 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import Events from 'parser/core/Events';

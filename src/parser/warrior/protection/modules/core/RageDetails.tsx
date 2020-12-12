@@ -7,7 +7,6 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatPercentage } from 'common/format';
 import Icon from 'common/Icon';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import RageTracker from './RageTracker';

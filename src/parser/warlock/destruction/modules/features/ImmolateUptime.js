@@ -12,7 +12,6 @@ import StatisticBar from 'interface/statistics/StatisticBar';
 import UptimeBar from 'interface/statistics/components/UptimeBar';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class ImmolateUptime extends Analyzer {

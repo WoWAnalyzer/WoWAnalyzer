@@ -9,7 +9,6 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import { MS_BUFFER, VOID_TORRENT_MAX_TIME } from '../../constants';

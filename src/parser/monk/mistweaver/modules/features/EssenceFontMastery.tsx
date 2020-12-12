@@ -13,7 +13,6 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const debug = false;

@@ -5,7 +5,6 @@ import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Statistic from 'interface/statistics/Statistic';
 import Gauge from 'interface/statistics/components/Gauge';
-import { i18n } from '@lingui/core';
 import { t, Trans } from '@lingui/macro';
 
 class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {

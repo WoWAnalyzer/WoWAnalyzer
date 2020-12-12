@@ -11,7 +11,6 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent, DamageEvent, ChangeBuffStackEvent } from 'parser/core/Events';
 import { MS_BUFFER_100, SHATTER_DEBUFFS } from 'parser/mage/shared/constants';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class IceLance extends Analyzer {

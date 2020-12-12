@@ -11,7 +11,6 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import Events from 'parser/core/Events';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const RECOMMENDED_HIT_THRESHOLD = 5;

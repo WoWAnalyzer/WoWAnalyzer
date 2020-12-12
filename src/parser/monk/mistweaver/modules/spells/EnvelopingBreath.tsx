@@ -11,7 +11,6 @@ import Events, { ApplyBuffEvent, CastEvent, DeathEvent, HealEvent } from 'parser
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Combatants from 'parser/shared/modules/Combatants';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const ENVELOPING_BREATH_INCREASE = .1;

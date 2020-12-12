@@ -6,7 +6,6 @@ import SelectSearch from 'react-select-search/dist/cjs';
 import { Trans, t } from '@lingui/macro';
 import REALMS from 'common/RealmList';
 import { makeGuildApiUrl, makeCharacterApiUrl } from 'common/makeApiUrl';
-import { i18n } from 'interface/RootLocalizationProvider';
 import makeGuildPageUrl from 'common/makeGuildPageUrl';
 import makeCharacterPageUrl from 'common/makeCharacterPageUrl';
 

@@ -15,7 +15,6 @@ import Combatants from 'parser/shared/modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { When } from 'parser/core/ParseResults';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import { Trans } from '@lingui/macro';
 

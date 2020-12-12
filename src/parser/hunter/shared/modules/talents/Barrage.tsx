@@ -13,7 +13,6 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { BARRAGE_HITS_PER_CAST } from 'parser/hunter/shared/constants';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 /**

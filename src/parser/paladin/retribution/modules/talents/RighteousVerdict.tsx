@@ -11,7 +11,6 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events, {CastEvent, DamageEvent} from 'parser/core/Events';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 

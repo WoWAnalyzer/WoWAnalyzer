@@ -21,7 +21,6 @@ import ReadableListing from 'interface/ReadableListing';
 import Contributor from 'interface/ContributorButton';
 import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
 import WipefestIcon from 'interface/icons/Wipefest';
-import { i18n } from 'interface/RootLocalizationProvider';
 import LoadingBar from 'interface/layout/NavigationBar/LoadingBar';
 import Panel from 'interface/others/Panel';
 import ErrorBoundary from 'interface/common/ErrorBoundary';

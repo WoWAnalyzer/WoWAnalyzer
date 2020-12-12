@@ -4,7 +4,6 @@ import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 
 import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 

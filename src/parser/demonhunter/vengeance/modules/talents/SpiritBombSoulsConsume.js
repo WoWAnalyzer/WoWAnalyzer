@@ -8,7 +8,6 @@ import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 
 import { formatPercentage } from 'common/format';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import Events from 'parser/core/Events';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';

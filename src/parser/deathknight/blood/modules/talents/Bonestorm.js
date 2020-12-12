@@ -6,7 +6,6 @@ import { formatPercentage, formatNumber } from 'common/format';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import Events from 'parser/core/Events';
 

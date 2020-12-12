@@ -7,7 +7,6 @@ import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { DamageEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import { COMBUSTION_END_BUFFER, FIRESTARTER_THRESHOLD, SEARING_TOUCH_THRESHOLD, FIRE_DIRECT_DAMAGE_SPELLS } from 'parser/mage/shared/constants';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const PROC_BUFFER = 200;

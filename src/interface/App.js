@@ -17,7 +17,6 @@ import {
 import { fetchUser } from 'interface/actions/user';
 import { getError } from 'interface/selectors/error';
 import { getOpenModals } from 'interface/selectors/openModals';
-import { i18n } from 'interface/RootLocalizationProvider';
 import { t } from '@lingui/macro';
 import ApiDownBackground from 'interface/common/images/api-down-background.gif';
 import FullscreenError from 'interface/FullscreenError';

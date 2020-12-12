@@ -18,7 +18,6 @@ import EventHistory from 'parser/shared/modules/EventHistory';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Events, { ApplyBuffEvent, CastEvent, RemoveBuffEvent } from 'parser/core/Events';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import ArcaneChargeTracker from './ArcaneChargeTracker';

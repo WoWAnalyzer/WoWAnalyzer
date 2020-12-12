@@ -6,7 +6,6 @@ import SpellLink from 'common/SpellLink';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Events from 'parser/core/Events';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const WILDFLESH_MODIFIER_PER_RANK = 0.05;

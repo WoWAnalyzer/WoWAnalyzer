@@ -9,7 +9,6 @@ import { formatPercentage } from 'common/format';
 import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Statistic from 'interface/statistics/Statistic';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const SURGE_OF_POWER = {

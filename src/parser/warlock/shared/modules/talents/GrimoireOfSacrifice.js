@@ -11,7 +11,6 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class GrimoireOfSacrifice extends Analyzer {

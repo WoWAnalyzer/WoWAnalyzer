@@ -12,7 +12,6 @@ import Combatants from 'parser/shared/modules/Combatants';
 import { When } from 'parser/core/ParseResults';
 import Events, { HealEvent } from 'parser/core/Events';
 
-import { i18n } from '@lingui/core';
 import { t, Trans } from '@lingui/macro';
 
 // 50 was too low, 100 was too high

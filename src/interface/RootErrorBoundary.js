@@ -6,7 +6,6 @@ import FullscreenError from 'interface/FullscreenError';
 import ErrorBoundary from 'interface/common/ErrorBoundary';
 import ApiDownBackground from 'interface/common/images/api-down-background.gif';
 import { EventsParseError } from 'interface/report/EventParser';
-import { i18n } from 'interface/RootLocalizationProvider';
 
 class RootErrorBoundary extends React.Component {
   static propTypes = {

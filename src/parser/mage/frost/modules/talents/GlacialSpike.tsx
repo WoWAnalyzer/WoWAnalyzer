@@ -13,7 +13,6 @@ import { TooltipElement } from 'common/Tooltip';
 import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { SHATTER_DEBUFFS } from 'parser/mage/shared/constants';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class GlacialSpike extends Analyzer {

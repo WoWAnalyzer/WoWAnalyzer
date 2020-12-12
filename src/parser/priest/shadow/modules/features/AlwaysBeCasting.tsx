@@ -2,7 +2,6 @@ import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {

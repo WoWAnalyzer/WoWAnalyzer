@@ -8,7 +8,6 @@ import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 import { t, Trans } from '@lingui/macro';
-import { i18n } from '@lingui/core';
 
 /**
  * Analyzer to determine which, if any, SOTR casts did not result in a subsequent hit

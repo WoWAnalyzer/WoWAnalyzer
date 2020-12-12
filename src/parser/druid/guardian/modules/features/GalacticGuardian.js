@@ -6,7 +6,6 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Events from 'parser/core/Events';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const GG_DURATION = 10000;

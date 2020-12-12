@@ -7,7 +7,6 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import { BERSERK_ENERGY_COST_MULTIPLIER, ENERGY_FOR_FULL_DAMAGE_BITE, MAX_BITE_DAMAGE_BONUS_FROM_ENERGY } from '../../constants';

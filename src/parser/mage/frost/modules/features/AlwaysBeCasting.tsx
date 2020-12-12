@@ -9,7 +9,6 @@ import Gauge from 'interface/statistics/components/Gauge';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellLink from 'common/SpellLink';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import { i18n } from '@lingui/core';
 import { t, Trans } from '@lingui/macro';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {

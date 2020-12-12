@@ -6,7 +6,6 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Statistic from 'interface/statistics/Statistic';
 import DonutChart from 'interface/statistics/components/DonutChart';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import Events from 'parser/core/Events';
 

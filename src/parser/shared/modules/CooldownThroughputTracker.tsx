@@ -10,7 +10,6 @@ import EventHistory from 'parser/shared/modules/EventHistory';
 import Events, { AnyEvent, AbsorbedEvent, ApplyBuffEvent, ApplyDebuffEvent, CastEvent, DamageEvent, HealEvent, RemoveBuffEvent, RemoveDebuffEvent, SummonEvent, DeathEvent } from 'parser/core/Events';
 import EventFilter, { SELECTED_PLAYER_PET } from 'parser/core/EventFilter';
 import { t, Trans } from '@lingui/macro';
-import { i18n } from '@lingui/core';
 
 const debug = false;
 

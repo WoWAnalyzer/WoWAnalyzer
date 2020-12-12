@@ -10,7 +10,6 @@ import { formatNumber, formatPercentage } from 'common/format';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import SoulFragmentsTracker from '../features/SoulFragmentsTracker';

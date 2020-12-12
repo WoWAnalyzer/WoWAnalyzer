@@ -10,7 +10,6 @@ import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import { MS_BUFFER_250 } from 'parser/mage/shared/constants';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import HotStreakPreCasts from './HotStreakPreCasts';

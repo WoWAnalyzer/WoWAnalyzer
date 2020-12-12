@@ -1,7 +1,6 @@
 import CoreCancelledCasts from 'parser/shared/modules/CancelledCasts';
 import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class CancelledCasts extends CoreCancelledCasts {

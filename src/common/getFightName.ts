@@ -1,7 +1,5 @@
 import { t } from '@lingui/macro';
 
-import { i18n } from 'interface/RootLocalizationProvider';
-
 import Fight from 'parser/core/Fight';
 
 import getBossName from './getBossName';

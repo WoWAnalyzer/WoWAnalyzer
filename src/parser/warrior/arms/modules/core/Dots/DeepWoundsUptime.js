@@ -6,7 +6,6 @@ import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class DeepWoundsUptime extends Analyzer {

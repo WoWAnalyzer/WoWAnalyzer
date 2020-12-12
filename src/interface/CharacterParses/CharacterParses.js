@@ -24,7 +24,6 @@ import ArmoryIcon from 'interface/icons/Armory';
 import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
 import WipefestIcon from 'interface/icons/Wipefest';
 import REPORT_HISTORY_TYPES from 'interface/home/ReportHistory/REPORT_HISTORY_TYPES';
-import { i18n } from 'interface/RootLocalizationProvider';
 
 import './CharacterParses.scss';
 import ParsesList from '../CharacterParsesList';

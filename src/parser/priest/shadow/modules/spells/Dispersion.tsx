@@ -9,7 +9,6 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import calculateMaxCasts from 'parser/core/calculateMaxCasts';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import { DISPERSION_BASE_CD, DISPERSION_UPTIME_MS } from '../../constants';

@@ -10,7 +10,6 @@ import BoringValueText from 'interface/statistics/components/BoringValueText';
 import CrossIcon from 'interface/icons/Cross';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import { Options } from 'parser/core/Analyzer';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 /**

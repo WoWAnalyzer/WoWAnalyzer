@@ -13,7 +13,6 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import Events, { DamageEvent } from 'parser/core/Events';
 import { BUTCHERY_CARVE_MAX_TARGETS_HIT } from 'parser/hunter/survival/constants';
 import { ONE_SECOND_IN_MS } from 'parser/hunter/shared/constants';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 /**

@@ -7,7 +7,6 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { BeginCastEvent, CastEvent, EventType } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const debug = false;

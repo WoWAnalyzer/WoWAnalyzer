@@ -12,7 +12,6 @@ import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import SpellIcon from 'common/SpellIcon';
 import BoringValue from 'interface/statistics/components/BoringValueText';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import Events from 'parser/core/Events';

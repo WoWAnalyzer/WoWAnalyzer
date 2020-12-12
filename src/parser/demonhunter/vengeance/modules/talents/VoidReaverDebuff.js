@@ -7,7 +7,6 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class VoidReaverDebuff extends Analyzer {

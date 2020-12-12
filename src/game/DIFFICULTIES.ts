@@ -1,5 +1,4 @@
 import { t } from '@lingui/macro';
-import { i18n } from 'interface/RootLocalizationProvider';
 
 const DIFFICULTIES: { 
   [key: string]: number;

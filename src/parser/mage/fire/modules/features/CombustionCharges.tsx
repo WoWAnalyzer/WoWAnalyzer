@@ -9,7 +9,6 @@ import Events, { CastEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { PHOENIX_FLAMES_MAX_CHARGES } from 'parser/mage/shared/constants';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const debug = false;

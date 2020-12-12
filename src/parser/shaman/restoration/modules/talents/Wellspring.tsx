@@ -16,7 +16,6 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 import Combatants from 'parser/shared/modules/Combatants';
 
-import { i18n } from '@lingui/core';
 import { t, Trans } from '@lingui/macro';
 
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';

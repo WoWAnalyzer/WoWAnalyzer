@@ -8,7 +8,6 @@ import { formatPercentage } from 'common/format';
 import RACES from 'game/RACES';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import Events from 'parser/core/Events';
 

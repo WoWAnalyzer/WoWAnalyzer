@@ -9,7 +9,6 @@ import Combatants from 'parser/shared/modules/Combatants';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Events, {ApplyBuffEvent, RefreshBuffEvent, CastEvent} from 'parser/core/Events';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 

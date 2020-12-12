@@ -4,7 +4,6 @@ import getAverageItemLevel from 'game/getAverageItemLevel';
 import getFightName from 'common/getFightName';
 import { fetchCombatants, LogNotFoundError } from 'common/fetchWclApi';
 import { captureException } from 'common/errorLogger';
-import { i18n } from 'interface/RootLocalizationProvider';
 import ActivityIndicator from 'interface/common/ActivityIndicator';
 import DocumentTitle from 'interface/DocumentTitle';
 import { setCombatants } from 'interface/actions/combatants';

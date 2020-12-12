@@ -14,7 +14,6 @@ import { SuggestionFactory, ThresholdStyle, When } from 'parser/core/ParseResult
 import Enemy from 'parser/core/Enemy';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import isAtonement from '../core/isAtonement';

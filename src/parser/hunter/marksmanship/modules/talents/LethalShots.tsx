@@ -12,7 +12,6 @@ import { MS_BUFFER } from 'parser/hunter/shared/constants';
 import { ARCANE_SHOT_MAX_TRAVEL_TIME, LETHAL_SHOTS_CHANCE, LETHAL_SHOTS_REDUCTION } from 'parser/hunter/marksmanship/constants';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SpellLink from 'common/SpellLink';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 /**

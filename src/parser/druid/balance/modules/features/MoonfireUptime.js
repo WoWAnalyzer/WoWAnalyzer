@@ -10,7 +10,6 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class MoonfireUptime extends Analyzer {

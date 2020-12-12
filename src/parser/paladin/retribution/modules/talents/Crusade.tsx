@@ -8,7 +8,6 @@ import Events, {CastEvent, ApplyBuffStackEvent} from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import HolyPowerTracker from 'parser/paladin/shared/holypower/HolyPowerTracker';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 

@@ -8,7 +8,6 @@ import Events, { CastEvent, DamageEvent, ApplyBuffEvent, RemoveBuffEvent } from 
 import HIT_TYPES from 'game/HIT_TYPES';
 import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import { MS_BUFFER_250, FIRE_DIRECT_DAMAGE_SPELLS } from 'parser/mage/shared/constants';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const debug = false;

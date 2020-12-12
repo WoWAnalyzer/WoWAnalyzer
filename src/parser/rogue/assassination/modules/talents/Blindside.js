@@ -8,7 +8,6 @@ import { formatPercentage } from 'common/format';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const BLINDSIDE_EXECUTE = 0.3;

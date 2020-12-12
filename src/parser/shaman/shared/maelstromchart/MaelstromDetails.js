@@ -6,7 +6,6 @@ import Analyzer from 'parser/core/Analyzer';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import { formatPercentage } from 'common/format';
 import Icon from 'common/Icon';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import MaelstromTracker from './MaelstromTracker.js';

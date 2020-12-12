@@ -13,7 +13,6 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class LegionStrike extends Analyzer {

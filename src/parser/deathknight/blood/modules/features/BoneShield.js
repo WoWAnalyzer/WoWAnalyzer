@@ -3,7 +3,6 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatDuration, formatPercentage } from 'common/format';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';

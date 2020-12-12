@@ -9,7 +9,6 @@ import Statistic from 'interface/statistics/Statistic';
 import SpellLink from 'common/SpellLink';
 import Combatants from 'parser/shared/modules/Combatants';
 import Events from 'parser/core/Events';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const debug = false;
