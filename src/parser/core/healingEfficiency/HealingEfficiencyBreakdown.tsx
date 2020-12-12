@@ -109,19 +109,19 @@ class HealingEfficiencyBreakdown extends React.Component<Props, State> {
         </td>
         {this.state.showHealing && (
           <>
-            <td className="text-right">{hasHealing ? formatNumber(spellDetail.hpm) : '-'}</td>
+            <td className="text-right">{hasHealing ? spellDetail.hpm.toFixed(2) : '-'}</td>
             <td width={barWidth + '%'}><PerformanceBar percent={spellDetail.hpm / topHpm} /></td>
 
-            <td className="text-right">{hasHealing ? formatNumber(spellDetail.hpet * 1000) : '-'}</td>
+            <td className="text-right">{hasHealing ? (spellDetail.hpet * 1000) : '-'}</td>
             <td width={barWidth + '%'}><PerformanceBar percent={(spellDetail.hpet / topHpet)} /></td>
           </>
         )}
         {!this.state.showHealing && (
           <>
-            <td className="text-right">{hasDamage ? formatNumber(spellDetail.dpm) : '-'}</td>
+            <td className="text-right">{hasDamage ? spellDetail.dpm.toFixed(2) : '-'}</td>
             <td width={barWidth + '%'}><PerformanceBar percent={spellDetail.dpm / topDpm} /></td>
 
-            <td className="text-right">{hasDamage ? formatNumber(spellDetail.dpet * 1000) : '-'}</td>
+            <td className="text-right">{hasDamage ? (spellDetail.dpet * 1000) : '-'}</td>
             <td width={barWidth + '%'}><PerformanceBar percent={(spellDetail.dpet / topDpet)} /></td>
           </>
         )}
@@ -193,7 +193,7 @@ class HealingEfficiencyBreakdown extends React.Component<Props, State> {
               {hasOverhealing ? formatNumber(spellDetail.overhealingDone) : '-'}
               {hasOverhealing ? ' (' + formatPercentage(spellDetail.percentOverhealingDone) + '%)' : ''}
             </td>
-            <td>{hasHealing ? formatNumber(spellDetail.hpm) : '-'}</td>
+            <td>{hasHealing ? spellDetail.hpm.toFixed(2) : '-'}</td>
             <td>{hasHealing ? formatNumber(spellDetail.hpet * 1000) : '-'}</td>
           </>
         )}
@@ -203,7 +203,7 @@ class HealingEfficiencyBreakdown extends React.Component<Props, State> {
               {hasDamage ? formatNumber(spellDetail.damageDone) : '-'}
               {hasDamage ? ' (' + formatPercentage(spellDetail.percentDamageDone) + '%)' : ''}
             </td>
-            <td>{hasDamage ? formatNumber(spellDetail.dpm) : '-'}</td>
+            <td>{hasDamage ? spellDetail.dpm.toFixed(2) : '-'}</td>
             <td>{hasDamage ? formatNumber(spellDetail.dpet * 1000) : '-'}</td>
           </>
         )}
