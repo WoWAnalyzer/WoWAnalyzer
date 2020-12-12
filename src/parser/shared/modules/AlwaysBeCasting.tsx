@@ -144,12 +144,11 @@ class AlwaysBeCasting extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.downtimeSuggestionThresholds.actual).isGreaterThan(this.downtimeSuggestionThresholds.isGreaterThan.minor)
-      .addSuggestion((suggest, actual, recommended) => suggest(`${<Trans id="shared.suggestions.alwaysBeCasting.suggestion">Your downtime can be improved. Try to Always Be Casting (ABC), avoid delays between casting spells and cast instant spells when you have to move.</Trans>}`)
+    when(this.downtimeSuggestionThresholds)
+      .addSuggestion((suggest, actual, recommended) => suggest(<Trans id="shared.suggestions.alwaysBeCasting.suggestion">Your downtime can be improved. Try to Always Be Casting (ABC), avoid delays between casting spells and cast instant spells when you have to move.</Trans>)
         .icon('spell_mage_altertime')
         .actual(<Trans id='shared.suggestions.alwaysBeCasting.downtime'> {formatPercentage(actual)}% downtime </Trans>)
-        .recommended(`<${formatPercentage(recommended)}% is recommended`)
-        .regular(this.downtimeSuggestionThresholds.isGreaterThan.average).major(this.downtimeSuggestionThresholds.isGreaterThan.major));
+        .recommended(<Trans id='shared.suggestions.alwaysBeCasting.recommended'> {'<'}{formatPercentage(recommended)}% is recommended </Trans>));
   }
 }
 
