@@ -5,7 +5,7 @@ export default {
   BLOOD_SHROUD: {
     id: 328921,
     name: 'Blood Shroud',
-    icon: '',
+    icon: 'ability_deathwing_bloodcorruption_earth',
   },
 
   //Huntsman Altimor
@@ -22,12 +22,12 @@ export default {
   DANCE_AREA_TRIGGER: {
     id: 347376,
     name: 'Dance Area Trigger',
-    icon: '',
+    icon: 'trade_engineering',
   },
   OPPRESSIVE_ATMOSPHERE: {
     id: 334909,
     name: 'Oppressive Atmosphere',
-    icon: '',
+    icon: 'sha_spell_fire_bluerainoffire_nightmare',
   },
 
   //Sludgefist
@@ -36,29 +36,29 @@ export default {
   ANIMA_ENGORGED: {
     id: 342694,
     name: 'Anima Engorged',
-    icon: '',
+    icon: 'spell_animarevendreth_orb',
   },
   HARDENED_STONE_FORM_KAAL: {
     id: 329636,
     name: 'Hardened Stone Form',
-    icon: '',
+    icon: 'trade_archaeology_druidprieststatueset',
   },
   HARDENED_STONE_FORM_GRASHAAL: {
     id: 329808,
     name: 'Hardened Stone Form',
-    icon: '',
+    icon: 'trade_archaeology_druidprieststatueset',
   },
 
   //Sire Denathrius
   BEGIN_THE_CHORUS: {
     id: 329697,
     name: 'Begin the Chorus',
-    icon: '',
+    icon: 'spell_animarevendreth_buff',
   },
   INDIGNATION: {
     id: 326005,
     name: 'Indignation',
-    icon: '',
+    icon: 'spell_animarevendreth_nova',
   },
 
 };
