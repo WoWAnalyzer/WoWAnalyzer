@@ -305,8 +305,8 @@ class GuildReports extends React.Component<Props, State> {
         <Trans id="interface.guildReports.errors.details">
           {this.state.errorMessage}
           <br />
-          Please message us on {DISCORD} or create an issue on {GITHUB}
-          if this issue persists and we will fix it, eventually.
+          Please message us on {DISCORD} or create an issue on {GITHUB} if this issue persists and
+          we will fix it, eventually.
         </Trans>
       );
     } else if (this.state.error === ERRORS.NO_REPORTS_FOR_FILTER || filteredReports.length === 0) {
