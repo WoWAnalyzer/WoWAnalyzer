@@ -21,7 +21,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     when(this.downtimeSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest('Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells.')
         .icon('spell_mage_altertime')
-        .actual(i18n._(t('warrior.arms.suggestions.alwaysBeCasting.downtime')`${formatPercentage(actual)}% downtime`))
+        .actual(t({
+      id: "warrior.arms.suggestions.alwaysBeCasting.downtime",
+      message: `${formatPercentage(actual)}% downtime`
+    }))
         .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 }

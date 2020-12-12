@@ -46,7 +46,10 @@ class RageDetails extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Rage.`)
       .icon('spell_nature_reincarnation')
-      .actual(i18n._(t('warrior.arms.suggestions.rage.wasted')`${formatPercentage(actual)}% wasted`))
+      .actual(t({
+      id: "warrior.arms.suggestions.rage.wasted",
+      message: `${formatPercentage(actual)}% wasted`
+    }))
       .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 

@@ -70,7 +70,10 @@ class RelishInBlood extends Analyzer {
     when(this.efficiencySuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>Avoid being Runic Power capped at all times, you wasted {this.runicPowerWasted} PR by being RP capped.</span>)
           .icon(SPELLS.RELISH_IN_BLOOD_TALENT.icon)
-          .actual(i18n._(t('deathknight.suggestions.hysteria.efficiency')`You wasted ${(formatPercentage(actual))}% of RP from ${SPELLS.RELISH_IN_BLOOD_TALENT.name} by being RP capped.`))
+          .actual(t({
+      id: "deathknight.suggestions.hysteria.efficiency",
+      message: `You wasted ${(formatPercentage(actual))}% of RP from ${SPELLS.RELISH_IN_BLOOD_TALENT.name} by being RP capped.`
+    }))
           .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 

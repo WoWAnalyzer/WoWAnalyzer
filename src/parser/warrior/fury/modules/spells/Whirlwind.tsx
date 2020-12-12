@@ -148,7 +148,10 @@ class Whirlwind extends Analyzer {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You're casting <SpellLink id={SPELLS.WHIRLWIND_FURY.id} /> poorly. Try to only use it if your other abilities are on cooldown.</>)
       .icon(SPELLS.SIEGEBREAKER_TALENT.icon)
-      .actual(i18n._(t('warrior.fury.suggestions.whirlwind.badCasts')`${formatPercentage(actual)}% of bad Whirlwind casts`))
+      .actual(t({
+      id: "warrior.fury.suggestions.whirlwind.badCasts",
+      message: `${formatPercentage(actual)}% of bad Whirlwind casts`
+    }))
       .recommended(`${formatPercentage(recommended)}+% is recommended`));
   }
 

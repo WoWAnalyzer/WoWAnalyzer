@@ -72,7 +72,10 @@ class ScourgeStrikeEfficiency extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You are casting <SpellLink id={this.activeSpell.id} /> too often. When spending runes remember to cast <SpellLink id={this.activeSpell.id} /> instead on targets with no stacks of <SpellLink id={this.activeSpell.id} /></>)
         .icon(this.activeSpell.icon)
-        .actual(i18n._(t('deathknight.unholy.suggestions.scourgeStrike.efficiency')`${formatPercentage(actual)}% of ${this.activeSpell.name} were used with Wounds on the target`))
+        .actual(t({
+      id: "deathknight.unholy.suggestions.scourgeStrike.efficiency",
+      message: `${formatPercentage(actual)}% of ${this.activeSpell.name} were used with Wounds on the target`
+    }))
         .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

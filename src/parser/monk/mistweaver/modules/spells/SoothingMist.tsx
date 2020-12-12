@@ -156,7 +156,10 @@ class SoothingMist extends Analyzer {
       </>,
     )
       .icon(SPELLS.SOOTHING_MIST.icon)
-      .actual(`${formatPercentage(this.badSooms / this.totalSoomCasts)}${i18n._(t('monk.mistweaver.suggestions.soothingMist.channelingWithoutCastingSpells')`% of Soothing Mist casts with max spells casted`)}`)
+      .actual(`${formatPercentage(this.badSooms / this.totalSoomCasts)}${t({
+      id: "monk.mistweaver.suggestions.soothingMist.channelingWithoutCastingSpells",
+      message: `% of Soothing Mist casts with max spells casted`
+    })}`)
       .recommended(`${recommended} is recommended`));
   }
 }

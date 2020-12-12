@@ -36,7 +36,10 @@ class GarroteUptime extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.GARROTE.id} /> uptime can be improved. Try to pay more attention to your <SpellLink id={SPELLS.GARROTE.id} /> on the boss.</>)
       .icon(SPELLS.GARROTE.icon)
-      .actual(i18n._(t('rogue.assassination.suggestions.garrote.uptime')`${formatPercentage(actual)}% Garrote uptime`))
+      .actual(t({
+      id: "rogue.assassination.suggestions.garrote.uptime",
+      message: `${formatPercentage(actual)}% Garrote uptime`
+    }))
       .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

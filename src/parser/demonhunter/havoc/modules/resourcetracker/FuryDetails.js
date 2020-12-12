@@ -39,7 +39,10 @@ class FuryDetails extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(`You wasted ${formatNumber(this.furyTracker.wasted)} Fury.`)
       .icon(furyIcon)
-      .actual(i18n._(t('demonhunter.havoc.suggestions.fury.wasted')`${formatPercentage(actual)}% Fury wasted`))
+      .actual(t({
+      id: "demonhunter.havoc.suggestions.fury.wasted",
+      message: `${formatPercentage(actual)}% Fury wasted`
+    }))
       .recommended(`<${formatPercentage(recommended)}% is recommended.`));
   }
 

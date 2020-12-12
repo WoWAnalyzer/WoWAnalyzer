@@ -181,7 +181,12 @@ class PlayerLoader extends React.PureComponent {
   }
 
   renderLoading() {
-    return <ActivityIndicator text={i18n._(t('interface.report.renderLoading.fetchingPlayerInfo')`Fetching player info...`)} />;
+    return (
+      <ActivityIndicator text={t({
+        id: "interface.report.renderLoading.fetchingPlayerInfo",
+        message: `Fetching player info...`
+      })} />
+    );
   }
 
   renderClassicWarning() {
@@ -227,18 +232,30 @@ class PlayerLoader extends React.PureComponent {
       if (player) {
         // Player data was in the report, but there was another issue
         if (hasDuplicatePlayers) {
-          alert(i18n._(t('interface.report.render.hasDuplicatePlayers')`It appears like another "${playerName}" is in this log, please select the correct one`));
+          alert(t({
+            id: "interface.report.render.hasDuplicatePlayers",
+            message: `It appears like another "${playerName}" is in this log, please select the correct one`
+          }));
         } else if (!combatant) {
-          alert(i18n._(t('interface.report.render.dataNotAvailable')`Player data does not seem to be available for the selected player in this fight.`));
+          alert(t({
+            id: "interface.report.render.dataNotAvailable",
+            message: `Player data does not seem to be available for the selected player in this fight.`
+          }));
         } else if (combatant.error || !combatant.specID) {
-          alert(i18n._(t('interface.report.render.logCorrupted')`The data received from WCL for this player is corrupt, this player can not be analyzed in this fight.`));
+          alert(t({
+            id: "interface.report.render.logCorrupted",
+            message: `The data received from WCL for this player is corrupt, this player can not be analyzed in this fight.`
+          }));
         }
       }
       return (
         <div className="container offset">
           <div style={{ position: 'relative', marginBottom: 15 }}>
             <div className="back-button">
-              <Tooltip content={i18n._(t('interface.report.render.backToFightSelection')`Back to fight selection`)}>
+              <Tooltip content={t({
+                id: "interface.report.render.backToFightSelection",
+                message: `Back to fight selection`
+              })}>
                 <Link to={`/report/${report.code}`}>
                   <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
                   <label>
@@ -291,14 +308,15 @@ class PlayerLoader extends React.PureComponent {
       );
     }
 
-    return (
-      <>
-        {/* TODO: Refactor the DocumentTitle away */}
-        <DocumentTitle title={i18n._(t('interface.report.render.documentTitle')`${getFightName(report, fight)} by ${player.name} in ${report.title}`)} />
+    return <>
+      {/* TODO: Refactor the DocumentTitle away */}
+      <DocumentTitle title={t({
+        id: "interface.report.render.documentTitle",
+        message: `${getFightName(report, fight)} by ${player.name} in ${report.title}`
+      })} />
 
-        {this.props.children(player, combatant, combatants)}
-      </>
-    );
+      {this.props.children(player, combatant, combatants)}
+    </>;
   }
 }
 

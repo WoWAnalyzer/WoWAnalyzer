@@ -43,7 +43,10 @@ class UnstableAfflictionUptime extends Analyzer {
           </>,
         )
           .icon(SPELLS.UNSTABLE_AFFLICTION.icon)
-          .actual(i18n._(t('warlock.affliction.suggestions.unstableAffliction.uptime')`${formatPercentage(actual)}% Unstable Affliction uptime.`))
+          .actual(t({
+      id: "warlock.affliction.suggestions.unstableAffliction.uptime",
+      message: `${formatPercentage(actual)}% Unstable Affliction uptime.`
+    }))
           .recommended(`> ${formatPercentage(recommended)}% is recommended`));
   }
 

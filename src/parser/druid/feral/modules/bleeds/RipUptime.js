@@ -43,7 +43,10 @@ class RipUptime extends Analyzer {
       </>,
     )
       .icon(SPELLS.RIP.icon)
-      .actual(i18n._(t('druid.feral.suggestions.rip.uptime')`${formatPercentage(actual)}% uptime`))
+      .actual(t({
+      id: "druid.feral.suggestions.rip.uptime",
+      message: `${formatPercentage(actual)}% uptime`
+    }))
       .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

@@ -105,7 +105,10 @@ class Lifecycles extends Analyzer {
       </>,
     )
       .icon(SPELLS.LIFECYCLES_TALENT.icon)
-      .actual(`${formatNumber(actual)}${i18n._(t('monk.mistweaver.suggestions.lifecycles.manaSaved')` mana saved through Lifecycles`)}`)
+      .actual(`${formatNumber(actual)}${t({
+      id: "monk.mistweaver.suggestions.lifecycles.manaSaved",
+      message: ` mana saved through Lifecycles`
+    })}`)
       .recommended(`${formatNumber(recommended)} is the recommended amount of mana savings`));
   }
 

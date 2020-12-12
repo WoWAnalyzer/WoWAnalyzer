@@ -98,12 +98,18 @@ class RaidHealthChart extends React.Component {
           field: 'y',
           type: 'quantitative',
           stack: true,
-          title: i18n._(t('shared.modules.raidHealthTab.chart.title.y')`Total Raid Health`),
+          title: t({
+            id: "shared.modules.raidHealthTab.chart.title.y",
+            message: `Total Raid Health`
+          }),
         },
         color: {
           field: 'title',
           type: 'nominal',
-          title: i18n._(t('common.player')`Player`),
+          title: t({
+            id: "common.player",
+            message: `Player`
+          }),
         },
         opacity: {
           condition: { selection: 'player', value: 1 },

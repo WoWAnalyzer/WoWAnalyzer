@@ -142,12 +142,18 @@ class Clearcasting extends Analyzer {
     when(this.clearcastingUtilSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> procs should be used quickly so they do not get overwritten or expire.</>)
           .icon(SPELLS.CLEARCASTING_BUFF.icon)
-          .actual(i18n._(t('druid.restoration.suggestions.clearcasting.wastedProcs')`You missed ${this.wastedProcs} out of ${this.totalProcs} (${formatPercentage(1 - this.clearcastingUtilPercent, 1)}%) of your free regrowth procs`))
+          .actual(t({
+      id: "druid.restoration.suggestions.clearcasting.wastedProcs",
+      message: `You missed ${this.wastedProcs} out of ${this.totalProcs} (${formatPercentage(1 - this.clearcastingUtilPercent, 1)}%) of your free regrowth procs`
+    }))
           .recommended(`<${Math.round(formatPercentage(1 - recommended, 1))}% is recommended`));
     when(this.nonCCRegrowthsSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<><SpellLink id={SPELLS.REGROWTH.id} /> is a very inefficient spell to cast without a <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> proc. It should only be cast when your target is about to die and you do not have <SpellLink id={SPELLS.SWIFTMEND.id} /> available.</>)
           .icon(SPELLS.REGROWTH.icon)
-          .actual(i18n._(t('druid.restoration.suggestions.clearcasting.efficiency')`You cast ${this.nonCCRegrowthsPerMinute.toFixed(1)} Regrowths per minute without a Clearcasting proc.`))
+          .actual(t({
+      id: "druid.restoration.suggestions.clearcasting.efficiency",
+      message: `You cast ${this.nonCCRegrowthsPerMinute.toFixed(1)} Regrowths per minute without a Clearcasting proc.`
+    }))
           .recommended(`${recommended.toFixed(1)} CPM is recommended`));
   }
 

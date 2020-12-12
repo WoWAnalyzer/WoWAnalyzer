@@ -56,7 +56,10 @@ class ShadowWordPain extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>Your <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> uptime can be improved. Try to pay more attention to your <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> on the boss.</span>)
         .icon(SPELLS.SHADOW_WORD_PAIN.icon)
-        .actual(i18n._(t('priest.shadow.suggestions.shadowWordPain.uptime')`${formatPercentage(actual)}% Shadow Word: Pain uptime`))
+        .actual(t({
+      id: "priest.shadow.suggestions.shadowWordPain.uptime",
+      message: `${formatPercentage(actual)}% Shadow Word: Pain uptime`
+    }))
         .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

@@ -81,7 +81,10 @@ class MoonfireSnapshot extends Snapshot {
       </>,
     )
       .icon(SPELLS.MOONFIRE_FERAL.icon)
-      .actual(i18n._(t('druid.feral.suggestions.moonfireSnapshot.downgrades')`${formatPercentage(actual)}% of Moonfire refreshes were early downgrades.`))
+      .actual(t({
+      id: "druid.feral.suggestions.moonfireSnapshot.downgrades",
+      message: `${formatPercentage(actual)}% of Moonfire refreshes were early downgrades.`
+    }))
       .recommended(`${recommended}% is recommended`));
   }
 

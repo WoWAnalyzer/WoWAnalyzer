@@ -78,7 +78,10 @@ class EnergyCapTracker extends RegenResourceCapTracker {
       </>,
     )
       .icon('spell_shadow_shadowworddominate')
-      .actual(i18n._(t('rogue.shared.suggestions.energy.capped')`${actual.toFixed(1)} regenerated energy lost per minute due to being capped.`))
+      .actual(t({
+      id: "rogue.shared.suggestions.energy.capped",
+      message: `${actual.toFixed(1)} regenerated energy lost per minute due to being capped.`
+    }))
       .recommended(`<${recommended} is recommended.`));
   }
 

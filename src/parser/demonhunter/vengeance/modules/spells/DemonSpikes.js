@@ -69,7 +69,10 @@ class DemonSpikes extends Analyzer {
     when(this.suggestionThresholdsEfficiency)
       .addSuggestion((suggest, actual, recommended) => suggest(<> Cast <SpellLink id={SPELLS.DEMON_SPIKES.id} /> more regularly while actively tanking the boss or when they use a big phsyical attack. You missed having it up for {formatPercentage(this.hitsWithDSOffCDPercent)}% of physical hits.</>)
         .icon(SPELLS.DEMON_SPIKES.icon)
-        .actual(i18n._(t('demonhunter.vengeance.suggestions.demonSpikes.unmitgatedHits')`${formatPercentage(actual)}% unmitigated physical hits`))
+        .actual(t({
+      id: "demonhunter.vengeance.suggestions.demonSpikes.unmitgatedHits",
+      message: `${formatPercentage(actual)}% unmitigated physical hits`
+    }))
         .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 

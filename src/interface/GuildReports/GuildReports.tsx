@@ -31,12 +31,30 @@ const REPORTS_TO_SHOW_DEFAULT = 25;
 const MONTHS_BACK_SEARCH = 3;
 
 const ERRORS = {
-  GUILD_NOT_FOUND: t('interface.guildReports.errors.guildNotFound')`We couldn't find your guild on Warcraft Logs`,
-  NO_REPORTS_FOR_FILTER: t('interface.guildReports.errors.noReportsForFilter')`We couldn't find any reports`,
-  WCL_API_ERROR: t('interface.guildReports.errors.wclAPIError')`Something went wrong talking to Warcraft Logs`,
-  UNKNOWN_API_ERROR: t('interface.guildReports.errors.unknownAPIError')`Something went wrong talking to the server`,
-  UNEXPECTED: t('interface.guildReports.errors.unexpected')`Something went wrong`,
-  NOT_RESPONDING: t('interface.guildReports.errors.notResponding')`Request timed out`,
+  GUILD_NOT_FOUND: t({
+    id: "interface.guildReports.errors.guildNotFound",
+    message: `We couldn't find your guild on Warcraft Logs`
+  }),
+  NO_REPORTS_FOR_FILTER: t({
+    id: "interface.guildReports.errors.noReportsForFilter",
+    message: `We couldn't find any reports`
+  }),
+  WCL_API_ERROR: t({
+    id: "interface.guildReports.errors.wclAPIError",
+    message: `Something went wrong talking to Warcraft Logs`
+  }),
+  UNKNOWN_API_ERROR: t({
+    id: "interface.guildReports.errors.unknownAPIError",
+    message: `Something went wrong talking to the server`
+  }),
+  UNEXPECTED: t({
+    id: "interface.guildReports.errors.unexpected",
+    message: `Something went wrong`
+  }),
+  NOT_RESPONDING: t({
+    id: "interface.guildReports.errors.notResponding",
+    message: `Request timed out`
+  }),
 };
 
 interface Props {
@@ -426,7 +444,7 @@ class GuildReports extends React.Component<Props, State> {
                     </div>
                     <h1 style={{ display: 'inline-block' }}>
                       {this.state.error ? (
-                        i18n._(this.state.error)
+                        this.state.error
                       ) : (
                         <Trans id="interface.guildReports.guildReports">Guild Reports</Trans>
                       )}

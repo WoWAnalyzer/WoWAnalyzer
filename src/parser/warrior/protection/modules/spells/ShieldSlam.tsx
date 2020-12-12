@@ -95,7 +95,10 @@ class ShieldBlock extends Analyzer {
       </>,
     )
       .icon(SPELLS.SHIELD_SLAM.icon)
-      .actual(i18n._(t('warrior.protection.suggestions.shieldSlam.casts')`${this.actualCasts} shield slam casts`))
+      .actual(t({
+      id: "warrior.protection.suggestions.shieldSlam.casts",
+      message: `${this.actualCasts} shield slam casts`
+    }))
       .recommended(`${(recommended * this.totalCastsAssumed).toFixed(0)} recommended out of ${this.totalCastsAssumed} maximum`));
   }
 }

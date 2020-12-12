@@ -82,7 +82,10 @@ class ComboStrikes extends Analyzer {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<span>You ignored your <SpellLink id={SPELLS.COMBO_STRIKES.id} /> buff by casting the same spell twice in a row, missing out on the damage increase from your mastery{HIT_COMBO_STRING}.</span>)
       .icon(SPELLS.COMBO_STRIKES.icon)
-      .actual(i18n._(t('monk.windwalker.comboStrikes.masteryBreaksPerMinute')`${actual.toFixed(2)} mastery breaks per minute.`))
+      .actual(t({
+      id: "monk.windwalker.comboStrikes.masteryBreaksPerMinute",
+      message: `${actual.toFixed(2)} mastery breaks per minute.`
+    }))
       .recommended(`mastery should be broken ${recommended} times`));
   }
 

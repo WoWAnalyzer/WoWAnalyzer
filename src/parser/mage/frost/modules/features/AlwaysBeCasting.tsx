@@ -35,7 +35,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       when(this.overrideDowntimeSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => suggest(<>Your downtime can be improved. Try to Always Be Casting (ABC) and try to reduce the delay between casting spells. If you have to move, try casting instants like <SpellLink id={SPELLS.FIRE_BLAST.id} /> or <SpellLink id={SPELLS.ARCANE_EXPLOSION.id} /> (if there are 2+ targets); even unbuffed <SpellLink id={SPELLS.ICE_LANCE.id} /> spam is better than nothing. Additionally, if you are standing still while waiting for a boss damage reduction or immunity phase to end, you should still be casting <SpellLink id={SPELLS.FROSTBOLT.id} /> to generate procs or build <SpellLink id={SPELLS.ICICLES_BUFF.id} />.</>)
             .icon('spell_mage_altertime')
-            .actual(i18n._(t('mage.frost.suggestions.alwaysBeCasting.downtime')`${formatPercentage(actual)}% downtime`))
+            .actual(t({
+        id: "mage.frost.suggestions.alwaysBeCasting.downtime",
+        message: `${formatPercentage(actual)}% downtime`
+      }))
             .recommended(`<${formatPercentage(recommended)}% is recommended`));
     }
   }

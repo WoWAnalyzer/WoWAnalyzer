@@ -49,7 +49,10 @@ class HealingRain extends Analyzer {
     when(suggestionThreshold.actual).isLessThan(suggestionThreshold.isLessThan.minor)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>Try to always cast <SpellLink id={SPELLS.HEALING_RAIN_CAST.id} /> in areas where players stack. This allows the spell to consitantly hit all 6 possible targets.</span>)
           .icon(SPELLS.HEALING_RAIN_CAST.icon)
-          .actual(i18n._(t('shaman.restoration.suggestions.healingRain.averageTargets')`${suggestionThreshold.actual.toFixed(2)} average targets healed`))
+          .actual(t({
+      id: "shaman.restoration.suggestions.healingRain.averageTargets",
+      message: `${suggestionThreshold.actual.toFixed(2)} average targets healed`
+    }))
           .recommended(`${suggestionThreshold.isLessThan.minor} average targets healed`)
           .regular(suggestionThreshold.isLessThan.average).major(suggestionThreshold.isLessThan.average));
   }

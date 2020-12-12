@@ -123,7 +123,10 @@ class GlacialSpike extends Analyzer {
             </TooltipElement>.
           </>)
           .icon(SPELLS.GLACIAL_SPIKE_TALENT.icon)
-          .actual(i18n._(t('mage.frost.suggestions.glacialSpike.castsWithoutShatter')`${formatPercentage(actual, 1)}% utilization`))
+          .actual(t({
+      id: "mage.frost.suggestions.glacialSpike.castsWithoutShatter",
+      message: `${formatPercentage(actual, 1)}% utilization`
+    }))
           .recommended(`${formatPercentage(recommended, 1)}% is recommended`));
   }
 

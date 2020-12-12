@@ -60,7 +60,10 @@ class SweepingStrikes extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Try to cast <SpellLink id={SPELLS.SWEEPING_STRIKES.id} icon /> before <SpellLink id={SPELLS.COLOSSUS_SMASH.id} /> (or <SpellLink id={SPELLS.WARBREAKER_TALENT.id} /> if talented).</>)
       .icon(SPELLS.SWEEPING_STRIKES.icon)
-      .actual(i18n._(t('warrior.arms.suggestions.sweepingStrikes.efficiency')`Sweeping Strikes was used ${formatPercentage(actual)}% of the time shortly after Colossus Smash/Warbreaker.`))
+      .actual(t({
+      id: "warrior.arms.suggestions.sweepingStrikes.efficiency",
+      message: `Sweeping Strikes was used ${formatPercentage(actual)}% of the time shortly after Colossus Smash/Warbreaker.`
+    }))
       .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 

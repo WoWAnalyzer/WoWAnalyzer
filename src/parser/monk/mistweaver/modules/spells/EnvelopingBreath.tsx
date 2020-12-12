@@ -92,7 +92,10 @@ class EnvelopingBreath extends Analyzer {
       </>,
     )
       .icon(SPELLS.ENVELOPING_BREATH.icon)
-      .actual(`${this.averageEnvBPerEnv.toFixed(2)}${i18n._(t('monk.mistweaver.suggestions.envelopingBreath.averageEnvBPerEnv')` Enveloping Breaths per Enveloping Mist during Celestial`)}`)
+      .actual(`${this.averageEnvBPerEnv.toFixed(2)}${t({
+      id: "monk.mistweaver.suggestions.envelopingBreath.averageEnvBPerEnv",
+      message: ` Enveloping Breaths per Enveloping Mist during Celestial`
+    })}`)
       .recommended(`${recommended} Enveloping Breaths are recommended per cast`));
   }
 

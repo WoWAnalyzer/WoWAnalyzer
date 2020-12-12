@@ -228,7 +228,10 @@ class Schism extends Analyzer {
       </>,
       )
         .icon(SPELLS.SCHISM_TALENT.icon)
-        .actual(i18n._(t('priest.discipline.suggestions.schism.efficiency')`You cast Schism ${actual} times without pairing it with strong damaging abilities, such as Penance, Halo, or Power Word: Solace.`))
+        .actual(t({
+      id: "priest.discipline.suggestions.schism.efficiency",
+      message: `You cast Schism ${actual} times without pairing it with strong damaging abilities, such as Penance, Halo, or Power Word: Solace.`
+    }))
         .recommended(`${recommended} is recommended`),
     );
   }

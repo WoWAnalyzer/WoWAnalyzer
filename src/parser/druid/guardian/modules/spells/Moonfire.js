@@ -21,7 +21,10 @@ class Moonfire extends Analyzer {
     when(moonfireUptimePercentage).isLessThan(0.95)
       .addSuggestion((suggest, actual, recommended) => suggest(<span> Your <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> uptime was {formatPercentage(moonfireUptimePercentage)}%, unless you have extended periods of downtime it should be near 100%.</span>)
         .icon(SPELLS.MOONFIRE_BEAR.icon)
-        .actual(i18n._(t('druid.guardian.suggestions.moonfire.uptime')`${formatPercentage(moonfireUptimePercentage)}% uptime`))
+        .actual(t({
+      id: "druid.guardian.suggestions.moonfire.uptime",
+      message: `${formatPercentage(moonfireUptimePercentage)}% uptime`
+    }))
         .recommended(`${Math.round(formatPercentage(recommended))}% is recommended`)
         .regular(recommended - 0.05).major(recommended - 0.15));
   }

@@ -86,7 +86,10 @@ class BlackoutKick extends Analyzer {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest('You are wasting cooldown reduction by casting Blackout Kick while having important casts available')
       .icon(SPELLS.BLACKOUT_KICK.icon)
-      .actual(i18n._(t('monk.windwalker.suggestions.blackoutKick.cdrWasted')`${actual.toFixed(2)} seconds of wasted cooldown reduction per minute`))
+      .actual(t({
+      id: "monk.windwalker.suggestions.blackoutKick.cdrWasted",
+      message: `${actual.toFixed(2)} seconds of wasted cooldown reduction per minute`
+    }))
       .recommended(`${recommended} is recommended`));
   }
 

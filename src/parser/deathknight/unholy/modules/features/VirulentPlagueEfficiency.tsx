@@ -96,12 +96,18 @@ class VirulentPlagueEfficiency extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<> You are casting <SpellLink id={SPELLS.VIRULENT_PLAGUE.id} /> too often. Try to cast <SpellLink id={SPELLS.VIRULENT_PLAGUE.id} /> as close to it falling off as possible.</>)
           .icon(SPELLS.VIRULENT_PLAGUE.icon)
-          .actual(i18n._(t('deathknight.unholy.suggestions.virulentPlague.efficiency')`${(this.averageTimeWasted).toFixed(1)} seconds of Virulent Plague uptime was wasted on average for each cast of Outbreak`))
+          .actual(t({
+      id: "deathknight.unholy.suggestions.virulentPlague.efficiency",
+      message: `${(this.averageTimeWasted).toFixed(1)} seconds of Virulent Plague uptime was wasted on average for each cast of Outbreak`
+    }))
           .recommended(`<${recommended} is recommended`));
     when(this.UptimeSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>Your <SpellLink id={SPELLS.VIRULENT_PLAGUE.id} /> uptime can be improved. Try to pay attention to when Virulent Plague is about to fall off the priority target, using <SpellLink id={SPELLS.OUTBREAK.id} /> to refresh Virulent Plague. Using a debuff tracker can help.</span>)
         .icon(SPELLS.VIRULENT_PLAGUE.icon)
-        .actual(i18n._(t('deathknight.unholy.suggestions.virulentPlague.uptime')`${formatPercentage(actual)}% Virulent Plague uptime`))
+        .actual(t({
+      id: "deathknight.unholy.suggestions.virulentPlague.uptime",
+      message: `${formatPercentage(actual)}% Virulent Plague uptime`
+    }))
         .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

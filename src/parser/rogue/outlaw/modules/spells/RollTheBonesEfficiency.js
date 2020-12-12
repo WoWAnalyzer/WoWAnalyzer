@@ -111,7 +111,10 @@ class RollTheBonesEfficiency extends Analyzer {
     this.rollSuggestions.forEach(suggestion => {
       when(suggestion.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your efficiency with refreshing <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> after a {suggestion.label} roll could be improved. <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> and <SpellLink id={SPELLS.GRAND_MELEE.id} /> are your highest value buffs from <SpellLink id={SPELLS.ROLL_THE_BONES.id} />. {suggestion.extraSuggestion || ''}</>)
         .icon(SPELLS.ROLL_THE_BONES.icon)
-        .actual(i18n._(t('rogue.outlaw.suggestions.rollTheBones.efficiency')`${formatPercentage(actual)}% (${suggestion.pass} out of ${suggestion.total}) efficient rerolls`))
+        .actual(t({
+        id: "rogue.outlaw.suggestions.rollTheBones.efficiency",
+        message: `${formatPercentage(actual)}% (${suggestion.pass} out of ${suggestion.total}) efficient rerolls`
+      }))
         .recommended(`${formatPercentage(recommended)}% is recommended`));
     });
   }

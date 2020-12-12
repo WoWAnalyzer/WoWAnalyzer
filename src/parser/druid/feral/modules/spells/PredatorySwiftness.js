@@ -132,7 +132,10 @@ class PredatorySwiftness extends Analyzer {
       </>,
     )
       .icon(SPELLS.PREDATORY_SWIFTNESS.icon)
-      .actual(i18n._(t('druid.feral.suggestions.predatorySwiftness.wasted')`${formatPercentage(actual)}% of Predatory Swiftness buffs wasted.`))
+      .actual(t({
+      id: "druid.feral.suggestions.predatorySwiftness.wasted",
+      message: `${formatPercentage(actual)}% of Predatory Swiftness buffs wasted.`
+    }))
       .recommended(`${recommended}% is recommended`));
   }
 

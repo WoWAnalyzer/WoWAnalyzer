@@ -92,8 +92,14 @@ class Overhealing extends Analyzer {
         </Trans>,
       )
         .icon(SPELLS.LIGHT_OF_DAWN_CAST.icon)
-        .actual(i18n._(t('paladin.holy.modules.overhealing.lightOfDawnSuggestion.actual')`${formatPercentage(actual)}% overhealing`))
-        .recommended(i18n._(t('paladin.holy.modules.overhealing.lightOfDawnSuggestion.recommended')`<${formatPercentage(recommended)}% is recommended`)));
+        .actual(t({
+      id: "paladin.holy.modules.overhealing.lightOfDawnSuggestion.actual",
+      message: `${formatPercentage(actual)}% overhealing`
+    }))
+        .recommended(t({
+      id: "paladin.holy.modules.overhealing.lightOfDawnSuggestion.recommended",
+      message: `<${formatPercentage(recommended)}% is recommended`
+    })));
 
     when(this.holyShockSuggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <Trans id="paladin.holy.modules.overhealing.holyShockSuggestion">
@@ -102,8 +108,14 @@ class Overhealing extends Analyzer {
         </Trans>,
       )
         .icon(SPELLS.HOLY_SHOCK_HEAL.icon)
-        .actual(i18n._(t('paladin.holy.modules.overhealing.holyShockSuggestion.actual')`${formatPercentage(actual)}% overhealing`))
-        .recommended(i18n._(t('paladin.holy.modules.overhealing.holyShockSuggestion.recommended')`<${formatPercentage(recommended)}% is recommended`)));
+        .actual(t({
+      id: "paladin.holy.modules.overhealing.holyShockSuggestion.actual",
+      message: `${formatPercentage(actual)}% overhealing`
+    }))
+        .recommended(t({
+      id: "paladin.holy.modules.overhealing.holyShockSuggestion.recommended",
+      message: `<${formatPercentage(recommended)}% is recommended`
+    })));
 
     when(this.flashOfLightSuggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <Trans id="paladin.holy.modules.overhealing.flashOfLightSuggestion">
@@ -113,8 +125,14 @@ class Overhealing extends Analyzer {
         </Trans>,
       )
         .icon(SPELLS.FLASH_OF_LIGHT.icon)
-        .actual(i18n._(t('paladin.holy.modules.overhealing.flashOfLightSuggestion.actual')`${formatPercentage(actual)}% overhealing`))
-        .recommended(i18n._(t('paladin.holy.modules.overhealing.flashOfLightSuggestion.recommended')`<${formatPercentage(recommended)}% is recommended`)));
+        .actual(t({
+      id: "paladin.holy.modules.overhealing.flashOfLightSuggestion.actual",
+      message: `${formatPercentage(actual)}% overhealing`
+    }))
+        .recommended(t({
+      id: "paladin.holy.modules.overhealing.flashOfLightSuggestion.recommended",
+      message: `<${formatPercentage(recommended)}% is recommended`
+    })));
 
     when(this.bestowFaithSuggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
         <Trans id="paladin.holy.modules.overhealing.bestowFaithSuggestion">
@@ -124,8 +142,14 @@ class Overhealing extends Analyzer {
         </Trans>,
       )
         .icon(SPELLS.BESTOW_FAITH_TALENT.icon)
-        .actual(i18n._(t('paladin.holy.modules.overhealing.bestowFaithSuggestion.actual')`${formatPercentage(actual)}% overhealing`))
-        .recommended(i18n._(t('paladin.holy.modules.overhealing.bestowFaithSuggestion.recommended')`<${formatPercentage(recommended)}% is recommended`)));
+        .actual(t({
+      id: "paladin.holy.modules.overhealing.bestowFaithSuggestion.actual",
+      message: `${formatPercentage(actual)}% overhealing`
+    }))
+        .recommended(t({
+      id: "paladin.holy.modules.overhealing.bestowFaithSuggestion.recommended",
+      message: `<${formatPercentage(recommended)}% is recommended`
+    })));
   }
 }
 

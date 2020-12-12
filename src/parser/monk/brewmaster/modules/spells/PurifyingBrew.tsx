@@ -122,7 +122,10 @@ class PurifyingBrew extends Analyzer {
   suggestions(when: When) {
     when(this.purifyDelaySuggestion).addSuggestion((suggest, actual, recommended) => suggest(<>You should delay your <SpellLink id={SPELLS.PURIFYING_BREW.id} /> cast as little as possible after being hit to maximize its effectiveness.</>)
       .icon(SPELLS.PURIFYING_BREW.icon)
-      .actual(i18n._(t('monk.brewmaster.suggestions.purifyingBrew.avgdelay')`${actual.toFixed(2)}s Average Delay`))
+      .actual(t({
+      id: "monk.brewmaster.suggestions.purifyingBrew.avgdelay",
+      message: `${actual.toFixed(2)}s Average Delay`
+    }))
       .recommended(`< ${recommended.toFixed(2)}s is recommended`));
   }
 

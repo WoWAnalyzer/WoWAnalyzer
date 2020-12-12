@@ -72,7 +72,10 @@ class SoulBarrier extends Analyzer {
     when(this.suggestionThresholdsEfficiency)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your uptime with <SpellLink id={SPELLS.SOUL_BARRIER_TALENT.id} /> can be improved.</>)
         .icon(SPELLS.SOUL_BARRIER_TALENT.icon)
-        .actual(i18n._(t('demonhunter.vengeance.suggestions.soulBarrier.uptime')`${formatPercentage(actual)}% Soul Barrier`))
+        .actual(t({
+      id: "demonhunter.vengeance.suggestions.soulBarrier.uptime",
+      message: `${formatPercentage(actual)}% Soul Barrier`
+    }))
         .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

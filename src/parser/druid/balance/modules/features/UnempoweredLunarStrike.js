@@ -67,7 +67,10 @@ class UnempoweredLunarStrike extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You cast {this.badCasts} unempowered and non instant cast <SpellLink id={SPELLS.LUNAR_STRIKE.id} /> that hit less than {TARGETS_FOR_GOOD_CAST} targets. Always prioritize <SpellLink id={SPELLS.SOLAR_WRATH.id} /> as a filler when none of those conditions are met.</>)
       .icon(SPELLS.LUNAR_STRIKE.icon)
-      .actual(i18n._(t('druid.balance.suggestions.lunarStrike.efficiency')`${actual.toFixed(1)} Unempowered Lunar Strikes per minute`))
+      .actual(t({
+      id: "druid.balance.suggestions.lunarStrike.efficiency",
+      message: `${actual.toFixed(1)} Unempowered Lunar Strikes per minute`
+    }))
 
       .recommended(`${recommended} is recommended`));
   }

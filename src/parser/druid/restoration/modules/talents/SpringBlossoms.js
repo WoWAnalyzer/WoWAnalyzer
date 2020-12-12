@@ -77,7 +77,10 @@ class SpringBlossoms extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => suggest(<span>Your healing from <SpellLink id={SPELLS.SPRING_BLOSSOMS.id} /> could be improved.
           Either your efflorescence uptime could be improved or the encounter doesn't fit this talent very well.</span>)
         .icon(SPELLS.SPRING_BLOSSOMS.icon)
-        .actual(i18n._(t('druid.restoration.suggestions.springBlossoms.efficiency')`${formatPercentage(this.totalPercent)}% healing`))
+        .actual(t({
+      id: "druid.restoration.suggestions.springBlossoms.efficiency",
+      message: `${formatPercentage(this.totalPercent)}% healing`
+    }))
         .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`));
   }
 }

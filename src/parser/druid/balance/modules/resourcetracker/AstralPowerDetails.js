@@ -67,7 +67,10 @@ class AstralPowerDetails extends Analyzer {
     when(this.suggestionThresholdsWasted)
       .addSuggestion((suggest, actual, recommended) => suggest(`You overcapped ${this.wasted} Astral Power. Always prioritize spending it over avoiding the overcap of any other ability.`)
         .icon('ability_druid_cresentburn')
-        .actual(i18n._(t('druid.balance.suggestions.astralPower.overcapped')`${formatPercentage(actual)}% overcapped Astral Power`))
+        .actual(t({
+      id: "druid.balance.suggestions.astralPower.overcapped",
+      message: `${formatPercentage(actual)}% overcapped Astral Power`
+    }))
         .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 

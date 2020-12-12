@@ -35,7 +35,10 @@ class SunfireUptime extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.SUNFIRE.id} /> uptime can be improved. Try to pay more attention to your Sunfire on the boss.</>)
       .icon(SPELLS.SUNFIRE.icon)
-      .actual(i18n._(t('druid.balance.suggestions.sunfire.uptime')`${formatPercentage(actual)}% Sunfire uptime`))
+      .actual(t({
+      id: "druid.balance.suggestions.sunfire.uptime",
+      message: `${formatPercentage(actual)}% Sunfire uptime`
+    }))
       .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

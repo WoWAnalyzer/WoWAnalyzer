@@ -48,7 +48,10 @@ class RendAnalyzer extends Analyzer {
   suggestions(when) {
     when(this.executeRendsThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Try to avoid using <SpellLink id={SPELLS.REND_TALENT.id} icon /> on a target in <SpellLink id={SPELLS.EXECUTE.id} icon /> range.</>)
       .icon(SPELLS.REND_TALENT.icon)
-      .actual(i18n._(t('warrior.arms.suggestions.execute.rend.casts')`Rend was used ${formatPercentage(actual)}% of the time on a target in execute range.`))
+      .actual(t({
+      id: "warrior.arms.suggestions.execute.rend.casts",
+      message: `Rend was used ${formatPercentage(actual)}% of the time on a target in execute range.`
+    }))
       .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 }

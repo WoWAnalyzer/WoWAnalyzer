@@ -66,7 +66,10 @@ class SpellReflect extends Analyzer {
       </>,
     )
       .icon(SPELLS.SPELL_REFLECTION.icon)
-      .actual(i18n._(t('warrior.protection.suggestions.spellReflect.efficiency')`${formatPercentage(actual)} % magic damage With Spell Reflect Up`))
+      .actual(t({
+      id: "warrior.protection.suggestions.spellReflect.efficiency",
+      message: `${formatPercentage(actual)} % magic damage With Spell Reflect Up`
+    }))
       .recommended(`${formatPercentage(recommended)} % recommended`));
   }
 }

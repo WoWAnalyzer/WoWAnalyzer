@@ -70,7 +70,10 @@ class BreathOfFire extends Analyzer {
     when(this.suggestionThreshold)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> usage can be improved. The associated debuff is a key part of our damage mitigation.</>)
         .icon(SPELLS.BREATH_OF_FIRE.icon)
-        .actual(i18n._(t('monk.brewmaster.suggestions.breathOfFire.hitsMitigated')`${formatPercentage(actual)}% of hits mitigated with Breath of Fire`))
+        .actual(t({
+      id: "monk.brewmaster.suggestions.breathOfFire.hitsMitigated",
+      message: `${formatPercentage(actual)}% of hits mitigated with Breath of Fire`
+    }))
         .recommended(`> ${formatPercentage(recommended)}% is recommended`));
   }
 }

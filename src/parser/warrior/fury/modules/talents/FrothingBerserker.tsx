@@ -71,7 +71,10 @@ class FrothingBerserker extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.FROTHING_BERSERKER.id} /> uptime can be improved.</>)
         .icon(SPELLS.FROTHING_BERSERKER.icon)
-        .actual(i18n._(t('warrior.fury.suggestions.frothingBerserker.uptime')`${formatPercentage(actual)}% Frothing Berserker uptime`))
+        .actual(t({
+      id: "warrior.fury.suggestions.frothingBerserker.uptime",
+      message: `${formatPercentage(actual)}% Frothing Berserker uptime`
+    }))
         .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

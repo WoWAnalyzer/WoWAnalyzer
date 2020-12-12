@@ -69,7 +69,10 @@ class SpiritOfRedemption extends Analyzer {
       when(this.deadTimeThresholds)
         .addSuggestion((suggest, actual, recommended) => suggest(<>We noticed that you didn't die during this encounter. It is recommended that you die within the last 15 seconds of each encounter to make the most of <SpellLink id={SPELLS.SPIRIT_OF_REDEMPTION_BUFF.id} />. If you are having trouble dying, try standing in fire.</>)
           .icon('inv_enchant_essenceeternallarge')
-          .actual(i18n._(t('priest.holy.suggestions.spiritOfRedemption.efficiency')`${actual} seconds spent redeeming`))
+          .actual(t({
+        id: "priest.holy.suggestions.spiritOfRedemption.efficiency",
+        message: `${actual} seconds spent redeeming`
+      }))
           .recommended(`${recommended} seconds is recommended`));
     }
   }

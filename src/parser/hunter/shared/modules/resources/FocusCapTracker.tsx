@@ -75,7 +75,10 @@ class FocusCapTracker extends RegenResourceCapTracker {
   suggestions(when: When) {
     when(this.focusNaturalRegenWasteThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You're allowing your focus to reach its cap. While at its maximum value you miss out on the focus that would have regenerated. Although it can be beneficial to let focus pool ready to be used at the right time, try to spend some before it reaches the cap.</>)
       .icon('ability_hunter_focusfire')
-      .actual(i18n._(t('hunter.marksmanship.suggestions.focusCapTracker.focusLost')`${formatPercentage(1 - actual)}% regenerated focus lost due to being capped.`))
+      .actual(t({
+      id: "hunter.marksmanship.suggestions.focusCapTracker.focusLost",
+      message: `${formatPercentage(1 - actual)}% regenerated focus lost due to being capped.`
+    }))
       .recommended(`<${formatPercentage(recommended, 0)}% is recommended.`));
   }
 

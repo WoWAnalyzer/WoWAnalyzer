@@ -57,7 +57,10 @@ class DemonBite extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<> Try not to cast <SpellLink id={SPELLS.DEMONS_BITE.id} /> when close to max Fury.</>)
         .icon(SPELLS.DEMONS_BITE.icon)
-        .actual(i18n._(t('demonhunter.havoc.suggestions.demonsBite.furyWasted')`${formatPercentage(actual)}% Fury wasted`))
+        .actual(t({
+      id: "demonhunter.havoc.suggestions.demonsBite.furyWasted",
+      message: `${formatPercentage(actual)}% Fury wasted`
+    }))
         .recommended(`${formatPercentage(recommended)}% is recommended.`));
   }
 

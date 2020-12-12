@@ -116,7 +116,10 @@ class RageWasted extends Analyzer {
     when(this.wastedRageRatio).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>You are wasting rage.  Try to spend rage before you reach the rage cap so you aren't losing out on potential <SpellLink id={SPELLS.IRONFUR.id} />s or <SpellLink id={SPELLS.MAUL.id} />s.</span>)
         .icon(SPELLS.BRISTLING_FUR.icon)
-        .actual(i18n._(t('druid.guardian.suggestions.rage.wasted')`${formatPercentage(actual)}% wasted rage`))
+        .actual(t({
+      id: "druid.guardian.suggestions.rage.wasted",
+      message: `${formatPercentage(actual)}% wasted rage`
+    }))
         .recommended(`${formatPercentage(recommended)}% is recommended`)
         .regular(recommended + 0.02).major(recommended + 0.05));
   }

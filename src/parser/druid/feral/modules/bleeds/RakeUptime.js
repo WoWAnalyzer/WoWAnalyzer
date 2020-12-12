@@ -40,7 +40,10 @@ class RakeUptime extends Analyzer {
       </>,
     )
       .icon(SPELLS.RAKE.icon)
-      .actual(i18n._(t('druid.feral.suggestions.rake.uptime')`${formatPercentage(actual)}% uptime`))
+      .actual(t({
+      id: "druid.feral.suggestions.rake.uptime",
+      message: `${formatPercentage(actual)}% uptime`
+    }))
       .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

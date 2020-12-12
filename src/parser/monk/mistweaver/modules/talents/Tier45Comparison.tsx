@@ -211,7 +211,10 @@ class Tier45Comparison extends Analyzer {
       </>,
     )
       .icon(this.best.icon)
-      .actual(`${formatNumber(this.returnedFromSelected)}${i18n._(t('monk.mistweaver.suggestions.tier45Talent.efficiency')` mana returned through `)}${this.best.name}`)
+      .actual(`${formatNumber(this.returnedFromSelected)}${t({
+      id: "monk.mistweaver.suggestions.tier45Talent.efficiency",
+      message: ` mana returned through `
+    })}${this.best.name}`)
       .recommended(`${this.best.name} would have returned ${formatNumber(this.best.manaFrom)}`));
   }
 

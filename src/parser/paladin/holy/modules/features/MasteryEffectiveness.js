@@ -329,8 +329,14 @@ class MasteryEffectiveness extends Analyzer {
         </Trans>,
       )
         .icon('inv_hammer_04')
-        .actual(i18n._(t('paladin.holy.modules.masteryEffectiveness.suggestion.actual')`${formatPercentage(actual)}% mastery effectiveness`))
-        .recommended(i18n._(t('paladin.holy.modules.masteryEffectiveness.suggestion.recommended')`>${formatPercentage(recommended)}% is recommended`)),
+        .actual(t({
+        id: "paladin.holy.modules.masteryEffectiveness.suggestion.actual",
+        message: `${formatPercentage(actual)}% mastery effectiveness`
+      }))
+        .recommended(t({
+        id: "paladin.holy.modules.masteryEffectiveness.suggestion.recommended",
+        message: `>${formatPercentage(recommended)}% is recommended`
+      })),
     );
   }
 }

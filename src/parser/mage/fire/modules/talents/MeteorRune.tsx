@@ -68,7 +68,10 @@ class MeteorRune extends Analyzer {
 		when(this.meteorUtilSuggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.METEOR_TALENT.id} /> without <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> {this.badMeteor} times. In order to get the most out of <SpellLink id={SPELLS.METEOR_TALENT.id} /> you should always cast it while being buffed by <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} />.</>)
 					.icon(SPELLS.METEOR_TALENT.icon)
-					.actual(i18n._(t('mage.fire.suggestions.meteor.runeOfPower.utilization')`${formatPercentage(this.meteorUtilization)}% Utilization`))
+					.actual(t({
+          id: "mage.fire.suggestions.meteor.runeOfPower.utilization",
+          message: `${formatPercentage(this.meteorUtilization)}% Utilization`
+        }))
 					.recommended(`<${formatPercentage(recommended)}% is recommended`));
 	}
 }

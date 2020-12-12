@@ -51,7 +51,10 @@ class PainDetails extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Pain.`)
         .icon('ability_demonhunter_demonspikes')
-        .actual(i18n._(t('demonhunter.vengeance.suggestions.pain.wasted')`${formatPercentage(actual)}% wasted`))
+        .actual(t({
+      id: "demonhunter.vengeance.suggestions.pain.wasted",
+      message: `${formatPercentage(actual)}% wasted`
+    }))
         .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 

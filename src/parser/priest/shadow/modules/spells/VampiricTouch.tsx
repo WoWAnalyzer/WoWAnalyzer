@@ -38,7 +38,10 @@ class VampiricTouch extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>Your <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} /> uptime can be improved. Try to pay more attention to your <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} /> on the boss.</span>)
         .icon(SPELLS.VAMPIRIC_TOUCH.icon)
-        .actual(i18n._(t('priest.shadow.suggestions.vampiricTouch.uptime')`${formatPercentage(actual)}% Vampiric Touch uptime`))
+        .actual(t({
+      id: "priest.shadow.suggestions.vampiricTouch.uptime",
+      message: `${formatPercentage(actual)}% Vampiric Touch uptime`
+    }))
         .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

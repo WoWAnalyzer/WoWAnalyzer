@@ -83,7 +83,10 @@ class BlackOxBrew extends Analyzer {
     when(this.suggestionThreshold)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.BLACK_OX_BREW_TALENT.id} /> usage can be improved.</>)
         .icon(SPELLS.BLACK_OX_BREW_TALENT.icon)
-        .actual(i18n._(t('monk.brewmaster.suggestions.blackOxBrew.cdrWasted')`${formatPercentage(actual)}% of Cooldown Reduction wasted`))
+        .actual(t({
+      id: "monk.brewmaster.suggestions.blackOxBrew.cdrWasted",
+      message: `${formatPercentage(actual)}% of Cooldown Reduction wasted`
+    }))
         .recommended(`< ${formatPercentage(recommended)}% is recommended`));
   }
 }

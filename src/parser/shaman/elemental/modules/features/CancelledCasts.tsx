@@ -23,7 +23,10 @@ class CancelledCasts extends CoreCancelledCasts {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(`${formatPercentage(actual)}% of spells casts were cancelled. Some casts will likely need to be cancelled due to mechanics, but generally, it is rarely a DPS up to cancel a cast in favor of casting another spell.`)
       .icon('inv_misc_map_01')
-      .actual(i18n._(t('shaman.elemental.suggestions.castsCancelled')`${formatPercentage(actual)}% casts cancelled`))
+      .actual(t({
+      id: "shaman.elemental.suggestions.castsCancelled",
+      message: `${formatPercentage(actual)}% casts cancelled`
+    }))
       .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 }

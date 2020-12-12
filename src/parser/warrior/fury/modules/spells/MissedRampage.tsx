@@ -84,7 +84,10 @@ class MissedRampage extends Analyzer {
       </>,
     )
       .icon(SPELLS.RAMPAGE.icon)
-      .actual(i18n._(t('warrior.fury.suggestions.rampages.missed')`${actual} missed Rampages.`))
+      .actual(t({
+      id: "warrior.fury.suggestions.rampages.missed",
+      message: `${actual} missed Rampages.`
+    }))
       .recommended(`${recommended} is recommended.`));
   }
 }
