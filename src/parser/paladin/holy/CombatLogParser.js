@@ -47,6 +47,8 @@ import GlimmerOfLight from './modules/talents/GlimmerOfLight';
 import HolyPowerTracker from '../shared/holypower/HolyPowerTracker';
 import HolyPowerDetails from '../shared/holypower/HolyPowerDetails';
 
+import ShockBarrier from './modules/shadowlands/legendaries/ShockBarrier';
+
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -108,6 +110,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // HolyPower
     holyPowerTracker: HolyPowerTracker,
     holyPowerDetails: HolyPowerDetails,
+
+    // Lego
+    shockBarrier: ShockBarrier,
   };
 }
 
