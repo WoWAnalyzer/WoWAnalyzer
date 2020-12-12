@@ -5865,7 +5865,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            227
+            227.16
           </td>
           <td
             width="20%"
@@ -5888,7 +5888,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            802k
+            802000
           </td>
           <td
             width="20%"
@@ -5933,7 +5933,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            190
+            190.78
           </td>
           <td
             width="20%"
@@ -5947,7 +5947,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#a6c34c",
                     "transition": "background-color 800ms",
-                    "width": "83.70044052863436%",
+                    "width": "83.98365371580499%",
                   }
                 }
               />
@@ -5956,7 +5956,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            205k
+            205000
           </td>
           <td
             width="20%"
@@ -6001,7 +6001,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            165
+            165.99
           </td>
           <td
             width="20%"
@@ -6015,7 +6015,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#a6c34c",
                     "transition": "background-color 800ms",
-                    "width": "72.68722466960352%",
+                    "width": "73.07207239439464%",
                   }
                 }
               />
@@ -6024,7 +6024,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            293k
+            293000
           </td>
           <td
             width="20%"
@@ -6069,7 +6069,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            114
+            114.42
           </td>
           <td
             width="20%"
@@ -6083,7 +6083,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#ffc84a",
                     "transition": "background-color 800ms",
-                    "width": "50.22026431718062%",
+                    "width": "50.371241461796664%",
                   }
                 }
               />
@@ -6092,7 +6092,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            336k
+            336000
           </td>
           <td
             width="20%"
@@ -6137,7 +6137,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            34
+            34.10
           </td>
           <td
             width="20%"
@@ -6151,7 +6151,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#ac1f39",
                     "transition": "background-color 800ms",
-                    "width": "14.977973568281937%",
+                    "width": "15.010305349203259%",
                   }
                 }
               />
@@ -6160,7 +6160,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            60k
+            60000
           </td>
           <td
             width="20%"

@@ -113,8 +113,8 @@ class HealingEfficiencyTracker extends Analyzer {
     spellInfo.percentDamageDone = spellInfo.damageDone / this.damageDone.total.regular || 0;
     spellInfo.manaPercentSpent = spellInfo.manaSpent / this.manaTracker.spent;
 
-    spellInfo.hpm = (spellInfo.healingDone / spellInfo.manaSpent) | 0;
-    spellInfo.dpm = (spellInfo.damageDone / spellInfo.manaSpent) | 0;
+    spellInfo.hpm = (spellInfo.healingDone / spellInfo.manaSpent) || 0;
+    spellInfo.dpm = (spellInfo.damageDone / spellInfo.manaSpent) || 0;
 
     spellInfo.timeSpentCasting = this.castEfficiency.getTimeSpentCasting(spellId).timeSpentCasting + this.castEfficiency.getTimeSpentCasting(spellId).gcdSpent;
     spellInfo.percentTimeSpentCasting = spellInfo.timeSpentCasting / this.owner.fightDuration;
