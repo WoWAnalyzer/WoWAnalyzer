@@ -132,7 +132,7 @@ exports[`Frost Mage integration test: example log AlwaysBeCasting matches the st
                   Object {
                     "fill": "none",
                     "margin": 0,
-                    "transform": "rotate(40.232358270381894deg)",
+                    "transform": "rotate(36.9104037488743deg)",
                     "transformOrigin": "5px 27px",
                   }
                 }
@@ -162,7 +162,7 @@ exports[`Frost Mage integration test: example log AlwaysBeCasting matches the st
                 }
               }
             >
-              64
+              63
               %
             </div>
           </div>
@@ -225,7 +225,7 @@ Array [
       .
     </React.Fragment>,
     "stat": <React.Fragment>
-      35.63% downtime
+      36.82% downtime
        (
       &lt;5.00% is recommended
       )
@@ -6286,7 +6286,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               style={
                 Object {
                   "backgroundColor": "#df7102",
-                  "width": "45.33214442873813%",
+                  "width": "44.955699531122896%",
                 }
               }
             />
@@ -6379,7 +6379,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  35.63%
+                  36.82%
                    
                    
                 </div>
@@ -6401,7 +6401,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "23.36428885747626%",
+                        "width": "22.611399062245784%",
                       }
                     }
                   />
