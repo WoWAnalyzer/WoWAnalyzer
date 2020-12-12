@@ -50,5 +50,15 @@ export default {
   },
 
   //Sire Denathrius
+  BEGIN_THE_CHORUS: {
+    id: 329697,
+    name: 'Begin the Chorus',
+    icon: '',
+  },
+  INDIGNATION: {
+    id: 326005,
+    name: 'Indignation',
+    icon: '',
+  },
 
 };
