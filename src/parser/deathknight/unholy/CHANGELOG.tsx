@@ -7,6 +7,7 @@ import SPELLS from 'common/SPELLS'
 import SpellLink from 'common/SpellLink';
 
 export default [
+  change(date(2020, 12, 12), <>Added <SpellLink id={SPELLS.SUPERSTRAIN.id} /> module</>, joshinator),
   change(date(2020, 12, 9), <>Reworked <SpellLink id={SPELLS.SOUL_REAPER_TALENT.id}/> to use ExecuteHelper to provide cast efficiency and damage statistics</>, [Khazak]),
   change(date(2020, 12, 7), 'Updated Abilities with covenant signature and class abilities', [Khazak]),
   change(date(2020, 11, 25), <>Updated cooldown tracking to support <SpellLink id={SPELLS.DEATH_COIL.id} /> Rank 2 and <SpellLink id={SPELLS.ARMY_OF_THE_DAMNED_TALENT.id} /></>, [Khazak]),
