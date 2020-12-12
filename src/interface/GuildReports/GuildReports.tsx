@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { t, Trans } from '@lingui/macro';
+import { i18n } from '@lingui/core';
+import { Trans, defineMessage } from '@lingui/macro';
 
 import ZONES from 'game/ZONES';
 import fetchWcl, { GuildNotFoundError, UnknownApiError, WclApiError } from 'common/fetchWclApi';
-import { WCLGuildReport, WCLGuildReportsResponse } from "common/WCL_TYPES";
+import { WCLGuildReport, WCLGuildReportsResponse } from 'common/WCL_TYPES';
 import { captureException } from 'common/errorLogger';
 import retryingPromise from 'common/retryingPromise';
 import { makeGuildApiUrl } from 'common/makeApiUrl';
@@ -15,13 +16,11 @@ import WipefestIcon from 'interface/icons/Wipefest';
 
 import './GuildReports.scss';
 import ReportsList from '../GuildReportsList';
-import ALLIANCE_PICTURE from './images/ally_guild_banner_bwl.jpg'
-import HORDE_PICTURE from './images/horde_guild_banner_onyx.jpg'
+import ALLIANCE_PICTURE from './images/ally_guild_banner_bwl.jpg';
+import HORDE_PICTURE from './images/horde_guild_banner_onyx.jpg';
 
 const loadRealms = () =>
-  retryingPromise(() =>
-    import('common/RealmList').then(exports => exports.default),
-  );
+  retryingPromise(() => import('common/RealmList').then((exports) => exports.default));
 
 const ZONE_ALL = -1;
 const ZONE_DEFAULT = ZONE_ALL;
@@ -30,47 +29,47 @@ const REPORTS_TO_SHOW_DEFAULT = 25;
 const MONTHS_BACK_SEARCH = 3;
 
 const ERRORS = {
-  GUILD_NOT_FOUND: t({
-    id: "interface.guildReports.errors.guildNotFound",
-    message: `We couldn't find your guild on Warcraft Logs`
+  GUILD_NOT_FOUND: defineMessage({
+    id: 'interface.guildReports.errors.guildNotFound',
+    message: `We couldn't find your guild on Warcraft Logs`,
   }),
-  NO_REPORTS_FOR_FILTER: t({
-    id: "interface.guildReports.errors.noReportsForFilter",
-    message: `We couldn't find any reports`
+  NO_REPORTS_FOR_FILTER: defineMessage({
+    id: 'interface.guildReports.errors.noReportsForFilter',
+    message: `We couldn't find any reports`,
   }),
-  WCL_API_ERROR: t({
-    id: "interface.guildReports.errors.wclAPIError",
-    message: `Something went wrong talking to Warcraft Logs`
+  WCL_API_ERROR: defineMessage({
+    id: 'interface.guildReports.errors.wclAPIError',
+    message: `Something went wrong talking to Warcraft Logs`,
   }),
-  UNKNOWN_API_ERROR: t({
-    id: "interface.guildReports.errors.unknownAPIError",
-    message: `Something went wrong talking to the server`
+  UNKNOWN_API_ERROR: defineMessage({
+    id: 'interface.guildReports.errors.unknownAPIError',
+    message: `Something went wrong talking to the server`,
   }),
-  UNEXPECTED: t({
-    id: "interface.guildReports.errors.unexpected",
-    message: `Something went wrong`
+  UNEXPECTED: defineMessage({
+    id: 'interface.guildReports.errors.unexpected',
+    message: `Something went wrong`,
   }),
-  NOT_RESPONDING: t({
-    id: "interface.guildReports.errors.notResponding",
-    message: `Request timed out`
+  NOT_RESPONDING: defineMessage({
+    id: 'interface.guildReports.errors.notResponding',
+    message: `Request timed out`,
   }),
 };
 
 interface Props {
-  region: string,
-  realm: string,
-  name: string,
+  region: string;
+  realm: string;
+  name: string;
 }
 
 interface State {
-  activeZoneID: number,
-  reports: WCLGuildReport[],
-  reportsToShow: number,
-  isLoading: boolean,
-  error: any, // TODO MessageDescriptor? convert to enum?
-  errorMessage: any | null,
-  realmSlug: string,
-  factionImage: string,
+  activeZoneID: number;
+  reports: WCLGuildReport[];
+  reportsToShow: number;
+  isLoading: boolean;
+  error: any; // TODO MessageDescriptor? convert to enum?
+  errorMessage: any | null;
+  realmSlug: string;
+  factionImage: string;
 }
 
 class GuildReports extends React.Component<Props, State> {
@@ -109,9 +108,7 @@ class GuildReports extends React.Component<Props, State> {
       return;
     }
     // fetch guild faction
-    const response = await fetch(
-      makeGuildApiUrl(region, realm, name),
-    );
+    const response = await fetch(makeGuildApiUrl(region, realm, name));
 
     // TODO do we care about these errors just for faction? we could
     //  let blizzard api fail silently and use WCL response for any real errors
@@ -146,18 +143,15 @@ class GuildReports extends React.Component<Props, State> {
       });
       return;
     }
-    this.setState(
-      { factionImage: data.faction === 1 ? HORDE_PICTURE : ALLIANCE_PICTURE },
-      () => {
-        this.load();
-      },
-    );
+    this.setState({ factionImage: data.faction === 1 ? HORDE_PICTURE : ALLIANCE_PICTURE }, () => {
+      this.load();
+    });
   }
 
   get filterReports() {
     let filteredReports = this.state.reports;
     if (this.state.activeZoneID !== ZONE_ALL) {
-      filteredReports = filteredReports.filter(elem => this.state.activeZoneID === elem.zone);
+      filteredReports = filteredReports.filter((elem) => this.state.activeZoneID === elem.zone);
     }
     filteredReports.sort((a, b) => b.start - a.start);
     return filteredReports.slice(0, this.state.reportsToShow);
@@ -168,13 +162,17 @@ class GuildReports extends React.Component<Props, State> {
     // Use the slug from REALMS when available, otherwise try realm-prop and fail
     const realmsInRegion = realms[this.props.region];
     if (!realmsInRegion) {
-      console.warn(`Region could not be found: ${this.props.region}. This generally indicates a bug.`);
+      console.warn(
+        `Region could not be found: ${this.props.region}. This generally indicates a bug.`,
+      );
       return null;
     }
     const lowerCaseRealm = this.props.realm.toLowerCase();
-    const realm = realmsInRegion.find(elem => elem.name.toLowerCase() === lowerCaseRealm);
+    const realm = realmsInRegion.find((elem) => elem.name.toLowerCase() === lowerCaseRealm);
     if (!realm) {
-      console.warn(`Realm could not be found: ${this.props.realm}. This generally indicates a bug.`);
+      console.warn(
+        `Realm could not be found: ${this.props.realm}. This generally indicates a bug.`,
+      );
     }
     return realm;
   }
@@ -206,7 +204,7 @@ class GuildReports extends React.Component<Props, State> {
         start: filterStart.getTime(),
       },
     )
-      .then(reports => {
+      .then((reports) => {
         if (reports.length === 0) {
           this.setState({
             reports: [],
@@ -221,7 +219,7 @@ class GuildReports extends React.Component<Props, State> {
           error: null,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         if (err instanceof GuildNotFoundError) {
           this.setState({
             error: ERRORS.GUILD_NOT_FOUND,
@@ -253,9 +251,25 @@ class GuildReports extends React.Component<Props, State> {
     let errorMessage;
     const filteredReports = this.filterReports;
 
-    const DISCORD = <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">Discord</a>;
-    const GITHUB = <a href="https://github.com/WoWAnalyzer/WoWAnalyzer" target="_blank" rel="noopener noreferrer">Github</a>;
-    const WCL_GUIDE = <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">Warcraft Logs guide</a>;
+    const DISCORD = (
+      <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">
+        Discord
+      </a>
+    );
+    const GITHUB = (
+      <a
+        href="https://github.com/WoWAnalyzer/WoWAnalyzer"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Github
+      </a>
+    );
+    const WCL_GUIDE = (
+      <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">
+        Warcraft Logs guide
+      </a>
+    );
 
     if (this.state.error === ERRORS.GUILD_NOT_FOUND) {
       errorMessage = (
@@ -295,10 +309,7 @@ class GuildReports extends React.Component<Props, State> {
           if this issue persists and we will fix it, eventually.
         </Trans>
       );
-    } else if (
-      this.state.error === ERRORS.NO_REPORTS_FOR_FILTER ||
-      filteredReports.length === 0
-    ) {
+    } else if (this.state.error === ERRORS.NO_REPORTS_FOR_FILTER || filteredReports.length === 0) {
       errorMessage = (
         <Trans id="interface.guildReports.errors.noReportsForFilterDetails">
           Please check your filters and make sure that you logged those fights on Warcraft Logs.
@@ -310,7 +321,7 @@ class GuildReports extends React.Component<Props, State> {
     }
 
     // Name slug for battle.net armory, standard name for WCL & wipefest
-    const nameSlug = this.props.name.replace(/\s/g, "-").toLowerCase();
+    const nameSlug = this.props.name.replace(/\s/g, '-').toLowerCase();
     let battleNetUrl = `https://worldofwarcraft.com/en-${this.props.region}/guild/${this.props.region}/${this.state.realmSlug}/${nameSlug}`;
     if (this.props.region === 'CN') {
       battleNetUrl = `https://www.wowchina.com/zh-cn/guild/${this.state.realmSlug}/${nameSlug}`;
@@ -364,7 +375,9 @@ class GuildReports extends React.Component<Props, State> {
               )}
             </div>
             <div className="player">
-              <h2>{this.props.region} - {this.props.realm}</h2>
+              <h2>
+                {this.props.region} - {this.props.realm}
+              </h2>
               <h1>{this.props.name}</h1>
             </div>
           </div>
@@ -375,12 +388,14 @@ class GuildReports extends React.Component<Props, State> {
                   <select
                     className="form-control"
                     value={this.state.activeZoneID}
-                    onChange={e => this.setState({ activeZoneID: Number(e.target.value) })}
+                    onChange={(e) => this.setState({ activeZoneID: Number(e.target.value) })}
                   >
-                    <option key={ZONE_ALL} value={ZONE_ALL}>All Zones</option>
+                    <option key={ZONE_ALL} value={ZONE_ALL}>
+                      All Zones
+                    </option>
                     {Object.values(ZONES)
                       .reverse()
-                      .map(elem => (
+                      .map((elem) => (
                         <option key={elem.id} value={elem.id}>
                           {elem.name}
                         </option>
@@ -391,15 +406,14 @@ class GuildReports extends React.Component<Props, State> {
                   <select
                     className="form-control"
                     value={this.state.reportsToShow}
-                    onChange={e => this.setState({ reportsToShow: Number(e.target.value) })}
+                    onChange={(e) => this.setState({ reportsToShow: Number(e.target.value) })}
                     style={{ width: 'auto', float: 'right' }}
                   >
-                    {REPORTS_TO_SHOW
-                      .map(elem => (
-                        <option key={elem} value={elem}>
-                          {elem} reports
-                        </option>
-                      ))}
+                    {REPORTS_TO_SHOW.map((elem) => (
+                      <option key={elem} value={elem}>
+                        {elem} reports
+                      </option>
+                    ))}
                   </select>
                 </li>
               </ul>
@@ -416,8 +430,7 @@ class GuildReports extends React.Component<Props, State> {
                   </Link>{' '}
                   &gt;{' '}
                   <span>
-                    {this.props.region} &gt; {this.props.realm} &gt;{' '}
-                    {this.props.name}
+                    {this.props.region} &gt; {this.props.realm} &gt; {this.props.name}
                   </span>
                   <br />
                   <br />
@@ -429,21 +442,18 @@ class GuildReports extends React.Component<Props, State> {
                     <div className="pull-right">
                       <Link
                         to=""
-                        onClick={e => {
+                        onClick={(e) => {
                           e.preventDefault();
                           this.load();
                         }}
                       >
-                        <span
-                          className="glyphicon glyphicon-refresh"
-                          aria-hidden="true"
-                        />{' '}
+                        <span className="glyphicon glyphicon-refresh" aria-hidden="true" />{' '}
                         <Trans id="interface.guildReports.refresh">Refresh</Trans>
                       </Link>
                     </div>
                     <h1 style={{ display: 'inline-block' }}>
                       {this.state.error ? (
-                        this.state.error
+                        i18n._(this.state.error)
                       ) : (
                         <Trans id="interface.guildReports.guildReports">Guild Reports</Trans>
                       )}
@@ -459,10 +469,7 @@ class GuildReports extends React.Component<Props, State> {
                   </div>
                 )}
                 <div className="panel-body">
-                  <div
-                    className="flex-main"
-                    style={{ padding: errorMessage ? 20 : 0 }}
-                  >
+                  <div className="flex-main" style={{ padding: errorMessage ? 20 : 0 }}>
                     {this.state.isLoading && !this.state.error && (
                       <div
                         style={{
@@ -472,15 +479,17 @@ class GuildReports extends React.Component<Props, State> {
                         }}
                       >
                         <ActivityIndicator
-                          text={<Trans id="interface.guildReports.fetchingReports">Fetching reports...</Trans>}
+                          text={
+                            <Trans id="interface.guildReports.fetchingReports">
+                              Fetching reports...
+                            </Trans>
+                          }
                         />
                       </div>
                     )}
                     {!this.state.isLoading && errorMessage}
                     {!this.state.isLoading && filteredReports.length > 0 && (
-                      <ReportsList
-                        reports={filteredReports}
-                      />
+                      <ReportsList reports={filteredReports} />
                     )}
                   </div>
                 </div>
