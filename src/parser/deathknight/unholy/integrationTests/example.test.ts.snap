@@ -26,7 +26,10 @@ exports[`Unholy Death Knight integration test: example log AlwaysBeCasting match
             src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
           />
            
-          shared.alwaysBeCasting.statistic.label
+          <trans
+            id="shared.alwaysBeCasting.statistic.label"
+            message="Downtime"
+          />
         </label>
         <div
           className="value"
@@ -178,7 +181,10 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
         }
       }
     >
-      common.abilities
+      <trans
+        id="common.abilities"
+        message="Abilities"
+      />
     </h1>
   </div>
   <div
@@ -205,7 +211,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
           <tr>
             <th>
               <b>
-                Rotational Spell
+                {"id":"core.abilities.spellCategories.rotational","message":"Rotational Spell"}
               </b>
             </th>
             <th
@@ -218,7 +224,10 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.cpm
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
               </dfn>
             </th>
             <th
@@ -231,7 +240,10 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.casts
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
               </dfn>
             </th>
             <th
@@ -244,7 +256,10 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.timeOnCooldown
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
               </dfn>
             </th>
             <th />
@@ -788,7 +803,10 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              shared.castEfficiency.canBeImproved
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
             </td>
           </tr>
         </tbody>
@@ -796,7 +814,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
           <tr>
             <th>
               <b>
-                Spell (AOE)
+                {"id":"core.abilities.spellCategories.rotationalAoe","message":"Spell (AOE)"}
               </b>
             </th>
             <th
@@ -809,7 +827,10 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.cpm
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
               </dfn>
             </th>
             <th
@@ -822,7 +843,10 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.casts
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
               </dfn>
             </th>
             <th
@@ -835,7 +859,10 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.timeOnCooldown
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
               </dfn>
             </th>
             <th />
@@ -1029,7 +1056,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
           <tr>
             <th>
               <b>
-                Cooldown
+                {"id":"core.abilities.spellCategories.cooldowns","message":"Cooldown"}
               </b>
             </th>
             <th
@@ -1042,7 +1069,10 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.cpm
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
               </dfn>
             </th>
             <th
@@ -1055,7 +1085,10 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.casts
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
               </dfn>
             </th>
             <th
@@ -1068,7 +1101,10 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.timeOnCooldown
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
               </dfn>
             </th>
             <th />
@@ -1366,7 +1402,10 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              shared.castEfficiency.canBeImproved
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
             </td>
           </tr>
         </tbody>
@@ -1374,7 +1413,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
           <tr>
             <th>
               <b>
-                Defensive Cooldown
+                {"id":"core.abilities.spellCategories.defensive","message":"Defensive Cooldown"}
               </b>
             </th>
             <th
@@ -1387,7 +1426,10 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.cpm
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
               </dfn>
             </th>
             <th
@@ -1400,7 +1442,10 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.casts
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
               </dfn>
             </th>
             <th
@@ -1413,7 +1458,10 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.timeOnCooldown
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
               </dfn>
             </th>
             <th />
@@ -1901,7 +1949,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
           <tr>
             <th>
               <b>
-                Utility
+                {"id":"core.abilities.spellCategories.utility","message":"Utility"}
               </b>
             </th>
             <th
@@ -1914,7 +1962,10 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.cpm
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
               </dfn>
             </th>
             <th
@@ -1927,7 +1978,10 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.casts
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
               </dfn>
             </th>
             <th
@@ -1940,7 +1994,10 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.timeOnCooldown
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
               </dfn>
             </th>
             <th />
@@ -2870,7 +2927,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
           <tr>
             <th>
               <b>
-                Consumable
+                {"id":"core.abilities.spellCategories.consumable","message":"Consumable"}
               </b>
             </th>
             <th
@@ -2883,7 +2940,10 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.cpm
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
               </dfn>
             </th>
             <th
@@ -2896,7 +2956,10 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.casts
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
               </dfn>
             </th>
             <th
@@ -2909,108 +2972,13 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.timeOnCooldown
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
               </dfn>
             </th>
             <th />
-          </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "35%",
-                }
-              }
-            >
-              <a
-                className="spell-link-text"
-                href="http://wowhead.com/spell=6262"
-                rel="noopener noreferrer"
-                style={
-                  Object {
-                    "color": "#fff",
-                  }
-                }
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/warlock_healthstone.jpg"
-                  style={
-                    Object {
-                      "height": undefined,
-                      "marginTop": undefined,
-                    }
-                  }
-                />
-                 
-                Healthstone
-              </a>
-            </td>
-            <td
-              className="text-center"
-              style={
-                Object {
-                  "minWidth": 80,
-                }
-              }
-            >
-              0.52
-            </td>
-            <td
-              className="text-right"
-              style={
-                Object {
-                  "minWidth": 110,
-                }
-              }
-            >
-              1
-              /1
-               
-              casts
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar"
-                  style={
-                    Object {
-                      "backgroundColor": "#70b570",
-                      "width": "100%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              className="text-left"
-              style={
-                Object {
-                  "minWidth": 50,
-                  "paddingRight": 5,
-                }
-              }
-            >
-              100.00%
-            </td>
-            <td
-              style={
-                Object {
-                  "color": "orange",
-                  "width": "25%",
-                }
-              }
-            />
           </tr>
           <tr>
             <td
@@ -3222,24 +3190,24 @@ Array [
     "icon": "spell_deathknight_armyofthedead",
     "importance": "major",
     "issue": <React.Fragment>
-      <WithI18n
+      <Trans
         components={
-          Array [
-            <ForwardRef
+          Object {
+            "0": <ForwardRef
               id={42650}
             />,
-          ]
+          }
         }
-        defaults="Try to cast <0/> more often."
         id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
-      <WithI18n
-        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+      <Trans
         id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
         values={
           Object {
             "0": 0,
@@ -3249,9 +3217,9 @@ Array [
         }
       />
        (
-      <WithI18n
-        defaults=">{0}% is recommended"
+      <Trans
         id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
         values={
           Object {
             "0": "90",
@@ -3266,24 +3234,24 @@ Array [
     "icon": "ability_deathknight_soulreaper",
     "importance": "major",
     "issue": <React.Fragment>
-      <WithI18n
+      <Trans
         components={
-          Array [
-            <ForwardRef
+          Object {
+            "0": <ForwardRef
               id={343294}
             />,
-          ]
+          }
         }
-        defaults="Try to cast <0/> more often."
         id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
-      <WithI18n
-        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+      <Trans
         id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
         values={
           Object {
             "0": 0,
@@ -3293,9 +3261,9 @@ Array [
         }
       />
        (
-      <WithI18n
-        defaults=">{0}% is recommended"
+      <Trans
         id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
         values={
           Object {
             "0": "85",
@@ -3323,7 +3291,10 @@ exports[`Unholy Death Knight integration test: example log DistanceMoved matches
         className="pad"
       >
         <label>
-          shared.distanceMoved.statistic.label
+          <trans
+            id="shared.distanceMoved.statistic.label"
+            message="Distance moved"
+          />
         </label>
         <div
           className="value"
@@ -3402,10 +3373,10 @@ Array [
     "details": null,
     "icon": "inv_chest_plate_nzothraid_d_01.jpg",
     "importance": "major",
-    "issue": <WithI18n
+    "issue": <Trans
       components={
-        Array [
-          <ItemLink
+        Object {
+          "0": <ItemLink
             details={
               Object {
                 "bonusIDs": Array [
@@ -3424,15 +3395,15 @@ Array [
             id={174164}
             quality={4}
           />,
-        ]
+        }
       }
-      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
       id="shared.enchantChecker.suggestions.noEnchant.label"
+      message="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
       values={
         Object {
-          "slotName": <WithI18n
-            defaults="Chest"
+          "slotName": <Trans
             id="common.slots.chest"
+            message="Chest"
           />,
         }
       }
@@ -3443,10 +3414,10 @@ Array [
     "details": null,
     "icon": "inv_glove_plate_nzothraid_d_01.jpg",
     "importance": "major",
-    "issue": <WithI18n
+    "issue": <Trans
       components={
-        Array [
-          <ItemLink
+        Object {
+          "0": <ItemLink
             details={
               Object {
                 "bonusIDs": Array [
@@ -3470,15 +3441,15 @@ Array [
             id={173456}
             quality={3}
           />,
-        ]
+        }
       }
-      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
       id="shared.enchantChecker.suggestions.noEnchant.label"
+      message="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
       values={
         Object {
-          "slotName": <WithI18n
-            defaults="Gloves"
+          "slotName": <Trans
             id="common.slots.gloves"
+            message="Gloves"
           />,
         }
       }
@@ -3489,10 +3460,10 @@ Array [
     "details": null,
     "icon": "inv_ring_80_05b.jpg",
     "importance": "minor",
-    "issue": <WithI18n
+    "issue": <Trans
       components={
-        Array [
-          <ItemLink
+        Object {
+          "0": <ItemLink
             details={
               Object {
                 "bonusIDs": Array [
@@ -3515,15 +3486,15 @@ Array [
             id={159461}
             quality={3}
           />,
-        ]
+        }
       }
-      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
       id="shared.enchantChecker.suggestions.weakEnchant.label"
+      message="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
       values={
         Object {
-          "slotName": <WithI18n
-            defaults="Ring"
+          "slotName": <Trans
             id="common.slots.ring"
+            message="Ring"
           />,
         }
       }
@@ -3534,10 +3505,10 @@ Array [
     "details": null,
     "icon": "inv_70_raid_ring8d.jpg",
     "importance": "minor",
-    "issue": <WithI18n
+    "issue": <Trans
       components={
-        Array [
-          <ItemLink
+        Object {
+          "0": <ItemLink
             details={
               Object {
                 "bonusIDs": Array [
@@ -3560,15 +3531,15 @@ Array [
             id={174530}
             quality={4}
           />,
-        ]
+        }
       }
-      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
       id="shared.enchantChecker.suggestions.weakEnchant.label"
+      message="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
       values={
         Object {
-          "slotName": <WithI18n
-            defaults="Ring"
+          "slotName": <Trans
             id="common.slots.ring"
+            message="Ring"
           />,
         }
       }
@@ -3579,10 +3550,10 @@ Array [
     "details": null,
     "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
     "importance": "major",
-    "issue": <WithI18n
+    "issue": <Trans
       components={
-        Array [
-          <ItemLink
+        Object {
+          "0": <ItemLink
             details={
               Object {
                 "bonusIDs": Array [
@@ -3599,15 +3570,15 @@ Array [
             id={169223}
             quality={5}
           />,
-        ]
+        }
       }
-      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
       id="shared.enchantChecker.suggestions.noEnchant.label"
+      message="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
       values={
         Object {
-          "slotName": <WithI18n
-            defaults="Cloak"
+          "slotName": <Trans
             id="common.slots.cloak"
+            message="Cloak"
           />,
         }
       }
@@ -3717,9 +3688,9 @@ Array [
     "details": null,
     "icon": "inv_alchemy_90_combat2_yellow",
     "importance": "regular",
-    "issue": <WithI18n
-      defaults="You used {0} combat potions during this encounter, but you could have used {1}. Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter."
+    "issue": <Trans
       id="shared.modules.items.potionChecker.suggestions.potionsUsed"
+      message="You used {0} combat potions during this encounter, but you could have used {1}. Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter."
       values={
         Object {
           "0": 0,
@@ -3733,21 +3704,21 @@ Array [
     "details": null,
     "icon": "inv_alchemy_90_combat2_yellow",
     "importance": "minor",
-    "issue": <WithI18n
+    "issue": <Trans
       components={
-        Array [
-          <ItemLink
+        Object {
+          "0": <ItemLink
             icon={true}
             id={171275}
           />,
-          <ItemLink
+          "1": <ItemLink
             icon={true}
             id={171275}
           />,
-        ]
+        }
       }
-      defaults="You used a weak potion. <0/> can be used instead of <1/> in order to get a slightly higher damage output."
       id="shared.modules.items.potionChecker.suggestions.weakPotion"
+      message="You used a weak potion. <0/> can be used instead of <1/> in order to get a slightly higher damage output."
     />,
     "stat": null,
   },
@@ -4482,10 +4453,10 @@ Array [
     "details": null,
     "icon": "inv_axe_2h_nzothraid_d_01.jpg",
     "importance": "regular",
-    "issue": <WithI18n
+    "issue": <Trans
       components={
-        Array [
-          <ItemLink
+        Object {
+          "0": <ItemLink
             details={
               Object {
                 "bonusIDs": Array [
@@ -4508,15 +4479,15 @@ Array [
             id={172200}
             quality={4}
           />,
-        ]
+        }
       }
-      defaults="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone) . Apply an enhancement to very easily increase your throughput slightly."
       id="shared.weaponEnhancementChecker.suggestions.noWeaponEnhancement.label"
+      message="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone) . Apply an enhancement to very easily increase your throughput slightly."
       values={
         Object {
-          "slotName": <WithI18n
-            defaults="Weapon"
+          "slotName": <Trans
             id="common.slots.weapon"
+            message="Weapon"
           />,
         }
       }
@@ -5336,7 +5307,10 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
         <div
           className="flex-main name"
         >
-          shared.modules.features.checklist.wellPrepared
+          <trans
+            id="shared.modules.features.checklist.wellPrepared"
+            message="Be well prepared"
+          />
         </div>
         <div
           className="flex-sub perf"
@@ -5406,7 +5380,10 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
           <div
             className="col-md-12"
           >
-            shared.modules.features.checklist.wellPreparedDetails
+            <trans
+              id="shared.modules.features.checklist.wellPreparedDetails"
+              message="Being well prepared with food, flasks, potions and enchants is an easy way to improve your performance."
+            />
           </div>
         </div>
         <div
@@ -5421,7 +5398,10 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.enchanted
+                <trans
+                  id="shared.modules.features.checklist.enchanted"
+                  message="All items enchanted"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -5482,7 +5462,10 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.enchantedHigh
+                <trans
+                  id="shared.modules.features.checklist.enchantedHigh"
+                  message="Using high quality enchants"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -5543,7 +5526,9 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
               <div
                 className="flex-main"
               >
-                All weapons enhanced (oils/stones)
+                <trans
+                  id="All weapons enhanced (oils/stones)"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -5604,7 +5589,9 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
               <div
                 className="flex-main"
               >
-                Using high quality weapon enhancements
+                <trans
+                  id="Using high quality weapon enhancements"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -5665,7 +5652,10 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.combatPotionsUsed
+                <trans
+                  id="shared.modules.features.checklist.combatPotionsUsed"
+                  message="Combat potions used"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -5726,7 +5716,10 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.highQualityCombatPotionsUsed
+                <trans
+                  id="shared.modules.features.checklist.highQualityCombatPotionsUsed"
+                  message="High quality combat potions used"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -5787,7 +5780,10 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.flaskHigh
+                <trans
+                  id="shared.modules.features.checklist.flaskHigh"
+                  message="High quality flask used"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -5808,7 +5804,10 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  common.no
+                  <trans
+                    id="common.no"
+                    message="No"
+                  />
                    
                    
                 </div>
@@ -5847,7 +5846,10 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.flask
+                <trans
+                  id="shared.modules.features.checklist.flask"
+                  message="Flask used"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -5868,7 +5870,10 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  common.yes
+                  <trans
+                    id="common.yes"
+                    message="Yes"
+                  />
                    
                    
                 </div>
@@ -5907,7 +5912,10 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.foodHigh
+                <trans
+                  id="shared.modules.features.checklist.foodHigh"
+                  message="High quality food used"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -5928,7 +5936,10 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  common.no
+                  <trans
+                    id="common.no"
+                    message="No"
+                  />
                    
                    
                 </div>
@@ -5967,7 +5978,10 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.food
+                <trans
+                  id="shared.modules.features.checklist.food"
+                  message="Food used"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -5988,7 +6002,10 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  common.yes
+                  <trans
+                    id="common.yes"
+                    message="Yes"
+                  />
                    
                    
                 </div>
