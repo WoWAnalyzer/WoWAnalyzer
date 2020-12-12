@@ -10,7 +10,7 @@ import StatisticGroup from 'interface/statistics/StatisticGroup';
 import Statistic from 'interface/statistics/Statistic';
 import DonutChart from 'interface/statistics/components/DonutChart';
 
-import PaladinAbilityTracker from './core/PaladinAbilityTracker';
+import PaladinAbilityTracker from '../core/PaladinAbilityTracker';
 
 class CastBehavior extends Analyzer {
   static dependencies = {
