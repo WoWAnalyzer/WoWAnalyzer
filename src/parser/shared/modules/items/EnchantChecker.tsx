@@ -166,7 +166,6 @@ class EnchantChecker extends Analyzer {
     // iterating with keys instead of value because the values don't store what slot is being looked at
     Object.keys(gear)
       .forEach(slot => {
-        this.log(typeof parseInt(slot))
         const item = gear[Number(slot)];
         const slotName = enchantSlots[Number(slot)];
         const hasEnchant = this.hasEnchant(item);
