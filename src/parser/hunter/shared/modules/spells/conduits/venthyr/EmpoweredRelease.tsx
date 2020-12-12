@@ -70,6 +70,7 @@ class EmpoweredRelease extends Analyzer {
         <ConduitSpellText spell={SPELLS.EMPOWERED_RELEASE_CONDUIT} rank={this.conduitRank}>
           <>
             ≈ {this.averageContributionAbsolute} <small> additional procs </small>
+            <br />
             <ItemDamageDone amount={this.addedDamage} />
           </>
         </ConduitSpellText>

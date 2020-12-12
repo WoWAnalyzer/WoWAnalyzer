@@ -3537,9 +3537,20 @@ Array [
        to see the damage taken and what defensives and potions were still available.
     </React.Fragment>,
     "stat": <React.Fragment>
-      You were dead for 26.23% of the fight
+      <WithI18n
+        defaults="You were dead for {0}% of the fight"
+        id="shared.suggestions.deathTracker.deathTime"
+        values={
+          Object {
+            "0": "26.23",
+          }
+        }
+      />
        (
-      0% is recommended
+      <WithI18n
+        defaults="0% is recommended"
+        id="shared.suggestions.deathTracker.recommended"
+      />
       )
     </React.Fragment>,
   },

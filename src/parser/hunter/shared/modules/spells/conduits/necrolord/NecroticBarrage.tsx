@@ -56,6 +56,7 @@ class NecroticBarrage extends Analyzer {
         <ConduitSpellText spell={SPELLS.NECROTIC_BARRAGE_CONDUIT} rank={this.conduitRank}>
           <>
             <ItemDamageDone amount={this.addedDamage} />
+            <br />
             {this.gainedFocus}/{this.gainedFocus + this.wastedFocus} <small>gained focus</small>
           </>
         </ConduitSpellText>

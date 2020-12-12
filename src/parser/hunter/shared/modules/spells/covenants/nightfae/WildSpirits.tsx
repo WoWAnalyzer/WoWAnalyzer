@@ -79,7 +79,7 @@ class WildSpirits extends Analyzer {
             {formatNumber(this.damage)} <small> direct damage</small>
             <br />
             <img src="/img/sword.png" alt="Damage" className="icon" />{' '}
-            {formatNumber(this.damage)} <small> Wild Mark damage</small>
+            {formatNumber(this.ampDamage)} <small> Wild Mark damage</small>
           </>
         </BoringSpellValueText>
       </Statistic>
