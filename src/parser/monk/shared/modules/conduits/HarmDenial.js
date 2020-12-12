@@ -12,6 +12,9 @@ import Events from 'parser/core/Events';
 
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
+import { conduitScaling } from '../../../mistweaver/constants';
+
+
 class HarmDenial extends Analyzer {
 
   healingIncrease = 0;
@@ -24,12 +27,15 @@ class HarmDenial extends Analyzer {
    */
   constructor(...args) {
     super(...args);
-    this.active = false;//FIXME actually check if they have the conduit
-    if (!this.active) {
+
+    const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.HARM_DENIAL.id);
+    
+    if (!conduitRank) {
+      this.active = false;
       return;
     }
 
-    this.healingBoost = .2;
+    this.healingBoost = conduitScaling(.25, conduitRank);
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.EXPEL_HARM, SPELLS.EXPEL_HARM_TARGET_HEAL]), this.extraHealing);
   }
