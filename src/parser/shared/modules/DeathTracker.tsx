@@ -2,10 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { formatNumber, formatPercentage } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
-import { i18n } from '@lingui/core';
-import { t } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 
 import Events, { BeginCastEvent, CastEvent, DamageEvent, DeathEvent, HealEvent, ResurrectEvent } from '../../core/Events';
 
@@ -20,7 +19,7 @@ class DeathTracker extends Analyzer {
 
   lastDeathTimestamp: number = 0;
   lastResurrectionTimestamp: number = 0;
-  _timeDead: number = 0
+  _timeDead: number = 0;
   _didCast: boolean = false;
   isAlive: boolean = true;
 
@@ -30,6 +29,7 @@ class DeathTracker extends Analyzer {
     this.isAlive = false;
     this.deaths.push(event);
   }
+
   resurrect(event: CastEvent | BeginCastEvent | HealEvent | DamageEvent | ResurrectEvent) {
     this.lastResurrectionTimestamp = this.owner.currentTimestamp;
     this._timeDead += this.lastResurrectionTimestamp - this.lastDeathTimestamp;
@@ -38,7 +38,7 @@ class DeathTracker extends Analyzer {
     this.resurrections.push(event);
   }
 
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.death.to(SELECTED_PLAYER), this.onDeath);
     this.addEventListener(Events.resurrect.to(SELECTED_PLAYER), this.onResurrect);
@@ -51,9 +51,11 @@ class DeathTracker extends Analyzer {
   onDeath(event: DeathEvent) {
     this.die(event);
   }
+
   onResurrect(event: ResurrectEvent) {
     this.resurrect(event);
   }
+
   onCast(event: CastEvent) {
     this._didCast = true;
 
@@ -61,16 +63,19 @@ class DeathTracker extends Analyzer {
       this.resurrect(event);
     }
   }
+
   onBeginCast(event: BeginCastEvent) {
     if (!this.isAlive) {
       this.resurrect(event);
     }
   }
+
   onHealTaken(event: HealEvent) {
     if (!this.isAlive) {
       this.resurrect(event);
     }
   }
+
   onDamageTaken(event: DamageEvent) {
     if (!this.isAlive) {
       this.resurrect(event);
@@ -80,6 +85,7 @@ class DeathTracker extends Analyzer {
   get totalTimeDead() {
     return this._timeDead + (this.isAlive ? 0 : this.owner.currentTimestamp - this.lastDeathTimestamp);
   }
+
   get timeDeadPercent() {
     return this.totalTimeDead / this.owner.fightDuration;
   }
@@ -104,19 +110,18 @@ class DeathTracker extends Analyzer {
     const isWipeDeath = isWipe && this.totalTimeDead < WIPE_MAX_DEAD_TIME;
 
     if (!disableDeathSuggestion && !isWipeDeath) {
-      when(this.timeDeadPercent).isGreaterThan(0)
+      when(this.deathSuggestionThresholds)
         .addSuggestion((suggest, actual) => suggest(<>
-            You died during this fight and were dead for {formatPercentage(actual)}% of the fight duration ({formatNumber(this.totalTimeDead / 1000)} seconds). Dying has a significant performance cost. View the <Link to={makeAnalyzerUrl(report, fight.id, player.id, 'death-recap')}>Death Recap</Link> to see the damage taken and what defensives and potions were still available.
-          </>)
-            .icon('ability_fiegndead')
-            .actual(i18n._(t('shared.suggestions.deathTracker.deathTime')`You were dead for ${formatPercentage(actual)}% of the fight`))
-            .recommended('0% is recommended')
-            .major(this.deathSuggestionThresholds.isGreaterThan.major));
+          You died during this fight and were dead for {formatPercentage(actual)}% of the fight duration ({formatNumber(this.totalTimeDead / 1000)} seconds). Dying has a significant performance cost. View the <Link to={makeAnalyzerUrl(report, fight.id, player.id, 'death-recap')}>Death Recap</Link> to see the damage taken and what defensives and potions were still available.
+        </>)
+          .icon('ability_fiegndead')
+          .actual(<Trans id='shared.suggestions.deathTracker.deathTime'> You were dead for {formatPercentage(actual)}% of the fight </Trans>)
+          .recommended(<Trans id='shared.suggestions.deathTracker.recommended'> 0% is recommended </Trans>));
     }
     when(this._didCast).isFalse()
       .addSuggestion((suggest) => suggest('You did not cast a single spell this fight. You were either dead for the entire fight, or were AFK.')
-          .icon('ability_fiegndead')
-          .major(this.deathSuggestionThresholds.isGreaterThan.major));
+        .icon('ability_fiegndead')
+        .major(this.deathSuggestionThresholds.isGreaterThan.major));
   }
 }
 
