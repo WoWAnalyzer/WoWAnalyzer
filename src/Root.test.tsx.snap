@@ -21,7 +21,7 @@ exports[`Root matches snapshot 1`] = `
           }
         }
       >
-        <i18nProvider
+        <i18n-provider
           i18n={
             Object {
               "_": [Function],
@@ -1448,7 +1448,7 @@ exports[`Root matches snapshot 1`] = `
               </BrowserRouter>
             </ErrorBoundary>
           </RootErrorBoundary>
-        </i18nProvider>
+        </i18n-provider>
       </I18nProvider>
     </I18nProvider>
   </Provider>

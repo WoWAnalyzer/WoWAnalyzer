@@ -106,6 +106,9 @@
     ]
   },
   "jest": {
-    "snapshotResolver": "./snapshotResolver.js"
+    "snapshotResolver": "./snapshotResolver.js",
+    "moduleNameMapper": {
+      "^@lingui/loader!.*$": "<rootDir>/linguiMessageMock.js"
+    }
   }
 }

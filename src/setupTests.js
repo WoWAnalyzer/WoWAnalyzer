@@ -31,5 +31,5 @@ jest.mock('@lingui/core', () => ({
 }));
 jest.mock('@lingui/react', () => ({
   Trans: props => <trans {...props} />,
-  I18nProvider: props => <i18nProvider {...props} />
+  I18nProvider: props => <i18n-provider {...props} />
 }));
