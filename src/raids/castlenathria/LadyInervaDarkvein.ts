@@ -19,14 +19,14 @@ const LadyInervaDarkvein: Boss = {
     },
     phases: {
       P1: {
-        name: 'Stage 1: Expose Desires',
+        name: 'Stage 1: Container of Desire',
         multiple: false,
         key: "P1",
         difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
       },
       P2: {
         key: "P2",
-        name: 'Stage 2: Bottled Anima',
+        name: 'Stage 2: Container of Bottled Anima',
         multiple: false,
         difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
@@ -38,7 +38,7 @@ const LadyInervaDarkvein: Boss = {
       },
       P3: {
         key: "P3",
-        name: 'Stage 3: Sins and Suffering',
+        name: 'Stage 3: Container of Sin',
         multiple: false,
         difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
@@ -50,7 +50,7 @@ const LadyInervaDarkvein: Boss = {
       },
       P4: {
         key: "P3",
-        name: 'Stage 3: Concentrated Anima',
+        name: 'Stage 3: Container of Concentrated Anima',
         multiple: false,
         difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
         filter: {
