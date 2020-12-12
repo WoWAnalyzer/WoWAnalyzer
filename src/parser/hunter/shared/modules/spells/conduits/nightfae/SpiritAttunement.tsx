@@ -73,6 +73,7 @@ class SpiritAttunement extends Analyzer {
         <ConduitSpellText spell={SPELLS.SPIRIT_ATTUNEMENT_CONDUIT} rank={this.conduitRank}>
           <>
             <ItemDamageDone amount={this.addedDamage} />
+            <br />
             {formatThousands(this.damageAfterOriginalDuration)} <small>damage after normal duration</small>
           </>
         </ConduitSpellText>
