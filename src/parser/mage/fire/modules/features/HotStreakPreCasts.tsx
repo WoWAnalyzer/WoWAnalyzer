@@ -96,7 +96,10 @@ class HotStreakPreCasts extends Analyzer {
       when(this.castBeforeHotStreakThresholds)
         .addSuggestion((suggest, actual, recommended) => suggest(<>When <SpellLink id={SPELLS.COMBUSTION.id} /> is not active{this.hasFirestarter ? ' and the target is below 90% health' : ''} {this.hasSearingTouch ? ' and the target is over 30% health' : ''}, <SpellLink id={SPELLS.HOT_STREAK.id} /> procs should be used immediately after casting <SpellLink id={SPELLS.FIREBALL.id} /> {this.hasPyroclasm ? <> or after using a <SpellLink id={SPELLS.PYROCLASM_TALENT.id} /> proc </> : ''}. This way, if one of the two abilities crit you will gain a new <SpellLink id={SPELLS.HEATING_UP.id} /> proc, and if both crit you will get a new <SpellLink id={SPELLS.HOT_STREAK.id} /> proc. You failed to do this {this.noCastBeforeHotStreak} times. If you have a <SpellLink id={SPELLS.HOT_STREAK.id} /> proc and need to move, you can hold the proc and cast <SpellLink id={SPELLS.SCORCH.id} /> once or twice until you are able to stop and cast <SpellLink id={SPELLS.FIREBALL.id} /> or you can use your procs while you move.</>)
             .icon(SPELLS.HOT_STREAK.icon)
-            .actual(i18n._(t('mage.fire.suggestions.hostStreak.precasts.utilization')`${formatPercentage(this.castBeforeHotStreakUtil)}% Utilization`))
+            .actual(t({
+        id: "mage.fire.suggestions.hostStreak.precasts.utilization",
+        message: `${formatPercentage(this.castBeforeHotStreakUtil)}% Utilization`
+      }))
             .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 }

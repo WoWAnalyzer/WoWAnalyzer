@@ -119,7 +119,10 @@ class Judgment extends Analyzer {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You're not consuming all your <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> debuffs.</>)
       .icon(SPELLS.JUDGMENT_DEBUFF.icon)
-      .actual(i18n._(t('paladin.retribution.suggestions.judgement.consumed')`${formatPercentage(this.percentageJudgmentsConsumed)}% Judgments consumed`))
+      .actual(t({
+      id: "paladin.retribution.suggestions.judgement.consumed",
+      message: `${formatPercentage(this.percentageJudgmentsConsumed)}% Judgments consumed`
+    }))
       .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

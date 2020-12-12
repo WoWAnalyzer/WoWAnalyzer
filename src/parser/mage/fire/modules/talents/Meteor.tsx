@@ -60,7 +60,10 @@ class Meteor extends Analyzer {
     when(this.meteorEfficiencySuggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => suggest(<>You could have cast <SpellLink id={SPELLS.METEOR_TALENT.id} /> {this.meteorMaxCasts} times during this fight, but you only cast it {this.totalMeteorCasts} times. While you should not cast Meteor on cooldown (since you need to have it available for <SpellLink id={SPELLS.COMBUSTION.id} />), you should be casting it at least once per minute.</>)
 					.icon(SPELLS.METEOR_TALENT.icon)
-					.actual(i18n._(t('mage.fire.suggestions.meteor.efficiency')`${formatPercentage(this.meteorCastEfficiency)}% Utilization`))
+					.actual(t({
+      id: "mage.fire.suggestions.meteor.efficiency",
+      message: `${formatPercentage(this.meteorCastEfficiency)}% Utilization`
+    }))
 					.recommended(`<${formatPercentage(recommended)}% is recommended`));
 	}
 

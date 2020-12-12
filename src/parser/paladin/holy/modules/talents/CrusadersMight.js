@@ -108,11 +108,18 @@ class CrusadersMight extends Analyzer {
         )
           .icon(SPELLS.HOLY_SHOCK_CAST.icon)
           .actual(
-            t('paladin.holy.modules.talents.crusadersMight.actual')`${Math.floor(this.holyShocksCastsLost)} Holy Shock cast${
-              Math.floor(this.holyShocksCastsLost) === 1 ? '' : 's'
-            } missed.`,
+            t({
+              id: "paladin.holy.modules.talents.crusadersMight.actual",
+
+              message: `${Math.floor(this.holyShocksCastsLost)} Holy Shock cast${
+                Math.floor(this.holyShocksCastsLost) === 1 ? '' : 's'
+              } missed.`
+            }),
           )
-          .recommended(t('paladin.holy.modules.talents.crusadersMight.recommended')`Casting Holy Shock on cooldown is recommended.`));
+          .recommended(t({
+        id: "paladin.holy.modules.talents.crusadersMight.recommended",
+        message: `Casting Holy Shock on cooldown is recommended.`
+      })));
     }
   }
 

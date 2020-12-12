@@ -472,7 +472,10 @@ class Results extends React.PureComponent {
             <div className="col-md-3">
               <Trans id="interface.report.results.viewOn" render="small">View on</Trans>
               <br />
-              <Tooltip content={i18n._(t('interface.report.results.tooltip.newTab.originalReport')`Opens in a new tab. View the original report.`)}>
+              <Tooltip content={t({
+                id: "interface.report.results.tooltip.newTab.originalReport",
+                message: `Opens in a new tab. View the original report.`
+              })}>
                 <a
                   href={makeWclUrl(report.code, {
                     fight: fight.id,
@@ -489,9 +492,10 @@ class Results extends React.PureComponent {
               </Tooltip>
               <br />
               <Tooltip
-                content={i18n._(
-                  t('interface.report.results.tooltip.newTab.insightsAndTimelines')`Opens in a new tab. View insights and timelines for raid encounters.`,
-                )}
+                content={t({
+                  id: "interface.report.results.tooltip.newTab.insightsAndTimelines",
+                  message: `Opens in a new tab. View insights and timelines for raid encounters.`
+                })}
               >
                 <a
                   href={`https://www.wipefest.net/report/${report.code}/fight/${fight.id}`}

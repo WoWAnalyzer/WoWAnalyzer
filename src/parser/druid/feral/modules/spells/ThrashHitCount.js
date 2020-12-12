@@ -50,7 +50,10 @@ class ThrashHitCount extends HitCountAoE {
       </>,
     )
       .icon(SPELLS.THRASH_FERAL.icon)
-      .actual(i18n._(t('druid.feral.suggestions.thrash.hitcount.outOfRange')`${actual.toFixed(1)} uses per minute that hit nothing.`))
+      .actual(t({
+      id: "druid.feral.suggestions.thrash.hitcount.outOfRange",
+      message: `${actual.toFixed(1)} uses per minute that hit nothing.`
+    }))
       .recommended(`${recommended} is recommended`));
   }
 }

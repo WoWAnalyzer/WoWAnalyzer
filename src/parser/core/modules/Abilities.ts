@@ -18,17 +18,50 @@ class Abilities extends Module {
 
   // TODO - Enum?
   static SPELL_CATEGORIES = {
-    ROTATIONAL: i18n._(t('core.abilities.spellCategories.rotational')`Rotational Spell`),
-    ROTATIONAL_AOE: i18n._(t('core.abilities.spellCategories.rotationalAoe')`Spell (AOE)`),
-    ITEMS: i18n._(t('core.abilities.spellCategories.items')`Item`),
-    COOLDOWNS: i18n._(t('core.abilities.spellCategories.cooldowns')`Cooldown`),
-    DEFENSIVE: i18n._(t('core.abilities.spellCategories.defensive')`Defensive Cooldown`),
-    SEMI_DEFENSIVE: i18n._(t('core.abilities.spellCategories.semiDefensive')`Offensive & Defensive Cooldown`),
-    OTHERS: i18n._(t('core.abilities.spellCategories.others')`Spell`),
-    UTILITY: i18n._(t('core.abilities.spellCategories.utility')`Utility`),
-    HEALER_DAMAGING_SPELL: i18n._(t('core.abilities.spellCategories.healerDamagingSpell')`Damaging Spell`),
-    CONSUMABLE: i18n._(t('core.abilities.spellCategories.consumable')`Consumable`),
-    HIDDEN: i18n._(t('core.abilities.spellCategories.hidden')`Hidden`),
+    ROTATIONAL: t({
+      id: "core.abilities.spellCategories.rotational",
+      message: `Rotational Spell`
+    }),
+    ROTATIONAL_AOE: t({
+      id: "core.abilities.spellCategories.rotationalAoe",
+      message: `Spell (AOE)`
+    }),
+    ITEMS: t({
+      id: "core.abilities.spellCategories.items",
+      message: `Item`
+    }),
+    COOLDOWNS: t({
+      id: "core.abilities.spellCategories.cooldowns",
+      message: `Cooldown`
+    }),
+    DEFENSIVE: t({
+      id: "core.abilities.spellCategories.defensive",
+      message: `Defensive Cooldown`
+    }),
+    SEMI_DEFENSIVE: t({
+      id: "core.abilities.spellCategories.semiDefensive",
+      message: `Offensive & Defensive Cooldown`
+    }),
+    OTHERS: t({
+      id: "core.abilities.spellCategories.others",
+      message: `Spell`
+    }),
+    UTILITY: t({
+      id: "core.abilities.spellCategories.utility",
+      message: `Utility`
+    }),
+    HEALER_DAMAGING_SPELL: t({
+      id: "core.abilities.spellCategories.healerDamagingSpell",
+      message: `Damaging Spell`
+    }),
+    CONSUMABLE: t({
+      id: "core.abilities.spellCategories.consumable",
+      message: `Consumable`
+    }),
+    HIDDEN: t({
+      id: "core.abilities.spellCategories.hidden",
+      message: `Hidden`
+    }),
   };
   static ABILITY_CLASS = Ability;
 

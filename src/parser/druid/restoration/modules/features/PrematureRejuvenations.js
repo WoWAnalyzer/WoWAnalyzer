@@ -113,7 +113,10 @@ class PrematureRejuvenations extends Analyzer {
     when(this.timeLostThreshold)
       .addSuggestion((suggest) => suggest(<>Don't refresh <SpellLink id={SPELLS.REJUVENATION.id} /> if it's not within pandemic time frame (4.5s left on buff).</>)
           .icon(SPELLS.REJUVENATION.icon)
-          .actual(i18n._(t('druid.restoration.suggestions.rejuvenation.wastedSeconds')`You refreshed early ${this.earlyRefreshments} times which made you waste ${this.timeLostInSeconds} seconds of rejuvenation.`))
+          .actual(t({
+      id: "druid.restoration.suggestions.rejuvenation.wastedSeconds",
+      message: `You refreshed early ${this.earlyRefreshments} times which made you waste ${this.timeLostInSeconds} seconds of rejuvenation.`
+    }))
           .recommended(`0 seconds lost is recommended`));
   }
 

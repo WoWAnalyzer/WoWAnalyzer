@@ -82,7 +82,10 @@ class App extends React.Component {
     if (error.error === API_DOWN) {
       return (
         <FullscreenError
-          error={i18n._(t('fullScreenError.apiDown.error')`The API is down.`)}
+          error={t({
+            id: "fullScreenError.apiDown.error",
+            message: `The API is down.`
+          })}
           details="This is usually because we're leveling up with another patch."
           background={ApiDownBackground}
         >
@@ -102,7 +105,10 @@ class App extends React.Component {
     if (error.error === REPORT_NOT_FOUND) {
       return (
         <FullscreenError
-          error={i18n._(t('home.reportSelector.search')`Report not found.`)}
+          error={t({
+            id: "home.reportSelector.search",
+            message: `Report not found.`
+          })}
           details="Either you entered a wrong report, or it is private."
           background="https://media.giphy.com/media/DAgxA6qRfa5La/giphy.gif"
         >
@@ -129,7 +135,10 @@ class App extends React.Component {
     if (error.error === UNKNOWN_NETWORK_ISSUE) {
       return (
         <FullscreenError
-          error={i18n._(t('fullScreenError.error')`An API error occured.`)}
+          error={t({
+            id: "fullScreenError.error",
+            message: `An API error occured.`
+          })}
           details="Something went wrong talking to our servers, please try again."
           background="https://media.giphy.com/media/m4TbeLYX5MaZy/giphy.gif"
         >
@@ -145,7 +154,10 @@ class App extends React.Component {
     if (error.error === INTERNET_EXPLORER) {
       return (
         <FullscreenError
-          error={i18n._(t('home.internetExplorer.error')`A wild INTERNET EXPLORER appeared!`)}
+          error={t({
+            id: "home.internetExplorer.error",
+            message: `A wild INTERNET EXPLORER appeared!`
+          })}
           details="This browser is too unstable for WoWAnalyzer to work properly."
           background="https://media.giphy.com/media/njYrp176NQsHS/giphy.gif"
         >
@@ -162,7 +174,10 @@ class App extends React.Component {
     }
     return (
       <FullscreenError
-        error={i18n._(t('home.unknown.error')`An unknown error occured.`)}
+        error={t({
+          id: "home.unknown.error",
+          message: `An unknown error occured.`
+        })}
         details={error.details.message || error.details}
         background="https://media.giphy.com/media/m4TbeLYX5MaZy/giphy.gif"
       >

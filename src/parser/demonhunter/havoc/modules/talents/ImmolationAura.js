@@ -60,7 +60,10 @@ class ImmolationAura extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<> Avoid casting <SpellLink id={SPELLS.IMMOLATION_AURA.id} /> when close to max Fury.</>)
         .icon(SPELLS.IMMOLATION_AURA.icon)
-        .actual(i18n._(t('demonhunter.havoc.suggestions.immolationAura.furyWasted')`${formatPercentage(actual)}% Fury wasted`))
+        .actual(t({
+      id: "demonhunter.havoc.suggestions.immolationAura.furyWasted",
+      message: `${formatPercentage(actual)}% Fury wasted`
+    }))
         .recommended(`${formatPercentage(recommended)}% is recommended.`));
   }
 

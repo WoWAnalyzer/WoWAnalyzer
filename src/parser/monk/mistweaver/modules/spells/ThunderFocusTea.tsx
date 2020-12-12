@@ -144,7 +144,10 @@ class ThunderFocusTea extends Analyzer {
       </>,
     )
       .icon(SPELLS.THUNDER_FOCUS_TEA.icon)
-      .actual(`${this.incorrectTftCasts}${i18n._(t('monk.mistweaver.suggestions.thunderFocusTea.incorrectCasts')`incorrect casts with Thunder Focus Tea`)}`)
+      .actual(`${this.incorrectTftCasts}${t({
+      id: "monk.mistweaver.suggestions.thunderFocusTea.incorrectCasts",
+      message: `incorrect casts with Thunder Focus Tea`
+    })}`)
       .recommended(`<${recommended} incorrect cast is recommended`));
   }
 

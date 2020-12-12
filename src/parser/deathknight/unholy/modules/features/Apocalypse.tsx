@@ -48,7 +48,10 @@ class Apocalypse extends Analyzer {
     when(averageWoundsPopped).isLessThan(4)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>You are casting <SpellLink id={SPELLS.APOCALYPSE.id} /> with too few <SpellLink id={SPELLS.FESTERING_WOUND.id} /> on the target. When casting <SpellLink id={SPELLS.APOCALYPSE.id} />, make sure to have at least 4 <SpellLink id={SPELLS.FESTERING_WOUND.id} /> on the target.</span>)
           .icon(SPELLS.APOCALYPSE.icon)
-          .actual(i18n._(t('deathknight.unholy.suggestions.apocalypse.efficiency')`An average ${(actual)} of Festering Wounds were popped by Apocalypse`))
+          .actual(t({
+      id: "deathknight.unholy.suggestions.apocalypse.efficiency",
+      message: `An average ${(actual)} of Festering Wounds were popped by Apocalypse`
+    }))
           .recommended(`${(recommended)} is recommended`)
           .regular(recommended - 1).major(recommended - 2));
   }

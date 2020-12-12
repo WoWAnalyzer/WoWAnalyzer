@@ -41,7 +41,10 @@ class RollTheBonesBuffs extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> uptime can be improved. Try to always have <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> active, even with a lower value roll.</>)
       .icon(SPELLS.ROLL_THE_BONES.icon)
-      .actual(i18n._(t('rogue.outlaw.suggestions.rollTheBones.uptime')`${formatPercentage(actual)}% Roll the Bones uptime`))
+      .actual(t({
+      id: "rogue.outlaw.suggestions.rollTheBones.uptime",
+      message: `${formatPercentage(actual)}% Roll the Bones uptime`
+    }))
       .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

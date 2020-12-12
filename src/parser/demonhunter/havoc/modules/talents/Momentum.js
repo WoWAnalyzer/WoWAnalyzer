@@ -50,7 +50,10 @@ class Momentum extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<> Maintain the <SpellLink id={SPELLS.MOMENTUM_TALENT.id} /> buff to maximize damage.</>)
         .icon(SPELLS.MOMENTUM_TALENT.icon)
-        .actual(i18n._(t('demonhunter.havoc.suggestions.momentum.uptime')`${formatPercentage(actual)}% buff uptime`))
+        .actual(t({
+      id: "demonhunter.havoc.suggestions.momentum.uptime",
+      message: `${formatPercentage(actual)}% buff uptime`
+    }))
         .recommended(`${formatPercentage(recommended)}% is recommended.`));
   }
 

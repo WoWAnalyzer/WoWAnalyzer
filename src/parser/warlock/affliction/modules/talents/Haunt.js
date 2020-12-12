@@ -73,7 +73,10 @@ class Haunt extends Analyzer {
         </>,
       )
         .icon(SPELLS.HAUNT_TALENT.icon)
-        .actual(i18n._(t('warlock.affliction.suggestions.haunt.uptime')`${formatPercentage(actual)}% Haunt uptime.`))
+        .actual(t({
+      id: "warlock.affliction.suggestions.haunt.uptime",
+      message: `${formatPercentage(actual)}% Haunt uptime.`
+    }))
         .recommended(`> ${formatPercentage(recommended)}% is recommended`));
   }
 

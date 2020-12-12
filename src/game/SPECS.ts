@@ -27,8 +27,14 @@ const SPECS: {
   ARCANE_MAGE: {
     id: 62,
     index: 0,
-    className: i18n._(t('specs.mage')`Mage`),
-    specName: i18n._(t('specs.mage.arcane')`Arcane`),
+    className: t({
+      id: "specs.mage",
+      message: `Mage`
+    }),
+    specName: t({
+      id: "specs.mage.arcane",
+      message: `Arcane`
+    }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 190740,
@@ -41,8 +47,14 @@ const SPECS: {
   FIRE_MAGE: {
     id: 63,
     index: 1,
-    className: i18n._(t('specs.mage')`Mage`),
-    specName: i18n._(t('specs.fire')`Fire`),
+    className: t({
+      id: "specs.mage",
+      message: `Mage`
+    }),
+    specName: t({
+      id: "specs.fire",
+      message: `Fire`
+    }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 12846,
@@ -55,8 +67,14 @@ const SPECS: {
   FROST_MAGE: {
     id: 64,
     index: 2,
-    className: i18n._(t('specs.mage')`Mage`),
-    specName: i18n._(t('specs.frost')`Frost`),
+    className: t({
+      id: "specs.mage",
+      message: `Mage`
+    }),
+    specName: t({
+      id: "specs.frost",
+      message: `Frost`
+    }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 76613,
@@ -69,8 +87,14 @@ const SPECS: {
   HOLY_PALADIN: {
     id: 65,
     index: 3,
-    className: i18n._(t('specs.paladin')`Paladin`),
-    specName: i18n._(t('specs.holy')`Holy`),
+    className: t({
+      id: "specs.paladin",
+      message: `Paladin`
+    }),
+    specName: t({
+      id: "specs.holy",
+      message: `Holy`
+    }),
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 183997,
@@ -83,8 +107,14 @@ const SPECS: {
   PROTECTION_PALADIN: {
     id: 66,
     index: 4,
-    className: i18n._(t('specs.paladin')`Paladin`),
-    specName: i18n._(t('specs.protection')`Protection`),
+    className: t({
+      id: "specs.paladin",
+      message: `Paladin`
+    }),
+    specName: t({
+      id: "specs.protection",
+      message: `Protection`
+    }),
     role: ROLES.TANK,
     primaryStat: PRIMARY_STATS.STRENGTH,
     masterySpellId: 76671,
@@ -97,8 +127,14 @@ const SPECS: {
   RETRIBUTION_PALADIN: {
     id: 70,
     index: 5,
-    className: i18n._(t('specs.paladin')`Paladin`),
-    specName: i18n._(t('specs.retribution')`Retribution`),
+    className: t({
+      id: "specs.paladin",
+      message: `Paladin`
+    }),
+    specName: t({
+      id: "specs.retribution",
+      message: `Retribution`
+    }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.STRENGTH,
     masterySpellId: 267316,
@@ -111,8 +147,14 @@ const SPECS: {
   ARMS_WARRIOR: {
     id: 71,
     index: 6,
-    className: i18n._(t('specs.warrior')`Warrior`),
-    specName: i18n._(t('specs.arms')`Arms`),
+    className: t({
+      id: "specs.warrior",
+      message: `Warrior`
+    }),
+    specName: t({
+      id: "specs.arms",
+      message: `Arms`
+    }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.STRENGTH,
     masterySpellId: 76838,
@@ -125,8 +167,14 @@ const SPECS: {
   FURY_WARRIOR: {
     id: 72,
     index: 7,
-    className: i18n._(t('specs.warrior')`Warrior`),
-    specName: i18n._(t('specs.fury')`Fury`),
+    className: t({
+      id: "specs.warrior",
+      message: `Warrior`
+    }),
+    specName: t({
+      id: "specs.fury",
+      message: `Fury`
+    }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.STRENGTH,
     masterySpellId: 76856,
@@ -139,8 +187,14 @@ const SPECS: {
   PROTECTION_WARRIOR: {
     id: 73,
     index: 8,
-    className: i18n._(t('specs.warrior')`Warrior`),
-    specName: i18n._(t('specs.protection')`Protection`),
+    className: t({
+      id: "specs.warrior",
+      message: `Warrior`
+    }),
+    specName: t({
+      id: "specs.protection",
+      message: `Protection`
+    }),
     role: ROLES.TANK,
     primaryStat: PRIMARY_STATS.STRENGTH,
     masterySpellId: 76857,
@@ -153,8 +207,14 @@ const SPECS: {
   BALANCE_DRUID: {
     id: 102,
     index: 9,
-    className: i18n._(t('specs.druid')`Druid`),
-    specName: i18n._(t('specs.balance')`Balance`),
+    className: t({
+      id: "specs.druid",
+      message: `Druid`
+    }),
+    specName: t({
+      id: "specs.balance",
+      message: `Balance`
+    }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77492,
@@ -167,8 +227,14 @@ const SPECS: {
   FERAL_DRUID: {
     id: 103,
     index: 10,
-    className: i18n._(t('specs.druid')`Druid`),
-    specName: i18n._(t('specs.feral')`Feral`),
+    className: t({
+      id: "specs.druid",
+      message: `Druid`
+    }),
+    specName: t({
+      id: "specs.feral",
+      message: `Feral`
+    }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 77493,
@@ -181,8 +247,14 @@ const SPECS: {
   GUARDIAN_DRUID: {
     id: 104,
     index: 11,
-    className: i18n._(t('specs.druid')`Druid`),
-    specName: i18n._(t('specs.guardian')`Guardian`),
+    className: t({
+      id: "specs.druid",
+      message: `Druid`
+    }),
+    specName: t({
+      id: "specs.guardian",
+      message: `Guardian`
+    }),
     role: ROLES.TANK,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 155783,
@@ -195,8 +267,14 @@ const SPECS: {
   RESTORATION_DRUID: {
     id: 105,
     index: 12,
-    className: i18n._(t('specs.druid')`Druid`),
-    specName: i18n._(t('specs.restoration')`Restoration`),
+    className: t({
+      id: "specs.druid",
+      message: `Druid`
+    }),
+    specName: t({
+      id: "specs.restoration",
+      message: `Restoration`
+    }),
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77495,
@@ -209,8 +287,14 @@ const SPECS: {
   BLOOD_DEATH_KNIGHT: {
     id: 250,
     index: 13,
-    className: i18n._(t('specs.deathKnight')`Death Knight`),
-    specName: i18n._(t('specs.blood')`Blood`),
+    className: t({
+      id: "specs.deathKnight",
+      message: `Death Knight`
+    }),
+    specName: t({
+      id: "specs.blood",
+      message: `Blood`
+    }),
     role: ROLES.TANK,
     primaryStat: PRIMARY_STATS.STRENGTH,
     masterySpellId: 77513,
@@ -223,8 +307,14 @@ const SPECS: {
   FROST_DEATH_KNIGHT: {
     id: 251,
     index: 14,
-    className: i18n._(t('specs.deathKnight')`Death Knight`),
-    specName: i18n._(t('specs.frost')`Frost`),
+    className: t({
+      id: "specs.deathKnight",
+      message: `Death Knight`
+    }),
+    specName: t({
+      id: "specs.frost",
+      message: `Frost`
+    }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.STRENGTH,
     masterySpellId: 77514,
@@ -237,8 +327,14 @@ const SPECS: {
   UNHOLY_DEATH_KNIGHT: {
     id: 252,
     index: 15,
-    className: i18n._(t('specs.deathKnight')`Death Knight`),
-    specName: i18n._(t('specs.unholy')`Unholy`),
+    className: t({
+      id: "specs.deathKnight",
+      message: `Death Knight`
+    }),
+    specName: t({
+      id: "specs.unholy",
+      message: `Unholy`
+    }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.STRENGTH,
     masterySpellId: 77515,
@@ -251,8 +347,14 @@ const SPECS: {
   BEAST_MASTERY_HUNTER: {
     id: 253,
     index: 16,
-    className: i18n._(t('specs.hunter')`Hunter`),
-    specName: i18n._(t('specs.beastMastery')`Beast Mastery`),
+    className: t({
+      id: "specs.hunter",
+      message: `Hunter`
+    }),
+    specName: t({
+      id: "specs.beastMastery",
+      message: `Beast Mastery`
+    }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 76657,
@@ -265,8 +367,14 @@ const SPECS: {
   MARKSMANSHIP_HUNTER: {
     id: 254,
     index: 17,
-    className: i18n._(t('specs.hunter')`Hunter`),
-    specName: i18n._(t('specs.marksmanship')`Marksmanship`),
+    className: t({
+      id: "specs.hunter",
+      message: `Hunter`
+    }),
+    specName: t({
+      id: "specs.marksmanship",
+      message: `Marksmanship`
+    }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 193468,
@@ -279,8 +387,14 @@ const SPECS: {
   SURVIVAL_HUNTER: {
     id: 255,
     index: 18,
-    className: i18n._(t('specs.hunter')`Hunter`),
-    specName: i18n._(t('specs.survival')`Survival`),
+    className: t({
+      id: "specs.hunter",
+      message: `Hunter`
+    }),
+    specName: t({
+      id: "specs.survival",
+      message: `Survival`
+    }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 191334,
@@ -293,8 +407,14 @@ const SPECS: {
   DISCIPLINE_PRIEST: {
     id: 256,
     index: 19,
-    className: i18n._(t('specs.priest')`Priest`),
-    specName: i18n._(t('specs.discipline')`Discipline`),
+    className: t({
+      id: "specs.priest",
+      message: `Priest`
+    }),
+    specName: t({
+      id: "specs.discipline",
+      message: `Discipline`
+    }),
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 271534,
@@ -307,8 +427,14 @@ const SPECS: {
   HOLY_PRIEST: {
     id: 257,
     index: 20,
-    className: i18n._(t('specs.priest')`Priest`),
-    specName: i18n._(t('specs.holy')`Holy`),
+    className: t({
+      id: "specs.priest",
+      message: `Priest`
+    }),
+    specName: t({
+      id: "specs.holy",
+      message: `Holy`
+    }),
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77485,
@@ -321,8 +447,14 @@ const SPECS: {
   SHADOW_PRIEST: {
     id: 258,
     index: 21,
-    className: i18n._(t('specs.priest')`Priest`),
-    specName: i18n._(t('specs.shadow')`Shadow`),
+    className: t({
+      id: "specs.priest",
+      message: `Priest`
+    }),
+    specName: t({
+      id: "specs.shadow",
+      message: `Shadow`
+    }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77486,
@@ -335,8 +467,14 @@ const SPECS: {
   ASSASSINATION_ROGUE: {
     id: 259,
     index: 22,
-    className: i18n._(t('specs.rogue')`Rogue`),
-    specName: i18n._(t('specs.assassination')`Assassination`),
+    className: t({
+      id: "specs.rogue",
+      message: `Rogue`
+    }),
+    specName: t({
+      id: "specs.assassination",
+      message: `Assassination`
+    }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 76803,
@@ -349,8 +487,14 @@ const SPECS: {
   OUTLAW_ROGUE: {
     id: 260,
     index: 23,
-    className: i18n._(t('specs.rogue')`Rogue`),
-    specName: i18n._(t('specs.outlaw')`Outlaw`),
+    className: t({
+      id: "specs.rogue",
+      message: `Rogue`
+    }),
+    specName: t({
+      id: "specs.outlaw",
+      message: `Outlaw`
+    }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 76806,
@@ -363,8 +507,14 @@ const SPECS: {
   SUBTLETY_ROGUE: {
     id: 261,
     index: 24,
-    className: i18n._(t('specs.rogue')`Rogue`),
-    specName: i18n._(t('specs.subtlety')`Subtlety`),
+    className: t({
+      id: "specs.rogue",
+      message: `Rogue`
+    }),
+    specName: t({
+      id: "specs.subtlety",
+      message: `Subtlety`
+    }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 76808,
@@ -377,8 +527,14 @@ const SPECS: {
   ELEMENTAL_SHAMAN: {
     id: 262,
     index: 25,
-    className: i18n._(t('specs.shaman')`Shaman`),
-    specName: i18n._(t('specs.elemental')`Elemental`),
+    className: t({
+      id: "specs.shaman",
+      message: `Shaman`
+    }),
+    specName: t({
+      id: "specs.elemental",
+      message: `Elemental`
+    }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 168534,
@@ -391,8 +547,14 @@ const SPECS: {
   ENHANCEMENT_SHAMAN: {
     id: 263,
     index: 26,
-    className: i18n._(t('specs.shaman')`Shaman`),
-    specName: i18n._(t('specs.enhancement')`Enhancement`),
+    className: t({
+      id: "specs.shaman",
+      message: `Shaman`
+    }),
+    specName: t({
+      id: "specs.enhancement",
+      message: `Enhancement`
+    }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 77223,
@@ -405,8 +567,14 @@ const SPECS: {
   RESTORATION_SHAMAN: {
     id: 264,
     index: 27,
-    className: i18n._(t('specs.shaman')`Shaman`),
-    specName: i18n._(t('specs.restoration')`Restoration`),
+    className: t({
+      id: "specs.shaman",
+      message: `Shaman`
+    }),
+    specName: t({
+      id: "specs.restoration",
+      message: `Restoration`
+    }),
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77226,
@@ -419,8 +587,14 @@ const SPECS: {
   AFFLICTION_WARLOCK: {
     id: 265,
     index: 28,
-    className: i18n._(t('specs.warlock')`Warlock`),
-    specName: i18n._(t('specs.affliction')`Affliction`),
+    className: t({
+      id: "specs.warlock",
+      message: `Warlock`
+    }),
+    specName: t({
+      id: "specs.affliction",
+      message: `Affliction`
+    }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77215,
@@ -433,8 +607,14 @@ const SPECS: {
   DEMONOLOGY_WARLOCK: {
     id: 266,
     index: 29,
-    className: i18n._(t('specs.warlock')`Warlock`),
-    specName: i18n._(t('specs.demonology')`Demonology`),
+    className: t({
+      id: "specs.warlock",
+      message: `Warlock`
+    }),
+    specName: t({
+      id: "specs.demonology",
+      message: `Demonology`
+    }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77219,
@@ -447,8 +627,14 @@ const SPECS: {
   DESTRUCTION_WARLOCK: {
     id: 267,
     index: 30,
-    className: i18n._(t('specs.warlock')`Warlock`),
-    specName: i18n._(t('specs.destruction')`Destruction`),
+    className: t({
+      id: "specs.warlock",
+      message: `Warlock`
+    }),
+    specName: t({
+      id: "specs.destruction",
+      message: `Destruction`
+    }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77220,
@@ -461,8 +647,14 @@ const SPECS: {
   BREWMASTER_MONK: {
     id: 268,
     index: 31,
-    className: i18n._(t('specs.monk')`Monk`),
-    specName: i18n._(t('specs.brewmaster')`Brewmaster`),
+    className: t({
+      id: "specs.monk",
+      message: `Monk`
+    }),
+    specName: t({
+      id: "specs.brewmaster",
+      message: `Brewmaster`
+    }),
     role: ROLES.TANK,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 117906,
@@ -475,8 +667,14 @@ const SPECS: {
   WINDWALKER_MONK: {
     id: 269,
     index: 32,
-    className: i18n._(t('specs.monk')`Monk`),
-    specName: i18n._(t('specs.windwalker')`Windwalker`),
+    className: t({
+      id: "specs.monk",
+      message: `Monk`
+    }),
+    specName: t({
+      id: "specs.windwalker",
+      message: `Windwalker`
+    }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 115636,
@@ -489,8 +687,14 @@ const SPECS: {
   MISTWEAVER_MONK: {
     id: 270,
     index: 33,
-    className: i18n._(t('specs.monk')`Monk`),
-    specName: i18n._(t('specs.mistweaver')`Mistweaver`),
+    className: t({
+      id: "specs.monk",
+      message: `Monk`
+    }),
+    specName: t({
+      id: "specs.mistweaver",
+      message: `Mistweaver`
+    }),
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 117907,
@@ -503,8 +707,14 @@ const SPECS: {
   HAVOC_DEMON_HUNTER: {
     id: 577,
     index: 34,
-    className: i18n._(t('specs.demonHunter')`Demon Hunter`),
-    specName: i18n._(t('specs.havoc')`Havoc`),
+    className: t({
+      id: "specs.demonHunter",
+      message: `Demon Hunter`
+    }),
+    specName: t({
+      id: "specs.havoc",
+      message: `Havoc`
+    }),
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 185164,
@@ -517,8 +727,14 @@ const SPECS: {
   VENGEANCE_DEMON_HUNTER: {
     id: 581,
     index: 35,
-    className: i18n._(t('specs.demonHunter')`Demon Hunter`),
-    specName: i18n._(t('specs.vengeance')`Vengeance`),
+    className: t({
+      id: "specs.demonHunter",
+      message: `Demon Hunter`
+    }),
+    specName: t({
+      id: "specs.vengeance",
+      message: `Vengeance`
+    }),
     role: ROLES.TANK,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 203747,

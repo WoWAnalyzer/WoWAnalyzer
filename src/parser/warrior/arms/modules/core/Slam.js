@@ -62,7 +62,10 @@ class Slam extends Analyzer {
   suggestions(when) {
     when(this.badCastSuggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Try to avoid using <SpellLink id={SPELLS.SLAM.id} /> when <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> or <SpellLink id={SPELLS.EXECUTE.id} /> is available as it is more rage efficient.</>)
       .icon(SPELLS.SLAM.icon)
-      .actual(i18n._(t('warrior.arms.suggestions.slam.efficiency')`Slam was cast ${this.badCast} times accounting for ${formatPercentage(actual)}% of total casts, while Mortal Strike or Execute was available.`))
+      .actual(t({
+      id: "warrior.arms.suggestions.slam.efficiency",
+      message: `Slam was cast ${this.badCast} times accounting for ${formatPercentage(actual)}% of total casts, while Mortal Strike or Execute was available.`
+    }))
       .recommended(`${recommended}% is recommended`));
   }
 

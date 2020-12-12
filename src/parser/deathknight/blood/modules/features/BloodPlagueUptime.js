@@ -35,7 +35,10 @@ class BloodPlagueUptime extends Analyzer {
     when(this.uptimeSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => suggest('Your Blood Plague uptime can be improved. Keeping Blood Boil on cooldown should keep it up at all times.')
             .icon(SPELLS.BLOOD_PLAGUE.icon)
-            .actual(i18n._(t('deathknight.blood.suggestions.bloodPlague.uptime')`${formatPercentage(actual)}% Blood Plague uptime`))
+            .actual(t({
+      id: "deathknight.blood.suggestions.bloodPlague.uptime",
+      message: `${formatPercentage(actual)}% Blood Plague uptime`
+    }))
             .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

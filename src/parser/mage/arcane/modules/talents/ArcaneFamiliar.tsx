@@ -37,7 +37,10 @@ class ArcaneFamiliar extends Analyzer {
 		when(this.arcaneFamiliarUptimeThresholds)
 			.addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.ARCANE_FAMILIAR_TALENT.id} /> was up for {formatPercentage(this.uptime)}% of the fight. If your Arcane Familiar dies, make sure you recast it. If you are having trouble keeping the Arcane Familiar up for the entire fight, consider taking a different talent.</>)
 					.icon(SPELLS.ARCANE_FAMILIAR_TALENT.icon)
-					.actual(i18n._(t('mage.arcane.suggestions.arcaneFamiliar.uptime')`${formatPercentage(this.uptime)}% Uptime`))
+					.actual(t({
+          id: "mage.arcane.suggestions.arcaneFamiliar.uptime",
+          message: `${formatPercentage(this.uptime)}% Uptime`
+        }))
 					.recommended(`${formatPercentage(recommended)}% is recommended`));
 	}
 

@@ -95,7 +95,10 @@ class ButcheryCarve extends Analyzer {
       //Since you're not casting Butchery or Carve on single-target, there's no reason to show the suggestions in cases where the abilities were cast 0 times.
       when(this.avgTargetsHitThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>You should aim to hit as many targets as possible with <SpellLink id={this.spellKnown.id} />. Using it on single-target is not recommended.</>)
         .icon(this.spellKnown.icon)
-        .actual(i18n._(t('hunter.survival.suggestions.butcheryCarve.averageTargets')`${actual} average targets hit per cast`))
+        .actual(t({
+        id: "hunter.survival.suggestions.butcheryCarve.averageTargets",
+        message: `${actual} average targets hit per cast`
+      }))
         .recommended(`>${recommended} is recommended`));
     }
   }

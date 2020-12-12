@@ -56,7 +56,10 @@ class ShieldOfVengeance extends Analyzer {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You consumed a low amount of your total <SpellLink id={SPELLS.SHIELD_OF_VENGEANCE.id} /> absorb. It's best used when you can take enough damage to consume most of the absorb. Getting full absorb usage can be difficult on lower difficulty encounters.</>)
         .icon(SPELLS.SHIELD_OF_VENGEANCE.icon)
-        .actual(i18n._(t('paladin.retribution.suggestions.shieldOfVengeance.absorbUsed')`${formatPercentage(actual)}% Shield of Vengeance absorb used`))
+        .actual(t({
+      id: "paladin.retribution.suggestions.shieldOfVengeance.absorbUsed",
+      message: `${formatPercentage(actual)}% Shield of Vengeance absorb used`
+    }))
         .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

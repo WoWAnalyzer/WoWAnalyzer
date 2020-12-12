@@ -78,7 +78,10 @@ class Cultivation extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your healing from <SpellLink id={SPELLS.CULTIVATION.id} /> could be improved. You may have too many healers or doing easy
         content, thus having low cultivation proc rate. You may considering selecting another talent.</>)
         .icon(SPELLS.CULTIVATION.icon)
-        .actual(i18n._(t('druid.restoration.suggestions.cultivation.notOptimal')`${formatPercentage(this.totalPercent)}% healing`))
+        .actual(t({
+      id: "druid.restoration.suggestions.cultivation.notOptimal",
+      message: `${formatPercentage(this.totalPercent)}% healing`
+    }))
         .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`));
   }
 }

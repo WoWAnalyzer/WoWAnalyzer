@@ -68,7 +68,10 @@ class RefreshingJadeWind extends Analyzer {
       </>,
     )
       .icon(SPELLS.REFRESHING_JADE_WIND_TALENT.icon)
-      .actual(`${formatPercentage(this.avgTargetsHitPerRJWPercentage)}${i18n._(t('monk.mistweaver.suggestions.refreshingJadeWind.avgTargetsHit')`% of targets hit per Refreshing Jade Wind`)}`)
+      .actual(`${formatPercentage(this.avgTargetsHitPerRJWPercentage)}${t({
+      id: "monk.mistweaver.suggestions.refreshingJadeWind.avgTargetsHit",
+      message: `% of targets hit per Refreshing Jade Wind`
+    })}`)
       .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 }

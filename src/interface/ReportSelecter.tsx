@@ -143,7 +143,10 @@ const ReportSelecter = () => {
               ref={reportCodeRef}
               onChange={e => setReportCode(e.target.value)}
               value={reportCode}
-              placeholder={i18n._(t('interface.reportSelecter.reportSelecter.placeholder')`https://www.warcraftlogs.com/reports/<report code>`)}
+              placeholder={t({
+                id: "interface.reportSelecter.reportSelecter.placeholder",
+                message: `https://www.warcraftlogs.com/reports/<report code>`
+              })}
               autoCorrect="off"
               autoCapitalize="off"
               spellCheck="false"

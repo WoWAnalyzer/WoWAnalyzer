@@ -56,7 +56,10 @@ class RunicPowerDetails extends Analyzer {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Runic Power.`)
       .icon('inv_sword_62')
-      .actual(i18n._(t('deathknight.unholy.suggestions.runicPower.wasted')`${formatPercentage(actual)}% wasted`))
+      .actual(t({
+      id: "deathknight.unholy.suggestions.runicPower.wasted",
+      message: `${formatPercentage(actual)}% wasted`
+    }))
       .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 

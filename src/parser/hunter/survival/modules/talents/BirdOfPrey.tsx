@@ -110,7 +110,10 @@ class BirdOfPrey extends Analyzer {
   suggestions(when: When) {
     when(this.birdPercentEffectiveness).addSuggestion((suggest, actual, recommended) => suggest(<>When talented into <SpellLink id={SPELLS.BIRDS_OF_PREY_TALENT.id} />, it's important to cast <SpellLink id={SPELLS.RAPTOR_STRIKE.id} />, <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />, <SpellLink id={SPELLS.CARVE.id} /> or <SpellLink id={SPELLS.BUTCHERY_TALENT.id} /> on the same target as your pet is attacking.</>)
       .icon(SPELLS.BIRDS_OF_PREY_TALENT.icon)
-      .actual(i18n._(t('hunter.survival.suggestions.birdOfPrey.efficiency')`${formatPercentage(actual)}% of abilities extending CA were used on your pets target`))
+      .actual(t({
+      id: "hunter.survival.suggestions.birdOfPrey.efficiency",
+      message: `${formatPercentage(actual)}% of abilities extending CA were used on your pets target`
+    }))
       .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 

@@ -142,7 +142,10 @@ class AntiFillerSpam extends Analyzer {
         </>,
       )
         .icon(SPELLS.SWIPE_BEAR.icon)
-        .actual(i18n._(t('druid.guardian.suggestions.fillerSpells.efficiency')`${formatPercentage(actual)}% unnecessary filler spells cast`))
+        .actual(t({
+      id: "druid.guardian.suggestions.fillerSpells.efficiency",
+      message: `${formatPercentage(actual)}% unnecessary filler spells cast`
+    }))
         .recommended(`${formatPercentage(recommended, 0)}% or less is recommended`)
         .regular(recommended + 0.05).major(recommended + 0.1));
   }

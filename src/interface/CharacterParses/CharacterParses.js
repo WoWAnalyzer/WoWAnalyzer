@@ -47,13 +47,34 @@ const BOSS_DEFAULT_ALL_BOSSES = 0;
 const TRINKET_SLOTS = [12, 13];
 const FALLBACK_PICTURE = '/img/fallback-character.jpg';
 const ERRORS = {
-  CHARACTER_NOT_FOUND: t('interface.characterParses.characterParses.errors.characterNotFound')`We couldn't find your character on Warcraft Logs`,
-  NO_PARSES_FOR_TIER: t('interface.characterParses.characterParses.errors.noParsesForTier')`We couldn't find any logs`,
-  CHARACTER_HIDDEN: t('interface.characterParses.characterParses.errors.characterHidden')`We could find your character but he's very shy`,
-  WCL_API_ERROR: t('interface.characterParses.characterParses.errors.wclAPIError')`Something went wrong talking to Warcraft Logs`,
-  UNKNOWN_API_ERROR: t('interface.characterParses.characterParses.errors.unknownAPIError')`Something went wrong talking to the server`,
-  UNEXPECTED: t('interface.characterParses.characterParses.errors.unexpected')`Something went wrong`,
-  NOT_RESPONDING: t('interface.characterParses.characterParses.errors.notResponding')`Request timed out`,
+  CHARACTER_NOT_FOUND: t({
+    id: "interface.characterParses.characterParses.errors.characterNotFound",
+    message: `We couldn't find your character on Warcraft Logs`
+  }),
+  NO_PARSES_FOR_TIER: t({
+    id: "interface.characterParses.characterParses.errors.noParsesForTier",
+    message: `We couldn't find any logs`
+  }),
+  CHARACTER_HIDDEN: t({
+    id: "interface.characterParses.characterParses.errors.characterHidden",
+    message: `We could find your character but he's very shy`
+  }),
+  WCL_API_ERROR: t({
+    id: "interface.characterParses.characterParses.errors.wclAPIError",
+    message: `Something went wrong talking to Warcraft Logs`
+  }),
+  UNKNOWN_API_ERROR: t({
+    id: "interface.characterParses.characterParses.errors.unknownAPIError",
+    message: `Something went wrong talking to the server`
+  }),
+  UNEXPECTED: t({
+    id: "interface.characterParses.characterParses.errors.unexpected",
+    message: `Something went wrong`
+  }),
+  NOT_RESPONDING: t({
+    id: "interface.characterParses.characterParses.errors.notResponding",
+    message: `Request timed out`
+  }),
 };
 
 class CharacterParses extends React.Component {
@@ -782,7 +803,7 @@ class CharacterParses extends React.Component {
                     </div>
                     <h1 style={{ display: 'inline-block' }}>
                       {this.state.error ? (
-                        i18n._(this.state.error)
+                        this.state.error
                       ) : (
                         <Trans id="interface.characterParses.characterParses.parses">Parses</Trans>
                       )}

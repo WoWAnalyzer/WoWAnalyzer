@@ -43,7 +43,10 @@ class FillerLightOfTheMartyrs extends Analyzer {
     this.inefficientCasts.push(event);
     event.meta = event.meta || {};
     event.meta.isInefficientCast = true;
-    event.meta.inefficientCastReason =i18n._(t('paladin.holy.modules.fillerLightOfTheMatyrs.holyShockWasAvailable')`Holy Shock was available and should have been cast instead as it is a much more efficient spell.`);
+    event.meta.inefficientCastReason =t({
+      id: "paladin.holy.modules.fillerLightOfTheMatyrs.holyShockWasAvailable",
+      message: `Holy Shock was available and should have been cast instead as it is a much more efficient spell.`
+    });
   }
 
   get cpm() {

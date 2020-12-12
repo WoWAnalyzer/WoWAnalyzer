@@ -296,7 +296,10 @@ class RuneTracker extends ResourceTracker {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You overcapped {formatPercentage(actual)}% of your runes. Try to always have at least 3 runes on cooldown.</>)
       .icon(SPELLS.RUNE_1.icon)
-      .actual(i18n._(t('deathknight.shared.suggestions.runes.overcapped')`${formatPercentage(actual)}% runes overcapped`))
+      .actual(t({
+      id: "deathknight.shared.suggestions.runes.overcapped",
+      message: `${formatPercentage(actual)}% runes overcapped`
+    }))
       .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 

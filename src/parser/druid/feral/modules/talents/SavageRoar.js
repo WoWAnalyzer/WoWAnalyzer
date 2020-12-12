@@ -90,7 +90,10 @@ class SavageRoar extends Analyzer {
       </>,
     )
       .icon(SPELLS.SAVAGE_ROAR_TALENT.icon)
-      .actual(i18n._(t('druid.feral.suggestions.savageRoar.uptime')`${formatPercentage(actual)}% uptime`))
+      .actual(t({
+      id: "druid.feral.suggestions.savageRoar.uptime",
+      message: `${formatPercentage(actual)}% uptime`
+    }))
       .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

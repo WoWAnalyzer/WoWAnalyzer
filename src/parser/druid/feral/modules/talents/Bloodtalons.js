@@ -239,7 +239,10 @@ class Bloodtalons extends Analyzer {
       </>,
     )
       .icon(SPELLS.BLOODTALONS_TALENT.icon)
-      .actual(i18n._(t('druid.feral.suggestions.bloodtalons.efficiency')`${actual.toFixed(1)} wasted charges of Bloodtalons per minute.`))
+      .actual(t({
+      id: "druid.feral.suggestions.bloodtalons.efficiency",
+      message: `${actual.toFixed(1)} wasted charges of Bloodtalons per minute.`
+    }))
       .recommended(`${recommended} is recommended`));
   }
 

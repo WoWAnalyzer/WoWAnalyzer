@@ -78,7 +78,10 @@ class SpinningCraneKick extends Analyzer {
       </>,
     )
       .icon(SPELLS.SPINNING_CRANE_KICK.icon)
-      .actual(`${this.badSCKcount}${i18n._(t('monk.mistweaver.suggestions.spinningCraneKick.efficiency')` Spinning Crane Kicks that hit fewer than 3 enemies`)}`)
+      .actual(`${this.badSCKcount}${t({
+      id: "monk.mistweaver.suggestions.spinningCraneKick.efficiency",
+      message: ` Spinning Crane Kicks that hit fewer than 3 enemies`
+    })}`)
       .recommended('Aim to hit 3 or more targets with Spinning Crane Kick if there is less than 3 targets then Rising Sunkick, Blackout Kick or Tiger\'s palm'));
   }
 

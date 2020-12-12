@@ -155,7 +155,10 @@ class FerociousBiteEnergy extends Analyzer {
       </>,
     )
       .icon(SPELLS.FEROCIOUS_BITE.icon)
-      .actual(i18n._(t('druid.feral.suggestions.ferociousBite.efficiency')`${(actual * 100).toFixed(1)}% average damage bonus from energy on Ferocious Bite.`))
+      .actual(t({
+      id: "druid.feral.suggestions.ferociousBite.efficiency",
+      message: `${(actual * 100).toFixed(1)}% average damage bonus from energy on Ferocious Bite.`
+    }))
       .recommended(`${(recommended * 100).toFixed(1)}% is recommended.`));
   }
 }

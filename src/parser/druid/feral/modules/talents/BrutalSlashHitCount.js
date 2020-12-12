@@ -42,7 +42,10 @@ class BrutalSlashHitCount extends HitCountAoE {
       </>,
     )
       .icon(SPELLS.BRUTAL_SLASH_TALENT.icon)
-      .actual(i18n._(t('druid.feral.suggestions.brutalSlash.hitcount.outOfRange')`${actual.toFixed(1)} uses per minute that hit nothing.`))
+      .actual(t({
+      id: "druid.feral.suggestions.brutalSlash.hitcount.outOfRange",
+      message: `${actual.toFixed(1)} uses per minute that hit nothing.`
+    }))
       .recommended(`${recommended} is recommended`));
   }
 }

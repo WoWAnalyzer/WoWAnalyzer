@@ -81,7 +81,10 @@ class Tombstone extends Analyzer {
     when(this.suggestionThresholdsEfficiency)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You casted {this.wastedCasts} <SpellLink id={SPELLS.TOMBSTONE_TALENT.id} /> with less than 5 charges causing a reduced absorb shield.</>)
           .icon(SPELLS.TOMBSTONE_TALENT.icon)
-          .actual(i18n._(t('deathknight.blood.suggestions.tomestone.badCasts')`${formatPercentage(actual)}% bad Tombstone casts`))
+          .actual(t({
+      id: "deathknight.blood.suggestions.tomestone.badCasts",
+      message: `${formatPercentage(actual)}% bad Tombstone casts`
+    }))
           .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 

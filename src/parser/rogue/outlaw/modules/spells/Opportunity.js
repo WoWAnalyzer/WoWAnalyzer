@@ -45,7 +45,10 @@ class Opportunity extends Analyzer {
   suggestions(when) {
     when(this.thresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You casted <SpellLink id={SPELLS.SINISTER_STRIKE.id} /> while having an <SpellLink id={SPELLS.OPPORTUNITY.id} /> proc. Try to prioritize <SpellLink id={SPELLS.PISTOL_SHOT.id} /> as your combo point builder when you have <SpellLink id={SPELLS.OPPORTUNITY.id} /> active to avoid the possibility of missing additional procs.</>)
       .icon(SPELLS.OPPORTUNITY.icon)
-      .actual(i18n._(t('rogue.outlaw.suggestions.opportunity.efficiency')`${formatPercentage(actual)}% inefficient casts`))
+      .actual(t({
+      id: "rogue.outlaw.suggestions.opportunity.efficiency",
+      message: `${formatPercentage(actual)}% inefficient casts`
+    }))
       .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 }

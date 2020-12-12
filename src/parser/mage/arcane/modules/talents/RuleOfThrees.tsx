@@ -52,7 +52,10 @@ class RuleOfThrees extends Analyzer {
 		when(this.ruleOfThreesUtilizationThresholds)
 			.addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.ARCANE_BARRAGE.id} /> {this.barrageWithRuleOfThrees} times while you had the <SpellLink id={SPELLS.RULE_OF_THREES_BUFF.id} /> buff. This buff makes your next <SpellLink id={SPELLS.ARCANE_BLAST.id} /> or <SpellLink id={SPELLS.ARCANE_MISSILES.id} /> free after you gain your third Arcane Charge, so you should ensure that you use the buff before clearing your charges.</>)
 					.icon(SPELLS.RULE_OF_THREES_TALENT.icon)
-					.actual(i18n._(t('mage.arcane.suggestions.ruleOfThrees.utilization')`${formatPercentage(this.utilization)}% Utilization`))
+					.actual(t({
+            id: "mage.arcane.suggestions.ruleOfThrees.utilization",
+            message: `${formatPercentage(this.utilization)}% Utilization`
+        }))
 					.recommended(`${formatPercentage(recommended)}% is recommended`));
 	}
 }

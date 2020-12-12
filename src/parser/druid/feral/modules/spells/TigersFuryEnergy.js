@@ -47,7 +47,10 @@ class TigersFuryEnergy extends Analyzer {
       </>,
     )
       .icon(SPELLS.TIGERS_FURY.icon)
-      .actual(i18n._(t('druid.feral.suggestions.tigerFuryEnergy.energyWasted')`${formatPercentage(actual)}% of generated energy wasted.`))
+      .actual(t({
+      id: "druid.feral.suggestions.tigerFuryEnergy.energyWasted",
+      message: `${formatPercentage(actual)}% of generated energy wasted.`
+    }))
       .recommended(`No waste is recommended`));
   }
 }

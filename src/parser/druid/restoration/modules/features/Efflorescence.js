@@ -70,7 +70,10 @@ class Efflorescence extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>Your <SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} /> uptime can be improved.</span>)
           .icon(SPELLS.EFFLORESCENCE_CAST.icon)
-          .actual(i18n._(t('druid.restoration.efflorescence.uptime')`${formatPercentage(this.uptimePercent)}% uptime`))
+          .actual(t({
+      id: "druid.restoration.efflorescence.uptime",
+      message: `${formatPercentage(this.uptimePercent)}% uptime`
+    }))
           .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`));
 
     // TODO suggestion for early refreshes

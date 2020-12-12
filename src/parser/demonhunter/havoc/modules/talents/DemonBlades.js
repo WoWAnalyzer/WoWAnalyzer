@@ -57,7 +57,10 @@ class DemonBlades extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<> Be mindful of your Fury levels and spend it before capping your Fury due to <SpellLink id={SPELLS.DEMON_BLADES_TALENT.id} />.</>)
         .icon(SPELLS.DEMON_BLADES_TALENT.icon)
-        .actual(i18n._(t('demonhunter.havoc.suggestions.demonBlades.furyWasted')`${formatPercentage(actual)}% Fury wasted`))
+        .actual(t({
+      id: "demonhunter.havoc.suggestions.demonBlades.furyWasted",
+      message: `${formatPercentage(actual)}% Fury wasted`
+    }))
         .recommended(`${formatPercentage(recommended)}% is recommended.`));
   }
 

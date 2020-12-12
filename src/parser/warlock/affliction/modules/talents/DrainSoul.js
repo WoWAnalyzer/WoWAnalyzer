@@ -94,7 +94,10 @@ class DrainSoul extends Analyzer {
         </>,
       )
         .icon('ability_hunter_snipershot')
-        .actual(i18n._(t('warlock.affliction.suggestions.drainSoul.mobsSniped')`${formatPercentage(actual)} % of mobs sniped.`))
+        .actual(t({
+      id: "warlock.affliction.suggestions.drainSoul.mobsSniped",
+      message: `${formatPercentage(actual)} % of mobs sniped.`
+    }))
         .recommended(`>= ${formatPercentage(recommended)} % is recommended`));
   }
 

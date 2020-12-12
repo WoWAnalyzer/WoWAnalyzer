@@ -113,7 +113,10 @@ class Shadowmeld extends Analyzer {
       </React.Fragment>,
     )
       .icon(SPELLS.SHADOWMELD.icon)
-      .actual(i18n._(t('druid.feral.suggetions.shadowmeld.efficiency')`${(actual * 100).toFixed(0)}% cast efficiency.`))
+      .actual(t({
+      id: "druid.feral.suggetions.shadowmeld.efficiency",
+      message: `${(actual * 100).toFixed(0)}% cast efficiency.`
+    }))
       .recommended(`>${(recommended * 100).toFixed(0)}% is recommended`));
 
     when(this.wastedDuringStealthThresholds).addSuggestion((suggest, actual, recommended) => suggest(
@@ -122,7 +125,10 @@ class Shadowmeld extends Analyzer {
       </React.Fragment>,
     )
       .icon(SPELLS.SHADOWMELD.icon)
-      .actual(i18n._(t('druid.feral.suggetions.shadowmeld.wasted')`${this.wastedDuringStealth} cast${this.wastedDuringStealth === 1 ? '' : 's'} when already stealthed.`))
+      .actual(t({
+      id: "druid.feral.suggetions.shadowmeld.wasted",
+      message: `${this.wastedDuringStealth} cast${this.wastedDuringStealth === 1 ? '' : 's'} when already stealthed.`
+    }))
       .recommended('0 is recommended'));
   }
 }

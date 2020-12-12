@@ -150,18 +150,27 @@ class WildGrowth extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your initial healing from <SpellLink id={SPELLS.WILD_GROWTH.id} /> were doing too much overhealing. <SpellLink id={SPELLS.WILD_GROWTH.id} /> does most of it's healing initially and declines over duration. Make sure you are not precasting it before damaging event but after damage occurs.
       </>)
         .icon(SPELLS.WILD_GROWTH.icon)
-        .actual(i18n._(t('druid.restoration.suggestions.wildgrowth.overhealing')`${Math.round(formatPercentage(actual))}% of casts with high overhealing.`))
+        .actual(t({
+      id: "druid.restoration.suggestions.wildgrowth.overhealing",
+      message: `${Math.round(formatPercentage(actual))}% of casts with high overhealing.`
+    }))
         .recommended(`<${Math.round(formatPercentage(recommended))}% is recommended`));
     when(this.suggestionpercentBelowRecommendedCastsThresholds)
       .addSuggestion((suggest) => suggest(<>You sometimes cast <SpellLink id={SPELLS.WILD_GROWTH.id} /> on too few targets. <SpellLink id={SPELLS.WILD_GROWTH.id} /> is not mana efficient when hitting few targets, you should only cast it when you can hit at least {RECOMMENDED_HIT_THRESHOLD} wounded targets. Make sure you are not casting on a primary target isolated from the raid. <SpellLink id={SPELLS.WILD_GROWTH.id} /> has a maximum hit radius, the injured raiders could have been out of range. Also, you should never pre-hot with <SpellLink id={SPELLS.WILD_GROWTH.id} />.
       </>)
         .icon(SPELLS.WILD_GROWTH.icon)
-        .actual(i18n._(t('druid.restoration.suggestions.wildgrowth.tooFewTargets')`${formatPercentage(this.percentBelowRecommendedCasts, 0)}% of your casts on fewer than ${RECOMMENDED_HIT_THRESHOLD} targets.`))
+        .actual(t({
+      id: "druid.restoration.suggestions.wildgrowth.tooFewTargets",
+      message: `${formatPercentage(this.percentBelowRecommendedCasts, 0)}% of your casts on fewer than ${RECOMMENDED_HIT_THRESHOLD} targets.`
+    }))
         .recommended(`never casting on fewer than ${RECOMMENDED_HIT_THRESHOLD} is recommended`));
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.WILD_GROWTH.id} /> to rejuv ratio can be improved, try to cast more wild growths if possible as it is usually more efficient.</>)
         .icon(SPELLS.WILD_GROWTH.icon)
-        .actual(i18n._(t('druid.restoration.suggestions.wildgrowth.rejuvenationRatio')`${this.wgs} WGs / ${this.rejuvs} rejuvs`))
+        .actual(t({
+      id: "druid.restoration.suggestions.wildgrowth.rejuvenationRatio",
+      message: `${this.wgs} WGs / ${this.rejuvs} rejuvs`
+    }))
         .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`));
   }
 

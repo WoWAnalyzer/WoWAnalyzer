@@ -107,7 +107,10 @@ class Nightstalker extends StealthCasts {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your failed to cast <SpellLink id={SPELLS.RUPTURE.id} /> after <SpellLink id={SPELLS.VANISH.id} /> {this.vanishCasts - this.vanishCastsSpentOnRupture} time(s). Make sure to prioritize spending your Vanish on snapshotting <SpellLink id={SPELLS.RUPTURE.id} /> when using <SpellLink id={SPELLS.NIGHTSTALKER_TALENT.id} />.</>)
       .icon(SPELLS.GARROTE.icon)
-      .actual(i18n._(t('rogue.assassination.suggestions.nightstalker.snapshots')`${formatPercentage(actual)}% of Vanishes used to snapshot Rupture`))
+      .actual(t({
+      id: "rogue.assassination.suggestions.nightstalker.snapshots",
+      message: `${formatPercentage(actual)}% of Vanishes used to snapshot Rupture`
+    }))
       .recommended(`>${formatPercentage(recommended)}% is recommended`));
     when(this.suggestionThresholdsOpener).isFalse().addSuggestion((suggest, actual, recommended) => suggest(<>You failed to snapshot a <SpellLink id={SPELLS.RUPTURE.id} /> or <SpellLink id={SPELLS.GARROTE.id} /> on pull from stealth. Make sure your first cast when using <SpellLink id={SPELLS.NIGHTSTALKER_TALENT.id} /> is a <SpellLink id={SPELLS.RUPTURE.id} /> or <SpellLink id={SPELLS.GARROTE.id} />.</>)
       .icon(SPELLS.NIGHTSTALKER_TALENT.icon));

@@ -30,7 +30,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     if (!boss || !boss.fight.disableDowntimeSuggestion) {
       when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting something instant with range like <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> or <SpellLink id={SPELLS.BLADE_OF_JUSTICE.id} icon />.</>)
           .icon('spell_mage_altertime')
-          .actual(i18n._(t('paladin.retribution.alwaysBeCasting.downtime')`${formatPercentage(actual)}% downtime`))
+          .actual(t({
+        id: "paladin.retribution.alwaysBeCasting.downtime",
+        message: `${formatPercentage(actual)}% downtime`
+      }))
           .recommended(`<${formatPercentage(recommended)}% is recommended`));
     }
   }

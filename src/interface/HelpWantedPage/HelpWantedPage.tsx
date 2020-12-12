@@ -39,7 +39,10 @@ const HelpWanted = () => (
       <img
         src="https://media.giphy.com/media/l1J3vV5lCmv8qx16M/giphy.gif"
         style={{ width: '100%' }}
-        alt={i18n._(t('interface.helpWantedPage.sharingIsCaring')`Sharing is caring`)}
+        alt={t({
+          id: "interface.helpWantedPage.sharingIsCaring",
+          message: `Sharing is caring`
+        })}
       />
     </Panel>
   </>

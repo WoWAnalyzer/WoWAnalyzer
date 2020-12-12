@@ -61,7 +61,10 @@ class HitCombo extends Analyzer {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<span>You let your <SpellLink id={SPELLS.HIT_COMBO_TALENT.id} /> buff drop by casting a spell twice in a row. Dropping this buff is a large DPS decrease so be mindful of the spells being cast.</span>)
           .icon(SPELLS.HIT_COMBO_TALENT.icon)
-          .actual(i18n._(t('monk.windwalker.suggestions.hitCombo.uptime')`${formatPercentage(actual)} % uptime`))
+          .actual(t({
+      id: "monk.windwalker.suggestions.hitCombo.uptime",
+      message: `${formatPercentage(actual)} % uptime`
+    }))
           .recommended(`>${formatPercentage(recommended)} % is recommended`));
   }
 

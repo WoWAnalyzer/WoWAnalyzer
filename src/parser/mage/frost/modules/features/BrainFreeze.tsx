@@ -148,22 +148,34 @@ class BrainFreeze extends Analyzer {
     when(this.brainFreezeOverwritenThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You overwrite {formatPercentage(actual)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs. You should use your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs as soon as possible and avoid letting them expire or be overwritten whenever possible. There are not any situations where it would be advantageous to hold your <SpellLink id={SPELLS.BRAIN_FREEZE.id} />.</>)
           .icon(SPELLS.BRAIN_FREEZE.icon)
-          .actual(i18n._(t('mage.frost.suggestions.brainFreeze.overwritten')`${formatPercentage(actual)}% overwritten`))
+          .actual(t({
+      id: "mage.frost.suggestions.brainFreeze.overwritten",
+      message: `${formatPercentage(actual)}% overwritten`
+    }))
           .recommended(`Overwriting none is recommended`));
     when(this.brainFreezeExpiredThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You allowed {formatPercentage(actual)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs to expire. Make sure you are using your procs as soon as possible to avoid this.</>)
           .icon(SPELLS.BRAIN_FREEZE.icon)
-          .actual(i18n._(t('mage.frost.suggestions.brainFreeze.expired')`${formatPercentage(actual)}% expired`))
+          .actual(t({
+      id: "mage.frost.suggestions.brainFreeze.expired",
+      message: `${formatPercentage(actual)}% expired`
+    }))
           .recommended(`Letting none expire is recommended`));
     when(this.flurryWithoutBrainFreezeThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.FLURRY.id} /> without <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> {actual} times. <SpellLink id={SPELLS.FLURRY.id} /> does not debuff the target with <SpellLink id={SPELLS.WINTERS_CHILL.id} /> unless you have a <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc, so you should never cast <SpellLink id={SPELLS.FLURRY.id} /> unless you have <SpellLink id={SPELLS.BRAIN_FREEZE.id} />.</>)
           .icon(SPELLS.FLURRY.icon)
-          .actual(i18n._(t('mage.frost.suggestions.brainFreeze.casts')`${formatNumber(actual)} casts`))
+          .actual(t({
+      id: "mage.frost.suggestions.brainFreeze.casts",
+      message: `${formatNumber(actual)} casts`
+    }))
           .recommended(`Casting none is recommended`));
     when(this.overlappedFlurryThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You used a <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc via casting <SpellLink id={SPELLS.FLURRY.id} /> while the target still had the <SpellLink id={SPELLS.WINTERS_CHILL.id} /> debuff on them {this.flurryOverlapped} times. Using <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> applies 2 stacks of <SpellLink id={SPELLS.WINTERS_CHILL.id} /> to the target so you should always ensure you are spending both stacks before you use another <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc.</>)
           .icon(SPELLS.FLURRY.icon)
-          .actual(i18n._(t('mage.frost.suggestions.brainFreeze.casts')`${formatNumber(actual)} casts`))
+          .actual(t({
+      id: "mage.frost.suggestions.brainFreeze.casts",
+      message: `${formatNumber(actual)} casts`
+    }))
           .recommended(`Casting none is recommended`));
   }
 

@@ -67,7 +67,10 @@ class Predator extends Analyzer {
       </>,
     )
       .icon(SPELLS.PREDATOR_TALENT.icon)
-      .actual(i18n._(t('druid.feral.suggestions.predator.efficiency')`${actual.toFixed(1)} extra casts of Tiger's Fury per minute.`))
+      .actual(t({
+      id: "druid.feral.suggestions.predator.efficiency",
+      message: `${actual.toFixed(1)} extra casts of Tiger's Fury per minute.`
+    }))
       .recommended(`>${recommended.toFixed(1)} is recommended`));
   }
 

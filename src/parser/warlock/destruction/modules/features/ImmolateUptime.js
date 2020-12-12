@@ -40,7 +40,10 @@ class ImmolateUptime extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.IMMOLATE_DEBUFF.id} /> uptime can be improved. Try to pay more attention to it as it provides a significant amount of Soul Shard Fragments over the fight and is also a big portion of your total damage.</>)
         .icon(SPELLS.IMMOLATE_DEBUFF.icon)
-        .actual(i18n._(t('warlock.destruction.suggestions.immolate.uptime')`${formatPercentage(actual)}% Immolate uptime`))
+        .actual(t({
+      id: "warlock.destruction.suggestions.immolate.uptime",
+      message: `${formatPercentage(actual)}% Immolate uptime`
+    }))
         .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

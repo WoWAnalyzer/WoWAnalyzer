@@ -68,7 +68,10 @@ class Disperion extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>You spent {Math.round(this.dispersionUptime / 1000)} seconds (out of a possible {Math.round(this.maxDispersionTime / 1000)} seconds) in <SpellLink id={SPELLS.DISPERSION.id} />. Consider using <SpellLink id={SPELLS.DISPERSION.id} /> less or cancel it early.</span>)
         .icon(SPELLS.DISPERSION.icon)
-        .actual(i18n._(t('priest.shadow.suggestions.dispersion.uptime')`${formatPercentage(actual)}% Dispersion uptime`))
+        .actual(t({
+      id: "priest.shadow.suggestions.dispersion.uptime",
+      message: `${formatPercentage(actual)}% Dispersion uptime`
+    }))
         .recommended(`<${formatPercentage(recommended)}% is recommended, unless the encounter requires it.`));
   }
 }

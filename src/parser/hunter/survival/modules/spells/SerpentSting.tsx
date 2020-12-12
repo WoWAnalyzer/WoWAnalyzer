@@ -209,18 +209,27 @@ class SerpentSting extends Analyzer {
 
       when(this.uptimeThresholdBoP).addSuggestion((suggest, actual, recommended) => suggest(suggestionText)
         .icon(SPELLS.SERPENT_STING_SV.icon)
-        .actual(i18n._(t('hunter.survival.suggestions.serpentSting.pandemicWindow')`${formatPercentage(actual)}% Serpent Sting uptime`))
+        .actual(t({
+        id: "hunter.survival.suggestions.serpentSting.pandemicWindow",
+        message: `${formatPercentage(actual)}% Serpent Sting uptime`
+      }))
         .recommended(`<${formatPercentage(recommended)}% is recommended`));
     } else {
       when(this.uptimeThresholdNonBoP).addSuggestion((suggest, actual, recommended) => suggest(<>Remember to maintain the <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> on enemies, but don't refresh the debuff unless it has less than {formatPercentage(SERPENT_STING_SV_PANDEMIC, 0)}% duration remaining.</>)
         .icon(SPELLS.SERPENT_STING_SV.icon)
-        .actual(i18n._(t('hunter.survival.suggestions.serpentSting.uptime')`${formatPercentage(actual)}% Serpent Sting uptime`))
+        .actual(t({
+        id: "hunter.survival.suggestions.serpentSting.uptime",
+        message: `${formatPercentage(actual)}% Serpent Sting uptime`
+      }))
         .recommended(`>${formatPercentage(recommended)}% is recommended`));
     }
 
     when(this.nonPandemicThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>It is not recommended to refresh <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> earlier than when there is less than {formatPercentage(SERPENT_STING_SV_PANDEMIC, 0)}% of the duration remaining. </>)
       .icon(SPELLS.SERPENT_STING_SV.icon)
-      .actual(i18n._(t('hunter.survival.suggestions.serpentSting.tooEarly')`${actual} Serpent Sting cast(s) were cast too early`))
+      .actual(t({
+      id: "hunter.survival.suggestions.serpentSting.tooEarly",
+      message: `${actual} Serpent Sting cast(s) were cast too early`
+    }))
       .recommended(`<${recommended} is recommended`));
   }
 

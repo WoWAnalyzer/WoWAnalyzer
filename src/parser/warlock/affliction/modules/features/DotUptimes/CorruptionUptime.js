@@ -42,7 +42,10 @@ class CorruptionUptime extends Analyzer {
         </>,
       )
         .icon(SPELLS.CORRUPTION_CAST.icon)
-        .actual(i18n._(t('warlock.affliction.suggestions.corruption.uptime')`${formatPercentage(actual)}% Corruption uptime`))
+        .actual(t({
+      id: "warlock.affliction.suggestions.corruption.uptime",
+      message: `${formatPercentage(actual)}% Corruption uptime`
+    }))
         .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

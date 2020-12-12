@@ -43,7 +43,10 @@ class RushingJadeWind extends Analyzer {
     when(this.uptimeThreshold)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You had low uptime on <SpellLink id={SPELLS.RUSHING_JADE_WIND.id} />. Try to maintain 100% uptime by refreshing the buff before it drops.</>)
         .icon(SPELLS.RUSHING_JADE_WIND.icon)
-        .actual(i18n._(t('monk.brewmaster.suggestions.rushingJadeWind.uptime')`${formatPercentage(actual)}% uptime`))
+        .actual(t({
+      id: "monk.brewmaster.suggestions.rushingJadeWind.uptime",
+      message: `${formatPercentage(actual)}% uptime`
+    }))
         .recommended(`${Math.round(formatPercentage(recommended))}% is recommended`));
   }
 }

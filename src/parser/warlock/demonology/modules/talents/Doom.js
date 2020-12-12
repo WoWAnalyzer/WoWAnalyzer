@@ -52,7 +52,10 @@ class Doom extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.DOOM_TALENT.id} /> uptime can be improved. Try to pay more attention to your Doom on the boss, as it is one of your Soul Shard generators.</>)
         .icon(SPELLS.DOOM_TALENT.icon)
-        .actual(i18n._(t('warlock.demonology.suggestions.doom.uptime')`${formatPercentage(actual)}% Doom uptime`))
+        .actual(t({
+      id: "warlock.demonology.suggestions.doom.uptime",
+      message: `${formatPercentage(actual)}% Doom uptime`
+    }))
         .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

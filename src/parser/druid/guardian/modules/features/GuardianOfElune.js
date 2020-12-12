@@ -88,7 +88,10 @@ class GuardianOfElune extends Analyzer {
     when(unusedGoEProcs).isGreaterThan(0.3)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>You wasted {formatPercentage(unusedGoEProcs)}% of your <SpellLink id={SPELLS.GUARDIAN_OF_ELUNE.id} /> procs. Try to use the procs as soon as you get them so they are not overwritten.</span>)
         .icon(SPELLS.GUARDIAN_OF_ELUNE.icon)
-        .actual(i18n._(t('druid.guardian.suggestions.guardianOfElune.unused')`${formatPercentage(unusedGoEProcs)}% unused`))
+        .actual(t({
+      id: "druid.guardian.suggestions.guardianOfElune.unused",
+      message: `${formatPercentage(unusedGoEProcs)}% unused`
+    }))
         .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
         .regular(recommended + 0.15).major(recommended + 0.3));
   }

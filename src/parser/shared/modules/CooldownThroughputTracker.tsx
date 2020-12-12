@@ -259,7 +259,10 @@ class CooldownThroughputTracker extends Analyzer {
 
   tab() {
     return {
-    title: i18n._(t('shared.cooldownThroughputTracker.tab')`Cooldowns`),
+    title: t({
+      id: "shared.cooldownThroughputTracker.tab",
+      message: `Cooldowns`
+    }),
       icon: CooldownIcon,
       url: 'cooldowns',
       render: () => (

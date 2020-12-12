@@ -44,7 +44,10 @@ class ComboPointDetails extends Analyzer {
       </>,
     )
       .icon('creatureportrait_bubble')
-      .actual(i18n._(t('druid.feral.suggestions.comboPoints.wasted')`${actual.toFixed(1)} combo points wasted per minute`))
+      .actual(t({
+      id: "druid.feral.suggestions.comboPoints.wasted",
+      message: `${actual.toFixed(1)} combo points wasted per minute`
+    }))
       .recommended('zero waste is recommended'));
   }
 

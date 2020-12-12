@@ -18,7 +18,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       when(deadTimePercentage).isGreaterThan(0.2)
         .addSuggestion((suggest, actual, recommended) => suggest(<span>Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. If a fight requires movement, try saving <SpellLink id={SPELLS.PRESENCE_OF_MIND.id} /> to make your next 2 <SpellLink id={SPELLS.ARCANE_BLAST.id} /> casts instant.</span>)
             .icon('spell_mage_altertime')
-            .actual(i18n._(t('mage.arcane.suggestions.alwaysBeCasting.downtime')`${formatPercentage(actual)}% downtime`))
+            .actual(t({
+        id: "mage.arcane.suggestions.alwaysBeCasting.downtime",
+        message: `${formatPercentage(actual)}% downtime`
+      }))
             .recommended(`<${formatPercentage(recommended)}% is recommended`)
             .regular(recommended + 0.15).major(recommended + 0.2));
     }

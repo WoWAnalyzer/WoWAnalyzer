@@ -131,7 +131,10 @@ class SoulOfTheForest extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => suggest(<span>You did not consume all your <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> buffs with <SpellLink id={SPELLS.WILD_GROWTH.id} />.
           Try to use <SpellLink id={SPELLS.WILD_GROWTH.id} /> every time you get a <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> buff.</span>)
         .icon(SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.icon)
-        .actual(i18n._(t('druid.restoration.suggestions.soulOfTheForest.efficiency')`Wild growth consumed ${formatPercentage(this.wgUsagePercent)}% of all the buffs.`))
+        .actual(t({
+      id: "druid.restoration.suggestions.soulOfTheForest.efficiency",
+      message: `Wild growth consumed ${formatPercentage(this.wgUsagePercent)}% of all the buffs.`
+    }))
         .recommended(`${Math.round(formatPercentage(recommended))}% is recommended`));
   }
 

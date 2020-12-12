@@ -43,7 +43,10 @@ class SiphonLifeUptime extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.SIPHON_LIFE_TALENT.id} /> uptime can be improved. Try to pay more attention to your Siphon Life on the boss, perhaps use some debuff tracker.</>)
         .icon(SPELLS.SIPHON_LIFE_TALENT.icon)
-        .actual(i18n._(t('warlock.affliction.suggestions.siphonLife.uptime')`${formatPercentage(actual)}% Siphon Life uptime`))
+        .actual(t({
+      id: "warlock.affliction.suggestions.siphonLife.uptime",
+      message: `${formatPercentage(actual)}% Siphon Life uptime`
+    }))
         .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

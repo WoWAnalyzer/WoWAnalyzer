@@ -64,7 +64,10 @@ class LegionStrike extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your Felguard didn't cast <SpellLink id={SPELLS.FELGUARD_LEGION_STRIKE.id} /> at all. Remember to turn on the auto-cast for this ability as it's a great portion of your total damage.</>)
         .icon(SPELLS.FELGUARD_LEGION_STRIKE.icon)
-        .actual(i18n._(t('warlock.demonology.suggestions.legionStrike.casts')`${actual} Legion Strike casts`))
+        .actual(t({
+      id: "warlock.demonology.suggestions.legionStrike.casts",
+      message: `${actual} Legion Strike casts`
+    }))
         .recommended(`> ${recommended} casts are recommended`));
   }
 

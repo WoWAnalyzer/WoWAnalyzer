@@ -76,7 +76,10 @@ class Backdraft extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You should use your <SpellLink id={SPELLS.BACKDRAFT.id} /> stacks more. You have wasted {this.wastedStacks} stacks this fight.</>)
         .icon(SPELLS.BACKDRAFT.icon)
-        .actual(i18n._(t('warlock.destruction.suggestions.backdraft.wastedPerMinute')`${actual.toFixed(2)} wasted Backdraft stacks per minute`))
+        .actual(t({
+      id: "warlock.destruction.suggestions.backdraft.wastedPerMinute",
+      message: `${actual.toFixed(2)} wasted Backdraft stacks per minute`
+    }))
         .recommended(`< ${recommended} is recommended`));
   }
 

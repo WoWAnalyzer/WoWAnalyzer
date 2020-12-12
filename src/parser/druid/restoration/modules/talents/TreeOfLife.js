@@ -169,7 +169,10 @@ class TreeOfLife extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} /> is not providing you much throughput. You may want to plan your CD usage better or pick another talent.</>)
         .icon(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.icon)
-        .actual(i18n._(t('druid.restoration.suggestions.treeOfLife.efficiency')`${formatPercentage(actual)}% healing`))
+        .actual(t({
+      id: "druid.restoration.suggestions.treeOfLife.efficiency",
+      message: `${formatPercentage(actual)}% healing`
+    }))
         .recommended(`>${formatPercentage(recommended, 0)}% is recommended`));
   }
 

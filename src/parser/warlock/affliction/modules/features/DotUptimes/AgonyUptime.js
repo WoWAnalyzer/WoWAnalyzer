@@ -44,7 +44,10 @@ class AgonyUptime extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(text)
         .icon(SPELLS.AGONY.icon)
-        .actual(i18n._(t('warlock.affliction.suggestions.agony.uptime')`${formatPercentage(actual)}% Agony uptime`))
+        .actual(t({
+      id: "warlock.affliction.suggestions.agony.uptime",
+      message: `${formatPercentage(actual)}% Agony uptime`
+    }))
         .recommended(`> ${formatPercentage(recommended)}% is recommended`));
   }
 

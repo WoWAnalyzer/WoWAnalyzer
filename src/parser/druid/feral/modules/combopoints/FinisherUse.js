@@ -122,7 +122,10 @@ class FinisherUse extends Analyzer {
       </>,
     )
       .icon('creatureportrait_bubble')
-      .actual(i18n._(t('druid.feral.suggestions.finishers.efficiency')`${(actual * 100).toFixed(0)}% of finishers were incorrectly used without full combo points`))
+      .actual(t({
+      id: "druid.feral.suggestions.finishers.efficiency",
+      message: `${(actual * 100).toFixed(0)}% of finishers were incorrectly used without full combo points`
+    }))
       .recommended(`${(recommended * 100).toFixed(0)}% is recommended`));
   }
 

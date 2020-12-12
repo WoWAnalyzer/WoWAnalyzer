@@ -41,7 +41,10 @@ class RendUptime extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.REND_TALENT.id} /> uptime can be improved. If you choose this talent, you better use it !</>)
       .icon(SPELLS.REND_TALENT.icon)
-      .actual(i18n._(t('warrior.arms.suggestions.rend.uptime')`${formatPercentage(actual)}% Rend uptime`))
+      .actual(t({
+      id: "warrior.arms.suggestions.rend.uptime",
+      message: `${formatPercentage(actual)}% Rend uptime`
+    }))
       .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

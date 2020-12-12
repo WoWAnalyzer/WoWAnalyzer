@@ -91,7 +91,10 @@ class CrimsonScourge extends Analyzer {
     }
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You had unspent <SpellLink id={SPELLS.CRIMSON_SCOURGE.id} /> procs. Make sure you always use them.</>)
         .icon(SPELLS.CRIMSON_SCOURGE.icon)
-        .actual(i18n._(t('deathknight.blood.suggestions.crimsonScourge.procsWasted')`${formatPercentage(actual)}% Crimson Scourge procs wasted`))
+        .actual(t({
+      id: "deathknight.blood.suggestions.crimsonScourge.procsWasted",
+      message: `${formatPercentage(actual)}% Crimson Scourge procs wasted`
+    }))
         .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 

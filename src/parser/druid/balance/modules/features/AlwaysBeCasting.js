@@ -23,7 +23,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest('Your downtime can be improved. Try to Always Be Casting (ABC)...')
       .icon('spell_mage_altertime')
-      .actual(i18n._(t('druid.balance.suggestions.alwaysBeCasting.downtime')`${formatPercentage(actual)}% downtime`))
+      .actual(t({
+      id: "druid.balance.suggestions.alwaysBeCasting.downtime",
+      message: `${formatPercentage(actual)}% downtime`
+    }))
       .recommended(`${formatPercentage(recommended)}% or less is recommended`));
   }
 }
