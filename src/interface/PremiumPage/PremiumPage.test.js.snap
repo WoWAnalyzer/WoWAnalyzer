@@ -335,30 +335,17 @@ exports[`PremiumPage matches snapshot when logged in with GitHub 1`] = `
         >
           <Trans
             id="interface.premiumPage.status"
-            message="Hello {0}. Your Premium is currently {1}{2}{3}. {4}"
+            message="Hello {0}. Your Premium is currently {1} {2} {3}. {4}"
             values={
               Object {
                 "0": "Martijn Hols",
                 "1": <span
                   className="text-danger"
                 >
-                  <Trans
-                    id="interface.premiumPage.status.inactive"
-                  >
-                    Inactive
-                  </Trans>
+                  {"id":"interface.premiumPage.status.inactive","message":"Inactive"}
                 </span>,
                 "2": undefined,
-                "3": <React.Fragment>
-                   
-                  <Trans
-                    id="interface.premiumPage.status.gitHub"
-                  >
-                    because of a recent GitHub contribution (active until 
-                    Mon, 02 Jul 2018 11:48:40 GMT
-                    )
-                  </Trans>
-                </React.Fragment>,
+                "3": " {\\"id\\":\\"interface.premiumPage.status.gitHub\\",\\"message\\":\\"because of a recent GitHub contribution (active until {0})\\",\\"values\\":{\\"0\\":\\"Mon, 02 Jul 2018 11:48:40 GMT\\"}}",
                 "4": "{\\"id\\":\\"interface.premiumPage.status.getPremium\\",\\"message\\":\\"You can get Premium by becoming a Patron on Patreon or by making a contribution to application on GitHub. Try logging in again if you wish to refresh your status.\\"}",
               }
             }
@@ -705,20 +692,16 @@ exports[`PremiumPage matches snapshot when logged in with Patreon 1`] = `
         >
           <Trans
             id="interface.premiumPage.status"
-            message="Hello {0}. Your Premium is currently {1}{2}{3}. {4}"
+            message="Hello {0}. Your Premium is currently {1} {2} {3}. {4}"
             values={
               Object {
                 "0": "Martijn Hols",
                 "1": <span
                   className="text-danger"
                 >
-                  <Trans
-                    id="interface.premiumPage.status.inactive"
-                  >
-                    Inactive
-                  </Trans>
+                  {"id":"interface.premiumPage.status.inactive","message":"Inactive"}
                 </span>,
-                "2": "{\\"id\\":\\"interface.premiumPage.status.patreon\\",\\"message\\":\\"because of your Patreonage\\"}",
+                "2": " {\\"id\\":\\"interface.premiumPage.status.patreon\\",\\"message\\":\\"because of your Patreonage\\"}",
                 "3": undefined,
                 "4": "{\\"id\\":\\"interface.premiumPage.status.getPremium\\",\\"message\\":\\"You can get Premium by becoming a Patron on Patreon or by making a contribution to application on GitHub. Try logging in again if you wish to refresh your status.\\"}",
               }

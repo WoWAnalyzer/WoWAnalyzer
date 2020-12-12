@@ -5751,16 +5751,7 @@ Array [
           />,
           "2": <TooltipElement
             className=""
-            content={
-              <Trans
-                id="paladin.holy.modules.fillerFlashOfLight.suggestion.tooltip"
-              >
-                It was either already available or going to be available within
-                 
-                200
-                ms.
-              </Trans>
-            }
+            content="{\\"id\\":\\"paladin.holy.modules.fillerFlashOfLight.suggestion.tooltip\\",\\"message\\":\\"It was either already available or going to be available within {HOLY_SHOCK_COOLDOWN_WAIT_TIME}ms.\\",\\"values\\":{\\"HOLY_SHOCK_COOLDOWN_WAIT_TIME\\":200}}"
             direction="down"
             hoverable={false}
             style={Object {}}
@@ -5771,13 +5762,7 @@ Array [
           />,
           "4": <TooltipElement
             className=""
-            content={
-              <Trans
-                id="paladin.holy.modules.fillerFlashOfLight.suggestion.exceptions"
-              >
-                There are very rare exceptions to this. For example it may be worth saving Holy Shock when you know you're going to be moving soon and you may have to heal yourself.
-              </Trans>
-            }
+            content="{\\"id\\":\\"paladin.holy.modules.fillerFlashOfLight.suggestion.exceptions\\",\\"message\\":\\"There are very rare exceptions to this. For example it may be worth saving Holy Shock when you know you're going to be moving soon and you may have to heal yourself.\\"}"
             direction="down"
             hoverable={false}
             style={Object {}}
@@ -5871,16 +5856,7 @@ Array [
           />,
           "2": <TooltipElement
             className=""
-            content={
-              <Trans
-                id="paladin.holy.modules.fillerLightOfTheMatyrs.inefficientSuggestion.availableWithin"
-              >
-                It was either already available or going to be available within
-                 
-                200
-                ms.
-              </Trans>
-            }
+            content="{\\"id\\":\\"paladin.holy.modules.fillerLightOfTheMatyrs.inefficientSuggestion.availableWithin\\",\\"message\\":\\"It was either already available or going to be available within {HOLY_SHOCK_COOLDOWN_WAIT_TIME}ms.\\",\\"values\\":{\\"HOLY_SHOCK_COOLDOWN_WAIT_TIME\\":200}}"
             direction="down"
             hoverable={false}
             style={Object {}}
@@ -5892,13 +5868,7 @@ Array [
           />,
           "5": <TooltipElement
             className=""
-            content={
-              <Trans
-                id="paladin.holy.modules.fillerLightOfTheMatyrs.inefficientSuggestion.exceptions"
-              >
-                There are very rare exceptions to this. For example it may be worth saving Holy Shock when you know you're going to be moving soon and you may have to heal yourself.
-              </Trans>
-            }
+            content="{\\"id\\":\\"paladin.holy.modules.fillerLightOfTheMatyrs.inefficientSuggestion.exceptions\\",\\"message\\":\\"There are very rare exceptions to this. For example it may be worth saving Holy Shock when you know you're going to be moving soon and you may have to heal yourself.\\"}"
             direction="down"
             hoverable={false}
             style={Object {}}
@@ -9224,13 +9194,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   />,
                   "1": <TooltipElement
                     className=""
-                    content={
-                      <Trans
-                        id="paladin.holy.modules.checklist.usePrimarySpells.descriptionTooltipElement"
-                      >
-                        When you're not bringing too many healers.
-                      </Trans>
-                    }
+                    content="{\\"id\\":\\"paladin.holy.modules.checklist.usePrimarySpells.descriptionTooltipElement\\",\\"message\\":\\"When you're not bringing too many healers.\\"}"
                     direction="down"
                     hoverable={false}
                     style={Object {}}
@@ -9244,7 +9208,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                 }
               }
               id="paladin.holy.modules.checklist.usePrimarySpells.description"
-              message="<0/>{0}{1}{2}{3}{4}are your most efficient healing spells available. Try to cast them as much as possible without overhealing.<1>On Mythic</1> you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and improving your target selection. <2>More info.</2>"
+              message="<0/>{0} {1} {2} {3} {4} are your most efficient healing spells available. Try to cast them as much as possible without overhealing.<1>On Mythic</1> you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and improving your target selection. <2>More info.</2>"
               values={
                 Object {
                   "0": <ForwardRef
@@ -9253,7 +9217,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   "1": <ForwardRef
                     id={20271}
                   />,
-                  "2": " when using ",
+                  "2": "when using",
                   "3": <ForwardRef
                     id={183811}
                   />,
@@ -10749,13 +10713,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                 Object {
                   "0": <TooltipElement
                     className=""
-                    content={
-                      <Trans
-                        id="paladin.holy.modules.checklist.avoidBeingInactive.description.ignoreDamage"
-                      >
-                        While helping with damage would be optimal, it's much less important as a healer than any of the other suggestions on this checklist. You should ignore this suggestion while you are having difficulties with anything else.
-                      </Trans>
-                    }
+                    content="{\\"id\\":\\"paladin.holy.modules.checklist.avoidBeingInactive.description.ignoreDamage\\",\\"message\\":\\"While helping with damage would be optimal, it's much less important as a healer than any of the other suggestions on this checklist. You should ignore this suggestion while you are having difficulties with anything else.\\"}"
                     direction="down"
                     hoverable={false}
                     style={Object {}}
