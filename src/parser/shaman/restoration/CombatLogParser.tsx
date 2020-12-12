@@ -9,6 +9,8 @@ import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
 
+import AlwaysBeCasting from 'parser/shaman/restoration/modules/features/AlwaysBeCasting';
+
 import HealingEfficiencyDetails from './modules/core/HealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/core/HealingEfficiencyTracker';
 import Abilities from './modules/Abilities';
@@ -18,7 +20,7 @@ import HealingRainLocation from './modules/core/HealingRainLocation';
 import RestorationAbilityTracker from './modules/core/RestorationAbilityTracker';
 
 import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
-import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Checklist from './modules/features/checklist/Module';
 import SpellUsable from './modules/features/SpellUsable';

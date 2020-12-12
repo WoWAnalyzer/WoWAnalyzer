@@ -917,7 +917,7 @@
   "shared.raidHealth.tab.explanation": "The stacked health of your raid to give an idea of the healing intensity. Most progression raid fights the raid will rarely be topped.",
   "shared.raidHealth.tab.title": "Raid health",
   "shared.suggestions.alwaysBeCasting.activeTime": "{0}% active time",
-  "shared.suggestions.alwaysBeCasting.downtime": "downtime",
+  "shared.suggestions.alwaysBeCasting.downtime": "{0}% downtime",
   "shared.suggestions.alwaysBeCasting.nonHealingTime": "non healing time",
   "shared.suggestions.alwaysBeCasting.suggestion": "Your downtime can be improved. Try to Always Be Casting (ABC), avoid delays between casting spells and cast instant spells when you have to move.",
   "shared.suggestions.alwaysBeCastingHealing.timeSpentHealing": "{0}% time spent healing",
