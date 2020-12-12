@@ -47,6 +47,9 @@ import RuneForgeChecker from './modules/core/RuneForgeChecker';
 import RuneOfTheFallenCrusader from '../shared/runeforges/RuneOfTheFallenCrusader';
 import RuneOfHysteria from '../shared/runeforges/RuneOfHysteria';
 
+// Legendaries
+import BrynadaorsMight from './modules/items/BrynadaorsMight';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core Statistics
@@ -99,7 +102,10 @@ class CombatLogParser extends CoreCombatLogParser {
     // Runes
     runeForgeChecker: RuneForgeChecker,
     runeOfTheFallenCrusader: RuneOfTheFallenCrusader,
-    runeOfHysteria: RuneOfHysteria
+    runeOfHysteria: RuneOfHysteria,
+
+    // Legendaries
+    brynadaorsMight: BrynadaorsMight
   };
 }
 

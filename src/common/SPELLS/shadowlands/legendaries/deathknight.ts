@@ -1,5 +1,18 @@
-const legendaries = {
+import { LegendarySpell, SpellList } from "common/SPELLS/Spell";
+
+const legendaries: SpellList<LegendarySpell> = {
   //region Blood
+  BRYNDAORS_MIGHT: {
+    id: 334501,
+    name: 'Bryndaor\'s Might',
+    icon: 'ability_creature_cursed_04',
+    bonusID: 6940
+  },
+  BRYNDAORS_MIGHT_RUNIC_POWER_GAIN: {
+    id: 334502,
+    name: 'Bryndaor\'s Might',
+    icon: 'ability_creature_cursed_04'
+  },
 
   //endregion
 
