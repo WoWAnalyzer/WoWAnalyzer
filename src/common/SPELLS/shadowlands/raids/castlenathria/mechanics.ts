@@ -33,6 +33,21 @@ export default {
   //Sludgefist
 
   //Stoneborne Generals
+  ANIMA_ENGORGED: {
+    id: 342694,
+    name: 'Anima Engorged',
+    icon: '',
+  },
+  HARDENED_STONE_FORM_KAAL: {
+    id: 329636,
+    name: 'Hardened Stone Form',
+    icon: '',
+  },
+  HARDENED_STONE_FORM_GRASHAAL: {
+    id: 329808,
+    name: 'Hardened Stone Form',
+    icon: '',
+  },
 
   //Sire Denathrius
 
