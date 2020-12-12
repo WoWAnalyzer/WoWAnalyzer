@@ -19,7 +19,7 @@ const LAST_SHIELD = 12000;
 class ShockBarrier extends Analyzer {
 
   shockBarriersWasted = 0;
-  activeBarriers: {target: number, timestamp: number}[] = [];
+  activeBarriers: Array<{target: number, timestamp: number}> = [];
 
   constructor(options: Options) {
     super(options);
