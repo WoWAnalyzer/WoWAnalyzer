@@ -6,14 +6,14 @@ import { Trans } from '@lingui/macro';
 
 const Gauge = ({ value }) => (
   <div className="flex" style={{ textAlign: 'center', marginTop: 12 }}>
-    <Trans
-      id="interface.statistics.components.gauge.low"
-      component="div"
-      className="flex-main text-right text-muted"
-      style={{ paddingTop: 23, paddingRight: 8, fontSize: 12 }}
-    >
-      Low
-    </Trans>
+    <div style={{ paddingTop: 23, paddingRight: 8, fontSize: 12 }}>
+      <Trans
+        id="interface.statistics.components.gauge.low"
+        className="flex-main text-right text-muted"
+      >
+        Low
+      </Trans>
+    </div>
     <div className="flex-sub" style={{ position: 'relative' }}>
       <svg
         width="98"
@@ -122,13 +122,11 @@ const Gauge = ({ value }) => (
         {formatPercentage(value, 0)}%
       </div>
     </div>
-    <div style={{ paddingTop: 23, paddingLeft: 8, fontSize: 12 }}>
-      <Trans
-        id="interface.statistics.components.gauge.high"
-        className="flex-main text-left text-muted"
-      >
-        High
-      </Trans>
+    <div
+      className="flex-main text-left text-muted"
+      style={{ paddingTop: 23, paddingLeft: 8, fontSize: 12 }}
+    >
+      <Trans id="interface.statistics.components.gauge.high">High</Trans>
     </div>
   </div>
 );

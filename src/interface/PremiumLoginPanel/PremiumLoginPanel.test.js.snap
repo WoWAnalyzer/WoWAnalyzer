@@ -54,9 +54,9 @@ exports[`PremiumLoginPanel matches snapshot when logged in with GitHub 1`] = `
                 onReady={[Function]}
                 throttle={50}
               >
-                <WithI18n
-                  defaults="Hello {0}."
+                <Trans
                   id="interface.premiumLoginPanel.logged-in.greeting"
+                  message="Hello {0}."
                   values={
                     Object {
                       "0": "Martijn Hols",
@@ -68,9 +68,9 @@ exports[`PremiumLoginPanel matches snapshot when logged in with GitHub 1`] = `
             <div
               className="description"
             >
-              <WithI18n
-                defaults="You haven't unlocked Premium yet. See the panel to the right for more info."
+              <Trans
                 id="interface.premiumLoginPanel.logged-in.premiumNotUnlocked"
+                message="You haven't unlocked Premium yet. See the panel to the right for more info."
               />
             </div>
             <div
@@ -82,9 +82,9 @@ exports[`PremiumLoginPanel matches snapshot when logged in with GitHub 1`] = `
               >
                 <Icon />
                  
-                <WithI18n
-                  defaults="Logout"
+                <Trans
                   id="interface.premiumLoginPanel.logged-in.logout"
+                  message="Logout"
                 />
               </a>
             </div>
@@ -139,17 +139,17 @@ exports[`PremiumLoginPanel matches snapshot when logged in with GitHub 1`] = `
         className="col-md-12"
       >
         <h1>
-          <WithI18n
-            defaults="Premium sign in"
+          <Trans
             id="interface.premiumLoginPanel.panel.sign-in"
+            message="Premium sign in"
           />
         </h1>
         <div
           className="description"
         >
-          <WithI18n
-            defaults="Sign in with your Patreon or GitHub account using the buttons below."
+          <Trans
             id="interface.premiumLoginPanel.panel.sign-in.description"
+            message="Sign in with your Patreon or GitHub account using the buttons below."
           />
         </div>
       </div>
@@ -248,9 +248,9 @@ exports[`PremiumLoginPanel matches snapshot when logged in with Patreon 1`] = `
                 onReady={[Function]}
                 throttle={50}
               >
-                <WithI18n
-                  defaults="Hello {0}."
+                <Trans
                   id="interface.premiumLoginPanel.logged-in.greeting"
+                  message="Hello {0}."
                   values={
                     Object {
                       "0": "Martijn Hols",
@@ -262,9 +262,9 @@ exports[`PremiumLoginPanel matches snapshot when logged in with Patreon 1`] = `
             <div
               className="description"
             >
-              <WithI18n
-                defaults="You haven't unlocked Premium yet. See the panel to the right for more info."
+              <Trans
                 id="interface.premiumLoginPanel.logged-in.premiumNotUnlocked"
+                message="You haven't unlocked Premium yet. See the panel to the right for more info."
               />
             </div>
             <div
@@ -276,9 +276,9 @@ exports[`PremiumLoginPanel matches snapshot when logged in with Patreon 1`] = `
               >
                 <Icon />
                  
-                <WithI18n
-                  defaults="Logout"
+                <Trans
                   id="interface.premiumLoginPanel.logged-in.logout"
+                  message="Logout"
                 />
               </a>
             </div>
@@ -333,17 +333,17 @@ exports[`PremiumLoginPanel matches snapshot when logged in with Patreon 1`] = `
         className="col-md-12"
       >
         <h1>
-          <WithI18n
-            defaults="Premium sign in"
+          <Trans
             id="interface.premiumLoginPanel.panel.sign-in"
+            message="Premium sign in"
           />
         </h1>
         <div
           className="description"
         >
-          <WithI18n
-            defaults="Sign in with your Patreon or GitHub account using the buttons below."
+          <Trans
             id="interface.premiumLoginPanel.panel.sign-in.description"
+            message="Sign in with your Patreon or GitHub account using the buttons below."
           />
         </div>
       </div>
@@ -461,17 +461,17 @@ exports[`PremiumLoginPanel matches snapshot when logged out 1`] = `
         className="col-md-12"
       >
         <h1>
-          <WithI18n
-            defaults="Premium sign in"
+          <Trans
             id="interface.premiumLoginPanel.panel.sign-in"
+            message="Premium sign in"
           />
         </h1>
         <div
           className="description"
         >
-          <WithI18n
-            defaults="Sign in with your Patreon or GitHub account using the buttons below."
+          <Trans
             id="interface.premiumLoginPanel.panel.sign-in.description"
+            message="Sign in with your Patreon or GitHub account using the buttons below."
           />
         </div>
       </div>

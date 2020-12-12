@@ -37,7 +37,7 @@ const I18nProvider = ({ children }: Props) => {
     })
   }, [locale, activeLocale, setActiveLocale])
 
-  if (!activeLocale) {
+  if (!activeLocale && process.env.NODE_ENV !== 'test') {
     // Wait with rendering the app until we have the locale loaded. This reduces
     // the amount of significant screen updates, providing a better user
     // experience.
