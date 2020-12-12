@@ -8,7 +8,6 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Events from 'parser/core/Events';
 import Tooltip from 'common/Tooltip';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 /**

@@ -3,7 +3,6 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatPercentage, formatNumber } from 'common/format';
 import ROLES from 'game/ROLES';
 import PropTypes from 'prop-types';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import Events from 'parser/core/Events';
 

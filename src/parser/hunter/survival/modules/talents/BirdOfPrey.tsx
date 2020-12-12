@@ -13,7 +13,6 @@ import { BOP_CA_EXTENSION_PER_CAST, RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunt
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { MS_BUFFER } from 'parser/hunter/shared/constants';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 /** Bird of Prey

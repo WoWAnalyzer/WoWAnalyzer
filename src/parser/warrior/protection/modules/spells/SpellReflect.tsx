@@ -9,7 +9,6 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SCHOOLS from 'game/MAGIC_SCHOOLS';
 import Events, { DamageEvent } from 'parser/core/Events';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const debug = false;

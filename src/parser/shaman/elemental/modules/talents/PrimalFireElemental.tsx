@@ -13,7 +13,6 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const damagingCasts = [SPELLS.FIRE_ELEMENTAL_METEOR, SPELLS.FIRE_ELEMENTAL_IMMOLATE, SPELLS.FIRE_ELEMENTAL_FIRE_BLAST];

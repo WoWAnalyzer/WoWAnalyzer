@@ -9,7 +9,6 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringValueText from 'interface/statistics/components/BoringValueText';
 import Enemies from 'parser/shared/modules/Enemies';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import Events, { CastEvent, RefreshDebuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';

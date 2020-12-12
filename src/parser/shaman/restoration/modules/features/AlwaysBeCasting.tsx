@@ -5,7 +5,6 @@ import { formatPercentage } from 'common/format';
 
 import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
 import { When } from 'parser/core/ParseResults';
-import { i18n } from '@lingui/core';
 import { t, Trans } from '@lingui/macro';
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {

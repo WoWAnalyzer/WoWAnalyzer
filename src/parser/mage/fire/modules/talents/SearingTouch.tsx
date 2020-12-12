@@ -10,7 +10,6 @@ import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { SEARING_TOUCH_THRESHOLD, COMBUSTION_END_BUFFER } from 'parser/mage/shared/constants';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 export const DAMAGE_MODIFIER = 1.50;

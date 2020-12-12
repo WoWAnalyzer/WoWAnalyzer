@@ -6,7 +6,6 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import SPELLS from 'common/SPELLS';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class Moonfire extends Analyzer {

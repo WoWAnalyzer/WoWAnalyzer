@@ -17,7 +17,6 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeBar from 'interface/statistics/components/UptimeBar';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const BONUS_PER_STACK = 0.03;

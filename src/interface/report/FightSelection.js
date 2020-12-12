@@ -8,7 +8,6 @@ import { compose } from 'redux';
 
 import getFightName from 'common/getFightName';
 import Tooltip from 'common/Tooltip';
-import { i18n } from 'interface/RootLocalizationProvider';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import { getFightId } from 'interface/selectors/url/report';
 import { getFightFromReport } from 'interface/selectors/fight';

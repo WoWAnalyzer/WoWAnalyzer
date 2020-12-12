@@ -7,7 +7,6 @@ import Analyzer from 'parser/core/Analyzer';
 
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import BetweenTheEyesDamageTracker from './BetweenTheEyesDamageTracker';

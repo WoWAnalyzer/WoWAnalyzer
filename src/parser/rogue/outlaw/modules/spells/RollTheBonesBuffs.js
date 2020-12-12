@@ -8,7 +8,6 @@ import Analyzer from 'parser/core/Analyzer';
 import UptimeIcon from 'interface/icons/Uptime';
 import StatisticBox from 'interface/others/StatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import { ROLL_THE_BONES_BUFFS } from '../../constants';

@@ -7,7 +7,6 @@ import Statistic from 'interface/statistics/Statistic';
 import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetracker/RegenResourceCapTracker';
 import BoringResourceValue from 'interface/statistics/components/BoringResourceValue';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import SpellEnergyCost from './SpellEnergyCost';

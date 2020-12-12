@@ -13,7 +13,6 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import UptimeIcon from 'interface/icons/Uptime';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class Doom extends Analyzer {

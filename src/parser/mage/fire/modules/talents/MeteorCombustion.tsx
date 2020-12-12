@@ -8,7 +8,6 @@ import Events, { DamageEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/cor
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import EventHistory from 'parser/shared/modules/EventHistory';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class MeteorCombustion extends Analyzer {

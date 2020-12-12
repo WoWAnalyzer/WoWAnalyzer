@@ -13,7 +13,6 @@ import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/Res
 import Events, { EventType } from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import BoringResourceValue from 'interface/statistics/components/BoringResourceValue';
 

@@ -12,7 +12,6 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import UptimeIcon from 'interface/icons/Uptime';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 /*

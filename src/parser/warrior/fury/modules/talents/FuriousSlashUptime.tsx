@@ -8,7 +8,6 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import FuriousSlashTimesByStacks from './FuriousSlashTimesByStacks';

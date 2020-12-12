@@ -12,7 +12,6 @@ import ActivityIndicator from 'interface/common/ActivityIndicator';
 import ArmoryIcon from 'interface/icons/Armory';
 import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
 import WipefestIcon from 'interface/icons/Wipefest';
-import { i18n } from 'interface/RootLocalizationProvider';
 
 import './GuildReports.scss';
 import ReportsList from '../GuildReportsList';

@@ -9,7 +9,6 @@ import BoringResourceValue from 'interface/statistics/components/BoringResourceV
 import Statistic from 'interface/statistics/Statistic';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import HolyPowerTracker from './HolyPowerTracker';

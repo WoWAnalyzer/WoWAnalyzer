@@ -9,7 +9,6 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import UptimeIcon from 'interface/icons/Uptime';
 import Statistic from 'interface/statistics/Statistic';
 import { TooltipElement } from 'common/Tooltip';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class RipUptime extends Analyzer {

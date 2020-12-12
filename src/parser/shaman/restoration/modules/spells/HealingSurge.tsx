@@ -7,7 +7,6 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import { When } from 'parser/core/ParseResults';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import RestorationAbilityTracker from '../core/RestorationAbilityTracker';

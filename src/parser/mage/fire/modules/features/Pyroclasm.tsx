@@ -10,7 +10,6 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { MS_BUFFER_250 } from 'parser/mage/shared/constants';
 import { formatNumber, formatPercentage } from 'common/format';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const DAMAGE_MODIFIER = 240;

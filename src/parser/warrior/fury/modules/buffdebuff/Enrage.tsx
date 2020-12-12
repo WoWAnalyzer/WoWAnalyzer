@@ -12,7 +12,6 @@ import Statistic from 'interface/statistics/Statistic';
 import UptimeIcon from 'interface/icons/Uptime';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class Enrage extends Analyzer {

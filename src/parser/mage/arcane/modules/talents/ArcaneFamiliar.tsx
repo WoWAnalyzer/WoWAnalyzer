@@ -7,7 +7,6 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import { formatPercentage } from 'common/format';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class ArcaneFamiliar extends Analyzer {

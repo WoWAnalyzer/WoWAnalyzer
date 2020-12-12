@@ -6,7 +6,6 @@ import SPECS from 'game/SPECS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import { Options } from 'parser/core/Analyzer';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class CancelledCasts extends CoreCancelledCasts {

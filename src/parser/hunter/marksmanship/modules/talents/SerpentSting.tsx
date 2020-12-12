@@ -14,7 +14,6 @@ import { SERPENT_STING_MM_BASE_DURATION, SERPENT_STING_MM_PANDEMIC } from 'parse
 import Enemies from 'parser/shared/modules/Enemies';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import React from 'react';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 /**

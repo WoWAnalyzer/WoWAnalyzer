@@ -12,7 +12,6 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class Lifebloom extends Analyzer {

@@ -12,7 +12,6 @@ import Spell from 'common/SPELLS/Spell';
 
 import React from 'react';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 /*

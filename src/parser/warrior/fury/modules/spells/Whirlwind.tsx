@@ -10,7 +10,6 @@ import SpellLink from 'common/SpellLink';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import RageTracker from '../core/RageTracker';

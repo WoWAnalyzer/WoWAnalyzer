@@ -13,7 +13,6 @@ import Events, { CastEvent, DamageEvent, EnergizeEvent } from 'parser/core/Event
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { HUNTER_BASE_FOCUS_MAX, HUNTER_BASE_FOCUS_REGEN } from 'parser/hunter/shared/constants';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 /**

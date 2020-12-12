@@ -12,7 +12,6 @@ import { formatNumber } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class EssenceFont extends Analyzer {

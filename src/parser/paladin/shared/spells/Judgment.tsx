@@ -11,7 +11,6 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 import { formatNumber, formatPercentage } from 'common/format';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import SpellLink from 'common/SpellLink';
 

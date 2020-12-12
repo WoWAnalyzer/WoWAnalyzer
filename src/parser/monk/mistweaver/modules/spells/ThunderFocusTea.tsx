@@ -12,7 +12,6 @@ import DonutChart from 'interface/statistics/components/DonutChart';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const debug = false;

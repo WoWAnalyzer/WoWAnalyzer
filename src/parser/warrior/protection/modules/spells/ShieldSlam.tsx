@@ -9,7 +9,6 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Events, { CastEvent } from 'parser/core/Events';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const debug = false;

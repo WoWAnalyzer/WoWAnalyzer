@@ -5,7 +5,6 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import Events from 'parser/core/Events';

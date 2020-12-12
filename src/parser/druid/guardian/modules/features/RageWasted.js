@@ -7,7 +7,6 @@ import SpellIcon from 'common/SpellIcon';
 import StatisticBox from 'interface/others/StatisticBox';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 // NOTE: "Raw" rage is what shows up in combat log events (divided by 10 and rounded to get in-game rage).

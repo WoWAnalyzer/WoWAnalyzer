@@ -2,7 +2,6 @@ import React from 'react';
 import { Trans, t } from '@lingui/macro';
 import { Link } from 'react-router-dom';
 
-import { i18n } from 'interface/RootLocalizationProvider';
 import DocumentTitle from 'interface/DocumentTitle';
 import Panel from 'interface/others/Panel';
 

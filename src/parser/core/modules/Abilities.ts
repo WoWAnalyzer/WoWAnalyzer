@@ -1,5 +1,4 @@
 import Module, { Options } from 'parser/core/Module';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import Haste from 'parser/shared/modules/Haste';

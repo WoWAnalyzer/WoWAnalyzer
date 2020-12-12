@@ -3,7 +3,6 @@ import ManaValues from 'parser/shared/modules/ManaValues';
 import DeathTracker from 'parser/shared/modules/DeathTracker';
 import { formatPercentage, formatNumber } from 'common/format';
 import { Options } from 'parser/core/Analyzer';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import Events from 'parser/core/Events';
 

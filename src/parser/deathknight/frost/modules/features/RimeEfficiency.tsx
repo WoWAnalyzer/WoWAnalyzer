@@ -6,7 +6,6 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';

@@ -13,7 +13,6 @@ import Events from 'parser/core/Events';
 
 import SpellLink from 'common/SpellLink';
 import { TooltipElement } from 'common/Tooltip';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import UptimeIcon from 'interface/icons/Uptime';
 import ItemDamageDone from 'interface/ItemDamageDone';

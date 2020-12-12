@@ -1,4 +1,3 @@
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';

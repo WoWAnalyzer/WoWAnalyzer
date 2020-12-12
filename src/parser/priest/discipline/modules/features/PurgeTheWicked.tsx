@@ -11,7 +11,6 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { SuggestionFactory, When } from 'parser/core/ParseResults';
 import { Options } from 'parser/core/Module';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import SuggestionThresholds from '../../SuggestionThresholds';

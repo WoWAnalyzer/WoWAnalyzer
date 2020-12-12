@@ -8,7 +8,6 @@ import Events, { CastEvent, DamageEvent, FightEndEvent } from 'parser/core/Event
 import { formatMilliseconds } from 'common/format';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class SpinningCraneKick extends Analyzer {

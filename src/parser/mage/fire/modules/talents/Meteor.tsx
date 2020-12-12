@@ -9,7 +9,6 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import MeteorRune from './MeteorRune';

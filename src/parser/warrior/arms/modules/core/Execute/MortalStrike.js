@@ -6,7 +6,6 @@ import SpellLink from 'common/SpellLink';
 import Abilities from 'parser/core/modules/Abilities';
 import calculateMaxCasts from 'parser/core/calculateMaxCasts';
 import Events from 'parser/core/Events';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import ExecuteRange from './ExecuteRange';

@@ -16,7 +16,6 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { MS_BUFFER } from 'parser/hunter/shared/constants';
 import { WILDFIRE_BOMB_LEEWAY_BUFFER } from 'parser/hunter/survival/constants';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 /**

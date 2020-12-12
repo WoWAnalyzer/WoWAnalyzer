@@ -13,7 +13,6 @@ import Events, { DamageEvent } from 'parser/core/Events';
 import { CTS_CDR_MS } from 'parser/hunter/marksmanship/constants';
 import { MS_BUFFER } from 'parser/hunter/shared/constants';
 import SpellLink from 'common/SpellLink';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 /**

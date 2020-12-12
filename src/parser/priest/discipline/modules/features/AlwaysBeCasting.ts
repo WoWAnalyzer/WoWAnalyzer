@@ -3,7 +3,6 @@ import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHea
 import { formatPercentage } from 'common/format';
 import { SuggestionFactory, When } from 'parser/core/ParseResults';
 import { CastEvent } from 'parser/core/Events';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import SuggestionThresholds from '../../SuggestionThresholds';

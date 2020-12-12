@@ -9,7 +9,6 @@ import { When, ThresholdStyle, NumberThreshold } from 'parser/core/ParseResults'
 import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 import { shouldIgnore } from 'parser/shared/modules/hit-tracking/utilities';
 import Enemies from 'parser/shared/modules/Enemies';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class Consecration extends Analyzer {

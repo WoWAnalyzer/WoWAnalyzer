@@ -8,7 +8,6 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'parser/core/Analyzer';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import Mastery from '../core/Mastery';

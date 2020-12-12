@@ -6,7 +6,6 @@ import { Trans, t } from '@lingui/macro';
 
 import Icon from 'common/Icon';
 import Tooltip from 'common/Tooltip';
-import { i18n } from 'interface/RootLocalizationProvider';
 import DiscordButton from 'interface/common/thirdpartybuttons/Discord';
 import GitHubButton from 'interface/common/thirdpartybuttons/GitHub';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';

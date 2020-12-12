@@ -10,7 +10,6 @@ import Enemies from 'parser/shared/modules/Enemies';
 
 import UptimeBar from 'interface/statistics/components/UptimeBar';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class AgonyUptime extends Analyzer {

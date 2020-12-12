@@ -8,7 +8,6 @@ import Events from 'parser/core/Events';
 import BoringResourceValue from 'interface/statistics/components/BoringResourceValue/index';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Statistic from 'interface/statistics/Statistic';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import getComboPointsFromEvent from '../core/getComboPointsFromEvent';

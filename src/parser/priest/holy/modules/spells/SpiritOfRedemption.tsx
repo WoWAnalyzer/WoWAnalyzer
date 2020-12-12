@@ -8,7 +8,6 @@ import SpellLink from 'common/SpellLink';
 import { isItAprilFoolDay } from 'common/aprilFools';
 import Events, { ApplyBuffEvent, EventType, RemoveBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class SpiritOfRedemption extends Analyzer {

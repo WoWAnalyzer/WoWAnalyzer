@@ -10,7 +10,6 @@ import Panel from 'interface/others/Panel';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import BoringResourceValue from 'interface/statistics/components/BoringResourceValue';
