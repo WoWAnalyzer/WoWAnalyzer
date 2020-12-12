@@ -7,7 +7,7 @@ import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
-import { TrackedPaladinAbility } from './core/PaladinAbilityTracker';
+import { TrackedPaladinAbility } from '../core/PaladinAbilityTracker';
 
 class Abilities extends CoreAbilities {
   spellbook(): Array<SpellbookAbility<TrackedPaladinAbility>> {

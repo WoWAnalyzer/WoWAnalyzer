@@ -17,26 +17,26 @@ import BeaconUptime from './modules/beacons/BeaconUptime';
 import HammerOfWrath from '../shared/spells/HammerOfWrath';
 
 import PaladinAbilityTracker from './modules/core/PaladinAbilityTracker';
-import CastBehavior from './modules/CastBehavior';
-import Overhealing from './modules/Overhealing';
-import FillerLightOfTheMartyrs from './modules/FillerLightOfTheMartyrs';
-import InefficientLightOfTheMartyrs from './modules/InefficientLightOfTheMartyrs';
-import FillerFlashOfLight from './modules/FillerFlashOfLight';
-import LightOfDawn from './modules/LightOfDawn';
-import LightOfDawnIndexer from './modules/LightOfDawnIndexer';
+import CastBehavior from './modules/features/CastBehavior';
+import Overhealing from './modules/features/Overhealing';
+import FillerLightOfTheMartyrs from './modules/spells/FillerLightOfTheMartyrs';
+import InefficientLightOfTheMartyrs from './modules/spells/InefficientLightOfTheMartyrs';
+import FillerFlashOfLight from './modules/spells/FillerFlashOfLight';
+import LightOfDawn from './modules/spells/LightOfDawn';
+import LightOfDawnIndexer from './modules/spells/LightOfDawnIndexer';
 
-import Abilities from './modules/Abilities';
-import Buffs from './modules/Buffs';
+import Abilities from './modules/features/Abilities';
+import Buffs from './modules/features/Buffs';
 import Checklist from './modules/checklist/Module';
-import MasteryEffectiveness from './modules/MasteryEffectiveness';
-import AlwaysBeCasting from './modules/AlwaysBeCasting';
-import CooldownThroughputTracker from './modules/CooldownThroughputTracker';
-import StatValues from './modules/StatValues';
+import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
+import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import StatValues from './modules/features/StatValues';
 
-import MightOfTheMountain from './modules/MightOfTheMountain';
+import MightOfTheMountain from './modules/racials/MightOfTheMountain';
 
 import RuleOfLaw from './modules/talents/RuleOfLaw';
-import DevotionAuraDamageReduction from './modules/talents/DevotionAuraDamageReduction';
+import DevotionAuraDamageReduction from './modules/spells/DevotionAuraDamageReduction';
 import HolyAvenger from '../shared/talents/HolyAvenger';
 import DivinePurpose from '../shared/talents/DivinePurpose';
 import CrusadersMight from './modules/talents/CrusadersMight';

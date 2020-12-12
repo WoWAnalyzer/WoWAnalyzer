@@ -6,13 +6,13 @@ import Combatants from 'parser/shared/modules/Combatants';
 import ManaValues from 'parser/shared/modules/ManaValues';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 
-import MasteryEffectiveness from '../MasteryEffectiveness';
-import AlwaysBeCasting from '../AlwaysBeCasting';
+import MasteryEffectiveness from '../features/MasteryEffectiveness';
+import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import DirectBeaconHealing from '../beacons/DirectBeaconHealing';
 import BeaconUptime from '../beacons/BeaconUptime';
-import FillerLightOfTheMartyrs from '../FillerLightOfTheMartyrs';
-import FillerFlashOfLight from '../FillerFlashOfLight';
-import Overhealing from '../Overhealing';
+import FillerLightOfTheMartyrs from '../spells/FillerLightOfTheMartyrs';
+import FillerFlashOfLight from '../spells/FillerFlashOfLight';
+import Overhealing from '../features/Overhealing';
 
 import Component from './Component';
 

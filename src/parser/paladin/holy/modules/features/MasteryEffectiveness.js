@@ -16,8 +16,8 @@ import PlayerBreakdown from 'interface/others/PlayerBreakdown';
 
 import Events from 'parser/core/Events';
 
-import BeaconTargets from './beacons/BeaconTargets';
-import { ABILITIES_AFFECTED_BY_MASTERY } from '../constants';
+import BeaconTargets from '../beacons/BeaconTargets';
+import { ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
 
 const debug = false;
 
