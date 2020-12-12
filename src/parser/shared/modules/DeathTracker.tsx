@@ -115,7 +115,7 @@ class DeathTracker extends Analyzer {
           You died during this fight and were dead for {formatPercentage(actual)}% of the fight duration ({formatNumber(this.totalTimeDead / 1000)} seconds). Dying has a significant performance cost. View the <Link to={makeAnalyzerUrl(report, fight.id, player.id, 'death-recap')}>Death Recap</Link> to see the damage taken and what defensives and potions were still available.
         </>)
           .icon('ability_fiegndead')
-          .actual(<Trans id='shared.suggestions.deathTracker.deathTime'> You were dead for ${formatPercentage(actual)}% of the fight </Trans>)
+          .actual(<Trans id='shared.suggestions.deathTracker.deathTime'> You were dead for {formatPercentage(actual)}% of the fight </Trans>)
           .recommended(<Trans id='shared.suggestions.deathTracker.recommended'> 0% is recommended </Trans>));
     }
     when(this._didCast).isFalse()
