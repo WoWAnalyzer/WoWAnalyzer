@@ -2,6 +2,7 @@
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPECS from 'game/SPECS';
+import GEAR_SLOTS from 'game/GEAR_SLOTS';
 
 import Analyzer from 'parser/core/Analyzer';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
@@ -13,7 +14,7 @@ import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 
 // Example logs with missing enchants:
-// https://www.warcraftlogs.com/reports/ydxavfGq1mBrM9Vc/#fight=1&source=14
+// /report/q1mfVgHGwMXKyQdc/33-Normal+Hungering+Destroyer+-+Kill+(4:50)/Magnapinna/standard
 
 const AGI_SPECS = [
   SPECS.GUARDIAN_DRUID.id,
@@ -165,9 +166,11 @@ class EnchantChecker extends Analyzer {
     // iterating with keys instead of value because the values don't store what slot is being looked at
     Object.keys(gear)
       .forEach(slot => {
+        this.log(typeof parseInt(slot))
         const item = gear[Number(slot)];
         const slotName = enchantSlots[Number(slot)];
         const hasEnchant = this.hasEnchant(item);
+        const missingEnchantImportance = parseInt(slot) === GEAR_SLOTS.BACK ? SUGGESTION_IMPORTANCE.MINOR : SUGGESTION_IMPORTANCE.MAJOR;
 
         when(hasEnchant).isFalse()
           .addSuggestion((suggest, actual, recommended) => suggest(
@@ -176,7 +179,7 @@ class EnchantChecker extends Analyzer {
               </Trans>,
             )
               .icon(item.icon)
-              .staticImportance(SUGGESTION_IMPORTANCE.MAJOR));
+              .staticImportance(missingEnchantImportance));
 
         const noMaxEnchant = hasEnchant && !this.hasMaxEnchant(item);
         when(noMaxEnchant).isTrue()
