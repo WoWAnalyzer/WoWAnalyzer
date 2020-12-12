@@ -36,6 +36,12 @@ const legendaries: SpellList<LegendarySpell> = {
   //endregion
 
   //region Shared
+  SUPERSTRAIN: {
+    id: 334974,
+    name: 'Superstrain',
+    icon: 'spell_deathknight_explode_ghoul',
+    bonusID: 6953
+  }
 
   //endregion
 } as const;

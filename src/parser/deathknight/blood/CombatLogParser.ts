@@ -49,6 +49,7 @@ import RuneOfHysteria from '../shared/runeforges/RuneOfHysteria';
 
 // Legendaries
 import BrynadaorsMight from './modules/items/BrynadaorsMight';
+import Superstrain from '../shared/items/Superstrain';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -105,7 +106,8 @@ class CombatLogParser extends CoreCombatLogParser {
     runeOfHysteria: RuneOfHysteria,
 
     // Legendaries
-    brynadaorsMight: BrynadaorsMight
+    brynadaorsMight: BrynadaorsMight,
+    superStrain: Superstrain
   };
 }
 

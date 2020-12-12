@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+    change(date(2020, 12, 12), <>Added <SpellLink id={SPELLS.SUPERSTRAIN.id} /> module</>, joshinator),
     change(date(2020, 12, 7), 'Updated Abilities with covenant signature and class abilities', [Khazak]),
     change(date(2020, 11, 13), <>Added analyzer for <SpellLink id={SPELLS.HYPOTHERMIC_PRESENCE_TALENT.id} /></>, [Khazak]),
     change(date(2020, 11, 5), <>Added manual RP tracking for <SpellLink id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} /> and updated suggestion to target a 25+ second duration</>, [Khazak]),

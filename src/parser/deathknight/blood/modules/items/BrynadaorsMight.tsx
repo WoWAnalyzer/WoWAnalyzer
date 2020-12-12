@@ -10,8 +10,6 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import Events, { EnergizeEvent } from 'parser/core/Events';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatPercentage } from 'common/format';
-import { i18n } from '@lingui/core';
-import { t } from '@lingui/macro';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 class BrynadaorsMight extends Analyzer {
@@ -77,7 +75,7 @@ class BrynadaorsMight extends Analyzer {
     when(this.efficiencySuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>Avoid being Runic Power capped at all times, you wasted {this.runicPowerWasted} PR by being RP capped.</span>)
           .icon(SPELLS.BRYNDAORS_MIGHT.icon)
-          .actual(i18n._(t('deathknight.suggestions.brynadaorsMight.efficiency')`You wasted ${(formatPercentage(actual))}% of RP from ${SPELLS.BRYNDAORS_MIGHT.name} by being RP capped.`))
+          .actual(`You wasted ${(formatPercentage(actual))}% of RP from ${SPELLS.BRYNDAORS_MIGHT.name} by being RP capped.`)
           .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 
