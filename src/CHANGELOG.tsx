@@ -6,6 +6,7 @@ import { change, date } from 'common/changelog';
 
 // prettier-ignore
 export default [
+  change(date(2020, 12, 13), 'Using the browser refresh on fight selection now correctly reloads the report from WCL.', Zerotorescue),
   change(date(2020, 12, 12), 'Fix a few translation issues.', Zerotorescue),
   change(date(2020, 12, 11), 'Updated Healing Healing Efficiency to show two decimal places', Abelito75),
   change(date(2020, 12, 11), 'Converted some root files from JS to TS', Keraldi),
