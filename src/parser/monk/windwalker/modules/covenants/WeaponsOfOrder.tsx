@@ -69,7 +69,6 @@ class WeaponsOfOrderWindwalker extends WeaponsOfOrder {
             this.mastery = false;
             return;
         }
-        console.log("Mastery true!")
         this.mastery = true;
     }
 
