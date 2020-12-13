@@ -31,6 +31,7 @@ import JadeIgnition from './modules/items/JadeIgnition';
 
 // Covenants
 import FallenOrder from '../shared/modules/covenants/FallenOrder';
+import WeaponsOfOrderWindwalker from './modules/covenants/WeaponsOfOrder';
 
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -70,6 +71,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Covenants
     fallenOrder: FallenOrder,
+    weaponsOfOrder: WeaponsOfOrderWindwalker,
   };
 }
 
