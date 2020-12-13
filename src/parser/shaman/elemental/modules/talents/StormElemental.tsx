@@ -13,7 +13,6 @@ import Enemies from 'parser/shared/modules/Enemies';
 import Statistic from 'interface/statistics/Statistic';
 import SpellLink from 'common/SpellLink';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class StormElemental extends Analyzer {
@@ -110,7 +109,10 @@ class StormElemental extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>Maximize your damage during Storm Elemental by only using {abilities}.</span>)
         .icon(SPELLS.STORM_ELEMENTAL_TALENT.icon)
-        .actual(i18n._(t('shaman.elemental.suggestions.stormElemental.badCasts')`${actual} other casts with Storm Elemental up`))
+        .actual(t({
+      id: "shaman.elemental.suggestions.stormElemental.badCasts",
+      message: `${actual} other casts with Storm Elemental up`
+    }))
         .recommended(`Only cast ${abilities} while Storm Elemental is up.`));
   }
 }

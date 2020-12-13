@@ -10,7 +10,6 @@ import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import { MS_BUFFER_250 } from 'parser/mage/shared/constants';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import HotStreakPreCasts from './HotStreakPreCasts';
@@ -81,7 +80,10 @@ class HotStreak extends Analyzer {
     when(this.hotStreakUtilizationThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You allowed {formatPercentage(this.expiredProcsPercent)}% of your <SpellLink id={SPELLS.HOT_STREAK.id} /> procs to expire. Try to use your procs as soon as possible to avoid this.</>)
           .icon(SPELLS.HOT_STREAK.icon)
-          .actual(i18n._(t('mage.fire.suggestions.hotStreak.expired')`${formatPercentage(this.hotStreakUtil)}% expired`))
+          .actual(t({
+      id: "mage.fire.suggestions.hotStreak.expired",
+      message: `${formatPercentage(this.hotStreakUtil)}% expired`
+    }))
           .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 

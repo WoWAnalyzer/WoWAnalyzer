@@ -6,7 +6,6 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringResourceValue from 'interface/statistics/components/BoringResourceValue';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import ResourceBreakdown from './ComboPointBreakdown';
@@ -44,7 +43,10 @@ class ComboPointDetails extends Analyzer {
       </>,
     )
       .icon('creatureportrait_bubble')
-      .actual(i18n._(t('druid.feral.suggestions.comboPoints.wasted')`${actual.toFixed(1)} combo points wasted per minute`))
+      .actual(t({
+      id: "druid.feral.suggestions.comboPoints.wasted",
+      message: `${actual.toFixed(1)} combo points wasted per minute`
+    }))
       .recommended('zero waste is recommended'));
   }
 

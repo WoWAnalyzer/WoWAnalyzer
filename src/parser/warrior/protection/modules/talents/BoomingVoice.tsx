@@ -14,7 +14,6 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellLink from 'common/SpellLink';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const BOOMING_VOICE_DAMAGE_INCREASE = 0.2;
@@ -85,7 +84,10 @@ class BoomingVoice extends Analyzer {
     when(this.uptimeSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You wasted Rage by casting <SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> with more than {this.maxRage - BOOMING_VOICE_RAGE_GENERATION} Rage.</>)
         .icon(SPELLS.BOOMING_VOICE_TALENT.icon)
-        .actual(i18n._(t('warrior.protection.suggestions.boominVoice.rage.wasted')`${actual} Rage wasted`))
+        .actual(t({
+      id: "warrior.protection.suggestions.boominVoice.rage.wasted",
+      message: `${actual} Rage wasted`
+    }))
         .recommended(`<${recommended} wasted Rage is recommended`));
   }
 

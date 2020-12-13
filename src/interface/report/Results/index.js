@@ -21,7 +21,6 @@ import ReadableListing from 'interface/ReadableListing';
 import Contributor from 'interface/ContributorButton';
 import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
 import WipefestIcon from 'interface/icons/Wipefest';
-import { i18n } from 'interface/RootLocalizationProvider';
 import LoadingBar from 'interface/layout/NavigationBar/LoadingBar';
 import Panel from 'interface/others/Panel';
 import ErrorBoundary from 'interface/common/ErrorBoundary';
@@ -460,7 +459,7 @@ class Results extends React.PureComponent {
         <div className="container" style={{ marginTop: 40 }}>
           <div className="row">
             <div className="col-md-8">
-              <Trans id="interface.report.results.providedBy" render="small">Provided by</Trans>
+              <small><Trans id="interface.report.results.providedBy">Provided by</Trans></small>
               <div style={{ fontSize: 16 }}>
                 <Trans id="interface.report.results.providedByDetails">
                   {config.spec.specName} {config.spec.className} analysis has been provided by{' '}
@@ -470,9 +469,12 @@ class Results extends React.PureComponent {
               </div>
             </div>
             <div className="col-md-3">
-              <Trans id="interface.report.results.viewOn" render="small">View on</Trans>
+              <small><Trans id="interface.report.results.viewOn">View on</Trans></small>
               <br />
-              <Tooltip content={i18n._(t('interface.report.results.tooltip.newTab.originalReport')`Opens in a new tab. View the original report.`)}>
+              <Tooltip content={t({
+                id: "interface.report.results.tooltip.newTab.originalReport",
+                message: `Opens in a new tab. View the original report.`
+              })}>
                 <a
                   href={makeWclUrl(report.code, {
                     fight: fight.id,
@@ -489,9 +491,10 @@ class Results extends React.PureComponent {
               </Tooltip>
               <br />
               <Tooltip
-                content={i18n._(
-                  t('interface.report.results.tooltip.newTab.insightsAndTimelines')`Opens in a new tab. View insights and timelines for raid encounters.`,
-                )}
+                content={t({
+                  id: "interface.report.results.tooltip.newTab.insightsAndTimelines",
+                  message: `Opens in a new tab. View insights and timelines for raid encounters.`
+                })}
               >
                 <a
                   href={`https://www.wipefest.net/report/${report.code}/fight/${fight.id}`}

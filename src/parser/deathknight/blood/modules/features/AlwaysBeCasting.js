@@ -5,7 +5,6 @@ import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
@@ -27,7 +26,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     if (!boss || !boss.fight.disableDowntimeSuggestion) {
       when(this.downtimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes.  You can reduce downtime by casting ranged/filler abilities like <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id} /> or <SpellLink id={SPELLS.BLOOD_BOIL.id} /></>)
           .icon('spell_mage_altertime')
-          .actual(i18n._(t('deathknight.blood.suggestions.alwaysBeCasting.downtime')`${formatPercentage(actual)}% downtime`))
+          .actual(t({
+        id: "deathknight.blood.suggestions.alwaysBeCasting.downtime",
+        message: `${formatPercentage(actual)}% downtime`
+      }))
           .recommended(`<${formatPercentage(recommended)}% is recommended`));
     }
   }

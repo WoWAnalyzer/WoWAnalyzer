@@ -10,7 +10,6 @@ import EventHistory from 'parser/shared/modules/EventHistory';
 import Events, { AnyEvent, AbsorbedEvent, ApplyBuffEvent, ApplyDebuffEvent, CastEvent, DamageEvent, HealEvent, RemoveBuffEvent, RemoveDebuffEvent, SummonEvent, DeathEvent } from 'parser/core/Events';
 import EventFilter, { SELECTED_PLAYER_PET } from 'parser/core/EventFilter';
 import { t, Trans } from '@lingui/macro';
-import { i18n } from '@lingui/core';
 
 const debug = false;
 
@@ -259,7 +258,10 @@ class CooldownThroughputTracker extends Analyzer {
 
   tab() {
     return {
-    title: i18n._(t('shared.cooldownThroughputTracker.tab')`Cooldowns`),
+    title: t({
+      id: "shared.cooldownThroughputTracker.tab",
+      message: `Cooldowns`
+    }),
       icon: CooldownIcon,
       url: 'cooldowns',
       render: () => (

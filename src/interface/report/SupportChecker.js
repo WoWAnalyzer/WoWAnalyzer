@@ -6,7 +6,6 @@ import { Trans, t } from '@lingui/macro';
 
 import Icon from 'common/Icon';
 import Tooltip from 'common/Tooltip';
-import { i18n } from 'interface/RootLocalizationProvider';
 import DiscordButton from 'interface/common/thirdpartybuttons/Discord';
 import GitHubButton from 'interface/common/thirdpartybuttons/GitHub';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
@@ -64,7 +63,10 @@ class SupportChecker extends React.PureComponent {
         <div className="container offset">
           <h1>
             <div className="back-button">
-              <Tooltip content={i18n._(t('interface.report.supportChecker.tooltip.backToPlayerSelection')`Back to player selection`)}>
+              <Tooltip content={t({
+                id: "interface.report.supportChecker.tooltip.backToPlayerSelection",
+                message: `Back to player selection`
+              })}>
                 <Link to={makeAnalyzerUrl(report, fight.id)}>
                   <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
                 </Link>

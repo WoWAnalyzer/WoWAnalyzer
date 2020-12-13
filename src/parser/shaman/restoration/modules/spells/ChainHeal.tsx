@@ -15,7 +15,6 @@ import Combatants from 'parser/shared/modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { When } from 'parser/core/ParseResults';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import { Trans } from '@lingui/macro';
 
@@ -106,8 +105,14 @@ class ChainHeal extends Analyzer {
     when(suggestedThreshold.actual).isLessThan(suggestedThreshold.isLessThan.minor)
       .addSuggestion((suggest, _actual, _recommended) => suggest(<Trans id="shaman.restoration.suggestions.aoeTargets.label">Try to always cast <SpellLink id={SPELLS.CHAIN_HEAL.id} /> on groups of people, so that it heals all {this.maxTargets} potential targets.</Trans>)
           .icon(SPELLS.CHAIN_HEAL.icon)
-          .actual(`${suggestedThreshold.actual.toFixed(2)} ${i18n._(t('shaman.restoration.suggestions.aoeTargets.averageTargets')`average targets healed`)}`)
-          .recommended(`${suggestedThreshold.isLessThan.minor} ${i18n._(t('shaman.restoration.suggestions.aoeTargets.averageTargets')`average targets healed`)}`)
+          .actual(`${suggestedThreshold.actual.toFixed(2)} ${t({
+      id: "shaman.restoration.suggestions.aoeTargets.averageTargets",
+      message: `average targets healed`
+    })}`)
+          .recommended(`${suggestedThreshold.isLessThan.minor} ${t({
+      id: "shaman.restoration.suggestions.aoeTargets.averageTargets",
+      message: `average targets healed`
+    })}`)
           .regular(suggestedThreshold.isLessThan.average).major(suggestedThreshold.isLessThan.major));
   }
 

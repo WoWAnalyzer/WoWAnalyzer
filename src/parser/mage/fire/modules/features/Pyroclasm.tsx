@@ -10,7 +10,6 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { MS_BUFFER_250 } from 'parser/mage/shared/constants';
 import { formatNumber, formatPercentage } from 'common/format';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const DAMAGE_MODIFIER = 240;
@@ -118,7 +117,10 @@ class Pyroclasm extends Analyzer {
     when(this.procUtilizationThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You wasted {formatNumber(this.wastedProcs)} of your <SpellLink id={SPELLS.PYROCLASM_TALENT.id} /> procs. These procs make your hard cast (non instant) <SpellLink id={SPELLS.PYROBLAST.id} /> casts deal {DAMAGE_MODIFIER}% extra damage, so try and use them as quickly as possible so they do not expire or get overwritten.</>)
           .icon(SPELLS.PYROCLASM_TALENT.icon)
-          .actual(i18n._(t('mage.fire.suggestions.pyroclasm.wastedProcs')`${formatPercentage(this.procUtilization)}% utilization`))
+          .actual(t({
+      id: "mage.fire.suggestions.pyroclasm.wastedProcs",
+      message: `${formatPercentage(this.procUtilization)}% utilization`
+    }))
           .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 

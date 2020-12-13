@@ -75,7 +75,7 @@ class HealingEfficiencyBreakdown extends React.Component<Props, State> {
 
   BarHeader = () => (
     <>
-      <Trans render="th" id="shared.healingEfficiency.tableHeader.manaSpent">Mana Spent</Trans>
+      <th><Trans id="shared.healingEfficiency.tableHeader.manaSpent">Mana Spent</Trans></th>
       {this.state.showHealing && (
         <>
           <th colSpan={2} className="text-center"><Trans id="common.stat.healingPerMana">Healing per mana spent</Trans></th>
@@ -134,12 +134,12 @@ class HealingEfficiencyBreakdown extends React.Component<Props, State> {
       <th>
         <TooltipElement content={<Trans id="shared.healingEfficiency.tableHeader.casts.tooltip">Total Casts (Number of targets hit)</Trans>}><Trans id="shared.healingEfficiency.tableHeader.casts">Casts</Trans></TooltipElement>
       </th>
-      <Trans render="th" id="shared.healingEfficiency.tableHeader.manaSpent">Mana Spent</Trans>
-      <Trans render="th" id="shared.healingEfficiency.tableHeader.timeSpent">Time Spent</Trans>
+      <th><Trans id="shared.healingEfficiency.tableHeader.manaSpent">Mana Spent</Trans></th>
+      <th><Trans id="shared.healingEfficiency.tableHeader.timeSpent">Time Spent</Trans></th>
       {this.state.showHealing && (
         <>
-          <Trans render="th" id="shared.healingEfficiency.tableHeader.healingDone">Healing Done</Trans>
-          <Trans render="th" id="shared.healingEfficiency.tableHeader.overhealingDone">Overhealing</Trans>
+          <th><Trans id="shared.healingEfficiency.tableHeader.healingDone">Healing Done</Trans></th>
+          <th><Trans id="shared.healingEfficiency.tableHeader.overhealingDone">Overhealing</Trans></th>
           <th>
             <TooltipElement content={<Trans id="common.stat.healingPerMana.long">Healing per mana spent casting the spell</Trans>}>
               <Trans id="common.stat.healingPerMana.short">HPM</Trans>
@@ -154,7 +154,7 @@ class HealingEfficiencyBreakdown extends React.Component<Props, State> {
       )}
       {!this.state.showHealing && (
         <>
-          <Trans render="th" id="shared.healingEfficiency.tableHeader.damageDone">Damage Done</Trans>
+          <th><Trans id="shared.healingEfficiency.tableHeader.damageDone">Damage Done</Trans></th>
           <th>
             <TooltipElement content={<Trans id="common.stat.damagePerMana.long">Damage per mana spent casting the spell</Trans>}>
               <Trans id="common.stat.damagePerMana.short">DPM</Trans>
@@ -261,7 +261,7 @@ class HealingEfficiencyBreakdown extends React.Component<Props, State> {
         <table className="data-table">
           <thead>
             <tr>
-              <Trans render="th" id="common.ability">Ability</Trans>
+              <th><Trans id="common.ability">Ability</Trans></th>
               {this.state.detailedView ? <this.DetailHeader /> : <this.BarHeader />}
             </tr>
           </thead>

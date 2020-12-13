@@ -1,5 +1,4 @@
 import { t } from '@lingui/macro';
-import { i18n } from 'interface/RootLocalizationProvider';
 
 const DIFFICULTIES: { 
   [key: string]: number;
@@ -14,11 +13,29 @@ export default DIFFICULTIES;
 
 export function getLabel(difficulty?: number) {
   switch (difficulty) {
-    case DIFFICULTIES.LFR_RAID: return i18n._(t('game.difficulties.lfr')`LFR`);
-    case DIFFICULTIES.NORMAL_RAID: return i18n._(t('game.difficulties.nhc')`Normal`);
-    case DIFFICULTIES.HEROIC_RAID: return i18n._(t('game.difficulties.hc')`Heroic`);
-    case DIFFICULTIES.MYTHIC_RAID: return i18n._(t('game.difficulties.mythic')`Mythic`);
-    case DIFFICULTIES.MYTHIC_PLUS_DUNGEON: return i18n._(t('game.difficulties.mythicPlus')`Mythic+`);
-    default: return i18n._(t('game.difficulties.unknown')`Unknown difficulty`);
+    case DIFFICULTIES.LFR_RAID: return t({
+      id: "game.difficulties.lfr",
+      message: `LFR`
+    });
+    case DIFFICULTIES.NORMAL_RAID: return t({
+      id: "game.difficulties.nhc",
+      message: `Normal`
+    });
+    case DIFFICULTIES.HEROIC_RAID: return t({
+      id: "game.difficulties.hc",
+      message: `Heroic`
+    });
+    case DIFFICULTIES.MYTHIC_RAID: return t({
+      id: "game.difficulties.mythic",
+      message: `Mythic`
+    });
+    case DIFFICULTIES.MYTHIC_PLUS_DUNGEON: return t({
+      id: "game.difficulties.mythicPlus",
+      message: `Mythic+`
+    });
+    default: return t({
+      id: "game.difficulties.unknown",
+      message: `Unknown difficulty`
+    });
   }
 }

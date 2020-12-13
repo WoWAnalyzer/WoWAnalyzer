@@ -84,6 +84,7 @@
   "deathknight.frost.suggestions.rime.wastedProcs": "{0}% of Rime procs were either refreshed and lost or expired without being used",
   "deathknight.frost.suggestions.runicPower.wasted": "{0}% wasted",
   "deathknight.shared.suggestions.runes.overcapped": "{0}% runes overcapped",
+  "deathknight.suggestions.brynadaorsMight.efficiency": "",
   "deathknight.suggestions.hysteria.efficiency": "",
   "deathknight.unholy.suggestions.alwaysBeCasting": "{0}% downtime",
   "deathknight.unholy.suggestions.apocalypse.efficiency": "An average {actual} of Festering Wounds were popped by Apocalypse",

@@ -6,7 +6,6 @@ import SpellLink from 'common/SpellLink';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Events from 'parser/core/Events';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const WILDFLESH_MODIFIER_PER_RANK = 0.05;
@@ -100,7 +99,10 @@ class FrenziedRegeneration extends Analyzer {
         </>,
       )
         .icon(SPELLS.FRENZIED_REGENERATION.icon)
-        .actual(i18n._(t('druid.guardian.suggestions.frenziedRegeneration.efficiency')`${formatPercentage(actual, 0)}% of casts had a predicted heal of less than ${formatPercentage(HEAL_THRESHOLD, 0)}% and were cast above ${formatPercentage(HP_THRESHOLD, 0)}% HP`))
+        .actual(t({
+      id: "druid.guardian.suggestions.frenziedRegeneration.efficiency",
+      message: `${formatPercentage(actual, 0)}% of casts had a predicted heal of less than ${formatPercentage(HEAL_THRESHOLD, 0)}% and were cast above ${formatPercentage(HP_THRESHOLD, 0)}% HP`
+    }))
         .recommended(`${recommended}% is recommended`)
         .regular(recommended + 0.05).major(recommended + 0.1));
   }

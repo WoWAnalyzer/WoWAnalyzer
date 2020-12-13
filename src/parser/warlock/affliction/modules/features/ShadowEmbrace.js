@@ -17,7 +17,6 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeBar from 'interface/statistics/components/UptimeBar';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const BONUS_PER_STACK = 0.03;
@@ -140,7 +139,10 @@ class ShadowEmbrace extends Analyzer {
           </>,
         )
           .icon(SPELLS.SHADOW_EMBRACE_DEBUFF.icon)
-          .actual(i18n._(t('warlock.affliction.suggestions.shadowembrace.uptime')`${formatPercentage(actual)}% Shadow Embrace uptime`))
+          .actual(t({
+      id: "warlock.affliction.suggestions.shadowembrace.uptime",
+      message: `${formatPercentage(actual)}% Shadow Embrace uptime`
+    }))
           .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

@@ -10,7 +10,6 @@ import SpellIcon from 'common/SpellIcon';
 
 import UptimeBar from 'interface/statistics/components/UptimeBar';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class CorruptionUptime extends Analyzer {
@@ -42,7 +41,10 @@ class CorruptionUptime extends Analyzer {
         </>,
       )
         .icon(SPELLS.CORRUPTION_CAST.icon)
-        .actual(i18n._(t('warlock.affliction.suggestions.corruption.uptime')`${formatPercentage(actual)}% Corruption uptime`))
+        .actual(t({
+      id: "warlock.affliction.suggestions.corruption.uptime",
+      message: `${formatPercentage(actual)}% Corruption uptime`
+    }))
         .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

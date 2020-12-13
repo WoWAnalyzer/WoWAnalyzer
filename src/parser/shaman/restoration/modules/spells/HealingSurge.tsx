@@ -7,7 +7,6 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import { When } from 'parser/core/ParseResults';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import RestorationAbilityTracker from '../core/RestorationAbilityTracker';
@@ -42,7 +41,10 @@ class HealingSurge extends Analyzer {
     when(suggestedThreshold.actual).isGreaterThan(suggestedThreshold.isGreaterThan.minor)
       .addSuggestion((suggest) => suggest(<span>Casting <SpellLink id={SPELLS.HEALING_SURGE.id} /> without <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> is very inefficient, try not to cast more than is necessary.</span>)
           .icon(SPELLS.HEALING_SURGE.icon)
-          .actual(i18n._(t('shaman.restoration.suggestions.healingSurge.unbuffed')`${formatPercentage(suggestedThreshold.actual)}% of unbuffed Healing Surges`))
+          .actual(t({
+      id: "shaman.restoration.suggestions.healingSurge.unbuffed",
+      message: `${formatPercentage(suggestedThreshold.actual)}% of unbuffed Healing Surges`
+    }))
           .recommended(`${formatPercentage(suggestedThreshold.isGreaterThan.minor)}% of unbuffed Healing Surges`)
           .regular(suggestedThreshold.isGreaterThan.average).major(suggestedThreshold.isGreaterThan.major));
   }

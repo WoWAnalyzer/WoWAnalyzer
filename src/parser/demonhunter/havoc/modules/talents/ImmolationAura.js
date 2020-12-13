@@ -6,7 +6,6 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Events from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatThousands, formatPercentage } from 'common/format';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 /**
@@ -60,7 +59,10 @@ class ImmolationAura extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<> Avoid casting <SpellLink id={SPELLS.IMMOLATION_AURA.id} /> when close to max Fury.</>)
         .icon(SPELLS.IMMOLATION_AURA.icon)
-        .actual(i18n._(t('demonhunter.havoc.suggestions.immolationAura.furyWasted')`${formatPercentage(actual)}% Fury wasted`))
+        .actual(t({
+      id: "demonhunter.havoc.suggestions.immolationAura.furyWasted",
+      message: `${formatPercentage(actual)}% Fury wasted`
+    }))
         .recommended(`${formatPercentage(recommended)}% is recommended.`));
   }
 

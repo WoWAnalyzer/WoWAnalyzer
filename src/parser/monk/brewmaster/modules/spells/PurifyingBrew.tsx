@@ -14,7 +14,6 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
 import BoringValue from 'interface/statistics/components/BoringValueText';
 import FooterChart, { formatTime } from 'interface/others/FooterChart';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import SharedBrews from '../core/SharedBrews';
@@ -122,7 +121,10 @@ class PurifyingBrew extends Analyzer {
   suggestions(when: When) {
     when(this.purifyDelaySuggestion).addSuggestion((suggest, actual, recommended) => suggest(<>You should delay your <SpellLink id={SPELLS.PURIFYING_BREW.id} /> cast as little as possible after being hit to maximize its effectiveness.</>)
       .icon(SPELLS.PURIFYING_BREW.icon)
-      .actual(i18n._(t('monk.brewmaster.suggestions.purifyingBrew.avgdelay')`${actual.toFixed(2)}s Average Delay`))
+      .actual(t({
+      id: "monk.brewmaster.suggestions.purifyingBrew.avgdelay",
+      message: `${actual.toFixed(2)}s Average Delay`
+    }))
       .recommended(`< ${recommended.toFixed(2)}s is recommended`));
   }
 

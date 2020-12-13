@@ -5,7 +5,6 @@ import { formatPercentage } from 'common/format';
 
 import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
 import { When } from 'parser/core/ParseResults';
-import { i18n } from '@lingui/core';
 import { t, Trans } from '@lingui/macro';
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
@@ -36,7 +35,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       .addSuggestion((suggest, actual, recommended) =>
         suggest(`Your non healing time can be improved. Try to cast heals more regularly (${Math.round(nonHealingTimeSuggestionThresholds.actual * 100)}% non healing time).`)
           .icon('petbattle_health-down')
-          .actual(`${formatPercentage(nonHealingTimeSuggestionThresholds.actual)}% ${i18n._(t('shared.suggestions.alwaysBeCasting.nonHealingTime')`non healing time`)}`)
+          .actual(`${formatPercentage(nonHealingTimeSuggestionThresholds.actual)}% ${t({
+          id: "shared.suggestions.alwaysBeCasting.nonHealingTime",
+          message: `non healing time`
+        })}`)
           .recommended(`<${formatPercentage(nonHealingTimeSuggestionThresholds.isGreaterThan.minor)}% is recommended`)
           .regular(nonHealingTimeSuggestionThresholds.isGreaterThan.average).major(nonHealingTimeSuggestionThresholds.isGreaterThan.major),
       );

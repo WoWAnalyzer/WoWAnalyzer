@@ -11,7 +11,6 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 import { formatNumber, formatPercentage } from 'common/format';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import SpellLink from 'common/SpellLink';
 
@@ -119,7 +118,10 @@ class Judgment extends Analyzer {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You're not consuming all your <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> debuffs.</>)
       .icon(SPELLS.JUDGMENT_DEBUFF.icon)
-      .actual(i18n._(t('paladin.retribution.suggestions.judgement.consumed')`${formatPercentage(this.percentageJudgmentsConsumed)}% Judgments consumed`))
+      .actual(t({
+      id: "paladin.retribution.suggestions.judgement.consumed",
+      message: `${formatPercentage(this.percentageJudgmentsConsumed)}% Judgments consumed`
+    }))
       .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

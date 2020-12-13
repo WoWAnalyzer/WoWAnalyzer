@@ -12,7 +12,6 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellLink from 'common/SpellLink';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import RageTracker from '../core/RageTracker';
@@ -62,7 +61,10 @@ class HeavyRepercussions extends Analyzer {
     when(this.uptimeSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Try and cast <SpellLink id={SPELLS.SHIELD_SLAM.id} />'s during <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> to increase the uptime of <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> and the damage of <SpellLink id={SPELLS.SHIELD_SLAM.id} />.</>)
         .icon(SPELLS.HEAVY_REPERCUSSIONS_TALENT.icon)
-        .actual(i18n._(t('warrior.protection.suggestions.heavyRepercussions.shieldBlockCasts')`${formatPercentage(actual)}% cast during Shield Block`))
+        .actual(t({
+      id: "warrior.protection.suggestions.heavyRepercussions.shieldBlockCasts",
+      message: `${formatPercentage(actual)}% cast during Shield Block`
+    }))
         .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 

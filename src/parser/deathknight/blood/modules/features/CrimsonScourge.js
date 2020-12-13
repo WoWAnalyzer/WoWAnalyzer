@@ -5,7 +5,6 @@ import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import Events from 'parser/core/Events';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -91,7 +90,10 @@ class CrimsonScourge extends Analyzer {
     }
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You had unspent <SpellLink id={SPELLS.CRIMSON_SCOURGE.id} /> procs. Make sure you always use them.</>)
         .icon(SPELLS.CRIMSON_SCOURGE.icon)
-        .actual(i18n._(t('deathknight.blood.suggestions.crimsonScourge.procsWasted')`${formatPercentage(actual)}% Crimson Scourge procs wasted`))
+        .actual(t({
+      id: "deathknight.blood.suggestions.crimsonScourge.procsWasted",
+      message: `${formatPercentage(actual)}% Crimson Scourge procs wasted`
+    }))
         .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 

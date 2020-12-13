@@ -6,7 +6,6 @@ import { formatPercentage } from 'common/format';
 
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import Events from 'parser/core/Events';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -169,7 +168,10 @@ class MarrowrendUsage extends Analyzer {
         const botDDisclaimer = this.hasBonesOfTheDamned ? ` (not counting possible ${SPELLS.BONES_OF_THE_DAMNED.name} procs)` : '';
         return suggest(<>You casted {this.badMRCasts} Marrowrends with more than {REFRESH_AT_STACKS} stacks of <SpellLink id={SPELLS.BONE_SHIELD.id} /> that were not about to expire, wasting {this.bsStacksWasted} stacks{botDDisclaimer}.<br />Cast <SpellLink id={SPELLS.HEART_STRIKE.id} /> instead if you are at {this.refreshAtStacks} stacks or above.</>)
           .icon(SPELLS.MARROWREND.icon)
-          .actual(i18n._(t('deathknight.blood.suggestions.boneShield.stacksWasted')`${formatPercentage(actual)}% wasted ${SPELLS.BONE_SHIELD.name} stacks`))
+          .actual(t({
+          id: "deathknight.blood.suggestions.boneShield.stacksWasted",
+          message: `${formatPercentage(actual)}% wasted ${SPELLS.BONE_SHIELD.name} stacks`
+        }))
           .recommended(`${this.bsStacksWasted} stacks wasted, ${this.totalStacksGenerated} stacks generated`);
       });
   }
