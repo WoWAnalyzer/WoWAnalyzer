@@ -6,7 +6,7 @@ import SPELLS from 'common/SPELLS';
 import { change, date } from 'common/changelog';
 
 export default [
-  change(date(2020, 12, 13), <>Fixing bugs with <SpellLink id={SPELLS.HARMONIOUS_APPARATUS.id} /> and <SpellLink id={SPELLS.FLASH_FLOOD_TALENT.id} /></>, Khadaj),
+  change(date(2020, 12, 13), <>Fixing bugs with <SpellLink id={SPELLS.HARMONIOUS_APPARATUS.id} /> and <SpellLink id={SPELLS.SURGE_OF_LIGHT_TALENT.id} /></>, Khadaj),
   change(date(2020, 12, 10), <>Adding card for <SpellLink id={SPELLS.HARMONIOUS_APPARATUS.id} /></>, Khadaj),
   change(date(2020, 12, 9), <>Adding <SpellLink id={SPELLS.RESONANT_WORDS.id} /> module</>, Khadaj),
   change(date(2020, 12, 1), 'Updating Holy to 9.0.2', Khadaj),
