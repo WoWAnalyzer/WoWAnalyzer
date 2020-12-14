@@ -374,11 +374,22 @@ const spells = {
     icon: 'ability_warrior_rampage',
   },
   //stray buffs
-  WHIRLWIND_BUFF:{
+  WHIRLWIND_BUFF: {
     id: 85739,
     name: 'Whirlwind',
     icon: 'ability_whirlwind',
   },
+  CRUSHING_BLOW: {
+    id: 335097,
+    name: 'Crushing Blow',
+    icon: 'ability_hunter_swiftstrike',
+  },
+  BLOODBATH: {
+    id: 335096,
+    name: 'Bloodbath',
+    icon: 'ability_warrior_bloodbath',
+  },
+
 
   // Protection:
   //Rotational Spells
