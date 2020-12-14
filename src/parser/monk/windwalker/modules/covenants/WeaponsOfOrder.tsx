@@ -3,6 +3,7 @@ import { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analy
 import SPELLS from 'common/SPELLS';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import Abilities from 'parser/core/modules/Abilities';
 
 import Statistic from 'interface/statistics/Statistic';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
@@ -17,6 +18,7 @@ import WeaponsOfOrder from '../../../shared/modules/covenants/WeaponsOfOrder';
 
 class WeaponsOfOrderWindwalker extends WeaponsOfOrder {
     static dependencies = {
+        abilities: Abilities,
         spellUsable: SpellUsable,
     };
     protected spellUsable!: SpellUsable;
