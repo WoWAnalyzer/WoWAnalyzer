@@ -27,7 +27,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   suggestions(when: When) {
 
     when(this.downtimeSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<span>Your downtime can be improved. Try to Always Be Casting (ABC). It's better to cast low-priority abilities such as <SpellLink id={SPELLS.WHIRLWIND_FURY.id} /> than it is to do nothing.</span>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<span>Your downtime can be improved. Try to Always Be Casting (ABC). It's better to cast low-priority abilities such as <SpellLink id={SPELLS.WHIRLWIND_FURY_CAST.id} /> than it is to do nothing.</span>)
         .icon('spell_mage_altertime')
         .actual(t({
       id: "warrior.fury.suggestions.alwaysBeCasting.downtime",

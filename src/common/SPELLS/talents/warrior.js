@@ -12,8 +12,8 @@ export default {
   IMPENDING_VICTORY_TALENT: { id: 202168, name: 'Impending Victory', icon: 'spell_impending_victory' },
   // Storm Bolt
   STORM_BOLT_TALENT: { id: 107570, name: 'Storm Bolt', icon: 'warrior_talent_icon_stormbolt' },
-  // Bounding Strides
-  BOUNDING_STRIDES_TALENT: { id: 202163, name: 'Bounding Stride', icon: 'ability_heroicleap' },
+  // Bounding Stride
+  BOUNDING_STRIDE_TALENT: { id: 202163, name: 'Bounding Stride', icon: 'ability_heroicleap' },
   // Anger Management
   ANGER_MANAGEMENT_TALENT: { id: 152278, name: 'Anger Management', icon: 'warrior_talent_icon_angermanagement' },
 
@@ -75,14 +75,15 @@ export default {
   CRUELTY_TALENT: { id: 335070, name: 'Cruelty', icon: 'spell_nature_focusedmind' },
   // Tier 6 (level 45) = Meat Cleaver | Dragon Roar | Bladestorm
   MEAT_CLEAVER_TALENT: { id: 280392, name: 'Meat Cleaver', icon: 'ability_whirlwind' },
-  BLADE_STORM_TALENT: { id: 46924, name: 'Bladestorm', icon: 'ability_warrior_bladestorm' },
+  BLADESTORM_TALENT: { id: 46924, name: 'Bladestorm', icon: 'ability_warrior_bladestorm' },
   // Tier 7 (level 50) = Anger Management | Reckless Abandon | Siegebreaker
-  RECKLESS_ABONDON_TALENT: { id: 202751, name: 'Reckless Abandon', icon: 'ability_warrior_battleshout' },
+  RECKLESS_ABANDON_TALENT: { id: 202751, name: 'Reckless Abandon', icon: 'ability_warrior_battleshout' },
   SIEGEBREAKER_TALENT: { id: 280772, name: 'Siegebreaker', icon: 'inv_mace_101' },
 
 
   // Prot
-  // Tier 1 (level 15) = War machine | Sudden Death | Devastator
+  // Tier 1 (level 15) = War machine | Punish | Devastator
+  PUNISH_TALENT: { id: 275334, name: 'Punish', icon: 'ability_deathknight_sanguinfortitude' },
   DEVASTATOR_TALENT: { id: 236279, name: 'Devastator', icon: 'inv_sword_11' },
   // Tier 2 (level 25) = Double Time | Rumbling Earth | Storm Bolt
   RUMBLING_EARTH_TALENT: { id: 275339, name: 'Rumbling Earth', icon: 'spell_shaman_earthquake' },
