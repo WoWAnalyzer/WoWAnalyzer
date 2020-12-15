@@ -92,6 +92,9 @@ const FILTERABLE_TYPES = {
   dispel: {
     name: 'Dispel',
   },
+  aurabroken: {
+    name: 'Aura Broken',
+  },
 };
 
 class EventsTab extends React.Component {
