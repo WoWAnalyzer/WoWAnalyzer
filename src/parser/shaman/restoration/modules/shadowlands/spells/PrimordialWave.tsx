@@ -54,7 +54,7 @@ class PrimordialWave extends Analyzer {
   _riptide(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (!this.target) {
       if (this.riptideTargets[event.targetID]) {
-        this.riptideTargets[event.targetID] = false; // check
+        this.riptideTargets[event.targetID] = false;
       }
       return;
     }
