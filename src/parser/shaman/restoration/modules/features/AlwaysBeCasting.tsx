@@ -19,7 +19,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.DOWNPOUR_TALENT.id,
     SPELLS.MANA_TIDE_TOTEM_CAST.id,
     SPELLS.SURGE_OF_EARTH_TALENT.id,
-    SPELLS.PRIMORDIAL_WAVE_CAST.id, // TODO add other covenant abilities
+    SPELLS.PRIMORDIAL_WAVE_CAST.id,
+    SPELLS.CHAIN_HARVEST.id, // TODO add other covenant abilities
   ];
 }
 
