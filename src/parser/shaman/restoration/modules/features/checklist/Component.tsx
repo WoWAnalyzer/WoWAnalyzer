@@ -45,6 +45,7 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: any) =>
         {combatant.hasTalent(SPELLS.WELLSPRING_TALENT.id) && <AbilityRequirement spell={SPELLS.WELLSPRING_TALENT.id} />}
         {combatant.hasTalent(SPELLS.DOWNPOUR_TALENT.id) && <AbilityRequirement spell={SPELLS.DOWNPOUR_TALENT.id} />}
         {combatant.hasCovenant(COVENANTS.VENTHYR.id) && <AbilityRequirement spell={SPELLS.CHAIN_HARVEST.id} />}
+        {combatant.hasCovenant(COVENANTS.NECROLORD.id) && <AbilityRequirement spell={SPELLS.PRIMORDIAL_WAVE_CAST.id} />}
       </Rule>
       <Rule
         name={<Trans id="shaman.restoration.checklist.cooldownUsage">Use cooldowns effectively</Trans>}

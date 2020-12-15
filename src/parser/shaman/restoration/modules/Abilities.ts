@@ -299,6 +299,16 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
       },
       {
+        spell: SPELLS.PRIMORDIAL_WAVE_CAST,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        timelineSortIndex: 12,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+        cooldown: 45,
+      },
+      {
         spell: SPELLS.FLESHCRAFT,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
