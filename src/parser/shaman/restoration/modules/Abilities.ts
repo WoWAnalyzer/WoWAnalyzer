@@ -300,6 +300,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.PRIMORDIAL_WAVE_CAST,
+        buffSpellId: SPELLS.PRIMORDIAL_WAVE_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         timelineSortIndex: 12,
         gcd: {
@@ -307,6 +308,9 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
         cooldown: 45,
+        healSpellIds: [
+          SPELLS.PRIMORDIAL_WAVE_HEAL.id,
+        ],
       },
       {
         spell: SPELLS.FLESHCRAFT,
