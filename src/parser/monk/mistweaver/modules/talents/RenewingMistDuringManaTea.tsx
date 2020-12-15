@@ -14,7 +14,6 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import Vivify from '../spells/Vivify';
@@ -59,7 +58,10 @@ class RenewingMistDuringManaTea extends Analyzer {
       </>,
     )
       .icon(SPELLS.MANA_TEA_TALENT.icon)
-      .actual(`${this.avgRemDuringMT.toFixed(2)}${i18n._(t('monk.mistweaver.suggestions.renewingMistDuringManaTea.avgRenewingMists')` average Renewing Mists during Mana Tea`)}`)
+      .actual(`${this.avgRemDuringMT.toFixed(2)}${t({
+      id: "monk.mistweaver.suggestions.renewingMistDuringManaTea.avgRenewingMists",
+      message: ` average Renewing Mists during Mana Tea`
+    })}`)
       .recommended(`${recommended} average Renewing Mists recommended`));
   }
 

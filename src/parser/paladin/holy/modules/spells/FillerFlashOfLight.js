@@ -1,5 +1,5 @@
 import React from 'react';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -9,7 +9,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 import Events from 'parser/core/Events';
 
-import AbilityTracker from './core/PaladinAbilityTracker';
+import AbilityTracker from '../core/PaladinAbilityTracker';
 
 /** @type {number} (ms) When Holy Shock has less than this as cooldown remaining you should wait and still not cast that filler FoL. */
 const HOLY_SHOCK_COOLDOWN_WAIT_TIME = 200;
@@ -31,10 +31,16 @@ class FillerFlashOfLight extends Analyzer {
 
   inefficientCasts = [];
   _isCurrentCastInefficient = false;
-  constructor(options){
+  constructor(options) {
     super(options);
-    this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.FLASH_OF_LIGHT), this.onBeginCast);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLASH_OF_LIGHT), this.onCast);
+    this.addEventListener(
+      Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.FLASH_OF_LIGHT),
+      this.onBeginCast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLASH_OF_LIGHT),
+      this.onCast,
+    );
   }
   onBeginCast(event) {
     if (this._isInefficientCastEvent(event)) {
@@ -96,35 +102,31 @@ class FillerFlashOfLight extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual) => suggest(
+    when(this.suggestionThresholds).addSuggestion((suggest, actual) =>
+      suggest(
         <Trans id="paladin.holy.modules.fillerFlashOfLight.suggestion">
           You started casting {this.inefficientCasts.length} filler{' '}
           <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />s while{' '}
           <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was{' '}
           <TooltipElement
-            content={
-              <Trans id="paladin.holy.modules.fillerFlashOfLight.suggestion.tooltip">
-                It was either already available or going to be available within{' '}
-                {HOLY_SHOCK_COOLDOWN_WAIT_TIME}ms.
-              </Trans>
-            }
+            content={t({
+              id: 'paladin.holy.modules.fillerFlashOfLight.suggestion.tooltip',
+              message: `It was either already available or going to be available within ${HOLY_SHOCK_COOLDOWN_WAIT_TIME}ms.`,
+            })}
           >
             available
           </TooltipElement>{' '}
           (at{' '}
           {this.inefficientCasts
-            .map(event => this.owner.formatTimestamp(event.timestamp))
+            .map((event) => this.owner.formatTimestamp(event.timestamp))
             .join(', ')}
           ). <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> is a much more efficient spell and should
           be prioritized
           <TooltipElement
-            content={
-              <Trans id="paladin.holy.modules.fillerFlashOfLight.suggestion.exceptions">
-                There are very rare exceptions to this. For example it may be worth saving Holy
-                Shock when you know you're going to be moving soon and you may have to heal
-                yourself.
-              </Trans>
-            }
+            content={t({
+              id: 'paladin.holy.modules.fillerFlashOfLight.suggestion.exceptions',
+              message: `There are very rare exceptions to this. For example it may be worth saving Holy Shock when you know you're going to be moving soon and you may have to heal yourself.`,
+            })}
           >
             *
           </TooltipElement>
@@ -132,8 +134,17 @@ class FillerFlashOfLight extends Analyzer {
         </Trans>,
       )
         .icon(SPELLS.FLASH_OF_LIGHT.icon)
-        .actual(<Trans id="paladin.holy.modules.fillerFlashOfLight.actualInefficient">{actual} casts while Holy Shock was available</Trans>)
-        .recommended(<Trans id="paladin.holy.modules.fillerFlashOfLight.recommendedInefficient">No inefficient casts is recommended</Trans>));
+        .actual(
+          <Trans id="paladin.holy.modules.fillerFlashOfLight.actualInefficient">
+            {actual} casts while Holy Shock was available
+          </Trans>,
+        )
+        .recommended(
+          <Trans id="paladin.holy.modules.fillerFlashOfLight.recommendedInefficient">
+            No inefficient casts is recommended
+          </Trans>,
+        ),
+    );
   }
 }
 

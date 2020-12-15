@@ -9,7 +9,6 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, FightEndEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class ArcaneOrb extends Analyzer {
@@ -68,7 +67,10 @@ class ArcaneOrb extends Analyzer {
 			.addSuggestion((suggest, actual, recommended) => 
 				suggest(<>You cast <SpellLink id={SPELLS.ARCANE_ORB_TALENT.id} /> {this.badCasts} times without hitting anything. While it is acceptable to use this ability on Single Target encounters, you need to ensure you are aiming the ability so that it will at least hit one target.</>)
 					.icon(SPELLS.ARCANE_ORB_TALENT.icon)
-					.actual(i18n._(t('mage.arcane.suggestions.arcaneOrb.badCasts')`${formatNumber(this.badCasts)} Missed Orbs`))
+					.actual(t({
+                    id: "mage.arcane.suggestions.arcaneOrb.badCasts",
+                    message: `${formatNumber(this.badCasts)} Missed Orbs`
+                }))
 					.recommended(`${formatNumber(recommended)} is recommended`));
 	}
 

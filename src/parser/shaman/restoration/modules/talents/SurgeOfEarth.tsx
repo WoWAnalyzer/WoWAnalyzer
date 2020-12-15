@@ -7,7 +7,6 @@ import { formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import { i18n } from '@lingui/core';
 import { t, Trans } from '@lingui/macro';
 
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
@@ -70,8 +69,14 @@ class SurgeOfEarth extends Analyzer {
     when(suggestionThreshold.actual).isLessThan(suggestionThreshold.isLessThan.minor)
       .addSuggestion((suggest, _actual, _recommended) => suggest(<Trans id="shaman.restoration.suggestions.aoeTargets.label">Try to always cast <SpellLink id={SPELLS.SURGE_OF_EARTH_TALENT.id} /> on groups of people, so that it heals all {this.maxTargets} potential targets.</Trans>)
           .icon(SPELLS.SURGE_OF_EARTH_TALENT.icon)
-          .actual(`${suggestionThreshold.actual.toFixed(2)} ${i18n._(t('shaman.restoration.suggestions.aoeTargets.averageTargets')`average targets healed`)}`)
-          .recommended(`>${suggestionThreshold.isLessThan.minor.toFixed(2)} ${i18n._(t('shaman.restoration.suggestions.aoeTargets.averageTargets')`average targets healed`)}`)
+          .actual(`${suggestionThreshold.actual.toFixed(2)} ${t({
+      id: "shaman.restoration.suggestions.aoeTargets.averageTargets",
+      message: `average targets healed`
+    })}`)
+          .recommended(`>${suggestionThreshold.isLessThan.minor.toFixed(2)} ${t({
+      id: "shaman.restoration.suggestions.aoeTargets.averageTargets",
+      message: `average targets healed`
+    })}`)
           .regular(suggestionThreshold.isLessThan.average).major(suggestionThreshold.isLessThan.average));
   }
 

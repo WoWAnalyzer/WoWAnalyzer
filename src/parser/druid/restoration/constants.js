@@ -19,6 +19,25 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   //TODO - blazyb double check if any non resto druid spells scales with healing increases.
 ];
 
+export const ABILITIES_AFFECTED_BY_HEALING_INCREASES_SPELL_OBJECTS = [
+  SPELLS.REJUVENATION,
+  SPELLS.REGROWTH,
+  SPELLS.WILD_GROWTH,
+  SPELLS.REJUVENATION_GERMINATION,
+  SPELLS.CULTIVATION,
+  SPELLS.TRANQUILITY_HEAL,
+  SPELLS.EFFLORESCENCE_HEAL,
+  SPELLS.CENARION_WARD_HEAL,
+  SPELLS.LIFEBLOOM_HOT_HEAL,
+  SPELLS.LIFEBLOOM_BLOOM_HEAL,
+  SPELLS.SWIFTMEND,
+  SPELLS.RENEWAL_TALENT,
+  SPELLS.SPRING_BLOSSOMS,
+  // The following spells don't double dip in healing increases.
+  SPELLS.LEECH,
+  //TODO - blazyb double check if any non resto druid spells scales with healing increases.
+];
+
 export const HOTS_AFFECTED_BY_ESSENCE_OF_GHANIR = [
   SPELLS.REJUVENATION,
   SPELLS.WILD_GROWTH,

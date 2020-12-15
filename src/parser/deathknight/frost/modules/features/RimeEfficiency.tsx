@@ -6,7 +6,6 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -92,7 +91,10 @@ class RimeEfficiency extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<> You are wasting <SpellLink id={SPELLS.RIME.id} /> procs. You should be casting <SpellLink id={SPELLS.HOWLING_BLAST.id} /> as soon as possible when you have a Rime proc to avoid wasting it.</>)
         .icon(SPELLS.RIME.icon)
-        .actual(i18n._(t('deathknight.frost.suggestions.rime.wastedProcs')`${formatPercentage(this.wastedProcRate)}% of Rime procs were either refreshed and lost or expired without being used`))
+        .actual(t({
+      id: "deathknight.frost.suggestions.rime.wastedProcs",
+      message: `${formatPercentage(this.wastedProcRate)}% of Rime procs were either refreshed and lost or expired without being used`
+    }))
         .recommended(`<${recommended} is recommended`));
   }
 

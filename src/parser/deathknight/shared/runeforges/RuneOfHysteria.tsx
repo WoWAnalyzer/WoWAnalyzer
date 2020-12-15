@@ -13,7 +13,6 @@ import { formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import SPECS from 'game/SPECS';
 
@@ -96,7 +95,10 @@ class RuneOfHysteria extends Analyzer {
     when(this.efficiencySuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>Avoid being Runic Power capped at all times, you wasted {this.runicPowerWastedDuringHysteria} PR of {SPELLS.RUNE_OF_HYSTERIA.name} by being RP capped.</span>)
           .icon(SPELLS.RUNE_OF_HYSTERIA.icon)
-          .actual(i18n._(t('deathknight.suggestions.hysteria.efficiency')`You wasted ${(formatPercentage(actual))}% of RP from ${SPELLS.RUNE_OF_HYSTERIA.name} by being RP capped.`))
+          .actual(t({
+      id: "deathknight.suggestions.hysteria.efficiency",
+      message: `You wasted ${(formatPercentage(actual))}% of RP from ${SPELLS.RUNE_OF_HYSTERIA.name} by being RP capped.`
+    }))
           .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 

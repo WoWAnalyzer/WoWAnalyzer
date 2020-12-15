@@ -7,6 +7,7 @@ import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/Pr
 
 import ArcaneFamiliar from '../talents/ArcaneFamiliar';
 import ArcaneOrb from '../talents/ArcaneOrb';
+import ArcaneEcho from '../talents/ArcaneEcho';
 import ArcanePower from '../features/ArcanePower';
 import RuleOfThrees from '../talents/RuleOfThrees';
 import TimeAnomaly from '../talents/TimeAnomaly';
@@ -26,6 +27,7 @@ class Checklist extends BaseChecklist {
     castEfficiency: CastEfficiency,
     arcaneFamiliar: ArcaneFamiliar,
     arcaneOrb: ArcaneOrb,
+    arcaneEcho: ArcaneEcho,
     arcanePower: ArcanePower,
     ruleOfThrees: RuleOfThrees,
     timeAnomaly: TimeAnomaly,
@@ -42,6 +44,7 @@ class Checklist extends BaseChecklist {
   protected castEfficiency!: CastEfficiency;
   protected arcaneFamiliar!: ArcaneFamiliar;
   protected arcaneOrb!: ArcaneOrb;
+  protected arcaneEcho!: ArcaneEcho;
   protected arcanePower!: ArcanePower;
   protected ruleOfThrees!: RuleOfThrees;
   protected timeAnomaly!: TimeAnomaly;
@@ -65,6 +68,7 @@ class Checklist extends BaseChecklist {
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           arcaneFamiliarUptime: this.arcaneFamiliar.arcaneFamiliarUptimeThresholds,
           arcaneOrbMissedOrbs: this.arcaneOrb.missedOrbsThresholds,
+          arcaneEchoLowUsage: this.arcaneEcho.badTouchUsageThreshold,
           arcanePowerCooldown: this.arcanePower.arcanePowerCooldownThresholds,
           arcanePowerManaUtilization: this.arcanePower.arcanePowerManaUtilization,
           arcanePowerCasts: this.arcanePower.arcanePowerCastThresholds,

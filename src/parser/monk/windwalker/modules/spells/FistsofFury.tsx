@@ -7,7 +7,6 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
 import Events, { DamageEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
@@ -16,11 +15,9 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 const FISTS_OF_FURY_MINIMUM_TICK_TIME = 100; // This is to check that additional ticks aren't just hitting secondary targets
 
 class FistsofFury extends Analyzer {
-
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
-
   previousTickTimestamp = 0;
   fistsTicks = 0;
 
@@ -30,7 +27,6 @@ class FistsofFury extends Analyzer {
     super(options);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FISTS_OF_FURY_DAMAGE), this.onFistsDamage);
   }
-
 
   isNewFistsTick(timestamp: number) {
     return !this.previousTickTimestamp || (timestamp - this.previousTickTimestamp) > FISTS_OF_FURY_MINIMUM_TICK_TIME;
@@ -66,7 +62,10 @@ class FistsofFury extends Analyzer {
 
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<span> You are cancelling your <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /> casts early and losing ticks </span>)
-      .icon(SPELLS.FISTS_OF_FURY_CAST.icon).actual(i18n._(t('monk.windwalker.suggestions.fistOfFury.avgTicksPerCast')`${actual.toFixed(2)} average ticks on each Fists of Fury cast`))
+      .icon(SPELLS.FISTS_OF_FURY_CAST.icon).actual(t({
+      id: "monk.windwalker.suggestions.fistOfFury.avgTicksPerCast",
+      message: `${actual.toFixed(2)} average ticks on each Fists of Fury cast`
+    }))
       .recommended(`Aim to get ${recommended} ticks with each Fists of Fury cast.`));
   }
 

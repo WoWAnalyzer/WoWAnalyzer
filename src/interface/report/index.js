@@ -260,13 +260,12 @@ const Report = () => (
 
     <ErrorBoundary>
       <ReportLoader>
-        {(report, refreshReport) => (
+        {(report) => (
           <PatchChecker
             report={report}
           >
             <FightSelection
               report={report}
-              refreshReport={refreshReport}
             >
               {fight => (
                 <PlayerLoader

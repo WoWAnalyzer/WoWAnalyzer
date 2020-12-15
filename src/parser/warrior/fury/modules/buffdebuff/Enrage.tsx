@@ -12,7 +12,6 @@ import Statistic from 'interface/statistics/Statistic';
 import UptimeIcon from 'interface/icons/Uptime';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class Enrage extends Analyzer {
@@ -64,7 +63,10 @@ class Enrage extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.ENRAGE.id} /> uptime can be improved.</>)
         .icon(SPELLS.ENRAGE.icon)
-        .actual(i18n._(t('warrior.fury.suggestions.enrage.uptime')`${formatPercentage(actual)}% Enrage uptime`))
+        .actual(t({
+      id: "warrior.fury.suggestions.enrage.uptime",
+      message: `${formatPercentage(actual)}% Enrage uptime`
+    }))
         .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

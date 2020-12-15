@@ -1,10 +1,11 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
 import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
 import { When } from 'parser/core/ParseResults';
-import { i18n } from '@lingui/core';
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   static HEALING_ABILITIES_ON_GCD = [
@@ -34,7 +35,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       .addSuggestion((suggest, actual, recommended) =>
         suggest(`Your non healing time can be improved. Try to cast heals more regularly (${Math.round(nonHealingTimeSuggestionThresholds.actual * 100)}% non healing time).`)
           .icon('petbattle_health-down')
-          .actual(`${formatPercentage(nonHealingTimeSuggestionThresholds.actual)}% ${i18n._(t('shared.suggestions.alwaysBeCasting.nonHealingTime')`non healing time`)}`)
+          .actual(`${formatPercentage(nonHealingTimeSuggestionThresholds.actual)}% ${t({
+          id: "shared.suggestions.alwaysBeCasting.nonHealingTime",
+          message: `non healing time`
+        })}`)
           .recommended(`<${formatPercentage(nonHealingTimeSuggestionThresholds.isGreaterThan.minor)}% is recommended`)
           .regular(nonHealingTimeSuggestionThresholds.isGreaterThan.average).major(nonHealingTimeSuggestionThresholds.isGreaterThan.major),
       );
@@ -42,7 +46,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       .addSuggestion((suggest, actual, recommended) =>
         suggest(`Your downtime can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage.`)
           .icon('spell_mage_altertime')
-          .actual(`${formatPercentage(deadTimePercentage.actual)}% ${i18n._(t('shared.suggestions.alwaysBeCasting.downtime')`downtime`)}`)
+          .actual(<Trans id='shared.suggestions.alwaysBeCasting.downtime'> {formatPercentage(deadTimePercentage.actual)}% downtime </Trans>)
           .recommended(`<${formatPercentage(deadTimePercentage.isGreaterThan.minor)}% is recommended`)
           .regular(deadTimePercentage.isGreaterThan.average).major(deadTimePercentage.isGreaterThan.major),
       );

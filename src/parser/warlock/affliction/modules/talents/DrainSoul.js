@@ -14,7 +14,6 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import SoulShardTracker from '../soulshards/SoulShardTracker';
@@ -94,7 +93,10 @@ class DrainSoul extends Analyzer {
         </>,
       )
         .icon('ability_hunter_snipershot')
-        .actual(i18n._(t('warlock.affliction.suggestions.drainSoul.mobsSniped')`${formatPercentage(actual)} % of mobs sniped.`))
+        .actual(t({
+      id: "warlock.affliction.suggestions.drainSoul.mobsSniped",
+      message: `${formatPercentage(actual)} % of mobs sniped.`
+    }))
         .recommended(`>= ${formatPercentage(recommended)} % is recommended`));
   }
 

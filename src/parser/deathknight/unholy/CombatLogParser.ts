@@ -24,6 +24,9 @@ import RuneDetails from '../shared/RuneDetails';
 import RuneOfTheFallenCrusader from '../shared/runeforges/RuneOfTheFallenCrusader';
 import RuneOfHysteria from '../shared/runeforges/RuneOfHysteria';
 
+// Legendaries
+import Superstrain from '../shared/items/Superstrain';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
@@ -52,6 +55,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // Runes
     runeOfTheFallenCrusader: RuneOfTheFallenCrusader,
     runeOfHysteria: RuneOfHysteria,
+
+    // Legendaries
+    superStrain: Superstrain,
 
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,
   };

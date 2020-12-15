@@ -12,6 +12,11 @@ const covenants = {
     name: 'Weapons of Order',
     icon: 'ability_bastion_monk',
   },
+  WEAPONS_OF_ORDER_CHI_DISCOUNT: {
+    id: 311054,
+    name: 'Weapons of Order',
+    icon: 'ability_monk_risingsunkick',
+  },
   //endregion
 
   //region Necrolord

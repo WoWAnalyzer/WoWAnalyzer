@@ -1,29 +1,27 @@
 import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
 import Events, { CastEvent } from 'parser/core/Events';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+
+import { BLACKOUT_KICK_COOLDOWN_REDUCTION_MS } from '../../constants';
 
 /**
  *  Inspired by filler modules in Holy Paladin Analyzer
  */
 
-const COOLDOWN_REDUCTION_MS = 1000;
-
 class BlackoutKick extends Analyzer {
-
   static dependencies = {
     spellUsable: SpellUsable,
   };
+
+  protected spellUsable!: SpellUsable;
 
   IMPORTANT_SPELLS = [
     SPELLS.RISING_SUN_KICK.id,
@@ -33,8 +31,6 @@ class BlackoutKick extends Analyzer {
   wastedRisingSunKickReductionMs = 0;
   effectiveFistsOfFuryReductionMs = 0;
   wastedFistsOfFuryReductionMs = 0;
-
-  protected spellUsable!: SpellUsable;
 
   constructor(options: Options) {
     super(options);
@@ -47,8 +43,12 @@ class BlackoutKick extends Analyzer {
 
   onCast(event: CastEvent) {
     const hasImportantCastsAvailable = this.IMPORTANT_SPELLS.some(spellId => this.spellUsable.isAvailable(spellId));
-    const currentCooldownReductionMS = (this.selectedCombatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? 0.5 : 1) * COOLDOWN_REDUCTION_MS;
-    if (hasImportantCastsAvailable) {
+    /** 
+     * Weapons of Order increases this reduction, but i'm opting to handle it in its own module and leave the extra CDR untracked here.
+     * We probably wouldn't care too much about wasting the extra CDR anyway
+     */
+    const currentCooldownReductionMS = (this.selectedCombatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? 0.5 : 1) * BLACKOUT_KICK_COOLDOWN_REDUCTION_MS;
+    if (hasImportantCastsAvailable && !this.selectedCombatant.hasBuff(SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id)) {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
       event.meta.inefficientCastReason = 'You cast this Blackout Kick while more important spells were available';
@@ -82,14 +82,17 @@ class BlackoutKick extends Analyzer {
         average: 2,
         major: 4,
       },
-      style: ThresholdStyle.NUMBER,
+      style: ThresholdStyle.DECIMAL,
     };
   }
 
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest('You are wasting cooldown reduction by casting Blackout Kick while having important casts available')
       .icon(SPELLS.BLACKOUT_KICK.icon)
-      .actual(i18n._(t('monk.windwalker.suggestions.blackoutKick.cdrWasted')`${actual.toFixed(2)} seconds of wasted cooldown reduction per minute`))
+      .actual(t({
+      id: "monk.windwalker.suggestions.blackoutKick.cdrWasted",
+      message: `${actual.toFixed(2)} seconds of wasted cooldown reduction per minute`
+    }))
       .recommended(`${recommended} is recommended`));
   }
 
@@ -100,7 +103,7 @@ class BlackoutKick extends Analyzer {
         size="flexible"
       >
         <BoringSpellValueText spell={SPELLS.BLACKOUT_KICK}>
-          <span style={{ fontSize: '75%' }}>
+          <span>
             <SpellIcon
               id={SPELLS.RISING_SUN_KICK.id}
               style={{

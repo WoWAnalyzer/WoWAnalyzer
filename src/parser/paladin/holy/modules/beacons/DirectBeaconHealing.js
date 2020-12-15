@@ -10,7 +10,7 @@ import UpArrowIcon from 'interface/icons/UpArrow';
 import PlusIcon from 'interface/icons/Plus';
 import Analyzer from 'parser/core/Analyzer';
 
-import Abilities from '../Abilities';
+import Abilities from '../features/Abilities';
 import PaladinAbilityTracker from '../core/PaladinAbilityTracker';
 import { BEACON_TRANSFERING_ABILITIES } from '../../constants';
 

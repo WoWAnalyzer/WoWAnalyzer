@@ -9,7 +9,6 @@ import BoringValueText from 'interface/statistics/components/BoringValueText';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellLink from 'common/SpellLink';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import { LIFECYCLES_MANA_PERC_REDUCTION } from 'parser/monk/mistweaver/constants';
 
@@ -105,7 +104,10 @@ class Lifecycles extends Analyzer {
       </>,
     )
       .icon(SPELLS.LIFECYCLES_TALENT.icon)
-      .actual(`${formatNumber(actual)}${i18n._(t('monk.mistweaver.suggestions.lifecycles.manaSaved')` mana saved through Lifecycles`)}`)
+      .actual(`${formatNumber(actual)}${t({
+      id: "monk.mistweaver.suggestions.lifecycles.manaSaved",
+      message: ` mana saved through Lifecycles`
+    })}`)
       .recommended(`${formatNumber(recommended)} is the recommended amount of mana savings`));
   }
 

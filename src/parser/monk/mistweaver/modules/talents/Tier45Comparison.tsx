@@ -17,7 +17,6 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import { LIFECYCLES_MANA_PERC_REDUCTION } from 'parser/monk/mistweaver/constants';
 
@@ -211,7 +210,10 @@ class Tier45Comparison extends Analyzer {
       </>,
     )
       .icon(this.best.icon)
-      .actual(`${formatNumber(this.returnedFromSelected)}${i18n._(t('monk.mistweaver.suggestions.tier45Talent.efficiency')` mana returned through `)}${this.best.name}`)
+      .actual(`${formatNumber(this.returnedFromSelected)}${t({
+      id: "monk.mistweaver.suggestions.tier45Talent.efficiency",
+      message: ` mana returned through `
+    })}${this.best.name}`)
       .recommended(`${this.best.name} would have returned ${formatNumber(this.best.manaFrom)}`));
   }
 

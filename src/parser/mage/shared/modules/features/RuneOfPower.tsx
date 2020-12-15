@@ -12,7 +12,6 @@ import Events, { CastEvent, SummonEvent, DamageEvent } from 'parser/core/Events'
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 /*
@@ -132,7 +131,10 @@ class RuneOfPower extends Analyzer {
     when(this.damageSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> damage boost is below the expected passive gain from <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />. Either find ways to make better use of the talent, or switch to <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />.</>)
           .icon(SPELLS.RUNE_OF_POWER_TALENT.icon)
-          .actual(i18n._(t('mage.shared.suggetsions.runeOfPower.damageIncrease')`${formatPercentage(this.damageIncreasePercent)}% damage increase from Rune of Power`))
+          .actual(t({
+      id: "mage.shared.suggetsions.runeOfPower.damageIncrease",
+      message: `${formatPercentage(this.damageIncreasePercent)}% damage increase from Rune of Power`
+    }))
           .recommended(`${formatPercentage(recommended)}% is the passive gain from Incanter's Flow`));
     when(this.overlappedRunesThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> or an ability that automatically casts <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> (Like <SpellLink id={SPELLS.ICY_VEINS.id} />, <SpellLink id={SPELLS.COMBUSTION.id} />, or <SpellLink id={SPELLS.ARCANE_POWER.id} />) while you still had a Rune down. Make sure you are not overlapping your <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> so you can get the most out of the damage buff that it provides.</>)
@@ -144,7 +146,10 @@ class RuneOfPower extends Analyzer {
       when(this.roundedSecondsSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => suggest(<>You sometimes aren't standing in your <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> for its full duration. Try to only use it when you know you won't have to move for the duration of the effect.</>)
             .icon(SPELLS.RUNE_OF_POWER_TALENT.icon)
-            .actual(i18n._(t('mage.shared.suggestions.runeOfPower.utilization')`Average ${this.roundedSecondsPerCast.toFixed(1)}s standing in each Rune of Power`))
+            .actual(t({
+        id: "mage.shared.suggestions.runeOfPower.utilization",
+        message: `Average ${this.roundedSecondsPerCast.toFixed(1)}s standing in each Rune of Power`
+      }))
             .recommended(`the full duration of ${formatNumber(RUNE_DURATION)}s is recommended`));
     }
 

@@ -7,7 +7,6 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const debug = false;
@@ -132,7 +131,10 @@ class PredatorySwiftness extends Analyzer {
       </>,
     )
       .icon(SPELLS.PREDATORY_SWIFTNESS.icon)
-      .actual(i18n._(t('druid.feral.suggestions.predatorySwiftness.wasted')`${formatPercentage(actual)}% of Predatory Swiftness buffs wasted.`))
+      .actual(t({
+      id: "druid.feral.suggestions.predatorySwiftness.wasted",
+      message: `${formatPercentage(actual)}% of Predatory Swiftness buffs wasted.`
+    }))
       .recommended(`${recommended}% is recommended`));
   }
 

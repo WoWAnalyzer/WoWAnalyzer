@@ -5,7 +5,6 @@ import Enemies from 'parser/shared/modules/Enemies';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
@@ -28,7 +27,10 @@ class FrostFeverUptime extends Analyzer {
     when(this.frostFeverUptime).isLessThan(0.95)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>Your <SpellLink id={SPELLS.FROST_FEVER.id} /> uptime can be improved. Try to pay attention to when Frost Fever is about to fall off the priority target, using <SpellLink id={SPELLS.HOWLING_BLAST.id} /> to refresh Frost Fever. Using a debuff tracker can help.</span>)
         .icon(SPELLS.FROST_FEVER.icon)
-        .actual(i18n._(t('deathknight.frost.suggestions.frostFever.uptime')`${formatPercentage(actual)}% Frost Fever uptime`))
+        .actual(t({
+      id: "deathknight.frost.suggestions.frostFever.uptime",
+      message: `${formatPercentage(actual)}% Frost Fever uptime`
+    }))
         .recommended(`>${formatPercentage(recommended)}% is recommended`)
         .regular(recommended - 0.05).major(recommended - 0.15));
   }

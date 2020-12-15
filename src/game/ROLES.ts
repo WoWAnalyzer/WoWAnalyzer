@@ -11,25 +11,21 @@ const ROLES = {
 export default ROLES;
 
 const naming = {
-  [ROLES.TANK]: (num: number) => plural({
-    value: num,
+  [ROLES.TANK]: (num: number) => plural(num, {
     one: 'Tank',
-    other: 'Tanks',
+    other: 'Tanks'
   }),
-  [ROLES.HEALER]: (num: number) => plural({
-    value: num,
+  [ROLES.HEALER]: (num: number) => plural(num, {
     one: 'Healer',
-    other: 'Healers',
+    other: 'Healers'
   }),
-  [ROLES.DPS.MELEE]: (num: number) => plural({
-    value: num,
+  [ROLES.DPS.MELEE]: (num: number) => plural(num, {
     one: 'Melee DPS',
-    other: 'Melee DPS',
+    other: 'Melee DPS'
   }),
-  [ROLES.DPS.RANGED]: (num: number) => plural({
-    value: num,
+  [ROLES.DPS.RANGED]: (num: number) => plural(num, {
     one: 'Ranged DPS',
-    other: 'Ranged DPS',
+    other: 'Ranged DPS'
   }),
 };
 

@@ -11,7 +11,7 @@ import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
   contributors: [Abelito75, HolySchmidt],
-  patchCompatibility: '9.0',
+  patchCompatibility: '9.0.2',
   isSupported: true,
   description: (
     <>

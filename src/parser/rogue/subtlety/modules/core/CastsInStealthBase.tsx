@@ -1,7 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Spell from 'common/SPELLS/Spell';
@@ -67,7 +66,10 @@ class CastsInStealthBase extends Analyzer {
     when(thresholds)
       .addSuggestion((suggest: SuggestionFactory, actual: number | boolean, recommended: number | boolean) => suggest(<>Use <SpellLink id={SPELLS.SHADOWSTRIKE.id} /> instead of <SpellLink id={spell.id} /> during {this.stealthCondition}. </>)
         .icon(spell.icon)
-        .actual(i18n._(t('rogue.subtlety.suggestions.castsInStealth.casts')`${actual} ${spell.name} casts`))
+        .actual(t({
+      id: "rogue.subtlety.suggestions.castsInStealth.casts",
+      message: `${actual} ${spell.name} casts`
+    }))
         .recommended(`${recommended} is recommended`));
   }
 
@@ -75,7 +77,10 @@ class CastsInStealthBase extends Analyzer {
     when(this.castsInStealthThresholds)
       .addSuggestion((suggest: SuggestionFactory) => suggest(<>Try to cast {this.maxCastsPerStealth} spells during {this.stealthCondition}</>)
         .icon(spell.icon)
-        .actual(i18n._(t('rogue.subtlety.suggestions.castsInStealth.efficiency')`${this.stealthActualCasts} casts out of ${this.stealthMaxCasts} possible.`))
+        .actual(t({
+      id: "rogue.subtlety.suggestions.castsInStealth.efficiency",
+      message: `${this.stealthActualCasts} casts out of ${this.stealthMaxCasts} possible.`
+    }))
         .recommended(`${this.maxCastsPerStealth} in each ${this.stealthCondition} window`));
   }
 }

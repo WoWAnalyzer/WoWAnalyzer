@@ -8,7 +8,6 @@ import Events from 'parser/core/Events';
 import BoringResourceValue from 'interface/statistics/components/BoringResourceValue/index';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Statistic from 'interface/statistics/Statistic';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import getComboPointsFromEvent from '../core/getComboPointsFromEvent';
@@ -122,7 +121,10 @@ class FinisherUse extends Analyzer {
       </>,
     )
       .icon('creatureportrait_bubble')
-      .actual(i18n._(t('druid.feral.suggestions.finishers.efficiency')`${(actual * 100).toFixed(0)}% of finishers were incorrectly used without full combo points`))
+      .actual(t({
+      id: "druid.feral.suggestions.finishers.efficiency",
+      message: `${(actual * 100).toFixed(0)}% of finishers were incorrectly used without full combo points`
+    }))
       .recommended(`${(recommended * 100).toFixed(0)}% is recommended`));
   }
 

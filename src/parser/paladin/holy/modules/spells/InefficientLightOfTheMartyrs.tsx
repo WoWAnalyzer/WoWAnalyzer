@@ -1,7 +1,6 @@
 import { t } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
-import { i18n } from 'interface/RootLocalizationProvider';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 
@@ -52,7 +51,10 @@ class InefficientLightOfTheMartyrs extends Analyzer {
     if (effectiveHealing <= 0) {
       cast.meta = cast.meta || {};
       cast.meta.isInefficientCast = true;
-      cast.meta.inefficientCastReason = i18n._(t("paladin.holy.timeline.badLotM")`This cast dealt more damage to you than it healed the target. If there is nothing to heal, you should deal damage instead.`);
+      cast.meta.inefficientCastReason = t({
+        id: "paladin.holy.timeline.badLotM",
+        message: `This cast dealt more damage to you than it healed the target. If there is nothing to heal, you should deal damage instead.`
+      });
     }
 
     this.lastCast = undefined;

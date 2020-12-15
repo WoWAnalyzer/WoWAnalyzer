@@ -18,9 +18,155 @@ Array [
        casts instant.
     </span>,
     "stat": <React.Fragment>
-      37.56% downtime
+      {"id":"mage.arcane.suggestions.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"37.22"}}
        (
       &lt;20.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`Arcane Mage integration test: example log ArcaneEcho matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="TALENTS"
+    className="panel statistic flexible "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=342231"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Arcane Echo"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/ability_socererking_arcanewrath.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=342231"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Arcane Echo
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=5143"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Arcane Missiles"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_nature_starfall.jpg"
+            />
+          </a>
+           
+          1
+           
+          <small>
+            Average casts per Touch of the Magi
+          </small>
+          <br />
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=321507"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Touch of the Magi"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_mage_icenova.jpg"
+            />
+          </a>
+           
+          1
+           
+          <small>
+            Touch of the Magi Utilization
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Arcane Mage integration test: example log ArcaneEcho matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_nature_starfall",
+    "importance": "major",
+    "issue": <React.Fragment>
+      You failed to cast enough 
+      <ForwardRef
+        id={5143}
+      />
+       into 
+      <ForwardRef
+        id={321507}
+      />
+       
+      5
+       times. When using 
+      <ForwardRef
+        id={342231}
+      />
+       you should be casting 
+      <ForwardRef
+        id={5143}
+      />
+       non-stop (Whether you have 
+      <ForwardRef
+        id={263725}
+      />
+       procs or not) until the 
+      <ForwardRef
+        id={321507}
+      />
+       debuff is removed from the target.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      {"id":"mage.arcane.suggestions.arcaneEcho.badTouchUses","message":"{0} Bad Touch of the Magi Uses","values":{"0":"5"}}
+       (
+      0 is recommended
       )
     </React.Fragment>,
   },
@@ -42,7 +188,7 @@ Array [
       % of the fight. Ensure you are casting this before the pull and recasting it every time you are ressurected.
     </React.Fragment>,
     "stat": <React.Fragment>
-      99.99% Uptime
+      {"id":"mage.shared.suggestions.arcaneIntellect.uptime","message":"{0}% Uptime","values":{"0":"99.99"}}
        (
       100.00% is recommended
       )
@@ -62,16 +208,28 @@ Array [
       <ForwardRef
         id={5143}
       />
-       without 
+       improperly 
+      2
+       times. In order to get the most out of 
+      <ForwardRef
+        id={5143}
+      />
+       you should only cast it if you have 
       <ForwardRef
         id={263725}
       />
-       
-      5
-       times. Arcane Missiles is a very expensive spell (more expensive than a 4 Charge Arcane Blast) and therefore it should only be cast when you have the Clearcasting buff which makes the spell free.
+       or if you are using 
+      <ForwardRef
+        id={342231}
+      />
+       and the target has 
+      <ForwardRef
+        id={321507}
+      />
+      .
     </React.Fragment>,
     "stat": <React.Fragment>
-      73.68% Uptime
+      {"id":"mage.arcane.suggestions.arcaneMissiles.clearCasting.uptime","message":"{0}% Uptime","values":{"0":"89.47"}}
        (
       100.00% is recommended
       )
@@ -165,7 +323,7 @@ Array [
        times without hitting anything. While it is acceptable to use this ability on Single Target encounters, you need to ensure you are aiming the ability so that it will at least hit one target.
     </React.Fragment>,
     "stat": <React.Fragment>
-      1 Missed Orbs
+      {"id":"mage.arcane.suggestions.arcaneOrb.badCasts","message":"{0} Missed Orbs","values":{"0":"1"}}
        (
       0 is recommended
       )
@@ -233,7 +391,7 @@ exports[`Arcane Mage integration test: example log ArcanePower matches the stati
             />
           </a>
            
-          50
+          100
           % 
           <small>
              Cooldown utilization
@@ -285,67 +443,6 @@ exports[`Arcane Mage integration test: example log ArcanePower matches the stati
     </div>
   </div>
 </div>
-`;
-
-exports[`Arcane Mage integration test: example log ArcanePower matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "spell_nature_lightning",
-    "importance": "major",
-    "issue": <React.Fragment>
-      You cast 
-      <ForwardRef
-        id={12042}
-      />
-       without proper setup 
-      2
-       times. Arcane Power has a short duration so you should get the most out of it by meeting all requirements before casting it.
-      <ul>
-        <li>
-          You have 4 
-          <ForwardRef
-            id={36032}
-          />
-           - You had this 
-          2
-           out of 
-          2
-           casts.
-        </li>
-        <li>
-          You cast 
-          <ForwardRef
-            id={116011}
-          />
-           
-          <TooltipElement
-            className=""
-            content="Arcane Power should be cast right on the end of the Rune of Power cast. There should not be any casts or any delay in between Rune of Power and Arcane Power to ensure that Rune of Power is up for the entire duration of Arcane Power."
-            direction="down"
-            hoverable={false}
-            style={Object {}}
-            tooltipClassName=""
-          >
-            immediately
-          </TooltipElement>
-           before Arcane Power - You did this 
-          0
-           out of 
-          2
-           casts.
-        </li>
-        
-      </ul>
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      2 Bad Casts
-       (
-      0 is recommended
-      )
-    </React.Fragment>,
-  },
-]
 `;
 
 exports[`Arcane Mage integration test: example log CancelledCasts matches the statistic snapshot 1`] = `
@@ -452,7 +549,7 @@ Array [
       .
     </React.Fragment>,
     "stat": <React.Fragment>
-      7.79% casts cancelled
+      {"id":"mage.shared.suggestions.castsCancelled","message":"{0}% casts cancelled","values":{"0":"7.79"}}
        (
       &lt;5.00% is recommended
       )
@@ -475,7 +572,10 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
         }
       }
     >
-      common.abilities
+      <trans
+        id="common.abilities"
+        message="Abilities"
+      />
     </h1>
   </div>
   <div
@@ -502,7 +602,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
           <tr>
             <th>
               <b>
-                Rotational Spell
+                {"id":"core.abilities.spellCategories.rotational","message":"Rotational Spell"}
               </b>
             </th>
             <th
@@ -515,7 +615,10 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.cpm
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
               </dfn>
             </th>
             <th
@@ -528,7 +631,10 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.casts
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
               </dfn>
             </th>
             <th
@@ -541,7 +647,10 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.timeOnCooldown
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
               </dfn>
             </th>
             <th />
@@ -1074,12 +1183,110 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             />
           </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=321507"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_mage_icenova.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Touch of the Magi
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              1.04
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              5
+              /7
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "75.83063845354741%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              75.83%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
         </tbody>
         <tbody>
           <tr>
             <th>
               <b>
-                Spell (AOE)
+                {"id":"core.abilities.spellCategories.rotationalAoe","message":"Spell (AOE)"}
               </b>
             </th>
             <th
@@ -1092,7 +1299,10 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.cpm
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
               </dfn>
             </th>
             <th
@@ -1105,7 +1315,10 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.casts
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
               </dfn>
             </th>
             <th
@@ -1118,7 +1331,10 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.timeOnCooldown
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
               </dfn>
             </th>
             <th />
@@ -1220,7 +1436,10 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              shared.castEfficiency.canBeImproved
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
             </td>
           </tr>
         </tbody>
@@ -1228,7 +1447,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
           <tr>
             <th>
               <b>
-                Cooldown
+                {"id":"core.abilities.spellCategories.cooldowns","message":"Cooldown"}
               </b>
             </th>
             <th
@@ -1241,7 +1460,10 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.cpm
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
               </dfn>
             </th>
             <th
@@ -1254,7 +1476,10 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.casts
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
               </dfn>
             </th>
             <th
@@ -1267,7 +1492,10 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.timeOnCooldown
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
               </dfn>
             </th>
             <th />
@@ -1467,7 +1695,10 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              shared.castEfficiency.canBeImproved
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
             </td>
           </tr>
           <tr>
@@ -1567,7 +1798,10 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              shared.castEfficiency.canBeImproved
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
             </td>
           </tr>
           <tr>
@@ -1765,7 +1999,10 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              shared.castEfficiency.canBeImproved
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
             </td>
           </tr>
           <tr>
@@ -1865,7 +2102,10 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              shared.castEfficiency.canBeImproved
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
             </td>
           </tr>
         </tbody>
@@ -1873,7 +2113,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
           <tr>
             <th>
               <b>
-                Defensive Cooldown
+                {"id":"core.abilities.spellCategories.defensive","message":"Defensive Cooldown"}
               </b>
             </th>
             <th
@@ -1886,7 +2126,10 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.cpm
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
               </dfn>
             </th>
             <th
@@ -1899,7 +2142,10 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.casts
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
               </dfn>
             </th>
             <th
@@ -1912,7 +2158,10 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.timeOnCooldown
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
               </dfn>
             </th>
             <th />
@@ -2216,7 +2465,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
           <tr>
             <th>
               <b>
-                Utility
+                {"id":"core.abilities.spellCategories.utility","message":"Utility"}
               </b>
             </th>
             <th
@@ -2229,7 +2478,10 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.cpm
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
               </dfn>
             </th>
             <th
@@ -2242,7 +2494,10 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.casts
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
               </dfn>
             </th>
             <th
@@ -2255,7 +2510,10 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.timeOnCooldown
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
               </dfn>
             </th>
             <th />
@@ -3357,7 +3615,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
           <tr>
             <th>
               <b>
-                Consumable
+                {"id":"core.abilities.spellCategories.consumable","message":"Consumable"}
               </b>
             </th>
             <th
@@ -3370,7 +3628,10 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.cpm
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
               </dfn>
             </th>
             <th
@@ -3383,7 +3644,10 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.casts
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
               </dfn>
             </th>
             <th
@@ -3396,108 +3660,13 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.timeOnCooldown
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
               </dfn>
             </th>
             <th />
-          </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "35%",
-                }
-              }
-            >
-              <a
-                className="spell-link-text"
-                href="http://wowhead.com/spell=6262"
-                rel="noopener noreferrer"
-                style={
-                  Object {
-                    "color": "#fff",
-                  }
-                }
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/warlock_healthstone.jpg"
-                  style={
-                    Object {
-                      "height": undefined,
-                      "marginTop": undefined,
-                    }
-                  }
-                />
-                 
-                Healthstone
-              </a>
-            </td>
-            <td
-              className="text-center"
-              style={
-                Object {
-                  "minWidth": 80,
-                }
-              }
-            >
-              0.00
-            </td>
-            <td
-              className="text-right"
-              style={
-                Object {
-                  "minWidth": 110,
-                }
-              }
-            >
-              0
-              /1
-               
-              casts
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar"
-                  style={
-                    Object {
-                      "backgroundColor": "#70b570",
-                      "width": "0%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              className="text-left"
-              style={
-                Object {
-                  "minWidth": 50,
-                  "paddingRight": 5,
-                }
-              }
-            >
-              0.00%
-            </td>
-            <td
-              style={
-                Object {
-                  "color": "orange",
-                  "width": "25%",
-                }
-              }
-            />
           </tr>
           <tr>
             <td
@@ -3709,24 +3878,24 @@ Array [
     "icon": "spell_mage_arcaneorb",
     "importance": "major",
     "issue": <React.Fragment>
-      <WithI18n
+      <Trans
         components={
-          Array [
-            <ForwardRef
+          Object {
+            "0": <ForwardRef
               id={153626}
             />,
-          ]
+          }
         }
-        defaults="Try to cast <0/> more often."
         id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
-      <WithI18n
-        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+      <Trans
         id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
         values={
           Object {
             "0": 4,
@@ -3736,9 +3905,9 @@ Array [
         }
       />
        (
-      <WithI18n
-        defaults=">{0}% is recommended"
+      <Trans
         id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
         values={
           Object {
             "0": "90",
@@ -3753,24 +3922,24 @@ Array [
     "icon": "spell_nature_lightning",
     "importance": "regular",
     "issue": <React.Fragment>
-      <WithI18n
+      <Trans
         components={
-          Array [
-            <ForwardRef
+          Object {
+            "0": <ForwardRef
               id={12042}
             />,
-          ]
+          }
         }
-        defaults="Try to cast <0/> more often."
         id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
-      <WithI18n
-        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+      <Trans
         id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
         values={
           Object {
             "0": 2,
@@ -3780,9 +3949,9 @@ Array [
         }
       />
        (
-      <WithI18n
-        defaults=">{0}% is recommended"
+      <Trans
         id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
         values={
           Object {
             "0": "90",
@@ -3797,24 +3966,24 @@ Array [
     "icon": "spell_nature_purge",
     "importance": "major",
     "issue": <React.Fragment>
-      <WithI18n
+      <Trans
         components={
-          Array [
-            <ForwardRef
+          Object {
+            "0": <ForwardRef
               id={12051}
             />,
-          ]
+          }
         }
-        defaults="Try to cast <0/> more often."
         id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
-      <WithI18n
-        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+      <Trans
         id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
         values={
           Object {
             "0": 2,
@@ -3824,9 +3993,9 @@ Array [
         }
       />
        (
-      <WithI18n
-        defaults=">{0}% is recommended"
+      <Trans
         id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
         values={
           Object {
             "0": "90",
@@ -3841,24 +4010,24 @@ Array [
     "icon": "spell_mage_runeofpower",
     "importance": "major",
     "issue": <React.Fragment>
-      <WithI18n
+      <Trans
         components={
-          Array [
-            <ForwardRef
+          Object {
+            "0": <ForwardRef
               id={116011}
             />,
-          ]
+          }
         }
-        defaults="Try to cast <0/> more often."
         id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
-      <WithI18n
-        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+      <Trans
         id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
         values={
           Object {
             "0": 2,
@@ -3868,9 +4037,9 @@ Array [
         }
       />
        (
-      <WithI18n
-        defaults=">{0}% is recommended"
+      <Trans
         id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
         values={
           Object {
             "0": "90",
@@ -3885,24 +4054,24 @@ Array [
     "icon": "ability_ardenweald_mage",
     "importance": "major",
     "issue": <React.Fragment>
-      <WithI18n
+      <Trans
         components={
-          Array [
-            <ForwardRef
+          Object {
+            "0": <ForwardRef
               id={314791}
             />,
-          ]
+          }
         }
-        defaults="Try to cast <0/> more often."
         id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
-      <WithI18n
-        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+      <Trans
         id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
         values={
           Object {
             "0": 2,
@@ -3912,9 +4081,9 @@ Array [
         }
       />
        (
-      <WithI18n
-        defaults=">{0}% is recommended"
+      <Trans
         id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
         values={
           Object {
             "0": "90",
@@ -3940,16 +4109,27 @@ Array [
       54
        seconds). Dying has a significant performance cost. View the 
       <Link
-        to="/report/HmYxBnZPgV3Rk8hL/12-Heroic+Shriekwing+-+Kill+(5:43)/Mattyblasts/standard/death-recap"
+        to="/report/HmYxBnZPgV3Rk8hL/12-%7B%22id%22:%22common.getFightName.fightname%22,%22message%22:%22%7BbossName%7D+-+%7BfightResult%7D+(%7Bduration%7D)%22,%22values%22:%7B%22bossName%22:%22%5C%22%7B0%7D+%7B1%7D%5C%22%22,%22fightResult%22:%22%7B%5C%22id%5C%22:%5C%22common.getFightName.kill%5C%22,%5C%22message%5C%22:%5C%22Kill%5C%22%7D%22,%22duration%22:%225:43%22%7D%7D/Mattyblasts/standard/death-recap"
       >
         Death Recap
       </Link>
        to see the damage taken and what defensives and potions were still available.
     </React.Fragment>,
     "stat": <React.Fragment>
-      You were dead for 18.48% of the fight
+      <Trans
+        id="shared.suggestions.deathTracker.deathTime"
+        message="You were dead for {0}% of the fight"
+        values={
+          Object {
+            "0": "18.48",
+          }
+        }
+      />
        (
-      0% is recommended
+      <Trans
+        id="shared.suggestions.deathTracker.recommended"
+        message="0% is recommended"
+      />
       )
     </React.Fragment>,
   },
@@ -3971,7 +4151,10 @@ exports[`Arcane Mage integration test: example log DistanceMoved matches the sta
         className="pad"
       >
         <label>
-          shared.distanceMoved.statistic.label
+          <trans
+            id="shared.distanceMoved.statistic.label"
+            message="Distance moved"
+          />
         </label>
         <div
           className="value"
@@ -4131,10 +4314,10 @@ Array [
     "details": null,
     "icon": "inv_plate_oribosdungeon_c_01_cape.jpg",
     "importance": "major",
-    "issue": <WithI18n
+    "issue": <Trans
       components={
-        Array [
-          <ItemLink
+        Object {
+          "0": <ItemLink
             details={
               Object {
                 "bonusIDs": Array [
@@ -4152,15 +4335,15 @@ Array [
             id={184781}
             quality={4}
           />,
-        ]
+        }
       }
-      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
       id="shared.enchantChecker.suggestions.noEnchant.label"
+      message="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
       values={
         Object {
-          "slotName": <WithI18n
-            defaults="Cloak"
+          "slotName": <Trans
             id="common.slots.cloak"
+            message="Cloak"
           />,
         }
       }
@@ -4340,7 +4523,7 @@ Array [
        for its full duration. Try to only use it when you know you won't have to move for the duration of the effect.
     </React.Fragment>,
     "stat": <React.Fragment>
-      Average 10.7s standing in each Rune of Power
+      {"id":"mage.shared.suggestions.runeOfPower.utilization","message":"Average {0}s standing in each Rune of Power","values":{"0":"10.7"}}
        (
       the full duration of 12s is recommended
       )
@@ -5026,7 +5209,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
     </div>
   </li>
   <li
-    className="expandable expanded failed"
+    className="expandable  passed"
   >
     <div
       className="meta"
@@ -5050,8 +5233,8 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ffc84a",
-                  "width": "63.87500000000001%",
+                  "backgroundColor": "#4ec04e",
+                  "width": "100%",
                 }
               }
             />
@@ -5279,7 +5462,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  50.00%
+                  100.00%
                    
                    
                 </div>
@@ -5299,9 +5482,9 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "27.750000000000004%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -5339,7 +5522,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "28.662975000000014%",
+                  "width": "6.660000000000001%",
                 }
               }
             />
@@ -5501,6 +5684,96 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               <div
                 className="flex-main"
               >
+                Bad Touch of the Magi Uses
+              </div>
+              <div
+                className="flex-sub"
+                style={
+                  Object {
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  <svg
+                    className="icon"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                    />
+                    <path
+                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                    />
+                    <path
+                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  5
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "6.660000000000001%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
                 Rune of Power Uptime
               </div>
               <div
@@ -5612,7 +5885,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               style={
                 Object {
                   "backgroundColor": "#df7102",
-                  "width": "43.3618032273797%",
+                  "width": "43.38598192987392%",
                 }
               }
             />
@@ -5705,7 +5978,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  37.56%
+                  37.22%
                    
                    
                 </div>
@@ -5727,7 +6000,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "5.319710350863295%",
+                        "width": "5.368067755851726%",
                       }
                     }
                   />
@@ -6008,7 +6281,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "27.263157894736846%",
+                  "width": "33.10526315789474%",
                 }
               }
             />
@@ -6236,7 +6509,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  73.68%
+                  89.47%
                    
                    
                 </div>
@@ -6258,7 +6531,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "27.263157894736846%",
+                        "width": "33.10526315789474%",
                       }
                     }
                   />
@@ -6283,7 +6556,10 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
         <div
           className="flex-main name"
         >
-          shared.modules.features.checklist.wellPrepared
+          <trans
+            id="shared.modules.features.checklist.wellPrepared"
+            message="Be well prepared"
+          />
         </div>
         <div
           className="flex-sub perf"
@@ -6353,7 +6629,10 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
           <div
             className="col-md-12"
           >
-            shared.modules.features.checklist.wellPreparedDetails
+            <trans
+              id="shared.modules.features.checklist.wellPreparedDetails"
+              message="Being well prepared with food, flasks, potions and enchants is an easy way to improve your performance."
+            />
           </div>
         </div>
         <div
@@ -6368,7 +6647,10 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.enchanted
+                <trans
+                  id="shared.modules.features.checklist.enchanted"
+                  message="All items enchanted"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6429,7 +6711,10 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.enchantedHigh
+                <trans
+                  id="shared.modules.features.checklist.enchantedHigh"
+                  message="Using high quality enchants"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6490,7 +6775,9 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               <div
                 className="flex-main"
               >
-                All weapons enhanced (oils/stones)
+                <trans
+                  id="All weapons enhanced (oils/stones)"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6551,7 +6838,9 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               <div
                 className="flex-main"
               >
-                Using high quality weapon enhancements
+                <trans
+                  id="Using high quality weapon enhancements"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6612,7 +6901,10 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.combatPotionsUsed
+                <trans
+                  id="shared.modules.features.checklist.combatPotionsUsed"
+                  message="Combat potions used"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6673,7 +6965,10 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.highQualityCombatPotionsUsed
+                <trans
+                  id="shared.modules.features.checklist.highQualityCombatPotionsUsed"
+                  message="High quality combat potions used"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6734,7 +7029,10 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.flaskHigh
+                <trans
+                  id="shared.modules.features.checklist.flaskHigh"
+                  message="High quality flask used"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6755,7 +7053,10 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  common.yes
+                  <trans
+                    id="common.yes"
+                    message="Yes"
+                  />
                    
                    
                 </div>
@@ -6794,7 +7095,10 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.flask
+                <trans
+                  id="shared.modules.features.checklist.flask"
+                  message="Flask used"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6815,7 +7119,10 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  common.yes
+                  <trans
+                    id="common.yes"
+                    message="Yes"
+                  />
                    
                    
                 </div>
@@ -6854,7 +7161,10 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.foodHigh
+                <trans
+                  id="shared.modules.features.checklist.foodHigh"
+                  message="High quality food used"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6875,7 +7185,10 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  common.no
+                  <trans
+                    id="common.no"
+                    message="No"
+                  />
                    
                    
                 </div>
@@ -6914,7 +7227,10 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.food
+                <trans
+                  id="shared.modules.features.checklist.food"
+                  message="Food used"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6935,7 +7251,10 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  common.yes
+                  <trans
+                    id="common.yes"
+                    message="Yes"
+                  />
                    
                    
                 </div>
