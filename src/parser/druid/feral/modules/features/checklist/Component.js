@@ -289,7 +289,7 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }) => {
           name="Weave in Bloodtalons"
           description={(
             <>
-              Taking the <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> talent adds an extra set of mechanics to weave into your rotation. You should use 3 different combopoint generating abilities within 4 seconds to generate <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> charges, which you then spend to buff attacks. Aim to always have the buff active on <SpellLink id={SPELLS.RIP.id} /> and <SpellLink id={SPELLS.FEROCIOUS_BITE.id} />. Pool energy if necessary to generate the buff.
+              Taking the <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> talent adds an extra set of mechanics to weave into your rotation. You should use 3 different combopoint generating abilities within 4 seconds to generate <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> charges, which you then spend to buff attacks. Aim to always have the buff active on <SpellLink id={SPELLS.RIP.id} /> and <SpellLink id={SPELLS.FEROCIOUS_BITE.id} />. Pool energy if necessary to generate the buff. While the buff is active, use only <SpellLink id={SPELLS.SHRED.id} /> or <SpellLink id={SPELLS.BRUTAL_SLASH_TALENT.id} /> if talented as combopoint generators on single target.
             </>
           )}
         >

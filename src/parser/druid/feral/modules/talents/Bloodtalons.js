@@ -14,15 +14,9 @@ const debug = false;
 const BLOODTALONS_BUFF_DURATION = 30000;
 const EXPIRE_WINDOW = 100;
 const POTENTIAL_SPENDERS = [
-  SPELLS.RAKE,
   SPELLS.RIP,
-  SPELLS.SHRED,
   SPELLS.FEROCIOUS_BITE,
-  SPELLS.BRUTAL_SLASH_TALENT,
-  SPELLS.SWIPE_CAT,
-  SPELLS.THRASH_FERAL,
-  SPELLS.MAIM,
-  // Feral Frenzy would be a spender, but it's a talent on the same row as Bloodtalons
+  // TODO: Primal Wrath talent (AOE Rip)
 ];
 
 // time (in ms) within which to consider direct damage events with same spellId as belonging to the same ability use
@@ -46,7 +40,7 @@ const CHART_COLOR_SPENDERS = [
 ];
 
 /**
- * Casting Regrowth or Entangling Roots generates 2 stacks of the Bloodtalons buff.
+ * Casting 3 different combo-point generating abilities within 4 seconds generates 2 stacks of the Bloodtalons buff.
  * 1 charge is consumed by each successful use of one of the POTENTIAL_SPENDERS. Successful uses
  * are detected in different ways depending on the ability:
  * - Single target attacks that do initial damage consume a stack so long as that damage connects.
@@ -97,7 +91,7 @@ class Bloodtalons extends Analyzer {
       valueTooltip: (<>
         <b>{this.wasted}</b> Bloodtalons charge{this.wasted !== 1 ? 's were' : ' was'} wasted.<br />
         <ul>
-          <li>You lost <b>{this.overwritten}</b> by casting Regrowth or Entangling Roots when you already had charges.</li>
+          <li>You lost <b>{this.overwritten}</b> by casting 3 different abilities within 4 seconds when you already had charges.</li>
           <li>You lost <b>{this.expired}</b> by allowing {this.expired !== 1 ? 'them' : 'it'} to expire.</li>
           <li>You lost <b>{this.remainAfterFight}</b> by having {this.remainAfterFight !== 1 ? 'them' : 'it'} left over at the fight's end.</li>
         </ul>
@@ -234,7 +228,7 @@ class Bloodtalons extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
       <>
-        You are overwriting charges of <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} />. Try to use both charges before you generate more from casting <SpellLink id={SPELLS.REGROWTH.id} /> or <SpellLink id={SPELLS.ENTANGLING_ROOTS.id} />.
+        You are overwriting charges of <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} />. Try to use both charges before you generate more from casting 3 different combopoint generating abilities within 4 seconds that aren't <SpellLink id={SPELLS.SHRED.id} /> or <SpellLink id={SPELLS.BRUTAL_SLASH_TALENT.id} />.
       </>,
     )
       .icon(SPELLS.BLOODTALONS_TALENT.icon)
