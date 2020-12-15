@@ -280,27 +280,19 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }) => {
       </Rule>
 
       {/*Manage Bloodtalons - whole section is only if talent is taken
-        🗵 Use Predatory Swiftness to generate charges
+        🗵 Use 3 combo-point-generating abilities within 4 seconds to generate charges
         🗵 Don't waste charges by overwriting
-        ☐ Prioritize using charges on Rip and Rake
+        ☐ Use charges on Rip and Ferocious Bite
       */}
       {combatant.hasTalent(SPELLS.BLOODTALONS_TALENT.id) && (
         <Rule
           name="Weave in Bloodtalons"
           description={(
             <>
-              Taking the <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> talent adds an extra set of mechanics to weave into your rotation. You should use every <SpellLink id={SPELLS.PREDATORY_SWIFTNESS.id} /> proc to generate <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> charges, which you then spend to buff attacks. Aim to always have the buff active on <SpellLink id={SPELLS.RIP.id} /> and <SpellLink id={SPELLS.RAKE.id} />. Depending on your other talent choices and the number of targets you'll usually have access to more charges than needed to keep those two DoTs buffed, use the rest to buff other high damage attacks such as <SpellLink id={SPELLS.BRUTAL_SLASH_TALENT.id} />. Choose the right time to cast <SpellLink id={SPELLS.REGROWTH.id} /> or <SpellLink id={SPELLS.ENTANGLING_ROOTS.id} /> and generate charges, usually the best time is when you reach 4 or 5 combo points so <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> is active for your finisher.
+              Taking the <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> talent adds an extra set of mechanics to weave into your rotation. You should use 3 different combopoint generating abilities within 4 seconds to generate <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> charges, which you then spend to buff attacks. Aim to always have the buff active on <SpellLink id={SPELLS.RIP.id} /> and <SpellLink id={SPELLS.FEROCIOUS_BITE.id} />. Pool energy if necessary to generate the buff.
             </>
           )}
         >
-          <Requirement
-            name={(
-              <>
-                <SpellLink id={SPELLS.PREDATORY_SWIFTNESS.id} /> wasted
-              </>
-            )}
-            thresholds={thresholds.predatorySwiftnessWasted}
-          />
           <Requirement
             name={(
               <>
