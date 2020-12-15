@@ -26,7 +26,21 @@ const covenants = {
   //endregion
 
   //region Venthyr
-
+  CHAIN_HARVEST: {
+    id: 320674,
+    name: 'Chain Harvest',
+    icon: 'ability_revendreth_shaman',
+  },
+  CHAIN_HARVEST_HEAL: {
+    id: 320751,
+    name: 'Chain Harvest',
+    icon: 'ability_revendreth_shaman',
+  },
+  CHAIN_HARVEST_DAMAGE: {
+    id: 320752,
+    name: 'Chain Harvest',
+    icon: 'ability_revendreth_shaman',
+  },
   //endregion
 } as const;
 export default covenants;
