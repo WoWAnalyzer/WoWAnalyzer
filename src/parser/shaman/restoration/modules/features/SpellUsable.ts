@@ -4,7 +4,7 @@ import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 class SpellUsable extends CoreSpellUsable {
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.dispel.by(SELECTED_PLAYER).spell(SPELLS.PURIFY_SPIRIT), this.onDispel);
   }

@@ -30,7 +30,7 @@ class MasteryEffectiveness extends Analyzer {
 
   masteryHealEvents = [];
 
-  constructor(options){
+  constructor(options) {
     super(options);
     // Totems count as pets, but are still affected by mastery.
     this.addEventListener(Events.heal.by(SELECTED_PLAYER | SELECTED_PLAYER_PET).spell(ABILITIES_AFFECTED_BY_MASTERY), this.onHeal);
@@ -101,7 +101,7 @@ class MasteryEffectiveness extends Analyzer {
           />
         </Panel>
       ),
-  ];
+    ];
   }
 
   get report() {

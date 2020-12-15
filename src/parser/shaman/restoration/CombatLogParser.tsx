@@ -61,9 +61,12 @@ import HeavyRainfall from './modules/shadowlands/conduits/HeavyRainfall';
 import SwirlingCurrents from './modules/shadowlands/conduits/SwirlingCurrents';
 import NaturesFocus from './modules/shadowlands/conduits/NaturesFocus';
 // Legendaries
-import PrimalTideCore from './modules/shadowlands/legendaries/PrimalTideCore'
-import JonatsNaturalFocus from './modules/shadowlands/legendaries/JonatsNaturalFocus'
-import EarthenHarmony from './modules/shadowlands/legendaries/EarthenHarmony'
+import PrimalTideCore from './modules/shadowlands/legendaries/PrimalTideCore';
+import JonatsNaturalFocus from './modules/shadowlands/legendaries/JonatsNaturalFocus';
+import EarthenHarmony from './modules/shadowlands/legendaries/EarthenHarmony';
+// Covenants
+import ChainHarvest from './modules/shadowlands/spells/ChainHarvest';
+import PrimordialWave from './modules/shadowlands/spells/PrimordialWave';
 // Shared
 import SpiritWolf from '../shared/talents/SpiritWolf';
 import StaticCharge from '../shared/talents/StaticCharge';
@@ -151,6 +154,10 @@ class CombatLogParser extends CoreCombatLogParser {
     primalTideCore: PrimalTideCore,
     jonatsNaturalFocus: JonatsNaturalFocus,
     earthenHarmony: EarthenHarmony,
+
+    // Covenants
+    chainHarvest: ChainHarvest,
+    primordialWave: PrimordialWave,
   };
 
   generateResults(options: any) {
