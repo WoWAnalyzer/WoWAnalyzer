@@ -5,6 +5,7 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2020, 12, 15), 'Bumped level of support to 9.0.2', Putro),
   change(date(2020, 12, 10), <> Fixed an issue where the module tracking utilisation of <SpellLink id={SPELLS.PRECISE_SHOTS.id} /> was accidentally showing unused procs as the used amount of procs. </>, Putro),
   change(date(2020, 12, 4), <> Implement the 100% focus generation increase to focus generators from <SpellLink id={SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT.id} />. </>, Putro),
   change(date(2020, 11, 14), <> Implement the 50% focus generation increase from <SpellLink id={SPELLS.TRUESHOT.id} /> and lay initial groundwork for <SpellLink id={SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT.id} /> legendary.</>, Putro),
