@@ -8,6 +8,7 @@ const covenants = {
     id: 326059,
     name: 'Primordial Wave',
     icon: 'ability_maldraxxus_shaman',
+    manaCost: 300,
   },
   PRIMORDIAL_WAVE_BUFF: {
     id: 327164,
@@ -30,6 +31,7 @@ const covenants = {
     id: 320674,
     name: 'Chain Harvest',
     icon: 'ability_revendreth_shaman',
+    manaCost: 1000,
   },
   CHAIN_HARVEST_HEAL: {
     id: 320751,
