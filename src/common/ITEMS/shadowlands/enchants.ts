@@ -31,6 +31,18 @@ const enchants: ItemList<Enchant> = {
     icon: 'inv_misc_enchantedscroll',
     effectId: 6228,
   },
+  ENCHANT_WEAPON_OPTICAL_TARGET_EMBIGGENER: {
+    id: 172920,
+    name: 'Optical Target Embiggener',
+    icon: 'inv_engineering_90_scope_blue',
+    effectId: 6196,
+  },
+  ENCHANT_WEAPON_INFRA_GREEN_REFLEX_SIGHT: {
+    id: 172921,
+    name: 'Infra-green Reflex Sight',
+    icon: 'inv_engineering_90_scope_green',
+    effectId: 6195,
+  },
   ENCHANT_CLOAK_FORTIFIED_AVOIDANCE: {
     id: 172411,
     name: 'Enchant Cloak - Fortified Avoidance',
