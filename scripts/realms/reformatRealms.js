@@ -7,7 +7,7 @@ function reformat(json) {
   return json.realms.map(({ name, slug }) => ({
     name,
     slug,
-  }));
+  })).sort((a, b) => a.name.localeCompare(b.name));
 }
 function reformatFile(path) {
   return reformat(readJson(path));
