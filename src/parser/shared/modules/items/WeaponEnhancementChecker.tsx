@@ -9,6 +9,7 @@ import { Item } from 'parser/core/Events';
 
 import React from 'react';
 import { Trans } from '@lingui/macro';
+import { Enchant } from 'common/ITEMS/Item';
 
 // Example logs with missing enhancement:
 // /report/XQrLTRC1bFWGAt3m/21-Mythic+The+Council+of+Blood+-+Wipe+10+(3:17)/Odsuv/standard
@@ -21,11 +22,11 @@ class WeaponEnhancementChecker extends Analyzer {
   };
 
   static MAX_ENHANCEMENT_IDS = [
-    ITEMS.SHADOWCORE_OIL.id,
-    ITEMS.EMBALMERS_OIL.id,
-    ITEMS.SHADED_SHARPENING_STONE.id,
-    ITEMS.SHADED_WEIGHTSTONE.id,
-  ]
+    ITEMS.SHADOWCORE_OIL,
+    ITEMS.EMBALMERS_OIL,
+    ITEMS.SHADED_SHARPENING_STONE,
+    ITEMS.SHADED_WEIGHTSTONE,
+  ].map(item => (item as Enchant).effectId);
 
   get enhanceableWeapons() {
     return Object.keys(WeaponEnhancementChecker.WEAPON_SLOTS).reduce((obj: {[key: number]: Item}, slot) => {
