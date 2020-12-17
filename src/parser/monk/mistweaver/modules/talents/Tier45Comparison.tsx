@@ -152,7 +152,7 @@ class Tier45Comparison extends Analyzer {
       //life cycles reduces mana cost of two spells if you casted the other before hand
       //so best = (x-1) * VivCost * LifcylesReduction + x * EnvCost * LifcylesReduction = (best + ReducedViv) / ReducedEnv = x
       //x-1 since you viv first in all fights
-      this.lifecycles.requiredEnvs = Math.ceil((this.best.manaFrom + Number(SPELLS.VIVIFY.manaCost ? SPELLS.VIVIFY.manaCost : 1)) / (SPELLS.ENVELOPING_MIST.manaCost ? SPELLS.ENVELOPING_MIST.manaCost : 0) * 1);
+      this.lifecycles.requiredEnvs = Math.ceil((this.best.manaFrom + Number(SPELLS.VIVIFY.manaCost ? SPELLS.VIVIFY.manaCost : 1)) / (SPELLS.ENVELOPING_MIST.manaCost ? SPELLS.ENVELOPING_MIST.manaCost : 1) * 1);
       this.lifecycles.requiredVivs = this.lifecycles.requiredEnvs - 1;
     }
 
@@ -166,8 +166,8 @@ class Tier45Comparison extends Analyzer {
   //anaylze current play style and see how much mana they would have gained from this talent
   generateSotc() {
     const sotcBlackOutKicks = this.abilityTracker.getAbility(SPELLS.BLACKOUT_KICK_TOTM.id).damageHits || 0;
-    const manaPercentFromSotc = Number(sotcBlackOutKicks);
-    const rawManaFromSotc = manaPercentFromSotc * this.manaTracker.maxResource;
+    const manaPercentFromSotc = 0.065 ;
+    const rawManaFromSotc = manaPercentFromSotc * this.manaTracker.maxResource * sotcBlackOutKicks;
     return rawManaFromSotc || 0;
   }
 
