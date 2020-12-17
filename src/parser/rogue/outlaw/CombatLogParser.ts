@@ -25,7 +25,6 @@ import SliceAndDiceUptime from './modules/spells/SliceAndDiceUptime';
 import Dispatch from './modules/spells/Dispatch';
 import Opportunity from './modules/spells/Opportunity';
 import OpportunityDamageTracker from './modules/spells/OpportunityDamageTracker';
-import BetweenTheEyes from './modules/spells/BetweenTheEyes';
 import BetweenTheEyesDamageTracker from './modules/spells/BetweenTheEyesDamageTracker';
 import Finishers from './modules/features/Finishers';
 
@@ -75,7 +74,6 @@ class CombatLogParser extends CoreCombatLogParser {
     opportunityDamageTracker: OpportunityDamageTracker,
     opportunity: Opportunity,
     betweenTheEyesDamageTracker: BetweenTheEyesDamageTracker,
-    betweenTheEyes: BetweenTheEyes,
     rollTheBonesBuffs: RollTheBonesBuffs,
     rollTheBonesCounter: RollTheBonesCounter,
     rollTheBonesEfficiency: RollTheBonesEfficiency,

@@ -44,7 +44,7 @@ const OutlawRogueChecklist = ({ combatant, castEfficiency, thresholds }) => {
       </Rule>
       <Rule
         name="Use your finishers efficiently"
-        description={<>Your two damaging finishers should typically be used at maximum combo points. If you have <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> active you should prioritize <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> as your damaging finisher.</>}
+        description={<>Your two damage finishers should typically be used at maximum combo points. Whenever <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> is off cooldown, you should always prioritize it over <SpellLink id={SPELLS.DISPATCH.id} />.</>}
       >
         <Requirement name="Finisher combo point inefficiency" thresholds={thresholds.finishers} />
         <Requirement
@@ -55,15 +55,6 @@ const OutlawRogueChecklist = ({ combatant, castEfficiency, thresholds }) => {
           )}
           thresholds={thresholds.dispatch}
         />
-        <Requirement
-          name={(
-            <>
-              Inefficient <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> casts
-            </>
-          )}
-          thresholds={thresholds.betweenTheEyes}
-        />
-
       </Rule>
       <Rule
         name="Make sure to use your opportunity procs"

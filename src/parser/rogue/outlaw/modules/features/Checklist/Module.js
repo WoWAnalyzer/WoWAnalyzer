@@ -12,7 +12,6 @@ import ComboPointDetails from '../../../../shared/resources/ComboPointDetails';
 import Finishers from '../Finishers';
 import RollTheBonesBuffs from '../../spells/RollTheBonesBuffs';
 import RollTheBonesEfficiency from '../../spells/RollTheBonesEfficiency';
-import BetweenTheEyes from '../../spells/BetweenTheEyes';
 import Dispatch from '../../spells/Dispatch';
 import Opportunity from '../../spells/Opportunity';
 
@@ -31,7 +30,6 @@ class Checklist extends BaseChecklist {
     finishers: Finishers,
     rollTheBonesBuffs: RollTheBonesBuffs,
     rollTheBonesEfficiency: RollTheBonesEfficiency,
-    betweenTheEyes: BetweenTheEyes,
     dispatch: Dispatch,
     opportunity: Opportunity,
   };
@@ -51,7 +49,6 @@ class Checklist extends BaseChecklist {
           finishers: this.finishers.suggestionThresholds,
           rollTheBonesBuffs: this.rollTheBonesBuffs.suggestionThresholds,
           rollTheBonesEfficiency: this.rollTheBonesEfficiency.rollSuggestions,
-          betweenTheEyes: this.betweenTheEyes.thresholds,
           dispatch: this.dispatch.thresholds,
           opportunity: this.opportunity.thresholds,
         }}

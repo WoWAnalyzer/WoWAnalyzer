@@ -28,7 +28,7 @@ class Dispatch extends Analyzer {
   }
 
   get delayedCastSuggestion() {
-    return <>Whenever you have the <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> buff, you should prioritize <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> as your damaging spender.</>;
+    return <>Whenever <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> if off cooldown, you should always prioritize it over <SpellLink id={SPELLS.DISPATCH.id} />.</>;
   }
 
   static dependencies = {
@@ -38,11 +38,11 @@ class Dispatch extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.betweenTheEyesDamageTracker.subscribeInefficientCast([SPELLS.DISPATCH], (s) => `Between The Eyes should be prioritized as your spender during Ruthless Precision`);
+    this.betweenTheEyesDamageTracker.subscribeInefficientCast([SPELLS.DISPATCH], (s) => `Between The Eyes should be prioritized as your damage finisher.`);
   }
 
   suggestions(when) {
-    when(this.thresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You casted <SpellLink id={SPELLS.DISPATCH.id} /> while <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> was available. {this.delayedCastSuggestion}</>)
+    when(this.thresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.DISPATCH.id} /> while <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> was available. {this.delayedCastSuggestion}</>)
       .icon(SPELLS.DISPATCH.icon)
       .actual(t({
       id: "rogue.outlaw.dispatch.efficiency",
