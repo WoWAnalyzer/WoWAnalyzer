@@ -44,9 +44,9 @@ import ROGUE from './rogue';
 import SHAMAN from './shaman';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
-import Spell from './Spell';
+import Spell, { SpellList } from './Spell';
 
-const ABILITIES: {[key: string]: Spell} = {
+const ABILITIES: SpellList<Spell> = {
   // Talents are auto generated
   ...TALENTS_DEATH_KNIGHT,
   ...TALENTS_DEMON_HUNTER,
