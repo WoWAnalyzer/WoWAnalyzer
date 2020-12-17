@@ -4,6 +4,7 @@ import { Abelito75, Putro, Zeboot } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 12, 17), <>Updated spell cooldowns!</>, Abelito75),
   change(date(2020, 12, 15), 'Bumped level of support to 9.0.2', Putro),
   change(date(2020, 12, 12), <>Add Shock Barrier!</>, Abelito75),
   change(date(2020, 12, 10), <>Fixed a bug that made devo aura inaccurate.</>, Abelito75),
