@@ -53,7 +53,6 @@ const getCompositionBreakdown = (combatants: CombatantInfoEvent[]) => {
 
     AVAILABLE_RAID_BUFFS.forEach((providedBy, spellId) => {
       if (providedBy.hasOwnProperty(className) || providedBy.includes(spec)) {
-        console.log("PROVIDED BY: " + providedBy)
         map.set(spellId, map.get(spellId)! + 1);
       }
     });
