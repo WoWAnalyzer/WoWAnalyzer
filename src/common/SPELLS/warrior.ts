@@ -215,7 +215,7 @@ const spells = {
     name: 'Whirlwind',
     icon: 'ability_whirlwind',
   },
-  // ??? nobody can tell me why but these are in log sooooooo
+  // ??? nobody can tell me why but these are in log
   WHIRLWIND_FURY_DAMAGE_OTHER_MH: {
     id: 199852,
     name: 'Whirlwind',
@@ -223,6 +223,12 @@ const spells = {
   },
   WHIRLWIND_FURY_DAMAGE_OTHER_OH: {
     id: 199851,
+    name: 'Whirlwind',
+    icon: 'ability_whirlwind',
+  },
+  // The cleave buff of whirlwind
+  WHIRLWIND_BUFF: {
+    id: 85739,
     name: 'Whirlwind',
     icon: 'ability_whirlwind',
   },
@@ -240,6 +246,29 @@ const spells = {
     name: 'Ravager',
     icon: 'warrior_talent_icon_ravager',
   },
+
+  // Shared Talent buffs
+  BOUNDING_STRIDE_BUFF: {
+    id: 202164,
+    name: 'Bounding Stride',
+    icon: 'ability_heroicleap',
+  },
+  WAR_MACHINE_TALENT_BUFF: {
+    id: 262232,
+    name: "War Machine",
+    icon: "ability_hunter_rapidkilling",
+  },
+  STORM_BOLT_TALENT_DEBUFF: {
+    id: 132169,
+    name: "Storm Bolt",
+    icon: "warrior_talent_icon_stormbolt",
+  },
+  IMPENDING_VICTORY_TALENT_HEAL: {
+    id: 202166,
+    name: "Impending Victory",
+    icon: "spell_impending_victory",
+  },
+
 
   // Arms:
   BLADESTORM: {
@@ -288,85 +317,10 @@ const spells = {
     name: 'Sweeping Strikes',
     icon: 'ability_rogue_slicedice',
   },
-
-
-  //:monkas:
-  IN_FOR_THE_KILL_TALENT_BUFF: {
-    id: 248622,
-    name: "In For The Kill",
-    icon: "ability_blackhand_marked4death",
-  },
-  SUDDEN_DEATH_ARMS_TALENT_BUFF: {
-    id: 52437,
-    name: "Sudden Death",
-    icon: "abilty_warrior_improveddisciplines",
-  },
-
   TACTICIAN: {
     id: 199854,
     name: 'Tactician',
     icon: 'ability_warrior_unrelentingassault',
-  },
-  
-  //not yet checked or done  
-  // |||
-  // VVV
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  RECKLESSNESS: {
-    id: 1719,
-    name: 'Recklessness',
-    icon: 'warrior_talent_icon_innerrage',
-  },
-
-
-
-
-  BOUNDING_STRIDE_BUFF: {
-    id: 202164,
-    name: 'Bounding Stride',
-    icon: 'ability_heroicleap',
-  },
-  WAR_MACHINE_TALENT_BUFF: {
-    id: 262232,
-    name: "War Machine",
-    icon: "ability_hunter_rapidkilling",
-  },
-  STORM_BOLT_TALENT_DEBUFF: {
-    id: 132169,
-    name: "Storm Bolt",
-    icon: "warrior_talent_icon_stormbolt",
-  },
-  IMPENDING_VICTORY_TALENT_HEAL: {
-    id: 202166,
-    name: "Impending Victory",
-    icon: "spell_impending_victory",
-  },
-  SECOND_WIND_TALENT_HEAL: {
-    id: 202147,
-    name: 'Second Wind',
-    icon: 'ability_hunter_harass',
   },
   MASTERY_DEEP_WOUNDS: {
     id: 262111,
@@ -379,18 +333,33 @@ const spells = {
     icon: 'ability_backstab',
   },
 
+  // Arm Talents
+  IN_FOR_THE_KILL_TALENT_BUFF: {
+    id: 248622,
+    name: "In For The Kill",
+    icon: "ability_blackhand_marked4death",
+  },
+  SUDDEN_DEATH_ARMS_TALENT_BUFF: {
+    id: 52437,
+    name: "Sudden Death",
+    icon: "abilty_warrior_improveddisciplines",
+  },
+  SECOND_WIND_TALENT_HEAL: {
+    id: 202147,
+    name: 'Second Wind',
+    icon: 'ability_hunter_harass',
+  },
+
   // Fury:
-  //Rotational Spells
   BLOODTHIRST: {
     id: 23881,
     name: 'Bloodthirst',
     icon: 'spell_nature_bloodlust',
   },
-
-  ODYNS_FURY: {
-    id: 205545,
-    name: 'Odyn\'s Fury',
-    icon: 'inv_sword_1h_artifactvigfus_d_01',
+  ENRAGED_REGENERATION: {
+    id: 184364,
+    name: 'Enraged Regeneration',
+    icon: 'ability_warrior_focusedrage',
   },
   RAGING_BLOW: {
     id: 85288,
@@ -422,36 +391,17 @@ const spells = {
     name: 'Rampage',
     icon: 'ability_ironmaidens_bladerush',
   },
-
-  //Mitigation Spells
-  ENRAGED_REGENERATION: {
-    id: 184364,
-    name: 'Enraged Regeneration',
-    icon: 'ability_warrior_focusedrage',
+  RECKLESSNESS: {
+    id: 1719,
+    name: 'Recklessness',
+    icon: 'warrior_talent_icon_innerrage',
   },
-  //Utility Spells
-
-  //Buffs
   ENRAGE: {
     id: 184362,
     name: 'Enrage',
     icon: 'spell_shadow_unholyfrenzy',
   },
-  ENDLESS_RAGE_ENERGISE: {
-    id: 280283,
-    name: 'Endless Rage',
-    icon: 'ability_warrior_endlessrage',
-  },
-  FROTHING_BERSERKER: {
-    id: 215572,
-    name: 'Frothing Berserker',
-    icon: 'warrior_talent_icon_furyintheblood',
-  },
-  MASSACRE: {
-    id: 206316,
-    name: 'Massacre',
-    icon: 'inv_sword_48',
-  },
+
   // Talents
   WAR_MACHINE_FURY_TALENT_BUFF: {
     id: 280776,
@@ -463,24 +413,23 @@ const spells = {
     name: 'Bladestorm',
     icon: 'ability_warrior_bladestorm',
   },
-  // Fury talents
   SIEGEBREAKER_DEBUFF: {
     id: 280773,
     name: "Siegebreaker",
     icon: "inv_make_101",
   },
-  
-  //stray buffs
-  WHIRLWIND_BUFF: {
-    id: 85739,
-    name: 'Whirlwind',
-    icon: 'ability_whirlwind',
+  FROTHING_BERSERKER_REFUND: {
+    id: 215572,
+    name: 'Frothing Berserker',
+    icon: 'warrior_talent_icon_furyintheblood',
   },
+  // spell replacement for raging blow when using reckless abondon
   CRUSHING_BLOW: {
     id: 335097,
     name: 'Crushing Blow',
     icon: 'ability_hunter_swiftstrike',
   },
+  // spell replacement for bloodthirst when using reckless abondon
   BLOODBATH: {
     id: 335096,
     name: 'Bloodbath',
@@ -489,7 +438,6 @@ const spells = {
 
 
   // Protection:
-  //Rotational Spells
   DEVASTATE: {
     id: 20243,
     name: 'Devastate',
@@ -505,7 +453,6 @@ const spells = {
     name: 'Revenge!',
     icon: 'ability_warrior_revenge',
   },
-
   THUNDER_CLAP: {
     id: 6343,
     name: 'Thunder Clap',
@@ -532,7 +479,6 @@ const spells = {
     name: "Into the Fray",
     icon: "ability_warrior_bloodfrenzy",
   },
-
   PUNISH_DEBUFF: {
     id: 275335,
     name: 'Punish',
@@ -558,14 +504,6 @@ const spells = {
     id: 871,
     name: 'Shield Wall',
     icon: 'ability_warrior_shieldwall',
-  },
-
-  //Utility Spells
-
-  INTERCEPT: {
-    id: 198304,
-    name: 'Intercept',
-    icon: 'ability_warrior_victoryrush',
   },
 
   //Passives

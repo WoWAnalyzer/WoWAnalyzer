@@ -105,7 +105,6 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: P
         )}
       >
         <AbilityRequirement spell={SPELLS.RALLYING_CRY.id} />
-        <AbilityRequirement spell={SPELLS.INTERCEPT.id} />
       </Rule>
 
       <PreparationRule thresholds={thresholds} />

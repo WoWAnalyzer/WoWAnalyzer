@@ -138,12 +138,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
       },
       {
-        spell: SPELLS.INTERCEPT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 15,
-        charges: 2,
-      },
-      {
         spell: SPELLS.TAUNT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 8,

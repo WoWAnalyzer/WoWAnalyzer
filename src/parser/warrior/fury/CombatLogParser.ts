@@ -17,7 +17,6 @@ import Recklessness from './modules/spells/Recklessness';
 import AngerManagement from './modules/talents/AngerManagement';
 import Bladestorm from './modules/talents/Bladestorm';
 import DragonRoar from './modules/talents/DragonRoar';
-import FrothingBerserker from './modules/talents/FrothingBerserker';
 import ImpendingVicory from './modules/talents/ImpendingVictory';
 import MeatCleaver from './modules/talents/MeatCleaver';
 import RecklessAbandon from './modules/talents/RecklessAbandon';
@@ -54,7 +53,6 @@ class CombatLogParser extends CoreCombatLogParser {
     angerManagement: AngerManagement,
     bladestorm: Bladestorm,
     dragonRoar: DragonRoar,
-    frothingBerserker: FrothingBerserker,
     impendingVictory: ImpendingVicory,
     meatCleaver: MeatCleaver,
     recklessAbandon: RecklessAbandon,
