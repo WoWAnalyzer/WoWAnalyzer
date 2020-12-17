@@ -13,7 +13,7 @@ import { formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import { t } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 
 const AFFECTED_CASTS = [
   SPELLS.FROSTBOLT,
@@ -123,22 +123,23 @@ class WintersChill extends Analyzer {
     this.goodShatteredCasts = 0;
     this.badShatteredCasts = 0;
     this.wintersChillHits = [];
-    const preCastSpell: any = this.eventHistory.last(2,1000,Events.cast.by(SELECTED_PLAYER));
+    const preCasts: any = this.eventHistory.last(2,1000,Events.cast.by(SELECTED_PLAYER));
     this.totalProcs += 1;
     this.totalChillStacks += 2;
 
-    if (preCastSpell.length <= 1) {
+    if (preCasts.length <= 1) {
       this.preCastFound = false;
     } else {
-      this.preCastFound = true;
-      this.preCastSpellId = preCastSpell!.find((spell: any) => spell.ability.guid !== SPELLS.FLURRY.id).ability.guid;
+      const preCastSpell = preCasts!.find((spell: any) => spell.ability.guid !== SPELLS.FLURRY.id);
+      this.preCastFound = preCastSpell ? true : false;
+      this.preCastSpellId = preCastSpell ? preCastSpell.ability.guid : undefined;
     }
   }
 
   onDebuffRemoved(event: RemoveDebuffEvent) {
     if (debug) {
       this.log("Pre Cast Found: " + this.preCastFound);
-      this.log("Pre Cast Spell ID: " + this.preCastSpellId);
+      this.log("Pre Cast Spell: " + this.preCastSpellId);
       this.log("Good Shatters: " + this.goodShatteredCasts);
       this.log("Bad Shatters: " + this.badShatteredCasts);
       this.log("Winter Chill Hits: " + this.wintersChillHits);
@@ -213,18 +214,12 @@ class WintersChill extends Analyzer {
     when(this.wintersChillShatterThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You failed to properly take advantage of <SpellLink id={SPELLS.WINTERS_CHILL.id} /> on your target {this.badShatters + this.missedShatters} times ({formatPercentage(this.shatterMissedPercent)}%). After debuffing the target via <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> and <SpellLink id={SPELLS.FLURRY.id} />, you should ensure that you hit the target with {this.hasGlacialSpike ? <>a <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> and an <SpellLink id={SPELLS.ICE_LANCE.id} /> (If Glacial Spike is available), or </> : ''} two <SpellLink id={SPELLS.ICE_LANCE.id} />s before the <SpellLink id={SPELLS.WINTERS_CHILL.id} /> debuff expires to get the most out of <SpellLink id={SPELLS.SHATTER.id} />.</>)
           .icon(SPELLS.ICE_LANCE.icon)
-          .actual(t({
-      id: "mage.frost.suggestions.wintersChill.notShatteredIceLance",
-      message: `${formatPercentage(this.shatterMissedPercent)}% Winter's Chill not shattered with Ice Lance`
-    }))
+          .actual(<Trans id="mage.frost.suggestions.wintersChill.notShatteredIceLance">{formatPercentage(this.shatterMissedPercent)}% Winter's Chill not shattered with Ice Lance</Trans>)
           .recommended(`${formatPercentage(1 - recommended)}% is recommended`));
     when(this.wintersChillHardCastThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You failed to use a pre-cast ability before spending your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> {this.missedHardcasts} times ({formatPercentage(this.hardcastMissedPercent)}%). Because of the travel time of <SpellLink id={SPELLS.FLURRY.id} />, you should cast a damaging ability such as <SpellLink id={SPELLS.FROSTBOLT.id} /> {this.hasEbonbolt ? <>or <SpellLink id={SPELLS.EBONBOLT_TALENT.id} /></> : ''} immediately before using your instant cast <SpellLink id={SPELLS.FLURRY.id} />. Doing this will allow your pre-cast ability to hit the target after <SpellLink id={SPELLS.FLURRY.id} /> (unless you are standing too close to the target) allowing it to benefit from <SpellLink id={SPELLS.SHATTER.id} />. If you are a Kyrian, it is also acceptable to pre-cast <SpellLink id={SPELLS.RADIANT_SPARK.id} /> instead.</>)
           .icon(SPELLS.FROSTBOLT.icon)
-          .actual(t({
-      id: "mage.frost.suggestions.wintersChill.notShattered",
-      message: `${formatPercentage(this.hardcastMissedPercent)}% Winter's Chill not shattered with Frostbolt, Glacial Spike, or Ebonbolt`
-    }))
+          .actual(<Trans id="mage.frost.suggestions.wintersChill.notShattered">{formatPercentage(this.hardcastMissedPercent)}% Winter's Chill not shattered with Frostbolt, Glacial Spike, or Ebonbolt</Trans>)
           .recommended(`${formatPercentage(1 - recommended)}% is recommended`));
   }
 

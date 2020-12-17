@@ -350,7 +350,15 @@ Array [
       .
     </React.Fragment>,
     "stat": <React.Fragment>
-      {"id":"mage.frost.suggestions.brainFreeze.overwritten","message":"{0}% overwritten","values":{"0":"7.14"}}
+      <Trans
+        id="mage.frost.suggestions.brainFreeze.overwritten"
+        message="{0}% overwritten"
+        values={
+          Object {
+            "0": "7.14",
+          }
+        }
+      />
        (
       Overwriting none is recommended
       )
@@ -370,7 +378,15 @@ Array [
        procs to expire. Make sure you are using your procs as soon as possible to avoid this.
     </React.Fragment>,
     "stat": <React.Fragment>
-      {"id":"mage.frost.suggestions.brainFreeze.expired","message":"{0}% expired","values":{"0":"3.57"}}
+      <Trans
+        id="mage.frost.suggestions.brainFreeze.expired"
+        message="{0}% expired"
+        values={
+          Object {
+            "0": "3.57",
+          }
+        }
+      />
        (
       Letting none expire is recommended
       )
@@ -483,7 +499,15 @@ Array [
       .
     </React.Fragment>,
     "stat": <React.Fragment>
-      {"id":"mage.shared.suggestions.castsCancelled","message":"{0}% casts cancelled","values":{"0":"9.91"}}
+      <Trans
+        id="mage.shared.suggestions.castsCancelled"
+        message="{0}% casts cancelled"
+        values={
+          Object {
+            "0": "9.91",
+          }
+        }
+      />
        (
       &lt;5.00% is recommended
       )
@@ -4103,7 +4127,15 @@ Array [
        proc, or if you are moving and you cant cast anything else.
     </React.Fragment>,
     "stat": <React.Fragment>
-      {"id":"mage.frost.suggestions.iceLance.nonShatterCasts","message":"{0}% missed","values":{"0":"5.80"}}
+      <Trans
+        id="mage.frost.suggestions.iceLance.nonShatterCasts"
+        message="{0}% missed"
+        values={
+          Object {
+            "0": "5.80",
+          }
+        }
+      />
        (
       &lt;5.00% is recommended
       )
@@ -4335,7 +4367,15 @@ Array [
        for its full duration. Try to only use it when you know you won't have to move for the duration of the effect.
     </React.Fragment>,
     "stat": <React.Fragment>
-      {"id":"mage.shared.suggestions.runeOfPower.utilization","message":"Average {0}s standing in each Rune of Power","values":{"0":"11.5"}}
+      <Trans
+        id="mage.shared.suggestions.runeOfPower.utilization"
+        message="Average \${0}s standing in each Rune of Power"
+        values={
+          Object {
+            "0": "11.5",
+          }
+        }
+      />
        (
       the full duration of 12s is recommended
       )
@@ -4942,7 +4982,15 @@ Array [
       .
     </React.Fragment>,
     "stat": <React.Fragment>
-      {"id":"mage.frost.suggestions.wintersChill.notShatteredIceLance","message":"{0}% Winter's Chill not shattered with Ice Lance","values":{"0":"34.00"}}
+      <Trans
+        id="mage.frost.suggestions.wintersChill.notShatteredIceLance"
+        message="{0}% Winter's Chill not shattered with Ice Lance"
+        values={
+          Object {
+            "0": "34.00",
+          }
+        }
+      />
        (
       5.00% is recommended
       )
@@ -4990,7 +5038,15 @@ Array [
        instead.
     </React.Fragment>,
     "stat": <React.Fragment>
-      {"id":"mage.frost.suggestions.wintersChill.notShattered","message":"{0}% Winter's Chill not shattered with Frostbolt, Glacial Spike, or Ebonbolt","values":{"0":"16.00"}}
+      <Trans
+        id="mage.frost.suggestions.wintersChill.notShattered"
+        message="{0}% Winter's Chill not shattered with Frostbolt, Glacial Spike, or Ebonbolt"
+        values={
+          Object {
+            "0": "16.00",
+          }
+        }
+      />
        (
       10.00% is recommended
       )
@@ -5488,7 +5544,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                
               Glacial Spike
             </a>
-            , followed immediately by the Brain Freeze buffed Flurry and then end with an 
+            , followed immediately by the Brain Freeze buffed Flurry and then end with two 
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=30455"
@@ -5503,7 +5559,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                
               Ice Lance
             </a>
-            . Against non-boss enemies, you can also utilize other things like 
+            s. Against non-boss enemies, you can also utilize other things like 
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=122"
