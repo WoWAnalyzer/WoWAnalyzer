@@ -1065,3 +1065,13 @@ export const Xcessiv: Contributor = {
     link: 'https://worldofwarcraft.com/en-us/character/us/thrall/xcessiv',
   }],
 };
+export const FrozenReality: Contributor = {
+  nickname: 'FrozenReality',
+  github: 'FrozenReality',
+  discord: 'FrozenReality#9247',
+  mains: [{
+    name: 'Dankrogue',
+    spec: SPECS.OUTLAW_ROGUE,
+    link: 'https://worldofwarcraft.com/en-gb/character/eu/stormscale/dankrogue',
+  }],
+};

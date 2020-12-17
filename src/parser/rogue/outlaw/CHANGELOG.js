@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { Tyndi, Zeboot } from 'CONTRIBUTORS';
+import { Tyndi, Zeboot, FrozenReality } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 12, 17), 'Fixed Between the Eyes and Dispatch', FrozenReality),
   change(date(2020, 12, 15), 'Added warning for spec not being supported', Tyndi),
   change(date(2020, 11, 30), 'Fixed error with Slice and Dice', [Tyndi]),
   change(date(2020, 10, 20), <>Added <SpellLink id={SPELLS.INVIGORATING_SHADOWDUST.id} /> Legendary</>, [Tyndi]),
