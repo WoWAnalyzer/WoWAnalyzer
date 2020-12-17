@@ -333,7 +333,7 @@ Array [
     "icon": "ability_mage_brainfreeze",
     "importance": "regular",
     "issue": <React.Fragment>
-      You overwrite 
+      You overwrote 
       7.14
       % of your 
       <ForwardRef
@@ -4894,7 +4894,7 @@ exports[`Frost Mage integration test: example log WintersChill matches the stati
             />
           </a>
            
-          66
+          96
           % 
           <small>
             Spells shattered
@@ -4913,7 +4913,7 @@ exports[`Frost Mage integration test: example log WintersChill matches the stati
             />
           </a>
            
-          84
+          76
           % 
           <small>
             Pre-casts shattered
@@ -4946,69 +4946,17 @@ exports[`Frost Mage integration test: example log WintersChill matches the sugge
 Array [
   Object {
     "details": null,
-    "icon": "spell_frost_frostblast",
-    "importance": "major",
-    "issue": <React.Fragment>
-      You failed to properly take advantage of 
-      <ForwardRef
-        id={228358}
-      />
-       on your target 
-      17
-       times (
-      34.00
-      %). After debuffing the target via 
-      <ForwardRef
-        id={190446}
-      />
-       and 
-      <ForwardRef
-        id={44614}
-      />
-      , you should ensure that you hit the target with 
-      
-       two 
-      <ForwardRef
-        id={30455}
-      />
-      s before the 
-      <ForwardRef
-        id={228358}
-      />
-       debuff expires to get the most out of 
-      <ForwardRef
-        id={12982}
-      />
-      .
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      <Trans
-        id="mage.frost.suggestions.wintersChill.notShatteredIceLance"
-        message="{0}% Winter's Chill not shattered with Ice Lance"
-        values={
-          Object {
-            "0": "34.00",
-          }
-        }
-      />
-       (
-      5.00% is recommended
-      )
-    </React.Fragment>,
-  },
-  Object {
-    "details": null,
     "icon": "spell_frost_frostbolt02",
-    "importance": "minor",
+    "importance": "regular",
     "issue": <React.Fragment>
       You failed to use a pre-cast ability before spending your 
       <ForwardRef
         id={190446}
       />
        
-      4
+      6
        times (
-      16.00
+      24.00
       %). Because of the travel time of 
       <ForwardRef
         id={44614}
@@ -5043,7 +4991,7 @@ Array [
         message="{0}% Winter's Chill not shattered with Frostbolt, Glacial Spike, or Ebonbolt"
         values={
           Object {
-            "0": "16.00",
+            "0": "24.00",
           }
         }
       />
@@ -5372,7 +5320,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
     </div>
   </li>
   <li
-    className="expandable expanded failed"
+    className="expandable  passed"
   >
     <div
       className="meta"
@@ -5396,8 +5344,8 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ffc84a",
-                  "width": "54.611999999999995%",
+                  "backgroundColor": "#a6c34c",
+                  "width": "79.97%",
                 }
               }
             />
@@ -5655,7 +5603,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  66.00%
+                  96.00%
                    
                    
                 </div>
@@ -5675,9 +5623,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "29.303999999999995%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -5745,7 +5693,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  84.00%
+                  76.00%
                    
                    
                 </div>
@@ -5765,9 +5713,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "79.91999999999997%",
+                        "width": "59.93999999999999%",
                       }
                     }
                   />
