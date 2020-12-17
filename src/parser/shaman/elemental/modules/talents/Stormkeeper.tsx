@@ -9,8 +9,9 @@ import Events, { DamageEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
+import { SpellFilter } from 'parser/core/EventFilter';
 
-const AFFECTED_ABILITIES = [
+const AFFECTED_ABILITIES: SpellFilter = [
   SPELLS.LIGHTNING_BOLT_OVERLOAD,
   SPELLS.LIGHTNING_BOLT,
   SPELLS.CHAIN_LIGHTNING_OVERLOAD,
