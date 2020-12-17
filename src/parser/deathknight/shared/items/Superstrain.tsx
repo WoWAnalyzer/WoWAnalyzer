@@ -24,7 +24,7 @@ class Superstrain extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    const SUPERSTRAIN : LegendarySpell = SPELLS.SUPERSTRAIN as LegendarySpell
+    const SUPERSTRAIN: LegendarySpell = SPELLS.SUPERSTRAIN as LegendarySpell
     const active = this.selectedCombatant.hasLegendaryByBonusID(SUPERSTRAIN.bonusID ? SUPERSTRAIN.bonusID : 0)
     this.active = active
     if (!active) {

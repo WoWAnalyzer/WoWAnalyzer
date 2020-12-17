@@ -15,8 +15,10 @@ import { Trans } from '@lingui/macro';
 
 import { NESINGWARY_FOCUS_GAIN_MULTIPLIER } from 'parser/hunter/shared/constants';
 
-import { BARBED_SHOT_FOCUS_REGEN_BUFFS, BARBED_SHOT_REGEN, MAX_FRENZY_STACKS } from '../../constants';
 import { LegendarySpell } from 'common/SPELLS/Spell';
+
+import { BARBED_SHOT_FOCUS_REGEN_BUFFS, BARBED_SHOT_REGEN, MAX_FRENZY_STACKS } from '../../constants';
+
 
 /**
  * Fire a shot that tears through your enemy, causing them to bleed for X damage over 8 sec. Sends your pet into a frenzy, increasing attack speed by 30% for 8 sec, stacking up to 3 times.

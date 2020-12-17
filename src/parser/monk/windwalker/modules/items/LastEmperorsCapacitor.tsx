@@ -13,8 +13,10 @@ import Events, { DamageEvent } from 'parser/core/Events';
 
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
-import { CHI_SPENDERS } from '../../constants';
 import { LegendarySpell } from 'common/SPELLS/Spell';
+
+import { CHI_SPENDERS } from '../../constants';
+
 
 const MAX_STACKS = 20;
 
