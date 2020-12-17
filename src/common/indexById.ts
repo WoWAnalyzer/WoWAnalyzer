@@ -19,25 +19,3 @@ const indexById = <T extends { [key: string]: any; id: number }>(list: { [key: s
 }
 
 export default indexById;
-
-
-/* OLD CODE
-
-const indexById = obj {} => {
-  // Hackety hack
-  obj.count = Object.keys(obj).length;
-  Object.keys(obj).forEach((key) => {
-    const ability = obj[key];
-
-    if (process.env.NODE_ENV === 'development') {
-      if (obj[ability.id] && !obj[ability.id].__ignoreDuplication && !ability.__ignoreDuplication) {
-        throw new Error('A spell with this ID already exists: ' + ability.id + ',' + key);
-      }
-    }
-    obj[ability.id] = ability;
-  });
-  return obj;
-};
-
-export default indexById;
-*/
