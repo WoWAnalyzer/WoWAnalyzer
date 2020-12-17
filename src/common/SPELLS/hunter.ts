@@ -6,7 +6,7 @@
 
 import Spell from "./Spell";
 
-const spells : {[key: string] : Spell} = {
+const spells = {
 
   //region Beast Mastery
   ASPECT_OF_THE_WILD: {

@@ -46,7 +46,7 @@ import WARLOCK from './warlock';
 import WARRIOR from './warrior';
 import Spell from './Spell';
 
-const ABILITIES : {[key:string] : Spell} = {
+const ABILITIES: {[key: string]: Spell} = {
   // Talents are auto generated
   ...TALENTS_DEATH_KNIGHT,
   ...TALENTS_DEMON_HUNTER,
