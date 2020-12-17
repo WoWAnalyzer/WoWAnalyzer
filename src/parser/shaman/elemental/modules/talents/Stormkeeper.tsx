@@ -11,10 +11,10 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import ItemDamageDone from 'interface/ItemDamageDone';
 
 const AFFECTED_ABILITIES = [
-  SPELLS.LIGHTNING_BOLT_OVERLOAD.id,
-  SPELLS.LIGHTNING_BOLT.id,
-  SPELLS.CHAIN_LIGHTNING_OVERLOAD.id,
-  SPELLS.CHAIN_LIGHTNING.id,
+  SPELLS.LIGHTNING_BOLT_OVERLOAD,
+  SPELLS.LIGHTNING_BOLT,
+  SPELLS.CHAIN_LIGHTNING_OVERLOAD,
+  SPELLS.CHAIN_LIGHTNING,
 ];
 
 class Stormkeeper extends Analyzer {

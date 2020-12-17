@@ -131,7 +131,7 @@ class PotionChecker extends Analyzer {
   strongPotionIcon = ITEMS.POTION_OF_SPECTRAL_INTELLECT.icon;
   neededManaSecondPotion = false;
   addedSuggestionText = false;
-  alternatePotion = null;
+  alternatePotion : number = 0;
   isHealer = false;
 
   constructor(args: Options) {

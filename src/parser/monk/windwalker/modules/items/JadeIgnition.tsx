@@ -12,6 +12,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Events from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { LegendarySpell } from 'common/SPELLS/Spell';
 
 const MAX_STACKS = 30;
 
@@ -24,10 +25,10 @@ class JadeIgnition extends Analyzer {
   stacksWasted = 0;
 
   protected abilityTracker!: AbilityTracker;
-
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.JADE_IGNITION.bonusID);
+    const JADE_IGNITION = SPELLS.JADE_IGNITION as LegendarySpell;
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(JADE_IGNITION.bonusID ? JADE_IGNITION.bonusID : 0);
     if (!this.active) {
       return;
     }

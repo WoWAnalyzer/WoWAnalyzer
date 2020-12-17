@@ -509,7 +509,7 @@ class Combatant extends Entity {
         ability: {
           abilityIcon: buff.icon.replace('.jpg', ''),
           guid: buff.ability,
-          name: spell ? spell.name : undefined,
+          name: spell ? spell.name : "undefined",
           type: 0,
         },
         sourceID: buff.source,

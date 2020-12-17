@@ -10,6 +10,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { ASS_VEN_CDR_PER_ENERGY } from 'parser/rogue/shared/constants';
+import { LegendarySpell } from 'common/SPELLS/Spell';
 
 class DuskwalkersPatch extends Analyzer {
   static dependencies = {
@@ -23,7 +24,8 @@ class DuskwalkersPatch extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.DUSKWALERS_PATCH.bonusID);
+    const DUSKWALERS_PATCH = SPELLS.DUSKWALERS_PATCH as LegendarySpell;
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(DUSKWALERS_PATCH.bonusID ? DUSKWALERS_PATCH.bonusID : 0);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
 

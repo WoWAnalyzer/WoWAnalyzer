@@ -22,7 +22,7 @@ class ArcaneCharges extends EventsNormalizer {
     events.forEach((event, eventIndex) => {
       fixedEvents.push(event);
 
-      if (event.type === EventType.Cast && ARCANE_CHARGE_SPELLS.includes(event.ability)) {
+      if (event.type === EventType.Cast && ARCANE_CHARGE_SPELLS.some(val => val.id === event.ability.guid)) {
         const castTimestamp = event.timestamp;
 
         for (let previousEventIndex = eventIndex; previousEventIndex >= 0; previousEventIndex -= 1) {

@@ -152,7 +152,7 @@ class Tier45Comparison extends Analyzer {
       //life cycles reduces mana cost of two spells if you casted the other before hand
       //so best = (x-1) * VivCost * LifcylesReduction + x * EnvCost * LifcylesReduction = (best + ReducedViv) / ReducedEnv = x
       //x-1 since you viv first in all fights
-      this.lifecycles.requiredEnvs = Math.ceil((this.best.manaFrom + SPELLS.VIVIFY.manaCost * SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed) / SPELLS.ENVELOPING_MIST.manaCost * SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
+      this.lifecycles.requiredEnvs = Math.ceil((this.best.manaFrom + (SPELLS.VIVIFY.manaCost ? SPELLS.VIVIFY.manaCost : 1) * 1) / (SPELLS.ENVELOPING_MIST.manaCost ? SPELLS.ENVELOPING_MIST.manaCost : 0) * 1);
       this.lifecycles.requiredVivs = this.lifecycles.requiredEnvs - 1;
     }
 
@@ -166,7 +166,7 @@ class Tier45Comparison extends Analyzer {
   //anaylze current play style and see how much mana they would have gained from this talent
   generateSotc() {
     const sotcBlackOutKicks = this.abilityTracker.getAbility(SPELLS.BLACKOUT_KICK_TOTM.id).damageHits || 0;
-    const manaPercentFromSotc = sotcBlackOutKicks * SPELLS.SPIRIT_OF_THE_CRANE_BUFF.manaRet;
+    const manaPercentFromSotc = sotcBlackOutKicks * 1;
     const rawManaFromSotc = manaPercentFromSotc * this.manaTracker.maxResource;
     return rawManaFromSotc || 0;
   }
@@ -177,7 +177,7 @@ class Tier45Comparison extends Analyzer {
   generateManaTea() {
     const fightLength = (this.owner.fight.end_time - this.owner.fight.start_time) / 1000;
     const manaTeasPossible = (Math.ceil(fightLength / 90) || 1);
-    const manaPerDuration = (this.totalManaSpent() / fightLength) * SPELLS.MANA_TEA_TALENT.duration / 1000;//duration of mana Tea
+    const manaPerDuration = (this.totalManaSpent() / fightLength) * (SPELLS.MANA_TEA_TALENT.duration ? SPELLS.MANA_TEA_TALENT.duration : 1) / 1000;//duration of mana Tea
     const manaPerTea = manaTeasPossible * manaPerDuration;
     return manaPerTea || 0;
   }
@@ -186,8 +186,8 @@ class Tier45Comparison extends Analyzer {
   generateLifeCycles() {
     const envCasts = this.abilityTracker.getAbility(SPELLS.ENVELOPING_MIST.id).casts || 0;
     const vivCasts = this.abilityTracker.getAbility(SPELLS.VIVIFY.id).casts - 1;
-    const manaDiscountOnViv = Math.min(vivCasts, envCasts) * SPELLS.VIVIFY.manaCost * LIFECYCLES_MANA_PERC_REDUCTION;
-    const manaDiscountOnEnv = Math.min(vivCasts, envCasts) * SPELLS.ENVELOPING_MIST.manaCost * LIFECYCLES_MANA_PERC_REDUCTION;
+    const manaDiscountOnViv = Math.min(vivCasts, envCasts) * (SPELLS.VIVIFY.manaCost ? SPELLS.VIVIFY.manaCost : 1)  * LIFECYCLES_MANA_PERC_REDUCTION;
+    const manaDiscountOnEnv = Math.min(vivCasts, envCasts) * (SPELLS.ENVELOPING_MIST.manaCost ? SPELLS.ENVELOPING_MIST.manaCost : 1) * LIFECYCLES_MANA_PERC_REDUCTION;
     return (manaDiscountOnEnv + manaDiscountOnViv) || 0;
   }
 

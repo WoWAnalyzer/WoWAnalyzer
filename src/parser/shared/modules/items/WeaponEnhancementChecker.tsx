@@ -21,10 +21,10 @@ class WeaponEnhancementChecker extends Analyzer {
   };
 
   static MAX_ENHANCEMENT_IDS = [
-    ITEMS.SHADOWCORE_OIL.effectId,
-    ITEMS.EMBALMERS_OIL.effectId,
-    ITEMS.SHADED_SHARPENING_STONE.effectId,
-    ITEMS.SHADED_WEIGHTSTONE.effectId,
+    ITEMS.SHADOWCORE_OIL.id,
+    ITEMS.EMBALMERS_OIL.id,
+    ITEMS.SHADED_SHARPENING_STONE.id,
+    ITEMS.SHADED_WEIGHTSTONE.id,
   ]
 
   get enhanceableWeapons() {
@@ -63,7 +63,7 @@ class WeaponEnhancementChecker extends Analyzer {
     return Boolean(item.temporaryEnchant);
   }
   hasMaxEnhancement(item: Item) {
-    return WeaponEnhancementChecker.MAX_ENHANCEMENT_IDS.includes(item.temporaryEnchant);
+    return WeaponEnhancementChecker.MAX_ENHANCEMENT_IDS.includes(item.temporaryEnchant ? item.temporaryEnchant : 0);
   }
 
   suggestions(when: When) {

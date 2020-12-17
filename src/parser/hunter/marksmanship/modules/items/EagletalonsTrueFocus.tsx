@@ -8,6 +8,7 @@ import React from 'react';
 import Events, { CastEvent } from 'parser/core/Events';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { EAGLETALONS_TRUE_FOCUS_COST_REDUCTION } from 'parser/hunter/marksmanship/constants';
+import { LegendarySpell } from 'common/SPELLS/Spell';
 
 /**
  * Trueshot also reduces the Focus cost of all of your abilities by 50%.
@@ -19,7 +20,8 @@ class EagletalonsTrueFocus extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.EAGLETALONS_TRUE_FOCUS_EFFECT.bonusID);
+    const EAGLETALONS_TRUE_FOCUS_EFFECT = SPELLS.EAGLETALONS_TRUE_FOCUS_EFFECT as LegendarySpell;
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(EAGLETALONS_TRUE_FOCUS_EFFECT.bonusID ? EAGLETALONS_TRUE_FOCUS_EFFECT.bonusID : 0);
     if (!this.active) {
       return;
     }

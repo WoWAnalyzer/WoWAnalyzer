@@ -10,6 +10,7 @@ import ResourceIcon from 'common/ResourceIcon';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatNumber } from 'common/format';
 import KillCommand from 'parser/hunter/survival/modules/spells/KillCommand';
+import { LegendarySpell } from 'common/SPELLS/Spell';
 
 /**
  * Whenever a trap is triggered, gain 45 Focus and increase all Focus gained by 100% for 5 sec.
@@ -30,7 +31,8 @@ class NesingwarysTrappingApparatus extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT.bonusID);
+    const NESINGWARYS_TRAPPING_APPARATUS_EFFECT = SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT as LegendarySpell;
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(NESINGWARYS_TRAPPING_APPARATUS_EFFECT.bonusID ? NESINGWARYS_TRAPPING_APPARATUS_EFFECT.bonusID : 0);
     if (!this.active) {
       return;
     }

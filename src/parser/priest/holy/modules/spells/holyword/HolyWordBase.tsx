@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS/index';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/priest/holy/modules/features/SpellUsable';
 import Events, { ApplyBuffEvent, CastEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
+import { LegendarySpell } from 'common/SPELLS/Spell';
 
 class HolyWordBase extends Analyzer {
   static dependencies = {
@@ -39,7 +40,8 @@ class HolyWordBase extends Analyzer {
       this.lightOfTheNaruActive = true;
     }
 
-    if (this.selectedCombatant.hasLegendaryByBonusID(SPELLS.HARMONIOUS_APPARATUS.bonusID)) {
+    const HARMONIOUS_APPARATUS = SPELLS.HARMONIOUS_APPARATUS as LegendarySpell;
+    if (this.selectedCombatant.hasLegendaryByBonusID(HARMONIOUS_APPARATUS.bonusID ? HARMONIOUS_APPARATUS.bonusID : 0)) {
       this.harmoniousApparatusActive = true
     }
 

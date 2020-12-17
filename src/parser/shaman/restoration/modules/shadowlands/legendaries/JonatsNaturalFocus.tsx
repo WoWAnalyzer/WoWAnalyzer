@@ -9,6 +9,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { LegendarySpell } from 'common/SPELLS/Spell';
 
 const HEAL_INCREASE_PER_STACK = 0.1
 
@@ -21,7 +22,8 @@ class JonatsNaturalFocus extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.JONATS_NATURAL_FOCUS.bonusID);
+    const JONATS_NATURAL_FOCUS = SPELLS.JONATS_NATURAL_FOCUS as LegendarySpell;
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(JONATS_NATURAL_FOCUS.bonusID ? JONATS_NATURAL_FOCUS.bonusID : 0);
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HEAL), this.chainHeal);
   }

@@ -11,6 +11,7 @@ import SpellLink from 'common/SpellLink';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { formatThousands } from 'common/format';
 import DonutChart from 'interface/statistics/components/DonutChart';
+import { LegendarySpell } from 'common/SPELLS/Spell';
 
 class AncientTeachingsoftheMonastery extends Analyzer {
 
@@ -23,7 +24,8 @@ class AncientTeachingsoftheMonastery extends Analyzer {
    */
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.ANCIENT_TEACHINGS_OF_THE_MONASTERY.bonusID);
+    const ANCIENT_TEACHINGS_OF_THE_MONASTERY = SPELLS.ANCIENT_TEACHINGS_OF_THE_MONASTERY as LegendarySpell;
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(ANCIENT_TEACHINGS_OF_THE_MONASTERY.bonusID ? ANCIENT_TEACHINGS_OF_THE_MONASTERY.bonusID : 0);
     if (!this.active) {
       return;
     }

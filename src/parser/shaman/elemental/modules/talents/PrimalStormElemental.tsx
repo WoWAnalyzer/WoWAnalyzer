@@ -13,7 +13,7 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 
-const damagingCasts = [SPELLS.EYE_OF_THE_STORM.id, SPELLS.WIND_GUST.id, SPELLS.CALL_LIGHTNING.id];
+const damagingCasts = [SPELLS.EYE_OF_THE_STORM, SPELLS.WIND_GUST, SPELLS.CALL_LIGHTNING];
 const CALL_LIGHTNING_BUFF_DURATION: number = 15000;
 
 class PrimalStormElemental extends Analyzer {

@@ -10,6 +10,7 @@ import ItemHealingDone from 'interface/ItemHealingDone';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
+import { LegendarySpell } from 'common/SPELLS/Spell';
 
 // I have observed massive delays of the copied application
 // the linked log has
@@ -36,7 +37,8 @@ class PrimalTideCore extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.PRIMAL_TIDE_CORE.bonusID);
+    const PRIMAL_TIDE_CORE = SPELLS.PRIMAL_TIDE_CORE as LegendarySpell;
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(PRIMAL_TIDE_CORE.bonusID ? PRIMAL_TIDE_CORE.bonusID : 0);
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.RIPTIDE, SPELLS.PRIMORDIAL_WAVE_CAST]), this.castedRiptide);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.trackRiptide);

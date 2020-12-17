@@ -8,6 +8,7 @@ import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
+import { LegendarySpell } from 'common/SPELLS/Spell';
 
 const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
   const AbilityRequirement = (props: any) => (
@@ -19,7 +20,8 @@ const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }: any)
   AbilityRequirement.propTypes = {
     spell: PropTypes.number.isRequired,
   };
-
+  const JADE_IGNITION = SPELLS.JADE_IGNITION as LegendarySpell;
+  const LAST_EMPERORS_CAPACITOR = SPELLS.LAST_EMPERORS_CAPACITOR as LegendarySpell;
   return (
     <Checklist>
       <Rule
@@ -60,7 +62,7 @@ const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }: any)
           )}
           thresholds={thresholds.fistsofFury}
         />
-        {combatant.hasLegendaryByBonusID(SPELLS.JADE_IGNITION.bonusID) && (
+        {combatant.hasLegendaryByBonusID(JADE_IGNITION.bonusID) && (
           <Requirement
             name={(
               <>
@@ -144,7 +146,7 @@ const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }: any)
         />
       )}
       </Rule>
-      {combatant.hasLegendaryByBonusID(SPELLS.LAST_EMPERORS_CAPACITOR.bonusID) && (
+      {combatant.hasLegendaryByBonusID(LAST_EMPERORS_CAPACITOR.bonusID) && (
         <Rule
           name={<>Utilize <SpellLink id={SPELLS.LAST_EMPERORS_CAPACITOR.id} /> effectively</>}
           description={<>Use <SpellLink id={SPELLS.CRACKLING_JADE_LIGHTNING.id} /> with high stacks and avoid wasting stacks by using Chi spenders at cap</>}

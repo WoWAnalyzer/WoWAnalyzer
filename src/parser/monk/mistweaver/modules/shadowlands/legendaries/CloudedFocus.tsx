@@ -12,6 +12,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import ItemManaGained from 'interface/ItemManaGained';
+import { LegendarySpell } from 'common/SPELLS/Spell';
 
 const BUFF_AMOUNT_PER_STACK = .15;
 
@@ -28,7 +29,8 @@ class CloudedFocus extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.CLOUDED_FOCUS.bonusID);
+    const CLOUDED_FOCUS = SPELLS.CLOUDED_FOCUS as LegendarySpell;
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(CLOUDED_FOCUS.bonusID ? CLOUDED_FOCUS.bonusID : 0);
     if (!this.active) {
       return;
     }

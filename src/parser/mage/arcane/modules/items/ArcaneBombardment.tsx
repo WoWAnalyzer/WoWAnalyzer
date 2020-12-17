@@ -9,6 +9,7 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import { LegendarySpell } from 'common/SPELLS/Spell';
 
 const HEALTH_THRESHOLD = .35;
 const DAMAGE_BONUS = .8;
@@ -23,7 +24,8 @@ class ArcaneBombardment extends Analyzer {
 
   constructor(props: Options) {
     super(props);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.ARCANE_BOMBARDMENT.bonusID);
+    const ARCANE_BOMBARDMENT = SPELLS.ARCANE_BOMBARDMENT as LegendarySpell;
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(ARCANE_BOMBARDMENT.bonusID ? ARCANE_BOMBARDMENT.bonusID : 0);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_BARRAGE), this.onBarrageDamage);
   }
 

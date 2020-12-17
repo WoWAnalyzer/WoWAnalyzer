@@ -123,7 +123,7 @@ class StaggerFabricator extends Analyzer {
     if (currentBuff !== this._previousBuff) {
       this._previousBuff && this.haste._applyHasteLoss(staggerEvent, HIGH_TOLERANCE_HASTE[this._previousBuff]);
       currentBuff && this.haste._applyHasteGain(staggerEvent, HIGH_TOLERANCE_HASTE[currentBuff]);
-      this._previousBuff = currentBuff;
+      this._previousBuff = currentBuff ? currentBuff : 0;
     }
   }
 

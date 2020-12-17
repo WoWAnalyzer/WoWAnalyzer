@@ -6,6 +6,7 @@ import Statistic from 'interface/statistics/Statistic';
 import { formatPercentage } from 'common/format';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import SpellIcon from 'common/SpellIcon';
+import { LegendarySpell } from 'common/SPELLS/Spell';
 
 class GuileCharm extends Analyzer {
   static dependencies = {
@@ -19,7 +20,8 @@ class GuileCharm extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.GUILE_CHARM.bonusID);
+    const GUILE_CHARM = SPELLS.GUILE_CHARM as LegendarySpell;
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(GUILE_CHARM.bonusID ? GUILE_CHARM.bonusID : 0);
   }
 
   get percentUptime() {

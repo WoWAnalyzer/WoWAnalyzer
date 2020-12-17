@@ -8,6 +8,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { LegendarySpell } from 'common/SPELLS/Spell';
 
 class AkaarisSoulFragment extends Analyzer {
   static dependencies = {
@@ -19,7 +20,8 @@ class AkaarisSoulFragment extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.AKAARIS_SOUL_FRAGMENT.bonusID);
+    const AKAARIS_SOUL_FRAGMENT = SPELLS.AKAARIS_SOUL_FRAGMENT as LegendarySpell;
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(AKAARIS_SOUL_FRAGMENT.bonusID ? AKAARIS_SOUL_FRAGMENT.bonusID : 0);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.AKAARIS_SOUL_FRAGMENT_SHADOWSTRIKE), this.onDamage);
   }
 

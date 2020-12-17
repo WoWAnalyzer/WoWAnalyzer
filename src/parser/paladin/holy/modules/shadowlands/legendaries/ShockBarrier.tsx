@@ -9,6 +9,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellLink from 'common/SpellLink';
 
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import { LegendarySpell } from 'common/SPELLS/Spell';
 
 //const BUFF_DURATION = 18000;
 const LAST_SHIELD = 12000;
@@ -23,7 +24,8 @@ class ShockBarrier extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SHOCK_BARRIER.bonusID);
+    const SHOCK_BARRIER = SPELLS.SHOCK_BARRIER as LegendarySpell;
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SHOCK_BARRIER.bonusID ? SHOCK_BARRIER.bonusID : 0);
     if (!this.active) {
       return;
     }

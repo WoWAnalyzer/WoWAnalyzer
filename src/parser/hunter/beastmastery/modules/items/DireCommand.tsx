@@ -14,6 +14,7 @@ import Haste from 'interface/icons/Haste';
 import { formatPercentage } from 'common/format';
 import { DIRE_BEAST_HASTE_PERCENT } from 'parser/hunter/shared/constants';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import { LegendarySpell } from 'common/SPELLS/Spell';
 
 /**
  * TODO Find a log with both Dire Command and Dire Beast talent and account for them using the same spell for buff
@@ -32,7 +33,8 @@ class DireCommand extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.DIRE_COMMAND_EFFECT.bonusID);
+    const DIRE_COMMAND_EFFECT = SPELLS.DIRE_COMMAND_EFFECT as LegendarySpell
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(DIRE_COMMAND_EFFECT.bonusID ? DIRE_COMMAND_EFFECT.bonusID : 0);
     if (!this.active) {
       return;
     }

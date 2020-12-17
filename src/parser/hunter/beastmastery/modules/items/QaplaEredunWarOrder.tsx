@@ -12,6 +12,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { formatNumber, formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import { Trans } from '@lingui/macro';
+import { LegendarySpell } from 'common/SPELLS/Spell';
 
 /**
  * Barbed Shot reduces the cooldown of Kill Command by 5.0 sec.
@@ -32,7 +33,8 @@ class QaplaEredunWarOrder extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.QAPLA_EREDUN_WAR_ORDER_EFFECT.bonusID);
+    const QAPLA_EREDUN_WAR_ORDER_EFFECT = SPELLS.QAPLA_EREDUN_WAR_ORDER_EFFECT as LegendarySpell;
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(QAPLA_EREDUN_WAR_ORDER_EFFECT.bonusID ? QAPLA_EREDUN_WAR_ORDER_EFFECT.bonusID : 0);
     if (!this.active) {
       return;
     }

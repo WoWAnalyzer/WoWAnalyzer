@@ -44,8 +44,9 @@ import ROGUE from './rogue';
 import SHAMAN from './shaman';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
+import Spell from './Spell';
 
-const ABILITIES = {
+const ABILITIES : {[key:string] : Spell} = {
   // Talents are auto generated
   ...TALENTS_DEATH_KNIGHT,
   ...TALENTS_DEMON_HUNTER,
@@ -83,4 +84,4 @@ const ABILITIES = {
 // We should type indexById properly some day to make this standard.
 // And then fix all those errors.
 // Which will prevent bugs.
-export default indexById(ABILITIES);
+export default indexById(ABILITIES) ;

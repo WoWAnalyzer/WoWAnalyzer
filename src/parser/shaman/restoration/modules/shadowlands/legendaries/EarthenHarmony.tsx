@@ -9,6 +9,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { LegendarySpell } from 'common/SPELLS/Spell';
 
 const HEAL_INCREASE = 1.5;
 const TRIGGER_HEALTH_PERCENTAGE = .75;
@@ -22,7 +23,8 @@ class EarthenHarmony extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.EARTHEN_HARMONY.bonusID);
+    const EARTHEN_HARMONY = SPELLS.EARTHEN_HARMONY as LegendarySpell;
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(EARTHEN_HARMONY.bonusID ? EARTHEN_HARMONY.bonusID : 0);
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EARTH_SHIELD_HEAL), this.earthShield);
   }

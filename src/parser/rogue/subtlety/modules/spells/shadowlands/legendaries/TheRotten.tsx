@@ -8,6 +8,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ResourceIcon from 'common/ResourceIcon';
+import { LegendarySpell } from 'common/SPELLS/Spell';
 
 class TheRotten extends Analyzer {
   static dependencies = {
@@ -20,7 +21,8 @@ class TheRotten extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.THE_ROTTEN.bonusID);
+    const THE_ROTTEN = SPELLS.THE_ROTTEN as LegendarySpell;
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(THE_ROTTEN.bonusID ? THE_ROTTEN.bonusID : 0);
     this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell([SPELLS.SHADOWSTRIKE, SPELLS.BACKSTAB, SPELLS.GLOOMBLADE_TALENT]), this.onDamage);
   }
 

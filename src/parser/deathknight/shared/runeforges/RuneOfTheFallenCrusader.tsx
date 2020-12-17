@@ -9,6 +9,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { formatNumber, formatPercentage } from 'common/format';
+import { Enchant } from 'common/SPELLS/Spell';
 
 const UNHOLY_STRENGTH_STRENGTH = 0.15; // 15% Str buff while active
 
@@ -20,7 +21,7 @@ class RuneOfTheFallenCrusader extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    const active = this.selectedCombatant.hasWeaponEnchant(SPELLS.RUNE_OF_THE_FALLEN_CRUSADER)
+    const active = this.selectedCombatant.hasWeaponEnchant(SPELLS.RUNE_OF_THE_FALLEN_CRUSADER as Enchant)
     this.active = active
     if (!active) {
       return;

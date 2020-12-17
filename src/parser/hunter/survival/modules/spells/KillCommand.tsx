@@ -11,6 +11,7 @@ import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import Events, { ApplyBuffEvent, EnergizeEvent } from 'parser/core/Events';
 import { NESINGWARY_FOCUS_GAIN_MULTIPLIER } from 'parser/hunter/shared/constants';
 import { SV_KILL_COMMAND_FOCUS_GAIN } from 'parser/hunter/survival/constants';
+import { LegendarySpell } from 'common/SPELLS/Spell';
 
 /**
  * Give the command to kill, causing your pet to savagely deal [Attack power * 0.6 * (1 + Versatility)] Physical damage to the enemy.
@@ -38,9 +39,9 @@ class KillCommand extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-
+    const NESINGWARYS_TRAPPING_APPARATUS_EFFECT = SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT as LegendarySpell;
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FLANKERS_ADVANTAGE), this.onFlankersProc);
-    this.selectedCombatant.hasLegendaryByBonusID(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT.bonusID) && this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.KILL_COMMAND_CAST_SV), this.checkNesingwaryFocusGain);
+    this.selectedCombatant.hasLegendaryByBonusID(NESINGWARYS_TRAPPING_APPARATUS_EFFECT.bonusID ? NESINGWARYS_TRAPPING_APPARATUS_EFFECT.bonusID : 0) && this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.KILL_COMMAND_CAST_SV), this.checkNesingwaryFocusGain);
 
   }
 

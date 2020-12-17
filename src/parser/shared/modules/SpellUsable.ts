@@ -310,8 +310,8 @@ class SpellUsable extends Analyzer {
       type: EventType.UpdateSpellUsable,
       ability: {
         guid: spellId,
-        name: spell ? spell.name : undefined,
-        abilityIcon: spell ? spell.icon : undefined,
+        name: spell ? spell.name : "undefined",
+        abilityIcon: spell ? spell.icon : "undefined",
       },
       name: ability ? ability.name : undefined,
       trigger,

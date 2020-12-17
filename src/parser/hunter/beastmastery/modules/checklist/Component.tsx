@@ -10,6 +10,7 @@ import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Che
 import ResourceIcon from 'common/ResourceIcon';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SpellIcon from 'common/SpellIcon';
+import { LegendarySpell } from 'common/SPELLS/Spell';
 
 const BeastMasteryChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
 
@@ -85,7 +86,7 @@ const BeastMasteryChecklist = ({ combatant, castEfficiency, thresholds }: any) =
         name="Legendaries"
         description="The throughput gain of some legendaries might vary greatly. Consider switching to a more reliable alternative if something is underperforming regularly, even after trying to improve your usage of said legendary."
       >
-        {combatant.hasLegendaryByBonusID(SPELLS.QAPLA_EREDUN_WAR_ORDER_EFFECT.bonusID) &&
+        {combatant.hasLegendaryByBonusID((SPELLS.QAPLA_EREDUN_WAR_ORDER_EFFECT as LegendarySpell).bonusID) &&
         <Requirement name={<><SpellLink id={SPELLS.QAPLA_EREDUN_WAR_ORDER_EFFECT.id} /> CDR efficiency</>} thresholds={thresholds.qaplaEfficiencyThreshold} />}
       </Rule>
       <Rule

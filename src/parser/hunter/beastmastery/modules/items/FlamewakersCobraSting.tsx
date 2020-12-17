@@ -9,6 +9,7 @@ import Events from 'parser/core/Events';
 import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
 import { FLAMEWAKERS_PROC_CHANCE, KILL_COMMAND_BM_FOCUS_COST } from 'parser/hunter/beastmastery/constants';
 import SpellLink from 'common/SpellLink';
+import { LegendarySpell } from 'common/SPELLS/Spell';
 
 /**
  * Cobra Shot has a 25% chance to make your next Kill Command consume no Focus.
@@ -25,7 +26,8 @@ class FlamewakersCobraSting extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.FLAMEWAKERS_COBRA_STING_EFFECT.bonusID);
+    const FLAMEWAKERS_COBRA_STING_EFFECT = SPELLS.FLAMEWAKERS_COBRA_STING_EFFECT as LegendarySpell;
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(FLAMEWAKERS_COBRA_STING_EFFECT.bonusID ? FLAMEWAKERS_COBRA_STING_EFFECT.bonusID : 0);
     if (!this.active) {
       return;
     }

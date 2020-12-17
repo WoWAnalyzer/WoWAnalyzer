@@ -10,6 +10,7 @@ import HIT_TYPES from 'game/HIT_TYPES';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { RYLAKSTALKERS_PIERCING_FANGS_CRIT_DMG_INCREASE } from 'parser/hunter/beastmastery/constants';
 import ItemDamageDone from 'interface/ItemDamageDone';
+import { LegendarySpell } from 'common/SPELLS/Spell';
 
 /**
  * While Bestial Wrath is active, your pet's critical damage dealt is increased by 20%.
@@ -23,7 +24,8 @@ class RylakstalkersPiercingFangs extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.RYLAKSTALKERS_PIERCING_FANGS_EFFECT.bonusID);
+    const RYLAKSTALKERS_PIERCING_FANGS_EFFECT = SPELLS.RYLAKSTALKERS_PIERCING_FANGS_EFFECT as LegendarySpell;
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(RYLAKSTALKERS_PIERCING_FANGS_EFFECT.bonusID ? RYLAKSTALKERS_PIERCING_FANGS_EFFECT.bonusID : 0);
     if (!this.active) {
       return;
     }

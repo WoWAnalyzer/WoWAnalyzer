@@ -8,6 +8,7 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import React from 'react';
 import Events, { CastEvent, DamageEvent, RemoveDebuffEvent } from 'parser/core/Events';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import { LegendarySpell } from 'common/SPELLS/Spell';
 
 /**
  * Aimed Shot also fires a Serpent Sting at the primary target.
@@ -20,7 +21,8 @@ class SerpentstalkersTrickery extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SERPENTSTALKERS_TRICKERY_EFFECT.bonusID);
+    const SERPENTSTALKERS_TRICKERY_EFFECT = SPELLS.SERPENTSTALKERS_TRICKERY_EFFECT as LegendarySpell;
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SERPENTSTALKERS_TRICKERY_EFFECT.bonusID ? SERPENTSTALKERS_TRICKERY_EFFECT.bonusID : 0);
     if (!this.active) {
       return;
     }

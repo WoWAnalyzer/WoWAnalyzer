@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import SpellIcon from 'common/SpellIcon';
+import { LegendarySpell } from 'common/SPELLS/Spell';
 
 class GreenskinsWickers extends Analyzer {
   static dependencies = {
@@ -17,7 +18,9 @@ class GreenskinsWickers extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.GREENSKINS_WICKERS.bonusID);
+
+    const GREENSKINS_WICKERS = SPELLS.GREENSKINS_WICKERS as LegendarySpell;
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(GREENSKINS_WICKERS.bonusID ? GREENSKINS_WICKERS.bonusID : 0);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.GREENSKINS_WICKERS_BUFF), this.onGreenskinBuff);
   }
 
