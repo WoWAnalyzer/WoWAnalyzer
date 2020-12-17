@@ -5544,7 +5544,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                
               Glacial Spike
             </a>
-            , followed immediately by the Brain Freeze buffed Flurry and then end with an 
+            , followed immediately by the Brain Freeze buffed Flurry and then end with two 
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=30455"
@@ -5559,7 +5559,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                
               Ice Lance
             </a>
-            . Against non-boss enemies, you can also utilize other things like 
+            s. Against non-boss enemies, you can also utilize other things like 
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=122"
