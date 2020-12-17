@@ -18,8 +18,7 @@ const RAGE_GENERATORS = [
   SPELLS.RAGING_BLOW,
   SPELLS.BLOODTHIRST,
   SPELLS.EXECUTE_FURY,
-  SPELLS.WHIRLWIND_FURY,
-  SPELLS.FURIOUS_SLASH_TALENT,
+  SPELLS.WHIRLWIND_FURY_CAST,
   SPELLS.SIEGEBREAKER_TALENT,
   SPELLS.DRAGON_ROAR_TALENT,
   SPELLS.BLADESTORM_TALENT,
@@ -79,7 +78,7 @@ class MissedRampage extends Analyzer {
       <>
         There were {actual} times you casted a rage generating ability when you should have cast <SpellLink id={SPELLS.RAMPAGE.id} />.
         <SpellLink id={SPELLS.RAMPAGE.id} /> is your 2nd highest damage ability behind <SpellLink id={SPELLS.EXECUTE_FURY.id} /> and causes you to <SpellLink id={SPELLS.ENRAGE.id} />, increasing all of your damage done.
-        You should never hold a <SpellLink id={SPELLS.RAMPAGE.id} />, unless you are casting <SpellLink id={SPELLS.WHIRLWIND_FURY.id} /> to cleave it.
+        You should never hold a <SpellLink id={SPELLS.RAMPAGE.id} />, unless you are casting <SpellLink id={SPELLS.WHIRLWIND_FURY_CAST.id} /> to cleave it.
       </>,
     )
       .icon(SPELLS.RAMPAGE.icon)

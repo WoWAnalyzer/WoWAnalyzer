@@ -138,12 +138,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
       },
       {
-        spell: SPELLS.INTERCEPT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 15,
-        charges: 2,
-      },
-      {
         spell: SPELLS.TAUNT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 8,
@@ -194,7 +188,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.RAVAGER_TALENT_PROTECTION,
-        enabled: combatant.hasTalent(SPELLS.RAVAGER_TALENT_PROTECTION.id),
+        enabled: combatant.hasTalent(SPELLS.RAVAGER_PROT_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         gcd: {
           base: 1500,

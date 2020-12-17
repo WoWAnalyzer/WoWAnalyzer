@@ -31,7 +31,6 @@ class Haste extends Analyzer {
     [SPELLS.DARK_SOUL_MISERY_TALENT.id]: 0.3,
     [SPELLS.REVERSE_ENTROPY_BUFF.id]: 0.15,
     [SPELLS.ENRAGE.id]: 0.25, // Fury Warrior
-    [SPELLS.FROTHING_BERSERKER.id]: 0.05, // Fury Warrior
     [SPELLS.EMPOWER_RUNE_WEAPON.id]: 0.15, // Frost DK
 
     //region Hunter Haste Buffs
