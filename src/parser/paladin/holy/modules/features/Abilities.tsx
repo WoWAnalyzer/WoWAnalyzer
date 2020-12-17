@@ -178,7 +178,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.HOLY_AVENGER_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 90,
+        cooldown: 180,
         gcd: {
           base: 1500,
         },
