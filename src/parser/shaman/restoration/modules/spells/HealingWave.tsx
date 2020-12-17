@@ -86,13 +86,13 @@ class HealingWave extends Analyzer {
     const suggestedThreshold = this.suggestedThreshold;
     when(suggestedThreshold.actual).isGreaterThan(suggestedThreshold.isGreaterThan.minor)
       .addSuggestion((suggest) => suggest(<span>Casting <SpellLink id={SPELLS.HEALING_WAVE.id} /> without <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} icon /> is slow and generally inefficient. Consider casting a riptide first to generate <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} icon /></span>)
-          .icon(SPELLS.HEALING_WAVE.icon)
-          .actual(t({
-      id: "shaman.restoration.suggestions.healingWave.unbuffed",
-      message: `${formatPercentage(suggestedThreshold.actual)}% of unbuffed Healing Waves`
-    }))
-          .recommended(`${formatPercentage(suggestedThreshold.isGreaterThan.minor)}% of unbuffed Healing Waves`)
-          .regular(suggestedThreshold.isGreaterThan.average).major(suggestedThreshold.isGreaterThan.major));
+        .icon(SPELLS.HEALING_WAVE.icon)
+        .actual(t({
+          id: "shaman.restoration.suggestions.healingWave.unbuffed",
+          message: `${formatPercentage(suggestedThreshold.actual)}% of unbuffed Healing Waves`
+        }))
+        .recommended(`${formatPercentage(suggestedThreshold.isGreaterThan.minor)}% of unbuffed Healing Waves`)
+        .regular(suggestedThreshold.isGreaterThan.average).major(suggestedThreshold.isGreaterThan.major));
   }
 }
 

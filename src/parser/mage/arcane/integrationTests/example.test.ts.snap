@@ -18,7 +18,15 @@ Array [
        casts instant.
     </span>,
     "stat": <React.Fragment>
-      {"id":"mage.arcane.suggestions.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"37.22"}}
+      <Trans
+        id="mage.arcane.suggestions.alwaysBeCasting.downtime"
+        message="{0}% downtime"
+        values={
+          Object {
+            "0": "37.22",
+          }
+        }
+      />
        (
       &lt;20.00% is recommended
       )
@@ -164,7 +172,15 @@ Array [
        debuff is removed from the target.
     </React.Fragment>,
     "stat": <React.Fragment>
-      {"id":"mage.arcane.suggestions.arcaneEcho.badTouchUses","message":"{0} Bad Touch of the Magi Uses","values":{"0":"5"}}
+      <Trans
+        id="mage.arcane.suggestions.arcaneEcho.badTouchUses"
+        message="{0} Bad Touch of the Magi Uses\`"
+        values={
+          Object {
+            "0": "5",
+          }
+        }
+      />
        (
       0 is recommended
       )
@@ -188,7 +204,15 @@ Array [
       % of the fight. Ensure you are casting this before the pull and recasting it every time you are ressurected.
     </React.Fragment>,
     "stat": <React.Fragment>
-      {"id":"mage.shared.suggestions.arcaneIntellect.uptime","message":"{0}% Uptime","values":{"0":"99.99"}}
+      <Trans
+        id="mage.shared.suggestions.arcaneIntellect.uptime"
+        message="{0}% Uptime"
+        values={
+          Object {
+            "0": "99.99",
+          }
+        }
+      />
        (
       100.00% is recommended
       )
@@ -229,7 +253,15 @@ Array [
       .
     </React.Fragment>,
     "stat": <React.Fragment>
-      {"id":"mage.arcane.suggestions.arcaneMissiles.clearCasting.uptime","message":"{0}% Uptime","values":{"0":"89.47"}}
+      <Trans
+        id="mage.arcane.suggestions.arcaneMissiles.clearCasting.uptime"
+        message="{0}% Uptime"
+        values={
+          Object {
+            "0": "89.47",
+          }
+        }
+      />
        (
       100.00% is recommended
       )
@@ -323,7 +355,15 @@ Array [
        times without hitting anything. While it is acceptable to use this ability on Single Target encounters, you need to ensure you are aiming the ability so that it will at least hit one target.
     </React.Fragment>,
     "stat": <React.Fragment>
-      {"id":"mage.arcane.suggestions.arcaneOrb.badCasts","message":"{0} Missed Orbs","values":{"0":"1"}}
+      <Trans
+        id="mage.arcane.suggestions.arcaneOrb.badCasts"
+        message="{0} Missed Orbs"
+        values={
+          Object {
+            "0": "1",
+          }
+        }
+      />
        (
       0 is recommended
       )
@@ -549,7 +589,15 @@ Array [
       .
     </React.Fragment>,
     "stat": <React.Fragment>
-      {"id":"mage.shared.suggestions.castsCancelled","message":"{0}% casts cancelled","values":{"0":"7.79"}}
+      <Trans
+        id="mage.shared.suggestions.castsCancelled"
+        message="{0}% casts cancelled"
+        values={
+          Object {
+            "0": "7.79",
+          }
+        }
+      />
        (
       &lt;5.00% is recommended
       )
@@ -4523,7 +4571,15 @@ Array [
        for its full duration. Try to only use it when you know you won't have to move for the duration of the effect.
     </React.Fragment>,
     "stat": <React.Fragment>
-      {"id":"mage.shared.suggestions.runeOfPower.utilization","message":"Average {0}s standing in each Rune of Power","values":{"0":"10.7"}}
+      <Trans
+        id="mage.shared.suggestions.runeOfPower.utilization"
+        message="Average \${0}s standing in each Rune of Power"
+        values={
+          Object {
+            "0": "10.7",
+          }
+        }
+      />
        (
       the full duration of 12s is recommended
       )

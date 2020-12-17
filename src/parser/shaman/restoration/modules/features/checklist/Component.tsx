@@ -12,6 +12,7 @@ import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 
 const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
   const AbilityRequirement = (props: any) => (
@@ -43,6 +44,8 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: any) =>
         {combatant.hasTalent(SPELLS.EARTHEN_WALL_TOTEM_TALENT.id) && <AbilityRequirement spell={SPELLS.EARTHEN_WALL_TOTEM_TALENT.id} />}
         {combatant.hasTalent(SPELLS.WELLSPRING_TALENT.id) && <AbilityRequirement spell={SPELLS.WELLSPRING_TALENT.id} />}
         {combatant.hasTalent(SPELLS.DOWNPOUR_TALENT.id) && <AbilityRequirement spell={SPELLS.DOWNPOUR_TALENT.id} />}
+        {combatant.hasCovenant(COVENANTS.VENTHYR.id) && <AbilityRequirement spell={SPELLS.CHAIN_HARVEST.id} />}
+        {combatant.hasCovenant(COVENANTS.NECROLORD.id) && <AbilityRequirement spell={SPELLS.PRIMORDIAL_WAVE_CAST.id} />}
       </Rule>
       <Rule
         name={<Trans id="shaman.restoration.checklist.cooldownUsage">Use cooldowns effectively</Trans>}
@@ -86,16 +89,8 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: any) =>
       </Rule>
       <Rule
         name={<Trans id="shaman.restoration.checklist.buffUptime">Keep your buffs up</Trans>}
-        description={<Trans id="shaman.restoration.checklist.buffUptime.description">Water Shield and Earth Shield should be applied prior to the fight starting and maintained.</Trans>}
+        description={<Trans id="shaman.restoration.checklist.buffUptime.description">Water Shield and Earth Shield should be applied prior to the fight starting and maintained.<br />It is currently not possible to detect if you applied Water Shield before the pull or how good its uptime was, so just keep that in mind.</Trans>}
       >
-          <Requirement
-            name={<Trans id="shaman.restoration.checklist.appliedPrepull"><SpellLink id={SPELLS.WATER_SHIELD.id}/> applied prepull</Trans>}
-            thresholds={thresholds.waterShieldPrepull}
-          />
-          <Requirement
-            name={<Trans id="shaman.restoration.checklist.uptime"><SpellLink id={SPELLS.WATER_SHIELD.id} /> Uptime</Trans>}
-            thresholds={thresholds.waterShieldUptime}
-          />
           <Requirement
             name={<Trans id="shaman.restoration.checklist.appliedPrepull"><SpellLink id={SPELLS.EARTH_SHIELD.id} /> applied prepull</Trans>}
             thresholds={thresholds.earthShieldPrepull}

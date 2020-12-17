@@ -50,7 +50,7 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: any) => 
         />
         <Requirement
           name="Arcane Power Pre-Cast Setup"
-          tooltip="In order to effectively utilize Arcane Power, there are certain things you need to ensure are setup before you cast Arcane Power. Making sure you have 4 Arcane Charges, You have more than 40% Mana (Unless you have the Overpowered Talent), and ensuring you cast Rune of Power immediately before Arcane Power (if you have Rune of Power talented) will all help make the most out of your burn phase."
+          tooltip="In order to effectively utilize Arcane Power, there are certain things you need to ensure are setup before you cast Arcane Power. Making sure you have 4 Arcane Charges, You have more than 40% Mana (Unless you have the Overpowered Talent), and ensuring you cast Touch of the Magi immediately before Arcane Power will all help make the most out of your burn phase."
           thresholds={thresholds.arcanePowerCooldown}
         />
 

@@ -26,6 +26,8 @@ class WaterShield extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    // Disable Water Shield because its just fucking broken
+    this.active = false;
 
     this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.WATER_SHIELD_ENERGIZE), this.waterShield);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.WATER_SHIELD), this.waterShieldPrepullCheck);
@@ -42,7 +44,10 @@ class WaterShield extends Analyzer {
   }
 
   get regenOnPlayer() {
-    const uptime = this.selectedCombatant.getBuffUptime(SPELLS.WATER_SHIELD.id) / this.owner.fightDuration;
+    let uptime = this.selectedCombatant.getBuffUptime(SPELLS.WATER_SHIELD.id) / this.owner.fightDuration;
+    if (uptime === 0) {
+      uptime = 1; // quick fix for water shield not being in logs
+    }
 
     return (this.owner.fightDuration / 1000) * WATER_SHIELD_MANA_REGEN_PER_SECOND * uptime;
   };

@@ -14,7 +14,7 @@ import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyI
 import EventHistory from 'parser/shared/modules/EventHistory';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { FIRESTARTER_THRESHOLD, SEARING_TOUCH_THRESHOLD } from 'parser/mage/shared/constants';
-import { t } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 
 const debug = false;
 
@@ -162,18 +162,12 @@ class HeatingUp extends Analyzer {
 		when(this.fireBlastUtilSuggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.FIRE_BLAST.id} /> {this.fireBlastWithHotStreak} times while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active and {this.fireBlastWithoutHeatingUp} times while you didnt have <SpellLink id={SPELLS.HEATING_UP.id} />. Make sure that you are only using Fire Blast to convert Heating Up into Hot Streak or if you are going to cap on charges.</>)
 					.icon(SPELLS.FIRE_BLAST.icon)
-					.actual(t({
-          id: "mage.fire.suggestions.heatingUp.fireBlastUtilization",
-          message: `${formatPercentage(this.fireBlastUtil)}% Utilization`
-        }))
+					.actual(<Trans id="mage.fire.suggestions.heatingUp.fireBlastUtilization">{formatPercentage(this.fireBlastUtil)}% Utilization</Trans>)
 					.recommended(`<${formatPercentage(recommended)}% is recommended`));
     when(this.phoenixFlamesUtilSuggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.PHOENIX_FLAMES.id} /> {this.phoenixFlamesWithHotStreak} times while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active. This is a waste as the <SpellLink id={SPELLS.PHOENIX_FLAMES.id} /> could have contributed towards the next <SpellLink id={SPELLS.HEATING_UP.id} /> or <SpellLink id={SPELLS.HOT_STREAK.id} />.</>)
 					.icon(SPELLS.PHOENIX_FLAMES.icon)
-					.actual(t({
-      id: "mage.fire.suggestions.heatingUp.phoenixFlames.utilization",
-      message: `${formatPercentage(this.phoenixFlamesUtil)}% Utilization`
-    }))
+					.actual(<Trans id="mage.fire.suggestions.heatingUp.phoenixFlames.utilization">{formatPercentage(this.phoenixFlamesUtil)}% Utilization</Trans>)
 					.recommended(`<${formatPercentage(recommended)}% is recommended`));
 	}
 

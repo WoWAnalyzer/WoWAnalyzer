@@ -11,6 +11,7 @@ import React from 'react';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { formatNumber } from 'common/format';
 import COVENANTS from 'game/shadowlands/COVENANTS';
+import SPECS from 'game/SPECS';
 
 class FallenOrder extends Analyzer {
   static dependencies = {
@@ -40,7 +41,7 @@ class FallenOrder extends Analyzer {
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       cooldown: 180,
       gcd: {
-        base: 1500,
+        base: this.selectedCombatant.spec === SPECS.MISTWEAVER_MONK ? 1500 : 1000,
       },
       castEfficiency: {
         suggestion: true,
