@@ -20,8 +20,6 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Events, { ApplyBuffEvent, CastEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { Trans } from '@lingui/macro';
 
-import Spell from 'common/SPELLS/Spell';
-
 import ArcaneChargeTracker from './ArcaneChargeTracker';
 
 const MANA_THRESHOLD = 0.40;
