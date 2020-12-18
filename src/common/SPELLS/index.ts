@@ -84,4 +84,4 @@ const ABILITIES: SpellList<Spell> = {
 // We should type indexById properly some day to make this standard.
 // And then fix all those errors.
 // Which will prevent bugs.
-export default indexById(ABILITIES) ;
+export default indexById(ABILITIES);
