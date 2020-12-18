@@ -8,6 +8,7 @@ import { change, date } from 'common/changelog';
 
 // prettier-ignore
 export default [
+  change(date(2020, 12, 17), 'Added phase information for Castle Nathria bosses', Sharrq),
   change(date(2020, 12, 16), 'Fix character API realm slugs for non-English realms.', Zerotorescue),
   change(date(2020, 12, 15), <> Add support for the Engineering scopes, <ItemLink id={ITEMS.ENCHANT_WEAPON_OPTICAL_TARGET_EMBIGGENER.id} /> and <ItemLink id={ITEMS.ENCHANT_WEAPON_INFRA_GREEN_REFLEX_SIGHT.id} />, to the enchant checker. </>, Putro),
   change(date(2020, 12, 15), 'Add support for Aura Broken events in our Events tab', Putro),
