@@ -47,7 +47,7 @@ class SerratedBoneSpike extends Analyzer {
     if (this.spellUsable.isOnCooldown(SPELLS.SERRATED_BONE_SPIKE.id)) {
       const expectedCooldownDuration = this.abilities.getExpectedCooldownDuration(SPELLS.SERRATED_BONE_SPIKE.id, this.spellUsable.cooldownTriggerEvent(SPELLS.SERRATED_BONE_SPIKE.id));
       if (expectedCooldownDuration) {
-        this.spellUsable.reduceCooldown(SPELLS.SERRATED_BONE_SPIKE, expectedCooldownDuration, event.timestamp);
+        this.spellUsable.reduceCooldown(SPELLS.SERRATED_BONE_SPIKE.id, expectedCooldownDuration, event.timestamp);
       }
     }
   }
