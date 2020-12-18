@@ -133,7 +133,7 @@ class ResourceUsage extends Analyzer {
   }
 
   get resourceUsageChart() {
-    const items: Array<{ color: string, label: string, spellId: number, value: number, valueTooltip: JSX.Element }> = [];
+    const items: Array<{ color: string, label: string | undefined, spellId: number, value: number, valueTooltip: JSX.Element }> = [];
     let colourIndex = 0;
     this.resourceSpenders.forEach(spell => {
       if (this.listOfSpellsUsed[spell.id] && this.listOfSpellsUsed[spell.id].resourceUsed > 0) {

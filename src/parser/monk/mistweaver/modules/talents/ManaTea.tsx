@@ -22,7 +22,7 @@ class ManaTea extends Analyzer {
   };
   manaSavedMT: number = 0;
   manateaCount: number = 0;
-  casts: Map<string, number> = new Map<string, number>();
+  casts: Map<string | undefined, number> = new Map<string, number>();
   effectiveHealing: number = 0;
   overhealing: number = 0;
   protected abilityTracker!: AbilityTracker;
