@@ -5,7 +5,6 @@ import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
 import { TooltipElement } from 'common/Tooltip';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import { RAKE_BASE_DURATION, PANDEMIC_FRACTION } from '../../constants';
@@ -113,7 +112,10 @@ class RakeSnapshot extends Snapshot {
       </>,
     )
       .icon(SPELLS.RAKE.icon)
-      .actual(i18n._(t('druid.feral.suggestions.rakeSnapshot.prowlBuffed')`${actual.toFixed(1)} seconds of Prowl buffed Rake was lost per minute.`))
+      .actual(t({
+      id: "druid.feral.suggestions.rakeSnapshot.prowlBuffed",
+      message: `${actual.toFixed(1)} seconds of Prowl buffed Rake was lost per minute.`
+    }))
       .recommended(`<${recommended} is recommended`));
 
     when(this.downgradeSuggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
@@ -122,7 +124,10 @@ class RakeSnapshot extends Snapshot {
       </>,
     )
       .icon(SPELLS.RAKE.icon)
-      .actual(i18n._(t('druid.feral.suggestions.rakeSnapshot.earlyRefresh')`${formatPercentage(actual)}% of Rake refreshes were early downgrades.`))
+      .actual(t({
+      id: "druid.feral.suggestions.rakeSnapshot.earlyRefresh",
+      message: `${formatPercentage(actual)}% of Rake refreshes were early downgrades.`
+    }))
       .recommended(`${recommended}% is recommended`));
   }
 

@@ -7,7 +7,6 @@ import { formatDuration, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Tooltip from 'common/Tooltip';
 import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetracker/RegenResourceCapTracker';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import SpellEnergyCost from './SpellEnergyCost';
@@ -78,7 +77,10 @@ class EnergyCapTracker extends RegenResourceCapTracker {
       </>,
     )
       .icon('spell_shadow_shadowworddominate')
-      .actual(i18n._(t('rogue.shared.suggestions.energy.capped')`${actual.toFixed(1)} regenerated energy lost per minute due to being capped.`))
+      .actual(t({
+      id: "rogue.shared.suggestions.energy.capped",
+      message: `${actual.toFixed(1)} regenerated energy lost per minute due to being capped.`
+    }))
       .recommended(`<${recommended} is recommended.`));
   }
 

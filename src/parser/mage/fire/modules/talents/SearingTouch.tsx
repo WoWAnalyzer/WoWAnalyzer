@@ -10,8 +10,7 @@ import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { SEARING_TOUCH_THRESHOLD, COMBUSTION_END_BUFFER } from 'parser/mage/shared/constants';
-import { i18n } from '@lingui/core';
-import { t } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 
 export const DAMAGE_MODIFIER = 1.50;
 
@@ -104,12 +103,12 @@ class SearingTouch extends Analyzer {
 		when(this.executeSuggestionThreshold)
 			.addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.FIREBALL.id} /> instead of <SpellLink id={SPELLS.SCORCH.id} /> while the target was under 30% health {this.fireballExecuteCasts} times. When using <SpellLink id={SPELLS.SEARING_TOUCH_TALENT.id} /> always use Scorch instead of Fireball when the target is under 30% health since Scorch does 150% damage and is guaranteed to crit.</>)
 					.icon(SPELLS.SEARING_TOUCH_TALENT.icon)
-					.actual(i18n._(t('mage.fire.suggestions.searingTouch.executeCasts')`${formatPercentage(this.executeUtil)}% Utilization`))
+					.actual(<Trans id="mage.fire.suggestions.searingTouch.executeCasts">{formatPercentage(this.executeUtil)}% Utilization</Trans>)
 					.recommended(`${formatPercentage(recommended)} is recommended`));
     when(this.nonExecuteSuggestionThreshold)
 			.addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.SCORCH.id} /> while the target was over 30% health {this.nonExecuteScorchCasts} times. While this is acceptable when you need to move, you should aim to minimize this by limiting your movement and using spells like <SpellLink id={SPELLS.BLINK.id} /> (or <SpellLink id={SPELLS.SHIMMER_TALENT.id} />) when possible or by using your instant abilities and procs.</>)
 					.icon(SPELLS.SEARING_TOUCH_TALENT.icon)
-					.actual(i18n._(t('mage.fire.suggestions.searingTouch.nonExecuteScorchCasts')`${formatPercentage(this.nonExecuteUtil)}% Utilization`))
+					.actual(<Trans id="mage.fire.suggestions.searingTouch.nonExecuteScorchCasts">{formatPercentage(this.nonExecuteUtil)}% Utilization</Trans>)
 					.recommended(`${formatPercentage(recommended)} is recommended`));
   }
 

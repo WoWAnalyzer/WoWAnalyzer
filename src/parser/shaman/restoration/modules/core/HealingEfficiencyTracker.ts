@@ -11,6 +11,7 @@ import RestorationAbilityTracker from './RestorationAbilityTracker';
 import Resurgence from '../spells/Resurgence';
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
 import UnleashLife from '../talents/UnleashLife';
+import PrimordialWave from '../shadowlands/spells/PrimordialWave';
 
 class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
   static dependencies = {
@@ -24,6 +25,7 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
     cooldownThroughputTracker: CooldownThroughputTracker,
     unleashLife: UnleashLife,
     earthShield: EarthShield,
+    primordialWave: PrimordialWave,
   };
 
   protected manaTracker!: ManaTracker;
@@ -36,6 +38,7 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
   protected cooldownThroughputTracker!: CooldownThroughputTracker;
   protected unleashLife!: UnleashLife;
   protected earthShield!: EarthShield;
+  protected primordialWave!: PrimordialWave;
 
   getCustomSpellStats(spellInfo: SpellInfoDetails, spellId: number) {
     if (this.resurgence.resurgence[spellId]) {
@@ -49,6 +52,14 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
       this.getEarthShieldBuffDetails(spellInfo);
     } else if (spellId === SPELLS.LAVA_BURST.id) {
       this.getLavaBurstDamageDetails(spellInfo);
+    }
+    // Primordial
+    if (spellId === SPELLS.HEALING_WAVE.id) {
+      this.getHealingWaveDetails(spellInfo);
+    } else if (spellId === SPELLS.RIPTIDE.id) {
+      this.getRiptideDetails(spellInfo);
+    } else if (spellId === SPELLS.PRIMORDIAL_WAVE_CAST.id) {
+      this.getPrimordialWaveDetails(spellInfo);
     }
 
     return spellInfo;
@@ -82,6 +93,18 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
     spellInfo.damageHits = ability.damageHits || 0;
     spellInfo.damageDone = ability.damageEffective || 0;
     spellInfo.damageAbsorbed = ability.damageAbsorbed || 0;
+  }
+  getHealingWaveDetails(spellInfo: SpellInfoDetails) {
+    spellInfo.healingDone -= this.primordialWave.waveHealing;
+    spellInfo.overhealingDone -= this.primordialWave.waveOverHealing;
+  }
+  getRiptideDetails(spellInfo: SpellInfoDetails) {
+    spellInfo.healingDone -= this.primordialWave.riptideHealing;
+    spellInfo.overhealingDone -= this.primordialWave.riptideOverHealing;
+  }
+  getPrimordialWaveDetails(spellInfo: SpellInfoDetails) {
+    spellInfo.healingDone += this.primordialWave.riptideHealing + this.primordialWave.waveHealing;
+    spellInfo.overhealingDone += this.primordialWave.riptideOverHealing + this.primordialWave.waveOverHealing;
   }
 }
 

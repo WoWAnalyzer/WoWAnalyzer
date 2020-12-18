@@ -124,5 +124,19 @@ export default {
     mastery: true,
     vers: true,
   },
+  [SPELLS.PRIMORDIAL_WAVE_HEAL.id]: {
+    int: true,
+    crit: true,
+    hasteHpct: false, // static CD
+    mastery: true,
+    vers: true,
+  },
+  [SPELLS.CHAIN_HARVEST_HEAL.id]: {
+    int: true,
+    crit: true, // going to need custom handling
+    hasteHpct: false, // static CD
+    mastery: true,
+    vers: true,
+  },
   // TODO add covenant abilities
 };

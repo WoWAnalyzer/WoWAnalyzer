@@ -9,8 +9,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
-import { i18n } from '@lingui/core';
-import { t } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 
 import MeteorRune from './MeteorRune';
 import MeteorCombustion from './MeteorCombustion';
@@ -60,7 +59,7 @@ class Meteor extends Analyzer {
     when(this.meteorEfficiencySuggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => suggest(<>You could have cast <SpellLink id={SPELLS.METEOR_TALENT.id} /> {this.meteorMaxCasts} times during this fight, but you only cast it {this.totalMeteorCasts} times. While you should not cast Meteor on cooldown (since you need to have it available for <SpellLink id={SPELLS.COMBUSTION.id} />), you should be casting it at least once per minute.</>)
 					.icon(SPELLS.METEOR_TALENT.icon)
-					.actual(i18n._(t('mage.fire.suggestions.meteor.efficiency')`${formatPercentage(this.meteorCastEfficiency)}% Utilization`))
+					.actual(<Trans id="mage.fire.suggestions.meteor.efficiency">{formatPercentage(this.meteorCastEfficiency)}% Utilization</Trans>)
 					.recommended(`<${formatPercentage(recommended)}% is recommended`));
 	}
 

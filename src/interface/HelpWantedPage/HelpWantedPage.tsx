@@ -2,7 +2,6 @@ import React from 'react';
 import { Trans, t } from '@lingui/macro';
 import { Link } from 'react-router-dom';
 
-import { i18n } from 'interface/RootLocalizationProvider';
 import DocumentTitle from 'interface/DocumentTitle';
 import Panel from 'interface/others/Panel';
 
@@ -39,7 +38,10 @@ const HelpWanted = () => (
       <img
         src="https://media.giphy.com/media/l1J3vV5lCmv8qx16M/giphy.gif"
         style={{ width: '100%' }}
-        alt={i18n._(t('interface.helpWantedPage.sharingIsCaring')`Sharing is caring`)}
+        alt={t({
+          id: "interface.helpWantedPage.sharingIsCaring",
+          message: `Sharing is caring`
+        })}
       />
     </Panel>
   </>

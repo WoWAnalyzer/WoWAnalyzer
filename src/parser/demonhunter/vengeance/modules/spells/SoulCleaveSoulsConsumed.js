@@ -4,7 +4,6 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import SoulFragmentsConsume from '../statistics/SoulFragmentsConsume';
@@ -45,7 +44,10 @@ class SoulCleaveSoulsConsumed extends Analyzer {
     when(this.suggestionThresholdsEfficiency)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You should avoid consuming souls with <SpellLink id={SPELLS.SOUL_CLEAVE.id} /> and instead try to consume them only with <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> for the increased dps. Your talent choices suggests your going for a balanced approch versus a defensive one with <SpellLink id={SPELLS.FEED_THE_DEMON_TALENT.id} />.</>)
         .icon(SPELLS.SOUL_CLEAVE.icon)
-        .actual(i18n._(t('demonhunter.vengeance.suggestions.soulCleave.soulsConsumed')`${formatPercentage(actual)}% of souls consumed.`))
+        .actual(t({
+      id: "demonhunter.vengeance.suggestions.soulCleave.soulsConsumed",
+      message: `${formatPercentage(actual)}% of souls consumed.`
+    }))
         .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 

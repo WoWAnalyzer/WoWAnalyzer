@@ -20,14 +20,14 @@ export const RESTORATION_COLORS = {
   HEALING_WAVE: '#146585',
   HEALING_SURGE: '#40b3bf',
   RIPTIDE: '#a3dbce',
-  UNUSED:'#CC3D20',
+  UNUSED: '#CC3D20',
 };
 
 // Spell Coefficients
-export const CHAIN_HEAL_COEFFICIENT = 1.4;
-export const HEALING_WAVE_COEFFICIENT = 1.7;
-export const HEALING_SURGE_COEFFICIENT = 1.57;
-export const HIGH_TIDE_COEFFICIENT = 1.68;
+export const CHAIN_HEAL_COEFFICIENT = 2.1;
+export const HEALING_WAVE_COEFFICIENT = 3;
+export const HEALING_SURGE_COEFFICIENT = 2.48;
+export const HIGH_TIDE_COEFFICIENT = 2.31;
 export const HEALING_WAVE_CAST_TIME = 2.5;
 
 // Conduit Ranks

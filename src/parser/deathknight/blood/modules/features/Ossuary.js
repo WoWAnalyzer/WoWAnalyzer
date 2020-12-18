@@ -2,7 +2,6 @@ import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import Events from 'parser/core/Events';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -68,7 +67,10 @@ class Ossuary extends Analyzer {
     when(this.efficiencySuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest('Your Ossuary usage can be improved. Avoid casting Death Strike while not having Ossuary up as you lose Runic Power by doing so.')
         .icon(SPELLS.OSSUARY.icon)
-        .actual(i18n._(t('deathknight.blood.suggestions.ossuary.efficiency')`${formatPercentage(actual)}% Ossuary efficiency`))
+        .actual(t({
+      id: "deathknight.blood.suggestions.ossuary.efficiency",
+      message: `${formatPercentage(actual)}% Ossuary efficiency`
+    }))
         .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 

@@ -6,7 +6,6 @@ import FullscreenError from 'interface/FullscreenError';
 import ErrorBoundary from 'interface/common/ErrorBoundary';
 import ApiDownBackground from 'interface/common/images/api-down-background.gif';
 import { EventsParseError } from 'interface/report/EventParser';
-import { i18n } from 'interface/RootLocalizationProvider';
 
 class RootErrorBoundary extends React.Component {
   static propTypes = {
@@ -74,8 +73,14 @@ class RootErrorBoundary extends React.Component {
       if (this.state.error instanceof EventsParseError) {
         return (
           <FullscreenError
-            error={i18n._(t('interface.rootErrorBoundary.errorDuringAnalysis')`An error occured during analysis`)}
-            details={i18n._(t('interface.rootErrorBoundary.errorDuringAnalysisDetails')`We fucked up and our code broke like the motherfucker that it is. Please let us know on Discord and we will fix it for you.`)}
+            error={t({
+              id: "interface.rootErrorBoundary.errorDuringAnalysis",
+              message: `An error occured during analysis`
+            })}
+            details={t({
+              id: "interface.rootErrorBoundary.errorDuringAnalysisDetails",
+              message: `We fucked up and our code broke like the motherfucker that it is. Please let us know on Discord and we will fix it for you.`
+            })}
             background="https://media.giphy.com/media/2sdHZ0iBuI45s6fqc9/giphy.gif"
           />
         );

@@ -9,7 +9,6 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import UptimeIcon from 'interface/icons/Uptime';
 import Statistic from 'interface/statistics/Statistic';
 import { TooltipElement } from 'common/Tooltip';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class MoonfireUptime extends Analyzer {
@@ -45,7 +44,10 @@ class MoonfireUptime extends Analyzer {
       </>,
     )
       .icon(SPELLS.MOONFIRE_FERAL.icon)
-      .actual(i18n._(t('druid.feral.suggestions.moonfire.uptime')`${formatPercentage(actual)}% uptime`))
+      .actual(t({
+      id: "druid.feral.suggestions.moonfire.uptime",
+      message: `${formatPercentage(actual)}% uptime`
+    }))
       .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

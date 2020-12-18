@@ -10,8 +10,7 @@ import { formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import { i18n } from '@lingui/core';
-import { t } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 
 class FocusMagic extends Analyzer {
 
@@ -72,7 +71,7 @@ class FocusMagic extends Analyzer {
     when(this.focusMagicBuffUptimeThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You had low uptime on <SpellLink id={SPELLS.FOCUS_MAGIC_TALENT.id} />. In order to get benefit from this talent, ensure that you are putting <SpellLink id={SPELLS.FOCUS_MAGIC_TALENT.id} /> on another player or trading the buff with another mage before the pull. If you buffed a player for the entire fight but still had low uptime, consider giving the buff to a player that will crit with direct damage (Non DoT) abilities more often so the buff can trigger as many times as possible.</>)
           .icon(SPELLS.FOCUS_MAGIC_TALENT.icon)
-          .actual(i18n._(t('mage.shared.suggestions.focusMagic.uptime')`${formatPercentage(this.critBuffUptime)}% Focus Magic Uptime`))
+          .actual(<Trans id="mage.shared.suggestions.focusMagic.uptime">{formatPercentage(this.critBuffUptime)}% Focus Magic Uptime</Trans>)
           .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 

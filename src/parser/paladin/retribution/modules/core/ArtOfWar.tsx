@@ -9,7 +9,6 @@ import Combatants from 'parser/shared/modules/Combatants';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Events, {ApplyBuffEvent, RefreshBuffEvent, CastEvent} from 'parser/core/Events';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
@@ -80,7 +79,10 @@ class AoWProcTracker extends Analyzer {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You used {formatPercentage(this.consumedProcsPercent)}% of your <SpellLink id={SPELLS.ART_OF_WAR.id} icon /> procs.</>)
         .icon(SPELLS.ART_OF_WAR.icon)
-        .actual(i18n._(t('paladin.retribution.suggestions.artOfWar.procsUsed')`${formatPercentage(this.consumedProcsPercent)}% proc(s) used.`))
+        .actual(t({
+      id: "paladin.retribution.suggestions.artOfWar.procsUsed",
+      message: `${formatPercentage(this.consumedProcsPercent)}% proc(s) used.`
+    }))
         .recommended(`Using >${formatPercentage(recommended)}% is recommended`));
   }
 

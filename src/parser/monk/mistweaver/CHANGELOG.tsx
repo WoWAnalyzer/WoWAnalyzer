@@ -1,11 +1,13 @@
 import React from 'react';
 
-import { Abelito75, Anomoly, Moonrabbit, Tyndi, Vohrr } from 'CONTRIBUTORS';
+import { Abelito75, Anomoly, Moonrabbit, Putro, Tyndi, Vohrr } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 12, 15), 'Bumped level of support to 9.0.2', Putro),
+  change(date(2020, 12, 12), <>Enabled endurance conduits.</>, Abelito75),
   change(date(2020, 12, 4), <>Turned on Ancient Teachings of the Monastery and Clouded Focus.</>, Abelito75),
   change(date(2020, 12, 4), <>Enabled conduits.</>, Abelito75),
   change(date(2020, 10, 31), <>Updates to Ancient Teachings of the Monastery.</>, Vohrr),

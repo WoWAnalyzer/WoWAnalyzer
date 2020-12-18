@@ -8,7 +8,6 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatisticBox from 'interface/others/StatisticBox';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import Events from 'parser/core/Events';
@@ -142,7 +141,10 @@ class AntiFillerSpam extends Analyzer {
         </>,
       )
         .icon(SPELLS.SWIPE_BEAR.icon)
-        .actual(i18n._(t('druid.guardian.suggestions.fillerSpells.efficiency')`${formatPercentage(actual)}% unnecessary filler spells cast`))
+        .actual(t({
+      id: "druid.guardian.suggestions.fillerSpells.efficiency",
+      message: `${formatPercentage(actual)}% unnecessary filler spells cast`
+    }))
         .recommended(`${formatPercentage(recommended, 0)}% or less is recommended`)
         .regular(recommended + 0.05).major(recommended + 0.1));
   }

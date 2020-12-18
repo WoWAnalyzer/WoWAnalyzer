@@ -5,7 +5,6 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
@@ -27,7 +26,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     if (!boss || !boss.fight.disableDowntimeSuggestion) {
       when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your downtime can be improved. Try to cast more, for example by reducing the delay between casting spells. Even if you have to move, try to cast something instant with range like <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> or <SpellLink id={SPELLS.AVENGERS_SHIELD.id} icon />.</>)
           .icon('spell_mage_altertime')
-          .actual(i18n._(t('paladin.protection.alwaysBeCasting.downtime')`${formatPercentage(actual)}% downtime`))
+          .actual(t({
+        id: "paladin.protection.alwaysBeCasting.downtime",
+        message: `${formatPercentage(actual)}% downtime`
+      }))
           .recommended(`<${formatPercentage(recommended)}% is recommended`));
     }
   }

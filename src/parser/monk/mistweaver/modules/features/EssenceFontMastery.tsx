@@ -13,7 +13,6 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const debug = false;
@@ -95,7 +94,10 @@ class EssenceFontMastery extends Analyzer {
       </>,
     )
       .icon(SPELLS.ESSENCE_FONT.icon)
-      .actual(i18n._(t('monk.mistweaver.suggestions.essenceFontMastery.averageHots')`${this.avgMasteryCastsPerEF.toFixed(2)} average EF HoTs`))
+      .actual(t({
+      id: "monk.mistweaver.suggestions.essenceFontMastery.averageHots",
+      message: `${this.avgMasteryCastsPerEF.toFixed(2)} average EF HoTs`
+    }))
       .recommended(`${recommended} or more EF HoTs utilized is recommended`));
   }
 

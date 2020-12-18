@@ -1,12 +1,5 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
-import { formatPercentage } from 'common/format';
-
 import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
-import { When } from 'parser/core/ParseResults';
-import { i18n } from '@lingui/core';
-import { t, Trans } from '@lingui/macro';
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   static HEALING_ABILITIES_ON_GCD = [
@@ -26,29 +19,9 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.DOWNPOUR_TALENT.id,
     SPELLS.MANA_TIDE_TOTEM_CAST.id,
     SPELLS.SURGE_OF_EARTH_TALENT.id,
-    SPELLS.PRIMORDIAL_WAVE_CAST.id, // TODO add other covenant abilities
+    SPELLS.PRIMORDIAL_WAVE_CAST.id,
+    SPELLS.CHAIN_HARVEST.id, // TODO add other covenant abilities
   ];
-
-  suggestions(when: When) {
-    const nonHealingTimeSuggestionThresholds = this.nonHealingTimeSuggestionThresholds;
-    const deadTimePercentage = this.downtimeSuggestionThresholds;
-    when(nonHealingTimeSuggestionThresholds.actual).isGreaterThan(nonHealingTimeSuggestionThresholds.isGreaterThan.minor)
-      .addSuggestion((suggest, actual, recommended) =>
-        suggest(`Your non healing time can be improved. Try to cast heals more regularly (${Math.round(nonHealingTimeSuggestionThresholds.actual * 100)}% non healing time).`)
-          .icon('petbattle_health-down')
-          .actual(`${formatPercentage(nonHealingTimeSuggestionThresholds.actual)}% ${i18n._(t('shared.suggestions.alwaysBeCasting.nonHealingTime')`non healing time`)}`)
-          .recommended(`<${formatPercentage(nonHealingTimeSuggestionThresholds.isGreaterThan.minor)}% is recommended`)
-          .regular(nonHealingTimeSuggestionThresholds.isGreaterThan.average).major(nonHealingTimeSuggestionThresholds.isGreaterThan.major),
-      );
-    when(deadTimePercentage.actual).isGreaterThan(0.2)
-      .addSuggestion((suggest, actual, recommended) =>
-        suggest(`Your downtime can be improved. Try to Always Be Casting (ABC); when you're not healing try to contribute some damage.`)
-          .icon('spell_mage_altertime')
-          .actual(<Trans id='shared.suggestions.alwaysBeCasting.downtime'> {formatPercentage(deadTimePercentage.actual)}% downtime </Trans>)
-          .recommended(`<${formatPercentage(deadTimePercentage.isGreaterThan.minor)}% is recommended`)
-          .regular(deadTimePercentage.isGreaterThan.average).major(deadTimePercentage.isGreaterThan.major),
-      );
-  }
 }
 
 export default AlwaysBeCasting;

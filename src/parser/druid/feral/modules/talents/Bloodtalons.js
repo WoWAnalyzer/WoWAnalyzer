@@ -6,7 +6,6 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Statistic from 'interface/statistics/Statistic';
 import DonutChart from 'interface/statistics/components/DonutChart';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import Events from 'parser/core/Events';
 
@@ -239,7 +238,10 @@ class Bloodtalons extends Analyzer {
       </>,
     )
       .icon(SPELLS.BLOODTALONS_TALENT.icon)
-      .actual(i18n._(t('druid.feral.suggestions.bloodtalons.efficiency')`${actual.toFixed(1)} wasted charges of Bloodtalons per minute.`))
+      .actual(t({
+      id: "druid.feral.suggestions.bloodtalons.efficiency",
+      message: `${actual.toFixed(1)} wasted charges of Bloodtalons per minute.`
+    }))
       .recommended(`${recommended} is recommended`));
   }
 

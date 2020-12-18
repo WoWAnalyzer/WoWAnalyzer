@@ -3,7 +3,6 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatDuration, formatPercentage } from 'common/format';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
@@ -43,7 +42,10 @@ class BoneShield extends Analyzer {
     when(this.uptimeSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest('Your Bone Shield uptime can be improved. Try to keep it up at all times.')
           .icon(SPELLS.BONE_SHIELD.icon)
-          .actual(i18n._(t('deathknight.blood.suggestions.boneShield.uptime')`${formatPercentage(actual)}% Bone Shield uptime`))
+          .actual(t({
+      id: "deathknight.blood.suggestions.boneShield.uptime",
+      message: `${formatPercentage(actual)}% Bone Shield uptime`
+    }))
           .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

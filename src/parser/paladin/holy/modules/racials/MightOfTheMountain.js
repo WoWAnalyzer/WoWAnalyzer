@@ -5,7 +5,7 @@ import BaseMightOfTheMountain, {
 
 import Events from 'parser/core/Events';
 
-import BeaconHealSource from './beacons/BeaconHealSource';
+import BeaconHealSource from '../beacons/BeaconHealSource';
 
 class MightOfTheMountain extends BaseMightOfTheMountain {
   static dependencies = {

@@ -6,7 +6,6 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Events, { ApplyBuffEvent, GlobalCooldownEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
@@ -97,7 +96,10 @@ class KillingMachineEfficiency extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<React.Fragment> You wasted <SpellLink id={SPELLS.KILLING_MACHINE.id} /> procs. You should be casting <SpellLink id={SPELLS.OBLITERATE_CAST.id} /> or <SpellLink id={SPELLS.FROSTSCYTHE_TALENT.id} /> within 1 or 2 GCDs of gaining a Killing Machine proc to avoid wasting it. See one of the guides on the About tab for more information on when another ability takes precedence over spending Killing Machine</React.Fragment>)
         .icon(SPELLS.KILLING_MACHINE.icon)
-        .actual(i18n._(t('deathknight.frost.suggestions.killingMachine.wasted')`${formatPercentage(this.wastedProcRate)}% of Killing Machine procs were either refreshed and lost or expired without being used`))
+        .actual(t({
+      id: "deathknight.frost.suggestions.killingMachine.wasted",
+      message: `${formatPercentage(this.wastedProcRate)}% of Killing Machine procs were either refreshed and lost or expired without being used`
+    }))
         .recommended(`<${formatPercentage(1 - recommended)}% is recommended`));
   }
 

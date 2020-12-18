@@ -18,8 +18,7 @@ import EventHistory from 'parser/shared/modules/EventHistory';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Events, { ApplyBuffEvent, CastEvent, RemoveBuffEvent } from 'parser/core/Events';
-import { i18n } from '@lingui/core';
-import { t } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 
 import ArcaneChargeTracker from './ArcaneChargeTracker';
 
@@ -232,17 +231,17 @@ class ArcanePower extends Analyzer {
         </ul>
       </>)
         .icon(SPELLS.ARCANE_POWER.icon)
-        .actual(i18n._(t('mage.arcane.suggestions.arcanePower.badCasts')`${this.badUses} Bad Casts`))
+        .actual(<Trans id="mage.arcane.suggestions.arcanePower.badCasts">{this.badUses} Bad Casts</Trans>)
         .recommended(`0 is recommended`));
     when(this.arcanePowerCastThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You cast spells other than <SpellLink id={SPELLS.ARCANE_BLAST.id} />,<SpellLink id={SPELLS.ARCANE_MISSILES.id} />, <SpellLink id={SPELLS.ARCANE_EXPLOSION.id} />, and <SpellLink id={SPELLS.PRESENCE_OF_MIND.id} /> during <SpellLink id={SPELLS.ARCANE_POWER.id} />. Arcane Power is a short duration, so you should ensure that you are getting the most use out of it. Buff spells like Rune of Power should be cast immediately before casting Arcane Power. Other spells such as Charged Up, Blink/Shimmer, etc are acceptable during Arcane Power, but should be avoided if possible.</>)
         .icon(SPELLS.ARCANE_POWER.icon)
-        .actual(i18n._(t('mage.arcane.suggestions.arcanePower.utilization')`${formatPercentage(actual)}% Utilization`))
+        .actual(<Trans id="mage.arcane.suggestions.arcanePower.utilization">{formatPercentage(actual)}% Utilization</Trans>)
         .recommended(`${formatPercentage(recommended)}% is recommended`));
     when(this.arcanePowerManaUtilization)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You ran dangerously low or ran out of mana during <SpellLink id={SPELLS.ARCANE_POWER.id} /> {this.outOfMana} times. Running out of mana during Arcane Power is a massive DPS loss and should be avoided at all costs. {!this.hasOverpowered ? 'To avoid this, ensure you have at least 40% mana before casting Arcane Power to ensure you have enough mana to finish Arcane Power.' : ''}</>)
         .icon(SPELLS.ARCANE_POWER.icon)
-        .actual(i18n._(t('mage.arcane.suggestions.arcanePower.lowMana')`${formatPercentage(actual)}% Utilization`))
+        .actual(<Trans id="mage.arcane.suggestions.arcanePower.lowMana">{formatPercentage(actual)}% Utilization</Trans>)
         .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 

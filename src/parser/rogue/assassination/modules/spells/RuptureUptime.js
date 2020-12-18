@@ -9,7 +9,6 @@ import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import StatisticBox from 'interface/others/StatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class RuptureUptime extends Analyzer {
@@ -36,7 +35,10 @@ class RuptureUptime extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.RUPTURE.id} /> uptime can be improved. Try to pay more attention to your <SpellLink id={SPELLS.RUPTURE.id} /> on the boss.</>)
       .icon(SPELLS.RUPTURE.icon)
-      .actual(i18n._(t('rogue.assassination.suggestions.rupture.uptime')`${formatPercentage(actual)}% Rupture uptime`))
+      .actual(t({
+      id: "rogue.assassination.suggestions.rupture.uptime",
+      message: `${formatPercentage(actual)}% Rupture uptime`
+    }))
       .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

@@ -33,6 +33,7 @@ export enum EventType {
   Resurrect = 'resurrect',
   CombatantInfo = 'combatantinfo',
   Instakill = 'instakill',
+  AuraBroken = 'aurabroken',
 
   // Fabricated:
   Event = 'event', // everything
@@ -106,6 +107,7 @@ type MappedEventTypes = {
   [EventType.Death]: DeathEvent,
   [EventType.CombatantInfo]: CombatantInfoEvent,
   [EventType.Dispel]: DispelEvent,
+  [EventType.AuraBroken]: AuraBrokenEvent,
 
   // Fabricated:
   [EventType.FightEnd]: FightEndEvent,
@@ -526,6 +528,17 @@ export interface DeathEvent extends Event<EventType.Death> {
   targetID: number;
   targetIsFriendly: boolean;
   ability: Ability;
+}
+
+export interface AuraBrokenEvent extends Event<EventType.AuraBroken> {
+  ability: Ability;
+  extraAbility: Ability;
+  isBuff: boolean;
+  sourceID: number;
+  sourceIsFriendly: boolean;
+  targetID: number;
+  targetInstance: number;
+  targetIsFriendly: boolean;
 }
 
 export interface ResurrectEvent extends Event<EventType.Resurrect> {

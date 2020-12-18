@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
@@ -28,7 +27,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     when(this.downtimeSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>Your downtime can be improved. Try to Always Be Casting (ABC), reducing time away from the boss unless due to mechanics.  If you do have to move, try casting filler spells, such as <SpellLink id={SPELLS.DEATH_COIL.id} /> or <SpellLink id={SPELLS.OUTBREAK.id} />.</span>)
           .icon('spell_mage_altertime')
-          .actual(i18n._(t('deathknight.unholy.suggestions.alwaysBeCasting')`${formatPercentage(actual)}% downtime`))
+          .actual(t({
+      id: "deathknight.unholy.suggestions.alwaysBeCasting",
+      message: `${formatPercentage(actual)}% downtime`
+    }))
           .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 }

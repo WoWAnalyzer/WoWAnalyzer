@@ -11,7 +11,6 @@ import Statistic from 'interface/statistics/Statistic';
 
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 /**
@@ -76,7 +75,10 @@ class Frostscythe extends Analyzer {
         Your <SpellLink id={SPELLS.FROSTSCYTHE_TALENT.id} /> efficiency can be improved. Only cast Frostscythe if you have a <SpellLink id={SPELLS.KILLING_MACHINE.id} icon /> proc or you can hit 2+ targets.
       </>)
       .icon(SPELLS.FROSTSCYTHE_TALENT.icon)
-      .actual(i18n._(t('deathknight.forst.frostScythe.efficiency')`${formatPercentage(actual)}% Frostscythe efficiency`))
+      .actual(t({
+      id: "deathknight.forst.frostScythe.efficiency",
+      message: `${formatPercentage(actual)}% Frostscythe efficiency`
+    }))
       .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

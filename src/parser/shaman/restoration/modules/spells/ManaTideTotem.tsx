@@ -67,8 +67,8 @@ class ManaTideTotem extends Analyzer {
           <table className="table table-condensed">
             <thead>
               <tr>
-                <Trans render="th" id="common.player">Player</Trans>
-                <Trans render="th" id="common.stat.mana">Mana</Trans>
+                <th><Trans id="common.player">Player</Trans></th>
+                <th><Trans id="common.stat.mana">Mana</Trans></th>
               </tr>
             </thead>
             <tbody>

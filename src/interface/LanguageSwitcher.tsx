@@ -6,7 +6,6 @@ import { getLanguage } from 'interface/selectors/language';
 import { setLanguage } from 'interface/actions/language';
 import ReadableListing from 'interface/ReadableListing';
 import languages from 'common/languages';
-import { i18n } from 'interface/RootLocalizationProvider';
 import { TooltipElement } from 'common/Tooltip';
 
 type Props = {
@@ -59,7 +58,10 @@ class LanguageSwitcher extends React.PureComponent<Props, State> {
 
     return (
       <a onClick={this.handleClickExpand}>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
-        <TooltipElement content={i18n._(t('interface.languageSwitcher.clickToSwitch')`Click to switch languages. We've only just started localizing the app, it will take some time until everything is localized.`)}>
+        <TooltipElement content={t({
+          id: "interface.languageSwitcher.clickToSwitch",
+          message: `Click to switch languages. We've only just started localizing the app, it will take some time until everything is localized.`
+        })}>
           {languages[language].localName}
         </TooltipElement>
       </a>

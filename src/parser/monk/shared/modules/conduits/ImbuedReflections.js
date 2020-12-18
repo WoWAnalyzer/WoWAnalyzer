@@ -13,6 +13,8 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import ItemDamageDone from 'interface/ItemDamageDone';
 
+import { conduitScaling } from '../../../mistweaver/constants';
+
 class ImbuedReflections extends Analyzer {
   boost = 0;
 
@@ -26,13 +28,13 @@ class ImbuedReflections extends Analyzer {
    */
   constructor(...args) {
     super(...args);
-    this.active = false;
-
-    this.boost = .29;//TODO Get from combat data when they EXPORT IT >:c
-
-    if (!this.active) {
+    const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.FORTIFYING_INGREDIENTS.id);
+    if (!conduitRank) {
+      this.active = false;
       return;
     }
+
+    this.boost = conduitScaling(.3625, conduitRank);
 
     //summon events (need to track this to get melees)
     this.addEventListener(Events.summon.by(SELECTED_PLAYER).spell([SPELLS.FALLEN_ORDER_OX_CLONE, SPELLS.FALLEN_ORDER_TIGER_CLONE, SPELLS.FALLEN_ORDER_CRANE_CLONE]), this.trackSummons);
