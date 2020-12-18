@@ -759,7 +759,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               0
-              /9
+              /0
                
               casts
             </td>
@@ -777,7 +777,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#ff8000",
+                      "backgroundColor": "#70b570",
                       "width": "0%",
                     }
                   }
@@ -802,12 +802,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                   "width": "25%",
                 }
               }
-            >
-              <trans
-                id="shared.castEfficiency.canBeImproved"
-                message="Can be improved."
-              />
-            </td>
+            />
           </tr>
         </tbody>
         <tbody>
@@ -3229,50 +3224,6 @@ Array [
       )
     </React.Fragment>,
   },
-  Object {
-    "details": null,
-    "icon": "ability_deathknight_soulreaper",
-    "importance": "major",
-    "issue": <React.Fragment>
-      <Trans
-        components={
-          Object {
-            "0": <ForwardRef
-              id={343294}
-            />,
-          }
-        }
-        id="shared.modules.castEfficiency.suggest"
-        message="Try to cast <0/> more often."
-      />
-       
-      
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      <Trans
-        id="shared.modules.castEfficiency.actual"
-        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
-        values={
-          Object {
-            "0": 0,
-            "1": 9,
-            "2": "0",
-          }
-        }
-      />
-       (
-      <Trans
-        id="shared.modules.castEfficiency.recommended"
-        message=">{0}% is recommended"
-        values={
-          Object {
-            "0": "85",
-          }
-        }
-      />
-      )
-    </React.Fragment>,
-  },
 ]
 `;
 
@@ -4014,67 +3965,6 @@ exports[`Unholy Death Knight integration test: example log ScourgeStrikeEfficien
 </div>
 `;
 
-exports[`Unholy Death Knight integration test: example log SoulReaper matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    category="TALENTS"
-    className="panel statistic flexible "
-    position={1030}
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad boring-text "
-      >
-        <label>
-          <a
-            className="spell-link-text"
-            href="http://wowhead.com/spell=343294"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Soul Reaper"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/ability_deathknight_soulreaper.jpg"
-            />
-          </a>
-           
-          <a
-            className="spell-link-text"
-            href="http://wowhead.com/spell=343294"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Soul Reaper
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          <img
-            alt="Damage"
-            className="icon"
-            src="/img/sword.png"
-          />
-           
-          0
-           DPS
-           
-          <small>
-            0.00
-             % of total
-          </small>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`Unholy Death Knight integration test: example log ThroughputStatisticGroup matches the statistic snapshot 1`] = `
 <div
   className="col-md-6 col-sm-12 col-xs-12"
@@ -4417,31 +4307,8 @@ exports[`Unholy Death Knight integration test: example log VirulentPlagueEfficie
           <small>
             uptime
           </small>
-          <br />
-          0.0
-          s 
-          <small>
-            average duration wasted
-          </small>
         </div>
       </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
     </div>
   </div>
 </div>
@@ -4821,7 +4688,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
     </div>
   </li>
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -4845,8 +4712,8 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#4ec04e",
-                  "width": "100%",
+                  "backgroundColor": "#df7102",
+                  "width": "47.10699236777817%",
                 }
               }
             />
@@ -4959,9 +4826,9 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "47.10699236777817%",
                       }
                     }
                   />
