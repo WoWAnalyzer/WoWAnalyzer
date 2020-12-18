@@ -26,6 +26,8 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
 ];
 
 export const LIFE_COCOON_HEALING_BOOST = .5;
+export const LIFECYCLES_VIVIFY_BUFF_PERCENT_REDUCTION = 0.25;
+export const SOTC_MANA_RETURN_PERCENTAGE = 0.0065;
 
 export function conduitScaling(rankOne: number, requiredRank: number) {
   const scalingFactor = rankOne * .1;

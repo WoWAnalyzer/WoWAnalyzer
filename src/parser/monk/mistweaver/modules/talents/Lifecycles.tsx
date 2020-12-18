@@ -78,7 +78,7 @@ class Lifecycles extends Analyzer {
     // Checking for chiji stacks and determine mana reduction
     const chijiStacksAtEnvCast = this.selectedCombatant.getBuff(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id, event.timestamp)?.stacks;
     if (!chijiStacksAtEnvCast) {
-      this.calculateEnvManaSaved(SPELLS.ENVELOPING_MIST.manaCost ? SPELLS.ENVELOPING_MIST.manaCost : 0);
+      this.calculateEnvManaSaved(SPELLS.ENVELOPING_MIST.manaCost ? SPELLS.ENVELOPING_MIST.manaCost : 1);
       return;
     }
     //check for free cast from chiji
@@ -86,7 +86,7 @@ class Lifecycles extends Analyzer {
       return;
     }
     //have to do this weird because blizzard decided to make each chiji stack reduce the mana cost by 1001 instead of and exact 33%
-    const modifiedManaCost = (SPELLS.ENVELOPING_MIST.manaCost ? SPELLS.ENVELOPING_MIST.manaCost : 0) - (CHIJI_MANA_SAVED_PER_STACK * chijiStacksAtEnvCast);
+    const modifiedManaCost = (SPELLS.ENVELOPING_MIST.manaCost ? SPELLS.ENVELOPING_MIST.manaCost : 1) - (CHIJI_MANA_SAVED_PER_STACK * chijiStacksAtEnvCast);
     this.calculateEnvManaSaved(modifiedManaCost);
   }
 
