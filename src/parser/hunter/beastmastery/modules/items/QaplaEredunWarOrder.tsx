@@ -11,6 +11,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { formatNumber, formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
+import { Trans } from '@lingui/macro';
 
 /**
  * Barbed Shot reduces the cooldown of Kill Command by 5.0 sec.
@@ -73,8 +74,8 @@ class QaplaEredunWarOrder extends Analyzer {
   suggestions(when: When) {
     when(this.cdrEfficiencyKillCommandThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>When using <SpellLink id={SPELLS.QAPLA_EREDUN_WAR_ORDER_EFFECT.id} /> you want to ideally only use <SpellLink id={SPELLS.BARBED_SHOT.id} /> when <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> has as much cooldown remaining as possible to gain the most out of its effect - but you still don't want to be capping on <SpellLink id={SPELLS.BARBED_SHOT.id} /> charges. </>)
       .icon(SPELLS.QAPLA_EREDUN_WAR_ORDER_EFFECT.icon)
-      .actual(`You had ${formatPercentage(actual)}% effective cooldown reduction of Kill Command`)
-      .recommended(`>${formatPercentage(recommended, 0)}% is recommended`));
+      .actual(<Trans id='hunter.beastmastery.suggestions.items.qapla.actual'>You had {formatPercentage(actual)}% effective cooldown reduction of Kill Command </Trans>)
+      .recommended(<Trans id='hunter.beastmastery.suggestions.items.qapla.recommended'> {'>'}{formatPercentage(recommended, 0)}% is recommended</Trans>));
   }
 
   statistic() {

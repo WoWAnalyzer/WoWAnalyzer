@@ -1,8 +1,13 @@
 # How to update realms
 
-1. Get the realm list from https://us.api.blizzard.com/wow/realm/status?locale=en_US&accessToken=
+1. Get the realm list from 
 2. Make a request for each region and save them in the data folder
-   - For EU realms you need to export using the Russian locale (ru_RU). This will use the Russian names for the Russian realm while leaving the other realms in their original locale.
+   - Use locales:
+     - For EU realms you need to export using the Russian locale (ru_RU). This will use the Russian names for the Russian realm while leaving the other realms in their original locale.
+    - EU: https://eu.api.blizzard.com/data/wow/realm/index?namespace=dynamic-eu&locale=ru_RU&access_token=
+    - KR: https://kr.api.blizzard.com/data/wow/realm/index?namespace=dynamic-kr&locale=ko_KR&access_token=
+    - TW: https://tw.api.blizzard.com/data/wow/realm/index?namespace=dynamic-tw&locale=zh_TW&access_token=
+    - US: https://us.api.blizzard.com/data/wow/realm/index?namespace=dynamic-us&locale=en_US&access_token=
    - Since a WoW API for CN realms isn't available we need to get our list from somewhere else. We assume that the realm list from gamepedia is up to date.
         - open https://wow.gamepedia.com/Realms_list 
         - execute the snippet below in your browsers console 

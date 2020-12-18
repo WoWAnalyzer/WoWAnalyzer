@@ -11,8 +11,7 @@ import Events, { ApplyBuffEvent, DamageEvent, RefreshBuffEvent, RemoveBuffEvent 
 import { formatPercentage } from 'common/format';
 import UptimeIcon from 'interface/icons/Uptime';
 import { MS_BUFFER } from 'parser/hunter/shared/constants';
-import { i18n } from '@lingui/core';
-import { t } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 
 /**
  * After you Multi-Shot, your pet's melee attacks also strike all other nearby enemy targets for 100% as much for the next 4 sec.
@@ -99,8 +98,8 @@ class BeastCleave extends Analyzer {
     if (this.casts > 0) {
       when(this.beastCleavesWithoutHits).addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.MULTISHOT_BM.id} /> {actual} {actual === 1 ? 'time' : 'times'} without your pets doing any <SpellLink id={SPELLS.BEAST_CLEAVE_PET_BUFF.id} /> damage onto additional targets. On single-target situations, avoid using <SpellLink id={SPELLS.MULTISHOT_BM.id} />.</>)
         .icon(SPELLS.MULTISHOT_BM.icon)
-        .actual(i18n._(t('hunter.beastmastery.suggestions.beastCleave.efficiency')`${actual} ${actual === 1 ? 'cast' : 'casts'} without any Beast Cleave damage`))
-        .recommended(`${recommended} is recommended`));
+        .actual(<Trans id='hunter.beastmastery.suggestions.beastCleave.efficiency'>{actual} {actual === 1 ? 'cast' : 'casts'} without any Beast Cleave damage </Trans>)
+        .recommended(<Trans id='hunter.beastmastery.suggestions.beastCleave.recommended'>{recommended} is recommended </Trans>));
     }
   }
 
@@ -113,7 +112,8 @@ class BeastCleave extends Analyzer {
         >
           <BoringSpellValueText spell={SPELLS.BEAST_CLEAVE_BUFF}>
             <>
-              <ItemDamageDone amount={this.damage} /> <br />
+              <ItemDamageDone amount={this.damage} />
+              <br />
               <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
             </>
           </BoringSpellValueText>

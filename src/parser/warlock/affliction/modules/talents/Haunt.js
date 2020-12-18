@@ -13,10 +13,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
-
-import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
 
 const HAUNT_DAMAGE_BONUS = 0.1;
 
@@ -59,14 +56,8 @@ class Haunt extends Analyzer {
     if (!target) {
       return;
     }
-    const hasHaunt = target.hasBuff(SPELLS.HAUNT_TALENT.id, event.timestamp);
 
-    if (UNSTABLE_AFFLICTION_DEBUFFS.some(spell => spell.id === event.ability.guid)) {
-      this.totalTicks += 1;
-      if (hasHaunt) {
-        this.buffedTicks += 1;
-      }
-    }
+    const hasHaunt = target.hasBuff(SPELLS.HAUNT_TALENT.id, event.timestamp);
 
     if (hasHaunt) {
       this.bonusDmg += calculateEffectiveDamage(event, HAUNT_DAMAGE_BONUS);
@@ -81,12 +72,14 @@ class Haunt extends Analyzer {
         </>,
       )
         .icon(SPELLS.HAUNT_TALENT.icon)
-        .actual(i18n._(t('warlock.affliction.suggestions.haunt.uptime')`${formatPercentage(actual)}% Haunt uptime.`))
+        .actual(t({
+      id: "warlock.affliction.suggestions.haunt.uptime",
+      message: `${formatPercentage(actual)}% Haunt uptime.`
+    }))
         .recommended(`> ${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {
-    const buffedTicksPercentage = (this.buffedTicks / this.totalTicks) || 1;
     return (
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
@@ -94,7 +87,6 @@ class Haunt extends Analyzer {
         tooltip={(
           <>
             {formatThousands(this.bonusDmg)} bonus damage<br />
-            You buffed {formatPercentage(buffedTicksPercentage)} % of your Unstable Affliction ticks with Haunt.
           </>
         )}
       >

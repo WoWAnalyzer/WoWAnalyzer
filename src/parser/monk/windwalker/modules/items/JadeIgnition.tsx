@@ -16,7 +16,6 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 const MAX_STACKS = 30;
 
 class JadeIgnition extends Analyzer {
-
   static dependencies = {
     abilityTracker: AbilityTracker,
   };

@@ -8,8 +8,7 @@ import Events, { CastEvent, DamageEvent, ApplyBuffEvent, RemoveBuffEvent } from 
 import HIT_TYPES from 'game/HIT_TYPES';
 import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import { MS_BUFFER_250, FIRE_DIRECT_DAMAGE_SPELLS } from 'parser/mage/shared/constants';
-import { i18n } from '@lingui/core';
-import { t } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 
 const debug = false;
 
@@ -97,7 +96,7 @@ class HotStreakWastedCrits extends Analyzer {
       when(this.wastedCritsThresholds)
         .addSuggestion((suggest, actual, recommended) => suggest(<>You crit with {formatNumber(this.wastedCrits)} ({formatNumber(this.wastedCritsPerMinute)} Per Minute) direct damage abilities while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active. This is a waste since those crits could have contibuted towards your next Hot Streak. Try to use your procs as soon as possible to avoid this.</>)
             .icon(SPELLS.HOT_STREAK.icon)
-            .actual(i18n._(t('mage.fire.suggestions.hotStreak.wastedCrits')`${formatNumber(this.wastedCrits)} crits wasted`))
+            .actual(<Trans id="mage.fire.suggestions.hotStreak.wastedCrits">{formatNumber(this.wastedCrits)} crits wasted</Trans>)
             .recommended(`${formatNumber(recommended)} is recommended`));
   }
 }

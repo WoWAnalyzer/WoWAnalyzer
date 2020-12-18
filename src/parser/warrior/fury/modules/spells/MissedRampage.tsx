@@ -6,7 +6,6 @@ import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import SpellLink from 'common/SpellLink';
@@ -19,8 +18,7 @@ const RAGE_GENERATORS = [
   SPELLS.RAGING_BLOW,
   SPELLS.BLOODTHIRST,
   SPELLS.EXECUTE_FURY,
-  SPELLS.WHIRLWIND_FURY,
-  SPELLS.FURIOUS_SLASH_TALENT,
+  SPELLS.WHIRLWIND_FURY_CAST,
   SPELLS.SIEGEBREAKER_TALENT,
   SPELLS.DRAGON_ROAR_TALENT,
   SPELLS.BLADESTORM_TALENT,
@@ -80,11 +78,14 @@ class MissedRampage extends Analyzer {
       <>
         There were {actual} times you casted a rage generating ability when you should have cast <SpellLink id={SPELLS.RAMPAGE.id} />.
         <SpellLink id={SPELLS.RAMPAGE.id} /> is your 2nd highest damage ability behind <SpellLink id={SPELLS.EXECUTE_FURY.id} /> and causes you to <SpellLink id={SPELLS.ENRAGE.id} />, increasing all of your damage done.
-        You should never hold a <SpellLink id={SPELLS.RAMPAGE.id} />, unless you are casting <SpellLink id={SPELLS.WHIRLWIND_FURY.id} /> to cleave it.
+        You should never hold a <SpellLink id={SPELLS.RAMPAGE.id} />, unless you are casting <SpellLink id={SPELLS.WHIRLWIND_FURY_CAST.id} /> to cleave it.
       </>,
     )
       .icon(SPELLS.RAMPAGE.icon)
-      .actual(i18n._(t('warrior.fury.suggestions.rampages.missed')`${actual} missed Rampages.`))
+      .actual(t({
+      id: "warrior.fury.suggestions.rampages.missed",
+      message: `${actual} missed Rampages.`
+    }))
       .recommended(`${recommended} is recommended.`));
   }
 }

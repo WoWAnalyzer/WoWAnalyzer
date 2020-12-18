@@ -27,3 +27,21 @@ const COVENANTS: {
   },
 };
 export default indexById(COVENANTS);
+
+
+export function getCovenantById(id: number){
+  if(id < 1 || id > 4){
+    throw new Error("Invalid convenant selection");
+  }
+
+  switch(id){
+    case 1: 
+      return COVENANTS.KYRIAN;
+    case 2:
+      return COVENANTS.VENTHYR;
+    case 3:
+      return COVENANTS.NIGHT_FAE;
+    case 4:
+      return COVENANTS.NECROLORD;
+  }
+}

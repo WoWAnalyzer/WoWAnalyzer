@@ -13,7 +13,7 @@ const SpecListItem = ({
   const className = spec.className.replace(/ /g, '');
   const Component = exampleReport ? 'a' : 'div';
   const builtinfo =
-    contributors.length !== 0 ? <Trans id="interface.specListItem.maintainer">Maintained by:<br /></Trans> : <Trans id="interface.specListItem.unmaintained" render="small"><em>CURRENTLY UNMAINTAINED</em></Trans>;
+    contributors.length !== 0 ? <Trans id="interface.specListItem.maintainer">Maintained by:<br /></Trans> : <small><em><Trans id="interface.specListItem.unmaintained">CURRENTLY UNMAINTAINED</Trans></em></small>;
 
   return (
     <Component

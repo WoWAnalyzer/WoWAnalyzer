@@ -87,7 +87,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: any)
       >
         <Requirement
           name={<>Correct Tier 45 Talent </>}
-          thresholds={thresholds.tier45Comparison}
+          thresholds={thresholds.tier30Comparison}
         />
 
         {combatant.hasTalent(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id) &&

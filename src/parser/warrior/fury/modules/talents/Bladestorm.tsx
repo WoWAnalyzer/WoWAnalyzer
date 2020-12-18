@@ -8,7 +8,6 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { CastEvent, DamageEvent, EnergizeEvent } from 'parser/core/Events';
 import SpellLink from 'common/SpellLink';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 // Example log: /reports/P3FbCaGB4DMyNQxA#fight=47&type=damage-done
@@ -70,7 +69,10 @@ class Bladestorm extends Analyzer {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You're casting <SpellLink id={SPELLS.BLADESTORM_TALENT.id} /> outside of enrage.</>)
       .icon(SPELLS.SIEGEBREAKER_TALENT.icon)
-      .actual(i18n._(t('warrior.fury.suggestions.bladestorm.castsEnrage')`${formatPercentage(1 - actual)}% of Bladestorm casts outside of enrage`))
+      .actual(t({
+      id: "warrior.fury.suggestions.bladestorm.castsEnrage",
+      message: `${formatPercentage(1 - actual)}% of Bladestorm casts outside of enrage`
+    }))
       .recommended(`${formatPercentage(recommended)}+% is recommended`));
   }
 

@@ -4,7 +4,6 @@ import getAverageItemLevel from 'game/getAverageItemLevel';
 import getFightName from 'common/getFightName';
 import { fetchCombatants, LogNotFoundError } from 'common/fetchWclApi';
 import { captureException } from 'common/errorLogger';
-import { i18n } from 'interface/RootLocalizationProvider';
 import ActivityIndicator from 'interface/common/ActivityIndicator';
 import DocumentTitle from 'interface/DocumentTitle';
 import { setCombatants } from 'interface/actions/combatants';
@@ -42,7 +41,6 @@ class PlayerLoader extends React.PureComponent {
   dps = 0;
   ranged = 0;
   ilvl = 0;
-  heartLvl = 0;
 
   static propTypes = {
     report: PropTypes.shape({
@@ -109,29 +107,8 @@ class PlayerLoader extends React.PureComponent {
     if (report.gameVersion === 2) {
       return;
     }
-    let numberOfCombatantsWithLoadedHeart = 0;
     try {
-      const { fetchCharacter } = this.props;
       const combatants = await fetchCombatants(report.code, fight.start_time, fight.end_time);
-      const characterDataPromises = combatants.map(player => {
-        const friendly = report.friendlies.find(friendly => friendly.id === player.sourceID);
-        if (!friendly) {
-          // unsure why this happens, but it can
-          return Promise.resolve();
-        }
-        const exportedCharacter = report.exportedCharacters ? report.exportedCharacters.find(char => char.name === friendly.name) : null;
-        if (!exportedCharacter) {
-          return Promise.resolve();
-        }
-        return fetchCharacter(friendly.guid, exportedCharacter.region, exportedCharacter.server, exportedCharacter.name).then(data => Promise.resolve(data)).catch(() =>
-          // This guy failed to load - this is nice to have data
-          // We can ignore this and we'll just drop him from the overall averages later
-          Promise.resolve(),
-        );
-      });
-      let characterDatas = await Promise.all(characterDataPromises);
-      // Filter for only loaded characterDatas
-      characterDatas = characterDatas.filter(value => value);
       combatants.forEach(player => {
         if (process.env.NODE_ENV === 'development' && FAKE_PLAYER_IF_DEV_ENV) {
           console.error('This player (sourceID: ' + player.sourceID + ') has an error. Because you\'re in development environment, we have faked the missing information, see CombatantInfoFaker.ts for more information.');
@@ -145,7 +122,6 @@ class PlayerLoader extends React.PureComponent {
           console.error('friendly missing from report for player', player.sourceID);
           return;
         }
-        const characterData = characterDatas ? characterDatas.find(data => data.id === friendly.guid) : null;
         switch (SPECS[player.specID].role) {
           case ROLES.TANK:
             this.tanks += 1;
@@ -164,15 +140,8 @@ class PlayerLoader extends React.PureComponent {
         }
         // Gear may be null for broken combatants
         this.ilvl += player.gear ? getAverageItemLevel(player.gear) : 0;
-        if (characterData && characterData.heartOfAzeroth) {
-          numberOfCombatantsWithLoadedHeart += 1;
-          this.heartLvl += characterData.heartOfAzeroth.azeriteItemLevel;
-        }
       });
       this.ilvl /= combatants.length;
-      if (numberOfCombatantsWithLoadedHeart > 0) {
-        this.heartLvl /= numberOfCombatantsWithLoadedHeart;
-      }
       if (this.props.report !== report || this.props.fight !== fight) {
         return; // the user switched report/fight already
       }
@@ -211,7 +180,12 @@ class PlayerLoader extends React.PureComponent {
   }
 
   renderLoading() {
-    return <ActivityIndicator text={i18n._(t('interface.report.renderLoading.fetchingPlayerInfo')`Fetching player info...`)} />;
+    return (
+      <ActivityIndicator text={t({
+        id: "interface.report.renderLoading.fetchingPlayerInfo",
+        message: `Fetching player info...`
+      })} />
+    );
   }
 
   renderClassicWarning() {
@@ -257,18 +231,30 @@ class PlayerLoader extends React.PureComponent {
       if (player) {
         // Player data was in the report, but there was another issue
         if (hasDuplicatePlayers) {
-          alert(i18n._(t('interface.report.render.hasDuplicatePlayers')`It appears like another "${playerName}" is in this log, please select the correct one`));
+          alert(t({
+            id: "interface.report.render.hasDuplicatePlayers",
+            message: `It appears like another "${playerName}" is in this log, please select the correct one`
+          }));
         } else if (!combatant) {
-          alert(i18n._(t('interface.report.render.dataNotAvailable')`Player data does not seem to be available for the selected player in this fight.`));
+          alert(t({
+            id: "interface.report.render.dataNotAvailable",
+            message: `Player data does not seem to be available for the selected player in this fight.`
+          }));
         } else if (combatant.error || !combatant.specID) {
-          alert(i18n._(t('interface.report.render.logCorrupted')`The data received from WCL for this player is corrupt, this player can not be analyzed in this fight.`));
+          alert(t({
+            id: "interface.report.render.logCorrupted",
+            message: `The data received from WCL for this player is corrupt, this player can not be analyzed in this fight.`
+          }));
         }
       }
       return (
         <div className="container offset">
           <div style={{ position: 'relative', marginBottom: 15 }}>
             <div className="back-button">
-              <Tooltip content={i18n._(t('interface.report.render.backToFightSelection')`Back to fight selection`)}>
+              <Tooltip content={t({
+                id: "interface.report.render.backToFightSelection",
+                message: `Back to fight selection`
+              })}>
                 <Link to={`/report/${report.code}`}>
                   <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
                   <label>
@@ -289,7 +275,6 @@ class PlayerLoader extends React.PureComponent {
                   dps={this.dps}
                   ranged={this.ranged}
                   ilvl={this.ilvl}
-                  heartLvl={this.heartLvl}
                 />
               </div>
             </div>
@@ -322,14 +307,15 @@ class PlayerLoader extends React.PureComponent {
       );
     }
 
-    return (
-      <>
-        {/* TODO: Refactor the DocumentTitle away */}
-        <DocumentTitle title={i18n._(t('interface.report.render.documentTitle')`${getFightName(report, fight)} by ${player.name} in ${report.title}`)} />
+    return <>
+      {/* TODO: Refactor the DocumentTitle away */}
+      <DocumentTitle title={t({
+        id: "interface.report.render.documentTitle",
+        message: `${getFightName(report, fight)} by ${player.name} in ${report.title}`
+      })} />
 
-        {this.props.children(player, combatant, combatants)}
-      </>
-    );
+      {this.props.children(player, combatant, combatants)}
+    </>;
   }
 }
 

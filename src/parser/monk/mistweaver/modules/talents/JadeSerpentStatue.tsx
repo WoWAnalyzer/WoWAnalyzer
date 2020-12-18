@@ -16,7 +16,6 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class JadeSerpentStatue extends Analyzer {
@@ -117,7 +116,10 @@ class JadeSerpentStatue extends Analyzer {
       </>,
     )
       .icon(SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.icon)
-      .actual(`${formatPercentage(actual)}${i18n._(t('monk.mistweaver.jadeSerpentStatue.uptime')`% uptime`)}`)
+      .actual(`${formatPercentage(actual)}${t({
+      id: "monk.mistweaver.jadeSerpentStatue.uptime",
+      message: `% uptime`
+    })}`)
       .recommended(`${formatPercentage(recommended)}% uptime is recommended`));
   }
 

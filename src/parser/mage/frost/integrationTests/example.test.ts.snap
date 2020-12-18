@@ -15,7 +15,10 @@ exports[`Frost Mage integration test: example log AlwaysBeCasting matches the st
         className="pad"
       >
         <label>
-          mage.frost.alwaysBeCasting.statistic.label
+          <trans
+            id="mage.frost.alwaysBeCasting.statistic.label"
+            message="Active time"
+          />
         </label>
         <div
           className="flex"
@@ -27,9 +30,19 @@ exports[`Frost Mage integration test: example log AlwaysBeCasting matches the st
           }
         >
           <div
-            className="flex-main text-right text-muted"
+            style={
+              Object {
+                "fontSize": 12,
+                "paddingRight": 8,
+                "paddingTop": 23,
+              }
+            }
           >
-            interface.statistics.components.gauge.low
+            <trans
+              className="flex-main text-right text-muted"
+              id="interface.statistics.components.gauge.low"
+              message="Low"
+            />
           </div>
           <div
             className="flex-sub"
@@ -168,8 +181,18 @@ exports[`Frost Mage integration test: example log AlwaysBeCasting matches the st
           </div>
           <div
             className="flex-main text-left text-muted"
+            style={
+              Object {
+                "fontSize": 12,
+                "paddingLeft": 8,
+                "paddingTop": 23,
+              }
+            }
           >
-            interface.statistics.components.gauge.high
+            <trans
+              id="interface.statistics.components.gauge.high"
+              message="High"
+            />
           </div>
         </div>
       </div>
@@ -225,7 +248,7 @@ Array [
       .
     </React.Fragment>,
     "stat": <React.Fragment>
-      35.63% downtime
+      {"id":"mage.frost.suggestions.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"35.63"}}
        (
       &lt;5.00% is recommended
       )
@@ -310,7 +333,7 @@ Array [
     "icon": "ability_mage_brainfreeze",
     "importance": "regular",
     "issue": <React.Fragment>
-      You overwrite 
+      You overwrote 
       7.14
       % of your 
       <ForwardRef
@@ -327,7 +350,15 @@ Array [
       .
     </React.Fragment>,
     "stat": <React.Fragment>
-      7.14% overwritten
+      <Trans
+        id="mage.frost.suggestions.brainFreeze.overwritten"
+        message="{0}% overwritten"
+        values={
+          Object {
+            "0": "7.14",
+          }
+        }
+      />
        (
       Overwriting none is recommended
       )
@@ -347,7 +378,15 @@ Array [
        procs to expire. Make sure you are using your procs as soon as possible to avoid this.
     </React.Fragment>,
     "stat": <React.Fragment>
-      3.57% expired
+      <Trans
+        id="mage.frost.suggestions.brainFreeze.expired"
+        message="{0}% expired"
+        values={
+          Object {
+            "0": "3.57",
+          }
+        }
+      />
        (
       Letting none expire is recommended
       )
@@ -460,7 +499,15 @@ Array [
       .
     </React.Fragment>,
     "stat": <React.Fragment>
-      9.91% casts cancelled
+      <Trans
+        id="mage.shared.suggestions.castsCancelled"
+        message="{0}% casts cancelled"
+        values={
+          Object {
+            "0": "9.91",
+          }
+        }
+      />
        (
       &lt;5.00% is recommended
       )
@@ -483,7 +530,10 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
         }
       }
     >
-      common.abilities
+      <trans
+        id="common.abilities"
+        message="Abilities"
+      />
     </h1>
   </div>
   <div
@@ -510,7 +560,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
           <tr>
             <th>
               <b>
-                Rotational Spell
+                {"id":"core.abilities.spellCategories.rotational","message":"Rotational Spell"}
               </b>
             </th>
             <th
@@ -523,7 +573,10 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.cpm
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
               </dfn>
             </th>
             <th
@@ -536,7 +589,10 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.casts
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
               </dfn>
             </th>
             <th
@@ -549,7 +605,10 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.timeOnCooldown
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
               </dfn>
             </th>
             <th />
@@ -1191,7 +1250,10 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              shared.castEfficiency.canBeImproved
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
             </td>
           </tr>
         </tbody>
@@ -1199,7 +1261,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
           <tr>
             <th>
               <b>
-                Spell (AOE)
+                {"id":"core.abilities.spellCategories.rotationalAoe","message":"Spell (AOE)"}
               </b>
             </th>
             <th
@@ -1212,7 +1274,10 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.cpm
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
               </dfn>
             </th>
             <th
@@ -1225,7 +1290,10 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.casts
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
               </dfn>
             </th>
             <th
@@ -1238,7 +1306,10 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.timeOnCooldown
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
               </dfn>
             </th>
             <th />
@@ -1346,7 +1417,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
           <tr>
             <th>
               <b>
-                Cooldown
+                {"id":"core.abilities.spellCategories.cooldowns","message":"Cooldown"}
               </b>
             </th>
             <th
@@ -1359,7 +1430,10 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.cpm
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
               </dfn>
             </th>
             <th
@@ -1372,7 +1446,10 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.casts
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
               </dfn>
             </th>
             <th
@@ -1385,7 +1462,10 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.timeOnCooldown
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
               </dfn>
             </th>
             <th />
@@ -1487,7 +1567,10 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              shared.castEfficiency.canBeImproved
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
             </td>
           </tr>
           <tr>
@@ -1783,7 +1866,10 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 }
               }
             >
-              shared.castEfficiency.canBeImproved
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
             </td>
           </tr>
         </tbody>
@@ -1791,7 +1877,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
           <tr>
             <th>
               <b>
-                Defensive Cooldown
+                {"id":"core.abilities.spellCategories.defensive","message":"Defensive Cooldown"}
               </b>
             </th>
             <th
@@ -1804,7 +1890,10 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.cpm
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
               </dfn>
             </th>
             <th
@@ -1817,7 +1906,10 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.casts
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
               </dfn>
             </th>
             <th
@@ -1830,7 +1922,10 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.timeOnCooldown
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
               </dfn>
             </th>
             <th />
@@ -2134,7 +2229,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
           <tr>
             <th>
               <b>
-                Utility
+                {"id":"core.abilities.spellCategories.utility","message":"Utility"}
               </b>
             </th>
             <th
@@ -2147,7 +2242,10 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.cpm
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
               </dfn>
             </th>
             <th
@@ -2160,7 +2258,10 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.casts
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
               </dfn>
             </th>
             <th
@@ -2173,7 +2274,10 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.timeOnCooldown
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
               </dfn>
             </th>
             <th />
@@ -3287,7 +3391,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
           <tr>
             <th>
               <b>
-                Consumable
+                {"id":"core.abilities.spellCategories.consumable","message":"Consumable"}
               </b>
             </th>
             <th
@@ -3300,7 +3404,10 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.cpm
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
               </dfn>
             </th>
             <th
@@ -3313,7 +3420,10 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.casts
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
               </dfn>
             </th>
             <th
@@ -3326,108 +3436,13 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.timeOnCooldown
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
               </dfn>
             </th>
             <th />
-          </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "35%",
-                }
-              }
-            >
-              <a
-                className="spell-link-text"
-                href="http://wowhead.com/spell=6262"
-                rel="noopener noreferrer"
-                style={
-                  Object {
-                    "color": "#fff",
-                  }
-                }
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/warlock_healthstone.jpg"
-                  style={
-                    Object {
-                      "height": undefined,
-                      "marginTop": undefined,
-                    }
-                  }
-                />
-                 
-                Healthstone
-              </a>
-            </td>
-            <td
-              className="text-center"
-              style={
-                Object {
-                  "minWidth": 80,
-                }
-              }
-            >
-              0.17
-            </td>
-            <td
-              className="text-right"
-              style={
-                Object {
-                  "minWidth": 110,
-                }
-              }
-            >
-              1
-              /1
-               
-              casts
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar"
-                  style={
-                    Object {
-                      "backgroundColor": "#70b570",
-                      "width": "100%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              className="text-left"
-              style={
-                Object {
-                  "minWidth": 50,
-                  "paddingRight": 5,
-                }
-              }
-            >
-              100.00%
-            </td>
-            <td
-              style={
-                Object {
-                  "color": "orange",
-                  "width": "25%",
-                }
-              }
-            />
           </tr>
           <tr>
             <td
@@ -3639,24 +3654,24 @@ Array [
     "icon": "spell_frost_frozenorb",
     "importance": "regular",
     "issue": <React.Fragment>
-      <WithI18n
+      <Trans
         components={
-          Array [
-            <ForwardRef
+          Object {
+            "0": <ForwardRef
               id={84714}
             />,
-          ]
+          }
         }
-        defaults="Try to cast <0/> more often."
         id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
-      <WithI18n
-        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+      <Trans
         id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
         values={
           Object {
             "0": 5,
@@ -3666,9 +3681,9 @@ Array [
         }
       />
        (
-      <WithI18n
-        defaults=">{0}% is recommended"
+      <Trans
         id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
         values={
           Object {
             "0": "90",
@@ -3683,24 +3698,24 @@ Array [
     "icon": "spell_mage_runeofpower",
     "importance": "major",
     "issue": <React.Fragment>
-      <WithI18n
+      <Trans
         components={
-          Array [
-            <ForwardRef
+          Object {
+            "0": <ForwardRef
               id={116011}
             />,
-          ]
+          }
         }
-        defaults="Try to cast <0/> more often."
         id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
-      <WithI18n
-        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+      <Trans
         id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
         values={
           Object {
             "0": 5,
@@ -3710,9 +3725,9 @@ Array [
         }
       />
        (
-      <WithI18n
-        defaults=">{0}% is recommended"
+      <Trans
         id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
         values={
           Object {
             "0": "90",
@@ -3727,24 +3742,24 @@ Array [
     "icon": "ability_revendreth_mage",
     "importance": "major",
     "issue": <React.Fragment>
-      <WithI18n
+      <Trans
         components={
-          Array [
-            <ForwardRef
+          Object {
+            "0": <ForwardRef
               id={314793}
             />,
-          ]
+          }
         }
-        defaults="Try to cast <0/> more often."
         id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
-      <WithI18n
-        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+      <Trans
         id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
         values={
           Object {
             "0": 3,
@@ -3754,9 +3769,9 @@ Array [
         }
       />
        (
-      <WithI18n
-        defaults=">{0}% is recommended"
+      <Trans
         id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
         values={
           Object {
             "0": "90",
@@ -3784,7 +3799,10 @@ exports[`Frost Mage integration test: example log DistanceMoved matches the stat
         className="pad"
       >
         <label>
-          shared.distanceMoved.statistic.label
+          <trans
+            id="shared.distanceMoved.statistic.label"
+            message="Distance moved"
+          />
         </label>
         <div
           className="value"
@@ -4109,7 +4127,15 @@ Array [
        proc, or if you are moving and you cant cast anything else.
     </React.Fragment>,
     "stat": <React.Fragment>
-      5.80% missed
+      <Trans
+        id="mage.frost.suggestions.iceLance.nonShatterCasts"
+        message="{0}% missed"
+        values={
+          Object {
+            "0": "5.80",
+          }
+        }
+      />
        (
       &lt;5.00% is recommended
       )
@@ -4341,7 +4367,15 @@ Array [
        for its full duration. Try to only use it when you know you won't have to move for the duration of the effect.
     </React.Fragment>,
     "stat": <React.Fragment>
-      Average 11.5s standing in each Rune of Power
+      <Trans
+        id="mage.shared.suggestions.runeOfPower.utilization"
+        message="Average \${0}s standing in each Rune of Power"
+        values={
+          Object {
+            "0": "11.5",
+          }
+        }
+      />
        (
       the full duration of 12s is recommended
       )
@@ -4860,7 +4894,7 @@ exports[`Frost Mage integration test: example log WintersChill matches the stati
             />
           </a>
            
-          66
+          96
           % 
           <small>
             Spells shattered
@@ -4879,7 +4913,7 @@ exports[`Frost Mage integration test: example log WintersChill matches the stati
             />
           </a>
            
-          84
+          76
           % 
           <small>
             Pre-casts shattered
@@ -4912,61 +4946,17 @@ exports[`Frost Mage integration test: example log WintersChill matches the sugge
 Array [
   Object {
     "details": null,
-    "icon": "spell_frost_frostblast",
-    "importance": "major",
-    "issue": <React.Fragment>
-      You failed to properly take advantage of 
-      <ForwardRef
-        id={228358}
-      />
-       on your target 
-      17
-       times (
-      34.00
-      %). After debuffing the target via 
-      <ForwardRef
-        id={190446}
-      />
-       and 
-      <ForwardRef
-        id={44614}
-      />
-      , you should ensure that you hit the target with 
-      
-       two 
-      <ForwardRef
-        id={30455}
-      />
-      s before the 
-      <ForwardRef
-        id={228358}
-      />
-       debuff expires to get the most out of 
-      <ForwardRef
-        id={12982}
-      />
-      .
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      34.00% Winter's Chill not shattered with Ice Lance
-       (
-      5.00% is recommended
-      )
-    </React.Fragment>,
-  },
-  Object {
-    "details": null,
     "icon": "spell_frost_frostbolt02",
-    "importance": "minor",
+    "importance": "regular",
     "issue": <React.Fragment>
       You failed to use a pre-cast ability before spending your 
       <ForwardRef
         id={190446}
       />
        
-      4
+      6
        times (
-      16.00
+      24.00
       %). Because of the travel time of 
       <ForwardRef
         id={44614}
@@ -4996,7 +4986,15 @@ Array [
        instead.
     </React.Fragment>,
     "stat": <React.Fragment>
-      16.00% Winter's Chill not shattered with Frostbolt, Glacial Spike, or Ebonbolt
+      <Trans
+        id="mage.frost.suggestions.wintersChill.notShattered"
+        message="{0}% Winter's Chill not shattered with Frostbolt, Glacial Spike, or Ebonbolt"
+        values={
+          Object {
+            "0": "24.00",
+          }
+        }
+      />
        (
       10.00% is recommended
       )
@@ -5322,7 +5320,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
     </div>
   </li>
   <li
-    className="expandable expanded failed"
+    className="expandable  passed"
   >
     <div
       className="meta"
@@ -5346,8 +5344,8 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ffc84a",
-                  "width": "54.611999999999995%",
+                  "backgroundColor": "#a6c34c",
+                  "width": "79.97%",
                 }
               }
             />
@@ -5494,7 +5492,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                
               Glacial Spike
             </a>
-            , followed immediately by the Brain Freeze buffed Flurry and then end with an 
+            , followed immediately by the Brain Freeze buffed Flurry and then end with two 
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=30455"
@@ -5509,7 +5507,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                
               Ice Lance
             </a>
-            . Against non-boss enemies, you can also utilize other things like 
+            s. Against non-boss enemies, you can also utilize other things like 
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=122"
@@ -5605,7 +5603,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  66.00%
+                  96.00%
                    
                    
                 </div>
@@ -5625,9 +5623,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "29.303999999999995%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -5695,7 +5693,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  84.00%
+                  76.00%
                    
                    
                 </div>
@@ -5715,9 +5713,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "79.91999999999997%",
+                        "width": "59.93999999999999%",
                       }
                     }
                   />
@@ -6486,7 +6484,10 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
         <div
           className="flex-main name"
         >
-          shared.modules.features.checklist.wellPrepared
+          <trans
+            id="shared.modules.features.checklist.wellPrepared"
+            message="Be well prepared"
+          />
         </div>
         <div
           className="flex-sub perf"
@@ -6556,7 +6557,10 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
           <div
             className="col-md-12"
           >
-            shared.modules.features.checklist.wellPreparedDetails
+            <trans
+              id="shared.modules.features.checklist.wellPreparedDetails"
+              message="Being well prepared with food, flasks, potions and enchants is an easy way to improve your performance."
+            />
           </div>
         </div>
         <div
@@ -6571,7 +6575,10 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.enchanted
+                <trans
+                  id="shared.modules.features.checklist.enchanted"
+                  message="All items enchanted"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6632,7 +6639,10 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.enchantedHigh
+                <trans
+                  id="shared.modules.features.checklist.enchantedHigh"
+                  message="Using high quality enchants"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6693,7 +6703,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               <div
                 className="flex-main"
               >
-                All weapons enhanced (oils/stones)
+                <trans
+                  id="All weapons enhanced (oils/stones)"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6754,7 +6766,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               <div
                 className="flex-main"
               >
-                Using high quality weapon enhancements
+                <trans
+                  id="Using high quality weapon enhancements"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6815,7 +6829,10 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.combatPotionsUsed
+                <trans
+                  id="shared.modules.features.checklist.combatPotionsUsed"
+                  message="Combat potions used"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6876,7 +6893,10 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.highQualityCombatPotionsUsed
+                <trans
+                  id="shared.modules.features.checklist.highQualityCombatPotionsUsed"
+                  message="High quality combat potions used"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6937,7 +6957,10 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.flaskHigh
+                <trans
+                  id="shared.modules.features.checklist.flaskHigh"
+                  message="High quality flask used"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6958,7 +6981,10 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  common.yes
+                  <trans
+                    id="common.yes"
+                    message="Yes"
+                  />
                    
                    
                 </div>
@@ -6997,7 +7023,10 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.flask
+                <trans
+                  id="shared.modules.features.checklist.flask"
+                  message="Flask used"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -7018,7 +7047,10 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  common.yes
+                  <trans
+                    id="common.yes"
+                    message="Yes"
+                  />
                    
                    
                 </div>
@@ -7057,7 +7089,10 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.foodHigh
+                <trans
+                  id="shared.modules.features.checklist.foodHigh"
+                  message="High quality food used"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -7078,7 +7113,10 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  common.no
+                  <trans
+                    id="common.no"
+                    message="No"
+                  />
                    
                    
                 </div>
@@ -7117,7 +7155,10 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.food
+                <trans
+                  id="shared.modules.features.checklist.food"
+                  message="Food used"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -7138,7 +7179,10 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  common.yes
+                  <trans
+                    id="common.yes"
+                    message="Yes"
+                  />
                    
                    
                 </div>

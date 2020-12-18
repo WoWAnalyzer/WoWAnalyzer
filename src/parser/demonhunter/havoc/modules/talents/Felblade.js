@@ -6,7 +6,6 @@ import Events from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 /**
@@ -51,7 +50,10 @@ class Felblade extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<> Avoid casting <SpellLink id={SPELLS.FELBLADE_TALENT.id} /> close to Fury cap and cast abilities regularly to avoid accidently capping your fury.</>)
         .icon(SPELLS.FELBLADE_TALENT.icon)
-        .actual(i18n._(t('demonhunter.havoc.suggestions.felBlade.furyWasted')`${formatPercentage(actual)}% Fury wasted`))
+        .actual(t({
+      id: "demonhunter.havoc.suggestions.felBlade.furyWasted",
+      message: `${formatPercentage(actual)}% Fury wasted`
+    }))
         .recommended(`${formatPercentage(recommended)}% is recommended.`));
   }
 

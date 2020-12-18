@@ -8,7 +8,6 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELLS from 'common/SPELLS';
 import Events from 'parser/core/Events';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const GORE_DURATION = 10000;
@@ -76,7 +75,10 @@ class Gore extends Analyzer {
     when(unusedGoreProcs).isGreaterThan(0.3)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>You wasted {formatPercentage(unusedGoreProcs)}% of your <SpellLink id={SPELLS.GORE_BEAR.id} /> procs. Try to use the procs as soon as you get them so they are not overwritten.</span>)
         .icon(SPELLS.GORE_BEAR.icon)
-        .actual(i18n._(t('druid.guardian.suggestions.gore.unused')`${formatPercentage(unusedGoreProcs)}% unused`))
+        .actual(t({
+      id: "druid.guardian.suggestions.gore.unused",
+      message: `${formatPercentage(unusedGoreProcs)}% unused`
+    }))
         .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
         .regular(recommended + 0.15).major(recommended + 0.3));
   }

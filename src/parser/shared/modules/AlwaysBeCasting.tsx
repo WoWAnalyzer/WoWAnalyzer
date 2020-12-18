@@ -4,11 +4,10 @@ import Icon from 'common/Icon';
 import { formatPercentage } from 'common/format';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { EndChannelEvent, EventType, GlobalCooldownEvent } from 'parser/core/Events';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Tooltip from 'common/Tooltip';
-import { i18n } from '@lingui/core';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 
 import Haste from 'parser/shared/modules/Haste';
 
@@ -145,12 +144,11 @@ class AlwaysBeCasting extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.downtimeSuggestionThresholds.actual).isGreaterThan(this.downtimeSuggestionThresholds.isGreaterThan.minor)
-      .addSuggestion((suggest, actual, recommended) => suggest(`${<Trans id="shared.suggestions.alwaysBeCasting.suggestion">Your downtime can be improved. Try to Always Be Casting (ABC), avoid delays between casting spells and cast instant spells when you have to move.</Trans>}`)
+    when(this.downtimeSuggestionThresholds)
+      .addSuggestion((suggest, actual, recommended) => suggest(<Trans id="shared.suggestions.alwaysBeCasting.suggestion">Your downtime can be improved. Try to Always Be Casting (ABC), avoid delays between casting spells and cast instant spells when you have to move.</Trans>)
         .icon('spell_mage_altertime')
-        .actual(`${formatPercentage(actual)}% ${i18n._(t('shared.suggestions.alwaysBeCasting.downtime')`downtime`)}`)
-        .recommended(`<${formatPercentage(recommended)}% is recommended`)
-        .regular(this.downtimeSuggestionThresholds.isGreaterThan.average).major(this.downtimeSuggestionThresholds.isGreaterThan.major));
+        .actual(<Trans id='shared.suggestions.alwaysBeCasting.downtime'> {formatPercentage(actual)}% downtime </Trans>)
+        .recommended(<Trans id='shared.suggestions.alwaysBeCasting.recommended'> {'<'}{formatPercentage(recommended)}% is recommended </Trans>));
   }
 }
 

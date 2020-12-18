@@ -14,11 +14,19 @@ class Buffs extends CoreBuffs {
         timelineHighlight: true,
       },
       {
+        spellId: SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id,
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.WEAPONS_OF_ORDER_CHI_DISCOUNT.id,
+        timelineHighlight: true,
+      },
+      {
         spellId: SPELLS.TOUCH_OF_KARMA_CAST.id,
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.DANCE_OF_CHIJI_BUFF.id,
+        spellId: SPELLS.DANCE_OF_CHI_JI_BUFF.id,
         timelineHighlight: true,
       },
       {

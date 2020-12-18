@@ -1,6 +1,7 @@
 import React from 'react';
 import { Tyndi } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
+import Warning from 'interface/Alert/Warning';
 
 import CHANGELOG from './CHANGELOG';
 
@@ -10,15 +11,16 @@ export default {
   // The WoW client patch this spec was last updated to be fully compatible with.
   patchCompatibility: '9.0.1',
   // If set to  false`, the spec will show up as unsupported.
-  isSupported: true,
+  isSupported: false,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
       Hey Outlaw Rogues! <br /> <br />
-
-      The Outlaw Rogue module is still being worked on.
-      Currently, it gives a good analysis of the single target rotation, and highlights major mistakes.
+      <Warning>
+        The Outlaw Rogue module is still being worked on.
+        Currently, it gives a good analysis of the single target rotation, and highlights major mistakes.
+      </Warning>
       <br /> <br />
       If there is something missing, incorrect, or inaccurate, please report it on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact <kbd>@Tyndi</kbd> on <a href="https://discord.gg/AxphPxU">Discord</a>.<br /><br />
     </>

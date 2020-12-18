@@ -774,7 +774,7 @@ export const Adoraci: Contributor = {
     name: 'Adoraci',
     spec: SPECS.SHADOW_PRIEST,
     link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/adoraci',
-  }], 
+  }],
   alts: [{
     name: 'Zenavi',
     spec: SPECS.FURY_WARRIOR,
@@ -1022,6 +1022,13 @@ export const Mae: Contributor = {
     link: 'https://worldofwarcraft.com/en-gb/character/eu/draenor/maerstrom'
   }]
 };
+
+export const Keraldi: Contributor = {
+  nickname: 'Keraldi',
+  github: 'Keraldi',
+  discord: 'Keraldi#0001',
+};
+
 export const VMakaev: Contributor = {
   nickname: 'VMakaev',
   github: 'vladimirmakaev',
@@ -1037,3 +1044,24 @@ export const VMakaev: Contributor = {
   }]
 };
 
+export const Maleficien: Contributor = {
+  nickname: 'Maleficien',
+  github: 'kevindqc',
+  discord: 'DaRkViRuS#1070',
+  mains: [{
+    name: 'Maleficien',
+    spec: SPECS.AFFLICTION_WARLOCK,
+    link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/maleficien'
+  }]
+};
+export const Xcessiv: Contributor = {
+  nickname: 'Xcessiv',
+  github: 'jwmclark',
+  avatar: require('./interface/images/avatars/xcessiv-avatar.jpg'),
+  discord: 'Xcessiv#6732',
+  mains: [{
+    name: 'Xcessiv',
+    spec: SPECS.FERAL_DRUID,
+    link: 'https://worldofwarcraft.com/en-us/character/us/thrall/xcessiv',
+  }],
+};

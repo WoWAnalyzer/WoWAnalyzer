@@ -13,7 +13,6 @@ import Events, { DamageEvent } from 'parser/core/Events';
 import { CTS_CDR_MS } from 'parser/hunter/marksmanship/constants';
 import { MS_BUFFER } from 'parser/hunter/shared/constants';
 import SpellLink from 'common/SpellLink';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 /**
@@ -79,7 +78,10 @@ class CallingTheShots extends Analyzer {
         When talented into <SpellLink id={SPELLS.CALLING_THE_SHOTS_TALENT.id} />, it is important to maximize its potential by not casting {this.selectedCombatant.hasTalent(SPELLS.CHIMAERA_SHOT_MM_TALENT.id) ? <SpellLink id={SPELLS.CHIMAERA_SHOT_MM_TALENT.id} /> : <SpellLink id={SPELLS.ARCANE_SHOT.id} />} or <SpellLink id={SPELLS.MULTISHOT_MM.id} /> while <SpellLink id={SPELLS.TRUESHOT.id} /> isn't on cooldown.
       </>)
       .icon(SPELLS.CALLING_THE_SHOTS_TALENT.icon)
-      .actual(i18n._(t('hunter.marksmanship.suggestions.callingTheShots.efficiency')`You had ${formatPercentage(actual)}% effective cooldown reduction from Calling the Shots`))
+      .actual(t({
+      id: "hunter.marksmanship.suggestions.callingTheShots.efficiency",
+      message: `You had ${formatPercentage(actual)}% effective cooldown reduction from Calling the Shots`
+    }))
       .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

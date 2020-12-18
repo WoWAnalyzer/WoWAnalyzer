@@ -10,7 +10,6 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Events from 'parser/core/Events';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class DesperatePrayer extends Analyzer {
@@ -98,7 +97,10 @@ class DesperatePrayer extends Analyzer {
       when(this.deathsWithDPReady).isGreaterThan(0)
         .addSuggestion((suggest, actual, recommended) => suggest(<>You died with <SpellLink id={SPELLS.DESPERATE_PRAYER.id} /> available.</>)
           .icon(SPELLS.DESPERATE_PRAYER.icon)
-          .actual(i18n._(t('priest.shared.suggestions.DesperatePrayer.efficiency')`You died ${this.deathsWithDPReady} time(s) with Desperate Prayer available.`))
+          .actual(t({
+        id: "priest.shared.suggestions.DesperatePrayer.efficiency",
+        message: `You died ${this.deathsWithDPReady} time(s) with Desperate Prayer available.`
+      }))
           .recommended(`0 is recommended`));
     }
   }

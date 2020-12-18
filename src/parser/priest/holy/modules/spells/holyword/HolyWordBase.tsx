@@ -39,11 +39,18 @@ class HolyWordBase extends Analyzer {
       this.lightOfTheNaruActive = true;
     }
 
+    if (this.selectedCombatant.hasLegendaryByBonusID(SPELLS.HARMONIOUS_APPARATUS.bonusID)) {
+      this.harmoniousApparatusActive = true
+    }
+
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.APOTHEOSIS_TALENT), this.onApplyBuff);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.APOTHEOSIS_TALENT), this.onRemoveBuff);
   }
+
+  // Legendary https://www.wowhead.com/spell=336314/harmonious-apparatus
+  harmoniousApparatusActive = false;
 
   get baseCooldownReduction() {
     let totalCDR = 0;

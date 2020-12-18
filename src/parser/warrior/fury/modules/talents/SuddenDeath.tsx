@@ -36,8 +36,8 @@ class SuddenDeath extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SUDDEN_DEATH_TALENT_FURY.id);
-    this.executeThreshold = this.selectedCombatant.hasTalent(SPELLS.MASSACRE_TALENT_FURY.id) ? 0.35 : this.executeThreshold;
+    this.active = this.selectedCombatant.hasTalent(SPELLS.WAR_MACHINE_FURY_TALENT.id);
+    this.executeThreshold = this.selectedCombatant.hasTalent(SPELLS.MASSACRE_FURY_TALENT.id) ? 0.35 : this.executeThreshold;
 
     if (!this.active) {
       return;
@@ -45,8 +45,8 @@ class SuddenDeath extends Analyzer {
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.EXECUTE_FURY, SPELLS.EXECUTE_FURY_MASSACRE]), this.onExecuteCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.EXECUTE_DAMAGE_FURY, SPELLS.EXECUTE_DAMAGE_OH_FURY]), this.onExecuteDamage);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SUDDEN_DEATH_TALENT_FURY_BUFF), this.onSuddenDeathProc);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.SUDDEN_DEATH_TALENT_FURY_BUFF), this.onSuddenDeathProc);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.WAR_MACHINE_FURY_TALENT_BUFF), this.onSuddenDeathProc);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.WAR_MACHINE_FURY_TALENT_BUFF), this.onSuddenDeathProc);
   }
 
   get damageAboveThreshold() {
@@ -66,7 +66,7 @@ class SuddenDeath extends Analyzer {
   }
 
   onExecuteCast(event: CastEvent) {
-    if (this.selectedCombatant.hasBuff(SPELLS.SUDDEN_DEATH_TALENT_FURY_BUFF.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.WAR_MACHINE_FURY_TALENT_BUFF.id)) {
       this.lastSuddenDeathExecuteCast = event.timestamp;
       this.suddenDeathProcsUsed += 1;
       this.lastSuddenDeathTargetID = event.targetID;
@@ -116,7 +116,7 @@ class SuddenDeath extends Analyzer {
           </>
         )}
       >
-        <BoringSpellValueText spell={SPELLS.SUDDEN_DEATH_TALENT_FURY}>
+        <BoringSpellValueText spell={SPELLS.WAR_MACHINE_FURY_TALENT}>
           <>
             {this.suddenDeathProcsUsed} / {this.suddenDeathProcs} procs used
           </>

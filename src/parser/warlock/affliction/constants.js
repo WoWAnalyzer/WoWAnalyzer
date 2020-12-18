@@ -1,10 +1,5 @@
 import SPELLS from 'common/SPELLS';
 
-// TODO remove all instances of this array with the single debuff; changed in Shadowlands again
-export const UNSTABLE_AFFLICTION_DEBUFFS = [
-  SPELLS.UNSTABLE_AFFLICTION,
-];
-
 export const getDotDurations = (hasCreepingDeath) => {
   const durations = {
     [SPELLS.AGONY.id]: 18000,

@@ -10,7 +10,6 @@ import SpellLink from 'common/SpellLink';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import RageTracker from '../core/RageTracker';
@@ -36,7 +35,7 @@ class Whirlwind extends Analyzer {
   wwCast = 0;
   badWWCast = 0;
   hasWWBuff = false;
-  rampageCost = 0;
+  rampageCost = 80;
   protected spellUsable!: SpellUsable;
   protected rageTracker!: RageTracker;
 
@@ -44,11 +43,9 @@ class Whirlwind extends Analyzer {
     super(options);
     this.hasDragonsRoar = this.selectedCombatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id);
     this.hasBladeStorm = this.selectedCombatant.hasTalent(SPELLS.BLADESTORM_TALENT.id);
-    this.executeThreshold = this.selectedCombatant.hasTalent(SPELLS.MASSACRE_TALENT_FURY.id) ? 0.35 : 0.2;
-    this.rampageCost = this.selectedCombatant.hasTalent(SPELLS.CARNAGE_TALENT.id) ? 75 : 85;
-    this.rampageCost = this.selectedCombatant.hasTalent(SPELLS.FROTHING_BERSERKER_TALENT.id) ? 95 : this.rampageCost;
+    this.executeThreshold = this.selectedCombatant.hasTalent(SPELLS.MASSACRE_FURY_TALENT.id) ? 0.35 : 0.2;
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WHIRLWIND_FURY), this.spellCheck);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WHIRLWIND_FURY_CAST), this.spellCheck);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.WHIRLWIND_FURY_DAMAGE_MH, SPELLS.WHIRLWIND_FURY_DAMAGE_OH]), this.wwDamage);
 
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.WHIRLWIND_BUFF), this.noHadBuff);
@@ -146,9 +143,12 @@ class Whirlwind extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You're casting <SpellLink id={SPELLS.WHIRLWIND_FURY.id} /> poorly. Try to only use it if your other abilities are on cooldown.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You're casting <SpellLink id={SPELLS.WHIRLWIND_FURY_CAST.id} /> poorly. Try to only use it if your other abilities are on cooldown.</>)
       .icon(SPELLS.SIEGEBREAKER_TALENT.icon)
-      .actual(i18n._(t('warrior.fury.suggestions.whirlwind.badCasts')`${formatPercentage(actual)}% of bad Whirlwind casts`))
+      .actual(t({
+      id: "warrior.fury.suggestions.whirlwind.badCasts",
+      message: `${formatPercentage(actual)}% of bad Whirlwind casts`
+    }))
       .recommended(`${formatPercentage(recommended)}+% is recommended`));
   }
 

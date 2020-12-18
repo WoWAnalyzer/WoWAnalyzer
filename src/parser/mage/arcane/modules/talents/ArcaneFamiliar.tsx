@@ -7,8 +7,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import { formatPercentage } from 'common/format';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import { i18n } from '@lingui/core';
-import { t } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 
 class ArcaneFamiliar extends Analyzer {
 
@@ -37,7 +36,7 @@ class ArcaneFamiliar extends Analyzer {
 		when(this.arcaneFamiliarUptimeThresholds)
 			.addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.ARCANE_FAMILIAR_TALENT.id} /> was up for {formatPercentage(this.uptime)}% of the fight. If your Arcane Familiar dies, make sure you recast it. If you are having trouble keeping the Arcane Familiar up for the entire fight, consider taking a different talent.</>)
 					.icon(SPELLS.ARCANE_FAMILIAR_TALENT.icon)
-					.actual(i18n._(t('mage.arcane.suggestions.arcaneFamiliar.uptime')`${formatPercentage(this.uptime)}% Uptime`))
+					.actual(<Trans id="mage.arcane.suggestions.arcaneFamiliar.uptime">{formatPercentage(this.uptime)}% Uptime</Trans>)
 					.recommended(`${formatPercentage(recommended)}% is recommended`));
 	}
 

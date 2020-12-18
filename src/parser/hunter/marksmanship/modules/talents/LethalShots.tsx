@@ -12,7 +12,6 @@ import { MS_BUFFER } from 'parser/hunter/shared/constants';
 import { ARCANE_SHOT_MAX_TRAVEL_TIME, LETHAL_SHOTS_CHANCE, LETHAL_SHOTS_REDUCTION } from 'parser/hunter/marksmanship/constants';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SpellLink from 'common/SpellLink';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 /**
@@ -97,7 +96,10 @@ class LethalShots extends Analyzer {
       </>,
     )
       .icon(SPELLS.LETHAL_SHOTS_TALENT.icon)
-      .actual(i18n._(t('hunter.marksmanship.suggestions.lethalShots.efficiency')`${actual} Lethal Shot trigger casts while Rapid Fire wasn't on cooldown`))
+      .actual(t({
+      id: "hunter.marksmanship.suggestions.lethalShots.efficiency",
+      message: `${actual} Lethal Shot trigger casts while Rapid Fire wasn't on cooldown`
+    }))
       .recommended(`${recommended} bad casts are recommended`));
   }
 }

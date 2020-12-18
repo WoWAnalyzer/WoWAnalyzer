@@ -2,18 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Trans, t } from '@lingui/macro';
+import { i18n } from '@lingui/core';
+import { Trans, defineMessage } from '@lingui/macro';
 
 import ZONES from 'game/ZONES';
 import SPECS from 'game/SPECS';
-import DIFFICULTIES, {
-  getLabel as getDifficultyLabel,
-} from 'game/DIFFICULTIES';
-import fetchWcl, {
-  CharacterNotFoundError,
-  UnknownApiError,
-  WclApiError,
-} from 'common/fetchWclApi';
+import DIFFICULTIES, { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
+import fetchWcl, { CharacterNotFoundError, UnknownApiError, WclApiError } from 'common/fetchWclApi';
 import { makeCharacterApiUrl, makeItemApiUrl } from 'common/makeApiUrl';
 import ITEMS from 'common/ITEMS';
 import { captureException } from 'common/errorLogger';
@@ -24,15 +19,12 @@ import ArmoryIcon from 'interface/icons/Armory';
 import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
 import WipefestIcon from 'interface/icons/Wipefest';
 import REPORT_HISTORY_TYPES from 'interface/home/ReportHistory/REPORT_HISTORY_TYPES';
-import { i18n } from 'interface/RootLocalizationProvider';
 
 import './CharacterParses.scss';
 import ParsesList from '../CharacterParsesList';
 
 const loadRealms = () =>
-  retryingPromise(() =>
-    import('common/REALMS').then(exports => exports.default),
-  );
+  retryingPromise(() => import('common/REALMS').then((exports) => exports.default));
 
 //rendering 400+ parses takes quite some time
 const RENDER_LIMIT = 100;
@@ -42,18 +34,39 @@ const ORDER_BY = {
   DPS: 1,
   PERCENTILE: 2,
 };
-const ZONE_DEFAULT_NYALOTHA = 24;
+const ZONE_DEFAULT_NATHRIA = 26;
 const BOSS_DEFAULT_ALL_BOSSES = 0;
 const TRINKET_SLOTS = [12, 13];
 const FALLBACK_PICTURE = '/img/fallback-character.jpg';
 const ERRORS = {
-  CHARACTER_NOT_FOUND: t('interface.characterParses.characterParses.errors.characterNotFound')`We couldn't find your character on Warcraft Logs`,
-  NO_PARSES_FOR_TIER: t('interface.characterParses.characterParses.errors.noParsesForTier')`We couldn't find any logs`,
-  CHARACTER_HIDDEN: t('interface.characterParses.characterParses.errors.characterHidden')`We could find your character but he's very shy`,
-  WCL_API_ERROR: t('interface.characterParses.characterParses.errors.wclAPIError')`Something went wrong talking to Warcraft Logs`,
-  UNKNOWN_API_ERROR: t('interface.characterParses.characterParses.errors.unknownAPIError')`Something went wrong talking to the server`,
-  UNEXPECTED: t('interface.characterParses.characterParses.errors.unexpected')`Something went wrong`,
-  NOT_RESPONDING: t('interface.characterParses.characterParses.errors.notResponding')`Request timed out`,
+  CHARACTER_NOT_FOUND: defineMessage({
+    id: 'interface.characterParses.characterParses.errors.characterNotFound',
+    message: `We couldn't find your character on Warcraft Logs`,
+  }),
+  NO_PARSES_FOR_TIER: defineMessage({
+    id: 'interface.characterParses.characterParses.errors.noParsesForTier',
+    message: `We couldn't find any logs`,
+  }),
+  CHARACTER_HIDDEN: defineMessage({
+    id: 'interface.characterParses.characterParses.errors.characterHidden',
+    message: `We could find your character but he's very shy`,
+  }),
+  WCL_API_ERROR: defineMessage({
+    id: 'interface.characterParses.characterParses.errors.wclAPIError',
+    message: `Something went wrong talking to Warcraft Logs`,
+  }),
+  UNKNOWN_API_ERROR: defineMessage({
+    id: 'interface.characterParses.characterParses.errors.unknownAPIError',
+    message: `Something went wrong talking to the server`,
+  }),
+  UNEXPECTED: defineMessage({
+    id: 'interface.characterParses.characterParses.errors.unexpected',
+    message: `Something went wrong`,
+  }),
+  NOT_RESPONDING: defineMessage({
+    id: 'interface.characterParses.characterParses.errors.notResponding',
+    message: `Request timed out`,
+  }),
 };
 
 class CharacterParses extends React.Component {
@@ -71,7 +84,7 @@ class CharacterParses extends React.Component {
       class: '',
       activeSpec: [],
       activeDifficultyIds: Object.values(DIFFICULTIES),
-      activeZoneID: ZONE_DEFAULT_NYALOTHA,
+      activeZoneID: ZONE_DEFAULT_NATHRIA,
       activeEncounter: BOSS_DEFAULT_ALL_BOSSES,
       sortBy: ORDER_BY.DATE,
       metric: 'dps',
@@ -100,10 +113,7 @@ class CharacterParses extends React.Component {
   }
 
   iconPath(specName) {
-    return `/specs/${this.state.class.replace(' ', '')}-${specName.replace(
-      ' ',
-      '',
-    )}.jpg`;
+    return `/specs/${this.state.class.replace(' ', '')}-${specName.replace(' ', '')}.jpg`;
   }
 
   appendHistory(player) {
@@ -134,7 +144,7 @@ class CharacterParses extends React.Component {
   updateDifficulty(diff) {
     let newDiff = this.state.activeDifficultyIds;
     if (newDiff.includes(diff)) {
-      newDiff = newDiff.filter(elem => elem !== diff);
+      newDiff = newDiff.filter((elem) => elem !== diff);
     } else {
       newDiff = [...newDiff, diff];
     }
@@ -147,7 +157,7 @@ class CharacterParses extends React.Component {
   updateSpec(spec) {
     let newSpec = this.state.activeSpec;
     if (newSpec.includes(spec)) {
-      newSpec = newSpec.filter(elem => elem !== spec);
+      newSpec = newSpec.filter((elem) => elem !== spec);
     } else {
       newSpec = [...newSpec, spec];
     }
@@ -160,8 +170,8 @@ class CharacterParses extends React.Component {
   get filterParses() {
     let filteredParses = this.state.parses;
     filteredParses = filteredParses
-      .filter(elem => this.state.activeDifficultyIds.includes(elem.difficulty))
-      .filter(elem => this.state.activeSpec.includes(elem.spec))
+      .filter((elem) => this.state.activeDifficultyIds.includes(elem.difficulty))
+      .filter((elem) => this.state.activeSpec.includes(elem.spec))
       .sort((a, b) => {
         if (this.state.sortBy === ORDER_BY.DATE) {
           return b.start_time - a.start_time;
@@ -175,18 +185,16 @@ class CharacterParses extends React.Component {
       return filteredParses.slice(0, RENDER_LIMIT);
     }
 
-    filteredParses = filteredParses.filter(
-      elem => elem.name === this.state.activeEncounter,
-    );
+    filteredParses = filteredParses.filter((elem) => elem.name === this.state.activeEncounter);
 
     return filteredParses.slice(0, RENDER_LIMIT);
   }
 
   changeParseStructure(rawParses) {
     const updatedTrinkets = { ...this.state.trinkets };
-    const parses = rawParses.map(elem => {
+    const parses = rawParses.map((elem) => {
       // get missing trinket-icons later
-      TRINKET_SLOTS.forEach(slotID => {
+      TRINKET_SLOTS.forEach((slotID) => {
         if (!updatedTrinkets[elem.gear[slotID].id]) {
           updatedTrinkets[elem.gear[slotID].id] = {
             name: elem.gear[slotID].name,
@@ -214,17 +222,15 @@ class CharacterParses extends React.Component {
         character_name: elem.characterName,
         talents: elem.talents,
         gear: elem.gear,
-        advanced:
-          Object.values(elem.talents).filter(talent => talent.id === null)
-            .length === 0,
+        advanced: Object.values(elem.talents).filter((talent) => talent.id === null).length === 0,
       };
     });
 
-    Object.values(updatedTrinkets).map(trinket => {
+    Object.values(updatedTrinkets).map((trinket) => {
       if (trinket.icon === ITEMS[0].icon && trinket.id !== 0) {
         return fetch(makeItemApiUrl(trinket.id))
-          .then(response => response.json())
-          .then(data => {
+          .then((response) => response.json())
+          .then((data) => {
             updatedTrinkets[trinket.id].icon = data.icon;
             this.setState({
               trinkets: updatedTrinkets,
@@ -241,7 +247,7 @@ class CharacterParses extends React.Component {
   }
 
   get zoneBosses() {
-    return ZONES.find(zone => zone.id === this.state.activeZoneID).encounters;
+    return ZONES.find((zone) => zone.id === this.state.activeZoneID).encounters;
   }
 
   async fetchBattleNetInfo() {
@@ -260,9 +266,7 @@ class CharacterParses extends React.Component {
       return;
     }
     // fetch character image and active spec from battle-net
-    const response = await fetch(
-      makeCharacterApiUrl(null, region, realm, name),
-    );
+    const response = await fetch(makeCharacterApiUrl(null, region, realm, name));
     if (response.status === 500) {
       this.setState({
         isLoading: false,
@@ -317,13 +321,11 @@ class CharacterParses extends React.Component {
     const realmsInRegion = realms[this.props.region];
     const lowerCaseRealm = this.props.realm.toLowerCase();
     const realm = realmsInRegion
-      ? realmsInRegion.find(elem => elem.name.toLowerCase() === lowerCaseRealm)
+      ? realmsInRegion.find((elem) => elem.name.toLowerCase() === lowerCaseRealm)
       : null;
     if (!realm) {
       console.warn(
-        'Realm could not be found: ' +
-          this.props.realm +
-          '. This generally indicates a bug.',
+        'Realm could not be found: ' + this.props.realm + '. This generally indicates a bug.',
       );
     }
 
@@ -348,19 +350,16 @@ class CharacterParses extends React.Component {
     const urlEncodedName = encodeURIComponent(this.props.name);
     const urlEncodedRealm = encodeURIComponent(realm);
 
-    return fetchWcl(
-      `parses/character/${urlEncodedName}/${urlEncodedRealm}/${this.props.region}`,
-      {
-        includeCombatantInfo: true,
-        metric: this.state.metric,
-        zone: this.state.activeZoneID,
-        timeframe: 'historical',
-        _: refresh ? Number(new Date()) : undefined,
-        // Always refresh since requiring a manual refresh is unclear and unfriendly to users and they cache hits are low anyway
-        // _: +new Date(), // disabled due to Uldir raid release hitting cap all the time
-      },
-    )
-      .then(rawParses => {
+    return fetchWcl(`parses/character/${urlEncodedName}/${urlEncodedRealm}/${this.props.region}`, {
+      includeCombatantInfo: true,
+      metric: this.state.metric,
+      zone: this.state.activeZoneID,
+      timeframe: 'historical',
+      _: refresh ? Number(new Date()) : undefined,
+      // Always refresh since requiring a manual refresh is unclear and unfriendly to users and they cache hits are low anyway
+      // _: +new Date(), // disabled due to Uldir raid release hitting cap all the time
+    })
+      .then((rawParses) => {
         if (rawParses.length === 0) {
           this.setState({
             parses: [],
@@ -390,10 +389,10 @@ class CharacterParses extends React.Component {
 
         const charClass = rawParses[0].class;
         const specs = Object.values(SPECS)
-          .filter(e => e.className === charClass)
+          .filter((e) => e.className === charClass)
           // eslint-disable-next-line no-restricted-syntax
           .filter((item, index, self) => self.indexOf(item) === index)
-          .map(e => e.specName);
+          .map((e) => e.specName);
 
         const parses = this.changeParseStructure(rawParses, charClass);
 
@@ -406,14 +405,14 @@ class CharacterParses extends React.Component {
 
         this.setState({
           specs: specs,
-          activeSpec: specs.map(elem => elem.replace(' ', '')),
+          activeSpec: specs.map((elem) => elem.replace(' ', '')),
           class: charClass,
           parses: parses,
           isLoading: false,
           error: null,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         if (err instanceof CharacterNotFoundError) {
           this.setState({
             error: ERRORS.CHARACTER_NOT_FOUND,
@@ -449,11 +448,10 @@ class CharacterParses extends React.Component {
     if (this.state.error === ERRORS.CHARACTER_NOT_FOUND) {
       errorMessage = (
         <Trans id="interface.characterParses.characterParses.errors.characterNotFoundDetails">
-          Please check your input and make sure that you've selected the correct
-          region and realm.
+          Please check your input and make sure that you've selected the correct region and realm.
           <br />
-          If your input was correct, then make sure that someone in your raid
-          logged the fight for you or check{' '}
+          If your input was correct, then make sure that someone in your raid logged the fight for
+          you or check{' '}
           <a
             href="https://www.warcraftlogs.com/help/start/"
             target="_blank"
@@ -464,13 +462,9 @@ class CharacterParses extends React.Component {
           to get started with logging on your own.
           <br />
           <br />
-          When you know for sure that you have logs on Warcraft Logs and you
-          still get this error, please message us on{' '}
-          <a
-            href="https://discord.gg/AxphPxU"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          When you know for sure that you have logs on Warcraft Logs and you still get this error,
+          please message us on{' '}
+          <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">
             Discord
           </a>{' '}
           or create an issue on{' '}
@@ -487,22 +481,20 @@ class CharacterParses extends React.Component {
     } else if (this.state.error === ERRORS.NOT_RESPONDING) {
       errorMessage = (
         <Trans id="interface.characterParses.characterParses.errors.notRespondingDetails">
-          It looks like we couldn't get a response in time from the API, this
-          usually happens when the servers are under heavy load.
+          It looks like we couldn't get a response in time from the API, this usually happens when
+          the servers are under heavy load.
           <br />
           <br />
-          You could try and enter your report-code manually{' '}
-          <Link to="/">here</Link>.<br />
-          That would bypass the load-intensive character lookup and we should be
-          able to analyze your report.
+          You could try and enter your report-code manually <Link to="/">here</Link>.<br />
+          That would bypass the load-intensive character lookup and we should be able to analyze
+          your report.
           <br />
         </Trans>
       );
     } else if (this.state.error === ERRORS.CHARACTER_HIDDEN) {
       errorMessage = (
         <Trans id="interface.characterParses.characterParses.errors.characterHiddenDetails">
-          This character is hidden on warcraftlogs and we can't access the
-          parses.
+          This character is hidden on warcraftlogs and we can't access the parses.
           <br />
           <br />
           You don't know how to make your character visible again? Check{' '}
@@ -524,11 +516,7 @@ class CharacterParses extends React.Component {
       errorMessage = (
         <Trans id="interface.characterParses.characterParses.errors.details">
           {this.state.errorMessage} Please message us on{' '}
-          <a
-            href="https://discord.gg/AxphPxU"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">
             Discord
           </a>{' '}
           or create an issue on{' '}
@@ -542,14 +530,10 @@ class CharacterParses extends React.Component {
           if this issue persists and we will fix it, eventually.
         </Trans>
       );
-    } else if (
-      this.state.error === ERRORS.NO_PARSES_FOR_TIER ||
-      this.filterParses.length === 0
-    ) {
+    } else if (this.state.error === ERRORS.NO_PARSES_FOR_TIER || this.filterParses.length === 0) {
       errorMessage = (
         <Trans id="interface.characterParses.characterParses.errors.noParsesForTierDetails">
-          Please check your filters and make sure that you logged those fights
-          on Warcraft Logs.
+          Please check your filters and make sure that you logged those fights on Warcraft Logs.
           <br />
           <br />
           Don't know how to log your fights? Check{' '}
@@ -636,7 +620,7 @@ class CharacterParses extends React.Component {
                   <select
                     className="form-control"
                     value={this.state.activeZoneID}
-                    onChange={e =>
+                    onChange={(e) =>
                       this.updateZoneMetricBoss(
                         Number(e.target.value),
                         this.state.metric,
@@ -646,7 +630,7 @@ class CharacterParses extends React.Component {
                   >
                     {Object.values(ZONES)
                       .reverse()
-                      .map(elem => (
+                      .map((elem) => (
                         <option key={elem.id} value={elem.id}>
                           {elem.name}
                         </option>
@@ -658,14 +642,12 @@ class CharacterParses extends React.Component {
                   <select
                     className="form-control"
                     value={this.state.activeEncounter}
-                    onChange={e =>
-                      this.setState({ activeEncounter: e.target.value })
-                    }
+                    onChange={(e) => this.setState({ activeEncounter: e.target.value })}
                   >
                     <option value={BOSS_DEFAULT_ALL_BOSSES} defaultValue>
                       All bosses
                     </option>
-                    {this.zoneBosses.map(e => (
+                    {this.zoneBosses.map((e) => (
                       <option key={e.id} value={e.name}>
                         {e.name}
                       </option>
@@ -677,7 +659,7 @@ class CharacterParses extends React.Component {
                   <select
                     className="form-control"
                     value={this.state.metric}
-                    onChange={e =>
+                    onChange={(e) =>
                       this.updateZoneMetricBoss(
                         this.state.activeZoneID,
                         e.target.value,
@@ -696,9 +678,7 @@ class CharacterParses extends React.Component {
                   <select
                     className="form-control"
                     value={this.state.sortBy}
-                    onChange={e =>
-                      this.setState({ sortBy: Number(e.target.value) })
-                    }
+                    onChange={(e) => this.setState({ sortBy: Number(e.target.value) })}
                   >
                     <option defaultValue value={ORDER_BY.DATE}>
                       Date
@@ -730,7 +710,7 @@ class CharacterParses extends React.Component {
                   </div>
                 ))}
 
-                {Object.values(DIFFICULTIES).map(difficultyId => (
+                {Object.values(DIFFICULTIES).map((difficultyId) => (
                   <div
                     key={difficultyId}
                     onClick={() => this.updateDifficulty(difficultyId)}
@@ -755,8 +735,7 @@ class CharacterParses extends React.Component {
                   </Link>{' '}
                   &gt;{' '}
                   <span>
-                    {this.props.region} &gt; {this.props.realm} &gt;{' '}
-                    {this.props.name}
+                    {this.props.region} &gt; {this.props.realm} &gt; {this.props.name}
                   </span>
                   <br />
                   <br />
@@ -768,16 +747,15 @@ class CharacterParses extends React.Component {
                     <div className="pull-right">
                       <Link
                         to=""
-                        onClick={e => {
+                        onClick={(e) => {
                           e.preventDefault();
                           this.load(true);
                         }}
                       >
-                        <span
-                          className="glyphicon glyphicon-refresh"
-                          aria-hidden="true"
-                        />{' '}
-                        <Trans id="interface.characterParses.characterParses.refresh">Refresh</Trans>
+                        <span className="glyphicon glyphicon-refresh" aria-hidden="true" />{' '}
+                        <Trans id="interface.characterParses.characterParses.refresh">
+                          Refresh
+                        </Trans>
                       </Link>
                     </div>
                     <h1 style={{ display: 'inline-block' }}>
@@ -789,21 +767,16 @@ class CharacterParses extends React.Component {
                     </h1>
                     <small>
                       <Trans id="interface.characterParses.characterParses.parsesDetails">
-                        This page will only show fights that have been ranked by
-                        Warcraft Logs. Wipes are not included and during busy
-                        periods there might be a delay before new reports
-                        appear. Manually find the report on Warcraft Logs and
-                        copy the direct report link to analyze a fight missing
-                        from this page.
+                        This page will only show fights that have been ranked by Warcraft Logs.
+                        Wipes are not included and during busy periods there might be a delay before
+                        new reports appear. Manually find the report on Warcraft Logs and copy the
+                        direct report link to analyze a fight missing from this page.
                       </Trans>
                     </small>
                   </div>
                 )}
                 <div className="panel-body">
-                  <div
-                    className="flex-main"
-                    style={{ padding: errorMessage ? 20 : 0 }}
-                  >
+                  <div className="flex-main" style={{ padding: errorMessage ? 20 : 0 }}>
                     {this.state.isLoading && !this.state.error && (
                       <div
                         style={{
@@ -813,7 +786,11 @@ class CharacterParses extends React.Component {
                         }}
                       >
                         <ActivityIndicator
-                          text={<Trans id="interface.characterParses.characterParses.fetchingLogs">Fetching logs...</Trans>}
+                          text={
+                            <Trans id="interface.characterParses.characterParses.fetchingLogs">
+                              Fetching logs...
+                            </Trans>
+                          }
                         />
                       </div>
                     )}

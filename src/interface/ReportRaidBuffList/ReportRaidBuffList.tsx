@@ -26,6 +26,7 @@ const AVAILABLE_RAID_BUFFS = new Map<number, Array<Class | object>>([
   //  Battle res
   [SPELLS.REBIRTH.id, [Class.Druid, Class.DeathKnight, Class.Warlock]],
   [SPELLS.RALLYING_CRY.id, [Class.Warrior]],
+  [SPELLS.ANTI_MAGIC_ZONE.id, [Class.DeathKnight]],
   [SPELLS.DARKNESS.id, [SPECS.HAVOC_DEMON_HUNTER]],
   [SPELLS.AURA_MASTERY.id, [SPECS.HOLY_PALADIN]],
   [SPELLS.SPIRIT_LINK_TOTEM.id, [SPECS.RESTORATION_SHAMAN]],

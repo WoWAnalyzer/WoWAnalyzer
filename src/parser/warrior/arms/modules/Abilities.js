@@ -127,11 +127,11 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.7,
         },
-        enabled: !combatant.hasTalent(SPELLS.RAVAGER_TALENT_ARMS.id),
+        enabled: !combatant.hasTalent(SPELLS.RAVAGER_ARMS_TALENT.id),
         buffSpellId: SPELLS.BLADESTORM.id,
       },
       {
-        spell: SPELLS.RAVAGER_TALENT_ARMS,
+        spell: SPELLS.RAVAGER_ARMS_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: 60,
         gcd: {
@@ -141,7 +141,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.7,
         },
-        enabled: combatant.hasTalent(SPELLS.RAVAGER_TALENT_ARMS.id), // Replaces Bladestorm
+        enabled: combatant.hasTalent(SPELLS.RAVAGER_ARMS_TALENT.id), // Replaces Bladestorm
       },
       // Others
       {
