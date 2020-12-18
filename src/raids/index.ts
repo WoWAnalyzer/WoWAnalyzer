@@ -19,6 +19,7 @@ type EncounterConfig = {
     physical: [],
     magical: [],
   },
+  resultsWarning?: string;
   phases?: { [key: string]: PhaseConfig },
   raceTranslation?: (race: Race, spec: Spec) => Race,
   disableDeathSuggestion?: boolean,

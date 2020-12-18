@@ -13,6 +13,7 @@ const SunKingsSalvation: Boss = {
   headshot: Headshot,
   icon: 'achievement_raid_revendrethraid_kaelthassunstrider',
   fight: {
+    resultsWarning: 'Because of the way this encounter was designed, some statistics and suggestions may be inaccurate. Therefore this encounter is not recommended for improving overall play. Instead you should use this encounter for improving on this encounter only.',
     vantusRuneBuffId: 311448,
     softMitigationChecks: {
       physical: [],
