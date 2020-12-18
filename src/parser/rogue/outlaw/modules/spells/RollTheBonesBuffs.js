@@ -50,7 +50,7 @@ class RollTheBonesBuffs extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-        position={STATISTIC_ORDER.CORE()}
+        position={STATISTIC_ORDER.CORE(2)}
         icon={<SpellIcon id={SPELLS.ROLL_THE_BONES.id} />}
         value={(
           <>
