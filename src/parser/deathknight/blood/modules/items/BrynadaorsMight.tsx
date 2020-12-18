@@ -24,7 +24,7 @@ class BrynadaorsMight extends Analyzer {
   constructor(options: Options) {
     super(options);
     const brynadorsMight: LegendarySpell = SPELLS.BRYNDAORS_MIGHT as LegendarySpell;
-    const active = this.selectedCombatant.hasLegendaryByBonusID(brynadorsMight.bonusID ? brynadorsMight.bonusID : 0);
+    const active = this.selectedCombatant.hasLegendaryByBonusID(brynadorsMight.bonusID!);
     this.active = active;
     if (!active) {
       return;

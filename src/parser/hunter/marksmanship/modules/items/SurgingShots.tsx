@@ -34,7 +34,7 @@ class SurgingShots extends Analyzer {
   constructor(options: Options) {
     super(options);
     const SURGING_SHOTS_EFFECT = SPELLS.SURGING_SHOTS_EFFECT as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SURGING_SHOTS_EFFECT.bonusID ? SURGING_SHOTS_EFFECT.bonusID : 0);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SURGING_SHOTS_EFFECT.bonusID!);
     if (!this.active) {
       return;
     }

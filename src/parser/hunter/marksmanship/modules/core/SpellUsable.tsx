@@ -14,7 +14,7 @@ class SpellUsable extends CoreSpellUsable {
   onCast(event: CastEvent) {
     const spellId = event.ability.guid;
   
-    if (this.selectedCombatant.hasLegendaryByBonusID(this.SURGING_SHOTS_EFFECT.bonusID ? this.SURGING_SHOTS_EFFECT.bonusID : 0)) {
+    if (this.selectedCombatant.hasLegendaryByBonusID(this.SURGING_SHOTS_EFFECT.bonusID!)) {
       if (spellId === SPELLS.AIMED_SHOT.id) {
         this.lastPotentialTriggerForRapidFireReset = event;
       } else if (spellId === SPELLS.RAPID_FIRE.id) {

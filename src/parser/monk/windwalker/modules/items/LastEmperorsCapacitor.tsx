@@ -37,7 +37,7 @@ class LastEmperorsCapacitor extends Analyzer {
   constructor(options: Options) {
     super(options);
     const LAST_EMPERORS_CAPACITOR = SPELLS.LAST_EMPERORS_CAPACITOR as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(LAST_EMPERORS_CAPACITOR.bonusID ? LAST_EMPERORS_CAPACITOR.bonusID : 0);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(LAST_EMPERORS_CAPACITOR.bonusID!);
     if (!this.active) {
       return;
     }

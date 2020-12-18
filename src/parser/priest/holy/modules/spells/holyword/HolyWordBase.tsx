@@ -41,7 +41,7 @@ class HolyWordBase extends Analyzer {
     }
 
     const HARMONIOUS_APPARATUS = SPELLS.HARMONIOUS_APPARATUS as LegendarySpell;
-    if (this.selectedCombatant.hasLegendaryByBonusID(HARMONIOUS_APPARATUS.bonusID ? HARMONIOUS_APPARATUS.bonusID : 0)) {
+    if (this.selectedCombatant.hasLegendaryByBonusID(HARMONIOUS_APPARATUS.bonusID!)) {
       this.harmoniousApparatusActive = true
     }
 

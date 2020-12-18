@@ -29,7 +29,7 @@ class VisionOfUnendingGrowth extends Analyzer {
   constructor(options: Options) {
     super(options);
     const VISION_OF_UNENDING_GROWTH = SPELLS.VISION_OF_UNENDING_GROWTH as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(VISION_OF_UNENDING_GROWTH.bonusID ? VISION_OF_UNENDING_GROWTH.bonusID : 0);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(VISION_OF_UNENDING_GROWTH.bonusID!);
     if (!this.active) {
       return;
     }

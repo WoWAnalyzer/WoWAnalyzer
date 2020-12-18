@@ -24,7 +24,7 @@ class EarthenHarmony extends Analyzer {
   constructor(options: Options) {
     super(options);
     const EARTHEN_HARMONY = SPELLS.EARTHEN_HARMONY as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(EARTHEN_HARMONY.bonusID ? EARTHEN_HARMONY.bonusID : 0);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(EARTHEN_HARMONY.bonusID!);
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EARTH_SHIELD_HEAL), this.earthShield);
   }

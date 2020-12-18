@@ -25,7 +25,7 @@ class AncientTeachingsoftheMonastery extends Analyzer {
   constructor(options: Options) {
     super(options);
     const ANCIENT_TEACHINGS_OF_THE_MONASTERY = SPELLS.ANCIENT_TEACHINGS_OF_THE_MONASTERY as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(ANCIENT_TEACHINGS_OF_THE_MONASTERY.bonusID ? ANCIENT_TEACHINGS_OF_THE_MONASTERY.bonusID : 0);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(ANCIENT_TEACHINGS_OF_THE_MONASTERY.bonusID!);
     if (!this.active) {
       return;
     }

@@ -22,7 +22,7 @@ class FeveredIncantation extends Analyzer {
   constructor(props: Options) {
     super(props);
     const FEVERED_INCANTATION = SPELLS.FEVERED_INCANTATION as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(FEVERED_INCANTATION.bonusID ? FEVERED_INCANTATION.bonusID : 0);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(FEVERED_INCANTATION.bonusID!);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 

@@ -22,7 +22,7 @@ class ColdFront extends Analyzer {
   constructor(props: Options) {
     super(props);
     const COLD_FRONT = SPELLS.COLD_FRONT as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(COLD_FRONT.bonusID ? COLD_FRONT.bonusID : 0);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(COLD_FRONT.bonusID!);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.COLD_FRONT_BUFF), this.onBuffApplied);
   }
 

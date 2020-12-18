@@ -28,7 +28,7 @@ class SoulforgeEmbers extends Analyzer {
   constructor(options: Options) {
     super(options);
     const SOULFORGE_EMBERS_EFFECT = SPELLS.SOULFORGE_EMBERS_EFFECT as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SOULFORGE_EMBERS_EFFECT.bonusID ? SOULFORGE_EMBERS_EFFECT.bonusID : 0);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SOULFORGE_EMBERS_EFFECT.bonusID!);
     if (!this.active) {
       return;
     }

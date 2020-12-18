@@ -22,7 +22,7 @@ class TheRotten extends Analyzer {
   constructor(options: Options) {
     super(options);
     const THE_ROTTEN = SPELLS.THE_ROTTEN as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(THE_ROTTEN.bonusID ? THE_ROTTEN.bonusID : 0);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(THE_ROTTEN.bonusID!);
     this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell([SPELLS.SHADOWSTRIKE, SPELLS.BACKSTAB, SPELLS.GLOOMBLADE_TALENT]), this.onDamage);
   }
 

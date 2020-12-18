@@ -26,7 +26,7 @@ class ArcaneHarmony extends Analyzer {
   constructor(props: Options) {
     super(props);
     const ARCANE_HARMONY = SPELLS.ARCANE_HARMONY as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(ARCANE_HARMONY.bonusID ? ARCANE_HARMONY.bonusID : 0);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(ARCANE_HARMONY.bonusID!);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_BARRAGE), this.onBarrageCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_BARRAGE), this.onBarrageDamage);
   }

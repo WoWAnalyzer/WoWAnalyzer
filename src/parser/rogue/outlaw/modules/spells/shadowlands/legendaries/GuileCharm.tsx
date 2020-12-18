@@ -21,7 +21,7 @@ class GuileCharm extends Analyzer {
   constructor(options: Options) {
     super(options);
     const GUILE_CHARM = SPELLS.GUILE_CHARM as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(GUILE_CHARM.bonusID ? GUILE_CHARM.bonusID : 0);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(GUILE_CHARM.bonusID!);
   }
 
   get percentUptime() {

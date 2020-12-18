@@ -21,7 +21,7 @@ class AkaarisSoulFragment extends Analyzer {
   constructor(options: Options) {
     super(options);
     const AKAARIS_SOUL_FRAGMENT = SPELLS.AKAARIS_SOUL_FRAGMENT as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(AKAARIS_SOUL_FRAGMENT.bonusID ? AKAARIS_SOUL_FRAGMENT.bonusID : 0);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(AKAARIS_SOUL_FRAGMENT.bonusID!);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.AKAARIS_SOUL_FRAGMENT_SHADOWSTRIKE), this.onDamage);
   }
 

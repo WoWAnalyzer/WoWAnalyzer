@@ -22,7 +22,7 @@ class SerpentstalkersTrickery extends Analyzer {
   constructor(options: Options) {
     super(options);
     const SERPENTSTALKERS_TRICKERY_EFFECT = SPELLS.SERPENTSTALKERS_TRICKERY_EFFECT as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SERPENTSTALKERS_TRICKERY_EFFECT.bonusID ? SERPENTSTALKERS_TRICKERY_EFFECT.bonusID : 0);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SERPENTSTALKERS_TRICKERY_EFFECT.bonusID!);
     if (!this.active) {
       return;
     }

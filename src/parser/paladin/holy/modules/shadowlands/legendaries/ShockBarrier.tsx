@@ -25,7 +25,7 @@ class ShockBarrier extends Analyzer {
   constructor(options: Options) {
     super(options);
     const SHOCK_BARRIER = SPELLS.SHOCK_BARRIER as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SHOCK_BARRIER.bonusID ? SHOCK_BARRIER.bonusID : 0);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SHOCK_BARRIER.bonusID!);
     if (!this.active) {
       return;
     }

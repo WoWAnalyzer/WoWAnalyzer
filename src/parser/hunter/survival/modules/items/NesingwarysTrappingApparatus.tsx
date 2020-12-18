@@ -32,7 +32,7 @@ class NesingwarysTrappingApparatus extends Analyzer {
   constructor(options: Options) {
     super(options);
     const NESINGWARYS_TRAPPING_APPARATUS_EFFECT = SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(NESINGWARYS_TRAPPING_APPARATUS_EFFECT.bonusID ? NESINGWARYS_TRAPPING_APPARATUS_EFFECT.bonusID : 0);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(NESINGWARYS_TRAPPING_APPARATUS_EFFECT.bonusID!);
     if (!this.active) {
       return;
     }

@@ -23,7 +23,7 @@ class HarmoniousApparatus extends Analyzer {
   constructor(options: Options) {
     super(options);
     const HARMONIOUS_APPARATUS = SPELLS.HARMONIOUS_APPARATUS as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(HARMONIOUS_APPARATUS.bonusID ? HARMONIOUS_APPARATUS.bonusID : 0);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(HARMONIOUS_APPARATUS.bonusID!);
   }
 
   get reductionForAllSpells() {

@@ -23,7 +23,7 @@ class JonatsNaturalFocus extends Analyzer {
   constructor(options: Options) {
     super(options);
     const JONATS_NATURAL_FOCUS = SPELLS.JONATS_NATURAL_FOCUS as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(JONATS_NATURAL_FOCUS.bonusID ? JONATS_NATURAL_FOCUS.bonusID : 0);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(JONATS_NATURAL_FOCUS.bonusID!);
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HEAL), this.chainHeal);
   }

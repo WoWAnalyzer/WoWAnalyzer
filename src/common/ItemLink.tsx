@@ -45,7 +45,7 @@ const ItemLink = (props: Props) => {
       href={TooltipProvider.item(id, details)}
       target="_blank"
       rel="noopener noreferrer"
-      className={getItemQualityLabel(quality) + 'item-link-text'}
+      className={getItemQualityLabel(quality!) + 'item-link-text'}
       ref={elem => {setElem(elem)}}
       {...others}
     >

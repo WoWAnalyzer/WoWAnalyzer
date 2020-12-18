@@ -22,7 +22,7 @@ class HolyWordSanctify extends HolyWordBase {
       },
     };
     const HARMONIOUS_APPARATUS = SPELLS.HARMONIOUS_APPARATUS as LegendarySpell;
-    if (this.selectedCombatant.hasLegendaryByBonusID(HARMONIOUS_APPARATUS.bonusID ? HARMONIOUS_APPARATUS.bonusID : 0)) {
+    if (this.selectedCombatant.hasLegendaryByBonusID(HARMONIOUS_APPARATUS.bonusID!)) {
       this.serendipityProccers[SPELLS.HOLY_FIRE.id] = {
         baseReduction: () => HOLY_FIRE_SERENDIPITY_REDUCTION,
         lightOfTheNaaruReduction: () => HOLY_FIRE_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,

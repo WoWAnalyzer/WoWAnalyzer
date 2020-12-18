@@ -25,7 +25,7 @@ class DuskwalkersPatch extends Analyzer {
   constructor(options: Options) {
     super(options);
     const DUSKWALERS_PATCH = SPELLS.DUSKWALERS_PATCH as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(DUSKWALERS_PATCH.bonusID ? DUSKWALERS_PATCH.bonusID : 0);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(DUSKWALERS_PATCH.bonusID!);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
 

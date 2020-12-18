@@ -25,7 +25,7 @@ class ArcaneBombardment extends Analyzer {
   constructor(props: Options) {
     super(props);
     const ARCANE_BOMBARDMENT = SPELLS.ARCANE_BOMBARDMENT as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(ARCANE_BOMBARDMENT.bonusID ? ARCANE_BOMBARDMENT.bonusID : 0);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(ARCANE_BOMBARDMENT.bonusID!);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_BARRAGE), this.onBarrageDamage);
   }
 

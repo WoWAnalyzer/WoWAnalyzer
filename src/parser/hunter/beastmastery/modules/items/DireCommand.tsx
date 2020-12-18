@@ -34,7 +34,7 @@ class DireCommand extends Analyzer {
   constructor(options: Options) {
     super(options);
     const DIRE_COMMAND_EFFECT = SPELLS.DIRE_COMMAND_EFFECT as LegendarySpell
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(DIRE_COMMAND_EFFECT.bonusID ? DIRE_COMMAND_EFFECT.bonusID : 0);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(DIRE_COMMAND_EFFECT.bonusID!);
     if (!this.active) {
       return;
     }

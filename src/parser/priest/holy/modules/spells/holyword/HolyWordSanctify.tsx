@@ -35,7 +35,7 @@ class HolyWordSanctify extends HolyWordBase {
     };
     
     const HARMONIOUS_APPARATUS = SPELLS.HARMONIOUS_APPARATUS as LegendarySpell;
-    if (this.selectedCombatant.hasLegendaryByBonusID(HARMONIOUS_APPARATUS.bonusID ? HARMONIOUS_APPARATUS.bonusID : 0)) {
+    if (this.selectedCombatant.hasLegendaryByBonusID(HARMONIOUS_APPARATUS.bonusID!)) {
       this.serendipityProccers[SPELLS.CIRCLE_OF_HEALING_TALENT.id] = {
         baseReduction: () => CIRCLE_OF_HEALING_SERENDIPITY_REDUCTION,
         lightOfTheNaaruReduction: () => CIRCLE_OF_HEALING_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,
