@@ -7,6 +7,7 @@ import SPELLS from 'common/SPELLS'
 import SpellLink from 'common/SpellLink';
 
 export default [
+  change(date (2020, 12, 17), <>Fix <SpellLink id={SPELLS.SOUL_REAPER_TALENT.id} /> module from showing when it shouldn't and lower suggestion threshold for <SpellLink id={SPELLS.VIRULENT_PLAGUE.id} /></>, [Khazak]),
   change(date(2020, 12, 12), <>Added <SpellLink id={SPELLS.SUPERSTRAIN.id} /> module</>, joshinator),
   change(date(2020, 12, 9), <>Reworked <SpellLink id={SPELLS.SOUL_REAPER_TALENT.id}/> to use ExecuteHelper to provide cast efficiency and damage statistics</>, [Khazak]),
   change(date(2020, 12, 7), 'Updated Abilities with covenant signature and class abilities', [Khazak]),

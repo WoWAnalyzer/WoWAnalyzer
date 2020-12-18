@@ -87,7 +87,7 @@ function resetProbabilityArray(actualProcs: number, procAttempts: number, procCh
   return procProbabilities;
 }
 
-function setMinMaxProbabilities(actualProcs: number, procAttempts: number, procChance: number | number[], threshold: number = 0.001) {
+export function setMinMaxProbabilities(actualProcs: number, procAttempts: number, procChance: number | number[], threshold: number = 0.001) {
   const procProbabilities = resetProbabilityArray(actualProcs, procAttempts, procChance);
   const rangeMin = procProbabilities.findIndex(({ y }) => y >= threshold);
   const rangeMax = rangeMin + procProbabilities.slice(rangeMin).findIndex(({ y }) => y < threshold);

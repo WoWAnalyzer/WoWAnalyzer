@@ -187,7 +187,7 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
       },
       {
-        spell: SPELLS.RAVAGER_TALENT_PROTECTION,
+        spell: SPELLS.RAVAGER_PROT_TALENT,
         enabled: combatant.hasTalent(SPELLS.RAVAGER_PROT_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         gcd: {
