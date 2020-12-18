@@ -19,7 +19,7 @@ import RenewingMistDuringManaTea from '../../talents/RenewingMistDuringManaTea';
 import SpinningCraneKick from '../../spells/SpinningCraneKick';
 import Vivify from '../../spells/Vivify';
 import JadeSerpentStatue from '../../talents/JadeSerpentStatue';
-import Tier45Comparison from '../../talents/Tier45Comparison';
+import Tier30Comparison from '../../talents/Tier30Comparison';
 import Component from './Component';
 import SoothingMist from '../../spells/SoothingMist';
 import EnvelopingBreath from '../../spells/EnvelopingBreath';
@@ -44,7 +44,7 @@ class Checklist extends BaseChecklist {
     vivify: Vivify,
     jadeSerpentStatue: JadeSerpentStatue,
     soothingMist: SoothingMist,
-    tier45Comparison: Tier45Comparison,
+    tier30Comparison: Tier30Comparison,
     envelopingBreath: EnvelopingBreath,
   };
 
@@ -66,7 +66,7 @@ class Checklist extends BaseChecklist {
   protected vivify!: Vivify;
   protected jadeSerpentStatue!: JadeSerpentStatue;
   protected soothingMist!: SoothingMist;
-  protected tier45Comparison!: Tier45Comparison;
+  protected tier30Comparison!: Tier30Comparison;
   protected envelopingBreath!: EnvelopingBreath;
 
   render() {
@@ -95,7 +95,7 @@ class Checklist extends BaseChecklist {
           vivify: this.vivify.suggestionThresholds,
           jadeSerpentStatue: this.jadeSerpentStatue.suggestionThresholds,
           soothingMist: this.soothingMist.suggestionThresholdsCasting,
-          tier45Comparison: this.tier45Comparison.suggestionThresholds,
+          tier30Comparison: this.tier30Comparison.suggestionThresholds,
         }}
       />
     );
