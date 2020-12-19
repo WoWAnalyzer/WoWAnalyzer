@@ -60,7 +60,7 @@ const DisciplinePriestChecklist = ({ combatant, castEfficiency, thresholds }: { 
           </>
         )}
       >
-        <AbilityRequirement spell={SPELLS.RAPTURE.id} />
+        {!combatant.hasTalent(SPELLS.SPIRIT_SHELL_TALENT.id) && <AbilityRequirement spell={SPELLS.RAPTURE.id} />}
         {!combatant.hasTalent(SPELLS.LUMINOUS_BARRIER_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.POWER_WORD_BARRIER_CAST.id} />
         )}

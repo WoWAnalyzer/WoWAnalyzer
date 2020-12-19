@@ -117,15 +117,15 @@ class StatTracker extends Analyzer {
     },
     [SPELLS.INSCRUTABLE_QUANTUM_DEVICE_HASTE.id]: {
       itemId: ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id,
-      crit: (_, item) => calculateSecondaryStatDefault(184, 568, item.itemLevel),
+      haste: (_, item) => calculateSecondaryStatDefault(184, 568, item.itemLevel),
     },
     [SPELLS.INSCRUTABLE_QUANTUM_DEVICE_MASTERY.id]: {
       itemId: ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id,
-      crit: (_, item) => calculateSecondaryStatDefault(184, 568, item.itemLevel),
+      mastery: (_, item) => calculateSecondaryStatDefault(184, 568, item.itemLevel),
     },
     [SPELLS.INSCRUTABLE_QUANTUM_DEVICE_VERS.id]: {
       itemId: ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id,
-      crit: (_, item) => calculateSecondaryStatDefault(184, 568, item.itemLevel),
+      versatility: (_, item) => calculateSecondaryStatDefault(184, 568, item.itemLevel),
     },
 
     //endregion
