@@ -8,6 +8,7 @@ import { change, date } from 'common/changelog';
 
 // prettier-ignore
 export default [
+  change(date(2020, 12, 19), <> Fix issues with <ItemLink id={ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id} /> not accounting for the correct stat given. </>, Putro),
   change(date(2020, 12, 19), 'Adjust our weak Potion suggestion to only show if a weak potion was actually used', Putro),
   change(date(2020, 12, 17), 'Added phase information for Castle Nathria bosses', Sharrq),
   change(date(2020, 12, 16), 'Fix character API realm slugs for non-English realms.', Zerotorescue),
