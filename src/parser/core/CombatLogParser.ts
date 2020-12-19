@@ -83,6 +83,7 @@ import Berserking from '../shared/modules/racials/troll/Berserking';
 import BloodFury from '../shared/modules/racials/orc/BloodFury';
 // Shared Buffs
 import VantusRune from '../shared/modules/spells/VantusRune';
+import Windfury from '../shared/modules/spells/Windfury';
 // Shadowlands
 // Dungeons
 // PVP
@@ -169,6 +170,7 @@ class CombatLogParser {
     globalCooldown: GlobalCooldown,
     manaValues: ManaValues,
     vantusRune: VantusRune,
+    windfury: Windfury,
     distanceMoved: DistanceMoved,
     deathRecapTracker: DeathRecapTracker,
     dispels: DispelTracker,
