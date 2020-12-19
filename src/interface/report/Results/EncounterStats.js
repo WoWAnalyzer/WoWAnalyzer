@@ -13,6 +13,7 @@ import { formatDuration, formatPercentage, formatThousands } from 'common/format
 import ActivityIndicator from 'interface/common/ActivityIndicator';
 import { makeItemApiUrl } from 'common/makeApiUrl';
 import { Trans } from '@lingui/macro';
+import Combatant from 'parser/core/Combatant';
 
 /**
  * Show statistics (talents and trinkets) for the current boss, specID and difficulty
@@ -26,6 +27,7 @@ class EncounterStats extends React.PureComponent {
     spec: PropTypes.number.isRequired,
     difficulty: PropTypes.number.isRequired,
     duration: PropTypes.number.isRequired,
+    combatant: PropTypes.instanceOf(Combatant).isRequired,
   };
 
   LIMIT = 100; //Currently does nothing but if Kihra reimplements it'd be nice to have
@@ -38,7 +40,12 @@ class EncounterStats extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      mostUsedTalents: [],
       mostUsedTrinkets: [],
+      mostUsedLegendaries: [],
+      mostUsedCovenants: [],
+      mostUsedSoulbinds: [],
+      mostUsedConduits: [],
       similiarKillTimes: [],
       closestKillTimes: [],
       items: ITEMS,
@@ -100,6 +107,7 @@ class EncounterStats extends React.PureComponent {
       let trinkets = [];
       const similiarKillTimes = []; //These are the reports within the defined variance of the analyzed log
       const closestKillTimes = []; //These are the reports closest to the analyzed log regardless of it being within variance or not
+      const combatantName = this.props.combatant._combatantInfo.name;
 
       stats.rankings.forEach(rank => {
         rank.talents.forEach((talent, index) => {
@@ -113,11 +121,13 @@ class EncounterStats extends React.PureComponent {
             trinkets = this.addItem(trinkets, item);
           }
         });
-
-        if (this.props.duration > rank.duration * (1 - this.durationVariancePercentage) && this.props.duration < rank.duration * (1 + this.durationVariancePercentage)) {
-          similiarKillTimes.push({ rank, variance: rank.duration - this.props.duration > 0 ? rank.duration - this.props.duration : this.props.duration - rank.duration });
+        
+        if (!rank.name.match(combatantName)) {
+          if (this.props.duration > rank.duration * (1 - this.durationVariancePercentage) && this.props.duration < rank.duration * (1 + this.durationVariancePercentage)) {
+            similiarKillTimes.push({ rank, variance: rank.duration - this.props.duration > 0 ? rank.duration - this.props.duration : this.props.duration - rank.duration });
+          }
+          closestKillTimes.push({ rank, variance: rank.duration - this.props.duration > 0 ? rank.duration - this.props.duration : this.props.duration - rank.duration });
         }
-        closestKillTimes.push({ rank, variance: rank.duration - this.props.duration > 0 ? rank.duration - this.props.duration : this.props.duration - rank.duration });
       });
 
       talentCounter.forEach(row => {
@@ -203,7 +213,7 @@ class EncounterStats extends React.PureComponent {
 
   singleLog(log) {
     return (
-      <div key={log.reportID} className="col-md-12 flex-main" style={{ textAlign: 'left', margin: '5px auto' }}>
+      <div key={`${log.reportID}-`} className="col-md-12 flex-main" style={{ textAlign: 'left', margin: '5px auto' }}>
         <div className="row" style={{ opacity: '.8', fontSize: '.9em', lineHeight: '2em' }}>
           <div className="flex-column col-md-6">
             <a

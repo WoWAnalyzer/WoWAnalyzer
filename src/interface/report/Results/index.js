@@ -247,6 +247,7 @@ class Results extends React.PureComponent {
               difficulty={parser.fight.difficulty}
               spec={parser.selectedCombatant._combatantInfo.specID}
               duration={parser.fight.end_time - parser.fight.start_time}
+              combatant={parser.selectedCombatant}
             />
           </div>
         );

@@ -159,7 +159,6 @@ class PotionChecker extends Analyzer {
     }
 
     if (STRONG_POTIONS.includes(spellId) && event.timestamp > this.owner.fight.start_time - this.owner.fight.offset_time) {
-      console.log('STRONG POT USED');
       this.potionsUsed += 1;
       this.strongPotionsUsed += 1;
     }
