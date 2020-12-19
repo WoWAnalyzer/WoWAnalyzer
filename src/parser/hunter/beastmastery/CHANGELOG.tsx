@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import React from 'react';
 
 export default [
+  change(date(2020, 12, 19), <> Added a usage requirement to <SpellLink id={SPELLS.FLARE.id} /> and <SpellLink id={SPELLS.TAR_TRAP.id} /> when using <SpellLink id={SPELLS.SOULFORGE_EMBERS_EFFECT.id} /> </>, Putro),
   change(date(2020, 12, 19), <> Fixed an issue where <SpellLink id={SPELLS.BARRAGE_TALENT.id} /> wouldn't show as channeling in the timeline tab.</>, Putro),
   change(date(2020, 12, 16), <> Fix an issue with <SpellLink id={SPELLS.BORN_TO_BE_WILD_TALENT.id} /> where it wouldn't load or register casts. </>, Putro),
   change(date(2020, 12, 15), 'Bumped level of support to 9.0.2', Putro),
