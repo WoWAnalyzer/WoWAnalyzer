@@ -1,4 +1,3 @@
-import SPELLS from 'common/SPELLS';
 import { EarlyFinish, incomingDamage, SimpleFight } from 'parser/monk/brewmaster/test-fixtures/SimpleFight';
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 import EventEmitter from 'parser/core/modules/EventEmitter';
@@ -15,7 +14,6 @@ describe('Brewmaster.Stagger', () => {
   beforeEach(() => {
     parser = new TestCombatLogParser();
     eventEmitter = parser.getModule(EventEmitter);
-    parser.selectedCombatant.traitsBySpellId = { [SPELLS.STAGGERING_AROUND.id]: 0 };
     fab = parser.loadModule(StaggerFabricator, {
       eventEmitter,
     });
