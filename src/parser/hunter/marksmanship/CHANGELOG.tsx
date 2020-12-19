@@ -5,6 +5,7 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2020, 12, 19), <> Fixed an issue where <SpellLink id={SPELLS.RAPID_FIRE.id} /> wouldn't show as channeling in the timeline tab.</>, Putro),
   change(date(2020, 12, 16), <> Fix an issue with <SpellLink id={SPELLS.BORN_TO_BE_WILD_TALENT.id} /> where it wouldn't load or register casts. </>, Putro),
   change(date(2020, 12, 15), 'Bumped level of support to 9.0.2', Putro),
   change(date(2020, 12, 10), <> Fixed an issue where the module tracking utilisation of <SpellLink id={SPELLS.PRECISE_SHOTS.id} /> was accidentally showing unused procs as the used amount of procs. </>, Putro),

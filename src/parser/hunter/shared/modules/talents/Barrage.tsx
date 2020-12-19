@@ -87,12 +87,12 @@ class Barrage extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.barrageInefficientCastsThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.BARRAGE_TALENT.id} /> inefficiently {actual} {actual > 1 ? 'times' : 'time'} throughout the fight. This means you didn't hit all {BARRAGE_HITS_PER_CAST} shots of your barrage channel. Remember to always be facing your target when channelling <SpellLink id={SPELLS.BARRAGE_TALENT.id} />. </>)
+    when(this.barrageInefficientCastsThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.BARRAGE_TALENT.id} /> inefficiently {actual} {actual > 1 ? 'times' : 'time'} throughout the fight. This means you didn't hit all {BARRAGE_HITS_PER_CAST} shots of your barrage channel. Remember to always be facing your target when channeling <SpellLink id={SPELLS.BARRAGE_TALENT.id} />. </>)
       .icon(SPELLS.BARRAGE_TALENT.icon)
       .actual(t({
-      id: "hunter.shared.suggestions.barrage.efficiency",
-      message: `${actual} inefficient ${actual > 1 ? 'casts' : 'cast'}`
-    }))
+        id: 'hunter.shared.suggestions.barrage.efficiency',
+        message: `${actual} inefficient ${actual > 1 ? 'casts' : 'cast'}`,
+      }))
       .recommended(`${recommended} is recommended`));
   }
 
