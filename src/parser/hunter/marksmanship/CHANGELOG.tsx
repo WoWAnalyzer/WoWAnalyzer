@@ -5,6 +5,7 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2020, 12, 19), <> Fixed an issue where <SpellLink id={SPELLS.AIMED_SHOT.id} /> and <SpellLink id={SPELLS.RAPID_FIRE.id} /> had their cooldown reduced by too much during <SpellLink id={SPELLS.TRUESHOT.id} /> or <SpellLink id={SPELLS.DEAD_EYE_TALENT.id} />.</>, Putro),
   change(date(2020, 12, 19), <> Fixed an issue where <SpellLink id={SPELLS.RAPID_FIRE.id} /> wouldn't show as channeling in the timeline tab.</>, Putro),
   change(date(2020, 12, 16), <> Fix an issue with <SpellLink id={SPELLS.BORN_TO_BE_WILD_TALENT.id} /> where it wouldn't load or register casts. </>, Putro),
   change(date(2020, 12, 15), 'Bumped level of support to 9.0.2', Putro),
