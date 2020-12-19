@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import CoreChanneling from 'parser/shared/modules/Channeling';
-import Events, { CastEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { CastEvent, RemoveBuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 const debug = false;
@@ -9,12 +9,13 @@ class Channeling extends CoreChanneling {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BARRAGE_TALENT), this.onRemoveBuff);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BARRAGE_TALENT), this.onRemoveBarrageBuff);
+    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE), this.removeRapidFire);
   }
 
   onCast(event: CastEvent) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.BARRAGE_TALENT.id) {
+    if (spellId === SPELLS.BARRAGE_TALENT.id || spellId === SPELLS.RAPID_FIRE.id) {
       this.beginChannel(event);
       return;
     }
@@ -31,7 +32,15 @@ class Channeling extends CoreChanneling {
     }
   }
 
-  onRemoveBuff(event: RemoveBuffEvent) {
+  removeRapidFire(event: RemoveDebuffEvent) {
+    if (!this.isChannelingSpell(SPELLS.RAPID_FIRE.id)) {
+      // This may be true if we did the event-order fix in begincast/cast and it was already ended there.
+      return;
+    }
+    this.endChannel(event);
+  }
+
+  onRemoveBarrageBuff(event: RemoveBuffEvent) {
     if (!this.isChannelingSpell(SPELLS.BARRAGE_TALENT.id)) {
       // This may be true if we did the event-order fix in begincast/cast and it was already ended there.
       return;
