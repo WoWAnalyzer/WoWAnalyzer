@@ -1,7 +1,6 @@
 const fs = require('fs');
 
 let jsSpellOutput = '';
-let jsItemOutput = '';
 let fullOutput =
   `\t"CONDUIT_NAME": {
 \t\t"id": "The spell ID of the conduit -- This is what should be used when identifying if a player has that conduit and also for searching for it on WoWHead or similiar.",
@@ -109,13 +108,6 @@ Object.keys(conduitItemInfo).forEach((itemInfoKey, idx) => {
     icon: '${conduitIcon}',
     effectByRank: [${conduitRanksArray}],
   },\n`;
-
-  jsItemOutput +=
-    `  ${conduitKeyName}_ITEM: {
-    id: ${conduitItemID},
-    name: '${conduitName}',
-    icon: '${conduitIcon}',
-  },\n`;
 });
 
 fs.writeFileSync(
@@ -127,12 +119,6 @@ fs.writeFileSync(
   'conduitSpells.js',
   `// Generated file, changes will be overwritten!\n// Feel free to copy what you need from this file, as this is not indexed by anything else in the codebase.
 export default {\n${jsSpellOutput}};`,
-);
-
-fs.writeFileSync(
-  'conduitItems.js',
-  `// Generated file, changes will be overwritten!\n// Feel free to copy what you need from this file, as this is not indexed by anything else in the codebase.
-export default {\n${jsItemOutput}};`,
 );
 
 
