@@ -1,4 +1,6 @@
 import DIFFICULTIES from 'game/DIFFICULTIES';
+import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 import { Boss } from "raids/index";
 
 import Background from './images/backgrounds/SireDenathrius.jpg';
@@ -27,16 +29,36 @@ const SireDenathrius: Boss = {
         key: "I",
         name: 'Intermission: March of the Penitent',
         difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
+        filter: {
+          type: EventType.Health,
+          guid: 167406,
+          health: 70.0,
+          eventInstance: 0,
+        },
       },
       P2: {
         key: "P2",
         name: 'Stage 2: The Crimson Chorus',
         difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
+        filter: {
+          type: EventType.ApplyBuff,
+          ability: {
+            id: SPELLS.BEGIN_THE_CHORUS.id,
+          },
+          eventInstance: 0,
+        }
       },
       P3: {
         key: "P3",
         name: 'Stage 3: Indignation',
         difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
+        filter: {
+          type: EventType.ApplyBuff,
+          ability: {
+            id: SPELLS.INDIGNATION.id,
+          },
+          eventInstance: 0,
+        }
       },
     },
   },

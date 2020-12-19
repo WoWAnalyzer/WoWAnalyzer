@@ -41,7 +41,7 @@ class HitCombo extends Analyzer {
     return this.selectedCombatant.getStackWeightedBuffUptime(SPELLS.HIT_COMBO_BUFF.id) / (this.owner.fightDuration * MAX_STACKS);
   }
 
-  get dps(){
+  get dps() {
     return this.totalDamage / this.owner.fightDuration * 1000;
   }
 

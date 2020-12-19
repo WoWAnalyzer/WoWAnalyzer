@@ -307,6 +307,12 @@ const spells = {
     icon: 'artifactability_unholydeathknight_deathsembrace',
   },
 
+  APOCALYPSE_RUNE_GENERATION: {
+    id: 343758,
+    name: 'Apocalypse',
+    icon: 'artifactability_unholydeathknight_deathsembrace',
+  },
+
   ARMY_OF_THE_DEAD: {
     id: 42650,
     name: 'Army of the Dead',

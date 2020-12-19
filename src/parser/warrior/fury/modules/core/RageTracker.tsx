@@ -5,7 +5,6 @@ import HIT_TYPES from 'game/HIT_TYPES';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
-const VENGEANCE_RAGE_REDUCTION = 0.33; //percent
 const RAGE_GEN_FROM_MELEE_HIT_ICD = 1000; //ms
 const RAGE_PER_MELEE_HIT = 2;
 const RAGE_PER_MELEE_HIT_TAKEN = 3;
@@ -23,30 +22,12 @@ class RageTracker extends ResourceTracker {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MELEE), this.onDamageTaken);
   }
 
-  get rageSavedByVengeance() {
-    return this.vengeanceRageSaved.toFixed(0);
-  }
-
   getReducedCost(event: CastEvent) {
     let cost = this.getResource(event)?.cost;
     if (!cost) {
       return 0;
     }
     cost /= 10;
-    const abilityId = event.ability.guid;
-    if (abilityId === SPELLS.REVENGE.id) {
-      if (this.selectedCombatant.hasBuff(SPELLS.VENGEANCE_REVENGE.id, event.timestamp)) {
-        const newCost = cost * (1 - VENGEANCE_RAGE_REDUCTION);
-        this.vengeanceRageSaved += cost - newCost;
-        cost = newCost;
-      }
-    } else if (abilityId === SPELLS.IGNORE_PAIN.id) {
-      if (this.selectedCombatant.hasBuff(SPELLS.VENGEANCE_IGNORE_PAIN.id, event.timestamp)) {
-        const newCost = cost * (1 - VENGEANCE_RAGE_REDUCTION);
-        this.vengeanceRageSaved += cost - newCost;
-        cost = newCost;
-      }
-    }
     return cost;
   }
 

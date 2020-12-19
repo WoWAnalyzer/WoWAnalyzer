@@ -733,7 +733,7 @@ const spells = {
     icon: 'spell_druid_thrash',
   },
   BERSERK: {
-    id: 343216,
+    id: 106951,
     name: 'Berserk',
     icon: 'ability_druid_berserk',
   },

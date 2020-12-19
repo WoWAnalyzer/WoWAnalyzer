@@ -32,7 +32,7 @@ class EarthShield extends EarthShieldCore {
       actual: this.uptimePercent,
       isLessThan: {
         minor: .9,
-        average:.85,
+        average: .85,
         major: .8,
       },
       style: ThresholdStyle.PERCENTAGE,

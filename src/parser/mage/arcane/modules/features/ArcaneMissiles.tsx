@@ -6,7 +6,7 @@ import { formatPercentage } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import { t } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import Enemies from 'parser/shared/modules/Enemies';
 
 const debug = false;
@@ -61,10 +61,7 @@ class ArcaneMissiles extends Analyzer {
 		when(this.arcaneMissileUsageThresholds)
 			.addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.ARCANE_MISSILES.id} /> improperly {this.castWithoutClearcasting} times. In order to get the most out of <SpellLink id={SPELLS.ARCANE_MISSILES.id} /> you should only cast it if you have <SpellLink id={SPELLS.CLEARCASTING_ARCANE.id} /> or if you are using <SpellLink id={SPELLS.ARCANE_ECHO_TALENT.id} /> and the target has <SpellLink id={SPELLS.TOUCH_OF_THE_MAGI.id} />.</>)
 				.icon(SPELLS.ARCANE_MISSILES.icon)
-				.actual(t({
-            id: "mage.arcane.suggestions.arcaneMissiles.clearCasting.uptime",
-            message: `${formatPercentage(this.missilesUtilization)}% Uptime`
-        }))
+				.actual(<Trans id="mage.arcane.suggestions.arcaneMissiles.clearCasting.uptime">{formatPercentage(this.missilesUtilization)}% Uptime</Trans>)
 				.recommended(`${formatPercentage(recommended)}% is recommended`));
 	}
 }

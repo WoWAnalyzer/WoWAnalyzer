@@ -37,7 +37,7 @@ describe('Shaman/Restoration/Modules/Spells/HealingRain', () => {
   ];
   let parser;
   let module;
-  const players = [1,2];
+  const players = [1, 2];
   beforeEach(() => {
     parser = new TestCombatLogParser();
     module = parser.loadModule(HealingRain, {
