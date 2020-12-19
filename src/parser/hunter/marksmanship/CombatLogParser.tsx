@@ -5,6 +5,7 @@ import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent'
 
 //Overridden Core modules
 import SpellUsable from './modules/core/SpellUsable';
+import GlobalCooldown from './modules/core/GlobalCooldown';
 
 //Features
 import Abilities from './modules/Abilities';
@@ -87,6 +88,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core statistics
     abilities: Abilities,
     channeling: Channeling,
+    globalCooldown: GlobalCooldown,
     spellUsable: SpellUsable,
     checklist: Checklist,
 
