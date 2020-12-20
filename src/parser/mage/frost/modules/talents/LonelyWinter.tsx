@@ -38,7 +38,7 @@ class LonelyWinter extends Analyzer {
     const tooltip = Object.keys(this.bonusDamage).map(spellId => {
       const spellBonus = this.bonusDamage[Number(spellId)];
       totalDamage += spellBonus;
-      return <li key={spellId}>Bonus <strong>{SPELLS[spellId].name}</strong> damage: {formatNumber(spellBonus)}</li>;
+      return <li key={spellId}>Bonus <strong>{SPELLS[Number(spellId)].name}</strong> damage: {formatNumber(spellBonus)}</li>;
     });
 
     return (

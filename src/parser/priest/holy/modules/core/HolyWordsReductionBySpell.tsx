@@ -91,7 +91,7 @@ class HolyWordsReductionBySpell extends Analyzer {
             <tbody>
               {Object.keys(reductionBySpell).map((e, i) => (
                 <tr key={i}>
-                  <td className="text-left"><SpellIcon id={Number(e)} /> {SPELLS[e].name}</td>
+                  <td className="text-left"><SpellIcon id={Number(e)} /> {SPELLS[Number(e)].name}</td>
                   <td>{Math.ceil(reductionBySpell[e].base / 1000)}s</td>
                   {this.apotheosisActive && <td>{Math.ceil(reductionBySpell[e].apotheosis / 1000)}s</td>}
                   {this.lightOfTheNaaruActive && <td>{Math.ceil(reductionBySpell[e].lightOfTheNaaru / 1000)}s</td>}

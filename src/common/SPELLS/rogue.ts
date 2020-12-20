@@ -539,6 +539,6 @@ const spells = {
     name: 'Opportunity',
     icon: 'ability_rogue_pistolshot',
   },
-} as const;
+};
 
 export default spells;

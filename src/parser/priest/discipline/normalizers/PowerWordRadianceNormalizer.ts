@@ -3,7 +3,7 @@ import EventsNormalizer from 'parser/core/EventsNormalizer';
 import SPELLS from 'common/SPELLS';
 import { AnyEvent, EventType } from 'parser/core/Events';
 
-const BUFFS_TO_MOVE = [
+const BUFFS_TO_MOVE: number[] = [
   SPELLS.ATONEMENT_BUFF.id,
 ];
 const MAX_TIME_SINCE_CAST = 250; // ms

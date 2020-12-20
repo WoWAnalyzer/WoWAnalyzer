@@ -1,9 +1,7 @@
 import safeMerge from 'common/safeMerge';
 
-import { ItemList } from "common/ITEMS/Item";
-
 import CastleNathria from './castlenathria';
 
 
-const items: ItemList = safeMerge(CastleNathria);
+const items = safeMerge<typeof CastleNathria>(CastleNathria);
 export default items;

@@ -8,7 +8,7 @@ export interface Resource {
   url: string;
 }
 
-const RESOURCE_TYPES: { [key: string]: Resource } = {
+const RESOURCE_TYPES = {
   MANA: { // Paladin, Priest, Shaman, Mage, Warlock, Monk, Druid
     id: 0,
     name: 'Mana',
@@ -113,8 +113,10 @@ const RESOURCE_TYPES: { [key: string]: Resource } = {
     icon: 'ability_demonhunter_demonspikes',
     url: 'pain',
   },
-};
-export default indexById(RESOURCE_TYPES);
+} as const;
+const RESOURCE_TYPE_LIST: typeof RESOURCE_TYPES & Record<number, Resource> = { ...RESOURCE_TYPES, ...indexById(RESOURCE_TYPES) };
+
+export default RESOURCE_TYPE_LIST;
 
 export function getResource(classResources: ClassResources[] | undefined, type: number) {
   if (!classResources) {

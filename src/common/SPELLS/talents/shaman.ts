@@ -1,4 +1,4 @@
-export default {
+const talents = {
   // Shared
   ECHO_OF_THE_ELEMENTS_TALENT: { id: 108283, name: 'Echo of the Elements', icon: 'ability_shaman_echooftheelements' },
   ELEMENTAL_BLAST_TALENT: { id: 117014, name: 'Elemental Blast', icon: 'shaman_talent_elementalblast', manaCost: 275 },
@@ -143,3 +143,4 @@ export default {
     icon: 'spell_fire_elementaldevastation'
   },
 };
+export default talents;

@@ -1,4 +1,4 @@
-export default {
+const talents = {
   // Shared
   DEATHS_REACH_TALENT: { id: 276079, name: 'Death\'s Reach', icon: 'spell_deathknight_strangulate' },
   ASPHYXIATE_TALENT: { id: 108194, name: 'Asphyxiate', icon: 'ability_deathknight_asphixiate' },
@@ -59,4 +59,6 @@ export default {
   ICECAP_TALENT: { id: 207126, name: 'Icecap', icon: 'inv_misc_herb_icecap' },
   OBLITERATION_TALENT: { id: 281238, name: 'Obliteration', icon: 'inv_axe_114' },
   BREATH_OF_SINDRAGOSA_TALENT: { id: 152279, name: 'Breath of Sindragosa', icon: 'spell_deathknight_breathofsindragosa' },
-};
+} as const;
+
+export default talents;

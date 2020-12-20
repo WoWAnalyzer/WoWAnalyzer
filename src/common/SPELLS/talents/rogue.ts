@@ -1,4 +1,4 @@
-export default {
+const talents = {
   // Shared
   NIGHTSTALKER_TALENT: { id: 14062, name: 'Nightstalker', icon: 'ability_stealth' },
   SUBTERFUGE_TALENT: { id: 108208, name: 'Subterfuge', icon: 'rogue_subterfuge' },
@@ -52,3 +52,4 @@ export default {
   HIDDEN_BLADES_TALENT: { id: 270061, name: 'Hidden Blades', icon: 'ability_rogue_fanofknives' },
   CRIMSON_TEMPEST_TALENT: { id: 121411, name: 'Crimson Tempest', icon: 'inv_knife_1h_cataclysm_c_05', energyCost: 35 },
 };
+export default talents;

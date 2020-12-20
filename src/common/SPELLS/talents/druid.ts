@@ -1,4 +1,4 @@
-export default {
+const talents = {
   // Shared
   TIGER_DASH_TALENT: { id: 252216, name: 'Tiger Dash', icon: 'ability_druid_dash_orange' },
   RENEWAL_TALENT: { id: 108238, name: 'Renewal', icon: 'spell_nature_natureblessing' },
@@ -79,3 +79,5 @@ export default {
   SOUL_OF_THE_FOREST_TALENT_BALANCE: { id: 114107, name: 'Soul of the Forest', icon: 'ability_druid_manatree' },
   FERAL_AFFINITY_TALENT_BALANCE: { id: 202157, name: 'Feral Affinity', icon: 'talentspec_druid_feral_cat' },
 };
+
+export default talents;

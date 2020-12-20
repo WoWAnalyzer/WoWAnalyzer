@@ -2,8 +2,9 @@
 import SPELLS from 'common/SPELLS';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { AnyEvent, EventType } from 'parser/core/Events';
+import Spell from 'common/SPELLS/Spell';
 
-const ARCANE_CHARGE_SPELLS = [
+const ARCANE_CHARGE_SPELLS: Spell[] = [
   SPELLS.ARCANE_BLAST,
   SPELLS.ARCANE_EXPLOSION,
   SPELLS.TOUCH_OF_THE_MAGI,

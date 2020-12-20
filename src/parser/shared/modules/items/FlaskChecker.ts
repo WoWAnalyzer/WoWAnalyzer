@@ -4,14 +4,14 @@ import SPELLS from 'common/SPELLS/index';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
 
-const MIN_FLASK_IDS = [
+const MIN_FLASK_IDS: number[] = [
   SPELLS.GREATER_FLASK_OF_THE_CURRENTS.id,
   SPELLS.GREATER_FLASK_OF_ENDLESS_FATHOMS.id,
   SPELLS.GREATER_FLASK_OF_THE_UNDERTOW.id,
   SPELLS.GREATER_FLASK_OF_THE_VAST_HORIZON.id,
 ];
 
-const MAX_FLASK_IDS = [
+const MAX_FLASK_IDS: number[] = [
   SPELLS.SPECTRAL_FLASK_OF_POWER.id,
   SPELLS.SPECTRAL_FLASK_OF_STAMINA.id,
   SPELLS.ETERNAL_FLASK.id,

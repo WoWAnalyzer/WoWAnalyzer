@@ -6,9 +6,7 @@
  *   quality: number,
  * },
  */
-import { ItemList } from "common/ITEMS/Item";
-
-const items: ItemList = {
+const items= {
   //region Ingra Maloch
 
   //endregion
@@ -20,5 +18,5 @@ const items: ItemList = {
   //region Tred'ova
 
   //endregion
-};
+} as const;
 export default items;

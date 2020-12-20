@@ -15,7 +15,7 @@ import Events, { AbsorbedEvent, DamageEvent } from 'parser/core/Events';
 
 import DamageValue from '../DamageValue';
 
-const IGNORED_ABILITIES = [
+const IGNORED_ABILITIES: number[] = [
   SPELLS.SPIRIT_LINK_TOTEM_REDISTRIBUTE.id,
 ];
 

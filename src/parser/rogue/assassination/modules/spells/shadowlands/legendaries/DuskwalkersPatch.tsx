@@ -10,7 +10,6 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { ASS_VEN_CDR_PER_ENERGY } from 'parser/rogue/shared/constants';
-import { LegendarySpell } from 'common/SPELLS/Spell';
 
 class DuskwalkersPatch extends Analyzer {
   static dependencies = {
@@ -24,8 +23,7 @@ class DuskwalkersPatch extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    const DUSKWALERS_PATCH = SPELLS.DUSKWALERS_PATCH as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(DUSKWALERS_PATCH.bonusID!);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.DUSKWALKERS_PATCH.bonusID!);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
 
@@ -37,11 +35,11 @@ class DuskwalkersPatch extends Analyzer {
     }
     this.lastEnergyCost = resource.cost || 0;
     const cooldownReductionMs = ASS_VEN_CDR_PER_ENERGY * (resource.cost || 0);
-    const effectiveReductionMs = cooldownReductionMs - this.spellUsable.cooldownRemaining(SPELLS.EXHILERATION.id);
+    const effectiveReductionMs = cooldownReductionMs - this.spellUsable.cooldownRemaining(SPELLS.EXHILARATION.id);
     if (effectiveReductionMs < cooldownReductionMs) {
       this.wastedVendettaReductionMs += (cooldownReductionMs - effectiveReductionMs);
     }
-    this.effectiveVendettaReductionMs += this.spellUsable.reduceCooldown(SPELLS.EXHILERATION.id, cooldownReductionMs);
+    this.effectiveVendettaReductionMs += this.spellUsable.reduceCooldown(SPELLS.EXHILARATION.id, cooldownReductionMs);
   }
 
   statistic() {

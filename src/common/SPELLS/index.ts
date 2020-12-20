@@ -44,9 +44,9 @@ import ROGUE from './rogue';
 import SHAMAN from './shaman';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
-import Spell, { SpellList } from './Spell';
+import Spell, { LegendarySpell } from './Spell';
 
-const ABILITIES: SpellList<Spell> = {
+export const ABILITIES = {
   // Talents are auto generated
   ...TALENTS_DEATH_KNIGHT,
   ...TALENTS_DEMON_HUNTER,
@@ -79,9 +79,17 @@ const ABILITIES: SpellList<Spell> = {
   ...SHADOWLANDS,
 } as const;
 
+const ids = indexById(ABILITIES);
+
+const MergeSpells: typeof ABILITIES & Record<number, Spell | LegendarySpell> = {
+  ...ids,
+  ...ABILITIES,
+};
+
+export default MergeSpells;
 // If you remove this indexById you can see what spells are undefined.
 // But you'll get a lot of other errors.
 // We should type indexById properly some day to make this standard.
 // And then fix all those errors.
 // Which will prevent bugs.
-export default indexById(ABILITIES);
+// export default ALL_SPELLS;

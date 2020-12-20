@@ -1,6 +1,10 @@
 // For ease of use we may want to be able to both access items by code names for completion/compile time checking (e.g. `ABILITIES.AURA_OF_MERCY_TALENT`) and by spell id for runtime evaluation (e.g. `ABILITIES[183415]`)
 
-const indexById = <T extends { [key: string]: any; id: number }>(list: { [key: string]: T; [key: number]: T }) => {
+const indexById = <T extends {id: number, __ignoreDuplication?: boolean}> (list: Record<string, T>): Record<number, T> => {
+
+  const ids: Record<number, T> = {};
+  
+
   for (const key in list) {
     const ability = list[key];
 
@@ -11,11 +15,11 @@ const indexById = <T extends { [key: string]: any; id: number }>(list: { [key: s
     }
     
     if (Object.prototype.hasOwnProperty.call(list[key], "id")) {
-      list[list[key].id] = ability; 
+      ids[ability.id] = ability; 
     }
       
   }
-  return list;
+  return ids;
 }
 
 export default indexById;
