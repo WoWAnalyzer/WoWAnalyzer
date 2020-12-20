@@ -10,7 +10,6 @@ import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Che
 import ResourceIcon from 'common/ResourceIcon';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SpellIcon from 'common/SpellIcon';
-import { LegendarySpell } from 'common/SPELLS/Spell';
 
 const BeastMasteryChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
 

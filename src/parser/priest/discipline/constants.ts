@@ -11,7 +11,7 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES: number[] = [
   SPELLS.LEECH.id,
 ];
 
-export const ATONEMENT_DAMAGE_SOURCES = {
+export const ATONEMENT_DAMAGE_SOURCES: Record<number, boolean> = {
   [SPELLS.MAGIC_MELEE.id]: true, // Shadow Fiend Melee
   [SPELLS.LIGHTSPAWN_MELEE.id]: true, // Lightspawn Melee
   [SPELLS.SMITE.id]: true,

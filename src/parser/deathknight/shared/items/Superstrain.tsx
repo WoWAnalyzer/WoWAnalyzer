@@ -29,7 +29,7 @@ class Superstrain extends Analyzer {
       return;
     }
 
-    if ([SPECS.BLOOD_DEATH_KNIGHT, SPECS.UNHOLY_DEATH_KNIGHT].includes(this.selectedCombatant.spec)) {
+    if (SPECS.BLOOD_DEATH_KNIGHT === this.selectedCombatant.spec || SPECS.UNHOLY_DEATH_KNIGHT === this.selectedCombatant.spec) {
       this.addEventListener(Events.energize, this._onFrostFeverEnergize)
     }
 
@@ -44,7 +44,7 @@ class Superstrain extends Analyzer {
       this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLOOD_PLAGUE), this._onBloodPlagueDamage)
     }
 
-    if (this.selectedCombatant.spec === SPECS.FROST_DEATH_KNIGH) {
+    if (this.selectedCombatant.spec === SPECS.FROST_DEATH_KNIGHT) {
       this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.VIRULENT_PLAGUE), this._onVirulentPlagueDamage)
       this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLOOD_PLAGUE), this._onBloodPlagueDamage)
     }

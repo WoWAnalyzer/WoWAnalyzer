@@ -10,7 +10,6 @@ import ItemHealingDone from 'interface/ItemHealingDone';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import { LegendarySpell } from 'common/SPELLS/Spell';
 
 // I have observed massive delays of the copied application
 // the linked log has

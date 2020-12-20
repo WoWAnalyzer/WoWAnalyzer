@@ -35,7 +35,7 @@ class Schism extends Analyzer {
   // Spell metadata
   static bonus = 0.25;
   static duration = 9000;
-  static synergisticAbilities = [
+  static synergisticAbilities: number[] = [
     SPELLS.HALO_TALENT.id,
     SPELLS.POWER_WORD_SOLACE_TALENT.id,
     SPELLS.PENANCE.id,

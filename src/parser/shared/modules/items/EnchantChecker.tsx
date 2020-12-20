@@ -16,7 +16,7 @@ import { Enchant } from 'common/ITEMS/Item';
 // Example logs with missing enchants:
 // https://www.warcraftlogs.com/reports/ydxavfGq1mBrM9Vc/#fight=1&source=14
 
-const AGI_SPECS = [
+const AGI_SPECS: number[] = [
   SPECS.GUARDIAN_DRUID.id,
   SPECS.FERAL_DRUID.id,
   SPECS.BEAST_MASTERY_HUNTER.id,
@@ -32,7 +32,7 @@ const AGI_SPECS = [
   SPECS.SURVIVAL_HUNTER.id,
 ];
 
-const STR_SPECS = [
+const STR_SPECS: number[] = [
   SPECS.PROTECTION_PALADIN.id,
   SPECS.PROTECTION_WARRIOR.id,
   SPECS.BLOOD_DEATH_KNIGHT.id,
