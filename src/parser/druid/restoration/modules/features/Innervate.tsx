@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Statistic from 'interface/statistics/Statistic';
 import BoringValueText from 'interface/statistics/components/BoringValueText';
