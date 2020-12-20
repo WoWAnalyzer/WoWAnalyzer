@@ -12,8 +12,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     return {
       actual: this.activeTimePercentage,
       isLessThan: {
-        minor: 0.85,
-        average: 0.825,
+        minor: 0.90,
+        average: 0.85,
         major: 0.8,
       },
       style: ThresholdStyle.PERCENTAGE,

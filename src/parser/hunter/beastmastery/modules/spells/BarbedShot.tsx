@@ -71,9 +71,9 @@ class BarbedShot extends Analyzer {
     return {
       actual: this.percentUptimePet,
       isLessThan: {
-        minor: 0.90,
-        average: 0.825,
-        major: 0.75,
+        minor: 0.95,
+        average: 0.9,
+        major: 0.85,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
@@ -83,9 +83,9 @@ class BarbedShot extends Analyzer {
     return {
       actual: this.percentUptimeMaxStacks,
       isLessThan: {
-        minor: 0.75,
-        average: 0.70,
-        major: 0.65,
+        minor: 0.85,
+        average: 0.80,
+        major: 0.75,
       },
       style: ThresholdStyle.PERCENTAGE,
     };

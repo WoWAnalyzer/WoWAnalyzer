@@ -27,7 +27,7 @@ class ManaTea extends Analyzer {
   overhealing: number = 0;
   protected abilityTracker!: AbilityTracker;
 
-  constructor(options: Options) {
+ constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.MANA_TEA_TALENT.id);
     if (!this.active) {
@@ -37,6 +37,36 @@ class ManaTea extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.handleCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.heal);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MANA_TEA_TALENT), this.applyBuff);
+  } 
+
+  applyBuff(event: ApplyBuffEvent) {
+    this.manateaCount += 1;//count the number of mana teas to make an average over teas
+  }
+
+  heal(event: HealEvent) {
+    if (this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_TALENT.id)) {//if this is in a mana tea window
+      this.effectiveHealing += (event.amount || 0) + (event.absorbed || 0);
+      this.overhealing += (event.overheal || 0);
+    }
+  }
+
+  handleCast(event: CastEvent) {
+    const name = event.ability.name;
+    const manaEvent = event.classResources?.find(resource => resource.type === RESOURCE_TYPES.MANA.id);
+    if (manaEvent === undefined) {
+      return;
+    }
+
+    if (this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_TALENT.id) && event.ability.guid !== SPELLS.MANA_TEA_TALENT.id) {//we check both since melee doesn't havea classResource
+      if (manaEvent.cost !== undefined) { //checks if the spell costs anything (we don't just use cost since some spells don't play nice)
+        this.manaSavedMT += manaEvent.cost / 2;
+      }
+      if (this.casts.has(name)) {
+        this.casts.set(name, (this.casts.get(name) || 0) + 1);
+      } else {
+        this.casts.set(name, 1);
+      }
+    }
   }
 
   get avgMtSaves() {
@@ -69,36 +99,6 @@ class ManaTea extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  applyBuff(event: ApplyBuffEvent) {
-    this.manateaCount += 1;//count the number of mana teas to make an average over teas
-  }
-
-  heal(event: HealEvent) {
-    if (this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_TALENT.id)) {//if this is in a mana tea window
-      this.effectiveHealing += (event.amount || 0) + (event.absorbed || 0);
-      this.overhealing += (event.overheal || 0);
-    }
-  }
-
-  handleCast(event: CastEvent) {
-    const name = event.ability.name;
-    const manaEvent = event.classResources?.find(resource => resource.type === RESOURCE_TYPES.MANA.id);
-    if (manaEvent === undefined) {
-      return;
-    }
-
-    if (this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_TALENT.id) && event.ability.guid !== SPELLS.MANA_TEA_TALENT.id) {//we check both since melee doesn't havea classResource
-      if (manaEvent.cost !== undefined) { //checks if the spell costs anything (we don't just use cost since some spells don't play nice)
-        this.manaSavedMT += manaEvent.cost / 2;
-      }
-      if (this.casts.has(name)) {
-        this.casts.set(name, (this.casts.get(name) || 0) + 1);
-      } else {
-        this.casts.set(name, 1);
-      }
-    }
   }
 
   suggestions(when: When) {
