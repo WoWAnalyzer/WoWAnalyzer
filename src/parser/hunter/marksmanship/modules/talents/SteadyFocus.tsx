@@ -38,9 +38,9 @@ class SteadyFocus extends Analyzer {
     return {
       actual: this.uptime,
       isLessThan: {
-        minor: 0.95,
-        average: 0.9,
-        major: 0.85,
+        minor: 0.9,
+        average: 0.85,
+        major: 0.80,
       },
       style: ThresholdStyle.PERCENTAGE,
     };

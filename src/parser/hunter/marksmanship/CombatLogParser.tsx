@@ -5,14 +5,15 @@ import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent'
 
 //Overridden Core modules
 import SpellUsable from './modules/core/SpellUsable';
+import GlobalCooldown from './modules/core/GlobalCooldown';
 
 //Features
 import Abilities from './modules/Abilities';
-import Channeling from './modules/features/Channeling';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CancelledCasts from '../shared/modules/features/CancelledCasts';
 import Buffs from './modules/Buffs';
+import Channeling from '../shared/modules/core/Channeling';
 
 //Checklist
 import Checklist from './modules/checklist/Module';
@@ -87,6 +88,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core statistics
     abilities: Abilities,
     channeling: Channeling,
+    globalCooldown: GlobalCooldown,
     spellUsable: SpellUsable,
     checklist: Checklist,
 

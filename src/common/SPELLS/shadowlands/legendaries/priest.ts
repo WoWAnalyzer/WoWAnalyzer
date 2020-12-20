@@ -13,6 +13,13 @@ const legendaries: SpellList<LegendarySpell> = {
     icon: 'spell_holy_serendipity',
     bonusID: 6977,
   },
+  // https://www.warcraftlogs.com/reports/Nbgx2m1ZWFtLvDyc#fight=1&source=4&type=summary
+  DIVINE_IMAGE: {
+    id: 336400,
+    name: 'Divine Image',
+    icon: 'inv_pet_naaru',
+    bonusID: 6973,
+  },
   //endregion
 
   //region Shadow
