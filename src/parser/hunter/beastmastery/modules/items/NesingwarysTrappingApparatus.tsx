@@ -11,7 +11,6 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatNumber } from 'common/format';
 import AspectOfTheWild from 'parser/hunter/beastmastery/modules/spells/AspectOfTheWild';
 import BarbedShot from 'parser/hunter/beastmastery/modules/spells/BarbedShot';
-import { LegendarySpell } from 'common/SPELLS/Spell';
 
 /**
  * Whenever a trap is triggered, gain 45 Focus and increase all Focus gained by 100% for 5 sec.

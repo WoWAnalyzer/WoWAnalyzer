@@ -9,7 +9,6 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import { LegendarySpell } from 'common/SPELLS/Spell';
 
 const DAMAGE_BONUS_PER_STACK = .06;
 

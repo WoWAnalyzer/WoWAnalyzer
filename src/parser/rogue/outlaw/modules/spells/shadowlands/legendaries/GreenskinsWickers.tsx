@@ -6,7 +6,6 @@ import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import SpellIcon from 'common/SpellIcon';
-import { LegendarySpell } from 'common/SPELLS/Spell';
 
 class GreenskinsWickers extends Analyzer {
   static dependencies = {

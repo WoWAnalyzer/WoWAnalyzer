@@ -11,7 +11,6 @@ import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import Events, { ApplyBuffEvent, EnergizeEvent } from 'parser/core/Events';
 import { NESINGWARY_FOCUS_GAIN_MULTIPLIER } from 'parser/hunter/shared/constants';
 import { SV_KILL_COMMAND_FOCUS_GAIN } from 'parser/hunter/survival/constants';
-import { LegendarySpell } from 'common/SPELLS/Spell';
 
 /**
  * Give the command to kill, causing your pet to savagely deal [Attack power * 0.6 * (1 + Versatility)] Physical damage to the enemy.

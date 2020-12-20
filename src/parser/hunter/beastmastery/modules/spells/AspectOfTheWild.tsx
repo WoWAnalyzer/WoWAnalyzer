@@ -10,7 +10,6 @@ import React from 'react';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { ASPECT_OF_THE_WILD_FOCUS } from 'parser/hunter/beastmastery/constants';
 import { NESINGWARY_FOCUS_GAIN_MULTIPLIER } from 'parser/hunter/shared/constants';
-import { LegendarySpell } from 'common/SPELLS/Spell';
 
 /**
  * Grants you and your pet 5 Focus per sec and 10% increased critical strike

@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 import { CastEvent, DamageEvent } from 'parser/core/Events';
-import { LegendarySpell } from 'common/SPELLS/Spell';
 
 class SpellUsable extends CoreSpellUsable {
   static dependencies = {

@@ -5,7 +5,6 @@ import SPELLS from 'common/SPELLS';
 import Events, { CastEvent } from 'parser/core/Events';
 
 import { ASSASSINATION_ABILITY_COOLDOWNS, OUTLAW_ABILITY_COOLDOWNS, SUBTLETY_ABILITY_COOLDOWNS } from 'parser/rogue/shared/constants';
-import Spell, { LegendarySpell } from 'common/SPELLS/Spell';
 
 /**
  * The Inigorating Shadowdust legendary reduces the cooldown of ALL abilities by 15 seconds after using Vanish. This is usable by all 3 Rogue specs.

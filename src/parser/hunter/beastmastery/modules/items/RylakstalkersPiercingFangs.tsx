@@ -10,7 +10,6 @@ import HIT_TYPES from 'game/HIT_TYPES';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { RYLAKSTALKERS_PIERCING_FANGS_CRIT_DMG_INCREASE } from 'parser/hunter/beastmastery/constants';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import { LegendarySpell } from 'common/SPELLS/Spell';
 
 /**
  * While Bestial Wrath is active, your pet's critical damage dealt is increased by 20%.

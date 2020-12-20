@@ -12,7 +12,6 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { formatNumber, formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import { Trans } from '@lingui/macro';
-import { LegendarySpell } from 'common/SPELLS/Spell';
 
 /**
  * Barbed Shot reduces the cooldown of Kill Command by 5.0 sec.

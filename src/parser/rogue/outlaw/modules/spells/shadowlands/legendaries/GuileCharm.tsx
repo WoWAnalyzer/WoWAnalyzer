@@ -6,7 +6,6 @@ import Statistic from 'interface/statistics/Statistic';
 import { formatPercentage } from 'common/format';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import SpellIcon from 'common/SpellIcon';
-import { LegendarySpell } from 'common/SPELLS/Spell';
 
 class GuileCharm extends Analyzer {
   static dependencies = {
