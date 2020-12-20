@@ -13,6 +13,7 @@ import Tooltip from 'common/Tooltip';
 import PlayerSelection from 'interface/report/PlayerSelection';
 import RaidCompositionDetails from 'interface/report/RaidCompositionDetails';
 import ReportDurationWarning, { MAX_REPORT_DURATION } from 'interface/report/ReportDurationWarning';
+import AdvancedLoggingWarning from 'interface/report/AdvancedLoggingWarning';
 import ReportRaidBuffList from 'interface/ReportRaidBuffList';
 import { fetchCharacter } from 'interface/actions/characters';
 import { generateFakeCombatantInfo } from 'interface/report/CombatantInfoFaker';
@@ -108,7 +109,7 @@ class PlayerLoader extends React.PureComponent {
       return;
     }
     try {
-      const combatants = await fetchCombatants(report.code, fight.start_time, fight.end_time);
+      const combatants = await fetchCombatants(report.code, fight.start_time, fight.end_time); 
       combatants.forEach(player => {
         if (process.env.NODE_ENV === 'development' && FAKE_PLAYER_IF_DEV_ENV) {
           console.error('This player (sourceID: ' + player.sourceID + ') has an error. Because you\'re in development environment, we have faked the missing information, see CombatantInfoFaker.ts for more information.');
@@ -282,6 +283,8 @@ class PlayerLoader extends React.PureComponent {
 
           {fight.end_time > MAX_REPORT_DURATION &&
           <ReportDurationWarning duration={reportDuration} />}
+
+          {combatants.length === 0 && <AdvancedLoggingWarning />}
 
           <PlayerSelection
             players={report.friendlies.map(friendly => {

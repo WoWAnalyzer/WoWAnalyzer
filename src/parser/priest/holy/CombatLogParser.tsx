@@ -50,11 +50,11 @@ import HealingEfficiencyTracker from './modules/features/HolyPriestHealingEffici
 import ManaTracker from '../../core/healingEfficiency/ManaTracker';
 
 // Items
-import HarmoniousApparatus from './modules/items/HarmoniousApparatus';
+import HarmoniousApparatus from './modules/shadowlands/items/HarmoniousApparatus';
+import DivineImage from './modules/shadowlands/items/DivineImage';
 
 // Conduits
 import ResonantWords from './modules/shadowlands/conduits/ResonantWords';
-
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
@@ -135,6 +135,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Items
     harmoniousApparatus: HarmoniousApparatus,
+    divineImage: DivineImage,
 
     // Conduits
     resonantWords: ResonantWords,
