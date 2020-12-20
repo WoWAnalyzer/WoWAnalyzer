@@ -91,7 +91,7 @@ class Bloodtalons extends Analyzer {
       valueTooltip: (<>
         <b>{this.wasted}</b> Bloodtalons charge{this.wasted !== 1 ? 's were' : ' was'} wasted.<br />
         <ul>
-          <li>You lost <b>{this.overwritten}</b> by casting 3 different abilities within 4 seconds when you already had charges.</li>
+          <li>You lost <b>{this.overwritten}</b> by casting 3 different combo point-generating abilities within 4 seconds when you already had charges.</li>
           <li>You lost <b>{this.expired}</b> by allowing {this.expired !== 1 ? 'them' : 'it'} to expire.</li>
           <li>You lost <b>{this.remainAfterFight}</b> by having {this.remainAfterFight !== 1 ? 'them' : 'it'} left over at the fight's end.</li>
         </ul>
