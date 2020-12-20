@@ -53,6 +53,7 @@ const spells: number[] = [
 
   //region Mage
   SPELLS.RUNE_OF_POWER_BUFF.id,
+  //SPELLS.SHIFTING_POWER_TICK.id,
 
   //region Covenants
   SPELLS.COMBAT_MEDITATION_TRIGGER.id, //The Spell ID when Combat Meditation from Kyrian Soulbind triggers, so that there is now a soul ready to pick up

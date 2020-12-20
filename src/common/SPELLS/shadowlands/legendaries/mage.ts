@@ -98,6 +98,11 @@ const legendaries = {
     icon: 'artifactability_frostmage_blackicicles',
     bonusID: 6830,
   },
+  GLACIAL_FRAGMENTS_DAMAGE: {
+    id : 327498, 
+    name: 'Glacial Fragments',
+    icon: 'artifactability_frostmage_blackicicles',
+  },
   SLICK_ICE: {
     id: 327508,
     name: 'Slick Ice',
