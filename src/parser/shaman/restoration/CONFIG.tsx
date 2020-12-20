@@ -9,10 +9,10 @@ import { Trans } from '@lingui/macro';
 import CHANGELOG from './CHANGELOG';
 
 const CONFIG: Config = {
-  // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion. If someone goes MIA, they may be removed after major changes or during a new expansion.
+  // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
   contributors: [niseko],
   // The WoW client patch this spec was last updated to be fully compatible with.
-  patchCompatibility: '9.0.1',
+  patchCompatibility: '9.0.2',
   // If set to  false`, the spec will show up as unsupported.
   isSupported: true,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
@@ -21,7 +21,7 @@ const CONFIG: Config = {
     <Trans id="shaman.restoration.config.description">
       Welcome to the Resto Shaman analyzer! We hope you find these suggestions and statistics useful.<br /><br />
 
-      If you want to learn more about Resto Shaman, join the Resto Shaman community at the <a href="https://discord.gg/AcTek6e" target="_blank" rel="noopener noreferrer">Ancestral Guidance</a> discord server and make sure to visit the <a href="https://ancestralguidance.com/">website</a>.<br /><br />
+      If you want to learn more about Resto Shaman, join the Resto Shaman community at the <a href="https://discord.gg/AcTek6e" target="_blank" rel="noopener noreferrer">Ancestral Guidance</a> discord server and make sure to visit the guides on <a href="https://www.wowhead.com/restoration-shaman-guide">Wowhead</a> and <a href="https://www.icy-veins.com/wow/restoration-shaman-pve-healing-guide">Icy Veins</a>.<br /><br />
 
       <Warning>
         If there is something missing, incorrect, or inaccurate, please report it on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact us on <a href="https://discord.gg/AxphPxU">Discord</a>.

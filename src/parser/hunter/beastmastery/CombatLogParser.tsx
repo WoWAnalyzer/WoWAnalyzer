@@ -9,6 +9,7 @@ import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import Channeling from '../shared/modules/core/Channeling';
 
 //Checklist
 import Checklist from './modules/checklist/Module';
@@ -88,6 +89,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Features
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
+    channeling: Channeling,
     buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
 

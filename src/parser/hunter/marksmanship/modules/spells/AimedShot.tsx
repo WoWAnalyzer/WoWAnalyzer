@@ -64,15 +64,15 @@ class AimedShot extends Analyzer {
     if (this.selectedCombatant.hasBuff(SPELLS.DEAD_EYE_BUFF.id)) {
       modRate /= (1 + DEAD_EYE_AIMED_SHOT_RECHARGE_INCREASE);
     }
-    const spellReductionSpeed = 1 / modRate;
-    debug && console.log('modRate: ', modRate, ' & spellReductionSpeed: ', spellReductionSpeed);
+    const spellReductionSpeed = (1 / modRate) - 1;
+    debug && console.log('modRate: ', modRate, ' & additional spellReductionSpeed: ', spellReductionSpeed);
     this.reduceAimedShotCooldown(event, spellReductionSpeed);
     this.lastReductionTimestamp = event.timestamp;
   }
 
   reduceAimedShotCooldown(event: any, spellReductionSpeed: number) {
     const maxReductionMs: number = (event.timestamp - this.lastReductionTimestamp) * spellReductionSpeed;
-    debug && console.log('Reducing Aimed Shot cooldown by up to: ', maxReductionMs + ' seconds since last event');
+    debug && console.log('Reducing Aimed Shot cooldown by up to: ', maxReductionMs / 1000 + ' seconds since last event');
     const effectiveReductionMs: number = this.spellUsable.reduceCooldown(SPELLS.AIMED_SHOT.id, maxReductionMs, event.timestamp);
     this.effectiveCDRFromTrueshotDeadEye += effectiveReductionMs;
     this.wastedCDRFromTrueshotDeadEye += effectiveReductionMs - maxReductionMs;

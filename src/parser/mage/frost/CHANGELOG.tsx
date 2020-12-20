@@ -6,6 +6,8 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 12, 17), <>Resolved an issue in <SpellLink id={SPELLS.WINTERS_CHILL.id} /> that was causing it to miscount shattered spells.</>, Sharrq),
+  change(date(2020, 12, 16), `Fixed an abe with suggestions showing {0} instead of the suggestion text in Frost modules and fixed an abe that was causing a crash in Winter's Chill.`, Sharrq),
   change(date(2020, 12, 9), <>Adjusted <SpellLink id={SPELLS.WINTERS_CHILL.id} /> to not require a precast if the target has <SpellLink id={SPELLS.MIRRORS_OF_TORMENT.id} />.</>, Sharrq),
   change(date(2020, 12, 8), <>Fixed a potential crash with <SpellLink id={SPELLS.ICY_PROPULSION.id} />.</>, Sharrq),
   change(date(2020, 11, 16), <>Added support for <SpellLink id={SPELLS.SHIFTING_POWER.id} />.</>, Sharrq),

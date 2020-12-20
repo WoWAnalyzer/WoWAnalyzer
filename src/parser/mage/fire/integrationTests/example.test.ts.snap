@@ -112,7 +112,15 @@ Array [
       .
     </span>,
     "stat": <React.Fragment>
-      {"id":"mage.fire.suggestions.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"39.87"}}
+      <Trans
+        id="mage.fire.suggestions.alwaysBeCasting.downtime"
+        message="{0}% downtime"
+        values={
+          Object {
+            "0": "39.87",
+          }
+        }
+      />
        (
       &lt;20.00% is recommended
       )
@@ -136,7 +144,15 @@ Array [
       % of the fight. Ensure you are casting this before the pull and recasting it every time you are ressurected.
     </React.Fragment>,
     "stat": <React.Fragment>
-      {"id":"mage.shared.suggestions.arcaneIntellect.uptime","message":"{0}% Uptime","values":{"0":"99.99"}}
+      <Trans
+        id="mage.shared.suggestions.arcaneIntellect.uptime"
+        message="{0}% Uptime"
+        values={
+          Object {
+            "0": "99.99",
+          }
+        }
+      />
        (
       100.00% is recommended
       )
@@ -243,7 +259,15 @@ Array [
       .
     </React.Fragment>,
     "stat": <React.Fragment>
-      {"id":"mage.shared.suggestions.castsCancelled","message":"{0}% casts cancelled","values":{"0":"10.69"}}
+      <Trans
+        id="mage.shared.suggestions.castsCancelled"
+        message="{0}% casts cancelled"
+        values={
+          Object {
+            "0": "10.69",
+          }
+        }
+      />
        (
       &lt;5.00% is recommended
       )
@@ -3622,7 +3646,15 @@ Array [
        procs as possible before Combustion ends.
     </React.Fragment>,
     "stat": <React.Fragment>
-      {"id":"mage.fire.suggestions.combustionCharges.flameOn.utilization","message":"{0}% Utilization","values":{"0":"60.00"}}
+      <Trans
+        id="mage.fire.suggestions.combustionCharges.flameOn.utilization"
+        message="{0}% Utilization"
+        values={
+          Object {
+            "0": "60.00",
+          }
+        }
+      />
        (
       100.00 is recommended
       )
@@ -3659,7 +3691,15 @@ Array [
        available. Make sure you are using up all of your charges of Fire Blast and Phoenix Flames before using Scorch during Combustion.
     </React.Fragment>,
     "stat": <React.Fragment>
-      {"id":"mage.fire.suggestions.combustion.charge.utilization","message":"{0} Casts Per Combustion","values":{"0":"0.40"}}
+      <Trans
+        id="mage.fire.suggestions.combustion.charge.utilization"
+        message="{0} Casts Per Combustion"
+        values={
+          Object {
+            "0": "0.40",
+          }
+        }
+      />
        (
       0 is recommended
       )
@@ -4114,7 +4154,15 @@ Array [
       . Make sure that you are only using Fire Blast to convert Heating Up into Hot Streak or if you are going to cap on charges.
     </React.Fragment>,
     "stat": <React.Fragment>
-      {"id":"mage.fire.suggestions.heatingUp.fireBlastUtilization","message":"{0}% Utilization","values":{"0":"93.33"}}
+      <Trans
+        id="mage.fire.suggestions.heatingUp.fireBlastUtilization"
+        message="{0}% Utilization"
+        values={
+          Object {
+            "0": "93.33",
+          }
+        }
+      />
        (
       &lt;95.00% is recommended
       )
@@ -4248,7 +4296,15 @@ Array [
        or you can use your procs while you move.
     </React.Fragment>,
     "stat": <React.Fragment>
-      {"id":"mage.fire.suggestions.hostStreak.precasts.utilization","message":"{0}% Utilization","values":{"0":"40.00"}}
+      <Trans
+        id="mage.fire.suggestions.hostStreak.precasts.utilization"
+        message="{0}% Utilization"
+        values={
+          Object {
+            "0": "40.00",
+          }
+        }
+      />
        (
       85.00% is recommended
       )
@@ -4275,7 +4331,15 @@ Array [
        was active. This is a waste since those crits could have contibuted towards your next Hot Streak. Try to use your procs as soon as possible to avoid this.
     </React.Fragment>,
     "stat": <React.Fragment>
-      {"id":"mage.fire.suggestions.hotStreak.wastedCrits","message":"{0} crits wasted","values":{"0":"3"}}
+      <Trans
+        id="mage.fire.suggestions.hotStreak.wastedCrits"
+        message="{0} crits wasted"
+        values={
+          Object {
+            "0": "3",
+          }
+        }
+      />
        (
       0 is recommended
       )

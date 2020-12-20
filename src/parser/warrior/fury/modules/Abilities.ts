@@ -24,7 +24,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RAGING_BLOW,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste: number) => (8 - (combatant.hasTalent(SPELLS.INNER_RAGE_TALENT.id) ? 1 : 0)) / (1 + haste),
+        cooldown: (haste: number) => (8 / (1 + haste)),
         charges: 2,
         gcd: {
           base: 1500,
@@ -46,14 +46,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.FURIOUS_SLASH_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(SPELLS.FURIOUS_SLASH_TALENT.id),
-      },
-      {
         spell: SPELLS.SIEGEBREAKER_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 30,
@@ -68,7 +60,7 @@ class Abilities extends CoreAbilities {
       },
       // Rotational AOE
       {
-        spell: SPELLS.WHIRLWIND_FURY,
+        spell: SPELLS.WHIRLWIND_FURY_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
