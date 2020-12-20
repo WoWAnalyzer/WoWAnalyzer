@@ -16,7 +16,7 @@ const EXPIRE_WINDOW = 100;
 const POTENTIAL_SPENDERS = [
   SPELLS.RIP,
   SPELLS.FEROCIOUS_BITE,
-  // TODO: Primal Wrath talent (AOE Rip)
+  SPELLS.PRIMAL_WRATH_TALENT,
 ];
 
 // time (in ms) within which to consider direct damage events with same spellId as belonging to the same ability use
