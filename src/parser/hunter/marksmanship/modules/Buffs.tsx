@@ -26,6 +26,11 @@ class Buffs extends CoreBuffs {
         triggeredBySpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
       },
       {
+        spellId: SPELLS.DOUBLE_TAP_TALENT.id,
+        timelineHighlight: true,
+        triggeredBySpellId: SPELLS.DOUBLE_TAP_TALENT.id,
+      },
+      {
         spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
         timelineHighlight: true,
       },

@@ -5,6 +5,7 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2020, 12, 20), <> Added proper handling for registering prepull casts of <SpellLink id={SPELLS.DOUBLE_TAP_TALENT.id} />. </>, Putro),
   change(date(2020, 12, 19), <> Added a usage requirement to <SpellLink id={SPELLS.FLARE.id} /> and <SpellLink id={SPELLS.TAR_TRAP.id} /> when using <SpellLink id={SPELLS.SOULFORGE_EMBERS_EFFECT.id} /> </>, Putro),
   change(date(2020, 12, 19), <> Fixed an issue where <SpellLink id={SPELLS.AIMED_SHOT.id} /> and <SpellLink id={SPELLS.RAPID_FIRE.id} /> had their cooldown reduced by too much during <SpellLink id={SPELLS.TRUESHOT.id} /> or <SpellLink id={SPELLS.DEAD_EYE_TALENT.id} />.</>, Putro),
   change(date(2020, 12, 19), <> Fixed an issue where <SpellLink id={SPELLS.RAPID_FIRE.id} /> wouldn't show as channeling in the timeline tab.</>, Putro),
