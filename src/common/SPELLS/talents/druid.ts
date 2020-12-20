@@ -78,6 +78,6 @@ const talents = {
   NEW_MOON_TALENT: { id: 274281, name: 'New Moon', icon: 'artifactability_balancedruid_newmoon' },
   SOUL_OF_THE_FOREST_TALENT_BALANCE: { id: 114107, name: 'Soul of the Forest', icon: 'ability_druid_manatree' },
   FERAL_AFFINITY_TALENT_BALANCE: { id: 202157, name: 'Feral Affinity', icon: 'talentspec_druid_feral_cat' },
-};
+} as const;
 
 export default talents;

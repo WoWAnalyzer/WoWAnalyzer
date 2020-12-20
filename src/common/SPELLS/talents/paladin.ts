@@ -63,5 +63,5 @@ const talents = {
   GLIMMER_OF_LIGHT_TALENT: { id: 325966, name: 'Glimmer of Light', icon: 'ability_paladin_toweroflight' },
   BEACON_OF_FAITH_TALENT: { id: 156910, name: 'Beacon of Faith', icon: 'ability_paladin_beaconsoflight', manaCost: 312 },
   BEACON_OF_VIRTUE_TALENT: { id: 200025, name: 'Beacon of Virtue', icon: 'ability_paladin_beaconofinsight', manaCost: 1000 },
-};
+} as const;
 export default talents;

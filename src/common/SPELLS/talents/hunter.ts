@@ -57,5 +57,5 @@ const talents = {
   BIRDS_OF_PREY_TALENT: { id: 260331, name: 'Birds of Prey', icon: 'spell_hunter_aspectofthehawk' },
   WILDFIRE_INFUSION_TALENT: { id: 271014, name: 'Wildfire Infusion', icon: 'inv_misc_5potionbag_special' },
   CHAKRAMS_TALENT: { id: 259391, name: 'Chakrams', icon: 'ability_glaivetoss', focusCost: 15 },
-};
+} as const;
 export default talents;

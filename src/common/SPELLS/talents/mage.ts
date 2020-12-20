@@ -54,6 +54,6 @@ const talents = {
   THERMAL_VOID_TALENT: { id: 155149, name: 'Thermal Void', icon: 'spell_mage_thermalvoid' },
   RAY_OF_FROST_TALENT: { id: 205021, name: 'Ray of Frost', icon: 'ability_mage_rayoffrost' },
   GLACIAL_SPIKE_TALENT: { id: 199786, name: 'Glacial Spike', icon: 'ability_mage_glacialspike' },
-};
+} as const;
 
 export default talents;

@@ -102,5 +102,5 @@ const talents = {
   // Tier 7 (level 50) = Anger Management | Heavy Repercussions | Bolster
   HEAVY_REPERCUSSIONS_TALENT: { id: 203177, name: 'Heavy Repercussions', icon: 'inv_shield_32' },
   BOLSTER_TALENT: { id: 280001, name: 'Bolster', icon: 'shield_draenorcrafted_d_02_c_alliance' },
-};
+} as const;
 export default talents;

@@ -45,5 +45,5 @@ const talents = {
   WHIRLING_DRAGON_PUNCH_TALENT: { id: 152175, name: 'Whirling Dragon Punch', icon: 'ability_monk_hurricanestrike' },
   SERENITY_TALENT: { id: 152173, name: 'Serenity', icon: 'ability_monk_serenity' },
   RUSHING_JADE_WIND_TALENT_WINDWALKER: { id: 261715, name: 'Rushing Jade Wind', icon: 'ability_monk_rushingjadewind', energyCost: 3 },
-};
+} as const;
 export default talents;

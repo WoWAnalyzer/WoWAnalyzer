@@ -142,5 +142,5 @@ const talents = {
     name: 'Ascendance',
     icon: 'spell_fire_elementaldevastation'
   },
-};
+} as const;
 export default talents;

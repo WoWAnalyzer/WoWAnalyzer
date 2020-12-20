@@ -64,6 +64,6 @@ const talents = {
   EVANGELISM_TALENT: { id: 246287, name: 'Evangelism', icon: 'spell_holy_divineillumination' },
   SPIRIT_SHELL_TALENT: { id: 109964, name: 'Spirit Shell', icon: 'ability_shaman_astralshift' },
   TWIST_OF_FATE_TALENT_DISCIPLINE: { id: 265259, name: 'Twist of Fate', icon: 'spell_shadow_mindtwisting' },
-};
+} as const;
 
 export default talents;
