@@ -132,5 +132,10 @@ const conduits = {
     name: 'Evasive Stride',
     icon: 'ability_monk_uplift',
   },
+  EVASIVE_STRIDE_HEAL: {
+    id: 343764,
+    name: 'Evasive Stride',
+    icon: 'ability_monk_uplift',
+  },
 } as const;
 export default conduits;

@@ -19,7 +19,6 @@ import { t } from '@lingui/macro';
  *
  * Example log:
  *
- * TODO: Verify this module with Serpentstalkers Trickery since it adds Arcane Shot / Chimaera Shot damage events that won't trigger Lethal Shots
  */
 class LethalShots extends Analyzer {
 
