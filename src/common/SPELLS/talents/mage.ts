@@ -1,4 +1,4 @@
-export default {
+const talents = {
   // Shared
   SHIMMER_TALENT: { id: 212653, name: 'Shimmer', icon: 'spell_arcane_massdispel' },
   INCANTERS_FLOW_TALENT: { id: 1463, name: 'Incanter\'s Flow', icon: 'ability_mage_incantersabsorbtion' },
@@ -55,3 +55,5 @@ export default {
   RAY_OF_FROST_TALENT: { id: 205021, name: 'Ray of Frost', icon: 'ability_mage_rayoffrost' },
   GLACIAL_SPIKE_TALENT: { id: 199786, name: 'Glacial Spike', icon: 'ability_mage_glacialspike' },
 };
+
+export default talents;

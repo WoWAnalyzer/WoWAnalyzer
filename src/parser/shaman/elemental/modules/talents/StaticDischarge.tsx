@@ -60,7 +60,7 @@ class StaticDischarge extends Analyzer {
       .addSuggestion((suggest, actual, recommended) =>
         suggest(
           <span>
-            You missed ${formatPercentage(1 - actual)}% of the ticks of your <SpellLink id={SPELLS.STATIC_DISCHARGE.id} />.
+            You missed ${formatPercentage(1 - actual)}% of the ticks of your <SpellLink id={SPELLS.STATIC_DISCHARGE_TALENT.id} />.
             Try to maximize the ticks by only using it while Flame Shock is active on an enemy in range.
           </span>)
           .icon(SPELLS.STATIC_DISCHARGE_TALENT.icon)

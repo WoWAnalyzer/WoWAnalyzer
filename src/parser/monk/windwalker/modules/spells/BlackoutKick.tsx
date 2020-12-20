@@ -23,7 +23,7 @@ class BlackoutKick extends Analyzer {
 
   protected spellUsable!: SpellUsable;
 
-  IMPORTANT_SPELLS = [
+  IMPORTANT_SPELLS: number[] = [
     SPELLS.RISING_SUN_KICK.id,
     SPELLS.FISTS_OF_FURY_CAST.id,
   ];

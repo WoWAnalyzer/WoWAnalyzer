@@ -127,7 +127,7 @@ class FlashFlood extends Analyzer {
         You buffed this spell <strong>{value.timesBuffed}</strong> times.
       </>
     );
-    const items = [
+    const items: any = [
       {
         color: RESTORATION_COLORS.CHAIN_HEAL,
         label: <Trans id="shaman.restoration.spell.chainHeal">Chain Heal</Trans>,

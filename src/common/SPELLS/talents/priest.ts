@@ -1,4 +1,4 @@
-export default {
+const talents = {
   // Shared
   CASTIGATION_TALENT: { id: 193134, name: 'Castigation', icon: 'spell_holy_searinglightpriest' },
   BODY_AND_SOUL_TALENT: { id: 64129, name: 'Body and Soul', icon: 'spell_holy_symbolofhope' },
@@ -65,3 +65,5 @@ export default {
   SPIRIT_SHELL_TALENT: { id: 109964, name: 'Spirit Shell', icon: 'ability_shaman_astralshift' },
   TWIST_OF_FATE_TALENT_DISCIPLINE: { id: 265259, name: 'Twist of Fate', icon: 'spell_shadow_mindtwisting' },
 };
+
+export default talents;

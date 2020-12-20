@@ -12,6 +12,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { ApplyBuffEvent, CastEvent, DamageEvent } from 'parser/core/Events';
+import Spell from 'common/SPELLS/Spell';
 
 /**
  * Raptor Strike (or Mongoose Bite) has a chance to make your next Serpent Sting cost no Focus and deal an additional 250% initial damage.
@@ -33,7 +34,7 @@ class VipersVenom extends Analyzer {
   accumulatedTimeFromBuffToCast = 0;
   currentGCD = 0;
   wastedProcs = 0;
-  spellKnown = SPELLS.RAPTOR_STRIKE;
+  spellKnown: Spell = SPELLS.RAPTOR_STRIKE;
 
   protected statTracker!: StatTracker;
   protected globalCooldown!: GlobalCooldown;

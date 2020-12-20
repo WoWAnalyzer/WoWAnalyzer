@@ -1,5 +1,3 @@
-import { ItemList } from "common/ITEMS/Item";
-
 /**
  * NAME: {
  *   id: number,
@@ -7,11 +5,11 @@ import { ItemList } from "common/ITEMS/Item";
  *   icon: string,
  * },
  */
-const items: ItemList = {
+const items = {
   VANTUS_RUNE_CASTLE_NATHRIA: {
     id: 173067,
     name: 'Vantus Rune',
     icon: 'inv_inscription_vantusrune_castlenathria01',
   },
-};
+} as const;
 export default items;

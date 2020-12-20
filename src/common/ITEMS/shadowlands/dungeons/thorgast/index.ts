@@ -6,8 +6,7 @@
  *   quality: number,
  * },
  */
-import { ItemList } from "common/ITEMS/Item";
-
-const items: ItemList = {
-};
+const items = {
+  
+} as const;
 export default items;

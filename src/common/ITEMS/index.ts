@@ -1,5 +1,3 @@
-import { ItemList } from "common/ITEMS/Item";
-
 import indexById from '../indexById';
 import safeMerge from '../safeMerge';
 
@@ -20,11 +18,15 @@ import WARRIOR from './warrior';
 //Non class-specific
 import OTHERS from './others';
 import SHADOWLANDS from './shadowlands';
+import Item, { Enchant } from './Item';
 
 
-const ITEMS: ItemList = {
+const ITEMS = {
   //Class items
-  ...safeMerge(
+  ...safeMerge<typeof DEATH_KNIGHT & typeof DEMON_HUNTER & typeof DRUID
+    & typeof HUNTER & typeof MAGE & typeof MONK & typeof PALADIN
+    & typeof PRIEST & typeof ROGUE & typeof SHAMAN
+    & typeof WARLOCK & typeof WARRIOR>(
     DEATH_KNIGHT,
     DEMON_HUNTER,
     DRUID,
@@ -39,10 +41,17 @@ const ITEMS: ItemList = {
     WARRIOR,
   ),
   //Any non class-specific items
-  ...safeMerge(
+  ...safeMerge<typeof OTHERS & typeof SHADOWLANDS>(
     OTHERS,
     SHADOWLANDS,
   ),
-};
+} as const;
 
-export default indexById(ITEMS);
+const ids = indexById(ITEMS);
+
+const ITEMLIST: typeof ITEMS & Record<number, Item | Enchant> = {
+  ...ITEMS,
+  ...ids,
+} as const;
+
+export default ITEMLIST;

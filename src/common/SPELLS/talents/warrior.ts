@@ -1,6 +1,6 @@
 // So I tried to set up this file where you can tell which talents exists and what not when 
 // I updated the file so you don't have to look there and go :think: is that current or old
-export default {
+const talents = {
   // Shared
   // War machine
   WAR_MACHINE_ARMS_TALENT: { id: 262231, name: 'War Machine', icon: 'ability_hunter_rapidkilling' },
@@ -103,3 +103,4 @@ export default {
   HEAVY_REPERCUSSIONS_TALENT: { id: 203177, name: 'Heavy Repercussions', icon: 'inv_shield_32' },
   BOLSTER_TALENT: { id: 280001, name: 'Bolster', icon: 'shield_draenorcrafted_d_02_c_alliance' },
 };
+export default talents;

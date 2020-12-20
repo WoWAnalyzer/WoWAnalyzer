@@ -1,6 +1,4 @@
-import { LegendarySpell, SpellList } from 'common/SPELLS/Spell';
-
-const legendaries: SpellList<LegendarySpell> = {
+const legendaries = {
   //region Discipline
 
   //endregion

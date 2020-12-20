@@ -1,6 +1,7 @@
-
 import safeMerge from 'common/safeMerge';
 
 import CastleNathria from './castlenathria';
 
-export default safeMerge(CastleNathria);
+const raidSpells = safeMerge<typeof CastleNathria>(CastleNathria);
+  
+export default raidSpells;

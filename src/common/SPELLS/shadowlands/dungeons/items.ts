@@ -1,6 +1,6 @@
 // Spells such as on use casts or buffs triggered by items from any dungeon
 
-export default {
+const itemSpells = {
   //De Other Side
   INSCRUTABLE_QUANTUM_DEVICE_CRIT: {
     id: 330366,
@@ -23,4 +23,6 @@ export default {
     icon: 'inv_trinket_80_titan02a',
   },
   
-};
+} as const;
+
+export default itemSpells;

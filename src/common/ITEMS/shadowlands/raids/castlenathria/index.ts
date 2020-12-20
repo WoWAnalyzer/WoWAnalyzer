@@ -6,9 +6,8 @@
  *   quality: number,
  * },
  */
-import { ItemList } from "common/ITEMS/Item";
 
-const items: ItemList = {
+const items = {
   //region Shriekwing
 
   //endregion
@@ -44,5 +43,5 @@ const items: ItemList = {
   //region Sire Denathrius
 
   //endregion
-};
+} as const;
 export default items;

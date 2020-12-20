@@ -11,7 +11,7 @@ class DispelTracker extends Analyzer {
   dispelEvents = new Map<number, number>();
   dispelCount = 0;
 
-  blackList = [SPELLS.WINDWALKING.id];
+  blackList: number[] = [SPELLS.WINDWALKING.id];
 
   constructor(options: Options) {
     super(options);
