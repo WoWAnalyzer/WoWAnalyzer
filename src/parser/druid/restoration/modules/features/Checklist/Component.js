@@ -122,8 +122,8 @@ const RestorationDruidChecklist = ({ combatant, castEfficiency, thresholds }) =>
               Mana saved during <SpellLink id={SPELLS.INNERVATE.id} />
             </>
           )}
-          thresholds={thresholds.innervateAverageManaSaved}
-          tooltip="All spells cost no mana during Innervate, so take care to chain cast for its duration. Typically this means casting a Wild Growth, refreshing Efflorescence, and spamming Rejuvenation. It's also fine to Regrowth a target that is in immediate danger of dying."
+          thresholds={thresholds.innervateManaSaved}
+          tooltip="All spells cost less mana during Innervate, so take care to chain cast for its duration. Typically this means casting a Wild Growth, refreshing Efflorescence, and spamming Rejuvenation. It's also fine to Regrowth a target that is in immediate danger of dying."
         />
         <Requirement
           name={(
