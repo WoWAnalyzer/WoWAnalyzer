@@ -258,7 +258,7 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }) => {
         name="Make the most of snapshots"
         description={(
           <>
-            <TooltipElement content="Tiger's Fury affects all DoTs, Bloodtalons affects all except Moonfire.">Certain buffs</TooltipElement> will increase the damage of your DoTs for their full duration, even after the buff wears off. Making the most of this mechanic can be the difference between good and great results.<br />
+            <TooltipElement content="Tiger's Fury affects all DoTs, Bloodtalons affects Ferocious Bite, Rip and Primal Wrath.">Certain buffs</TooltipElement> will increase the damage of your DoTs for their full duration, even after the buff wears off. Making the most of this mechanic can be the difference between good and great results.<br />
             As a general rule it's beneficial to refresh a DoT early if you would increase the snapshot. It's better to refresh with a weaker version of the DoT during the <TooltipElement content="The last 30% of the DoT's duration. If you refresh during this time you don't lose any duration in the process.">pandemic window</TooltipElement> than to let it wear off. The exception is <SpellLink id={SPELLS.RAKE.id} /> empowered by <TooltipElement content="The effect is also provided by Incarnation: King of the Jungle, and Shadowmeld for Night Elves">Prowl</TooltipElement> which is so much stronger that you should wait until the DoT wears off when replacing it with an unbuffed version.<br />
             <SpellLink id={SPELLS.SABERTOOTH_TALENT.id} /> allows you to use <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> to maintain the existing snapshot on <SpellLink id={SPELLS.RIP.id} /> and should be used to do so.
           </>
