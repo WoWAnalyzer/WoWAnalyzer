@@ -34,7 +34,7 @@ exports[`Fire Mage integration test: example log AlwaysBeCasting matches the sta
         <div
           className="value"
         >
-          39.87 %
+          36.51 %
         </div>
         <div
           style={
@@ -53,7 +53,7 @@ exports[`Fire Mage integration test: example log AlwaysBeCasting matches the sta
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "60.1298551394701%",
+                  "width": "63.49407673124681%",
                 }
               }
             >
@@ -117,7 +117,7 @@ Array [
         message="{0}% downtime"
         values={
           Object {
-            "0": "39.87",
+            "0": "36.51",
           }
         }
       />
@@ -6863,7 +6863,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#df7102",
-                  "width": "34.65374744463011%",
+                  "width": "34.88465541919172%",
                 }
               }
             />
@@ -6956,7 +6956,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  39.87%
+                  36.51%
                    
                    
                 </div>
@@ -6978,7 +6978,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "5.011268474165873%",
+                        "width": "5.4730844232890945%",
                       }
                     }
                   />

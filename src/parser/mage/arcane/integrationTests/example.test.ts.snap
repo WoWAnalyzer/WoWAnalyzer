@@ -5,7 +5,7 @@ Array [
   Object {
     "details": null,
     "icon": "spell_mage_altertime",
-    "importance": "regular",
+    "importance": "minor",
     "issue": <span>
       Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. If a fight requires movement, try saving 
       <ForwardRef
@@ -23,7 +23,7 @@ Array [
         message="{0}% downtime"
         values={
           Object {
-            "0": "37.22",
+            "0": "34.93",
           }
         }
       />
@@ -6100,7 +6100,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               style={
                 Object {
                   "backgroundColor": "#df7102",
-                  "width": "43.38598192987392%",
+                  "width": "43.562194391944715%",
                 }
               }
             />
@@ -6193,7 +6193,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  37.22%
+                  34.93%
                    
                    
                 </div>
@@ -6215,7 +6215,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "5.368067755851726%",
+                        "width": "5.72049267999332%",
                       }
                     }
                   />
