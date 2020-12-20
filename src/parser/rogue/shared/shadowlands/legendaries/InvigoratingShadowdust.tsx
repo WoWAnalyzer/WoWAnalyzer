@@ -40,9 +40,7 @@ class InvigoratingShadowdust extends Analyzer {
         break;
     }
 
-    
-    const INVIGORATING_SHADOWDUST = SPELLS.INVIGORATING_SHADOWDUST as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(INVIGORATING_SHADOWDUST.bonusID!);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.INVIGORATING_SHADOWDUST.bonusID!);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VANISH), this.onCast);
   }
 

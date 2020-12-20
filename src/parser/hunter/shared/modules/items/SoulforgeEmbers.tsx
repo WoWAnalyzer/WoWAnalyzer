@@ -8,7 +8,6 @@ import SPELLS from 'common/SPELLS';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import SpellIcon from 'common/SpellIcon';
-import { LegendarySpell } from 'common/SPELLS/Spell';
 
 /**
  * Launching a Flare into your Tar Trap causes all enemies inside of the Tar Trap to burn for (150% of Attack power) Fire damage over 12 sec.
@@ -27,8 +26,7 @@ class SoulforgeEmbers extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    const SOULFORGE_EMBERS_EFFECT = SPELLS.SOULFORGE_EMBERS_EFFECT as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SOULFORGE_EMBERS_EFFECT.bonusID!);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SOULFORGE_EMBERS_EFFECT.bonusID!);
     if (!this.active) {
       return;
     }

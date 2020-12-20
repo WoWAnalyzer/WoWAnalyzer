@@ -12,7 +12,6 @@ import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probabi
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { SURGING_SHOTS_DAMAGE_INCREASE, SURGING_SHOTS_RESET_CHANCE } from 'parser/hunter/marksmanship/constants';
-import { LegendarySpell } from 'common/SPELLS/Spell';
 
 /**
  * Rapid Fire deals 25% additional damage, and Aimed Shot has a 15% chance to reset the cooldown of Rapid Fire.
@@ -33,8 +32,7 @@ class SurgingShots extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    const SURGING_SHOTS_EFFECT = SPELLS.SURGING_SHOTS_EFFECT as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SURGING_SHOTS_EFFECT.bonusID!);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SURGING_SHOTS_EFFECT.bonusID!);
     if (!this.active) {
       return;
     }

@@ -7,7 +7,6 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { LegendarySpell } from 'common/SPELLS/Spell';
 
 class EssenceOfBloodfang extends Analyzer {
   bloodfangDamage: number = 0;
@@ -15,8 +14,7 @@ class EssenceOfBloodfang extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    const ESSENCE_OF_BLOODFANG = SPELLS.ESSENCE_OF_BLOODFANG as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(ESSENCE_OF_BLOODFANG.bonusID!);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.ESSENCE_OF_BLOODFANG.bonusID!);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_OF_BLOODFANG_BUFF), this.onHeal);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_OF_BLOODFANG_BUFF), this.onDamage);
   }

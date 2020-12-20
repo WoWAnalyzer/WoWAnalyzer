@@ -12,7 +12,6 @@ import SPECS from 'game/SPECS';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { formatNumber } from 'common/format';
-import { LegendarySpell } from 'common/SPELLS/Spell';
 
 class Superstrain extends Analyzer {
 
@@ -24,8 +23,7 @@ class Superstrain extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    const SUPERSTRAIN: LegendarySpell = SPELLS.SUPERSTRAIN as LegendarySpell
-    const active = this.selectedCombatant.hasLegendaryByBonusID(SUPERSTRAIN.bonusID!)
+    const active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SUPERSTRAIN.bonusID!)
     this.active = active
     if (!active) {
       return;

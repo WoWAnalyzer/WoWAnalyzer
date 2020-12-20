@@ -8,7 +8,6 @@ import SPELLS from 'common/SPELLS';
 import HolyWordSanctify from 'parser/priest/holy/modules/spells/holyword/HolyWordSanctify';
 import HolyWordSerenity from 'parser/priest/holy/modules/spells/holyword/HolyWordSerenity';
 import HolyWordChastise from 'parser/priest/holy/modules/spells/holyword/HolyWordChastise';
-import { LegendarySpell } from 'common/SPELLS/Spell';
 
 class HarmoniousApparatus extends Analyzer {
   static dependencies = {
@@ -22,8 +21,7 @@ class HarmoniousApparatus extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    const HARMONIOUS_APPARATUS = SPELLS.HARMONIOUS_APPARATUS as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(HARMONIOUS_APPARATUS.bonusID!);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.HARMONIOUS_APPARATUS.bonusID!);
   }
 
   get reductionForAllSpells() {

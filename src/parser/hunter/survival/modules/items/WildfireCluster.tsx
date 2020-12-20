@@ -6,7 +6,6 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { DamageEvent } from 'parser/core/Events';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import { LegendarySpell } from 'common/SPELLS/Spell';
 
 /**
  * Wildfire Bomb drops an additional cluster of bombs around the target, each exploding for (33% of Attack power) Fire damage.
@@ -21,8 +20,7 @@ class WildfireCluster extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    const WILDFIRE_CLUSTER_EFFECT = SPELLS.WILDFIRE_CLUSTER_EFFECT as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(WILDFIRE_CLUSTER_EFFECT.bonusID!);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.WILDFIRE_CLUSTER_EFFECT.bonusID!);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.WILDFIRE_CLUSTER_DAMAGE), this.onDamage);
   }
 

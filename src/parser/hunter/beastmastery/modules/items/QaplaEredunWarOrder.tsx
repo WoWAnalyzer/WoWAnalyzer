@@ -33,8 +33,7 @@ class QaplaEredunWarOrder extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    const QAPLA_EREDUN_WAR_ORDER_EFFECT = SPELLS.QAPLA_EREDUN_WAR_ORDER_EFFECT as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(QAPLA_EREDUN_WAR_ORDER_EFFECT.bonusID!);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.QAPLA_EREDUN_WAR_ORDER_EFFECT.bonusID!);
     if (!this.active) {
       return;
     }

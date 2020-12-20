@@ -11,7 +11,6 @@ import Events, { EnergizeEvent } from 'parser/core/Events';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatPercentage } from 'common/format';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import { LegendarySpell } from 'common/SPELLS/Spell';
 
 class BrynadaorsMight extends Analyzer {
 
@@ -23,8 +22,7 @@ class BrynadaorsMight extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    const brynadorsMight: LegendarySpell = SPELLS.BRYNDAORS_MIGHT as LegendarySpell;
-    const active = this.selectedCombatant.hasLegendaryByBonusID(brynadorsMight.bonusID!);
+    const active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.BRYNDAORS_MIGHT.bonusID!);
     this.active = active;
     if (!active) {
       return;

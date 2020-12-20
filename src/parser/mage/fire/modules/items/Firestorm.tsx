@@ -7,7 +7,6 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import { formatNumber } from 'common/format';
-import { LegendarySpell } from 'common/SPELLS/Spell';
 
 class Firestorm extends Analyzer {
 
@@ -16,8 +15,7 @@ class Firestorm extends Analyzer {
 
   constructor(props: Options) {
     super(props);
-    const FIRESTORM = SPELLS.FIRESTORM as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(FIRESTORM.bonusID!);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.FIRESTORM.bonusID!);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.PYROBLAST,SPELLS.FLAMESTRIKE]), this.onCast);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FIRESTORM_BUFF), this.onFirestormApplied);
   }

@@ -10,11 +10,10 @@ class SpellUsable extends CoreSpellUsable {
 
   lastPotentialTriggerForRapidFireReset: CastEvent | null = null;
   rapidFireResets = 0;
-  SURGING_SHOTS_EFFECT = SPELLS.SURGING_SHOTS_EFFECT as LegendarySpell;
   onCast(event: CastEvent) {
     const spellId = event.ability.guid;
   
-    if (this.selectedCombatant.hasLegendaryByBonusID(this.SURGING_SHOTS_EFFECT.bonusID!)) {
+    if (this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SURGING_SHOTS_EFFECT.bonusID!)) {
       if (spellId === SPELLS.AIMED_SHOT.id) {
         this.lastPotentialTriggerForRapidFireReset = event;
       } else if (spellId === SPELLS.RAPID_FIRE.id) {

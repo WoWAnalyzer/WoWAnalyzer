@@ -9,7 +9,6 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemHealingDone from 'interface/ItemHealingDone';
-import { LegendarySpell } from 'common/SPELLS/Spell';
 
 /**
  * Whenever you cast a vivify or enveloping mist during soothing mist's channel you gain a stack of clouded focus which increases their healing by 15% and descreases their
@@ -28,8 +27,7 @@ class VisionOfUnendingGrowth extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    const VISION_OF_UNENDING_GROWTH = SPELLS.VISION_OF_UNENDING_GROWTH as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(VISION_OF_UNENDING_GROWTH.bonusID!);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.VISION_OF_UNENDING_GROWTH.bonusID!);
     if (!this.active) {
       return;
     }

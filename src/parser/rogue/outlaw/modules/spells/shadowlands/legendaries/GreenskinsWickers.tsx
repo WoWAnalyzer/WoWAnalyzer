@@ -18,9 +18,7 @@ class GreenskinsWickers extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-
-    const GREENSKINS_WICKERS = SPELLS.GREENSKINS_WICKERS as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(GREENSKINS_WICKERS.bonusID!);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.GREENSKINS_WICKERS.bonusID!);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.GREENSKINS_WICKERS_BUFF), this.onGreenskinBuff);
   }
 

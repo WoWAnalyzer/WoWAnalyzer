@@ -9,7 +9,6 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import { formatNumber } from 'common/format';
-import { LegendarySpell } from 'common/SPELLS/Spell';
 
 class ColdFront extends Analyzer {
   static dependencies = {
@@ -21,8 +20,7 @@ class ColdFront extends Analyzer {
 
   constructor(props: Options) {
     super(props);
-    const COLD_FRONT = SPELLS.COLD_FRONT as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(COLD_FRONT.bonusID!);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.COLD_FRONT.bonusID!);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.COLD_FRONT_BUFF), this.onBuffApplied);
   }
 

@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import { LegendarySpell } from 'common/SPELLS/Spell';
 import { Options } from 'parser/core/Analyzer';
 
 import HolyWordBase from './HolyWordBase';
@@ -34,8 +33,7 @@ class HolyWordSanctify extends HolyWordBase {
       },
     };
     
-    const HARMONIOUS_APPARATUS = SPELLS.HARMONIOUS_APPARATUS as LegendarySpell;
-    if (this.selectedCombatant.hasLegendaryByBonusID(HARMONIOUS_APPARATUS.bonusID!)) {
+    if (this.selectedCombatant.hasLegendaryByBonusID(SPELLS.HARMONIOUS_APPARATUS.bonusID!)) {
       this.serendipityProccers[SPELLS.CIRCLE_OF_HEALING_TALENT.id] = {
         baseReduction: () => CIRCLE_OF_HEALING_SERENDIPITY_REDUCTION,
         lightOfTheNaaruReduction: () => CIRCLE_OF_HEALING_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,

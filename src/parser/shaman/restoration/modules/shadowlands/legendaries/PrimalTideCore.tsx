@@ -37,8 +37,7 @@ class PrimalTideCore extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    const PRIMAL_TIDE_CORE = SPELLS.PRIMAL_TIDE_CORE as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(PRIMAL_TIDE_CORE.bonusID!);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.PRIMAL_TIDE_CORE.bonusID!);
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.RIPTIDE, SPELLS.PRIMORDIAL_WAVE_CAST]), this.castedRiptide);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.trackRiptide);

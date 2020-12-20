@@ -11,7 +11,6 @@ import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { formatPercentage } from 'common/format';
 import HIT_TYPES from 'game/HIT_TYPES';
-import { LegendarySpell } from 'common/SPELLS/Spell';
 
 const DAMAGE_BONUS_PER_STACK = 0.02;
 
@@ -21,8 +20,7 @@ class FeveredIncantation extends Analyzer {
 
   constructor(props: Options) {
     super(props);
-    const FEVERED_INCANTATION = SPELLS.FEVERED_INCANTATION as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(FEVERED_INCANTATION.bonusID!);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.FEVERED_INCANTATION.bonusID!);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 

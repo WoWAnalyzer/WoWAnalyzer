@@ -8,7 +8,6 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ResourceIcon from 'common/ResourceIcon';
-import { LegendarySpell } from 'common/SPELLS/Spell';
 
 class DashingScoundrel extends Analyzer {
   static dependencies = {
@@ -22,8 +21,7 @@ class DashingScoundrel extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    const DASHING_SCOUNDREL = SPELLS.DASHING_SCOUNDREL as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(DASHING_SCOUNDREL.bonusID!);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.DASHING_SCOUNDREL.bonusID!);
     this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DASHING_SCOUNDREL), this.onEnergize);
   }
 

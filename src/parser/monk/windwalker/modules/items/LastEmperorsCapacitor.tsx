@@ -13,8 +13,6 @@ import Events, { DamageEvent } from 'parser/core/Events';
 
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
-import { LegendarySpell } from 'common/SPELLS/Spell';
-
 import { CHI_SPENDERS } from '../../constants';
 
 
@@ -36,8 +34,7 @@ class LastEmperorsCapacitor extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    const LAST_EMPERORS_CAPACITOR = SPELLS.LAST_EMPERORS_CAPACITOR as LegendarySpell;
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(LAST_EMPERORS_CAPACITOR.bonusID!);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.LAST_EMPERORS_CAPACITOR.bonusID!);
     if (!this.active) {
       return;
     }
