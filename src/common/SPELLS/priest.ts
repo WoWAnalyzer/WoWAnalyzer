@@ -484,11 +484,11 @@ const spells = {
     icon: 'inv_enchant_essenceeternallarge',
   },
   // Items
-  DIVINE_IMAGE: {
+  /*DIVINE_IMAGE: {
     id: 336401,
     name: 'Divine Image',
     icon: 'ability_priest_ascension',
-  },
+  },*/
 
   // Shadow Spells
   MIND_BLAST: {
