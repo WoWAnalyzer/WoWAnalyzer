@@ -40,7 +40,7 @@ const CHART_COLOR_SPENDERS = [
 ];
 
 /**
- * Casting 3 different combo-point generating abilities within 4 seconds generates 2 stacks of the Bloodtalons buff.
+ * Casting 3 different combo point-generating abilities within 4 seconds generates 2 stacks of the Bloodtalons buff.
  * 1 charge is consumed by each successful use of one of the POTENTIAL_SPENDERS. Successful uses
  * are detected in different ways depending on the ability:
  * - Single target attacks that do initial damage consume a stack so long as that damage connects.
@@ -228,7 +228,7 @@ class Bloodtalons extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
       <>
-        You are overwriting charges of <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} />. Try to use both charges before you generate more from casting 3 different combopoint generating abilities within 4 seconds that aren't <SpellLink id={SPELLS.SHRED.id} /> or <SpellLink id={SPELLS.BRUTAL_SLASH_TALENT.id} />.
+        You are overwriting charges of <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} />. Try to use both charges before you generate more from casting 3 different combo point-generating abilities within 4 seconds that aren't <SpellLink id={SPELLS.SHRED.id} /> or <SpellLink id={SPELLS.BRUTAL_SLASH_TALENT.id} />.
       </>,
     )
       .icon(SPELLS.BLOODTALONS_TALENT.icon)
