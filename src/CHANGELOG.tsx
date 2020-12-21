@@ -9,6 +9,8 @@ import { change, date } from 'common/changelog';
 // prettier-ignore
 export default [
   change(date(2020, 12, 19), 'Resolved an issue in FilteredActiveTime that was not counting properly, resulting in > 100% active time.', Sharrq),
+  change(date(2020, 12, 13), 'Reverted using the browser refresh on fight selection now correctly reloads the report from WCL.', Zerotorescue),
+  change(date(2020, 12, 20), 'Removed the last remnants of Azerite across the codebase', Putro),
   change(date(2020, 12, 19), 'Add warnings for logs with Advanced Combat Logging disabled and when no encounters are found.', Sharrq),
   change(date(2020, 12, 19), <> Fix issues with <ItemLink id={ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id} /> not accounting for the correct stat given. </>, Putro),
   change(date(2020, 12, 19), 'Adjust our weak Potion suggestion to only show if a weak potion was actually used', Putro),

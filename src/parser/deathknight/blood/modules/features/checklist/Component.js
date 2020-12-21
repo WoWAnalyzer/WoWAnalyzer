@@ -94,10 +94,10 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }) =>
           name={<><SpellLink id={SPELLS.BONE_SHIELD.id} /> Uptime</>}
           thresholds={thresholds.boneShield}
         />
-        {/* <Requirement
-          name={<><SpellLink id={SPELLS.OSSUARY.id} /> Uptime</>}
+        <Requirement
+          name={<><SpellLink id={SPELLS.OSSUARY.id} /> Efficiency</>}
           thresholds={thresholds.ossuary}
-        /> */}
+        />
       </Rule>
       <Rule
         name="Use your defensive cooldowns"

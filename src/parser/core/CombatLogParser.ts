@@ -113,7 +113,6 @@ export interface Player {
   name: string;
   talents: Talent[];
   artifact: unknown;
-  heartOfAzeroth: unknown;
   gear: unknown;
   auras: unknown;
 }

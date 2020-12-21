@@ -8,7 +8,6 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import Events from 'parser/core/Events';
 import { t } from '@lingui/macro';
 
-const WILDFLESH_MODIFIER_PER_RANK = 0.05;
 const FR_WINDOW_MS = 5000;
 const FR_MINIMUM_HP_HEAL = 0.05;
 
@@ -39,11 +38,8 @@ class FrenziedRegeneration extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    const player = this.selectedCombatant;
-    const wildfleshRank = player.traitsBySpellId[SPELLS.WILDFLESH_TRAIT.id];
     const versModifier = this.statTracker.currentVersatilityPercentage;
 
-    this._healModifier += (wildfleshRank * WILDFLESH_MODIFIER_PER_RANK);
     this._healModifier += versModifier; // TODO: Account for Haste buffs by asking the actual value on each event instead of in here
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FRENZIED_REGENERATION), this.onCast);
     this.addEventListener(Events.cast.to(SELECTED_PLAYER), this.onDamage);

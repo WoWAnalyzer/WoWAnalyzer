@@ -1065,3 +1065,32 @@ export const Xcessiv: Contributor = {
     link: 'https://worldofwarcraft.com/en-us/character/us/thrall/xcessiv',
   }],
 };
+
+export const Tora: Contributor = {
+  nickname: "Tora",
+  github: "RobinKa",
+  discord: "Tora#1871",
+  mains: [{
+    name: "Nuhrok",
+    spec: SPECS.FERAL_DRUID,
+    link: "https://worldofwarcraft.com/en-gb/character/eu/tarren-mill/Nuhrok"
+  }],
+  links: {
+    "Website": "https://warlock.ai"
+  },
+};
+
+export const Kettlepaw: Contributor = {
+  nickname: 'Kettlepaw',
+  github: 'abbottmg',
+  discord: 'abbott#2506',
+  mains: [{
+    name: 'Caeldrim',
+    spec: SPECS.GUARDIAN_DRUID,
+    link: 'https://worldofwarcraft.com/en-us/character/us/wyrmrest-accord/caeldrim',
+  }, {
+    name: 'Kettlepaw',
+    spec: SPECS.BREWMASTER_MONK,
+    link: 'https://worldofwarcraft.com/en-us/character/us/wyrmrest-accord/kettlepaw',
+  }],
+};

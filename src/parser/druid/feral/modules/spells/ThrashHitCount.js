@@ -7,9 +7,7 @@ import { t } from '@lingui/macro';
 import HitCountAoE from '../core/HitCountAoE';
 
 /**
- * Even with its DoT, thrash shouldn't be used against a single target. It's possible that some
- * combination of azerite traits might change this, but for now the player's resources are better
- * spent on Shred against a single target.
+ * Even with its DoT, thrash shouldn't be used against a single target
  */
 class ThrashHitCount extends HitCountAoE {
   get hitNoneThresholds() {
