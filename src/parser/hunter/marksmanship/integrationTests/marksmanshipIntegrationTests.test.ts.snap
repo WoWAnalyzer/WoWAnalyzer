@@ -5304,7 +5304,7 @@ exports[`Marksmanship Hunter integration test: Multi Target SpiritAttunement mat
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    category="COVENANTS"
+    category="COVENANT"
     className="panel statistic flexible "
     position={1013}
   >
@@ -5942,7 +5942,7 @@ exports[`Marksmanship Hunter integration test: Multi Target WildSpirits matches 
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    category="COVENANTS"
+    category="COVENANT"
     className="panel statistic flexible "
     position={0}
   >
@@ -12005,7 +12005,7 @@ exports[`Marksmanship Hunter integration test: Single Target EnfeebledMark match
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    category="COVENANTS"
+    category="COVENANT"
     className="panel statistic flexible "
     position={1013}
   >
@@ -12888,7 +12888,7 @@ exports[`Marksmanship Hunter integration test: Single Target ResonatingArrow mat
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    category="COVENANTS"
+    category="COVENANT"
     className="panel statistic flexible "
     position={0}
   >

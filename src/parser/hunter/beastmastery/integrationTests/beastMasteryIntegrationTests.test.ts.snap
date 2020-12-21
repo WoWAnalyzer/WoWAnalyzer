@@ -1097,7 +1097,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target Bloodletting matche
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    category="COVENANTS"
+    category="COVENANT"
     className="panel statistic flexible "
     position={1013}
   >
@@ -5737,7 +5737,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target WildSpirits matches
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    category="COVENANTS"
+    category="COVENANT"
     className="panel statistic flexible "
     position={0}
   >
@@ -8998,7 +8998,7 @@ exports[`Beast Mastery Hunter integration test: Single Target Bloodletting match
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    category="COVENANTS"
+    category="COVENANT"
     className="panel statistic flexible "
     position={1013}
   >
@@ -13684,7 +13684,7 @@ exports[`Beast Mastery Hunter integration test: Single Target WildSpirits matche
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    category="COVENANTS"
+    category="COVENANT"
     className="panel statistic flexible "
     position={0}
   >
