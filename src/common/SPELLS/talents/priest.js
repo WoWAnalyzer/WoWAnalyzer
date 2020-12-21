@@ -29,7 +29,7 @@ export default {
   PSYCHIC_HORROR_TALENT: { id: 64044, name: 'Psychic Horror', icon: 'spell_shadow_psychichorrors' },
   AUSPICIOUS_SPIRITS_TALENT: { id: 155271, name: 'Auspicious Spirits', icon: 'ability_priest_auspiciousspirits' },
   PSYCHIC_LINK_TALENT: { id: 199484, name: 'Psychic Link', icon: 'ability_priest_psychiclink' },
-  SHADOW_CRASH_TALENT: { id: 342834, name: 'Shadow Crash', icon: 'spell_shadow_shadowfury' },
+  SHADOW_CRASH_TALENT: { id: 205385, name: 'Shadow Crash', icon: 'spell_shadow_shadowfury' },
   DAMNATION_TALENT: { id: 341374, name: 'Damnation', icon: 'ability_warlock_eradication' },
   MINDBENDER_TALENT_SHADOW: { id: 200174, name: 'Mindbender', icon: 'spell_shadow_soulleech_3' },
   VOID_TORRENT_TALENT: { id: 263165, name: 'Void Torrent', icon: 'spell_priest_voidsear' },

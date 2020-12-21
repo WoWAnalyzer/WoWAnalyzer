@@ -50,7 +50,7 @@ const spells = {
     icon: 'inv_alchemy_90_combat1_yellow',
   },
   POTION_OF_EMPOWERED_EXORCISMS: {
-    id: 307381,
+    id: 307494,
     name: 'Potion of Empowered Exorcisms',
     icon: 'inv_alchemy_90_combat1_pink',
   },
