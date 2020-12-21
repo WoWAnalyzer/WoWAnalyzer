@@ -33,6 +33,7 @@ export enum EventType {
   Resurrect = 'resurrect',
   CombatantInfo = 'combatantinfo',
   Instakill = 'instakill',
+  AuraBroken = 'aurabroken',
 
   // Fabricated:
   Event = 'event', // everything
@@ -106,6 +107,7 @@ type MappedEventTypes = {
   [EventType.Death]: DeathEvent,
   [EventType.CombatantInfo]: CombatantInfoEvent,
   [EventType.Dispel]: DispelEvent,
+  [EventType.AuraBroken]: AuraBrokenEvent,
 
   // Fabricated:
   [EventType.FightEnd]: FightEndEvent,
@@ -528,6 +530,17 @@ export interface DeathEvent extends Event<EventType.Death> {
   ability: Ability;
 }
 
+export interface AuraBrokenEvent extends Event<EventType.AuraBroken> {
+  ability: Ability;
+  extraAbility: Ability;
+  isBuff: boolean;
+  sourceID: number;
+  sourceIsFriendly: boolean;
+  targetID: number;
+  targetInstance: number;
+  targetIsFriendly: boolean;
+}
+
 export interface ResurrectEvent extends Event<EventType.Resurrect> {
   ability?: Ability,
   sourceID: number,
@@ -744,10 +757,12 @@ export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
     Spell,
   ];
   pvpTalents: Spell[];
-  artifact: SoulbindTrait[];
-  heartOfAzeroth: Conduit[];
   covenantID: number,
   soulbindID: number,
+  artifact?: SoulbindTrait[]; //WCL keeps Soulbind Abilities in the artifact field - we keep this temporarily before allocating to soulbindTraits
+  soulbindTraits?: SoulbindTrait[];
+  heartOfAzeroth?: Conduit[]; //WCL keeps class specific conduits in the heartOfAzeroth field - we keep this temporarily before allocating to conduits
+  conduits?: Conduit[];
   error?: any, //TODO: Verify, is this a bool? string?
 }
 

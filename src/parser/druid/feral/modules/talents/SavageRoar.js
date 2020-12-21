@@ -13,7 +13,6 @@ import Events from 'parser/core/Events';
 
 import SpellLink from 'common/SpellLink';
 import { TooltipElement } from 'common/Tooltip';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import UptimeIcon from 'interface/icons/Uptime';
 import ItemDamageDone from 'interface/ItemDamageDone';
@@ -90,7 +89,10 @@ class SavageRoar extends Analyzer {
       </>,
     )
       .icon(SPELLS.SAVAGE_ROAR_TALENT.icon)
-      .actual(i18n._(t('druid.feral.suggestions.savageRoar.uptime')`${formatPercentage(actual)}% uptime`))
+      .actual(t({
+      id: "druid.feral.suggestions.savageRoar.uptime",
+      message: `${formatPercentage(actual)}% uptime`
+    }))
       .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

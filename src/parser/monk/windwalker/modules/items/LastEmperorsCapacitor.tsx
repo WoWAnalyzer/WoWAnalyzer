@@ -135,14 +135,26 @@ class LastEmperorsCapacitor extends Analyzer {
     when(this.wastedStacksSuggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
       <Trans id="monk.windwalker.modules.items.lastEmperorsCapacitor.wastedStacks"> You wasted your <SpellLink id={SPELLS.LAST_EMPERORS_CAPACITOR_BUFF.id}/> stacks by using chi spenders while at 20 stacks </Trans>)
         .icon(SPELLS.LAST_EMPERORS_CAPACITOR.icon)
-        .actual(t('monk.windwalker.modules.items.lastEmperorsCapacitor.wastedStacks.actual')`${actual.toFixed(2)} Wasted stacks per minute`)
-        .recommended(t('monk.windwalker.modules.items.lastEmperorsCapacitor.wastedStacks.recommended')`${(recommended)} Wasted stacks per minute is recommended`)
+        .actual(t({
+      id: "monk.windwalker.modules.items.lastEmperorsCapacitor.wastedStacks.actual",
+      message: `${actual.toFixed(2)} Wasted stacks per minute`
+    }))
+        .recommended(t({
+      id: "monk.windwalker.modules.items.lastEmperorsCapacitor.wastedStacks.recommended",
+      message: `${(recommended)} Wasted stacks per minute is recommended`
+    }))
     );
     when(this.averageStacksSuggestionThresholds).addSuggestion((suggest, actual) => suggest(
       <Trans id="monk.windwalker.modules.items.lastEmperorsCapacitor.averageStacks"> Your average number of <SpellLink id={SPELLS.LAST_EMPERORS_CAPACITOR_BUFF.id} /> stacks used when you cast <SpellLink id={SPELLS.CRACKLING_JADE_LIGHTNING.id}/> was low </Trans>)
         .icon(SPELLS.LAST_EMPERORS_CAPACITOR.icon)
-        .actual(t('monk.windwalker.modules.items.lastEmperorsCapacitor.averageStacks.actual')`${actual.toFixed(2)} average stacks used`)
-        .recommended(t('monk.windwalker.modules.items.lastEmperorsCapacitor.averageStacks.recommended')`Try to cast Crackling Jade Lightning while as close to 20 stacks as possible`)
+        .actual(t({
+      id: "monk.windwalker.modules.items.lastEmperorsCapacitor.averageStacks.actual",
+      message: `${actual.toFixed(2)} average stacks used`
+    }))
+        .recommended(t({
+      id: "monk.windwalker.modules.items.lastEmperorsCapacitor.averageStacks.recommended",
+      message: `Try to cast Crackling Jade Lightning while as close to 20 stacks as possible`
+    }))
     );
   }
 }

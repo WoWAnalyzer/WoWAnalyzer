@@ -11,7 +11,6 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Events, { AbsorbedEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import { SuggestionFactory, When } from 'parser/core/ParseResults';
 import { Options } from 'parser/core/Module';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../constants';
@@ -64,7 +63,10 @@ class TwistOfFate extends Analyzer {
     when(this.owner.getPercentageOfTotalHealingDone(this.healing)).isLessThan(0.05)
       .addSuggestion((suggest: SuggestionFactory, actual: number, recommended: number) => suggest(<span>Consider picking a different talent than <SpellLink id={SPELLS.TWIST_OF_FATE_TALENT_DISCIPLINE.id} />. Castigation will give a consistent 3-5% increase and Schism provides a significant DPS increase if more healing is not needed.</span>)
         .icon(SPELLS.TWIST_OF_FATE_TALENT_DISCIPLINE.icon)
-        .actual(i18n._(t('priest.discipline.suggestions.twistOfFate.efficiency')`${formatPercentage(actual)}% of total healing`))
+        .actual(t({
+      id: "priest.discipline.suggestions.twistOfFate.efficiency",
+      message: `${formatPercentage(actual)}% of total healing`
+    }))
         .recommended(`>${formatPercentage(recommended)}% is recommended.`)
         .regular(0.045)
         .major(0.025));

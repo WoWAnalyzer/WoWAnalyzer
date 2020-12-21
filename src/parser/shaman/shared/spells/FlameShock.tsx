@@ -16,7 +16,6 @@ import Statistic from 'interface/statistics/Statistic';
 import Events from 'parser/core/Events';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
@@ -84,13 +83,19 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
   suggestions(when: When) {
     when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => suggest(<span>Your <SpellLink id={SPELLS.FLAME_SHOCK.id} /> uptime can be improved.</span>)
         .icon(SPELLS.FLAME_SHOCK.icon)
-        .actual(i18n._(t('shaman.elemental.suggestions.flameShock.uptime')`${formatPercentage(actual)}% uptime`))
+        .actual(t({
+      id: "shaman.elemental.suggestions.flameShock.uptime",
+      message: `${formatPercentage(actual)}% uptime`
+    }))
         .recommended(`>${formatPercentage(recommended)}% is recommended`));
 
     when(this.badLavaBursts).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>Make sure to apply <SpellLink id={SPELLS.FLAME_SHOCK.id} /> to your target, so your <SpellLink id={SPELLS.LAVA_BURST.id} /> is guaranteed to critically strike.</span>)
           .icon(SPELLS.LAVA_BURST.icon)
-          .actual(i18n._(t('shaman.elemental.suggestions.flameShock.efficiency')`${formatNumber(this.badLavaBursts)} Lava Burst casts without Flame Shock DOT`))
+          .actual(t({
+      id: "shaman.elemental.suggestions.flameShock.efficiency",
+      message: `${formatNumber(this.badLavaBursts)} Lava Burst casts without Flame Shock DOT`
+    }))
           .recommended(`0 is recommended`)
           .major(recommended+1));
 

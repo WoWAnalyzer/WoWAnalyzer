@@ -9,7 +9,6 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import { MS_BUFFER, VOID_TORRENT_MAX_TIME } from '../../constants';
@@ -82,7 +81,10 @@ class VoidTorrent extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You interrupted <SpellLink id={SPELLS.VOID_TORRENT_TALENT.id} /> early, wasting {formatSeconds(this.totalWasted)} channeling seconds! Try to position yourself & time it so you don't get interrupted due to mechanics.</>)
         .icon(SPELLS.VOID_TORRENT_TALENT.icon)
-        .actual(i18n._(t('priest.shadow.suggestions.voidTorrent.secondsLost')`Lost ${formatSeconds(actual)} seconds of Void Torrent.`))
+        .actual(t({
+      id: "priest.shadow.suggestions.voidTorrent.secondsLost",
+      message: `Lost ${formatSeconds(actual)} seconds of Void Torrent.`
+    }))
         .recommended('No time wasted is recommended.'));
   }
 

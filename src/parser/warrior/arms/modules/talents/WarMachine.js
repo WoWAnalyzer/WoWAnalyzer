@@ -18,13 +18,13 @@ class WarMachine extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.WAR_MACHINE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.WAR_MACHINE_ARMS_TALENT.id);
   }
 
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.WAR_MACHINE_TALENT.id} /> uptime</>}
+        title={<><SpellLink id={SPELLS.WAR_MACHINE_ARMS_TALENT.id} /> uptime</>}
         value={`${formatPercentage(this.uptime)} %`}
       />
     );

@@ -1,278 +1,157 @@
 {
-	"realms": [{
-		"type": "pve",
-		"population": "n/a",
-		"queue": false,
-		"status": true,
-		"name": "世界之樹",
-		"slug": "世界之樹",
-		"battlegroup": "嗜血",
-		"locale": "zh_TW",
-		"timezone": "Asia/Taipei",
-		"connected_realms": ["世界之樹", "雲蛟衛", "亞雷戈斯"]
-	}, {
-		"type": "pve",
-		"population": "n/a",
-		"queue": false,
-		"status": true,
-		"name": "亞雷戈斯",
-		"slug": "亞雷戈斯",
-		"battlegroup": "嗜血",
-		"locale": "zh_TW",
-		"timezone": "Asia/Taipei",
-		"connected_realms": ["世界之樹", "雲蛟衛", "亞雷戈斯"]
-	}, {
-		"type": "pvp",
-		"population": "medium",
-		"queue": false,
-		"status": true,
-		"name": "冰霜之刺",
-		"slug": "冰霜之刺",
-		"battlegroup": "嗜血",
-		"locale": "zh_TW",
-		"timezone": "Asia/Taipei",
-		"connected_realms": ["米奈希爾", "冰霜之刺", "血之谷"]
-	}, {
-		"type": "pvp",
-		"population": "n/a",
-		"queue": false,
-		"status": true,
-		"name": "冰風崗哨",
-		"slug": "冰風崗哨",
-		"battlegroup": "嗜血",
-		"locale": "zh_TW",
-		"timezone": "Asia/Taipei",
-		"connected_realms": ["尖石", "冰風崗哨", "寒冰皇冠"]
-	}, {
-		"type": "pvp",
-		"population": "high",
-		"queue": false,
-		"status": true,
-		"name": "地獄吼",
-		"slug": "地獄吼",
-		"battlegroup": "嗜血",
-		"locale": "zh_TW",
-		"timezone": "Asia/Taipei",
-		"connected_realms": ["狂熱之刃", "地獄吼", "阿薩斯"]
-	}, {
-		"type": "pvp",
-		"population": "medium",
-		"queue": false,
-		"status": true,
-		"name": "夜空之歌",
-		"slug": "夜空之歌",
-		"battlegroup": "嗜血",
-		"locale": "zh_TW",
-		"timezone": "Asia/Taipei",
-		"connected_realms": ["巨龍之喉", "夜空之歌", "雷鱗"]
-	}, {
-		"type": "pve",
-		"population": "medium",
-		"queue": false,
-		"status": true,
-		"name": "天空之牆",
-		"slug": "天空之牆",
-		"battlegroup": "嗜血",
-		"locale": "zh_TW",
-		"timezone": "Asia/Taipei",
-		"connected_realms": ["聖光之願", "天空之牆"]
-	}, {
-		"type": "pvp",
-		"population": "n/a",
-		"queue": false,
-		"status": true,
-		"name": "寒冰皇冠",
-		"slug": "寒冰皇冠",
-		"battlegroup": "嗜血",
-		"locale": "zh_TW",
-		"timezone": "Asia/Taipei",
-		"connected_realms": ["尖石", "冰風崗哨", "寒冰皇冠"]
-	}, {
-		"type": "pvp",
-		"population": "n/a",
-		"queue": false,
-		"status": true,
-		"name": "尖石",
-		"slug": "尖石",
-		"battlegroup": "嗜血",
-		"locale": "zh_TW",
-		"timezone": "Asia/Taipei",
-		"connected_realms": ["尖石", "冰風崗哨", "寒冰皇冠"]
-	}, {
-		"type": "pvp",
-		"population": "high",
-		"queue": false,
-		"status": true,
-		"name": "屠魔山谷",
-		"slug": "屠魔山谷",
-		"battlegroup": "嗜血",
-		"locale": "zh_TW",
-		"timezone": "Asia/Taipei",
-		"connected_realms": ["日落沼澤", "屠魔山谷"]
-	}, {
-		"type": "pvp",
-		"population": "medium",
-		"queue": false,
-		"status": true,
-		"name": "巨龍之喉",
-		"slug": "巨龍之喉",
-		"battlegroup": "嗜血",
-		"locale": "zh_TW",
-		"timezone": "Asia/Taipei",
-		"connected_realms": ["巨龍之喉", "夜空之歌", "雷鱗"]
-	}, {
-		"type": "pvp",
-		"population": "medium",
-		"queue": false,
-		"status": true,
-		"name": "憤怒使者",
-		"slug": "憤怒使者",
-		"battlegroup": "嗜血",
-		"locale": "zh_TW",
-		"timezone": "Asia/Taipei",
-		"connected_realms": ["水晶之刺", "憤怒使者"]
-	}, {
-		"type": "pvp",
-		"population": "high",
-		"queue": false,
-		"status": true,
-		"name": "日落沼澤",
-		"slug": "日落沼澤",
-		"battlegroup": "嗜血",
-		"locale": "zh_TW",
-		"timezone": "Asia/Taipei",
-		"connected_realms": ["日落沼澤", "屠魔山谷"]
-	}, {
-		"type": "pve",
-		"population": "high",
-		"queue": false,
-		"status": true,
-		"name": "暗影之月",
-		"slug": "暗影之月",
-		"battlegroup": "嗜血",
-		"locale": "zh_TW",
-		"timezone": "Asia/Taipei",
-		"connected_realms": ["暗影之月", "眾星之子", "語風"]
-	}, {
-		"type": "pvp",
-		"population": "medium",
-		"queue": false,
-		"status": true,
-		"name": "水晶之刺",
-		"slug": "水晶之刺",
-		"battlegroup": "嗜血",
-		"locale": "zh_TW",
-		"timezone": "Asia/Taipei",
-		"connected_realms": ["水晶之刺", "憤怒使者"]
-	}, {
-		"type": "pvp",
-		"population": "high",
-		"queue": false,
-		"status": true,
-		"name": "狂熱之刃",
-		"slug": "狂熱之刃",
-		"battlegroup": "嗜血",
-		"locale": "zh_TW",
-		"timezone": "Asia/Taipei",
-		"connected_realms": ["狂熱之刃", "地獄吼", "阿薩斯"]
-	}, {
-		"type": "pve",
-		"population": "high",
-		"queue": false,
-		"status": true,
-		"name": "眾星之子",
-		"slug": "眾星之子",
-		"battlegroup": "嗜血",
-		"locale": "zh_TW",
-		"timezone": "Asia/Taipei",
-		"connected_realms": ["暗影之月", "眾星之子", "語風"]
-	}, {
-		"type": "pvp",
-		"population": "medium",
-		"queue": false,
-		"status": true,
-		"name": "米奈希爾",
-		"slug": "米奈希爾",
-		"battlegroup": "嗜血",
-		"locale": "zh_TW",
-		"timezone": "Asia/Taipei",
-		"connected_realms": ["米奈希爾", "冰霜之刺", "血之谷"]
-	}, {
-		"type": "pve",
-		"population": "medium",
-		"queue": false,
-		"status": true,
-		"name": "聖光之願",
-		"slug": "聖光之願",
-		"battlegroup": "嗜血",
-		"locale": "zh_TW",
-		"timezone": "Asia/Taipei",
-		"connected_realms": ["聖光之願", "天空之牆"]
-	}, {
-		"type": "pvp",
-		"population": "medium",
-		"queue": false,
-		"status": true,
-		"name": "血之谷",
-		"slug": "血之谷",
-		"battlegroup": "嗜血",
-		"locale": "zh_TW",
-		"timezone": "Asia/Taipei",
-		"connected_realms": ["米奈希爾", "冰霜之刺", "血之谷"]
-	}, {
-		"type": "pve",
-		"population": "high",
-		"queue": false,
-		"status": true,
-		"name": "語風",
-		"slug": "語風",
-		"battlegroup": "嗜血",
-		"locale": "zh_TW",
-		"timezone": "Asia/Taipei",
-		"connected_realms": ["暗影之月", "眾星之子", "語風"]
-	}, {
-		"type": "pvp",
-		"population": "low",
-		"queue": false,
-		"status": true,
-		"name": "銀翼要塞",
-		"slug": "銀翼要塞",
-		"battlegroup": "嗜血",
-		"locale": "zh_TW",
-		"timezone": "Asia/Taipei",
-		"connected_realms": ["銀翼要塞"]
-	}, {
-		"type": "pvp",
-		"population": "high",
-		"queue": false,
-		"status": true,
-		"name": "阿薩斯",
-		"slug": "阿薩斯",
-		"battlegroup": "嗜血",
-		"locale": "zh_TW",
-		"timezone": "Asia/Taipei",
-		"connected_realms": ["狂熱之刃", "地獄吼", "阿薩斯"]
-	}, {
-		"type": "pve",
-		"population": "n/a",
-		"queue": false,
-		"status": true,
-		"name": "雲蛟衛",
-		"slug": "雲蛟衛",
-		"battlegroup": "嗜血",
-		"locale": "zh_TW",
-		"timezone": "Asia/Taipei",
-		"connected_realms": ["世界之樹", "雲蛟衛", "亞雷戈斯"]
-	}, {
-		"type": "pvp",
-		"population": "medium",
-		"queue": false,
-		"status": true,
-		"name": "雷鱗",
-		"slug": "雷鱗",
-		"battlegroup": "嗜血",
-		"locale": "zh_TW",
-		"timezone": "Asia/Taipei",
-		"connected_realms": ["巨龍之喉", "夜空之歌", "雷鱗"]
-	}]
+  "_links": {
+    "self": { "href": "https://tw.api.blizzard.com/data/wow/realm/?namespace=dynamic-tw" }
+  },
+  "realms": [
+    {
+      "key": { "href": "https://tw.api.blizzard.com/data/wow/realm/963?namespace=dynamic-tw" },
+      "name": "暗影之月",
+      "id": 963,
+      "slug": "shadowmoon"
+    },
+    {
+      "key": { "href": "https://tw.api.blizzard.com/data/wow/realm/964?namespace=dynamic-tw" },
+      "name": "尖石",
+      "id": 964,
+      "slug": "spirestone"
+    },
+    {
+      "key": { "href": "https://tw.api.blizzard.com/data/wow/realm/965?namespace=dynamic-tw" },
+      "name": "雷鱗",
+      "id": 965,
+      "slug": "stormscale"
+    },
+    {
+      "key": { "href": "https://tw.api.blizzard.com/data/wow/realm/966?namespace=dynamic-tw" },
+      "name": "巨龍之喉",
+      "id": 966,
+      "slug": "dragonmaw"
+    },
+    {
+      "key": { "href": "https://tw.api.blizzard.com/data/wow/realm/977?namespace=dynamic-tw" },
+      "name": "冰霜之刺",
+      "id": 977,
+      "slug": "frostmane"
+    },
+    {
+      "key": { "href": "https://tw.api.blizzard.com/data/wow/realm/978?namespace=dynamic-tw" },
+      "name": "日落沼澤",
+      "id": 978,
+      "slug": "sundown-marsh"
+    },
+    {
+      "key": { "href": "https://tw.api.blizzard.com/data/wow/realm/979?namespace=dynamic-tw" },
+      "name": "地獄吼",
+      "id": 979,
+      "slug": "hellscream"
+    },
+    {
+      "key": { "href": "https://tw.api.blizzard.com/data/wow/realm/980?namespace=dynamic-tw" },
+      "name": "天空之牆",
+      "id": 980,
+      "slug": "skywall"
+    },
+    {
+      "key": { "href": "https://tw.api.blizzard.com/data/wow/realm/982?namespace=dynamic-tw" },
+      "name": "世界之樹",
+      "id": 982,
+      "slug": "world-tree"
+    },
+    {
+      "key": { "href": "https://tw.api.blizzard.com/data/wow/realm/985?namespace=dynamic-tw" },
+      "name": "水晶之刺",
+      "id": 985,
+      "slug": "crystalpine-stinger"
+    },
+    {
+      "key": { "href": "https://tw.api.blizzard.com/data/wow/realm/999?namespace=dynamic-tw" },
+      "name": "狂熱之刃",
+      "id": 999,
+      "slug": "zealot-blade"
+    },
+    {
+      "key": { "href": "https://tw.api.blizzard.com/data/wow/realm/1001?namespace=dynamic-tw" },
+      "name": "冰風崗哨",
+      "id": 1001,
+      "slug": "chillwind-point"
+    },
+    {
+      "key": { "href": "https://tw.api.blizzard.com/data/wow/realm/1006?namespace=dynamic-tw" },
+      "name": "米奈希爾",
+      "id": 1006,
+      "slug": "menethil"
+    },
+    {
+      "key": { "href": "https://tw.api.blizzard.com/data/wow/realm/1023?namespace=dynamic-tw" },
+      "name": "屠魔山谷",
+      "id": 1023,
+      "slug": "demon-fall-canyon"
+    },
+    {
+      "key": { "href": "https://tw.api.blizzard.com/data/wow/realm/1033?namespace=dynamic-tw" },
+      "name": "語風",
+      "id": 1033,
+      "slug": "whisperwind"
+    },
+    {
+      "key": { "href": "https://tw.api.blizzard.com/data/wow/realm/1037?namespace=dynamic-tw" },
+      "name": "血之谷",
+      "id": 1037,
+      "slug": "bleeding-hollow"
+    },
+    {
+      "key": { "href": "https://tw.api.blizzard.com/data/wow/realm/1038?namespace=dynamic-tw" },
+      "name": "亞雷戈斯",
+      "id": 1038,
+      "slug": "arygos"
+    },
+    {
+      "key": { "href": "https://tw.api.blizzard.com/data/wow/realm/1043?namespace=dynamic-tw" },
+      "name": "夜空之歌",
+      "id": 1043,
+      "slug": "nightsong"
+    },
+    {
+      "key": { "href": "https://tw.api.blizzard.com/data/wow/realm/1046?namespace=dynamic-tw" },
+      "name": "聖光之願",
+      "id": 1046,
+      "slug": "lights-hope"
+    },
+    {
+      "key": { "href": "https://tw.api.blizzard.com/data/wow/realm/1048?namespace=dynamic-tw" },
+      "name": "銀翼要塞",
+      "id": 1048,
+      "slug": "silverwing-hold"
+    },
+    {
+      "key": { "href": "https://tw.api.blizzard.com/data/wow/realm/1049?namespace=dynamic-tw" },
+      "name": "憤怒使者",
+      "id": 1049,
+      "slug": "wrathbringer"
+    },
+    {
+      "key": { "href": "https://tw.api.blizzard.com/data/wow/realm/1054?namespace=dynamic-tw" },
+      "name": "阿薩斯",
+      "id": 1054,
+      "slug": "arthas"
+    },
+    {
+      "key": { "href": "https://tw.api.blizzard.com/data/wow/realm/1056?namespace=dynamic-tw" },
+      "name": "眾星之子",
+      "id": 1056,
+      "slug": "queldorei"
+    },
+    {
+      "key": { "href": "https://tw.api.blizzard.com/data/wow/realm/1057?namespace=dynamic-tw" },
+      "name": "寒冰皇冠",
+      "id": 1057,
+      "slug": "icecrown"
+    },
+    {
+      "key": { "href": "https://tw.api.blizzard.com/data/wow/realm/2075?namespace=dynamic-tw" },
+      "name": "雲蛟衛",
+      "id": 2075,
+      "slug": "order-of-the-cloud-serpent"
+    }
+  ]
 }

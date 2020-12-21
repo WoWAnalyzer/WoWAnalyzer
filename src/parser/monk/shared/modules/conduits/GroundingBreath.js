@@ -12,6 +12,8 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemManaGained from 'interface/ItemManaGained';
 import ItemHealingDone from 'interface/ItemHealingDone';
 
+import { conduitScaling } from '../../../mistweaver/constants';
+
 class GroundingBreath extends Analyzer {
 
   healing = 0;
@@ -24,12 +26,15 @@ class GroundingBreath extends Analyzer {
    */
   constructor(...args) {
     super(...args);
-    this.active = false;//FIXME actually check if they have the conduit
-    if (!this.active) {
+
+    const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.GROUNDING_BREATH.id);
+    
+    if (!conduitRank) {
+      this.active = false;
       return;
     }
 
-    this.healingBoost = .1;
+    this.healingBoost = conduitScaling(.15, conduitRank);
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.vivifyBoost);
     this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell([SPELLS.GROUNDING_BREATH_MANA_RETURN, SPELLS.GROUNDING_BREATH_ENERGY_RETURN]), this.onResourceRefund);

@@ -3,4 +3,3 @@ node_modules
 /src/localization/_build/
 /src/localization/*/*.js
 /scripts/localization/*.js
-/scripts/azerite/extract.js

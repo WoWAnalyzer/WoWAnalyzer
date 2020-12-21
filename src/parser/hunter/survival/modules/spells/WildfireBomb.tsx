@@ -16,7 +16,6 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { MS_BUFFER } from 'parser/hunter/shared/constants';
 import { WILDFIRE_BOMB_LEEWAY_BUFFER } from 'parser/hunter/survival/constants';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 /**
@@ -114,11 +113,17 @@ class WildfireBomb extends Analyzer {
   suggestions(when: When) {
     when(this.badWFBThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You shouldn't refresh <SpellLink id={SPELLS.WILDFIRE_BOMB.id} /> since it doesn't pandemic. It's generally better to cast something else and wait for the DOT to drop off before reapplying.</>)
       .icon(SPELLS.WILDFIRE_BOMB.icon)
-      .actual(i18n._(t('hunter.survival.suggestions.wildfireBomb.pandemic.efficiency')`${actual} casts unnecessarily refreshed WFB`))
+      .actual(t({
+      id: "hunter.survival.suggestions.wildfireBomb.pandemic.efficiency",
+      message: `${actual} casts unnecessarily refreshed WFB`
+    }))
       .recommended(`<${recommended} is recommended`));
     when(this.uptimeThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Try and maximize your uptime on <SpellLink id={SPELLS.WILDFIRE_BOMB.id} />. This is achieved through not unnecessarily refreshing the debuff as it doesn't pandemic. </>)
       .icon(SPELLS.WILDFIRE_BOMB.icon)
-      .actual(i18n._(t('hunter.survival.suggestions.wildfireBomb.uptime')`${formatPercentage(actual)}% uptime`))
+      .actual(t({
+      id: "hunter.survival.suggestions.wildfireBomb.uptime",
+      message: `${formatPercentage(actual)}% uptime`
+    }))
       .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

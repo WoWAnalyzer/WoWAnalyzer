@@ -1054,3 +1054,27 @@ export const Maleficien: Contributor = {
     link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/maleficien'
   }]
 };
+export const Xcessiv: Contributor = {
+  nickname: 'Xcessiv',
+  github: 'jwmclark',
+  avatar: require('./interface/images/avatars/xcessiv-avatar.jpg'),
+  discord: 'Xcessiv#6732',
+  mains: [{
+    name: 'Xcessiv',
+    spec: SPECS.FERAL_DRUID,
+    link: 'https://worldofwarcraft.com/en-us/character/us/thrall/xcessiv',
+  }],
+};
+export const Tora: Contributor = {
+  nickname: "Tora",
+  github: "RobinKa",
+  discord: "Tora#1871",
+  mains: [{
+    name: "Nuhrok",
+    spec: SPECS.FERAL_DRUID,
+    link: "https://worldofwarcraft.com/en-gb/character/eu/tarren-mill/Nuhrok"
+  }],
+  links: {
+    "Website": "https://warlock.ai"
+  },
+};

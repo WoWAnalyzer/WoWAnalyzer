@@ -9,7 +9,6 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import UptimeIcon from 'interface/icons/Uptime';
 import Statistic from 'interface/statistics/Statistic';
 import { TooltipElement } from 'common/Tooltip';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class RipUptime extends Analyzer {
@@ -43,7 +42,10 @@ class RipUptime extends Analyzer {
       </>,
     )
       .icon(SPELLS.RIP.icon)
-      .actual(i18n._(t('druid.feral.suggestions.rip.uptime')`${formatPercentage(actual)}% uptime`))
+      .actual(t({
+      id: "druid.feral.suggestions.rip.uptime",
+      message: `${formatPercentage(actual)}% uptime`
+    }))
       .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

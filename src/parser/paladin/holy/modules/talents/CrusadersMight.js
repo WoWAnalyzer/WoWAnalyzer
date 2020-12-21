@@ -86,7 +86,8 @@ class CrusadersMight extends Analyzer {
 
   suggestions(when) {
     if (this.owner.builds.GLIMMER.active) {
-      when(this.holyShocksMissedThresholds).addSuggestion((suggest, actual, recommended) => suggest(
+      when(this.holyShocksMissedThresholds).addSuggestion((suggest, actual, recommended) =>
+        suggest(
           <>
             <Trans id="paladin.holy.modules.talents.crusadersMight.suggestion">
               You cast <SpellLink id={SPELLS.CRUSADER_STRIKE.id} />{' '}
@@ -108,16 +109,28 @@ class CrusadersMight extends Analyzer {
         )
           .icon(SPELLS.HOLY_SHOCK_CAST.icon)
           .actual(
-            t('paladin.holy.modules.talents.crusadersMight.actual')`${Math.floor(this.holyShocksCastsLost)} Holy Shock cast${
-              Math.floor(this.holyShocksCastsLost) === 1 ? '' : 's'
-            } missed.`,
+            t({
+              id: 'paladin.holy.modules.talents.crusadersMight.actual',
+
+              message: `${Math.floor(this.holyShocksCastsLost)} Holy Shock cast${
+                Math.floor(this.holyShocksCastsLost) === 1 ? '' : 's'
+              } missed.`,
+            }),
           )
-          .recommended(t('paladin.holy.modules.talents.crusadersMight.recommended')`Casting Holy Shock on cooldown is recommended.`));
+          .recommended(
+            t({
+              id: 'paladin.holy.modules.talents.crusadersMight.recommended',
+              message: `Casting Holy Shock on cooldown is recommended.`,
+            }),
+          ),
+      );
     }
   }
 
   statistic() {
-    const formatSeconds = seconds => <Trans id="paladin.holy.modules.talents.crusadersMight.formatSeconds">{seconds}s</Trans>;
+    const formatSeconds = (seconds) => (
+      <Trans id="paladin.holy.modules.talents.crusadersMight.formatSeconds">{seconds}s</Trans>
+    );
 
     return (
       <StatisticBox
@@ -135,22 +148,23 @@ class CrusadersMight extends Analyzer {
             />{' '}
           </>
         }
-        label={<Trans id="paladin.holy.modules.talents.crusadersMight.cdr">Cooldown reduction</Trans>}
+        label={
+          <Trans id="paladin.holy.modules.talents.crusadersMight.cdr">Cooldown reduction</Trans>
+        }
         tooltip={
           <>
             <Trans id="paladin.holy.modules.talents.crusadersMight.tooltip">
-            You cast Crusader Strike <b>{this.wastedHolyShockReductionCount}</b> time
-            {this.wastedHolyShockReductionCount === 1 ? '' : 's'} when Holy Shock was off cooldown.
-            <br />
-            This wasted <b>{(this.wastedHolyShockReductionMs / 1000).toFixed(1)}</b> seconds of Holy
-            Shock cooldown reduction,
-            <br />
-            preventing you from <b>{Math.floor(this.holyShocksCastsLost)}</b> additional Holy Shock
-            cast
-            {this.holyShocksLost === 1 ? '' : 's'}.
-            <br />
-            {this.wastedLightOfDawnReductionCount === 1 ? '' : 's'} when Light of Dawn
-            {this.owner.builds.GLIMMER.active ? ' and Holy Shock were' : ' was'} off cooldown.
+              You cast Crusader Strike <b>{this.wastedHolyShockReductionCount}</b> time
+              {this.wastedHolyShockReductionCount === 1 ? '' : 's'} when Holy Shock was off
+              cooldown.
+              <br />
+              This wasted <b>{(this.wastedHolyShockReductionMs / 1000).toFixed(1)}</b> seconds of
+              Holy Shock cooldown reduction,
+              <br />
+              preventing you from <b>{Math.floor(this.holyShocksCastsLost)}</b> additional Holy
+              Shock cast{this.holyShocksLost === 1 ? '' : 's'}.<br />
+              {this.wastedLightOfDawnReductionCount === 1 ? '' : 's'} when Light of Dawn{' '}
+              {this.owner.builds.GLIMMER.active ? ' and Holy Shock were' : ' was'} off cooldown.
             </Trans>
           </>
         }

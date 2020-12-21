@@ -7,7 +7,6 @@ import { t } from '@lingui/macro';
 
 import { fetchFights, LogNotFoundError } from 'common/fetchWclApi';
 import { captureException } from 'common/errorLogger';
-import { i18n } from 'interface/RootLocalizationProvider';
 import { setReport } from 'interface/actions/report';
 import { getReportCode } from 'interface/selectors/url/report';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
@@ -35,10 +34,6 @@ class ReportLoader extends React.PureComponent {
     report: null,
   };
 
-  constructor(props) {
-    super(props);
-    this.handleRefresh = this.handleRefresh.bind(this);
-  }
   setState(error = null, report = null) {
     super.setState({
       error,
@@ -53,8 +48,15 @@ class ReportLoader extends React.PureComponent {
 
   componentDidMount() {
     if (this.props.reportCode) {
+      const isRefresh =
+        window.performance.navigation?.type === 1 ||
+        window.performance
+          .getEntriesByType('navigation')
+          .map((nav) => nav.type)
+          .includes('reload');
+
       // noinspection JSIgnoredPromiseFromCall
-      this.loadReport(this.props.reportCode, REFRESH_BY_DEFAULT);
+      this.loadReport(this.props.reportCode, REFRESH_BY_DEFAULT || isRefresh);
     }
   }
   componentDidUpdate(prevProps, prevState) {
@@ -86,10 +88,6 @@ class ReportLoader extends React.PureComponent {
       this.setState(err, null);
     }
   }
-  handleRefresh() {
-    // noinspection JSIgnoredPromiseFromCall
-    this.loadReport(this.props.reportCode, true);
-  }
 
   renderError(error) {
     return handleApiError(error, () => {
@@ -98,7 +96,14 @@ class ReportLoader extends React.PureComponent {
     });
   }
   renderLoading() {
-    return <ActivityIndicator text={i18n._(t('interface.report.reportLoader')`Pulling report info...`)} />;
+    return (
+      <ActivityIndicator
+        text={t({
+          id: 'interface.report.reportLoader',
+          message: `Pulling report info...`,
+        })}
+      />
+    );
   }
   render() {
     const error = this.state.error;
@@ -116,7 +121,7 @@ class ReportLoader extends React.PureComponent {
         {/* TODO: Refactor the DocumentTitle away */}
         <DocumentTitle title={report.title} />
 
-        {this.props.children(report, this.handleRefresh)}
+        {this.props.children(report)}
       </>
     );
   }

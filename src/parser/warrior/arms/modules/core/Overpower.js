@@ -8,7 +8,6 @@ import Events from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import ExecuteRange from './Execute/ExecuteRange';
@@ -69,7 +68,10 @@ class OverpowerAnalyzer extends Analyzer {
   suggestions(when) {
     when(this.WastedOverpowerThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Try to avoid using <SpellLink id={SPELLS.OVERPOWER.id} icon /> at 2 stacks when <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> is available. Use your stacks of Overpower with Mortal Strike to avoid over stacking, which result in a loss of damage.</>)
       .icon(SPELLS.OVERPOWER.icon)
-      .actual(i18n._(t('warrior.arms.suggestions.overpower.stacksWasted')`${formatPercentage(actual)}% of Overpower stacks were wasted.`))
+      .actual(t({
+      id: "warrior.arms.suggestions.overpower.stacksWasted",
+      message: `${formatPercentage(actual)}% of Overpower stacks were wasted.`
+    }))
       .recommended(`${formatPercentage(recommended)}% is recommended.`));
   }
 

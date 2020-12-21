@@ -12,7 +12,12 @@ const legendaries = {
   //endregion
 
   //region Restoration
-
+  VISION_OF_UNENDING_GROWTH: {
+    id: 338832,
+    name: 'Vision of Unending Growth',
+    icon: 'achievement_dungeon_everbloom',
+    bonusID: 7099,
+  }
   //endregion
 
   //region Shared

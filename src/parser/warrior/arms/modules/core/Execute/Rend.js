@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import ExecuteRange from './ExecuteRange';
@@ -48,7 +47,10 @@ class RendAnalyzer extends Analyzer {
   suggestions(when) {
     when(this.executeRendsThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Try to avoid using <SpellLink id={SPELLS.REND_TALENT.id} icon /> on a target in <SpellLink id={SPELLS.EXECUTE.id} icon /> range.</>)
       .icon(SPELLS.REND_TALENT.icon)
-      .actual(i18n._(t('warrior.arms.suggestions.execute.rend.casts')`Rend was used ${formatPercentage(actual)}% of the time on a target in execute range.`))
+      .actual(t({
+      id: "warrior.arms.suggestions.execute.rend.casts",
+      message: `Rend was used ${formatPercentage(actual)}% of the time on a target in execute range.`
+    }))
       .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 }

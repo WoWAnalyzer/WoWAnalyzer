@@ -79,7 +79,10 @@ exports[`Elemental Shaman integration test: example log AlwaysBeCasting matches 
             src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
           />
            
-          shared.alwaysBeCasting.statistic.label
+          <trans
+            id="shared.alwaysBeCasting.statistic.label"
+            message="Downtime"
+          />
         </label>
         <div
           className="value"
@@ -211,7 +214,10 @@ exports[`Elemental Shaman integration test: example log AstralShift matches the 
             />
           </a>
            
-          shaman.shared.damageReduced.label
+          <trans
+            id="shaman.shared.damageReduced.label"
+            message="Estimated damage reduced"
+          />
         </label>
         <div
           className="value"
@@ -327,7 +333,7 @@ Array [
     "importance": "minor",
     "issue": "7.02% of spells casts were cancelled. Some casts will likely need to be cancelled due to mechanics, but generally, it is rarely a DPS up to cancel a cast in favor of casting another spell.",
     "stat": <React.Fragment>
-      7.02% casts cancelled
+      {"id":"shaman.elemental.suggestions.castsCancelled","message":"{0}% casts cancelled","values":{"0":"7.02"}}
        (
       &lt;5.00% is recommended
       )
@@ -350,7 +356,10 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
         }
       }
     >
-      common.abilities
+      <trans
+        id="common.abilities"
+        message="Abilities"
+      />
     </h1>
   </div>
   <div
@@ -377,7 +386,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
           <tr>
             <th>
               <b>
-                Rotational Spell
+                {"id":"core.abilities.spellCategories.rotational","message":"Rotational Spell"}
               </b>
             </th>
             <th
@@ -390,7 +399,10 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.cpm
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
               </dfn>
             </th>
             <th
@@ -403,7 +415,10 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.casts
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
               </dfn>
             </th>
             <th
@@ -416,7 +431,10 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.timeOnCooldown
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
               </dfn>
             </th>
             <th />
@@ -880,7 +898,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
           <tr>
             <th>
               <b>
-                Spell (AOE)
+                {"id":"core.abilities.spellCategories.rotationalAoe","message":"Spell (AOE)"}
               </b>
             </th>
             <th
@@ -893,7 +911,10 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.cpm
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
               </dfn>
             </th>
             <th
@@ -906,7 +927,10 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.casts
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
               </dfn>
             </th>
             <th
@@ -919,7 +943,10 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.timeOnCooldown
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
               </dfn>
             </th>
             <th />
@@ -1187,7 +1214,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
           <tr>
             <th>
               <b>
-                Cooldown
+                {"id":"core.abilities.spellCategories.cooldowns","message":"Cooldown"}
               </b>
             </th>
             <th
@@ -1200,7 +1227,10 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.cpm
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
               </dfn>
             </th>
             <th
@@ -1213,7 +1243,10 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.casts
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
               </dfn>
             </th>
             <th
@@ -1226,7 +1259,10 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.timeOnCooldown
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
               </dfn>
             </th>
             <th />
@@ -1426,7 +1462,10 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 }
               }
             >
-              shared.castEfficiency.canBeImproved
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
             </td>
           </tr>
           <tr>
@@ -1704,7 +1743,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
           <tr>
             <th>
               <b>
-                Defensive Cooldown
+                {"id":"core.abilities.spellCategories.defensive","message":"Defensive Cooldown"}
               </b>
             </th>
             <th
@@ -1717,7 +1756,10 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.cpm
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
               </dfn>
             </th>
             <th
@@ -1730,7 +1772,10 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.casts
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
               </dfn>
             </th>
             <th
@@ -1743,7 +1788,10 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.timeOnCooldown
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
               </dfn>
             </th>
             <th />
@@ -1851,7 +1899,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
           <tr>
             <th>
               <b>
-                Spell
+                {"id":"core.abilities.spellCategories.others","message":"Spell"}
               </b>
             </th>
             <th
@@ -1864,7 +1912,10 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.cpm
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
               </dfn>
             </th>
             <th
@@ -1877,7 +1928,10 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.casts
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
               </dfn>
             </th>
             <th
@@ -1890,7 +1944,10 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.timeOnCooldown
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
               </dfn>
             </th>
             <th />
@@ -1986,7 +2043,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
           <tr>
             <th>
               <b>
-                Utility
+                {"id":"core.abilities.spellCategories.utility","message":"Utility"}
               </b>
             </th>
             <th
@@ -1999,7 +2056,10 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.cpm
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
               </dfn>
             </th>
             <th
@@ -2012,7 +2072,10 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.casts
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
               </dfn>
             </th>
             <th
@@ -2025,7 +2088,10 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.timeOnCooldown
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
               </dfn>
             </th>
             <th />
@@ -2415,7 +2481,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
           <tr>
             <th>
               <b>
-                Consumable
+                {"id":"core.abilities.spellCategories.consumable","message":"Consumable"}
               </b>
             </th>
             <th
@@ -2428,7 +2494,10 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.cpm
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
               </dfn>
             </th>
             <th
@@ -2441,7 +2510,10 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.casts
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
               </dfn>
             </th>
             <th
@@ -2454,108 +2526,13 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.timeOnCooldown
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
               </dfn>
             </th>
             <th />
-          </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "35%",
-                }
-              }
-            >
-              <a
-                className="spell-link-text"
-                href="http://wowhead.com/spell=6262"
-                rel="noopener noreferrer"
-                style={
-                  Object {
-                    "color": "#fff",
-                  }
-                }
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/warlock_healthstone.jpg"
-                  style={
-                    Object {
-                      "height": undefined,
-                      "marginTop": undefined,
-                    }
-                  }
-                />
-                 
-                Healthstone
-              </a>
-            </td>
-            <td
-              className="text-center"
-              style={
-                Object {
-                  "minWidth": 80,
-                }
-              }
-            >
-              0.22
-            </td>
-            <td
-              className="text-right"
-              style={
-                Object {
-                  "minWidth": 110,
-                }
-              }
-            >
-              1
-              /1
-               
-              casts
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar"
-                  style={
-                    Object {
-                      "backgroundColor": "#70b570",
-                      "width": "100%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              className="text-left"
-              style={
-                Object {
-                  "minWidth": 50,
-                  "paddingRight": 5,
-                }
-              }
-            >
-              100.00%
-            </td>
-            <td
-              style={
-                Object {
-                  "color": "orange",
-                  "width": "25%",
-                }
-              }
-            />
           </tr>
           <tr>
             <td
@@ -2767,24 +2744,24 @@ Array [
     "icon": "ability_thunderking_lightningwhip",
     "importance": "regular",
     "issue": <React.Fragment>
-      <WithI18n
+      <Trans
         components={
-          Array [
-            <ForwardRef
+          Object {
+            "0": <ForwardRef
               id={191634}
             />,
-          ]
+          }
         }
-        defaults="Try to cast <0/> more often."
         id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
-      <WithI18n
-        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+      <Trans
         id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
         values={
           Object {
             "0": 3,
@@ -2794,9 +2771,9 @@ Array [
         }
       />
        (
-      <WithI18n
-        defaults=">{0}% is recommended"
+      <Trans
         id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
         values={
           Object {
             "0": "90",
@@ -2824,7 +2801,10 @@ exports[`Elemental Shaman integration test: example log DistanceMoved matches th
         className="pad"
       >
         <label>
-          shared.distanceMoved.statistic.label
+          <trans
+            id="shared.distanceMoved.statistic.label"
+            message="Distance moved"
+          />
         </label>
         <div
           className="value"
@@ -2903,10 +2883,10 @@ Array [
     "details": null,
     "icon": "inv_chest_mail_kultirasdungeon_c_01.jpg",
     "importance": "major",
-    "issue": <WithI18n
+    "issue": <Trans
       components={
-        Array [
-          <ItemLink
+        Object {
+          "0": <ItemLink
             details={
               Object {
                 "bonusIDs": Array [
@@ -2925,15 +2905,15 @@ Array [
             id={159362}
             quality={3}
           />,
-        ]
+        }
       }
-      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
       id="shared.enchantChecker.suggestions.noEnchant.label"
+      message="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
       values={
         Object {
-          "slotName": <WithI18n
-            defaults="Chest"
+          "slotName": <Trans
             id="common.slots.chest"
+            message="Chest"
           />,
         }
       }
@@ -2944,10 +2924,10 @@ Array [
     "details": null,
     "icon": "inv_bracer_mail_nazjatar_c_01.jpg",
     "importance": "major",
-    "issue": <WithI18n
+    "issue": <Trans
       components={
-        Array [
-          <ItemLink
+        Object {
+          "0": <ItemLink
             details={
               Object {
                 "bonusIDs": Array [
@@ -2974,15 +2954,15 @@ Array [
             id={170304}
             quality={4}
           />,
-        ]
+        }
       }
-      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
       id="shared.enchantChecker.suggestions.noEnchant.label"
+      message="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
       values={
         Object {
-          "slotName": <WithI18n
-            defaults="Bracers"
+          "slotName": <Trans
             id="common.slots.bracers"
+            message="Bracers"
           />,
         }
       }
@@ -2993,10 +2973,10 @@ Array [
     "details": null,
     "icon": "inv_jewelry_ring_44.jpg",
     "importance": "minor",
-    "issue": <WithI18n
+    "issue": <Trans
       components={
-        Array [
-          <ItemLink
+        Object {
+          "0": <ItemLink
             details={
               Object {
                 "bonusIDs": Array [
@@ -3023,15 +3003,15 @@ Array [
             id={165565}
             quality={4}
           />,
-        ]
+        }
       }
-      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
       id="shared.enchantChecker.suggestions.weakEnchant.label"
+      message="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
       values={
         Object {
-          "slotName": <WithI18n
-            defaults="Ring"
+          "slotName": <Trans
             id="common.slots.ring"
+            message="Ring"
           />,
         }
       }
@@ -3042,10 +3022,10 @@ Array [
     "details": null,
     "icon": "inv_ring_80_01c.jpg",
     "importance": "minor",
-    "issue": <WithI18n
+    "issue": <Trans
       components={
-        Array [
-          <ItemLink
+        Object {
+          "0": <ItemLink
             details={
               Object {
                 "bonusIDs": Array [
@@ -3073,15 +3053,15 @@ Array [
             id={168891}
             quality={4}
           />,
-        ]
+        }
       }
-      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
       id="shared.enchantChecker.suggestions.weakEnchant.label"
+      message="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
       values={
         Object {
-          "slotName": <WithI18n
-            defaults="Ring"
+          "slotName": <Trans
             id="common.slots.ring"
+            message="Ring"
           />,
         }
       }
@@ -3092,10 +3072,10 @@ Array [
     "details": null,
     "icon": "inv_cape_leather_zandalardungeon_c_01.jpg",
     "importance": "major",
-    "issue": <WithI18n
+    "issue": <Trans
       components={
-        Array [
-          <ItemLink
+        Object {
+          "0": <ItemLink
             details={
               Object {
                 "bonusIDs": Array [
@@ -3122,15 +3102,15 @@ Array [
             id={159292}
             quality={3}
           />,
-        ]
+        }
       }
-      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
       id="shared.enchantChecker.suggestions.noEnchant.label"
+      message="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
       values={
         Object {
-          "slotName": <WithI18n
-            defaults="Cloak"
+          "slotName": <Trans
             id="common.slots.cloak"
+            message="Cloak"
           />,
         }
       }
@@ -3141,10 +3121,10 @@ Array [
     "details": null,
     "icon": "inv_mace_1h_pandaraid_d_01.jpg",
     "importance": "minor",
-    "issue": <WithI18n
+    "issue": <Trans
       components={
-        Array [
-          <ItemLink
+        Object {
+          "0": <ItemLink
             details={
               Object {
                 "bonusIDs": Array [
@@ -3164,15 +3144,15 @@ Array [
             id={158369}
             quality={3}
           />,
-        ]
+        }
       }
-      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
       id="shared.enchantChecker.suggestions.weakEnchant.label"
+      message="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
       values={
         Object {
-          "slotName": <WithI18n
-            defaults="Weapon"
+          "slotName": <Trans
             id="common.slots.weapon"
+            message="Weapon"
           />,
         }
       }
@@ -4656,7 +4636,7 @@ Array [
     "importance": "major",
     "issue": "You overcapped 144 Maelstrom. Always prioritize spending it over avoiding the overcap of any other ability.",
     "stat": <React.Fragment>
-      6.72% overcapped Maelstrom
+      {"id":"shaman.shared.suggestions.maelstrom.overcapped","message":"{0}% overcapped Maelstrom","values":{"0":"6.72"}}
        (
       0.00% is recommended
       )
@@ -4755,37 +4735,16 @@ Array [
     "details": null,
     "icon": "inv_alchemy_90_combat2_purple",
     "importance": "regular",
-    "issue": <WithI18n
-      defaults="You used {0} combat potions during this encounter, but you could have used {1}. Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter."
+    "issue": <Trans
       id="shared.modules.items.potionChecker.suggestions.potionsUsed"
+      message="You used {0} combat {1} during this encounter, but you could have used {2}. Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter."
       values={
         Object {
           "0": 0,
-          "1": 1,
+          "1": "potions",
+          "2": 1,
         }
       }
-    />,
-    "stat": null,
-  },
-  Object {
-    "details": null,
-    "icon": "inv_alchemy_90_combat2_purple",
-    "importance": "minor",
-    "issue": <WithI18n
-      components={
-        Array [
-          <ItemLink
-            icon={true}
-            id={171273}
-          />,
-          <ItemLink
-            icon={true}
-            id={171273}
-          />,
-        ]
-      }
-      defaults="You used a weak potion. <0/> can be used instead of <1/> in order to get a slightly higher damage output."
-      id="shared.modules.items.potionChecker.suggestions.weakPotion"
     />,
     "stat": null,
   },
@@ -4825,7 +4784,10 @@ exports[`Elemental Shaman integration test: example log SpiritWolf matches the s
             />
           </a>
            
-          shaman.shared.damageReduced.label
+          <trans
+            id="shaman.shared.damageReduced.label"
+            message="Estimated damage reduced"
+          />
         </label>
         <div
           className="value"
@@ -5208,10 +5170,10 @@ Array [
     "details": null,
     "icon": "inv_mace_1h_pandaraid_d_01.jpg",
     "importance": "regular",
-    "issue": <WithI18n
+    "issue": <Trans
       components={
-        Array [
-          <ItemLink
+        Object {
+          "0": <ItemLink
             details={
               Object {
                 "bonusIDs": Array [
@@ -5231,15 +5193,15 @@ Array [
             id={158369}
             quality={3}
           />,
-        ]
+        }
       }
-      defaults="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone) . Apply an enhancement to very easily increase your throughput slightly."
       id="shared.weaponEnhancementChecker.suggestions.noWeaponEnhancement.label"
+      message="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone) . Apply an enhancement to very easily increase your throughput slightly."
       values={
         Object {
-          "slotName": <WithI18n
-            defaults="Weapon"
+          "slotName": <Trans
             id="common.slots.weapon"
+            message="Weapon"
           />,
         }
       }
@@ -6346,7 +6308,10 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
         <div
           className="flex-main name"
         >
-          shared.modules.features.checklist.wellPrepared
+          <trans
+            id="shared.modules.features.checklist.wellPrepared"
+            message="Be well prepared"
+          />
         </div>
         <div
           className="flex-sub perf"
@@ -6416,7 +6381,10 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
           <div
             className="col-md-12"
           >
-            shared.modules.features.checklist.wellPreparedDetails
+            <trans
+              id="shared.modules.features.checklist.wellPreparedDetails"
+              message="Being well prepared with food, flasks, potions and enchants is an easy way to improve your performance."
+            />
           </div>
         </div>
         <div
@@ -6431,7 +6399,10 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.enchanted
+                <trans
+                  id="shared.modules.features.checklist.enchanted"
+                  message="All items enchanted"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6492,7 +6463,10 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.enchantedHigh
+                <trans
+                  id="shared.modules.features.checklist.enchantedHigh"
+                  message="Using high quality enchants"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6553,7 +6527,9 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
               <div
                 className="flex-main"
               >
-                All weapons enhanced (oils/stones)
+                <trans
+                  id="All weapons enhanced (oils/stones)"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6614,7 +6590,9 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
               <div
                 className="flex-main"
               >
-                Using high quality weapon enhancements
+                <trans
+                  id="Using high quality weapon enhancements"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6675,7 +6653,10 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.combatPotionsUsed
+                <trans
+                  id="shared.modules.features.checklist.combatPotionsUsed"
+                  message="Combat potions used"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6736,7 +6717,10 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.highQualityCombatPotionsUsed
+                <trans
+                  id="shared.modules.features.checklist.highQualityCombatPotionsUsed"
+                  message="High quality combat potions used"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6797,7 +6781,10 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.flaskHigh
+                <trans
+                  id="shared.modules.features.checklist.flaskHigh"
+                  message="High quality flask used"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6818,7 +6805,10 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                   }
                 >
                    
-                  common.no
+                  <trans
+                    id="common.no"
+                    message="No"
+                  />
                    
                    
                 </div>
@@ -6857,7 +6847,10 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.flask
+                <trans
+                  id="shared.modules.features.checklist.flask"
+                  message="Flask used"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6878,7 +6871,10 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                   }
                 >
                    
-                  common.yes
+                  <trans
+                    id="common.yes"
+                    message="Yes"
+                  />
                    
                    
                 </div>
@@ -6917,7 +6913,10 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.foodHigh
+                <trans
+                  id="shared.modules.features.checklist.foodHigh"
+                  message="High quality food used"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6938,7 +6937,10 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                   }
                 >
                    
-                  common.no
+                  <trans
+                    id="common.no"
+                    message="No"
+                  />
                    
                    
                 </div>
@@ -6977,7 +6979,10 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.food
+                <trans
+                  id="shared.modules.features.checklist.food"
+                  message="Food used"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6998,7 +7003,10 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                   }
                 >
                    
-                  common.yes
+                  <trans
+                    id="common.yes"
+                    message="Yes"
+                  />
                    
                    
                 </div>

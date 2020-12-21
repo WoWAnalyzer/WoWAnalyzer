@@ -5,7 +5,6 @@ import { push } from 'connected-react-router';
 import { Trans, t } from '@lingui/macro';
 
 import REGION_CODES from 'common/REGION_CODES';
-import { i18n } from 'interface/RootLocalizationProvider';
 import Tooltip from 'common/Tooltip';
 
 import './ReportSelecter.css';
@@ -137,7 +136,10 @@ class ReportSelecter extends React.PureComponent {
                 style={{ width: '100%', height: '100%' }}
                 ref={this.codeInput}
                 onChange={this.handleChange}
-                placeholder={i18n._(t('interface.others.reportSelecter.placeholder')`https://www.warcraftlogs.com/reports/<report code>`)}
+                placeholder={t({
+                  id: "interface.others.reportSelecter.placeholder",
+                  message: `https://www.warcraftlogs.com/reports/<report code>`
+                })}
                 autoCorrect="off"
                 autoCapitalize="off"
                 spellCheck="false"

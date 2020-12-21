@@ -10,8 +10,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { MS_BUFFER_250 } from 'parser/mage/shared/constants';
 import { formatNumber, formatPercentage } from 'common/format';
-import { i18n } from '@lingui/core';
-import { t } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 
 const DAMAGE_MODIFIER = 240;
 const FIGHT_END_BUFFER = 5000;
@@ -53,6 +52,9 @@ class Pyroclasm extends Analyzer {
 
     //If the player hard casts Pyroblast into an instant Pyroblast there will be multiple pyroblast cast events within 250ms. So we need to grab the first one
     const lastPyroblastCast = this.eventHistory.last(undefined , MS_BUFFER_250, Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PYROBLAST))[0];
+    if (!lastPyroblastCast) {
+      return;
+    }
     const lastPyroblastBeginCast = lastPyroblastCast.channel ? lastPyroblastCast.channel.start : 0;
 
     if (lastPyroblastCast.timestamp - lastPyroblastBeginCast <= MS_BUFFER_250) {
@@ -118,7 +120,7 @@ class Pyroclasm extends Analyzer {
     when(this.procUtilizationThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You wasted {formatNumber(this.wastedProcs)} of your <SpellLink id={SPELLS.PYROCLASM_TALENT.id} /> procs. These procs make your hard cast (non instant) <SpellLink id={SPELLS.PYROBLAST.id} /> casts deal {DAMAGE_MODIFIER}% extra damage, so try and use them as quickly as possible so they do not expire or get overwritten.</>)
           .icon(SPELLS.PYROCLASM_TALENT.icon)
-          .actual(i18n._(t('mage.fire.suggestions.pyroclasm.wastedProcs')`${formatPercentage(this.procUtilization)}% utilization`))
+          .actual(<Trans id="mage.fire.suggestions.pyroclasm.wastedProcs">{formatPercentage(this.procUtilization)}% utilization</Trans>)
           .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 

@@ -9,7 +9,6 @@ import { When, ThresholdStyle, NumberThreshold } from 'parser/core/ParseResults'
 import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 import { shouldIgnore } from 'parser/shared/modules/hit-tracking/utilities';
 import Enemies from 'parser/shared/modules/Enemies';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class Consecration extends Analyzer {
@@ -58,7 +57,10 @@ class Consecration extends Analyzer {
     when(this.uptimeSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => suggest('Your Consecration usage can be improved. Maintain it to reduce all incoming damage and refresh it during rotational downtime.')
             .icon(SPELLS.CONSECRATION_CAST.icon)
-            .actual(i18n._(t('paladin.protection.suggestions.consecration.hitsMitigated')`${formatPercentage(actual)}% of hits were mitigated by Consecration`))
+            .actual(t({
+      id: "paladin.protection.suggestions.consecration.hitsMitigated",
+      message: `${formatPercentage(actual)}% of hits were mitigated by Consecration`
+    }))
             .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

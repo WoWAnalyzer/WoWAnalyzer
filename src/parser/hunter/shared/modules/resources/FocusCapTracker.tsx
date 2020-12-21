@@ -13,7 +13,6 @@ import Events, { CastEvent, DamageEvent, EnergizeEvent } from 'parser/core/Event
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { HUNTER_BASE_FOCUS_MAX, HUNTER_BASE_FOCUS_REGEN } from 'parser/hunter/shared/constants';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 /**
@@ -75,7 +74,10 @@ class FocusCapTracker extends RegenResourceCapTracker {
   suggestions(when: When) {
     when(this.focusNaturalRegenWasteThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You're allowing your focus to reach its cap. While at its maximum value you miss out on the focus that would have regenerated. Although it can be beneficial to let focus pool ready to be used at the right time, try to spend some before it reaches the cap.</>)
       .icon('ability_hunter_focusfire')
-      .actual(i18n._(t('hunter.marksmanship.suggestions.focusCapTracker.focusLost')`${formatPercentage(1 - actual)}% regenerated focus lost due to being capped.`))
+      .actual(t({
+      id: "hunter.marksmanship.suggestions.focusCapTracker.focusLost",
+      message: `${formatPercentage(1 - actual)}% regenerated focus lost due to being capped.`
+    }))
       .recommended(`<${formatPercentage(recommended, 0)}% is recommended.`));
   }
 

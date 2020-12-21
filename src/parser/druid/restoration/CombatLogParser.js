@@ -53,6 +53,9 @@ import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 // Potency
 import FlashOfClarity from './modules/shadowlands/conduits/FlashOfClarity';
 
+//legos
+import VisionOfUnendingGrowrth from './modules/shadowlands/legendaries/VisionOfUnendingGrowth';
+
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
@@ -115,6 +118,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // Conduits
     // Potency
     flashOfClarity: FlashOfClarity,
+
+    //legos
+    visionOfUnendingGrowrth: VisionOfUnendingGrowrth,
   };
 }
 
