@@ -150,6 +150,18 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
 }
 
 class Ability {
+   /**
+   * When extending this class with a new propTypes property you MUST include
+   * its parent's propTypes values in your new override value. Otherwise your
+   * class will treat inherited props as misplaced
+   * Example:
+   * import CoreAbility from 'parser/core/modules/Ability';
+   * class Ability extends CoreAbility {
+   *   static propTypes = {
+   *     ...CoreAbility.propTypes,
+   *     //...new property entries here...
+   * }
+   */
   static propTypes: { [key: string]: any } = {
     /**
      * REQUIRED The spell definition. If an array of spell definitions is
@@ -394,8 +406,6 @@ class Ability {
   shownSpell = null;
 
   /**
-   * When extending this class you MUST copy-paste this function into the new
-   * class. Otherwise your new props will not be set properly.
    * @param owner
    * @param options
    */
