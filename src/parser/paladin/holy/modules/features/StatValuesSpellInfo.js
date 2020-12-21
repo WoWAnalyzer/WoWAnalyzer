@@ -127,5 +127,20 @@ export default {
     hasteHpct: true,
     mastery: true,
     vers: true,
+  },
+  [SPELLS.SHOCK_BARRIER.id]: {
+    // Holy Paladin legendary
+    int: true,
+    crit: true,
+    hasteHpct: true,
+    mastery: true,
+    vers: true,
+  },
+  [SPELLS.ASHEN_HALLOW_HEAL.id]: {
+    int: true,
+    crit: true,
+    hasteHpct: true,
+    mastery: true,
+    vers: true,
   }
 };
