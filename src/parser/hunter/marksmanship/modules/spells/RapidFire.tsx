@@ -70,15 +70,15 @@ class RapidFire extends Analyzer {
     if (this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
       modRate /= (1 + TRUESHOT_RAPID_FIRE_RECHARGE_INCREASE);
     }
-    const spellReductionSpeed = 1 / modRate;
-    debug && console.log('modRate: ', modRate, ' & spellReductionSpeed: ', spellReductionSpeed);
+    const spellReductionSpeed = (1 / modRate) - 1;
+    debug && console.log('modRate: ', modRate, ' & additional spellReductionSpeed: ', spellReductionSpeed);
     this.reduceRapidFireCooldown(event, spellReductionSpeed);
     this.lastReductionTimestamp = event.timestamp;
   }
 
   reduceRapidFireCooldown(event: any, spellReductionSpeed: number) {
     const maxReductionMs: number = (event.timestamp - this.lastReductionTimestamp) * spellReductionSpeed;
-    debug && console.log('Reducing Rapid Fire cooldown by up to: ', maxReductionMs + ' seconds since last event');
+    debug && console.log('Reducing Rapid Fire cooldown by up to: ', maxReductionMs / 1000 + ' seconds since last event');
     const effectiveReductionMs: number = this.spellUsable.reduceCooldown(SPELLS.RAPID_FIRE.id, maxReductionMs, event.timestamp);
     this.effectiveCDRFromTrueshot += effectiveReductionMs;
     this.wastedCDRFromTrueshot += effectiveReductionMs - maxReductionMs;

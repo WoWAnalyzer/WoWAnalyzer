@@ -6512,35 +6512,14 @@ Array [
     "importance": "regular",
     "issue": <Trans
       id="shared.modules.items.potionChecker.suggestions.potionsUsed"
-      message="You used {0} combat potions during this encounter, but you could have used {1}. Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter."
+      message="You used {0} combat {1} during this encounter, but you could have used {2}. Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter."
       values={
         Object {
           "0": 0,
-          "1": 3,
+          "1": "potions",
+          "2": 3,
         }
       }
-    />,
-    "stat": null,
-  },
-  Object {
-    "details": null,
-    "icon": "inv_alchemy_90_combat2_purple",
-    "importance": "minor",
-    "issue": <Trans
-      components={
-        Object {
-          "0": <ItemLink
-            icon={true}
-            id={171273}
-          />,
-          "1": <ItemLink
-            icon={true}
-            id={171273}
-          />,
-        }
-      }
-      id="shared.modules.items.potionChecker.suggestions.weakPotion"
-      message="You used a weak potion. <0/> can be used instead of <1/> in order to get a slightly higher damage output."
     />,
     "stat": null,
   },
@@ -7794,7 +7773,7 @@ Array [
 ]
 `;
 
-exports[`Mistweaver Monk integration test: example log Tier45Comparison matches the statistic snapshot 1`] = `
+exports[`Mistweaver Monk integration test: example log Tier30Comparison matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -7827,7 +7806,7 @@ exports[`Mistweaver Monk integration test: example log Tier45Comparison matches 
               src="//render-us.worldofwarcraft.com/icons/56/monk_ability_cherrymanatea.jpg"
             />
           </a>
-           Tier 45 Comparison
+           Tier 30 Comparison
         </label>
         <div
           className="value"

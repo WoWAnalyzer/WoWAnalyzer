@@ -25,7 +25,7 @@ export default {
   UPWELLING_TALENT: { id: 274963, name: 'Upwelling', icon: 'ability_monk_surgingmist' },
   RISING_MIST_TALENT: { id: 274909, name: 'Rising Mist', icon: 'ability_monk_effuse' },
   // Brewmaster
-  LIGHT_BREWING_TALENT: { id: 196721, name: 'Light Brewing', icon: 'spell_brew_wheat' },
+  LIGHT_BREWING_TALENT: { id: 325093, name: 'Light Brewing', icon: 'spell_brew_wheat' },
   SPITFIRE_TALENT: { id: 242580, name: 'Spitfire', icon: 'ability_monk_breathoffire' },
   BLACK_OX_BREW_TALENT: { id: 115399, name: 'Black Ox Brew', icon: 'ability_monk_chibrew' },
   BOB_AND_WEAVE_TALENT: { id: 280515, name: 'Bob and Weave', icon: 'ability_creature_cursed_04' },

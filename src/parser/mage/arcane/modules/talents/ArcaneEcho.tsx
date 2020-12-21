@@ -10,7 +10,7 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, ApplyDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import { t } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 
 const MIN_MISSILE_THRESHOLD = 3;
 
@@ -83,10 +83,7 @@ class ArcaneEcho extends Analyzer {
 			.addSuggestion((suggest, actual, recommended) => 
 				suggest(<>You failed to cast enough <SpellLink id={SPELLS.ARCANE_MISSILES.id} /> into <SpellLink id={SPELLS.TOUCH_OF_THE_MAGI.id} /> {this.badTouchUses} times. When using <SpellLink id={SPELLS.ARCANE_ECHO_TALENT.id} /> you should be casting <SpellLink id={SPELLS.ARCANE_MISSILES.id} /> non-stop (Whether you have <SpellLink id={SPELLS.CLEARCASTING_ARCANE.id} /> procs or not) until the <SpellLink id={SPELLS.TOUCH_OF_THE_MAGI.id} /> debuff is removed from the target.</>)
 					.icon(SPELLS.ARCANE_MISSILES.icon)
-					.actual(t({
-                    id: "mage.arcane.suggestions.arcaneEcho.badTouchUses",
-                    message: `${formatNumber(this.badTouchUses)} Bad Touch of the Magi Uses`
-                }))
+					.actual(<Trans id="mage.arcane.suggestions.arcaneEcho.badTouchUses">{formatNumber(this.badTouchUses)} Bad Touch of the Magi Uses`</Trans>)
 					.recommended(`${formatNumber(recommended)} is recommended`));
 	}
 

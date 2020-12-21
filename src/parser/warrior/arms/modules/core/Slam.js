@@ -45,16 +45,9 @@ class Slam extends Analyzer {
       event.meta.inefficientCastReason = 'This Slam was used on a target while Mortal Strike was off cooldown.';
       this.badCast += 1;
     } else if (this.executeRange.isTargetInExecuteRange(event)) {
-      if (!this.selectedCombatant.hasBuff(SPELLS.CRUSHING_ASSAULT_BUFF.id)) {
-        event.meta = event.meta || {};
-        event.meta.isInefficientCast = true;
-        event.meta.inefficientCastReason = 'This Slam was used on a target while in execution range.';
-        this.badCast += 1;
-      } else {
-        event.meta = event.meta || {};
-        event.meta.isEnhancedCast = true;
-        event.meta.enhancedCastReason = 'This Slam consumed a Crushing Assasult buff.';
-      }
+      event.meta = event.meta || {};
+      event.meta.isEnhancedCast = true;
+      event.meta.enhancedCastReason = 'This Slam consumed a Crushing Assasult buff.';
     }
   }
 
