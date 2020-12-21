@@ -22,6 +22,7 @@ class Innervate extends Analyzer {
   casts = 0;
   castsOnYourself = 0;
   manaSaved = 0;
+  reduction = 0;
 
   constructor(options: Options) {
     super(options);
@@ -44,15 +45,17 @@ class Innervate extends Analyzer {
     if(this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)){
       //checks if the spell costs anything (we don't just use cost since some spells don't play nice)
       if (Object.keys(manaEvent).length !== 0) {
-        this.manaSaved += manaEvent[0];
+        this.manaSaved += manaEvent[0] * this.reduction;
       }
     }
   }
   
   handleInnervateCasts(event: CastEvent){
+    this.reduction = .5;
     this.casts += 1;
     if(event.targetID === event.sourceID){
       this.castsOnYourself += 1;
+      this.reduction = 1;
     }
   }
 
