@@ -1,5 +1,5 @@
 import React from 'react';
-import { Abelito75, AdamKelly, Amani, Barter, ChagriAli, ChristopherKiss, Dambroda, emallson, Guyius, Haelrail, HolySchmidt, Jafowler, jos3p, joshinator, Juko8, Keraldi, Khazak, Kruzershtern, Mae, Moonrabbit, niseko, Putro, Sharrq, Ssabbar, Tora, Zeboot, Zerotorescue } from 'CONTRIBUTORS';
+import { Abelito75, AdamKelly, Amani, Barter, ChagriAli, ChristopherKiss, Dambroda, emallson, Guyius, Haelrail, HolySchmidt, Jafowler, jos3p, joshinator, Juko8, Keraldi, Khazak, Kruzershtern, Mae, Moonrabbit, niseko, Putro, Sharrq, Ssabbar, Zeboot, Zerotorescue } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
@@ -13,7 +13,6 @@ export default [
   change(date(2020, 12, 19), 'Adjust our weak Potion suggestion to only show if a weak potion was actually used', Putro),
   change(date(2020, 12, 17), 'Added phase information for Castle Nathria bosses', Sharrq),
   change(date(2020, 12, 16), 'Fix character API realm slugs for non-English realms.', Zerotorescue),
-  change(date(2020, 12, 15), 'Update Feral Bloodtalons for Shadowlands', Tora),
   change(date(2020, 12, 15), <> Add support for the Engineering scopes, <ItemLink id={ITEMS.ENCHANT_WEAPON_OPTICAL_TARGET_EMBIGGENER.id} /> and <ItemLink id={ITEMS.ENCHANT_WEAPON_INFRA_GREEN_REFLEX_SIGHT.id} />, to the enchant checker. </>, Putro),
   change(date(2020, 12, 15), 'Add support for Aura Broken events in our Events tab', Putro),
   change(date(2020, 12, 13), 'Using the browser refresh on fight selection now correctly reloads the report from WCL.', Zerotorescue),
