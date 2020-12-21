@@ -223,26 +223,25 @@ class GlimmerOfLight extends Analyzer {
   }
 
   suggestions(when) {
-    if (this.owner.builds.GLIMMER.active) {
-      when(this.suggestEarlyRefresh).addSuggestion((suggest, actual, recommended) => suggest(
-          <Trans id="paladin.holy.modules.talents.glimmerOfLight">
-            Your usage of <SpellLink id={SPELLS.GLIMMER_OF_LIGHT_TALENT.id} /> can be improved. To maximize
-            the healing/damage done by <SpellLink id={SPELLS.GLIMMER_OF_LIGHT_TALENT.id} />, try to keep as
-            many buffs up as possible. Avoid overwritting buffs early, this suggestion does not take
-            priority over healing targets with low health. If two targets have similar health pools
-            priorize the target without a glimmer as your{' '}
-            <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> will heal all players with active buffs.
-          </Trans>,
+    when(this.suggestEarlyRefresh).addSuggestion((suggest, actual, recommended) => suggest(
+        <Trans id="paladin.holy.modules.talents.glimmerOfLight">
+          Your usage of <SpellLink id={SPELLS.GLIMMER_OF_LIGHT_TALENT.id} /> can be improved. To maximize
+          the healing/damage done by <SpellLink id={SPELLS.GLIMMER_OF_LIGHT_TALENT.id} />, try to keep as
+          many buffs up as possible. Avoid overwritting buffs early, this suggestion does not take
+          priority over healing targets with low health. If two targets have similar health pools
+          priorize the target without a glimmer as your{' '}
+          <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> will heal all players with active buffs.
+        </Trans>,
+      )
+        .icon(SPELLS.GLIMMER_OF_LIGHT_TALENT.icon)
+        .actual(
+          `Uptime lost to early Glimmer refresh was ${formatPercentage(
+            this.earlyGlimmerRefreshLoss,
+          )}%`,
         )
-          .icon(SPELLS.GLIMMER_OF_LIGHT_TALENT.icon)
-          .actual(
-            `Uptime lost to early Glimmer refresh was ${formatPercentage(
-              this.earlyGlimmerRefreshLoss,
-            )}%`,
-          )
-          .recommended(`< ${this.suggestEarlyRefresh.isGreaterThan.minor * 100}% is recommended`));
+        .recommended(`< ${this.suggestEarlyRefresh.isGreaterThan.minor * 100}% is recommended`));
     }
-  }
+  
 }
 
 export default GlimmerOfLight;
