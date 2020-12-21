@@ -38,7 +38,7 @@ class Dispatch extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.betweenTheEyesDamageTracker.subscribeInefficientCast([SPELLS.DISPATCH], (s) => `Between The Eyes should be prioritized as your damage finisher.`);
+    this.betweenTheEyesDamageTracker.subscribeInefficientCast([SPELLS.DISPATCH], (s) => `Between The Eyes should be prioritized as your damaging finisher.`);
   }
 
   suggestions(when) {
