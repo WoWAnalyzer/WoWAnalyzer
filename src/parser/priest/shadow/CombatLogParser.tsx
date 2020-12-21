@@ -17,6 +17,7 @@ import ShadowWordPain from './modules/spells/ShadowWordPain';
 import Dispersion from './modules/spells/Dispersion';
 import VampiricEmbrace from './modules/spells/VampiricEmbrace';
 // talents
+import FortressOfTheMind from './modules/talents/FortressOfTheMind';
 import TwistOfFate from './modules/talents/TwistOfFate';
 import VoidTorrent from './modules/talents/VoidTorrent';
 import ShadowCrash from './modules/talents/ShadowCrash';
@@ -48,6 +49,7 @@ class CombatLogParser extends MainCombatLogParser {
     vampiricEmbrace: VampiricEmbrace,
 
     // talents:
+    fortressOfTheMind: FortressOfTheMind,
     twistOfFate: TwistOfFate,
     voidTorrent: VoidTorrent,
     shadowCrash: ShadowCrash,
