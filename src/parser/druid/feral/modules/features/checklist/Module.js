@@ -16,7 +16,6 @@ import EnergyCapTracker from '../EnergyCapTracker';
 import RipSnapshot from '../../bleeds/RipSnapshot';
 import RakeSnapshot from '../../bleeds/RakeSnapshot';
 import MoonfireSnapshot from '../../talents/MoonfireSnapshot';
-import PredatorySwiftness from '../../spells/PredatorySwiftness';
 import Bloodtalons from '../../talents/Bloodtalons';
 import Predator from '../../talents/Predator';
 import SavageRoar from '../../talents/SavageRoar';
@@ -41,7 +40,6 @@ class Checklist extends BaseChecklist {
     ripSnapshot: RipSnapshot,
     rakeSnapshot: RakeSnapshot,
     moonfireSnapshot: MoonfireSnapshot,
-    predatorySwiftness: PredatorySwiftness,
     bloodtalons: Bloodtalons,
     predator: Predator,
     tigersFuryEnergy: TigersFuryEnergy,
@@ -87,7 +85,6 @@ class Checklist extends BaseChecklist {
           moonfireDowngrade: this.moonfireSnapshot.downgradeSuggestionThresholds,
 
           // bloodtalons
-          predatorySwiftnessWasted: this.predatorySwiftness.suggestionThresholds,
           bloodtalonsWasted: this.bloodtalons.suggestionThresholds,
 
           // talent selection

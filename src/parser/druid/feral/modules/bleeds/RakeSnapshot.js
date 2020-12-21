@@ -62,7 +62,7 @@ class RakeSnapshot extends Snapshot {
   static durationOfFresh = RAKE_BASE_DURATION;
   static isProwlAffected = true;
   static isTigersFuryAffected = true;
-  static isBloodtalonsAffected = true;
+  static isBloodtalonsAffected = false;
   // rake buffed with Prowl ending early due to refresh without Prowl buff
   prowlLostCastCount = 0;
   // total time cut out from the end of prowl-buffed rake bleeds by refreshing early (milliseconds)
@@ -120,7 +120,7 @@ class RakeSnapshot extends Snapshot {
 
     when(this.downgradeSuggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
       <>
-        Try to only refresh <SpellLink id={SPELLS.RAKE.id} /> before the <TooltipElement content={`The last ${(this.constructor.durationOfFresh * PANDEMIC_FRACTION / 1000).toFixed(1)} seconds of Rake's duration. When you refresh during this time you don't lose any duration in the process.`}>pandemic window</TooltipElement> if you have more powerful <TooltipElement content="Applying Rake with Prowl, Tiger's Fury or Bloodtalons will boost its damage until you reapply it.">snapshot buffs</TooltipElement> than were present when it was first cast.
+        Try to only refresh <SpellLink id={SPELLS.RAKE.id} /> before the <TooltipElement content={`The last ${(this.constructor.durationOfFresh * PANDEMIC_FRACTION / 1000).toFixed(1)} seconds of Rake's duration. When you refresh during this time you don't lose any duration in the process.`}>pandemic window</TooltipElement> if you have more powerful <TooltipElement content="Applying Rake with Prowl, Tiger's Fury will boost its damage until you reapply it.">snapshot buffs</TooltipElement> than were present when it was first cast.
       </>,
     )
       .icon(SPELLS.RAKE.icon)
