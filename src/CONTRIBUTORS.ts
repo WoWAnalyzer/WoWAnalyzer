@@ -1065,3 +1065,16 @@ export const Xcessiv: Contributor = {
     link: 'https://worldofwarcraft.com/en-us/character/us/thrall/xcessiv',
   }],
 };
+export const Tora: Contributor = {
+  nickname: "Tora",
+  github: "RobinKa",
+  discord: "Tora#1871",
+  mains: [{
+    name: "Nuhrok",
+    spec: SPECS.FERAL_DRUID,
+    link: "https://worldofwarcraft.com/en-gb/character/eu/tarren-mill/Nuhrok"
+  }],
+  links: {
+    "Website": "https://warlock.ai"
+  },
+};

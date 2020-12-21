@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 12, 21), 'Minor update to suggestions', Tyndi),
   change(date(2020, 12, 18), <> Fixed an issue where the analyzer couldn't reduce the cooldown of <SpellLink id={SPELLS.SERRATED_BONE_SPIKE.id} />. </>, Putro),
   change(date(2020, 12, 15), 'Added warning for spec not being supported', Tyndi),
   change(date(2020, 11, 30), 'Fixed error with Slice and Dice', Tyndi),
