@@ -757,10 +757,12 @@ export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
     Spell,
   ];
   pvpTalents: Spell[];
-  artifact: SoulbindTrait[];
-  heartOfAzeroth: Conduit[];
   covenantID: number,
   soulbindID: number,
+  artifact?: SoulbindTrait[]; //WCL keeps Soulbind Abilities in the artifact field - we keep this temporarily before allocating to soulbindTraits
+  soulbindTraits?: SoulbindTrait[];
+  heartOfAzeroth?: Conduit[]; //WCL keeps class specific conduits in the heartOfAzeroth field - we keep this temporarily before allocating to conduits
+  conduits?: Conduit[];
   error?: any, //TODO: Verify, is this a bool? string?
 }
 

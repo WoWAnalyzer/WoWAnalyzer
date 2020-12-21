@@ -32,6 +32,7 @@ class Haste extends Analyzer {
     [SPELLS.REVERSE_ENTROPY_BUFF.id]: 0.15,
     [SPELLS.ENRAGE.id]: 0.25, // Fury Warrior
     [SPELLS.EMPOWER_RUNE_WEAPON.id]: 0.15, // Frost DK
+    [SPELLS.EUPHORIA.id]: 0.2, //Buff from Thrill Seeker (Nadjia Soulbind Venthyr)
 
     //region Hunter Haste Buffs
     [SPELLS.DIRE_BEAST_BUFF.id]: DIRE_BEAST_HASTE_PERCENT,
@@ -43,9 +44,6 @@ class Haste extends Analyzer {
       hastePerStack: 0.03,
     },
     //endregion
-
-    // Boss abilities:
-    [SPELLS.OPULENCE_AMETHYST_OF_THE_SHADOW_KING.id]: 0.5, // Amethyst of the Shadow King by Opulence (BoD - BFA)
   };
 
   get changehaste() {

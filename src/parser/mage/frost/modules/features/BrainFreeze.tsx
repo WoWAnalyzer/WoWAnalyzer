@@ -145,7 +145,7 @@ class BrainFreeze extends Analyzer {
 
   suggestions(when: When) {
     when(this.brainFreezeOverwritenThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>You overwrite {formatPercentage(actual)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs. You should use your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs as soon as possible and avoid letting them expire or be overwritten whenever possible. There are not any situations where it would be advantageous to hold your <SpellLink id={SPELLS.BRAIN_FREEZE.id} />.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>You overwrote {formatPercentage(actual)}% of your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs. You should use your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> procs as soon as possible and avoid letting them expire or be overwritten whenever possible. There are not any situations where it would be advantageous to hold your <SpellLink id={SPELLS.BRAIN_FREEZE.id} />.</>)
           .icon(SPELLS.BRAIN_FREEZE.icon)
           .actual(<Trans id="mage.frost.suggestions.brainFreeze.overwritten">{formatPercentage(actual)}% overwritten</Trans>)
           .recommended(`Overwriting none is recommended`));

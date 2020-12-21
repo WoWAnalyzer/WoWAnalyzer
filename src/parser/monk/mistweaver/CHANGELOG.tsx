@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 12, 18), <>Fixed bug in tier 30 comparison that would make sotc always give 0 mana.</>, Abelito75),
   change(date(2020, 12, 15), 'Bumped level of support to 9.0.2', Putro),
   change(date(2020, 12, 12), <>Enabled endurance conduits.</>, Abelito75),
   change(date(2020, 12, 4), <>Turned on Ancient Teachings of the Monastery and Clouded Focus.</>, Abelito75),

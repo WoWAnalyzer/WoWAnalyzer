@@ -1529,7 +1529,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#ff8000",
+                      "backgroundColor": "#70b570",
                       "width": "0%",
                     }
                   }
@@ -1554,12 +1554,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                   "width": "25%",
                 }
               }
-            >
-              <trans
-                id="shared.castEfficiency.canBeImproved"
-                message="Can be improved."
-              />
-            </td>
+            />
           </tr>
         </tbody>
         <tbody>
@@ -3511,50 +3506,6 @@ Array [
       )
     </React.Fragment>,
   },
-  Object {
-    "details": null,
-    "icon": "spell_shadow_corpseexplode",
-    "importance": "major",
-    "issue": <React.Fragment>
-      <Trans
-        components={
-          Object {
-            "0": <ForwardRef
-              id={327574}
-            />,
-          }
-        }
-        id="shared.modules.castEfficiency.suggest"
-        message="Try to cast <0/> more often."
-      />
-       
-      
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      <Trans
-        id="shared.modules.castEfficiency.actual"
-        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
-        values={
-          Object {
-            "0": 0,
-            "1": 1,
-            "2": "0",
-          }
-        }
-      />
-       (
-      <Trans
-        id="shared.modules.castEfficiency.recommended"
-        message=">{0}% is recommended"
-        values={
-          Object {
-            "0": "90",
-          }
-        }
-      />
-      )
-    </React.Fragment>,
-  },
 ]
 `;
 
@@ -4280,35 +4231,14 @@ Array [
     "importance": "regular",
     "issue": <Trans
       id="shared.modules.items.potionChecker.suggestions.potionsUsed"
-      message="You used {0} combat potions during this encounter, but you could have used {1}. Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter."
+      message="You used {0} combat {1} during this encounter, but you could have used {2}. Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter."
       values={
         Object {
           "0": 0,
-          "1": 1,
+          "1": "potions",
+          "2": 1,
         }
       }
-    />,
-    "stat": null,
-  },
-  Object {
-    "details": null,
-    "icon": "inv_alchemy_90_combat2_yellow",
-    "importance": "minor",
-    "issue": <Trans
-      components={
-        Object {
-          "0": <ItemLink
-            icon={true}
-            id={171275}
-          />,
-          "1": <ItemLink
-            icon={true}
-            id={171275}
-          />,
-        }
-      }
-      id="shared.modules.items.potionChecker.suggestions.weakPotion"
-      message="You used a weak potion. <0/> can be used instead of <1/> in order to get a slightly higher damage output."
     />,
     "stat": null,
   },

@@ -16,6 +16,7 @@ class Abilities extends CoreAbilities {
       // // Base class resource
       {
         spell: SPELLS.COMBO_POINT,
+        category: Abilities.SPELL_CATEGORIES.HIDDEN,
       },
       // Rotational
       {

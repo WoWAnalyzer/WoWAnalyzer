@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 12, 10), <>Added stats for <SpellLink id={SPELLS.SCALDING_BREW.id} /> and <SpellLink id={SPELLS.EVASIVE_STRIDE.id} />.</>, emallson),
   change(date(2020, 12, 15), <>Fix <SpellLink id={SPELLS.LIGHT_BREWING_TALENT.id} /> ID</>, Matardarix),
   change(date(2020, 11, 26), <>Replaced the deprecated StatisticBoxes from the modules with the new Statistic</>, LeoZhekov),
   change(date(2020, 10, 24), <>Added checklist item and timeline annotations for bad <SpellLink id={SPELLS.TIGER_PALM.id} /> casts.</>, emallson),

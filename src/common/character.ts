@@ -1,5 +1,3 @@
-import { HeartOfAzeroth } from './heartOfAzeroth';
-
 export interface Character {
   guid: number;
   id: number;
@@ -19,5 +17,4 @@ export interface Character {
   lastSeenAt: string;
   talents: string;
   thumbnail?: string;
-  heartOfAzeroth?: HeartOfAzeroth;
 };

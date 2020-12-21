@@ -483,6 +483,12 @@ const spells = {
     name: 'Spirit of Redemption',
     icon: 'inv_enchant_essenceeternallarge',
   },
+  // Items
+  DIVINE_IMAGE: {
+    id: 336401,
+    name: 'Divine Image',
+    icon: 'ability_priest_ascension',
+  },
 
   // Shadow Spells
   MIND_BLAST: {

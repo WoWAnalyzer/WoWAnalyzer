@@ -8,6 +8,11 @@ import { change, date } from 'common/changelog';
 
 // prettier-ignore
 export default [
+  change(date(2020, 12, 20), 'Removed the last remnants of Azerite across the codebase', Putro),
+  change(date(2020, 12, 19), 'Add warnings for logs with Advanced Combat Logging disabled and when no encounters are found.', Sharrq),
+  change(date(2020, 12, 19), <> Fix issues with <ItemLink id={ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id} /> not accounting for the correct stat given. </>, Putro),
+  change(date(2020, 12, 19), 'Adjust our weak Potion suggestion to only show if a weak potion was actually used', Putro),
+  change(date(2020, 12, 17), 'Added phase information for Castle Nathria bosses', Sharrq),
   change(date(2020, 12, 16), 'Fix character API realm slugs for non-English realms.', Zerotorescue),
   change(date(2020, 12, 15), <> Add support for the Engineering scopes, <ItemLink id={ITEMS.ENCHANT_WEAPON_OPTICAL_TARGET_EMBIGGENER.id} /> and <ItemLink id={ITEMS.ENCHANT_WEAPON_INFRA_GREEN_REFLEX_SIGHT.id} />, to the enchant checker. </>, Putro),
   change(date(2020, 12, 15), 'Add support for Aura Broken events in our Events tab', Putro),
