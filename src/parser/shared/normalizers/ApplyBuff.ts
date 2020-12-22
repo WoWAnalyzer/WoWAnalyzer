@@ -158,7 +158,7 @@ class ApplyBuff extends EventsNormalizer {
             type: EventType.ApplyBuff,
             ability: {
               guid: spellId,
-              name: SPELLS[spellId] ? SPELLS[spellId].name : 'Unknown',
+              name: SPELLS[spellId] ? SPELLS[spellId].name! : 'Unknown',
               abilityIcon: aura.icon,
               type: 0,
             },

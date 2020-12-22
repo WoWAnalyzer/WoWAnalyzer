@@ -456,7 +456,7 @@ exports[`Arcane Mage integration test: example log ArcanePower matches the stati
             />
           </a>
            
-          97
+          100
           % 
           <small>
             Cast utilization
@@ -483,53 +483,6 @@ exports[`Arcane Mage integration test: example log ArcanePower matches the stati
     </div>
   </div>
 </div>
-`;
-
-exports[`Arcane Mage integration test: example log ArcanePower matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "spell_nature_lightning",
-    "importance": "minor",
-    "issue": <React.Fragment>
-      You cast spells other than 
-      <ForwardRef
-        id={30451}
-      />
-      ,
-      <ForwardRef
-        id={5143}
-      />
-      , 
-      <ForwardRef
-        id={1449}
-      />
-      , and 
-      <ForwardRef
-        id={205025}
-      />
-       during 
-      <ForwardRef
-        id={12042}
-      />
-      . Arcane Power is a short duration, so you should ensure that you are getting the most use out of it. Buff spells like Rune of Power should be cast immediately before casting Arcane Power. Other spells such as Charged Up, Blink/Shimmer, etc are acceptable during Arcane Power, but should be avoided if possible.
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      <Trans
-        id="mage.arcane.suggestions.arcanePower.utilization"
-        message="{0}% Utilization"
-        values={
-          Object {
-            "0": "96.55",
-          }
-        }
-      />
-       (
-      100.00% is recommended
-      )
-    </React.Fragment>,
-  },
-]
 `;
 
 exports[`Arcane Mage integration test: example log CancelledCasts matches the statistic snapshot 1`] = `
@@ -4265,7 +4218,7 @@ exports[`Arcane Mage integration test: example log DistanceMoved matches the sta
             }
           >
             ≈ 
-            43.19
+            43.17
             %
           </small>
         </div>
@@ -5336,8 +5289,8 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "88.46724137931037%",
+                  "backgroundColor": "#4ec04e",
+                  "width": "100%",
                 }
               }
             />
@@ -5475,7 +5428,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  96.55%
+                  100.00%
                    
                    
                 </div>
@@ -5495,9 +5448,9 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "76.93448275862073%",
+                        "width": "100%",
                       }
                     }
                   />

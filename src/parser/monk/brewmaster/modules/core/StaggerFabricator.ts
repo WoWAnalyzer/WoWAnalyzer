@@ -45,7 +45,7 @@ class StaggerFabricator extends Analyzer {
   };
   _lastKnownMaxHp = 0;
   _initialized = false;
-  _previousBuff: number = 0;
+  _previousBuff: number | null = null;
   protected eventEmitter!: EventEmitter;
   protected ht!: HighTolerance;
   protected haste!: Haste;
@@ -123,7 +123,7 @@ class StaggerFabricator extends Analyzer {
     if (currentBuff !== this._previousBuff) {
       this._previousBuff && this.haste._applyHasteLoss(staggerEvent, HIGH_TOLERANCE_HASTE[this._previousBuff]);
       currentBuff && this.haste._applyHasteGain(staggerEvent, HIGH_TOLERANCE_HASTE[currentBuff]);
-      this._previousBuff = currentBuff ? currentBuff : 0;
+      this._previousBuff = currentBuff;
     }
   }
 

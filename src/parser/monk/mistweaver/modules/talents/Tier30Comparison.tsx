@@ -18,7 +18,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import { t } from '@lingui/macro';
-import { LIFECYCLES_MANA_PERC_REDUCTION, LIFECYCLES_VIVIFY_BUFF_PERCENT_REDUCTION, SPIRIT_OF_THE_CRANE_MANA_RETURN } from 'parser/monk/mistweaver/constants';
+import { LIFECYCLES_MANA_PERC_REDUCTION, SPIRIT_OF_THE_CRANE_MANA_RETURN } from 'parser/monk/mistweaver/constants';
 
 import ManaTea from './ManaTea';
 import SpiritOfTheCrane from './SpiritOfTheCrane';
@@ -152,7 +152,7 @@ class Tier30Comparison extends Analyzer {
       //life cycles reduces mana cost of two spells if you casted the other before hand
       //so best = (x-1) * VivCost * LifcylesReduction + x * EnvCost * LifcylesReduction = (best + ReducedViv) / ReducedEnv = x
       //x-1 since you viv first in all fights
-      this.lifecycles.requiredEnvs = Math.ceil((this.best.manaFrom + SPELLS.VIVIFY.manaCost!) * LIFECYCLES_VIVIFY_BUFF_PERCENT_REDUCTION / SPELLS.ENVELOPING_MIST.manaCost! * LIFECYCLES_VIVIFY_BUFF_PERCENT_REDUCTION);
+      this.lifecycles.requiredEnvs = Math.ceil((this.best.manaFrom + SPELLS.VIVIFY.manaCost * LIFECYCLES_MANA_PERC_REDUCTION) / SPELLS.ENVELOPING_MIST.manaCost * LIFECYCLES_MANA_PERC_REDUCTION);
       this.lifecycles.requiredVivs = this.lifecycles.requiredEnvs - 1;
     }
 
@@ -177,7 +177,7 @@ class Tier30Comparison extends Analyzer {
   generateManaTea() {
     const fightLength = (this.owner.fight.end_time - this.owner.fight.start_time) / 1000;
     const manaTeasPossible = (Math.ceil(fightLength / 90) || 1);
-    const manaPerDuration = (this.totalManaSpent() / fightLength) * SPELLS.MANA_TEA_TALENT.duration! / 1000;//duration of mana Tea
+    const manaPerDuration = (this.totalManaSpent() / fightLength) * SPELLS.MANA_TEA_TALENT.duration / 1000;//duration of mana Tea
     const manaPerTea = manaTeasPossible * manaPerDuration;
     return manaPerTea || 0;
   }
@@ -186,8 +186,8 @@ class Tier30Comparison extends Analyzer {
   generateLifeCycles() {
     const envCasts = this.abilityTracker.getAbility(SPELLS.ENVELOPING_MIST.id).casts || 0;
     const vivCasts = this.abilityTracker.getAbility(SPELLS.VIVIFY.id).casts - 1;
-    const manaDiscountOnViv = Math.min(vivCasts, envCasts) * SPELLS.VIVIFY.manaCost!  * LIFECYCLES_MANA_PERC_REDUCTION;
-    const manaDiscountOnEnv = Math.min(vivCasts, envCasts) * SPELLS.ENVELOPING_MIST.manaCost! * LIFECYCLES_MANA_PERC_REDUCTION;
+    const manaDiscountOnViv = Math.min(vivCasts, envCasts) * SPELLS.VIVIFY.manaCost * LIFECYCLES_MANA_PERC_REDUCTION;
+    const manaDiscountOnEnv = Math.min(vivCasts, envCasts) * SPELLS.ENVELOPING_MIST.manaCost * LIFECYCLES_MANA_PERC_REDUCTION;
     return (manaDiscountOnEnv + manaDiscountOnViv) || 0;
   }
 
@@ -284,7 +284,7 @@ interface BestTalent {
   selected: boolean;
   manaFrom: number;
   icon: string;
-  name?: string;
+  name: string;
   id: number;
   best: boolean;
 }

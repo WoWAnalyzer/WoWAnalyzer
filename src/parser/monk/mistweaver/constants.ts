@@ -27,13 +27,10 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
 
 // Core Constants
 export const LIFE_COCOON_HEALING_BOOST = .5;
-
-
 export const TEACHINGS_OF_THE_MONASTERY_DURATION = 20000;
 
 // Talent Constants
 export const SPIRIT_OF_THE_CRANE_MANA_RETURN = .0065;
-export const LIFECYCLES_VIVIFY_BUFF_PERCENT_REDUCTION = .25;
 
 // Conduit scaling
 export function conduitScaling(rankOne: number, requiredRank: number) {

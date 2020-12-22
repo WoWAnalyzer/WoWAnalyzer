@@ -65,11 +65,7 @@ class BasicAttacks extends Analyzer {
 
   onPetBasicAttackDamage(event: DamageEvent) {
     if (!this.basicAttackChecked) {
-      this.usedBasicAttack = {
-        id: event.ability.guid,
-        name: event.ability.name ? event.ability.name : undefined,
-        icon: event.ability.abilityIcon
-      };
+      this.usedBasicAttack = { id: event.ability.guid, name: event.ability.name, icon: event.ability.abilityIcon! };
       this.basicAttackChecked = true;
     }
     this.damage += event.amount + (event.absorbed || 0);

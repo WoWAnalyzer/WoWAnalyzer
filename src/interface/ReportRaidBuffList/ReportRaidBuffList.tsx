@@ -49,10 +49,10 @@ const getCompositionBreakdown = (combatants: CombatantInfoEvent[]) => {
     if (!spec) {
       return map;
     }
+    const className = spec.className;
 
     AVAILABLE_RAID_BUFFS.forEach((providedBy, spellId) => {
-      if (providedBy.includes(spec.className as Class) || providedBy.includes(spec))
-      {
+      if (providedBy.includes(className as Class) || providedBy.includes(spec)) {
         map.set(spellId, map.get(spellId)! + 1);
       }
     });

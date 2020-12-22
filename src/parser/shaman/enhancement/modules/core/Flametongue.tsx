@@ -19,13 +19,7 @@ import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 class Flametongue extends Analyzer {
 
   get flametongueUptime() {
-    /**
-    * IMPLEMENTME
-    * This function should return the flametongueUptime
-    * @returns {number} the uptime in ms
-    */
-    return 0;
-    //return this.selectedCombatant.getBuffUptime(SPELLS.FLAMETONGUE_BUFF.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.FLAMETONGUE_ATTACK.id) / this.owner.fightDuration;
   }
 
   get flametongueUptimeThreshold() {

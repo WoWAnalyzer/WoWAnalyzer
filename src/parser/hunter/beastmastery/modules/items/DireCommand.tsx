@@ -32,7 +32,7 @@ class DireCommand extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.DIRE_COMMAND_EFFECT.bonusID!);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.DIRE_COMMAND_EFFECT.bonusID);
     if (!this.active) {
       return;
     }

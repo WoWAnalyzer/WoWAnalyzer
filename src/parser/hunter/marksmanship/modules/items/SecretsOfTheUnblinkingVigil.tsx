@@ -11,6 +11,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { AIMED_SHOT_FOCUS_COST, SECRETS_UNBLINKING_PROC_CHANCE } from 'parser/hunter/marksmanship/constants';
 import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
 import SpellLink from 'common/SpellLink';
+
 /**
  * When you gain the Trick Shots effect, you have a 50% chance for it to not be consumed by your next Aimed Shot or Rapid Fire.
  */
@@ -31,7 +32,7 @@ class SecretsOfTheUnblinkingVigil extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SECRETS_OF_THE_UNBLINKING_VIGIL_EFFECT.bonusID!);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SECRETS_OF_THE_UNBLINKING_VIGIL_EFFECT.bonusID);
     if (!this.active) {
       return;
     }

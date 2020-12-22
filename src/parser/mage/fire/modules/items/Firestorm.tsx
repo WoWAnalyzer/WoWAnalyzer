@@ -15,7 +15,7 @@ class Firestorm extends Analyzer {
 
   constructor(props: Options) {
     super(props);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.FIRESTORM.bonusID!);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.FIRESTORM.bonusID);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.PYROBLAST,SPELLS.FLAMESTRIKE]), this.onCast);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FIRESTORM_BUFF), this.onFirestormApplied);
   }

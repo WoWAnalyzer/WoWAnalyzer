@@ -27,7 +27,7 @@ class VisionOfUnendingGrowth extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.VISION_OF_UNENDING_GROWTH.bonusID!);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.VISION_OF_UNENDING_GROWTH.bonusID);
     if (!this.active) {
       return;
     }

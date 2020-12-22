@@ -19,7 +19,7 @@ class GuileCharm extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.GUILE_CHARM.bonusID!);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.GUILE_CHARM.bonusID);
   }
 
   get percentUptime() {

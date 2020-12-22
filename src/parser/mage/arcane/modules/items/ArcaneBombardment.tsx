@@ -23,7 +23,7 @@ class ArcaneBombardment extends Analyzer {
 
   constructor(props: Options) {
     super(props);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.ARCANE_BOMBARDMENT.bonusID!);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.ARCANE_BOMBARDMENT.bonusID);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_BARRAGE), this.onBarrageDamage);
   }
 

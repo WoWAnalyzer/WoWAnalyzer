@@ -21,7 +21,7 @@ class ElementalBarrier extends Analyzer {
   damageAbsorbed = 0;
   barrierSpell: {
     id: number,
-    name?: string,
+    name: string,
     icon: string,
   }
 

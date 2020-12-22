@@ -115,7 +115,7 @@ class ArcanePower extends Analyzer {
 
     // Any spell except arcane power or rune of power that was cast during Arcane Power
     this.totalCastsDuringAP += 1;
-    if (ARCANE_POWER_SPELL_BLACKLIST.includes(SPELLS[spellId])) {
+    if (ARCANE_POWER_SPELL_BLACKLIST.some(spell => spell.id === event.ability.guid)) {
       debug && this.log('Cast ' + event.ability.name + ' during Arcane Power');
       this.badCastsDuringAP += 1;
     } else if (spellId === SPELLS.ARCANE_BLAST.id || spellId === SPELLS.ARCANE_EXPLOSION.id) {

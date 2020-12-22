@@ -7,11 +7,12 @@ import BoringValue from 'interface/statistics/components/BoringValueText';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatThousands } from 'common/format';
 
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
+import { Options } from 'parser/core/EventSubscriber';
 import Combatant from 'parser/core/Combatant';
 
-export const HIGH_TOLERANCE_HASTE: Record<number, number> = {
+export const HIGH_TOLERANCE_HASTE: Record<number,number> = {
   [SPELLS.LIGHT_STAGGER_DEBUFF.id]: 0.08,
   [SPELLS.MODERATE_STAGGER_DEBUFF.id]: 0.12,
   [SPELLS.HEAVY_STAGGER_DEBUFF.id]: 0.15,
@@ -59,11 +60,11 @@ class HighTolerance extends Analyzer {
     [SPELLS.MODERATE_STAGGER_DEBUFF.id]: 0,
     [SPELLS.HEAVY_STAGGER_DEBUFF.id]: 0,
   };
-  _staggerLevel: number | null  = null;
+  _staggerLevel: number | null = null;
   _lastDebuffApplied = 0;
 
-  constructor(options: Options) {
-    super(options);
+  constructor(args: Options) {
+    super(args);
     this.active = hasHighTolerance(this.selectedCombatant);
     this.addEventListener(Events.applydebuff.to(SELECTED_PLAYER), this.onApplyDebuff);
     this.addEventListener(Events.removedebuff.to(SELECTED_PLAYER), this.onRemoveDebuff);
@@ -94,7 +95,7 @@ class HighTolerance extends Analyzer {
 
   statistic() {
     return (
-    <Statistic
+      <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
         tooltip={(

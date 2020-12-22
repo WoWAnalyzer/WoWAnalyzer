@@ -32,7 +32,7 @@ class HolyWordSerenity extends HolyWordBase {
       },
     };
 
-    if (this.selectedCombatant.hasLegendaryByBonusID(SPELLS.HARMONIOUS_APPARATUS.bonusID!)) {
+    if (this.selectedCombatant.hasLegendaryByBonusID(SPELLS.HARMONIOUS_APPARATUS.bonusID)) {
       this.serendipityProccers[SPELLS.PRAYER_OF_MENDING_CAST.id] = {
         baseReduction: () => PRAYER_OF_MENDING_SERENDIPITY_REDUCTION,
         lightOfTheNaaruReduction: () => PRAYER_OF_MENDING_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,

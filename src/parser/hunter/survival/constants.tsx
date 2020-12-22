@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import { SpellFilter } from 'parser/core/EventFilter';
 
 //region Spells
 /** Butchery / Carve */
@@ -47,7 +46,7 @@ export const VIPERS_VENOM_DAMAGE_MODIFIER = 2.5;
 export const BOP_CA_EXTENSION_PER_CAST = 1500;
 /** Chakrams */
 //Chakrams has a bunch of different spellIDs for damage
-export const SURVIVAL_CHAKRAM_TYPES: SpellFilter = [
+export const SURVIVAL_CHAKRAM_TYPES = [
   SPELLS.CHAKRAMS_TO_MAINTARGET,
   SPELLS.CHAKRAMS_BACK_FROM_MAINTARGET,
   SPELLS.CHAKRAMS_NOT_MAINTARGET,

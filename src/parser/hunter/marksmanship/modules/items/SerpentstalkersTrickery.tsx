@@ -20,7 +20,7 @@ class SerpentstalkersTrickery extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SERPENTSTALKERS_TRICKERY_EFFECT.bonusID!);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SERPENTSTALKERS_TRICKERY_EFFECT.bonusID);
     if (!this.active) {
       return;
     }

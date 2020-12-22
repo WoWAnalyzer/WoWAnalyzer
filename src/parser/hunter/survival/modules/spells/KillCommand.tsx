@@ -38,8 +38,9 @@ class KillCommand extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FLANKERS_ADVANTAGE), this.onFlankersProc);
-    this.selectedCombatant.hasLegendaryByBonusID(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT.bonusID!) && this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.KILL_COMMAND_CAST_SV), this.checkNesingwaryFocusGain);
+    this.selectedCombatant.hasLegendaryByBonusID(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT.bonusID) && this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.KILL_COMMAND_CAST_SV), this.checkNesingwaryFocusGain);
 
   }
 

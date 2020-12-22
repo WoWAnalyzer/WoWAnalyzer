@@ -17,7 +17,6 @@ import { NESINGWARY_FOCUS_GAIN_MULTIPLIER } from 'parser/hunter/shared/constants
 
 import { BARBED_SHOT_FOCUS_REGEN_BUFFS, BARBED_SHOT_REGEN, MAX_FRENZY_STACKS } from '../../constants';
 
-
 /**
  * Fire a shot that tears through your enemy, causing them to bleed for X damage over 8 sec. Sends your pet into a frenzy, increasing attack speed by 30% for 8 sec, stacking up to 3 times.
  *
@@ -40,8 +39,7 @@ class BarbedShot extends Analyzer {
     this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.BARBED_SHOT_PET_BUFF), this.handleStacks);
     this.addEventListener(Events.removebuff.to(SELECTED_PLAYER_PET).spell(SPELLS.BARBED_SHOT_PET_BUFF), this.handleStacks);
     this.addEventListener(Events.fightend, this.handleStacks);
-
-    this.selectedCombatant.hasLegendaryByBonusID(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT.bonusID!) && this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(BARBED_SHOT_FOCUS_REGEN_BUFFS), this.checkNesingwaryFocusGain);
+    this.selectedCombatant.hasLegendaryByBonusID(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT.bonusID) && this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(BARBED_SHOT_FOCUS_REGEN_BUFFS), this.checkNesingwaryFocusGain);
 
   }
 

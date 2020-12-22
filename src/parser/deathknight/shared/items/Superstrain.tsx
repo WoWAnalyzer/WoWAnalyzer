@@ -30,14 +30,15 @@ class Superstrain extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    const active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SUPERSTRAIN.bonusID!)
+
+    const active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SUPERSTRAIN.bonusID)
     this.active = active
     if (!active) {
       return;
     }
 
     if (SPECS.BLOOD_DEATH_KNIGHT === this.selectedCombatant.spec || SPECS.UNHOLY_DEATH_KNIGHT === this.selectedCombatant.spec) {
-      this.addEventListener(Events.energize, this._onFrostFeverEnergize)
+      this.addEventListener(Events.energize, this._onFrostFeverEnergize);
     }
 
 
@@ -54,8 +55,8 @@ class Superstrain extends Analyzer {
     }
 
     if (this.selectedCombatant.spec === SPECS.FROST_DEATH_KNIGHT) {
-      this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.VIRULENT_PLAGUE), this._onVirulentPlagueDamage)
-      this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLOOD_PLAGUE), this._onBloodPlagueDamage)
+      this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.VIRULENT_PLAGUE), this._onVirulentPlagueDamage);
+      this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLOOD_PLAGUE), this._onBloodPlagueDamage);
     }
   }
 
