@@ -13,7 +13,6 @@ class DeathAndMadness extends Analyzer {
 
   successes: number = 0;
   insanityGained: number = 0;
-  insanityWasted: number = 0;
 
   constructor(options: Options) {
     super(options);
