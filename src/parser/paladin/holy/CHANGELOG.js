@@ -4,6 +4,7 @@ import { Abelito75, Putro, Zeboot } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [  
+  change(date(2020, 12, 21), <>Fixed stat weights for logs with first events being absorb healing.</>, Abelito75),
   change(date(2020, 12, 21), <>Removed glimmer build as its default now.</>, Abelito75),
   change(date(2020, 12, 21), <>Small tweek to stat weights.</>, Abelito75),
   change(date(2020, 12, 17), <>Updated spell cooldowns!</>, Abelito75),
