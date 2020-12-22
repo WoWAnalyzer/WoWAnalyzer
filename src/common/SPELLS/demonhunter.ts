@@ -434,11 +434,6 @@ const spells = {
     name: 'Momentum',
     icon: 'ability_foundryraid_demolition',
   },
-  FEL_MASTERY_FURY: {
-    id: 234244,
-    name: 'Fel Mastery',
-    icon: 'ability_skyreach_piercing_rush',
-  },
   TRAIL_OF_RUIN_DAMAGE: {
     id: 258883,
     name: 'Trail of Ruin',
