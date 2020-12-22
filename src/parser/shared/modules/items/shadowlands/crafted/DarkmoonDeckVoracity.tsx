@@ -181,7 +181,7 @@ class DarkmoonDeckVoracity extends Analyzer {
           <table className="table table-condensed">
             <thead>
               <tr>
-                <th>Name</th>
+                <th>Card</th>
                 <th>Haste</th>
                 <th>Time (s)</th>
                 <th>Time (%)</th>
