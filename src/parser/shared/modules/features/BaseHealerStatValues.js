@@ -15,7 +15,6 @@ import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import StatisticWrapper from 'interface/others/StatisticWrapper';
-import InfoIcon from 'interface/icons/Info';
 import { Trans } from '@lingui/macro';
 
 import CORE_SPELL_INFO from './SpellInfo';
