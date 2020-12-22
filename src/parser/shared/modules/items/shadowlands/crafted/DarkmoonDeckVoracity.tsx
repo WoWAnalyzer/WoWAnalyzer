@@ -15,7 +15,7 @@ import Buffs from 'parser/core/modules/Buffs';
 import STAT from 'parser/shared/modules/features/STAT';
 import Uptime from 'interface/icons/Uptime';
 
-const DARKMOON_DECK_VORACITY_CARDS_INFO = {
+const DARKMOON_DECK_VORACITY_CARDS_INFO: Record<number, {name: string, hasteDrain: number, hastePercent: number, uptime: number}> = {
   [SPELLS.ACE_OF_VORACITY.id]: {
     name: 'Ace',
     hasteDrain: 239,
@@ -171,6 +171,7 @@ class DarkmoonDeckVoracity extends Analyzer {
         return false;
       }
     });
+    const darkmoondeckItem = {...ITEMS.DARKMOON_DECK_VORACITY, quality: 0, itemLevel: 0}
     const totals = this.getTotals(filtered);
     return (
       <Statistic
@@ -200,7 +201,7 @@ class DarkmoonDeckVoracity extends Analyzer {
           </table>
         }
       >
-        <BoringItemValueText item={ITEMS.DARKMOON_DECK_VORACITY}>
+        <BoringItemValueText item={darkmoondeckItem}>
           <Haste /> {formatPercentage(this.getAverageHastePercentage(totals.totalPercent))}% <small>Haste</small>
           <br />
           <Uptime /> {formatPercentage(totals.totalUptime / this.owner.fightDuration)}% <small>Uptime</small>
