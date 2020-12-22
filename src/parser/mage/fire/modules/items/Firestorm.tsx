@@ -35,10 +35,6 @@ class Firestorm extends Analyzer {
     return this.castsDuringFirestorm / this.firestormProcs;
   }
 
-  get buffUptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.FEVERED_INCANTATION_BUFF.id) / this.owner.fightDuration;
-  }
-
   statistic() {
     return (
       <Statistic

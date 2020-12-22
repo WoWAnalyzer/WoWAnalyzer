@@ -4,7 +4,6 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import StatTracker from 'parser/shared/modules/StatTracker';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import { VIPERS_VENOM_DAMAGE_MODIFIER } from 'parser/hunter/survival/constants';
 import Statistic from 'interface/statistics/Statistic';
@@ -22,7 +21,6 @@ import Events, { ApplyBuffEvent, CastEvent, DamageEvent } from 'parser/core/Even
 
 class VipersVenom extends Analyzer {
   static dependencies = {
-    statTracker: StatTracker,
     globalCooldown: GlobalCooldown,
   };
 
@@ -35,7 +33,6 @@ class VipersVenom extends Analyzer {
   wastedProcs = 0;
   spellKnown = SPELLS.RAPTOR_STRIKE;
 
-  protected statTracker!: StatTracker;
   protected globalCooldown!: GlobalCooldown;
 
   constructor(options: Options) {

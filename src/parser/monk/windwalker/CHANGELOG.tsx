@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 12, 22), <>Added <SpellLink id={SPELLS.INVOKERS_DELIGHT.id} /> haste buff.</>, Abelito75),
   change(date(2020, 12, 13), <>Added <SpellLink id={SPELLS.WEAPONS_OF_ORDER_CAST.id} /></>, Juko8),
   change(date(2020, 12, 10), <>Fixed crash with <SpellLink id={SPELLS.DANCE_OF_CHI_JI_TALENT.id} /></>, Juko8),
   change(date(2020, 12, 6), 'Converted most Windwalker modules to TypeScript', Juko8),
