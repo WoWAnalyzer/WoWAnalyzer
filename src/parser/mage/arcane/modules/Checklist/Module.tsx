@@ -9,6 +9,7 @@ import ArcaneFamiliar from '../talents/ArcaneFamiliar';
 import ArcaneOrb from '../talents/ArcaneOrb';
 import ArcaneEcho from '../talents/ArcaneEcho';
 import ArcanePower from '../features/ArcanePower';
+import ArcanePowerActiveTime from '../features/ArcanePowerActiveTime';
 import RuleOfThrees from '../talents/RuleOfThrees';
 import TimeAnomaly from '../talents/TimeAnomaly';
 import ArcaneMissiles from '../features/ArcaneMissiles';
@@ -29,6 +30,7 @@ class Checklist extends BaseChecklist {
     arcaneOrb: ArcaneOrb,
     arcaneEcho: ArcaneEcho,
     arcanePower: ArcanePower,
+    arcanePowerActiveTime: ArcanePowerActiveTime,
     ruleOfThrees: RuleOfThrees,
     timeAnomaly: TimeAnomaly,
     arcaneMissiles: ArcaneMissiles,
@@ -46,6 +48,7 @@ class Checklist extends BaseChecklist {
   protected arcaneOrb!: ArcaneOrb;
   protected arcaneEcho!: ArcaneEcho;
   protected arcanePower!: ArcanePower;
+  protected arcanePowerActiveTime!: ArcanePowerActiveTime;
   protected ruleOfThrees!: RuleOfThrees;
   protected timeAnomaly!: TimeAnomaly;
   protected arcaneMissiles!: ArcaneMissiles;
@@ -70,6 +73,7 @@ class Checklist extends BaseChecklist {
           arcaneOrbMissedOrbs: this.arcaneOrb.missedOrbsThresholds,
           arcaneEchoLowUsage: this.arcaneEcho.badTouchUsageThreshold,
           arcanePowerCooldown: this.arcanePower.arcanePowerCooldownThresholds,
+          arcanePowerActiveTime: this.arcanePowerActiveTime.arcanePowerActiveTimeThresholds,
           arcanePowerManaUtilization: this.arcanePower.arcanePowerManaUtilization,
           arcanePowerCasts: this.arcanePower.arcanePowerCastThresholds,
           ruleOfThreesUsage: this.ruleOfThrees.ruleOfThreesUtilizationThresholds,

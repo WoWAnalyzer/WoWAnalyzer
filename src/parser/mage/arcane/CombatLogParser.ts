@@ -16,6 +16,7 @@ import Mana from './modules/ManaChart/Mana';
 import ManaValues from './modules/ManaChart/ManaValues';
 import ArcaneChargeTracker from './modules/features/ArcaneChargeTracker';
 import ArcanePower from './modules/features/ArcanePower';
+import ArcanePowerActiveTime from './modules/features/ArcanePowerActiveTime';
 import ArcaneMissiles from './modules/features/ArcaneMissiles';
 import CancelledCasts from '../shared/modules/features/CancelledCasts';
 import MirrorImage from '../shared/modules/features/MirrorImage';
@@ -67,6 +68,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cancelledCasts: CancelledCasts,
     arcaneChargeTracker: ArcaneChargeTracker,
     arcanePower: ArcanePower,
+    arcanePowerActiveTime: ArcanePowerActiveTime,
     arcaneMissiles: ArcaneMissiles,
     mirrorImage: MirrorImage,
     elementalBarrier: ElementalBarrier,
