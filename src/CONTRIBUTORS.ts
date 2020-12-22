@@ -1094,3 +1094,14 @@ export const Kettlepaw: Contributor = {
     link: 'https://worldofwarcraft.com/en-us/character/us/wyrmrest-accord/kettlepaw',
   }],
 };
+
+export const g3neral: Contributor = {
+  nickname: 'g3neral',
+  github: 'g3neral-wow',
+  discord: 'g3neral#2455',
+  mains: [{
+    name: 'Nethershift',
+    spec: SPECS.FERAL_DRUID,
+    link: 'https://worldofwarcraft.com/en-us/character/us/proudmoore/Nethershift',
+  }],
+};
