@@ -11,7 +11,7 @@ import STAT from 'parser/shared/modules/features/STAT';
 
 const ARMOR_INT_BONUS = .05;
 
-const debug = true;
+const debug = false;
 
 // TODO: stat constants somewhere else? they're largely copied from combatant
 class StatTracker extends Analyzer {
