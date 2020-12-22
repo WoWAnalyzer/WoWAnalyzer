@@ -1,6 +1,4 @@
-import { ItemList } from "common/ITEMS/Item";
-
-const legendaries: ItemList = {
+const legendaries = {
   //region Enhancement
 
   //endregion
@@ -16,5 +14,5 @@ const legendaries: ItemList = {
   //region Shared
 
   //endregion
-};
+} as const;
 export default legendaries;

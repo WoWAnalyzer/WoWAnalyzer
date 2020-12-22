@@ -20,7 +20,7 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
 ];
 
 // better off making things that -dont- proc it perhaps?
-export const ABILITIES_THAT_TRIGGER_MASTERY = [
+export const ABILITIES_THAT_TRIGGER_MASTERY: number[] = [
   SPELLS.DIVINE_HYMN_HEAL.id,
   SPELLS.GREATER_HEAL.id,
   SPELLS.FLASH_HEAL.id,
@@ -43,7 +43,7 @@ export const ABILITIES_THAT_TRIGGER_MASTERY = [
   // Trinkets
 ];
 
-export const ABILITIES_AFFECTED_BY_APOTHEOSIS_TALENT = [
+export const ABILITIES_AFFECTED_BY_APOTHEOSIS_TALENT: number[] = [
   SPELLS.HOLY_WORD_SERENITY.id,
   SPELLS.HOLY_WORD_SANCTIFY.id,
 ];

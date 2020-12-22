@@ -5,7 +5,6 @@ import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 import Icon from 'common/Icon';
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import SPECS, { Spec } from 'game/SPECS';
 import Contributor from 'interface/ContributorButton';
 import {ContributorType} from 'interface/ContributorButton/ContributorButton';
@@ -138,7 +137,7 @@ const Article = (props: ArticleProps) => {
 
           <Image source={v031} description="Holy Paladin mastery effectiveness calculator v0.3.1 statistics at 18 Mar 2017" /><br />
 
-          The implementation of <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} /> included a large part of the work needed for adding items, so it was possible to quickly add statistics for the similar legendaries Ilterendi, Crown Jewel of Silvermoon and Velen's Future Sight in the next few days.
+          The implementation of <ItemLink id={-1} /> included a large part of the work needed for adding items, so it was possible to quickly add statistics for the similar legendaries Ilterendi, Crown Jewel of Silvermoon and Velen's Future Sight in the next few days.
         </Item>
 
         <Item title="Feeding other tools with new cast behavior statistics" date="25 Mar">
@@ -356,7 +355,7 @@ const Article = (props: ArticleProps) => {
           </div>
           <br />
 
-          <Contributor {...CONTRIBUTORS.janvavra} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/469">contributed a couple of simple fixes</a> for Elemental Shamans using <SpellLink id={SPELLS.STORM_ELEMENTAL_TALENT.id} />. <Contributor {...CONTRIBUTORS.HawkCorrigan} /> migrated Elemental Shaman's code to a new version of WoWAnalyzer and implemented a bunch of things such as T21, <ItemLink id={ITEMS.THE_DECEIVERS_BLOOD_PACT.id} /> and others.
+          <Contributor {...CONTRIBUTORS.janvavra} /> <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/469">contributed a couple of simple fixes</a> for Elemental Shamans using <SpellLink id={SPELLS.STORM_ELEMENTAL_TALENT.id} />. <Contributor {...CONTRIBUTORS.HawkCorrigan} /> migrated Elemental Shaman's code to a new version of WoWAnalyzer and implemented a bunch of things such as T21, <ItemLink id={-1} /> and others.
         </Item>
 
         <Item title="Warcraft Logs API proxy" date="15 Jun">

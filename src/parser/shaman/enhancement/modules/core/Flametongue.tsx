@@ -19,7 +19,7 @@ import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 class Flametongue extends Analyzer {
 
   get flametongueUptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.FLAMETONGUE_BUFF.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.FLAMETONGUE_ATTACK.id) / this.owner.fightDuration;
   }
 
   get flametongueUptimeThreshold() {
@@ -42,7 +42,7 @@ class Flametongue extends Analyzer {
             Your Flametongue uptime of {formatPercentage(this.flametongueUptime)}% is below 95%, try to get as close to 100% as possible
           </Trans>,
         )
-          .icon(SPELLS.FLAMETONGUE_BUFF.icon)
+          .icon(SPELLS.FLAMETONGUE_ATTACK.icon)
           .actual(
             <Trans id="shaman.enhancement.modules.core.flametongue.actual">
               {formatPercentage(actual)}% uptime
@@ -63,7 +63,7 @@ class Flametongue extends Analyzer {
         size="small"
       >
         <BoringSpellValue
-          spell={SPELLS.FLAMETONGUE}
+          spell={SPELLS.FLAMETONGUE_ATTACK}
           value={`${formatPercentage(this.flametongueUptime)} %`}
           label="Flametongue Uptime"
         />

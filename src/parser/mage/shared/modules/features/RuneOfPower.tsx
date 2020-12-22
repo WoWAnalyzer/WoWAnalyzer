@@ -19,7 +19,7 @@ import { Trans } from '@lingui/macro';
  * ROP talent suggestion. At time of writing, it's a substantial increase over
  * incanters flow for fire and arcane in all situations.
  */
-const SUGGEST_ROP = { [SPECS.FROST_MAGE.id]: false, [SPECS.ARCANE_MAGE.id]: true, [SPECS.FIRE_MAGE.id]: true };
+const SUGGEST_ROP: Record<number,boolean> = { [SPECS.FROST_MAGE.id]: false, [SPECS.ARCANE_MAGE.id]: true, [SPECS.FIRE_MAGE.id]: true };
 
 const DAMAGE_BONUS = 0.4;
 const RUNE_DURATION = 12;

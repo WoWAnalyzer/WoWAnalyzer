@@ -78,7 +78,7 @@ class CancelledCasts extends Analyzer {
     const beginCastAbility = this.beginCastSpell.ability;
     if (!this.cancelledSpellList[beginCastAbility.guid]) {
       this.cancelledSpellList[beginCastAbility.guid] = {
-        'spellName': beginCastAbility.name,
+        'spellName': beginCastAbility.name!,
         'amount': 1,
       };
     } else {

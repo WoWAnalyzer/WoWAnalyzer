@@ -10,8 +10,9 @@ import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
+import Spell from 'common/SPELLS/Spell';
 
-const MASTER_OF_THE_ELEMENTS = {
+const MASTER_OF_THE_ELEMENTS: {INCREASE: number, DURATION: number, WINDOW_DURATION: number, AFFECTED_DAMAGE: Spell[], AFFECTED_CASTS: Spell[], TALENTS: number[]} = {
   INCREASE: 0.2,
   DURATION: 15000,
   WINDOW_DURATION: 500,

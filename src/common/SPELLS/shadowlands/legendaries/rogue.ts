@@ -14,6 +14,7 @@ const legendaries = {
   },
   DUSKWALKERS_PATCH: {
     id: 340084,
+    bonusID: undefined,
     name: "DuskwalKer's Patch",
     icon: 'inv_throwingknife_04',
   },

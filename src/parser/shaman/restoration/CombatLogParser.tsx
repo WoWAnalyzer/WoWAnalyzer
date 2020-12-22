@@ -79,7 +79,7 @@ import RiptideNormalizer from './normalizers/RiptideNormalizer';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
 class CombatLogParser extends CoreCombatLogParser {
-  static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
+  static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES.map(spell => spell.id);
 
   static specModules = {
     lowHealthHealing: LowHealthHealing,

@@ -1,4 +1,4 @@
-export default {
+const talents = {
   // Shared
   EYE_OF_THE_TIGER_TALENT: { id: 196607, name: 'Eye of the Tiger', icon: 'ability_druid_primalprecision' },
   CHI_WAVE_TALENT: { id: 115098, name: 'Chi Wave', icon: 'ability_monk_chiwave' },
@@ -45,4 +45,5 @@ export default {
   WHIRLING_DRAGON_PUNCH_TALENT: { id: 152175, name: 'Whirling Dragon Punch', icon: 'ability_monk_hurricanestrike' },
   SERENITY_TALENT: { id: 152173, name: 'Serenity', icon: 'ability_monk_serenity' },
   RUSHING_JADE_WIND_TALENT_WINDWALKER: { id: 261715, name: 'Rushing Jade Wind', icon: 'ability_monk_rushingjadewind', energyCost: 3 },
-};
+} as const;
+export default talents;

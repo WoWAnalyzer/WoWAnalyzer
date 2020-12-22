@@ -1,8 +1,9 @@
 export default interface Spell {
     id: number;
-    name: string;
+    name?: string;
     icon: string;
     manaCost?: number;
+    duration?: number;
 };
 
 export interface LegendarySpell extends Spell {

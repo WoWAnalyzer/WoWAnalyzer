@@ -1,6 +1,4 @@
-import { ItemList } from "common/ITEMS/Item";
-
-const items: ItemList = {
+const items = {
   ETERNAL_CAULDRON: {
     id: 171281,
     name: 'Eternal Cauldron',
@@ -23,5 +21,5 @@ const items: ItemList = {
   },
   
   
-};
+} as const;
 export default items;

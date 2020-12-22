@@ -10,7 +10,7 @@ import Potions from './potions';
 import Oils from './oils';
 import Others from './others';
 
-export default {
+const spells = {
   ...Conduits,
   ...Crafted,
   ...Dungeons,
@@ -23,3 +23,5 @@ export default {
   ...Oils,
   ...Others,
 } as const;
+
+export default spells; 

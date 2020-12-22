@@ -7,7 +7,7 @@ import { WCLRanking, WCLRankingsResponse } from 'common/WCL_TYPES';
 
 const DAYS_PER_WEEK = 7;
 const SECONDS_PER_DAY = 86400;
-const TOTAL_SPECS = SPECS.count;
+const TOTAL_SPECS = Object.keys(SPECS).length;
 export const UNAVAILABLE = -1;
 
 interface Props {

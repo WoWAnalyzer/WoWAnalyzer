@@ -45,7 +45,7 @@ class StaggerFabricator extends Analyzer {
   };
   _lastKnownMaxHp = 0;
   _initialized = false;
-  _previousBuff: number = 0;
+  _previousBuff: number | null = null;
   protected eventEmitter!: EventEmitter;
   protected ht!: HighTolerance;
   protected haste!: Haste;

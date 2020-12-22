@@ -20,7 +20,7 @@ class WeaponEnhancementChecker extends Analyzer {
     16: <Trans id="common.slots.offhand">OffHand</Trans>,
   };
 
-  static MAX_ENHANCEMENT_IDS = [
+  static MAX_ENHANCEMENT_IDS: number[] = [
     ITEMS.SHADOWCORE_OIL.effectId,
     ITEMS.EMBALMERS_OIL.effectId,
     ITEMS.SHADED_SHARPENING_STONE.effectId,
@@ -63,7 +63,7 @@ class WeaponEnhancementChecker extends Analyzer {
     return Boolean(item.temporaryEnchant);
   }
   hasMaxEnhancement(item: Item) {
-    return WeaponEnhancementChecker.MAX_ENHANCEMENT_IDS.includes(item.temporaryEnchant);
+    return WeaponEnhancementChecker.MAX_ENHANCEMENT_IDS.includes(item.temporaryEnchant!);
   }
 
   suggestions(when: When) {

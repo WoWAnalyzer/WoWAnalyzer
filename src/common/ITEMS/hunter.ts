@@ -1,6 +1,4 @@
-import { ItemList } from "common/ITEMS/Item";
-
-const items: ItemList = {
+const items = {
   //region Beast Mastery
 
   //endregion
@@ -16,5 +14,5 @@ const items: ItemList = {
   //region Shared
 
   //endregion
-};
+} as const;
 export default items;

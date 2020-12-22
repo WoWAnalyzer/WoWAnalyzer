@@ -24,7 +24,7 @@ class StormElemental extends Analyzer {
   badFS = 0;
   justEnteredSE = false;
   checkDelay = 0;
-  numCasts = {
+  numCasts: Record<number, number> & {others: number} = {
     [SPELLS.STORM_ELEMENTAL_TALENT.id]: 0,
     [SPELLS.LIGHTNING_BOLT.id]: 0,
     [SPELLS.CHAIN_LIGHTNING.id]: 0,

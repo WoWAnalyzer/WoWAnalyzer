@@ -130,7 +130,7 @@ type MappedEventTypes = {
 export type AnyEvent<ET extends keyof MappedEventTypes = keyof MappedEventTypes> = MappedEventTypes[ET];
 
 export interface Ability {
-  name: string;
+  name?: string;
   guid: number;
   type: number;
   abilityIcon: string;

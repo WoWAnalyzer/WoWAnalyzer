@@ -1,7 +1,8 @@
 export default interface Item {
-    id: number,
-    name: string,
-    icon: string,
+    id: number;
+    name?: string;
+    icon: string;
+    quality?: number;
 };
 
 export interface Enchant extends Item {

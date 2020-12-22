@@ -4,7 +4,7 @@ import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
 
-const LOWER_FOOD_IDS = [
+const LOWER_FOOD_IDS: number[] = [
   //BFA Food
   SPELLS.FAMINE_EVALUATOR_AND_SNACK_TABLE_FEAST_AGI.id,
   SPELLS.FAMINE_EVALUATOR_AND_SNACK_TABLE_FEAST_INT.id,
@@ -17,7 +17,7 @@ const LOWER_FOOD_IDS = [
   SPELLS.BAKED_PORT_TATO.id,
 ];
 
-const MID_TIER_FOOD_IDS = [
+const MID_TIER_FOOD_IDS: number[] = [
   //18 Primary Stat
   SPELLS.SURPRISINGLY_PALATABLE_FEAST_INT.id,
   SPELLS.SURPRISINGLY_PALATABLE_FEAST_AGI.id,
@@ -33,7 +33,7 @@ const MID_TIER_FOOD_IDS = [
   SPELLS.SWEET_SILVERGILL_SAUSAGES.id,
 ];
 
-const HIGHER_FOOD_IDS = [
+const HIGHER_FOOD_IDS: number[] = [
   //20 Primary Stat
   SPELLS.FEAST_OF_GLUTTONOUS_HEDONISM_INT.id,
   SPELLS.FEAST_OF_GLUTTONOUS_HEDONISM_AGI.id,

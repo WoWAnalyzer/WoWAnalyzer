@@ -20,7 +20,7 @@ export const BARBED_SHOT_BESTIAL_WRATH_CDR_MS = 12000;
 export const BESTIAL_WRATH_BASE_CD = 90000;
 /** Aspect of the Wild */
 //Aspect of the Wild reduces the GCD of certain abilities
-export const AOTW_GCD_REDUCTION_AFFECTED_ABILITIES = [
+export const AOTW_GCD_REDUCTION_AFFECTED_ABILITIES: number[] = [
   SPELLS.KILL_COMMAND_CAST_BM.id,
   SPELLS.COBRA_SHOT.id,
   SPELLS.BESTIAL_WRATH.id,
@@ -133,7 +133,7 @@ export const BARBED_SHOT_FOCUS_REGEN_BUFFS = [
   SPELLS.BARBED_SHOT_BUFF_8,
 ];
 
-export const BARBED_SHOT_FOCUS_REGEN_BUFFS_IDS = [
+export const BARBED_SHOT_FOCUS_REGEN_BUFFS_IDS: number[] = [
   SPELLS.BARBED_SHOT_BUFF.id,
   SPELLS.BARBED_SHOT_BUFF_2.id,
   SPELLS.BARBED_SHOT_BUFF_3.id,
@@ -144,7 +144,7 @@ export const BARBED_SHOT_FOCUS_REGEN_BUFFS_IDS = [
   SPELLS.BARBED_SHOT_BUFF_8.id,
 ];
 //Some energize spells don't have waste attached to their events
-export const BEAST_MASTERY_SPELLS_WITHOUT_WASTE = [
+export const BEAST_MASTERY_SPELLS_WITHOUT_WASTE: number[] = [
   SPELLS.ASPECT_OF_THE_WILD.id,
   SPELLS.CHIMAERA_SHOT_FOCUS.id,
   ...BARBED_SHOT_FOCUS_REGEN_BUFFS_IDS,

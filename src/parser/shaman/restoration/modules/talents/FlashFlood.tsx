@@ -127,7 +127,7 @@ class FlashFlood extends Analyzer {
         You buffed this spell <strong>{value.timesBuffed}</strong> times.
       </>
     );
-    const items = [
+    const items: Array<{color: string, label: JSX.Element, spellId: number, value: number, valueTooltip: JSX.Element}> = [
       {
         color: RESTORATION_COLORS.CHAIN_HEAL,
         label: <Trans id="shaman.restoration.spell.chainHeal">Chain Heal</Trans>,
@@ -159,7 +159,7 @@ class FlashFlood extends Analyzer {
     ];
 
     if (this.spellsConsumingFlashFlood[SPELLS.WELLSPRING_TALENT.id]) {
-      const wellspring = {
+      const wellspring: {color: string, label: JSX.Element, spellId: number, value: number, valueTooltip: JSX.Element} = {
         color: '#FEFEFE',
         label: <Trans id="shaman.restoration.spell.wellspring">Wellspring</Trans>,
         spellId: SPELLS.WELLSPRING_TALENT.id,

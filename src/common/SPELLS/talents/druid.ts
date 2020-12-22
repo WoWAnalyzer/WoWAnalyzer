@@ -1,4 +1,4 @@
-export default {
+const talents = {
   // Shared
   TIGER_DASH_TALENT: { id: 252216, name: 'Tiger Dash', icon: 'ability_druid_dash_orange' },
   RENEWAL_TALENT: { id: 108238, name: 'Renewal', icon: 'spell_nature_natureblessing' },
@@ -78,4 +78,6 @@ export default {
   NEW_MOON_TALENT: { id: 274281, name: 'New Moon', icon: 'artifactability_balancedruid_newmoon' },
   SOUL_OF_THE_FOREST_TALENT_BALANCE: { id: 114107, name: 'Soul of the Forest', icon: 'ability_druid_manatree' },
   FERAL_AFFINITY_TALENT_BALANCE: { id: 202157, name: 'Feral Affinity', icon: 'talentspec_druid_feral_cat' },
-};
+} as const;
+
+export default talents;

@@ -39,7 +39,7 @@ class DivineImage extends Analyzer {
     this.totalOverhealing += (event.overheal || 0);
 
     if (DEBUG) {
-      this.healingSpells[event.ability.guid] = event.ability.name;
+      this.healingSpells[event.ability.guid] = event.ability.name!;
     }
   }
 
@@ -47,7 +47,7 @@ class DivineImage extends Analyzer {
     this.totalDamage += (event.amount || 0) + (event.absorbed || 0);
 
     if (DEBUG) {
-      this.damagingSpells[event.ability.guid] = event.ability.name;
+      this.damagingSpells[event.ability.guid] = event.ability.name!;
     }
   }
 

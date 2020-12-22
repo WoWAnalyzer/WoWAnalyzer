@@ -23,7 +23,7 @@ const debug = false;
 
 class BornToBeWild extends Analyzer {
 
-  _spells = {
+  _spells: Record<number, {effectiveCDR: number, lastCast: number, baseCD: number}> = {
     [SPELLS.ASPECT_OF_THE_CHEETAH.id]: {
       effectiveCDR: 0,
       lastCast: 0,

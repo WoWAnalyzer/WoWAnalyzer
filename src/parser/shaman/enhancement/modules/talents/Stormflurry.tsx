@@ -13,7 +13,7 @@ import { STORMSTRIKE_CAST_SPELLS, STORMSTRIKE_DAMAGE_SPELLS } from 'parser/shama
 import EventHistory from 'parser/shared/modules/EventHistory';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
-const MAIN_HAND_DAMAGES = [
+const MAIN_HAND_DAMAGES: number[] = [
   SPELLS.STORMSTRIKE_DAMAGE.id,
   SPELLS.WINDSTRIKE_DAMAGE.id,
 ];

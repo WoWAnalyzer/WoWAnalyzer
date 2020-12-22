@@ -20,19 +20,19 @@ class FlametongueRefresh extends Analyzer {
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER)
-        .spell(SPELLS.FLAMETONGUE),
+        .spell(SPELLS.FLAMETONGUE_ATTACK),
       this.onCast,
     );
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER)
-        .spell(SPELLS.FLAMETONGUE_BUFF),
+        .spell(SPELLS.FLAMETONGUE_ATTACK),
       this.onApplyBuff,
     );
 
     this.addEventListener(
       Events.refreshbuff.by(SELECTED_PLAYER)
-        .spell(SPELLS.FLAMETONGUE_BUFF),
+        .spell(SPELLS.FLAMETONGUE_ATTACK),
       this.onRefreshBuff,
     );
   }
@@ -78,7 +78,7 @@ class FlametongueRefresh extends Analyzer {
             Avoid refreshing Flametongue with more then 4.5 sec left on the buff.
             Some early refreshes are unavoidable.
           </Trans></>)
-          .icon(SPELLS.FLAMETONGUE_BUFF.icon)
+          .icon(SPELLS.FLAMETONGUE_ATTACK.icon)
           .actual(
             <Trans id="shaman.enhancement.modules.core.flametongueRefresh.actual">
               {actual} of {this.flametongueCasts} ({formatPercentage(

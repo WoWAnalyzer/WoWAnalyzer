@@ -3,7 +3,7 @@ import { Options } from 'parser/core/Analyzer';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 import { CastEvent, DamageEvent } from 'parser/core/Events';
 
-const FURY_EXECUTES = [SPELLS.EXECUTE_FURY.id, SPELLS.EXECUTE_FURY_MASSACRE.id];
+const FURY_EXECUTES: number[] = [SPELLS.EXECUTE_FURY.id, SPELLS.EXECUTE_FURY_MASSACRE.id];
 
 class SpellUsable extends CoreSpellUsable {
   hasSuddenDeath = false;

@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import Spell from 'common/SPELLS/Spell';
 
 const SHAMAN_BASE_ABILITIES = [
   SPELLS.HEALING_WAVE,
@@ -36,7 +37,7 @@ export const HEAVY_RAINFALL_RANKS = [75, 80, 85, 90, 95, 100, 105, 110, 115, 120
 export const EMBRACE_OF_EARTH_RANKS = [5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12];
 export const NATURES_FOCUS_RANKS = [10, 10.66, 11.33, 12, 12.66, 13.33, 14, 15, 16, 16.66, 17.33, 18, 18.66, 19.33, 20];
 
-export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
+export const ABILITIES_AFFECTED_BY_HEALING_INCREASES: Spell[] = [
   ...SHAMAN_BASE_ABILITIES,
 
   // While the following spells don't double dip in healing increases, they gain the same percentual bonus from the transfer

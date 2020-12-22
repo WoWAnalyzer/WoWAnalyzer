@@ -1,4 +1,4 @@
-export default {
+const talents = {
   // Shared
   FELBLADE_TALENT: { id: 232893, name: 'Felblade', icon: 'ability_demonhunter_felblade' },
   // Vengeance
@@ -42,4 +42,5 @@ export default {
   MOMENTUM_TALENT: { id: 206476, name: 'Momentum', icon: 'ability_foundryraid_demolition' },
   NEMESIS_TALENT: { id: 206491, name: 'Nemesis', icon: 'ability_warlock_improveddemonictactics' },
   SOUL_RENDING_TALENT_HAVOC: { id: 204909, name: 'Soul Rending', icon: 'ability_demonhunter_soulcleave2' },
-};
+} as const;
+export default talents;

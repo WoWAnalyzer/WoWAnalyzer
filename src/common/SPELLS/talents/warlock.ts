@@ -1,4 +1,4 @@
-export default {
+const talents = {
   // Shared
   DEMON_SKIN_TALENT: { id: 219272, name: 'Demon Skin', icon: 'spell_shadow_felarmour' },
   BURNING_RUSH_TALENT: { id: 111400, name: 'Burning Rush', icon: 'ability_deathwing_sealarmorbreachtga' },
@@ -52,4 +52,5 @@ export default {
   HAUNT_TALENT: { id: 48181, name: 'Haunt', icon: 'ability_warlock_haunt', manaCost: 1000 },
   CREEPING_DEATH_TALENT: { id: 264000, name: 'Creeping Death', icon: 'ability_creature_cursed_03' },
   DARK_SOUL_MISERY_TALENT: { id: 113860, name: 'Dark Soul: Misery', icon: 'spell_warlock_soulburn' },
-};
+} as const;
+export default talents;

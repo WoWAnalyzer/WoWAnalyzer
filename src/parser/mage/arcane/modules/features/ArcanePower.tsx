@@ -20,10 +20,12 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Events, { ApplyBuffEvent, CastEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { Trans } from '@lingui/macro';
 
+import Spell from 'common/SPELLS/Spell';
+
 import ArcaneChargeTracker from './ArcaneChargeTracker';
 
 const MANA_THRESHOLD = 0.40;
-const ARCANE_POWER_SPELL_BLACKLIST = [
+const ARCANE_POWER_SPELL_BLACKLIST: Spell[] = [
   SPELLS.ARCANE_BARRAGE,
   SPELLS.ARCANE_FAMILIAR_TALENT,
   SPELLS.ARCANE_INTELLECT,
@@ -113,7 +115,7 @@ class ArcanePower extends Analyzer {
 
     // Any spell except arcane power or rune of power that was cast during Arcane Power
     this.totalCastsDuringAP += 1;
-    if (ARCANE_POWER_SPELL_BLACKLIST.includes(event.ability)) {
+    if (ARCANE_POWER_SPELL_BLACKLIST.some(spell => spell.id === event.ability.guid)) {
       debug && this.log('Cast ' + event.ability.name + ' during Arcane Power');
       this.badCastsDuringAP += 1;
     } else if (spellId === SPELLS.ARCANE_BLAST.id || spellId === SPELLS.ARCANE_EXPLOSION.id) {

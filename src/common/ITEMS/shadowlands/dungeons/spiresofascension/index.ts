@@ -6,9 +6,7 @@
  *   quality: number,
  * },
  */
-import { ItemList } from "common/ITEMS/Item";
-
-const items: ItemList = {
+const items = {
   //region Kin-tara
 
   //endregion
@@ -24,5 +22,5 @@ const items: ItemList = {
   //region Devos, Paragon of Doubt
 
   //endregion
-};
+} as const;
 export default items;

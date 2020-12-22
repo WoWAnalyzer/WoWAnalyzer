@@ -38,7 +38,7 @@ class GrandCrusader extends Analyzer {
   _lastResetSource: CastEvent | DamageEvent | null = null;
 
   trackGrandCrusaderChanceCasts(event: CastEvent) {
-    if (![SPELLS.HAMMER_OF_THE_RIGHTEOUS.id, SPELLS.BLESSED_HAMMER_TALENT.id].includes(event.ability.guid)) {
+    if (SPELLS.HAMMER_OF_THE_RIGHTEOUS.id !== event.ability.guid && SPELLS.BLESSED_HAMMER_TALENT.id !== event.ability.guid) {
       return;
     }
     this._resetChances += 1;
