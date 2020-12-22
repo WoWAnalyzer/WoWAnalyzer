@@ -39,8 +39,8 @@ export default {
   DEMONIC_TALENT: { id: 213410, name: 'Demonic', icon: 'spell_shadow_demonform' },
   MOMENTUM_TALENT: { id: 206476, name: 'Momentum', icon: 'ability_foundryraid_demolition' },
   SOUL_RENDING_TALENT_HAVOC: { id: 204909, name: 'Soul Rending', icon: 'ability_demonhunter_soulcleave2' },
-  BURNING_HATRED_TALENT_HAVOC: { id: 320374, name: 'Burning Hatred', icon: 'ability_demonhunter_immolation' },
-  Unbound_Chaos_TALENT_HAVOC: { id: 347461, name: 'Unbound Chaos', icon: 'ability_demonhunter_felrush' },
-  GLAIVE_TEMPEST_TALENT_HAVOC: { id: 342817, name: 'Glaive Tempest', icon: 'inv_glaive_1h_artifactazgalor_d_06dual' },
-  Essence_Break_TALENT_HAVOC: { id: 258860, name: 'Essence Break', icon: 'spell_shadow_ritualofsacrifice' },
+  BURNING_HATRED_TALENT: { id: 320374, name: 'Burning Hatred', icon: 'ability_demonhunter_immolation' },
+  Unbound_Chaos_TALENT: { id: 347461, name: 'Unbound Chaos', icon: 'ability_demonhunter_felrush' },
+  GLAIVE_TEMPEST_TALENT: { id: 342817, name: 'Glaive Tempest', icon: 'inv_glaive_1h_artifactazgalor_d_06dual' },
+  Essence_Break_TALENT: { id: 258860, name: 'Essence Break', icon: 'spell_shadow_ritualofsacrifice' },
 };

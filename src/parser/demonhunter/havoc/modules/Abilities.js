@@ -76,20 +76,20 @@ class Abilities extends CoreAbilities {
         },
       },
       //Dark slash -> Essense Break
-      //{
-      //  spell: SPELLS.DARK_SLASH_TALENT,
-      //  enabled: combatant.hasTalent(SPELLS.DARK_SLASH_TALENT.id),
-      //  category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      //  cooldown: 20,
-      //  gcd: {
-      //    base: 1500,
-      //  },
-      //  castEfficiency: {
-      //    suggestion: true,
-      //    recommendedEfficiency: 0.95,
-      //    extraSuggestion: <>Pool your Fury before hand to maximizing casting <SpellLink id={SPELLS.CHAOS_STRIKE.id} /> / <SpellLink id={SPELLS.ANNIHILATION.id} /> during its buff window.</>,
-      //  },
-      //},
+      {
+        spell: SPELLS.DARK_SLASH_TALENT,
+        enabled: combatant.hasTalent(SPELLS.DARK_SLASH_TALENT.id),
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 20,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.95,
+          extraSuggestion: <>Pool your Fury before hand to maximizing casting <SpellLink id={SPELLS.CHAOS_STRIKE.id} /> / <SpellLink id={SPELLS.ANNIHILATION.id} /> during its buff window.</>,
+        },
+      },
       {
         spell: SPELLS.THROW_GLAIVE_HAVOC,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
