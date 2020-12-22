@@ -146,6 +146,11 @@ const legendaries = {
     icon: 'inv_inscription_80_warscroll_battleshout',
     bonusID: 7082,
   },
+  INVOKERS_DELIGHT_BUFF: {
+    id: 338321,
+    name: 'Invoker\'s Delight',
+    icon: 'inv_inscription_80_warscroll_battleshout',
+  },
   ESCAPE_FROM_REALITY: {
     id: 343250,
     name: 'Escape from Reality',

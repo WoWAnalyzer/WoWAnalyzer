@@ -276,6 +276,24 @@ class StatTracker extends Analyzer {
     this.statBuffs[buffId] = stats;
   }
 
+  update(buffId, stats) {
+    if (!buffId || !stats) {
+      throw new Error(`StatTracker.update() called with invalid buffId ${buffId} or stats`);
+    }
+    if (typeof buffId === 'object') {
+      buffId = buffId.id;
+    }
+    if (!this.statBuffs[buffId]) {
+      throw new Error(`Stat buff with ID ${buffId} doesn't exist, so it can't be updated - remember to add it first!`);
+    }
+    debug && this.log(`StatTracker.update(), buffId: ${buffId}, stats:`, stats);
+    const usesItemArgument = Object.values(stats).some(value => typeof value === 'function' && value.length === 2);
+    if (usesItemArgument && !stats.itemId) {
+      throw new Error(`Stat buff ${buffId} uses item argument, but does not provide item ID`);
+    }
+    this.statBuffs[buffId] = stats;
+  }
+
   addStatMultiplier(stats, changeCurrentStats = false) {
     const delta = {};
     for (const stat in stats) {
