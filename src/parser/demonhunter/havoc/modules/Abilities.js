@@ -75,8 +75,8 @@ class Abilities extends CoreAbilities {
           extraSuggestion: 'This is an important Fury generator spell. Try to always cast on cooldown, but beware to not waste the Fury generation it provides.',
         },
       },
-      //Converted from Dark Slash, should verify this is right
       {
+        //Converted from Dark Slash, should verify this is right
         spell: SPELLS.ESSENCE_BREAK_TALENT,
         enabled: combatant.hasTalent(SPELLS.ESSENCE_BREAK_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
