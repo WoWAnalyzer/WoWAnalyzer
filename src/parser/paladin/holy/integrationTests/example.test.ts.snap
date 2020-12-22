@@ -6476,12 +6476,12 @@ Array [
                     "border": "2px solid #f8b700",
                     "borderRadius": "50%",
                     "boxShadow": "0 0 4px #f8b700",
-                    "height": 24.902502017310987,
+                    "height": 27.43667972115039,
                     "left": "50%",
                     "position": "absolute",
                     "top": "50%",
                     "transform": "translate(-50%, -50%)",
-                    "width": 24.902502017310987,
+                    "width": 27.43667972115039,
                   }
                 }
               />
@@ -6602,95 +6602,6 @@ Array [
               }
             >
               <img
-                alt="{\\"id\\":\\"specs.holy\\",\\"message\\":\\"Holy\\"} {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}"
-                className="icon "
-                src="/specs/{\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-{\\"id\\":\\"specs.holy\\",\\"message\\":\\"Holy\\"}.jpg"
-              />
-               
-              Villahseen
-            </td>
-            <td
-              style={
-                Object {
-                  "textAlign": "right",
-                  "width": 50,
-                }
-              }
-            >
-              100.00
-              %
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "40%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-bg"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              style={
-                Object {
-                  "textAlign": "right",
-                  "width": 50,
-                }
-              }
-            >
-              24.64
-              %
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "40%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-bg"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              style={
-                Object {
-                  "textAlign": "right",
-                  "width": 50,
-                }
-              }
-            >
-              715k
-            </td>
-          </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              <img
                 alt="{\\"id\\":\\"specs.arms\\",\\"message\\":\\"Arms\\"} {\\"id\\":\\"specs.warrior\\",\\"message\\":\\"Warrior\\"}"
                 className="icon "
                 src="/specs/{\\"id\\":\\"specs.warrior\\",\\"message\\":\\"Warrior\\"}-{\\"id\\":\\"specs.arms\\",\\"message\\":\\"Arms\\"}.jpg"
@@ -6723,7 +6634,7 @@ Array [
                   className="flex-sub performance-bar {\\"id\\":\\"specs.warrior\\",\\"message\\":\\"Warrior\\"}-bg"
                   style={
                     Object {
-                      "width": "99.04447259259895%",
+                      "width": "100%",
                     }
                   }
                 />
@@ -6780,6 +6691,95 @@ Array [
               }
             >
               <img
+                alt="{\\"id\\":\\"specs.holy\\",\\"message\\":\\"Holy\\"} {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}"
+                className="icon "
+                src="/specs/{\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-{\\"id\\":\\"specs.holy\\",\\"message\\":\\"Holy\\"}.jpg"
+              />
+               
+              Villahseen
+            </td>
+            <td
+              style={
+                Object {
+                  "textAlign": "right",
+                  "width": 50,
+                }
+              }
+            >
+              98.95
+              %
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "40%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-bg"
+                  style={
+                    Object {
+                      "width": "99.90453264906459%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              style={
+                Object {
+                  "textAlign": "right",
+                  "width": 50,
+                }
+              }
+            >
+              24.64
+              %
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "40%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-bg"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              style={
+                Object {
+                  "textAlign": "right",
+                  "width": 50,
+                }
+              }
+            >
+              715k
+            </td>
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <img
                 alt="{\\"id\\":\\"specs.subtlety\\",\\"message\\":\\"Subtlety\\"} {\\"id\\":\\"specs.rogue\\",\\"message\\":\\"Rogue\\"}"
                 className="icon "
                 src="/specs/{\\"id\\":\\"specs.rogue\\",\\"message\\":\\"Rogue\\"}-{\\"id\\":\\"specs.subtlety\\",\\"message\\":\\"Subtlety\\"}.jpg"
@@ -6812,7 +6812,7 @@ Array [
                   className="flex-sub performance-bar {\\"id\\":\\"specs.rogue\\",\\"message\\":\\"Rogue\\"}-bg"
                   style={
                     Object {
-                      "width": "98.80515951822792%",
+                      "width": "99.75837816275181%",
                     }
                   }
                 />
@@ -6901,7 +6901,7 @@ Array [
                   className="flex-sub performance-bar {\\"id\\":\\"specs.hunter\\",\\"message\\":\\"Hunter\\"}-bg"
                   style={
                     Object {
-                      "width": "97.88339548824699%",
+                      "width": "98.82772145283883%",
                     }
                   }
                 />
@@ -6990,7 +6990,7 @@ Array [
                   className="flex-sub performance-bar {\\"id\\":\\"specs.warrior\\",\\"message\\":\\"Warrior\\"}-bg"
                   style={
                     Object {
-                      "width": "95.82822423481217%",
+                      "width": "96.7527230206816%",
                     }
                   }
                 />
@@ -7079,7 +7079,7 @@ Array [
                   className="flex-sub performance-bar {\\"id\\":\\"specs.demonHunter\\",\\"message\\":\\"DemonHunter\\"}-bg"
                   style={
                     Object {
-                      "width": "94.11852005012892%",
+                      "width": "95.02652453637467%",
                     }
                   }
                 />
@@ -7168,7 +7168,7 @@ Array [
                   className="flex-sub performance-bar {\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}-bg"
                   style={
                     Object {
-                      "width": "91.47935070223103%",
+                      "width": "92.36189391256022%",
                     }
                   }
                 />
@@ -7257,7 +7257,7 @@ Array [
                   className="flex-sub performance-bar {\\"id\\":\\"specs.monk\\",\\"message\\":\\"Monk\\"}-bg"
                   style={
                     Object {
-                      "width": "90.51041797815357%",
+                      "width": "91.38361345054697%",
                     }
                   }
                 />
@@ -7346,7 +7346,7 @@ Array [
                   className="flex-sub performance-bar {\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}-bg"
                   style={
                     Object {
-                      "width": "89.20052894185866%",
+                      "width": "90.06108731455261%",
                     }
                   }
                 />
@@ -7435,7 +7435,7 @@ Array [
                   className="flex-sub performance-bar {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-bg"
                   style={
                     Object {
-                      "width": "88.56657054028206%",
+                      "width": "89.42101282580826%",
                     }
                   }
                 />
@@ -7524,7 +7524,7 @@ Array [
                   className="flex-sub performance-bar {\\"id\\":\\"specs.paladin\\",\\"message\\":\\"Paladin\\"}-bg"
                   style={
                     Object {
-                      "width": "87.3934152552235%",
+                      "width": "88.23653957419722%",
                     }
                   }
                 />
@@ -7613,7 +7613,7 @@ Array [
                   className="flex-sub performance-bar {\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}-bg"
                   style={
                     Object {
-                      "width": "86.83368831561722%",
+                      "width": "87.6714126923483%",
                     }
                   }
                 />
@@ -7702,7 +7702,7 @@ Array [
                   className="flex-sub performance-bar {\\"id\\":\\"specs.warlock\\",\\"message\\":\\"Warlock\\"}-bg"
                   style={
                     Object {
-                      "width": "81.74684937808632%",
+                      "width": "82.53549868889384%",
                     }
                   }
                 />
@@ -7791,7 +7791,7 @@ Array [
                   className="flex-sub performance-bar {\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}-bg"
                   style={
                     Object {
-                      "width": "79.31235138815737%",
+                      "width": "80.0775139814152%",
                     }
                   }
                 />
@@ -7880,7 +7880,7 @@ Array [
                   className="flex-sub performance-bar {\\"id\\":\\"specs.mage\\",\\"message\\":\\"Mage\\"}-bg"
                   style={
                     Object {
-                      "width": "71.93312157682219%",
+                      "width": "72.62709335906682%",
                     }
                   }
                 />
@@ -7969,7 +7969,7 @@ Array [
                   className="flex-sub performance-bar {\\"id\\":\\"specs.druid\\",\\"message\\":\\"Druid\\"}-bg"
                   style={
                     Object {
-                      "width": "54.67729731311142%",
+                      "width": "55.20479425239239%",
                     }
                   }
                 />
@@ -10397,7 +10397,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  93.43%
+                  93.18%
                    
                    
                 </div>

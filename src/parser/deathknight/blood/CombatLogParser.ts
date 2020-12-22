@@ -19,7 +19,7 @@ import DeathStrikeTiming from './modules/features/DeathStrikeTiming';
 import BoneShieldTimesByStacks from './modules/features/BoneShieldTimesByStacks';
 import DeathsCaress from './modules/core/DeathsCaress';
 import MitigationCheck from './modules/features/MitigationCheck';
-// import Ossuary from './modules/features/Ossuary';
+import Ossuary from './modules/features/Ossuary';
 
 // Resources
 import RunicPowerDetails from './modules/runicpower/RunicPowerDetails';
@@ -50,6 +50,9 @@ import RuneOfHysteria from '../shared/runeforges/RuneOfHysteria';
 // Legendaries
 import BrynadaorsMight from './modules/items/BrynadaorsMight';
 import Superstrain from '../shared/items/Superstrain';
+
+// Covenants
+import SwarmingMist from '../shared/covenants/SwarmingMist';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -96,7 +99,7 @@ class CombatLogParser extends CoreCombatLogParser {
     voracious: Voracious,
     rapidDecomposition: RapidDecomposition,
     willOfTheNecropolis: WillOfTheNecropolis,
-    // ossuary: Ossuary,
+    ossuary: Ossuary,
     consumption: Consumption,
     relishInBlood: RelishInBlood,
 
@@ -107,7 +110,10 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Legendaries
     brynadaorsMight: BrynadaorsMight,
-    superStrain: Superstrain
+    superStrain: Superstrain,
+
+    // Covenants
+    swarmingMist: SwarmingMist
   };
 }
 

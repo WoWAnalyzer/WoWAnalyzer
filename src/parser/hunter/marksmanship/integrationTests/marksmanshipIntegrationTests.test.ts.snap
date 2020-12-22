@@ -963,8 +963,8 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#ff8000",
-                      "width": "70.81108434710443%",
+                      "backgroundColor": "#70b570",
+                      "width": "94.72461186567618%",
                     }
                   }
                 />
@@ -979,7 +979,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
                 }
               }
             >
-              70.81%
+              94.72%
             </td>
             <td
               style={
@@ -988,12 +988,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
                   "width": "25%",
                 }
               }
-            >
-              <trans
-                id="shared.castEfficiency.canBeImproved"
-                message="Can be improved."
-              />
-            </td>
+            />
           </tr>
           <tr>
             <td
@@ -4183,50 +4178,6 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_hunter_crossfire",
-    "importance": "regular",
-    "issue": <React.Fragment>
-      <Trans
-        components={
-          Object {
-            "0": <ForwardRef
-              id={260402}
-            />,
-          }
-        }
-        id="shared.modules.castEfficiency.suggest"
-        message="Try to cast <0/> more often."
-      />
-       
-      
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      <Trans
-        id="shared.modules.castEfficiency.actual"
-        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
-        values={
-          Object {
-            "0": 3,
-            "1": 5,
-            "2": "71",
-          }
-        }
-      />
-       (
-      <Trans
-        id="shared.modules.castEfficiency.recommended"
-        message=">{0}% is recommended"
-        values={
-          Object {
-            "0": "80",
-          }
-        }
-      />
-      )
-    </React.Fragment>,
-  },
-  Object {
-    "details": null,
     "icon": "ability_hunter_rapidkilling",
     "importance": "regular",
     "issue": <React.Fragment>
@@ -5353,7 +5304,7 @@ exports[`Marksmanship Hunter integration test: Multi Target SpiritAttunement mat
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    category="COVENANTS"
+    category="COVENANT"
     className="panel statistic flexible "
     position={1013}
   >
@@ -5991,7 +5942,7 @@ exports[`Marksmanship Hunter integration test: Multi Target WildSpirits matches 
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    category="COVENANTS"
+    category="COVENANT"
     className="panel statistic flexible "
     position={0}
   >
@@ -6493,7 +6444,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                   }
                 >
                    
-                  70.81%
+                  94.72%
                    
                    
                 </div>
@@ -6513,9 +6464,9 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ffc84a",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "52.65091087585774%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -8832,8 +8783,8 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#ff8000",
-                      "width": "70.534078695661%",
+                      "backgroundColor": "#70b570",
+                      "width": "89.98357408897031%",
                     }
                   }
                 />
@@ -8848,7 +8799,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
                 }
               }
             >
-              70.53%
+              89.98%
             </td>
             <td
               style={
@@ -8857,12 +8808,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
                   "width": "25%",
                 }
               }
-            >
-              <trans
-                id="shared.castEfficiency.canBeImproved"
-                message="Can be improved."
-              />
-            </td>
+            />
           </tr>
           <tr>
             <td
@@ -11768,50 +11714,6 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "ability_hunter_crossfire",
-    "importance": "regular",
-    "issue": <React.Fragment>
-      <Trans
-        components={
-          Object {
-            "0": <ForwardRef
-              id={260402}
-            />,
-          }
-        }
-        id="shared.modules.castEfficiency.suggest"
-        message="Try to cast <0/> more often."
-      />
-       
-      
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      <Trans
-        id="shared.modules.castEfficiency.actual"
-        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
-        values={
-          Object {
-            "0": 4,
-            "1": 5,
-            "2": "71",
-          }
-        }
-      />
-       (
-      <Trans
-        id="shared.modules.castEfficiency.recommended"
-        message=">{0}% is recommended"
-        values={
-          Object {
-            "0": "80",
-          }
-        }
-      />
-      )
-    </React.Fragment>,
-  },
-  Object {
-    "details": null,
     "icon": "ability_bastion_hunter",
     "importance": "major",
     "issue": <React.Fragment>
@@ -12103,7 +12005,7 @@ exports[`Marksmanship Hunter integration test: Single Target EnfeebledMark match
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    category="COVENANTS"
+    category="COVENANT"
     className="panel statistic flexible "
     position={1013}
   >
@@ -12832,7 +12734,7 @@ exports[`Marksmanship Hunter integration test: Single Target NaturalMending matc
         >
           41
           s/
-          180
+          182
           s 
           <small>
              cooldown reduction
@@ -12986,7 +12888,7 @@ exports[`Marksmanship Hunter integration test: Single Target ResonatingArrow mat
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    category="COVENANTS"
+    category="COVENANT"
     className="panel statistic flexible "
     position={0}
   >
@@ -13626,7 +13528,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
   className="checklist"
 >
   <li
-    className="expandable expanded failed"
+    className="expandable  passed"
   >
     <div
       className="meta"
@@ -13650,8 +13552,8 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ffc84a",
-                  "width": "51.728482056551115%",
+                  "backgroundColor": "#a6c34c",
+                  "width": "67.27146051250243%",
                 }
               }
             />
@@ -14057,7 +13959,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                   }
                 >
                    
-                  70.53%
+                  89.98%
                    
                    
                 </div>
@@ -14077,9 +13979,9 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ffc84a",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "51.728482056551115%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -14754,7 +14656,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                   }
                 >
                    
-                  90.33%
+                  90.48%
                    
                    
                 </div>

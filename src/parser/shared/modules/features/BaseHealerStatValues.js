@@ -478,7 +478,7 @@ class BaseHealerStatValues extends Analyzer {
                         <Trans id="shared.healerStatValues.statistic.title">Stat Values</Trans>
                       </TooltipElement>
                       {false && this.qeLive && this.selectedCombatant.characterProfile && ( // globally disable the QELive button until QE is updated to accept Shadowlands data
-                        <Tooltip content="Opens in a new tab. Leverage the QE Live Tool to directly compare gear, azerite traits, and trinkets based on your stat values.">
+                        <Tooltip content="Opens in a new tab. Leverage the QE Live Tool to directly compare gear and trinkets based on your stat values.">
                           <a
                             href={`https://www.questionablyepic.com/live?import=WoWA&spec=${this.selectedCombatant.specId}&pname=${this.selectedCombatant.name}&realm=${this.selectedCombatant.characterProfile.realm}&region=${this.selectedCombatant.characterProfile.region}&${qeLink}`}
                             target="_blank"

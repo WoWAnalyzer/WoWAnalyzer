@@ -44,9 +44,6 @@ class Haste extends Analyzer {
       hastePerStack: 0.03,
     },
     //endregion
-
-    // Boss abilities:
-    [SPELLS.OPULENCE_AMETHYST_OF_THE_SHADOW_KING.id]: 0.5, // Amethyst of the Shadow King by Opulence (BoD - BFA)
   };
 
   get changehaste() {
