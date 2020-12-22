@@ -184,6 +184,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.IRONFUR,
         buffSpellId: SPELLS.IRONFUR.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        gcd: null,
         timelineSortIndex: 7,
       },
       {
