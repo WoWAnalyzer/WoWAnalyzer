@@ -50,9 +50,9 @@ class UnfurlingDarkness extends Analyzer {
     return {
       actual: this.getProcsWasted() / this.procsGained,
       isGreaterThan: {
-        minor: 0.2,
-        average: 0.25,
-        major: 0.3,
+        minor: 0,
+        average: 0,
+        major: 0.05,
       },
       style: ThresholdStyle.PERCENTAGE,
     };

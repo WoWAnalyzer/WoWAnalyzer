@@ -40,7 +40,7 @@ class DeathAndMadness extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.DEATH_AND_MADNESS_TALENT}>
           <>
-          {formatNumber(this.successes)} Procs<br />
+          {formatNumber(this.successes)} CD Resets<br />
           <Insanity /> {formatNumber(this.insanityGained)} <small>Insanity generated</small>
           </>
         </BoringSpellValueText>
