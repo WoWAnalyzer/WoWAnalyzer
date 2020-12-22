@@ -449,6 +449,16 @@ const spells = {
     name: 'Master of the Glaive Debuff',
     icon: 'inv_glaive_1h_demonhunter_a_01',
   },
+  ESSENCE_BREAK_DAMAGE: {
+    id: 320338,
+    name: 'Essence Break',
+    icon: 'spell_shadow_ritualofsacrifice',
+  },
+  GLAIVE_TEMPEST_DAMAGE: {
+    id: 342857,
+    name: 'Glaive Tempest',
+    icon: 'inv_glaive_1h_artifactazgalor_d_06dual',
+  },
 } as const;
 
 export default spells;
