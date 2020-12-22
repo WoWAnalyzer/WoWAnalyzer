@@ -4863,11 +4863,11 @@ exports[`Elemental Shaman integration test: example log Stormkeeper matches the 
             src="/img/sword.png"
           />
            
-          0
+          1,264
            DPS
            
           <small>
-            0.00
+            2.78
              % of total
           </small>
         </div>
