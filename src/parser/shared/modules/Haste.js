@@ -8,6 +8,7 @@ import EventFilter, { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { EventType } from 'parser/core/Events';
 import { STEADY_FOCUS_HASTE_PERCENT } from 'parser/hunter/marksmanship/constants';
 import { DIRE_BEAST_HASTE_PERCENT } from 'parser/hunter/shared/constants';
+import { INVOKERS_DELIGHT_HASTE_BUFF } from 'parser/monk/shared/constants';
 
 const debug = false;
 
@@ -48,6 +49,10 @@ class Haste extends Analyzer {
     //region Priest
     [SPELLS.POWER_INFUSION.id]: 0.25,
     //endregion
+
+    //region Monk
+    [SPELLS.INVOKERS_DELIGHT_BUFF.id]: INVOKERS_DELIGHT_HASTE_BUFF,
+    //region end
   };
 
   get changehaste() {
