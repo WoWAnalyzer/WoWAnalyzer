@@ -49,7 +49,7 @@ const craftedItemSpells = {
   VORACIOUS_HUNGER: {
     id: 331624,
     name: 'Voracious Hunger',
-    icon: 'trade_engineering',
+    icon: 'inv_inscription_darkmooncard_voracity', //actual icon is trade_engineering, but that's pretty non-descriptive
   },
   VORACIOUS_LETHARGY: {
     id: 329449,
