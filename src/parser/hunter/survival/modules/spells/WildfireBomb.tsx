@@ -6,7 +6,6 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import Enemies from 'parser/shared/modules/Enemies';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import StatTracker from 'parser/shared/modules/StatTracker';
 import SpellLink from 'common/SpellLink';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -29,7 +28,6 @@ class WildfireBomb extends Analyzer {
   static dependencies = {
     enemies: Enemies,
     spellUsable: SpellUsable,
-    statTracker: StatTracker,
     globalCooldown: GlobalCooldown,
   };
 
@@ -42,7 +40,6 @@ class WildfireBomb extends Analyzer {
 
   protected enemies!: Enemies;
   protected spellUsable!: SpellUsable;
-  protected statTracker!: StatTracker;
   protected globalCooldown!: GlobalCooldown;
 
   constructor(options: Options) {
@@ -114,16 +111,16 @@ class WildfireBomb extends Analyzer {
     when(this.badWFBThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You shouldn't refresh <SpellLink id={SPELLS.WILDFIRE_BOMB.id} /> since it doesn't pandemic. It's generally better to cast something else and wait for the DOT to drop off before reapplying.</>)
       .icon(SPELLS.WILDFIRE_BOMB.icon)
       .actual(t({
-      id: "hunter.survival.suggestions.wildfireBomb.pandemic.efficiency",
-      message: `${actual} casts unnecessarily refreshed WFB`
-    }))
+        id: 'hunter.survival.suggestions.wildfireBomb.pandemic.efficiency',
+        message: `${actual} casts unnecessarily refreshed WFB`,
+      }))
       .recommended(`<${recommended} is recommended`));
     when(this.uptimeThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Try and maximize your uptime on <SpellLink id={SPELLS.WILDFIRE_BOMB.id} />. This is achieved through not unnecessarily refreshing the debuff as it doesn't pandemic. </>)
       .icon(SPELLS.WILDFIRE_BOMB.icon)
       .actual(t({
-      id: "hunter.survival.suggestions.wildfireBomb.uptime",
-      message: `${formatPercentage(actual)}% uptime`
-    }))
+        id: 'hunter.survival.suggestions.wildfireBomb.uptime',
+        message: `${formatPercentage(actual)}% uptime`,
+      }))
       .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

@@ -41,7 +41,21 @@ const craftedItemSpells = {
     name: 'Eight of Voracity',
     icon: 'inv_inscription_darkmooncard_voracity_8',
   },
-
+  VORACIOUS_HASTE: {
+    id: 311491,
+    name: 'Voracious Haste',
+    icon: 'inv_inscription_darkmooncard_voracity',
+  },
+  VORACIOUS_HUNGER: {
+    id: 331624,
+    name: 'Voracious Hunger',
+    icon: 'trade_engineering',
+  },
+  VORACIOUS_LETHARGY: {
+    id: 329449,
+    name: 'Voracious Lethargy',
+    icon: 'inv_inscription_darkmooncard_voracity',
+  },
 } as const;
 
 export default craftedItemSpells;
