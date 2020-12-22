@@ -137,7 +137,7 @@ const Article = (props: ArticleProps) => {
 
           <Image source={v031} description="Holy Paladin mastery effectiveness calculator v0.3.1 statistics at 18 Mar 2017" /><br />
 
-          The implementation of <ItemLink id={-1} /> included a large part of the work needed for adding items, so it was possible to quickly add statistics for the similar legendaries Ilterendi, Crown Jewel of Silvermoon and Velen's Future Sight in the next few days.
+          The implementation of Drape of Shame included a large part of the work needed for adding items, so it was possible to quickly add statistics for the similar legendaries Ilterendi, Crown Jewel of Silvermoon and Velen's Future Sight in the next few days.
         </Item>
 
         <Item title="Feeding other tools with new cast behavior statistics" date="25 Mar">
