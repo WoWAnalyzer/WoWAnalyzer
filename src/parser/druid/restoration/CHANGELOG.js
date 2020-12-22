@@ -2,6 +2,7 @@ import { Abelito75, Zeboot, LeoZhekov, Putro } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 12, 19), 'Fixed an issue with innervate.', Abelito75),
   change(date(2020, 12, 19), 'Updated Innervate to factor in self casts are bad and correct mana spent value.', Abelito75),
   change(date(2020, 12, 15), 'Bumped level of support to 9.0.2', Putro),
   change(date(2020, 12, 13), 'Added Vision of Unending Growth', Abelito75),

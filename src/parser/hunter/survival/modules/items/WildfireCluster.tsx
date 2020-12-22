@@ -20,7 +20,7 @@ class WildfireCluster extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.WILDFIRE_CLUSTER_EFFECT.bonusID!);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.WILDFIRE_CLUSTER_EFFECT.bonusID);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.WILDFIRE_CLUSTER_DAMAGE), this.onDamage);
   }
 

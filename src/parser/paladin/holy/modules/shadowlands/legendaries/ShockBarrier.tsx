@@ -23,7 +23,7 @@ class ShockBarrier extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SHOCK_BARRIER.bonusID!);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SHOCK_BARRIER.bonusID);
     if (!this.active) {
       return;
     }

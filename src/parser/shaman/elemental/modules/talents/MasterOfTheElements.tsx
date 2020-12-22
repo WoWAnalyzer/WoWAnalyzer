@@ -10,8 +10,9 @@ import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
+import Spell from 'common/SPELLS/Spell';
 
-const MASTER_OF_THE_ELEMENTS: {TALENTS: number[], [key: string]: any} = {
+const MASTER_OF_THE_ELEMENTS: {INCREASE: number, DURATION: number, WINDOW_DURATION: number, AFFECTED_DAMAGE: Spell[], AFFECTED_CASTS: Spell[], TALENTS: number[]} = {
   INCREASE: 0.2,
   DURATION: 15000,
   WINDOW_DURATION: 500,
@@ -53,7 +54,7 @@ class MasterOfTheElements extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.MASTER_OF_THE_ELEMENTS_TALENT.id);
 
     for (const key in MASTER_OF_THE_ELEMENTS.AFFECTED_CASTS) {
-      const spellid: number = MASTER_OF_THE_ELEMENTS.AFFECTED_CASTS[key].id;
+      const spellid = MASTER_OF_THE_ELEMENTS.AFFECTED_CASTS[key].id;
       if (this.selectedCombatant.hasTalent(spellid) || !MASTER_OF_THE_ELEMENTS.TALENTS.includes(spellid)) {
         this.moteBuffedAbilities[spellid] = 0;
       }

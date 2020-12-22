@@ -79,7 +79,7 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
 
   getSoothingMistDetails(spellInfo: SpellInfoDetails) {
     // the default tracker gets the healing of the soothing mists, but only the mana for the first cast. Every tick costs mana.
-    spellInfo.manaSpent = this.soothingMist.soomTicks * (SPELLS.SOOTHING_MIST.manaCost ? SPELLS.SOOTHING_MIST.manaCost : 1);
+    spellInfo.manaSpent = this.soothingMist.soomTicks * SPELLS.SOOTHING_MIST.manaCost;
     spellInfo.healingDone = spellInfo.healingDone + this.soothingMist.gustsHealing;
     return spellInfo;
   }

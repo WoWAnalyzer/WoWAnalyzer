@@ -15,7 +15,6 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { t } from '@lingui/macro';
 import SPECS from 'game/SPECS';
-import { Enchant } from 'common/SPELLS/Spell';
 
 const RP_BUFF_BY_HYSTERIA = 0.2;
 const DEATH_STRIKE_COST = 45;
@@ -33,7 +32,7 @@ class RuneOfHysteria extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    const active = this.selectedCombatant.hasWeaponEnchant(SPELLS.RUNE_OF_HYSTERIA as Enchant)
+    const active = this.selectedCombatant.hasWeaponEnchant(SPELLS.RUNE_OF_HYSTERIA)
     this.active = active
     if (!active) {
       return;

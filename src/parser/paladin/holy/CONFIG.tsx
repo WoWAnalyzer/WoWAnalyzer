@@ -5,7 +5,6 @@ import SPECS from 'game/SPECS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Config from 'parser/Config';
-import SpellIcon from 'common/SpellIcon';
 
 import CHANGELOG from './CHANGELOG';
 
@@ -52,14 +51,6 @@ const config: Config = {
   ),
   exampleReport: '/report/DPwyKpWBZ6F947mx/2-Normal+Mekkatorque+-+Kill+(7:19)/7-Riftie',
 
-  builds: {
-    GLIMMER: {
-      url: 'glimmer',
-      name: 'Glimmer Paladin',
-      icon: <SpellIcon id={SPELLS.GLIMMER_OF_LIGHT_TALENT.id} />,
-      visible: true,
-    },
-  },
   //
   spec: SPECS.HOLY_PALADIN,
   changelog: CHANGELOG,

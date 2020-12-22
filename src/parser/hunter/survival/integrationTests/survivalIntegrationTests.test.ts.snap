@@ -4279,7 +4279,7 @@ exports[`Survival Hunter integration test: Multi Target StrengthOfThePack matche
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    category="COVENANTS"
+    category="COVENANT"
     className="panel statistic flexible "
     position={1013}
   >
@@ -5131,7 +5131,7 @@ exports[`Survival Hunter integration test: Multi Target WildSpirits matches the 
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    category="COVENANTS"
+    category="COVENANT"
     className="panel statistic flexible "
     position={0}
   >
@@ -10945,7 +10945,7 @@ exports[`Survival Hunter integration test: Single Target StrengthOfThePack match
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    category="COVENANTS"
+    category="COVENANT"
     className="panel statistic flexible "
     position={1013}
   >
@@ -11602,7 +11602,7 @@ exports[`Survival Hunter integration test: Single Target WildSpirits matches the
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    category="COVENANTS"
+    category="COVENANT"
     className="panel statistic flexible "
     position={0}
   >

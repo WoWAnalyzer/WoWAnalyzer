@@ -198,7 +198,7 @@ class BeaconHealSource extends Analyzer {
   }
   /**
    * @returns {number} Gets the next heal in the backlog without any extra checks. This usually works since beacon healing is ordered in the combat log right after the heal that triggered it, and, while there's a delay before the beacon transfer happens, it's extremely rare for there to be multiple heals happening within short time spans - short enough to be before the beacon transfer.
-   * It does sometimes happen though, such as with Light of Dawn heals as well as Azerite Powers that apply hots and beacon transfer.
+   * It does sometimes happen though, such as with Light of Dawn heals.
    * @private
    */
   _matchByOrder(beaconTransferEvent) {

@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import { SpellFilter } from 'parser/core/EventFilter';
 
 //region Core
 /** Abilities */
@@ -51,7 +50,7 @@ export const AMOC_BASE_DURATION = 15000;
 export const BARRAGE_HITS_PER_CAST = 10;
 /** Born to be Wild */
 //Born To Be Wild reduces the cooldown of these three aspect abilities
-export const BORN_TO_BE_WILD_AFFECTED_SPELLS: SpellFilter = [
+export const BORN_TO_BE_WILD_AFFECTED_SPELLS = [
   SPELLS.ASPECT_OF_THE_CHEETAH,
   SPELLS.ASPECT_OF_THE_TURTLE,
   SPELLS.ASPECT_OF_THE_EAGLE,

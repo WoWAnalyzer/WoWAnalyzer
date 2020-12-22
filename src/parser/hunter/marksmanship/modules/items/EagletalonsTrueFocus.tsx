@@ -19,7 +19,7 @@ class EagletalonsTrueFocus extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.EAGLETALONS_TRUE_FOCUS_EFFECT.bonusID!);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.EAGLETALONS_TRUE_FOCUS_EFFECT.bonusID);
     if (!this.active) {
       return;
     }

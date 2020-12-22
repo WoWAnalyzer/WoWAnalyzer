@@ -133,13 +133,13 @@ class ResourceUsage extends Analyzer {
   }
 
   get resourceUsageChart() {
-    const items: Array<{ color: string, label: string | undefined, spellId: number, value: number, valueTooltip: JSX.Element }> = [];
+    const items: Array<{ color: string, label: string, spellId: number, value: number, valueTooltip: JSX.Element }> = [];
     let colourIndex = 0;
     this.resourceSpenders.forEach(spell => {
       if (this.listOfSpellsUsed[spell.id] && this.listOfSpellsUsed[spell.id].resourceUsed > 0) {
         items.push({
           color: this.listOfDefaultColours[colourIndex],
-          label: spell.name,
+          label: spell.name!,
           spellId: spell.id,
           value: Math.round(this.listOfSpellsUsed[spell.id].resourceUsed),
           valueTooltip: this.makeResourceUsageTooltip(this.listOfSpellsUsed[spell.id]),

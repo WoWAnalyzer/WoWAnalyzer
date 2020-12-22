@@ -20,7 +20,7 @@ class ColdFront extends Analyzer {
 
   constructor(props: Options) {
     super(props);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.COLD_FRONT.bonusID!);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.COLD_FRONT.bonusID);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.COLD_FRONT_BUFF), this.onBuffApplied);
   }
 

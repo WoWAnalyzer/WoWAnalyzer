@@ -22,7 +22,7 @@ class ManaTea extends Analyzer {
   };
   manaSavedMT: number = 0;
   manateaCount: number = 0;
-  casts: Map<string | undefined, number> = new Map<string, number>();
+  casts: Map<string, number> = new Map<string, number>();
   effectiveHealing: number = 0;
   overhealing: number = 0;
   protected abilityTracker!: AbilityTracker;
@@ -61,10 +61,10 @@ class ManaTea extends Analyzer {
       if (manaEvent.cost !== undefined) { //checks if the spell costs anything (we don't just use cost since some spells don't play nice)
         this.manaSavedMT += manaEvent.cost / 2;
       }
-      if (this.casts.has(name)) {
-        this.casts.set(name, (this.casts.get(name) || 0) + 1);
+      if (this.casts.has(name!)) {
+        this.casts.set(name!, (this.casts.get(name!) || 0) + 1);
       } else {
-        this.casts.set(name, 1);
+        this.casts.set(name!, 1);
       }
     }
   }

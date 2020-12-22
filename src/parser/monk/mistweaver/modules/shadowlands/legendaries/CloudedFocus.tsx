@@ -28,7 +28,7 @@ class CloudedFocus extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.CLOUDED_FOCUS.bonusID!);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.CLOUDED_FOCUS.bonusID);
     if (!this.active) {
       return;
     }

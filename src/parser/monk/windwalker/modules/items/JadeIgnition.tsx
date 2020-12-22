@@ -24,9 +24,10 @@ class JadeIgnition extends Analyzer {
   stacksWasted = 0;
 
   protected abilityTracker!: AbilityTracker;
+
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.JADE_IGNITION.bonusID!);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.JADE_IGNITION.bonusID);
     if (!this.active) {
       return;
     }

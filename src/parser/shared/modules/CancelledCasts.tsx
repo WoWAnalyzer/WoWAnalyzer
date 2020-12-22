@@ -26,7 +26,7 @@ class CancelledCasts extends Analyzer {
   wasCastStarted: boolean = false;
   cancelledSpellList: {
     [key: number]: {
-      spellName?: string,
+      spellName: string,
       amount: number
     }
   } = {};
@@ -78,8 +78,8 @@ class CancelledCasts extends Analyzer {
     const beginCastAbility = this.beginCastSpell.ability;
     if (!this.cancelledSpellList[beginCastAbility.guid]) {
       this.cancelledSpellList[beginCastAbility.guid] = {
-        spellName: beginCastAbility.name,
-        amount: 1,
+        'spellName': beginCastAbility.name!,
+        'amount': 1,
       };
     } else {
       this.cancelledSpellList[beginCastAbility.guid].amount += 1;

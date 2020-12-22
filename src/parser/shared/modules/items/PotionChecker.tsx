@@ -128,7 +128,6 @@ class PotionChecker extends Analyzer {
   strongPotionIcon: string = ITEMS.POTION_OF_SPECTRAL_INTELLECT.icon;
   neededManaSecondPotion = false;
   addedSuggestionText = false;
-  alternatePotion: number = 0;
   isHealer = false;
 
   constructor(args: Options) {
@@ -160,7 +159,6 @@ class PotionChecker extends Analyzer {
     }
 
     if (STRONG_POTIONS.includes(spellId) && event.timestamp > this.owner.fight.start_time - this.owner.fight.offset_time) {
-      console.log('STRONG POT USED');
       this.potionsUsed += 1;
       this.strongPotionsUsed += 1;
     }

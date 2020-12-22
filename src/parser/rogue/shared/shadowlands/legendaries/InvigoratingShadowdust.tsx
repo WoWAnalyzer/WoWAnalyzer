@@ -39,14 +39,13 @@ class InvigoratingShadowdust extends Analyzer {
       default:
         break;
     }
-
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.INVIGORATING_SHADOWDUST.bonusID!);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.INVIGORATING_SHADOWDUST.bonusID);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VANISH), this.onCast);
   }
 
   onCast(event: CastEvent) {
     this.cooldowns.map((cooldown, index) => {
-      const id = cooldown.id;
+      const { id } = cooldown;
       if (!this.spellUsable.isOnCooldown(id)) {
         // eslint-disable-next-line array-callback-return
         return;

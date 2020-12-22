@@ -21,7 +21,7 @@ class DashingScoundrel extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.DASHING_SCOUNDREL.bonusID!);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.DASHING_SCOUNDREL.bonusID);
     this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DASHING_SCOUNDREL), this.onEnergize);
   }
 

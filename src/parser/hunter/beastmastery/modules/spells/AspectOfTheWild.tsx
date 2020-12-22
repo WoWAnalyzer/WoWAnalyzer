@@ -31,7 +31,7 @@ class AspectOfTheWild extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.selectedCombatant.hasLegendaryByBonusID(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT.bonusID!) && this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.ASPECT_OF_THE_WILD), this.checkNesingwaryFocusGain);
+    this.selectedCombatant.hasLegendaryByBonusID(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT.bonusID) && this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.ASPECT_OF_THE_WILD), this.checkNesingwaryFocusGain);
   }
 
   get uptime() {
