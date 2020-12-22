@@ -8,6 +8,7 @@ import { change, date } from 'common/changelog';
 
 // prettier-ignore
 export default [
+  change(date(2020, 12, 22), <> Added support for <ItemLink id={ITEMS.DARKMOON_DECK_VORACITY.id} /> and corrected downtime issues in fights where you had <SpellLink id={SPELLS.POWER_INFUSION.id} />.</>, Putro),
   change(date(2020, 12, 13), 'Reverted using the browser refresh on fight selection now correctly reloads the report from WCL.', Zerotorescue),
   change(date(2020, 12, 20), 'Removed the last remnants of Azerite across the codebase', Putro),
   change(date(2020, 12, 19), 'Add warnings for logs with Advanced Combat Logging disabled and when no encounters are found.', Sharrq),
