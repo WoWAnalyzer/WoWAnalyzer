@@ -1281,7 +1281,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#70b570",
+                      "backgroundColor": "#ff8000",
                       "width": "0%",
                     }
                   }
@@ -1306,7 +1306,12 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   "width": "25%",
                 }
               }
-            />
+            >
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
+            </td>
           </tr>
         </tbody>
         <tbody>
@@ -3465,6 +3470,55 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
     </div>
   </div>
 </div>
+`;
+
+exports[`Shadow Priest integration test: example log CastEfficiency matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_holy_powerinfusion",
+    "importance": "major",
+    "issue": <React.Fragment>
+      <Trans
+        components={
+          Object {
+            "0": <ForwardRef
+              id={10060}
+            />,
+          }
+        }
+        id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
+      />
+       
+      
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <Trans
+        id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        values={
+          Object {
+            "0": 0,
+            "1": 1,
+            "2": "0",
+          }
+        }
+      />
+       (
+      <Trans
+        id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
+        values={
+          Object {
+            "0": "80",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
+]
 `;
 
 exports[`Shadow Priest integration test: example log DeathTracker matches the suggestions snapshot 1`] = `
