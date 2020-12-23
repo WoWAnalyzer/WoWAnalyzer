@@ -3,7 +3,6 @@ import React from 'react';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
-//import ManaValues from 'parser/shared/modules/ManaValues';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 
 import MasteryEffectiveness from '../features/MasteryEffectiveness';
@@ -25,7 +24,6 @@ class Checklist extends BaseChecklist {
     beaconUptime: BeaconUptime,
     fillerLightOfTheMartyrs: FillerLightOfTheMartyrs,
     fillerFlashOfLight: FillerFlashOfLight,
-    //manaValues: ManaValues,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
   };
 
@@ -49,8 +47,6 @@ class Checklist extends BaseChecklist {
           beaconUptimeBoFUptime: this.beaconUptime.suggestionThresholdsBoFUptime,
           fillerLightOfTheMartyrsCpm: this.fillerLightOfTheMartyrs.cpmSuggestionThresholds,
           fillerLightOfTheMartyrsInefficientCpm: this.fillerLightOfTheMartyrs.inefficientCpmSuggestionThresholds,
-          //until blizzard understands how mana works on a paladin we are turning this off
-          //manaLeft: this.manaValues.suggestionThresholds,
         }}
       />
     );
