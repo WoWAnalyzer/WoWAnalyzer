@@ -1,5 +1,4 @@
 import React from 'react';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import SPELLS from 'common/SPELLS';

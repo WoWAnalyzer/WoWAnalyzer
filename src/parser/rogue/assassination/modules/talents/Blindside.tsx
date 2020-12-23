@@ -1,5 +1,4 @@
 import React from 'react';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
