@@ -123,6 +123,7 @@ const HavocDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }) =>
         <AbilityRequirement spell={SPELLS.METAMORPHOSIS_HAVOC.id} />
         <AbilityRequirement spell={SPELLS.EYE_BEAM.id} />
         {combatant.hasTalent(SPELLS.FEL_BARRAGE_TALENT.id) && <AbilityRequirement spell={SPELLS.FEL_BARRAGE_TALENT.id} />}
+        {combatant.hasTalent(SPELLS.ESSENCE_BREAK_TALENT.id) && <AbilityRequirement spell={SPELLS.ESSENCE_BREAK_TALENT.id} />}
       </Rule>
 
       <Rule
