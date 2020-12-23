@@ -27,7 +27,7 @@ import FelBarrage from './modules/talents/FelBarrage';
 import Netherwalk from './modules/talents/Netherwalk';
 import FelEruption from './modules/talents/FelEruption';
 import MasterOfTheGlaives from './modules/talents/MasterOfTheGlaives';
-//import DarkSlash from './modules/talents/DarkSlash'; //change to Essense break
+import EssenceBreak from './modules/talents/EssenceBreak';
 import CycleOfHatred from './modules/talents/CycleOfHatred';
 import Demonic from './modules/talents/Demonic';
 
@@ -67,7 +67,7 @@ class CombatLogParser extends CoreCombatLogParser {
     netherwalk: Netherwalk,
     felEruption: FelEruption,
     masterOfTheGlaives: MasterOfTheGlaives,
-    //darkSlash: DarkSlash, //Change to essense break
+    essenceBreak: EssenceBreak,
     cycleOfHatred: CycleOfHatred,
     demonic: Demonic,
 
