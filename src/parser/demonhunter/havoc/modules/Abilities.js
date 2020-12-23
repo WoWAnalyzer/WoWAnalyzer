@@ -4,6 +4,9 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import CoreAbilities from 'parser/core/modules/Abilities';
 
+import COVENANTS from 'game/shadowlands/COVENANTS';
+
+
 class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
@@ -225,7 +228,64 @@ class Abilities extends CoreAbilities {
           extraSuggestion: <>The only time you should delay casting <SpellLink id={SPELLS.GLAIVE_TEMPEST_TALENT.id} /> is when you're expecting adds to spawn soon.</>,
         },
       },
-
+      // Covenants DPS cooldowns 
+      //Look over recomendedEfficiency
+      {
+        spell: SPELLS.SINFUL_BRAND,
+        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.95,
+          extraSuggestion: `Text here`,
+        },
+      },
+      {
+        spell: SPELLS.ELYSIAN_DECREE,
+        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.95,
+          extraSuggestion: `Text here`,
+        },
+      },,
+      {
+        spell: SPELLS.FODDER_TO_THE_FLAME,
+        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 120,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.95,
+          extraSuggestion: `Text here`,
+        },
+      },,
+      {
+        spell: SPELLS.THE_HUNT,
+        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 90,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.95,
+          extraSuggestion: `Text here`,
+        },
+      },
       // Big DPS Cooldowns
       {
         spell: SPELLS.METAMORPHOSIS_HAVOC,
