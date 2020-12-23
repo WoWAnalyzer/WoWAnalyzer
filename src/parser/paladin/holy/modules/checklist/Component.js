@@ -290,27 +290,6 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
       </Rule>
       <Rule
         name={
-          <Trans id="paladin.holy.modules.checklist.useAllOfMana">
-            Use all of your{' '}
-            <ResourceLink id={RESOURCE_TYPES.MANA.id} onClick={(e) => e.preventDefault()} />
-          </Trans>
-        }
-        description={
-          <Trans id="paladin.holy.modules.checklist.useAllOfMana.description">
-            If you have a large amount of mana left at the end of the fight that's mana you could
-            have turned into healing. Try to use all your mana during a fight. A good rule of thumb
-            is to try to match your mana level with the boss's health.
-          </Trans>
-        }
-      >
-        {/*until blizzard figures out mana for a paladin we don't need this*/}
-        {/*<Requirement
-          name={<Trans id="paladin.holy.modules.checklist.manaLeft">Mana left</Trans>}
-          thresholds={thresholds.manaLeft}
-        />*/}
-      </Rule>
-      <Rule
-        name={
           <Trans id="paladin.holy.modules.checklist.avoidBeingInactive">
             Try to avoid being inactive for a large portion of the fight
           </Trans>

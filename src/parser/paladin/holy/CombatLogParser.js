@@ -84,11 +84,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lightOfDawn: LightOfDawn,
     lightOfDawnIndexer: LightOfDawnIndexer,
     hammerOfWrath: HammerOfWrath,
-
-    // Generic healer things
-    // manaLevelChart: ManaLevelChart,
-    // manaUsageChart: ManaUsageChart,
-
+    
     // Features
     checklist: Checklist,
     abilities: Abilities,
