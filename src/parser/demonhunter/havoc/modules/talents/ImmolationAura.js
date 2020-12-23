@@ -12,7 +12,7 @@ import { t } from '@lingui/macro';
  * Example Report: https://www.warcraftlogs.com/reports/KGJgZPxanBX82LzV/#fight=4&source=20
  */
 
-const IMMOLATION_AURA = [SPELLS.IMMOLATION_AURA_FIRST_STRIKE, SPELLS.IMMOLATION_AURA_BUFF_DPS];
+const IMMOLATION_AURA = [SPELLS.IMMOLATION_AURA_FIRST_STRIKE_DPS, SPELLS.IMMOLATION_AURA_BUFF_DPS];
 
 class ImmolationAura extends Analyzer {
 
