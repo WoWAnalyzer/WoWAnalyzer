@@ -1,5 +1,4 @@
 import React from 'react';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -38,7 +37,10 @@ class GarroteUptime extends Analyzer {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest: SuggestionFactory, actual: number | boolean, recommended: number | boolean) => suggest(<>Your <SpellLink id={SPELLS.GARROTE.id} /> uptime can be improved. Try to pay more attention to your <SpellLink id={SPELLS.GARROTE.id} /> on the boss.</>)
       .icon(SPELLS.GARROTE.icon)
-      .actual(i18n._(t('rogue.assassination.suggestions.garrote.uptime')`${formatPercentage(actual as number)}% Garrote uptime`))
+      .actual(t({
+        id: 'rogue.assassination.suggestions.garrote.uptime',
+        message: `${formatPercentage(actual as number)}% Garrote uptime`
+      }))
       .recommended(`>${formatPercentage(recommended as number)}% is recommended`));
   }
 

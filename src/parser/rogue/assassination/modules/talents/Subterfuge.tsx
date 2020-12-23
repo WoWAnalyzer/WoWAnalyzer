@@ -9,7 +9,6 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import { SuggestionFactory, ThresholdStyle, When } from 'parser/core/ParseResults';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import GarroteSnapshot from '../features/GarroteSnapshot';
@@ -65,7 +64,10 @@ class Subterfuge extends StealthCasts {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest: SuggestionFactory, actual: number | boolean, recommended: number | boolean) => suggest(<>Your failed to cast atleast one <SpellLink id={SPELLS.GARROTE.id} /> during <SpellLink id={SPELLS.SUBTERFUGE_BUFF.id} /> {this.stealthCasts - this.stealthsWithAtleastOneGarrote} time(s). Make sure to prioritize snapshotting <SpellLink id={SPELLS.GARROTE.id} /> during <SpellLink id={SPELLS.SUBTERFUGE_BUFF.id} />.</>)
       .icon(SPELLS.GARROTE.icon)
-      .actual(i18n._(t('rogue.assassinations.suggestions.subterfuge.efficiency')`${formatPercentage(actual as number)}% of Subterfuges with atleast one Garrote cast`))
+      .actual(t({
+        id: 'rogue.assassinations.suggestions.subterfuge.efficiency',
+      message: `${formatPercentage(actual as number)}% of Subterfuges with atleast one Garrote cast`
+    }))
       .recommended(`>${formatPercentage(recommended as number)}% is recommended`));
   }
 

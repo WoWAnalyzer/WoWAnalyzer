@@ -1,5 +1,4 @@
 import React from 'react';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -39,7 +38,10 @@ class RuptureUptime extends Analyzer {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest: SuggestionFactory, actual: number | boolean, recommended: number | boolean) => suggest(<>Your <SpellLink id={SPELLS.RUPTURE.id} /> uptime can be improved. Try to pay more attention to your <SpellLink id={SPELLS.RUPTURE.id} /> on the boss.</>)
         .icon(SPELLS.RUPTURE.icon)
-        .actual(i18n._(t('rogue.assassination.suggestions.rupture.uptime')`${formatPercentage(actual as number)}% Rupture uptime`))
+        .actual(t({
+          id: 'rogue.assassination.suggestions.rupture.uptime',
+          message: `${formatPercentage(actual as number)}% Rupture uptime`
+        }))
         .recommended(`>${formatPercentage(recommended as number)}% is recommended`));
   }
 
