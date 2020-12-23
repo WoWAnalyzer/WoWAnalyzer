@@ -256,7 +256,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.NETHERWALK_TALENT,
         enabled: combatant.hasTalent(SPELLS.NETHERWALK_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: 120,
+        cooldown: 180,
       },
     ];
   }
