@@ -222,7 +222,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
-          extraSuggestion: `This is a great AoE damage spell, but also does a great damage on single target. You should cast it as soon as it gets off cooldown. The only moment you can delay it's cast is if you already expect an add wave to maximize it's efficiency and damage output.`,
+          extraSuggestion: <>The only time you should delay casting <SpellLink id={SPELLS.GLAIVE_TEMPEST_TALENT.id} /> is when you're expecting adds to spawn soon.</>,
         },
       },
 
