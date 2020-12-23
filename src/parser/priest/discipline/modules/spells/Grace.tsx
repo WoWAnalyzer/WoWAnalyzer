@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
@@ -25,24 +25,22 @@ class Grace extends Analyzer {
     combatants: Combatants,
     statTracker: StatTracker,
   };
-  private combatants!: Combatants;
-  private statTracker!: StatTracker;
-
   applyAbsorbEvents: Array<{
     applyBuffEvent: ApplyBuffEvent,
     masteryBuffed: boolean,
     eventsAssociated: ApplyBuffEvent[],
   }> = [];
-
   graceHealing = 0;
   graceHealingToAtonement = 0;
-
   healingUnaffectedByMastery = 0;
   healingUnbuffedByMastery = 0;
   healingBuffedByMastery = 0;
   atonement = 0;
+  statisticOrder = STATISTIC_ORDER.CORE(3);
+  private combatants!: Combatants;
+  private statTracker!: StatTracker;
 
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.absorbed.by(SELECTED_PLAYER), this.onAbsorb);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.onApplyBuff);
@@ -170,8 +168,6 @@ class Grace extends Analyzer {
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
 export default Grace;

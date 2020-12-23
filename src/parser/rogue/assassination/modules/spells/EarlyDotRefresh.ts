@@ -12,6 +12,14 @@ const AVERAGE_THRESHOLD = 0.95;
 const MAJOR_THRESHOLD = 0.9;
 
 class EarlyDotRefresh extends EarlyDotRefreshesCore {
+  get suggestionThresholdsRuptureEfficiency() {
+    return this.makeSuggestionThresholds(SPELLS.RUPTURE, MINOR_THRESHOLD, AVERAGE_THRESHOLD, MAJOR_THRESHOLD);
+  }
+
+  get suggestionThresholdsGarroteEfficiency() {
+    return this.makeSuggestionThresholds(SPELLS.GARROTE, MINOR_THRESHOLD, AVERAGE_THRESHOLD, MAJOR_THRESHOLD);
+  }
+
   static dots = [
     {
       name: 'Rupture',
@@ -41,20 +49,13 @@ class EarlyDotRefresh extends EarlyDotRefreshesCore {
     //Update duration.
     this.getDot(SPELLS.RUPTURE.id).duration = (comboPointsSpent * 4 + 4) * 1000;
   }
-  
+
   // Checks the status of the last cast and marks it accordingly.
   getLastBadCastText(event: CastEvent, dot: {castId: number}) {    
     if (dot.castId === SPELLS.RUPTURE.id) {
-      return super.getLastBadCastText(event,dot) + " *Based on the amount of CPs spent.";
+      return super.getLastBadCastText(event, dot) + ' *Based on the amount of CPs spent.';
     }
-    return super.getLastBadCastText(event,dot);
-  }
-
-  get suggestionThresholdsRuptureEfficiency() {
-    return this.makeSuggestionThresholds(SPELLS.RUPTURE,MINOR_THRESHOLD,AVERAGE_THRESHOLD,MAJOR_THRESHOLD);
-  }
-  get suggestionThresholdsGarroteEfficiency() {
-    return this.makeSuggestionThresholds(SPELLS.GARROTE,MINOR_THRESHOLD,AVERAGE_THRESHOLD,MAJOR_THRESHOLD);
+    return super.getLastBadCastText(event, dot);
   }
 
   suggestions(when: When) {

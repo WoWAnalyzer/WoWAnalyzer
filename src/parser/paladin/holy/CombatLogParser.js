@@ -2,7 +2,6 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
-import LucidDreamsHealers from 'parser/shared/modules/spells/bfa/essences/LucidDreamsHealers';
 
 import LightOfDawnNormalizer from './normalizers/LightOfDawn';
 import BeaconOfVirtueNormalizer from './normalizers/BeaconOfVirtue';
@@ -18,41 +17,37 @@ import BeaconUptime from './modules/beacons/BeaconUptime';
 import HammerOfWrath from '../shared/spells/HammerOfWrath';
 
 import PaladinAbilityTracker from './modules/core/PaladinAbilityTracker';
-import CastBehavior from './modules/CastBehavior';
-import Overhealing from './modules/Overhealing';
-import FillerLightOfTheMartyrs from './modules/FillerLightOfTheMartyrs';
-import InefficientLightOfTheMartyrs from './modules/InefficientLightOfTheMartyrs';
-import FillerFlashOfLight from './modules/FillerFlashOfLight';
-import LightOfDawn from './modules/LightOfDawn';
-import LightOfDawnIndexer from './modules/LightOfDawnIndexer';
+import CastBehavior from './modules/features/CastBehavior';
+import Overhealing from './modules/features/Overhealing';
+import FillerLightOfTheMartyrs from './modules/spells/FillerLightOfTheMartyrs';
+import InefficientLightOfTheMartyrs from './modules/spells/InefficientLightOfTheMartyrs';
+import FillerFlashOfLight from './modules/spells/FillerFlashOfLight';
+import LightOfDawn from './modules/spells/LightOfDawn';
+import LightOfDawnIndexer from './modules/spells/LightOfDawnIndexer';
 
-import Abilities from './modules/Abilities';
-import Buffs from './modules/Buffs';
+import Abilities from './modules/features/Abilities';
+import Buffs from './modules/features/Buffs';
 import Checklist from './modules/checklist/Module';
-import MasteryEffectiveness from './modules/MasteryEffectiveness';
-import AlwaysBeCasting from './modules/AlwaysBeCasting';
-import CooldownThroughputTracker from './modules/CooldownThroughputTracker';
-import StatValues from './modules/StatValues';
+import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
+import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import StatValues from './modules/features/StatValues';
 
-import MightOfTheMountain from './modules/MightOfTheMountain';
+import MightOfTheMountain from './modules/racials/MightOfTheMountain';
 
 import RuleOfLaw from './modules/talents/RuleOfLaw';
-import DevotionAuraDamageReduction from './modules/talents/DevotionAuraDamageReduction';
+import DevotionAuraDamageReduction from './modules/spells/DevotionAuraDamageReduction';
 import HolyAvenger from '../shared/talents/HolyAvenger';
 import DivinePurpose from '../shared/talents/DivinePurpose';
 import CrusadersMight from './modules/talents/CrusadersMight';
 import AvengingCrusader from './modules/talents/AvengingCrusader';
 import JudgmentOfLight from './modules/talents/JudgmentOfLight';
-
-// azerite traits //
-import GraceOfTheJusticar from './modules/azeritetraits/GraceOfTheJusticar';
-import GlimmerOfLight from './modules/azeritetraits/GlimmerOfLight';
-import LightsDecree from './modules/azeritetraits/LightsDecree';
-import RadiantIncandescence from './modules/azeritetraits/RadiantIncandescence';
-import VisionOfPerfection from './modules/azeritetraits/VisionOfPerfection';
+import GlimmerOfLight from './modules/talents/GlimmerOfLight';
 
 import HolyPowerTracker from '../shared/holypower/HolyPowerTracker';
 import HolyPowerDetails from '../shared/holypower/HolyPowerDetails';
+
+import ShockBarrier from './modules/shadowlands/legendaries/ShockBarrier';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
@@ -110,20 +105,14 @@ class CombatLogParser extends CoreCombatLogParser {
     crusadersMight: CrusadersMight,
     avengingCrusader: AvengingCrusader,
     judgmentOfLight: JudgmentOfLight,
-
-    // Azerite Traits //
-    graceOfTheJusticar: GraceOfTheJusticar,
-    radiantIncandescence: RadiantIncandescence,
     glimmerOfLight: GlimmerOfLight,
-    lightsDecree: LightsDecree,
-    visionOfPerfection: VisionOfPerfection,
-
-    // Azerite Essences //
-    lucidDream: LucidDreamsHealers,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,
     holyPowerDetails: HolyPowerDetails,
+
+    // Lego
+    shockBarrier: ShockBarrier,
   };
 }
 

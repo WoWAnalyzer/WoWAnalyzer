@@ -1,6 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const covenants: SpellList = {
+const covenants = {
   //region Kyrian
   //heal 311123
   //buff and cast 310454
@@ -13,6 +11,11 @@ const covenants: SpellList = {
     id: 310454,
     name: 'Weapons of Order',
     icon: 'ability_bastion_monk',
+  },
+  WEAPONS_OF_ORDER_CHI_DISCOUNT: {
+    id: 311054,
+    name: 'Weapons of Order',
+    icon: 'ability_monk_risingsunkick',
   },
   //endregion
 
@@ -105,5 +108,5 @@ const covenants: SpellList = {
   },
 
   //endregion
-};
+} as const;
 export default covenants;

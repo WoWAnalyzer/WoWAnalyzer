@@ -9,6 +9,7 @@ import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import Channeling from '../shared/modules/core/Channeling';
 
 //Checklist
 import Checklist from './modules/checklist/Module';
@@ -55,14 +56,6 @@ import BeastMasteryFocusCapTracker from './modules/resources/BeastMasteryFocusCa
 import Focus from './modules/resources/Focus';
 import BeastMasteryFocusUsage from './modules/resources/BeastMasteryFocusUsage';
 
-//Azerite Traits
-import DanceOfDeath from './modules/spells/azeritetraits/DanceOfDeath';
-import HazeOfRage from './modules/spells/azeritetraits/HazeOfRage';
-import FeedingFrenzy from './modules/spells/azeritetraits/FeedingFrenzy';
-import PrimalInstincts from './modules/spells/azeritetraits/PrimalInstincts';
-import DireConsequences from '../shared/modules/spells/azeritetraits/DireConsequences';
-import RapidReload from '../shared/modules/spells/azeritetraits/RapidReload';
-
 //Covenants
 import ResonatingArrow from '../shared/modules/spells/covenants/kyrian/ResonatingArrow';
 import DeathChakrams from '../shared/modules/spells/covenants/necrolord/DeathChakrams';
@@ -84,7 +77,7 @@ import DireCommand from './modules/items/DireCommand';
 import FlamewakersCobraSting from './modules/items/FlamewakersCobraSting';
 import QaplaEredunWarOrder from './modules/items/QaplaEredunWarOrder';
 import RylakstalkersPiercingFangs from './modules/items/RylakstalkersPiercingFangs';
-import NesingwarysTrappingApparatus from '../shared/modules/items/NesingwarysTrappingApparatus';
+import NesingwarysTrappingApparatus from './modules/items/NesingwarysTrappingApparatus';
 import SoulforgeEmbers from '../shared/modules/items/SoulforgeEmbers';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -96,6 +89,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Features
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
+    channeling: Channeling,
     buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
 
@@ -140,14 +134,6 @@ class CombatLogParser extends CoreCombatLogParser {
     bornToBeWild: BornToBeWild,
     bindingShot: BindingShot,
     animalCompanion: AnimalCompanion,
-
-    //Azerite Traits
-    danceOfDeath: DanceOfDeath,
-    hazeOfRage: HazeOfRage,
-    feedingFrenzy: FeedingFrenzy,
-    primalInstincts: PrimalInstincts,
-    direConsequences: DireConsequences,
-    rapidReload: RapidReload,
 
     //Covenants
     resonatingArrow: ResonatingArrow,

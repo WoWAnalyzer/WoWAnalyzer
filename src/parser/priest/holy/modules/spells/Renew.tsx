@@ -15,14 +15,10 @@ class Renew extends Analyzer {
     distanceMoved: DistanceMoved,
     spellUsable: SpellUsable,
   };
-  protected distanceMoved!: DistanceMoved;
-  protected spellUsable!: SpellUsable;
-
   totalRenewHealing = 0;
   totalRenewOverhealing = 0;
   totalRenewAbsorbs = 0;
   totalRenewTicks = 0;
-
   lastRenewCast: number = 0;
   renewsCast = 0;
   goodRenews = 0;
@@ -32,16 +28,15 @@ class Renew extends Analyzer {
     stationary: 0,
   };
   totalRenewApplications = 0;
-
   salvationActive = false;
   lastSalvationCast = 0;
   renewsFromSalvation = 0;
-
   benedictionActive = false;
   renewsFromBenedictionAndRenew = 0;
-
   lastGCD: GlobalCooldownEvent | null = null;
   lastCast: CastEvent | null = null;
+  protected distanceMoved!: DistanceMoved;
+  protected spellUsable!: SpellUsable;
 
   constructor(options: Options) {
     super(options);
@@ -182,11 +177,11 @@ class Renew extends Analyzer {
   suggestions(when: When) {
     when(this.badRenewThreshold)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You should cast <SpellLink id={SPELLS.RENEW.id} /> less.</>)
-            .icon(SPELLS.RENEW.icon)
-            .actual(<>
-              You used Renew {this.badRenews} times when another spell would have been more productive.
-              Renew is one of the least efficient spells Holy Priests have, and should only be cast when moving with no other instants available.</>)
-            .recommended(`Two or less per minute is recommended, except for movement heavy fights.`),
+        .icon(SPELLS.RENEW.icon)
+        .actual(<>
+          You used Renew {this.badRenews} times when another spell would have been more productive.
+          Renew is one of the least efficient spells Holy Priests have, and should only be cast when moving with no other instants available.</>)
+        .recommended(`Two or less per minute is recommended, except for movement heavy fights.`),
       );
   }
 }

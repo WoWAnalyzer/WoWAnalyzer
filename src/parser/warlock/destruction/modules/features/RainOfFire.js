@@ -17,10 +17,20 @@ const debug = false;
 
 // Tries to estimate "effectiveness" of Rain of Fires - counting average targets hit by each RoF (unique targets hit)
 class RainOfFire extends Analyzer {
+  get _expectedRoFduration() {
+    return BASE_ROF_DURATION / (1 + this.haste.current);
+  }
+
+  get averageTargetsHit() {
+    // first, maps the casts to the targets hit, resulting in array of array of strings
+    // [].concat(...array) just flattens it into single array of strings
+    const allTargetsHit = [].concat(...this.casts.map(cast => cast.targetsHit));
+    return (allTargetsHit.length / this.casts.length) || 0;
+  }
+
   static dependencies = {
     haste: Haste,
   };
-
   casts = [
     /*
       {
@@ -106,17 +116,6 @@ class RainOfFire extends Analyzer {
       return (cast.periods.reduce((total, current) => total + current, 0) / cast.periods.length) || 0;
     }
     return (cast.expectedEnd - cast.timestamp) / 8;
-  }
-
-  get _expectedRoFduration() {
-    return BASE_ROF_DURATION / (1 + this.haste.current);
-  }
-
-  get averageTargetsHit() {
-    // first, maps the casts to the targets hit, resulting in array of array of strings
-    // [].concat(...array) just flattens it into single array of strings
-    const allTargetsHit = [].concat(...this.casts.map(cast => cast.targetsHit));
-    return (allTargetsHit.length / this.casts.length) || 0;
   }
 
   statistic() {

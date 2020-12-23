@@ -3,10 +3,9 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { TooltipElement } from 'common/Tooltip';
-import StatisticBox from 'interface/others/StatisticBox';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
-import { formatPercentage, formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { Options } from 'parser/core/Module';
 
@@ -19,17 +18,9 @@ class Evangelism extends Analyzer {
   static dependencies = {
     atonementModule: Atonement,
   };
-
-  protected atonementModule!: Atonement;
-
   _previousEvangelismCast: CastEvent | null = null;
-  _evangelismStatistics: {
-    [timestamp: number]: {
-      count: number,
-      atonementSeconds: number,
-      healing: number,
-    }
-  } = {};
+  statisticOrder = STATISTIC_ORDER.CORE(2);
+  protected atonementModule!: Atonement;
 
   constructor(options: Options) {
     super(options);
@@ -37,6 +28,14 @@ class Evangelism extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EVANGELISM_TALENT), this.onCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
   }
+
+  _evangelismStatistics: {
+    [timestamp: number]: {
+      count: number,
+      atonementSeconds: number,
+      healing: number,
+    }
+  } = {};
 
   get evangelismStatistics() {
     return Object.keys(this._evangelismStatistics).map(Number).map((key: number) => this._evangelismStatistics[key]);
@@ -107,8 +106,6 @@ class Evangelism extends Analyzer {
       </StatisticBox>
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
 export default Evangelism;

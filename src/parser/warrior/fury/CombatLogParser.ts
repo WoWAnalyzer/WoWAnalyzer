@@ -16,23 +16,13 @@ import Recklessness from './modules/spells/Recklessness';
 
 import AngerManagement from './modules/talents/AngerManagement';
 import Bladestorm from './modules/talents/Bladestorm';
-import Carnage from './modules/talents/Carnage';
 import DragonRoar from './modules/talents/DragonRoar';
-import EndlessRage from './modules/talents/EndlessRage';
-import FrothingBerserker from './modules/talents/FrothingBerserker';
-import FuriousSlashTimesByStacks from './modules/talents/FuriousSlashTimesByStacks';
-import FuriousSlashUptime from './modules/talents/FuriousSlashUptime';
 import ImpendingVicory from './modules/talents/ImpendingVictory';
 import MeatCleaver from './modules/talents/MeatCleaver';
 import RecklessAbandon from './modules/talents/RecklessAbandon';
 import Siegebreaker from './modules/talents/Siegebreaker';
 import SuddenDeath from './modules/talents/SuddenDeath';
 import Warpaint from './modules/talents/Warpaint';
-
-import ColdStealHotBlood from './modules/azerite/ColdSteelHotBlood';
-import RecklessFlurry from './modules/azerite/RecklessFlurry';
-import SimmeringRage from './modules/azerite/SimmeringRage';
-import UnbridledFerocity from './modules/azerite/UnbridledFerocity';
 
 import RageTracker from './modules/core/RageTracker';
 import RageDetails from './modules/core/RageDetails';
@@ -62,23 +52,13 @@ class CombatLogParser extends CoreCombatLogParser {
 
     angerManagement: AngerManagement,
     bladestorm: Bladestorm,
-    carnage: Carnage,
     dragonRoar: DragonRoar,
-    endlessRage: EndlessRage,
-    frothingBerserker: FrothingBerserker,    
-    furiousSlashTimesByStacks: FuriousSlashTimesByStacks,
-    furiousSlashUptime: FuriousSlashUptime,
     impendingVictory: ImpendingVicory,
     meatCleaver: MeatCleaver,
     recklessAbandon: RecklessAbandon,
     siegebreaker: Siegebreaker,
     suddenDeath: SuddenDeath,
     warpaint: Warpaint,
-
-    coldStealHotBlood: ColdStealHotBlood,
-    recklessFlurry: RecklessFlurry,
-    simmeringRage: SimmeringRage,
-    unbridledFerocity: UnbridledFerocity,
   };
 }
 

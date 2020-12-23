@@ -8,7 +8,8 @@ import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
-import LucidDreams from 'parser/shared/modules/spells/bfa/essences/LucidDreamsHealers';
+
+import AlwaysBeCasting from 'parser/shaman/restoration/modules/features/AlwaysBeCasting';
 
 import HealingEfficiencyDetails from './modules/core/HealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/core/HealingEfficiencyTracker';
@@ -19,7 +20,7 @@ import HealingRainLocation from './modules/core/HealingRainLocation';
 import RestorationAbilityTracker from './modules/core/RestorationAbilityTracker';
 
 import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
-import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Checklist from './modules/features/checklist/Module';
 import SpellUsable from './modules/features/SpellUsable';
@@ -60,9 +61,12 @@ import HeavyRainfall from './modules/shadowlands/conduits/HeavyRainfall';
 import SwirlingCurrents from './modules/shadowlands/conduits/SwirlingCurrents';
 import NaturesFocus from './modules/shadowlands/conduits/NaturesFocus';
 // Legendaries
-import PrimalTideCore from './modules/shadowlands/legendaries/PrimalTideCore'
-import JonatsNaturalFocus from './modules/shadowlands/legendaries/JonatsNaturalFocus'
-import EarthenHarmony from './modules/shadowlands/legendaries/EarthenHarmony'
+import PrimalTideCore from './modules/shadowlands/legendaries/PrimalTideCore';
+import JonatsNaturalFocus from './modules/shadowlands/legendaries/JonatsNaturalFocus';
+import EarthenHarmony from './modules/shadowlands/legendaries/EarthenHarmony';
+// Covenants
+import ChainHarvest from './modules/shadowlands/spells/ChainHarvest';
+import PrimordialWave from './modules/shadowlands/spells/PrimordialWave';
 // Shared
 import SpiritWolf from '../shared/talents/SpiritWolf';
 import StaticCharge from '../shared/talents/StaticCharge';
@@ -70,6 +74,7 @@ import EarthShield from './modules/spells/EarthShield'; // technically shared
 import AstralShift from '../shared/spells/AstralShift';
 
 import CloudburstNormalizer from './normalizers/CloudburstNormalizer';
+import RiptideNormalizer from './normalizers/RiptideNormalizer';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
@@ -135,11 +140,9 @@ class CombatLogParser extends CoreCombatLogParser {
     astralShift: AstralShift,
     earthShield: EarthShield,
 
-    // Essences
-    lucidDreams: LucidDreams,
-
     // Normalizers
     cloudburstNormalizer: CloudburstNormalizer,
+    riptideNormalizer: RiptideNormalizer,
 
     // Conduits
     embraceOfEarth: EmbraceOfEarth,
@@ -151,6 +154,10 @@ class CombatLogParser extends CoreCombatLogParser {
     primalTideCore: PrimalTideCore,
     jonatsNaturalFocus: JonatsNaturalFocus,
     earthenHarmony: EarthenHarmony,
+
+    // Covenants
+    chainHarvest: ChainHarvest,
+    primordialWave: PrimordialWave,
   };
 
   generateResults(options: any) {

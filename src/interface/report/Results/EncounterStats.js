@@ -13,6 +13,7 @@ import { formatDuration, formatPercentage, formatThousands } from 'common/format
 import ActivityIndicator from 'interface/common/ActivityIndicator';
 import { makeItemApiUrl } from 'common/makeApiUrl';
 import { Trans } from '@lingui/macro';
+import Combatant from 'parser/core/Combatant';
 
 /**
  * Show statistics (talents and trinkets) for the current boss, specID and difficulty
@@ -26,11 +27,11 @@ class EncounterStats extends React.PureComponent {
     spec: PropTypes.number.isRequired,
     difficulty: PropTypes.number.isRequired,
     duration: PropTypes.number.isRequired,
+    combatant: PropTypes.instanceOf(Combatant).isRequired,
   };
 
   LIMIT = 100; //Currently does nothing but if Kihra reimplements it'd be nice to have
   SHOW_TOP_ENTRYS = 6;
-  SHOW_TOP_ENTRYS_AZERITE = 10;
   SHOW_CLOSEST_KILL_TIME_LOGS = 10;
   metric = 'dps';
   amountOfParses = 0;
@@ -39,9 +40,12 @@ class EncounterStats extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      mostUsedTrinkets: [],
       mostUsedTalents: [],
-      mostUsedEssences: [],
+      mostUsedTrinkets: [],
+      mostUsedLegendaries: [],
+      mostUsedCovenants: [],
+      mostUsedSoulbinds: [],
+      mostUsedConduits: [],
       similiarKillTimes: [],
       closestKillTimes: [],
       items: ITEMS,
@@ -74,25 +78,6 @@ class EncounterStats extends React.PureComponent {
     return array;
   }
 
-  addEssence(array, item) {
-    //add item to arry or increase amount by one if it exists
-    if (item.id === null || item.id === 0) {
-      return array;
-    }
-    const index = array.findIndex(elem => elem.name === item.name);
-    if (index === -1) {
-      array.push({
-        id: item.id,
-        name: item.name,
-        icon: item.icon,
-        amount: 1,
-      });
-    } else {
-      array[index].amount += 1;
-    }
-    return array;
-  }
-
   load() {
     switch (SPECS[this.props.spec].role) {
       case ROLES.HEALER:
@@ -120,10 +105,9 @@ class EncounterStats extends React.PureComponent {
       const talentCounter = [[], [], [], [], [], [], []];
       const talents = [];
       let trinkets = [];
-      let azerite = [];
-      let essences = [];
       const similiarKillTimes = []; //These are the reports within the defined variance of the analyzed log
       const closestKillTimes = []; //These are the reports closest to the analyzed log regardless of it being within variance or not
+      const combatantName = this.props.combatant._combatantInfo.name;
 
       stats.rankings.forEach(rank => {
         rank.talents.forEach((talent, index) => {
@@ -137,19 +121,13 @@ class EncounterStats extends React.PureComponent {
             trinkets = this.addItem(trinkets, item);
           }
         });
-
-        rank.azeritePowers.forEach((azeritePower) => {
-          azerite = this.addItem(azerite, azeritePower);
-        });
-
-        rank.essencePowers && rank.essencePowers.forEach((essencePower) => {
-          essences = this.addEssence(essences, essencePower);
-        });
-
-        if (this.props.duration > rank.duration * (1 - this.durationVariancePercentage) && this.props.duration < rank.duration * (1 + this.durationVariancePercentage)) {
-          similiarKillTimes.push({ rank, variance: rank.duration - this.props.duration > 0 ? rank.duration - this.props.duration : this.props.duration - rank.duration });
+        
+        if (!rank.name.match(combatantName)) {
+          if (this.props.duration > rank.duration * (1 - this.durationVariancePercentage) && this.props.duration < rank.duration * (1 + this.durationVariancePercentage)) {
+            similiarKillTimes.push({ rank, variance: rank.duration - this.props.duration > 0 ? rank.duration - this.props.duration : this.props.duration - rank.duration });
+          }
+          closestKillTimes.push({ rank, variance: rank.duration - this.props.duration > 0 ? rank.duration - this.props.duration : this.props.duration - rank.duration });
         }
-        closestKillTimes.push({ rank, variance: rank.duration - this.props.duration > 0 ? rank.duration - this.props.duration : this.props.duration - rank.duration });
       });
 
       talentCounter.forEach(row => {
@@ -162,18 +140,12 @@ class EncounterStats extends React.PureComponent {
 
       trinkets.sort((a, b) => (a.amount < b.amount) ? 1 : ((b.amount < a.amount) ? -1 : 0));
 
-      azerite.sort((a, b) => (a.amount < b.amount) ? 1 : ((b.amount < a.amount) ? -1 : 0));
-
-      essences.sort((a, b) => (a.amount < b.amount) ? 1 : ((b.amount < a.amount) ? -1 : 0));
-
       similiarKillTimes.sort((a, b) => a.variance - b.variance);
 
       closestKillTimes.sort((a, b) => a.variance - b.variance);
 
       this.setState({
         mostUsedTrinkets: trinkets.slice(0, this.SHOW_TOP_ENTRYS),
-        mostUsedAzerite: azerite.slice(0, this.SHOW_TOP_ENTRYS_AZERITE),
-        mostUsedEssences: essences.slice(0, this.SHOW_TOP_ENTRYS_AZERITE),
         mostUsedTalents: talents,
         similiarKillTimes: similiarKillTimes.slice(0, this.SHOW_CLOSEST_KILL_TIME_LOGS),
         closestKillTimes: closestKillTimes.slice(0, this.SHOW_CLOSEST_KILL_TIME_LOGS),
@@ -239,51 +211,9 @@ class EncounterStats extends React.PureComponent {
     );
   }
 
-  singleTrait(trait) {
-    return (
-      <div key={trait.id} className="col-md-12 flex-main" style={{ textAlign: 'left', margin: '5px auto' }}>
-        <div className="row">
-          <div className="col-md-2" style={{ opacity: '.8', fontSize: '.9em', lineHeight: '2em', textAlign: 'right' }}>
-            {trait.amount}x
-          </div>
-          <div className="col-md-10">
-            <SpellLink id={trait.id} icon={false}>
-              <Icon
-                icon={trait.icon}
-                style={{ width: '2em', height: '2em', border: '1px solid', marginRight: 10 }}
-              />
-              {trait.name}
-            </SpellLink>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  singleEssence(essence) {
-    return (
-      <div key={essence.id} className="col-md-12 flex-main" style={{ textAlign: 'left', margin: '5px auto' }}>
-        <div className="row">
-          <div className="col-md-2" style={{ opacity: '.8', fontSize: '.9em', lineHeight: '2em', textAlign: 'right' }}>
-            {formatPercentage(essence.amount / this.amountOfParses, 0)}%
-          </div>
-          <div className="col-md-10">
-            <SpellLink id={essence.id} icon={false}>
-              <Icon
-                icon={essence.icon}
-                style={{ width: '2em', height: '2em', border: '1px solid', marginRight: 10 }}
-              />
-              {essence.name}
-            </SpellLink>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   singleLog(log) {
     return (
-      <div key={log.reportID} className="col-md-12 flex-main" style={{ textAlign: 'left', margin: '5px auto' }}>
+      <div key={`${log.reportID}-`} className="col-md-12 flex-main" style={{ textAlign: 'left', margin: '5px auto' }}>
         <div className="row" style={{ opacity: '.8', fontSize: '.9em', lineHeight: '2em' }}>
           <div className="flex-column col-md-6">
             <a
@@ -344,25 +274,6 @@ class EncounterStats extends React.PureComponent {
         <div className="row">
           <div className="col-md-12" style={{ padding: '0 30px' }}>
             <div className="row">
-              <div className="col-md-4">
-                <div className="row" style={{ marginBottom: '2em' }}>
-                  <div className="col-md-12">
-                    <h2>Most used Azerite Traits</h2>
-                  </div>
-                </div>
-                <div className="row" style={{ marginBottom: '2em' }}>
-                  {this.state.mostUsedAzerite.map(azerite => this.singleTrait(azerite))}
-                </div>
-                <div className="row" style={{ marginBottom: '2em' }}>
-                  <div className="col-md-12">
-                    <h2>Most used Essences</h2>
-                  </div>
-                </div>
-                <div className="row" style={{ marginBottom: '2em' }}>
-                  Essences of different ranks are combined.
-                  {this.state.mostUsedEssences.map(essence => this.singleEssence(essence))}
-                </div>
-              </div>
               <div className="col-md-4">
                 <div className="row" style={{ marginBottom: '2em' }}>
                   <div className="col-md-12">

@@ -7,7 +7,6 @@ import Statistic from 'interface/statistics/Statistic';
 import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetracker/RegenResourceCapTracker';
 import BoringResourceValue from 'interface/statistics/components/BoringResourceValue';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import SpellEnergyCost from './SpellEnergyCost';
@@ -29,12 +28,27 @@ const RESOURCE_REFUND_ON_MISS = 0.8;
  * Reduced drain cost from Berserk/Incarnation on Ferocious Bite is already applied in the log.
  */
 class EnergyCapTracker extends RegenResourceCapTracker {
+  get percentCapped() {
+    return (this.naturalRegen - this.missedRegen) / this.naturalRegen;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.percentCapped,
+      isLessThan: {
+        minor: .8,
+        average: .70,
+        major: .65,
+      },
+      style: 'percentage',
+    };
+  }
+
   static dependencies = {
     ...RegenResourceCapTracker.dependencies,
     // Needed for the `resourceCost` prop of events
     spellResourceCost: SpellEnergyCost,
   };
-
   static resourceType = RESOURCE_TYPES.ENERGY;
   static baseRegenRate = BASE_ENERGY_REGEN;
   static isRegenHasted = true;
@@ -63,31 +77,18 @@ class EnergyCapTracker extends RegenResourceCapTracker {
     return Math.floor(max);
   }
 
-  get percentCapped() {
-    return (this.naturalRegen - this.missedRegen) / this.naturalRegen;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.percentCapped,
-      isLessThan: {
-        minor: .8,
-        average: .70,
-        major: .65,
-      },
-      style: 'percentage',
-    };
-  }
-
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-        <>
-          You're allowing your energy to reach its cap. While at its maximum value you miss out on the energy that would have regenerated. Although it can be beneficial to let energy pool ready to be used at the right time, try to spend some before it reaches the cap.
-        </>,
-      )
-        .icon('spell_shadow_shadowworddominate')
-        .actual(i18n._(t('druid.feral.suggestions.energy.efficiency')`${formatPercentage(actual)}% regenerated energy lost per minute due to being capped.`))
-        .recommended(`<${recommended}% is recommended.`));
+      <>
+        You're allowing your energy to reach its cap. While at its maximum value you miss out on the energy that would have regenerated. Although it can be beneficial to let energy pool ready to be used at the right time, try to spend some before it reaches the cap.
+      </>,
+    )
+      .icon('spell_shadow_shadowworddominate')
+      .actual(t({
+      id: "druid.feral.suggestions.energy.efficiency",
+      message: `${formatPercentage(actual)}% regenerated energy lost per minute due to being capped.`
+    }))
+      .recommended(`<${recommended}% is recommended.`));
   }
 
   statistic() {

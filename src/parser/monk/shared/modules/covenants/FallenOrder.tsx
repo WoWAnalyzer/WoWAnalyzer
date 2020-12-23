@@ -1,4 +1,4 @@
-import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
 import Events, { DamageEvent, HealEvent, SummonEvent } from 'parser/core/Events';
@@ -11,22 +11,19 @@ import React from 'react';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { formatNumber } from 'common/format';
 import COVENANTS from 'game/shadowlands/COVENANTS';
+import SPECS from 'game/SPECS';
 
 class FallenOrder extends Analyzer {
   static dependencies = {
     abilities: Abilities,
   };
-
-  protected abilities!: Abilities;
-
   windDamage: number = 0;
   brewDamage: number = 0;
   mistDamage: number = 0;
-
   mistHealing: number = 0;
   mistOverhealing: number = 0;
   cloneMap: Map<number, number> = new Map<number, number>();
-
+  protected abilities!: Abilities;
 
   constructor(options: Options) {
     super(options);
@@ -39,12 +36,12 @@ class FallenOrder extends Analyzer {
       return;
     }
 
-    this.abilities.add({
+    (options.abilities as Abilities).add({
       spell: SPELLS.FALLEN_ORDER_CAST,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       cooldown: 180,
       gcd: {
-        base: 1500,
+        base: this.selectedCombatant.spec === SPECS.MISTWEAVER_MONK ? 1500 : 1000,
       },
       castEfficiency: {
         suggestion: true,
@@ -58,37 +55,37 @@ class FallenOrder extends Analyzer {
     //mistweaver spells
     this.addEventListener(Events.heal.by(SELECTED_PLAYER_PET).spell([SPELLS.FALLEN_ORDER_ENVELOPING_MIST, SPELLS.FALLEN_ORDER_SOOTHING_MIST]), this.mistHealingTracker);
     //brewmaster spells
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell([SPELLS.FALLEN_ORDER_KEG_SMASH, SPELLS.FALLEN_ORDER_BREATH_OF_FIRE,SPELLS.BREATH_OF_FIRE_DEBUFF]), this.brewDamageTracker);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell([SPELLS.FALLEN_ORDER_KEG_SMASH, SPELLS.FALLEN_ORDER_BREATH_OF_FIRE, SPELLS.BREATH_OF_FIRE_DEBUFF]), this.brewDamageTracker);
     //windwalker spells
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell([SPELLS.FALLEN_ORDER_SPINNING_CRANE_KICK, SPELLS.FISTS_OF_FURY_DAMAGE]), this.windDamageTracker);
     //shared
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.MELEE), this.handleMelee);
   }
 
-  trackSummons(event: SummonEvent){
+  trackSummons(event: SummonEvent) {
     this.cloneMap.set(event.targetID, event.ability.guid);
   }
 
-  mistHealingTracker(event: HealEvent){
+  mistHealingTracker(event: HealEvent) {
     this.mistHealing += (event.amount || 0) + (event.absorbed || 0);
     this.mistOverhealing += event.overheal || 0;
   }
 
-  brewDamageTracker(event: DamageEvent){
+  brewDamageTracker(event: DamageEvent) {
     this.brewDamage += event.amount || 0;
   }
 
-  windDamageTracker(event: DamageEvent){
+  windDamageTracker(event: DamageEvent) {
     this.windDamage += event.amount || 0;
   }
 
-  mistDamageTracker(event: DamageEvent){
+  mistDamageTracker(event: DamageEvent) {
     this.mistDamage += event.amount || 0;
   }
 
   handleMelee(event: DamageEvent) {
     //if we don't know who its from then we can't add it
-    if(!event.sourceID){
+    if (!event.sourceID) {
       return;
     }
 
@@ -96,15 +93,15 @@ class FallenOrder extends Analyzer {
 
     const cloneType: number | undefined = this.cloneMap.get(id);
     //because typescript won't let me just do this.cloneMap.get(id) i might as well add a null check too
-    if(cloneType === undefined){
+    if (cloneType === undefined) {
       return;
     }
 
-    if(cloneType === SPELLS.FALLEN_ORDER_OX_CLONE.id){
+    if (cloneType === SPELLS.FALLEN_ORDER_OX_CLONE.id) {
       this.brewDamageTracker(event);
-    }else if(cloneType === SPELLS.FALLEN_ORDER_TIGER_CLONE.id){
+    } else if (cloneType === SPELLS.FALLEN_ORDER_TIGER_CLONE.id) {
       this.windDamageTracker(event);
-    }else{
+    } else {
       this.mistDamageTracker(event);
     }
 

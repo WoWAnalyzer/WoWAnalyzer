@@ -39,17 +39,6 @@ import TreeOfLife from './modules/talents/TreeOfLife';
 import Photosynthesis from './modules/talents/Photosynthesis';
 import Abundance from './modules/talents/Abundance';
 
-import FungalEssence from './modules/items/azeritetraits/FungalEssence';
-import AutumnLeaves from './modules/items/azeritetraits/AutumnLeaves';
-import GroveTending from './modules/items/azeritetraits/GroveTending';
-import LaserMatrix from './modules/items/azeritetraits/LaserMatrixRestoDruid';
-import WakingDream from './modules/items/azeritetraits/WakingDream';
-import LivelySpirit from './modules/items/azeritetraits/LivelySpirit';
-import RampantGrowth from './modules/items/azeritetraits/RampantGrowth';
-import EarlyHarvest from './modules/items/azeritetraits/EarlyHarvest';
-import LucidDreams from './modules/essences/LucidDreamsHealersRestoDruid';
-import VisionsOfPerfection from './modules/essences/VisionsOfPerfection';
-
 import StatWeights from './modules/features/StatWeights';
 
 // Mana Tracker
@@ -63,6 +52,9 @@ import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
 // Potency
 import FlashOfClarity from './modules/shadowlands/conduits/FlashOfClarity';
+
+//legos
+import VisionOfUnendingGrowrth from './modules/shadowlands/legendaries/VisionOfUnendingGrowth';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
@@ -115,22 +107,6 @@ class CombatLogParser extends CoreCombatLogParser {
     cenarionWard: CenarionWard,
     abundance: Abundance,
 
-    // Items:
-
-    // Azerite traits
-    fungalEssence: FungalEssence,
-    autumnLeaves: AutumnLeaves,
-    groveTending: GroveTending,
-    laserMatrix: LaserMatrix,
-    wakingDream: WakingDream,
-    livelySpirit: LivelySpirit,
-    rampantGrowth: RampantGrowth,
-    earlyHarvest: EarlyHarvest,
-
-    // Essences
-    lucidDreams: LucidDreams,
-    visionsOfPerfection: VisionsOfPerfection,
-
     //stat weights
     statWeights: StatWeights,
 
@@ -142,6 +118,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // Conduits
     // Potency
     flashOfClarity: FlashOfClarity,
+
+    //legos
+    visionOfUnendingGrowrth: VisionOfUnendingGrowrth,
   };
 }
 

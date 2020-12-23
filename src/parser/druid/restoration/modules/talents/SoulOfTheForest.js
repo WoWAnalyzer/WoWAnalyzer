@@ -8,7 +8,6 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import BoringValue from 'interface/statistics/components/BoringValueText';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
@@ -21,20 +20,33 @@ const WILD_GROWTH_DURATION = 7000;
 const REJUVENATION_BASE_DURATION = 12000;
 
 class SoulOfTheForest extends Analyzer {
+  get wgUsagePercent() {
+    return this.wildGrowths / this.proccs;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.wgUsagePercent,
+      isLessThan: {
+        minor: 1.00,
+        average: 0.80,
+        major: 0.60,
+      },
+      style: 'percentage',
+    };
+  }
+
   regrowths = 0;
   wildGrowths = 0;
   rejuvenations = 0;
   proccs = 0;
   proccConsumed = true;
-
   rejuvenationProccTimestamp = null;
   regrowthProccTimestamp = null;
   wildGrowthProccTimestamp = null;
-
   regrowthHealing = 0;
   rejuvenationHealing = 0;
   wildGrowthHealing = 0;
-
   rejuvenationTargets = [];
   wildGrowthTargets = [];
   rejuvenationDuration = REJUVENATION_BASE_DURATION;
@@ -113,29 +125,16 @@ class SoulOfTheForest extends Analyzer {
     }
   }
 
-  get wgUsagePercent() {
-    return this.wildGrowths / this.proccs;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.wgUsagePercent,
-      isLessThan: {
-        minor: 1.00,
-        average: 0.80,
-        major: 0.60,
-      },
-      style: 'percentage',
-    };
-  }
-
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>You did not consume all your <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> buffs with <SpellLink id={SPELLS.WILD_GROWTH.id} />.
           Try to use <SpellLink id={SPELLS.WILD_GROWTH.id} /> every time you get a <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> buff.</span>)
-          .icon(SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.icon)
-          .actual(i18n._(t('druid.restoration.suggestions.soulOfTheForest.efficiency')`Wild growth consumed ${formatPercentage(this.wgUsagePercent)}% of all the buffs.`))
-          .recommended(`${Math.round(formatPercentage(recommended))}% is recommended`));
+        .icon(SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.icon)
+        .actual(t({
+      id: "druid.restoration.suggestions.soulOfTheForest.efficiency",
+      message: `Wild growth consumed ${formatPercentage(this.wgUsagePercent)}% of all the buffs.`
+    }))
+        .recommended(`${Math.round(formatPercentage(recommended))}% is recommended`));
   }
 
   statistic() {
@@ -161,7 +160,7 @@ class SoulOfTheForest extends Analyzer {
           </>
         )}
       >
-        <BoringValue label={<><SpellIcon id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> Soul of the Forest healing</>} >
+        <BoringValue label={<><SpellIcon id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> Soul of the Forest healing</>}>
           <>
             {formatPercentage(totalPercent)} %
           </>

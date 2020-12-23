@@ -15,6 +15,10 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
     Chaos Bolt consumes up to 5 sec of Immolate's damage over time effect on your target, instantly dealing that much damage.
  */
 class InternalCombustion extends Analyzer {
+  get dps() {
+    return this.damage / this.owner.fightDuration * 1000;
+  }
+
   damage = 0;
 
   constructor(...args) {
@@ -25,10 +29,6 @@ class InternalCombustion extends Analyzer {
 
   onInternalCombustionDamage(event) {
     this.damage += (event.amount || 0) + (event.absorbed || 0);
-  }
-
-  get dps() {
-    return this.damage / this.owner.fightDuration * 1000;
   }
 
   statistic() {

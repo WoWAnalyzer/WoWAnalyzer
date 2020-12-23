@@ -6,7 +6,6 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events from 'parser/core/Events';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const debug = false;
@@ -50,30 +49,33 @@ const DAMAGE_AFTER_EXPIRE_WINDOW = 200;
  * it to examine how well the combatant is making use of the snapshot mechanic.
  */
 class Snapshot extends Analyzer {
+  get lostSnapshotTimePercent() {
+    return (this.lostSnapshotTime / this.snapshotTime) || 0;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.lostSnapshotTimePercent,
+      isGreaterThan: {
+        minor: 0.05,
+        average: 0.1,
+        major: 0.2,
+      },
+      style: 'percentage',
+    };
+  }
+
   // extending class should fill these in:
   static spellCastId = null;
   static debuffId = null;
   static spellIcon = null;
-
   stateByTarget = {};
   lastDoTCastEvent;
-
   talentName = '';
   multiplier = 1;
   bonusDamage = 0;
   lostSnapshotTime = 0;
   snapshotTime = 0;
-
-  onFightend() {
-    debug && console.log('lost: ' + this.lostSnapshotTime / 1000 + ', total: ' + this.snapshotTime / 1000 + ', bonus damage: ' + this.bonusDamage.toFixed(0));
-  }
-
-  onCast(event) {
-    if (this.constructor.spellCastId !== event.ability.guid) {
-      return;
-    }
-    this.lastDoTCastEvent = event;
-  }
 
   constructor(...args) {
     super(...args);
@@ -99,6 +101,17 @@ class Snapshot extends Analyzer {
 
     this.addEventListener(Events.fightend, this.onFightend);
 
+  }
+
+  onFightend() {
+    debug && console.log('lost: ' + this.lostSnapshotTime / 1000 + ', total: ' + this.snapshotTime / 1000 + ', bonus damage: ' + this.bonusDamage.toFixed(0));
+  }
+
+  onCast(event) {
+    if (this.constructor.spellCastId !== event.ability.guid) {
+      return;
+    }
+    this.lastDoTCastEvent = event;
   }
 
   onDamage(event) {
@@ -219,27 +232,14 @@ class Snapshot extends Analyzer {
     }
   }
 
-  get lostSnapshotTimePercent() {
-    return (this.lostSnapshotTime / this.snapshotTime) || 0;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.lostSnapshotTimePercent,
-      isGreaterThan: {
-        minor: 0.05,
-        average: 0.1,
-        major: 0.2,
-      },
-      style: 'percentage',
-    };
-  }
-
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You overwrote your snapshotted <SpellLink id={this.constructor.spellCastId} />. Try to always let a snapshotted <SpellLink id={this.constructor.spellCastId} /> expire before applying a non buffed one.</>)
-        .icon(this.constructor.spellIcon)
-        .actual(i18n._(t('rogue.assassination.suggestions.snapshot.timeLost')`${formatPercentage(actual)}% snapshot time lost`))
-        .recommended(`<${formatPercentage(recommended)}% is recommended`));
+      .icon(this.constructor.spellIcon)
+      .actual(t({
+      id: "rogue.assassination.suggestions.snapshot.timeLost",
+      message: `${formatPercentage(actual)}% snapshot time lost`
+    }))
+      .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 
 }

@@ -26,7 +26,7 @@ class RestlessBlades extends Analyzer {
     spellUsable: SpellUsable,
   };
 
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.SpendResource.by(SELECTED_PLAYER), this.onSpendResource);
   }

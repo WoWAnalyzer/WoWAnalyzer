@@ -1,18 +1,21 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const spells: SpellList = {
+const spells = {
   ETERNAL_CAULDRON: {
     id: 171281,
     name: 'Eternal Cauldron',
     icon: 'inv_alchemy_90_cauldron',
   },
+  ETERNAL_FLASK: {
+    id: 307166,
+    name: 'Eternal Flask',
+    icon: 'inv_potion_132',
+  },
   SPECTRAL_FLASK_OF_POWER: {
-    id: 171276,
+    id: 307185,
     name: 'Spectral Flask of Power',
     icon: 'inv_alchemy_90_flask_green',
   },
   SPECTRAL_FLASK_OF_STAMINA: {
-    id: 171278,
+    id: 307187,
     name: 'Spectral Flask of Stamina',
     icon: 'inv_alchemy_90_flask_red',
   },
@@ -41,9 +44,9 @@ const spells: SpellList = {
     name: 'Pickled Meat Smoothie',
     icon: 'inv_cooking_90_pickledmeatsmoothie',
   },
-  PHANTASMAL_SOUFFLE_AND_FRIES: {
+  SPINEFIN_SOUFFLE_AND_FRIES: {
     id: 308434,
-    name: 'Phantasmal Souffle and Fries',
+    name: 'Spinefin Souffle and Fries',
     icon: 'inv_cooking_90_phantasmalsoufflefries',
   },
   TENEBROUS_CROWN_ROAST_ASPIC: {
@@ -51,9 +54,9 @@ const spells: SpellList = {
     name: 'Tenebrous Crown Roast Aspic',
     icon: 'inv_cooking_90_tenebrouscrownroastaspic',
   },
-  CRAWLER_RAVIOLI_WITH_APPLE_SAUCE: {
+  IRIDESCENT_RAVIOLI_WITH_APPLE_SAUCE: {
     id: 308506,
-    name: 'Crawler Ravioli with Apple Sauce',
+    name: 'Iridescent Ravioli with Apple Sauce',
     icon: 'inv_cooking_90_crawlerravioliapplesauce',
   },
   STEAK_A_LA_MODE: {
@@ -111,5 +114,10 @@ const spells: SpellList = {
     name: 'Feast of Gluttonous Hedonism',
     icon: 'inv_tradeskill_cooking_shadowlandsfeast_large01',
   },
-};
+  VEILED_AUGMENT_RUNE: {
+    id: 347901,
+    name: 'Veiled Augment Rune',
+    icon: 'inv_misc_gem_azuredraenite_01',
+  },
+} as const;
 export default spells;

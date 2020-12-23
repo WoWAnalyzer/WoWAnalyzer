@@ -4,8 +4,7 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import { SpellList } from "./Spell";
-const spells: SpellList = {
+const spells = {
   // Paladin:
   CRUSADER_STRIKE: {
     id: 35395,
@@ -365,16 +364,6 @@ const spells: SpellList = {
     name: 'Blade of Wrath',
     icon: 'ability_paladin_bladeofjusticeblue',
   },
-  GREATER_BLESSING_OF_KINGS: {
-    id: 203538,
-    name: 'Greater Blessing of Kings',
-    icon: 'spell_magic_greaterblessingofkings',
-  },
-  GREATER_BLESSING_OF_WISDOM: {
-    id: 203539,
-    name: 'Greater Blessing of Wisdom',
-    icon: 'spell_holy_greaterblessingofwisdom',
-  },
   FIRES_OF_JUSTICE_BUFF: {
     id: 209785,
     name: 'Fires of Justice',
@@ -414,6 +403,16 @@ const spells: SpellList = {
     id: 183218,
     name: 'Hand of Hindrance',
     icon: 'ability_paladin_handofhindrance',
+  },
+  SANCTIFIED_WRATH_DAMAGE: {
+    id: 326731,
+    name: 'Sanctified Wrath',
+    icon: 'ability_paladin_sanctifiedwrath',
+  },
+  EMPYREAN_POWER_TALENT_BUFF: {
+    id: 326733,
+    name: 'Empyrean Power',
+    icon: 'ability_paladin_sheathoflight',
   },
 
 	// Protection
@@ -590,5 +589,6 @@ const spells: SpellList = {
     name: 'Divine Shield',
     icon: 'spell_holy_divineshield',
   },
-};
+} as const;
+
 export default spells;

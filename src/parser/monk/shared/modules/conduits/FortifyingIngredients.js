@@ -11,7 +11,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemHealingDone from 'interface/ItemHealingDone';
 
 class FortifyingIngredients extends Analyzer {
-	static dependencies = {
+  static dependencies = {
     healingDone: HealingDone,
   };
 
@@ -20,13 +20,13 @@ class FortifyingIngredients extends Analyzer {
    */
   constructor(...args) {
     super(...args);
-    this.active = false;//FIXME actually check if they have the conduit
 
-    if (!this.active) {
+    const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.FORTIFYING_INGREDIENTS.id);
+    if (!conduitRank) {
+      this.active = false;
       return;
     }
   }
-
 
   statistic() {
     const shield = this.healingDone.byAbility(SPELLS.FORTIFYING_INGREDIENTS.id).effective;

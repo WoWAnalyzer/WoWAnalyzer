@@ -16,6 +16,7 @@ import Mana from './modules/ManaChart/Mana';
 import ManaValues from './modules/ManaChart/ManaValues';
 import ArcaneChargeTracker from './modules/features/ArcaneChargeTracker';
 import ArcanePower from './modules/features/ArcanePower';
+import ArcanePowerActiveTime from './modules/features/ArcanePowerActiveTime';
 import ArcaneMissiles from './modules/features/ArcaneMissiles';
 import CancelledCasts from '../shared/modules/features/CancelledCasts';
 import MirrorImage from '../shared/modules/features/MirrorImage';
@@ -29,6 +30,7 @@ import RuleOfThrees from './modules/talents/RuleOfThrees';
 import TimeAnomaly from './modules/talents/TimeAnomaly';
 import ArcaneFamiliar from './modules/talents/ArcaneFamiliar';
 import MasterOfTime from './modules/talents/MasterOfTime';
+import ArcaneEcho from './modules/talents/ArcaneEcho';
 
 //Legendaries
 import ArcaneHarmony from './modules/items/ArcaneHarmony';
@@ -66,6 +68,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cancelledCasts: CancelledCasts,
     arcaneChargeTracker: ArcaneChargeTracker,
     arcanePower: ArcanePower,
+    arcanePowerActiveTime: ArcanePowerActiveTime,
     arcaneMissiles: ArcaneMissiles,
     mirrorImage: MirrorImage,
     elementalBarrier: ElementalBarrier,
@@ -78,6 +81,7 @@ class CombatLogParser extends CoreCombatLogParser {
     ruleOfThrees: RuleOfThrees,
     timeAnomaly: TimeAnomaly,
     masterOfTime: MasterOfTime,
+    arcaneEcho: ArcaneEcho,
 
     //Legendaries
     arcaneHarmony: ArcaneHarmony,

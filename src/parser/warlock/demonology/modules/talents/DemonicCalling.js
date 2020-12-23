@@ -10,17 +10,28 @@ import SpellLink from 'common/SpellLink';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const BUFF_DURATION = 20000;
 const debug = false;
 
 class DemonicCalling extends Analyzer {
+  get suggestionThresholds() {
+    const wastedPerMinute = this.wastedProcs / this.owner.fightDuration * 1000 * 60;
+    return {
+      actual: wastedPerMinute,
+      isGreaterThan: {
+        minor: 1,
+        average: 1.5,
+        major: 2,
+      },
+      style: 'number',
+    };
+  }
+
   static dependencies = {
     spellUsable: SpellUsable,
   };
-
   wastedProcs = 0;
   _expectedBuffEnd = null;
 
@@ -54,25 +65,15 @@ class DemonicCalling extends Analyzer {
     }
   }
 
-  get suggestionThresholds() {
-    const wastedPerMinute = this.wastedProcs / this.owner.fightDuration * 1000 * 60;
-    return {
-      actual: wastedPerMinute,
-      isGreaterThan: {
-        minor: 1,
-        average: 1.5,
-        major: 2,
-      },
-      style: 'number',
-    };
-  }
-
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You should try to use your cheaper <SpellLink id={SPELLS.CALL_DREADSTALKERS.id} /> as much as possible as Dreadstalkers make a great portion of your damage.<br /><br /><small>NOTE: Some wasted procs are probably unavoidable (e.g. <SpellLink id={SPELLS.CALL_DREADSTALKERS.id} /> on cooldown, proc waiting but gets overwritten by another)</small></>)
-          .icon(SPELLS.DEMONIC_CALLING_TALENT.icon)
-          .actual(i18n._(t('warlock.demonology.suggestions.demonicCalling.wastedProcsPerMinute')`${actual.toFixed(2)} wasted procs per minute`))
-          .recommended(`< ${recommended} is recommended`));
+        .icon(SPELLS.DEMONIC_CALLING_TALENT.icon)
+        .actual(t({
+      id: "warlock.demonology.suggestions.demonicCalling.wastedProcsPerMinute",
+      message: `${actual.toFixed(2)} wasted procs per minute`
+    }))
+        .recommended(`< ${recommended} is recommended`));
   }
 
   statistic() {

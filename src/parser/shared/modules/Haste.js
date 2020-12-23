@@ -8,6 +8,7 @@ import EventFilter, { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { EventType } from 'parser/core/Events';
 import { STEADY_FOCUS_HASTE_PERCENT } from 'parser/hunter/marksmanship/constants';
 import { DIRE_BEAST_HASTE_PERCENT } from 'parser/hunter/shared/constants';
+import { INVOKERS_DELIGHT_HASTE_BUFF } from 'parser/monk/shared/constants';
 
 const debug = false;
 
@@ -17,7 +18,6 @@ class Haste extends Analyzer {
     statTracker: StatTracker,
   };
 
-  /* eslint-disable no-useless-computed-key */
   static HASTE_BUFFS = {
 
     // HASTE RATING BUFFS ARE HANDLED BY THE STATTRACKER MODULE
@@ -32,20 +32,27 @@ class Haste extends Analyzer {
     [SPELLS.DARK_SOUL_MISERY_TALENT.id]: 0.3,
     [SPELLS.REVERSE_ENTROPY_BUFF.id]: 0.15,
     [SPELLS.ENRAGE.id]: 0.25, // Fury Warrior
-    [SPELLS.FROTHING_BERSERKER.id]: 0.05, // Fury Warrior
     [SPELLS.EMPOWER_RUNE_WEAPON.id]: 0.15, // Frost DK
-    [SPELLS.EVER_RISING_TIDE_CHARGING_BUFF.id]: 0.1, // Essence
-    [SPELLS.GUARDIAN_OF_AZEROTH_HASTE_BUFF.id]: {
-      hastePerStack: 0.02, //Essence
-    },
+    [SPELLS.EUPHORIA.id]: 0.2, //Buff from Thrill Seeker (Nadjia Soulbind Venthyr)
 
     //region Hunter Haste Buffs
     [SPELLS.DIRE_BEAST_BUFF.id]: DIRE_BEAST_HASTE_PERCENT,
     [SPELLS.STEADY_FOCUS_BUFF.id]: STEADY_FOCUS_HASTE_PERCENT,
     //endregion
 
-    // Boss abilities:
-    [SPELLS.OPULENCE_AMETHYST_OF_THE_SHADOW_KING.id]: 0.5, // Amethyst of the Shadow King by Opulence (BoD - BFA)
+    //region Paladin
+    [SPELLS.CRUSADE_TALENT.id]: {
+      hastePerStack: 0.03,
+    },
+    //endregion
+
+    //region Priest
+    [SPELLS.POWER_INFUSION.id]: 0.25,
+    //endregion
+
+    //region Monk
+    [SPELLS.INVOKERS_DELIGHT_BUFF.id]: INVOKERS_DELIGHT_HASTE_BUFF,
+    //region end
   };
 
   get changehaste() {
@@ -53,6 +60,7 @@ class Haste extends Analyzer {
   }
 
   current = null;
+
   constructor(...args) {
     super(...args);
     this.current = this.statTracker.currentHastePercentage;
@@ -66,21 +74,27 @@ class Haste extends Analyzer {
     this.addEventListener(Events.removedebuff.to(SELECTED_PLAYER), this.onRemoveDebuff);
     this.addEventListener(Events.ChangeStats.to(SELECTED_PLAYER), this.onChangeStats);
   }
+
   onApplyBuff(event) {
     this._applyActiveBuff(event);
   }
+
   onChangeBuffStack(event) {
     this._changeBuffStack(event);
   }
+
   onRemoveBuff(event) {
     this._removeActiveBuff(event);
   }
+
   onApplyDebuff(event) {
     this._applyActiveBuff(event);
   }
+
   onChangeDebuffStack(event) {
     this._changeBuffStack(event);
   }
+
   onRemoveDebuff(event) {
     this._removeActiveBuff(event);
   }
@@ -116,6 +130,7 @@ class Haste extends Analyzer {
       debug && console.warn(formatMilliseconds(this.owner.fightDuration), 'Haste: Applied not recognized buff:', event.ability.name);
     }
   }
+
   _removeActiveBuff(event) {
     const spellId = event.ability.guid;
     const haste = this._getBaseHasteGain(spellId);
@@ -128,6 +143,7 @@ class Haste extends Analyzer {
       debug && console.warn(formatMilliseconds(this.owner.fightDuration), 'Haste: Removed not recognized buff:', event.ability.name);
     }
   }
+
   /**
    * Gets the base Haste gain for the provided spell.
    */
@@ -162,6 +178,7 @@ class Haste extends Analyzer {
       debug && console.log(`Haste: Current haste: ${formatPercentage(this.current)}% (gained ${formatPercentage(haste * event.stacksGained)}% from ${SPELLS[spellId] ? SPELLS[spellId].name : spellId})`);
     }
   }
+
   _getHastePerStackGain(spellId) {
     const hasteBuff = this.constructor.HASTE_BUFFS[spellId] || undefined;
 
@@ -174,6 +191,7 @@ class Haste extends Analyzer {
     }
     return null;
   }
+
   /**
    * Get the actual Haste value from a prop allowing various formats.
    */
@@ -196,9 +214,11 @@ class Haste extends Analyzer {
   _applyHasteGain(event, haste) {
     this._setHaste(event, this.constructor.addHaste(this.current, haste));
   }
+
   _applyHasteLoss(event, haste) {
     this._setHaste(event, this.constructor.removeHaste(this.current, haste));
   }
+
   _setHaste(event, haste) {
     if (isNaN(haste)) {
       throw new Error('Attempted to set an invalid Haste value. Something broke.');
@@ -208,6 +228,7 @@ class Haste extends Analyzer {
 
     this._triggerChangeHaste(event, oldHaste, this.current);
   }
+
   _triggerChangeHaste(event, oldHaste, newHaste) {
     const fabricatedEvent = {
       type: EventType.ChangeHaste,
@@ -223,6 +244,7 @@ class Haste extends Analyzer {
   static addHaste(baseHaste, hasteGain) {
     return baseHaste * (1 + hasteGain) + hasteGain;
   }
+
   static removeHaste(baseHaste, hasteLoss) {
     return (baseHaste - hasteLoss) / (1 + hasteLoss);
   }

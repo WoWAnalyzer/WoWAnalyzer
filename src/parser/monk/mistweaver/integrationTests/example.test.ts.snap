@@ -1,86 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Mistweaver Monk integration test: example log AlchemistStone matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    category="ITEMS"
-    className="panel statistic flexible "
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad boring-text "
-      >
-        <label>
-          <a
-            className="unknownitem-link-text"
-            href="http://wowhead.com/item=171085"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-             
-            <img
-              alt="Peerless Alchemist Stone"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/achievement_dungeon_ulduar80_10man.jpg"
-            />
-          </a>
-           
-          <a
-            className="unknownitem-link-text"
-            href="http://wowhead.com/item=171085"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-             
-            Peerless Alchemist Stone
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          <img
-            alt="Healing"
-            className="icon"
-            src="/img/healing.png"
-          />
-           
-          0
-           HPS
-           
-          <small>
-            0.00
-            % of total
-          </small>
-          <br />
-          <svg
-            className="icon"
-            version="1.1"
-            viewBox="16 17 32 32"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M28.832,44.802h6.559v-1.101h-6.559V44.802z M29.91,47.004h4.402v-1.101H29.91V47.004z M32.156,18.379c-0.012,0-0.031,0-0.045,0c-0.014,0-0.033,0-0.045,0c-1.078,0-9.704,0.127-9.704,11.01 c0,2.696,1.5,4.496,2.949,6.234c1.255,1.507,2.442,2.928,2.442,4.776V42.6h8.715v-2.202c0-1.848,1.187-3.269,2.442-4.776 c1.449-1.737,2.949-3.537,2.949-6.234C41.86,18.506,33.235,18.379,32.156,18.379z"
-            />
-          </svg>
-           
-          708
-           
-          <small>
-            average 
-            Intellect
-             gained
-          </small>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`Mistweaver Monk integration test: example log AlwaysBeCasting matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -96,7 +15,10 @@ exports[`Mistweaver Monk integration test: example log AlwaysBeCasting matches t
         className="pad"
       >
         <label>
-          shared.alwaysBeCastingHealing.statistic
+          <trans
+            id="shared.alwaysBeCastingHealing.statistic"
+            message="Active time"
+          />
         </label>
         <div
           className="flex"
@@ -108,9 +30,19 @@ exports[`Mistweaver Monk integration test: example log AlwaysBeCasting matches t
           }
         >
           <div
-            className="flex-main text-right text-muted"
+            style={
+              Object {
+                "fontSize": 12,
+                "paddingRight": 8,
+                "paddingTop": 23,
+              }
+            }
           >
-            interface.statistics.components.gauge.low
+            <trans
+              className="flex-main text-right text-muted"
+              id="interface.statistics.components.gauge.low"
+              message="Low"
+            />
           </div>
           <div
             className="flex-sub"
@@ -213,7 +145,7 @@ exports[`Mistweaver Monk integration test: example log AlwaysBeCasting matches t
                   Object {
                     "fill": "none",
                     "margin": 0,
-                    "transform": "rotate(10.07890435169071deg)",
+                    "transform": "rotate(28.17017856401162deg)",
                     "transformOrigin": "5px 27px",
                   }
                 }
@@ -243,14 +175,24 @@ exports[`Mistweaver Monk integration test: example log AlwaysBeCasting matches t
                 }
               }
             >
-              54
+              60
               %
             </div>
           </div>
           <div
             className="flex-main text-left text-muted"
+            style={
+              Object {
+                "fontSize": 12,
+                "paddingLeft": 8,
+                "paddingTop": 23,
+              }
+            }
           >
-            interface.statistics.components.gauge.high
+            <trans
+              id="interface.statistics.components.gauge.high"
+              message="High"
+            />
           </div>
         </div>
       </div>
@@ -310,103 +252,13 @@ Array [
     "importance": "regular",
     "issue": "Your non healing time can be improved. Try to reduce the delay between casting spells and try to continue healing when you have to move.",
     "stat": <React.Fragment>
-      55.00% non healing time
-       (
-      &lt;40.00% is recommended
-      )
-    </React.Fragment>,
-  },
-  Object {
-    "details": null,
-    "icon": "spell_mage_altertime",
-    "importance": "minor",
-    "issue": "Your downtime can be improved. Try to Always Be Casting (ABC); try to reduce the delay between casting spells and when you're not healing try to contribute some damage.",
-    "stat": <React.Fragment>
-      46.40% downtime
+      {"id":"monk.mistweaver.suggestions.alwaysBeCasting.nonHealing","message":"{0}% non healing time","values":{"0":"51.82"}}
        (
       &lt;40.00% is recommended
       )
     </React.Fragment>,
   },
 ]
-`;
-
-exports[`Mistweaver Monk integration test: example log Ashjrakamas matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    category="ITEMS"
-    className="panel statistic flexible "
-    position={1000}
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad boring-text "
-      >
-        <label>
-          <a
-            className="legendaryitem-link-text"
-            href="http://wowhead.com/item=169223"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-             
-            <img
-              alt="Ashjra'kamas, Shroud of Resolve"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/inv_misc_cape_deathwingraid_d_03.jpg"
-            />
-          </a>
-           
-          <a
-            className="legendaryitem-link-text"
-            href="http://wowhead.com/item=169223"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-             
-            Ashjra'kamas, Shroud of Resolve
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          <svg
-            className="icon"
-            version="1.1"
-            viewBox="16 17 32 32"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M28.832,44.802h6.559v-1.101h-6.559V44.802z M29.91,47.004h4.402v-1.101H29.91V47.004z M32.156,18.379c-0.012,0-0.031,0-0.045,0c-0.014,0-0.033,0-0.045,0c-1.078,0-9.704,0.127-9.704,11.01 c0,2.696,1.5,4.496,2.949,6.234c1.255,1.507,2.442,2.928,2.442,4.776V42.6h8.715v-2.202c0-1.848,1.187-3.269,2.442-4.776 c1.449-1.737,2.949-3.537,2.949-6.234C41.86,18.506,33.235,18.379,32.156,18.379z"
-            />
-          </svg>
-           
-          <dfn
-            className=""
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onTouchStart={[Function]}
-            style={Object {}}
-          >
-             
-            1,131
-             
-            <small>
-              average 
-              Intellect
-               gained
-            </small>
-          </dfn>
-          <br />
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 `;
 
 exports[`Mistweaver Monk integration test: example log CastEfficiency matches the statistic snapshot 1`] = `
@@ -423,7 +275,10 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
         }
       }
     >
-      common.abilities
+      <trans
+        id="common.abilities"
+        message="Abilities"
+      />
     </h1>
   </div>
   <div
@@ -450,7 +305,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
           <tr>
             <th>
               <b>
-                Rotational Spell
+                {"id":"core.abilities.spellCategories.rotational","message":"Rotational Spell"}
               </b>
             </th>
             <th
@@ -463,7 +318,10 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.cpm
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
               </dfn>
             </th>
             <th
@@ -476,7 +334,10 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.casts
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
               </dfn>
             </th>
             <th
@@ -489,7 +350,10 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.timeOnCooldown
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
               </dfn>
             </th>
             <th />
@@ -683,7 +547,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
           <tr>
             <th>
               <b>
-                Item
+                {"id":"core.abilities.spellCategories.cooldowns","message":"Cooldown"}
               </b>
             </th>
             <th
@@ -696,167 +560,26 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.cpm
-              </dfn>
-            </th>
-            <th
-              className="text-right"
-            >
-              <dfn
-                className=""
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onTouchStart={[Function]}
-                style={Object {}}
-              >
-                shared.castEfficiency.casts
-              </dfn>
-            </th>
-            <th
-              className="text-center"
-            >
-              <dfn
-                className=""
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onTouchStart={[Function]}
-                style={Object {}}
-              >
-                shared.castEfficiency.timeOnCooldown
-              </dfn>
-            </th>
-            <th />
-          </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "35%",
-                }
-              }
-            >
-              <a
-                className="spell-link-text"
-                href="http://wowhead.com/spell=313148"
-                rel="noopener noreferrer"
-                style={
-                  Object {
-                    "color": "#fff",
-                  }
-                }
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon game "
-                  src="/img/Icons/talentspec_druid_feral_cat.jpg"
-                  style={
-                    Object {
-                      "height": undefined,
-                      "marginTop": undefined,
-                    }
-                  }
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
                 />
-                 
-                Forbidden Obsidian Claw
-              </a>
-            </td>
-            <td
-              className="text-center"
-              style={
-                Object {
-                  "minWidth": 80,
-                }
-              }
-            >
-              0.44
-            </td>
-            <td
+              </dfn>
+            </th>
+            <th
               className="text-right"
-              style={
-                Object {
-                  "minWidth": 110,
-                }
-              }
             >
-              5
-              /6
-               
-              casts
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
               >
-                <div
-                  className="flex-sub performance-bar"
-                  style={
-                    Object {
-                      "backgroundColor": "#70b570",
-                      "width": "82.06340218694159%",
-                    }
-                  }
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
                 />
-              </div>
-            </td>
-            <td
-              className="text-left"
-              style={
-                Object {
-                  "minWidth": 50,
-                  "paddingRight": 5,
-                }
-              }
-            >
-              82.06%
-            </td>
-            <td
-              style={
-                Object {
-                  "color": "orange",
-                  "width": "25%",
-                }
-              }
-            />
-          </tr>
-        </tbody>
-        <tbody>
-          <tr>
-            <th>
-              <b>
-                Cooldown
-              </b>
-            </th>
-            <th
-              className="text-center"
-            >
-              <dfn
-                className=""
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onTouchStart={[Function]}
-                style={Object {}}
-              >
-                shared.castEfficiency.cpm
-              </dfn>
-            </th>
-            <th
-              className="text-right"
-            >
-              <dfn
-                className=""
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onTouchStart={[Function]}
-                style={Object {}}
-              >
-                shared.castEfficiency.casts
               </dfn>
             </th>
             <th
@@ -869,7 +592,10 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.timeOnCooldown
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
               </dfn>
             </th>
             <th />
@@ -1069,7 +795,10 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              shared.castEfficiency.canBeImproved
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
             </td>
           </tr>
           <tr>
@@ -1169,7 +898,10 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              shared.castEfficiency.canBeImproved
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
             </td>
           </tr>
           <tr>
@@ -1269,7 +1001,10 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              shared.castEfficiency.canBeImproved
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
             </td>
           </tr>
           <tr>
@@ -1467,7 +1202,10 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              shared.castEfficiency.canBeImproved
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
             </td>
           </tr>
           <tr>
@@ -1567,7 +1305,10 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              shared.castEfficiency.canBeImproved
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
             </td>
           </tr>
         </tbody>
@@ -1575,7 +1316,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
           <tr>
             <th>
               <b>
-                Defensive Cooldown
+                {"id":"core.abilities.spellCategories.defensive","message":"Defensive Cooldown"}
               </b>
             </th>
             <th
@@ -1588,7 +1329,10 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.cpm
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
               </dfn>
             </th>
             <th
@@ -1601,7 +1345,10 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.casts
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
               </dfn>
             </th>
             <th
@@ -1614,7 +1361,10 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.timeOnCooldown
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
               </dfn>
             </th>
             <th />
@@ -1820,7 +1570,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
           <tr>
             <th>
               <b>
-                Spell
+                {"id":"core.abilities.spellCategories.others","message":"Spell"}
               </b>
             </th>
             <th
@@ -1833,7 +1583,10 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.cpm
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
               </dfn>
             </th>
             <th
@@ -1846,7 +1599,10 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.casts
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
               </dfn>
             </th>
             <th
@@ -1859,7 +1615,10 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.timeOnCooldown
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
               </dfn>
             </th>
             <th />
@@ -2225,7 +1984,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
           <tr>
             <th>
               <b>
-                Utility
+                {"id":"core.abilities.spellCategories.utility","message":"Utility"}
               </b>
             </th>
             <th
@@ -2238,7 +1997,10 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.cpm
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
               </dfn>
             </th>
             <th
@@ -2251,7 +2013,10 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.casts
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
               </dfn>
             </th>
             <th
@@ -2264,7 +2029,10 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.timeOnCooldown
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
               </dfn>
             </th>
             <th />
@@ -3058,7 +2826,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
           <tr>
             <th>
               <b>
-                Damaging Spell
+                {"id":"core.abilities.spellCategories.healerDamagingSpell","message":"Damaging Spell"}
               </b>
             </th>
             <th
@@ -3071,7 +2839,10 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.cpm
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
               </dfn>
             </th>
             <th
@@ -3084,7 +2855,10 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.casts
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
               </dfn>
             </th>
             <th
@@ -3097,7 +2871,10 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.timeOnCooldown
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
               </dfn>
             </th>
             <th />
@@ -3241,7 +3018,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               12
-              /422
+              /312
                
               casts
             </td>
@@ -3260,7 +3037,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "2.8440535631558435%",
+                      "width": "3.8538411195023126%",
                     }
                   }
                 />
@@ -3275,7 +3052,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              2.84%
+              3.85%
             </td>
             <td
               style={
@@ -3339,7 +3116,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
               }
             >
               20
-              /111
+              /83
                
               casts
             </td>
@@ -3358,7 +3135,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "18.144261668223166%",
+                      "width": "24.2035752891778%",
                     }
                   }
                 />
@@ -3373,7 +3150,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              18.14%
+              24.20%
             </td>
             <td
               style={
@@ -3561,7 +3338,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
           <tr>
             <th>
               <b>
-                Consumable
+                {"id":"core.abilities.spellCategories.consumable","message":"Consumable"}
               </b>
             </th>
             <th
@@ -3574,7 +3351,10 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.cpm
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
               </dfn>
             </th>
             <th
@@ -3587,7 +3367,10 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.casts
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
               </dfn>
             </th>
             <th
@@ -3600,7 +3383,10 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.castEfficiency.timeOnCooldown
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
               </dfn>
             </th>
             <th />
@@ -3615,105 +3401,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=6262"
-                rel="noopener noreferrer"
-                style={
-                  Object {
-                    "color": "#fff",
-                  }
-                }
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/warlock_healthstone.jpg"
-                  style={
-                    Object {
-                      "height": undefined,
-                      "marginTop": undefined,
-                    }
-                  }
-                />
-                 
-                Healthstone
-              </a>
-            </td>
-            <td
-              className="text-center"
-              style={
-                Object {
-                  "minWidth": 80,
-                }
-              }
-            >
-              0.00
-            </td>
-            <td
-              className="text-right"
-              style={
-                Object {
-                  "minWidth": 110,
-                }
-              }
-            >
-              0
-              /1
-               
-              casts
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar"
-                  style={
-                    Object {
-                      "backgroundColor": "#70b570",
-                      "width": "0%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              className="text-left"
-              style={
-                Object {
-                  "minWidth": 50,
-                  "paddingRight": 5,
-                }
-              }
-            >
-              0.00%
-            </td>
-            <td
-              style={
-                Object {
-                  "color": "orange",
-                  "width": "25%",
-                }
-              }
-            />
-          </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "35%",
-                }
-              }
-            >
-              <a
-                className="spell-link-text"
-                href="http://wowhead.com/spell=171267"
+                href="http://wowhead.com/spell=307192"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3811,7 +3499,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=171273"
+                href="http://wowhead.com/spell=307162"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -3913,24 +3601,24 @@ Array [
     "icon": "monk_ability_cherrymanatea",
     "importance": "major",
     "issue": <React.Fragment>
-      <WithI18n
+      <Trans
         components={
-          Array [
-            <ForwardRef
+          Object {
+            "0": <ForwardRef
               id={197908}
             />,
-          ]
+          }
         }
-        defaults="Try to cast <0/> more often."
         id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
-      <WithI18n
-        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+      <Trans
         id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
         values={
           Object {
             "0": 2,
@@ -3940,9 +3628,9 @@ Array [
         }
       />
        (
-      <WithI18n
-        defaults=">{0}% is recommended"
+      <Trans
         id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
         values={
           Object {
             "0": "80",
@@ -3957,24 +3645,24 @@ Array [
     "icon": "spell_arcane_arcanetorrent",
     "importance": "major",
     "issue": <React.Fragment>
-      <WithI18n
+      <Trans
         components={
-          Array [
-            <ForwardRef
+          Object {
+            "0": <ForwardRef
               id={123986}
             />,
-          ]
+          }
         }
-        defaults="Try to cast <0/> more often."
         id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
-      <WithI18n
-        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+      <Trans
         id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
         values={
           Object {
             "0": 13,
@@ -3984,9 +3672,9 @@ Array [
         }
       />
        (
-      <WithI18n
-        defaults=">{0}% is recommended"
+      <Trans
         id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
         values={
           Object {
             "0": "80",
@@ -4001,24 +3689,24 @@ Array [
     "icon": "ability_monk_chicocoon",
     "importance": "major",
     "issue": <React.Fragment>
-      <WithI18n
+      <Trans
         components={
-          Array [
-            <ForwardRef
+          Object {
+            "0": <ForwardRef
               id={116849}
             />,
-          ]
+          }
         }
-        defaults="Try to cast <0/> more often."
         id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
-      <WithI18n
-        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+      <Trans
         id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
         values={
           Object {
             "0": 1,
@@ -4028,9 +3716,9 @@ Array [
         }
       />
        (
-      <WithI18n
-        defaults=">{0}% is recommended"
+      <Trans
         id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
         values={
           Object {
             "0": "80",
@@ -4045,24 +3733,24 @@ Array [
     "icon": "ability_monk_dragonkick",
     "importance": "major",
     "issue": <React.Fragment>
-      <WithI18n
+      <Trans
         components={
-          Array [
-            <ForwardRef
+          Object {
+            "0": <ForwardRef
               id={322118}
             />,
-          ]
+          }
         }
-        defaults="Try to cast <0/> more often."
         id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
-      <WithI18n
-        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+      <Trans
         id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
         values={
           Object {
             "0": 0,
@@ -4072,9 +3760,9 @@ Array [
         }
       />
        (
-      <WithI18n
-        defaults=">{0}% is recommended"
+      <Trans
         id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
         values={
           Object {
             "0": "80",
@@ -4089,24 +3777,24 @@ Array [
     "icon": "ability_monk_touchofdeath",
     "importance": "major",
     "issue": <React.Fragment>
-      <WithI18n
+      <Trans
         components={
-          Array [
-            <ForwardRef
+          Object {
+            "0": <ForwardRef
               id={322109}
             />,
-          ]
+          }
         }
-        defaults="Try to cast <0/> more often."
         id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
       />
        
       
     </React.Fragment>,
     "stat": <React.Fragment>
-      <WithI18n
-        defaults="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+      <Trans
         id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
         values={
           Object {
             "0": 0,
@@ -4116,9 +3804,9 @@ Array [
         }
       />
        (
-      <WithI18n
-        defaults=">{0}% is recommended"
+      <Trans
         id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
         values={
           Object {
             "0": "85",
@@ -4206,7 +3894,10 @@ exports[`Mistweaver Monk integration test: example log DistanceMoved matches the
         className="pad"
       >
         <label>
-          shared.distanceMoved.statistic.label
+          <trans
+            id="shared.distanceMoved.statistic.label"
+            message="Distance moved"
+          />
         </label>
         <div
           className="value"
@@ -4285,10 +3976,10 @@ Array [
     "details": null,
     "icon": "inv_chest_leatherraidnzoth_d_01.jpg",
     "importance": "major",
-    "issue": <WithI18n
+    "issue": <Trans
       components={
-        Array [
-          <ItemLink
+        Object {
+          "0": <ItemLink
             details={
               Object {
                 "bonusIDs": Array [
@@ -4307,15 +3998,15 @@ Array [
             id={174136}
             quality={4}
           />,
-        ]
+        }
       }
-      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
       id="shared.enchantChecker.suggestions.noEnchant.label"
+      message="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
       values={
         Object {
-          "slotName": <WithI18n
-            defaults="Chest"
+          "slotName": <Trans
             id="common.slots.chest"
+            message="Chest"
           />,
         }
       }
@@ -4326,10 +4017,10 @@ Array [
     "details": null,
     "icon": "inv_bracer_leather_zandalardungeon_c_01.jpg",
     "importance": "major",
-    "issue": <WithI18n
+    "issue": <Trans
       components={
-        Array [
-          <ItemLink
+        Object {
+          "0": <ItemLink
             details={
               Object {
                 "bonusIDs": Array [
@@ -4350,15 +4041,15 @@ Array [
             id={160214}
             quality={3}
           />,
-        ]
+        }
       }
-      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
       id="shared.enchantChecker.suggestions.noEnchant.label"
+      message="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
       values={
         Object {
-          "slotName": <WithI18n
-            defaults="Bracers"
+          "slotName": <Trans
             id="common.slots.bracers"
+            message="Bracers"
           />,
         }
       }
@@ -4369,10 +4060,10 @@ Array [
     "details": null,
     "icon": "inv_70_quest_ring7c.jpg",
     "importance": "minor",
-    "issue": <WithI18n
+    "issue": <Trans
       components={
-        Array [
-          <ItemLink
+        Object {
+          "0": <ItemLink
             details={
               Object {
                 "bonusIDs": Array [
@@ -4401,15 +4092,15 @@ Array [
             id={174533}
             quality={4}
           />,
-        ]
+        }
       }
-      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
       id="shared.enchantChecker.suggestions.weakEnchant.label"
+      message="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
       values={
         Object {
-          "slotName": <WithI18n
-            defaults="Ring"
+          "slotName": <Trans
             id="common.slots.ring"
+            message="Ring"
           />,
         }
       }
@@ -4420,10 +4111,10 @@ Array [
     "details": null,
     "icon": "inv_ring_80_03a.jpg",
     "importance": "minor",
-    "issue": <WithI18n
+    "issue": <Trans
       components={
-        Array [
-          <ItemLink
+        Object {
+          "0": <ItemLink
             details={
               Object {
                 "bonusIDs": Array [
@@ -4445,15 +4136,15 @@ Array [
             id={159458}
             quality={3}
           />,
-        ]
+        }
       }
-      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
       id="shared.enchantChecker.suggestions.weakEnchant.label"
+      message="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
       values={
         Object {
-          "slotName": <WithI18n
-            defaults="Ring"
+          "slotName": <Trans
             id="common.slots.ring"
+            message="Ring"
           />,
         }
       }
@@ -4464,10 +4155,10 @@ Array [
     "details": null,
     "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
     "importance": "major",
-    "issue": <WithI18n
+    "issue": <Trans
       components={
-        Array [
-          <ItemLink
+        Object {
+          "0": <ItemLink
             details={
               Object {
                 "bonusIDs": Array [
@@ -4484,15 +4175,15 @@ Array [
             id={169223}
             quality={5}
           />,
-        ]
+        }
       }
-      defaults="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
       id="shared.enchantChecker.suggestions.noEnchant.label"
+      message="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
       values={
         Object {
-          "slotName": <WithI18n
-            defaults="Cloak"
+          "slotName": <Trans
             id="common.slots.cloak"
+            message="Cloak"
           />,
         }
       }
@@ -4503,10 +4194,10 @@ Array [
     "details": null,
     "icon": "inv_axe_1h_nzothraid_d_02.jpg",
     "importance": "minor",
-    "issue": <WithI18n
+    "issue": <Trans
       components={
-        Array [
-          <ItemLink
+        Object {
+          "0": <ItemLink
             details={
               Object {
                 "bonusIDs": Array [
@@ -4536,15 +4227,15 @@ Array [
             id={172198}
             quality={4}
           />,
-        ]
+        }
       }
-      defaults="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
       id="shared.enchantChecker.suggestions.weakEnchant.label"
+      message="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
       values={
         Object {
-          "slotName": <WithI18n
-            defaults="Weapon"
+          "slotName": <Trans
             id="common.slots.weapon"
+            message="Weapon"
           />,
         }
       }
@@ -4645,7 +4336,7 @@ Array [
        possible.
     </React.Fragment>,
     "stat": <React.Fragment>
-      0.00 Enveloping Breaths per Enveloping Mist during Celestial
+      0.00{"id":"monk.mistweaver.suggestions.envelopingBreath.averageEnvBPerEnv","message":"Enveloping Breaths per Enveloping Mist during Celestial"}
        (
       5 Enveloping Breaths are recommended per cast
       )
@@ -5048,7 +4739,7 @@ Array [
        procs.
     </React.Fragment>,
     "stat": <React.Fragment>
-      2.97 average EF HoTs
+      {"id":"monk.mistweaver.suggestions.essenceFontMastery.averageHots","message":"{0} average EF HoTs","values":{"0":"2.97"}}
        (
       4 or more EF HoTs utilized is recommended
       )
@@ -5079,92 +4770,6 @@ Array [
     "stat": null,
   },
 ]
-`;
-
-exports[`Mistweaver Monk integration test: example log ForbiddenObsidianClaw matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    category="ITEMS"
-    className="panel statistic flexible "
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad"
-      >
-        <label>
-          <a
-            className="epicitem-link-text"
-            href="http://wowhead.com/item=173944&bonus=4824:6515:1517:4786"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Forbidden Obsidian Claw"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/inv_misc_bearclaw_nightmare.jpg"
-            />
-             
-            Forbidden Obsidian Claw
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          <img
-            alt="Damage"
-            className="icon"
-            src="/img/sword.png"
-          />
-           
-          2,022
-           DPS
-           
-          <small>
-            29.93
-             % of total
-          </small>
-          <br />
-          <img
-            alt="Healing"
-            className="icon"
-            src="/img/healing.png"
-          />
-           
-          385
-           HPS
-           
-          <small>
-            0.40
-            % of total
-          </small>
-          <br />
-          <svg
-            className="icon"
-            version="1.1"
-            viewBox="16 16 32 32"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M44.584,43.126l-7.489-11.73v-4.722h0.425c1.753,0,3.335-1.432,3.335-3.29v-1.35 c0-1.857-1.582-3.328-3.335-3.328H26.736c-1.753,0-3.428,1.471-3.428,3.328v1.35c0,1.857,1.674,3.29,3.428,3.29h0.332v4.721 l-7.442,11.731c-0.26,0.407-0.277,0.968-0.059,1.401c0.218,0.433,0.652,0.739,1.115,0.739h22.892c0.463,0,0.874-0.306,1.092-0.739 C44.884,44.094,44.843,43.534,44.584,43.126z M29.378,32.543c0.14-0.219,0.197-0.478,0.197-0.742v-6.376 c0-0.734-0.527-1.407-1.219-1.407h-1.62c-0.371,0-0.921-0.241-0.921-0.633v-1.35c0-0.393,0.55-0.672,0.921-0.672H37.52 c0.371,0,0.829,0.28,0.829,0.672v1.35c0,0.393-0.458,0.633-0.829,0.633h-1.619c-0.692,0-1.312,0.673-1.312,1.407v6.376 c0,0.264,0.104,0.523,0.244,0.742l3.053,4.755H26.371L29.378,32.543z"
-            />
-          </svg>
-           
-          414
-           MP5
-           
-          <small>
-            56,339
-             total mana
-          </small>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 `;
 
 exports[`Mistweaver Monk integration test: example log InvokeYulon matches the statistic snapshot 1`] = `
@@ -5337,10 +4942,16 @@ exports[`Mistweaver Monk integration test: example log ManaLevelChart matches th
         }
       }
     >
-      shared.manaLevelChart.statistic.title
+      <trans
+        id="shared.manaLevelChart.statistic.title"
+        message="Mana pool"
+      />
     </h1>
     <small>
-      shared.manaLevelChart.statistic.explanation
+      <trans
+        id="shared.manaLevelChart.statistic.explanation"
+        message="Mana (blue) along with boss HP and deaths. As a rule of thumb aim to burn mana about as quickly as the boss is losing health. Some fights require specific mana management though."
+      />
     </small>
   </div>
   <div
@@ -5429,7 +5040,7 @@ Array [
        during specific boss abilities or general periods of high damage to the raid. Also look to target low health raid members to avoid large amounts of overhealing.
     </React.Fragment>,
     "stat": <React.Fragment>
-      23.92 % average overhealing per Mana Tea cast
+      23.92{"id":"monk.mistweaver.suggestions.manaTea.avgOverHealing","message":"% average overhealing per Mana Tea cast"}
        (
       under 20.00% over healing is recommended
       )
@@ -5452,10 +5063,16 @@ exports[`Mistweaver Monk integration test: example log ManaUsageChart matches th
         }
       }
     >
-      shared.manaUsageChart.statistic.title
+      <trans
+        id="shared.manaUsageChart.statistic.title"
+        message="Mana usage"
+      />
     </h1>
     <small>
-      shared.manaUsageChart.statistic.explanation
+      <trans
+        id="shared.manaUsageChart.statistic.explanation"
+        message="This shows you your mana usage in correlation with your throughput. Big spikes in mana usage without increases in throughput may indicate poor mana usage. The scale for both mana lines is 0-100% where 100% is aligned with the max HPS throughput."
+      />
     </small>
   </div>
   <div
@@ -5490,12 +5107,12 @@ Array [
     "details": null,
     "icon": "inv_elemental_mote_mana",
     "importance": "major",
-    "issue": <WithI18n
-      defaults="You had mana left at the end of the fight. A good rule of thumb is having the same mana percentage as the bosses health percentage. Mana is indirectly tied with healing throughput and should be optimized."
+    "issue": <Trans
       id="shared.manaValues.suggestions.label"
+      message="You had mana left at the end of the fight. A good rule of thumb is having the same mana percentage as the bosses health percentage. Mana is indirectly tied with healing throughput and should be optimized."
     />,
     "stat": <React.Fragment>
-      36.66% (37k) mana left
+      36.66% (37k) {"id":"shared.suggestions.mana.efficiency","message":"mana left"}
        (
       &lt;10.00% is recommended
       )
@@ -6092,7 +5709,10 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
               }
             }
           >
-            shared.healingEfficiency.toggle.detailed
+            <trans
+              id="shared.healingEfficiency.toggle.detailed"
+              message="Detailed View"
+            />
           </label>
         </div>
       </div>
@@ -6146,7 +5766,10 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
               }
             }
           >
-            shared.healingEfficiency.toggle.cooldowns
+            <trans
+              id="shared.healingEfficiency.toggle.cooldowns"
+              message="Show Cooldowns"
+            />
           </label>
         </div>
         <div
@@ -6166,7 +5789,10 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
               }
             }
           >
-            shared.healingEfficiency.toggle.damage
+            <trans
+              id="shared.healingEfficiency.toggle.damage"
+              message="Show Damage"
+            />
           </label>
           <div
             className="react-toggle react-toggle--checked"
@@ -6206,7 +5832,10 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
               }
             }
           >
-            shared.healingEfficiency.toggle.healing
+            <trans
+              id="shared.healingEfficiency.toggle.healing"
+              message="Show Healing"
+            />
           </label>
         </div>
       </div>
@@ -6217,16 +5846,25 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
       <thead>
         <tr>
           <th>
-            common.ability
+            <trans
+              id="common.ability"
+              message="Ability"
+            />
           </th>
           <th>
-            shared.healingEfficiency.tableHeader.manaSpent
+            <trans
+              id="shared.healingEfficiency.tableHeader.manaSpent"
+              message="Mana Spent"
+            />
           </th>
           <th
             className="text-center"
             colSpan={2}
           >
-            common.stat.healingPerMana
+            <trans
+              id="common.stat.healingPerMana"
+              message="Healing per mana spent"
+            />
           </th>
           <th
             className="text-center"
@@ -6239,12 +5877,151 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
               onTouchStart={[Function]}
               style={Object {}}
             >
-              common.stat.healingPerExecutionTime
+              <trans
+                id="common.stat.healingPerExecutionTime"
+                message="Healing per second spent casting"
+              />
             </dfn>
           </th>
         </tr>
       </thead>
       <tbody>
+        <tr>
+          <td>
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=115310"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_monk_revival.jpg"
+              />
+               
+              Revival
+            </a>
+          </td>
+          <td>
+            6,561
+             (1.63%)
+          </td>
+          <td
+            className="text-right"
+          >
+            969.19
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#4ec04e",
+                    "transition": "background-color 800ms",
+                    "width": "100%",
+                  }
+                }
+              />
+            </div>
+          </td>
+          <td
+            className="text-right"
+          >
+            2080000
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#4ec04e",
+                    "transition": "background-color 800ms",
+                    "width": "100%",
+                  }
+                }
+              />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=116849"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_monk_chicocoon.jpg"
+              />
+               
+              Life Cocoon
+            </a>
+          </td>
+          <td>
+            1,200
+             (0.30%)
+          </td>
+          <td
+            className="text-right"
+          >
+            471.69
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#df7102",
+                    "transition": "background-color 800ms",
+                    "width": "48.668180452151795%",
+                  }
+                }
+              />
+            </div>
+          </td>
+          <td
+            className="text-right"
+          >
+            0
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "0%",
+                  }
+                }
+              />
+            </div>
+          </td>
+        </tr>
         <tr>
           <td>
             <a
@@ -6269,7 +6046,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            227
+            227.16
           </td>
           <td
             width="20%"
@@ -6281,9 +6058,9 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                 className="performance-bar"
                 style={
                   Object {
-                    "backgroundColor": "#4ec04e",
+                    "backgroundColor": "#ac1f39",
                     "transition": "background-color 800ms",
-                    "width": "100%",
+                    "width": "23.438061371965617%",
                   }
                 }
               />
@@ -6292,7 +6069,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            1.09m
+            802000
           </td>
           <td
             width="20%"
@@ -6304,9 +6081,9 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                 className="performance-bar"
                 style={
                   Object {
-                    "backgroundColor": "#4ec04e",
+                    "backgroundColor": "#df7102",
                     "transition": "background-color 800ms",
-                    "width": "100%",
+                    "width": "38.55769230769231%",
                   }
                 }
               />
@@ -6337,30 +6114,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            190
-          </td>
-          <td
-            width="20%"
-          >
-            <div
-              className="performance-bar-container"
-            >
-              <div
-                className="performance-bar"
-                style={
-                  Object {
-                    "backgroundColor": "#a6c34c",
-                    "transition": "background-color 800ms",
-                    "width": "83.70044052863436%",
-                  }
-                }
-              />
-            </div>
-          </td>
-          <td
-            className="text-right"
-          >
-            279k
+            190.78
           </td>
           <td
             width="20%"
@@ -6374,7 +6128,30 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#ac1f39",
                     "transition": "background-color 800ms",
-                    "width": "25.596330275229356%",
+                    "width": "19.684140300329453%",
+                  }
+                }
+              />
+            </div>
+          </td>
+          <td
+            className="text-right"
+          >
+            205000
+          </td>
+          <td
+            width="20%"
+          >
+            <div
+              className="performance-bar-container"
+            >
+              <div
+                className="performance-bar"
+                style={
+                  Object {
+                    "backgroundColor": "#ac1f39",
+                    "transition": "background-color 800ms",
+                    "width": "9.85576923076923%",
                   }
                 }
               />
@@ -6405,7 +6182,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            165
+            165.99
           </td>
           <td
             width="20%"
@@ -6417,9 +6194,9 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                 className="performance-bar"
                 style={
                   Object {
-                    "backgroundColor": "#a6c34c",
+                    "backgroundColor": "#ac1f39",
                     "transition": "background-color 800ms",
-                    "width": "72.68722466960352%",
+                    "width": "17.126677173565362%",
                   }
                 }
               />
@@ -6428,7 +6205,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            398k
+            293000
           </td>
           <td
             width="20%"
@@ -6440,9 +6217,9 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                 className="performance-bar"
                 style={
                   Object {
-                    "backgroundColor": "#df7102",
+                    "backgroundColor": "#ac1f39",
                     "transition": "background-color 800ms",
-                    "width": "36.51376146788991%",
+                    "width": "14.086538461538462%",
                   }
                 }
               />
@@ -6473,7 +6250,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            114
+            114.42
           </td>
           <td
             width="20%"
@@ -6485,9 +6262,9 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                 className="performance-bar"
                 style={
                   Object {
-                    "backgroundColor": "#ffc84a",
+                    "backgroundColor": "#ac1f39",
                     "transition": "background-color 800ms",
-                    "width": "50.22026431718062%",
+                    "width": "11.806042487636894%",
                   }
                 }
               />
@@ -6496,7 +6273,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            457k
+            336000
           </td>
           <td
             width="20%"
@@ -6508,9 +6285,9 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                 className="performance-bar"
                 style={
                   Object {
-                    "backgroundColor": "#df7102",
+                    "backgroundColor": "#ac1f39",
                     "transition": "background-color 800ms",
-                    "width": "41.92660550458716%",
+                    "width": "16.153846153846153%",
                   }
                 }
               />
@@ -6541,7 +6318,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            34
+            34.10
           </td>
           <td
             width="20%"
@@ -6555,7 +6332,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#ac1f39",
                     "transition": "background-color 800ms",
-                    "width": "14.977973568281937%",
+                    "width": "3.518124579865698%",
                   }
                 }
               />
@@ -6564,7 +6341,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
           <td
             className="text-right"
           >
-            60k
+            60000
           </td>
           <td
             width="20%"
@@ -6578,7 +6355,7 @@ exports[`Mistweaver Monk integration test: example log MistweaverHealingEfficien
                   Object {
                     "backgroundColor": "#ac1f39",
                     "transition": "background-color 800ms",
-                    "width": "5.5045871559633035%",
+                    "width": "2.8846153846153846%",
                   }
                 }
               />
@@ -6733,37 +6510,16 @@ Array [
     "details": null,
     "icon": "inv_alchemy_90_combat2_purple",
     "importance": "regular",
-    "issue": <WithI18n
-      defaults="You used {0} combat potions during this encounter, but you could have used {1}. Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter."
+    "issue": <Trans
       id="shared.modules.items.potionChecker.suggestions.potionsUsed"
+      message="You used {0} combat {1} during this encounter, but you could have used {2}. Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter."
       values={
         Object {
           "0": 0,
-          "1": 3,
+          "1": "potions",
+          "2": 3,
         }
       }
-    />,
-    "stat": null,
-  },
-  Object {
-    "details": null,
-    "icon": "inv_alchemy_90_combat2_purple",
-    "importance": "minor",
-    "issue": <WithI18n
-      components={
-        Array [
-          <ItemLink
-            icon={true}
-            id={171273}
-          />,
-          <ItemLink
-            icon={true}
-            id={168498}
-          />,
-        ]
-      }
-      defaults="You used a weak potion. <0/> can be used instead of <1/> in order to get a slightly higher damage output."
-      id="shared.modules.items.potionChecker.suggestions.weakPotion"
     />,
     "stat": null,
   },
@@ -6846,7 +6602,7 @@ Array [
       .
     </React.Fragment>,
     "stat": <React.Fragment>
-      50.00% of Soothing Mist casts with max spells casted
+      50.00{"id":"monk.mistweaver.suggestions.soothingMist.channelingWithoutCastingSpells","message":"% of Soothing Mist casts with max spells casted"}
        (
       1 is recommended
       )
@@ -6897,7 +6653,10 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.healerStatValues.statistic.title
+                <trans
+                  id="shared.healerStatValues.statistic.title"
+                  message="Stat Values"
+                />
               </dfn>
             </th>
             <th
@@ -6917,7 +6676,10 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                shared.healerStatValues.statistic.title.value
+                <trans
+                  id="shared.healerStatValues.statistic.title.value"
+                  message="Value"
+                />
               </dfn>
             </th>
           </tr>
@@ -6945,7 +6707,10 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
                 />
               </svg>
                
-              common.stat.intellect
+              <trans
+                id="common.stat.intellect"
+                message="Intellect"
+              />
             </td>
             <td
               className="text-right"
@@ -7009,12 +6774,15 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
                 />
               </svg>
                
-              common.stat.criticalStrike
+              <trans
+                id="common.stat.criticalStrike"
+                message="Critical Strike"
+              />
             </td>
             <td
               className="text-right"
             >
-              2.98
+              2.80
             </td>
             <td
               style={
@@ -7075,14 +6843,17 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                common.stat.hasteHPCT
+                <trans
+                  id="common.stat.hasteHPCT"
+                  message="Haste (HPCT)"
+                />
               </dfn>
             </td>
             <td
               className="text-right"
             >
               0.00 - 
-              1.46
+              1.08
             </td>
             <td
               style={
@@ -7143,13 +6914,16 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                common.stat.hasteHPM
+                <trans
+                  id="common.stat.hasteHPM"
+                  message="Haste (HPM)"
+                />
               </dfn>
             </td>
             <td
               className="text-right"
             >
-              3.74
+              2.77
             </td>
             <td
               style={
@@ -7203,12 +6977,15 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
                 />
               </svg>
                
-              common.stat.mastery
+              <trans
+                id="common.stat.mastery"
+                message="Mastery"
+              />
             </td>
             <td
               className="text-right"
             >
-              1.83
+              2.18
             </td>
             <td
               style={
@@ -7262,7 +7039,10 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
                 />
               </svg>
                
-              common.stat.versatility
+              <trans
+                id="common.stat.versatility"
+                message="Versatility"
+              />
             </td>
             <td
               className="text-right"
@@ -7328,7 +7108,10 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                common.stat.versatilityDR
+                <trans
+                  id="common.stat.versatilityDR"
+                  message="Versatility (with DR)"
+                />
               </dfn>
             </td>
             <td
@@ -7383,12 +7166,15 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
                 }
               />
                
-              common.stat.leech
+              <trans
+                id="common.stat.leech"
+                message="Leech"
+              />
             </td>
             <td
               className="text-right"
             >
-              33.45
+              10.21
             </td>
             <td
               style={
@@ -7422,254 +7208,6 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
           </tr>
         </tbody>
       </table>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Mistweaver Monk integration test: example log Strife matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    category="ITEMS"
-    className="panel statistic flexible "
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad"
-      >
-        <label>
-          <a
-            className="spell-link-text"
-            href="http://wowhead.com/spell=304056"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt=""
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_azerite_essence_17.jpg"
-            />
-             
-            Strife
-          </a>
-           - Minor Rank 
-          3
-        </label>
-        <div
-          className="value"
-        >
-          <svg
-            className="icon"
-            version="1.1"
-            viewBox="16 16 32 32"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <polygon
-              points="40.128,30.517 43.92,31.535 48.567,26.883 47.893,24.366 44.461,27.802 40.628,26.774 39.601,22.935 43.032,19.499 40.519,18.825 35.873,23.477 36.889,27.275 33.991,30.177 27.422,23.6 29.315,21.705 34.293,19.143 26.654,19.04 24.761,20.935 24.04,20.213 21.065,23.192 21.786,23.914 19.668,26.035 17.91,26.531 15.656,28.788 19.613,32.749 21.866,30.493 22.362,28.733 22.329,28.7 24.448,26.579 31.016,33.155 28.23,35.945 24.437,34.927 19.791,39.579 20.465,42.096 23.896,38.66 27.73,39.689 28.757,43.527 25.325,46.963 27.838,47.637 32.485,42.985 31.468,39.187 34.254,36.398 42.875,45.03 45.85,42.051 37.229,33.419"
-            />
-          </svg>
-           
-          683
-           
-          <small>
-            average Versatility gained
-          </small>
-        </div>
-      </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Mistweaver Monk integration test: example log TheEverRisingTide matches the statistic snapshot 1`] = `
-<div
-  category="ITEMS"
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "padding": 0,
-    }
-  }
->
-  <div
-    className="col-md-12"
-  >
-    <div
-      category="ITEMS"
-      className="panel statistic standard "
-      position={1000}
-    >
-      <div
-        className="panel-body"
-      >
-        <div
-          className="pad"
-        >
-          <label>
-            <a
-              className="spell-link-text"
-              href="http://wowhead.com/spell=299879"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/inv_elemental_mote_mana.jpg"
-              />
-               
-              The Ever-Rising Tide
-            </a>
-             - Minor Rank 
-            4
-          </label>
-          <div
-            className="value"
-          >
-            <svg
-              className="icon"
-              version="1.1"
-              viewBox="16 17 32 32"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M28.832,44.802h6.559v-1.101h-6.559V44.802z M29.91,47.004h4.402v-1.101H29.91V47.004z M32.156,18.379c-0.012,0-0.031,0-0.045,0c-0.014,0-0.033,0-0.045,0c-1.078,0-9.704,0.127-9.704,11.01 c0,2.696,1.5,4.496,2.949,6.234c1.255,1.507,2.442,2.928,2.442,4.776V42.6h8.715v-2.202c0-1.848,1.187-3.269,2.442-4.776 c1.449-1.737,2.949-3.537,2.949-6.234C41.86,18.506,33.235,18.379,32.156,18.379z"
-              />
-            </svg>
-             
-            1,319
-             
-            <small>
-              average 
-              Intellect
-               gained
-            </small>
-            <br />
-            <svg
-              className="icon"
-              version="1.1"
-              viewBox="16 16 32 32"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M44.584,43.126l-7.489-11.73v-4.722h0.425c1.753,0,3.335-1.432,3.335-3.29v-1.35 c0-1.857-1.582-3.328-3.335-3.328H26.736c-1.753,0-3.428,1.471-3.428,3.328v1.35c0,1.857,1.674,3.29,3.428,3.29h0.332v4.721 l-7.442,11.731c-0.26,0.407-0.277,0.968-0.059,1.401c0.218,0.433,0.652,0.739,1.115,0.739h22.892c0.463,0,0.874-0.306,1.092-0.739 C44.884,44.094,44.843,43.534,44.584,43.126z M29.378,32.543c0.14-0.219,0.197-0.478,0.197-0.742v-6.376 c0-0.734-0.527-1.407-1.219-1.407h-1.62c-0.371,0-0.921-0.241-0.921-0.633v-1.35c0-0.393,0.55-0.672,0.921-0.672H37.52 c0.371,0,0.829,0.28,0.829,0.672v1.35c0,0.393-0.458,0.633-0.829,0.633h-1.619c-0.692,0-1.312,0.673-1.312,1.407v6.376 c0,0.264,0.104,0.523,0.244,0.742l3.053,4.755H26.371L29.378,32.543z"
-              />
-            </svg>
-             
-            216
-             MP5
-             
-            <small>
-              29,437
-               total mana
-            </small>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Mistweaver Monk integration test: example log TheFormlessVoid matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    category="ITEMS"
-    className="panel statistic flexible "
-    position={1000}
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad"
-      >
-        <label>
-          <a
-            className="spell-link-text"
-            href="http://wowhead.com/spell=313922"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt=""
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/ability_essence_replicaofknowledge.jpg"
-            />
-             
-            Replica of Knowledge
-          </a>
-           
-          <small>
-            Minor Rank 
-            4
-          </small>
-        </label>
-        <div
-          className="value"
-        >
-          <svg
-            className="icon"
-            version="1.1"
-            viewBox="16 17 32 32"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M28.832,44.802h6.559v-1.101h-6.559V44.802z M29.91,47.004h4.402v-1.101H29.91V47.004z M32.156,18.379c-0.012,0-0.031,0-0.045,0c-0.014,0-0.033,0-0.045,0c-1.078,0-9.704,0.127-9.704,11.01 c0,2.696,1.5,4.496,2.949,6.234c1.255,1.507,2.442,2.928,2.442,4.776V42.6h8.715v-2.202c0-1.848,1.187-3.269,2.442-4.776 c1.449-1.737,2.949-3.537,2.949-6.234C41.86,18.506,33.235,18.379,32.156,18.379z"
-            />
-          </svg>
-           
-          657
-           
-          <small>
-            average 
-            Intellect
-             gained
-          </small>
-          <br />
-          <svg
-            className="icon"
-            stat="Intellect"
-            version="1.1"
-            viewBox="16 16 32 32"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M33.446,23.135c-0.89,0-1.612,0.722-1.612,1.612v8.049l-4.079,4.078c-0.63,0.629-0.63,1.65,0,2.28 c0.315,0.314,0.728,0.472,1.14,0.472c0.413,0,0.825-0.157,1.14-0.472l4.551-4.55c0.302-0.302,0.472-0.712,0.472-1.14v-8.716 C35.059,23.856,34.337,23.135,33.446,23.135z M32.111,16.668c-8.509,0-15.431,6.92-15.431,15.427 c0,8.506,6.922,15.426,15.431,15.426c8.509,0,15.431-6.92,15.431-15.426C47.542,23.588,40.62,16.668,32.111,16.668z M19.179,38.606c-1.025-2.031-1.545-4.222-1.545-6.511c0-7.981,6.495-14.473,14.477-14.473v2.097 c-6.826,0-12.379,5.552-12.379,12.376c0,1.959,0.444,3.831,1.32,5.566L19.179,38.606z M32.111,43.516 c-6.3,0-11.426-5.124-11.426-11.422c0-6.298,5.126-11.422,11.426-11.422s11.426,5.124,11.426,11.422 C43.537,38.392,38.411,43.516,32.111,43.516z"
-            />
-          </svg>
-           
-          119
-           
-          <small>
-            average Haste gained
-          </small>
-          <br />
-        </div>
-      </div>
     </div>
   </div>
 </div>
@@ -8219,14 +7757,14 @@ Array [
       <ForwardRef
         id={116670}
       />
-        or 
+       or 
       <ForwardRef
         id={115151}
       />
       . It is advised to limit the number of spells buffed to only these two.
     </React.Fragment>,
     "stat": <React.Fragment>
-      13incorrect casts with Thunder Focus Tea
+      13{"id":"monk.mistweaver.suggestions.thunderFocusTea.incorrectCasts","message":"incorrect casts with Thunder Focus Tea"}
        (
       &lt;1 incorrect cast is recommended
       )
@@ -8235,7 +7773,7 @@ Array [
 ]
 `;
 
-exports[`Mistweaver Monk integration test: example log Tier45Comparison matches the statistic snapshot 1`] = `
+exports[`Mistweaver Monk integration test: example log Tier30Comparison matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -8268,7 +7806,7 @@ exports[`Mistweaver Monk integration test: example log Tier45Comparison matches 
               src="//render-us.worldofwarcraft.com/icons/56/monk_ability_cherrymanatea.jpg"
             />
           </a>
-           Tier 45 Comparison
+           Tier 30 Comparison
         </label>
         <div
           className="value"
@@ -8378,116 +7916,6 @@ exports[`Mistweaver Monk integration test: example log Upwelling matches the sta
 </div>
 `;
 
-exports[`Mistweaver Monk integration test: example log VersatileNavigation matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad"
-      >
-        <label>
-          <a
-            className="spell-link-text"
-            href="http://wowhead.com/spell=268854"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Versatile Navigation"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/achievement_reputation_argentchampion.jpg"
-            />
-          </a>
-           
-          <a
-            className="spell-link-text"
-            href="http://wowhead.com/spell=268854"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Versatile Navigation
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          <svg
-            className="icon"
-            viewBox="10 10 80 80"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M50,86.4865c17.4361,0,31.6216-14.1855,31.6216-31.6216c0-16.6168-12.8865-30.2714-29.1892-31.5189v-4.9677h7.2973v-4.8649  H40.2703v4.8649h7.2973v4.9677c-16.3027,1.2475-29.1892,14.902-29.1892,31.5189C18.3784,72.3009,32.5639,86.4865,50,86.4865z M52.4324,28.2236c3.1101,0.2817,6.0664,1.0982,8.7798,2.356l-8.7798,15.2073V28.2236z M47.5676,28.2236v26.6412 c0,1.1008,0.7393,2.0647,1.8029,2.3497c0.209,0.0561,0.4205,0.0827,0.6295,0.0827c0.8533,0,1.6642-0.4504,2.1065-1.2162 l13.3146-23.0616c6.8507,4.8503,11.3357,12.8315,11.3357,21.8454c0,14.7537-12.0031,26.7567-26.7568,26.7567 s-26.7568-12.003-26.7568-26.7567C23.2432,40.9315,33.9501,29.4573,47.5676,28.2236z"
-            />
-          </svg>
-           
-          87
-          % 
-          <small>
-            uptime
-          </small>
-          <br />
-          <svg
-            className="icon"
-            version="1.1"
-            viewBox="16 16 32 32"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle
-              cx="32.111"
-              cy="32.678"
-              r="2.989"
-            />
-            <path
-              d="M41.603,33.535l9.219-0.857l-9.219-0.857c-0.41-4.574-4.06-8.223-8.634-8.633l-0.857-9.218l-0.857,9.218 c-4.574,0.41-8.224,4.06-8.634,8.633l-9.219,0.857l9.219,0.857c0.41,4.573,4.06,8.224,8.634,8.633l0.857,9.218l0.857-9.218 C37.542,41.758,41.193,38.108,41.603,33.535z M33.076,41.007l0.215-2.313h-2.36l0.215,2.313c-3.856-0.444-6.921-3.509-7.365-7.364 l2.313,0.215v-2.359l-2.313,0.215c0.444-3.855,3.509-6.92,7.365-7.364l-0.215,2.313h2.36l-0.215-2.313 c3.856,0.444,6.921,3.509,7.365,7.364l-2.314-0.215v2.359l2.314-0.215C39.998,37.498,36.932,40.563,33.076,41.007z"
-            />
-          </svg>
-           
-          206
-           
-          <small>
-            average 
-            Versatility
-             gained
-          </small>
-        </div>
-      </div>
-      <div
-        className="row"
-      >
-        <div
-          className="col-xs-12"
-        />
-      </div>
-      <div
-        className="statistic-expansion-button-holster"
-      >
-        <button
-          className="btn btn-primary"
-          onClick={[Function]}
-        >
-          <span
-            className="glyphicon glyphicon-chevron-down"
-          />
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`Mistweaver Monk integration test: example log Vivify matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -8543,85 +7971,61 @@ exports[`Mistweaver Monk integration test: example log Vivify matches the statis
 </div>
 `;
 
-exports[`Mistweaver Monk integration test: example log WoundBinder matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    category="ITEMS"
-    className="panel statistic small "
-    position={1001}
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad boring-text "
-      >
-        <label>
-          <a
-            className="spell-link-text"
-            href="http://wowhead.com/spell=267880"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Woundbinder"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/inv_misc_emberweavebandage.jpg"
-            />
-          </a>
-           
-          <a
-            className="spell-link-text"
-            href="http://wowhead.com/spell=267880"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Woundbinder
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          <svg
-            className="icon"
-            version="1.1"
-            viewBox="16 16 32 32"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M33.446,23.135c-0.89,0-1.612,0.722-1.612,1.612v8.049l-4.079,4.078c-0.63,0.629-0.63,1.65,0,2.28 c0.315,0.314,0.728,0.472,1.14,0.472c0.413,0,0.825-0.157,1.14-0.472l4.551-4.55c0.302-0.302,0.472-0.712,0.472-1.14v-8.716 C35.059,23.856,34.337,23.135,33.446,23.135z M32.111,16.668c-8.509,0-15.431,6.92-15.431,15.427 c0,8.506,6.922,15.426,15.431,15.426c8.509,0,15.431-6.92,15.431-15.426C47.542,23.588,40.62,16.668,32.111,16.668z M19.179,38.606c-1.025-2.031-1.545-4.222-1.545-6.511c0-7.981,6.495-14.473,14.477-14.473v2.097 c-6.826,0-12.379,5.552-12.379,12.376c0,1.959,0.444,3.831,1.32,5.566L19.179,38.606z M32.111,43.516 c-6.3,0-11.426-5.124-11.426-11.422c0-6.298,5.126-11.422,11.426-11.422s11.426,5.124,11.426,11.422 C43.537,38.392,38.411,43.516,32.111,43.516z"
-            />
-          </svg>
-           
-          95
-           
-          <small>
-            average Haste gained
-          </small>
-        </div>
-      </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
-    </div>
-  </div>
-</div>
+exports[`Mistweaver Monk integration test: example log WeaponEnhancementChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_axe_1h_nzothraid_d_02.jpg",
+    "importance": "regular",
+    "issue": <Trans
+      components={
+        Object {
+          "0": <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4824,
+                  6570,
+                  6578,
+                  6579,
+                  1517,
+                  4786,
+                  6514,
+                ],
+                "gems": Array [
+                  Object {
+                    "icon": "inv_misc_gem_x4_uncommon_perfectcut_blue.jpg",
+                    "id": 168642,
+                    "itemLevel": 120,
+                  },
+                ],
+                "icon": "inv_axe_1h_nzothraid_d_02.jpg",
+                "id": 172198,
+                "itemLevel": 475,
+                "permanentEnchant": 5962,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={172198}
+            quality={4}
+          />,
+        }
+      }
+      id="shared.weaponEnhancementChecker.suggestions.noWeaponEnhancement.label"
+      message="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone) . Apply an enhancement to very easily increase your throughput slightly."
+      values={
+        Object {
+          "slotName": <Trans
+            id="common.slots.weapon"
+            message="Weapon"
+          />,
+        }
+      }
+    />,
+    "stat": null,
+  },
+]
 `;
 
 exports[`Mistweaver Monk integration test: example log matches the checklist snapshot 1`] = `
@@ -9559,7 +8963,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                    
                   Enveloping Breath
                 </a>
-                 applied per  
+                 applied per 
                 <a
                   className="spell-link-text"
                   href="http://wowhead.com/spell=124682"
@@ -10108,7 +9512,10 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  common.yes
+                  <trans
+                    id="common.yes"
+                    message="Yes"
+                  />
                    
                    
                 </div>
@@ -10556,8 +9963,8 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#df7102",
-                  "width": "33.309863245177965%",
+                  "backgroundColor": "#ffc84a",
+                  "width": "54.46004214978994%",
                 }
               }
             />
@@ -10660,7 +10067,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  55.00%
+                  51.82%
                    
                    
                 </div>
@@ -10680,9 +10087,9 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#df7102",
+                        "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "33.309863245177965%",
+                        "width": "54.46004214978994%",
                       }
                     }
                   />
@@ -10720,7 +10127,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  46.40%
+                  39.94%
                    
                    
                 </div>
@@ -10740,9 +10147,9 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "85.79113130741193%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -11321,7 +10728,10 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
         <div
           className="flex-main name"
         >
-          shared.modules.features.checklist.wellPrepared
+          <trans
+            id="shared.modules.features.checklist.wellPrepared"
+            message="Be well prepared"
+          />
         </div>
         <div
           className="flex-sub perf"
@@ -11391,7 +10801,10 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
           <div
             className="col-md-12"
           >
-            shared.modules.features.checklist.wellPreparedDetails
+            <trans
+              id="shared.modules.features.checklist.wellPreparedDetails"
+              message="Being well prepared with food, flasks, potions and enchants is an easy way to improve your performance."
+            />
           </div>
         </div>
         <div
@@ -11406,7 +10819,10 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.enchanted
+                <trans
+                  id="shared.modules.features.checklist.enchanted"
+                  message="All items enchanted"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -11467,7 +10883,10 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.enchantedHigh
+                <trans
+                  id="shared.modules.features.checklist.enchantedHigh"
+                  message="Using high quality enchants"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -11528,7 +10947,136 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.combatPotionsUsed
+                <trans
+                  id="All weapons enhanced (oils/stones)"
+                />
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <trans
+                  id="Using high quality weapon enhancements"
+                />
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <trans
+                  id="shared.modules.features.checklist.combatPotionsUsed"
+                  message="Combat potions used"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -11589,7 +11137,10 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.highQualityCombatPotionsUsed
+                <trans
+                  id="shared.modules.features.checklist.highQualityCombatPotionsUsed"
+                  message="High quality combat potions used"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -11650,7 +11201,10 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.flaskHigh
+                <trans
+                  id="shared.modules.features.checklist.flaskHigh"
+                  message="High quality flask used"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -11671,7 +11225,10 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  common.no
+                  <trans
+                    id="common.no"
+                    message="No"
+                  />
                    
                    
                 </div>
@@ -11710,7 +11267,10 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.flask
+                <trans
+                  id="shared.modules.features.checklist.flask"
+                  message="Flask used"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -11731,7 +11291,10 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  common.yes
+                  <trans
+                    id="common.yes"
+                    message="Yes"
+                  />
                    
                    
                 </div>
@@ -11770,7 +11333,10 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.foodHigh
+                <trans
+                  id="shared.modules.features.checklist.foodHigh"
+                  message="High quality food used"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -11791,7 +11357,10 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  common.no
+                  <trans
+                    id="common.no"
+                    message="No"
+                  />
                    
                    
                 </div>
@@ -11830,7 +11399,10 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
               <div
                 className="flex-main"
               >
-                shared.modules.features.checklist.food
+                <trans
+                  id="shared.modules.features.checklist.food"
+                  message="Food used"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -11851,7 +11423,10 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  common.yes
+                  <trans
+                    id="common.yes"
+                    message="Yes"
+                  />
                    
                    
                 </div>

@@ -8,7 +8,6 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Events from 'parser/core/Events';
 import Tooltip from 'common/Tooltip';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 /**
@@ -23,22 +22,6 @@ const DEFENSIVE_STANCE_DL = 0.1;
 const MAX_WIDTH = .9;
 
 class DefensiveStance extends Analyzer {
-  perSecond(amount) {
-    return amount / this.owner.fightDuration * 1000;
-  }
-  damageTradeoff() {
-    let tradeoff = this.totalDamageMitigated / (this.totalDamageLost + this.totalDamageMitigated);
-    if (tradeoff > MAX_WIDTH) {
-      tradeoff = MAX_WIDTH;
-    } else if (tradeoff < 1 - MAX_WIDTH) {
-      tradeoff = 1 - MAX_WIDTH;
-    }
-    return tradeoff;
-  }
-
-  totalDamageMitigated = 0;
-  totalDamageLost = 0;
-
   get drps() {
     return this.perSecond(this.totalDamageMitigated);
   }
@@ -47,11 +30,28 @@ class DefensiveStance extends Analyzer {
     return this.perSecond(this.totalDamageLost);
   }
 
+  totalDamageMitigated = 0;
+  totalDamageLost = 0;
+
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DEFENSIVE_STANCE_TALENT.id);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this._onDamageTaken);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this._onDamageDealt);
+  }
+
+  perSecond(amount) {
+    return amount / this.owner.fightDuration * 1000;
+  }
+
+  damageTradeoff() {
+    let tradeoff = this.totalDamageMitigated / (this.totalDamageLost + this.totalDamageMitigated);
+    if (tradeoff > MAX_WIDTH) {
+      tradeoff = MAX_WIDTH;
+    } else if (tradeoff < 1 - MAX_WIDTH) {
+      tradeoff = 1 - MAX_WIDTH;
+    }
+    return tradeoff;
   }
 
   _onDamageTaken(event) {
@@ -108,12 +108,15 @@ class DefensiveStance extends Analyzer {
   suggestions(when) {
     when(this.totalDamageLost).isGreaterThan(this.totalDamageMitigated)
       .addSuggestion((suggest, dl, dr) => suggest('While Defensive Stance was up, your damage done was reduced by more than the damage you mitigated. Ensure that you are only using Defensive Stance when you are about to take a lot of damage and that you cancel it quickly to minimize the time spent dealing less damage.')
-          .icon(SPELLS.DEFENSIVE_STANCE_TALENT.icon)
-          .actual(i18n._(t('warrior.arms.suggestions.defensiveStance')`A total of ${formatNumber(dl)} of your damage has been reduced compared to ${formatNumber(dr)} of the damage from the boss.`))
-          .recommended('Reduced damage taken should be higher than your reduced damage.'));
+        .icon(SPELLS.DEFENSIVE_STANCE_TALENT.icon)
+        .actual(t({
+      id: "warrior.arms.suggestions.defensiveStance",
+      message: `A total of ${formatNumber(dl)} of your damage has been reduced compared to ${formatNumber(dr)} of the damage from the boss.`
+    }))
+        .recommended('Reduced damage taken should be higher than your reduced damage.'));
     when(this.totalDamageMitigated).isLessThan(1)
       .addSuggestion((suggest) => suggest(<> You never used <SpellLink id={SPELLS.DEFENSIVE_STANCE_TALENT.id} />. Try to use it to reduce incoming damage or use another talent that would be more useful. </>)
-          .icon(SPELLS.DEFENSIVE_STANCE_TALENT.icon));
+        .icon(SPELLS.DEFENSIVE_STANCE_TALENT.icon));
   }
 }
 

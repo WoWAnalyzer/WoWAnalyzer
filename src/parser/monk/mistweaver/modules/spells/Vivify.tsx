@@ -16,7 +16,6 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class Vivify extends Analyzer {
@@ -24,44 +23,20 @@ class Vivify extends Analyzer {
     abilityTracker: AbilityTracker,
     combatants: Combatants,
   };
-
-  protected abilityTracker!: AbilityTracker;
-  protected combatants!: Combatants;
-
   remVivifyHealCount: number = 0;
   remVivifyHealing: number = 0;
   gustsHealing: number = 0;
   lastCastTarget: number = 0;
   remDuringManaTea: number = 0;
   numberToCount: number = 0;
+  protected abilityTracker!: AbilityTracker;
+  protected combatants!: Combatants;
 
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.vivCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.handleViv);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS), this.handleMastery);
-  }
-
-  vivCast(event: CastEvent) {
-    this.numberToCount += 1;
-    this.lastCastTarget = event.targetID || 0;
-  }
-
-  handleViv(event: HealEvent) {
-    if ((this.lastCastTarget !== event.targetID)) {
-      this.remVivifyHealCount += 1;
-      this.remVivifyHealing += (event.amount || 0 ) + (event.absorbed || 0);
-      if (this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_TALENT.id)) {
-        this.remDuringManaTea += 1;
-      }
-    }
-  }
-
-  handleMastery(event: HealEvent){
-    if ((this.lastCastTarget === event.targetID) && this.numberToCount > 0) {
-      this.gustsHealing += (event.amount || 0) + (event.absorbed || 0);
-      this.numberToCount -= 1;
-    }
   }
 
   get averageRemPerVivify() {
@@ -82,15 +57,40 @@ class Vivify extends Analyzer {
     };
   }
 
+  vivCast(event: CastEvent) {
+    this.numberToCount += 1;
+    this.lastCastTarget = event.targetID || 0;
+  }
+
+  handleViv(event: HealEvent) {
+    if ((this.lastCastTarget !== event.targetID)) {
+      this.remVivifyHealCount += 1;
+      this.remVivifyHealing += (event.amount || 0) + (event.absorbed || 0);
+      if (this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_TALENT.id)) {
+        this.remDuringManaTea += 1;
+      }
+    }
+  }
+
+  handleMastery(event: HealEvent) {
+    if ((this.lastCastTarget === event.targetID) && this.numberToCount > 0) {
+      this.gustsHealing += (event.amount || 0) + (event.absorbed || 0);
+      this.numberToCount -= 1;
+    }
+  }
+
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-          <>
-            You are casting <SpellLink id={SPELLS.VIVIFY.id} /> with less than 2 <SpellLink id={SPELLS.RENEWING_MIST.id} /> out on the raid. To ensure you are gaining the maximum <SpellLink id={SPELLS.VIVIFY.id} /> healing, keep <SpellLink id={SPELLS.RENEWING_MIST.id} /> on cooldown.
-          </>,
-        )
-          .icon(SPELLS.VIVIFY.icon)
-          .actual(`${this.averageRemPerVivify.toFixed(2)}${i18n._(t('monk.mistweaver.suggestions.vivify.renewingMistsPerVivify')` Renewing Mists per Vivify`)}`)
-          .recommended(`${recommended} Renewing Mists are recommended per Vivify`));
+      <>
+        You are casting <SpellLink id={SPELLS.VIVIFY.id} /> with less than 2 <SpellLink id={SPELLS.RENEWING_MIST.id} /> out on the raid. To ensure you are gaining the maximum <SpellLink id={SPELLS.VIVIFY.id} /> healing, keep <SpellLink id={SPELLS.RENEWING_MIST.id} /> on cooldown.
+      </>,
+    )
+      .icon(SPELLS.VIVIFY.icon)
+      .actual(`${this.averageRemPerVivify.toFixed(2)}${t({
+      id: "monk.mistweaver.suggestions.vivify.renewingMistsPerVivify",
+      message: ` Renewing Mists per Vivify`
+    })}`)
+      .recommended(`${recommended} Renewing Mists are recommended per Vivify`));
   }
 
   statistic() {

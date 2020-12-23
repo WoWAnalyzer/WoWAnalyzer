@@ -5,7 +5,6 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import Enemies from 'parser/shared/modules/Enemies';
-import StatTracker from 'parser/shared/modules/StatTracker';
 import { SERPENT_STING_SV_BASE_DURATION, SV_SERPENT_STING_COST } from 'parser/hunter/survival/constants';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { formatDuration } from 'common/format';
@@ -15,7 +14,6 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { ApplyDebuffEvent, DamageEvent, RefreshDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 /**
@@ -31,7 +29,6 @@ import { t } from '@lingui/macro';
 class VolatileBomb extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-    statTracker: StatTracker,
   };
 
   damage = 0;
@@ -53,7 +50,6 @@ class VolatileBomb extends Analyzer {
   };
 
   protected enemies!: Enemies;
-  protected statTracker!: StatTracker;
 
   constructor(options: Options) {
     super(options);
@@ -86,11 +82,10 @@ class VolatileBomb extends Analyzer {
       return;
     }
     const target = encodeTargetString(event.targetID, event.targetInstance);
-    const hastedSerpentStingDuration = SERPENT_STING_SV_BASE_DURATION / (1 + this.statTracker.currentHastePercentage);
     this.activeSerpentStings[target] = {
       targetName: enemy.name,
       cast: event.timestamp,
-      expectedEnd: event.timestamp + hastedSerpentStingDuration,
+      expectedEnd: event.timestamp + SERPENT_STING_SV_BASE_DURATION,
       extendStart: 0,
       extendExpectedEnd: 0,
     };
@@ -170,7 +165,10 @@ class VolatileBomb extends Analyzer {
   suggestions(when: When) {
     when(this.missedResetsThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You shouldn't cast <SpellLink id={SPELLS.VOLATILE_BOMB_WFI.id} /> if your target doesn't have <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> on.</>)
       .icon(SPELLS.VOLATILE_BOMB_WFI.icon)
-      .actual(i18n._(t('hunter.survival.suggestions.wildfireInfusion.castsWithoutSerpentSting')`${actual} casts without ${<SpellLink id={SPELLS.SERPENT_STING_SV.id} />} on`))
+      .actual(t({
+      id: "hunter.survival.suggestions.wildfireInfusion.castsWithoutSerpentSting",
+      message: `${actual} casts without ${<SpellLink id={SPELLS.SERPENT_STING_SV.id} />} on`
+    }))
       .recommended(`<${recommended} is recommended`));
 
   }

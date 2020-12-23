@@ -74,7 +74,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ASPECT_OF_THE_WILD,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: this.selectedCombatant.hasEssence(SPELLS.VISION_OF_PERFECTION.traitId) ? 120 * 0.75 : 120, //Assuming people have max'd HoA enough to have 25% reduction in the prepatch.
+        cooldown: 120,
         gcd: {
           static: 0,
         },
@@ -160,7 +160,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FREEZING_TRAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 30, //TODO: Set to 25 at Shadowlands launch
+        cooldown: 25,
         gcd: {
           base: 1500,
         },
@@ -168,9 +168,13 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.TAR_TRAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 30, //TODO: Set to 25 at Shadowlands launch
+        cooldown: 25,
         gcd: {
           base: 1500,
+        },
+        castEfficiency: {
+          suggestion: this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SOULFORGE_EMBERS_EFFECT.bonusID),
+          recommendedEfficiency: 0.55,
         },
       },
       {
@@ -187,6 +191,10 @@ class Abilities extends CoreAbilities {
         cooldown: 20,
         gcd: {
           base: 1500,
+        },
+        castEfficiency: {
+          suggestion: this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SOULFORGE_EMBERS_EFFECT.bonusID),
+          recommendedEfficiency: 0.9,
         },
       },
       {

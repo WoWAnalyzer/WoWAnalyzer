@@ -64,9 +64,9 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }) => {
         name="Generate combo points"
         description={(
           <>
-            Builders use energy and give you combo points. Keep your <TooltipElement content="Rake and Moonfire if you have the Lunar Inspiration talent, and Thrash if you the Wild Fleshrending azerite trait.">DoTs</TooltipElement> active, use <SpellLink id={SPELLS.BRUTAL_SLASH_TALENT.id} /> and <SpellLink id={SPELLS.FERAL_FRENZY_TALENT.id} /> if you have those talents, then fill with <SpellLink id={SPELLS.SHRED.id} />. Don't waste combo points by continuing to use builders when at full combo points.<br /><br />
+            Builders use energy and give you combo points. Keep your <TooltipElement content="Rake and Moonfire if you have the Lunar Inspiration talent">DoTs</TooltipElement> active, use <SpellLink id={SPELLS.BRUTAL_SLASH_TALENT.id} /> and <SpellLink id={SPELLS.FERAL_FRENZY_TALENT.id} /> if you have those talents, then fill with <SpellLink id={SPELLS.SHRED.id} />. Don't waste combo points by continuing to use builders when at full combo points.<br /><br />
 
-            You should adapt your behaviour in AoE situations (the analyzer only accounts for some of this, so use your discretion when looking at AoE-heavy fights.) If you'll hit 2 or more targets replace <SpellLink id={SPELLS.SHRED.id} /> with <SpellLink id={SPELLS.SWIPE_CAT.id} />. When fighting <TooltipElement content="The threshold varies slightly depending on your stats and azerite traits.">5 targets</TooltipElement> or more it's no longer worth using <SpellLink id={SPELLS.RAKE.id} /> and <SpellLink id={SPELLS.MOONFIRE_FERAL.id} />. Unlike in the Legion expansion you should never spam <SpellLink id={SPELLS.THRASH_FERAL.id} />, keep it active only if you have <SpellLink id={SPELLS.WILD_FLESHRENDING.id} /> traits or if you would otherwise be using <SpellLink id={SPELLS.SWIPE_CAT.id} /> on targets without any bleeds.
+            You should adapt your behaviour in AoE situations (the analyzer only accounts for some of this, so use your discretion when looking at AoE-heavy fights.) If you'll hit 2 or more targets replace <SpellLink id={SPELLS.SHRED.id} /> with <SpellLink id={SPELLS.SWIPE_CAT.id} />. When fighting <TooltipElement content="The threshold varies slightly depending on your stats.">5 targets</TooltipElement> or more it's no longer worth using <SpellLink id={SPELLS.RAKE.id} /> and <SpellLink id={SPELLS.MOONFIRE_FERAL.id} />. Unlike in the Legion expansion you should never spam <SpellLink id={SPELLS.THRASH_FERAL.id} />, only keep it active if you would otherwise be using <SpellLink id={SPELLS.SWIPE_CAT.id} /> on targets without any bleeds.
           </>
         )}
       >
@@ -258,7 +258,7 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }) => {
         name="Make the most of snapshots"
         description={(
           <>
-            <TooltipElement content="Tiger's Fury affects all DoTs, Bloodtalons affects all except Moonfire.">Certain buffs</TooltipElement> will increase the damage of your DoTs for their full duration, even after the buff wears off. Making the most of this mechanic can be the difference between good and great results.<br />
+            <TooltipElement content="Tiger's Fury affects all DoTs, Bloodtalons affects Ferocious Bite, Rip and Primal Wrath.">Certain buffs</TooltipElement> will increase the damage of your DoTs for their full duration, even after the buff wears off. Making the most of this mechanic can be the difference between good and great results.<br />
             As a general rule it's beneficial to refresh a DoT early if you would increase the snapshot. It's better to refresh with a weaker version of the DoT during the <TooltipElement content="The last 30% of the DoT's duration. If you refresh during this time you don't lose any duration in the process.">pandemic window</TooltipElement> than to let it wear off. The exception is <SpellLink id={SPELLS.RAKE.id} /> empowered by <TooltipElement content="The effect is also provided by Incarnation: King of the Jungle, and Shadowmeld for Night Elves">Prowl</TooltipElement> which is so much stronger that you should wait until the DoT wears off when replacing it with an unbuffed version.<br />
             <SpellLink id={SPELLS.SABERTOOTH_TALENT.id} /> allows you to use <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> to maintain the existing snapshot on <SpellLink id={SPELLS.RIP.id} /> and should be used to do so.
           </>
@@ -280,27 +280,19 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }) => {
       </Rule>
 
       {/*Manage Bloodtalons - whole section is only if talent is taken
-        🗵 Use Predatory Swiftness to generate charges
+        🗵 Use 3 different combo point-generating abilities within 4 seconds to generate charges
         🗵 Don't waste charges by overwriting
-        ☐ Prioritize using charges on Rip and Rake
+        ☐ Use charges on Rip and Ferocious Bite
       */}
       {combatant.hasTalent(SPELLS.BLOODTALONS_TALENT.id) && (
         <Rule
           name="Weave in Bloodtalons"
           description={(
             <>
-              Taking the <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> talent adds an extra set of mechanics to weave into your rotation. You should use every <SpellLink id={SPELLS.PREDATORY_SWIFTNESS.id} /> proc to generate <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> charges, which you then spend to buff attacks. Aim to always have the buff active on <SpellLink id={SPELLS.RIP.id} /> and <SpellLink id={SPELLS.RAKE.id} />. Depending on your other talent choices and the number of targets you'll usually have access to more charges than needed to keep those two DoTs buffed, use the rest to buff other high damage attacks such as <SpellLink id={SPELLS.BRUTAL_SLASH_TALENT.id} />. Choose the right time to cast <SpellLink id={SPELLS.REGROWTH.id} /> or <SpellLink id={SPELLS.ENTANGLING_ROOTS.id} /> and generate charges, usually the best time is when you reach 4 or 5 combo points so <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> is active for your finisher.
+              Taking the <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> talent adds an extra set of mechanics to weave into your rotation. You should use 3 different combo point-generating abilities within 4 seconds to generate <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> charges which you then spend to buff attacks. Aim to always have the buff active on <SpellLink id={SPELLS.RIP.id} /> and <SpellLink id={SPELLS.FEROCIOUS_BITE.id} />. Pool energy if necessary to generate the buff. While the buff is active, use only <SpellLink id={SPELLS.SHRED.id} /> or <SpellLink id={SPELLS.BRUTAL_SLASH_TALENT.id} /> if talented as combo point generators on single target.
             </>
           )}
         >
-          <Requirement
-            name={(
-              <>
-                <SpellLink id={SPELLS.PREDATORY_SWIFTNESS.id} /> wasted
-              </>
-            )}
-            thresholds={thresholds.predatorySwiftnessWasted}
-          />
           <Requirement
             name={(
               <>
@@ -317,14 +309,14 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }) => {
         🗵 Only use Predator if it's allowing you to reset Tiger's Fury by killing adds
       */}
       {(combatant.hasTalent(SPELLS.PREDATOR_TALENT.id)) && (
-          <Rule
-            name="Pick the most suitable Talents"
-            description={(
-              <>
-                The <SpellLink id={SPELLS.PREDATOR_TALENT.id} /> talent is generally only effective on fights with multiple enemies and should be swapped out for single target encounters.
-              </>
-            )}
-          >
+        <Rule
+          name="Pick the most suitable Talents"
+          description={(
+            <>
+              The <SpellLink id={SPELLS.PREDATOR_TALENT.id} /> talent is generally only effective on fights with multiple enemies and should be swapped out for single target encounters.
+            </>
+          )}
+        >
           {combatant.hasTalent(SPELLS.PREDATOR_TALENT.id) && (
             <Requirement
               name={(

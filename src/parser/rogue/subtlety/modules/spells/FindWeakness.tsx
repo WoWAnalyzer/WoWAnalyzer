@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
@@ -9,7 +9,6 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringValueText from 'interface/statistics/components/BoringValueText';
 import Enemies from 'parser/shared/modules/Enemies';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import Events, { CastEvent, RefreshDebuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -22,10 +21,9 @@ class FindWeakness extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
-
-  protected enemies!: Enemies;
-
   badVanishCasts = 0;
+  latestTs = 0;
+  protected enemies!: Enemies;
 
   constructor(options: Options) {
     super(options);
@@ -33,7 +31,18 @@ class FindWeakness extends Analyzer {
     this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.FIND_WEAKNESS), this.onRefreshDebuff);
   }
 
-  latestTs = 0;
+  get vanishThresholds() {
+    return {
+      actual: this.badVanishCasts,
+      isGreaterThan: {
+        minor: 0,
+        average: 0,
+        major: 0,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
+  }
+
   onRefreshDebuff(event: RefreshDebuffEvent) {
     this.latestTs = event.timestamp;
   }
@@ -53,23 +62,14 @@ class FindWeakness extends Analyzer {
     }
   }
 
-  get vanishThresholds() {
-    return {
-      actual: this.badVanishCasts,
-      isGreaterThan: {
-        minor: 0,
-        average: 0,
-        major: 0,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
   suggestions(when: When) {
     when(this.vanishThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Use <SpellLink id={SPELLS.VANISH.id} /> only when you do not have <SpellLink id={SPELLS.FIND_WEAKNESS.id} /> applied to your target </>)
         .icon(SPELLS.VANISH.icon)
-        .actual(i18n._(t('rogue.subtlety.suggestions.findWeakness.alreadyApplied')`You used Vanish ${this.badVanishCasts} times when Find Weakness was already applied`))
+        .actual(t({
+      id: "rogue.subtlety.suggestions.findWeakness.alreadyApplied",
+      message: `You used Vanish ${this.badVanishCasts} times when Find Weakness was already applied`
+    }))
         .recommended(`${recommended} is recommended`));
   }
 

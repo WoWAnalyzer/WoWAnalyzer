@@ -17,30 +17,30 @@ class HotTrackerMW extends HotTracker {
   mistwrapActive: boolean = false;
   upwellingActive: boolean = false;
 
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
     const selectedCombatant = options.owner.selectedCombatant;
     this.mistwrapActive = selectedCombatant.hasTalent(SPELLS.MIST_WRAP_TALENT.id);
     this.upwellingActive = selectedCombatant.hasTalent(SPELLS.UPWELLING_TALENT.id);
   }
 
-  calculateMaxDuration(event: ApplyBuffEvent & {selectedCombatant: Combatant}){
+  calculateMaxDuration(event: ApplyBuffEvent & { selectedCombatant: Combatant }) {
     const spellId = event.ability.guid;
-    if(spellId === SPELLS.ENVELOPING_MIST.id){
+    if (spellId === SPELLS.ENVELOPING_MIST.id) {
       return (ENV_BASE_DURATION + (this.mistwrapActive ? MISTWRAP : 0)) * 2;
     }
-    if(spellId === SPELLS.ESSENCE_FONT_BUFF.id){
+    if (spellId === SPELLS.ESSENCE_FONT_BUFF.id) {
       return (EF_BASE_DURATION + (this.upwellingActive ? UPWELLING : 0)) * 2;
     }
-    if(event.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) && spellId === SPELLS.RENEWING_MIST_HEAL.id){
+    if (event.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) && spellId === SPELLS.RENEWING_MIST_HEAL.id) {
       return (REM_BASE_DURATION + TFT_REM_EXTRA_DURATION) * 2;
     }
     return REM_BASE_DURATION * 2;
   }
 
-  calculateMaxRemDuration(event: (ApplyBuffEvent | RefreshBuffEvent) & {selectedCombatant: Combatant}){
+  calculateMaxRemDuration(event: (ApplyBuffEvent | RefreshBuffEvent) & { selectedCombatant: Combatant }) {
     const spellId = event.ability.guid;
-    if(event.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) && spellId === SPELLS.RENEWING_MIST_HEAL.id){
+    if (event.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) && spellId === SPELLS.RENEWING_MIST_HEAL.id) {
       return (REM_BASE_DURATION + TFT_REM_EXTRA_DURATION);
     }
     return REM_BASE_DURATION;
@@ -71,8 +71,8 @@ class HotTrackerMW extends HotTracker {
     };
   }
 
-  _generateHotList(){
-    return [SPELLS.RENEWING_MIST_HEAL,SPELLS.ENVELOPING_MIST,SPELLS.ESSENCE_FONT_BUFF];
+  _generateHotList() {
+    return [SPELLS.RENEWING_MIST_HEAL, SPELLS.ENVELOPING_MIST, SPELLS.ESSENCE_FONT_BUFF];
   }
 }
 

@@ -1,6 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const conduits: SpellList = {
+const conduits = {
   //region Kyrian
 
   //endregion
@@ -16,5 +14,5 @@ const conduits: SpellList = {
   //region Venthyr
 
   //endregion
-};
+} as const;
 export default conduits;

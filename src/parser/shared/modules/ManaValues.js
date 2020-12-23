@@ -3,7 +3,6 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatPercentage, formatNumber } from 'common/format';
 import ROLES from 'game/ROLES';
 import PropTypes from 'prop-types';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import Events from 'parser/core/Events';
 
@@ -77,14 +76,13 @@ class ManaValues extends Analyzer {
       return;
     }
 
-    if (this.owner.builds && this.owner.builds.GLIMMER && this.owner.builds.GLIMMER.active){
-      return;
-    }
-
     when(this.suggestionThresholds.actual).isGreaterThan(this.suggestionThresholds.isGreaterThan.minor)
       .addSuggestion((suggest, actual, recommended) => suggest(<Trans id="shared.manaValues.suggestions.label">You had mana left at the end of the fight. A good rule of thumb is having the same mana percentage as the bosses health percentage. Mana is indirectly tied with healing throughput and should be optimized.</Trans>)
           .icon('inv_elemental_mote_mana')
-          .actual(`${formatPercentage(actual)}% (${formatNumber(this.endingMana)}) ${i18n._(t('shared.suggestions.mana.efficiency')`mana left`)}`)
+          .actual(`${formatPercentage(actual)}% (${formatNumber(this.endingMana)}) ${t({
+      id: "shared.suggestions.mana.efficiency",
+      message: `mana left`
+    })}`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
           .regular(this.suggestionThresholds.isGreaterThan.average)
           .major(this.suggestionThresholds.isGreaterThan.major));

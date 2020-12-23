@@ -11,7 +11,6 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { SuggestionFactory, When } from 'parser/core/ParseResults';
 import { Options } from 'parser/core/Module';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import SuggestionThresholds from '../../SuggestionThresholds';
@@ -21,16 +20,15 @@ class PurgeTheWicked extends Analyzer {
     enemies: Enemies,
     abilityTracker: AbilityTracker,
   };
-
-  protected enemies!: Enemies;
-  protected abilityTracker!: AbilityTracker;
-
   dotSpell: any;
   ptwCasts = 0;
   ptwApplications = 0;
   lastCastTarget: number = 0;
   ptwCleaveTracker: any = {};
   ptwCleaveDamage = 0;
+  statisticOrder = STATISTIC_ORDER.CORE(10);
+  protected enemies!: Enemies;
+  protected abilityTracker!: AbilityTracker;
 
   constructor(options: Options) {
     super(options);
@@ -85,10 +83,13 @@ class PurgeTheWicked extends Analyzer {
 
     when(uptime).isLessThan(SuggestionThresholds.PURGE_THE_WICKED_UPTIME.minor)
       .addSuggestion((suggest: SuggestionFactory, actual: number, recommended: number) => suggest(<span>Your <SpellLink id={this.dotSpell.id} /> uptime can be improved.</span>)
-          .icon(this.dotSpell.icon)
-          .actual(i18n._(t('priest.discipline.suggestions.purgeTheWicked.uptime')`${formatPercentage(uptime)}% uptime`))
-          .recommended(`>${formatPercentage(recommended, 0)}% is recommended`)
-          .regular(SuggestionThresholds.PURGE_THE_WICKED_UPTIME.regular).major(SuggestionThresholds.PURGE_THE_WICKED_UPTIME.major));
+        .icon(this.dotSpell.icon)
+        .actual(t({
+      id: "priest.discipline.suggestions.purgeTheWicked.uptime",
+      message: `${formatPercentage(uptime)}% uptime`
+    }))
+        .recommended(`>${formatPercentage(recommended, 0)}% is recommended`)
+        .regular(SuggestionThresholds.PURGE_THE_WICKED_UPTIME.regular).major(SuggestionThresholds.PURGE_THE_WICKED_UPTIME.major));
   }
 
   statistic() {
@@ -119,8 +120,6 @@ class PurgeTheWicked extends Analyzer {
     }
 
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(10);
 
 }
 

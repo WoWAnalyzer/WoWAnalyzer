@@ -4,7 +4,7 @@ import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 
 import Events from 'parser/core/Events';
 
-import Mastery from "./Mastery";
+import Mastery from './Mastery';
 
 const BASE_MANA = 20000;
 const REJUV_COST = 0.105; // % of base mana
@@ -13,14 +13,27 @@ const REJUV_COST = 0.105; // % of base mana
  * Backend module for calculating things about Rejuvenation, to be used by other modules.
  */
 class Rejuvenation extends Analyzer {
+  /*
+   * The total healing attributable to Rejuvenation
+   */
+  get totalRejuvHealing() {
+    return this.mastery.getMultiMasteryHealing([SPELLS.REJUVENATION.id, SPELLS.REJUVENATION_GERMINATION.id]);
+  }
+
+  /*
+   * The average healing caused per cast of Rejuvenation
+   */
+  get avgRejuvHealing() {
+    return this.totalRejuvHealing / this.totalRejuvsCast;
+  }
+
   static dependencies = {
     healingDone: HealingDone,
     mastery: Mastery,
   };
-
   totalRejuvsCast = 0;
 
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATION), this.onCast);
@@ -40,23 +53,8 @@ class Rejuvenation extends Analyzer {
     // TODO check for applications too?
   }
 
-
   onFightend() {
     // TODO debug prints
-  }
-
-  /*
-   * The total healing attributable to Rejuvenation
-   */
-  get totalRejuvHealing() {
-    return this.mastery.getMultiMasteryHealing([SPELLS.REJUVENATION.id, SPELLS.REJUVENATION_GERMINATION.id]);
-  }
-
-  /*
-   * The average healing caused per cast of Rejuvenation
-   */
-  get avgRejuvHealing() {
-    return this.totalRejuvHealing / this.totalRejuvsCast;
   }
 
   /*

@@ -13,7 +13,6 @@ import Events from 'parser/core/Events';
 
 import SpellLink from 'common/SpellLink';
 import { TooltipElement } from 'common/Tooltip';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import UptimeIcon from 'interface/icons/Uptime';
 import ItemDamageDone from 'interface/ItemDamageDone';
@@ -48,26 +47,6 @@ const AFFECTED_BY_SAVAGE_ROAR = [
  * "Finishing move that increases damage by 15% while in Cat Form."
  */
 class SavageRoar extends Analyzer {
-  static dependencies = {
-    enemies: Enemies,
-  };
-
-  bonusDmg = 0;
-
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SAVAGE_ROAR_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(AFFECTED_BY_SAVAGE_ROAR), this.onDamage);
-  }
-
-  onDamage(event) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.SAVAGE_ROAR_TALENT.id) ||
-      !this.selectedCombatant.hasBuff(SPELLS.CAT_FORM.id)) {
-      return;
-    }
-    this.bonusDmg += getDamageBonus(event, SAVAGE_ROAR_DAMAGE_BONUS);
-  }
-
   get uptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.SAVAGE_ROAR_TALENT.id) / this.owner.fightDuration;
   }
@@ -84,6 +63,25 @@ class SavageRoar extends Analyzer {
     };
   }
 
+  static dependencies = {
+    enemies: Enemies,
+  };
+  bonusDmg = 0;
+
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SAVAGE_ROAR_TALENT.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(AFFECTED_BY_SAVAGE_ROAR), this.onDamage);
+  }
+
+  onDamage(event) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.SAVAGE_ROAR_TALENT.id) ||
+      !this.selectedCombatant.hasBuff(SPELLS.CAT_FORM.id)) {
+      return;
+    }
+    this.bonusDmg += getDamageBonus(event, SAVAGE_ROAR_DAMAGE_BONUS);
+  }
+
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
       <>
@@ -91,7 +89,10 @@ class SavageRoar extends Analyzer {
       </>,
     )
       .icon(SPELLS.SAVAGE_ROAR_TALENT.icon)
-      .actual(i18n._(t('druid.feral.suggestions.savageRoar.uptime')`${formatPercentage(actual)}% uptime`))
+      .actual(t({
+      id: "druid.feral.suggestions.savageRoar.uptime",
+      message: `${formatPercentage(actual)}% uptime`
+    }))
       .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

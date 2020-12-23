@@ -10,14 +10,9 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class SunfireUptime extends Analyzer {
-  static dependencies = {
-    enemies: Enemies,
-  };
-
   get suggestionThresholds() {
     const sunfireUptime = this.enemies.getBuffUptime(SPELLS.SUNFIRE.id) / this.owner.fightDuration;
     return {
@@ -31,10 +26,18 @@ class SunfireUptime extends Analyzer {
     };
   }
 
+  static dependencies = {
+    enemies: Enemies,
+  };
+  statisticOrder = STATISTIC_ORDER.CORE(7);
+
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.SUNFIRE.id} /> uptime can be improved. Try to pay more attention to your Sunfire on the boss.</>)
       .icon(SPELLS.SUNFIRE.icon)
-      .actual(i18n._(t('druid.balance.suggestions.sunfire.uptime')`${formatPercentage(actual)}% Sunfire uptime`))
+      .actual(t({
+      id: "druid.balance.suggestions.sunfire.uptime",
+      message: `${formatPercentage(actual)}% Sunfire uptime`
+    }))
       .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
@@ -54,8 +57,6 @@ class SunfireUptime extends Analyzer {
       </Statistic>
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(7);
 }
 
 export default SunfireUptime;

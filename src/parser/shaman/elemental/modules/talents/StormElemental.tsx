@@ -13,7 +13,6 @@ import Enemies from 'parser/shared/modules/Enemies';
 import Statistic from 'interface/statistics/Statistic';
 import SpellLink from 'common/SpellLink';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class StormElemental extends Analyzer {
@@ -22,14 +21,9 @@ class StormElemental extends Analyzer {
     abilities: Abilities,
     enemies: EnemyInstances,
   };
-
-  protected enemies !: Enemies;
-  protected abilities !: Abilities;
-
   badFS = 0;
   justEnteredSE = false;
   checkDelay = 0;
-
   numCasts = {
     [SPELLS.STORM_ELEMENTAL_TALENT.id]: 0,
     [SPELLS.LIGHTNING_BOLT.id]: 0,
@@ -38,6 +32,8 @@ class StormElemental extends Analyzer {
     [SPELLS.EARTHQUAKE.id]: 0,
     others: 0,
   };
+  protected enemies !: Enemies;
+  protected abilities !: Abilities;
 
   constructor(options: Options) {
     super(options);
@@ -51,15 +47,26 @@ class StormElemental extends Analyzer {
   }
 
   get averageLightningBoltCasts() {
-    return (this.numCasts[SPELLS.LIGHTNING_BOLT.id]/this.numCasts[SPELLS.STORM_ELEMENTAL_TALENT.id]) || 0;
+    return (this.numCasts[SPELLS.LIGHTNING_BOLT.id] / this.numCasts[SPELLS.STORM_ELEMENTAL_TALENT.id]) || 0;
   }
 
   get averageChainLightningCasts() {
-    return (this.numCasts[SPELLS.CHAIN_LIGHTNING.id]/this.numCasts[SPELLS.STORM_ELEMENTAL_TALENT.id]) || 0;
+    return (this.numCasts[SPELLS.CHAIN_LIGHTNING.id] / this.numCasts[SPELLS.STORM_ELEMENTAL_TALENT.id]) || 0;
   }
-  onSECast(event: CastEvent){
+
+  get suggestionThresholds() {
+    return {
+      actual: this.numCasts.others,
+      isGreaterThan: {
+        major: 1,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
+  }
+
+  onSECast(event: CastEvent) {
     this.justEnteredSE = true;
-    this.numCasts[SPELLS.STORM_ELEMENTAL_TALENT.id]+=1;
+    this.numCasts[SPELLS.STORM_ELEMENTAL_TALENT.id] += 1;
   }
 
   onCast(event: CastEvent) {
@@ -97,23 +104,16 @@ class StormElemental extends Analyzer {
     );
   }
 
-  get suggestionThresholds() {
-    return {
-      actual: this.numCasts.others,
-      isGreaterThan: {
-        major: 1,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
   suggestions(when: When) {
     const abilities = `Lightning Bolt/Chain Lightning and Earth Shock/Earthquake`;
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>Maximize your damage during Storm Elemental by only using {abilities}.</span>)
-          .icon(SPELLS.STORM_ELEMENTAL_TALENT.icon)
-          .actual(i18n._(t('shaman.elemental.suggestions.stormElemental.badCasts')`${actual} other casts with Storm Elemental up`))
-          .recommended(`Only cast ${abilities} while Storm Elemental is up.`));
+        .icon(SPELLS.STORM_ELEMENTAL_TALENT.icon)
+        .actual(t({
+      id: "shaman.elemental.suggestions.stormElemental.badCasts",
+      message: `${actual} other casts with Storm Elemental up`
+    }))
+        .recommended(`Only cast ${abilities} while Storm Elemental is up.`));
   }
 }
 

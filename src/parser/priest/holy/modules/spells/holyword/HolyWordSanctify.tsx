@@ -5,8 +5,8 @@ import HolyWordBase from './HolyWordBase';
 
 const PRAYER_OF_HEALING_SERENDIPITY_REDUCTION = 6000;
 const RENEW_SERENDIPITY_REDUCTION = 2000;
-const WORD_OF_MENDING_SERENDIPITY_REDUCTION = 2000;
 const BINDING_HEAL_SERENDIPITY_REDUCTION = 3000;
+const CIRCLE_OF_HEALING_SERENDIPITY_REDUCTION = 4000;
 
 class HolyWordSanctify extends HolyWordBase {
   constructor(options: Options) {
@@ -32,13 +32,11 @@ class HolyWordSanctify extends HolyWordBase {
         apotheosisReduction: () => RENEW_SERENDIPITY_REDUCTION * this.apotheosisMultiplier,
       },
     };
-
-    // If you have word of mending, there is a set reduction for PoM
-    if (this.selectedCombatant.hasTrait(SPELLS.WORD_OF_MENDING.id)) {
-      this.serendipityProccers[SPELLS.PRAYER_OF_MENDING_CAST.id] = {
-        baseReduction: () => WORD_OF_MENDING_SERENDIPITY_REDUCTION,
-        lightOfTheNaaruReduction: () => WORD_OF_MENDING_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,
-        apotheosisReduction: () => WORD_OF_MENDING_SERENDIPITY_REDUCTION * this.apotheosisMultiplier,
+    if (this.selectedCombatant.hasLegendaryByBonusID(SPELLS.HARMONIOUS_APPARATUS.bonusID)) {
+      this.serendipityProccers[SPELLS.CIRCLE_OF_HEALING_TALENT.id] = {
+        baseReduction: () => CIRCLE_OF_HEALING_SERENDIPITY_REDUCTION,
+        lightOfTheNaaruReduction: () => CIRCLE_OF_HEALING_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,
+        apotheosisReduction: () => CIRCLE_OF_HEALING_SERENDIPITY_REDUCTION * this.apotheosisMultiplier,
       };
     }
   }

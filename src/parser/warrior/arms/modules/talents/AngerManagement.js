@@ -16,15 +16,19 @@ const RAGE_NEEDED_FOR_A_PROC = 20;
 const CDR_PER_PROC = 1000; // ms
 
 class AngerManagement extends Analyzer {
+  get tooltip() {
+    return this.cooldownsAffected.map(id => (
+      <>{SPELLS[id].name}: {formatDuration(this.effectiveReduction[id] / 1000)} reduction ({formatDuration(this.wastedReduction[id] / 1000)} wasted)<br /></>
+    ));
+  }
+
   static dependencies = {
     spellUsable: SpellUsable,
   };
-
   cooldownsAffected = [
     this.selectedCombatant.hasTalent(SPELLS.WARBREAKER_TALENT.id) ? SPELLS.WARBREAKER_TALENT.id : SPELLS.COLOSSUS_SMASH.id,
     SPELLS.BLADESTORM.id,
   ];
-
   totalRageSpend = 0;
   wastedReduction = {};
   effectiveReduction = {};
@@ -61,12 +65,6 @@ class AngerManagement extends Analyzer {
       }
     });
     this.totalRageSpend += rageSpend;
-  }
-
-  get tooltip() {
-    return this.cooldownsAffected.map(id => (
-      <>{SPELLS[id].name}: {formatDuration(this.effectiveReduction[id] / 1000)} reduction ({formatDuration(this.wastedReduction[id] / 1000)} wasted)<br /></>
-    ));
   }
 
   subStatistic() {

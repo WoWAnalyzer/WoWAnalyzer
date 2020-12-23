@@ -110,28 +110,12 @@ export const SERPENT_STING_MM_PANDEMIC = 0.3;
 /** Marksmanship specific focus spenders */
 export const LIST_OF_FOCUS_SPENDERS_MM = [
   SPELLS.AIMED_SHOT,
+  SPELLS.ARCANE_SHOT,
   SPELLS.SERPENT_STING_TALENT,
   SPELLS.MULTISHOT_MM,
   SPELLS.BURSTING_SHOT,
   SPELLS.EXPLOSIVE_SHOT_TALENT,
 ];
-//endregion
-
-//region Azerite Traits
-/** In The Rhythm */
-//In The Rhythm lasts for 8 seconds, we use this to determine too early refreshes
-export const IN_THE_RHYTHM_DURATION = 8000;
-/** Steady Aim */
-//Steady Aim can stack up to 5 times
-export const STEADY_AIM_MAX_STACKS = 5;
-/** Surging Shots */
-//Surging Shots starts by increasing damage by 50%
-export const SUS_INITIAL_DAMAGE_MOD = 0.5;
-//Surging Shots then increases its rampdamage by 20% per tick
-export const SUS_RAMP_UP_MOD = 0.2;
-/** Unerring Vision */
-//Unerring Vision stacks up to 10 times, regardless of Trueshot increasing in duration
-export const UV_MAX_STACKS = 10;
 //endregion
 
 //region Conduits

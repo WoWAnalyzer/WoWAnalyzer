@@ -1,7 +1,5 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const conduits: SpellList = {
-  //Potency 
+const conduits = {
+  //Potency
   //generic
   STRIKE_WITH_CLARITY: {//kyrian
     id: 337286,
@@ -90,7 +88,7 @@ const conduits: SpellList = {
     icon: 'ability_demonhunter_netherbond',
   },
 
-  //Endurance  
+  //Endurance
   //generic
   HARM_DENIAL: {
     id: 336379,
@@ -134,5 +132,10 @@ const conduits: SpellList = {
     name: 'Evasive Stride',
     icon: 'ability_monk_uplift',
   },
-};
+  EVASIVE_STRIDE_HEAL: {
+    id: 343764,
+    name: 'Evasive Stride',
+    icon: 'ability_monk_uplift',
+  },
+} as const;
 export default conduits;

@@ -6,7 +6,6 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Events from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatThousands, formatPercentage } from 'common/format';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 /**
@@ -15,7 +14,23 @@ import { t } from '@lingui/macro';
 
 const IMMOLATION_AURA = [SPELLS.IMMOLATION_AURA_FIRST_STRIKE_DPS, SPELLS.IMMOLATION_AURA_BUFF_DPS];
 
-class ImmolationAura extends Analyzer{
+class ImmolationAura extends Analyzer {
+
+  get furyPerMin() {
+    return ((this.furyGain - this.furyWaste) / (this.owner.fightDuration / 60000)).toFixed(2);
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.furyWaste / this.furyGain,
+      isGreaterThan: {
+        minor: 0.03,
+        average: 0.07,
+        major: 0.1,
+      },
+      style: 'percentage',
+    };
+  }
 
   furyGain = 0;
   furyWaste = 0;
@@ -40,31 +55,18 @@ class ImmolationAura extends Analyzer{
     this.damage += event.amount;
   }
 
-  get furyPerMin() {
-    return ((this.furyGain - this.furyWaste) / (this.owner.fightDuration/60000)).toFixed(2);
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.furyWaste / this.furyGain,
-      isGreaterThan: {
-        minor: 0.03,
-        average: 0.07,
-        major: 0.1,
-      },
-      style: 'percentage',
-    };
-  }
-
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<> Avoid casting <SpellLink id={SPELLS.IMMOLATION_AURA.id} /> when close to max Fury.</>)
-          .icon(SPELLS.IMMOLATION_AURA.icon)
-          .actual(i18n._(t('demonhunter.havoc.suggestions.immolationAura.furyWasted')`${formatPercentage(actual)}% Fury wasted`))
-          .recommended(`${formatPercentage(recommended)}% is recommended.`));
+        .icon(SPELLS.IMMOLATION_AURA.icon)
+        .actual(t({
+      id: "demonhunter.havoc.suggestions.immolationAura.furyWasted",
+      message: `${formatPercentage(actual)}% Fury wasted`
+    }))
+        .recommended(`${formatPercentage(recommended)}% is recommended.`));
   }
 
-  statistic(){
+  statistic() {
     const effectiveFuryGain = this.furyGain - this.furyWaste;
     return (
       <TalentStatisticBox
@@ -88,4 +90,5 @@ class ImmolationAura extends Analyzer{
     );
   }
 }
+
 export default ImmolationAura;

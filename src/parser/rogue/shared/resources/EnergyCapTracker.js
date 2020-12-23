@@ -7,7 +7,6 @@ import { formatDuration, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Tooltip from 'common/Tooltip';
 import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetracker/RegenResourceCapTracker';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import SpellEnergyCost from './SpellEnergyCost';
@@ -26,19 +25,33 @@ const RESOURCE_REFUND_ON_MISS = 0.8;
  * the maximum energy amount, and the regeneration rate.
  */
 class EnergyCapTracker extends RegenResourceCapTracker {
+  get wastedPercent() {
+    return (this.missedRegen / this.naturalRegen) || 0;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: 1 - this.wastedPercent,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.9,
+        major: 0.8,
+      },
+      style: 'percentage',
+    };
+  }
+
   static dependencies = {
     ...RegenResourceCapTracker.dependencies,
     // Needed for the `resourceCost` prop of events
     spellResourceCost: SpellEnergyCost,
   };
-
   static resourceType = RESOURCE_TYPES.ENERGY;
   static baseRegenRate = BASE_ENERGY_REGEN;
   static isRegenHasted = true;
   static cumulativeEventWindow = 400;
   static resourceRefundOnMiss = RESOURCE_REFUND_ON_MISS;
-  static exemptFromRefund = [
-  ];
+  static exemptFromRefund = [];
 
   naturalRegenRate() {
     let regen = super.naturalRegenRate();
@@ -57,31 +70,18 @@ class EnergyCapTracker extends RegenResourceCapTracker {
     return Math.floor(max);
   }
 
-  get wastedPercent() {
-    return (this.missedRegen / this.naturalRegen) || 0;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: 1 - this.wastedPercent,
-      isLessThan: {
-        minor: 0.95,
-        average: 0.9,
-        major: 0.8,
-      },
-      style: 'percentage',
-    };
-  }
-
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-        <>
-          You're allowing your energy to reach its cap. While at its maximum value you miss out on the energy that would have regenerated. Although it can be beneficial to let energy pool ready to be used at the right time, try to spend some before it reaches the cap.
-        </>,
-      )
-        .icon('spell_shadow_shadowworddominate')
-        .actual(i18n._(t('rogue.shared.suggestions.energy.capped')`${actual.toFixed(1)} regenerated energy lost per minute due to being capped.`))
-        .recommended(`<${recommended} is recommended.`));
+      <>
+        You're allowing your energy to reach its cap. While at its maximum value you miss out on the energy that would have regenerated. Although it can be beneficial to let energy pool ready to be used at the right time, try to spend some before it reaches the cap.
+      </>,
+    )
+      .icon('spell_shadow_shadowworddominate')
+      .actual(t({
+      id: "rogue.shared.suggestions.energy.capped",
+      message: `${actual.toFixed(1)} regenerated energy lost per minute due to being capped.`
+    }))
+      .recommended(`<${recommended} is recommended.`));
   }
 
   statistic() {
@@ -119,4 +119,5 @@ class EnergyCapTracker extends RegenResourceCapTracker {
     );
   }
 }
+
 export default EnergyCapTracker;

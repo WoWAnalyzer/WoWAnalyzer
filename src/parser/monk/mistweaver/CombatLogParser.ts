@@ -48,7 +48,7 @@ import SpiritOfTheCrane from './modules/talents/SpiritOfTheCrane';
 import RisingMist from './modules/talents/RisingMist';
 import AverageTimeBetweenRSKSs from './modules/talents/AverageTimeBetweenRSKs';
 import RenewingMistDuringManaTea from './modules/talents/RenewingMistDuringManaTea';
-import Tier45Comparison from './modules/talents/Tier45Comparison';
+import Tier30Comparison from './modules/talents/Tier30Comparison';
 import Upwelling from './modules/talents/Upwelling';
 
 // Mana Tracker
@@ -133,7 +133,7 @@ class CombatLogParser extends CoreCombatLogParser {
     risingMist: RisingMist,
     jadeSerpentStatue: JadeSerpentStatue,
     renewingMistDuringManaTea: RenewingMistDuringManaTea,
-    tier45Comparison: Tier45Comparison,
+    tier30Comparison: Tier30Comparison,
     upwelling: Upwelling,
     invokeChiJi: InvokeChiJi,
 

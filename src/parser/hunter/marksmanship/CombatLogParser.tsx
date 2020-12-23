@@ -5,14 +5,15 @@ import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent'
 
 //Overridden Core modules
 import SpellUsable from './modules/core/SpellUsable';
+import GlobalCooldown from './modules/core/GlobalCooldown';
 
 //Features
 import Abilities from './modules/Abilities';
-import Channeling from './modules/features/Channeling';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CancelledCasts from '../shared/modules/features/CancelledCasts';
 import Buffs from './modules/Buffs';
+import Channeling from '../shared/modules/core/Channeling';
 
 //Checklist
 import Checklist from './modules/checklist/Module';
@@ -58,14 +59,6 @@ import ChimaeraShot from './modules/talents/ChimaeraShot';
 import LethalShots from './modules/talents/LethalShots';
 import Streamline from './modules/talents/Streamline';
 
-//Azerite Traits
-import FocusedFire from './modules/spells/azeritetraits/FocusedFire';
-import SteadyAim from './modules/spells/azeritetraits/SteadyAim';
-import SurgingShotsAzerite from './modules/spells/azeritetraits/SurgingShotsAzerite';
-import InTheRhythm from './modules/spells/azeritetraits/InTheRhythm';
-import UnerringVision from './modules/spells/azeritetraits/UnerringVision';
-import RapidReload from '../shared/modules/spells/azeritetraits/RapidReload';
-
 //Covenants
 import ResonatingArrow from '../shared/modules/spells/covenants/kyrian/ResonatingArrow';
 import DeathChakrams from '../shared/modules/spells/covenants/necrolord/DeathChakrams';
@@ -87,7 +80,7 @@ import SerpentstalkersTrickery from './modules/items/SerpentstalkersTrickery';
 import SurgingShots from './modules/items/SurgingShots';
 import SecretsOfTheUnblinkingVigil from './modules/items/SecretsOfTheUnblinkingVigil';
 import EagletalonsTrueFocus from './modules/items/EagletalonsTrueFocus';
-import NesingwarysTrappingApparatus from '../shared/modules/items/NesingwarysTrappingApparatus';
+import NesingwarysTrappingApparatus from './modules/items/NesingwarysTrappingApparatus';
 import SoulforgeEmbers from '../shared/modules/items/SoulforgeEmbers';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -95,6 +88,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core statistics
     abilities: Abilities,
     channeling: Channeling,
+    globalCooldown: GlobalCooldown,
     spellUsable: SpellUsable,
     checklist: Checklist,
 
@@ -144,14 +138,6 @@ class CombatLogParser extends CoreCombatLogParser {
     deadEye: DeadEye,
     lethalShots: LethalShots,
     streamline: Streamline,
-
-    //Azerite Traits
-    focusedFire: FocusedFire,
-    steadyAim: SteadyAim,
-    surgingShotsAzerite: SurgingShotsAzerite,
-    inTheRhythm: InTheRhythm,
-    unerringVision: UnerringVision,
-    rapidReload: RapidReload,
 
     //Covenants
     resonatingArrow: ResonatingArrow,

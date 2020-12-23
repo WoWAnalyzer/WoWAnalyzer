@@ -9,7 +9,6 @@ import DamageTaken from 'parser/shared/modules/throughput/DamageTaken';
 import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import { formatNumber, formatPercentage } from 'common/format';
@@ -24,11 +23,29 @@ const ABILITIES_THAT_CONSUME_EW = [
 ];
 
 class Earthwarden extends Analyzer {
+  get hps() {
+    const healingDone = this.abilityTracker.getAbility(SPELLS.EARTHWARDEN_BUFF.id).healingEffective;
+    const fightLengthSec = this.owner.fightDuration / 1000;
+    return healingDone / fightLengthSec;
+  }
+
+  get percentOfSwingsMitigated() {
+    return this.swingsMitigated / this.totalSwings;
+  }
+
+  get meleeDamageContribution() {
+    const totalDamageTaken = this.damageTaken.total.effective;
+    return this.damageFromMelees / totalDamageTaken;
+  }
+
+  get totalMitigation() {
+    return this.percentOfSwingsMitigated * this.meleeDamageContribution * EARTHWARDEN_REDUCTION_MODIFIER;
+  }
+
   static dependencies = {
     abilityTracker: AbilityTracker,
     damageTaken: DamageTaken,
   };
-
   damageFromMelees = 0;
   swingsMitigated = 0;
   totalSwings = 0;
@@ -54,25 +71,6 @@ class Earthwarden extends Analyzer {
     this.swingsMitigated += 1;
   }
 
-  get hps() {
-    const healingDone = this.abilityTracker.getAbility(SPELLS.EARTHWARDEN_BUFF.id).healingEffective;
-    const fightLengthSec = this.owner.fightDuration / 1000;
-    return healingDone / fightLengthSec;
-  }
-
-  get percentOfSwingsMitigated() {
-    return this.swingsMitigated / this.totalSwings;
-  }
-
-  get meleeDamageContribution() {
-    const totalDamageTaken = this.damageTaken.total.effective;
-    return this.damageFromMelees / totalDamageTaken;
-  }
-
-  get totalMitigation() {
-    return this.percentOfSwingsMitigated * this.meleeDamageContribution * EARTHWARDEN_REDUCTION_MODIFIER;
-  }
-
   statistic() {
     return (
       <StatisticBox
@@ -94,18 +92,24 @@ class Earthwarden extends Analyzer {
     // Suggestion 1: EW stacks are not being generated fast enough
     when(this.percentOfSwingsMitigated).isLessThan(0.6)
       .addSuggestion((suggest, actual, recommended) => suggest(<span><SpellLink id={SPELLS.EARTHWARDEN_TALENT.id} /> is not mitigating enough potential damage to be effective.  This is often caused by stacks being consumed too quickly due to tanking multiple mobs and/or low <SpellLink id={SPELLS.THRASH_BEAR.id} /> casts.  Consider using a different talent if you cannot get better usage from Earthwarden.</span>)
-          .icon(SPELLS.EARTHWARDEN_TALENT.icon)
-          .actual(i18n._(t('druid.guardian.suggestions.earthwarden.efficiency')`${formatPercentage(actual)}% of potential damage was mitigated by Earthwarden`))
-          .recommended(`${formatPercentage(recommended, 0)}% or more is recommended`)
-          .regular(recommended - 0.1).major(recommended - 0.2));
+        .icon(SPELLS.EARTHWARDEN_TALENT.icon)
+        .actual(t({
+      id: "druid.guardian.suggestions.earthwarden.efficiency",
+      message: `${formatPercentage(actual)}% of potential damage was mitigated by Earthwarden`
+    }))
+        .recommended(`${formatPercentage(recommended, 0)}% or more is recommended`)
+        .regular(recommended - 0.1).major(recommended - 0.2));
 
     // Suggestion 2: Melee damage is not relevant enough for EW to be effective
     when(this.meleeDamageContribution).isLessThan(0.4)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>The damage pattern of this encounter makes <SpellLink id={SPELLS.EARTHWARDEN_TALENT.id} /> less effective. Consider using a different talent that will provide more value against non-melee damage.</span>)
-          .icon(SPELLS.EARTHWARDEN_TALENT.icon)
-          .actual(i18n._(t('druid.guardian.suggestions.earthwarden.notOptimal')`${formatPercentage(actual)}% of total damage is melee attacks`))
-          .recommended(`${formatPercentage(recommended, 0)}% or more is recommended`)
-          .regular(recommended - 0.05).major(recommended - 0.1));
+        .icon(SPELLS.EARTHWARDEN_TALENT.icon)
+        .actual(t({
+      id: "druid.guardian.suggestions.earthwarden.notOptimal",
+      message: `${formatPercentage(actual)}% of total damage is melee attacks`
+    }))
+        .recommended(`${formatPercentage(recommended, 0)}% or more is recommended`)
+        .regular(recommended - 0.05).major(recommended - 0.1));
   }
 }
 

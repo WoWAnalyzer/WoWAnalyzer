@@ -26,6 +26,7 @@ import SiphonLifeUptime from './modules/talents/SiphonLifeUptime';
 import PhantomSingularity from './modules/talents/PhantomSingularity';
 import VileTaint from './modules/talents/VileTaint';
 import Haunt from './modules/talents/Haunt';
+import WarlockMissingDotApplyDebuffPrePull from '../shared/modules/normalizers/WarlockMissingDotApplyDebuffPrePull';
 import GrimoireOfSacrifice from '../shared/modules/talents/GrimoireOfSacrifice';
 import SoulConduit from './modules/talents/SoulConduit';
 
@@ -43,6 +44,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Normalizers
     grimoireOfSacrificeNormalizer: GrimoireOfSacrificeNormalizer,
+    warlockMissingDotApplyDebuffPrePull: WarlockMissingDotApplyDebuffPrePull,
 
     // DoTs
     agonyUptime: AgonyUptime,

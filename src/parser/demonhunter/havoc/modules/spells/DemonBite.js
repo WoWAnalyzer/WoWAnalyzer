@@ -4,7 +4,6 @@ import SpellLink from 'common/SpellLink';
 import Events from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatThousands, formatPercentage } from 'common/format';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
@@ -14,6 +13,22 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
  * Example Report: https://www.warcraftlogs.com/reports/KGJgZPxanBX82LzV/#fight=4&source=20
  */
 class DemonBite extends Analyzer {
+
+  get furyPerMin() {
+    return ((this.furyGain - this.furyWaste) / (this.owner.fightDuration / 60000)).toFixed(2);
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.furyWaste / this.furyGain,
+      isGreaterThan: {
+        minor: 0.03,
+        average: 0.07,
+        major: 0.1,
+      },
+      style: 'percentage',
+    };
+  }
 
   furyGain = 0;
   furyWaste = 0;
@@ -37,28 +52,15 @@ class DemonBite extends Analyzer {
     this.damage += event.amount;
   }
 
-  get furyPerMin() {
-    return ((this.furyGain - this.furyWaste) / (this.owner.fightDuration / 60000)).toFixed(2);
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.furyWaste / this.furyGain,
-      isGreaterThan: {
-        minor: 0.03,
-        average: 0.07,
-        major: 0.1,
-      },
-      style: 'percentage',
-    };
-  }
-
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<> Try not to cast <SpellLink id={SPELLS.DEMONS_BITE.id} /> when close to max Fury.</>)
-          .icon(SPELLS.DEMONS_BITE.icon)
-          .actual(i18n._(t('demonhunter.havoc.suggestions.demonsBite.furyWasted')`${formatPercentage(actual)}% Fury wasted`))
-          .recommended(`${formatPercentage(recommended)}% is recommended.`));
+        .icon(SPELLS.DEMONS_BITE.icon)
+        .actual(t({
+      id: "demonhunter.havoc.suggestions.demonsBite.furyWasted",
+      message: `${formatPercentage(actual)}% Fury wasted`
+    }))
+        .recommended(`${formatPercentage(recommended)}% is recommended.`));
   }
 
   statistic() {

@@ -14,7 +14,6 @@ import { SuggestionFactory, ThresholdStyle, When } from 'parser/core/ParseResult
 import Enemy from 'parser/core/Enemy';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import isAtonement from '../core/isAtonement';
@@ -33,36 +32,29 @@ class Schism extends Analyzer {
     atonement: Atonement,
     sins: SinsOfTheMany,
   };
-
-  protected enemies!: Enemies;
-  protected statTracker!: StatTracker;
-  protected atonementDamageSource!: AtonementDamageSource;
-  protected penance!: Penance;
-  protected atonement!: Atonement;
-  protected sins!: SinsOfTheMany;
-
   // Spell metadata
-  static bonus = 0.4;
+  static bonus = 0.25;
   static duration = 9000;
   static synergisticAbilities = [
     SPELLS.HALO_TALENT.id,
     SPELLS.POWER_WORD_SOLACE_TALENT.id,
     SPELLS.PENANCE.id,
   ];
-
   // Privates
   _lastSchismCast: DamageEvent | null = null;
   _badSchisms: any = {};
-
   // Schism data
   directDamage = 0;
   damageFromBuff = 0;
   healing = 0;
   target: Enemy | null = null;
-
-  get smiteEstimation() {
-    return SmiteEstimation(this.statTracker, this.sins);
-  }
+  statisticOrder = STATISTIC_ORDER.OPTIONAL();
+  protected enemies!: Enemies;
+  protected statTracker!: StatTracker;
+  protected atonementDamageSource!: AtonementDamageSource;
+  protected penance!: Penance;
+  protected atonement!: Atonement;
+  protected sins!: SinsOfTheMany;
 
   // Methods
   constructor(options: Options) {
@@ -75,6 +67,10 @@ class Schism extends Analyzer {
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
   }
 
+  get smiteEstimation() {
+    return SmiteEstimation(this.statTracker, this.sins);
+  }
+
   get buffActive() {
     return this.target && this.target.hasBuff(SPELLS.SCHISM_TALENT.id);
   }
@@ -84,6 +80,18 @@ class Schism extends Analyzer {
       (n, [e, isBadSchism]) => n + (isBadSchism ? 1 : 0),
       0,
     );
+  }
+
+  get badSchismThresholds() {
+    return {
+      actual: this.badSchismCount,
+      isGreaterThan: {
+        minor: 0,
+        average: 1,
+        major: 3,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
   }
 
   onDamage(event: DamageEvent) {
@@ -209,32 +217,21 @@ class Schism extends Analyzer {
     );
   }
 
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
-
-  get badSchismThresholds() {
-    return {
-      actual: this.badSchismCount,
-      isGreaterThan: {
-        minor: 0,
-        average: 1,
-        major: 3,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
   suggestions(when: When) {
     when(this.badSchismThresholds).addSuggestion((suggest: SuggestionFactory, actual: number, recommended: number) => suggest(
-          <>
-            Don't cast <SpellLink id={SPELLS.SCHISM_TALENT.id} /> without also
-            casting <SpellLink id={SPELLS.PENANCE.id} />,{' '}
-            <SpellLink id={SPELLS.HALO_TALENT.id} />, or{' '}
-            <SpellLink id={SPELLS.POWER_WORD_SOLACE_TALENT.id} />{' '}
-          </>,
-        )
-          .icon(SPELLS.SCHISM_TALENT.icon)
-          .actual(i18n._(t('priest.discipline.suggestions.schism.efficiency')`You cast Schism ${actual} times without pairing it with strong damaging abilities, such as Penance, Halo, or Power Word: Solace.`))
-          .recommended(`${recommended} is recommended`),
+      <>
+        Don't cast <SpellLink id={SPELLS.SCHISM_TALENT.id} /> without also
+        casting <SpellLink id={SPELLS.PENANCE.id} />,{' '}
+        <SpellLink id={SPELLS.HALO_TALENT.id} />, or{' '}
+        <SpellLink id={SPELLS.POWER_WORD_SOLACE_TALENT.id} />{' '}
+      </>,
+      )
+        .icon(SPELLS.SCHISM_TALENT.icon)
+        .actual(t({
+      id: "priest.discipline.suggestions.schism.efficiency",
+      message: `You cast Schism ${actual} times without pairing it with strong damaging abilities, such as Penance, Halo, or Power Word: Solace.`
+    }))
+        .recommended(`${recommended} is recommended`),
     );
   }
 }

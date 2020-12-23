@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
 import CoreAbilities from 'parser/core/modules/Abilities';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -9,12 +10,15 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.PRAYER_OF_MENDING_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste: number) => 12 / (1 + haste),
+        cooldown: (haste: number) => 11 / (1 + haste),
         gcd: {
           base: 1500,
         },
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.8,
+          averageIssueEfficiency: 0.6,
+          majorIssueEfficiency: 0.4,
         },
         buffSpellId: SPELLS.PRAYER_OF_MENDING_BUFF.id,
         healSpellIds: [
@@ -103,6 +107,9 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.8,
+          averageIssueEfficiency: 0.6,
+          majorIssueEfficiency: 0.4,
         },
       },
       {
@@ -114,6 +121,9 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.8,
+          averageIssueEfficiency: 0.6,
+          majorIssueEfficiency: 0.4,
         },
       },
       {
@@ -126,6 +136,9 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.8,
+          averageIssueEfficiency: 0.6,
+          majorIssueEfficiency: 0.4,
         },
         healSpellIds: [
           SPELLS.DIVINE_STAR_HEAL.id,
@@ -141,6 +154,9 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.8,
+          averageIssueEfficiency: 0.6,
+          majorIssueEfficiency: 0.4,
         },
         healSpellIds: [
           SPELLS.HALO_HEAL.id,
@@ -155,6 +171,9 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.8,
+          averageIssueEfficiency: 0.6,
+          majorIssueEfficiency: 0.4,
         },
       },
       {
@@ -163,18 +182,12 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        castEfficiency: {
-          suggestion: true,
-        },
       },
       {
         spell: SPELLS.PRAYER_OF_HEALING,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
         },
       },
       {
@@ -183,18 +196,12 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        castEfficiency: {
-          suggestion: true,
-        },
       },
       {
         spell: SPELLS.FLASH_HEAL,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
         },
       },
       {
@@ -204,9 +211,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        castEfficiency: {
-          suggestion: true,
-        },
       },
       {
         spell: SPELLS.DISPEL_MAGIC,
@@ -214,9 +218,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        healSpellIds: [
-          SPELLS.TWIST_MAGIC_HEAL.id,
-        ],
       },
       {
         spell: SPELLS.HOLY_FIRE,
@@ -336,6 +337,63 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.SPIRIT_OF_REDEMPTION_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: () => this.owner.fightDuration / 1000,
+      },
+      {
+        spell: SPELLS.POWER_INFUSION,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 120,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+          averageIssueEfficiency: 0.6,
+          majorIssueEfficiency: 0.4,
+        },
+      },
+      {
+        spell: SPELLS.SHADOW_WORD_PAIN,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.MIND_BLAST,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.MIND_SOOTHE,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.SHADOW_WORD_DEATH,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.FLESHCRAFT,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 120,
+        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+      },
+      {
+        spell: SPELLS.UNHOLY_NOVA,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 60,
+        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+          averageIssueEfficiency: 0.6,
+          majorIssueEfficiency: 0.4,
+        },
       },
     ];
   }

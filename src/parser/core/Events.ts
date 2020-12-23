@@ -33,6 +33,7 @@ export enum EventType {
   Resurrect = 'resurrect',
   CombatantInfo = 'combatantinfo',
   Instakill = 'instakill',
+  AuraBroken = 'aurabroken',
 
   // Fabricated:
   Event = 'event', // everything
@@ -106,6 +107,7 @@ type MappedEventTypes = {
   [EventType.Death]: DeathEvent,
   [EventType.CombatantInfo]: CombatantInfoEvent,
   [EventType.Dispel]: DispelEvent,
+  [EventType.AuraBroken]: AuraBrokenEvent,
 
   // Fabricated:
   [EventType.FightEnd]: FightEndEvent,
@@ -144,7 +146,7 @@ export interface ClassResources {
 // TODO: Find a good place for this
 export enum Class {
   DemonHunter = 'DemonHunter',
-  DeathKnight = 'DeathKnight',
+  DeathKnight = 'Death Knight',
   Druid = 'Druid',
   Hunter = 'Hunter',
   Mage = 'Mage',
@@ -214,6 +216,9 @@ export interface EndChannelEvent extends Event<EventType.EndChannel> {
   start: number;
   duration: number;
   beginChannel: BeginChannelEvent;
+  trigger?: {
+    timestamp: number;
+  };
 }
 
 export interface BaseCastEvent<T extends string> extends Event<T> {
@@ -228,6 +233,12 @@ export interface BaseCastEvent<T extends string> extends Event<T> {
     sourceID: number;
     isCancelled: boolean;
     start: number;
+    beginChannel?: {
+      isCancelled: boolean;
+      sourceID: number;
+      timestamp: number;
+      type: string;
+    };
   };
   classResources?: Array<ClassResources & { cost: number }>;
   facing?: number;
@@ -528,6 +539,17 @@ export interface DeathEvent extends Event<EventType.Death> {
   ability: Ability;
 }
 
+export interface AuraBrokenEvent extends Event<EventType.AuraBroken> {
+  ability: Ability;
+  extraAbility: Ability;
+  isBuff: boolean;
+  sourceID: number;
+  sourceIsFriendly: boolean;
+  targetID: number;
+  targetInstance: number;
+  targetIsFriendly: boolean;
+}
+
 export interface ResurrectEvent extends Event<EventType.Resurrect> {
   ability?: Ability,
   sourceID: number,
@@ -660,6 +682,7 @@ export interface Item {
   itemLevel: number;
   bonusIDs?: number | number[];
   permanentEnchant?: number;
+  temporaryEnchant?: number;
   gems?: Gem[];
 }
 
@@ -675,15 +698,6 @@ export interface Buff {
   stacks: number;
   icon: string;
   name?: string;
-}
-
-export interface Trait {
-  traitID: number;
-  rank: number;
-  spellID: number;
-  icon: string;
-  slot: number;
-  isMajor: boolean;
 }
 
 export interface Covenant {
@@ -752,10 +766,12 @@ export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
     Spell,
   ];
   pvpTalents: Spell[];
-  artifact: Trait[] | SoulbindTrait[];
-  heartOfAzeroth: Trait[] | Conduit[];
   covenantID: number,
   soulbindID: number,
+  artifact?: SoulbindTrait[]; //WCL keeps Soulbind Abilities in the artifact field - we keep this temporarily before allocating to soulbindTraits
+  soulbindTraits?: SoulbindTrait[];
+  heartOfAzeroth?: Conduit[]; //WCL keeps class specific conduits in the heartOfAzeroth field - we keep this temporarily before allocating to conduits
+  conduits?: Conduit[];
   error?: any, //TODO: Verify, is this a bool? string?
 }
 

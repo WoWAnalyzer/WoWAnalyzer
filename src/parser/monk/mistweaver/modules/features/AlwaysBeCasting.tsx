@@ -4,7 +4,6 @@ import { formatPercentage } from 'common/format';
 import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
@@ -34,6 +33,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       style: ThresholdStyle.PERCENTAGE,
     };
   }
+
   get downtimeSuggestionThresholds() {
     return {
       actual: this.downtimePercentage,
@@ -49,16 +49,22 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   suggestions(when: When) {
     when(this.nonHealingTimePercentage).isGreaterThan(this.nonHealingTimeSuggestionThresholds.isGreaterThan.minor)
       .addSuggestion((suggest, actual, recommended) => suggest('Your non healing time can be improved. Try to reduce the delay between casting spells and try to continue healing when you have to move.')
-          .icon('petbattle_health-down')
-          .actual(i18n._(t('monk.mistweaver.suggestions.alwaysBeCasting.nonHealing')`${formatPercentage(actual)}% non healing time`))
-          .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(this.nonHealingTimeSuggestionThresholds.isGreaterThan.average).major(this.nonHealingTimeSuggestionThresholds.isGreaterThan.major));
+        .icon('petbattle_health-down')
+        .actual(t({
+      id: "monk.mistweaver.suggestions.alwaysBeCasting.nonHealing",
+      message: `${formatPercentage(actual)}% non healing time`
+    }))
+        .recommended(`<${formatPercentage(recommended)}% is recommended`)
+        .regular(this.nonHealingTimeSuggestionThresholds.isGreaterThan.average).major(this.nonHealingTimeSuggestionThresholds.isGreaterThan.major));
     when(this.downtimePercentage).isGreaterThan(this.downtimeSuggestionThresholds.isGreaterThan.minor)
       .addSuggestion((suggest, actual, recommended) => suggest('Your downtime can be improved. Try to Always Be Casting (ABC); try to reduce the delay between casting spells and when you\'re not healing try to contribute some damage.')
-          .icon('spell_mage_altertime')
-          .actual(i18n._(t('monk.mistweaver.suggestions.alwaysBeCasting.downtime')`${formatPercentage(actual)}% downtime`))
-          .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(this.downtimeSuggestionThresholds.isGreaterThan.average).major(this.downtimeSuggestionThresholds.isGreaterThan.major));
+        .icon('spell_mage_altertime')
+        .actual(t({
+      id: "monk.mistweaver.suggestions.alwaysBeCasting.downtime",
+      message: `${formatPercentage(actual)}% downtime`
+    }))
+        .recommended(`<${formatPercentage(recommended)}% is recommended`)
+        .regular(this.downtimeSuggestionThresholds.isGreaterThan.average).major(this.downtimeSuggestionThresholds.isGreaterThan.major));
   }
 }
 

@@ -10,12 +10,23 @@ import { formatNumber, formatPercentage } from 'common/format';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import SoulFragmentsTracker from '../features/SoulFragmentsTracker';
 
 class SoulsOvercap extends Analyzer {
+  get suggestionThresholdsEfficiency() {
+    return {
+      actual: this.wasterPerGenerated(),
+      isGreaterThan: {
+        minor: 0.05,
+        average: 0.10,
+        major: 0.15,
+      },
+      style: 'percentage',
+    };
+  }
+
   static dependencies = {
     abilityTracker: AbilityTracker,
     soulFragmentsTracker: SoulFragmentsTracker,
@@ -36,23 +47,14 @@ class SoulsOvercap extends Analyzer {
     return this.soulFragmentsTracker.soulsWasted / this.soulFragmentsTracker.soulsGenerated;
   }
 
-  get suggestionThresholdsEfficiency() {
-    return {
-      actual: this.wasterPerGenerated(),
-      isGreaterThan: {
-        minor: 0.05,
-        average: 0.10,
-        major: 0.15,
-      },
-      style: 'percentage',
-    };
-  }
-
   suggestions(when) {
     when(this.suggestionThresholdsEfficiency)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You are generating <SpellLink id={SPELLS.SOUL_FRAGMENT.id} />s when you are already at 5 souls. These are auto consumed. You are missing out on the extra damage consuming them with <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> provides.</>)
         .icon(SPELLS.SOUL_FRAGMENT.icon)
-        .actual(i18n._(t('demonhunter.vengeance.suggestions.souls.wasted')`${formatPercentage(this.wasterPerGenerated())}% wasted Soul Fragments.`))
+        .actual(t({
+      id: "demonhunter.vengeance.suggestions.souls.wasted",
+      message: `${formatPercentage(this.wasterPerGenerated())}% wasted Soul Fragments.`
+    }))
         .recommended(`${formatPercentage(recommended)}% or less is recommended`));
   }
 

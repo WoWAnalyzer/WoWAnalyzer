@@ -6,37 +6,11 @@ import SpellLink from 'common/SpellLink';
 import Abilities from 'parser/core/modules/Abilities';
 import calculateMaxCasts from 'parser/core/calculateMaxCasts';
 import Events from 'parser/core/Events';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import ExecuteRange from './ExecuteRange';
 
 class MortalStrikeAnalyzer extends Analyzer {
-  static dependencies = {
-    abilities: Abilities,
-    executeRange: ExecuteRange,
-  };
-
-  mortalStrikesOutsideExecuteRange = 0;
-  mortalStrikesInExecuteRange = 0;
-
-  constructor(...args) {
-    super(...args);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MORTAL_STRIKE), this._onMortalStrikeCast);
-  }
-
-  _onMortalStrikeCast(event) {
-    if (this.executeRange.isTargetInExecuteRange(event)) {
-      this.mortalStrikesInExecuteRange += 1;
-
-      event.meta = event.meta || {};
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = 'This Mortal Strike was used on a target in Execute range.';
-    } else {
-      this.mortalStrikesOutsideExecuteRange += 1;
-    }
-  }
-
   get goodMortalStrikeThresholds() {
     const cd = this.abilities.getAbility(SPELLS.MORTAL_STRIKE.id).cooldown;
     const max = calculateMaxCasts(cd, this.owner.fightDuration - this.executeRange.executionPhaseDuration());
@@ -69,15 +43,45 @@ class MortalStrikeAnalyzer extends Analyzer {
     };
   }
 
+  static dependencies = {
+    abilities: Abilities,
+    executeRange: ExecuteRange,
+  };
+  mortalStrikesOutsideExecuteRange = 0;
+  mortalStrikesInExecuteRange = 0;
+
+  constructor(...args) {
+    super(...args);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MORTAL_STRIKE), this._onMortalStrikeCast);
+  }
+
+  _onMortalStrikeCast(event) {
+    if (this.executeRange.isTargetInExecuteRange(event)) {
+      this.mortalStrikesInExecuteRange += 1;
+
+      event.meta = event.meta || {};
+      event.meta.isInefficientCast = true;
+      event.meta.inefficientCastReason = 'This Mortal Strike was used on a target in Execute range.';
+    } else {
+      this.mortalStrikesOutsideExecuteRange += 1;
+    }
+  }
+
   suggestions(when) {
     when(this.badMortalStrikeThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Try to avoid using <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> on a target in <SpellLink id={SPELLS.EXECUTE.id} icon /> range, as <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> is less rage efficient than <SpellLink id={SPELLS.EXECUTE.id} />.</>)
-        .icon(SPELLS.MORTAL_STRIKE.icon)
-        .actual(i18n._(t('warrior.arms.suggestions.mortalStrike.efficiency')`Mortal Strike was cast ${this.mortalStrikesInExecuteRange} times accounting for ${formatPercentage(actual)}% of the total possible casts of Mortal Strike during a time a target was in execute range.`))
-        .recommended(`${formatPercentage(recommended)}% is recommended`));
+      .icon(SPELLS.MORTAL_STRIKE.icon)
+      .actual(t({
+      id: "warrior.arms.suggestions.mortalStrike.efficiency",
+      message: `Mortal Strike was cast ${this.mortalStrikesInExecuteRange} times accounting for ${formatPercentage(actual)}% of the total possible casts of Mortal Strike during a time a target was in execute range.`
+    }))
+      .recommended(`${formatPercentage(recommended)}% is recommended`));
     when(this.goodMortalStrikeThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Try to cast <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> more often when the target is outside execute range.</>)
-        .icon(SPELLS.MORTAL_STRIKE.icon)
-        .actual(i18n._(t('warrior.arms.suggestions.motalStrike.outsideExecute')`Mortal Strike was used ${formatPercentage(actual)}% of the time on a target outside execute range.`))
-        .recommended(`${formatPercentage(recommended)}% is recommended`));
+      .icon(SPELLS.MORTAL_STRIKE.icon)
+      .actual(t({
+      id: "warrior.arms.suggestions.motalStrike.outsideExecute",
+      message: `Mortal Strike was used ${formatPercentage(actual)}% of the time on a target outside execute range.`
+    }))
+      .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 }
 

@@ -1,16 +1,14 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
-import { formatNumber, formatThousands, formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { CastEvent, DamageEvent, EnergizeEvent } from 'parser/core/Events';
 import SpellLink from 'common/SpellLink';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
-
 
 // Example log: /reports/tBFv8P9R3kdDgHKJ#fight=1&type=damage-done&source=19
 class DragonRoar extends Analyzer {
@@ -35,15 +33,31 @@ class DragonRoar extends Analyzer {
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.DRAGON_ROAR_TALENT), this.onDragonRoarSlow);
   }
 
-  enrageCheck(event: CastEvent){
-    if(this.selectedCombatant.hasBuff(SPELLS.ENRAGE.id)){
+  get percentageDamage() {
+    return this.owner.getPercentageOfTotalDamageDone(this.totalDamage);
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: (this.goodCast / this.totalCasts),
+      isLessThan: {
+        minor: .9,
+        average: .8,
+        major: .7,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
+  enrageCheck(event: CastEvent) {
+    if (this.selectedCombatant.hasBuff(SPELLS.ENRAGE.id)) {
       this.goodCast += 1;
-    }else{
+    } else {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
       event.meta.inefficientCastReason = `You casted Dragons Roar outside of Enrage.`;
     }
-    this.totalCasts +=1;
+    this.totalCasts += 1;
   }
 
   onDragonRoarDamage(event: DamageEvent) {
@@ -58,27 +72,14 @@ class DragonRoar extends Analyzer {
     this.targetsSlowed += 1;
   }
 
-  get percentageDamage() {
-    return this.owner.getPercentageOfTotalDamageDone(this.totalDamage);
-  }
-
-  get suggestionThresholds(){
-	  return{
-		  actual: (this.goodCast / this.totalCasts),
-		  isLessThan:{
-			  minor: .9,
-			  average: .8,
-			  major: .7,
-		  },
-		  style: ThresholdStyle.PERCENTAGE,
-	  };
-  }
-
-  suggestions(when: When){
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You're casting <SpellLink id={SPELLS.BLADESTORM_TALENT.id} /> outside of enrage.</>)
-        .icon(SPELLS.SIEGEBREAKER_TALENT.icon)
-        .actual(i18n._(t('warrior.fury.suggestions.dragonRoar.efficiency')`${formatPercentage(1-actual)}% of Bladestorm casts outside of enrage`))
-        .recommended(`${formatPercentage(recommended)}+% is recommended`));
+      .icon(SPELLS.SIEGEBREAKER_TALENT.icon)
+      .actual(t({
+      id: "warrior.fury.suggestions.dragonRoar.efficiency",
+      message: `${formatPercentage(1 - actual)}% of Bladestorm casts outside of enrage`
+    }))
+      .recommended(`${formatPercentage(recommended)}+% is recommended`));
   }
 
   statistic() {
@@ -87,12 +88,12 @@ class DragonRoar extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={(
-              <>
-                Damage done: <strong>{formatThousands(this.totalDamage)} ({formatPercentage(this.percentageDamage)}%)</strong><br />
-                Rage gained: <strong>{formatThousands(this.rageGained)}</strong><br />
-                Enemies slowed: <strong>{formatThousands(this.targetsSlowed)}</strong>
-              </>
-            )}
+          <>
+            Damage done: <strong>{formatThousands(this.totalDamage)} ({formatPercentage(this.percentageDamage)}%)</strong><br />
+            Rage gained: <strong>{formatThousands(this.rageGained)}</strong><br />
+            Enemies slowed: <strong>{formatThousands(this.targetsSlowed)}</strong>
+          </>
+        )}
       >
         <BoringSpellValueText spell={SPELLS.DRAGON_ROAR_TALENT}>
           <>

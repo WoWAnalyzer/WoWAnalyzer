@@ -3,14 +3,13 @@ import React from 'react';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS/index';
-import { formatPercentage} from 'common/format';
+import { formatPercentage } from 'common/format';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import SpellLink from 'common/SpellLink';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import RageTracker from '../core/RageTracker';
@@ -20,52 +19,55 @@ class Whirlwind extends Analyzer {
     spellUsable: SpellUsable,
     rageTracker: RageTracker,
   };
-
-  protected spellUsable!: SpellUsable;
-  protected rageTracker!: RageTracker;
-
   hasDragonsRoar: boolean = false;
   hasBladeStorm: boolean = false;
-
   lastCastWW: boolean = false;
-
   drWasAvailable: boolean = false;//dragons roar
   bsWasAvailable: boolean = false;//blade storm
   btWasAvailable: boolean = false;//bloodthirst
   ramWasAvailable: boolean = false;//rampage
   rbWasAvailable: boolean = false;//raging blow
   exWasAvailable: boolean = false;//execute
-
   lastEvent: CastEvent | null = null;
-
   enemiesHitWW: string[] = [];
-
   wasEnraged = false;
-
   executeThreshold = 0;
-
   wwCast = 0;
   badWWCast = 0;
-
   hasWWBuff = false;
-
-  rampageCost = 0;
+  rampageCost = 80;
+  protected spellUsable!: SpellUsable;
+  protected rageTracker!: RageTracker;
 
   constructor(options: Options) {
     super(options);
     this.hasDragonsRoar = this.selectedCombatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id);
     this.hasBladeStorm = this.selectedCombatant.hasTalent(SPELLS.BLADESTORM_TALENT.id);
-    this.executeThreshold = this.selectedCombatant.hasTalent(SPELLS.MASSACRE_TALENT_FURY.id) ? 0.35 : 0.2;
-    this.rampageCost = this.selectedCombatant.hasTalent(SPELLS.CARNAGE_TALENT.id) ? 75 : 85;
-    this.rampageCost = this.selectedCombatant.hasTalent(SPELLS.FROTHING_BERSERKER_TALENT.id) ? 95 : this.rampageCost;
+    this.executeThreshold = this.selectedCombatant.hasTalent(SPELLS.MASSACRE_FURY_TALENT.id) ? 0.35 : 0.2;
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WHIRLWIND_FURY), this.spellCheck);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WHIRLWIND_FURY_CAST), this.spellCheck);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.WHIRLWIND_FURY_DAMAGE_MH, SPELLS.WHIRLWIND_FURY_DAMAGE_OH]), this.wwDamage);
 
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.WHIRLWIND_BUFF), this.noHadBuff);
     this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.WHIRLWIND_BUFF), this.hadBuff);
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.wasValidWW);
+  }
+
+  get threshold() {
+    return ((this.wwCast - this.badWWCast) / this.wwCast);
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.threshold,
+      isLessThan: {
+        minor: .9,
+        average: .8,
+        major: .7,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
   }
 
   noHadBuff() {
@@ -88,7 +90,7 @@ class Whirlwind extends Analyzer {
     this.bsWasAvailable = this.hasBladeStorm ? this.spellUsable.isAvailable(SPELLS.BLADESTORM_TALENT.id) : false;
     this.drWasAvailable = this.hasDragonsRoar ? this.spellUsable.isAvailable(SPELLS.DRAGON_ROAR_TALENT.id) : false;
 
-    this.wasEnraged = this.selectedCombatant.hasBuff(SPELLS.ENRAGE.ID);
+    this.wasEnraged = this.selectedCombatant.hasBuff(SPELLS.ENRAGE.id);
 
     this.enemiesHitWW = [];
     this.wwCast += 1;
@@ -140,26 +142,13 @@ class Whirlwind extends Analyzer {
     }
   }
 
-  get threshold() {
-    return ((this.wwCast - this.badWWCast) / this.wwCast);
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.threshold,
-      isLessThan: {
-        minor: .9,
-        average: .8,
-        major: .7,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You're casting <SpellLink id={SPELLS.WHIRLWIND_FURY.id} /> poorly. Try to only use it if your other abilities are on cooldown.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You're casting <SpellLink id={SPELLS.WHIRLWIND_FURY_CAST.id} /> poorly. Try to only use it if your other abilities are on cooldown.</>)
       .icon(SPELLS.SIEGEBREAKER_TALENT.icon)
-      .actual(i18n._(t('warrior.fury.suggestions.whirlwind.badCasts')`${formatPercentage(actual)}% of bad Whirlwind casts`))
+      .actual(t({
+      id: "warrior.fury.suggestions.whirlwind.badCasts",
+      message: `${formatPercentage(actual)}% of bad Whirlwind casts`
+    }))
       .recommended(`${formatPercentage(recommended)}+% is recommended`));
   }
 

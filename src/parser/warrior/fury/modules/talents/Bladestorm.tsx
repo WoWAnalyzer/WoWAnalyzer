@@ -1,14 +1,13 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
-import { formatNumber, formatThousands, formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import Events, { DamageEvent, EnergizeEvent, CastEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, EnergizeEvent } from 'parser/core/Events';
 import SpellLink from 'common/SpellLink';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 // Example log: /reports/P3FbCaGB4DMyNQxA#fight=47&type=damage-done
@@ -32,15 +31,31 @@ class Bladestorm extends Analyzer {
     this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.BLADESTORM_TALENT), this.onBladestormEnergize);
   }
 
-  enrageCheck(event: CastEvent){
+  get percentageDamage() {
+    return this.owner.getPercentageOfTotalDamageDone(this.totalDamage);
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: (this.goodCast / this.totalCasts),
+      isLessThan: {
+        minor: .9,
+        average: .8,
+        major: .7,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
+  enrageCheck(event: CastEvent) {
     if (this.selectedCombatant.hasBuff(SPELLS.ENRAGE.id)) {
       this.goodCast += 1;
-    }else{
+    } else {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
       event.meta.inefficientCastReason = `You casted Bladestorm outside of Enrage.`;
     }
-    this.totalCasts +=1;
+    this.totalCasts += 1;
   }
 
   onBladestormDamage(event: DamageEvent) {
@@ -51,27 +66,14 @@ class Bladestorm extends Analyzer {
     this.rageGained += event.resourceChange;
   }
 
-  get percentageDamage() {
-    return this.owner.getPercentageOfTotalDamageDone(this.totalDamage);
-  }
-
-  get suggestionThresholds(){
-	  return{
-		  actual: (this.goodCast / this.totalCasts),
-		  isLessThan:{
-			  minor: .9,
-			  average: .8,
-			  major: .7,
-		  },
-		  style: ThresholdStyle.PERCENTAGE,
-	  };
-  }
-
-  suggestions(when: When){
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You're casting <SpellLink id={SPELLS.BLADESTORM_TALENT.id} /> outside of enrage.</>)
-        .icon(SPELLS.SIEGEBREAKER_TALENT.icon)
-        .actual(i18n._(t('warrior.fury.suggestions.bladestorm.castsEnrage')`${formatPercentage(1-actual)}% of Bladestorm casts outside of enrage`))
-        .recommended(`${formatPercentage(recommended)}+% is recommended`));
+      .icon(SPELLS.SIEGEBREAKER_TALENT.icon)
+      .actual(t({
+      id: "warrior.fury.suggestions.bladestorm.castsEnrage",
+      message: `${formatPercentage(1 - actual)}% of Bladestorm casts outside of enrage`
+    }))
+      .recommended(`${formatPercentage(recommended)}+% is recommended`));
   }
 
   statistic() {

@@ -5,7 +5,6 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
-
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import COVENANTS from 'game/shadowlands/COVENANTS';
@@ -36,18 +35,18 @@ class BoonOfTheAscended extends Analyzer {
 
   onHeal(event: HealEvent) {
     if (isAtonement(event)) {
-      
+
       const atonenementDamageEvent = this.atonementDamageSource.event;
 
-        if (!atonenementDamageEvent) {
-          return;
-        }
-        this.atonementHealing += event.amount + (event.absorbed || 0);
+      if (!atonenementDamageEvent) {
+        return;
+      }
+      this.atonementHealing += event.amount + (event.absorbed || 0);
     } else {
       this.directHealing += event.amount + (event.absorbed || 0);
     }
   }
-    
+
   statistic() {
     return (
       <Statistic

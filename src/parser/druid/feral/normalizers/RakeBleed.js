@@ -3,6 +3,7 @@ import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { EventType } from 'parser/core/Events';
 
 const CAST_WINDOW = 100;
+
 class RakeBleed extends EventsNormalizer {
   /**
    * When used from stealth SPELLS.RAKE cast event often appears after the SPELLS.RAKE_BLEED
@@ -34,10 +35,10 @@ class RakeBleed extends EventsNormalizer {
           break;
         }
         if ((previousEvent.type === EventType.ApplyDebuff || previousEvent.type === EventType.RefreshDebuff) &&
-            previousEvent.ability.guid === SPELLS.RAKE_BLEED.id &&
-            previousEvent.targetID === castEvent.targetID &&
-            previousEvent.targetInstance === castEvent.targetInstance &&
-            previousEvent.sourceID === castEvent.sourceID) {
+          previousEvent.ability.guid === SPELLS.RAKE_BLEED.id &&
+          previousEvent.targetID === castEvent.targetID &&
+          previousEvent.targetInstance === castEvent.targetInstance &&
+          previousEvent.sourceID === castEvent.sourceID) {
           // the "wrong" version of this event has already been added to fixedEvents, so remove it and place in new position
           fixedEvents.splice(previousEventIndex, 1);
           fixedEvents.push(previousEvent);

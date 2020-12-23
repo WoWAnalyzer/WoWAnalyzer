@@ -1,6 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const conduits: SpellList = {
+const conduits = {
   //Affliction
   COLD_EMBRACE: {
     id: 339576,
@@ -121,5 +119,5 @@ const conduits: SpellList = {
     name: 'Exhumed Soul',
     icon: 'ability_ardenweald_warlock',
   },
-};
+} as const;
 export default conduits;

@@ -33,7 +33,6 @@ const FrostMageChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
         <AbilityRequirement spell={SPELLS.FROZEN_ORB.id} />
         {combatant.hasTalent(SPELLS.EBONBOLT_TALENT.id) && !combatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id) && <AbilityRequirement spell={SPELLS.EBONBOLT_TALENT.id} />}
         {combatant.hasTalent(SPELLS.COMET_STORM_TALENT.id) && <AbilityRequirement spell={SPELLS.COMET_STORM_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.MIRROR_IMAGE.id) && <AbilityRequirement spell={SPELLS.MIRROR_IMAGE.id} />}
         {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) && <AbilityRequirement spell={SPELLS.RUNE_OF_POWER_TALENT.id} />}
         {combatant.hasTalent(SPELLS.RAY_OF_FROST_TALENT.id) && <AbilityRequirement spell={SPELLS.RAY_OF_FROST_TALENT.id} />}
         {combatant.hasTalent(SPELLS.ICE_NOVA_TALENT.id) && <AbilityRequirement spell={SPELLS.ICE_NOVA_TALENT.id} />}
@@ -42,12 +41,12 @@ const FrostMageChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
         name="Shatter your spells"
         description={(
           <>
-            The most important element of maximizing the damage of your rotation is ensuring that you are <SpellLink id={SPELLS.SHATTER.id} />ing as many of your spells as possible. The key aspect of this is taking advantage of the <SpellLink id={SPELLS.WINTERS_CHILL.id} /> debuff. Winter's Chill is applied to the target when you use a <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc and makes the target act as if it is frozen for a short duration of time. Therefore, you should cast a rotational ability like <SpellLink id={SPELLS.FROSTBOLT.id} />, <SpellLink id={SPELLS.EBONBOLT_TALENT.id} />, or <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} />, followed immediately by the Brain Freeze buffed Flurry and then end with an <SpellLink id={SPELLS.ICE_LANCE.id} />. Against non-boss enemies, you can also utilize other things like <SpellLink id={SPELLS.FROST_NOVA.id} /> or your pet's <SpellLink id={SPELLS.FREEZE.id} /> to shatter spells as well.
+            The most important element of maximizing the damage of your rotation is ensuring that you are <SpellLink id={SPELLS.SHATTER.id} />ing as many of your spells as possible. The key aspect of this is taking advantage of the <SpellLink id={SPELLS.WINTERS_CHILL.id} /> debuff. Winter's Chill is applied to the target when you use a <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc and makes the target act as if it is frozen for a short duration of time. Therefore, you should cast a rotational ability like <SpellLink id={SPELLS.FROSTBOLT.id} />, <SpellLink id={SPELLS.EBONBOLT_TALENT.id} />, or <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} />, followed immediately by the Brain Freeze buffed Flurry and then end with two <SpellLink id={SPELLS.ICE_LANCE.id} />s. Against non-boss enemies, you can also utilize other things like <SpellLink id={SPELLS.FROST_NOVA.id} /> or your pet's <SpellLink id={SPELLS.FREEZE.id} /> to shatter spells as well.
           </>
         )}
       >
-        <Requirement name="Ice Lance into Winter's Chill" thresholds={thresholds.wintersChillShatter} tooltip="Using Brain Freeze will apply the Winter's Chill debuff to the target which causes your spells to act as if the target is frozen. Therefore, you should always cast Ice Lance after every instant cast Flurry so that the Ice Lance hits the target while Winter's Chill is up." />
-        <Requirement name="Hardcast into Winter's Chill" thresholds={thresholds.wintersChillHardCasts} tooltip="Flurry travels faster than your other spells, so you can pre-cast Frostbolt, Ebonbolt, or Glacial Spike before using your instant cast Flurry. This will result in the pre-cast spell landing in the Winter's Chill debuff and dealing bonus shatter damage." />
+        <Requirement name="Ice Lance into Winter's Chill" thresholds={thresholds.wintersChillShatter} tooltip="Using Brain Freeze will apply the Winter's Chill debuff to the target which causes your spells to act as if the target is frozen. Therefore, you should always cast Ice Lance twice after every instant cast Flurry so that the Ice Lance hits the target while Winter's Chill is up." />
+        <Requirement name="Hardcast into Winter's Chill" thresholds={thresholds.wintersChillHardCasts} tooltip="Flurry travels faster than your other spells, so you can pre-cast Frostbolt, Ebonbolt, or Glacial Spike before using your instant cast Flurry. This will result in the pre-cast spell landing in the Winter's Chill debuff and dealing bonus shatter damage. If you are Kyrian, you can also use Radiant Spark instead of a Pre-cast ability." />
       </Rule>
       <Rule
         name="Use your procs effectively"
@@ -87,6 +86,7 @@ const FrostMageChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
       >
         <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />
         <Requirement name="Cancelled casts" thresholds={thresholds.cancelledCasts} />
+        <Requirement name="Active Time during Icy Veins" thresholds={thresholds.icyVeinsActiveTime} />
       </Rule>
       <PreparationRule thresholds={thresholds}>
         <Requirement name="Arcane Intellect active" thresholds={thresholds.arcaneIntellectUptime} />

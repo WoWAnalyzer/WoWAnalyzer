@@ -15,6 +15,10 @@ const DAMAGE_BONUS = 0.1;
 
 class ElaboratePlanning extends Analyzer {
 
+  get percentUptime() {
+    return this.selectedCombatant.getBuffUptime(SPELLS.ELABORATE_PLANNING_BUFF.id) / this.owner.fightDuration;
+  }
+
   bonusDmg = 0;
 
   constructor(options: Options) {
@@ -31,10 +35,6 @@ class ElaboratePlanning extends Analyzer {
       return;
     }
     this.bonusDmg += calculateEffectiveDamage(event, DAMAGE_BONUS);
-  }
-
-  get percentUptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.ELABORATE_PLANNING_BUFF.id) / this.owner.fightDuration;
   }
 
   statistic() {

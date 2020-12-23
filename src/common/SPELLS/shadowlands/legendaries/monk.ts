@@ -1,6 +1,4 @@
-import { SpellList, LegendarySpell } from "common/SPELLS/Spell";
-
-const legendaries: SpellList<LegendarySpell> = {
+const legendaries = {
   //region Brewmaster
   CHARRED_PASSIONS: {
     id: 338138,
@@ -148,6 +146,11 @@ const legendaries: SpellList<LegendarySpell> = {
     icon: 'inv_inscription_80_warscroll_battleshout',
     bonusID: 7082,
   },
+  INVOKERS_DELIGHT_BUFF: {
+    id: 338321,
+    name: 'Invoker\'s Delight',
+    icon: 'inv_inscription_80_warscroll_battleshout',
+  },
   ESCAPE_FROM_REALITY: {
     id: 343250,
     name: 'Escape from Reality',
@@ -156,5 +159,5 @@ const legendaries: SpellList<LegendarySpell> = {
   },
 
   //endregion
-};
+} as const;
 export default legendaries;

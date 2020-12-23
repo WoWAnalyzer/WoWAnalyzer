@@ -8,13 +8,13 @@ import { compose } from 'redux';
 
 import getFightName from 'common/getFightName';
 import Tooltip from 'common/Tooltip';
-import { i18n } from 'interface/RootLocalizationProvider';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import { getFightId } from 'interface/selectors/url/report';
 import { getFightFromReport } from 'interface/selectors/fight';
 import DocumentTitle from 'interface/DocumentTitle';
 import ReportDurationWarning, { MAX_REPORT_DURATION } from 'interface/report/ReportDurationWarning';
 import ClassicLogWarning from 'interface/report/ClassicLogWarning';
+import EncountersNotFoundWarning from 'interface/report/EncountersNotFoundWarning';
 
 import FightSelectionPanel from './FightSelectionPanel';
 
@@ -54,7 +54,10 @@ class FightSelection extends React.PureComponent {
         <div className="flex wrapable" style={{ marginBottom: 15 }}>
           <div className="flex-main" style={{ position: 'relative' }}>
             <div className="back-button">
-              <Tooltip content={i18n._(t('interface.report.fightSelection.tooltip.backToHome')`Back to home`)}>
+              <Tooltip content={t({
+                id: "interface.report.fightSelection.tooltip.backToHome",
+                message: `Back to home`
+              })}>
                 <Link to="/">
                   <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
                   <label>
@@ -109,6 +112,8 @@ class FightSelection extends React.PureComponent {
           <ReportDurationWarning duration={reportDuration} />
         )}
 
+        {!report.fights.find(fight => fight.boss > 0) && <EncountersNotFoundWarning />}
+
         {report.gameVersion === 1 && (
           <FightSelectionPanel report={report} refreshReport={refreshReport} killsOnly={killsOnly} />
         )}
@@ -123,18 +128,19 @@ class FightSelection extends React.PureComponent {
       return this.renderFightSelection();
     }
 
-    return (
-      <>
-        {/* TODO: Refactor the DocumentTitle away */}
-        <DocumentTitle
-          title={
-            fight ? i18n._(t('interface.report.fightSelection.documentTitle')`${getFightName(report, fight)} in ${report.title}`) : report.title
-          }
-        />
+    return <>
+      {/* TODO: Refactor the DocumentTitle away */}
+      <DocumentTitle
+        title={
+          fight ? t({
+            id: "interface.report.fightSelection.documentTitle",
+            message: `${getFightName(report, fight)} in ${report.title}`
+          }) : report.title
+        }
+      />
 
-        {this.props.children(fight)}
-      </>
-    );
+      {this.props.children(fight)}
+    </>;
   }
 }
 

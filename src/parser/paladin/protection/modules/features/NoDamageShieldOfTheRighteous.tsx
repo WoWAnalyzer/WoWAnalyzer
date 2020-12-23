@@ -10,7 +10,7 @@ import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 import { t, Trans } from '@lingui/macro';
 
 /**
- * Analyzer to determine which, if any, SOTR casts did not result in a subsequent hit 
+ * Analyzer to determine which, if any, SOTR casts did not result in a subsequent hit
  * on at least 1 enemy. Operates by determining a mapping from cast to resulting hits and
  * reporting the ratio of casts with at least one hit to total casts.
  */
@@ -67,10 +67,19 @@ class NoDamageShieldOfTheRighteous extends Analyzer {
 
     suggestions(when: When) {
         when(this.hitRatioSuggestionThresholds)
-            .addSuggestion((suggest, actual, recommended) => suggest(t('paladin.protection.modules.features.noDamageShieldOfTheRighteous.suggestion')`SotR is a major source of damage. Make sure that each cast hits at least 1 enemy.`)
+            .addSuggestion((suggest, actual, recommended) => suggest(t({
+            id: "paladin.protection.modules.features.noDamageShieldOfTheRighteous.suggestion",
+            message: `SotR is a major source of damage. Make sure that each cast hits at least 1 enemy.`
+        }))
             .icon(SPELLS.SHIELD_OF_THE_RIGHTEOUS.icon)
-            .actual(t('paladin.protection.modules.features.noDamageShieldOfTheRighteous.actual')`${formatPercentage(actual)}% of casts hit at least 1 target.`)
-            .recommended(t('paladin.protection.modules.features.noDamageShieldOfTheRighteous.recommended')`>${formatPercentage(recommended)}% is recommended`))
+            .actual(t({
+            id: "paladin.protection.modules.features.noDamageShieldOfTheRighteous.actual",
+            message: `${formatPercentage(actual)}% of casts hit at least 1 target.`
+        }))
+            .recommended(t({
+            id: "paladin.protection.modules.features.noDamageShieldOfTheRighteous.recommended",
+            message: `>${formatPercentage(recommended)}% is recommended`
+        })))
     }
 
     statistic() {
@@ -79,7 +88,7 @@ class NoDamageShieldOfTheRighteous extends Analyzer {
                 position={STATISTIC_ORDER.DEFAULT}
                 size='flexible'
             >
-                <BoringSpellValue 
+                <BoringSpellValue
                     spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS}
                     value={`${formatPercentage(this.sotrCastToHitRatio)} %`}
                     label={<Trans id="paladin.protection.modules.features.noDamageShieldOfTheRighteous.sotrHit">SotR Casts That Hit An Enemy</Trans>}

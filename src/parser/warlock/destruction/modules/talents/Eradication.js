@@ -15,7 +15,6 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import UptimeIcon from 'interface/icons/Uptime';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const MAX_TRAVEL_TIME = 3000; // Chaos Bolt being the slowest, takes around 2 seconds to land from max range, added a second to account for maybe target movement?
@@ -26,14 +25,36 @@ const debug = false;
   Eradication - Chaos Bolt increases the damage you deal to the target by 10% for 7 sec
  */
 class Eradication extends Analyzer {
+  get uptime() {
+    return this.enemies.getBuffUptime(SPELLS.ERADICATION_DEBUFF.id) / this.owner.fightDuration;
+  }
+
+  get CBpercentage() {
+    return (this._buffedCB / this._totalCB) || 0;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.uptime,
+      isLessThan: {
+        minor: 0.7,
+        average: 0.65,
+        major: 0.55,
+      },
+      style: 'percentage',
+    };
+  }
+
+  get dps() {
+    return this.bonusDmg / this.owner.fightDuration * 1000;
+  }
+
   static dependencies = {
     enemies: Enemies,
   };
-
   _buffedCB = 0;
   _totalCB = 0;
   bonusDmg = 0;
-
   // queues spells CAST with target having Eradication (except DoTs)
   queue = [
     /*
@@ -45,6 +66,7 @@ class Eradication extends Analyzer {
     }
      */
   ];
+
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ERADICATION_TALENT.id);
@@ -82,26 +104,6 @@ class Eradication extends Analyzer {
     this.bonusDmg += calculateEffectiveDamage(event, ERADICATION_DAMAGE_BONUS);
   }
 
-  get uptime() {
-    return this.enemies.getBuffUptime(SPELLS.ERADICATION_DEBUFF.id) / this.owner.fightDuration;
-  }
-
-  get CBpercentage() {
-    return (this._buffedCB / this._totalCB) || 0;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.uptime,
-      isLessThan: {
-        minor: 0.7,
-        average: 0.65,
-        major: 0.55,
-      },
-      style: 'percentage',
-    };
-  }
-
   _handleTravelSpellDamage(event) {
     if (event.ability.guid === SPELLS.CHAOS_BOLT.id) {
       this._totalCB += 1;
@@ -110,8 +112,8 @@ class Eradication extends Analyzer {
     this.queue = this.queue.filter(cast => cast.timestamp > (event.timestamp - MAX_TRAVEL_TIME));
     // try pairing damage event with casts in this.queue
     const castIndex = this.queue.findIndex(queuedCast => queuedCast.targetID === event.targetID
-                                                  && queuedCast.targetInstance === event.targetInstance
-                                                  && queuedCast.spellId === event.ability.guid);
+      && queuedCast.targetInstance === event.targetInstance
+      && queuedCast.spellId === event.ability.guid);
     if (castIndex === -1) {
       debug && console.log(`(${this.owner.formatTimestamp(event.timestamp, 3)}) Encountered damage event with no buffed cast associated, queue:`, JSON.parse(JSON.stringify(this.queue)), 'event', event);
       return;
@@ -128,13 +130,12 @@ class Eradication extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your uptime on the <SpellLink id={SPELLS.ERADICATION_DEBUFF.id} /> debuff could be improved. You should try to spread out your <SpellLink id={SPELLS.CHAOS_BOLT.id} /> casts more for higher uptime.<br /><small><em>NOTE:</em> Uptime may vary based on the encounter.</small></>)
-          .icon(SPELLS.ERADICATION_TALENT.icon)
-          .actual(i18n._(t('warlock.destruction.suggestions.eradication.uptime')`${formatPercentage(actual)}% Eradication uptime`))
-          .recommended(`>${formatPercentage(recommended)}% is recommended`));
-  }
-
-  get dps() {
-    return this.bonusDmg / this.owner.fightDuration * 1000;
+        .icon(SPELLS.ERADICATION_TALENT.icon)
+        .actual(t({
+      id: "warlock.destruction.suggestions.eradication.uptime",
+      message: `${formatPercentage(actual)}% Eradication uptime`
+    }))
+        .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

@@ -14,6 +14,7 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import WintersChill from './modules/features/WintersChill';
 import BrainFreeze from './modules/features/BrainFreeze';
 import IceLance from './modules/features/IceLance';
+import IcyVeins from './modules/features/IcyVeins';
 import MirrorImage from '../shared/modules/features/MirrorImage';
 import ElementalBarrier from '../shared/modules/features/ElementalBarrier';
 import ArcaneIntellect from '../shared/modules/features/ArcaneIntellect';
@@ -33,6 +34,7 @@ import FocusMagic from '../shared/modules/features/FocusMagic';
 
 //Legendaries
 import ColdFront from './modules/items/ColdFront';
+import GlacialFragments from './modules/items/GlacialFragments';
 
 //Covenants
 import ShiftingPower from '../shared/modules/features/ShiftingPower';
@@ -64,6 +66,7 @@ class CombatLogParser extends CoreCombatLogParser {
     wintersChill: WintersChill,
     brainFreeze: BrainFreeze,
     iceLance: IceLance,
+    icyVeins: IcyVeins,
     arcaneIntellect: ArcaneIntellect,
     mirrorImage: MirrorImage,
     elementalBarrier: ElementalBarrier,
@@ -84,6 +87,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Legendaries
     coldFront: ColdFront,
+    glacialFragments: GlacialFragments,
 
     //Covenants
     shiftingPower: ShiftingPower,

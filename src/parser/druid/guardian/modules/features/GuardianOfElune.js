@@ -6,7 +6,6 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Events from 'parser/core/Events';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const GOE_DURATION = 15000;
@@ -21,6 +20,7 @@ class GuardianOfElune extends Analyzer {
   GoEIronFur = 0;
   nonGoEFRegen = 0;
   GoEFRegen = 0;
+  statisticOrder = STATISTIC_ORDER.CORE(7);
 
   constructor(...args) {
     super(...args);
@@ -45,7 +45,7 @@ class GuardianOfElune extends Analyzer {
     this.overwrittenGoEProc += 1;
   }
 
-  onCastIronfur(event){
+  onCastIronfur(event) {
     if (this.lastGoEProcTime !== event.timestamp) {
       if (this.lastGoEProcTime === null) {
         this.nonGoEIronFur += 1;
@@ -63,7 +63,7 @@ class GuardianOfElune extends Analyzer {
     }
   }
 
-  onCastFrenziedRegen(event){
+  onCastFrenziedRegen(event) {
     if (this.lastGoEProcTime !== event.timestamp) {
       if (this.lastGoEProcTime === null) {
         this.nonGoEFRegen += 1;
@@ -86,10 +86,13 @@ class GuardianOfElune extends Analyzer {
 
     when(unusedGoEProcs).isGreaterThan(0.3)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>You wasted {formatPercentage(unusedGoEProcs)}% of your <SpellLink id={SPELLS.GUARDIAN_OF_ELUNE.id} /> procs. Try to use the procs as soon as you get them so they are not overwritten.</span>)
-          .icon(SPELLS.GUARDIAN_OF_ELUNE.icon)
-          .actual(i18n._(t('druid.guardian.suggestions.guardianOfElune.unused')`${formatPercentage(unusedGoEProcs)}% unused`))
-          .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
-          .regular(recommended + 0.15).major(recommended + 0.3));
+        .icon(SPELLS.GUARDIAN_OF_ELUNE.icon)
+        .actual(t({
+      id: "druid.guardian.suggestions.guardianOfElune.unused",
+      message: `${formatPercentage(unusedGoEProcs)}% unused`
+    }))
+        .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
+        .regular(recommended + 0.15).major(recommended + 0.3));
   }
 
   statistic() {
@@ -104,7 +107,6 @@ class GuardianOfElune extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(7);
 }
 
 export default GuardianOfElune;

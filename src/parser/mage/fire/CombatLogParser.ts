@@ -26,6 +26,7 @@ import HotStreakWastedCrits from './modules/features/HotStreakWastedCrits';
 import CombustionFirestarter from './modules/features/CombustionFirestarter';
 import CombustionCharges from './modules/features/CombustionCharges';
 import CombustionSpellUsage from './modules/features/CombustionSpellUsage';
+import CombustionActiveTime from './modules/features/CombustionActiveTime';
 import HeatingUp from './modules/features/HeatingUp';
 import Pyroclasm from './modules/features/Pyroclasm';
 
@@ -38,6 +39,7 @@ import Kindling from './modules/talents/Kindling';
 
 //Legendaries
 import FeveredIncantation from './modules/items/FeveredIncantation';
+import Firestorm from './modules/items/Firestorm';
 
 //Covenants
 import ShiftingPower from '../shared/modules/features/ShiftingPower';
@@ -78,6 +80,7 @@ class CombatLogParser extends CoreCombatLogParser {
     combustionFirestarter: CombustionFirestarter,
     combustionCharges: CombustionCharges,
     combustionSpellUsage: CombustionSpellUsage,
+    combustionActiveTime: CombustionActiveTime,
     heatingUp: HeatingUp,
     mirrorImage: MirrorImage,
     elementalBarrier: ElementalBarrier,
@@ -95,6 +98,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Legendaries
     feveredIncantation: FeveredIncantation,
+    firestorm: Firestorm,
 
     //Covenants
     shiftingPower: ShiftingPower,

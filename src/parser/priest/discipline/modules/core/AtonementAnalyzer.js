@@ -8,16 +8,29 @@ import { ATONEMENT_DAMAGE_SOURCES } from '../../constants';
 import isAtonement from './isAtonement';
 
 export default class AtonementAnalyzer extends Analyzer {
+  /**
+   * Event filter for damage events that will cause
+   */
+  get atonementDamageSourceFilter() {
+    return new EventFilter(EventType.AtonementDamage);
+  }
+
+  /**
+   * Event filter for atonement
+   * Contains both the healEvent and damageEvent
+   */
+  get atonementEventFilter() {
+    return new EventFilter(EventType.Atonement);
+  }
+
   static dependencies = {
     eventEmitter: EventEmitter,
   };
-
   static validHitTypes = {
     [HIT_TYPES.NORMAL]: true,
     [HIT_TYPES.CRIT]: true,
     [HIT_TYPES.ABSORB]: true,
   };
-
   _atonementSource = null;
 
   constructor(options) {
@@ -25,13 +38,6 @@ export default class AtonementAnalyzer extends Analyzer {
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this._processAtonement);
     this.addEventListener(Events.damage, this._processAtonementDamageSource);
-  }
-
-  /**
-   * Event filter for damage events that will cause
-   */
-  get atonementDamageSourceFilter() {
-    return new EventFilter(EventType.AtonementDamage);
   }
 
   /**
@@ -57,14 +63,6 @@ export default class AtonementAnalyzer extends Analyzer {
       ...damageEvent,
       type: this.atonementDamageSourceFilter.eventType,
     });
-  }
-
-  /**
-   * Event filter for atonement
-   * Contains both the healEvent and damageEvent
-   */
-  get atonementEventFilter() {
-    return new EventFilter(EventType.Atonement);
   }
 
   /**

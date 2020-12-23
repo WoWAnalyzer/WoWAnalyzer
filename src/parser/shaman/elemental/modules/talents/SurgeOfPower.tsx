@@ -9,7 +9,6 @@ import { formatPercentage } from 'common/format';
 import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Statistic from 'interface/statistics/Statistic';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const SURGE_OF_POWER = {
@@ -22,7 +21,7 @@ const SURGE_OF_POWER = {
 };
 
 class SurgeOfPower extends Analyzer {
-  sopBuffedAbilities: {[key: number]: number} = {};
+  sopBuffedAbilities: { [key: number]: number } = {};
   // total SK + SoP lightning bolt casts
   skSopCasts = 0;
   // total SK lightning bolt casts
@@ -40,13 +39,25 @@ class SurgeOfPower extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SURGE_OF_POWER.AFFECTED_CASTS), this._onCast);
   }
 
-  _onCast(event: CastEvent){
+  get suggestionThresholds() {
+    return {
+      actual: this.skSopCasts / this.skCasts,
+      isLessThan: {
+        minor: 0.9,
+        average: 0.75,
+        major: 0.5,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
+  _onCast(event: CastEvent) {
     // cast lightning bolt with only SK buff active
     if (this.selectedCombatant.hasBuff(SPELLS.STORMKEEPER_TALENT.id, event.timestamp) && event.ability.guid === SPELLS.LIGHTNING_BOLT.id) {
       this.skCasts += 1;
     }
 
-    if(!this.selectedCombatant.hasBuff(SPELLS.SURGE_OF_POWER_BUFF.id)){
+    if (!this.selectedCombatant.hasBuff(SPELLS.SURGE_OF_POWER_BUFF.id)) {
       return;
     }
 
@@ -86,25 +97,16 @@ class SurgeOfPower extends Analyzer {
     );
   }
 
-  get suggestionThresholds() {
-    return {
-      actual: this.skSopCasts / this.skCasts,
-      isLessThan: {
-        minor: 0.9,
-        average: 0.75,
-        major: 0.5,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  suggestions(when: When){
+  suggestions(when: When) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>You should aim to empower all of your Stormkeeper lightning bolts with Surge of Power. You can accomplish this
         consistently by pooling to 95+ maelstrom right before Stormkeeper is available, then casting ES {'->'} SK {'->'} LB {'->'} LvB {'->'} ES {'->'} LB.</span>)
-          .icon(SPELLS.SURGE_OF_POWER_TALENT.icon)
-          .actual(i18n._(t('shaman.elemental.suggestions.surgeOfPower.stormKeeperEmpowered')`${formatPercentage(actual)}% of Stormkeeper Lightning Bolts empowered with Surge`))
-          .recommended(`100% is recommended.`));
+        .icon(SPELLS.SURGE_OF_POWER_TALENT.icon)
+        .actual(t({
+      id: "shaman.elemental.suggestions.surgeOfPower.stormKeeperEmpowered",
+      message: `${formatPercentage(actual)}% of Stormkeeper Lightning Bolts empowered with Surge`
+    }))
+        .recommended(`100% is recommended.`));
   }
 }
 

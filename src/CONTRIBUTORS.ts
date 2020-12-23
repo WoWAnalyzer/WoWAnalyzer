@@ -774,7 +774,7 @@ export const Adoraci: Contributor = {
     name: 'Adoraci',
     spec: SPECS.SHADOW_PRIEST,
     link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/adoraci',
-  }], 
+  }],
   alts: [{
     name: 'Zenavi',
     spec: SPECS.FURY_WARRIOR,
@@ -1021,4 +1021,76 @@ export const Mae: Contributor = {
     spec: SPECS.RESTORATION_SHAMAN,
     link: 'https://worldofwarcraft.com/en-gb/character/eu/draenor/maerstrom'
   }]
-}
+};
+
+export const Keraldi: Contributor = {
+  nickname: 'Keraldi',
+  github: 'Keraldi',
+  discord: 'Keraldi#0001',
+};
+
+export const VMakaev: Contributor = {
+  nickname: 'VMakaev',
+  github: 'vladimirmakaev',
+  discord: 'Vladimir#5076',
+  mains: [{
+    name: 'Kaylleen',
+    spec: SPECS.DISCIPLINE_PRIEST,
+    link: 'https://worldofwarcraft.com/en-gb/character/eu/silvermoon/kaylleen'
+  }, {
+    name: 'Elastan',
+    spec: SPECS.PROTECTION_PALADIN,
+    link: 'https://worldofwarcraft.com/en-gb/character/eu/silvermoon/elastan'
+  }]
+};
+
+export const Maleficien: Contributor = {
+  nickname: 'Maleficien',
+  github: 'kevindqc',
+  discord: 'DaRkViRuS#1070',
+  mains: [{
+    name: 'Maleficien',
+    spec: SPECS.AFFLICTION_WARLOCK,
+    link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/maleficien'
+  }]
+};
+export const Xcessiv: Contributor = {
+  nickname: 'Xcessiv',
+  github: 'jwmclark',
+  avatar: require('./interface/images/avatars/xcessiv-avatar.jpg'),
+  discord: 'Xcessiv#6732',
+  mains: [{
+    name: 'Xcessiv',
+    spec: SPECS.FERAL_DRUID,
+    link: 'https://worldofwarcraft.com/en-us/character/us/thrall/xcessiv',
+  }],
+};
+
+export const Tora: Contributor = {
+  nickname: "Tora",
+  github: "RobinKa",
+  discord: "Tora#1871",
+  mains: [{
+    name: "Nuhrok",
+    spec: SPECS.FERAL_DRUID,
+    link: "https://worldofwarcraft.com/en-gb/character/eu/tarren-mill/Nuhrok"
+  }],
+  links: {
+    "Website": "https://warlock.ai"
+  },
+};
+
+export const Kettlepaw: Contributor = {
+  nickname: 'Kettlepaw',
+  github: 'abbottmg',
+  discord: 'abbott#2506',
+  mains: [{
+    name: 'Caeldrim',
+    spec: SPECS.GUARDIAN_DRUID,
+    link: 'https://worldofwarcraft.com/en-us/character/us/wyrmrest-accord/caeldrim',
+  }, {
+    name: 'Kettlepaw',
+    spec: SPECS.BREWMASTER_MONK,
+    link: 'https://worldofwarcraft.com/en-us/character/us/wyrmrest-accord/kettlepaw',
+  }],
+};

@@ -50,7 +50,8 @@ const RestorationDruidChecklist = ({ combatant, castEfficiency, thresholds }) =>
             </>
           )}
           tooltip="This is your ratio of Wild Growth casts to Rejuvenation casts. If this number is too low, it probably indicates you were missing good opportunities to cast Wild Growth."
-          thresholds={thresholds.wildGrowthRatio} />
+          thresholds={thresholds.wildGrowthRatio}
+        />
         <Requirement
           name={(
             <>
@@ -58,7 +59,8 @@ const RestorationDruidChecklist = ({ combatant, castEfficiency, thresholds }) =>
             </>
           )}
           tooltip="This is your percent of Wild Growth casts that hit too few wounded targets. Low target casts happen either by casting it when almost all the raid was full health, or casting it on an isolated target. Remember that Wild Growth can only apply to players within 30 yds of the primary target, so if you use it on a target far away from the rest of the raid your cast will not be effective."
-          thresholds={thresholds.wildGrowthPercentBelowRecommendedCasts} />
+          thresholds={thresholds.wildGrowthPercentBelowRecommendedCasts}
+        />
         <Requirement
           name={(
             <>
@@ -66,7 +68,8 @@ const RestorationDruidChecklist = ({ combatant, castEfficiency, thresholds }) =>
             </>
           )}
           tooltip="This is your percent of Wild Growth casts that has high initial overhealing. Wild Growth does most of it's healing initially and declines over duration. Make sure you are not precasting it before damaging event but after damage occurs."
-          thresholds={thresholds.wildGrowthPercentBelowRecommendedPrecasts} />
+          thresholds={thresholds.wildGrowthPercentBelowRecommendedPrecasts}
+        />
       </Rule>
       <Rule
         name="Use your healing cooldowns"
@@ -112,15 +115,15 @@ const RestorationDruidChecklist = ({ combatant, castEfficiency, thresholds }) =>
             Casting on targets who don't need healing or recklessly using inefficienct heals can result in running out of mana well before an encounter ends. Adapt your spell use to the situation, and as a rule of thumb try and keep your current mana percentage just above the bosses health percentage.
           </>
         )}
-        >
+      >
         <Requirement
           name={(
             <>
               Mana saved during <SpellLink id={SPELLS.INNERVATE.id} />
             </>
           )}
-          thresholds={thresholds.innervateAverageManaSaved}
-          tooltip="All spells cost no mana during Innervate, so take care to chain cast for its duration. Typically this means casting a Wild Growth, refreshing Efflorescence, and spamming Rejuvenation. It's also fine to Regrowth a target that is in immediate danger of dying."
+          thresholds={thresholds.innervateManaSaved}
+          tooltip="All spells cost less mana during Innervate, so take care to chain cast for its duration. Typically this means casting a Wild Growth, refreshing Efflorescence, and spamming Rejuvenation. It's also fine to Regrowth a target that is in immediate danger of dying."
         />
         <Requirement
           name={(
@@ -161,7 +164,7 @@ const RestorationDruidChecklist = ({ combatant, castEfficiency, thresholds }) =>
             Different talent choices can be more or less effective depending on the fight. Listed below you will see how much throughput some talents were providing.
           </>
         )}
-        >
+      >
         {combatant.hasTalent(SPELLS.CULTIVATION.id) && (
           <Requirement
             name={(<><SpellLink id={SPELLS.CULTIVATION.id} /> throughput</>)}

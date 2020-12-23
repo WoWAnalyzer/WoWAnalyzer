@@ -1,13 +1,12 @@
-
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import SPECS from 'game/SPECS';
-import ITEMS from 'common/ITEMS/index';
+import ITEMS from 'common/ITEMS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ItemLink from 'common/ItemLink';
 import Events, { ApplyBuffEvent, CastEvent, FilterCooldownInfoEvent } from 'parser/core/Events';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 import React from 'react';
 import { Trans } from '@lingui/macro';
@@ -65,8 +64,8 @@ const HEALER_SPECS: number[] = [
   SPECS.RESTORATION_SHAMAN.id,
 ];
 
-const DEADLY_FIXATION: number[] = [
-  //Deadly Fixation Potion specs
+const DEATHLY_FIXATION: number[] = [
+  //Deathly Fixation Potion specs
 ];
 
 const EMPOWERED_EXORCISMS: number[] = [
@@ -85,25 +84,7 @@ const SACRIFICIAL_ANIMA: number[] = [
   //Sacrificial Anima Potion Specs
 ];
 
-
-const WEAK_POTIONS: number[] = [
-  SPELLS.BATTLE_POTION_OF_INTELLECT.id,
-  SPELLS.BATTLE_POTION_OF_STRENGTH.id,
-  SPELLS.BATTLE_POTION_OF_AGILITY.id,
-  SPELLS.BATTLE_POTION_OF_STAMINA.id,
-  SPELLS.POTION_OF_RISING_DEATH.id,
-  SPELLS.POTION_OF_BURSTING_BLOOD.id,
-  SPELLS.STEELSKIN_POTION.id,
-  SPELLS.SUPERIOR_BATTLE_POTION_OF_INTELLECT.id,
-  SPELLS.SUPERIOR_BATTLE_POTION_OF_STRENGTH.id,
-  SPELLS.SUPERIOR_BATTLE_POTION_OF_AGILITY.id,
-  SPELLS.SUPERIOR_BATTLE_POTION_OF_STAMINA.id,
-  SPELLS.SUPERIOR_STEELSKIN_POTION.id,
-  SPELLS.POTION_OF_UNBRIDLED_FURY.id,
-  SPELLS.POTION_OF_WILD_MENDING.id,
-  SPELLS.POTION_OF_FOCUSED_RESOLVE.id,
-  SPELLS.POTION_OF_EMPOWERED_PROXIMITY.id,
-];
+const WEAK_POTIONS: number[] = [];
 
 const STRONG_POTIONS: number[] = [
   SPELLS.POTION_OF_SPECTRAL_AGILITY.id,
@@ -115,6 +96,8 @@ const STRONG_POTIONS: number[] = [
   SPELLS.POTION_OF_PHANTOM_FIRE.id,
   SPELLS.POTION_OF_DIVINE_AWAKENING.id,
   SPELLS.POTION_OF_SACRIFICIAL_ANIMA.id,
+  SPELLS.POTION_OF_SPIRITUAL_CLARITY.id,
+  SPELLS.POTION_OF_PHANTOM_FIRE.id,
 ];
 
 export const COMBAT_POTIONS: number[] = [
@@ -139,13 +122,12 @@ class PotionChecker extends Analyzer {
   potionsUsed = 0;
   weakPotionsUsed = 0;
   strongPotionsUsed = 0;
-  potionId = ITEMS.SUPERIOR_BATTLE_POTION_OF_INTELLECT.id; //Giving it an initial value to prevent crashing
-  potionIcon = ITEMS.SUPERIOR_BATTLE_POTION_OF_INTELLECT.icon; //Giving it an initial value to prevent crashing
+  potionId = ITEMS.POTION_OF_SPECTRAL_INTELLECT.id; //Giving it an initial value to prevent crashing
+  potionIcon = ITEMS.POTION_OF_SPECTRAL_INTELLECT.icon; //Giving it an initial value to prevent crashing
   strongPotionId = ITEMS.POTION_OF_SPECTRAL_INTELLECT.id;
   strongPotionIcon = ITEMS.POTION_OF_SPECTRAL_INTELLECT.icon;
   neededManaSecondPotion = false;
   addedSuggestionText = false;
-  alternatePotion = null;
   isHealer = false;
 
   constructor(args: Options) {
@@ -156,7 +138,7 @@ class PotionChecker extends Analyzer {
     this.addEventListener(Events.fightend, this._fightend);
   }
 
-  _applybuff(event: ApplyBuffEvent){
+  _applybuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
     if (WEAK_POTIONS.includes(spellId) && event.prepull && event.timestamp <= this.owner.fight.start_time - this.owner.fight.offset_time) {
       this.potionsUsed += 1;
@@ -175,6 +157,7 @@ class PotionChecker extends Analyzer {
       this.potionsUsed += 1;
       this.weakPotionsUsed += 1;
     }
+
     if (STRONG_POTIONS.includes(spellId) && event.timestamp > this.owner.fight.start_time - this.owner.fight.offset_time) {
       this.potionsUsed += 1;
       this.strongPotionsUsed += 1;
@@ -210,21 +193,21 @@ class PotionChecker extends Analyzer {
       style: ThresholdStyle.NUMBER,
     };
   }
+
   get potionStrengthThresholds() {
     return {
-      actual: this.strongPotionsUsed,
-      isLessThan: {
-        minor: this.maxPotions,
+      actual: this.weakPotionsUsed,
+      isGreaterThan: {
+        minor: 0,
       },
       style: ThresholdStyle.NUMBER,
     };
   }
 
   potionAdjuster(specID: number) {
-    this.alternatePotion = STR_SPECS.includes(specID) ? ITEMS.POTION_OF_SPECTRAL_STRENGTH.id : AGI_SPECS.includes(specID) ? ITEMS.POTION_OF_SPECTRAL_AGILITY.id : ITEMS.POTION_OF_SPECTRAL_INTELLECT.id;
-    if (DEADLY_FIXATION.includes(specID)) {
-      this.potionId = ITEMS.POTION_OF_DEADLY_FIXATION.id;
-      this.potionIcon = ITEMS.POTION_OF_DEADLY_FIXATION.icon;
+    if (DEATHLY_FIXATION.includes(specID)) {
+      this.potionId = ITEMS.POTION_OF_DEATHLY_FIXATION.id;
+      this.potionIcon = ITEMS.POTION_OF_DEATHLY_FIXATION.icon;
       this.addedSuggestionText = true;
     } else if (EMPOWERED_EXORCISMS.includes(specID)) {
       this.potionId = ITEMS.POTION_OF_EMPOWERED_EXORCISMS.id;
@@ -273,13 +256,13 @@ class PotionChecker extends Analyzer {
     this.potionAdjuster(this.selectedCombatant.specId);
     this.setStrongPotionForSpec(this.selectedCombatant.specId);
     when(this.potionsUsedThresholds)
-      .addSuggestion((suggest) => 
-        suggest(<Trans id="shared.modules.items.potionChecker.suggestions.potionsUsed">You used {this.potionsUsed} combat potions during this encounter, but you could have used {this.maxPotions}. Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter.</Trans>)
+      .addSuggestion((suggest) =>
+        suggest(<Trans id="shared.modules.items.potionChecker.suggestions.potionsUsed">You used {this.potionsUsed} combat {this.potionsUsed === 1 ? 'potion' : 'potions'} during this encounter, but you could have used {this.maxPotions}. Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter.</Trans>)
           .icon(this.strongPotionIcon)
           .staticImportance(SUGGESTION_IMPORTANCE.REGULAR));
     when(this.potionStrengthThresholds)
-      .addSuggestion((suggest) => 
-        suggest(<Trans id="shared.modules.items.potionChecker.suggestions.weakPotion">You used a weak potion. <ItemLink id={this.strongPotionId} /> can be used instead of <ItemLink id={this.potionId} /> in order to get a slightly higher damage output.</Trans>)
+      .addSuggestion((suggest) =>
+        suggest(<Trans id="shared.modules.items.potionChecker.suggestions.weakPotion">You used {this.weakPotionsUsed} weak {this.weakPotionsUsed === 1 ? 'potion' : 'potions'}. <ItemLink id={this.strongPotionId} /> should be used in order to get a slightly higher damage output.</Trans>)
           .icon(this.strongPotionIcon)
           .staticImportance(SUGGESTION_IMPORTANCE.MINOR));
   }

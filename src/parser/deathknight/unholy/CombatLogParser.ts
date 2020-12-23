@@ -12,6 +12,8 @@ import VirulentPlagueEfficiency from './modules/features/VirulentPlagueEfficienc
 import WoundTracker from './modules/features/WoundTracker';
 import SpellUsable from './modules/features/SpellUsable'
 
+import SoulReaper from './modules/talents/SoulReaper';
+
 import RunicPowerDetails from './modules/runicpower/RunicPowerDetails';
 import RunicPowerTracker from './modules/runicpower/RunicPowerTracker';
 
@@ -21,6 +23,12 @@ import RuneDetails from '../shared/RuneDetails';
 // Runes
 import RuneOfTheFallenCrusader from '../shared/runeforges/RuneOfTheFallenCrusader';
 import RuneOfHysteria from '../shared/runeforges/RuneOfHysteria';
+
+// Legendaries
+import Superstrain from '../shared/items/Superstrain';
+
+// Covenants
+import SwarmingMist from '../shared/covenants/SwarmingMist';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -36,6 +44,9 @@ class CombatLogParser extends CoreCombatLogParser {
     woundTracker: WoundTracker,
     spellUsable: SpellUsable,
 
+    // Talents
+    soulReaper: SoulReaper,
+
     // RunicPower
     runicPowerTracker: RunicPowerTracker,
     runicPowerDetails: RunicPowerDetails,
@@ -47,6 +58,12 @@ class CombatLogParser extends CoreCombatLogParser {
     // Runes
     runeOfTheFallenCrusader: RuneOfTheFallenCrusader,
     runeOfHysteria: RuneOfHysteria,
+
+    // Legendaries
+    superStrain: Superstrain,
+
+    // Covenants
+    swarmingMist: SwarmingMist,
 
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,
   };

@@ -1,6 +1,4 @@
-import { LegendarySpell, SpellList } from 'common/SPELLS/Spell';
-
-const legendaries: SpellList<LegendarySpell> = {
+const legendaries = {
   DISCIPLINARY_COMMAND: {
     id: 327365,
     name: 'Disciplinary Command',
@@ -71,6 +69,11 @@ const legendaries: SpellList<LegendarySpell> = {
     icon: 'spell_fire_burnout',
     bonusID: 6932,
   },
+  FIRESTORM_BUFF: {
+    id: 333100,
+    name: 'Firestorm',
+    icon: 'spell_fire_burnout',
+  },
   SUN_KINGS_BLESSING: {
     id: 333313,
     name: 'Sun King\'s Blessing',
@@ -95,11 +98,16 @@ const legendaries: SpellList<LegendarySpell> = {
     icon: 'artifactability_frostmage_blackicicles',
     bonusID: 6830,
   },
+  GLACIAL_FRAGMENTS_DAMAGE: {
+    id : 327498, 
+    name: 'Glacial Fragments',
+    icon: 'artifactability_frostmage_blackicicles',
+  },
   SLICK_ICE: {
     id: 327508,
     name: 'Slick Ice',
     icon: 'inv_enchant_shardshadowfrostlarge',
     bonusID: 6823,
   },
-};
+} as const;
 export default legendaries;

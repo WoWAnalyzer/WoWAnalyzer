@@ -7,21 +7,27 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import EventHistory from 'parser/shared/modules/EventHistory';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { CastEvent, DamageEvent, ChangeBuffStackEvent } from 'parser/core/Events';
 import { MS_BUFFER_100, SHATTER_DEBUFFS } from 'parser/mage/shared/constants';
-import { i18n } from '@lingui/core';
-import { t } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 
 class IceLance extends Analyzer {
   static dependencies = {
     enemies: EnemyInstances,
     abilityTracker: AbilityTracker,
+    eventHistory: EventHistory,
+    spellUsable: SpellUsable,
   };
   protected enemies!: EnemyInstances;
   protected abilityTracker!: AbilityTracker;
+  protected eventHistory!: EventHistory;
+  protected spellUsable!: SpellUsable;
 
+  hasGlacialFragments: boolean;
   hadFingersProc = false;
   iceLanceTargetId = "";
   nonShatteredCasts = 0;
@@ -33,6 +39,7 @@ class IceLance extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.hasGlacialFragments = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.GLACIAL_FRAGMENTS.bonusID);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ICE_LANCE), this.onCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ICE_LANCE_DAMAGE), this.onDamage);
     this.addEventListener(Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.FINGERS_OF_FROST), this.onFingersStackChange);
@@ -54,6 +61,15 @@ class IceLance extends Analyzer {
     if (this.iceLanceTargetId !== damageTarget) {
       return;
     }
+
+    //If the player has Glacial Fragments, Blizzard is active (checking its CD because the spell lasts as long as it's cooldown), and the target is in a Blizzard, then do not count it against the player
+    const recentBlizzardHit = this.eventHistory.last(1, 1000, Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLIZZARD_DAMAGE))[0];
+    const blizzardOnCooldown = this.spellUsable.isOnCooldown(SPELLS.BLIZZARD.id);
+    if (this.hasGlacialFragments && recentBlizzardHit && blizzardOnCooldown) {
+      return;
+    }
+
+
     const enemy = this.enemies.getEntity(event);
     if (enemy && !SHATTER_DEBUFFS.some(effect => enemy.hasBuff(effect.id, event.timestamp)) && !this.hadFingersProc) {
       this.nonShatteredCasts += 1;
@@ -114,7 +130,7 @@ class IceLance extends Analyzer {
     when(this.nonShatteredIceLanceThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.ICE_LANCE.id} /> {this.nonShatteredCasts} times ({formatPercentage(actual)}%) without <SpellLink id={SPELLS.SHATTER.id} />. Make sure that you are only casting Ice Lance when the target has <SpellLink id={SPELLS.WINTERS_CHILL.id} /> (or other Shatter effects), if you have a <SpellLink id={SPELLS.FINGERS_OF_FROST.id} /> proc, or if you are moving and you cant cast anything else.</>)
           .icon(SPELLS.ICE_LANCE.icon)
-          .actual(i18n._(t('mage.frost.suggestions.iceLance.nonShatterCasts')`${formatPercentage(actual)}% missed`))
+          .actual(<Trans id="mage.frost.suggestions.iceLance.nonShatterCasts">{formatPercentage(actual)}% missed</Trans>)
           .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 

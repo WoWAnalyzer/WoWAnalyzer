@@ -9,12 +9,13 @@ import { formatDuration, formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
-import Events, { ApplyBuffEvent, ApplyBuffStackEvent, EventType, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, ApplyBuffStackEvent, EnergizeEvent, EventType, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
-import { i18n } from '@lingui/core';
-import { t } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 
-import { MAX_FRENZY_STACKS } from '../../constants';
+import { NESINGWARY_FOCUS_GAIN_MULTIPLIER } from 'parser/hunter/shared/constants';
+
+import { BARBED_SHOT_FOCUS_REGEN_BUFFS, BARBED_SHOT_REGEN, MAX_FRENZY_STACKS } from '../../constants';
 
 /**
  * Fire a shot that tears through your enemy, causing them to bleed for X damage over 8 sec. Sends your pet into a frenzy, increasing attack speed by 30% for 8 sec, stacking up to 3 times.
@@ -24,9 +25,12 @@ import { MAX_FRENZY_STACKS } from '../../constants';
  */
 
 class BarbedShot extends Analyzer {
+
   barbedShotStacks: number[][] = [];
   lastBarbedShotStack: number = 0;
   lastBarbedShotUpdate: number = this.owner.fight.start_time;
+  additionalFocusFromNesingwary = 0;
+  possibleAdditionalFocusFromNesingwary = 0;
 
   constructor(options: Options) {
     super(options);
@@ -35,6 +39,8 @@ class BarbedShot extends Analyzer {
     this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.BARBED_SHOT_PET_BUFF), this.handleStacks);
     this.addEventListener(Events.removebuff.to(SELECTED_PLAYER_PET).spell(SPELLS.BARBED_SHOT_PET_BUFF), this.handleStacks);
     this.addEventListener(Events.fightend, this.handleStacks);
+    this.selectedCombatant.hasLegendaryByBonusID(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT.bonusID) && this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(BARBED_SHOT_FOCUS_REGEN_BUFFS), this.checkNesingwaryFocusGain);
+
   }
 
   get barbedShotTimesByStacks() {
@@ -63,36 +69,24 @@ class BarbedShot extends Analyzer {
     return {
       actual: this.percentUptimePet,
       isLessThan: {
-        minor: 0.90,
-        average: 0.825,
-        major: 0.75,
+        minor: 0.95,
+        average: 0.9,
+        major: 0.85,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
   }
 
   get frenzy3StackThreshold() {
-    if (this.selectedCombatant.hasTrait(SPELLS.FEEDING_FRENZY.id)) {
-      return {
-        actual: this.percentUptimeMaxStacks,
-        isLessThan: {
-          minor: 0.85,
-          average: 0.80,
-          major: 0.75,
-        },
-        style: ThresholdStyle.PERCENTAGE,
-      };
-    } else {
-      return {
-        actual: this.percentUptimeMaxStacks,
-        isLessThan: {
-          minor: 0.75,
-          average: 0.70,
-          major: 0.65,
-        },
-        style: ThresholdStyle.PERCENTAGE,
-      };
-    }
+    return {
+      actual: this.percentUptimeMaxStacks,
+      isLessThan: {
+        minor: 0.85,
+        average: 0.80,
+        major: 0.75,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
   }
 
   handleStacks(event: RemoveBuffEvent | ApplyBuffEvent | ApplyBuffStackEvent | FightEndEvent) {
@@ -112,15 +106,23 @@ class BarbedShot extends Analyzer {
     return avgStacks;
   }
 
+  checkNesingwaryFocusGain(event: EnergizeEvent) {
+    const waste = BARBED_SHOT_REGEN - event.resourceChange;
+    if (this.selectedCombatant.hasBuff(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_ENERGIZE.id)) {
+      this.additionalFocusFromNesingwary += event.resourceChange * (1 - 1 / NESINGWARY_FOCUS_GAIN_MULTIPLIER) - waste;
+      this.possibleAdditionalFocusFromNesingwary += BARBED_SHOT_REGEN;
+    }
+  }
+
   suggestions(when: When) {
     when(this.frenzyUptimeThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>Your pet has a general low uptime of the buff from <SpellLink id={SPELLS.BARBED_SHOT.id} />, you should never be sitting on 2 stacks of this spell. </>)
       .icon(SPELLS.BARBED_SHOT.icon)
-      .actual(i18n._(t('hunter.beastmastery.suggestions.barbedShot.petBuff.uptime')`Your pet had the buff from Barbed Shot for ${formatPercentage(actual)}% of the fight`))
-      .recommended(`${formatPercentage(recommended)}% is recommended`));
+      .actual(<Trans id='hunter.beastmastery.suggestions.barbedShot.petBuff.uptime'>Your pet had the buff from Barbed Shot for {formatPercentage(actual)}% of the fight </Trans>)
+      .recommended(<Trans id='hunter.beastmastery.suggestions.barbedShot.petBuff.recommended'>{formatPercentage(recommended)}% is recommended </Trans>));
     when(this.frenzy3StackThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>Your pet has a general low uptime of the 3 stacked buff from <SpellLink id={SPELLS.BARBED_SHOT.id} />. It's important to try and maintain the buff at 3 stacks for as long as possible, this is done by spacing out your casts, but at the same time never letting them cap on charges. </>)
       .icon(SPELLS.BARBED_SHOT.icon)
-      .actual(i18n._(t('hunter.beastmastery.suggestions.barbedShot.threeStacks.uptime')`Your pet had 3 stacks of the buff from Barbed Shot for ${formatPercentage(actual)}% of the fight`))
-      .recommended(`${formatPercentage(recommended)}% is recommended`));
+      .actual(<Trans id='hunter.beastmastery.suggestions.barbedShot.threeStacks.uptime'>Your pet had 3 stacks of the buff from Barbed Shot for {formatPercentage(actual)}% of the fight</Trans>)
+      .recommended(<Trans id='hunter.beastmastery.suggestions.barbedShot.threeStacks.recommended'>{formatPercentage(recommended)}% is recommended </Trans>));
   }
 
   statistic() {

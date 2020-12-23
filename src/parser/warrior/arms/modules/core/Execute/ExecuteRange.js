@@ -15,7 +15,7 @@ const EXECUTE_RANGE_MASSACRE = 0.35;
  */
 class ExecuteRangeTracker extends Analyzer {
 
-  execRange = (this.selectedCombatant.hasTalent(SPELLS.MASSACRE_TALENT_ARMS.id) ? EXECUTE_RANGE_MASSACRE : EXECUTE_RANGE);
+  execRange = (this.selectedCombatant.hasTalent(SPELLS.MASSACRE_ARMS_TALENT.id) ? EXECUTE_RANGE_MASSACRE : EXECUTE_RANGE);
   enemyMap = {};
 
   isExecPhase = false;
@@ -43,20 +43,20 @@ class ExecuteRangeTracker extends Analyzer {
     if (this.isTargetInExecuteRange(event) && !this.isExecPhase) {
       this.isExecPhase = true;
       this.execPhaseStart = event.timestamp;
-      debug && console.log("Execution phase started");
+      debug && console.log('Execution phase started');
     }
 
     if (!this.isTargetInExecuteRange(event) && this.isExecPhase && event.timestamp > this.lastHitInExecPhase + 2000) {
       this.isExecPhase = false;
       this.execPhaseDuration += event.timestamp - this.execPhaseStart;
-      debug && console.log("Execution phase finished, total duration: " + this.execPhaseDuration);
+      debug && console.log('Execution phase finished, total duration: ' + this.execPhaseDuration);
     }
   }
 
   _onFinished(event) {
     if (this.isExecPhase) {
       this.execPhaseDuration += event.timestamp - this.execPhaseStart;
-      debug && console.log("Execution phase finished, total duration: " + this.execPhaseDuration);
+      debug && console.log('Execution phase finished, total duration: ' + this.execPhaseDuration);
     }
   }
 

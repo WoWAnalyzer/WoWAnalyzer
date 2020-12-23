@@ -1,8 +1,11 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const legendaries: SpellList = {
+const legendaries = {
   //region Holy
-
+  SHOCK_BARRIER: {
+    id: 337824,
+    name: 'Shock Barrier',
+    icon: 'ability_paladin_blessedmending',
+    bonusID: 7059,
+  },
   //endregion
 
   //region Protection
@@ -16,5 +19,5 @@ const legendaries: SpellList = {
   //region Shared
 
   //endregion
-};
+} as const;
 export default legendaries;

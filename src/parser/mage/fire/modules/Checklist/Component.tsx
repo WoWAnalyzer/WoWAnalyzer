@@ -32,7 +32,6 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
         <AbilityRequirement spell={SPELLS.COMBUSTION.id} />
         <AbilityRequirement spell={SPELLS.FIRE_BLAST.id} />
         <AbilityRequirement spell={SPELLS.PHOENIX_FLAMES.id} />
-        <AbilityRequirement spell={SPELLS.MIRROR_IMAGE.id} />
         {combatant.hasTalent(SPELLS.BLAST_WAVE_TALENT.id) && <AbilityRequirement spell={SPELLS.BLAST_WAVE_TALENT.id} />}
         {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) && <AbilityRequirement spell={SPELLS.RUNE_OF_POWER_TALENT.id} />}
         {combatant.hasTalent(SPELLS.LIVING_BOMB_TALENT.id) && <AbilityRequirement spell={SPELLS.LIVING_BOMB_TALENT.id} />}
@@ -77,6 +76,11 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
           name="Bad Fireball Uses"
           thresholds={thresholds.fireballSpellUsageDuringCombustion}
           tooltip="Due to Combustion's short duration, you should never cast Fireball during Combustion. Instead, you should use your instant cast abilities like Fireblast and Phoenix Flames. If you run out of instant abilities, cast Scorch instead since it's cast time is shorter."
+        />
+        <Requirement
+          name="Combustion Active time"
+          tooltip="In order to get the most out of Combustion, which is a large contributor to your damage, you should ensure that you are using every second of the cooldown to cast spells and get damage out. Any time spent not casting anything during Combustion is a major loss of damage."
+          thresholds={thresholds.combustionActiveTime}
         />
       </Rule>
       <Rule

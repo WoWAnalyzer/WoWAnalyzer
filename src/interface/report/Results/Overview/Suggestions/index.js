@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Toggle from 'react-toggle';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 
 import Icon from 'common/Icon';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';

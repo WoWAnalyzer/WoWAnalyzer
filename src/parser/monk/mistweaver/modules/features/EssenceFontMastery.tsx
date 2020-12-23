@@ -13,7 +13,6 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 const debug = false;
@@ -22,9 +21,6 @@ class EssenceFontMastery extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
-
-  protected combatants!: Combatants;
-
   healEF: number = 0;
   healing: number = 0;
   castEF: number = 0;
@@ -32,33 +28,13 @@ class EssenceFontMastery extends Analyzer {
   hasUpwelling: boolean = false;
   secondGustHealing: number = 0;
   secondGustOverheal: number = 0;
+  protected combatants!: Combatants;
 
-
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
     this.hasUpwelling = this.selectedCombatant.hasTalent(SPELLS.UPWELLING_TALENT.id);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS), this.gustHealing);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT), this.efCast);
-  }
-
-  gustHealing(event: HealEvent) {
-    const targetId = event.targetID;
-      if (!this.combatants.players[targetId]) {
-        return;
-      }
-      if (this.combatants.players[targetId].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0, event.sourceID) && !this.gustHeal) {
-        debug && console.log(`First Gust Heal: Player ID: ${event.targetID}  Timestamp: ${event.timestamp}`);
-        this.healEF += 1;
-        this.gustHeal = true;
-      } else if (this.combatants.players[targetId].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0, event.sourceID) && this.gustHeal) {
-        this.healEF += 1;
-        this.healing += (event.amount || 0) + (event.absorbed || 0);
-        this.gustHeal = false;
-      }
-  }
-
-  efCast(event: CastEvent) {
-    this.castEF += 1;
   }
 
   get avgMasteryCastsPerEF() {
@@ -79,27 +55,50 @@ class EssenceFontMastery extends Analyzer {
         style: ThresholdStyle.DECIMAL,
       };
     } else {
-     return {
+      return {
         actual: this.avgMasteryCastsPerEF,
         isLessThan: {
           minor: 3,
           average: 2.5,
           major: 2,
-       },
-       style: ThresholdStyle.DECIMAL,
+        },
+        style: ThresholdStyle.DECIMAL,
       };
-   }
+    }
+  }
+
+  gustHealing(event: HealEvent) {
+    const targetId = event.targetID;
+    if (!this.combatants.players[targetId]) {
+      return;
+    }
+    if (this.combatants.players[targetId].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0, event.sourceID) && !this.gustHeal) {
+      debug && console.log(`First Gust Heal: Player ID: ${event.targetID}  Timestamp: ${event.timestamp}`);
+      this.healEF += 1;
+      this.gustHeal = true;
+    } else if (this.combatants.players[targetId].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0, event.sourceID) && this.gustHeal) {
+      this.healEF += 1;
+      this.healing += (event.amount || 0) + (event.absorbed || 0);
+      this.gustHeal = false;
+    }
+  }
+
+  efCast(event: CastEvent) {
+    this.castEF += 1;
   }
 
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-          <>
-            You are currently not utilizing your <SpellLink id={SPELLS.ESSENCE_FONT.id} /> HOT buffs effectively. Casting into injured targets with the <SpellLink id={SPELLS.ESSENCE_FONT.id} /> allows you to take advantage of the double <SpellLink id={SPELLS.GUSTS_OF_MISTS.id} /> procs.
-          </>,
-        )
-          .icon(SPELLS.ESSENCE_FONT.icon)
-          .actual(i18n._(t('monk.mistweaver.suggestions.essenceFontMastery.averageHots')`${this.avgMasteryCastsPerEF.toFixed(2)} average EF HoTs`))
-          .recommended(`${recommended} or more EF HoTs utilized is recommended`));
+      <>
+        You are currently not utilizing your <SpellLink id={SPELLS.ESSENCE_FONT.id} /> HOT buffs effectively. Casting into injured targets with the <SpellLink id={SPELLS.ESSENCE_FONT.id} /> allows you to take advantage of the double <SpellLink id={SPELLS.GUSTS_OF_MISTS.id} /> procs.
+      </>,
+    )
+      .icon(SPELLS.ESSENCE_FONT.icon)
+      .actual(t({
+      id: "monk.mistweaver.suggestions.essenceFontMastery.averageHots",
+      message: `${this.avgMasteryCastsPerEF.toFixed(2)} average EF HoTs`
+    }))
+      .recommended(`${recommended} or more EF HoTs utilized is recommended`));
   }
 
   statistic() {

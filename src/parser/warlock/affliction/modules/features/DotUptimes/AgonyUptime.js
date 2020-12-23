@@ -10,14 +10,9 @@ import Enemies from 'parser/shared/modules/Enemies';
 
 import UptimeBar from 'interface/statistics/components/UptimeBar';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class AgonyUptime extends Analyzer {
-  static dependencies = {
-    enemies: Enemies,
-  };
-
   get uptime() {
     return this.enemies.getBuffUptime(SPELLS.AGONY.id) / this.owner.fightDuration;
   }
@@ -34,6 +29,10 @@ class AgonyUptime extends Analyzer {
     };
   }
 
+  static dependencies = {
+    enemies: Enemies,
+  };
+
   suggestions(when) {
     let text;
     if (this.selectedCombatant.hasTalent(SPELLS.WRITHE_IN_AGONY_TALENT.id)) {
@@ -43,9 +42,12 @@ class AgonyUptime extends Analyzer {
     }
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(text)
-          .icon(SPELLS.AGONY.icon)
-          .actual(i18n._(t('warlock.affliction.suggestions.agony.uptime')`${formatPercentage(actual)}% Agony uptime`))
-          .recommended(`> ${formatPercentage(recommended)}% is recommended`));
+        .icon(SPELLS.AGONY.icon)
+        .actual(t({
+      id: "warlock.affliction.suggestions.agony.uptime",
+      message: `${formatPercentage(actual)}% Agony uptime`
+    }))
+        .recommended(`> ${formatPercentage(recommended)}% is recommended`));
   }
 
   subStatistic() {

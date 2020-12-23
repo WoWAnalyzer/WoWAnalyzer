@@ -16,7 +16,6 @@ class RuptureSnapshot extends Snapshot {
   static spellCastId = SPELLS.RUPTURE.id;
   static debuffId = SPELLS.RUPTURE.id;
   static spellIcon = SPELLS.RUPTURE.icon;
-
   comboPointsOnLastCast = 0;
 
   constructor(options: Options) {

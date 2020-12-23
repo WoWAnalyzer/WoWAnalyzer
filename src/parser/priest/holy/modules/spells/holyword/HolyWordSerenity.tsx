@@ -6,6 +6,7 @@ import HolyWordBase from './HolyWordBase';
 const GREATER_HEAL_SERENDIPITY_REDUCTION = 6000;
 const FLASH_HEAL_SERENDIPITY_REDUCTION = 6000;
 const BINDING_HEAL_SERENDIPITY_REDUCTION = 3000;
+const PRAYER_OF_MENDING_SERENDIPITY_REDUCTION = 4000;
 
 class HolyWordSerenity extends HolyWordBase {
   constructor(options: Options) {
@@ -30,6 +31,14 @@ class HolyWordSerenity extends HolyWordBase {
         apotheosisReduction: () => BINDING_HEAL_SERENDIPITY_REDUCTION * this.apotheosisMultiplier,
       },
     };
+
+    if (this.selectedCombatant.hasLegendaryByBonusID(SPELLS.HARMONIOUS_APPARATUS.bonusID)) {
+      this.serendipityProccers[SPELLS.PRAYER_OF_MENDING_CAST.id] = {
+        baseReduction: () => PRAYER_OF_MENDING_SERENDIPITY_REDUCTION,
+        lightOfTheNaaruReduction: () => PRAYER_OF_MENDING_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,
+        apotheosisReduction: () => PRAYER_OF_MENDING_SERENDIPITY_REDUCTION * this.apotheosisMultiplier,
+      };
+    }
   }
 }
 

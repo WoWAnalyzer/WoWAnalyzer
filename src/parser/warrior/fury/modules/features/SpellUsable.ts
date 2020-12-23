@@ -7,15 +7,14 @@ const FURY_EXECUTES = [SPELLS.EXECUTE_FURY.id, SPELLS.EXECUTE_FURY_MASSACRE.id];
 
 class SpellUsable extends CoreSpellUsable {
   hasSuddenDeath = false;
-
-  constructor(options: Options) {
-    super(options);
-    this.hasSuddenDeath = this.selectedCombatant.hasTalent(SPELLS.SUDDEN_DEATH_TALENT_FURY.id);
-  }
-
   lastPotentialTriggerForRagingBlow: CastEvent | null = null;
   lastExecute: number | null = null;
   executeCdrEvents: number[] = [];
+
+  constructor(options: Options) {
+    super(options);
+    this.hasSuddenDeath = this.selectedCombatant.hasTalent(SPELLS.WAR_MACHINE_FURY_TALENT.id);
+  }
 
   onCast(event: CastEvent) {
     super.onCast(event);

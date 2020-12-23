@@ -10,7 +10,6 @@ import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { formatPercentage } from 'common/format';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
@@ -19,34 +18,59 @@ class SoothingMist extends Analyzer {
     channeling: CoreChanneling,
     statTracker: StatTracker,
   };
-
-  protected channeling!: CoreChanneling;
-  protected statTracker!: StatTracker;
-
   soomTicks: number = 0;
   gustProc: number = 0;
   gustsHealing: number = 0;
   lastSoomTickTimestamp: number = 0;
-
   startStamp: number = 0;
   endStamp: number = 0;
   soomInProgress: boolean = false;
   castsInSoom: number = 0;
   badSooms: number = 0;
   totalSoomCasts = 0;
-
   assumedGCD: number = 0;
   startGCD: number = 0;
+  protected channeling!: CoreChanneling;
+  protected statTracker!: StatTracker;
 
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
-    this.assumedGCD = 1500 *.95;
+    this.assumedGCD = 1500 * .95;
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SOOTHING_MIST), this.castSoothingMist);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.VIVIFY, SPELLS.ENVELOPING_MIST]), this.castDuringSoothingMist);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.SOOTHING_MIST), this.handleSoothingMist);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS), this.masterySoothingMist);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SOOTHING_MIST), this.removeBuffSoothingMist);
     this.addEventListener(Events.fightend, this.end);
+  }
+
+  get soomTicksPerDuration() {
+    const soomTicks = (this.soomTicks * 2 / this.owner.fightDuration * 1000) || 0;
+    return soomTicks >= 1.5;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.soomTicksPerDuration,
+      isEqual: true,
+      style: ThresholdStyle.BOOLEAN,
+    };
+  }
+
+  get soomThresholds() {
+    return (this.totalSoomCasts - this.badSooms) / this.totalSoomCasts;
+  }
+
+  get suggestionThresholdsCasting() {
+    return {
+      actual: this.soomThresholds,
+      isLessThan: {
+        minor: 1,
+        average: .95,
+        major: .9,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
   }
 
   handleSoothingMist(event: HealEvent) {
@@ -69,7 +93,7 @@ class SoothingMist extends Analyzer {
 
   castSoothingMist(event: CastEvent) {
     if (this.soomInProgress) {
-    //if they refresh soom for some stupid reason
+      //if they refresh soom for some stupid reason
       this.endStamp = event.timestamp;
       this.checkChannelTiming();
       this.castsInSoom = 0;
@@ -116,52 +140,26 @@ class SoothingMist extends Analyzer {
     }
   }
 
-  get soomTicksPerDuration() {
-    const soomTicks = (this.soomTicks * 2 / this.owner.fightDuration * 1000) || 0;
-    return soomTicks >= 1.5;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.soomTicksPerDuration,
-      isEqual: true,
-      style: ThresholdStyle.BOOLEAN,
-    };
-  }
-
-  get soomThresholds(){
-    return (this.totalSoomCasts - this.badSooms) / this.totalSoomCasts;
-  }
-
-  get suggestionThresholdsCasting(){
-    return {
-      actual: this.soomThresholds,
-      isLessThan: {
-        minor: 1,
-        average: .95,
-        major: .9,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest) => suggest(
-          <>
-            You are allowing <SpellLink id={SPELLS.SOOTHING_MIST.id} /> to channel for an extended period of time. <SpellLink id={SPELLS.SOOTHING_MIST.id} /> does little healing, so your time is better spent DPS'ing through the use of <SpellLink id={SPELLS.TIGER_PALM.id} /> and <SpellLink id={SPELLS.BLACKOUT_KICK.id} />.
-          </>,
-        )
-          .icon(SPELLS.SOOTHING_MIST.icon)
-          .staticImportance(SUGGESTION_IMPORTANCE.MAJOR));
+      <>
+        You are allowing <SpellLink id={SPELLS.SOOTHING_MIST.id} /> to channel for an extended period of time. <SpellLink id={SPELLS.SOOTHING_MIST.id} /> does little healing, so your time is better spent DPS'ing through the use of <SpellLink id={SPELLS.TIGER_PALM.id} /> and <SpellLink id={SPELLS.BLACKOUT_KICK.id} />.
+      </>,
+    )
+      .icon(SPELLS.SOOTHING_MIST.icon)
+      .staticImportance(SUGGESTION_IMPORTANCE.MAJOR));
 
     when(this.suggestionThresholdsCasting).addSuggestion((suggest, actual, recommended) => suggest(
-        <>
-          You were channeling <SpellLink id={SPELLS.SOOTHING_MIST.id} /> without casting spells during it. Replace this channel time with damage abilities like <SpellLink id={SPELLS.RISING_SUN_KICK.id} />.
-        </>,
-      )
-        .icon(SPELLS.SOOTHING_MIST.icon)
-        .actual(`${formatPercentage(this.badSooms / this.totalSoomCasts)}${i18n._(t('monk.mistweaver.suggestions.soothingMist.channelingWithoutCastingSpells')`% of Soothing Mist casts with max spells casted`)}`)
-        .recommended(`${recommended} is recommended`));
+      <>
+        You were channeling <SpellLink id={SPELLS.SOOTHING_MIST.id} /> without casting spells during it. Replace this channel time with damage abilities like <SpellLink id={SPELLS.RISING_SUN_KICK.id} />.
+      </>,
+    )
+      .icon(SPELLS.SOOTHING_MIST.icon)
+      .actual(`${formatPercentage(this.badSooms / this.totalSoomCasts)}${t({
+      id: "monk.mistweaver.suggestions.soothingMist.channelingWithoutCastingSpells",
+      message: `% of Soothing Mist casts with max spells casted`
+    })}`)
+      .recommended(`${recommended} is recommended`));
   }
 }
 

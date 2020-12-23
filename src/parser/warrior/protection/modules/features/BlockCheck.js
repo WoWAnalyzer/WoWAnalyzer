@@ -6,7 +6,6 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import Events from 'parser/core/Events';
@@ -17,51 +16,54 @@ const debug = false;
 
 //Moved from another file as it was easier to keep track of with this name
 class BlockCheck extends Analyzer {
+  get suggestionThresholds() {//was in here before but is/was never used and appears to be very high requirements that are unreasonable maybe lower and add laster?
+    return {
+      actual: this.rawDamageWithBlock / (this.rawDamageWithBlock + this.rawDamageWithoutBlock),
+      isLessThan: this.thresholdsToUse,
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
   static dependencies = {
     shieldBlock: ShieldBlock,
   };
-
   physicalHitsWithBlock = 0;
   physicalHitsWithoutBlock = 0;
   rawDamageWithBlock = 0;
   rawDamageWithoutBlock = 0;
-
   listOfEvents;
-
   bolster = this.selectedCombatant.hasTalent(SPELLS.BOLSTER_TALENT.id);
-  heavyRepercussions = this.selectedCombatant.hasTalent(SPELLS.HEAVY_REPERCUSSIONS_TALENT.id);
 
   //key to make variable names shorter
   //HR = heavyRepercussions
+  heavyRepercussions = this.selectedCombatant.hasTalent(SPELLS.HEAVY_REPERCUSSIONS_TALENT.id);
   //Bl = bolster
   noHRorBlThresholds = {//no HR and no BL
     minor: 0.4,
     average: 0.35,
     major: 0.3,
   };
-
   blnoHRThresholds = {//has BL doesn't have HR
     minor: 0.85,
     average: 0.75,
     major: 0.7,
-  }
-
+  };
   blHRThresholds = {//has BL and HR
     minor: 0.95,
     average: 0.9,
     major: 0.8,
-  }
-
+  };
   thresholdsToUse;
+  statisticOrder = STATISTIC_ORDER.CORE(10);
 
   constructor(...args) {
     super(...args);
     this.listOfEvents = [];
-    if(this.bolster && this.heavyRepercussions){
+    if (this.bolster && this.heavyRepercussions) {
       this.thresholdsToUse = this.blHRThresholds;
-    }else if(this.bolster && !this.heavyRepercussions){
+    } else if (this.bolster && !this.heavyRepercussions) {
       this.thresholdsToUse = this.blnoHRThresholds;
-    }else{
+    } else {
       this.thresholdsToUse = this.noHRorBlThresholds;
     }
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
@@ -82,14 +84,14 @@ class BlockCheck extends Analyzer {
   onFightend() {
     const blockableSet = new Set();//this is master list of all BLOCKED events in the fight
     blockableSet.add(1);//make it so if they never hit sb we still get data from the melees they take
-    this.shieldBlock.shieldBlocksDefensive.forEach(function(block){
-      block.eventSpellId.forEach(function(blockedAbility){
+    this.shieldBlock.shieldBlocksDefensive.forEach(function(block) {
+      block.eventSpellId.forEach(function(blockedAbility) {
         blockableSet.add(blockedAbility);//just go through one set to another
       });
     });
 
     this.listOfEvents.forEach((event) => {
-      if(blockableSet.has(event.ability.guid)){//if it ain't been blocked over the whole fight it prob aint blockable
+      if (blockableSet.has(event.ability.guid)) {//if it ain't been blocked over the whole fight it prob aint blockable
         if (event.prot.shieldBlock || event.prot.bloster) {//they got block up when it happened?
           this.physicalHitsWithBlock += 1;
           this.rawDamageWithBlock += (event.unmitigatedAmount || 0);
@@ -106,20 +108,15 @@ class BlockCheck extends Analyzer {
     }
   }
 
-  get suggestionThresholds() {//was in here before but is/was never used and appears to be very high requirements that are unreasonable maybe lower and add laster?
-    return {
-      actual: this.rawDamageWithBlock / (this.rawDamageWithBlock + this.rawDamageWithoutBlock),
-      isLessThan: this.thresholdsToUse,
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
   suggestions(when) {
     when(this.suggestionThresholds)
-        .addSuggestion((suggest, actual, recommended) => suggest(<>You only had <SpellLink id={SPELLS.SHIELD_BLOCK_BUFF.id} /> or <SpellLink id={SPELLS.LAST_STAND.id} /> for {formatPercentage(actual)}% of physical damage taken. You should have one of the two up to mitigate as much physical damage as possible.</>)
-            .icon(SPELLS.SHIELD_BLOCK_BUFF.icon)
-            .actual(i18n._(t('warrior.protection.suggestions.block.damageMitigated')`${formatPercentage(actual)}% was mitigated by a block spell`))
-            .recommended(`${Math.round(formatPercentage(recommended))}% or more is recommended but this may vary between fights`));
+      .addSuggestion((suggest, actual, recommended) => suggest(<>You only had <SpellLink id={SPELLS.SHIELD_BLOCK_BUFF.id} /> or <SpellLink id={SPELLS.LAST_STAND.id} /> for {formatPercentage(actual)}% of physical damage taken. You should have one of the two up to mitigate as much physical damage as possible.</>)
+        .icon(SPELLS.SHIELD_BLOCK_BUFF.icon)
+        .actual(t({
+      id: "warrior.protection.suggestions.block.damageMitigated",
+      message: `${formatPercentage(actual)}% was mitigated by a block spell`
+    }))
+        .recommended(`${Math.round(formatPercentage(recommended))}% or more is recommended but this may vary between fights`));
   }
 
   statistic() {
@@ -129,7 +126,7 @@ class BlockCheck extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SHIELD_BLOCK_BUFF.id} />}
-        value={`${formatPercentage (physicalHitsMitigatedPercent)}%`}
+        value={`${formatPercentage(physicalHitsMitigatedPercent)}%`}
         label="Physical Hits Mitigated"
         tooltip={(
           <>
@@ -144,7 +141,6 @@ class BlockCheck extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(10);
 }
 
 export default BlockCheck;

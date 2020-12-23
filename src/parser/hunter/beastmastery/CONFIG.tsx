@@ -14,7 +14,7 @@ export default {
   contributors: [Putro],
   // The WoW client patch this spec was last updated to be fully compatible
   // with.
-  patchCompatibility: '9.0.1',
+  patchCompatibility: '9.0.2',
   // If set to  false`, the spec will show up as unsupported.
   isSupported: true,
   // Explain the status of this spec's analysis here. Try to mention how

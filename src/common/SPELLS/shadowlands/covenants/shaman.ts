@@ -1,6 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const covenants: SpellList = {
+const covenants = {
   //region Kyrian
 
   //endregion
@@ -10,6 +8,7 @@ const covenants: SpellList = {
     id: 326059,
     name: 'Primordial Wave',
     icon: 'ability_maldraxxus_shaman',
+    manaCost: 300,
   },
   PRIMORDIAL_WAVE_BUFF: {
     id: 327164,
@@ -28,7 +27,22 @@ const covenants: SpellList = {
   //endregion
 
   //region Venthyr
-
+  CHAIN_HARVEST: {
+    id: 320674,
+    name: 'Chain Harvest',
+    icon: 'ability_revendreth_shaman',
+    manaCost: 1000,
+  },
+  CHAIN_HARVEST_HEAL: {
+    id: 320751,
+    name: 'Chain Harvest',
+    icon: 'ability_revendreth_shaman',
+  },
+  CHAIN_HARVEST_DAMAGE: {
+    id: 320752,
+    name: 'Chain Harvest',
+    icon: 'ability_revendreth_shaman',
+  },
   //endregion
-};
+} as const;
 export default covenants;

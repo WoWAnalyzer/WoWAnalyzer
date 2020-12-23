@@ -1,14 +1,13 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import { formatPercentage , formatDuration } from 'common/format';
+import { formatPercentage, formatDuration } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatisticBox from 'interface/others/StatisticBox';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import Events from 'parser/core/Events';
@@ -28,18 +27,21 @@ function resolveValue(maybeFunction, ...args) {
 }
 
 class AntiFillerSpam extends Analyzer {
+  get fillerSpamPercentage() {
+    return this._unnecessaryFillerSpells / this._totalGCDSpells;
+  }
+
   static dependencies = {
     enemyInstances: EnemyInstances,
     activeTargets: ActiveTargets,
     spellUsable: SpellUsable,
     abilities: Abilities,
   };
-
   _totalGCDSpells = 0;
   _totalFillerSpells = 0;
   _unnecessaryFillerSpells = 0;
 
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
@@ -101,15 +103,15 @@ class AntiFillerSpam extends Analyzer {
     if (availableSpells.length > 0) {
       this._unnecessaryFillerSpells += 1;
       let text = '';
-      for (let i = 0; i < availableSpells.length; i += 1){
+      for (let i = 0; i < availableSpells.length; i += 1) {
         if (availableSpells[i].primarySpell.id === SPELLS.MOONFIRE.id) {
           text += 'a Galactic Guardian proc';
         } else {
           text += availableSpells[i].name;
         }
-        if (i + 2 < availableSpells.length){
+        if (i + 2 < availableSpells.length) {
           text += ', ';
-        } else if (i + 1 < availableSpells.length){
+        } else if (i + 1 < availableSpells.length) {
           text += ' and ';
         }
       }
@@ -120,17 +122,13 @@ class AntiFillerSpam extends Analyzer {
     debug && console.groupEnd();
   }
 
-  get fillerSpamPercentage() {
-    return this._unnecessaryFillerSpells / this._totalGCDSpells;
-  }
-
   statistic() {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SWIPE_BEAR.id} />}
         value={`${formatPercentage(this.fillerSpamPercentage)}%`}
         label="Unnecessary Fillers"
-        tooltip={<>You cast <strong>{this._unnecessaryFillerSpells}</strong> unnecessary filler spells out of <strong>{this._totalGCDSpells}</strong> total GCDs.  Filler spells (Swipe, Moonfire without a GG proc, or Moonfire outside of pandemic if talented into Incarnation) do far less damage than your main rotational spells, and should be minimized whenever possible.</>}
+        tooltip={<>You cast <strong>{this._unnecessaryFillerSpells}</strong> unnecessary filler spells out of <strong>{this._totalGCDSpells}</strong> total GCDs. Filler spells (Swipe, Moonfire without a GG proc, or Moonfire outside of pandemic if talented into Incarnation) do far less damage than your main rotational spells, and should be minimized whenever possible.</>}
       />
     );
   }
@@ -138,14 +136,17 @@ class AntiFillerSpam extends Analyzer {
   suggestions(when) {
     when(this.fillerSpamPercentage).isGreaterThan(0.1)
       .addSuggestion((suggest, actual, recommended) => suggest(
-          <>
-            You are casting too many unnecessary filler spells. Try to plan your casts two or three GCDs ahead of time to anticipate your main rotational spells coming off cooldown, and to give yourself time to react to <SpellLink id={SPELLS.GORE_BEAR.id} /> and <SpellLink id={SPELLS.GALACTIC_GUARDIAN_TALENT.id} /> procs.
-          </>,
-        )
-          .icon(SPELLS.SWIPE_BEAR.icon)
-          .actual(i18n._(t('druid.guardian.suggestions.fillerSpells.efficiency')`${formatPercentage(actual)}% unnecessary filler spells cast`))
-          .recommended(`${formatPercentage(recommended, 0)}% or less is recommended`)
-          .regular(recommended + 0.05).major(recommended + 0.1));
+        <>
+          You are casting too many unnecessary filler spells. Try to plan your casts two or three GCDs ahead of time to anticipate your main rotational spells coming off cooldown, and to give yourself time to react to <SpellLink id={SPELLS.GORE_BEAR.id} /> and <SpellLink id={SPELLS.GALACTIC_GUARDIAN_TALENT.id} /> procs.
+        </>,
+      )
+        .icon(SPELLS.SWIPE_BEAR.icon)
+        .actual(t({
+      id: "druid.guardian.suggestions.fillerSpells.efficiency",
+      message: `${formatPercentage(actual)}% unnecessary filler spells cast`
+    }))
+        .recommended(`${formatPercentage(recommended, 0)}% or less is recommended`)
+        .regular(recommended + 0.05).major(recommended + 0.1));
   }
 }
 

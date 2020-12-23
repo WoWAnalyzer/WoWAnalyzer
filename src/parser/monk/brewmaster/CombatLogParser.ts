@@ -39,6 +39,9 @@ import ExpelHarmNorm from './normalizers/ExpelHarm';
 // Covenants
 import FallenOrder from '../shared/modules/covenants/FallenOrder';
 
+// Conduits
+import ScaldingBrew from './modules/shadowlands/conduits/ScaldingBrew';
+import EvasiveStride from './modules/shadowlands/conduits/EvasiveStride';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -84,6 +87,10 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Covenants
     fallenOrder: FallenOrder,
+
+    // Conduits
+    scaldingBrew: ScaldingBrew,
+    evasiveStride: EvasiveStride,
   };
 }
 

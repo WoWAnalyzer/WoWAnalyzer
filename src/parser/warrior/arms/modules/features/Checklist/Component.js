@@ -37,13 +37,13 @@ const ArmWarriorChecklist = ({ combatant, castEfficiency, thresholds }) => {
         description={(
           <>
             Spells such as <SpellLink id={SPELLS.COLOSSUS_SMASH.id} /> (or <SpellLink id={SPELLS.WARBREAKER_TALENT.id} /> if talented), <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> and <SpellLink id={SPELLS.OVERPOWER.id} /> are your most efficient spells available, try to cast them as much as possible.
-            Keep in mind that it is sometimes more useful to keep <SpellLink id={SPELLS.BLADESTORM.id} /> (or <SpellLink id={SPELLS.RAVAGER_TALENT_ARMS.id} />) and use it when several targets are present in the fight. &nbsp;
+            Keep in mind that it is sometimes more useful to keep <SpellLink id={SPELLS.BLADESTORM.id} /> (or <SpellLink id={SPELLS.RAVAGER_ARMS_TALENT.id} />) and use it when several targets are present in the fight. &nbsp;
             <a href="https://www.wowhead.com/arms-warrior-rotation-guide" target="_blank" rel="noopener noreferrer">More info.</a>
           </>
         )}
       >
         <AbilityRequirement spell={combatant.hasTalent(SPELLS.WARBREAKER_TALENT.id) ? SPELLS.WARBREAKER_TALENT.id : SPELLS.COLOSSUS_SMASH.id} />
-        <AbilityRequirement spell={combatant.hasTalent(SPELLS.RAVAGER_TALENT_ARMS.id) ? SPELLS.RAVAGER_TALENT_ARMS.id : SPELLS.BLADESTORM.id} />
+        <AbilityRequirement spell={combatant.hasTalent(SPELLS.RAVAGER_ARMS_TALENT.id) ? SPELLS.RAVAGER_ARMS_TALENT.id : SPELLS.BLADESTORM.id} />
         {combatant.hasTalent(SPELLS.SKULLSPLITTER_TALENT.id) && <AbilityRequirement spell={SPELLS.SKULLSPLITTER_TALENT.id} />}
         <AbilityRequirement spell={SPELLS.OVERPOWER.id} />
         {combatant.hasTalent(SPELLS.AVATAR_TALENT.id) && <AbilityRequirement spell={SPELLS.AVATAR_TALENT.id} />}
@@ -55,18 +55,18 @@ const ArmWarriorChecklist = ({ combatant, castEfficiency, thresholds }) => {
         name={(<>Use <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> efficiently</>)}
         description={(
           <>
-            Mortal Strike shouldn't be used during the execution phase, you should cast it as much as possible when the target is above 20% (or 35% with <SpellLink id={SPELLS.MASSACRE_TALENT_ARMS.id} />) but avoid casting it when you reach the execution phase and use <SpellLink id={SPELLS.EXECUTE.id} /> instead since it is more rage efficient.
+            Mortal Strike shouldn't be used during the execution phase, you should cast it as much as possible when the target is above 20% (or 35% with <SpellLink id={SPELLS.MASSACRE_ARMS_TALENT.id} />) but avoid casting it when you reach the execution phase and use <SpellLink id={SPELLS.EXECUTE.id} /> instead since it is more rage efficient.
           </>
         )}
       >
-          <Requirement
-            name={(<><SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> outside execution phase</>)}
-            thresholds={thresholds.goodMortalStrike}
-          />
-          <Requirement
-            name={(<><SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> during execution phase</>)}
-            thresholds={thresholds.badMortalStrike}
-          />
+        <Requirement
+          name={(<><SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> outside execution phase</>)}
+          thresholds={thresholds.goodMortalStrike}
+        />
+        <Requirement
+          name={(<><SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> during execution phase</>)}
+          thresholds={thresholds.badMortalStrike}
+        />
       </Rule>
       <Rule
         name="Use your defensive cooldowns"

@@ -1,6 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const conduits: SpellList = {
+const conduits = {
   //region Covenants Conduits
   COURAGEOUS_ASCENSION: {  //kyrian
     id: 337966,
@@ -188,5 +186,5 @@ const conduits: SpellList = {
     icon: 'spell_deathknight_gnaw_ghoul',
   },
   //endregion
-};
+} as const;
 export default conduits;

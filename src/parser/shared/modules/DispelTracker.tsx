@@ -11,9 +11,7 @@ class DispelTracker extends Analyzer {
   dispelEvents = new Map<number, number>();
   dispelCount = 0;
 
-  blackList = [
-    SPELLS.WINDWALKING.id,
-  ];
+  blackList = [SPELLS.WINDWALKING.id];
 
   constructor(options: Options) {
     super(options);
@@ -46,20 +44,28 @@ class DispelTracker extends Analyzer {
     }
 
     return (
-      <Statistic position={STATISTIC_ORDER.OPTIONAL(1)} size='flexible'>
+      <Statistic position={STATISTIC_ORDER.OPTIONAL(1)} size="flexible">
         <div className="pad">
-          <Trans id="shared.dispelTracker.label" render="label">
-            Dispels
-          </Trans>
+          <label>
+            <Trans id="shared.dispelTracker.label">Dispels</Trans>
+          </label>
           {Array.from(this.dispelEvents).map(([dispelledId, count]) => (
             <div className="flex" key={dispelledId}>
-              <div className="flex-sub" style={{ flex: 3 }}><SpellLink id={Number(dispelledId)} /></div>
-              <div className="flex-sub" style={{ flex: 1, textAlign: 'right' }}>{count}</div>
+              <div className="flex-sub" style={{ flex: 3 }}>
+                <SpellLink id={Number(dispelledId)} />
+              </div>
+              <div className="flex-sub" style={{ flex: 1, textAlign: 'right' }}>
+                {count}
+              </div>
             </div>
           ))}
           <div className="flex">
-            <div className="flex-sub value" style={{ flex: 3 }}><Trans id="common.total">Total</Trans></div>
-            <div className="flex-sub value" style={{ flex: 1, textAlign: 'right' }}>{this.dispelCount}</div>
+            <div className="flex-sub value" style={{ flex: 3 }}>
+              <Trans id="common.total">Total</Trans>
+            </div>
+            <div className="flex-sub value" style={{ flex: 1, textAlign: 'right' }}>
+              {this.dispelCount}
+            </div>
           </div>
         </div>
       </Statistic>

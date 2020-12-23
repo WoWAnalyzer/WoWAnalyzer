@@ -19,7 +19,7 @@ import DeathStrikeTiming from './modules/features/DeathStrikeTiming';
 import BoneShieldTimesByStacks from './modules/features/BoneShieldTimesByStacks';
 import DeathsCaress from './modules/core/DeathsCaress';
 import MitigationCheck from './modules/features/MitigationCheck';
-// import Ossuary from './modules/features/Ossuary';
+import Ossuary from './modules/features/Ossuary';
 
 // Resources
 import RunicPowerDetails from './modules/runicpower/RunicPowerDetails';
@@ -42,16 +42,17 @@ import WillOfTheNecropolis from './modules/talents/WillOfTheNecropolis';
 import Consumption from './modules/talents/Consumption';
 import RelishInBlood from './modules/talents/RelishInBlood';
 
-// Azerite Traits
-import BonesOfTheDamned from './modules/spells/azeritetraits/BonesOfTheDamned';
-import BoneSpikeGraveyard from '../shared/spells/azeritetraits/BoneSpikeGraveyard';
-import EternalRuneWeapon from './modules/spells/azeritetraits/EternalRuneWeapon';
-import BloodyRuneblade from './modules/spells/azeritetraits/BloodyRuneblade';
-
 // Runes
 import RuneForgeChecker from './modules/core/RuneForgeChecker';
 import RuneOfTheFallenCrusader from '../shared/runeforges/RuneOfTheFallenCrusader';
 import RuneOfHysteria from '../shared/runeforges/RuneOfHysteria';
+
+// Legendaries
+import BrynadaorsMight from './modules/items/BrynadaorsMight';
+import Superstrain from '../shared/items/Superstrain';
+
+// Covenants
+import SwarmingMist from '../shared/covenants/SwarmingMist';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -98,20 +99,21 @@ class CombatLogParser extends CoreCombatLogParser {
     voracious: Voracious,
     rapidDecomposition: RapidDecomposition,
     willOfTheNecropolis: WillOfTheNecropolis,
-    // ossuary: Ossuary,
+    ossuary: Ossuary,
     consumption: Consumption,
     relishInBlood: RelishInBlood,
-
-    // Azerite Traits
-    bonesOfTheDamned: BonesOfTheDamned,
-    boneSpikeGraveyard: BoneSpikeGraveyard,
-    eternalRuneWeapon: EternalRuneWeapon,
-    bloodyRuneblade: BloodyRuneblade,
 
     // Runes
     runeForgeChecker: RuneForgeChecker,
     runeOfTheFallenCrusader: RuneOfTheFallenCrusader,
-    runeOfHysteria: RuneOfHysteria
+    runeOfHysteria: RuneOfHysteria,
+
+    // Legendaries
+    brynadaorsMight: BrynadaorsMight,
+    superStrain: Superstrain,
+
+    // Covenants
+    swarmingMist: SwarmingMist
   };
 }
 

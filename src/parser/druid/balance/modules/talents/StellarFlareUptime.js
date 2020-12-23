@@ -6,7 +6,6 @@ import Enemies from 'parser/shared/modules/Enemies';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -15,15 +14,6 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import UptimeIcon from 'interface/icons/Uptime';
 
 class StellarFlareUptime extends Analyzer {
-  static dependencies = {
-    enemies: Enemies,
-  };
-
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.STELLAR_FLARE_TALENT.id);
-  }
-
   get suggestionThresholds() {
     const stellarFlareUptime = this.enemies.getBuffUptime(SPELLS.STELLAR_FLARE_TALENT.id) / this.owner.fightDuration;
     return {
@@ -37,10 +27,23 @@ class StellarFlareUptime extends Analyzer {
     };
   }
 
+  static dependencies = {
+    enemies: Enemies,
+  };
+  statisticOrder = STATISTIC_ORDER.OPTIONAL();
+
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.STELLAR_FLARE_TALENT.id);
+  }
+
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id} /> uptime can be improved. Try to pay more attention to your Stellar Flare on the boss.</>)
       .icon(SPELLS.STELLAR_FLARE_TALENT.icon)
-      .actual(i18n._(t('druid.balance.suggestions.stellarFlare.uptime')`${formatPercentage(actual)}% Stellar Flare uptime`))
+      .actual(t({
+      id: "druid.balance.suggestions.stellarFlare.uptime",
+      message: `${formatPercentage(actual)}% Stellar Flare uptime`
+    }))
       .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
@@ -59,8 +62,6 @@ class StellarFlareUptime extends Analyzer {
       </Statistic>
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default StellarFlareUptime;

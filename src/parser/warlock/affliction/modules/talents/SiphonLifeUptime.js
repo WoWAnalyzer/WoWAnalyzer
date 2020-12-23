@@ -10,19 +10,9 @@ import SpellIcon from 'common/SpellIcon';
 
 import UptimeBar from 'interface/statistics/components/UptimeBar';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class SiphonLifeUptime extends Analyzer {
-  static dependencies = {
-    enemies: Enemies,
-  };
-
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SIPHON_LIFE_TALENT.id);
-  }
-
   get uptime() {
     return this.enemies.getBuffUptime(SPELLS.SIPHON_LIFE_TALENT.id) / this.owner.fightDuration;
   }
@@ -39,12 +29,24 @@ class SiphonLifeUptime extends Analyzer {
     };
   }
 
+  static dependencies = {
+    enemies: Enemies,
+  };
+
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SIPHON_LIFE_TALENT.id);
+  }
+
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.SIPHON_LIFE_TALENT.id} /> uptime can be improved. Try to pay more attention to your Siphon Life on the boss, perhaps use some debuff tracker.</>)
-          .icon(SPELLS.SIPHON_LIFE_TALENT.icon)
-          .actual(i18n._(t('warlock.affliction.suggestions.siphonLife.uptime')`${formatPercentage(actual)}% Siphon Life uptime`))
-          .recommended(`>${formatPercentage(recommended)}% is recommended`));
+        .icon(SPELLS.SIPHON_LIFE_TALENT.icon)
+        .actual(t({
+      id: "warlock.affliction.suggestions.siphonLife.uptime",
+      message: `${formatPercentage(actual)}% Siphon Life uptime`
+    }))
+        .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   subStatistic() {

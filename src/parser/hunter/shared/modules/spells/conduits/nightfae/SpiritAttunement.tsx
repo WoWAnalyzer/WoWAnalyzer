@@ -9,7 +9,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import React from 'react';
-import { formatThousands } from 'common/format';
+import { formatNumber, formatThousands } from 'common/format';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
 
@@ -73,7 +73,8 @@ class SpiritAttunement extends Analyzer {
         <ConduitSpellText spell={SPELLS.SPIRIT_ATTUNEMENT_CONDUIT} rank={this.conduitRank}>
           <>
             <ItemDamageDone amount={this.addedDamage} />
-            {formatThousands(this.damageAfterOriginalDuration)} <small>damage after normal duration</small>
+            <br />
+            {formatNumber(this.damageAfterOriginalDuration)} <small>damage after normal duration</small>
           </>
         </ConduitSpellText>
       </Statistic>

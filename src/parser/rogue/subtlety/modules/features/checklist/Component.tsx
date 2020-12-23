@@ -83,7 +83,7 @@ const SubRogueChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
         <Requirement
           name={(
             <>
-              Casts  in <SpellLink id={SPELLS.SHADOW_DANCE.id} />
+              Casts in <SpellLink id={SPELLS.SHADOW_DANCE.id} />
             </>
           )}
           thresholds={thresholds.castsInShadowDance}
@@ -91,7 +91,7 @@ const SubRogueChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
         <Requirement
           name={(
             <>
-              <SpellLink id={SPELLS.BACKSTAB.id} />   used from <SpellLink id={SPELLS.SHADOW_DANCE.id} />
+              <SpellLink id={SPELLS.BACKSTAB.id} /> used from <SpellLink id={SPELLS.SHADOW_DANCE.id} />
             </>
           )}
           thresholds={thresholds.backstabInShadowDance}

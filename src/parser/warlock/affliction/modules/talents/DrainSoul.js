@@ -14,7 +14,6 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import SoulShardTracker from '../soulshards/SoulShardTracker';
@@ -23,20 +22,28 @@ import SoulShardTracker from '../soulshards/SoulShardTracker';
 const ENERGIZE_REMOVEDEBUFF_THRESHOLD = 100;
 
 class DrainSoul extends Analyzer {
+  get suggestionThresholds() {
+    return {
+      actual: this.mobsSniped / this.totalNumOfAdds,
+      isLessThan: {
+        minor: 0.9,
+        average: 0.75,
+        major: 0.5,
+      },
+      style: 'percentage',
+    };
+  }
+
   static dependencies = {
     enemies: Enemies,
     soulShardTracker: SoulShardTracker,
     abilityTracker: AbilityTracker,
   };
-
   _lastEnergize = null;
-
   // this is to avoid counting soul shards from boss kill, the SoulShardTracker module tracks all shards gained and we're not interested in those we gained from boss kill
   _subtractBossShards = 0;
   _lastEnergizeWasted = false;
-
   _shardsGained = 0;
-
   totalNumOfAdds = 0;
   mobsSniped = 0;
 
@@ -77,29 +84,20 @@ class DrainSoul extends Analyzer {
     this._shardsGained = this.soulShardTracker.getGeneratedBySpell(SPELLS.DRAIN_SOUL_KILL_SHARD_GEN.id) - this._subtractBossShards;
   }
 
-  get suggestionThresholds() {
-    return {
-      actual: this.mobsSniped / this.totalNumOfAdds,
-      isLessThan: {
-        minor: 0.9,
-        average: 0.75,
-        major: 0.5,
-      },
-      style: 'percentage',
-    };
-  }
-
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(
-          <>
-            You sniped {formatPercentage(actual)} % of mobs in this fight ({this.mobsSniped - this._subtractBossShards} / {this.totalNumOfAdds}) for total of {this._shardsGained} Soul Shards. You could get up to {this.totalNumOfAdds} Shards from them. Try to snipe shards from adds (cast <SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} /> on them before they die) as it is a great source of extra Soul Shards.<br /><br />
-            <small>Note that the number of adds <em>might be a bit higher than usual</em>, as there sometimes are adds that die too quickly, aren't meant to be killed or are not killed in the fight.</small>
-          </>,
-        )
-          .icon('ability_hunter_snipershot')
-          .actual(i18n._(t('warlock.affliction.suggestions.drainSoul.mobsSniped')`${formatPercentage(actual)} % of mobs sniped.`))
-          .recommended(`>= ${formatPercentage(recommended)} % is recommended`));
+        <>
+          You sniped {formatPercentage(actual)} % of mobs in this fight ({this.mobsSniped - this._subtractBossShards} / {this.totalNumOfAdds}) for total of {this._shardsGained} Soul Shards. You could get up to {this.totalNumOfAdds} Shards from them. Try to snipe shards from adds (cast <SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} /> on them before they die) as it is a great source of extra Soul Shards.<br /><br />
+          <small>Note that the number of adds <em>might be a bit higher than usual</em>, as there sometimes are adds that die too quickly, aren't meant to be killed or are not killed in the fight.</small>
+        </>,
+      )
+        .icon('ability_hunter_snipershot')
+        .actual(t({
+      id: "warlock.affliction.suggestions.drainSoul.mobsSniped",
+      message: `${formatPercentage(actual)} % of mobs sniped.`
+    }))
+        .recommended(`>= ${formatPercentage(recommended)} % is recommended`));
   }
 
   statistic() {

@@ -11,15 +11,33 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import Events from 'parser/core/Events';
 
 class DemonSpikes extends Analyzer {
+  get mitigatedUptime() {
+    return formatPercentage(this.hitsWithDS / (this.hitsWithDS + this.hitsWithoutDS));
+  }
+
+  get hitsWithDSOffCDPercent() {
+    return this.hitsWithDSOffCD / (this.hitsWithDS + this.hitsWithoutDS);
+  }
+
+  get suggestionThresholdsEfficiency() {
+    return {
+      actual: this.hitsWithDSOffCDPercent,
+      isGreaterThan: {
+        minor: 0.20,
+        average: 0.30,
+        major: 0.40,
+      },
+      style: 'percentage',
+    };
+  }
+
   static dependencies = {
     spellUsable: SpellUsable,
   };
-
   hitsWithDS = 0;
   hitsWithoutDS = 0;
   hitsWithDSOffCD = 0;
@@ -46,31 +64,14 @@ class DemonSpikes extends Analyzer {
     }
   }
 
-  get mitigatedUptime() {
-    return formatPercentage(this.hitsWithDS / (this.hitsWithDS + this.hitsWithoutDS));
-  }
-
-  get hitsWithDSOffCDPercent() {
-    return this.hitsWithDSOffCD / (this.hitsWithDS + this.hitsWithoutDS);
-  }
-
-  get suggestionThresholdsEfficiency() {
-    return {
-      actual: this.hitsWithDSOffCDPercent,
-      isGreaterThan: {
-        minor: 0.20,
-        average: 0.30,
-        major: 0.40,
-      },
-      style: 'percentage',
-    };
-  }
-
   suggestions(when) {
     when(this.suggestionThresholdsEfficiency)
       .addSuggestion((suggest, actual, recommended) => suggest(<> Cast <SpellLink id={SPELLS.DEMON_SPIKES.id} /> more regularly while actively tanking the boss or when they use a big phsyical attack. You missed having it up for {formatPercentage(this.hitsWithDSOffCDPercent)}% of physical hits.</>)
         .icon(SPELLS.DEMON_SPIKES.icon)
-        .actual(i18n._(t('demonhunter.vengeance.suggestions.demonSpikes.unmitgatedHits')`${formatPercentage(actual)}% unmitigated physical hits`))
+        .actual(t({
+      id: "demonhunter.vengeance.suggestions.demonSpikes.unmitgatedHits",
+      message: `${formatPercentage(actual)}% unmitigated physical hits`
+    }))
         .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 

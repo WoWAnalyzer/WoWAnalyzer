@@ -1,5 +1,5 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 
@@ -7,12 +7,11 @@ import { formatPercentage } from 'common/format';
 import Events, { CastEvent } from 'parser/core/Events';
 
 import Statistic from 'interface/statistics/Statistic';
-import BoringValueText from 'interface/statistics/components/BoringValueText'
+import BoringValueText from 'interface/statistics/components/BoringValueText';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellLink from 'common/SpellLink';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import RageTracker from '../core/RageTracker';
@@ -23,10 +22,10 @@ class HeavyRepercussions extends Analyzer {
   static dependencies = {
     rageTracker: RageTracker,
   };
-  protected rageTracker!: RageTracker;
-
   sbExtended = 0;
   sbCasts = 0;
+  statisticOrder = STATISTIC_ORDER.CORE(5);
+  protected rageTracker!: RageTracker;
 
   constructor(options: Options) {
     super(options);
@@ -36,14 +35,6 @@ class HeavyRepercussions extends Analyzer {
 
   get shieldBlockuptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.SHIELD_BLOCK_BUFF.id);
-  }
-
-  onSlamCast(event: CastEvent) {
-    this.sbCasts += 1;
-    if (!this.selectedCombatant.hasBuff(SPELLS.SHIELD_BLOCK_BUFF.id)) {
-      return;
-    }
-    this.sbExtended += 1;
   }
 
   get uptimeSuggestionThresholds() {
@@ -58,12 +49,23 @@ class HeavyRepercussions extends Analyzer {
     };
   }
 
+  onSlamCast(event: CastEvent) {
+    this.sbCasts += 1;
+    if (!this.selectedCombatant.hasBuff(SPELLS.SHIELD_BLOCK_BUFF.id)) {
+      return;
+    }
+    this.sbExtended += 1;
+  }
+
   suggestions(when: When) {
     when(this.uptimeSuggestionThresholds)
-        .addSuggestion((suggest, actual, recommended) => suggest(<>Try and cast <SpellLink id={SPELLS.SHIELD_SLAM.id} />'s during <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> to increase the uptime of <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> and the damage of <SpellLink id={SPELLS.SHIELD_SLAM.id} />.</>)
-            .icon(SPELLS.HEAVY_REPERCUSSIONS_TALENT.icon)
-            .actual(i18n._(t('warrior.protection.suggestions.heavyRepercussions.shieldBlockCasts')`${formatPercentage(actual)}% cast during Shield Block`))
-            .recommended(`${formatPercentage(recommended)}% is recommended`));
+      .addSuggestion((suggest, actual, recommended) => suggest(<>Try and cast <SpellLink id={SPELLS.SHIELD_SLAM.id} />'s during <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> to increase the uptime of <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> and the damage of <SpellLink id={SPELLS.SHIELD_SLAM.id} />.</>)
+        .icon(SPELLS.HEAVY_REPERCUSSIONS_TALENT.icon)
+        .actual(t({
+      id: "warrior.protection.suggestions.heavyRepercussions.shieldBlockCasts",
+      message: `${formatPercentage(actual)}% cast during Shield Block`
+    }))
+        .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {
@@ -72,7 +74,6 @@ class HeavyRepercussions extends Analyzer {
     const rageByShieldSlam = this.rageTracker.getGeneratedBySpell(SPELLS.SHIELD_SLAM.id);
     const rageWastedByShieldSlam = this.rageTracker.getWastedBySpell(SPELLS.SHIELD_SLAM.id);
     const rageFromTalent = ((rageByShieldSlam + rageWastedByShieldSlam) / 18) * 3;
-
 
     return (
       <Statistic
@@ -85,16 +86,15 @@ class HeavyRepercussions extends Analyzer {
           </>
         )}
       >
-      <BoringValueText label={<><SpellLink id={SPELLS.HEAVY_REPERCUSSIONS_TALENT.id} /> Extra Shield Block and Rage</>}>
+        <BoringValueText label={<><SpellLink id={SPELLS.HEAVY_REPERCUSSIONS_TALENT.id} /> Extra Shield Block and Rage</>}>
           <>
-            {formatPercentage(sbExtendedMS / (this.shieldBlockuptime - sbExtendedMS))}% <br/>
+            {formatPercentage(sbExtendedMS / (this.shieldBlockuptime - sbExtendedMS))}% <br />
             {rageFromTalent} <small>rage</small>
           </>
         </BoringValueText>
       </Statistic>
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default HeavyRepercussions;

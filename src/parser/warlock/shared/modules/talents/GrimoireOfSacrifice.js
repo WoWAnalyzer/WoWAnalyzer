@@ -11,19 +11,9 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class GrimoireOfSacrifice extends Analyzer {
-  static dependencies = {
-    abilityTracker: AbilityTracker,
-  };
-
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.GRIMOIRE_OF_SACRIFICE_TALENT.id);
-  }
-
   get uptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.GRIMOIRE_OF_SACRIFICE_BUFF.id) / this.owner.fightDuration;
   }
@@ -40,12 +30,24 @@ class GrimoireOfSacrifice extends Analyzer {
     };
   }
 
+  static dependencies = {
+    abilityTracker: AbilityTracker,
+  };
+
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.GRIMOIRE_OF_SACRIFICE_TALENT.id);
+  }
+
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your uptime on <SpellLink id={SPELLS.GRIMOIRE_OF_SACRIFICE_TALENT.id} /> is too low. If you picked this talent, you should always have your pet sacrificed. If you died or summoned your pet, make sure to sacrifice it again to gain this buff.</>)
-          .icon(SPELLS.GRIMOIRE_OF_SACRIFICE_TALENT.icon)
-          .actual(i18n._(t('warlock.shared.suggestions.grimoireOfSacrifice.uptime')`${formatPercentage(actual)} % Grimoire of Sacrifice uptime.`))
-          .recommended(`>= ${formatPercentage(recommended)} % is recommended`));
+        .icon(SPELLS.GRIMOIRE_OF_SACRIFICE_TALENT.icon)
+        .actual(t({
+      id: "warlock.shared.suggestions.grimoireOfSacrifice.uptime",
+      message: `${formatPercentage(actual)} % Grimoire of Sacrifice uptime.`
+    }))
+        .recommended(`>= ${formatPercentage(recommended)} % is recommended`));
   }
 
   statistic() {
@@ -70,4 +72,5 @@ class GrimoireOfSacrifice extends Analyzer {
     );
   }
 }
+
 export default GrimoireOfSacrifice;

@@ -11,11 +11,12 @@ class Abilities extends CoreAbilities {
     const combatant = this.selectedCombatant;
 
     const standardGcd = combatant => 1000 * (1 - (combatant.hasBuff(SPELLS.ADRENALINE_RUSH.id) ? 0.2 : 0));
-    
+
     return [
       // // Base class resource
       {
         spell: SPELLS.COMBO_POINT,
+        category: Abilities.SPELL_CATEGORIES.HIDDEN,
       },
       // Rotational
       {
@@ -82,7 +83,7 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
         gcd: {
           static: standardGcd,
-        },        
+        },
       },
       {
         spell: SPELLS.PISTOL_SHOT,
@@ -296,7 +297,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.ECHOING_REPRIMAD,
+        spell: SPELLS.ECHOING_REPRIMAND,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
         gcd: {

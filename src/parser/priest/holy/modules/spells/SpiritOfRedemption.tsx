@@ -7,8 +7,7 @@ import DeathDowntime from 'parser/shared/modules/downtime/DeathDowntime';
 import SpellLink from 'common/SpellLink';
 import { isItAprilFoolDay } from 'common/aprilFools';
 import Events, { ApplyBuffEvent, EventType, RemoveBuffEvent } from 'parser/core/Events';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import { i18n } from '@lingui/core';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { t } from '@lingui/macro';
 
 class SpiritOfRedemption extends Analyzer {
@@ -16,12 +15,17 @@ class SpiritOfRedemption extends Analyzer {
     eventEmitter: EventEmitter,
     deathDowntime: DeathDowntime,
   };
-  protected eventEmitter!: EventEmitter;
-  protected deathDowntime!: DeathDowntime;
-
   sorStartTime = 0;
   timeSpentRedeeming = 0;
   timeSpendDead = 0;
+  protected eventEmitter!: EventEmitter;
+  protected deathDowntime!: DeathDowntime;
+
+  constructor(options: Options) {
+    super(options);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SPIRIT_OF_REDEMPTION_BUFF), this.onApplyBuff);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SPIRIT_OF_REDEMPTION_BUFF), this.onRemoveBuff);
+  }
 
   get spiritUptime() {
     return this.timeSpentRedeeming;
@@ -35,10 +39,16 @@ class SpiritOfRedemption extends Analyzer {
     return this.owner.fightDuration - this.deadTime - this.spiritUptime;
   }
 
-  constructor(options: Options){
-    super(options);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SPIRIT_OF_REDEMPTION_BUFF), this.onApplyBuff);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SPIRIT_OF_REDEMPTION_BUFF), this.onRemoveBuff);
+  get deadTimeThresholds() {
+    return {
+      actual: this.timeSpentRedeeming,
+      isLessThan: {
+        minor: 10,
+        average: 5,
+        major: 1,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
@@ -53,24 +63,16 @@ class SpiritOfRedemption extends Analyzer {
     this.timeSpentRedeeming += event.timestamp - this.sorStartTime;
   }
 
-  get deadTimeThresholds() {
-    return {
-      actual: this.timeSpentRedeeming,
-      isLessThan: {
-        minor: 10,
-        average: 5,
-        major: 1,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
   suggestions(when: When) {
     if (isItAprilFoolDay()) {
       when(this.deadTimeThresholds)
         .addSuggestion((suggest, actual, recommended) => suggest(<>We noticed that you didn't die during this encounter. It is recommended that you die within the last 15 seconds of each encounter to make the most of <SpellLink id={SPELLS.SPIRIT_OF_REDEMPTION_BUFF.id} />. If you are having trouble dying, try standing in fire.</>)
-            .icon('inv_enchant_essenceeternallarge')
-            .actual(i18n._(t('priest.holy.suggestions.spiritOfRedemption.efficiency')`${actual} seconds spent redeeming`))
-            .recommended(`${recommended} seconds is recommended`));
+          .icon('inv_enchant_essenceeternallarge')
+          .actual(t({
+        id: "priest.holy.suggestions.spiritOfRedemption.efficiency",
+        message: `${actual} seconds spent redeeming`
+      }))
+          .recommended(`${recommended} seconds is recommended`));
     }
   }
 }

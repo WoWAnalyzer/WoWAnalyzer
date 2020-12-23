@@ -8,22 +8,11 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'parser/core/Analyzer';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import Mastery from '../core/Mastery';
 
 class SpringBlossoms extends Analyzer {
-  static dependencies = {
-    mastery: Mastery,
-  };
-
-  constructor(...args) {
-    super(...args);
-    const hasSpringBlossoms = this.selectedCombatant.hasTalent(SPELLS.SPRING_BLOSSOMS_TALENT.id);
-    this.active = hasSpringBlossoms;
-  }
-
   get directPercent() {
     return this.owner.getPercentageOfTotalHealingDone(this.mastery.getDirectHealing(SPELLS.SPRING_BLOSSOMS.id));
   }
@@ -46,6 +35,16 @@ class SpringBlossoms extends Analyzer {
       },
       style: 'percentage',
     };
+  }
+
+  static dependencies = {
+    mastery: Mastery,
+  };
+
+  constructor(...args) {
+    super(...args);
+    const hasSpringBlossoms = this.selectedCombatant.hasTalent(SPELLS.SPRING_BLOSSOMS_TALENT.id);
+    this.active = hasSpringBlossoms;
   }
 
   statistic() {
@@ -77,7 +76,10 @@ class SpringBlossoms extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => suggest(<span>Your healing from <SpellLink id={SPELLS.SPRING_BLOSSOMS.id} /> could be improved.
           Either your efflorescence uptime could be improved or the encounter doesn't fit this talent very well.</span>)
         .icon(SPELLS.SPRING_BLOSSOMS.icon)
-        .actual(i18n._(t('druid.restoration.suggestions.springBlossoms.efficiency')`${formatPercentage(this.totalPercent)}% healing`))
+        .actual(t({
+      id: "druid.restoration.suggestions.springBlossoms.efficiency",
+      message: `${formatPercentage(this.totalPercent)}% healing`
+    }))
         .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`));
   }
 }

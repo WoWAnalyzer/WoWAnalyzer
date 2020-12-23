@@ -1,6 +1,4 @@
-import { SpellList } from "common/SPELLS/Spell";
-
-const legendaries: SpellList = {
+const legendaries = {
   //region Balance
 
   //endregion
@@ -14,11 +12,16 @@ const legendaries: SpellList = {
   //endregion
 
   //region Restoration
-
+  VISION_OF_UNENDING_GROWTH: {
+    id: 338832,
+    name: 'Vision of Unending Growth',
+    icon: 'achievement_dungeon_everbloom',
+    bonusID: 7099,
+  }
   //endregion
 
   //region Shared
 
   //endregion
-};
+} as const;
 export default legendaries;

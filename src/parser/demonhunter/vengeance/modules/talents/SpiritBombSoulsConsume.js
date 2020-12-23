@@ -8,7 +8,6 @@ import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 
 import { formatPercentage } from 'common/format';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import Events from 'parser/core/Events';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -16,6 +15,35 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 const MS_BUFFER = 100;
 
 class SpiritBombSoulsConsume extends Analyzer {
+
+  get totalGoodCasts() {
+    return this.soulsConsumedByAmount[4] + this.soulsConsumedByAmount[5];
+  }
+
+  get totalCasts() {
+    return Object.values(this.soulsConsumedByAmount).reduce((total, casts) => total + casts, 0);
+  }
+
+  get percentGoodCasts() {
+    return this.totalGoodCasts / this.totalCasts;
+  }
+
+  get suggestionThresholdsEfficiency() {
+    return {
+      actual: this.percentGoodCasts,
+      isLessThan: {
+        minor: 0.90,
+        average: 0.85,
+        major: .80,
+      },
+      style: 'percentage',
+    };
+  }
+
+  castTimestamp = 0;
+  castSoulsConsumed = 0;
+  cast = 0;
+  soulsConsumedByAmount = Array.from({ length: 6 }, x => 0);
 
   /* Feed The Demon talent is taken in defensive builds. In those cases you want to generate and consume souls as quickly
    as possible. So how you consume your souls down matter. If you dont take that talent your taking a more balanced
@@ -30,12 +58,6 @@ class SpiritBombSoulsConsume extends Analyzer {
     this.addEventListener(Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.SOUL_FRAGMENT_STACK), this.onChangeBuffStack);
     this.addEventListener(Events.fightend, this.onFightend);
   }
-
-  castTimestamp = 0;
-  castSoulsConsumed = 0;
-  cast = 0;
-
-  soulsConsumedByAmount = Array.from({ length: 6 }, x => 0);
 
   onCast(event) {
     if (this.cast > 0) {
@@ -69,35 +91,14 @@ class SpiritBombSoulsConsume extends Analyzer {
     this.countHits();
   }
 
-  get totalGoodCasts() {
-    return this.soulsConsumedByAmount[4] + this.soulsConsumedByAmount[5];
-  }
-
-  get totalCasts() {
-    return Object.values(this.soulsConsumedByAmount).reduce((total, casts) => total + casts, 0);
-  }
-
-  get percentGoodCasts() {
-    return this.totalGoodCasts / this.totalCasts;
-  }
-
-  get suggestionThresholdsEfficiency() {
-    return {
-      actual: this.percentGoodCasts,
-      isLessThan: {
-        minor: 0.90,
-        average: 0.85,
-        major: .80,
-      },
-      style: 'percentage',
-    };
-  }
-
   suggestions(when) {
     when(this.suggestionThresholdsEfficiency)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Try to cast <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> at 4 or 5 souls.</>)
         .icon(SPELLS.SPIRIT_BOMB_TALENT.icon)
-        .actual(i18n._(t('demonhunter.vengeance.suggestions.spiritBomb.soulsConsumed')`${formatPercentage(this.percentGoodCasts)}% of casts at 4+ souls.`))
+        .actual(t({
+      id: "demonhunter.vengeance.suggestions.spiritBomb.soulsConsumed",
+      message: `${formatPercentage(this.percentGoodCasts)}% of casts at 4+ souls.`
+    }))
         .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

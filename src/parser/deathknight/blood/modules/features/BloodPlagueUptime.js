@@ -5,7 +5,6 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
@@ -35,7 +34,10 @@ class BloodPlagueUptime extends Analyzer {
     when(this.uptimeSuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => suggest('Your Blood Plague uptime can be improved. Keeping Blood Boil on cooldown should keep it up at all times.')
             .icon(SPELLS.BLOOD_PLAGUE.icon)
-            .actual(i18n._(t('deathknight.blood.suggestions.bloodPlague.uptime')`${formatPercentage(actual)}% Blood Plague uptime`))
+            .actual(t({
+      id: "deathknight.blood.suggestions.bloodPlague.uptime",
+      message: `${formatPercentage(actual)}% Blood Plague uptime`
+    }))
             .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 

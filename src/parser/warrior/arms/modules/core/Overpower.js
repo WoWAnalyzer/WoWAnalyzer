@@ -8,7 +8,6 @@ import Events from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import ExecuteRange from './Execute/ExecuteRange';
@@ -23,12 +22,23 @@ import SpellUsable from '../features/SpellUsable';
  */
 
 class OverpowerAnalyzer extends Analyzer {
+  get WastedOverpowerThresholds() {
+    return {
+      actual: this.wastedProc / this.overpowerCasts,
+      isGreaterThan: {
+        minor: 0,
+        average: 0.05,
+        major: 0.1,
+      },
+      style: 'percentage',
+    };
+  }
+
   static dependencies = {
     executeRange: ExecuteRange,
     enemies: Enemies,
     spellUsable: SpellUsable,
   };
-
   overpowerCasts = 0;
   wastedProc = 0;
 
@@ -55,23 +65,14 @@ class OverpowerAnalyzer extends Analyzer {
     }
   }
 
-  get WastedOverpowerThresholds() {
-    return {
-      actual: this.wastedProc / this.overpowerCasts,
-      isGreaterThan: {
-        minor: 0,
-        average: 0.05,
-        major: 0.1,
-      },
-      style: 'percentage',
-    };
-  }
-
   suggestions(when) {
     when(this.WastedOverpowerThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Try to avoid using <SpellLink id={SPELLS.OVERPOWER.id} icon /> at 2 stacks when <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> is available. Use your stacks of Overpower with Mortal Strike to avoid over stacking, which result in a loss of damage.</>)
-        .icon(SPELLS.OVERPOWER.icon)
-        .actual(i18n._(t('warrior.arms.suggestions.overpower.stacksWasted')`${formatPercentage(actual)}% of Overpower stacks were wasted.`))
-        .recommended(`${formatPercentage(recommended)}% is recommended.`));
+      .icon(SPELLS.OVERPOWER.icon)
+      .actual(t({
+      id: "warrior.arms.suggestions.overpower.stacksWasted",
+      message: `${formatPercentage(actual)}% of Overpower stacks were wasted.`
+    }))
+      .recommended(`${formatPercentage(recommended)}% is recommended.`));
   }
 
   statistic() {
@@ -82,13 +83,13 @@ class OverpowerAnalyzer extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(6)}
         value={(
           <>
-              {this.wastedProc} <small>wasted buffs</small><br />
-              {this.overpowerCasts} <small>total casts</small>
+            {this.wastedProc} <small>wasted buffs</small><br />
+            {this.overpowerCasts} <small>total casts</small>
           </>
         )}
         tooltip={(
           <>
-            The overpower buff caps at two stacks.  When at cap, casting Overpower will waste a buff stack.
+            The overpower buff caps at two stacks. When at cap, casting Overpower will waste a buff stack.
             This is not important during execute phase as Mortal Strike is replaced with Execute which does not
             consume Overpower buff stacks.
           </>

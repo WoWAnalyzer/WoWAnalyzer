@@ -67,7 +67,7 @@ class Abundance extends Analyzer {
           </>
         )}
       >
-        <BoringValue label={<><SpellIcon id={SPELLS.ABUNDANCE_TALENT.id} /> Average Abundance stacks</>} >
+        <BoringValue label={<><SpellIcon id={SPELLS.ABUNDANCE_TALENT.id} /> Average Abundance stacks</>}>
           <>
             {avgStacks.toFixed(2)}
           </>

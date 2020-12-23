@@ -25,8 +25,26 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.LEECH.id,
 ];
 
+// Core Constants
 export const LIFE_COCOON_HEALING_BOOST = .5;
+export const TEACHINGS_OF_THE_MONASTERY_DURATION = 20000;
+
+// Talent Constants
+export const SPIRIT_OF_THE_CRANE_MANA_RETURN = .0065;
+export const LIFECYCLES_MANA_REDUCTION_PERCENT = .25;
+
+// Conduit scaling
+export function conduitScaling(rankOne: number, requiredRank: number) {
+  const scalingFactor = rankOne * .1;
+  const rankZero = rankOne - scalingFactor;
+  const rankRequested = rankZero + scalingFactor * requiredRank;
+  return rankRequested;
+}
+
+// Rank 1 conduits
+export const NOURISHING_CHI_RANK_ONE = .1875;
+export const JADE_BOND_RANK_ONE = .0625;
+export const RISING_SUN_REVIVAL = .125;
 
 export const LIFECYCLES_MANA_PERC_REDUCTION = 0.25;
 
-export const TEACHINGS_OF_THE_MONASTERY_DURATION = 12000;

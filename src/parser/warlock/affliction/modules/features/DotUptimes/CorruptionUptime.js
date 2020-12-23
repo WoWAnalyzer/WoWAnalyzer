@@ -10,14 +10,9 @@ import SpellIcon from 'common/SpellIcon';
 
 import UptimeBar from 'interface/statistics/components/UptimeBar';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class CorruptionUptime extends Analyzer {
-  static dependencies = {
-    enemies: Enemies,
-  };
-
   get uptime() {
     return this.enemies.getBuffUptime(SPELLS.CORRUPTION_DEBUFF.id) / this.owner.fightDuration;
   }
@@ -34,16 +29,23 @@ class CorruptionUptime extends Analyzer {
     };
   }
 
+  static dependencies = {
+    enemies: Enemies,
+  };
+
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(
-          <>
-            Your <SpellLink id={SPELLS.CORRUPTION_CAST.id} /> uptime can be improved. Try to pay more attention to your Corruption on the boss, perhaps use some debuff tracker.
-          </>,
-        )
-          .icon(SPELLS.CORRUPTION_CAST.icon)
-          .actual(i18n._(t('warlock.affliction.suggestions.corruption.uptime')`${formatPercentage(actual)}% Corruption uptime`))
-          .recommended(`>${formatPercentage(recommended)}% is recommended`));
+        <>
+          Your <SpellLink id={SPELLS.CORRUPTION_CAST.id} /> uptime can be improved. Try to pay more attention to your Corruption on the boss, perhaps use some debuff tracker.
+        </>,
+      )
+        .icon(SPELLS.CORRUPTION_CAST.icon)
+        .actual(t({
+      id: "warlock.affliction.suggestions.corruption.uptime",
+      message: `${formatPercentage(actual)}% Corruption uptime`
+    }))
+        .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   subStatistic() {

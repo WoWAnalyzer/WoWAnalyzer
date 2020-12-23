@@ -1,8 +1,10 @@
-import DIFFICULTIES from 'game/DIFFICULTIES';
 import { Boss } from "raids/index";
+import DIFFICULTIES from 'game/DIFFICULTIES';
+import SPELLS from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
 
-import Background from './images/backgrounds/CastleNathria.jpg';
-import Headshot from './images/headshots/CastleNathriaHeadshot.png';
+import Background from './images/backgrounds/TheCouncilOfBlood.jpg';
+import Headshot from './images/headshots/TheCouncilOfBlood.jpg';
 
 const TheCouncilOfBlood: Boss = {
   id: 2412,
@@ -21,11 +23,25 @@ const TheCouncilOfBlood: Boss = {
         key: "P",
         name: 'Stage 1: The Council of Blood',
         difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
+        multiple: true,
+        filter: {
+          type: EventType.ApplyDebuff,
+          ability: {
+            id: SPELLS.OPPRESSIVE_ATMOSPHERE.id,
+          },
+        }
       },
       I: {
         key: "I",
-        name: 'Intermission: The Dance Macabre',
+        name: 'Intermission: The Danse Macabre',
         difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
+        multiple: true,
+        filter: {
+          type: EventType.Cast,
+          ability: {
+            id: SPELLS.DANCE_AREA_TRIGGER.id,
+          },
+        }
       },
     },
   },

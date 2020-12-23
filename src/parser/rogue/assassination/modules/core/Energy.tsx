@@ -12,7 +12,7 @@ class Energy extends Analyzer {
   static dependencies = {
     energyTracker: EnergyTracker,
   };
-  protected energyTracker!: EnergyTracker
+  protected energyTracker!: EnergyTracker;
 
   // TODO: Urge to kill (vendetta energy regen) currently missing from WCL events. Needs a fix.
   suggestions(when: When) {

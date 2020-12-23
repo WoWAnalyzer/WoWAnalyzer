@@ -10,7 +10,6 @@ import Statistic from 'interface/statistics/Statistic';
 import Gauge from 'interface/statistics/components/Gauge';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
@@ -29,9 +28,12 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. When you know you'll be moving, try to save <SpellLink id={SPELLS.CONFLAGRATE.id} /> or <SpellLink id={SPELLS.SHADOWBURN_TALENT.id} /> charges. Make good use of your <SpellLink id={SPELLS.DEMONIC_CIRCLE.id} /> or <SpellLink id={SPELLS.BURNING_RUSH_TALENT.id} /> when you can.</>)
-          .icon('spell_mage_altertime')
-          .actual(i18n._(t('warlock.destruction.suggestions.alwaysBeCasting.downtime')`${formatPercentage(actual)}% downtime`))
-          .recommended(`<${formatPercentage(recommended)}% is recommended`));
+        .icon('spell_mage_altertime')
+        .actual(t({
+      id: "warlock.destruction.suggestions.alwaysBeCasting.downtime",
+      message: `${formatPercentage(actual)}% downtime`
+    }))
+        .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

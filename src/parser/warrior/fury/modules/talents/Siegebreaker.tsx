@@ -1,8 +1,8 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatThousands } from 'common/format';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
@@ -10,9 +10,7 @@ import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import SpellLink from 'common/SpellLink';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
-
 
 const SIEGEBREAKER_DAMAGE_MODIFIER = 0.15;
 
@@ -20,16 +18,14 @@ const SIEGEBREAKER_DAMAGE_MODIFIER = 0.15;
 class Siegebreaker extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-  }
-
-  protected enemies!: Enemies;
-
+  };
   damage: number = 0;
   goodRecklessness: number = 0;
   recklessnessCasted: number = 0;
   inValidRecklessness: boolean = false;
   siegeCasted: boolean = false;
   lastRecklessness: CastEvent | null = null;
+  protected enemies!: Enemies;
 
   constructor(options: Options) {
     super(options);
@@ -44,6 +40,26 @@ class Siegebreaker extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RECKLESSNESS), this.playerCastedRecklessness);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RECKLESSNESS), this.buffCheck);
     this.addEventListener(Events.fightend, this.buffCheck);
+  }
+
+  get damagePercent() {
+    return this.owner.getPercentageOfTotalDamageDone(this.damage);
+  }
+
+  get dpsValue() {
+    return this.damage / (this.owner.fightDuration / 1000);
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: (this.goodRecklessness / this.recklessnessCasted),
+      isLessThan: {
+        minor: .9,
+        average: .8,
+        major: .7,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
   }
 
   playerCastedRecklessness(event: CastEvent) {
@@ -79,30 +95,13 @@ class Siegebreaker extends Analyzer {
     }
   }
 
-  get damagePercent() {
-    return this.owner.getPercentageOfTotalDamageDone(this.damage);
-  }
-
-  get dpsValue() {
-    return this.damage / (this.owner.fightDuration / 1000);
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: (this.goodRecklessness / this.recklessnessCasted),
-      isLessThan: {
-        minor: .9,
-        average: .8,
-        major: .7,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You're not casting <SpellLink id={SPELLS.SIEGEBREAKER_TALENT.id} /> and <SpellLink id={SPELLS.RECKLESSNESS.id} /> together.</>)
       .icon(SPELLS.SIEGEBREAKER_TALENT.icon)
-      .actual(i18n._(t('warrior.fury.suggestions.siegeBreaker.efficiency')`${formatPercentage(actual)}% of Recklessnesses casts without a Siegebreaker cast`))
+      .actual(t({
+      id: "warrior.fury.suggestions.siegeBreaker.efficiency",
+      message: `${formatPercentage(actual)}% of Recklessnesses casts without a Siegebreaker cast`
+    }))
       .recommended(`${formatPercentage(recommended)}+% is recommended`));
   }
 
@@ -122,4 +121,5 @@ class Siegebreaker extends Analyzer {
     );
   }
 }
- export default Siegebreaker;
+
+export default Siegebreaker;

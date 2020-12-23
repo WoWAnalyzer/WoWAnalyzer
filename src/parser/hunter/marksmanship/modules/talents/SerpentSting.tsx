@@ -14,7 +14,6 @@ import { SERPENT_STING_MM_BASE_DURATION, SERPENT_STING_MM_PANDEMIC } from 'parse
 import Enemies from 'parser/shared/modules/Enemies';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import React from 'react';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 /**
@@ -126,7 +125,10 @@ class SerpentSting extends Analyzer {
       <>It is not recommended to refresh <SpellLink id={SPELLS.SERPENT_STING_TALENT.id} /> earlier than when there is less than {formatPercentage(SERPENT_STING_MM_PANDEMIC, 0)}% of the duration remaining.
       </>)
       .icon(SPELLS.SERPENT_STING_TALENT.icon)
-      .actual(i18n._(t('hunter.marksmanship.suggestions.serpentSting.refreshOutsidePandemic')`You refreshed Serpent Sting ${actual} times when it wasn't in the pandemic window`))
+      .actual(t({
+      id: "hunter.marksmanship.suggestions.serpentSting.refreshOutsidePandemic",
+      message: `You refreshed Serpent Sting ${actual} times when it wasn't in the pandemic window`
+    }))
       .recommended(`${recommended} non-pandemic refreshes is recommended`));
 
     when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => suggest(
@@ -134,7 +136,10 @@ class SerpentSting extends Analyzer {
         You should make sure to keep up <SpellLink id={SPELLS.SERPENT_STING_TALENT.id} /> by using it within the pandemic windows to maximize it's damage potential.
       </>)
       .icon(SPELLS.SERPENT_STING_TALENT.icon)
-      .actual(i18n._(t('hunter.marksmanship.suggestions.serpentSting.uptime')`You had an uptime of ${formatPercentage(actual, 0)}%`))
+      .actual(t({
+      id: "hunter.marksmanship.suggestions.serpentSting.uptime",
+      message: `You had an uptime of ${formatPercentage(actual, 0)}%`
+    }))
       .recommended(`An uptime of >${formatPercentage(recommended, 0)}% is recommended`));
   }
 

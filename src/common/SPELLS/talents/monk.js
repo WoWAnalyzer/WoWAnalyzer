@@ -25,7 +25,7 @@ export default {
   UPWELLING_TALENT: { id: 274963, name: 'Upwelling', icon: 'ability_monk_surgingmist' },
   RISING_MIST_TALENT: { id: 274909, name: 'Rising Mist', icon: 'ability_monk_effuse' },
   // Brewmaster
-  LIGHT_BREWING_TALENT: { id: 196721, name: 'Light Brewing', icon: 'spell_brew_wheat' },
+  LIGHT_BREWING_TALENT: { id: 325093, name: 'Light Brewing', icon: 'spell_brew_wheat' },
   SPITFIRE_TALENT: { id: 242580, name: 'Spitfire', icon: 'ability_monk_breathoffire' },
   BLACK_OX_BREW_TALENT: { id: 115399, name: 'Black Ox Brew', icon: 'ability_monk_chibrew' },
   BOB_AND_WEAVE_TALENT: { id: 280515, name: 'Bob and Weave', icon: 'ability_creature_cursed_04' },
@@ -40,6 +40,7 @@ export default {
   GOOD_KARMA_TALENT: { id: 280195, name: 'Good Karma', icon: 'ability_monk_touchofkarma' },
   INNER_STRENGTH_TALENT: { id: 261767, name: 'Inner Strength', icon: 'ability_monk_domeofmist' },
   HIT_COMBO_TALENT: { id: 196740, name: 'Hit Combo', icon: 'ability_monk_palmstrike' },
+  DANCE_OF_CHI_JI_TALENT: { id: 325201, name: 'Dance of Chi-Ji', icon: 'ability_monk_cranekick_new' },
   SPIRITUAL_FOCUS_TALENT: { id: 280197, name: 'Spiritual Focus', icon: 'spell_nature_giftofthewild' },
   WHIRLING_DRAGON_PUNCH_TALENT: { id: 152175, name: 'Whirling Dragon Punch', icon: 'ability_monk_hurricanestrike' },
   SERENITY_TALENT: { id: 152173, name: 'Serenity', icon: 'ability_monk_serenity' },

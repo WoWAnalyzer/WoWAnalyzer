@@ -7,7 +7,6 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 import { BERSERK_ENERGY_COST_MULTIPLIER, ENERGY_FOR_FULL_DAMAGE_BITE, MAX_BITE_DAMAGE_BONUS_FROM_ENERGY } from '../../constants';
@@ -27,10 +26,29 @@ const HIT_TYPES_TO_IGNORE = [
  * Berserk or Incarnation reduces energy costs by 40%. It reduces Bite's base cost correctly to 15 but reduces the drain effect to 13 (I expect a bug from when it used to reduce costs by 50%). So a player only needs to have 28 (or 30 if the bug is fixed) energy to get full damage from Ferocious Bite during Berserk rather than the usual 50. This module ignores the bug (the effect is very minor) and calculates everything as if the drain effect is correctly reduced to 15 rather than 13.
  */
 class FerociousBiteEnergy extends Analyzer {
-  static dependencies = {
-    spellEnergyCost : SpellEnergyCost,
+  get _dpsLostFromLowEnergyBites() {
+    return (this.lostDamageTotal / this.owner.fightDuration) * 1000;
   }
 
+  get _averageBonusEnergyFraction() {
+    return this.biteCount > 0 ? (this.sumBonusEnergyFraction / this.biteCount) : 1.0;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this._averageBonusEnergyFraction,
+      isLessThan: {
+        minor: 1.0,
+        average: 0.95,
+        major: 0.8,
+      },
+      style: 'percentage',
+    };
+  }
+
+  static dependencies = {
+    spellEnergyCost: SpellEnergyCost,
+  };
   biteCount = 0;
   lostDamageTotal = 0;
   sumBonusEnergyFraction = 0;
@@ -126,38 +144,21 @@ class FerociousBiteEnergy extends Analyzer {
     return damageBeforeMultiplier * (1 + MAX_BITE_DAMAGE_BONUS_FROM_ENERGY);
   }
 
-  get _dpsLostFromLowEnergyBites() {
-    return (this.lostDamageTotal / this.owner.fightDuration) * 1000;
-  }
-
-  get _averageBonusEnergyFraction() {
-    return this.biteCount > 0 ? (this.sumBonusEnergyFraction / this.biteCount) : 1.0;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this._averageBonusEnergyFraction,
-      isLessThan: {
-        minor: 1.0,
-        average: 0.95,
-        major: 0.8,
-      },
-      style: 'percentage',
-    };
-  }
-
   suggestions(when) {
     const berserkOrIncarnationId = this.selectedCombatant.hasTalent(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id) ?
       SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id :
       SPELLS.BERSERK.id;
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-        <>
-          You didn't always give <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> enough energy to get the full damage bonus. You should aim to have {ENERGY_FOR_FULL_DAMAGE_BITE} energy before using Ferocious Bite, or {(ENERGY_FOR_FULL_DAMAGE_BITE * BERSERK_ENERGY_COST_MULTIPLIER).toFixed(0)} during <SpellLink id={berserkOrIncarnationId} />. Your Ferocious Bite damage was reduced by {formatNumber(this._dpsLostFromLowEnergyBites)} DPS due to lack of energy.
-        </>,
-      )
-        .icon(SPELLS.FEROCIOUS_BITE.icon)
-        .actual(i18n._(t('druid.feral.suggestions.ferociousBite.efficiency')`${(actual * 100).toFixed(1)}% average damage bonus from energy on Ferocious Bite.`))
-        .recommended(`${(recommended * 100).toFixed(1)}% is recommended.`));
+      <>
+        You didn't always give <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> enough energy to get the full damage bonus. You should aim to have {ENERGY_FOR_FULL_DAMAGE_BITE} energy before using Ferocious Bite, or {(ENERGY_FOR_FULL_DAMAGE_BITE * BERSERK_ENERGY_COST_MULTIPLIER).toFixed(0)} during <SpellLink id={berserkOrIncarnationId} />. Your Ferocious Bite damage was reduced by {formatNumber(this._dpsLostFromLowEnergyBites)} DPS due to lack of energy.
+      </>,
+    )
+      .icon(SPELLS.FEROCIOUS_BITE.icon)
+      .actual(t({
+      id: "druid.feral.suggestions.ferociousBite.efficiency",
+      message: `${(actual * 100).toFixed(1)}% average damage bonus from energy on Ferocious Bite.`
+    }))
+      .recommended(`${(recommended * 100).toFixed(1)}% is recommended.`));
   }
 }
 

@@ -6,6 +6,7 @@ import Rule from './Rule';
 import Requirement from './Requirement';
 
 class PreparationRule extends React.PureComponent {
+
   static propTypes = {
     children: PropTypes.node,
     thresholds: PropTypes.object.isRequired,
@@ -39,6 +40,22 @@ class PreparationRule extends React.PureComponent {
         <Requirement
           name={<Trans id="shared.modules.features.checklist.enchantedHigh">Using high quality enchants</Trans>}
           thresholds={thresholds.itemsBestEnchanted}
+        />
+      </>
+    );
+  }
+  renderWeaponEnhancementRequirements() {
+    const { thresholds } = this.props;
+
+    return (
+      <>
+        <Requirement
+          name={<Trans>All weapons enhanced (oils/stones)</Trans>}
+          thresholds={thresholds.weaponsEnhanced}
+        />
+        <Requirement
+          name={<Trans>Using high quality weapon enhancements</Trans>}
+          thresholds={thresholds.bestWeaponEnhancements}
         />
       </>
     );
@@ -83,6 +100,7 @@ class PreparationRule extends React.PureComponent {
         description={<Trans id="shared.modules.features.checklist.wellPreparedDetails">Being well prepared with food, flasks, potions and enchants is an easy way to improve your performance.</Trans>}
       >
         {this.renderEnchantRequirements()}
+        {this.renderWeaponEnhancementRequirements()}
         {this.renderPotionRequirements()}
         {this.renderFlaskRequirements()}
         {this.renderFoodRequirements()}

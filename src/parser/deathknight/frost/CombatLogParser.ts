@@ -26,6 +26,12 @@ import Frostscythe from './modules/talents/Frostscythe';
 import RuneOfTheFallenCrusader from '../shared/runeforges/RuneOfTheFallenCrusader';
 import RuneOfHysteria from '../shared/runeforges/RuneOfHysteria';
 
+// Legendaries
+import Superstrain from '../shared/items/Superstrain';
+
+// Covenants
+import SwarmingMist from '../shared/covenants/SwarmingMist';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
@@ -56,6 +62,12 @@ class CombatLogParser extends CoreCombatLogParser {
     // Runes
     runeOfTheFallenCrusader: RuneOfTheFallenCrusader,
     runeOfHysteria: RuneOfHysteria,
+
+    // Legendaries
+    superStrain: Superstrain,
+
+    // Covenants
+    swarmingMist: SwarmingMist,
 
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,
   };

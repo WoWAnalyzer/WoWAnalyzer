@@ -26,6 +26,8 @@ class Blindside extends Analyzer {
   static dependencies = {
     enemyInstances: EnemyInstances,
   };
+  casts = 0;
+  badMutilates = 0;
 
   protected enemyInstances!: EnemyInstances;
 
@@ -34,9 +36,6 @@ class Blindside extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.BLINDSIDE_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.BLINDSIDE_TALENT, SPELLS.MUTILATE]), this.onCast);
   }
-
-  casts = 0;
-  badMutilates = 0;
 
   get efficiency() {
     return (this.casts / this.casts + this.badMutilates) || 1;
@@ -84,7 +83,10 @@ class Blindside extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest: SuggestionFactory, actual: number | boolean, recommended: number | boolean) => suggest(<>Use <SpellLink id={SPELLS.BLINDSIDE_TALENT.id} /> instead of <SpellLink id={SPELLS.MUTILATE.id} /> when the target is bellow 30% HP or when you have the <SpellLink id={SPELLS.BLINDSIDE_BUFF.id} /> proc. </>)
         .icon(SPELLS.BLINDSIDE_TALENT.icon)
-        .actual(i18n._(t('rogue.assassination.suggestions.blindside.efficiency')`You used Mutilate ${this.badMutilates} times when Blindside was available`))
+        .actual(t({
+      id: "rogue.assassination.suggestions.blindside.efficiency",
+      message: `You used Mutilate ${this.badMutilates} times when Blindside was available`
+    }))
         .recommended(`0 is recommended`));
   }
 

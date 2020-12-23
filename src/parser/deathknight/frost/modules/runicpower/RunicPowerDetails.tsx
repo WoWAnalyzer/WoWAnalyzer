@@ -5,7 +5,6 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Panel from 'interface/others/Panel';
 import { formatPercentage } from 'common/format';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
@@ -53,7 +52,10 @@ class RunicPowerDetails extends Analyzer {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Runic Power.`)
       .icon('inv_sword_62')
-      .actual(i18n._(t('deathknight.frost.suggestions.runicPower.wasted')`${formatPercentage(actual)}% wasted`))
+      .actual(t({
+      id: "deathknight.frost.suggestions.runicPower.wasted",
+      message: `${formatPercentage(actual)}% wasted`
+    }))
       .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
 

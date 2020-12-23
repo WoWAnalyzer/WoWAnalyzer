@@ -31,6 +31,18 @@ const enchants: ItemList<Enchant> = {
     icon: 'inv_misc_enchantedscroll',
     effectId: 6228,
   },
+  ENCHANT_WEAPON_OPTICAL_TARGET_EMBIGGENER: {
+    id: 172920,
+    name: 'Optical Target Embiggener',
+    icon: 'inv_engineering_90_scope_blue',
+    effectId: 6196,
+  },
+  ENCHANT_WEAPON_INFRA_GREEN_REFLEX_SIGHT: {
+    id: 172921,
+    name: 'Infra-green Reflex Sight',
+    icon: 'inv_engineering_90_scope_green',
+    effectId: 6195,
+  },
   ENCHANT_CLOAK_FORTIFIED_AVOIDANCE: {
     id: 172411,
     name: 'Enchant Cloak - Fortified Avoidance',
@@ -192,6 +204,32 @@ const enchants: ItemList<Enchant> = {
     name: 'Enchant Ring - Tenet of Versatility',
     icon: 'inv_misc_enchantedscroll',
     effectId: 6170,
+  },
+
+  //Weapon Oils & Stones
+  SHADOWCORE_OIL: {
+    id: 171285,
+    name: 'Shadowcore Oil',
+    icon: 'inv_misc_potionseta',
+    effectId: 6188,
+  },
+  EMBALMERS_OIL: {
+    id: 171286,
+    name: 'Embalmer\'s Oil',
+    icon: 'inv_misc_potionsetb',
+    effectId: 6190,
+  },
+  SHADED_SHARPENING_STONE: {
+    id: 171437,
+    name: 'Shaded Sharpening Stone',
+    icon: 'inv_blacksmithing_greatersharpeningstone',
+    effectId: 6200,
+  },
+  SHADED_WEIGHTSTONE: {
+    id: 171439,
+    name: 'Shaded Weightstone',
+    icon: 'inv_blacksmithing_greaterweightstone',
+    effectId: 6201,
   },
 };
 

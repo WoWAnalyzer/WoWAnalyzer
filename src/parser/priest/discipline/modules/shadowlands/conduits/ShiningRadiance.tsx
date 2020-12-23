@@ -34,7 +34,7 @@ class ShiningRadiance extends Analyzer {
   }
 
   onRadianceHeal(event: HealEvent) {
-    this.bonusRadianceHealing += calculateEffectiveHealing(event,this.conduitIncrease);
+    this.bonusRadianceHealing += calculateEffectiveHealing(event, this.conduitIncrease);
   }
 
   statistic() {
@@ -54,4 +54,5 @@ class ShiningRadiance extends Analyzer {
   }
 
 }
+
 export default ShiningRadiance;

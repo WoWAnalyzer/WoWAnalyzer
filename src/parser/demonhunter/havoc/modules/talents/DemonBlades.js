@@ -6,13 +6,28 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Events from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatThousands, formatPercentage } from 'common/format';
-import { i18n } from '@lingui/core';
 import { t } from '@lingui/macro';
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/4GR2pwAYW8KtgFJn/#fight=6&source=18
  */
-class DemonBlades extends Analyzer{
+class DemonBlades extends Analyzer {
+
+  get furyPerMin() {
+    return ((this.furyGain - this.furyWaste) / (this.owner.fightDuration / 60000)).toFixed(2);
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.furyWaste / this.furyGain,
+      isGreaterThan: {
+        minor: 0.03,
+        average: 0.07,
+        major: 0.1,
+      },
+      style: 'percentage',
+    };
+  }
 
   furyGain = 0;
   furyWaste = 0;
@@ -37,31 +52,18 @@ class DemonBlades extends Analyzer{
     this.damage += event.amount;
   }
 
-  get furyPerMin() {
-    return ((this.furyGain - this.furyWaste) / (this.owner.fightDuration/60000)).toFixed(2);
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.furyWaste / this.furyGain,
-      isGreaterThan: {
-        minor: 0.03,
-        average: 0.07,
-        major: 0.1,
-      },
-      style: 'percentage',
-    };
-  }
-
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<> Be mindful of your Fury levels and spend it before capping your Fury due to <SpellLink id={SPELLS.DEMON_BLADES_TALENT.id} />.</>)
-          .icon(SPELLS.DEMON_BLADES_TALENT.icon)
-          .actual(i18n._(t('demonhunter.havoc.suggestions.demonBlades.furyWasted')`${formatPercentage(actual)}% Fury wasted`))
-          .recommended(`${formatPercentage(recommended)}% is recommended.`));
+        .icon(SPELLS.DEMON_BLADES_TALENT.icon)
+        .actual(t({
+      id: "demonhunter.havoc.suggestions.demonBlades.furyWasted",
+      message: `${formatPercentage(actual)}% Fury wasted`
+    }))
+        .recommended(`${formatPercentage(recommended)}% is recommended.`));
   }
 
-  statistic(){
+  statistic() {
     const effectiveFuryGain = this.furyGain - this.furyWaste;
     return (
       <TalentStatisticBox
@@ -85,4 +87,5 @@ class DemonBlades extends Analyzer{
     );
   }
 }
+
 export default DemonBlades;
