@@ -212,6 +212,20 @@ class Abilities extends CoreAbilities {
           extraSuggestion: `This is a great AoE damage spell, but also does a great damage on single target. You should cast it as soon as it gets off cooldown. The only moment you can delay it's cast is if you already expect an add wave to maximize it's efficiency and damage output.`,
         },
       },
+      {
+        spell: SPELLS.GLAIVE_TEMPEST_TALENT,
+        enabled: combatant.hasTalent(SPELLS.GLAIVE_TEMPEST_TALENT.id),
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 20,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.95,
+          extraSuggestion: `Text here`,
+        },
+      },
 
       // Big DPS Cooldowns
       {
