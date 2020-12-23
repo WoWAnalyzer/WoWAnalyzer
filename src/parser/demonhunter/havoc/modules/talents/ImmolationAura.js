@@ -12,7 +12,7 @@ import { t } from '@lingui/macro';
  * Example Report: https://www.warcraftlogs.com/reports/KGJgZPxanBX82LzV/#fight=4&source=20
  */
 
-const IMMOLATION_AURA = [SPELLS.IMMOLATION_AURA_FIRST_STRIKE_DPS, SPELLS.IMMOLATION_AURA_BUFF_DPS];
+const IMMOLATION_AURA = [SPELLS.IMMOLATION_AURA_FIRST_STRIKE, SPELLS.IMMOLATION_AURA_BUFF_DPS];
 
 class ImmolationAura extends Analyzer {
 
@@ -38,11 +38,11 @@ class ImmolationAura extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.IMMOLATION_AURA.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.BURNING_HATRED_TALENT.id);
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.IMMOLATION_AURA_BUFF_DPS), this.onEnergizeEvent);
+    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(IMMOLATION_AURA), this.onEnergizeEvent);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(IMMOLATION_AURA), this.onDamageEvent);
   }
 
