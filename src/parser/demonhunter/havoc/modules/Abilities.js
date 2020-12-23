@@ -34,7 +34,7 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.BLADE_DANCE, SPELLS.DEATH_SWEEP],
         category: combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id) ? Abilities.SPELL_CATEGORIES.ROTATIONAL : Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        cooldown: haste => 9 / (1 + haste),
+        cooldown: haste => 15 / (1 + haste),
         gcd: {
           base: 1500,
         },
