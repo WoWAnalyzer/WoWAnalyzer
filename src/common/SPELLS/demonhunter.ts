@@ -158,6 +158,12 @@ const spells = {
     name: 'Immolation Aura First Strike',
     icon: 'ability_demonhunter_immolation',
   },
+  //Is this right?
+  IMMOLATION_AURA_SECOND_STRIKE: {
+    id: 258922,
+    name: 'Immolation Aura Second Strike',
+    icon: 'ability_demonhunter_immolation',
+  },
   INFERNAL_STRIKE: {
     id: 189110,
     name: 'Infernal Strike',
