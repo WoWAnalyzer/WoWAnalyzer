@@ -63,7 +63,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.IMMOLATION_AURA,
         // IMMOLATION_AURA is the ID for cast and the buff. But damage is done from IMMOLATION_AURA_INITIAL_HIT_DAMAGE and IMMOLATION_AURA_BUFF_DAMAGE
         buffSpellId: SPELLS.IMMOLATION_AURA.id,
-        enabled: combatant.hasTalent(SPELLS.IMMOLATION_AURA.id),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 30 / (1 + haste),
         gcd: {
@@ -92,7 +91,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.THROW_GLAIVE_HAVOC,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        charges: combatant.hasTalent(SPELLS.MASTER_OF_THE_GLAIVE_TALENT.id) ? 2 : 1,
         cooldown: haste => 10 / (1 + haste),
         gcd: {
           base: 1500,
