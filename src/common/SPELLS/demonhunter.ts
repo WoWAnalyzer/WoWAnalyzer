@@ -158,7 +158,7 @@ const spells = {
     name: 'Immolation Aura First Strike',
     icon: 'ability_demonhunter_immolation',
   },
-  IMMOLATION_AURA_SECOND_STRIKE: {
+  IMMOLATION_AURA_BUFF_DPS: {
     id: 258922,
     name: 'Immolation Aura Second Strike',
     icon: 'ability_demonhunter_immolation',
