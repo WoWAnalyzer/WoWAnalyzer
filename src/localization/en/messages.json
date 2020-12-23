@@ -699,6 +699,7 @@
   "priest.holy.suggestions.fortitudeRaidBuff.uptime": "{0}% Power Word: Fortitude uptime",
   "priest.holy.suggestions.spiritOfRedemption.efficiency": "{actual} seconds spent redeeming",
   "priest.shadow.suggestions.alwaysBeCasting.downtime": "{0}% downtime",
+  "priest.shadow.suggestions.darkThoughts.efficiency": "Wasted {0}% of Dark Thought procs. Remember that the proc allows you to cast Mind Blast instantly during Mind Flay, Mind Sear, or while moving and should never be left unused.",
   "priest.shadow.suggestions.dispersion.uptime": "{0}% Dispersion uptime",
   "priest.shadow.suggestions.shadowWordPain.uptime": "{0}% Shadow Word: Pain uptime",
   "priest.shadow.suggestions.vampiricTouch.uptime": "{0}% Vampiric Touch uptime",
