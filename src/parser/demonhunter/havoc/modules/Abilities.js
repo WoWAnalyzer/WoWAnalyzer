@@ -76,7 +76,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        //Converted from Dark Slash, should verify this is right
         spell: SPELLS.ESSENCE_BREAK_TALENT,
         enabled: combatant.hasTalent(SPELLS.ESSENCE_BREAK_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
