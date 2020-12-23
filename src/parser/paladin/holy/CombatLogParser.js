@@ -1,7 +1,7 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
-import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
-import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
+//import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
+//import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
 
 import LightOfDawnNormalizer from './normalizers/LightOfDawn';
 import BeaconOfVirtueNormalizer from './normalizers/BeaconOfVirtue';
@@ -49,6 +49,10 @@ import HolyPowerDetails from '../shared/holypower/HolyPowerDetails';
 
 import ShockBarrier from './modules/shadowlands/legendaries/ShockBarrier';
 
+import AshenHallow from '../shared/shadowlands/covenants/AshenHallow';
+import DivineToll from '../shared/shadowlands/covenants/DivineToll';
+
+
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -82,8 +86,8 @@ class CombatLogParser extends CoreCombatLogParser {
     hammerOfWrath: HammerOfWrath,
 
     // Generic healer things
-    manaLevelChart: ManaLevelChart,
-    manaUsageChart: ManaUsageChart,
+    // manaLevelChart: ManaLevelChart,
+    // manaUsageChart: ManaUsageChart,
 
     // Features
     checklist: Checklist,
@@ -111,8 +115,13 @@ class CombatLogParser extends CoreCombatLogParser {
     holyPowerTracker: HolyPowerTracker,
     holyPowerDetails: HolyPowerDetails,
 
+    //-- shadowlands section --//
     // Lego
     shockBarrier: ShockBarrier,
+
+    // Covenant
+    ashenHallow: AshenHallow,
+    divineToll: DivineToll,
   };
 }
 
