@@ -38,7 +38,7 @@ class EssenceBreak extends Analyzer {
     if (!target) {
       return;
     }
-    const hasEssenceBreakDebuff = target.hasBuff(SPELLS.ESSENCE_BREAK_TALENT.id, event.timestamp);
+    const hasEssenceBreakDebuff = target.hasBuff(SPELLS.ESSENCE_BREAK_DAMAGE.id, event.timestamp);
 
     if (hasEssenceBreakDebuff) {
       this.extraDamage += calculateEffectiveDamage(event, DAMAGE_INCREASE);
