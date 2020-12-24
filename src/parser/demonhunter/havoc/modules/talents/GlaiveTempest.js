@@ -20,7 +20,7 @@ class GlaiveTempest extends Analyzer {
       }
 
     onDamageEvent(event) {
-        this.damage += event.amount;
+      this.damage += event.amount + (event.absorb || 0);
       }
 
     statistic() {
