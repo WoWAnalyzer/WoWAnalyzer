@@ -32,7 +32,20 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: [SPELLS.BLADE_DANCE, SPELLS.DEATH_SWEEP],
+        spell: [SPELLS.BLADE_DANCE],
+        category: combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id) ? Abilities.SPELL_CATEGORIES.ROTATIONAL : Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        cooldown: haste => 15 / (1 + haste),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id),
+          recommendedEfficiency: 0.95,
+          extraSuggestion: <>This should be part of your single target rotation due to the <SpellLink id={SPELLS.FIRST_BLOOD_TALENT.id} /> talent. This includes the <SpellLink id={SPELLS.DEATH_SWEEP.id} /> casts since they are the same ability and share their cooldowns.</>,
+        },
+      },
+      {
+        spell: [SPELLS.DEATH_SWEEP],
         category: combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id) ? Abilities.SPELL_CATEGORIES.ROTATIONAL : Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: haste => 9 / (1 + haste),
         gcd: {
