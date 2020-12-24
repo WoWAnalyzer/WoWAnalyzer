@@ -26,6 +26,12 @@ class Buffs extends CoreBuffs {
         timelineHighlight: true,
       },
       {
+        spellId: SPELLS.DEATH_AND_MADNESS_BUFF.id,
+        triggeredBySpellId: SPELLS.SHADOW_WORD_DEATH.id,
+        enabled: combatant.hasTalent(SPELLS.DEATH_AND_MADNESS_TALENT.id),
+        timelineHighlight: true,
+      },
+      {
         spellId: SPELLS.SURRENDER_TO_MADNESS_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.SURRENDER_TO_MADNESS_TALENT.id),
         timelineHighlight: true,
