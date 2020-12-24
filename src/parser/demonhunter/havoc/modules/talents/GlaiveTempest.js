@@ -18,7 +18,6 @@ class GlaiveTempest extends Analyzer {
         }
         this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.GLAIVE_TEMPEST_DAMAGE), this.onDamageEvent);
       }
-    
 
     onDamageEvent(event) {
         this.damage += event.amount;
