@@ -9,7 +9,6 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import { t } from '@lingui/macro';
-import { formatPercentage } from 'common/format';
 import EventHistory from 'parser/shared/modules/EventHistory';
 
 // Example log: /report/JAPL1zpDfN7W8wck/33-Heroic+The+Council+of+Blood+-+Kill+(5:46)/Mayrim/standard/statistics
