@@ -598,7 +598,6 @@ export interface UpdateSpellUsableEvent extends Event<EventType.UpdateSpellUsabl
   isOnCooldown: boolean
   isAvailable: boolean
   chargesAvailable: number
-  chargesOnCooldown: number
   maxCharges: number
   timePassed?: number
   sourceID: number
