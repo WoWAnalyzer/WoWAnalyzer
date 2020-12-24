@@ -61,7 +61,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.IMMOLATION_AURA,
-        // IMMOLATION_AURA is the ID for cast and the buff. But damage is done from IMMOLATION_AURA_FIRST_STRIKE_DPS and IMMOLATION_AURA_BUFF_DPS
+        // IMMOLATION_AURA is the ID for cast and the buff. But damage is done from IMMOLATION_AURA_INITIAL_HIT_DAMAGE and IMMOLATION_AURA_BUFF_DAMAGE
         buffSpellId: SPELLS.IMMOLATION_AURA.id,
         enabled: combatant.hasTalent(SPELLS.IMMOLATION_AURA.id),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
@@ -76,8 +76,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.DARK_SLASH_TALENT,
-        enabled: combatant.hasTalent(SPELLS.DARK_SLASH_TALENT.id),
+        spell: SPELLS.ESSENCE_BREAK_TALENT,
+        enabled: combatant.hasTalent(SPELLS.ESSENCE_BREAK_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 20,
         gcd: {
@@ -211,6 +211,20 @@ class Abilities extends CoreAbilities {
           extraSuggestion: `This is a great AoE damage spell, but also does a great damage on single target. You should cast it as soon as it gets off cooldown. The only moment you can delay it's cast is if you already expect an add wave to maximize it's efficiency and damage output.`,
         },
       },
+      {
+        spell: SPELLS.GLAIVE_TEMPEST_TALENT,
+        enabled: combatant.hasTalent(SPELLS.GLAIVE_TEMPEST_TALENT.id),
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 20,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.95,
+          extraSuggestion: <>The only time you should delay casting <SpellLink id={SPELLS.GLAIVE_TEMPEST_TALENT.id} /> is when you're expecting adds to spawn soon.</>,
+        },
+      },
 
       // Big DPS Cooldowns
       {
@@ -222,17 +236,6 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.80, //4 minute cd. You want some leeway in when to burn it.
-        },
-      },
-      {
-        spell: SPELLS.NEMESIS_TALENT,
-        enabled: combatant.hasTalent(SPELLS.NEMESIS_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 120,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-          extraSuggestion: 'This is your main damage increase buff. You should use it as much as you can to maximize your damage output.',
         },
       },
 
