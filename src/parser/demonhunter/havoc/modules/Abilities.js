@@ -61,7 +61,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.IMMOLATION_AURA,
-        // IMMOLATION_AURA is the ID for cast and the buff. But damage is done from IMMOLATION_AURA_FIRST_STRIKE_DAMAGE and IMMOLATION_AURA_BUFF_DAMAGE
+        // IMMOLATION_AURA is the ID for cast and the buff. But damage is done from IMMOLATION_AURA_INITIAL_HIT_DAMAGE and IMMOLATION_AURA_BUFF_DAMAGE
         buffSpellId: SPELLS.IMMOLATION_AURA.id,
         enabled: combatant.hasTalent(SPELLS.IMMOLATION_AURA.id),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,

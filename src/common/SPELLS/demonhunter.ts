@@ -153,7 +153,7 @@ const spells = {
     name: 'Immolation Aura',
     icon: 'ability_demonhunter_immolation',
   },
-  IMMOLATION_AURA_FIRST_STRIKE_DAMAGE: {
+  IMMOLATION_AURA_INITIAL_HIT_DAMAGE: {
     id: 258921,
     name: 'Immolation Aura First Strike',
     icon: 'ability_demonhunter_immolation',
