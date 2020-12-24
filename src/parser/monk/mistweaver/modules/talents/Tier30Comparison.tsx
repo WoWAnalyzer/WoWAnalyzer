@@ -206,7 +206,7 @@ class Tier30Comparison extends Analyzer {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
       <>
-        With your current playstyle you are not using the most effective tier 45 talent. <SpellLink id={this.best.id} /> is better based off of how you played.
+        With your current playstyle you are not using the most effective tier 30 talent. <SpellLink id={this.best.id} /> is better based off of how you played.
       </>,
     )
       .icon(this.best.icon)
