@@ -203,6 +203,12 @@ const spells = {
     icon: 'inv_misc_herb_felblossom',
     manaCost: 800,
   },
+  LIFEBLOOM_DTL_HOT_HEAL: {
+    id: 188550,
+    name: 'Lifebloom',
+    icon: 'inv_misc_herb_felblossom',
+    manaCost: 800,
+  },
   LIFEBLOOM_BLOOM_HEAL: {
     id: 33778,
     name: 'Lifebloom',

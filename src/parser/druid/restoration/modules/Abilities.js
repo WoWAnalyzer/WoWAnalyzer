@@ -183,6 +183,16 @@ class Abilities extends CoreAbilities {
         ],
       },
       {
+        spell: SPELLS.LIFEBLOOM_DTL_HOT_HEAL,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+        healSpellIds: [
+          SPELLS.LIFEBLOOM_BLOOM_HEAL.id,
+        ],
+      },
+      {
         spell: SPELLS.NATURES_CURE,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         cooldown: 8,

@@ -16,7 +16,8 @@ import { t } from '@lingui/macro';
 
 class Lifebloom extends Analyzer {
   get uptime() {
-    return this.combatants.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id);
+    // DTL Lifeblooms are on two targets, getBuffUptime sums both up
+    return this.combatants.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id) + (this.combatants.getBuffUptime(SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id) / 2);
   }
 
   get uptimePercent() {
