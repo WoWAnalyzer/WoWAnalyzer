@@ -20,7 +20,6 @@ class ShadowCrash extends Analyzer {
 
   damage: number = 0;
   insanityGained: number = 0;
-  insanityWasted: number = 0;
   totalTargetsHit: number = 0;
   protected abilityTracker!: AbilityTracker;
 
@@ -42,7 +41,6 @@ class ShadowCrash extends Analyzer {
 
   onEnergize(event: EnergizeEvent) {
     this.insanityGained += event.resourceChange;
-    this.insanityWasted += event.waste;
   }
 
   statistic() {
