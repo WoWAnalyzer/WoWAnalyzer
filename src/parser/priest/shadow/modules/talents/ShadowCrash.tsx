@@ -53,7 +53,7 @@ class ShadowCrash extends Analyzer {
         <BoringSpellValueText spell={SPELLS.SHADOW_CRASH_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} /><br />
-            <Insanity /> {formatNumber(this.insanityGained)} <small>Insanity gained</small>
+            <Insanity /> {formatNumber(this.insanityGained)} <small>Insanity generated</small>
           </>
         </BoringSpellValueText>
       </Statistic>

@@ -4243,7 +4243,7 @@ exports[`Shadow Priest integration test: example log ShadowCrash matches the sta
           164
            
           <small>
-            Insanity gained
+            Insanity generated
           </small>
         </div>
       </div>
@@ -4909,7 +4909,7 @@ exports[`Shadow Priest integration test: example log VoidTorrent matches the sta
           459
            
           <small>
-            Insanity gained
+            Insanity generated
           </small>
         </div>
       </div>
