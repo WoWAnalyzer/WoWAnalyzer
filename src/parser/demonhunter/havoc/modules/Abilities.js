@@ -231,11 +231,11 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.METAMORPHOSIS_HAVOC,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         buffSpellId: SPELLS.METAMORPHOSIS_HAVOC_BUFF.id,
-        cooldown: 240,
+        cooldown: 300,
         gcd: null, // Logs track the "landing" spell which is not on GCD
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.80, //4 minute cd. You want some leeway in when to burn it.
+          recommendedEfficiency: 0.80, //5 minute cd. You want some leeway in when to burn it.
         },
       },
 
