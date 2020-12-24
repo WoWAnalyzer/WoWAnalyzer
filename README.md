@@ -19,7 +19,7 @@ Our docs aren't very good, but we have a really fun and helpful developer commun
 First make sure you have the following:
 - [git](https://git-scm.com/)
   - Optional: Get a UI such as [Fork](https://git-fork.com/) or [TortoiseGit](https://tortoisegit.org/)
-- [Node.js](https://nodejs.org/). We recommend the *current* version.
+- [Node.js](https://nodejs.org/). We recommend the *LTS* version.
 - [Yarn](https://yarnpkg.com/en/docs/install)
 
 Now you need to pull a copy of the codebase onto your computer. Make a fork of the repo by clicking the **Fork** button at the top of this page. Next, click the green button **Clone or download** and copy your *Clone with HTTPS* URL, and then run the command `git clone <paste link>`. This will take a minute.
