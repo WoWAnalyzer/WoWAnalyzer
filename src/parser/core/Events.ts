@@ -216,6 +216,9 @@ export interface EndChannelEvent extends Event<EventType.EndChannel> {
   start: number;
   duration: number;
   beginChannel: BeginChannelEvent;
+  trigger?: {
+    timestamp: number;
+  };
 }
 
 export interface BaseCastEvent<T extends string> extends Event<T> {
@@ -230,6 +233,12 @@ export interface BaseCastEvent<T extends string> extends Event<T> {
     sourceID: number;
     isCancelled: boolean;
     start: number;
+    beginChannel?: {
+      isCancelled: boolean;
+      sourceID: number;
+      timestamp: number;
+      type: string;
+    };
   };
   classResources?: Array<ClassResources & { cost: number }>;
   facing?: number;

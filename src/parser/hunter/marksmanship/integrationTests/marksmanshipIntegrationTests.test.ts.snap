@@ -34,7 +34,7 @@ exports[`Marksmanship Hunter integration test: Multi Target AlwaysBeCasting matc
         <div
           className="value"
         >
-          21.00 %
+          21.35 %
         </div>
         <div
           style={
@@ -53,7 +53,7 @@ exports[`Marksmanship Hunter integration test: Multi Target AlwaysBeCasting matc
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "78.99719186494838%",
+                  "width": "78.64528314405523%",
                 }
               }
             >
@@ -129,7 +129,7 @@ Array [
         message="{0}% downtime"
         values={
           Object {
-            "0": "21.00",
+            "0": "21.35",
           }
         }
       />
@@ -483,7 +483,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "81.74942724121212%",
+                      "width": "81.34459352666038%",
                     }
                   }
                 />
@@ -498,7 +498,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
                 }
               }
             >
-              81.75%
+              81.34%
             </td>
             <td
               style={
@@ -1437,6 +1437,167 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
                 }
               }
             />
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th>
+              <b>
+                {"id":"core.abilities.spellCategories.items","message":"Item"}
+              </b>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
+              </dfn>
+            </th>
+            <th
+              className="text-right"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
+              </dfn>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
+              </dfn>
+            </th>
+            <th />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=331624"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_inscription_darkmooncard_voracity.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Voracious Hunger
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.49
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              2
+              /3
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#ff8000",
+                      "width": "72.87006861931462%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              72.87%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            >
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
+            </td>
           </tr>
         </tbody>
         <tbody>
@@ -4027,7 +4188,7 @@ Array [
           Object {
             "0": 26,
             "1": 33,
-            "2": "82",
+            "2": "81",
           }
         }
       />
@@ -4222,6 +4383,50 @@ Array [
   },
   Object {
     "details": null,
+    "icon": "inv_inscription_darkmooncard_voracity",
+    "importance": "regular",
+    "issue": <React.Fragment>
+      <Trans
+        components={
+          Object {
+            "0": <ForwardRef
+              id={331624}
+            />,
+          }
+        }
+        id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
+      />
+       
+      
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <Trans
+        id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        values={
+          Object {
+            "0": 2,
+            "1": 3,
+            "2": "73",
+          }
+        }
+      />
+       (
+      <Trans
+        id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
+        values={
+          Object {
+            "0": "80",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
+  Object {
+    "details": null,
     "icon": "ability_hunter_assassinate2",
     "importance": "regular",
     "issue": <React.Fragment>
@@ -4265,6 +4470,112 @@ Array [
     </React.Fragment>,
   },
 ]
+`;
+
+exports[`Marksmanship Hunter integration test: Multi Target DarkmoonDeckVoracity matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="ITEMS"
+    className="panel statistic flexible "
+    position={0}
+    style={
+      Object {
+        "zIndex": 1,
+      }
+    }
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="unknownitem-link-text"
+            href="http://wowhead.com/item=173087"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt="Darkmoon Deck: Voracity"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/inv_inscription_darkmooncard_voracity.jpg"
+            />
+          </a>
+           
+          <a
+            className="unknownitem-link-text"
+            href="http://wowhead.com/item=173087"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            Darkmoon Deck: Voracity
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          <svg
+            className="icon"
+            version="1.1"
+            viewBox="16 16 32 32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M33.446,23.135c-0.89,0-1.612,0.722-1.612,1.612v8.049l-4.079,4.078c-0.63,0.629-0.63,1.65,0,2.28 c0.315,0.314,0.728,0.472,1.14,0.472c0.413,0,0.825-0.157,1.14-0.472l4.551-4.55c0.302-0.302,0.472-0.712,0.472-1.14v-8.716 C35.059,23.856,34.337,23.135,33.446,23.135z M32.111,16.668c-8.509,0-15.431,6.92-15.431,15.427 c0,8.506,6.922,15.426,15.431,15.426c8.509,0,15.431-6.92,15.431-15.426C47.542,23.588,40.62,16.668,32.111,16.668z M19.179,38.606c-1.025-2.031-1.545-4.222-1.545-6.511c0-7.981,6.495-14.473,14.477-14.473v2.097 c-6.826,0-12.379,5.552-12.379,12.376c0,1.959,0.444,3.831,1.32,5.566L19.179,38.606z M32.111,43.516 c-6.3,0-11.426-5.124-11.426-11.422c0-6.298,5.126-11.422,11.426-11.422s11.426,5.124,11.426,11.422 C43.537,38.392,38.411,43.516,32.111,43.516z"
+            />
+          </svg>
+           
+          1.38
+          % 
+          <small>
+            Haste
+          </small>
+          <br />
+          <svg
+            className="icon"
+            viewBox="10 10 80 80"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M50,86.4865c17.4361,0,31.6216-14.1855,31.6216-31.6216c0-16.6168-12.8865-30.2714-29.1892-31.5189v-4.9677h7.2973v-4.8649  H40.2703v4.8649h7.2973v4.9677c-16.3027,1.2475-29.1892,14.902-29.1892,31.5189C18.3784,72.3009,32.5639,86.4865,50,86.4865z M52.4324,28.2236c3.1101,0.2817,6.0664,1.0982,8.7798,2.356l-8.7798,15.2073V28.2236z M47.5676,28.2236v26.6412 c0,1.1008,0.7393,2.0647,1.8029,2.3497c0.209,0.0561,0.4205,0.0827,0.6295,0.0827c0.8533,0,1.6642-0.4504,2.1065-1.2162 l13.3146-23.0616c6.8507,4.8503,11.3357,12.8315,11.3357,21.8454c0,14.7537-12.0031,26.7567-26.7568,26.7567 s-26.7568-12.003-26.7568-26.7567C23.2432,40.9315,33.9501,29.4573,47.5676,28.2236z"
+            />
+          </svg>
+           
+          8.11
+          % 
+          <small>
+            Uptime
+          </small>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-xs-12"
+        />
+      </div>
+      <div
+        className="statistic-expansion-button-holster"
+      >
+        <button
+          className="btn btn-primary"
+          onClick={[Function]}
+        >
+          <span
+            className="glyphicon glyphicon-chevron-down"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 `;
 
 exports[`Marksmanship Hunter integration test: Multi Target DistanceMoved matches the statistic snapshot 1`] = `
@@ -4926,7 +5237,7 @@ exports[`Marksmanship Hunter integration test: Multi Target MarksmanshipFocusUsa
                   onTouchStart={[Function]}
                   style={Object {}}
                 >
-                  65
+                  40
                   %
                 </dfn>
               </div>
@@ -4942,6 +5253,54 @@ exports[`Marksmanship Hunter integration test: Multi Target MarksmanshipFocusUsa
                   style={
                     Object {
                       "background": "#abff3d",
+                    }
+                  }
+                />
+              </div>
+              <div
+                className="flex-main"
+              >
+                <a
+                  className="spell-link-text"
+                  href="http://wowhead.com/spell=185358"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_impalingbolt.jpg"
+                  />
+                   
+                  Arcane Shot
+                </a>
+              </div>
+              <div
+                className="flex-sub"
+              >
+                <dfn
+                  className=""
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                  style={Object {}}
+                >
+                  39
+                  %
+                </dfn>
+              </div>
+            </div>
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-sub"
+              >
+                <div
+                  className="circle"
+                  style={
+                    Object {
+                      "background": "#ecda4c",
                     }
                   }
                 />
@@ -4974,7 +5333,7 @@ exports[`Marksmanship Hunter integration test: Multi Target MarksmanshipFocusUsa
                   onTouchStart={[Function]}
                   style={Object {}}
                 >
-                  24
+                  15
                   %
                 </dfn>
               </div>
@@ -4989,7 +5348,7 @@ exports[`Marksmanship Hunter integration test: Multi Target MarksmanshipFocusUsa
                   className="circle"
                   style={
                     Object {
-                      "background": "#ecda4c",
+                      "background": "#ff7d0a",
                     }
                   }
                 />
@@ -5022,7 +5381,7 @@ exports[`Marksmanship Hunter integration test: Multi Target MarksmanshipFocusUsa
                   onTouchStart={[Function]}
                   style={Object {}}
                 >
-                  10
+                  6
                   %
                 </dfn>
               </div>
@@ -5862,9 +6221,9 @@ exports[`Marksmanship Hunter integration test: Multi Target Trueshot matches the
             src="//render-us.worldofwarcraft.com/icons/56/ability_hunter_focusfire.jpg"
           />
            
-          75
+          78
           /
-          83
+          86
            
           <small>
             Focus gained
@@ -6152,7 +6511,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                   }
                 >
                    
-                  81.75%
+                  81.34%
                    
                    
                 </div>
@@ -6174,7 +6533,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                       Object {
                         "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "55.77559271323634%",
+                        "width": "54.427496443779035%",
                       }
                     }
                   />
@@ -6817,7 +7176,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
               style={
                 Object {
                   "backgroundColor": "#df7102",
-                  "width": "41.61361602795574%",
+                  "width": "41.546652825637224%",
                 }
               }
             />
@@ -6925,7 +7284,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                   }
                 >
                    
-                  79.00%
+                  78.65%
                    
                    
                 </div>
@@ -6947,7 +7306,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "30.06407416117464%",
+                        "width": "29.930147756537593%",
                       }
                     }
                   />
@@ -7213,7 +7572,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                   }
                 >
                    
-                  94.53%
+                  94.59%
                    
                    
                 </div>
@@ -7995,12 +8354,110 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
 </ul>
 `;
 
+exports[`Marksmanship Hunter integration test: Single Target AlwaysBeCasting matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad"
+      >
+        <label>
+          <img
+            alt="Downtime"
+            className="icon game "
+            src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
+          />
+           
+          <trans
+            id="shared.alwaysBeCasting.statistic.label"
+            message="Downtime"
+          />
+        </label>
+        <div
+          className="value"
+        >
+          12.91 %
+        </div>
+        <div
+          style={
+            Object {
+              "marginTop": "0.5em",
+            }
+          }
+        >
+          <div
+            className="statistic-box-bar"
+          >
+            <div
+              className="stat-health-bg"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={[Function]}
+              style={
+                Object {
+                  "width": "87.09249473517198%",
+                }
+              }
+            >
+              <img
+                alt="Active time"
+                src="/img/sword.png"
+              />
+            </div>
+            <div
+              className="remainder DeathKnight-bg"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={[Function]}
+            >
+              <img
+                alt="Downtime"
+                src="/img/afk.png"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Marksmanship Hunter integration test: Single Target AlwaysBeCasting matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
     "icon": "spell_mage_altertime",
-    "importance": "regular",
+    "importance": "major",
     "issue": <React.Fragment>
       Your downtime can be improved. Try to Always Be Casting (ABC), this means you should try to reduce the delay between casting spells. If you have to move, try casting something like 
       <ForwardRef
@@ -8026,7 +8483,7 @@ Array [
         message="{0}% downtime"
         values={
           Object {
-            "0": "10.49",
+            "0": "12.91",
           }
         }
       />
@@ -8392,7 +8849,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
               }
             >
               37
-              /41
+              /43
                
               casts
             </td>
@@ -8410,8 +8867,8 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#70b570",
-                      "width": "92.00317148771784%",
+                      "backgroundColor": "#ff8000",
+                      "width": "87.3214488625463%",
                     }
                   }
                 />
@@ -8426,7 +8883,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
                 }
               }
             >
-              92.00%
+              87.32%
             </td>
             <td
               style={
@@ -8435,7 +8892,12 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
                   "width": "25%",
                 }
               }
-            />
+            >
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
+            </td>
           </tr>
           <tr>
             <td
@@ -8509,7 +8971,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "85.20670540214455%",
+                      "width": "85.02659579186849%",
                     }
                   }
                 />
@@ -8524,7 +8986,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
                 }
               }
             >
-              85.21%
+              85.03%
             </td>
             <td
               style={
@@ -11626,6 +12088,50 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
 Array [
   Object {
     "details": null,
+    "icon": "inv_spear_07",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      <Trans
+        components={
+          Object {
+            "0": <ForwardRef
+              id={19434}
+            />,
+          }
+        }
+        id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
+      />
+       
+      
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <Trans
+        id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        values={
+          Object {
+            "0": 37,
+            "1": 43,
+            "2": "87",
+          }
+        }
+      />
+       (
+      <Trans
+        id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
+        values={
+          Object {
+            "0": "90",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
+  Object {
+    "details": null,
     "icon": "ability_hunter_efficiency",
     "importance": "minor",
     "issue": <React.Fragment>
@@ -12533,6 +13039,25 @@ exports[`Marksmanship Hunter integration test: Single Target MarksmanshipFocusCa
 </div>
 `;
 
+exports[`Marksmanship Hunter integration test: Single Target MarksmanshipFocusCapTracker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "ability_hunter_focusfire",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      You're allowing your focus to reach its cap. While at its maximum value you miss out on the focus that would have regenerated. Although it can be beneficial to let focus pool ready to be used at the right time, try to spend some before it reaches the cap.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      {"id":"hunter.marksmanship.suggestions.focusCapTracker.focusLost","message":"{0}% regenerated focus lost due to being capped.","values":{"0":"10.11"}}
+       (
+      &lt;90% is recommended.
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
 exports[`Marksmanship Hunter integration test: Single Target MarksmanshipFocusUsage matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -12579,6 +13104,54 @@ exports[`Marksmanship Hunter integration test: Single Target MarksmanshipFocusUs
                   className="circle"
                   style={
                     Object {
+                      "background": "#abff3d",
+                    }
+                  }
+                />
+              </div>
+              <div
+                className="flex-main"
+              >
+                <a
+                  className="spell-link-text"
+                  href="http://wowhead.com/spell=185358"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_impalingbolt.jpg"
+                  />
+                   
+                  Arcane Shot
+                </a>
+              </div>
+              <div
+                className="flex-sub"
+              >
+                <dfn
+                  className=""
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                  style={Object {}}
+                >
+                  65
+                  %
+                </dfn>
+              </div>
+            </div>
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-sub"
+              >
+                <div
+                  className="circle"
+                  style={
+                    Object {
                       "background": "#ecd1b6",
                     }
                   }
@@ -12612,7 +13185,7 @@ exports[`Marksmanship Hunter integration test: Single Target MarksmanshipFocusUs
                   onTouchStart={[Function]}
                   style={Object {}}
                 >
-                  100
+                  35
                   %
                 </dfn>
               </div>
@@ -13509,9 +14082,9 @@ exports[`Marksmanship Hunter integration test: Single Target Trueshot matches th
             src="//render-us.worldofwarcraft.com/icons/56/ability_hunter_focusfire.jpg"
           />
            
-          82
+          95
           /
-          110
+          133
            
           <small>
             Focus gained
@@ -13528,7 +14101,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
   className="checklist"
 >
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -13552,8 +14125,8 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "67.27146051250243%",
+                  "backgroundColor": "#ffc84a",
+                  "width": "63.44372439652639%",
                 }
               }
             />
@@ -13667,7 +14240,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                   }
                 >
                    
-                  92.00%
+                  87.32%
                    
                    
                 </div>
@@ -13687,9 +14260,9 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "82.06084942455838%",
                       }
                     }
                   />
@@ -13740,7 +14313,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                   }
                 >
                    
-                  85.21%
+                  85.03%
                    
                    
                 </div>
@@ -13762,7 +14335,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                       Object {
                         "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "67.97665797828276%",
+                        "width": "66.77712797384415%",
                       }
                     }
                   />
@@ -14259,8 +14832,8 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ffc84a",
-                  "width": "54.87776359140033%",
+                  "backgroundColor": "#df7102",
+                  "width": "41.390382097908905%",
                 }
               }
             />
@@ -14368,7 +14941,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                   }
                 >
                    
-                  89.51%
+                  87.09%
                    
                    
                 </div>
@@ -14388,9 +14961,9 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ffc84a",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "60.11967812619686%",
+                        "width": "33.14491513921402%",
                       }
                     }
                   />
@@ -14488,7 +15061,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
               style={
                 Object {
                   "backgroundColor": "#ffc84a",
-                  "width": "66.35771481367416%",
+                  "width": "65.94612701388884%",
                 }
               }
             />
@@ -14656,7 +15229,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                   }
                 >
                    
-                  90.48%
+                  89.89%
                    
                    
                 </div>
@@ -14676,9 +15249,9 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "99.17682440042938%",
                       }
                     }
                   />

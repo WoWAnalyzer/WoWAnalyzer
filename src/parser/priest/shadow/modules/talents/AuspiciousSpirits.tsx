@@ -8,6 +8,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
+import Insanity from 'interface/icons/Insanity';
 
 import { SPIRIT_DAMAGE_MULTIPLIER, SPIRIT_INSANITY_GENERATION } from '../../constants';
 
@@ -32,17 +33,12 @@ class AuspiciousSpirits extends Analyzer {
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={(
-          <>
-            {formatNumber(this.insanity)} Insanity generated.<br /><br />
-
-            The damage displayed is the additional damage you gained from taking this talent.
-          </>
-        )}
+        tooltip='The damage displayed is the additional damage you gained from taking this talent.'
       >
         <BoringSpellValueText spell={SPELLS.AUSPICIOUS_SPIRITS_TALENT}>
           <>
-            <ItemDamageDone amount={this.damage - (this.damage / SPIRIT_DAMAGE_MULTIPLIER)} />
+            <ItemDamageDone amount={this.damage - (this.damage / SPIRIT_DAMAGE_MULTIPLIER)} /><br />
+            <Insanity /> {formatNumber(this.insanity)} <small>Insanity generated</small>
           </>
         </BoringSpellValueText>
       </Statistic>

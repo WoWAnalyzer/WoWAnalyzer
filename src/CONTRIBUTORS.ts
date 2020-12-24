@@ -1105,3 +1105,14 @@ export const g3neral: Contributor = {
     link: 'https://worldofwarcraft.com/en-us/character/us/proudmoore/Nethershift',
   }],
 };
+
+export const flurreN: Contributor = {
+  nickname: 'flurreN',
+  github: 'flurreN',
+  discord: 'flurreN#6099',
+  mains: [{
+    name: 'Zyg',
+    spec: SPECS.HAVOC_DEMON_HUNTER,
+    link: 'https://worldofwarcraft.com/en-gb/character/eu/stormscale/zyg',
+  }],
+};

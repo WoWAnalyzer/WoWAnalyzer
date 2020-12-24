@@ -142,6 +142,14 @@ export default {
     mastery: false,
     vers: true,
   },
+  [SPELLS.ANCIENT_TEACHINGS_OF_THE_MONASTERY_CRIT_HEAL.id]: {
+    int: true,
+    crit: true,
+    hasteHpm: false,
+    hasteHpct: true,
+    mastery: false,
+    vers: true,
+  },
   [SPELLS.GUST_OF_MISTS_CHIJI.id]: { // Chi-ji's gusts
     int: true,
     crit: true,

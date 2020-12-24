@@ -9,7 +9,7 @@ import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 /*
-  example report: https://www.warcraftlogs.com/reports/3DFqkLhgRMB9wHQ7/#fight=33&source=16
+  example report: https://www.warcraftlogs.com/reports/LvmF6W4C3TgcZxj8/#fight=last
  */
 
 const DAMAGE_SPELLS = [
@@ -20,7 +20,7 @@ const DAMAGE_SPELLS = [
 ];
 const DAMAGE_INCREASE = 0.4;
 
-class DarkSlash extends Analyzer {
+class EssenceBreak extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
@@ -29,7 +29,7 @@ class DarkSlash extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.DARK_SLASH_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.ESSENCE_BREAK_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(DAMAGE_SPELLS), this.damage);
   }
 
@@ -38,9 +38,9 @@ class DarkSlash extends Analyzer {
     if (!target) {
       return;
     }
-    const hasDarkSlashDebuff = target.hasBuff(SPELLS.DARK_SLASH_TALENT.id, event.timestamp);
+    const hasEssenceBreakDebuff = target.hasBuff(SPELLS.ESSENCE_BREAK_DAMAGE.id, event.timestamp);
 
-    if (hasDarkSlashDebuff) {
+    if (hasEssenceBreakDebuff) {
       this.extraDamage += calculateEffectiveDamage(event, DAMAGE_INCREASE);
     }
   }
@@ -48,7 +48,7 @@ class DarkSlash extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
-        talent={SPELLS.DARK_SLASH_TALENT.id}
+        talent={SPELLS.ESSENCE_BREAK_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
         value={this.owner.formatItemDamageDone(this.extraDamage)}
         tooltip={`${formatThousands(this.extraDamage)} total damage`}
@@ -57,4 +57,4 @@ class DarkSlash extends Analyzer {
   }
 }
 
-export default DarkSlash;
+export default EssenceBreak;

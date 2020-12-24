@@ -5,7 +5,6 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import Enemies from 'parser/shared/modules/Enemies';
-import StatTracker from 'parser/shared/modules/StatTracker';
 import { SERPENT_STING_SV_BASE_DURATION, SV_SERPENT_STING_COST } from 'parser/hunter/survival/constants';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { formatDuration } from 'common/format';
@@ -30,7 +29,6 @@ import { t } from '@lingui/macro';
 class VolatileBomb extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-    statTracker: StatTracker,
   };
 
   damage = 0;
@@ -52,7 +50,6 @@ class VolatileBomb extends Analyzer {
   };
 
   protected enemies!: Enemies;
-  protected statTracker!: StatTracker;
 
   constructor(options: Options) {
     super(options);
@@ -85,11 +82,10 @@ class VolatileBomb extends Analyzer {
       return;
     }
     const target = encodeTargetString(event.targetID, event.targetInstance);
-    const hastedSerpentStingDuration = SERPENT_STING_SV_BASE_DURATION / (1 + this.statTracker.currentHastePercentage);
     this.activeSerpentStings[target] = {
       targetName: enemy.name,
       cast: event.timestamp,
-      expectedEnd: event.timestamp + hastedSerpentStingDuration,
+      expectedEnd: event.timestamp + SERPENT_STING_SV_BASE_DURATION,
       extendStart: 0,
       extendExpectedEnd: 0,
     };

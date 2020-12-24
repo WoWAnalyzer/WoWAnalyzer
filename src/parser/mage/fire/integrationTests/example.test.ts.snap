@@ -34,7 +34,7 @@ exports[`Fire Mage integration test: example log AlwaysBeCasting matches the sta
         <div
           className="value"
         >
-          39.87 %
+          36.51 %
         </div>
         <div
           style={
@@ -53,7 +53,7 @@ exports[`Fire Mage integration test: example log AlwaysBeCasting matches the sta
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "60.1298551394701%",
+                  "width": "63.49407673124681%",
                 }
               }
             >
@@ -117,7 +117,7 @@ Array [
         message="{0}% downtime"
         values={
           Object {
-            "0": "39.87",
+            "0": "36.51",
           }
         }
       />
@@ -3618,6 +3618,114 @@ Array [
 ]
 `;
 
+exports[`Fire Mage integration test: example log CombustionActiveTime matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic flexible "
+    position={30}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=190319"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Combustion"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_fire_sealoffire.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=190319"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Combustion
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          88.90
+          % 
+          <small>
+            Combustion Active Time
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Fire Mage integration test: example log CombustionActiveTime matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_fire_sealoffire",
+    "importance": "regular",
+    "issue": <React.Fragment>
+      You spent 
+      7
+       seconds (
+      1
+      s per cast) not casting anything while 
+      <ForwardRef
+        id={190319}
+      />
+       was active. Because a large portion of your damage comes from Combustion, you should ensure that you are getting the most out of it every time it is cast. While sometimes this is out of your control (you got targeted by a mechanic at the worst possible time), you should try to minimize that risk by casting 
+      <ForwardRef
+        id={190319}
+      />
+       when you are at a low risk of being interrupted or when the target is vulnerable.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <Trans
+        id="mage.frost.suggestions.combustion.combustionActiveTime"
+        message="{0}% Active Time during Combustion"
+        values={
+          Object {
+            "0": "88.90",
+          }
+        }
+      />
+       (
+      95.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
 exports[`Fire Mage integration test: example log CombustionCharges matches the suggestions snapshot 1`] = `
 Array [
   Object {
@@ -5381,7 +5489,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "86.23875%",
+                  "width": "81.57643589362948%",
                 }
               }
             />
@@ -5812,6 +5920,96 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                         "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
                         "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Combustion Active time
+              </div>
+              <div
+                className="flex-sub"
+                style={
+                  Object {
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  <svg
+                    className="icon"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                    />
+                    <path
+                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                    />
+                    <path
+                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  88.90%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ffc84a",
+                        "transition": "background-color 800ms",
+                        "width": "62.92717946814746%",
                       }
                     }
                   />
@@ -6665,7 +6863,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#df7102",
-                  "width": "34.65374744463011%",
+                  "width": "34.88465541919172%",
                 }
               }
             />
@@ -6758,7 +6956,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  39.87%
+                  36.51%
                    
                    
                 </div>
@@ -6780,7 +6978,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "5.011268474165873%",
+                        "width": "5.4730844232890945%",
                       }
                     }
                   />
