@@ -40,13 +40,13 @@ class DarkThoughts extends Analyzer {
     this.procsUsed += 1;
   }
 
-  getProcsWasted() {
+  get procsWasted() {
     return this.procsGained - this.procsUsed;
   }
 
   get suggestionThresholds() {
     return {
-      actual: this.getProcsWasted() / this.procsGained,
+      actual: this.procsWasted / this.procsGained,
       isGreaterThan: {
         minor: 0,
         average: 0,
@@ -58,15 +58,15 @@ class DarkThoughts extends Analyzer {
 
   suggestions(when: When) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>You wasted {formatPercentage(actual)}% of <SpellLink id={SPELLS.DARK_THOUGHTS.id} /> procs. </>)
+    .addSuggestion((suggest, actual, recommended) => suggest(<>You wasted {this.procsWasted} out of {this.procsGained} <SpellLink id={SPELLS.DARK_THOUGHTS.id} /> procs. Remember that the proc allows you to cast <SpellLink id={SPELLS.MIND_BLAST.id} /> instantly during <SpellLink id={SPELLS.MIND_FLAY.id} />, <SpellLink id={SPELLS.MIND_SEAR.id} />, and <SpellLink id={SPELLS.VOID_TORRENT_TALENT.id} />. Using during one of these casts allows you to double dip on damage during the global.</>)
           .icon(SPELLS.DARK_THOUGHTS.icon)
           .actual(
             t({
               id:'priest.shadow.suggestions.darkThoughts.efficiency',
-              message: `Wasted ${formatPercentage(actual)}% of Dark Thought procs. Remember that the proc allows you to cast Mind Blast instantly during Mind Flay, Mind Sear, or while moving and should never be left unused.`
+              message: `You wasted ${this.procsWasted} out of ${this.procsGained} Dark Thought procs.`
             })
           )
-          .recommended(`<${formatPercentage(recommended)}% is recommended.`));
+          .recommended(`${recommended} is recommended.`));
   }
 
   statistic() {
