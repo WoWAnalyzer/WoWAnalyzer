@@ -34,13 +34,9 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.BLADE_DANCE, SPELLS.DEATH_SWEEP],
         category: combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id) ? Abilities.SPELL_CATEGORIES.ROTATIONAL : Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        cooldown: haste => {
-          if(combatant.hasBuff(SPELLS.METAMORPHOSIS_HAVOC_BUFF.id)) {
-            return 9 / (1 + haste); //Death Sweep CD
-          } else {
-            return 15 / (1 + haste); //Blade Dance CD
-          }
-        },
+        cooldown: haste => combatant.hasBuff(SPELLS.METAMORPHOSIS_HAVOC_BUFF.id) ? 9 / (1 + haste) : 15 / (1 + haste),
+        //Blade dance = 15s cd
+        //Death Sweep = 9s cd
         gcd: {
           base: 1500,
         },
