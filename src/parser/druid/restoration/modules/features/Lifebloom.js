@@ -16,8 +16,10 @@ import { t } from '@lingui/macro';
 
 class Lifebloom extends Analyzer {
   get uptime() {
-    // DTL Lifeblooms are on two targets, getBuffUptime sums both up
-    return this.combatants.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id) + (this.combatants.getBuffUptime(SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id) / 2);
+    // Only either LIFEBLOOM_HOT_HEAL or LIFEBLOOM_DTL_HOT_HEAL can be up (with or without the DTL legendary), but
+    // DTL Lifeblooms (LIFEBLOOM_DTL_HOT_HEAL) are on two targets so their BuffUptime need to behalved for a percentage
+    return this.combatants.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id)
+      + (this.combatants.getBuffUptime(SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id) / 2);
   }
 
   get uptimePercent() {
@@ -46,9 +48,9 @@ class Lifebloom extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} /> uptime can be improved. {this.hasDta ? <>High uptime is particularly important for taking advantage of your equipped <ItemLink id={ITEMS.THE_DARK_TITANS_ADVICE.id} /></> : ''}</>)
         .icon(SPELLS.LIFEBLOOM_HOT_HEAL.icon)
         .actual(t({
-      id: "druid.restoration.suggestions.lifebloom.uptime",
-      message: `${formatPercentage(this.uptimePercent)}% uptime`
-    }))
+          id: "druid.restoration.suggestions.lifebloom.uptime",
+          message: `${formatPercentage(this.uptimePercent)}% uptime`
+        }))
         .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`));
   }
 
