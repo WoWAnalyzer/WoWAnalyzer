@@ -38,7 +38,6 @@ class PhoenixFlames extends Analyzer {
       return;
     }
     this.timeSpentCapped += event.timestamp - this.cappedTimestamp;
-    this.log(this.timeSpentCapped)
     this.chargesCapped = false;
     this.cappedTimestamp = 0;
   }
