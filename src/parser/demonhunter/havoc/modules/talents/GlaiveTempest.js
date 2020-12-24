@@ -3,9 +3,8 @@ import SPELLS from 'common/SPELLS';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import { formatThousands, formatPercentage } from 'common/format';
+import { formatThousands } from 'common/format';
 import Events from 'parser/core/Events';
-
 
 class GlaiveTempest extends Analyzer {
 
@@ -44,7 +43,5 @@ class GlaiveTempest extends Analyzer {
         );
     }    
 }
-
-
 
 export default GlaiveTempest;
