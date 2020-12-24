@@ -86,7 +86,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: any)
         description="The throughput gain of some talents might vary greatly. Consider switching to a more reliable alternative if something is underperforming regularly."
       >
         <Requirement
-          name={<>Correct Tier 45 Talent </>}
+          name={<>Correct Tier 30 Talent </>}
           thresholds={thresholds.tier30Comparison}
         />
 

@@ -171,9 +171,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.INNERVATE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 180,
-        gcd: {
-          base: 1500,
-        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.70,

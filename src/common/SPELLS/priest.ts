@@ -643,6 +643,12 @@ const spells = {
     icon: 'spell_priest_shadow-mend',
   },
 
+  DEATH_AND_MADNESS_BUFF: {
+    id: 321973,
+    name: 'Death and Madness',
+    icon: 'spell_shadow_painandsuffering',
+  },
+
   // Shadow items:
 
   SHADOW_CRASH_TALENT_DAMAGE: {
