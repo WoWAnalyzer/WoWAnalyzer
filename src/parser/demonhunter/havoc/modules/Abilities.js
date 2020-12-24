@@ -97,7 +97,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.THROW_GLAIVE_HAVOC,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 10 / (1 + haste),
+        cooldown: haste => 9 / (1 + haste),
         gcd: {
           base: 1500,
         },
