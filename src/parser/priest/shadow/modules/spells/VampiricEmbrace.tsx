@@ -30,7 +30,7 @@ class VampiricEmbrace extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.CORE(3)}
+        position={STATISTIC_ORDER.CORE(10)}
         size="flexible"
         tooltip={`${formatNumber(this.healingDone)} healing done in ${this.casts || 0} cast(s).`}
       >
