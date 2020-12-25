@@ -24,7 +24,7 @@ const covenants = {
   //endregion
 
   //region Venthyr
-  //Similar to execute, condemn has multi spell IDs for specs and talents
+  //Similar to execute, condemn has multiple spell IDs for specs and talents
 
   //Arms/Prot
   CONDEMN: {
