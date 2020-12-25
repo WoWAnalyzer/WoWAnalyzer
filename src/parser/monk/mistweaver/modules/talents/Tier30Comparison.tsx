@@ -18,7 +18,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import { t } from '@lingui/macro';
-import { LIFECYCLES_MANA_PERC_REDUCTION, SPIRIT_OF_THE_CRANE_MANA_RETURN } from 'parser/monk/mistweaver/constants';
+import { LIFECYCLES_MANA_PERC_REDUCTION, SPIRIT_OF_THE_CRANE_MANA_RETURN, LIFECYCLES_MANA_REDUCTION_PERCENT } from 'parser/monk/mistweaver/constants';
 
 import ManaTea from './ManaTea';
 import SpiritOfTheCrane from './SpiritOfTheCrane';
@@ -152,7 +152,7 @@ class Tier30Comparison extends Analyzer {
       //life cycles reduces mana cost of two spells if you casted the other before hand
       //so best = (x-1) * VivCost * LifcylesReduction + x * EnvCost * LifcylesReduction = (best + ReducedViv) / ReducedEnv = x
       //x-1 since you viv first in all fights
-      this.lifecycles.requiredEnvs = Math.ceil((this.best.manaFrom + SPELLS.VIVIFY.manaCost * SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed) / SPELLS.ENVELOPING_MIST.manaCost * SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
+      this.lifecycles.requiredEnvs = Math.ceil((this.best.manaFrom + SPELLS.VIVIFY.manaCost * LIFECYCLES_MANA_REDUCTION_PERCENT) / SPELLS.ENVELOPING_MIST.manaCost * LIFECYCLES_MANA_REDUCTION_PERCENT);
       this.lifecycles.requiredVivs = this.lifecycles.requiredEnvs - 1;
     }
 
@@ -206,7 +206,7 @@ class Tier30Comparison extends Analyzer {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
       <>
-        With your current playstyle you are not using the most effective tier 45 talent. <SpellLink id={this.best.id} /> is better based off of how you played.
+        With your current playstyle you are not using the most effective tier 30 talent. <SpellLink id={this.best.id} /> is better based off of how you played.
       </>,
     )
       .icon(this.best.icon)

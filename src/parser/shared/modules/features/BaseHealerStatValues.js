@@ -15,7 +15,6 @@ import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import StatisticWrapper from 'interface/others/StatisticWrapper';
-import InfoIcon from 'interface/icons/Info';
 import { Trans } from '@lingui/macro';
 
 import CORE_SPELL_INFO from './SpellInfo';
@@ -425,7 +424,6 @@ class BaseHealerStatValues extends Analyzer {
         return null;
     }
   }
-  moreInformationLink = null;
   static position = STATISTIC_ORDER.CORE(9);
   statistic() {
     const results = this._prepareResults();
@@ -446,22 +444,6 @@ class BaseHealerStatValues extends Analyzer {
       <StatisticWrapper position={this.constructor.position}>
         <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
           <div className="panel items statistic">
-            {this.moreInformationLink && (
-              <a
-                href={this.moreInformationLink}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Tooltip content="Click for more information.">
-                  <div
-                    className="detail-corner"
-                    data-place="top"
-                  >
-                    <InfoIcon />
-                  </div>
-                </Tooltip>
-              </a>
-            )}
             <div className="panel-body" style={{ padding: '10px 0 16px' }}>
               <table className="data-table compact" style={{ margin: 0 }}>
                 <thead>
@@ -477,7 +459,7 @@ class BaseHealerStatValues extends Analyzer {
                       >
                         <Trans id="shared.healerStatValues.statistic.title">Stat Values</Trans>
                       </TooltipElement>
-                      {false && this.qeLive && this.selectedCombatant.characterProfile && ( // globally disable the QELive button until QE is updated to accept Shadowlands data
+                      {this.qeLive && this.selectedCombatant.characterProfile && (
                         <Tooltip content="Opens in a new tab. Leverage the QE Live Tool to directly compare gear and trinkets based on your stat values.">
                           <a
                             href={`https://www.questionablyepic.com/live?import=WoWA&spec=${this.selectedCombatant.specId}&pname=${this.selectedCombatant.name}&realm=${this.selectedCombatant.characterProfile.realm}&region=${this.selectedCombatant.characterProfile.region}&${qeLink}`}

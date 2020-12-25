@@ -85,7 +85,6 @@ class CrusadersMight extends Analyzer {
   }
 
   suggestions(when) {
-    if (this.owner.builds.GLIMMER.active) {
       when(this.holyShocksMissedThresholds).addSuggestion((suggest, actual, recommended) =>
         suggest(
           <>
@@ -124,7 +123,7 @@ class CrusadersMight extends Analyzer {
             }),
           ),
       );
-    }
+    
   }
 
   statistic() {
@@ -163,8 +162,6 @@ class CrusadersMight extends Analyzer {
               <br />
               preventing you from <b>{Math.floor(this.holyShocksCastsLost)}</b> additional Holy
               Shock cast{this.holyShocksLost === 1 ? '' : 's'}.<br />
-              {this.wastedLightOfDawnReductionCount === 1 ? '' : 's'} when Light of Dawn{' '}
-              {this.owner.builds.GLIMMER.active ? ' and Holy Shock were' : ' was'} off cooldown.
             </Trans>
           </>
         }

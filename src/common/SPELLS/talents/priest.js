@@ -17,7 +17,7 @@ export default {
 
   // Shadow
   FORTRESS_OF_THE_MIND_TALENT: { id: 193195, name: 'Fortress of the Mind', icon: 'ability_mage_studentofthemind' },
-  DEATH_AND_MADNESS_TALLENT: { id: 321291, name: 'Death and Madness', icon: 'spell_shadow_demonicfortitude' },
+  DEATH_AND_MADNESS_TALENT: { id: 321291, name: 'Death and Madness', icon: 'spell_shadow_demonicfortitude' },
   UNFURLING_DARKNESS_TALENT: { id: 341273, name: 'Unfurling Darkness', icon: 'spell_priest_shadow-mend' },
   SANLAYN_TALENT: { id: 199855, name: 'San\'layn', icon: 'achievement_boss_lanathel' },
   INTANGABILITY_TALENT: { id: 288733, name: 'Intangibility', icon: 'spell_shadow_dispersion' },
@@ -29,7 +29,7 @@ export default {
   PSYCHIC_HORROR_TALENT: { id: 64044, name: 'Psychic Horror', icon: 'spell_shadow_psychichorrors' },
   AUSPICIOUS_SPIRITS_TALENT: { id: 155271, name: 'Auspicious Spirits', icon: 'ability_priest_auspiciousspirits' },
   PSYCHIC_LINK_TALENT: { id: 199484, name: 'Psychic Link', icon: 'ability_priest_psychiclink' },
-  SHADOW_CRASH_TALENT: { id: 342834, name: 'Shadow Crash', icon: 'spell_shadow_shadowfury' },
+  SHADOW_CRASH_TALENT: { id: 205385, name: 'Shadow Crash', icon: 'spell_shadow_shadowfury' },
   DAMNATION_TALENT: { id: 341374, name: 'Damnation', icon: 'ability_warlock_eradication' },
   MINDBENDER_TALENT_SHADOW: { id: 200174, name: 'Mindbender', icon: 'spell_shadow_soulleech_3' },
   VOID_TORRENT_TALENT: { id: 263165, name: 'Void Torrent', icon: 'spell_priest_voidsear' },

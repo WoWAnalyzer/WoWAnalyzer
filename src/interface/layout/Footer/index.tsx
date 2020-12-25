@@ -67,6 +67,7 @@ const Footer = () => (
                     <li>Plus by Galaxicon</li>
                     <li>duration by Bohdan Burmich</li>
                     <li>link by arjuazka</li>
+                    <li>swirl by Gregor Cresnar</li>
                   </ul>
                 </>
               )}

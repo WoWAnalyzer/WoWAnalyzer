@@ -86,6 +86,7 @@ const FrostMageChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
       >
         <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />
         <Requirement name="Cancelled casts" thresholds={thresholds.cancelledCasts} />
+        <Requirement name="Active Time during Icy Veins" thresholds={thresholds.icyVeinsActiveTime} />
       </Rule>
       <PreparationRule thresholds={thresholds}>
         <Requirement name="Arcane Intellect active" thresholds={thresholds.arcaneIntellectUptime} />

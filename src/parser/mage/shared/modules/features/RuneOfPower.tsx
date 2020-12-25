@@ -23,7 +23,6 @@ const SUGGEST_ROP = { [SPECS.FROST_MAGE.id]: false, [SPECS.ARCANE_MAGE.id]: true
 
 const DAMAGE_BONUS = 0.4;
 const RUNE_DURATION = 12;
-const INCANTERS_FLOW_EXPECTED_BOOST = 0.12;
 
 // FIXME due to interactions with Ignite, the damage boost number will be underrated for Fire Mages. Still fine for Arcane and Frost.
 class RuneOfPower extends Analyzer {
@@ -86,18 +85,6 @@ class RuneOfPower extends Analyzer {
     };
   }
 
-  get damageSuggestionThresholds() {
-    return {
-      actual: this.damageIncreasePercent,
-      isLessThan: {
-        minor: INCANTERS_FLOW_EXPECTED_BOOST,
-        average: INCANTERS_FLOW_EXPECTED_BOOST,
-        major: INCANTERS_FLOW_EXPECTED_BOOST - 0.03,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
   get roundedSecondsSuggestionThresholds() {
     return {
       actual: this.roundedSecondsPerCast,
@@ -128,11 +115,6 @@ class RuneOfPower extends Analyzer {
       return;
     }
 
-    when(this.damageSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> damage boost is below the expected passive gain from <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />. Either find ways to make better use of the talent, or switch to <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} />.</>)
-          .icon(SPELLS.RUNE_OF_POWER_TALENT.icon)
-          .actual(<Trans id="mage.shared.suggetsions.runeOfPower.damageIncrease">{formatPercentage(this.damageIncreasePercent)}% damage increase from Rune of Power</Trans>)
-          .recommended(`${formatPercentage(recommended)}% is the passive gain from Incanter's Flow`));
     when(this.overlappedRunesThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> or an ability that automatically casts <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> (Like <SpellLink id={SPELLS.ICY_VEINS.id} />, <SpellLink id={SPELLS.COMBUSTION.id} />, or <SpellLink id={SPELLS.ARCANE_POWER.id} />) while you still had a Rune down. Make sure you are not overlapping your <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> so you can get the most out of the damage buff that it provides.</>)
           .icon(SPELLS.RUNE_OF_POWER_TALENT.icon)
