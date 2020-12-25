@@ -63,7 +63,7 @@ class PrimalFireElemental extends Analyzer {
   get unusedSpellsSuggestionTresholds() {
     return {
       actual: this.unusedSpells.length,
-      isGreaterThan: {
+      isGreaterThanOrEqual: {
         major: 1,
       },
       style: ThresholdStyle.NUMBER,
@@ -87,7 +87,7 @@ class PrimalFireElemental extends Analyzer {
         .icon(SPELLS.FIRE_ELEMENTAL.icon)
         .actual(t({
       id: "shaman.elemental.suggestions.primalFireElemental.unusedSpells",
-      message: `${formatNumber(this.unusedSpells.length)} spells not used by your Fire Elemental (${unusedSpellsString})`
+      message: `${formatNumber(this.unusedSpells.length)} spell/-s not used by your Fire Elemental (${unusedSpellsString})`
     }))
         .recommended(`You should be using all spells of your Fire Elemental.`)
         .major(recommended + 1));
