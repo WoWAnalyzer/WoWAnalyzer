@@ -48,7 +48,7 @@ class PrimalStormElemental extends Analyzer {
   get unusedSpellsSuggestionTresholds() {
     return {
       actual: this.unusedSpells.length,
-      isGreaterThan: {
+      isGreaterThanOrEqual: {
         minor: 1,
         major: 1,
       },
@@ -59,7 +59,7 @@ class PrimalStormElemental extends Analyzer {
   get badCastsSuggestionTresholds() {
     return {
       actual: this.unusedSpells.length,
-      isGreaterThan: {
+      isGreaterThanOrEqual: {
         minor: 1,
         major: 5,
       },

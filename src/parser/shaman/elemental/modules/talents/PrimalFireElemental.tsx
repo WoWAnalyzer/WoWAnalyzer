@@ -30,8 +30,8 @@ class PrimalFireElemental extends Analyzer {
     super(options);
     this.usedCasts = {
       [SPELLS.FIRE_ELEMENTAL_METEOR.id]: false,
-      [SPELLS.IMMOLATE.id]: false,
-      [SPELLS.FIRE_BLAST.id]: false,
+      [SPELLS.FIRE_ELEMENTAL_IMMOLATE.id]: false,
+      [SPELLS.FIRE_ELEMENTAL_FIRE_BLAST.id]: false,
     };
     this.active = this.selectedCombatant.hasTalent(SPELLS.PRIMAL_ELEMENTALIST_TALENT.id)
       && (!this.selectedCombatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id));
@@ -73,7 +73,7 @@ class PrimalFireElemental extends Analyzer {
   get missedMeteorSuggestionTresholds() {
     return {
       actual: this.unusedSpells.length,
-      isGreaterThan: {
+      isGreaterThanOrEqual: {
         major: 1,
       },
       style: ThresholdStyle.NUMBER,
