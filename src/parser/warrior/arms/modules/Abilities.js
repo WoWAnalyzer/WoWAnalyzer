@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -72,6 +73,15 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        enabled: !combatant.hasCovenant(COVENANTS.VENTHYR.id),
+      },
+      {
+        spell: [SPELLS.CONDEMN, SPELLS.CONDEMN_MASSACRE, SPELLS.CONDEMN_FURY, SPELLS.CONDEMN_FURY_MASSACRE],
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+       enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
       },
       // Rotational AOE
       {
@@ -143,6 +153,24 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(SPELLS.RAVAGER_ARMS_TALENT.id), // Replaces Bladestorm
       },
+      {
+        spell: SPELLS.ANCIENT_AFTERSHOCK,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        cooldown: 90,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id)
+      },
+      {
+        spell: SPELLS.SPEAR_OF_BASTION,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+      },
       // Others
       {
         spell: SPELLS.VICTORY_RUSH,
@@ -186,6 +214,15 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(SPELLS.DEADLY_CALM_TALENT.id),
         buffSpellId: SPELLS.DEADLY_CALM_TALENT.id,
+      },
+      {
+        spell: SPELLS.CONQUERORS_BANNER,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 180,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },
       // Defensive
       {

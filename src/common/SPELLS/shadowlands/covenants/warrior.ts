@@ -24,7 +24,29 @@ const covenants = {
   //endregion
 
   //region Venthyr
+  //Similar to execute, condemn has multi spell IDs for specs and talents
+
+  //Arms/Prot
   CONDEMN: {
+    id: 317349,
+    name: 'Condemn',
+    icon: 'ability_revendreth_warrior',
+  },
+  //Arms/Prot and Massacre talent
+  CONDEMN_MASSACRE: {
+    id: 330334,
+    name: 'Condemn',
+    icon: 'ability_revendreth_warrior',
+  },
+
+  //Fury
+  CONDEMN_FURY: {
+    id: 317485,
+    name: 'Condemn',
+    icon: 'ability_revendreth_warrior',
+  },
+  // Fury and Massacre talent
+  CONDEMN_FURY_MASSACRE: {
     id: 330325,
     name: 'Condemn',
     icon: 'ability_revendreth_warrior',
