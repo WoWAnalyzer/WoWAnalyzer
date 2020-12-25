@@ -4,6 +4,7 @@ import { HawkCorrigan, Zeboot } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 12, 25), <>Allow Echoing Shock to Duplicate EQ</>, HawkCorrigan),
   change(date(2020, 11, 8), <>Adding a module Static </>, HawkCorrigan),
   change(date(2020, 11, 4), <>Fix Flame Shock</>, HawkCorrigan),
   change(date(2020, 10, 31), <>Add a suggestion for usage of Echoing Shock</>, HawkCorrigan),
