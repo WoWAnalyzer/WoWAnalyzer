@@ -34,7 +34,9 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.BLADE_DANCE, SPELLS.DEATH_SWEEP],
         category: combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id) ? Abilities.SPELL_CATEGORIES.ROTATIONAL : Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        cooldown: haste => 9 / (1 + haste),
+        cooldown: haste => combatant.hasBuff(SPELLS.METAMORPHOSIS_HAVOC_BUFF.id) ? 9 / (1 + haste) : 15 / (1 + haste),
+        //Blade dance = 15s cd
+        //Death Sweep = 9s cd
         gcd: {
           base: 1500,
         },
@@ -63,7 +65,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.IMMOLATION_AURA,
         // IMMOLATION_AURA is the ID for cast and the buff. But damage is done from IMMOLATION_AURA_INITIAL_HIT_DAMAGE and IMMOLATION_AURA_BUFF_DAMAGE
         buffSpellId: SPELLS.IMMOLATION_AURA.id,
-        enabled: combatant.hasTalent(SPELLS.IMMOLATION_AURA.id),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 30 / (1 + haste),
         gcd: {
@@ -92,8 +93,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.THROW_GLAIVE_HAVOC,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        charges: combatant.hasTalent(SPELLS.MASTER_OF_THE_GLAIVE_TALENT.id) ? 2 : 1,
-        cooldown: haste => 10 / (1 + haste),
+        cooldown: haste => 9 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -231,11 +231,11 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.METAMORPHOSIS_HAVOC,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         buffSpellId: SPELLS.METAMORPHOSIS_HAVOC_BUFF.id,
-        cooldown: 240,
+        cooldown: 300,
         gcd: null, // Logs track the "landing" spell which is not on GCD
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.80, //4 minute cd. You want some leeway in when to burn it.
+          recommendedEfficiency: 0.80, //5 minute cd. You want some leeway in when to burn it.
         },
       },
 
@@ -256,7 +256,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.NETHERWALK_TALENT,
         enabled: combatant.hasTalent(SPELLS.NETHERWALK_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: 120,
+        cooldown: 180,
       },
     ];
   }
