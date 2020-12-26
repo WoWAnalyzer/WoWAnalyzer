@@ -19,7 +19,7 @@ class Lifebloom extends Analyzer {
     // Only either LIFEBLOOM_HOT_HEAL or LIFEBLOOM_DTL_HOT_HEAL can be up (with or without the DTL legendary), but
     // DTL Lifeblooms (LIFEBLOOM_DTL_HOT_HEAL) are on two targets so their BuffUptime need to behalved for a percentage
     return this.combatants.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id)
-      + (this.combatants.getBuffUptime(SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id) / 2);
+      + this.combatants.getBuffUptime(SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id);
   }
 
   get uptimePercent() {
