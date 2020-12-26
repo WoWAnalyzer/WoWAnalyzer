@@ -1115,7 +1115,6 @@ export const flurreN: Contributor = {
     link: 'https://worldofwarcraft.com/en-gb/character/eu/stormscale/zyg',
   }],
 };
-
 export const Carrottopp: Contributor = {
   nickname: "Carrottopp",
   github: "Chasson1992",
@@ -1126,4 +1125,8 @@ export const Carrottopp: Contributor = {
     spec: SPECS.ARMS_WARRIOR,
     link: "https://worldofwarcraft.com/en-us/character/us/stormrage/carrottopp",
   }],
+};
+export const Vexxra: Contributor = {
+  nickname: 'Vexxra',
+  github: 'vexxra',
 };
