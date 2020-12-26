@@ -215,7 +215,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.GLAIVE_TEMPEST_TALENT,
         enabled: combatant.hasTalent(SPELLS.GLAIVE_TEMPEST_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 20,
+        cooldown: haste => 20 / (1 + haste),
         gcd: {
           base: 1500,
         },
