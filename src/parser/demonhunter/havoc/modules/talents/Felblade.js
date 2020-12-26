@@ -1,12 +1,14 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Events from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import { t } from '@lingui/macro';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/1HRhNZa2cCkgK9AV#fight=48&type=summary&source=10
@@ -60,10 +62,9 @@ class Felblade extends Analyzer {
   statistic() {
     const effectiveFuryGain = this.furyGain - this.furyWaste;
     return (
-      <TalentStatisticBox
-        talent={SPELLS.FELBLADE_TALENT.id}
-        position={STATISTIC_ORDER.OPTIONAL(6)}
-        value={<>{this.furyPerMin} <small>Fury per min </small></>}
+      <Statistic
+        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={(
           <>
             {effectiveFuryGain} Effective Fury gained<br />
@@ -71,9 +72,16 @@ class Felblade extends Analyzer {
             {this.furyWaste} Fury wasted
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.FELBLADE_TALENT}>
+          <>
+            {this.furyPerMin} <small>Fury per min </small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
+
 }
 
 export default Felblade;
