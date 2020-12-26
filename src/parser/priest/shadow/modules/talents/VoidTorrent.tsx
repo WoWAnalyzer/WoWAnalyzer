@@ -55,6 +55,30 @@ class VoidTorrent extends Analyzer {
     return ((this.totalChannelingTime / 1000) * VOID_TORRENT_INSANITY_PER_SECOND) - this.insanityGained;
   }
 
+  get interruptThreshold() {
+    return {
+      actual: this.timeWasted,
+      isGreaterThan: {
+        minor: 0.2,
+        average: 0.5,
+        major: 2,
+      },
+      style: ThresholdStyle.SECONDS,
+    }
+  }
+
+  get overcapThreshold() {
+    return {
+      actual: this.insanityOvercapped,
+      isGreaterThan: {
+        minor: 5,
+        average: 10,
+        major: 20,
+      },
+      style: ThresholdStyle.NUMBER,
+    }
+  }
+
   onCast(event: CastEvent) {
     this._voidTorrents[event.timestamp] = {
       start: event.timestamp,
@@ -86,15 +110,7 @@ class VoidTorrent extends Analyzer {
   }
 
   suggestions(when: When) {
-    when({
-        actual: this.timeWasted,
-        isGreaterThan: {
-          minor: 0.2,
-          average: 0.5,
-          major: 2,
-        },
-        style: ThresholdStyle.SECONDS,
-      })
+    when(this.interruptThreshold)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You interrupted <SpellLink id={SPELLS.VOID_TORRENT_TALENT.id} /> early, wasting {formatSeconds(this.timeWasted)} channeling seconds! Try to position yourself & time it so you don't get interrupted due to mechanics.</>)
         .icon(SPELLS.VOID_TORRENT_TALENT.icon)
         .actual(t({
@@ -103,15 +119,7 @@ class VoidTorrent extends Analyzer {
         }))
     .recommended('No time wasted is recommended.'));
 
-    when({
-      actual: this.insanityOvercapped,
-      isGreaterThan: {
-        minor: 5,
-        average: 10,
-        major: 20,
-      },
-      style: ThresholdStyle.NUMBER,
-    })
+    when(this.overcapThreshold)
       .addSuggestion((suggest, actual, recommended) => suggest(<>You lost a total of {formatNumber(actual)} insanity by channeling <SpellLink id={SPELLS.VOID_TORRENT_TALENT.id} /> at full insanity. Make sure that you are below 40 insanity before channeling to maximize insanity gain. If you are between 40 and 50 insanity, you should get above 50 and use <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} /> before channeling.</>)
       .icon(SPELLS.VOID_TORRENT_TALENT.icon)
       .actual(t({
