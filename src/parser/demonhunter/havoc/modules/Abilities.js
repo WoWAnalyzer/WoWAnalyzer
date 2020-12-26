@@ -228,8 +228,7 @@ class Abilities extends CoreAbilities {
           extraSuggestion: <>The only time you should delay casting <SpellLink id={SPELLS.GLAIVE_TEMPEST_TALENT.id} /> is when you're expecting adds to spawn soon.</>,
         },
       },
-      // Covenants DPS cooldowns 
-      //Look over recomendedEfficiency
+      //Covenant
       {
         spell: SPELLS.SINFUL_BRAND,
         enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
@@ -241,7 +240,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
-          extraSuggestion: `Text here`,
+          extraSuggestion: `This should be part of your single target rotation.`,
         },
       },
       {
@@ -254,8 +253,8 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.95,
-          extraSuggestion: `Text here`,
+          recommendedEfficiency: 0.9,
+          extraSuggestion: <>The only time you should delay casting <SpellLink id={SPELLS.ELYSIAN_DECREE.id} /> is when you're expecting adds to spawn soon.</>,
         },
       },
       {
@@ -265,12 +264,7 @@ class Abilities extends CoreAbilities {
         cooldown: 120,
         gcd: {
           base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-          extraSuggestion: `Text here`,
-        },
+        }
       },
       {
         spell: SPELLS.THE_HUNT,
@@ -282,9 +276,33 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.95,
-          extraSuggestion: `Text here`,
+          recommendedEfficiency: 0.9,
+          extraSuggestion: <>The only time you should delay casting <SpellLink id={SPELLS.THE_HUNT.id} /> is when you're expecting adds to spawn soon.</>,
         },
+      },
+      {
+        spell: SPELLS.DOOR_OF_SHADOWS,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+      },
+      {
+        spell: SPELLS.FLESHCRAFT,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 120,
+        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+      },
+      {
+        spell: SPELLS.SOULSHAPE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 30,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
       },
       // Big DPS Cooldowns
       {
