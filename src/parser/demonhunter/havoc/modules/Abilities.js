@@ -50,7 +50,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FELBLADE_TALENT,
         enabled: combatant.hasTalent(SPELLS.FELBLADE_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        // Felblade cooldown can be reset by Shear or Demon Blades (when talented). But it's CD reset is not any event, so can't track if it resets or not.
+        // Felblade cooldown can be reset by Demon Bite (Demon Blade talent cant be used). But it's CD reset is not any event, so can't track if it resets or not.
         cooldown: haste => 15 / (1 + haste),
         gcd: {
           base: 1500,
