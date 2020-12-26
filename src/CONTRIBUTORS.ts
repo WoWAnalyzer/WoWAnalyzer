@@ -1116,3 +1116,8 @@ export const flurreN: Contributor = {
     link: 'https://worldofwarcraft.com/en-gb/character/eu/stormscale/zyg',
   }],
 };
+
+export const Vexxra: Contributor = {
+  nickname: 'Vexxra',
+  github: 'vexxra',
+};
