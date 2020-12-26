@@ -257,7 +257,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.95,
           extraSuggestion: `Text here`,
         },
-      },,
+      },
       {
         spell: SPELLS.FODDER_TO_THE_FLAME,
         enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
@@ -271,7 +271,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.95,
           extraSuggestion: `Text here`,
         },
-      },,
+      },
       {
         spell: SPELLS.THE_HUNT,
         enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
