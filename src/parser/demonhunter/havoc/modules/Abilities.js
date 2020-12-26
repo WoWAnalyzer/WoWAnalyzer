@@ -251,12 +251,18 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.DARKNESS.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 180,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.NETHERWALK_TALENT,
         enabled: combatant.hasTalent(SPELLS.NETHERWALK_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 180,
+        gcd: {
+          base: 1500,
+        },
       },
     ];
   }
