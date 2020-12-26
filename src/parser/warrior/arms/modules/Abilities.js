@@ -76,7 +76,7 @@ class Abilities extends CoreAbilities {
         enabled: !combatant.hasCovenant(COVENANTS.VENTHYR.id),
       },
       {
-        spell: [SPELLS.CONDEMN, SPELLS.CONDEMN_MASSACRE, SPELLS.CONDEMN_FURY, SPELLS.CONDEMN_FURY_MASSACRE],
+        spell: [SPELLS.CONDEMN, SPELLS.CONDEMN_MASSACRE],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
