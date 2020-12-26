@@ -266,7 +266,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.THE_HUNT,
-        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
         gcd: {
@@ -274,8 +274,8 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.9,
-          extraSuggestion: <>The only time you should delay casting <SpellLink id={SPELLS.THE_HUNT.id} /> is when you're expecting adds to spawn soon.</>,
+          recommendedEfficiency: 0.8,
+          extraSuggestion: <>The only time you should delay casting <SpellLink id={SPELLS.THE_HUNT.id} /> is when you're expecting adds to spawn soon or for an upcoming haste buff.</>,
         },
       },
       {
