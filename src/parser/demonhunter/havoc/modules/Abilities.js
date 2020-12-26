@@ -1,9 +1,7 @@
 import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import CoreAbilities from 'parser/core/modules/Abilities';
-
 import COVENANTS from 'game/shadowlands/COVENANTS';
 
 
