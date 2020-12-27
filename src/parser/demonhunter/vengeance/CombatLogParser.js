@@ -1,7 +1,7 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
-import PainTracker from './modules/pain/PainTracker';
-import PainDetails from './modules/pain/PainDetails';
+import FuryTracker from './modules/fury/FuryTracker';
+import FuryDetails from './modules/fury/FuryDetails';
 
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Abilities from './modules/Abilities';
@@ -41,8 +41,8 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
 
     // Resource Tracker
-    painTracker: PainTracker,
-    painDetails: PainDetails,
+    furyTracker: FuryTracker,
+    furyDetails: FuryDetails,
 
     // Talents
     SpiritBombFrailtyDebuff: SpiritBombFrailtyDebuff,

@@ -131,6 +131,30 @@ const VengeanceDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }
         </Rule>
       )}
 
+      <Rule
+        name="Manage your Fury properly"
+        description={(
+          <>
+            You should always avoid capping your Fury and spend it regularly.
+          </>
+        )}
+      >
+        <Requirement
+          name="Total Fury Waste"
+          thresholds={thresholds.furyDetails}
+        />
+        {combatant.hasTalent(SPELLS.IMMOLATION_AURA.id) && (
+          <Requirement
+            name={(
+              <>
+                <SpellLink id={SPELLS.IMMOLATION_AURA.id} /> Fury wasted
+              </>
+            )}
+            thresholds={thresholds.immolationAuraEfficiency}
+          />
+        )}
+      </Rule>
+
       <PreparationRule thresholds={thresholds} />
 
     </Checklist>
