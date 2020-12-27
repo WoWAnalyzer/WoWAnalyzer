@@ -15,6 +15,20 @@ const covenants = {
     icon: 'ability_maldraxxus_deathknight',
   },
 
+  // recasts and applies damage every second on the environment, similar to what remorseless winter does
+  ABOMINATION_LIMB_HIDDEN_CAST: {
+    id: 323798,
+    name: 'Abomination Limb',
+    icon: 'ability_maldraxxus_deathknight',
+  },
+
+  // spell that performs the grip
+  ABOMINATION_LIMB_GRIP: {
+    id: 323710,
+    name: 'Abomination Limb',
+    icon: 'ability_maldraxxus_deathknight',
+  },
+
   //endregion
 
   //region Night Fae
