@@ -63,8 +63,10 @@ class FaelineStomp extends Analyzer {
   }
 
   reset(event: ApplyBuffEvent) {
-    this.spellUsable.endCooldown(SPELLS.FAELINE_STOMP_CAST.id);
-    this.resets += 1;
+    if(this.spellUsable.isOnCooldown(SPELLS.FAELINE_STOMP_CAST.id)){
+      this.spellUsable.endCooldown(SPELLS.FAELINE_STOMP_CAST.id);
+      this.resets += 1;
+    }
   }
 
   damage(event: DamageEvent) {
