@@ -1,6 +1,5 @@
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { BuffEvent, HasSource } from 'parser/core/Events';
-import { formatMilliseconds } from 'common/format';
 
 type StackHistory = Array<{ stacks: number, timestamp: number }>
 export interface TrackedBuffEvent extends BuffEvent<any> {
@@ -16,7 +15,6 @@ class Entity {
     this.owner = owner;
   }
 
-  private debug: boolean = true;
 
   /**
    * This also tracks debuffs in the exact same array. There are no parameters to filter results by debuffs. I don't think this should be necessary as debuffs and buffs usually have different spell IDs.
@@ -203,11 +201,9 @@ class Entity {
     const buffTimeAtClosestKey: number = buffApplicationTimes.get(closestKey) as number;
     const timeDiff: number = Math.abs(closestKey - timestamp);
     if (closestKey > timestamp) {
-      const result: number = Math.min(buffTimeAtClosestKey + timeDiff, maxBuffLength);
-      return result;
+      return Math.min(buffTimeAtClosestKey + timeDiff, maxBuffLength);
     } else if (closestKey < timestamp) {
-      const result: number = Math.max(buffTimeAtClosestKey - timeDiff, 0);
-      return result;
+      return Math.max(buffTimeAtClosestKey - timeDiff, 0);
     } else {
       return buffTimeAtClosestKey;
     }
