@@ -1130,3 +1130,8 @@ export const Vexxra: Contributor = {
   nickname: 'Vexxra',
   github: 'vexxra',
 };
+export const TurianSniper: Contributor = {
+  nickname: 'TurianSniper',
+  github: 'tjw87912',
+  discord: 'TurianSniper#2941',
+};
