@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import ResourceLink from 'common/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { TooltipElement } from 'common/Tooltip';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
@@ -36,6 +37,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: any)
         <AbilityRequirement spell={SPELLS.RENEWING_MIST.id} />
         <Requirement name={(<><SpellLink id={SPELLS.RENEWING_MIST.id} /> avg per Vivify cast</>)} thresholds={thresholds.vivify} />
         {combatant.hasTalent(SPELLS.RISING_MIST_TALENT.id) && <AbilityRequirement spell={SPELLS.RISING_SUN_KICK.id} />}
+        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && <AbilityRequirement spell={SPELLS.FAELINE_STOMP_CAST.id} />}
       </Rule>
 
       <Rule
@@ -86,8 +88,8 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: any)
         description="The throughput gain of some talents might vary greatly. Consider switching to a more reliable alternative if something is underperforming regularly."
       >
         <Requirement
-          name={<>Correct Tier 45 Talent </>}
-          thresholds={thresholds.tier45Comparison}
+          name={<>Correct Tier 30 Talent </>}
+          thresholds={thresholds.tier30Comparison}
         />
 
         {combatant.hasTalent(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id) &&
@@ -151,6 +153,7 @@ MistweaverMonkChecklist.propTypes = {
   castEfficiency: PropTypes.object.isRequired,
   combatant: PropTypes.shape({
     hasTalent: PropTypes.func.isRequired,
+    hasCovenant: PropTypes.func.isRequired,
   }).isRequired,
   thresholds: PropTypes.object.isRequired,
 };

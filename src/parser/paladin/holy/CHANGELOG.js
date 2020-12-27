@@ -3,7 +3,11 @@ import React from 'react';
 import { Abelito75, Putro, Zeboot } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
-export default [
+export default [  
+  change(date(2020, 12, 21), <>Rewrote the checklist to not be 3 miles long.</>, Abelito75),
+  change(date(2020, 12, 21), <>Fixed stat weights for logs with first events being absorb healing.</>, Abelito75),
+  change(date(2020, 12, 21), <>Removed glimmer build as its default now.</>, Abelito75),
+  change(date(2020, 12, 21), <>Small tweek to stat weights.</>, Abelito75),
   change(date(2020, 12, 17), <>Updated spell cooldowns!</>, Abelito75),
   change(date(2020, 12, 15), 'Bumped level of support to 9.0.2', Putro),
   change(date(2020, 12, 12), <>Add Shock Barrier!</>, Abelito75),

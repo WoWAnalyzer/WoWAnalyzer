@@ -53,6 +53,11 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: any) => 
           tooltip="In order to effectively utilize Arcane Power, there are certain things you need to ensure are setup before you cast Arcane Power. Making sure you have 4 Arcane Charges, You have more than 40% Mana (Unless you have the Overpowered Talent), and ensuring you cast Touch of the Magi immediately before Arcane Power will all help make the most out of your burn phase."
           thresholds={thresholds.arcanePowerCooldown}
         />
+        <Requirement
+          name="Arcane Power Active time"
+          tooltip="In order to get the most out of Arcane Power, which is a large contributor to your damage, you should ensure that you are using every second of the cooldown to cast spells and get damage out. Any time spent not casting anything during Arcane Power is a major loss of damage."
+          thresholds={thresholds.arcanePowerActiveTime}
+        />
 
       </Rule>
       <Rule

@@ -67,8 +67,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SHADOW_CRASH_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        charges: 3,
-        cooldown: 60,
+        cooldown: (haste: number) => 30 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -125,7 +124,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.VOID_TORRENT_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 45,
+        cooldown: 30,
         gcd: {
           base: 1500,
         },
@@ -168,6 +167,10 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+        },
       },
 
       {
@@ -190,7 +193,7 @@ class Abilities extends CoreAbilities {
         isDefensive: true,
         buffSpellId: SPELLS.DISPERSION.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 120,
+        cooldown: 120 - (combatant.hasTalent(SPELLS.INTANGABILITY_TALENT.id) ? 30 : 0),
         gcd: {
           base: 1500,
         },
@@ -360,8 +363,14 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.UNHOLY_NOVA,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 100,
+        cooldown: 60,
         enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+          averageIssueEfficiency: 0.7,
+          majorIssueEfficiency: 0.6,
+        },
       },
     ];
   }

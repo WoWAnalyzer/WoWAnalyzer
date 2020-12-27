@@ -10,12 +10,15 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.PRAYER_OF_MENDING_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste: number) => 12 / (1 + haste),
+        cooldown: (haste: number) => 11 / (1 + haste),
         gcd: {
           base: 1500,
         },
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.8,
+          averageIssueEfficiency: 0.6,
+          majorIssueEfficiency: 0.4,
         },
         buffSpellId: SPELLS.PRAYER_OF_MENDING_BUFF.id,
         healSpellIds: [
@@ -104,6 +107,9 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.8,
+          averageIssueEfficiency: 0.6,
+          majorIssueEfficiency: 0.4,
         },
       },
       {
@@ -115,6 +121,9 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.8,
+          averageIssueEfficiency: 0.6,
+          majorIssueEfficiency: 0.4,
         },
       },
       {
@@ -127,6 +136,9 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.8,
+          averageIssueEfficiency: 0.6,
+          majorIssueEfficiency: 0.4,
         },
         healSpellIds: [
           SPELLS.DIVINE_STAR_HEAL.id,
@@ -142,6 +154,9 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.8,
+          averageIssueEfficiency: 0.6,
+          majorIssueEfficiency: 0.4,
         },
         healSpellIds: [
           SPELLS.HALO_HEAL.id,
@@ -156,6 +171,9 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.8,
+          averageIssueEfficiency: 0.6,
+          majorIssueEfficiency: 0.4,
         },
       },
       {
@@ -164,18 +182,12 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        castEfficiency: {
-          suggestion: true,
-        },
       },
       {
         spell: SPELLS.PRAYER_OF_HEALING,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
         },
       },
       {
@@ -184,18 +196,12 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        castEfficiency: {
-          suggestion: true,
-        },
       },
       {
         spell: SPELLS.FLASH_HEAL,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
         },
       },
       {
@@ -204,9 +210,6 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.BINDING_HEAL_TALENT.id),
         gcd: {
           base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
         },
       },
       {
@@ -341,9 +344,9 @@ class Abilities extends CoreAbilities {
         cooldown: 120,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.35,
-          averageIssueEfficiency: 0.20,
-          majorIssueEfficiency: 0,
+          recommendedEfficiency: 0.8,
+          averageIssueEfficiency: 0.6,
+          majorIssueEfficiency: 0.4,
         },
       },
       {
@@ -381,10 +384,16 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },
       {
-        spell: SPELLS.UNHOLY_NOVA_BUFF,
+        spell: SPELLS.UNHOLY_NOVA,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 120,
+        cooldown: 60,
         enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+          averageIssueEfficiency: 0.6,
+          majorIssueEfficiency: 0.4,
+        },
       },
     ];
   }

@@ -46,6 +46,11 @@ const covenants = {
     name: 'Swarming Mist',
     icon: 'ability_revendreth_deathknight'
   },
+  SWARMING_MIST_TICK: {
+    id: 311730,
+    name: 'Swarming Mist',
+    icon: 'ability_revendreth_deathknight'
+  },
   SWARMING_MIST_RUNIC_POWER_GAIN: {
     id: 312546,
     name: 'Swarming Mist',

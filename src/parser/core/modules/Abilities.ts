@@ -81,7 +81,9 @@ class Abilities extends Module {
     this.loadSpellbook(this.spellbook());
   }
   loadSpellbook(spellbook: SpellbookAbility[]) {
-    this.abilities = spellbook.map(options => new Ability(this, options));
+    // Abilities subtypes may want to construct a particular subtype of Ability
+    const abilityClass = (this.constructor as typeof Abilities).ABILITY_CLASS;
+    this.abilities = spellbook.map(options => new abilityClass(this, options));
     this.activeAbilities = this.abilities.filter(ability => ability.enabled);
   }
 

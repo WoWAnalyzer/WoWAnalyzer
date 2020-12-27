@@ -18,7 +18,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import { t } from '@lingui/macro';
-import { LIFECYCLES_MANA_PERC_REDUCTION } from 'parser/monk/mistweaver/constants';
+import { LIFECYCLES_MANA_PERC_REDUCTION, SPIRIT_OF_THE_CRANE_MANA_RETURN, LIFECYCLES_MANA_REDUCTION_PERCENT } from 'parser/monk/mistweaver/constants';
 
 import ManaTea from './ManaTea';
 import SpiritOfTheCrane from './SpiritOfTheCrane';
@@ -26,7 +26,7 @@ import Lifecycles from './Lifecycles';
 
 const debug = false;
 
-class Tier45Comparison extends Analyzer {
+class Tier30Comparison extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     manaTea: ManaTea,
@@ -152,7 +152,7 @@ class Tier45Comparison extends Analyzer {
       //life cycles reduces mana cost of two spells if you casted the other before hand
       //so best = (x-1) * VivCost * LifcylesReduction + x * EnvCost * LifcylesReduction = (best + ReducedViv) / ReducedEnv = x
       //x-1 since you viv first in all fights
-      this.lifecycles.requiredEnvs = Math.ceil((this.best.manaFrom + SPELLS.VIVIFY.manaCost * SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed) / SPELLS.ENVELOPING_MIST.manaCost * SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed);
+      this.lifecycles.requiredEnvs = Math.ceil((this.best.manaFrom + SPELLS.VIVIFY.manaCost * LIFECYCLES_MANA_REDUCTION_PERCENT) / SPELLS.ENVELOPING_MIST.manaCost * LIFECYCLES_MANA_REDUCTION_PERCENT);
       this.lifecycles.requiredVivs = this.lifecycles.requiredEnvs - 1;
     }
 
@@ -166,7 +166,7 @@ class Tier45Comparison extends Analyzer {
   //anaylze current play style and see how much mana they would have gained from this talent
   generateSotc() {
     const sotcBlackOutKicks = this.abilityTracker.getAbility(SPELLS.BLACKOUT_KICK_TOTM.id).damageHits || 0;
-    const manaPercentFromSotc = sotcBlackOutKicks * SPELLS.SPIRIT_OF_THE_CRANE_BUFF.manaRet;
+    const manaPercentFromSotc = sotcBlackOutKicks * SPIRIT_OF_THE_CRANE_MANA_RETURN;
     const rawManaFromSotc = manaPercentFromSotc * this.manaTracker.maxResource;
     return rawManaFromSotc || 0;
   }
@@ -185,7 +185,7 @@ class Tier45Comparison extends Analyzer {
   //assume that each env casted has a viv before it and that first viv is not effected
   generateLifeCycles() {
     const envCasts = this.abilityTracker.getAbility(SPELLS.ENVELOPING_MIST.id).casts || 0;
-    const vivCasts = this.abilityTracker.getAbility(SPELLS.VIVIFY.id).casts - 1;
+    const vivCasts = (this.abilityTracker.getAbility(SPELLS.VIVIFY.id).casts - 1) || 0;
     const manaDiscountOnViv = Math.min(vivCasts, envCasts) * SPELLS.VIVIFY.manaCost * LIFECYCLES_MANA_PERC_REDUCTION;
     const manaDiscountOnEnv = Math.min(vivCasts, envCasts) * SPELLS.ENVELOPING_MIST.manaCost * LIFECYCLES_MANA_PERC_REDUCTION;
     return (manaDiscountOnEnv + manaDiscountOnViv) || 0;
@@ -206,7 +206,7 @@ class Tier45Comparison extends Analyzer {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
       <>
-        With your current playstyle you are not using the most effective tier 45 talent. <SpellLink id={this.best.id} /> is better based off of how you played.
+        With your current playstyle you are not using the most effective tier 30 talent. <SpellLink id={this.best.id} /> is better based off of how you played.
       </>,
     )
       .icon(this.best.icon)
@@ -227,7 +227,7 @@ class Tier45Comparison extends Analyzer {
         dropdown={
           <div className="pad">
             <div>
-              This is an infographic for tier 45 talents to see what is required to equal the best pick for how you played. This also attempts to calculate the other talents based on how you played for the difference row, for the equals row it shows the requirements in general, ignoring how you played.
+              This is an infographic for tier 30 talents to see what is required to equal the best pick for how you played. This also attempts to calculate the other talents based on how you played for the difference row, for the equals row it shows the requirements in general, ignoring how you played.
             </div>
             <table className="table table-condensed">
               <thead>
@@ -269,7 +269,7 @@ class Tier45Comparison extends Analyzer {
         )}
       >
         <BoringValueText
-          label={<><SpellIcon id={this.best.id} /> Tier 45 Comparison</>}
+          label={<><SpellIcon id={this.best.id} /> Tier 30 Comparison</>}
         >
           <>
             {formatNumber(this.best.manaFrom)} Mana from {this.best.name}
@@ -289,4 +289,4 @@ interface BestTalent {
   best: boolean;
 }
 
-export default Tier45Comparison;
+export default Tier30Comparison;

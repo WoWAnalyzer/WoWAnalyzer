@@ -88,6 +88,7 @@ import VantusRune from '../shared/modules/spells/VantusRune';
 // PVP
 //Enchants
 // Crafted
+import DarkmoonDeckVoracity from '../shared/modules/items/shadowlands/crafted/DarkmoonDeckVoracity';
 // Castle Nathria
 
 // Legendaries
@@ -113,7 +114,6 @@ export interface Player {
   name: string;
   talents: Talent[];
   artifact: unknown;
-  heartOfAzeroth: unknown;
   gear: unknown;
   auras: unknown;
 }
@@ -199,6 +199,9 @@ class CombatLogParser {
     // Items:
 
     // Legendaries
+
+    // Crafted
+    darkmoonDeckVoracity: DarkmoonDeckVoracity,
   };
   // Override this with spec specific modules when extending
   static specModules: DependenciesDefinition = {};

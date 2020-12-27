@@ -216,6 +216,9 @@ export interface EndChannelEvent extends Event<EventType.EndChannel> {
   start: number;
   duration: number;
   beginChannel: BeginChannelEvent;
+  trigger?: {
+    timestamp: number;
+  };
 }
 
 export interface BaseCastEvent<T extends string> extends Event<T> {
@@ -230,6 +233,12 @@ export interface BaseCastEvent<T extends string> extends Event<T> {
     sourceID: number;
     isCancelled: boolean;
     start: number;
+    beginChannel?: {
+      isCancelled: boolean;
+      sourceID: number;
+      timestamp: number;
+      type: string;
+    };
   };
   classResources?: Array<ClassResources & { cost: number }>;
   facing?: number;
@@ -757,10 +766,12 @@ export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
     Spell,
   ];
   pvpTalents: Spell[];
-  artifact: SoulbindTrait[];
-  heartOfAzeroth: Conduit[];
   covenantID: number,
   soulbindID: number,
+  artifact?: SoulbindTrait[]; //WCL keeps Soulbind Abilities in the artifact field - we keep this temporarily before allocating to soulbindTraits
+  soulbindTraits?: SoulbindTrait[];
+  heartOfAzeroth?: Conduit[]; //WCL keeps class specific conduits in the heartOfAzeroth field - we keep this temporarily before allocating to conduits
+  conduits?: Conduit[];
   error?: any, //TODO: Verify, is this a bool? string?
 }
 

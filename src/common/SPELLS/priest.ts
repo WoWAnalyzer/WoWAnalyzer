@@ -483,6 +483,12 @@ const spells = {
     name: 'Spirit of Redemption',
     icon: 'inv_enchant_essenceeternallarge',
   },
+  // Items
+  DIVINE_IMAGE: {
+    id: 336401,
+    name: 'Divine Image',
+    icon: 'ability_priest_ascension',
+  },
 
   // Shadow Spells
   MIND_BLAST: {
@@ -635,6 +641,12 @@ const spells = {
     id: 341282,
     name: 'Unfurling Darkness',
     icon: 'spell_priest_shadow-mend',
+  },
+
+  DEATH_AND_MADNESS_BUFF: {
+    id: 321973,
+    name: 'Death and Madness',
+    icon: 'spell_shadow_painandsuffering',
   },
 
   // Shadow items:

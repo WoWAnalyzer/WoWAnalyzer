@@ -117,15 +117,15 @@ class StatTracker extends Analyzer {
     },
     [SPELLS.INSCRUTABLE_QUANTUM_DEVICE_HASTE.id]: {
       itemId: ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id,
-      crit: (_, item) => calculateSecondaryStatDefault(184, 568, item.itemLevel),
+      haste: (_, item) => calculateSecondaryStatDefault(184, 568, item.itemLevel),
     },
     [SPELLS.INSCRUTABLE_QUANTUM_DEVICE_MASTERY.id]: {
       itemId: ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id,
-      crit: (_, item) => calculateSecondaryStatDefault(184, 568, item.itemLevel),
+      mastery: (_, item) => calculateSecondaryStatDefault(184, 568, item.itemLevel),
     },
     [SPELLS.INSCRUTABLE_QUANTUM_DEVICE_VERS.id]: {
       itemId: ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id,
-      crit: (_, item) => calculateSecondaryStatDefault(184, 568, item.itemLevel),
+      versatility: (_, item) => calculateSecondaryStatDefault(184, 568, item.itemLevel),
     },
 
     //endregion
@@ -269,6 +269,24 @@ class StatTracker extends Analyzer {
     }
     // if any stat's function uses the item argument, validate that itemId property exists
     debug && this.log(`StatTracker.add(), buffId: ${buffId}, stats:`, stats);
+    const usesItemArgument = Object.values(stats).some(value => typeof value === 'function' && value.length === 2);
+    if (usesItemArgument && !stats.itemId) {
+      throw new Error(`Stat buff ${buffId} uses item argument, but does not provide item ID`);
+    }
+    this.statBuffs[buffId] = stats;
+  }
+
+  update(buffId, stats) {
+    if (!buffId || !stats) {
+      throw new Error(`StatTracker.update() called with invalid buffId ${buffId} or stats`);
+    }
+    if (typeof buffId === 'object') {
+      buffId = buffId.id;
+    }
+    if (!this.statBuffs[buffId]) {
+      throw new Error(`Stat buff with ID ${buffId} doesn't exist, so it can't be updated - remember to add it first!`);
+    }
+    debug && this.log(`StatTracker.update(), buffId: ${buffId}, stats:`, stats);
     const usesItemArgument = Object.values(stats).some(value => typeof value === 'function' && value.length === 2);
     if (usesItemArgument && !stats.itemId) {
       throw new Error(`Stat buff ${buffId} uses item argument, but does not provide item ID`);
@@ -425,8 +443,6 @@ class StatTracker extends Analyzer {
     let critChance = 0.05;
     if (this.selectedCombatant.race === RACES.BloodElf) {
       critChance += 0.01;
-    } else if (this.selectedCombatant.hasBuff(SPELLS.OPULENCE_BRILLAINT_AURA.id)) {
-      critChance += 1.0;
     }
     switch (this.selectedCombatant.spec) {
       case SPECS.FIRE_MAGE:

@@ -13,5 +13,10 @@ const items: ItemList = {
     name: 'Vantus Rune',
     icon: 'inv_inscription_vantusrune_castlenathria01',
   },
+  DARKMOON_DECK_VORACITY: {
+    id: 173087,
+    name: 'Darkmoon Deck: Voracity',
+    icon: 'inv_inscription_darkmooncard_voracity',
+  },
 };
 export default items;

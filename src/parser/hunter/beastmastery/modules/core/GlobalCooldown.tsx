@@ -2,14 +2,12 @@ import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import SPELLS from 'common/SPELLS';
 import Haste from 'parser/shared/modules/Haste';
 import { MAX_GCD, MIN_GCD } from 'parser/hunter/shared/constants';
+import { CastEvent } from 'parser/core/Events';
 
 import { AOTW_GCD_REDUCTION_AFFECTED_ABILITIES } from '../../constants';
 
 const ASPECT_GCD_REDUCTION = 200;
 
-/**
- * Aspect of the wild reduces Global Cooldown for certain spells by 0.2 seconds before haste calculations
- */
 class GlobalCooldown extends CoreGlobalCooldown {
   static dependencies = {
     ...CoreGlobalCooldown.dependencies,
@@ -18,6 +16,24 @@ class GlobalCooldown extends CoreGlobalCooldown {
 
   protected haste!: Haste;
 
+  /**
+   * Barrage GCDs are triggered when fabricating channel events
+   */
+  onCast(event: CastEvent) {
+    const spellId = event.ability.guid;
+    if (spellId === SPELLS.BARRAGE_TALENT.id) {
+      return;
+    }
+    const isOnGCD = this.isOnGlobalCooldown(spellId);
+    if (!isOnGCD) {
+      return;
+    }
+    super.onCast(event);
+  }
+
+  /**
+   * Aspect of the wild reduces Global Cooldown for certain spells by 0.2 seconds before haste calculations
+   */
   getGlobalCooldownDuration(spellId: number) {
     const gcd = super.getGlobalCooldownDuration(spellId);
     if (!gcd) {

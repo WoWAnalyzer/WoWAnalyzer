@@ -89,6 +89,7 @@ class MasteryEffectiveness extends Analyzer {
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
     this.addEventListener(Events.energize.to(SELECTED_PLAYER), this.onEnergize);
     this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.onHealToPlayer);
+    this.addEventListener(Events.absorbed.by(SELECTED_PLAYER), this.onAbsorbedByPlayer);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHealByPlayer);
   }
 
@@ -110,6 +111,10 @@ class MasteryEffectiveness extends Analyzer {
     this.processForMasteryEffectiveness(event);
   }
 
+  onAbsorbedByPlayer(event) { 
+    this.processForMasteryEffectiveness(event);
+  }
+
   processForMasteryEffectiveness(event) {
     if (!this._lastPlayerPositionUpdate) {
       console.error(
@@ -123,11 +128,23 @@ class MasteryEffectiveness extends Analyzer {
       return;
     }
 
-    const distance = this.getPlayerDistance(event);
+    let distance = this.getPlayerDistance(event);
     const isRuleOfLawActive = this.selectedCombatant.hasBuff(
       SPELLS.RULE_OF_LAW_TALENT.id,
       event.timestamp,
     );
+
+    if(!distance){
+      distance = this.distanceSum / this.distanceCount;
+    }
+
+    if(!distance){// still undefined? we just die now (should only happen with weird first event absorb logs)
+      console.error(
+        "Received a heal before we know the player location. Can't process since player location is still unknown.",
+        event,
+      );
+      return;
+    }
 
     this.distanceSum += distance;
     this.distanceCount += 1;
