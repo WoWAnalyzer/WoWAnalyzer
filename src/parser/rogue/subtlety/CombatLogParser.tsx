@@ -41,6 +41,7 @@ import TheRotten from './modules/spells/shadowlands/legendaries/TheRotten';
 import DeeperDaggers from '../shared/shadowlands/conduits/DeeperDaggers';
 import EssenceOfBloodfang from '../shared/shadowlands/legendaries/EssenceOfBloodfang';
 import InvigoratingShadowdust from '../shared/shadowlands/legendaries/InvigoratingShadowdust';
+import VanishFindWeakness from './modules/features/VanishFindWeakness';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -78,6 +79,7 @@ class CombatLogParser extends CoreCombatLogParser {
     shadowBladesUptime: ShadowBladesUptime,
     castsInShadowDance: CastsInShadowDance,
     castsInStealth: CastsInStealth,
+    vanishFindWeakness: VanishFindWeakness,
 
     //Talents
     darkShadowContribution: DarkShadowContribution,
