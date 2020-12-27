@@ -21,7 +21,7 @@ class ImmolationAura extends Analyzer {
 
     const immolationAuraUptimePercentage = immolationAuraUptime / this.owner.fightDuration;
 
-    this.immolationAuraDamage = this.abilityTracker.getAbility(SPELLS.IMMOLATION_AURA_FIRST_STRIKE.id).damageEffective + this.abilityTracker.getAbility(SPELLS.IMMOLATION_AURA.id).damageEffective;
+    this.immolationAuraDamage = this.abilityTracker.getAbility(SPELLS.IMMOLATION_AURA_INITIAL_HIT_DAMAGE.id).damageEffective + this.abilityTracker.getAbility(SPELLS.IMMOLATION_AURA.id).damageEffective;
 
     return (
       <Statistic
