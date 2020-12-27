@@ -1115,6 +1115,7 @@ export const flurreN: Contributor = {
     link: 'https://worldofwarcraft.com/en-gb/character/eu/stormscale/zyg',
   }],
 };
+
 export const Carrottopp: Contributor = {
   nickname: "Carrottopp",
   github: "Chasson1992",
@@ -1126,12 +1127,25 @@ export const Carrottopp: Contributor = {
     link: "https://worldofwarcraft.com/en-us/character/us/stormrage/carrottopp",
   }],
 };
+
 export const Vexxra: Contributor = {
   nickname: 'Vexxra',
   github: 'vexxra',
 };
+
 export const TurianSniper: Contributor = {
   nickname: 'TurianSniper',
   github: 'tjw87912',
   discord: 'TurianSniper#2941',
 };
+
+export const Geeii: Contributor = {
+  nickname: 'Geeii',
+  github: 'radean0909',
+  discord: 'Geei#8447',
+  mains: [{
+    name: "Geeii",
+    spec: SPECS.VENGEANCE_DEMON_HUNTER, 
+    link: "https://worldofwarcraft.com/en-us/character/us/area52/geeii",
+  }]
+}
