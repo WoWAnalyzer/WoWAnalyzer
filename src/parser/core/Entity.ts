@@ -1,5 +1,6 @@
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { BuffEvent, HasSource } from 'parser/core/Events';
+import { formatMilliseconds } from 'common/format';
 
 type StackHistory = Array<{ stacks: number, timestamp: number }>
 export interface TrackedBuffEvent extends BuffEvent<any> {
@@ -14,6 +15,8 @@ class Entity {
   constructor(owner: CombatLogParser) {
     this.owner = owner;
   }
+
+  private debug: boolean = true;
 
   /**
    * This also tracks debuffs in the exact same array. There are no parameters to filter results by debuffs. I don't think this should be necessary as debuffs and buffs usually have different spell IDs.
@@ -145,6 +148,69 @@ class Entity {
   getStackWeightedBuffUptime(spellId: number, sourceID: number | null = null) {
     const stackBuffUptimes = this.getStackBuffUptimes(spellId, sourceID);
     return Object.keys(stackBuffUptimes).map(stack => stackBuffUptimes[Number(stack)] * Number(stack)).reduce((total, cur) => total + cur, 0);
+  }
+
+  /**
+   * Determine the non-inclusive remaining time of a given debuff/buff at each application/re-application of the buff.
+   * @param {number} spellId - buff ID to check for
+   * @param {number} baseBuffLength - the base number of ms added to the buff timer by a single application
+   * @param {number} maxBuffLength - the maximum number of ms a buff can have.
+   * @param {number | null} sourceId - source ID the buff must have come from, or any source if null.
+   */
+  getRemaingBuffTimeAtApplication(spellId: number, baseBuffLength: number, maxBuffLength: number, sourceId: number | null = null): Map<number, number> {
+    const buffTimesAtApplication: Map<number, number> = new Map<number, number>();
+    const sortedApplicationTimestamps: number[] = this.getBuffHistory(spellId, sourceId)
+      .map((buffEvent) => buffEvent.timestamp)
+      .sort((a, b) => a - b);
+    if (sortedApplicationTimestamps.length === 0) {
+      return buffTimesAtApplication;
+    }
+    let lastApplicationTimestamp: number = sortedApplicationTimestamps[0];
+    let buffTimeAtLastApplication: number = baseBuffLength;
+    buffTimesAtApplication.set(lastApplicationTimestamp, 0);
+    for (let i: number = 1; i < sortedApplicationTimestamps.length; i++) {
+      const timeDiffBetweenApplications = sortedApplicationTimestamps[i] - lastApplicationTimestamp;
+      const buffAmountAtCurrentApplication = Math.max(0, buffTimeAtLastApplication - timeDiffBetweenApplications);
+      buffTimesAtApplication.set(sortedApplicationTimestamps[i], buffAmountAtCurrentApplication);
+      lastApplicationTimestamp = sortedApplicationTimestamps[i];
+      buffTimeAtLastApplication = Math.min(buffAmountAtCurrentApplication + baseBuffLength, maxBuffLength);
+    }
+    return buffTimesAtApplication;
+  }
+
+  /**
+   * Determine the remaining time of a given debuff/buff at a given timestamp. If a
+   * buff is applied at the given timestamp, the returned value is non-inclusive.
+   * @param {number} spellId - buff ID to check for
+   * @param {number} baseBuffLength - the base number of ms added to the buff timer by a single application
+   * @param {number} maxBuffLength - the maximum number of ms a buff can have.
+   * @param {number} timestamp - the timestamp to determine the remaining time of a buff/debuff.
+   * @param {number | null} sourceId - source ID the buff must have come from, or any source if null.
+   * @return The remaining buff time at the provided timestamp.
+   */
+  getRemainingBuffTimeAtTimestamp(spellId: number, baseBuffLength: number, maxBuffLength: number, timestamp: number, sourceId: number | null = null): number {
+    const buffApplicationTimes: Map<number, number> = this.getRemaingBuffTimeAtApplication(spellId, baseBuffLength, maxBuffLength, sourceId);
+    const keys: number[] = Array.from(buffApplicationTimes.keys()).sort((a, b) => a - b);
+    if (keys.length === 0) {
+      return 0;
+    }
+    let closestKey: number = keys[0];
+    for (const key of keys) {
+      if (Math.abs(timestamp - key) < closestKey) {
+        closestKey = key;
+      }
+    }
+    const buffTimeAtClosestKey: number = buffApplicationTimes.get(closestKey) as number;
+    const timeDiff: number = Math.abs(closestKey - timestamp);
+    if (closestKey > timestamp) {
+      const result: number = Math.min(buffTimeAtClosestKey + timeDiff, maxBuffLength);
+      return result;
+    } else if (closestKey < timestamp) {
+      const result: number = Math.max(buffTimeAtClosestKey - timeDiff, 0);
+      return result;
+    } else {
+      return buffTimeAtClosestKey;
+    }
   }
 
   applyBuff(buff: BuffEvent<any> & { start: number }) {
