@@ -8,6 +8,7 @@ import { t } from '@lingui/macro';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import ItemDamageDone from 'interface/ItemDamageDone';
 
 
 /**
@@ -41,8 +42,8 @@ class Felblade extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.FELBLADE_PAIN_GENERATION), this.onEnergizeEvent);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FELBLADE_PAIN_GENERATION), this.onDamageEvent);
+    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.FELBLADE_DAMAGE), this.onEnergizeEvent);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FELBLADE_DAMAGE), this.onDamageEvent);
   }
 
   onEnergizeEvent(event) {
@@ -51,7 +52,7 @@ class Felblade extends Analyzer {
   }
 
   onDamageEvent(event) {
-    this.damage += event.amount;
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   suggestions(when) {
@@ -83,7 +84,7 @@ class Felblade extends Analyzer {
         <BoringSpellValueText spell={SPELLS.FELBLADE_TALENT}>
           <>
             {this.furyPerMin} <small>Fury per min </small><br />
-            {this.owner.formatItemDamageDone(this.damage)}
+            <ItemDamageDone amount={this.damage}/>
           </>
         </BoringSpellValueText>
       </Statistic>
