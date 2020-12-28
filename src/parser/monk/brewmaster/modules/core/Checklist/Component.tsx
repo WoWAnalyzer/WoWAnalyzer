@@ -97,6 +97,12 @@ const Component = ({ combatant, castEfficiency, thresholds }: any) => {
             thresholds={thresholds.rjw}
           />
         )}
+        {combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.CHI_BURST_TALENT.id} />
+        )}
+        {combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.CHI_WAVE_TALENT.id} />
+        )}
       </Rule>
       <PreparationRule thresholds={thresholds}></PreparationRule>
     </Checklist>

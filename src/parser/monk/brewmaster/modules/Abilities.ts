@@ -57,6 +57,30 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.CHI_BURST_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 30,
+        enabled: combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+        },
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.CHI_WAVE_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 15,
+        enabled: combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+        },
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: SPELLS.CRACKLING_JADE_LIGHTNING,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
