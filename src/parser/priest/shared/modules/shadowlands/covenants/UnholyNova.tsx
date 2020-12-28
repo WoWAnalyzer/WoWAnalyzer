@@ -99,7 +99,12 @@ class UnholyNova extends Analyzer {
 
   suggestions(when: When) {
     when(this.efficiencySuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<span>Try not to miss with <SpellLink id={SPELLS.UNHOLY_NOVA.id} />. Unholy Nova is a projectile, and can miss if cast at the wrong time.</span>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>
+        <span>Try not to miss with <SpellLink id={SPELLS.UNHOLY_NOVA.id} />.</span><br />
+          <span><SpellLink id={SPELLS.UNHOLY_NOVA.id} /> is a projectile that targets the ground where your target is currently standing.
+            If your target moves or becomes untargetable, Unholy Nova can completely miss.
+            Try and avoid casting Unholy Nova when the target is about to move.
+          </span></>)
         .icon(SPELLS.UNHOLY_NOVA.icon)
         .actual(`${this.totalMisses} misses out of ${this.totalCasts} total casts.`)
         .recommended(`0 misses is recommended`));
