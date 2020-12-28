@@ -23,9 +23,9 @@ function formatSeconds(seconds: number) {
 class VoidTorrent extends Analyzer {
 
   _previousVoidTorrentCast: any;
-  damage: number = 0;
+  damage = 0;
   totalChannelingTime = 0;
-  insanityGained: number = 0;
+  insanityGained = 0;
 
   constructor(options: Options) {
     super(options);
@@ -110,7 +110,7 @@ class VoidTorrent extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    this.damage += event.amount || 0;
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   onEnergize(event: EnergizeEvent) {
