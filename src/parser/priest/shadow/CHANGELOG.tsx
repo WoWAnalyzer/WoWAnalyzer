@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  change(date(2020, 12, 28), <>Adding support for <SpellLink id={SPELLS.FAE_GUARDIANS.id} /></>, Khadaj),
   change(date(2020, 12, 28), <>Adding support for <SpellLink id={SPELLS.UNHOLY_NOVA.id} /></>, Khadaj),
   change(date(2020, 12, 24), <>Added <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} /> uptime tracker.</>, [Adoraci]),
   change(date(2020, 12, 24), <>Added <SpellLink id={SPELLS.BOON_OF_THE_ASCENDED.id} />, <SpellLink id={SPELLS.UNHOLY_NOVA.id} />, <SpellLink id={SPELLS.MINDGAMES.id} />, and <SpellLink id={SPELLS.FAE_GUARDIANS.id} /> efficiency recommendations.</>, [Adoraci]),

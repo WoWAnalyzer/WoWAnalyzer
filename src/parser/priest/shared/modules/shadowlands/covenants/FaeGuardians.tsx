@@ -8,20 +8,18 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import COVENANTS from 'game/shadowlands/COVENANTS';
-import Events, { ApplyBuffEvent, CastEvent, DamageEvent, EnergizeEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, DamageEvent, EnergizeEvent } from 'parser/core/Events';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Combatants from 'parser/shared/modules/Combatants';
 import ItemManaGained from 'interface/ItemManaGained';
 import ItemInsanityGained from 'parser/priest/shadow/interface/ItemInsanityGained';
-import ItemDamageTaken from 'interface/ItemDamageTaken';
 import { formatNumber } from 'common/format';
-import SpellIcon from 'common/SpellIcon';
 
 const GUARDIAN_DAMAGE_REDUCTION = .1;
 
 // Holy: https://www.warcraftlogs.com/reports/2frFV7hnRg4ZxXcA#fight=5
 // Shadow: https://www.warcraftlogs.com/reports/WqcaKR9nNkChXyfm#fight=5
-// Disc: https://www.warcraftlogs.com/reports/GWPC9kQ41yg6z8Xx#fight=47
+// Disc: https://www.warcraftlogs.com/reports/6bRMLg9fr4wThkdP#fight=37
 class FaeGuardians extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -51,13 +49,10 @@ class FaeGuardians extends Analyzer {
     }
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FAE_GUARDIANS), this.onCast);
-
     this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.WRATHFUL_FAERIE_ENERGIZE), this.onEnergize);
-
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.GUARDIAN_FAERIE), this.onGuardianApply);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.GUARDIAN_FAERIE), this.onGuardianRemove);
     this.addEventListener(Events.damage, this.onDamage);
-
   }
 
   onDamage(event: DamageEvent) {
@@ -80,27 +75,19 @@ class FaeGuardians extends Analyzer {
     this.currentShieldedTargetId = event.targetID;
   }
 
-  onGuardianRemove(event: RemoveBuffEvent) {
+  onGuardianRemove() {
     this.currentShieldedTargetId = -1;
   }
 
-  onCast(event: CastEvent) {
+  onCast() {
     this.totalCasts += 1;
   }
 
-
   statistic() {
-    console.log("mana: ", this.manaGenerated);
-    console.log("insanity: ", this.insanityGenerated);
-    console.log("damage reduced: ", this.damageReduced);
-    console.log("Uptime: ", this.benevolentUptime);
-
     return (
       <Statistic
         category={STATISTIC_CATEGORY.COVENANTS}
         size="flexible"
-        tooltip={(<>
-        </>)}
       >
         <BoringSpellValueText spell={SPELLS.FAE_GUARDIANS}>
           <>
@@ -113,7 +100,6 @@ class FaeGuardians extends Analyzer {
       </Statistic>
     );
   }
-
 }
 
 export default FaeGuardians;
