@@ -9,7 +9,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import COVENANTS from 'game/shadowlands/COVENANTS';
-import Events, { ApplyDebuffEvent, CastEvent, DamageEvent, EventType, HealEvent } from 'parser/core/Events';
+import Events, { ApplyDebuffEvent, CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import ItemHealingDone from 'interface/ItemHealingDone';
 
 const APPLICATION_THRESHOLD = 5000;
@@ -17,7 +17,6 @@ const APPLICATION_THRESHOLD = 5000;
 // Holy: https://www.warcraftlogs.com/reports/MtraPqxwdB4hRG7j#fight=2
 // Shadow: https://www.warcraftlogs.com/reports/KVDfG2wnb8pABJhj#fight=45
 // Disc: https://www.warcraftlogs.com/reports/GWPC9kQ41yg6z8Xx#fight=47
-
 class UnholyNova extends Analyzer {
   totalDamage = 0;
   totalHealing = 0;
