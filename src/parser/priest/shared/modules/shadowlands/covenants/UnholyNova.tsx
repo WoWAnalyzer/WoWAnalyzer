@@ -11,7 +11,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import Events, { ApplyDebuffEvent, CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import ItemHealingDone from 'interface/ItemHealingDone';
-import { formatNumber, formatPercentage, formatThousands } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellLink from 'common/SpellLink';
 
