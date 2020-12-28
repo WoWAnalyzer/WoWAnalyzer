@@ -11,6 +11,9 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import Events, { ApplyDebuffEvent, CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import ItemHealingDone from 'interface/ItemHealingDone';
+import { formatNumber, formatPercentage, formatThousands } from 'common/format';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import SpellLink from 'common/SpellLink';
 
 const APPLICATION_THRESHOLD = 5000;
 
@@ -60,6 +63,7 @@ class UnholyNova extends Analyzer {
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.UNHOLY_NOVA), this.onCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.UNHOLY_TRANSFUSION_DAMAGE), this.onDamage);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.UNHOLY_NOVA_BUFF), this.onHeal);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.UNHOLY_TRANSFUSION), this.onHeal);
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.UNHOLY_TRANSFUSION_DAMAGE), this.onApplyDebuff);
   }
@@ -81,6 +85,27 @@ class UnholyNova extends Analyzer {
     this.totalOverHealing += (event.overheal  || 0);
   }
 
+  get efficiencySuggestionThresholds() {
+    return {
+      actual: this.totalMisses,
+      isGreaterThan: {
+        minor: 0,
+        average: 0,
+        major: 0,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
+  }
+
+  suggestions(when: When) {
+    when(this.efficiencySuggestionThresholds)
+      .addSuggestion((suggest, actual, recommended) => suggest(<span>Try not to miss with <SpellLink id={SPELLS.UNHOLY_NOVA.id} />. Unholy Nova is a projectile, and can miss if cast at the wrong time.</span>)
+        .icon(SPELLS.UNHOLY_NOVA.icon)
+        .actual(`${this.totalMisses} misses out of ${this.totalCasts} total casts.`)
+        .recommended(`0 misses is recommended`));
+  }
+
+
   statistic() {
     return (
       <Statistic
@@ -88,7 +113,8 @@ class UnholyNova extends Analyzer {
         size="flexible"
         tooltip={(<>
           <>Enemies hit per cast: {(this.totalApplications/this.totalCasts).toFixed(2)}</><br />
-          <>Complete misses: {this.totalMisses}</>
+          <>Complete misses: {this.totalMisses}</><br />
+          <>Total Healing: {formatNumber(this.totalHealing)} ({formatPercentage(this.totalOverHealing/(this.totalHealing + this.totalOverHealing))}% OH)</>
         </>)}
       >
         <BoringSpellValueText spell={SPELLS.UNHOLY_NOVA}>

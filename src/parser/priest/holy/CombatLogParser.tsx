@@ -143,7 +143,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Conduits
     resonantWords: ResonantWords,
 
-    // Conduits
+    // Covenants
     unholyNova: UnholyNova,
   };
 
