@@ -40,19 +40,19 @@ function performanceForGreaterThanThresholds(actual, { minor, average, major }) 
   }
 }
 export default function performanceForThresholds(thresholds) {
-  if (thresholds.isGreaterThan) {
+  if (thresholds.isGreaterThan || (thresholds.style === 'number' && !isNaN(thresholds.isGreaterThan))) {
     if (typeof thresholds.isGreaterThan === 'object') {
       return performanceForGreaterThanThresholds(thresholds.actual, thresholds.isGreaterThan);
     } else {
       return thresholds.isGreaterThan / thresholds.actual;
     }
-  } else if (thresholds.isLessThan) {
+  } else if (thresholds.isLessThan || (thresholds.style === 'number' && !isNaN(thresholds.isLessThan))) {
     if (typeof thresholds.isLessThan === 'object') {
       return performanceForLessThanThresholds(thresholds.actual, thresholds.isLessThan);
     } else {
       return thresholds.actual / thresholds.isLessThan;
     }
-  } else if (thresholds.isEqual !== undefined) {
+  } else if (thresholds.isEqual !== undefined || (thresholds.style === 'number' && !isNaN(thresholds.isEqual))) {
     return thresholds.actual !== thresholds.isEqual ? 1 : 0;
   } else {
     throw new Error('Failed to recognize threshold type');
