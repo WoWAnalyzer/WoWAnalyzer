@@ -1137,6 +1137,11 @@ export const TurianSniper: Contributor = {
   nickname: 'TurianSniper',
   github: 'tjw87912',
   discord: 'TurianSniper#2941',
+  mains: [{
+    name: "Nakofel",
+    spec: SPECS.VENGEANCE_DEMON_HUNTER,
+    link: "https://worldofwarcraft.com/en-us/character/us/bleeding-hollow/nakofel",
+  }],  
 };
 
 export const Geeii: Contributor = {
@@ -1147,5 +1152,6 @@ export const Geeii: Contributor = {
     name: "Geeii",
     spec: SPECS.VENGEANCE_DEMON_HUNTER, 
     link: "https://worldofwarcraft.com/en-us/character/us/area52/geeii",
-  }]
+  }],
 }
+  
