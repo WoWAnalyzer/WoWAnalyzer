@@ -16,13 +16,13 @@ const talents: SpellList = {
 
   //Restoration
   ABUNDANCE_TALENT: { id: 207383, name: 'Abundance', icon: 'ability_druid_empoweredrejuvination' },
-  NOURISH_TALENT: { id: 50464, name: 'Nourish', icon: 'ability_druid_nourish', manaCost: 0.18 },
-  CENARION_WARD_TALENT: { id: 102351, name: 'Cenarion Ward', icon: 'ability_druid_naturalperfection', manaCost: 0.092 },
+  NOURISH_TALENT: { id: 50464, name: 'Nourish', icon: 'ability_druid_nourish', manaCost: 9000 },
+  CENARION_WARD_TALENT: { id: 102351, name: 'Cenarion Ward', icon: 'ability_druid_naturalperfection', manaCost: 4600 },
   CULTIVATION_TALENT: { id: 200390, name: 'Cultivation', icon: 'spell_nature_healingtouch' },
   INCARNATION_TREE_OF_LIFE_TALENT: { id: 33891, name: 'Incarnation: Tree of Life', icon: 'ability_druid_improvedtreeform' },
   INNER_PEACE_TALENT: { id: 197073, name: 'Inner Peace', icon: 'ability_druid_dreamstate' },
   SPRING_BLOSSOMS_TALENT: { id: 207385, name: 'Spring Blossoms', icon: 'inv_misc_trailofflowers' },
-  OVERGROWTH_TALENT: { id: 203651, name: 'Overgrowth', icon: 'ability_druid_overgrowth', manaCost: 0.3 },
+  OVERGROWTH_TALENT: { id: 203651, name: 'Overgrowth', icon: 'ability_druid_overgrowth', manaCost: 15000 },
   PHOTOSYNTHESIS_TALENT: { id: 274902, name: 'Photosynthesis', icon: 'spell_lifegivingseed' },
   GERMINATION_TALENT: { id: 155675, name: 'Germination', icon: 'spell_druid_germination' },
   FLOURISH_TALENT: { id: 197721, name: 'Flourish', icon: 'spell_druid_wildburst' },

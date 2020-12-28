@@ -12,7 +12,7 @@ const talents: SpellList = {
   BURNING_HATRED_TALENT: { id: 320374, name: 'Burning Hatred', icon: 'ability_demonhunter_immolation' },
   DEMON_BLADES_TALENT: { id: 203555, name: 'Demon Blades', icon: 'inv_weapon_shortblade_92' },
   TRAIL_OF_RUIN_TALENT: { id: 258881, name: 'Trail of Ruin', icon: 'ability_demonhunter_bladedance' },
-  UNBOUND_CHAOS_TALENT: { id: 275144, name: 'Unbound Chaos', icon: 'ability_demonhunter_felrush' },
+  UNBOUND_CHAOS_TALENT: { id: 347461, name: 'Unbound Chaos', icon: 'artifactability_vengeancedemonhunter_painbringer' },
   GLAIVE_TEMPEST_TALENT: { id: 342817, name: 'Glaive Tempest', icon: 'inv_glaive_1h_artifactazgalor_d_06dual', furyCost: 30 },
   DESPERATE_INSTINCTS_TALENT: { id: 205411, name: 'Desperate Instincts', icon: 'spell_shadow_manafeed' },
   NETHERWALK_TALENT: { id: 196555, name: 'Netherwalk', icon: 'spell_warlock_demonsoul' },

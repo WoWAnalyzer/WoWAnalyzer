@@ -45,6 +45,8 @@ const resourceTypes = {
   18: 'Pain',
 };
 
+const baseMaxMana = 50000;
+
 //Retrieved from https://www.raidbots.com/static/data/live/talents.json
 const talents = readJson('./talents.json');
 //Keyed json converted from the csv retrieved from here from https://wow.tools/dbc/?dbc=spellpower&build=9.0.2.36949
@@ -76,7 +78,7 @@ function findResource(spellPowerObj) {
 
 function findResourceCost(spellPowerObj, className, resourceName) {
   if (spellPowerObj.PowerCostPct > 0) {
-    return spellPowerObj.PowerCostPct / 100;
+    return Math.round(spellPowerObj.PowerCostPct / 100 * baseMaxMana);
   } else {
     if (resourceName === 'Runic Power' || resourceName === 'Rage' || resourceName === 'Soul Shards') {
       return spellPowerObj.ManaCost / 10;
@@ -189,7 +191,7 @@ import { SpellList } from '../Spell';
 
 const talents: SpellList = {
 ${Object.keys(spellList).map(spec => `\t//${spec}
-${Object.keys(spellList[spec]).map(talent => `\t${talent}: { ${Object.keys(spellList[spec][talent]).map(attribute => `${attribute}: ${JSON.stringify(spellList[spec][talent][attribute])}`).join(', ')} },`).join('\n')}
+${Object.keys(spellList[spec]).map(talent => `  ${talent}: { ${Object.keys(spellList[spec][talent]).map(attribute => `${attribute}: ${JSON.stringify(spellList[spec][talent][attribute])}`).join(', ')} },`).join('\n')}
 `).join('\n')}
 };
 export default talents;`);

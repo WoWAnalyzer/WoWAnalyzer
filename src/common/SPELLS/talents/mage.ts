@@ -3,12 +3,12 @@ import { SpellList } from '../Spell';
 
 const talents: SpellList = {
   //Shared
-  SHIMMER_TALENT: { id: 212653, name: 'Shimmer', icon: 'spell_arcane_massdispel', manaCost: 0.02 },
+  SHIMMER_TALENT: { id: 212653, name: 'Shimmer', icon: 'spell_arcane_massdispel', manaCost: 1000 },
   INCANTERS_FLOW_TALENT: { id: 1463, name: 'Incanter\'s Flow', icon: 'ability_mage_incantersabsorbtion' },
-  FOCUS_MAGIC_TALENT: { id: 321358, name: 'Focus Magic', icon: 'spell_arcane_studentofmagic', manaCost: 0.02 },
+  FOCUS_MAGIC_TALENT: { id: 321358, name: 'Focus Magic', icon: 'spell_arcane_studentofmagic', manaCost: 1000 },
   RUNE_OF_POWER_TALENT: { id: 116011, name: 'Rune of Power', icon: 'spell_mage_runeofpower' },
   ICE_WARD_TALENT: { id: 205036, name: 'Ice Ward', icon: 'spell_frost_frostward' },
-  RING_OF_FROST_TALENT: { id: 113724, name: 'Ring of Frost', icon: 'spell_frost_ring_of_frost', manaCost: 0.08 },
+  RING_OF_FROST_TALENT: { id: 113724, name: 'Ring of Frost', icon: 'spell_frost_ring_of_frost', manaCost: 4000 },
   OVERPOWERED_TALENT: { id: 155147, name: 'Overpowered', icon: 'spell_mage_overpowered' },
 
   //Fire
@@ -23,10 +23,10 @@ const talents: SpellList = {
   FRENETIC_SPEED_TALENT: { id: 236058, name: 'Frenetic Speed', icon: 'spell_fire_burningspeed' },
   FLAME_PATCH_TALENT: { id: 205037, name: 'Flame Patch', icon: 'spell_mage_flameorb' },
   CONFLAGRATION_TALENT: { id: 205023, name: 'Conflagration', icon: 'spell_shaman_firenova' },
-  LIVING_BOMB_TALENT: { id: 44457, name: 'Living Bomb', icon: 'ability_mage_livingbomb', manaCost: 0.015 },
+  LIVING_BOMB_TALENT: { id: 44457, name: 'Living Bomb', icon: 'ability_mage_livingbomb', manaCost: 750 },
   KINDLING_TALENT: { id: 155148, name: 'Kindling', icon: 'spell_mage_kindling' },
   PYROCLASM_TALENT: { id: 269650, name: 'Pyroclasm', icon: 'spell_shaman_lavasurge' },
-  METEOR_TALENT: { id: 153561, name: 'Meteor', icon: 'spell_mage_meteor', manaCost: 0.01 },
+  METEOR_TALENT: { id: 153561, name: 'Meteor', icon: 'spell_mage_meteor', manaCost: 500 },
 
   //Frost
   BONE_CHILLING_TALENT: { id: 205027, name: 'Bone Chilling', icon: 'ability_mage_chilledtothebone' },
@@ -40,10 +40,10 @@ const talents: SpellList = {
   FRIGID_WINDS_TALENT: { id: 235224, name: 'Frigid Winds', icon: 'ability_mage_deepfreeze' },
   FREEZING_RAIN_TALENT: { id: 270233, name: 'Freezing Rain', icon: 'spell_frost_frozenorb' },
   SPLITTING_ICE_TALENT: { id: 56377, name: 'Splitting Ice', icon: 'spell_frost_ice_shards' },
-  COMET_STORM_TALENT: { id: 153595, name: 'Comet Storm', icon: 'spell_mage_cometstorm2', manaCost: 0.01 },
+  COMET_STORM_TALENT: { id: 153595, name: 'Comet Storm', icon: 'spell_mage_cometstorm2', manaCost: 500 },
   THERMAL_VOID_TALENT: { id: 155149, name: 'Thermal Void', icon: 'spell_mage_thermalvoid' },
-  RAY_OF_FROST_TALENT: { id: 205021, name: 'Ray of Frost', icon: 'ability_mage_rayoffrost', manaCost: 0.02 },
-  GLACIAL_SPIKE_TALENT: { id: 199786, name: 'Glacial Spike', icon: 'ability_mage_glacialspike', manaCost: 0.01 },
+  RAY_OF_FROST_TALENT: { id: 205021, name: 'Ray of Frost', icon: 'ability_mage_rayoffrost', manaCost: 1000 },
+  GLACIAL_SPIKE_TALENT: { id: 199786, name: 'Glacial Spike', icon: 'ability_mage_glacialspike', manaCost: 500 },
 
   //Arcane
   AMPLIFICATION_TALENT: { id: 236628, name: 'Amplification', icon: 'spell_arcane_invocation' },
@@ -53,10 +53,10 @@ const talents: SpellList = {
   SLIPSTREAM_TALENT: { id: 236457, name: 'Slipstream', icon: 'spell_holy_mindsooth' },
   RESONANCE_TALENT: { id: 205028, name: 'Resonance', icon: 'spell_arcane_arcane01' },
   ARCANE_ECHO_TALENT: { id: 342231, name: 'Arcane Echo', icon: 'ability_socererking_arcanewrath' },
-  NETHER_TEMPEST_TALENT: { id: 114923, name: 'Nether Tempest', icon: 'spell_mage_nethertempest', manaCost: 0.015 },
+  NETHER_TEMPEST_TALENT: { id: 114923, name: 'Nether Tempest', icon: 'spell_mage_nethertempest', manaCost: 750 },
   CHRONO_SHIFT_TALENT: { id: 235711, name: 'Chrono Shift', icon: 'ability_monk_deadlyreach' },
   REVERBERATE_TALENT: { id: 281482, name: 'Reverberate', icon: 'spell_arcane_arcane04' },
-  ARCANE_ORB_TALENT: { id: 153626, name: 'Arcane Orb', icon: 'spell_mage_arcaneorb', manaCost: 0.01 },
+  ARCANE_ORB_TALENT: { id: 153626, name: 'Arcane Orb', icon: 'spell_mage_arcaneorb', manaCost: 500 },
   SUPERNOVA_TALENT: { id: 157980, name: 'Supernova', icon: 'spell_mage_supernova' },
   TIME_ANOMALY_TALENT: { id: 210805, name: 'Time Anomaly', icon: 'ability_mage_timewarp' },
   ENLIGHTENED_TALENT: { id: 321387, name: 'Enlightened', icon: 'ability_socererking_arcanefortification' },
