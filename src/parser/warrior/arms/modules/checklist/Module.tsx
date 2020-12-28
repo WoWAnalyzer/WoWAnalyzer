@@ -4,11 +4,11 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 
-import AlwaysBeCasting from '../AlwaysBeCasting';
-import DeepWoundsUptime from '../../core/Dots/DeepWoundsUptime';
-import RendUptime from '../../core/Dots/RendUptime';
-import MortalStrike from '../../core/Execute/MortalStrike';
-import SweepingStrikes from '../../core/SweepingStrikes';
+import AlwaysBeCasting from '../features/AlwaysBeCasting';
+import DeepWoundsUptime from '../core/Dots/DeepWoundsUptime';
+import RendUptime from '../core/Dots/RendUptime';
+import MortalStrike from '../core/Execute/MortalStrike';
+import SweepingStrikes from '../core/SweepingStrikes';
 import Component from './Component';
 
 class Checklist extends BaseChecklist {
@@ -22,6 +22,14 @@ class Checklist extends BaseChecklist {
     mortalStrike: MortalStrike,
     sweepingStrikes: SweepingStrikes,
   };
+  protected combatants!: Combatants;
+  protected castEfficiency!: CastEfficiency;
+  protected alwaysBeCasting!: AlwaysBeCasting;
+  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
+  protected deepWoundsUptime!: DeepWoundsUptime;
+  protected rendUptime!: RendUptime;
+  protected mortalStrike!: MortalStrike;
+  protected sweepingStrikes!: SweepingStrikes;
 
   render() {
     return (
