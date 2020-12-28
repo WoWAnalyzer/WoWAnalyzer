@@ -88,7 +88,7 @@ function findResourceCost(spellPowerObj, className, resourceName) {
 }
 
 function getTalentKeyName(talent) {
-  return talent.name.replace(/(['\-,:])/g, '').replace(/ /g, '_').toUpperCase() + '_TALENT';
+  return talent.name.replace(/([,':])/g, '').replace(/([ -])/g, '_').toUpperCase() + '_TALENT';
 }
 
 function getSpecCategory(talent, spellList) {

@@ -20,7 +20,7 @@ const talents: SpellList = {
   RELISH_IN_BLOOD_TALENT: { id: 317610, name: 'Relish in Blood', icon: 'ability_deathknight_roilingblood' },
   BLOOD_TAP_TALENT: { id: 221699, name: 'Blood Tap', icon: 'spell_deathknight_bloodtap' },
   WILL_OF_THE_NECROPOLIS_TALENT: { id: 206967, name: 'Will of the Necropolis', icon: 'achievement_boss_kelthuzad_01' },
-  ANTIMAGIC_BARRIER_TALENT: { id: 205727, name: 'Anti-Magic Barrier', icon: 'spell_shadow_antimagicshell' },
+  ANTI_MAGIC_BARRIER_TALENT: { id: 205727, name: 'Anti-Magic Barrier', icon: 'spell_shadow_antimagicshell' },
   MARK_OF_BLOOD_TALENT: { id: 206940, name: 'Mark of Blood', icon: 'ability_hunter_rapidkilling' },
   TIGHTENING_GRASP_TALENT: { id: 206970, name: 'Tightening Grasp', icon: 'ability_deathknight_aoedeathgrip' },
   VORACIOUS_TALENT: { id: 273953, name: 'Voracious', icon: 'ability_ironmaidens_whirlofblood' },
