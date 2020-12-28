@@ -1154,3 +1154,21 @@ export const Geeii: Contributor = {
     link: "https://worldofwarcraft.com/en-us/character/us/area52/geei",
   }],
 };
+
+export const Akhtal: Contributor = {
+  nickname: 'Akhtal',
+  github: 'JoeyBG',
+  discord: 'Akhtal#6439',
+  mains: [
+    {
+      name: 'Yllanis',
+      spec: SPECS.AFFLICTION_WARLOCK,
+      link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/Yllanis',
+    },
+    {
+      name: 'Olwië',
+      spec: SPECS.BREWMASTER_MONK,
+      link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/Olwi%C3%AB',
+    },
+  ],
+};

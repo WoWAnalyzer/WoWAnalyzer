@@ -11,6 +11,7 @@ import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/checklist/Module';
 import SkippableCasts from './modules/features/SkippableCasts';
+import DarkThoughts from './modules/features/DarkThoughts';
 // spells:
 import Shadowfiend from './modules/spells/Shadowfiend';
 import VampiricTouch from './modules/spells/VampiricTouch';
@@ -30,6 +31,9 @@ import AuspiciousSpirits from './modules/talents/AuspiciousSpirits';
 import ShadowfiendNormalizer from '../shared/normalizers/ShadowfiendNormalizer';
 import Buffs from './modules/features/Buffs';
 
+// Covenants
+import UnholyNova from '../shared/modules/shadowlands/covenants/UnholyNova';
+
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // core
@@ -45,6 +49,7 @@ class CombatLogParser extends MainCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     checklist: Checklist,
     skippableCasts: SkippableCasts,
+    darkThoughts: DarkThoughts,
 
     // spells:
     shadowfiend: Shadowfiend,
@@ -64,6 +69,9 @@ class CombatLogParser extends MainCombatLogParser {
     auspiciousSpirits: AuspiciousSpirits,
 
     shadowfiendNormalizer: ShadowfiendNormalizer,
+
+    // Covenants
+    unholyNova: UnholyNova,
   };
 }
 

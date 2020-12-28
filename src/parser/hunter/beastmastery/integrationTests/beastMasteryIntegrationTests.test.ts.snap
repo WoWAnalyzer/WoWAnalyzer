@@ -9805,7 +9805,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/ability_hunter_killcommand.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_druid_primaltenacity.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -12790,7 +12790,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
 Array [
   Object {
     "details": null,
-    "icon": "ability_hunter_killcommand",
+    "icon": "ability_druid_primaltenacity",
     "importance": "minor",
     "issue": <React.Fragment>
       <Trans
@@ -14423,7 +14423,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                   <img
                     alt=""
                     className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/ability_hunter_killcommand.jpg"
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_druid_primaltenacity.jpg"
                   />
                    
                   Bloodshed

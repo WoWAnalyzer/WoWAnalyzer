@@ -1,5 +1,5 @@
 import React from 'react';
-import { Abelito75, AdamKelly, Amani, Barter, ChagriAli, ChristopherKiss, Dambroda, emallson, Guyius, Haelrail, HolySchmidt, Jafowler, jos3p, joshinator, Juko8, Keraldi, Khazak, Kruzershtern, Mae, Moonrabbit, niseko, Putro, Sharrq, Ssabbar, Zeboot, Zerotorescue } from 'CONTRIBUTORS';
+import { Abelito75, AdamKelly, Adoraci, Amani, Barter, ChagriAli, ChristopherKiss, Dambroda, emallson, Guyius, Haelrail, HolySchmidt, Jafowler, jos3p, joshinator, Juko8, Keraldi, Khazak, Kruzershtern, Mae, Moonrabbit, niseko, Putro, Sharrq, Ssabbar, Zeboot, Zerotorescue } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
@@ -8,6 +8,7 @@ import { change, date } from 'common/changelog';
 
 // prettier-ignore
 export default [
+  change(date(2020, 12, 28), <>Fixed the Changelog dropdown selector displaying incorrectly.</>, Adoraci),
   change(date(2020, 12, 22), <>Re-enabled the QElive button for healers that have it supported.</>, Abelito75),
   change(date(2020, 12, 22), <>Added support for <ItemLink id={ITEMS.DARKMOON_DECK_VORACITY.id} /> and corrected downtime issues in fights where you had <SpellLink id={SPELLS.POWER_INFUSION.id} />.</>, Putro),
   change(date(2020, 12, 22), 'Resolved an issue in FilteredActiveTime that was not counting properly, resulting in > 100% active time.', Sharrq),

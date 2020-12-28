@@ -229,8 +229,13 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.HIDDEN,
         gcd: null,
       },
+<<<<<<< HEAD
 	  
 	    // Covenant (move these if needed)
+=======
+
+	  // Covenant (move these if needed)
+>>>>>>> upstream/shadowlands
       {
         spell: SPELLS.ELYSIAN_DECREE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
@@ -256,8 +261,13 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+<<<<<<< HEAD
 		    enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },	  
+=======
+		enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+      },
+>>>>>>> upstream/shadowlands
       {
         spell: SPELLS.THE_HUNT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
@@ -265,8 +275,13 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+<<<<<<< HEAD
 		    enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
       },		  
+=======
+		enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+      },
+>>>>>>> upstream/shadowlands
     ];
   }
 }

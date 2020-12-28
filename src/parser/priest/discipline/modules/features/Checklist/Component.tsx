@@ -61,9 +61,6 @@ const DisciplinePriestChecklist = ({ combatant, castEfficiency, thresholds }: { 
         )}
       >
         {!combatant.hasTalent(SPELLS.SPIRIT_SHELL_TALENT.id) && <AbilityRequirement spell={SPELLS.RAPTURE.id} />}
-        {!combatant.hasTalent(SPELLS.LUMINOUS_BARRIER_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.POWER_WORD_BARRIER_CAST.id} />
-        )}
         {!combatant.hasTalent(SPELLS.MINDBENDER_TALENT_SHARED.id) && (
           <AbilityRequirement spell={SPELLS.SHADOWFIEND.id} />
         )}
@@ -72,9 +69,6 @@ const DisciplinePriestChecklist = ({ combatant, castEfficiency, thresholds }: { 
         )}
         {combatant.hasTalent(SPELLS.HALO_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.HALO_TALENT.id} />
-        )}
-        {combatant.hasTalent(SPELLS.LUMINOUS_BARRIER_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.LUMINOUS_BARRIER_TALENT.id} />
         )}
         {combatant.hasTalent(SPELLS.EVANGELISM_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.EVANGELISM_TALENT.id} />
