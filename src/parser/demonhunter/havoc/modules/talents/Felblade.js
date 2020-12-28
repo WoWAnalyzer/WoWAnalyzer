@@ -2,7 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Events from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { formatPercentage } from 'common/format';
+import { formatPercentage, formatThousands } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import { t } from '@lingui/macro';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
@@ -33,6 +33,7 @@ class Felblade extends Analyzer {
 
   furyGain = 0;
   furyWaste = 0;
+  damage = 0;
 
   constructor(...args) {
     super(...args);
@@ -41,11 +42,16 @@ class Felblade extends Analyzer {
       return;
     }
     this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.FELBLADE_PAIN_GENERATION), this.onEnergizeEvent);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FELBLADE_PAIN_GENERATION), this.onDamageEvent);
   }
 
   onEnergizeEvent(event) {
     this.furyGain += event.resourceChange;
     this.furyWaste += event.waste;
+  }
+
+  onDamageEvent(event) {
+    this.damage += event.amount;
   }
 
   suggestions(when) {
@@ -69,13 +75,15 @@ class Felblade extends Analyzer {
           <>
             {effectiveFuryGain} Effective Fury gained<br />
             {this.furyGain} Total Fury gained<br />
-            {this.furyWaste} Fury wasted
+            {this.furyWaste} Fury wasted<br />
+            {formatThousands(this.damage)} Total damage
           </>
         )}
       >
         <BoringSpellValueText spell={SPELLS.FELBLADE_TALENT}>
           <>
-            {this.furyPerMin} <small>Fury per min </small>
+            {this.furyPerMin} <small>Fury per min </small><br />
+            {this.owner.formatItemDamageDone(this.damage)}
           </>
         </BoringSpellValueText>
       </Statistic>

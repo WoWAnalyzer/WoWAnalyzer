@@ -58,6 +58,10 @@ const spells: number[] = [
   SPELLS.COMBAT_MEDITATION_TRIGGER.id, //The Spell ID when Combat Meditation from Kyrian Soulbind triggers, so that there is now a soul ready to pick up
   SPELLS.COMBAT_MEDITATION_PICK_UP.id, //The Spell ID that is "cast" when an orb is picked up
   //endregion
+
+  //region Demon Hunter
+  SPELLS.FELBLADE_PAIN_GENERATION.id, //The spell that generates fury when casting 
+  //endregion
 ];
 
 export default spells;
