@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 
 import CORE_CHANGELOG from 'CHANGELOG';
 import AVAILABLE_CONFIGS from 'parser';
-import { Trans } from '@lingui/macro';
-import { i18n } from '@lingui/core';
+import { t, Trans } from '@lingui/macro';
 
 import Changelog from '../Changelog';
 
@@ -27,7 +26,7 @@ const ChangelogPanel = () => {
           onChange={(e) => setChangelogType(Number(e.target.value))}
         >
           <option value={0}>
-            {i18n._('interface.changelogPanel.option.core')}
+            {t({ id:'interface.changelogPanel.option.core', message: 'Core'})}
           </option>
           {AVAILABLE_CONFIGS.map((config) => (
             <option value={config.spec.id} key={config.spec.id}>
