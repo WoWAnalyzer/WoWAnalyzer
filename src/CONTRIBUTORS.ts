@@ -1151,7 +1151,7 @@ export const Akhtal: Contributor = {
       link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/Yllanis',
     },
     {
-      name: 'Olwi%C3%AB',
+      name: 'Olwië',
       spec: SPECS.BREWMASTER_MONK,
       link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/Olwi%C3%AB',
     },
