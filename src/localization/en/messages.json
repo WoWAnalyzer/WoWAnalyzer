@@ -696,6 +696,7 @@
   "priest.holy.suggestions.fortitudeRaidBuff.uptime": "{0}% Power Word: Fortitude uptime",
   "priest.holy.suggestions.spiritOfRedemption.efficiency": "{actual} seconds spent redeeming",
   "priest.shadow.suggestions.alwaysBeCasting.downtime": "{0}% downtime",
+  "priest.shadow.suggestions.darkThoughts.efficiency": "You wasted {0} out of {1} Dark Thought procs.",
   "priest.shadow.suggestions.dispersion.uptime": "{0}% Dispersion uptime",
   "priest.shadow.suggestions.shadowWordPain.uptime": "{0}% Shadow Word: Pain uptime",
   "priest.shadow.suggestions.unfurlingDarkness.efficiency": "Wasted {0}% of Unfurling Darkness procs. If you're not getting enough uses from Unfurling Darkness, you'll likely benefit more from using a different talent.",

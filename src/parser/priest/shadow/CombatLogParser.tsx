@@ -11,10 +11,12 @@ import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/checklist/Module';
 import SkippableCasts from './modules/features/SkippableCasts';
+import DarkThoughts from './modules/features/DarkThoughts';
 // spells:
 import Shadowfiend from './modules/spells/Shadowfiend';
 import VampiricTouch from './modules/spells/VampiricTouch';
 import ShadowWordPain from './modules/spells/ShadowWordPain';
+import DevouringPlague from './modules/spells/DevouringPlague';
 import Dispersion from './modules/spells/Dispersion';
 import VampiricEmbrace from './modules/spells/VampiricEmbrace';
 // talents
@@ -44,11 +46,13 @@ class CombatLogParser extends MainCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     checklist: Checklist,
     skippableCasts: SkippableCasts,
+    darkThoughts: DarkThoughts,
 
     // spells:
     shadowfiend: Shadowfiend,
     vampiricTouch: VampiricTouch,
     shadowWordPain: ShadowWordPain,
+    devouringPlague: DevouringPlague,
     dispersion: Dispersion,
     vampiricEmbrace: VampiricEmbrace,
 

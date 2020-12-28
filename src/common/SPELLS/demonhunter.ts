@@ -16,7 +16,7 @@ const spells = {
     name: 'Consume Soul',
     icon: 'ability_warlock_improvedsoulleech',
   },
-  FELBLADE_PAIN_GENERATION: {
+  FELBLADE_DAMAGE: {
     id: 213243,
     name: 'Felblade',
     icon: 'ability_demonhunter_felblade',
@@ -41,6 +41,11 @@ const spells = {
   },
 
   // Abilities:
+  FEL_DEVASTATION: {
+	  id: 212084,
+	  name: "Fel Devastation",
+	  icon: "ability_demonhunter_feldevastation",
+  },
   FRACTURE: { //Fracture replaces shear when you take the fracture talent
     id: 209795,
     name: "Fracture",
