@@ -111,8 +111,6 @@ class BlackOxBrew extends Analyzer {
         .recommended(`< ${formatPercentage(recommended)}% is recommended`),
     );
   }
-
-  static _sumCDR() {}
 }
 
 export default BlackOxBrew;
