@@ -27,6 +27,7 @@ import ImmolationAura from './modules/spells/ImmolationAura';
 import DemonSpikes from './modules/spells/DemonSpikes';
 import SigilOfFlame from './modules/spells/SigilOfFlame';
 import SoulCleaveSoulsConsumed from './modules/spells/SoulCleaveSoulsConsumed';
+import InfernalStrike from './modules/spells/InfernalStrike';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -59,6 +60,7 @@ class CombatLogParser extends CoreCombatLogParser {
     sigilOfFlame: SigilOfFlame,
     soulCleaveSoulsConsumed: SoulCleaveSoulsConsumed,
     voidReaverDebuff: VoidReaverDebuff,
+    infernalStrike: InfernalStrike,
 
     // Stats
     soulsOvercap: SoulsOvercap,
