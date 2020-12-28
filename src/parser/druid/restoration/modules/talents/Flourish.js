@@ -129,6 +129,9 @@ class Flourish extends Analyzer {
         case SPELLS.LIFEBLOOM_HOT_HEAL.id:
           this.increasedRateLifebloomHealing += calculateEffectiveHealing(event, FLOURISH_HEALING_INCREASE);
           break;
+        case SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id:
+          this.increasedRateLifebloomHealing += calculateEffectiveHealing(event, FLOURISH_HEALING_INCREASE);
+          break;
         case SPELLS.REGROWTH.id:
           if (event.tick === true) {
             this.increasedRateRegrowthHealing += calculateEffectiveHealing(event, FLOURISH_HEALING_INCREASE);
@@ -185,6 +188,8 @@ class Flourish extends Analyzer {
           this.regrowthCount += 1;
         } else if (spellId === SPELLS.LIFEBLOOM_HOT_HEAL.id) {
           this.lbCount += 1;
+        } else if (spellId === SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id) {
+          this.lbCount += 1;
         } else if (spellId === SPELLS.SPRING_BLOSSOMS.id) {
           this.sbCount += 1;
         } else if (spellId === SPELLS.CULTIVATION.id) {
@@ -216,9 +221,9 @@ class Flourish extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> should always aim to extend a <SpellLink id={SPELLS.WILD_GROWTH.id} /></>)
         .icon(SPELLS.FLOURISH_TALENT.icon)
         .actual(t({
-      id: "druid.restoration.suggestions.flourish.wildGrowthExtended",
-      message: `${formatPercentage(this.wgsExtended / this.flourishCount, 0)}% WGs extended.`
-    }))
+          id: "druid.restoration.suggestions.flourish.wildGrowthExtended",
+          message: `${formatPercentage(this.wgsExtended / this.flourishCount, 0)}% WGs extended.`
+        }))
         .recommended(`${formatPercentage(recommended)}% is recommended`));
 
     if (this.hasCenarionWard) {
@@ -226,9 +231,9 @@ class Flourish extends Analyzer {
         .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> should always aim to extend a <SpellLink id={SPELLS.CENARION_WARD_HEAL.id} /></>)
           .icon(SPELLS.FLOURISH_TALENT.icon)
           .actual(t({
-        id: "druid.restoration.suggestions.flourish.cenarionWardExtended",
-        message: `${this.cwsExtended}/${this.flourishCount} CWs extended.`
-      }))
+            id: "druid.restoration.suggestions.flourish.cenarionWardExtended",
+            message: `${this.cwsExtended}/${this.flourishCount} CWs extended.`
+          }))
           .recommended(`${formatPercentage(recommended)}% is recommended`));
     }
   }
