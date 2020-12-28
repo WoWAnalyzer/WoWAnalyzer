@@ -166,7 +166,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-		//TODO: Remove the suggestion if player is Kyrian and using Razelikh's Defilement legendary power
+        enabled: !(combatant.hasCovenant(COVENANTS.KYRIAN) && combatant.hasLegendaryByBonusID(SPELLS.RAZELIKHS_DEFILEMENT.id)),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
@@ -237,7 +237,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-		enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+		    enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
       },
       {
         spell: SPELLS.SINFUL_BRAND,
@@ -246,7 +246,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-		enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+		    enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
       },
       {
         spell: SPELLS.FODDER_TO_THE_FLAME,
@@ -255,7 +255,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-		enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+		    enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },	  
       {
         spell: SPELLS.THE_HUNT,
@@ -264,7 +264,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-		enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+		    enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
       },		  
     ];
   }
