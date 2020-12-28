@@ -16,7 +16,7 @@ const spells = {
     name: 'Consume Soul',
     icon: 'ability_warlock_improvedsoulleech',
   },
-  FELBLADE_PAIN_GENERATION: {
+  FELBLADE_DAMAGE: {
     id: 213243,
     name: 'Felblade',
     icon: 'ability_demonhunter_felblade',

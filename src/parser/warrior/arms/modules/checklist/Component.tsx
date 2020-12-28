@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import SPELLS from 'common/SPELLS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 import SpellLink from 'common/SpellLink';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
@@ -9,8 +10,8 @@ import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 
-const ArmWarriorChecklist = ({ combatant, castEfficiency, thresholds }) => {
-  const DotUptime = props => (
+const ArmWarriorChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
+  const DotUptime: any = (props: any) => (
     <Requirement
       name={(<><SpellLink id={props.id} icon /> uptime</>)}
       thresholds={props.thresholds}
@@ -20,7 +21,7 @@ const ArmWarriorChecklist = ({ combatant, castEfficiency, thresholds }) => {
     id: PropTypes.number.isRequired,
   };
 
-  const AbilityRequirement = props => (
+  const AbilityRequirement = (props: any) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
@@ -49,6 +50,9 @@ const ArmWarriorChecklist = ({ combatant, castEfficiency, thresholds }) => {
         {combatant.hasTalent(SPELLS.AVATAR_TALENT.id) && <AbilityRequirement spell={SPELLS.AVATAR_TALENT.id} />}
         {combatant.hasTalent(SPELLS.REND_TALENT.id) && <DotUptime id={SPELLS.REND_TALENT.id} thresholds={thresholds.rend} />}
         {combatant.hasTalent(SPELLS.DEADLY_CALM_TALENT.id) && <AbilityRequirement spell={SPELLS.DEADLY_CALM_TALENT.id} />}
+        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && <AbilityRequirement spell={SPELLS.ANCIENT_AFTERSHOCK.id} />}
+        {combatant.hasCovenant(COVENANTS.KYRIAN.id) && <AbilityRequirement spell={SPELLS.SPEAR_OF_BASTION.id} />}
+        {combatant.hasCovenant(COVENANTS.NECROLORD.id) && <AbilityRequirement spell={SPELLS.CONQUERORS_BANNER.id} />}
       </Rule>
 
       <Rule

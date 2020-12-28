@@ -1153,5 +1153,4 @@ export const Geeii: Contributor = {
     spec: SPECS.VENGEANCE_DEMON_HUNTER, 
     link: "https://worldofwarcraft.com/en-us/character/us/area52/geeii",
   }],
-}
-  
+};

@@ -9,6 +9,8 @@ import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 
+import COVENANTS from 'game/shadowlands/COVENANTS';
+
 const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
   const DotUptime: any = (props: any) => (
     <Requirement
@@ -84,13 +86,29 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: any) =
         {combatant.hasTalent(SPELLS.SHADOW_CRASH_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.SHADOW_CRASH_TALENT.id} />
         )}
+
+        {combatant.hasCovenant(COVENANTS.NECROLORD.id) && (
+          <AbilityRequirement spell={SPELLS.UNHOLY_NOVA.id} />
+        )}
+
+        {combatant.hasCovenant(COVENANTS.KYRIAN.id) && (
+          <AbilityRequirement spell={SPELLS.BOON_OF_THE_ASCENDED.id} />
+        )}
+
+        {combatant.hasCovenant(COVENANTS.VENTHYR.id) && (
+          <AbilityRequirement spell={SPELLS.MINDGAMES.id} />
+        )}
+
+        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
+          <AbilityRequirement spell={SPELLS.FAE_GUARDIANS.id} />
+        )}
       </Rule>
 
       <Rule
         name="Minimize casting downtime"
         description={(
           <React.Fragment>
-            Try to minimize your time not casting. Use your core spells on cooldown and fillers when they are not available. If you know you have an upcoming position requirement, stutterstep with each <SpellLink id={SPELLS.VOID_BOLT.id} /> or <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} /> cast towards that location. During high movement you can use <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> as a filler.
+            Try to minimize your time not casting. Use your core spells on cooldown and fillers when they are not available. If you know you have an upcoming position requirement, stutterstep with each <SpellLink id={SPELLS.VOID_BOLT.id} /> or <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} /> cast towards that location. During high movement you can use <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> or <SpellLink id={SPELLS.SHADOW_WORD_DEATH.id} /> as a filler.
           </React.Fragment>
         )}
       >
