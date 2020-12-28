@@ -3432,7 +3432,7 @@ Array [
   >
     <div
       className="panel statistic small "
-      position={4}
+      position={20}
     >
       <div
         className="panel-body"

@@ -127,7 +127,7 @@ exports[`PremiumPage matches snapshot when logged in with GitHub 1`] = `
                   }
                 }
                 id="interface.premiumPage.helpGitHub"
-                message="<0>GitHub</0>Improve the analysis of a spec or build a new feature to get 1 month of Premium free<1>*</1>."
+                message="<0>GitHub</0>Improve the analysis of a spec or build a new feature to get 1 month of Premium free<1>undefined</1>."
               />
               <br />
               <br />
@@ -484,7 +484,7 @@ exports[`PremiumPage matches snapshot when logged in with Patreon 1`] = `
                   }
                 }
                 id="interface.premiumPage.helpGitHub"
-                message="<0>GitHub</0>Improve the analysis of a spec or build a new feature to get 1 month of Premium free<1>*</1>."
+                message="<0>GitHub</0>Improve the analysis of a spec or build a new feature to get 1 month of Premium free<1>undefined</1>."
               />
               <br />
               <br />
@@ -841,7 +841,7 @@ exports[`PremiumPage matches snapshot when logged out 1`] = `
                   }
                 }
                 id="interface.premiumPage.helpGitHub"
-                message="<0>GitHub</0>Improve the analysis of a spec or build a new feature to get 1 month of Premium free<1>*</1>."
+                message="<0>GitHub</0>Improve the analysis of a spec or build a new feature to get 1 month of Premium free<1>undefined</1>."
               />
               <br />
               <br />

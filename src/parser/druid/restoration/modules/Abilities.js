@@ -27,9 +27,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.NATURES_SWIFTNESS,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,//TODO include conduit reduction
-        gcd: {
-          base: 1500,
-        },
         castEfficiency: {
           suggestion: true,
         },
@@ -38,9 +35,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.INNERVATE,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
-        gcd: {
-          base: 1500,
-        },
         castEfficiency: {
           suggestion: true,
         },

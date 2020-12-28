@@ -17,7 +17,7 @@ export default {
 
   // Shadow
   FORTRESS_OF_THE_MIND_TALENT: { id: 193195, name: 'Fortress of the Mind', icon: 'ability_mage_studentofthemind' },
-  DEATH_AND_MADNESS_TALLENT: { id: 321291, name: 'Death and Madness', icon: 'spell_shadow_demonicfortitude' },
+  DEATH_AND_MADNESS_TALENT: { id: 321291, name: 'Death and Madness', icon: 'spell_shadow_demonicfortitude' },
   UNFURLING_DARKNESS_TALENT: { id: 341273, name: 'Unfurling Darkness', icon: 'spell_priest_shadow-mend' },
   SANLAYN_TALENT: { id: 199855, name: 'San\'layn', icon: 'achievement_boss_lanathel' },
   INTANGABILITY_TALENT: { id: 288733, name: 'Intangibility', icon: 'spell_shadow_dispersion' },

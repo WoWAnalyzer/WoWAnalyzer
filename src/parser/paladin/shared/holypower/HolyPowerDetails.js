@@ -53,7 +53,7 @@ class HolyPowerDetails extends Analyzer {
         <Statistic
           key="Statistic"
           size="small"
-          position={STATISTIC_ORDER.CORE(4)}
+          position={STATISTIC_ORDER.CORE(20)}
           tooltip={`${formatPercentage(this.wastedHolyPowerPercent)}% wasted`}
         >
           <BoringResourceValue
