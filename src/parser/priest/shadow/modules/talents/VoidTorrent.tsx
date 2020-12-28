@@ -46,6 +46,10 @@ class VoidTorrent extends Analyzer {
     return this.voidTorrents.reduce((total, c) => total + c.wastedTime, 0) / 1000;
   }
 
+  get timeWastedPercentage() {
+    return this.timeWasted / this.totalChannelingTime;
+  }
+
   get insanityWasted() {
     return this.timeWasted * VOID_TORRENT_INSANITY_PER_SECOND;
   }
@@ -55,27 +59,31 @@ class VoidTorrent extends Analyzer {
     return ((this.totalChannelingTime / 1000) * VOID_TORRENT_INSANITY_PER_SECOND) - this.insanityGained;
   }
 
+  get insanityOvercappedPercentage() {
+    return this.insanityOvercapped / (this.insanityOvercapped + this.insanityGained + this.insanityWasted);
+  }
+
   get interruptThreshold() {
     return {
-      actual: this.timeWasted,
+      actual: this.timeWastedPercentage,
       isGreaterThan: {
-        minor: 0.2,
-        average: 0.5,
-        major: 2,
+        minor: 0,
+        average: 0.05,
+        major: 0.1,
       },
-      style: ThresholdStyle.SECONDS,
+      style: ThresholdStyle.PERCENTAGE,
     }
   }
 
   get overcapThreshold() {
     return {
-      actual: this.insanityOvercapped,
+      actual: this.insanityOvercappedPercentage,
       isGreaterThan: {
-        minor: 5,
-        average: 10,
-        major: 20,
+        minor: 0.05,
+        average: 0.1,
+        major: 0.15,
       },
-      style: ThresholdStyle.NUMBER,
+      style: ThresholdStyle.PERCENTAGE,
     }
   }
 
@@ -115,16 +123,16 @@ class VoidTorrent extends Analyzer {
         .icon(SPELLS.VOID_TORRENT_TALENT.icon)
         .actual(t({
           id: "priest.shadow.suggestions.voidTorrent.secondsLost",
-          message: `Lost ${formatSeconds(actual)} seconds of Void Torrent.`
+          message: `Lost ${formatSeconds(this.timeWasted)} seconds of Void Torrent.`
         }))
     .recommended('No time wasted is recommended.'));
 
     when(this.overcapThreshold)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>You lost a total of {formatNumber(actual)} insanity by channeling <SpellLink id={SPELLS.VOID_TORRENT_TALENT.id} /> at full insanity. Make sure that you are below 40 insanity before channeling to maximize insanity gain. If you are between 40 and 50 insanity, you should get above 50 and use <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} /> before channeling.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>You lost a total of {formatNumber(this.insanityOvercapped)} insanity by channeling <SpellLink id={SPELLS.VOID_TORRENT_TALENT.id} /> at full insanity. Make sure that you are below 40 insanity before channeling to maximize insanity gain. If you are between 40 and 50 insanity, you should get above 50 and use <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} /> before channeling.</>)
       .icon(SPELLS.VOID_TORRENT_TALENT.icon)
       .actual(t({
         id: "priest.shadow.suggestions.voidTorrent.insanityOvercapped",
-        message: `Wasted ${formatNumber(actual)} insanity from overcapping.`
+        message: `Wasted ${formatNumber(this.insanityOvercapped)} insanity from overcapping.`
       }))
     .recommended('No insanity wasted is recommended.'));
   }
