@@ -80,7 +80,7 @@ function findResourceCost(spellPowerObj, className, resourceName) {
   if (spellPowerObj.PowerCostPct > 0) {
     return Math.round(spellPowerObj.PowerCostPct / 100 * baseMaxMana);
   } else {
-    if (resourceName === 'Runic Power' || resourceName === 'Rage' || resourceName === 'Soul Shards') {
+    if (['Runic Power', 'Rage', 'Soul Shards', 'Pain'].includes(resourceName)) {
       return spellPowerObj.ManaCost / 10;
     }
   }

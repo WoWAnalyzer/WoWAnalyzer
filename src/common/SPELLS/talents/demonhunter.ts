@@ -21,7 +21,7 @@ const talents: SpellList = {
   ESSENCE_BREAK_TALENT: { id: 258860, name: 'Essence Break', icon: 'spell_shadow_ritualofsacrifice' },
   UNLEASHED_POWER_TALENT: { id: 206477, name: 'Unleashed Power', icon: 'ability_demonhunter_chaosnova' },
   MASTER_OF_THE_GLAIVE_TALENT: { id: 203556, name: 'Master of the Glaive', icon: 'inv_glaive_1h_demonhunter_a_01' },
-  FEL_ERUPTION_TALENT: { id: 211881, name: 'Fel Eruption', icon: 'ability_bossfellord_felspike', furyCost: 10, painCost: 100 },
+  FEL_ERUPTION_TALENT: { id: 211881, name: 'Fel Eruption', icon: 'ability_bossfellord_felspike', furyCost: 10, painCost: 10 },
   MOMENTUM_TALENT: { id: 206476, name: 'Momentum', icon: 'ability_foundryraid_demolition' },
   FEL_BARRAGE_TALENT: { id: 258925, name: 'Fel Barrage', icon: 'inv_felbarrage' },
   SOUL_RENDING_TALENT_HAVOC: { id: 204909, name: 'Soul Rending', icon: 'ability_demonhunter_soulcleave2' },
