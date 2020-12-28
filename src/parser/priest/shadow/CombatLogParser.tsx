@@ -30,6 +30,8 @@ import AuspiciousSpirits from './modules/talents/AuspiciousSpirits';
 // normalizers
 import ShadowfiendNormalizer from '../shared/normalizers/ShadowfiendNormalizer';
 import Buffs from './modules/features/Buffs';
+// conduits
+import DissonantEchoes from './modules/shadowlands/conduits/DissonantEchoes';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -66,6 +68,9 @@ class CombatLogParser extends MainCombatLogParser {
     auspiciousSpirits: AuspiciousSpirits,
 
     shadowfiendNormalizer: ShadowfiendNormalizer,
+
+    // conduits:
+    dissonantEchoes: DissonantEchoes,
   };
 }
 
