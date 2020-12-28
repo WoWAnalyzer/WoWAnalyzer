@@ -33,6 +33,7 @@ import Buffs from './modules/features/Buffs';
 
 // Covenants
 import UnholyNova from '../shared/modules/shadowlands/covenants/UnholyNova';
+import FaeGuardians from '../shared/modules/shadowlands/covenants/FaeGuardians';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -72,6 +73,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     // Covenants
     unholyNova: UnholyNova,
+    faeGuardians: FaeGuardians,
   };
 }
 
