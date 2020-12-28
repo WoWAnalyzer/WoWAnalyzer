@@ -2,6 +2,7 @@
 import { SpellList } from '../Spell';
 
 const talents: SpellList = {
+
   //Shared
   SHIMMER_TALENT: { id: 212653, name: 'Shimmer', icon: 'spell_arcane_massdispel', manaCost: 1000 },
   INCANTERS_FLOW_TALENT: { id: 1463, name: 'Incanter\'s Flow', icon: 'ability_mage_incantersabsorbtion' },
@@ -12,6 +13,13 @@ const talents: SpellList = {
   OVERPOWERED_TALENT: { id: 155147, name: 'Overpowered', icon: 'spell_mage_overpowered' },
 
   //Fire
+  //Level 15: Firestarter || Pyromaniac || Searing Touch
+  //Level 25: Blazing Soul || Shimmer || Blast Wave
+  //Level 30: Incanter's Flow || Focus Magic || Rune of Power
+  //Level 35: Flame On || Alexstrasza's Fury || From the Ashes
+  //Level 40: Frenetic Speed || Ice Ward || Ring of Frost
+  //Level 45: Flame Patch || Conflagration || Living Bomb
+  //Level 50: Kindling || Pyroclasm || Meteor
   FIRESTARTER_TALENT: { id: 205026, name: 'Firestarter', icon: 'spell_fire_fire' },
   PYROMANIAC_TALENT: { id: 205020, name: 'Pyromaniac', icon: 'inv_misc_volatilefire' },
   SEARING_TOUCH_TALENT: { id: 269644, name: 'Searing Touch', icon: 'ability_warlock_backdraft' },
@@ -29,6 +37,13 @@ const talents: SpellList = {
   METEOR_TALENT: { id: 153561, name: 'Meteor', icon: 'spell_mage_meteor', manaCost: 500 },
 
   //Frost
+  //Level 15: Bone Chilling || Lonely Winter || Ice Nova
+  //Level 25: Glacial Insulation || Shimmer || Ice Floes
+  //Level 30: Incanter's Flow || Focus Magic || Rune of Power
+  //Level 35: Frozen Touch || Chain Reaction || Ebonbolt
+  //Level 40: Frigid Winds || Ice Ward || Ring of Frost
+  //Level 45: Freezing Rain || Splitting Ice || Comet Storm
+  //Level 50: Thermal Void || Ray of Frost || Glacial Spike
   BONE_CHILLING_TALENT: { id: 205027, name: 'Bone Chilling', icon: 'ability_mage_chilledtothebone' },
   LONELY_WINTER_TALENT: { id: 205024, name: 'Lonely Winter', icon: 'achievement_dungeon_frozenthrone' },
   ICE_NOVA_TALENT: { id: 157997, name: 'Ice Nova', icon: 'spell_mage_icenova' },
@@ -46,6 +61,13 @@ const talents: SpellList = {
   GLACIAL_SPIKE_TALENT: { id: 199786, name: 'Glacial Spike', icon: 'ability_mage_glacialspike', manaCost: 500 },
 
   //Arcane
+  //Level 15: Amplification || Rule of Threes || Arcane Familiar
+  //Level 25: Master of Time || Shimmer || Slipstream
+  //Level 30: Incanter's Flow || Focus Magic || Rune of Power
+  //Level 35: Resonance || Arcane Echo || Nether Tempest
+  //Level 40: Chrono Shift || Ice Ward || Ring of Frost
+  //Level 45: Reverberate || Arcane Orb || Supernova
+  //Level 50: Overpowered || Time Anomaly || Enlightened
   AMPLIFICATION_TALENT: { id: 236628, name: 'Amplification', icon: 'spell_arcane_invocation' },
   RULE_OF_THREES_TALENT: { id: 264354, name: 'Rule of Threes', icon: 'spell_arcane_starfire' },
   ARCANE_FAMILIAR_TALENT: { id: 205022, name: 'Arcane Familiar', icon: 'ability_socererking_arcanemines' },
@@ -60,6 +82,5 @@ const talents: SpellList = {
   SUPERNOVA_TALENT: { id: 157980, name: 'Supernova', icon: 'spell_mage_supernova' },
   TIME_ANOMALY_TALENT: { id: 210805, name: 'Time Anomaly', icon: 'ability_mage_timewarp' },
   ENLIGHTENED_TALENT: { id: 321387, name: 'Enlightened', icon: 'ability_socererking_arcanefortification' },
-
 };
 export default talents;

@@ -2,6 +2,7 @@
 import { SpellList } from '../Spell';
 
 const talents: SpellList = {
+
   //Shared
   DEATHS_REACH_TALENT: { id: 276079, name: 'Death\'s Reach', icon: 'spell_deathknight_strangulate' },
   ASPHYXIATE_TALENT: { id: 108194, name: 'Asphyxiate', icon: 'ability_deathknight_asphixiate' },
@@ -10,6 +11,13 @@ const talents: SpellList = {
   DEATH_PACT_TALENT: { id: 48743, name: 'Death Pact', icon: 'spell_shadow_deathpact' },
 
   //Blood
+  //Level 15: Heartbreaker || Blooddrinker || Tombstone
+  //Level 25: Rapid Decomposition || Hemostasis || Consumption
+  //Level 30: Foul Bulwark || Relish in Blood || Blood Tap
+  //Level 35: Will of the Necropolis || Anti-Magic Barrier || Mark of Blood
+  //Level 40: Grip of the Dead || Tightening Grasp || Wraith Walk
+  //Level 45: Voracious || Death Pact || Bloodworms
+  //Level 50: Purgatory || Red Thirst || Bonestorm
   HEARTBREAKER_TALENT: { id: 221536, name: 'Heartbreaker', icon: 'spell_deathknight_deathstrike' },
   BLOODDRINKER_TALENT: { id: 206931, name: 'Blooddrinker', icon: 'ability_animusdraw', runesCost: 1, runicPowerCost: -10 },
   TOMBSTONE_TALENT: { id: 219809, name: 'Tombstone', icon: 'ability_fiegndead' },
@@ -30,6 +38,13 @@ const talents: SpellList = {
   BONESTORM_TALENT: { id: 194844, name: 'Bonestorm', icon: 'achievement_boss_lordmarrowgar', runicPowerCost: 10 },
 
   //Frost
+  //Level 15: Inexorable Assault || Icy Talons || Cold Heart
+  //Level 25: Runic Attenuation || Murderous Efficiency || Horn of Winter
+  //Level 30: Death's Reach || Asphyxiate || Blinding Sleet
+  //Level 35: Avalanche || Frozen Pulse || Frostscythe
+  //Level 40: Permafrost || Wraith Walk || Death Pact
+  //Level 45: Gathering Storm || Hypothermic Presence || Glacial Advance
+  //Level 50: Icecap || Obliteration || Breath of Sindragosa
   INEXORABLE_ASSAULT_TALENT: { id: 253593, name: 'Inexorable Assault', icon: 'achievement_dungeon_icecrown_frostmourne' },
   ICY_TALONS_TALENT: { id: 194878, name: 'Icy Talons', icon: 'spell_deathknight_icytalons' },
   COLD_HEART_TALENT: { id: 281208, name: 'Cold Heart', icon: 'spell_frost_frozencore' },
@@ -49,6 +64,13 @@ const talents: SpellList = {
   BREATH_OF_SINDRAGOSA_TALENT: { id: 152279, name: 'Breath of Sindragosa', icon: 'spell_deathknight_breathofsindragosa', runicPowerCost: 0 },
 
   //Unholy
+  //Level 15: Infected Claws || All Will Serve || Clawing Shadows
+  //Level 25: Bursting Sores || Ebon Fever || Unholy Blight
+  //Level 30: Grip of the Dead || Death's Reach || Asphyxiate
+  //Level 35: Pestilent Pustules || Harbinger of Doom || Soul Reaper
+  //Level 40: Spell Eater || Wraith Walk || Death Pact
+  //Level 45: Pestilence || Unholy Pact || Defile
+  //Level 50: Army of the Damned || Summon Gargoyle || Unholy Assault
   INFECTED_CLAWS_TALENT: { id: 207272, name: 'Infected Claws', icon: 'spell_deathknight_thrash_ghoul' },
   ALL_WILL_SERVE_TALENT: { id: 194916, name: 'All Will Serve', icon: 'ability_fiegndead' },
   CLAWING_SHADOWS_TALENT: { id: 207311, name: 'Clawing Shadows', icon: 'warlock_curse_shadow', runesCost: 1, runicPowerCost: -10 },
@@ -65,6 +87,5 @@ const talents: SpellList = {
   ARMY_OF_THE_DAMNED_TALENT: { id: 276837, name: 'Army of the Damned', icon: 'artifactability_unholydeathknight_deathsembrace' },
   SUMMON_GARGOYLE_TALENT: { id: 49206, name: 'Summon Gargoyle', icon: 'ability_deathknight_summongargoyle' },
   UNHOLY_ASSAULT_TALENT: { id: 207289, name: 'Unholy Assault', icon: 'spell_shadow_unholyfrenzy' },
-
 };
 export default talents;

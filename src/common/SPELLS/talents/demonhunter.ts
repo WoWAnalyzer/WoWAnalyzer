@@ -2,10 +2,18 @@
 import { SpellList } from '../Spell';
 
 const talents: SpellList = {
+
   //Shared
   FELBLADE_TALENT: { id: 232893, name: 'Felblade', icon: 'ability_demonhunter_felblade' },
 
   //Havoc
+  //Level 15: Blind Fury || Demonic Appetite || Felblade
+  //Level 25: Insatiable Hunger || Burning Hatred || Demon Blades
+  //Level 30: Trail of Ruin || Unbound Chaos || Glaive Tempest
+  //Level 35: Soul Rending || Desperate Instincts || Netherwalk
+  //Level 40: Cycle of Hatred || First Blood || Essence Break
+  //Level 45: Unleashed Power || Master of the Glaive || Fel Eruption
+  //Level 50: Demonic || Momentum || Fel Barrage
   BLIND_FURY_TALENT: { id: 203550, name: 'Blind Fury', icon: 'ability_bosskilrogg_deadeye' },
   DEMONIC_APPETITE_TALENT: { id: 206478, name: 'Demonic Appetite', icon: 'ability_creature_poison_01_purple' },
   INSATIABLE_HUNGER_TALENT: { id: 258876, name: 'Insatiable Hunger', icon: 'ability_rogue_hungerforblood' },
@@ -28,6 +36,13 @@ const talents: SpellList = {
   DEMONIC_TALENT_HAVOC: { id: 213410, name: 'Demonic', icon: 'spell_shadow_demonform' },
 
   //Vengeance
+  //Level 15: Abyssal Strike || Agonizing Flames || Felblade
+  //Level 25: Feast of Souls || Fallout || Burning Alive
+  //Level 30: Infernal Armor || Charred Flesh || Spirit Bomb
+  //Level 35: Soul Rending || Feed the Demon || Fracture
+  //Level 40: Concentrated Sigils || Quickened Sigils || Sigil of Chains
+  //Level 45: Void Reaver || Demonic || Soul Barrier
+  //Level 50: Last Resort || Ruinous Bulwark || Bulk Extraction
   ABYSSAL_STRIKE_TALENT: { id: 207550, name: 'Abyssal Strike', icon: 'spell_warlock_summonabyssal' },
   AGONIZING_FLAMES_TALENT: { id: 207548, name: 'Agonizing Flames', icon: 'achievment_raid_houroftwilight' },
   FEAST_OF_SOULS_TALENT: { id: 207697, name: 'Feast of Souls', icon: 'spell_shadow_soulleech' },
@@ -48,6 +63,5 @@ const talents: SpellList = {
   BULK_EXTRACTION_TALENT: { id: 320341, name: 'Bulk Extraction', icon: 'spell_shadow_shadesofdarkness' },
   SOUL_RENDING_TALENT_VENGEANCE: { id: 217996, name: 'Soul Rending', icon: 'ability_demonhunter_soulcleave2' },
   DEMONIC_TALENT_VENGEANCE: { id: 321453, name: 'Demonic', icon: 'spell_shadow_demonform' },
-
 };
 export default talents;

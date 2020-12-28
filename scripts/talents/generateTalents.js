@@ -4,7 +4,10 @@ const SHARED = 'Shared';
 const TALENTS_DIRECTORY = '../../src/common/SPELLS/talents';
 
 const debugDelete = false;
-const debugDeduplicate = true;
+const debugDeduplicate = false;
+
+const debugDistributeTalents = false;
+const debugVisualizeTalents = false;
 
 function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
@@ -45,11 +48,22 @@ const resourceTypes = {
   18: 'Pain',
 };
 
+const TALENT_TIERS = {
+  0: 15,
+  1: 25,
+  2: 30,
+  3: 35,
+  4: 40,
+  5: 45,
+  6: 50,
+};
+
 const baseMaxMana = 50000;
 
+/** GET THESE FILES IF YOU NEED TO RUN THE SCRIPT */
 //Retrieved from https://www.raidbots.com/static/data/live/talents.json
 const talents = readJson('./talents.json');
-//Keyed json converted from the csv retrieved from here from https://wow.tools/dbc/?dbc=spellpower&build=9.0.2.36949
+//Keyed json converted from the csv retrieved from here from https://wow.tools/dbc/?dbc=spellpower
 const spellpower = readJson('./spellpower.json');
 
 const toCamelCase = (str) => str.toLowerCase().replace(/(?:^\w|[A-Z]|\b\w)/g, (ltr, idx) => idx === 0 ? ltr.toLowerCase() : ltr.toUpperCase()).replace(/\s+/g, '');
@@ -148,6 +162,67 @@ function checkForDuplicates(talentList) {
   return deduplicatedTalentList;
 }
 
+function visualizeTalentTree(talentTree, spec) {
+  debugVisualizeTalents && console.log(spec, talentTree[spec]);
+  if (spec === SHARED) {
+    return '';
+  }
+  let visualizedTree = ``;
+  if(!talentTree[spec]) {
+    console.log(talentTree)
+  }
+  Object.keys(talentTree[spec]).forEach(talentTier => {
+    visualizedTree += '\n';
+    Object.values(talentTree[spec][talentTier]).forEach((talent, idx) => {
+      if(idx === 0) {
+        visualizedTree += `  //Level ${TALENT_TIERS[talentTier]}: `
+      }
+      visualizedTree += talent.name;
+      if (idx < 2) {
+        visualizedTree += ' || ';
+      }
+    });
+  });
+  debugVisualizeTalents && console.log(visualizedTree);
+
+  return visualizedTree;
+}
+
+function distributeTalentTreeObj(talentTree) {
+  const talentObj = {};
+  const noSpecTalentObj = {}
+  Object.keys(talentTree).forEach(tTier => {
+    Object.keys(talentTree[tTier]).forEach(tColumn => {
+      Object.values(talentTree[tTier][tColumn]).forEach(talent => {
+        if (talent.spec) {
+          talentObj[talent.spec.name] = talentObj[talent.spec.name] || {};
+          talentObj[talent.spec.name][tTier] = talentObj[talent.spec.name][tTier] || {};
+          talentObj[talent.spec.name][tTier][tColumn] = talent.spell;
+        } else {
+          noSpecTalentObj[tTier] = noSpecTalentObj[tTier] || {};
+          noSpecTalentObj[tTier][tColumn] = talent.spell;
+          debugDistributeTalents && console.log(noSpecTalentObj);
+        }
+      });
+    });
+  });
+  Object.keys(noSpecTalentObj).forEach(tTier => {
+    Object.keys(noSpecTalentObj[tTier]).forEach(tColumn => {
+      Object.keys(talentObj).forEach(spec => {
+        if(!talentObj[spec][tTier] || !talentObj[spec][tTier][tColumn]) {
+          talentObj[spec][tTier] = talentObj[spec][tTier] || {};
+          talentObj[spec][tTier][tColumn] = noSpecTalentObj[tTier][tColumn];
+        }
+      })
+    })
+  })
+  return talentObj;
+}
+
+function printTalents(spellList, spec) {
+  return Object.keys(spellList[spec]).map(talent => `  ${talent}: { ${Object.keys(spellList[spec][talent]).map(attribute => `${attribute}: ${JSON.stringify(spellList[spec][talent][attribute])}`).join(', ')} },`).join('\n');
+}
+
 Object.keys(talents).forEach(classId => {
   const className = classes[classId].toUpperCase();
   let spellList = {
@@ -183,6 +258,7 @@ Object.keys(talents).forEach(classId => {
   });
 
   spellList = checkForDuplicates(spellList);
+  const talentTrees = distributeTalentTreeObj(talents[classId].talents);
 
   fs.writeFileSync(
     `${TALENTS_DIRECTORY}/${className.toLowerCase().replace(' ', '')}.ts`,
@@ -190,9 +266,8 @@ Object.keys(talents).forEach(classId => {
 import { SpellList } from '../Spell';
 
 const talents: SpellList = {
-${Object.keys(spellList).map(spec => `\t//${spec}
-${Object.keys(spellList[spec]).map(talent => `  ${talent}: { ${Object.keys(spellList[spec][talent]).map(attribute => `${attribute}: ${JSON.stringify(spellList[spec][talent][attribute])}`).join(', ')} },`).join('\n')}
-`).join('\n')}
+${Object.keys(spellList).map(spec => `\n  //${spec}${visualizeTalentTree(talentTrees, spec)}
+${printTalents(spellList, spec)}`).join('\n')}
 };
 export default talents;`);
 

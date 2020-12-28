@@ -2,6 +2,7 @@
 import { SpellList } from '../Spell';
 
 const talents: SpellList = {
+
   //Shared
   EYE_OF_THE_TIGER_TALENT: { id: 196607, name: 'Eye of the Tiger', icon: 'ability_druid_primalprecision' },
   CHI_WAVE_TALENT: { id: 115098, name: 'Chi Wave', icon: 'ability_monk_chiwave' },
@@ -18,6 +19,13 @@ const talents: SpellList = {
   RUSHING_JADE_WIND_TALENT: { id: 116847, name: 'Rushing Jade Wind', icon: 'ability_monk_rushingjadewind', chiCost: 1 },
 
   //Mistweaver
+  //Level 15: Mist Wrap || Chi Wave || Chi Burst
+  //Level 25: Celerity || Chi Torpedo || Tiger's Lust
+  //Level 30: Lifecycles || Spirit of the Crane || Mana Tea
+  //Level 35: Tiger Tail Sweep || Song of Chi-Ji || Ring of Peace
+  //Level 40: Healing Elixir || Diffuse Magic || Dampen Harm
+  //Level 45: Summon Jade Serpent Statue || Refreshing Jade Wind || Invoke Chi-Ji, the Red Crane
+  //Level 50: Focused Thunder || Upwelling || Rising Mist
   MIST_WRAP_TALENT: { id: 197900, name: 'Mist Wrap', icon: 'ability_monk_pathofmists' },
   LIFECYCLES_TALENT: { id: 197915, name: 'Lifecycles', icon: 'ability_monk_souldance' },
   SPIRIT_OF_THE_CRANE_TALENT: { id: 210802, name: 'Spirit of the Crane', icon: 'monk_stance_redcrane' },
@@ -31,6 +39,13 @@ const talents: SpellList = {
   RISING_MIST_TALENT: { id: 274909, name: 'Rising Mist', icon: 'ability_monk_effuse' },
 
   //Windwalker
+  //Level 15: Eye of the Tiger || Chi Wave || Chi Burst
+  //Level 25: Celerity || Chi Torpedo || Tiger's Lust
+  //Level 30: Ascension || Fist of the White Tiger || Energizing Elixir
+  //Level 35: Tiger Tail Sweep || Good Karma || Ring of Peace
+  //Level 40: Inner Strength || Diffuse Magic || Dampen Harm
+  //Level 45: Hit Combo || Rushing Jade Wind || Dance of Chi-Ji
+  //Level 50: Spiritual Focus || Whirling Dragon Punch || Serenity
   ASCENSION_TALENT: { id: 115396, name: 'Ascension', icon: 'ability_monk_ascension' },
   FIST_OF_THE_WHITE_TIGER_TALENT: { id: 261947, name: 'Fist of the White Tiger', icon: 'inv_fistofthewhitetiger', energyCost: 40 },
   ENERGIZING_ELIXIR_TALENT: { id: 115288, name: 'Energizing Elixir', icon: 'ability_monk_energizingwine' },
@@ -43,6 +58,13 @@ const talents: SpellList = {
   SERENITY_TALENT: { id: 152173, name: 'Serenity', icon: 'ability_monk_serenity' },
 
   //Brewmaster
+  //Level 15: Eye of the Tiger || Chi Wave || Chi Burst
+  //Level 25: Celerity || Chi Torpedo || Tiger's Lust
+  //Level 30: Light Brewing || Spitfire || Black Ox Brew
+  //Level 35: Tiger Tail Sweep || Summon Black Ox Statue || Ring of Peace
+  //Level 40: Bob and Weave || Healing Elixir || Dampen Harm
+  //Level 45: Special Delivery || Rushing Jade Wind || Exploding Keg
+  //Level 50: High Tolerance || Celestial Flames || Blackout Combo
   LIGHT_BREWING_TALENT: { id: 325093, name: 'Light Brewing', icon: 'spell_brew_wheat' },
   SPITFIRE_TALENT: { id: 242580, name: 'Spitfire', icon: 'ability_monk_breathoffire' },
   BLACK_OX_BREW_TALENT: { id: 115399, name: 'Black Ox Brew', icon: 'ability_monk_chibrew' },
@@ -52,6 +74,5 @@ const talents: SpellList = {
   HIGH_TOLERANCE_TALENT: { id: 196737, name: 'High Tolerance', icon: 'monk_ability_avertharm' },
   CELESTIAL_FLAMES_TALENT: { id: 325177, name: 'Celestial Flames', icon: 'inv_misc_volatilefire' },
   BLACKOUT_COMBO_TALENT: { id: 196736, name: 'Blackout Combo', icon: 'ability_monk_blackoutkick' },
-
 };
 export default talents;

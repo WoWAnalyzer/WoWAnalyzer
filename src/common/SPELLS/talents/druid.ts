@@ -2,6 +2,7 @@
 import { SpellList } from '../Spell';
 
 const talents: SpellList = {
+
   //Shared
   TIGER_DASH_TALENT: { id: 252216, name: 'Tiger Dash', icon: 'ability_druid_dash_orange' },
   RENEWAL_TALENT: { id: 108238, name: 'Renewal', icon: 'spell_nature_natureblessing' },
@@ -15,6 +16,13 @@ const talents: SpellList = {
   GUARDIAN_AFFINITY_TALENT_SHARED: { id: 197491, name: 'Guardian Affinity', icon: 'talentspec_druid_feral_bear' },
 
   //Restoration
+  //Level 15: Abundance || Nourish || Cenarion Ward
+  //Level 25: Tiger Dash || Renewal || Wild Charge
+  //Level 30: Balance Affinity || Feral Affinity || Guardian Affinity
+  //Level 35: Mighty Bash || Mass Entanglement || Heart of the Wild
+  //Level 40: Soul of the Forest || Cultivation || Incarnation: Tree of Life
+  //Level 45: Inner Peace || Spring Blossoms || Overgrowth
+  //Level 50: Photosynthesis || Germination || Flourish
   ABUNDANCE_TALENT: { id: 207383, name: 'Abundance', icon: 'ability_druid_empoweredrejuvination' },
   NOURISH_TALENT: { id: 50464, name: 'Nourish', icon: 'ability_druid_nourish', manaCost: 9000 },
   CENARION_WARD_TALENT: { id: 102351, name: 'Cenarion Ward', icon: 'ability_druid_naturalperfection', manaCost: 4600 },
@@ -31,6 +39,13 @@ const talents: SpellList = {
   SOUL_OF_THE_FOREST_TALENT_RESTORATION: { id: 158478, name: 'Soul of the Forest', icon: 'ability_druid_manatree' },
 
   //Feral
+  //Level 15: Predator || Sabertooth || Lunar Inspiration
+  //Level 25: Tiger Dash || Renewal || Wild Charge
+  //Level 30: Balance Affinity || Guardian Affinity || Restoration Affinity
+  //Level 35: Mighty Bash || Mass Entanglement || Heart of the Wild
+  //Level 40: Soul of the Forest || Savage Roar || Incarnation: King of the Jungle
+  //Level 45: Scent of Blood || Brutal Slash || Primal Wrath
+  //Level 50: Moment of Clarity || Bloodtalons || Feral Frenzy
   PREDATOR_TALENT: { id: 202021, name: 'Predator', icon: 'ability_hunter_catlikereflexes' },
   SABERTOOTH_TALENT: { id: 202031, name: 'Sabertooth', icon: 'inv_misc_monsterfang_01' },
   LUNAR_INSPIRATION_TALENT: { id: 155580, name: 'Lunar Inspiration', icon: 'spell_druid_lunarinspiration' },
@@ -46,6 +61,13 @@ const talents: SpellList = {
   SOUL_OF_THE_FOREST_TALENT_FERAL: { id: 158476, name: 'Soul of the Forest', icon: 'ability_druid_manatree' },
 
   //Balance
+  //Level 15: Nature's Balance || Warrior of Elune || Force of Nature
+  //Level 25: Tiger Dash || Renewal || Wild Charge
+  //Level 30: Feral Affinity || Guardian Affinity || Restoration Affinity
+  //Level 35: Mighty Bash || Mass Entanglement || Heart of the Wild
+  //Level 40: Soul of the Forest || Starlord || Incarnation: Chosen of Elune
+  //Level 45: Stellar Drift || Twin Moons || Stellar Flare
+  //Level 50: Solstice || Fury of Elune || New Moon
   NATURES_BALANCE_TALENT: { id: 202430, name: 'Nature\'s Balance', icon: 'ability_druid_balanceofpower' },
   WARRIOR_OF_ELUNE_TALENT: { id: 202425, name: 'Warrior of Elune', icon: 'spell_holy_elunesgrace' },
   FORCE_OF_NATURE_TALENT: { id: 205636, name: 'Force of Nature', icon: 'ability_druid_forceofnature' },
@@ -60,6 +82,13 @@ const talents: SpellList = {
   SOUL_OF_THE_FOREST_TALENT_BALANCE: { id: 114107, name: 'Soul of the Forest', icon: 'ability_druid_manatree' },
 
   //Guardian
+  //Level 15: Brambles || Blood Frenzy || Bristling Fur
+  //Level 25: Tiger Dash || Renewal || Wild Charge
+  //Level 30: Balance Affinity || Feral Affinity || Restoration Affinity
+  //Level 35: Mighty Bash || Mass Entanglement || Heart of the Wild
+  //Level 40: Soul of the Forest || Galactic Guardian || Incarnation: Guardian of Ursoc
+  //Level 45: Earthwarden || Survival of the Fittest || Guardian of Elune
+  //Level 50: Rend and Tear || Tooth and Claw || Pulverize
   BRAMBLES_TALENT: { id: 203953, name: 'Brambles', icon: 'inv_misc_thornnecklace' },
   BLOOD_FRENZY_TALENT: { id: 203962, name: 'Blood Frenzy', icon: 'ability_druid_primaltenacity' },
   BRISTLING_FUR_TALENT: { id: 155835, name: 'Bristling Fur', icon: 'spell_druid_bristlingfur' },
@@ -73,6 +102,5 @@ const talents: SpellList = {
   PULVERIZE_TALENT: { id: 80313, name: 'Pulverize', icon: 'spell_druid_malfurionstenacity' },
   FERAL_AFFINITY_TALENT_GUARDIAN: { id: 202155, name: 'Feral Affinity', icon: 'talentspec_druid_feral_cat' },
   SOUL_OF_THE_FOREST_TALENT_GUARDIAN: { id: 158477, name: 'Soul of the Forest', icon: 'ability_druid_manatree' },
-
 };
 export default talents;

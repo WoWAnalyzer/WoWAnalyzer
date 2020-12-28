@@ -2,6 +2,7 @@
 import { SpellList } from '../Spell';
 
 const talents: SpellList = {
+
   //Shared
   TRAILBLAZER_TALENT: { id: 199921, name: 'Trailblazer', icon: 'ability_hunter_aspectmastery' },
   NATURAL_MENDING_TALENT: { id: 270581, name: 'Natural Mending', icon: 'ability_hunter_onewithnature' },
@@ -13,6 +14,13 @@ const talents: SpellList = {
   BARRAGE_TALENT: { id: 120360, name: 'Barrage', icon: 'ability_hunter_rapidregeneration', focusCost: 60 },
 
   //Survival
+  //Level 15: Viper's Venom || Terms of Engagement || Alpha Predator
+  //Level 25: Guerrilla Tactics || Hydra's Bite || Butchery
+  //Level 30: Trailblazer || Natural Mending || Camouflage
+  //Level 35: Bloodseeker || Steel Trap || A Murder of Crows
+  //Level 40: Born To Be Wild || Posthaste || Binding Shot
+  //Level 45: Tip of the Spear || Mongoose Bite || Flanking Strike
+  //Level 50: Birds of Prey || Wildfire Infusion || Chakrams
   VIPERS_VENOM_TALENT: { id: 268501, name: 'Viper\'s Venom', icon: 'ability_hunter_potentvenom' },
   TERMS_OF_ENGAGEMENT_TALENT: { id: 265895, name: 'Terms of Engagement', icon: 'ability_hunter_harpoon' },
   ALPHA_PREDATOR_TALENT: { id: 269737, name: 'Alpha Predator', icon: 'spell_druid_savagery' },
@@ -29,6 +37,13 @@ const talents: SpellList = {
   CHAKRAMS_TALENT: { id: 259391, name: 'Chakrams', icon: 'ability_glaivetoss', focusCost: 15 },
 
   //Marksmanship
+  //Level 15: Master Marksman || Serpent Sting || A Murder of Crows
+  //Level 25: Careful Aim || Barrage || Explosive Shot
+  //Level 30: Trailblazer || Natural Mending || Camouflage
+  //Level 35: Steady Focus || Streamline || Chimaera Shot
+  //Level 40: Born To Be Wild || Posthaste || Binding Shackles
+  //Level 45: Lethal Shots || Dead Eye || Double Tap
+  //Level 50: Calling the Shots || Lock and Load || Volley
   MASTER_MARKSMAN_TALENT: { id: 260309, name: 'Master Marksman', icon: 'ability_hunter_mastermarksman' },
   SERPENT_STING_TALENT: { id: 271788, name: 'Serpent Sting', icon: 'spell_hunter_exoticmunitions_poisoned', focusCost: 10 },
   CAREFUL_AIM_TALENT: { id: 260228, name: 'Careful Aim', icon: 'ability_hunter_zenarchery' },
@@ -45,6 +60,13 @@ const talents: SpellList = {
   CHIMAERA_SHOT_TALENT_MARKSMANSHIP: { id: 342049, name: 'Chimaera Shot', icon: 'ability_hunter_chimerashot2', focusCost: 20 },
 
   //Beast Mastery
+  //Level 15: Killer Instinct || Animal Companion || Dire Beast
+  //Level 25: Scent of Blood || One with the Pack || Chimaera Shot
+  //Level 30: Trailblazer || Natural Mending || Camouflage
+  //Level 35: Spitting Cobra || Thrill of the Hunt || A Murder of Crows
+  //Level 40: Born To Be Wild || Posthaste || Binding Shot
+  //Level 45: Stomp || Barrage || Stampede
+  //Level 50: Aspect of the Beast || Killer Cobra || Bloodshed
   KILLER_INSTINCT_TALENT: { id: 273887, name: 'Killer Instinct', icon: 'ability_hunter_killcommand' },
   ANIMAL_COMPANION_TALENT: { id: 267116, name: 'Animal Companion', icon: 'ability_hunter_bestialdiscipline' },
   DIRE_BEAST_TALENT: { id: 120679, name: 'Dire Beast', icon: 'ability_hunter_longevity' },
@@ -58,6 +80,5 @@ const talents: SpellList = {
   KILLER_COBRA_TALENT: { id: 199532, name: 'Killer Cobra', icon: 'ability_hunter_snaketrap' },
   BLOODSHED_TALENT: { id: 321530, name: 'Bloodshed', icon: 'ability_druid_primaltenacity' },
   CHIMAERA_SHOT_TALENT_BEAST_MASTERY: { id: 53209, name: 'Chimaera Shot', icon: 'ability_hunter_chimerashot2' },
-
 };
 export default talents;

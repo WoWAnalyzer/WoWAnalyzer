@@ -2,6 +2,7 @@
 import { SpellList } from '../Spell';
 
 const talents: SpellList = {
+
   //Shared
   DEMON_SKIN_TALENT: { id: 219272, name: 'Demon Skin', icon: 'spell_shadow_felarmour' },
   BURNING_RUSH_TALENT: { id: 111400, name: 'Burning Rush', icon: 'ability_deathwing_sealarmorbreachtga' },
@@ -14,6 +15,13 @@ const talents: SpellList = {
   SOUL_CONDUIT_TALENT: { id: 215941, name: 'Soul Conduit', icon: 'spell_shadow_soulleech_2' },
 
   //Demonology
+  //Level 15: Dreadlash || Bilescourge Bombers || Demonic Strength
+  //Level 25: Demonic Calling || Power Siphon || Doom
+  //Level 30: Demon Skin || Burning Rush || Dark Pact
+  //Level 35: From the Shadows || Soul Strike || Summon Vilefiend
+  //Level 40: Darkfury || Mortal Coil || Howl of Terror
+  //Level 45: Soul Conduit || Inner Demons || Grimoire: Felguard
+  //Level 50: Sacrificed Souls || Demonic Consumption || Nether Portal
   DREADLASH_TALENT: { id: 264078, name: 'Dreadlash', icon: 'spell_shadow_summonvoidwalker' },
   BILESCOURGE_BOMBERS_TALENT: { id: 267211, name: 'Bilescourge Bombers', icon: 'ability_hunter_pet_bat', soulShardsCost: 2 },
   DEMONIC_STRENGTH_TALENT: { id: 267171, name: 'Demonic Strength', icon: 'ability_warlock_demonicempowerment' },
@@ -30,6 +38,13 @@ const talents: SpellList = {
   NETHER_PORTAL_TALENT: { id: 267217, name: 'Nether Portal', icon: 'inv_netherportal', soulShardsCost: 1 },
 
   //Destruction
+  //Level 15: Flashover || Eradication || Soul Fire
+  //Level 25: Reverse Entropy || Internal Combustion || Shadowburn
+  //Level 30: Demon Skin || Burning Rush || Dark Pact
+  //Level 35: Inferno || Fire and Brimstone || Cataclysm
+  //Level 40: Darkfury || Mortal Coil || Howl of Terror
+  //Level 45: Roaring Blaze || Rain of Chaos || Grimoire of Sacrifice
+  //Level 50: Soul Conduit || Channel Demonfire || Dark Soul: Instability
   FLASHOVER_TALENT: { id: 267115, name: 'Flashover', icon: 'ability_warlock_backdraft' },
   ERADICATION_TALENT: { id: 196412, name: 'Eradication', icon: 'ability_warlock_eradication' },
   SOUL_FIRE_TALENT: { id: 6353, name: 'Soul Fire', icon: 'spell_fire_firebolt', manaCost: 1000 },
@@ -45,6 +60,13 @@ const talents: SpellList = {
   DARK_SOUL_INSTABILITY_TALENT: { id: 113858, name: 'Dark Soul: Instability', icon: 'spell_warlock_soulburn', manaCost: 500 },
 
   //Affliction
+  //Level 15: Nightfall || Inevitable Demise || Drain Soul
+  //Level 25: Writhe in Agony || Absolute Corruption || Siphon Life
+  //Level 30: Demon Skin || Burning Rush || Dark Pact
+  //Level 35: Sow the Seeds || Phantom Singularity || Vile Taint
+  //Level 40: Darkfury || Mortal Coil || Howl of Terror
+  //Level 45: Dark Caller || Haunt || Grimoire of Sacrifice
+  //Level 50: Soul Conduit || Creeping Death || Dark Soul: Misery
   NIGHTFALL_TALENT: { id: 108558, name: 'Nightfall', icon: 'spell_shadow_twilight' },
   INEVITABLE_DEMISE_TALENT: { id: 334319, name: 'Inevitable Demise', icon: 'spell_warlock_harvestoflife' },
   DRAIN_SOUL_TALENT: { id: 198590, name: 'Drain Soul', icon: 'spell_shadow_haunting', manaCost: 0 },
@@ -57,6 +79,5 @@ const talents: SpellList = {
   HAUNT_TALENT: { id: 48181, name: 'Haunt', icon: 'ability_warlock_haunt', manaCost: 1000 },
   CREEPING_DEATH_TALENT: { id: 264000, name: 'Creeping Death', icon: 'ability_creature_cursed_03' },
   DARK_SOUL_MISERY_TALENT: { id: 113860, name: 'Dark Soul: Misery', icon: 'spell_warlock_soulburn', manaCost: 500 },
-
 };
 export default talents;

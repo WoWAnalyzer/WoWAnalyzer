@@ -2,6 +2,7 @@
 import { SpellList } from '../Spell';
 
 const talents: SpellList = {
+
   //Shared
   LIGHTS_HAMMER_TALENT: { id: 114158, name: 'Light\'s Hammer', icon: 'spell_paladin_lightshammer', manaCost: 9000 },
   HOLY_PRISM_TALENT: { id: 114165, name: 'Holy Prism', icon: 'spell_paladin_holyprism', manaCost: 6500 },
@@ -16,6 +17,13 @@ const talents: SpellList = {
   JUDGMENT_OF_LIGHT_TALENT: { id: 183778, name: 'Judgment of Light', icon: 'spell_holy_divineprovidence' },
 
   //Holy
+  //Level 15: Crusader's Might || Bestow Faith || Light's Hammer
+  //Level 25: Saved by the Light || Judgment of Light || Holy Prism
+  //Level 30: Fist of Justice || Repentance || Blinding Light
+  //Level 35: Unbreakable Spirit || Cavalier || Rule of Law
+  //Level 40: Divine Purpose || Holy Avenger || Seraphim
+  //Level 45: Sanctified Wrath || Avenging Crusader || Awakening
+  //Level 50: Glimmer of Light || Beacon of Faith || Beacon of Virtue
   CRUSADERS_MIGHT_TALENT: { id: 196926, name: 'Crusader\'s Might', icon: 'ability_paladin_swiftretribution' },
   BESTOW_FAITH_TALENT: { id: 223306, name: 'Bestow Faith', icon: 'ability_paladin_blessedmending', manaCost: 3000 },
   SAVED_BY_THE_LIGHT_TALENT: { id: 157047, name: 'Saved by the Light', icon: 'ability_paladin_savedbythelight' },
@@ -28,6 +36,13 @@ const talents: SpellList = {
   SANCTIFIED_WRATH_TALENT_HOLY: { id: 53376, name: 'Sanctified Wrath', icon: 'ability_paladin_judgementsofthejust' },
 
   //Protection
+  //Level 15: Holy Shield || Redoubt || Blessed Hammer
+  //Level 25: First Avenger || Crusader's Judgment || Moment of Glory
+  //Level 30: Fist of Justice || Repentance || Blinding Light
+  //Level 35: Unbreakable Spirit || Cavalier || Blessing of Spellwarding
+  //Level 40: Divine Purpose || Holy Avenger || Seraphim
+  //Level 45: Hand of the Protector || Consecrated Ground || Judgment of Light
+  //Level 50: Sanctified Wrath || Righteous Protector || Final Stand
   HOLY_SHIELD_TALENT: { id: 152261, name: 'Holy Shield', icon: 'inv_shield_1h_hyrja_d_01' },
   REDOUBT_TALENT: { id: 280373, name: 'Redoubt', icon: 'ability_warrior_shieldguard' },
   BLESSED_HAMMER_TALENT: { id: 204019, name: 'Blessed Hammer', icon: 'paladin_retribution' },
@@ -42,6 +57,13 @@ const talents: SpellList = {
   SANCTIFIED_WRATH_TALENT_PROTECTION: { id: 171648, name: 'Sanctified Wrath', icon: 'ability_paladin_judgementsofthejust' },
 
   //Retribution
+  //Level 15: Zeal || Righteous Verdict || Execution Sentence
+  //Level 25: Fires of Justice || Blade of Wrath || Empyrean Power
+  //Level 30: Fist of Justice || Repentance || Blinding Light
+  //Level 35: Unbreakable Spirit || Cavalier || Eye for an Eye
+  //Level 40: Divine Purpose || Holy Avenger || Seraphim
+  //Level 45: Selfless Healer || Justicar's Vengeance || Healing Hands
+  //Level 50: Sanctified Wrath || Crusade || Final Reckoning
   ZEAL_TALENT: { id: 269569, name: 'Zeal', icon: 'spell_holy_sealofblood' },
   RIGHTEOUS_VERDICT_TALENT: { id: 267610, name: 'Righteous Verdict', icon: 'spell_paladin_templarsverdict' },
   EXECUTION_SENTENCE_TALENT: { id: 343527, name: 'Execution Sentence', icon: 'spell_paladin_executionsentence', holyPowerCost: 3 },
@@ -55,6 +77,5 @@ const talents: SpellList = {
   CRUSADE_TALENT: { id: 231895, name: 'Crusade', icon: 'ability_paladin_sanctifiedwrath' },
   FINAL_RECKONING_TALENT: { id: 343721, name: 'Final Reckoning', icon: 'spell_holy_blessedresillience' },
   SANCTIFIED_WRATH_TALENT_RETRIBUTION: { id: 317866, name: 'Sanctified Wrath', icon: 'ability_paladin_judgementsofthejust' },
-
 };
 export default talents;

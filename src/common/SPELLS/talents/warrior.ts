@@ -2,6 +2,7 @@
 import { SpellList } from '../Spell';
 
 const talents: SpellList = {
+
   //Shared
   DOUBLE_TIME_TALENT: { id: 103827, name: 'Double Time', icon: 'inv_misc_horn_04' },
   IMPENDING_VICTORY_TALENT: { id: 202168, name: 'Impending Victory', icon: 'spell_impending_victory', rageCost: 10 },
@@ -11,6 +12,13 @@ const talents: SpellList = {
   ANGER_MANAGEMENT_TALENT: { id: 152278, name: 'Anger Management', icon: 'warrior_talent_icon_angermanagement' },
 
   //Protection
+  //Level 15: War Machine || Punish || Devastator
+  //Level 25: Double Time || Rumbling Earth || Storm Bolt
+  //Level 30: Best Served Cold || Booming Voice || Dragon Roar
+  //Level 35: Crackling Thunder || Bounding Stride || Menace
+  //Level 40: Never Surrender || Indomitable || Impending Victory
+  //Level 45: Into the Fray || Unstoppable Force || Ravager
+  //Level 50: Anger Management || Heavy Repercussions || Bolster
   PUNISH_TALENT: { id: 275334, name: 'Punish', icon: 'ability_deathknight_sanguinfortitude' },
   DEVASTATOR_TALENT: { id: 236279, name: 'Devastator', icon: 'inv_sword_11' },
   RUMBLING_EARTH_TALENT: { id: 275339, name: 'Rumbling Earth', icon: 'spell_shaman_earthquake' },
@@ -28,6 +36,13 @@ const talents: SpellList = {
   RAVAGER_TALENT_PROTECTION: { id: 228920, name: 'Ravager', icon: 'warrior_talent_icon_ravager' },
 
   //Arms
+  //Level 15: War Machine || Sudden Death || Skullsplitter
+  //Level 25: Double Time || Impending Victory || Storm Bolt
+  //Level 30: Massacre || Fervor of Battle || Rend
+  //Level 35: Second Wind || Bounding Stride || Defensive Stance
+  //Level 40: Collateral Damage || Warbreaker || Cleave
+  //Level 45: In For The Kill || Avatar || Deadly Calm
+  //Level 50: Anger Management || Dreadnaught || Ravager
   SKULLSPLITTER_TALENT: { id: 260643, name: 'Skullsplitter', icon: 'inv_skullsplitter' },
   FERVOR_OF_BATTLE_TALENT: { id: 202316, name: 'Fervor of Battle', icon: 'ability_rogue_waylay' },
   REND_TALENT: { id: 772, name: 'Rend', icon: 'ability_gouge', rageCost: 30 },
@@ -46,6 +61,13 @@ const talents: SpellList = {
   MASSACRE_TALENT_ARMS: { id: 281001, name: 'Massacre', icon: 'inv_sword_48' },
 
   //Fury
+  //Level 15: War Machine || Sudden Death || Fresh Meat
+  //Level 25: Double Time || Impending Victory || Storm Bolt
+  //Level 30: Massacre || Frenzy || Onslaught
+  //Level 35: Furious Charge || Bounding Stride || Warpaint
+  //Level 40: Seethe || Frothing Berserker || Cruelty
+  //Level 45: Meat Cleaver || Dragon Roar || Bladestorm
+  //Level 50: Anger Management || Reckless Abandon || Siegebreaker
   FRESH_MEAT_TALENT: { id: 215568, name: 'Fresh Meat', icon: 'ability_deathwing_bloodcorruption_death' },
   FRENZY_TALENT: { id: 335077, name: 'Frenzy', icon: 'ability_rogue_bloodyeye' },
   ONSLAUGHT_TALENT: { id: 315720, name: 'Onslaught', icon: 'ability_warrior_trauma' },
@@ -61,6 +83,5 @@ const talents: SpellList = {
   WAR_MACHINE_TALENT_FURY: { id: 346002, name: 'War Machine', icon: 'ability_hunter_rapidkilling' },
   SUDDEN_DEATH_TALENT_FURY: { id: 280721, name: 'Sudden Death', icon: 'ability_warrior_improveddisciplines' },
   MASSACRE_TALENT_FURY: { id: 206315, name: 'Massacre', icon: 'inv_sword_48' },
-
 };
 export default talents;

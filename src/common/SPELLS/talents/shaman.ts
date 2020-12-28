@@ -2,6 +2,7 @@
 import { SpellList } from '../Spell';
 
 const talents: SpellList = {
+
   //Shared
   ELEMENTAL_BLAST_TALENT: { id: 117014, name: 'Elemental Blast', icon: 'shaman_talent_elementalblast', manaCost: 1375 },
   SPIRIT_WOLF_TALENT: { id: 260878, name: 'Spirit Wolf', icon: 'spell_hunter_lonewolf' },
@@ -13,6 +14,13 @@ const talents: SpellList = {
   ECHO_OF_THE_ELEMENTS_TALENT_SHARED: { id: 108283, name: 'Echo of the Elements', icon: 'ability_shaman_echooftheelements' },
 
   //Restoration
+  //Level 15: Torrent || Undulation || Unleash Life
+  //Level 25: Echo of the Elements || Deluge || Surge of Earth
+  //Level 30: Spirit Wolf || Earthgrab Totem || Static Charge
+  //Level 35: Ancestral Vigor || Earthen Wall Totem || Ancestral Protection Totem
+  //Level 40: Nature's Guardian || Graceful Spirit || Wind Rush Totem
+  //Level 45: Flash Flood || Downpour || Cloudburst Totem
+  //Level 50: High Tide || Wellspring || Ascendance
   TORRENT_TALENT: { id: 200072, name: 'Torrent', icon: 'spell_nature_riptide' },
   UNDULATION_TALENT: { id: 200071, name: 'Undulation', icon: 'spell_nature_healingwavelesser' },
   UNLEASH_LIFE_TALENT: { id: 73685, name: 'Unleash Life', icon: 'spell_shaman_unleashweapon_life', manaCost: 2000 },
@@ -30,6 +38,13 @@ const talents: SpellList = {
   ASCENDANCE_TALENT_RESTORATION: { id: 114052, name: 'Ascendance', icon: 'spell_fire_elementaldevastation' },
 
   //Enhancement
+  //Level 15: Lashing Flames || Forceful Winds || Elemental Blast
+  //Level 25: Stormflurry || Hot Hand || Ice Strike
+  //Level 30: Spirit Wolf || Earth Shield || Static Charge
+  //Level 35: Elemental Assault || Hailstorm || Fire Nova
+  //Level 40: Nature's Guardian || Feral Lunge || Wind Rush Totem
+  //Level 45: Crashing Storm || Stormkeeper || Sundering
+  //Level 50: Elemental Spirits || Earthen Spike || Ascendance
   LASHING_FLAMES_TALENT: { id: 334046, name: 'Lashing Flames', icon: 'spell_shaman_improvelavalash' },
   FORCEFUL_WINDS_TALENT: { id: 262647, name: 'Forceful Winds', icon: 'spell_shaman_unleashweapon_wind' },
   STORMFLURRY_TALENT: { id: 344357, name: 'Stormflurry', icon: 'ability_shaman_stormstrike' },
@@ -47,6 +62,13 @@ const talents: SpellList = {
   STORMKEEPER_TALENT_ENHANCEMENT: { id: 320137, name: 'Stormkeeper', icon: 'ability_thunderking_lightningwhip' },
 
   //Elemental
+  //Level 15: Earthen Rage || Echo of the Elements || Static Discharge
+  //Level 25: Aftershock || Echoing Shock || Elemental Blast
+  //Level 30: Spirit Wolf || Earth Shield || Static Charge
+  //Level 35: Master of the Elements || Storm Elemental || Liquid Magma Totem
+  //Level 40: Nature's Guardian || Ancestral Guidance || Wind Rush Totem
+  //Level 45: Surge of Power || Primal Elementalist || Icefury
+  //Level 50: Unlimited Power || Stormkeeper || Ascendance
   EARTHEN_RAGE_TALENT: { id: 170374, name: 'Earthen Rage', icon: 'ability_earthen_pillar' },
   STATIC_DISCHARGE_TALENT: { id: 342243, name: 'Static Discharge', icon: 'spell_lightning_lightningbolt01', manaCost: 625 },
   AFTERSHOCK_TALENT: { id: 273221, name: 'Aftershock', icon: 'spell_nature_stormreach' },
@@ -62,6 +84,5 @@ const talents: SpellList = {
   ECHO_OF_THE_ELEMENTS_TALENT_ELEMENTAL: { id: 333919, name: 'Echo of the Elements', icon: 'ability_shaman_echooftheelements' },
   ASCENDANCE_TALENT_ELEMENTAL: { id: 114050, name: 'Ascendance', icon: 'spell_fire_elementaldevastation' },
   STORMKEEPER_TALENT_ELEMENTAL: { id: 191634, name: 'Stormkeeper', icon: 'ability_thunderking_lightningwhip' },
-
 };
 export default talents;

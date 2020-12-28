@@ -2,6 +2,7 @@
 import { SpellList } from '../Spell';
 
 const talents: SpellList = {
+
   //Shared
   CASTIGATION_TALENT: { id: 193134, name: 'Castigation', icon: 'spell_holy_searinglightpriest' },
   BODY_AND_SOUL_TALENT: { id: 64129, name: 'Body and Soul', icon: 'spell_holy_symbolofhope' },
@@ -19,6 +20,13 @@ const talents: SpellList = {
   MINDBENDER_TALENT_SHARED: { id: 123040, name: 'Mindbender', icon: 'spell_shadow_soulleech_3' },
 
   //Holy
+  //Level 15: Enlightenment || Trail of Light || Renewed Faith
+  //Level 25: Angel's Mercy || Body and Soul || Angelic Feather
+  //Level 30: Cosmic Ripple || Guardian Angel || Afterlife
+  //Level 35: Psychic Voice || Censure || Shining Force
+  //Level 40: Surge of Light || Binding Heal || Prayer Circle
+  //Level 45: Benediction || Divine Star || Halo
+  //Level 50: Light of the Naaru || Apotheosis || Holy Word: Salvation
   ENLIGHTENMENT_TALENT: { id: 193155, name: 'Enlightenment', icon: 'spell_arcane_mindmastery' },
   TRAIL_OF_LIGHT_TALENT: { id: 200128, name: 'Trail of Light', icon: 'ability_priest_wordsofmeaning' },
   RENEWED_FAITH_TALENT: { id: 341997, name: 'Renewed Faith', icon: 'ability_pvp_innerrenewal' },
@@ -35,6 +43,13 @@ const talents: SpellList = {
   HOLY_WORD_SALVATION_TALENT: { id: 265202, name: 'Holy Word: Salvation', icon: 'ability_priest_archangel', manaCost: 3000 },
 
   //Shadow
+  //Level 15: Fortress of the Mind || Death and Madness || Unfurling Darkness
+  //Level 25: Body and Soul || San'layn || Intangibility
+  //Level 30: Twist of Fate || Misery || Searing Nightmare
+  //Level 35: Last Word || Mind Bomb || Psychic Horror
+  //Level 40: Auspicious Spirits || Psychic Link || Shadow Crash
+  //Level 45: Damnation || Mindbender || Void Torrent
+  //Level 50: Ancient Madness || Hungering Void || Surrender to Madness
   FORTRESS_OF_THE_MIND_TALENT: { id: 193195, name: 'Fortress of the Mind', icon: 'ability_mage_studentofthemind' },
   DEATH_AND_MADNESS_TALENT: { id: 321291, name: 'Death and Madness', icon: 'spell_shadow_demonicfortitude' },
   UNFURLING_DARKNESS_TALENT: { id: 341273, name: 'Unfurling Darkness', icon: 'spell_priest_shadow_mend' },
@@ -57,6 +72,13 @@ const talents: SpellList = {
   TWIST_OF_FATE_TALENT_SHADOW: { id: 109142, name: 'Twist of Fate', icon: 'spell_shadow_mindtwisting' },
 
   //Discipline
+  //Level 15: Castigation || Twist of Fate || Schism
+  //Level 25: Body and Soul || Masochism || Angelic Feather
+  //Level 30: Shield Discipline || Mindbender || Power Word: Solace
+  //Level 35: Psychic Voice || Dominant Mind || Shining Force
+  //Level 40: Sins of the Many || Contrition || Shadow Covenant
+  //Level 45: Purge the Wicked || Divine Star || Halo
+  //Level 50: Lenience || Spirit Shell || Evangelism
   SCHISM_TALENT: { id: 214621, name: 'Schism', icon: 'spell_warlock_focusshadow', manaCost: 250 },
   MASOCHISM_TALENT: { id: 193063, name: 'Masochism', icon: 'spell_shadow_misery' },
   DOMINANT_MIND_TALENT: { id: 205367, name: 'Dominant Mind', icon: 'spell_priest_void_flay' },
@@ -65,6 +87,5 @@ const talents: SpellList = {
   LENIENCE_TALENT: { id: 238063, name: 'Lenience', icon: 'ability_priest_atonement' },
   EVANGELISM_TALENT: { id: 246287, name: 'Evangelism', icon: 'spell_holy_divineillumination' },
   TWIST_OF_FATE_TALENT_DISCIPLINE: { id: 265259, name: 'Twist of Fate', icon: 'spell_shadow_mindtwisting' },
-
 };
 export default talents;
