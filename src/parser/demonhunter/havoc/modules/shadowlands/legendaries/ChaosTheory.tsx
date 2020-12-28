@@ -27,10 +27,6 @@ class ChaosTheory extends Analyzer {
       <Statistic
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
-        tooltip={(
-          <>
-          </>
-        )}
       >
         <BoringSpellValueText spell={SPELLS.CHAOS_THEORY}>
             <UptimeIcon /> {formatPercentage(this.buffUptime)}% <small>Buff uptime</small>
