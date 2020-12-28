@@ -40,14 +40,14 @@ class InvokeChiJi extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id);
     if (!this.active) {
       return;
     }
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUST_OF_MISTS_CHIJI), this.handleGust);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH), this.handleEnvelopingBreath);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_MIST), this.handleEnvelopCast);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT), this.handleChijiStart);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT), this.handleChijiStart);
     this.addEventListener(Events.death.to(SELECTED_PLAYER), this.handleChijiDeath);
     this.addEventListener(Events.death.to(SELECTED_PLAYER_PET), this.handleChijiDeath);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.BLACKOUT_KICK, SPELLS.RISING_SUN_KICK_SECOND, SPELLS.BLACKOUT_KICK_TOTM, SPELLS.SPINNING_CRANE_KICK_DAMAGE]), this.handleStackGenerator);
@@ -169,7 +169,7 @@ class InvokeChiJi extends Analyzer {
         }
       >
         <BoringValueText
-          label={<><SpellLink id={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id} /></>}
+          label={<><SpellLink id={SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id} /></>}
         >
           <>
             <ItemHealingDone amount={this.gustHealing + this.envelopHealing} /><br />

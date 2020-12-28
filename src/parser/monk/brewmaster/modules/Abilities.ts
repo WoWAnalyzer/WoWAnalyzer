@@ -48,7 +48,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.RUSHING_JADE_WIND_TALENT_BREWMASTER,
+        spell: SPELLS.RUSHING_JADE_WIND,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: (haste) => 6 / (1 + haste),
         enabled: combatant.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT_BREWMASTER.id),

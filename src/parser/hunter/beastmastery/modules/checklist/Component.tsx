@@ -43,8 +43,8 @@ const BeastMasteryChecklist = ({ combatant, castEfficiency, thresholds }: any) =
 
         {combatant.hasTalent(SPELLS.DIRE_BEAST_TALENT.id) &&
         <AbilityRequirement spell={SPELLS.DIRE_BEAST_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.CHIMAERA_SHOT_BM_TALENT.id) &&
-        <AbilityRequirement spell={SPELLS.CHIMAERA_SHOT_BM_TALENT.id} />}
+        {combatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT_BEAST_MASTERY.id) &&
+        <AbilityRequirement spell={SPELLS.CHIMAERA_SHOT_TALENT_BEAST_MASTERY.id} />}
         {combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id) &&
         <AbilityRequirement spell={SPELLS.A_MURDER_OF_CROWS_TALENT.id} />}
         {combatant.hasTalent(SPELLS.BARRAGE_TALENT.id) &&

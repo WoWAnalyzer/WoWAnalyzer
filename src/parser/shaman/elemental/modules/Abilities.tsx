@@ -9,7 +9,7 @@ class Abilities extends CoreAbilities {
     return [
       {
         spell: SPELLS.LAVA_BURST,
-        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 2 : 1,
+        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT_ELEMENTAL.id) ? 2 : 1,
         cooldown: haste => 8 / (1 + haste),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
@@ -95,13 +95,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.STORMKEEPER_TALENT,
+        spell: SPELLS.STORMKEEPER_TALENT_ELEMENTAL,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.STORMKEEPER_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.STORMKEEPER_TALENT_ELEMENTAL.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,

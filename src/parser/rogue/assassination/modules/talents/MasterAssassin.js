@@ -86,7 +86,7 @@ class MasterAssassin extends StealthCasts {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You failed to take full advantage of <SpellLink id={SPELLS.MASTER_ASSASSIN_TALENT.id} />. Make sure to prioritize spending the buff on <SpellLink id={SPELLS.MUTILATE.id} /> or <SpellLink id={SPELLS.ENVENOM.id} /> (<SpellLink id={SPELLS.FAN_OF_KNIVES.id} /> is acceptable for AOE). During your opener <SpellLink id={SPELLS.GARROTE.id} />, <SpellLink id={SPELLS.RUPTURE.id} /> and <SpellLink id={SPELLS.TOXIC_BLADE_TALENT.id} /> is also okay.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You failed to take full advantage of <SpellLink id={SPELLS.MASTER_ASSASSIN_TALENT.id} />. Make sure to prioritize spending the buff on <SpellLink id={SPELLS.MUTILATE.id} /> or <SpellLink id={SPELLS.ENVENOM.id} /> (<SpellLink id={SPELLS.FAN_OF_KNIVES.id} /> is acceptable for AOE). During your opener <SpellLink id={SPELLS.GARROTE.id} /> and <SpellLink id={SPELLS.RUPTURE.id} /> is also okay.</>)
       .icon(SPELLS.MASTER_ASSASSIN_TALENT.icon)
       .actual(t({
       id: "rogue.assassination.suggestions.masterAssassin.efficiency",

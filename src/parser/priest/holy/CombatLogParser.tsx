@@ -56,6 +56,9 @@ import DivineImage from './modules/shadowlands/items/DivineImage';
 // Conduits
 import ResonantWords from './modules/shadowlands/conduits/ResonantWords';
 
+// Covenants
+import UnholyNova from '../shared/modules/shadowlands/covenants/UnholyNova';
+
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
@@ -139,6 +142,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Conduits
     resonantWords: ResonantWords,
+
+    // Covenants
+    unholyNova: UnholyNova,
   };
 
   generateResults(adjustForDowntime: boolean) {

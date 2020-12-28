@@ -18,7 +18,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import { t } from '@lingui/macro';
-import { LIFECYCLES_MANA_PERC_REDUCTION, SPIRIT_OF_THE_CRANE_MANA_RETURN, LIFECYCLES_MANA_REDUCTION_PERCENT } from 'parser/monk/mistweaver/constants';
+import { LIFECYCLES_MANA_PERC_REDUCTION, SPIRIT_OF_THE_CRANE_MANA_RETURN, LIFECYCLES_MANA_REDUCTION_PERCENT, MANA_TEA_DURATION } from 'parser/monk/mistweaver/constants';
 
 import ManaTea from './ManaTea';
 import SpiritOfTheCrane from './SpiritOfTheCrane';
@@ -177,7 +177,7 @@ class Tier30Comparison extends Analyzer {
   generateManaTea() {
     const fightLength = (this.owner.fight.end_time - this.owner.fight.start_time) / 1000;
     const manaTeasPossible = (Math.ceil(fightLength / 90) || 1);
-    const manaPerDuration = (this.totalManaSpent() / fightLength) * SPELLS.MANA_TEA_TALENT.duration / 1000;//duration of mana Tea
+    const manaPerDuration = (this.totalManaSpent() / fightLength) * MANA_TEA_DURATION / 1000;//duration of mana Tea
     const manaPerTea = manaTeasPossible * manaPerDuration;
     return manaPerTea || 0;
   }
