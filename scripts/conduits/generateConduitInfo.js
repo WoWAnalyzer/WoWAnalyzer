@@ -1,6 +1,7 @@
 const fs = require('fs');
 
 let jsSpellOutput = '';
+let jsSpellScalingOutput = '';
 let fullOutput =
   `\t"CONDUIT_NAME": {
 \t\t"id": "The spell ID of the conduit -- This is what should be used when identifying if a player has that conduit and also for searching for it on WoWHead or similiar.",
@@ -106,8 +107,9 @@ Object.keys(conduitItemInfo).forEach((itemInfoKey, idx) => {
     id: ${conduitSpellId},
     name: '${conduitName}',
     icon: '${conduitIcon}',
-    effectByRank: [${conduitRanksArray}],
   },\n`;
+
+  jsSpellScalingOutput += `\nconst ${conduitKeyName}_EFFECT_BY_RANK = [${conduitRanksArray}]; `;
 });
 
 fs.writeFileSync(
@@ -121,4 +123,7 @@ fs.writeFileSync(
 export default {\n${jsSpellOutput}};`,
 );
 
-
+fs.writeFileSync(
+  'conduitSpellScaling.js',
+  `// Generated file, changes will be overwritten!\n// Feel free to copy what you need from this file, as this is not indexed by anything else in the codebase.${jsSpellScalingOutput}`,
+);
