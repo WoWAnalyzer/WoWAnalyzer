@@ -43,7 +43,7 @@ class Whirlwind extends Analyzer {
     super(options);
     this.hasDragonsRoar = this.selectedCombatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id);
     this.hasBladeStorm = this.selectedCombatant.hasTalent(SPELLS.BLADESTORM_TALENT.id);
-    this.executeThreshold = this.selectedCombatant.hasTalent(SPELLS.MASSACRE_FURY_TALENT.id) ? 0.35 : 0.2;
+    this.executeThreshold = this.selectedCombatant.hasTalent(SPELLS.MASSACRE_TALENT_FURY.id) ? 0.35 : 0.2;
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WHIRLWIND_FURY_CAST), this.spellCheck);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.WHIRLWIND_FURY_DAMAGE_MH, SPELLS.WHIRLWIND_FURY_DAMAGE_OH]), this.wwDamage);

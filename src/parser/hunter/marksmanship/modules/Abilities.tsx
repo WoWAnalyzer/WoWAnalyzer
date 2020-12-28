@@ -43,7 +43,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ARCANE_SHOT,
         buffSpellId: SPELLS.PRECISE_SHOTS.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: !combatant.hasTalent(SPELLS.CHIMAERA_SHOT_MM_TALENT.id),
+        enabled: !combatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT_MARKSMANSHIP.id),
         gcd: {
           base: 1500,
         },
@@ -202,9 +202,9 @@ class Abilities extends CoreAbilities {
 
       //region Talents
       {
-        spell: SPELLS.CHIMAERA_SHOT_MM_TALENT,
+        spell: SPELLS.CHIMAERA_SHOT_TALENT_MARKSMANSHIP,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.CHIMAERA_SHOT_MM_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT_MARKSMANSHIP.id),
         gcd: {
           base: 1500,
         },

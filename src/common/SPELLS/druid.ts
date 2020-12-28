@@ -21,6 +21,11 @@ const spells = {
     name: 'Revive',
     icon: 'ability_druid_lunarguidance',
   },
+  TYPHOON: {
+    id: 61391,
+    name: 'Typhoon',
+    icon: 'ability_druid_typhoon',
+  },
   // learnt from a tome, treant form is (mostly?) functionally identical to caster form
   TREANT_FORM: {
     id: 114282,
@@ -65,12 +70,6 @@ const spells = {
 
   //shared talent spells
 
-  // When used the player appears to cast 2 spells at once, this and TYPHOON_TALENT. The "Dazed" debuff that slows those hit has this ID.
-  TYPHOON: {
-    id: 61391,
-    name: 'Typhoon',
-    icon: 'ability_druid_typhoon',
-  },
   WILD_CHARGE_MOONKIN: {
     id: 102383,
     name: 'Wild Charge',

@@ -31,6 +31,9 @@ import AuspiciousSpirits from './modules/talents/AuspiciousSpirits';
 import ShadowfiendNormalizer from '../shared/normalizers/ShadowfiendNormalizer';
 import Buffs from './modules/features/Buffs';
 
+// Covenants
+import UnholyNova from '../shared/modules/shadowlands/covenants/UnholyNova';
+
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // core
@@ -66,6 +69,9 @@ class CombatLogParser extends MainCombatLogParser {
     auspiciousSpirits: AuspiciousSpirits,
 
     shadowfiendNormalizer: ShadowfiendNormalizer,
+
+    // Covenants
+    unholyNova: UnholyNova,
   };
 }
 

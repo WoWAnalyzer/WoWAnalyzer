@@ -99,7 +99,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.INVOKE_YULON_THE_JADE_SERPENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        enabled: !combatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id),
+        enabled: !combatant.hasTalent(SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id),
         cooldown: 180,
         gcd: {
           base: 1500,
@@ -110,9 +110,9 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 20,
       },
       {
-        spell: SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT,
+        spell: SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        enabled: combatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id),
         cooldown: 180,
         gcd: {
           base: 1500,
