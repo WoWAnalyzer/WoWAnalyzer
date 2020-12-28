@@ -24,7 +24,7 @@ export default {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/yzmTMVvjpCfJrGwN/2-Mythic+Wrathion+-+Kill+(3:51)/Husky/standard',
+  exampleReport: '/report/ZLn4BXHc28Njyx31/39-Heroic+Lady+Inerva+Darkvein+-+Kill+(5:41)/Shadowz/standard/cooldowns',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
