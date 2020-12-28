@@ -12,8 +12,6 @@ import { t } from '@lingui/macro';
 
 import Abilities from '../Abilities';
 
-const BREW_IDS = [SPELLS.PURIFYING_BREW.id, SPELLS.CELESTIAL_BREW.id] as const;
-
 class BlackOxBrew extends Analyzer {
   get suggestionThreshold() {
     return {
