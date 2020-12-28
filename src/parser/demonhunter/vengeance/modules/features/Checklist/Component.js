@@ -35,7 +35,7 @@ const VengeanceDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }
         )}
       >
         <AbilityRequirement spell={SPELLS.IMMOLATION_AURA.id} />
-        <AbilityRequirement spell={SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id} />
+        {!(combatant.hasCovenant(COVENANTS.KYRIAN.id) && combatant.hasLegendaryByBonusID(SPELLS.RAZELIKHS_DEFILEMENT.bonusID)) && <AbilityRequirement spell={SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id} />}
         <AbilityRequirement spell={SPELLS.FEL_DEVASTATION.id} />
         {combatant.hasTalent(SPELLS.FRACTURE_TALENT.id) && <AbilityRequirement spell={SPELLS.FRACTURE_TALENT.id} />}
         {combatant.hasTalent(SPELLS.FELBLADE_TALENT.id) && <AbilityRequirement spell={SPELLS.FELBLADE_TALENT.id} />}

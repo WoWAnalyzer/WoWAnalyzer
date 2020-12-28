@@ -14,11 +14,6 @@ class FuryTracker extends ResourceTracker {
     return this.getResource(event).cost / 10;
   }
 
-  onCast(event) {
-    const spellId = event.ability.name;
-
-    console.log(spellId,  this.generated);
-  }
 }
 
 export default FuryTracker;
