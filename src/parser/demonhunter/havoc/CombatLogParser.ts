@@ -30,6 +30,7 @@ import MasterOfTheGlaives from './modules/talents/MasterOfTheGlaives';
 import EssenceBreak from './modules/talents/EssenceBreak';
 import CycleOfHatred from './modules/talents/CycleOfHatred';
 import Demonic from './modules/talents/Demonic';
+import GlaiveTempest from './modules/talents/GlaiveTempest';
 
 //Resources
 import FuryDetails from './modules/resourcetracker/FuryDetails';
@@ -70,6 +71,7 @@ class CombatLogParser extends CoreCombatLogParser {
     essenceBreak: EssenceBreak,
     cycleOfHatred: CycleOfHatred,
     demonic: Demonic,
+    glaiveTempest:GlaiveTempest,
 
     //Resources
     furyTracker: FuryTracker,
