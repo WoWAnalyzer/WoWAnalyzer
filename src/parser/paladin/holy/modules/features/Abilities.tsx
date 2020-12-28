@@ -12,7 +12,7 @@ import { TrackedPaladinAbility } from '../core/PaladinAbilityTracker';
 class Abilities extends CoreAbilities {
   spellbook(): Array<SpellbookAbility<TrackedPaladinAbility>> {
     const combatant = this.selectedCombatant;
-    const hasSanctifiedWrath = combatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT.id);
+    const hasSanctifiedWrath = combatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT_HOLY.id);
     return [
       {
         spell: SPELLS.HOLY_SHOCK_CAST,

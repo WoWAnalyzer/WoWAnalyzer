@@ -149,7 +149,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: !combatant.hasTalent(SPELLS.LUMINOUS_BARRIER_TALENT.id),
       },
       {
         spell: SPELLS.SHADOW_WORD_PAIN,

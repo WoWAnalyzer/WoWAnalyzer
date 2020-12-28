@@ -91,7 +91,7 @@ const Component = ({ combatant, castEfficiency, thresholds }: any) => {
             />
           </>
         )}
-        {combatant.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT_BREWMASTER.id) && (
+        {combatant.hasTalent(SPELLS.RUSHING_JADE_WIND.id) && (
           <Requirement
             name={<><SpellLink id={SPELLS.RUSHING_JADE_WIND.id} /> uptime</>}
             thresholds={thresholds.rjw}
