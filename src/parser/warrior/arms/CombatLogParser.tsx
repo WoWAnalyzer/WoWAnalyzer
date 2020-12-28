@@ -3,7 +3,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 // Normalizers
 import OverpowerStacks from './normalizers/OverpowerStacks';
 // Features
-import Checklist from './modules/features/Checklist/Module';
+import Checklist from './modules/checklist/Module';
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';

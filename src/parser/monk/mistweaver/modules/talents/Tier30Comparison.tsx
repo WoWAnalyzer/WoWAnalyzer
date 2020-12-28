@@ -185,7 +185,7 @@ class Tier30Comparison extends Analyzer {
   //assume that each env casted has a viv before it and that first viv is not effected
   generateLifeCycles() {
     const envCasts = this.abilityTracker.getAbility(SPELLS.ENVELOPING_MIST.id).casts || 0;
-    const vivCasts = this.abilityTracker.getAbility(SPELLS.VIVIFY.id).casts - 1;
+    const vivCasts = (this.abilityTracker.getAbility(SPELLS.VIVIFY.id).casts - 1) || 0;
     const manaDiscountOnViv = Math.min(vivCasts, envCasts) * SPELLS.VIVIFY.manaCost * LIFECYCLES_MANA_PERC_REDUCTION;
     const manaDiscountOnEnv = Math.min(vivCasts, envCasts) * SPELLS.ENVELOPING_MIST.manaCost * LIFECYCLES_MANA_PERC_REDUCTION;
     return (manaDiscountOnEnv + manaDiscountOnViv) || 0;
@@ -206,7 +206,7 @@ class Tier30Comparison extends Analyzer {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
       <>
-        With your current playstyle you are not using the most effective tier 45 talent. <SpellLink id={this.best.id} /> is better based off of how you played.
+        With your current playstyle you are not using the most effective tier 30 talent. <SpellLink id={this.best.id} /> is better based off of how you played.
       </>,
     )
       .icon(this.best.icon)

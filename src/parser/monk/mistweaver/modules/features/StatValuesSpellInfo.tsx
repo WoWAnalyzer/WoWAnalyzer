@@ -214,7 +214,7 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.FAELINE_STOMP_HEAL.id]: {
+  [SPELLS.FAELINE_STOMP_DAMAGE_AND_HEAL.id]: {
     int: true,
     crit: true,
     hasteHpm: false,

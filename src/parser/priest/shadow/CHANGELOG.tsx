@@ -7,6 +7,8 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   change(date(2020, 12, 24), <>Updated <SpellLink id={SPELLS.VOID_TORRENT_TALENT.id} /> and <SpellLink id={SPELLS.SHADOW_CRASH_TALENT.id} /> insanity generation statistics for their modules.</>, [Adoraci]),
+  change(date(2020, 12, 24), <>Added <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} /> uptime tracker.</>, [Adoraci]),
+  change(date(2020, 12, 24), <>Added <SpellLink id={SPELLS.BOON_OF_THE_ASCENDED.id} />, <SpellLink id={SPELLS.UNHOLY_NOVA.id} />, <SpellLink id={SPELLS.MINDGAMES.id} />, and <SpellLink id={SPELLS.FAE_GUARDIANS.id} /> efficiency recommendations.</>, [Adoraci]),
   change(date(2020, 12, 23), <>Added cooldowns section which includes <SpellLink id={SPELLS.VOIDFORM_BUFF.id} />, <SpellLink id={SPELLS.POWER_INFUSION.id} />, and <SpellLink id={SPELLS.BOON_OF_THE_ASCENDED.id} />.</>, [Adoraci]),
   change(date(2020, 12, 22), <>Added <SpellLink id={SPELLS.FORTRESS_OF_THE_MIND_TALENT.id} />, <SpellLink id={SPELLS.DEATH_AND_MADNESS_TALENT.id} />, and <SpellLink id={SPELLS.UNFURLING_DARKNESS_TALENT.id} /> modules.</>, [Adoraci]),
   change(date(2020, 12, 21), <>Corrected spell cooldowns and ID changes from launch.</>, [Adoraci]),

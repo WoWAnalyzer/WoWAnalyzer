@@ -95,7 +95,7 @@ class Superstrain extends Analyzer {
       return SPELLS.DEATH_COIL.name
     }
 
-    return SPELLS.FROST_STRIKE.name
+    return SPELLS.FROST_STRIKE_CAST.name
   }
 
   get rpWastePercentage() {

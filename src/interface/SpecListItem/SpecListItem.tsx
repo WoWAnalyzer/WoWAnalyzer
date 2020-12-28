@@ -1,8 +1,8 @@
-import React from 'react';
+import { Trans } from '@lingui/macro';
+import React, { Fragment } from 'react';
 
 import Contributor from 'interface/ContributorButton';
 import Config from 'parser/Config';
-import { Trans } from '@lingui/macro';
 
 const SpecListItem = ({
   spec,
@@ -38,14 +38,13 @@ const SpecListItem = ({
         <br />
         {builtinfo}
         {contributors.map(contributor =>
-          <>
+          <Fragment key={contributor.nickname}>
             <Contributor
-              key={contributor.nickname}
               link={false}
               {...contributor}
             />
             {' '}
-          </>
+          </Fragment>
         )}
         <br />
       </div>
