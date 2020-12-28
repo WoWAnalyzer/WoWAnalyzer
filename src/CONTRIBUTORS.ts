@@ -1079,7 +1079,6 @@ export const Tora: Contributor = {
     "Website": "https://warlock.ai"
   },
 };
-
 export const Kettlepaw: Contributor = {
   nickname: 'Kettlepaw',
   github: 'abbottmg',
@@ -1114,5 +1113,44 @@ export const flurreN: Contributor = {
     name: 'Zyg',
     spec: SPECS.HAVOC_DEMON_HUNTER,
     link: 'https://worldofwarcraft.com/en-gb/character/eu/stormscale/zyg',
+  }],
+};
+
+export const Carrottopp: Contributor = {
+  nickname: "Carrottopp",
+  github: "Chasson1992",
+  avatar: require('./interface/images/avatars/Carrottopp_avatar.png'),
+  discord: "Carrottopp#2592",
+  mains: [{
+    name: "Carrottopp",
+    spec: SPECS.ARMS_WARRIOR,
+    link: "https://worldofwarcraft.com/en-us/character/us/stormrage/carrottopp",
+  }],
+};
+
+export const Vexxra: Contributor = {
+  nickname: 'Vexxra',
+  github: 'vexxra',
+};
+
+export const TurianSniper: Contributor = {
+  nickname: 'TurianSniper',
+  github: 'tjw87912',
+  discord: 'TurianSniper#2941',
+  mains: [{
+    name: "Nakofel",
+    spec: SPECS.VENGEANCE_DEMON_HUNTER,
+    link: "https://worldofwarcraft.com/en-us/character/us/bleeding-hollow/nakofel",
+  }],  
+};
+
+export const Geeii: Contributor = {
+  nickname: 'Geeii',
+  github: 'radean0909',
+  discord: 'Geei#8447',
+  mains: [{
+    name: "Geeii",
+    spec: SPECS.VENGEANCE_DEMON_HUNTER, 
+    link: "https://worldofwarcraft.com/en-us/character/us/area52/geei",
   }],
 };

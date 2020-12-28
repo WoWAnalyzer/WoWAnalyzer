@@ -1,8 +1,9 @@
 import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import CoreAbilities from 'parser/core/modules/Abilities';
+import COVENANTS from 'game/shadowlands/COVENANTS';
+
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -50,7 +51,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FELBLADE_TALENT,
         enabled: combatant.hasTalent(SPELLS.FELBLADE_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        // Felblade cooldown can be reset by Shear or Demon Blades (when talented). But it's CD reset is not any event, so can't track if it resets or not.
+        // Felblade cooldown can be reset by Demon Bite. But it's CD reset is not any event, so can't track if it resets or not.
         cooldown: haste => 15 / (1 + haste),
         gcd: {
           base: 1500,
@@ -215,7 +216,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.GLAIVE_TEMPEST_TALENT,
         enabled: combatant.hasTalent(SPELLS.GLAIVE_TEMPEST_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 20,
+        cooldown: haste => 20 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -225,7 +226,82 @@ class Abilities extends CoreAbilities {
           extraSuggestion: <>The only time you should delay casting <SpellLink id={SPELLS.GLAIVE_TEMPEST_TALENT.id} /> is when you're expecting adds to spawn soon.</>,
         },
       },
-
+      //Covenant
+      {
+        spell: SPELLS.SINFUL_BRAND,
+        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.95,
+          extraSuggestion: `This should be part of your single target rotation.`,
+        },
+      },
+      {
+        spell: SPELLS.ELYSIAN_DECREE,
+        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+          extraSuggestion: <>The only time you should delay casting <SpellLink id={SPELLS.ELYSIAN_DECREE.id} /> is when you're expecting adds to spawn soon.</>,
+        },
+      },
+      {
+        spell: SPELLS.FODDER_TO_THE_FLAME,
+        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 120,
+        gcd: {
+          base: 1500,
+        }
+      },
+      {
+        spell: SPELLS.THE_HUNT,
+        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 90,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+          extraSuggestion: <>The only time you should delay casting <SpellLink id={SPELLS.THE_HUNT.id} /> is when you're expecting adds to spawn soon or for an upcoming haste buff.</>,
+        },
+      },
+      {
+        spell: SPELLS.DOOR_OF_SHADOWS,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+      },
+      {
+        spell: SPELLS.FLESHCRAFT,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 120,
+        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+      },
+      {
+        spell: SPELLS.SOULSHAPE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 30,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+      },
       // Big DPS Cooldowns
       {
         spell: SPELLS.METAMORPHOSIS_HAVOC,
@@ -251,12 +327,18 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.DARKNESS.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 180,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.NETHERWALK_TALENT,
         enabled: combatant.hasTalent(SPELLS.NETHERWALK_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 180,
+        gcd: {
+          base: 1500,
+        },
       },
     ];
   }

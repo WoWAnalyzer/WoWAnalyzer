@@ -11,11 +11,11 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringResourceValue from 'interface/statistics/components/BoringResourceValue';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
-import PainTracker from './PainTracker';
+import FuryTracker from './FuryTracker';
 
-class PainDetails extends Analyzer {
+class FuryDetails extends Analyzer {
   get wastedPercent() {
-    return this.painTracker.wasted / (this.painTracker.wasted + this.painTracker.generated) || 0;
+    return this.furyTracker.wasted / (this.furyTracker.wasted + this.furyTracker.generated) || 0;
   }
 
   get efficiencySuggestionThresholds() {
@@ -43,15 +43,15 @@ class PainDetails extends Analyzer {
   }
 
   static dependencies = {
-    painTracker: PainTracker,
+    furyTracker: FuryTracker,
   };
 
   suggestions(when) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Pain.`)
+      .addSuggestion((suggest, actual, recommended) => suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Fury.`)
         .icon('ability_demonhunter_demonspikes')
         .actual(t({
-      id: "demonhunter.vengeance.suggestions.pain.wasted",
+      id: "demonhunter.vengeance.suggestions.fury.wasted",
       message: `${formatPercentage(actual)}% wasted`
     }))
         .recommended(`<${formatPercentage(recommended)}% is recommended`));
@@ -60,14 +60,14 @@ class PainDetails extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.CORE(1)}
+        position={STATISTIC_ORDER.CORE(4)}
         size="small"
-        tooltip={`${this.painTracker.wasted} out of ${this.painTracker.wasted + this.painTracker.generated} pain wasted.`}
+        tooltip={`${this.furyTracker.wasted} out of ${this.furyTracker.wasted + this.furyTracker.generated} fury wasted.`}
       >
         <BoringResourceValue
-          resource={RESOURCE_TYPES.PAIN}
+          resource={RESOURCE_TYPES.FURY}
           value={`${formatPercentage(this.wastedPercent)} %`}
-          label='Pain wasted'
+          label='Fury wasted'
         />
       </Statistic>
     );
@@ -75,12 +75,12 @@ class PainDetails extends Analyzer {
 
   tab() {
     return {
-      title: 'Pain usage',
-      url: 'pain-usage',
+      title: 'Fury usage',
+      url: 'fury-usage',
       render: () => (
         <Panel>
           <ResourceBreakdown
-            tracker={this.painTracker}
+            tracker={this.furyTracker}
             showSpenders
           />
         </Panel>
@@ -90,4 +90,4 @@ class PainDetails extends Analyzer {
 
 }
 
-export default PainDetails;
+export default FuryDetails;

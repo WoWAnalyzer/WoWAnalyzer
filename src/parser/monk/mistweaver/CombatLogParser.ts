@@ -61,6 +61,7 @@ import EssenceFontHealingBreakdown from './modules/features/EssenceFontHealingBr
 
 // Covenants
 import FallenOrder from '../shared/modules/covenants/FallenOrder';
+import FaelineStomp from '../shared/modules/covenants/FaelineStomp';
 
 // Conduits
 // Endurance
@@ -144,6 +145,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Covenants
     fallenOrder: FallenOrder,
+    faelineStomp: FaelineStomp,
 
     // Conduits
     // Endurance
