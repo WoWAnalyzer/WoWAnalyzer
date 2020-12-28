@@ -8,6 +8,11 @@ const legendaries: SpellList<LegendarySpell> = {
     icon: 'inv_glaive_1h_artifactaldrochi_d_03dual',
     bonusID: 7050,
   },
+  CHAOTIC_BLADES: { //Buff from Chaos Theory legendary
+    id: 337567,
+    name: 'Chaotic Blades',
+    icon: 'inv_glaive_1h_artifactaldrochi_d_03dual',
+  },
   BURNING_WOUND: {
     id: 346279,
     name: 'Burning Wound',

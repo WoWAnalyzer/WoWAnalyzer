@@ -4,6 +4,7 @@ import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent'
 import EyeBeamNormalizer from './normalizers/EyeBeam';
 import Channeling from './modules/core/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
+import Buffs from './modules/Buffs';
 
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Abilities from './modules/Abilities';
@@ -38,11 +39,13 @@ import FuryTracker from './modules/resourcetracker/FuryTracker';
 
 //Legendaries
 import CollectiveAnguish from './modules/shadowlands/legendaries/CollectiveAnguish';
+import ChaosTheory from './modules/shadowlands/legendaries/ChaosTheory';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core Statistics
     channeling: Channeling,
+    buffs: Buffs,
 
     globalCooldown: GlobalCooldown,
 
@@ -85,6 +88,7 @@ class CombatLogParser extends CoreCombatLogParser {
     
     //Legendaries
     collectiveAnguish: CollectiveAnguish,
+    chaosTheory: ChaosTheory,
   };
 }
 
