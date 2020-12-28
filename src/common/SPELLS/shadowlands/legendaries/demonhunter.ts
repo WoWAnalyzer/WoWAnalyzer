@@ -62,6 +62,11 @@ const legendaries: SpellList<LegendarySpell> = {
     icon: 'artifactability_havocdemonhunter_anguishofthedeceiver',
     bonusID: 7041,
   },
+  FEL_DEVESTATION_DAMAGE: { //The damage spell that the demon is doing from Collective Anguish legendary
+    id: 346503,
+    name: 'Fel Devestation',
+    icon: 'ability_demonhunter_feldevastation',
+  },
   DARKEST_HOUR: {
     id: 337539,
     name: 'Darkest Hour',

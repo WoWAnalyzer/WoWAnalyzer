@@ -36,6 +36,9 @@ import GlaiveTempest from './modules/talents/GlaiveTempest';
 import FuryDetails from './modules/resourcetracker/FuryDetails';
 import FuryTracker from './modules/resourcetracker/FuryTracker';
 
+//Legendaries
+import CollectiveAnguish from './modules/shadowlands/legendaries/CollectiveAnguish';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core Statistics
@@ -79,6 +82,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
+    
+    //Legendaries
+    collectiveAnguish: CollectiveAnguish,
   };
 }
 
