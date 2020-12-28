@@ -11,6 +11,7 @@ import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/checklist/Module';
 import SkippableCasts from './modules/features/SkippableCasts';
+import DarkThoughts from './modules/features/DarkThoughts';
 // spells:
 import Shadowfiend from './modules/spells/Shadowfiend';
 import VampiricTouch from './modules/spells/VampiricTouch';
@@ -45,6 +46,7 @@ class CombatLogParser extends MainCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     checklist: Checklist,
     skippableCasts: SkippableCasts,
+    darkThoughts: DarkThoughts,
 
     // spells:
     shadowfiend: Shadowfiend,
