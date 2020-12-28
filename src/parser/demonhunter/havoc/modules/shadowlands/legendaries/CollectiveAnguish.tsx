@@ -8,8 +8,6 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { formatThousands } from 'common/format';
 
-
-
 class CollectiveAnguish extends Analyzer {
   damage = 0;
 
