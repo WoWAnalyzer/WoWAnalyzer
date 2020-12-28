@@ -468,7 +468,7 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
       },
       {
-        spell: SPELLS.EARTH_SHIELD,
+        spell: SPELLS.EARTH_SHIELD_TALENT,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           base: 1500,
