@@ -169,7 +169,7 @@ const spells = {
     icon: 'ability_demonhunter_immolation',
   },
   INFERNAL_STRIKE: {
-    id: 189110,
+    id: 189112,
     name: 'Infernal Strike',
     icon: 'ability_demonhunter_infernalstrike1',
   },

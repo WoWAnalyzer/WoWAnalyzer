@@ -180,6 +180,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: combatant.hasTalent(SPELLS.ABYSSAL_STRIKE_TALENT.id) ? 12 : 20,
         charges: 2,
+        enabled: false, // TODO: change this to true, when infernal strike logging is working, see infernalstrike module for more details.
       },
 
       {
@@ -229,7 +230,7 @@ class Abilities extends CoreAbilities {
         gcd: null,
       },
 	  
-	  // Covenant (move these if needed)
+	    // Covenant (move these if needed)
       {
         spell: SPELLS.ELYSIAN_DECREE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
