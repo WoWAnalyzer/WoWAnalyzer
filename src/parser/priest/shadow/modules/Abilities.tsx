@@ -400,9 +400,9 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.95,
-          averageIssueEfficiency: 0.85,
-          majorIssueEfficiency: 0.75,
+          recommendedEfficiency: 0.9,
+          averageIssueEfficiency: 0.8,
+          majorIssueEfficiency: 0.7,
         },
       },
       {
@@ -415,9 +415,9 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.9,
-          averageIssueEfficiency: 0.8,
-          majorIssueEfficiency: 0.7,
+          recommendedEfficiency: 0.8,
+          averageIssueEfficiency: 0.6,
+          majorIssueEfficiency: 0.4,
         },
       },
     ];
