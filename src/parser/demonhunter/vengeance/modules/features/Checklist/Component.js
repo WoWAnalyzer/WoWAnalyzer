@@ -35,14 +35,14 @@ const VengeanceDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }
         )}
       >
         <AbilityRequirement spell={SPELLS.IMMOLATION_AURA.id} />
-        <AbilityRequirement spell={SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id} />
+        {!(combatant.hasCovenant(COVENANTS.KYRIAN.id) && combatant.hasLegendaryByBonusID(SPELLS.RAZELIKHS_DEFILEMENT.bonusID)) && <AbilityRequirement spell={SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id} />}
         <AbilityRequirement spell={SPELLS.FEL_DEVASTATION.id} />
         {combatant.hasTalent(SPELLS.FRACTURE_TALENT.id) && <AbilityRequirement spell={SPELLS.FRACTURE_TALENT.id} />}
         {combatant.hasTalent(SPELLS.FELBLADE_TALENT.id) && <AbilityRequirement spell={SPELLS.FELBLADE_TALENT.id} />}
-		{combatant.hasCovenant(COVENANTS.KYRIAN.id) && <AbilityRequirement spell={SPELLS.ELYSIAN_DECREE.id} />}
-		{combatant.hasCovenant(COVENANTS.VENTHYR.id) && <AbilityRequirement spell={SPELLS.SINFUL_BRAND.id} />}
-		{combatant.hasCovenant(COVENANTS.NECROLORD.id) && <AbilityRequirement spell={SPELLS.FODDER_TO_THE_FLAME.id} />}
-		{combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && <AbilityRequirement spell={SPELLS.THE_HUNT.id} />}
+        {combatant.hasCovenant(COVENANTS.KYRIAN.id) && <AbilityRequirement spell={SPELLS.ELYSIAN_DECREE.id} />}
+        {combatant.hasCovenant(COVENANTS.VENTHYR.id) && <AbilityRequirement spell={SPELLS.SINFUL_BRAND.id} />}
+        {combatant.hasCovenant(COVENANTS.NECROLORD.id) && <AbilityRequirement spell={SPELLS.FODDER_TO_THE_FLAME.id} />}
+        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && <AbilityRequirement spell={SPELLS.THE_HUNT.id} />}
       </Rule>
 
       <Rule
@@ -130,6 +130,30 @@ const VengeanceDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }
           )}
         </Rule>
       )}
+
+      <Rule
+        name="Manage your Fury properly"
+        description={(
+          <>
+            You should always avoid capping your Fury and spend it regularly.
+          </>
+        )}
+      >
+        <Requirement
+          name="Total Fury Waste"
+          thresholds={thresholds.furyDetails}
+        />
+        {combatant.hasTalent(SPELLS.IMMOLATION_AURA.id) && (
+          <Requirement
+            name={(
+              <>
+                <SpellLink id={SPELLS.IMMOLATION_AURA.id} /> Fury wasted
+              </>
+            )}
+            thresholds={thresholds.immolationAuraEfficiency}
+          />
+        )}
+      </Rule>
 
       <PreparationRule thresholds={thresholds} />
 
