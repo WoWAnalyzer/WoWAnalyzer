@@ -169,6 +169,18 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LIFEBLOOM_HOT_HEAL,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: !combatant.hasLegendaryByBonusID(SPELLS.LIFEBLOOM_DTL_HOT_HEAL.bonusID),
+        gcd: {
+          base: 1500,
+        },
+        healSpellIds: [
+          SPELLS.LIFEBLOOM_BLOOM_HEAL.id,
+        ],
+      },
+      {
+        spell: SPELLS.LIFEBLOOM_DTL_HOT_HEAL,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasLegendaryByBonusID(SPELLS.LIFEBLOOM_DTL_HOT_HEAL.bonusID),
         gcd: {
           base: 1500,
         },

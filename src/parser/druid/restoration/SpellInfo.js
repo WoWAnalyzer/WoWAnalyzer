@@ -105,6 +105,15 @@ export const DRUID_HEAL_INFO = {
     masteryStack: true,
     vers: true,
   },
+  [SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id]: {
+    int: true,
+    crit: true,
+    hasteHpm: true,
+    hasteHpct: false,
+    mastery: true,
+    masteryStack: true,
+    vers: true,
+  },
   [SPELLS.LIFEBLOOM_BLOOM_HEAL.id]: {
     int: true,
     crit: true,

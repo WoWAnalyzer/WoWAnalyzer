@@ -1079,7 +1079,6 @@ export const Tora: Contributor = {
     "Website": "https://warlock.ai"
   },
 };
-
 export const Kettlepaw: Contributor = {
   nickname: 'Kettlepaw',
   github: 'abbottmg',
@@ -1115,4 +1114,19 @@ export const flurreN: Contributor = {
     spec: SPECS.HAVOC_DEMON_HUNTER,
     link: 'https://worldofwarcraft.com/en-gb/character/eu/stormscale/zyg',
   }],
+};
+export const Carrottopp: Contributor = {
+  nickname: "Carrottopp",
+  github: "Chasson1992",
+  avatar: require('./interface/images/avatars/Carrottopp_avatar.png'),
+  discord: "Carrottopp#2592",
+  mains: [{
+    name: "Carrottopp",
+    spec: SPECS.ARMS_WARRIOR,
+    link: "https://worldofwarcraft.com/en-us/character/us/stormrage/carrottopp",
+  }],
+};
+export const Vexxra: Contributor = {
+  nickname: 'Vexxra',
+  github: 'vexxra',
 };
