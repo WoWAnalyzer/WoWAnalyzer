@@ -18,8 +18,8 @@ class DarkThoughts extends Analyzer {
   };
   protected eventHistory!: EventHistory;
 
-  procsGained: number = 0;
-  procsUsed: number = 0;
+  procsGained = 0;
+  procsUsed = 0;
 
   constructor(options: Options) {
     super(options);
