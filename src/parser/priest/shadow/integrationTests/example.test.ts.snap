@@ -4041,6 +4041,60 @@ Array [
 ]
 `;
 
+exports[`Shadow Priest integration test: example log DarkThoughts matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="GENERAL"
+    className="panel statistic flexible "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=341205"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Dark Thoughts"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/ability_priest_thoughtsteal01.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=341205"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Dark Thoughts
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          6
+          /
+          6
+           
+          <small>
+            Procs Used
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Shadow Priest integration test: example log DevouringPlague matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"

@@ -696,6 +696,7 @@
   "priest.holy.suggestions.fortitudeRaidBuff.uptime": "{0}% Power Word: Fortitude uptime",
   "priest.holy.suggestions.spiritOfRedemption.efficiency": "{actual} seconds spent redeeming",
   "priest.shadow.suggestions.alwaysBeCasting.downtime": "{0}% downtime",
+  "priest.shadow.suggestions.darkThoughts.efficiency": "",
   "priest.shadow.suggestions.dispersion.uptime": "{0}% Dispersion uptime",
   "priest.shadow.suggestions.shadowWordPain.uptime": "{0}% Shadow Word: Pain uptime",
   "priest.shadow.suggestions.unfurlingDarkness.efficiency": "",
