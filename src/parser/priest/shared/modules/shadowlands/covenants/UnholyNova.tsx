@@ -11,9 +11,12 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import Events, { ApplyDebuffEvent, CastEvent, DamageEvent, EventType, HealEvent } from 'parser/core/Events';
 import ItemHealingDone from 'interface/ItemHealingDone';
-import { formatNumber } from 'common/format';
 
 const APPLICATION_THRESHOLD = 5000;
+
+// Holy: https://www.warcraftlogs.com/reports/MtraPqxwdB4hRG7j#fight=2
+// Shadow: https://www.warcraftlogs.com/reports/KVDfG2wnb8pABJhj#fight=45
+// Disc: https://www.warcraftlogs.com/reports/GWPC9kQ41yg6z8Xx#fight=47
 
 class UnholyNova extends Analyzer {
   totalDamage = 0;
