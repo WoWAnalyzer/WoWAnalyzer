@@ -365,6 +365,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -377,6 +380,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
         enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -389,6 +395,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 45,
         enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
@@ -401,6 +410,9 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
         enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
