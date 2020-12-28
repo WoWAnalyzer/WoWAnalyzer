@@ -24,13 +24,13 @@ import DemonBlades from './modules/talents/DemonBlades';
 import ImmolationAura from './modules/talents/ImmolationAura';
 import TrailofRuin from './modules/talents/TrailofRuin';
 import FelBarrage from './modules/talents/FelBarrage';
-import FelMastery from './modules/talents/FelMastery';
 import Netherwalk from './modules/talents/Netherwalk';
 import FelEruption from './modules/talents/FelEruption';
 import MasterOfTheGlaives from './modules/talents/MasterOfTheGlaives';
-import DarkSlash from './modules/talents/DarkSlash';
+import EssenceBreak from './modules/talents/EssenceBreak';
 import CycleOfHatred from './modules/talents/CycleOfHatred';
 import Demonic from './modules/talents/Demonic';
+import GlaiveTempest from './modules/talents/GlaiveTempest';
 
 //Resources
 import FuryDetails from './modules/resourcetracker/FuryDetails';
@@ -64,14 +64,14 @@ class CombatLogParser extends CoreCombatLogParser {
     immolationAura: ImmolationAura,
     trailofRuin: TrailofRuin,
     felBarrage: FelBarrage,
-    felMastery: FelMastery,
     momentum: Momentum,
     netherwalk: Netherwalk,
     felEruption: FelEruption,
     masterOfTheGlaives: MasterOfTheGlaives,
-    darkSlash: DarkSlash,
+    essenceBreak: EssenceBreak,
     cycleOfHatred: CycleOfHatred,
     demonic: Demonic,
+    glaiveTempest:GlaiveTempest,
 
     //Resources
     furyTracker: FuryTracker,

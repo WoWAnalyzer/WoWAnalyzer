@@ -16,7 +16,7 @@ const spells = {
     name: 'Consume Soul',
     icon: 'ability_warlock_improvedsoulleech',
   },
-  FELBLADE_PAIN_GENERATION: {
+  FELBLADE_DAMAGE: {
     id: 213243,
     name: 'Felblade',
     icon: 'ability_demonhunter_felblade',
@@ -153,9 +153,14 @@ const spells = {
     name: 'Immolation Aura',
     icon: 'ability_demonhunter_immolation',
   },
-  IMMOLATION_AURA_FIRST_STRIKE: {
+  IMMOLATION_AURA_INITIAL_HIT_DAMAGE: {
     id: 258921,
     name: 'Immolation Aura First Strike',
+    icon: 'ability_demonhunter_immolation',
+  },
+  IMMOLATION_AURA_BUFF_DAMAGE: {
+    id: 258922,
+    name: 'Immolation Aura Second Strike',
     icon: 'ability_demonhunter_immolation',
   },
   INFERNAL_STRIKE: {
@@ -434,11 +439,6 @@ const spells = {
     name: 'Momentum',
     icon: 'ability_foundryraid_demolition',
   },
-  FEL_MASTERY_FURY: {
-    id: 234244,
-    name: 'Fel Mastery',
-    icon: 'ability_skyreach_piercing_rush',
-  },
   TRAIL_OF_RUIN_DAMAGE: {
     id: 258883,
     name: 'Trail of Ruin',
@@ -453,6 +453,16 @@ const spells = {
     id: 213405,
     name: 'Master of the Glaive Debuff',
     icon: 'inv_glaive_1h_demonhunter_a_01',
+  },
+  ESSENCE_BREAK_DAMAGE: {
+    id: 320338,
+    name: 'Essence Break',
+    icon: 'spell_shadow_ritualofsacrifice',
+  },
+  GLAIVE_TEMPEST_DAMAGE: {
+    id: 342857,
+    name: 'Glaive Tempest',
+    icon: 'inv_glaive_1h_artifactazgalor_d_06dual',
   },
 } as const;
 
