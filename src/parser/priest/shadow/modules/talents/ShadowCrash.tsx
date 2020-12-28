@@ -18,9 +18,9 @@ class ShadowCrash extends Analyzer {
     abilityTracker: AbilityTracker,
   };
 
-  damage: number = 0;
-  insanityGained: number = 0;
-  totalTargetsHit: number = 0;
+  damage = 0;
+  insanityGained = 0;
+  totalTargetsHit = 0;
   protected abilityTracker!: AbilityTracker;
 
   constructor(options: Options) {
@@ -36,7 +36,7 @@ class ShadowCrash extends Analyzer {
 
   onDamage(event: DamageEvent) {
     this.totalTargetsHit += 1;
-    this.damage += event.amount;
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   onEnergize(event: EnergizeEvent) {
