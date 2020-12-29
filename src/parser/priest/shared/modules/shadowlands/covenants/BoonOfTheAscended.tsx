@@ -97,7 +97,7 @@ class BoonOfTheAscended extends Analyzer {
         size="flexible"
         tooltip={(
           <>
-            Average Boon Stacks: {this.averageStacks}<br />
+            Average Boon Stacks: {formatNumber(this.averageStacks)}<br />
             Healing Breakdown:
             <ul>
               {this.atonementHealing > 0 && <li>{formatNumber(this.atonementHealing)} Atonement Healing ({formatPercentage(this.atonementOverHealing/(this.atonementOverHealing + this.atonementHealing))} %OH)</li>}
