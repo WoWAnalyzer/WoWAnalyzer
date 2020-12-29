@@ -58,11 +58,11 @@ const HavocDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }) =>
             thresholds={thresholds.blindFuryBadCasts}
           />
         )}
-        {combatant.hasTalent(SPELLS.DEMONIC_TALENT.id) && (
+        {combatant.hasTalent(SPELLS.DEMONIC_TALENT_HAVOC.id) && (
           <Requirement
             name={(
               <>
-                <SpellLink id={SPELLS.DEMONIC_TALENT.id} /> bad casts
+                <SpellLink id={SPELLS.DEMONIC_TALENT_HAVOC.id} /> bad casts
               </>
             )}
             thresholds={thresholds.demonicBadCasts}
