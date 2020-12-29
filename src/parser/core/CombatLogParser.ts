@@ -30,6 +30,7 @@ import PhaseChangesNormalizer from '../shared/normalizers/PhaseChanges';
 import MissingCastsNormalizer from '../shared/normalizers/MissingCasts';
 // Enhancers
 import SpellTimeWaitingOnGlobalCooldown from '../shared/enhancers/SpellTimeWaitingOnGlobalCooldown';
+import SoulInfusion from '../shared/enhancers/SoulInfusion';
 // Core modules
 import HealingDone from '../shared/modules/throughput/HealingDone';
 import DamageDone from '../shared/modules/throughput/DamageDone';
@@ -141,6 +142,7 @@ class CombatLogParser {
 
     // Enhancers
     spellTimeWaitingOnGlobalCooldown: SpellTimeWaitingOnGlobalCooldown,
+    soulInfusion: SoulInfusion,
 
     // Analyzers
     healingDone: HealingDone,

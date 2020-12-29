@@ -8,7 +8,7 @@ import { change, date } from 'common/changelog';
 
 // prettier-ignore
 export default [
-  change(date(2020, 12, 29), <><SpellLink id={SPELLS.SOUL_INFUSION.id} /> icon is now shown in Timeline and Events</>, flurreN),
+  change(date(2020, 12, 29), <><SpellLink id={SPELLS.SOUL_INFUSION.id} /> is now being shown as channeld in Timeline and fixed bad icon</>, flurreN),
   change(date(2020, 12, 28), <>Fixed the Changelog dropdown selector displaying incorrectly.</>, Adoraci),
   change(date(2020, 12, 22), <>Re-enabled the QElive button for healers that have it supported.</>, Abelito75),
   change(date(2020, 12, 22), <>Added support for <ItemLink id={ITEMS.DARKMOON_DECK_VORACITY.id} /> and corrected downtime issues in fights where you had <SpellLink id={SPELLS.POWER_INFUSION.id} />.</>, Putro),
