@@ -108,7 +108,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.PURIFYING_BREW,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: (haste) =>
-          (combatant.hasTalent(SPELLS.LIGHT_BREWING_TALENT) ? 20 : 16) / (1 + haste),
+          (combatant.hasTalent(SPELLS.LIGHT_BREWING_TALENT) ? 16 : 20) / (1 + haste),
         charges: 2,
         gcd: null,
         castEfficiency: {
@@ -119,7 +119,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CELESTIAL_BREW,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: combatant.hasTalent(SPELLS.LIGHT_BREWING_TALENT) ? 60 : 48,
+        cooldown: combatant.hasTalent(SPELLS.LIGHT_BREWING_TALENT) ? 48 : 60,
         gcd: {
           static: 1000,
         },
