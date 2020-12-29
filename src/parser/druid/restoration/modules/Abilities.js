@@ -460,7 +460,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.TYPHOON.id),
       },
       {
         spell: SPELLS.MIGHTY_BASH_TALENT,

@@ -30,6 +30,8 @@ import AuspiciousSpirits from './modules/talents/AuspiciousSpirits';
 // normalizers
 import ShadowfiendNormalizer from '../shared/normalizers/ShadowfiendNormalizer';
 import Buffs from './modules/features/Buffs';
+// conduits
+import DissonantEchoes from './modules/shadowlands/conduits/DissonantEchoes';
 
 // Covenants
 import UnholyNova from '../shared/modules/shadowlands/covenants/UnholyNova';
@@ -69,11 +71,15 @@ class CombatLogParser extends MainCombatLogParser {
     shadowCrash: ShadowCrash,
     auspiciousSpirits: AuspiciousSpirits,
 
+    // normalizers:
     shadowfiendNormalizer: ShadowfiendNormalizer,
 
-    // Covenants
+    // covenants:
     unholyNova: UnholyNova,
     faeGuardians: FaeGuardians,
+
+    // conduits:
+    dissonantEchoes: DissonantEchoes,
   };
 }
 

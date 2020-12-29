@@ -23,7 +23,7 @@ class DuskwalkersPatch extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.DUSKWALERS_PATCH.bonusID);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.DUSKWALKERS_PATCH.bonusID);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
 
@@ -35,11 +35,11 @@ class DuskwalkersPatch extends Analyzer {
     }
     this.lastEnergyCost = resource.cost || 0;
     const cooldownReductionMs = ASS_VEN_CDR_PER_ENERGY * (resource.cost || 0);
-    const effectiveReductionMs = cooldownReductionMs - this.spellUsable.cooldownRemaining(SPELLS.EXHILERATION.id);
+    const effectiveReductionMs = cooldownReductionMs - this.spellUsable.cooldownRemaining(SPELLS.VENDETTA.id);
     if (effectiveReductionMs < cooldownReductionMs) {
       this.wastedVendettaReductionMs += (cooldownReductionMs - effectiveReductionMs);
     }
-    this.effectiveVendettaReductionMs += this.spellUsable.reduceCooldown(SPELLS.EXHILERATION.id, cooldownReductionMs);
+    this.effectiveVendettaReductionMs += this.spellUsable.reduceCooldown(SPELLS.VENDETTA.id, cooldownReductionMs);
   }
 
   statistic() {

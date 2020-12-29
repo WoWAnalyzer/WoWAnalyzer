@@ -68,7 +68,7 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
       spellInfo = this.getRisingSunKickDetails(spellInfo);
     } else if (spellId === SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id) {
       spellInfo = this.getYulonDetails(spellInfo);
-    } else if (spellId === SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id) {
+    } else if (spellId === SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id) {
       spellInfo = this.getChijiDetails(spellInfo);
     } else if (spellId === SPELLS.EXPEL_HARM.id) {
       spellInfo = this.getExpelHarmDetails(spellInfo);
