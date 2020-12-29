@@ -298,6 +298,18 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.SPIRIT_SHELL_TALENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(SPELLS.SPIRIT_SHELL_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+        },
+      },
+      {
         spell: SPELLS.SHADOW_WORD_DEATH,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {

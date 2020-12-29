@@ -663,6 +663,13 @@ const spells = {
     name: 'Shadow Crash',
     icon: 'spell_shadow_shadowfury',
   },
+
+  // Disc
+  SPIRIT_SHELL_TALENT_BUFF: {
+    id: 114908,
+    name: "Spirit Shell",
+    icon: "ability_shaman_astralshift.jpg"
+  },
 } as const;
 
 export default spells;
