@@ -16,8 +16,6 @@ import { Options } from 'parser/core/Module';
 import AtonementDamageSource from 'parser/priest/discipline/modules/features/AtonementDamageSource';
 import SPECS from 'game/SPECS';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import SpellLink from 'common/SpellLink';
-import StatisticBar from 'interface/statistics/StatisticBar';
 import SpellIcon from 'common/SpellIcon';
 import { TooltipElement } from 'common/Tooltip';
 
@@ -48,6 +46,12 @@ interface AscendedSpellTracker {
 // Holy: https://www.warcraftlogs.com/reports/xf7zjvNghdXVRrFT#fight=7&type=healing&graphperf=1&source=18
 // Disc: https://www.warcraftlogs.com/reports/FwfkDG87xzV9CWra#fight=17&type=healing&source=14
 class BoonOfTheAscended extends Analyzer {
+  castCount = 0;
+  stackTracker: number[] = [];
+
+  // Disc Specific
+  atonementDamageSource: AtonementDamageSource | null = null;
+
   ascendedSpellTracker: { [spellId: number]: AscendedSpellTracker } = {
     [SPELLS.ASCENDED_BLAST.id]: {
       casts: 0,
@@ -121,11 +125,6 @@ class BoonOfTheAscended extends Analyzer {
     return total;
   }
 
-  stackTracker: number[] = [];
-
-  // Disc Specific
-  atonementDamageSource: AtonementDamageSource | null = null;
-
   get averageStacks() {
     if (this.stackTracker.length === 0) {
       return 0;
@@ -151,9 +150,14 @@ class BoonOfTheAscended extends Analyzer {
       this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.ATONEMENT_HEAL_NON_CRIT, SPELLS.ATONEMENT_HEAL_CRIT]), this.onAtonmentHeal);
     }
 
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BOON_OF_THE_ASCENDED), this.onCast)
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BOON_OF_THE_ASCENDED), this.onBuffRemove);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.ASCENDED_BLAST, SPELLS.ASCENDED_NOVA, SPELLS.ASCENDED_ERUPTION]), this.onDamage)
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.ASCENDED_BLAST_HEAL, SPELLS.ASCENDED_NOVA_HEAL, SPELLS.ASCENDED_ERUPTION_HEAL]), this.onNormalHeal);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BOON_OF_THE_ASCENDED), this.onBuffRemove);
+  }
+
+  onCast() {
+    this.castCount += 1;
   }
 
   onDamage(event: DamageEvent) {
@@ -206,54 +210,62 @@ class BoonOfTheAscended extends Analyzer {
       rows.push(
         <tr key={'bota_' + spellId}>
           <td><SpellIcon id={Number(spellId)} style={{ height: '2.4em' }} /></td>
-          <td>{formatNumber(this.ascendedSpellTracker[spellId].healingDone)}</td>
           <td>
-            <TooltipElement content={this.ascendedSpellTracker[spellId].overHealingDone}>
-              {this.getOverhealingPercent(this.ascendedSpellTracker[spellId].healingDone, this.ascendedSpellTracker[spellId].overHealingDone)}%
+            <TooltipElement content={`${this.getOverhealingPercent(this.ascendedSpellTracker[spellId].healingDone, this.ascendedSpellTracker[spellId].overHealingDone)}% Overhealing`}>
+              {formatNumber(this.ascendedSpellTracker[spellId].healingDone)}
             </TooltipElement>
+          </td>
+          {this.isDisc && <td>
+            <TooltipElement content={`${this.getOverhealingPercent(this.ascendedSpellTracker[spellId].atonmentHealingDone, this.ascendedSpellTracker[spellId].atonementOverHealingDone)}% Overhealing`}>
+              {formatNumber(this.ascendedSpellTracker[spellId].atonmentHealingDone)}
+            </TooltipElement>
+          </td>}
+          <td>{formatNumber(this.ascendedSpellTracker[spellId].damageDone)}</td>
+          <td>
+            <span style={{color:'green'}}>{this.ascendedSpellTracker[spellId].friendlyHits}</span> |
+            <span style={{color:'red'}}> {this.ascendedSpellTracker[spellId].enemyHits}</span>
           </td>
         </tr>,
       );
-
     }
+
+    return rows;
   }
 
   statistic() {
     return (
       <Statistic
+        wide={this.isDisc}
         size="flexible"
+        tooltip={
+          <>
+            Total Casts: {this.castCount}<br />
+            Average Boon Stacks: {this.averageStacks}
+          </>
+        }
         dropdown={(
           <>
-            Average Boon Stacks: {formatNumber(this.averageStacks)}<br />
-            Direct Healing Breakdown:
-            <ul>
-              <li><SpellIcon id={SPELLS.ASCENDED_BLAST.id} /> {formatNumber(this.ascendedSpellTracker[SPELLS.ASCENDED_BLAST.id].healingDone)} ({this.getOverhealingPercent(this.ascendedSpellTracker[SPELLS.ASCENDED_BLAST.id].healingDone, this.ascendedSpellTracker[SPELLS.ASCENDED_BLAST.id].overHealingDone)}% OH)</li>
-              <li><SpellIcon id={SPELLS.ASCENDED_ERUPTION.id} /> {formatNumber(this.ascendedSpellTracker[SPELLS.ASCENDED_ERUPTION.id].healingDone)} ({this.getOverhealingPercent(this.ascendedSpellTracker[SPELLS.ASCENDED_ERUPTION.id].healingDone, this.ascendedSpellTracker[SPELLS.ASCENDED_ERUPTION.id].overHealingDone)}% OH)</li>
-              <li><SpellIcon id={SPELLS.ASCENDED_NOVA.id} /> {formatNumber(this.ascendedSpellTracker[SPELLS.ASCENDED_NOVA.id].healingDone)} ({this.getOverhealingPercent(this.ascendedSpellTracker[SPELLS.ASCENDED_NOVA.id].healingDone, this.ascendedSpellTracker[SPELLS.ASCENDED_NOVA.id].overHealingDone)}% OH)</li>
-            </ul>
-            {this.isDisc &&
-            <>
-              Atonement Healing Breakdown
-              <ul>
-                <li><SpellIcon id={SPELLS.ASCENDED_BLAST.id} /> {formatNumber(this.ascendedSpellTracker[SPELLS.ASCENDED_BLAST.id].atonmentHealingDone)} ({this.getOverhealingPercent(this.ascendedSpellTracker[SPELLS.ASCENDED_BLAST.id].atonmentHealingDone, this.ascendedSpellTracker[SPELLS.ASCENDED_BLAST.id].atonementOverHealingDone)}% OH)</li>
-                <li><SpellIcon id={SPELLS.ASCENDED_ERUPTION.id} /> {formatNumber(this.ascendedSpellTracker[SPELLS.ASCENDED_ERUPTION.id].atonmentHealingDone)} ({this.getOverhealingPercent(this.ascendedSpellTracker[SPELLS.ASCENDED_ERUPTION.id].atonmentHealingDone, this.ascendedSpellTracker[SPELLS.ASCENDED_ERUPTION.id].atonementOverHealingDone)}% OH)</li>
-                <li><SpellIcon id={SPELLS.ASCENDED_NOVA.id} /> {formatNumber(this.ascendedSpellTracker[SPELLS.ASCENDED_NOVA.id].atonmentHealingDone)} ({this.getOverhealingPercent(this.ascendedSpellTracker[SPELLS.ASCENDED_NOVA.id].atonmentHealingDone, this.ascendedSpellTracker[SPELLS.ASCENDED_NOVA.id].atonementOverHealingDone)}% OH)</li>
-              </ul>
-            </>
-            }
-            Damage Breakdown:
-            <ul>
-              <li><SpellIcon id={SPELLS.ASCENDED_BLAST.id} /> {formatNumber(this.ascendedSpellTracker[SPELLS.ASCENDED_BLAST.id].damageDone)}</li>
-              <li><SpellIcon id={SPELLS.ASCENDED_ERUPTION.id} /> {formatNumber(this.ascendedSpellTracker[SPELLS.ASCENDED_ERUPTION.id].damageDone)}</li>
-              <li><SpellIcon id={SPELLS.ASCENDED_NOVA.id} /> {formatNumber(this.ascendedSpellTracker[SPELLS.ASCENDED_NOVA.id].damageDone)}</li>
-            </ul>
+            <table className={this.isDisc ? "table" : "table table-condensed"}>
+              <thead>
+                <tr>
+                  <th>Spell</th>
+                  <th>Healing</th>
+                  {this.isDisc && <th>Atonement Healing</th>}
+                  <th>Damage</th>
+                  <th>Targets Hit</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.spellTable()}
+              </tbody>
+            </table>
           </>
         )}
         category={STATISTIC_CATEGORY.COVENANTS}
       >
         <BoringSpellValueText spell={SPELLS.BOON_OF_THE_ASCENDED}>
-            <ItemDamageDone amount={this.totalDamage} /><br />
-            <ItemHealingDone amount={this.totalAtonementHealing + this.totalDirectHealing} />
+          <ItemHealingDone amount={this.totalAtonementHealing + this.totalDirectHealing} />
+          <ItemDamageDone amount={this.totalDamage} /><br />
         </BoringSpellValueText>
       </Statistic>
     );
