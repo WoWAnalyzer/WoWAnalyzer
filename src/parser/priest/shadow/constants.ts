@@ -18,3 +18,6 @@ export const VOID_FORM_ACTIVATORS = [
   SPELLS.VOID_ERUPTION.id,
   SPELLS.SURRENDER_TO_MADNESS_TALENT.id,
 ];
+
+// Shadowlands Conduits
+export const DISSONANT_ECHOES_DAMAGE_INCREASE = 1.35;
