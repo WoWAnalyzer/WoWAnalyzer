@@ -20,7 +20,7 @@ const ItemInsanityGained = (
   <>
     <InsanityIcon /> {approximate && '≈'}
     {formatNumber(amount)}
-    <small>Insanity Generated</small>
+    <small> Insanity Generated</small>
   </>
 );
 ItemInsanityGained.contextTypes = {

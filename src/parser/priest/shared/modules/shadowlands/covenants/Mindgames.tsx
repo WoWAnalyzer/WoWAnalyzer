@@ -10,32 +10,47 @@ import { formatNumber } from 'common/format';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { AbsorbedEvent, HealEvent } from 'parser/core/Events';
+import Events, { AbsorbedEvent, DamageEvent, EnergizeEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 
-import AtonementDamageSource from '../../features/AtonementDamageSource';
-import isAtonement from '../../core/isAtonement';
+import AtonementDamageSource from 'parser/priest/discipline/modules/features/AtonementDamageSource';
+import isAtonement from 'parser/priest/discipline/modules/core/isAtonement';
+import SPECS from 'game/SPECS';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import ItemInsanityGained from 'parser/priest/shadow/interface/ItemInsanityGained';
+import ItemDamageDone from 'interface/ItemDamageDone';
 
+// Shadow: https://www.warcraftlogs.com/reports/Bx7h3bzGKm9CHqF6#fight=1&type=damage-done&source=10
+// Holy: https://www.warcraftlogs.com/reports/MCyn6jhQf13YbRHt#fight=14&type=healing&source=41
+// Disc: https://www.warcraftlogs.com/reports/NWctPky1vKapJVM8#fight=10&type=healing&graphperf=1&source=183
 class Mindgames extends Analyzer {
-  static dependencies = {
-    atonementDamageSource: AtonementDamageSource,
-  };
-  atonementHealing = 0;
   directHealing = 0;
   preventedDamage = 0;
-  protected atonementDamageSource!: AtonementDamageSource;
+  totalDamage = 0;
+
+  // Disc Specific
+  atonementDamageSource: AtonementDamageSource | null = null;
+  atonementHealing = 0;
+
+  // Shadow Specific
+  insanityGenerated = 0;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id);
 
+    if(this.selectedCombatant.spec === SPECS.DISCIPLINE_PRIEST) {
+      this.atonementDamageSource = this.owner.getModule(AtonementDamageSource);
+    }
+
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
     this.addEventListener(Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.MINDGAMES_ABSORB), this.onMindgamesAbsorbed);
+    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.MINDGAMES_HEAL), this.onEnergize);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MINDGAMES), this.onDamage);
   }
 
   onHeal(event: HealEvent) {
-    if (isAtonement(event)) {
-
+    if (isAtonement(event) && this.atonementDamageSource) {
       const atonenementDamageEvent = this.atonementDamageSource.event;
       if (!atonenementDamageEvent || atonenementDamageEvent.ability.guid !== SPELLS.MINDGAMES.id) {
         return;
@@ -56,6 +71,16 @@ class Mindgames extends Analyzer {
     this.preventedDamage += event.amount;
   }
 
+  onEnergize(event: EnergizeEvent) {
+    if (event.resourceChangeType === RESOURCE_TYPES.INSANITY.id) {
+      this.insanityGenerated += (event.resourceChange || 0);
+    }
+  }
+
+  onDamage(event: DamageEvent) {
+    this.totalDamage += event.amount;
+  }
+
   statistic() {
     return (
       <Statistic
@@ -64,7 +89,7 @@ class Mindgames extends Analyzer {
           <>
             Healing Breakdown:
             <ul>
-              <li>{formatNumber(this.atonementHealing)} Atonement Healing</li>
+              {this.atonementHealing > 0 && <li>{formatNumber(this.atonementHealing)} Atonement Healing</li>}
               <li>{formatNumber(this.directHealing)} Direct Healing</li>
               <li>{formatNumber(this.preventedDamage)} Prevented Damage</li>
             </ul>
@@ -74,7 +99,9 @@ class Mindgames extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.MINDGAMES}>
           <>
-            <ItemHealingDone amount={this.atonementHealing + this.directHealing + this.preventedDamage} />
+            <ItemDamageDone amount={this.totalDamage} /><br/>
+            <ItemHealingDone amount={this.atonementHealing + this.directHealing + this.preventedDamage} /><br/>
+            {this.insanityGenerated > 0 && <><ItemInsanityGained amount={this.insanityGenerated} /></>}
           </>
         </BoringSpellValueText>
       </Statistic>

@@ -34,6 +34,7 @@ import Buffs from './modules/features/Buffs';
 import DissonantEchoes from './modules/shadowlands/conduits/DissonantEchoes';
 
 // Covenants
+import Mindgames from '../shared/modules/shadowlands/covenants/Mindgames';
 import UnholyNova from '../shared/modules/shadowlands/covenants/UnholyNova';
 import FaeGuardians from '../shared/modules/shadowlands/covenants/FaeGuardians';
 
@@ -77,6 +78,7 @@ class CombatLogParser extends MainCombatLogParser {
     // covenants:
     unholyNova: UnholyNova,
     faeGuardians: FaeGuardians,
+    mindGames: Mindgames,
 
     // conduits:
     dissonantEchoes: DissonantEchoes,
