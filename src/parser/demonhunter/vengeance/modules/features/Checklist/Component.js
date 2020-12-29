@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-
 import Checklist from 'parser/shared/modules/features/Checklist';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
@@ -166,6 +164,7 @@ VengeanceDemonHunterChecklist.propTypes = {
   combatant: PropTypes.shape({
     hasTalent: PropTypes.func.isRequired,
     hasCovenant: PropTypes.func.isRequired,
+    hasLegendaryByBonusID: PropTypes.func.isRequired,
   }).isRequired,
   thresholds: PropTypes.object.isRequired,
 };
