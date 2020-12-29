@@ -30,7 +30,6 @@ import PhaseChangesNormalizer from '../shared/normalizers/PhaseChanges';
 import MissingCastsNormalizer from '../shared/normalizers/MissingCasts';
 // Enhancers
 import SpellTimeWaitingOnGlobalCooldown from '../shared/enhancers/SpellTimeWaitingOnGlobalCooldown';
-import SoulInfusion from '../shared/enhancers/SoulInfusion';
 // Core modules
 import HealingDone from '../shared/modules/throughput/HealingDone';
 import DamageDone from '../shared/modules/throughput/DamageDone';
@@ -85,6 +84,7 @@ import BloodFury from '../shared/modules/racials/orc/BloodFury';
 // Shared Buffs
 import VantusRune from '../shared/modules/spells/VantusRune';
 // Shadowlands
+import SoulInfusion from '../shared/modules/spells/SoulInfusion';
 // Dungeons
 // PVP
 //Enchants
@@ -142,7 +142,6 @@ class CombatLogParser {
 
     // Enhancers
     spellTimeWaitingOnGlobalCooldown: SpellTimeWaitingOnGlobalCooldown,
-    soulInfusion: SoulInfusion,
 
     // Analyzers
     healingDone: HealingDone,
@@ -204,6 +203,10 @@ class CombatLogParser {
 
     // Crafted
     darkmoonDeckVoracity: DarkmoonDeckVoracity,
+
+    // Shadowlands 
+    soulInfusion: SoulInfusion,
+
   };
   // Override this with spec specific modules when extending
   static specModules: DependenciesDefinition = {};
