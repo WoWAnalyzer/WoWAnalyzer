@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
@@ -23,12 +23,9 @@ class IceBite extends Analyzer {
   conduitRank = 0;
   bonusDamage = 0;
 
-  constructor(props: Options) {
-    super(props);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.ICE_BITE.id);
-    if (!this.active) {
-      return;
-    }
     this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.ICE_BITE.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ICE_LANCE_DAMAGE), this.onIceLanceDamage);
   }
@@ -43,12 +40,12 @@ class IceBite extends Analyzer {
   statistic() {
     return (
       <Statistic
-        category={STATISTIC_CATEGORY.ITEMS}
+        category={STATISTIC_CATEGORY.COVENANTS}
         size="flexible"
       >
-        <BoringSpellValueText spell={SPELLS.ICE_BITE}>
+        <ConduitSpellText spell={SPELLS.ICE_BITE} rank={this.conduitRank}>
           <ItemDamageDone amount={this.bonusDamage} />
-        </BoringSpellValueText>
+        </ConduitSpellText>
       </Statistic>
     );
   }
