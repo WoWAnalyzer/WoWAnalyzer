@@ -4,6 +4,7 @@ import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent'
 import EyeBeamNormalizer from './normalizers/EyeBeam';
 import Channeling from './modules/core/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
+import Buffs from './modules/Buffs';
 
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Abilities from './modules/Abilities';
@@ -30,15 +31,21 @@ import MasterOfTheGlaives from './modules/talents/MasterOfTheGlaives';
 import EssenceBreak from './modules/talents/EssenceBreak';
 import CycleOfHatred from './modules/talents/CycleOfHatred';
 import Demonic from './modules/talents/Demonic';
+import GlaiveTempest from './modules/talents/GlaiveTempest';
 
 //Resources
 import FuryDetails from './modules/resourcetracker/FuryDetails';
 import FuryTracker from './modules/resourcetracker/FuryTracker';
 
+//Legendaries
+import CollectiveAnguish from './modules/shadowlands/legendaries/CollectiveAnguish';
+import ChaosTheory from './modules/shadowlands/legendaries/ChaosTheory';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core Statistics
     channeling: Channeling,
+    buffs: Buffs,
 
     globalCooldown: GlobalCooldown,
 
@@ -70,6 +77,7 @@ class CombatLogParser extends CoreCombatLogParser {
     essenceBreak: EssenceBreak,
     cycleOfHatred: CycleOfHatred,
     demonic: Demonic,
+    glaiveTempest:GlaiveTempest,
 
     //Resources
     furyTracker: FuryTracker,
@@ -77,6 +85,10 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
+    
+    //Legendaries
+    collectiveAnguish: CollectiveAnguish,
+    chaosTheory: ChaosTheory,
   };
 }
 

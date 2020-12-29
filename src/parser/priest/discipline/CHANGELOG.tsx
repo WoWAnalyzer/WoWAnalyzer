@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 12, 28), <>Adding support for <SpellLink id={SPELLS.UNHOLY_NOVA.id} /></>, Khadaj),
   change(date(2020, 12, 2), <>Fixed damage bonus of <SpellLink id={SPELLS.SCHISM_TALENT.id} /> to 25% to match Shadowlands nerf.</>, [VMakaev]),
   change(date(2020, 11, 13), <>Implementation of <SpellLink id={SPELLS.SHINING_RADIANCE.id} />.</>, [Oratio]),
   change(date(2020, 10, 18), 'Converted legacy listeners to new event filters', Zeboot),

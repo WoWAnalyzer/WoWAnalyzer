@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import SPELLS from 'common/SPELLS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 import SpellLink from 'common/SpellLink';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
@@ -9,8 +10,8 @@ import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 
-const ArmWarriorChecklist = ({ combatant, castEfficiency, thresholds }) => {
-  const DotUptime = props => (
+const ArmWarriorChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
+  const DotUptime: any = (props: any) => (
     <Requirement
       name={(<><SpellLink id={props.id} icon /> uptime</>)}
       thresholds={props.thresholds}
@@ -20,7 +21,7 @@ const ArmWarriorChecklist = ({ combatant, castEfficiency, thresholds }) => {
     id: PropTypes.number.isRequired,
   };
 
-  const AbilityRequirement = props => (
+  const AbilityRequirement = (props: any) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
@@ -37,25 +38,28 @@ const ArmWarriorChecklist = ({ combatant, castEfficiency, thresholds }) => {
         description={(
           <>
             Spells such as <SpellLink id={SPELLS.COLOSSUS_SMASH.id} /> (or <SpellLink id={SPELLS.WARBREAKER_TALENT.id} /> if talented), <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> and <SpellLink id={SPELLS.OVERPOWER.id} /> are your most efficient spells available, try to cast them as much as possible.
-            Keep in mind that it is sometimes more useful to keep <SpellLink id={SPELLS.BLADESTORM.id} /> (or <SpellLink id={SPELLS.RAVAGER_ARMS_TALENT.id} />) and use it when several targets are present in the fight. &nbsp;
+            Keep in mind that it is sometimes more useful to keep <SpellLink id={SPELLS.BLADESTORM.id} /> (or <SpellLink id={SPELLS.RAVAGER_TALENT_ARMS.id} />) and use it when several targets are present in the fight. &nbsp;
             <a href="https://www.wowhead.com/arms-warrior-rotation-guide" target="_blank" rel="noopener noreferrer">More info.</a>
           </>
         )}
       >
         <AbilityRequirement spell={combatant.hasTalent(SPELLS.WARBREAKER_TALENT.id) ? SPELLS.WARBREAKER_TALENT.id : SPELLS.COLOSSUS_SMASH.id} />
-        <AbilityRequirement spell={combatant.hasTalent(SPELLS.RAVAGER_ARMS_TALENT.id) ? SPELLS.RAVAGER_ARMS_TALENT.id : SPELLS.BLADESTORM.id} />
+        <AbilityRequirement spell={combatant.hasTalent(SPELLS.RAVAGER_TALENT_ARMS.id) ? SPELLS.RAVAGER_TALENT_ARMS.id : SPELLS.BLADESTORM.id} />
         {combatant.hasTalent(SPELLS.SKULLSPLITTER_TALENT.id) && <AbilityRequirement spell={SPELLS.SKULLSPLITTER_TALENT.id} />}
         <AbilityRequirement spell={SPELLS.OVERPOWER.id} />
         {combatant.hasTalent(SPELLS.AVATAR_TALENT.id) && <AbilityRequirement spell={SPELLS.AVATAR_TALENT.id} />}
         {combatant.hasTalent(SPELLS.REND_TALENT.id) && <DotUptime id={SPELLS.REND_TALENT.id} thresholds={thresholds.rend} />}
         {combatant.hasTalent(SPELLS.DEADLY_CALM_TALENT.id) && <AbilityRequirement spell={SPELLS.DEADLY_CALM_TALENT.id} />}
+        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && <AbilityRequirement spell={SPELLS.ANCIENT_AFTERSHOCK.id} />}
+        {combatant.hasCovenant(COVENANTS.KYRIAN.id) && <AbilityRequirement spell={SPELLS.SPEAR_OF_BASTION.id} />}
+        {combatant.hasCovenant(COVENANTS.NECROLORD.id) && <AbilityRequirement spell={SPELLS.CONQUERORS_BANNER.id} />}
       </Rule>
 
       <Rule
         name={(<>Use <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> efficiently</>)}
         description={(
           <>
-            Mortal Strike shouldn't be used during the execution phase, you should cast it as much as possible when the target is above 20% (or 35% with <SpellLink id={SPELLS.MASSACRE_ARMS_TALENT.id} />) but avoid casting it when you reach the execution phase and use <SpellLink id={SPELLS.EXECUTE.id} /> instead since it is more rage efficient.
+            Mortal Strike shouldn't be used during the execution phase, you should cast it as much as possible when the target is above 20% (or 35% with <SpellLink id={SPELLS.MASSACRE_TALENT_ARMS.id} />) but avoid casting it when you reach the execution phase and use <SpellLink id={SPELLS.EXECUTE.id} /> instead since it is more rage efficient.
           </>
         )}
       >

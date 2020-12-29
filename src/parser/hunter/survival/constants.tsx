@@ -47,9 +47,9 @@ export const BOP_CA_EXTENSION_PER_CAST = 1500;
 /** Chakrams */
 //Chakrams has a bunch of different spellIDs for damage
 export const SURVIVAL_CHAKRAM_TYPES = [
-  SPELLS.CHAKRAMS_TO_MAINTARGET.id,
-  SPELLS.CHAKRAMS_BACK_FROM_MAINTARGET.id,
-  SPELLS.CHAKRAMS_NOT_MAINTARGET.id,
+  SPELLS.CHAKRAMS_TO_MAINTARGET,
+  SPELLS.CHAKRAMS_BACK_FROM_MAINTARGET,
+  SPELLS.CHAKRAMS_NOT_MAINTARGET,
 ];
 /** Flanking Strike */
 //Flanking Strikes regenerates 30 focus

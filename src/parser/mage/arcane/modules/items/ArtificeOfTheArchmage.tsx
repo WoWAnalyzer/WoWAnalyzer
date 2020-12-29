@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { EnergizeEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -14,11 +14,13 @@ class ArtificeOfTheArchmage extends Analyzer {
   }
   protected spellUsable!: SpellUsable;
 
+  conduitRank = 0;
   freeCharges = 0;
 
-  constructor(props: Options) {
-    super(props);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.ARTIFICE_OF_THE_ARCHMAGE.id);
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.ARTIFICE_OF_THE_ARCHMAGE.id);
     this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.ARTIFICE_OF_THE_ARCHMAGE_ENERGIZE), this.onEnergize);
   }
 
@@ -33,13 +35,13 @@ class ArtificeOfTheArchmage extends Analyzer {
   statistic() {
     return (
       <Statistic
-        category={STATISTIC_CATEGORY.ITEMS}
+        category={STATISTIC_CATEGORY.COVENANTS}
         size="flexible"
         tooltip={<>The number of Arcane Charges you received from the Artifice of the Archmage conduit. </>}
       >
-        <BoringSpellValueText spell={SPELLS.ARTIFICE_OF_THE_ARCHMAGE}>
+        <ConduitSpellText spell={SPELLS.ARTIFICE_OF_THE_ARCHMAGE} rank={this.conduitRank}>
           {this.freeCharges} <small>Free Arcane Charges</small>
-        </BoringSpellValueText>
+        </ConduitSpellText>
       </Statistic>
     );
   }

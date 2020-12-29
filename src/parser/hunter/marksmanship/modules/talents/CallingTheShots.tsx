@@ -75,7 +75,7 @@ class CallingTheShots extends Analyzer {
   suggestions(when: When) {
     when(this.callingTheShotsEfficacyThresholds).addSuggestion((suggest, actual, recommended) => suggest(
       <>
-        When talented into <SpellLink id={SPELLS.CALLING_THE_SHOTS_TALENT.id} />, it is important to maximize its potential by not casting {this.selectedCombatant.hasTalent(SPELLS.CHIMAERA_SHOT_MM_TALENT.id) ? <SpellLink id={SPELLS.CHIMAERA_SHOT_MM_TALENT.id} /> : <SpellLink id={SPELLS.ARCANE_SHOT.id} />} or <SpellLink id={SPELLS.MULTISHOT_MM.id} /> while <SpellLink id={SPELLS.TRUESHOT.id} /> isn't on cooldown.
+        When talented into <SpellLink id={SPELLS.CALLING_THE_SHOTS_TALENT.id} />, it is important to maximize its potential by not casting {this.selectedCombatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT_MARKSMANSHIP.id) ? <SpellLink id={SPELLS.CHIMAERA_SHOT_TALENT_MARKSMANSHIP.id} /> : <SpellLink id={SPELLS.ARCANE_SHOT.id} />} or <SpellLink id={SPELLS.MULTISHOT_MM.id} /> while <SpellLink id={SPELLS.TRUESHOT.id} /> isn't on cooldown.
       </>)
       .icon(SPELLS.CALLING_THE_SHOTS_TALENT.icon)
       .actual(t({

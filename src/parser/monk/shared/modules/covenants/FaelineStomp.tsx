@@ -50,7 +50,6 @@ class FaelineStomp extends Analyzer {
       },
     });
 
-    //summon events (need to track this to get melees)
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FAELINE_STOMP_CAST), this.casts);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FAELINE_STOMP_RESET), this.reset);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FAELINE_STOMP_DAMAGE_AND_HEAL), this.damage);
@@ -63,8 +62,10 @@ class FaelineStomp extends Analyzer {
   }
 
   reset(event: ApplyBuffEvent) {
-    this.spellUsable.endCooldown(SPELLS.FAELINE_STOMP_CAST.id);
-    this.resets += 1;
+    if(this.spellUsable.isOnCooldown(SPELLS.FAELINE_STOMP_CAST.id)){
+      this.spellUsable.endCooldown(SPELLS.FAELINE_STOMP_CAST.id);
+      this.resets += 1;
+    }
   }
 
   damage(event: DamageEvent) {

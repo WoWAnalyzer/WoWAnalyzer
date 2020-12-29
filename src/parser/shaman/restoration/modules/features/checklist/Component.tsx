@@ -92,11 +92,11 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: any) =>
         description={<Trans id="shaman.restoration.checklist.buffUptime.description">Water Shield and Earth Shield should be applied prior to the fight starting and maintained.<br />It is currently not possible to detect if you applied Water Shield before the pull or how good its uptime was, so just keep that in mind.</Trans>}
       >
           <Requirement
-            name={<Trans id="shaman.restoration.checklist.appliedPrepull"><SpellLink id={SPELLS.EARTH_SHIELD.id} /> applied prepull</Trans>}
+            name={<Trans id="shaman.restoration.checklist.appliedPrepull"><SpellLink id={SPELLS.EARTH_SHIELD_TALENT.id} /> applied prepull</Trans>}
             thresholds={thresholds.earthShieldPrepull}
           />
           <Requirement
-            name={<Trans id="shaman.restoration.checklist.uptime"><SpellLink id={SPELLS.EARTH_SHIELD.id} /> Uptime</Trans>}
+            name={<Trans id="shaman.restoration.checklist.uptime"><SpellLink id={SPELLS.EARTH_SHIELD_TALENT.id} /> Uptime</Trans>}
             thresholds={thresholds.earthShieldUptime}
           />
       </Rule>

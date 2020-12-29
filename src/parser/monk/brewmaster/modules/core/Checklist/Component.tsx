@@ -91,11 +91,17 @@ const Component = ({ combatant, castEfficiency, thresholds }: any) => {
             />
           </>
         )}
-        {combatant.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT_BREWMASTER.id) && (
+        {combatant.hasTalent(SPELLS.RUSHING_JADE_WIND.id) && (
           <Requirement
             name={<><SpellLink id={SPELLS.RUSHING_JADE_WIND.id} /> uptime</>}
             thresholds={thresholds.rjw}
           />
+        )}
+        {combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.CHI_BURST_TALENT.id} />
+        )}
+        {combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.CHI_WAVE_TALENT.id} />
         )}
       </Rule>
       <PreparationRule thresholds={thresholds}></PreparationRule>
