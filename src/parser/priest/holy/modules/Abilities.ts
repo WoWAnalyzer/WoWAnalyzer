@@ -378,6 +378,14 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.POWER_WORD_SHIELD,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        isDefensive: true,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: SPELLS.FLESHCRAFT,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
@@ -400,6 +408,21 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 90,
         enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+          averageIssueEfficiency: 0.6,
+          majorIssueEfficiency: 0.4,
+        },
+      },
+      {
+        spell: SPELLS.MINDGAMES,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 45,
+        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
