@@ -51,7 +51,31 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.RUSHING_JADE_WIND,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: (haste) => 6 / (1 + haste),
-        enabled: combatant.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT_BREWMASTER.id),
+        enabled: combatant.hasTalent(SPELLS.RUSHING_JADE_WIND.id),
+        gcd: {
+          static: 1000,
+        },
+      },
+      {
+        spell: SPELLS.CHI_BURST_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 30,
+        enabled: combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+        },
+        gcd: {
+          static: 1000,
+        },
+      },
+      {
+        spell: SPELLS.CHI_WAVE_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 15,
+        enabled: combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+        },
         gcd: {
           static: 1000,
         },
