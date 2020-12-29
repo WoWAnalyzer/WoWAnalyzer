@@ -225,7 +225,7 @@ class BoonOfTheAscended extends Analyzer {
             <span style={{color:'green'}}>{this.ascendedSpellTracker[spellId].friendlyHits}</span> |
             <span style={{color:'red'}}> {this.ascendedSpellTracker[spellId].enemyHits}</span>
           </td>
-        </tr>,
+        </tr>
       );
     }
 
