@@ -87,7 +87,7 @@ class BoonOfTheAscended extends Analyzer {
   }
 
   onBuffRemove() {
-    // This still tracks the buff count until after this event resolves.
+    // This has an accurate buff count until after this event resolves.
     this.stackTracker.push(this.selectedCombatant.getBuffStacks(SPELLS.BOON_OF_THE_ASCENDED.id));
   }
 
