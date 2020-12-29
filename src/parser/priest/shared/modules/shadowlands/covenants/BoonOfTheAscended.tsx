@@ -17,6 +17,12 @@ import AtonementDamageSource from 'parser/priest/discipline/modules/features/Ato
 import SPECS from 'game/SPECS';
 import ItemDamageDone from 'interface/ItemDamageDone';
 
+const DAMAGING_SPELL_IDS = [
+  SPELLS.ASCENDED_BLAST.id,
+  SPELLS.ASCENDED_NOVA.id,
+  SPELLS.ASCENDED_ERUPTION.id
+]
+
 // Shadow: https://www.warcraftlogs.com/reports/CdrMAqzkLaKZTVn4#fight=1&type=damage-done&graphperf=1&source=19
 // Holy: https://www.warcraftlogs.com/reports/xf7zjvNghdXVRrFT#fight=7&type=healing&graphperf=1&source=18
 // Disc: https://www.warcraftlogs.com/reports/FwfkDG87xzV9CWra#fight=17&type=healing&source=14
@@ -49,11 +55,11 @@ class BoonOfTheAscended extends Analyzer {
 
     if(this.selectedCombatant.spec === SPECS.DISCIPLINE_PRIEST) {
       this.atonementDamageSource = this.owner.getModule(AtonementDamageSource);
+      this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.ATONEMENT_HEAL_NON_CRIT, SPELLS.ATONEMENT_HEAL_CRIT]), this.onAtonmentHeal);
     }
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.ASCENDED_BLAST, SPELLS.ASCENDED_NOVA, SPELLS.ASCENDED_ERUPTION]), this.onDamage)
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.ASCENDED_BLAST_HEAL, SPELLS.ASCENDED_NOVA_HEAL, SPELLS.ASCENDED_ERUPTION_HEAL]), this.onNormalHeal);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.ATONEMENT_HEAL_NON_CRIT, SPELLS.ATONEMENT_HEAL_CRIT]), this.onAtonmentHeal);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BOON_OF_THE_ASCENDED), this.onBuffRemove);
   }
 
@@ -66,14 +72,7 @@ class BoonOfTheAscended extends Analyzer {
       return;
     }
     const atonenementDamageEvent = this.atonementDamageSource.event;
-    if (!atonenementDamageEvent) {
-      return;
-    }
-
-    if (
-      (atonenementDamageEvent.ability.guid !== SPELLS.ASCENDED_BLAST.id &&
-        atonenementDamageEvent.ability.guid !== SPELLS.ASCENDED_NOVA.id &&
-        atonenementDamageEvent.ability.guid !== SPELLS.ASCENDED_ERUPTION.id)) {
+    if (!atonenementDamageEvent || !DAMAGING_SPELL_IDS.includes(atonenementDamageEvent.ability.guid)) {
       return;
     }
 
