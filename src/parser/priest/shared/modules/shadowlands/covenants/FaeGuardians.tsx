@@ -8,7 +8,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import COVENANTS from 'game/shadowlands/COVENANTS';
-import Events, { ApplyBuffEvent, DamageEvent, EnergizeEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, DamageEvent, EnergizeEvent, RemoveBuffEvent } from 'parser/core/Events';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Combatants from 'parser/shared/modules/Combatants';
 import ItemManaGained from 'interface/ItemManaGained';
@@ -36,9 +36,9 @@ class FaeGuardians extends Analyzer {
   currentShieldedTargetId = -1;
   damageReduced = 0;
 
-  get benevolentUptime(){
-    return this.combatants.getBuffUptime(SPELLS.BENEVOLENT_FAERIE.id);
-  }
+  // Benevolent Faerie
+  benevolentApplicationTime = 0;
+  benevolentBuffUptime = 0;
 
   constructor(options: Options) {
     super(options);
@@ -52,6 +52,8 @@ class FaeGuardians extends Analyzer {
     this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.WRATHFUL_FAERIE_ENERGIZE), this.onEnergize);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.GUARDIAN_FAERIE), this.onGuardianApply);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.GUARDIAN_FAERIE), this.onGuardianRemove);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BENEVOLENT_FAERIE), this.onBenevolentApply);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BENEVOLENT_FAERIE), this.onBenevolentRemove);
     this.addEventListener(Events.damage, this.onDamage);
   }
 
@@ -79,6 +81,14 @@ class FaeGuardians extends Analyzer {
     this.currentShieldedTargetId = -1;
   }
 
+  onBenevolentApply(event: ApplyBuffEvent) {
+    this.benevolentApplicationTime = event.timestamp;
+  }
+
+  onBenevolentRemove(event: RemoveBuffEvent) {
+    this.benevolentBuffUptime += event.timestamp - this.benevolentApplicationTime;
+  }
+
   onCast() {
     this.totalCasts += 1;
   }
@@ -94,7 +104,7 @@ class FaeGuardians extends Analyzer {
             {this.manaGenerated > 0 && <><ItemManaGained amount={this.manaGenerated} /><br/></>}
             {this.insanityGenerated > 0 && <><ItemInsanityGained amount={this.insanityGenerated} /><br/></>}
             {formatNumber(this.damageReduced)} Dmg Reduced<br />
-            {formatNumber(this.benevolentUptime/1000)} Seconds CDR
+            {formatNumber(this.benevolentBuffUptime/1000)} Seconds CDR
           </>
         </BoringSpellValueText>
       </Statistic>
