@@ -4,6 +4,7 @@ import { HawkCorrigan, Zeboot } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 12, 25), <>Allow Echoing Shock to Duplicate EQ</>, HawkCorrigan),
   change(date(2020, 12, 24), <>Fix the cast checker for Primal Elementals</>, HawkCorrigan),
   change(date(2020, 11, 8), <>Adding a module for Static Discharge</>, HawkCorrigan),
   change(date(2020, 11, 4), <>Fix Flame Shock</>, HawkCorrigan),
