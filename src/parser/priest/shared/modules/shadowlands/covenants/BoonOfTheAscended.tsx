@@ -244,22 +244,20 @@ class BoonOfTheAscended extends Analyzer {
           </>
         }
         dropdown={(
-          <>
-            <table className={this.isDisc ? "table" : "table table-condensed"}>
-              <thead>
-                <tr>
-                  <th>Spell</th>
-                  <th>Healing</th>
-                  {this.isDisc && <th>Atonement Healing</th>}
-                  <th>Damage</th>
-                  <th>Targets Hit</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.spellTable()}
-              </tbody>
-            </table>
-          </>
+          <table className={this.isDisc ? "table" : "table table-condensed"}>
+            <thead>
+              <tr>
+                <th>Spell</th>
+                <th>Healing</th>
+                {this.isDisc && <th>Atonement Healing</th>}
+                <th>Damage</th>
+                <th>Targets Hit</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.spellTable()}
+            </tbody>
+          </table>
         )}
         category={STATISTIC_CATEGORY.COVENANTS}
       >
