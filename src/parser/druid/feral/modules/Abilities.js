@@ -314,7 +314,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.TYPHOON,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        enabled: combatant.hasTalent(SPELLS.TYPHOON_TALENT.id),
         cooldown: 30,
         gcd: {
           base: 1500,

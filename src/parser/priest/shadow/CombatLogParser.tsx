@@ -33,6 +33,9 @@ import Buffs from './modules/features/Buffs';
 // conduits
 import DissonantEchoes from './modules/shadowlands/conduits/DissonantEchoes';
 
+// Covenants
+import UnholyNova from '../shared/modules/shadowlands/covenants/UnholyNova';
+
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // core
@@ -67,7 +70,11 @@ class CombatLogParser extends MainCombatLogParser {
     shadowCrash: ShadowCrash,
     auspiciousSpirits: AuspiciousSpirits,
 
+    // normalizers:
     shadowfiendNormalizer: ShadowfiendNormalizer,
+
+    // covenants:
+    unholyNova: UnholyNova,
 
     // conduits:
     dissonantEchoes: DissonantEchoes,

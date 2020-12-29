@@ -81,7 +81,7 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: P
       >
         <AbilityRequirement spell={SPELLS.AVATAR_TALENT.id} />
         <AbilityRequirement spell={SPELLS.DEMORALIZING_SHOUT.id} />
-        {combatant.hasTalent(SPELLS.RAVAGER_PROT_TALENT.id) && <AbilityRequirement spell={SPELLS.RAVAGER_PROT_TALENT.id} />}
+        {combatant.hasTalent(SPELLS.RAVAGER_TALENT_PROTECTION.id) && <AbilityRequirement spell={SPELLS.RAVAGER_TALENT_PROTECTION.id} />}
 
       </Rule>
 

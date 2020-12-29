@@ -50,7 +50,7 @@ class CrusadersMight extends Analyzer {
       const holyShockCooldown =
         7500 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating));
       if (
-        this.selectedCombatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT.id) &&
+        this.selectedCombatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT_HOLY.id) &&
         this.selectedCombatant.hasBuff(SPELLS.AVENGING_WRATH.id, event.timestamp)
       ) {
         this.holyShocksCastsLost += 1;
@@ -123,7 +123,7 @@ class CrusadersMight extends Analyzer {
             }),
           ),
       );
-    
+
   }
 
   statistic() {
