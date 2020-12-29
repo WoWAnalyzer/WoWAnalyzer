@@ -43,14 +43,14 @@ class WeaponEnhancementChecker extends Analyzer {
     }, {});
   }
   get numWeapons() {
-    return Object.keys(this.enhanceableWeapons).length;
+    return Object.keys(this.enhanceableWeapons).length || 1;
   }
   get weaponsMissingEnhancement() {
     const gear = this.enhanceableWeapons;
-    return Object.keys(gear).filter(slot => !this.hasEnhancement(gear[Number(slot)]));
+    return Object.keys(gear).length > 0 ? Object.keys(gear).filter(slot => !this.hasEnhancement(gear[Number(slot)])) : null;
   }
   get numWeaponsMissingEnhancement() {
-    return this.weaponsMissingEnhancement.length;
+    return this.weaponsMissingEnhancement ? this.weaponsMissingEnhancement.length : 1;
   }
   get weaponsMissingMaxEnhancement() {
     const gear = this.enhanceableWeapons;

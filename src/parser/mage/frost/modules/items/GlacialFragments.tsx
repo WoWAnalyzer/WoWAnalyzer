@@ -16,15 +16,15 @@ class GlacialFragments extends Analyzer {
   hasSplittingIce: boolean;
   fragmentDamage = 0;
 
-  constructor(props: Options) {
-    super(props);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.GLACIAL_FRAGMENTS.bonusID);
     this.hasSplittingIce = this.selectedCombatant.hasTalent(SPELLS.SPLITTING_ICE_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.GLACIAL_FRAGMENTS_DAMAGE), this.onFragmentDamage);
   }
 
   onFragmentDamage(event: DamageEvent) {
-    this.fragmentDamage += event.amount + (event.absorb || 0);
+    this.fragmentDamage += event.amount + (event.absorbed || 0);
   }
 
   suggestions(when: When) {
