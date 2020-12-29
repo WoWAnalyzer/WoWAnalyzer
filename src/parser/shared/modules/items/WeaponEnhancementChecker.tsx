@@ -34,7 +34,7 @@ class WeaponEnhancementChecker extends Analyzer {
       // If there is no offhand, disregard the item.
       // If the icon has `offhand` in the name, we know it's not a weapon and doesn't need an enhancement.
       // This is not an ideal way to determine if an offhand is a weapon.
-      if (item.id === 0 || item.icon.includes('offhand') || item.icon.includes('shield')) {
+      if (item.icon.includes('offhand') || item.icon.includes('shield')) {
         return obj;
       }
       obj[Number(slot)] = this.selectedCombatant._getGearItemBySlotId(Number(slot));
