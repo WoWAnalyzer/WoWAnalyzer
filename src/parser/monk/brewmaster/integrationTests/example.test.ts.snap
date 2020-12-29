@@ -170,7 +170,7 @@ exports[`Brewmaster Monk integration test: example log BrewCDR matches the stati
         <div
           className="value"
         >
-          27.33
+          26.30
            %
         </div>
       </div>
@@ -1283,7 +1283,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               22
-              /32
+              /36
                
               casts
             </td>
@@ -1302,7 +1302,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "66.28541987946811%",
+                      "width": "59.94014475498823%",
                     }
                   }
                 />
@@ -1317,7 +1317,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              66.29%
+              59.94%
             </td>
             <td
               style={
@@ -1386,7 +1386,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               4
-              /7
+              /8
                
               casts
             </td>
@@ -1405,7 +1405,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "48.55737991465495%",
+                      "width": "40.990321734867976%",
                     }
                   }
                 />
@@ -1420,7 +1420,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              48.56%
+              40.99%
             </td>
             <td
               style={
@@ -3097,8 +3097,8 @@ Array [
         values={
           Object {
             "0": 22,
-            "1": 32,
-            "2": "66",
+            "1": 36,
+            "2": "60",
           }
         }
       />
@@ -3141,8 +3141,8 @@ Array [
         values={
           Object {
             "0": 4,
-            "1": 7,
-            "2": "49",
+            "1": 8,
+            "2": "41",
           }
         }
       />
@@ -4111,7 +4111,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               style={
                 Object {
                   "backgroundColor": "#ffc84a",
-                  "width": "60.7797383410534%",
+                  "width": "59.09985142514069%",
                 }
               }
             />
@@ -4247,7 +4247,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  48.56%
+                  40.99%
                    
                    
                 </div>
@@ -4269,7 +4269,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "21.5594766821068%",
+                        "width": "18.199702850281383%",
                       }
                     }
                   />
@@ -4426,8 +4426,8 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ffc84a",
-                  "width": "53.339686051939125%",
+                  "backgroundColor": "#df7102",
+                  "width": "49.93340268317666%",
                 }
               }
             />
@@ -4676,7 +4676,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  66.29%
+                  59.94%
                    
                    
                 </div>
@@ -4698,7 +4698,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "27.591306024828604%",
+                        "width": "24.950085254263854%",
                       }
                     }
                   />
@@ -4871,7 +4871,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  -1.96s
+                  0.15s
                    
                    
                 </div>

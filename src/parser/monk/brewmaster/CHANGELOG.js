@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 12, 28), <>Bug fixes for  <SpellLink id={SPELLS.BLACK_OX_BREW_TALENT.id} />. </>, Akhtal),
   change(date(2020, 12, 28), <>Add support for <SpellLink id={SPELLS.CHI_BURST_TALENT.id} /> and <SpellLink id={SPELLS.CHI_WAVE_TALENT.id} />. </>, Akhtal),
   change(date(2020, 12, 28), <>Add fix for non-enemy targets hit by <SpellLink id={SPELLS.SCALDING_BREW.id} />. </>, Hordehobbs),
   change(date(2020, 12, 10), <>Added stats for <SpellLink id={SPELLS.SCALDING_BREW.id} /> and <SpellLink id={SPELLS.EVASIVE_STRIDE.id} />.</>, emallson),

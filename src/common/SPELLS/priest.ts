@@ -532,6 +532,13 @@ const spells = {
     icon: 'spell_priest_void-blast',
   },
 
+  // Void torrent debuff applied on enemy
+  VOID_TORRENT_BUFF: {
+    id: 289577,
+    name: 'Void Torrent',
+    icon: 'spell_priest_voidsear',
+  },
+
   VOID_BOLT: {
     id: 205448,
     name: 'Void Bolt',
