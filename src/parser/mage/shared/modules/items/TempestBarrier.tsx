@@ -3,18 +3,20 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { AbsorbedEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import { formatNumber } from 'common/format';
 
 class TempestBarrier extends Analyzer {
 
+  conduitRank = 0;
   damageAbsorbed = 0;
 
-  constructor(props: Options) {
-    super(props);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.TEMPEST_BARRIER.id);
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.TEMPEST_BARRIER.id);
     this.addEventListener(Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.TEMPEST_BARRIER_ABSORB), this.onAbsorb);
   }
 
@@ -25,12 +27,12 @@ class TempestBarrier extends Analyzer {
   statistic() {
     return (
       <Statistic
-        category={STATISTIC_CATEGORY.ITEMS}
+        category={STATISTIC_CATEGORY.COVENANTS}
         size="flexible"
       >
-        <BoringSpellValueText spell={SPELLS.TEMPEST_BARRIER}>
+        <ConduitSpellText spell={SPELLS.TEMPEST_BARRIER} rank={this.conduitRank}>
           {formatNumber(this.damageAbsorbed)} <small>Damage absorbed</small>
-        </BoringSpellValueText>
+        </ConduitSpellText>
       </Statistic>
     );
   }
