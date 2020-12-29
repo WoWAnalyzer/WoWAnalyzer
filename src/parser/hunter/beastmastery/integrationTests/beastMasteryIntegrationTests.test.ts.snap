@@ -34,7 +34,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target AlwaysBeCasting mat
         <div
           className="value"
         >
-          22.19 %
+          13.49 %
         </div>
         <div
           style={
@@ -53,7 +53,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target AlwaysBeCasting mat
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "77.80671732162023%",
+                  "width": "86.51144785081783%",
                 }
               }
             >
@@ -103,7 +103,7 @@ Array [
   Object {
     "details": null,
     "icon": "spell_mage_altertime",
-    "importance": "major",
+    "importance": "minor",
     "issue": <React.Fragment>
       Your downtime can be improved. Try to reduce the delay between casting spells. If everything is on cooldown, try and use 
       <ForwardRef
@@ -117,7 +117,7 @@ Array [
         message="{0}% downtime"
         values={
           Object {
-            "0": "22.19",
+            "0": "13.49",
           }
         }
       />
@@ -7396,7 +7396,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
     </div>
   </li>
   <li
-    className="expandable expanded failed"
+    className="expandable  passed"
   >
     <div
       className="meta"
@@ -7420,8 +7420,8 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ac1f39",
-                  "width": "32.387046085124425%",
+                  "backgroundColor": "#a6c34c",
+                  "width": "69.43602679169553%",
                 }
               }
             />
@@ -7529,7 +7529,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                   }
                 >
                    
-                  77.81%
+                  86.51%
                    
                    
                 </div>
@@ -7549,9 +7549,9 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "32.387046085124425%",
+                        "width": "76.66624268644672%",
                       }
                     }
                   />

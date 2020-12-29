@@ -53,134 +53,6 @@ exports[`Elemental Shaman integration test: example log Aftershock matches the s
 </div>
 `;
 
-exports[`Elemental Shaman integration test: example log AlwaysBeCasting matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad"
-      >
-        <label>
-          <img
-            alt="Downtime"
-            className="icon game "
-            src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
-          />
-           
-          <trans
-            id="shared.alwaysBeCasting.statistic.label"
-            message="Downtime"
-          />
-        </label>
-        <div
-          className="value"
-        >
-          10.48 %
-        </div>
-        <div
-          style={
-            Object {
-              "marginTop": "0.5em",
-            }
-          }
-        >
-          <div
-            className="statistic-box-bar"
-          >
-            <div
-              className="stat-health-bg"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={[Function]}
-              style={
-                Object {
-                  "width": "89.52118328856126%",
-                }
-              }
-            >
-              <img
-                alt="Active time"
-                src="/img/sword.png"
-              />
-            </div>
-            <div
-              className="remainder DeathKnight-bg"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={[Function]}
-            >
-              <img
-                alt="Downtime"
-                src="/img/afk.png"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Elemental Shaman integration test: example log AlwaysBeCasting matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "spell_mage_altertime",
-    "importance": "minor",
-    "issue": <React.Fragment>
-      Your downtime can be improved. If you need to move use 
-      <ForwardRef
-        id={188389}
-      />
-      , 
-      <ForwardRef
-        id={8042}
-      />
-       or 
-      <ForwardRef
-        id={196840}
-      />
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      10.48% downtime
-       (
-      &lt;5.00% is recommended
-      )
-    </React.Fragment>,
-  },
-]
-`;
-
 exports[`Elemental Shaman integration test: example log AstralShift matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -5463,7 +5335,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
     </div>
   </li>
   <li
-    className="expandable expanded failed"
+    className="expandable  passed"
   >
     <div
       className="meta"
@@ -5487,8 +5359,8 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#df7102",
-                  "width": "39.474308643930655%",
+                  "backgroundColor": "#a6c34c",
+                  "width": "79.94078947368422%",
                 }
               }
             />
@@ -5641,7 +5513,7 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                   }
                 >
                    
-                  10.48%
+                  -39.35%
                    
                    
                 </div>
@@ -5661,9 +5533,9 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "19.06703834049288%",
+                        "width": "100%",
                       }
                     }
                   />

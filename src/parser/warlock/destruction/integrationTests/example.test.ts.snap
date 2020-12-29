@@ -142,7 +142,7 @@ exports[`Destruction Warlock integration test: example log AlwaysBeCasting match
                   Object {
                     "fill": "none",
                     "margin": 0,
-                    "transform": "rotate(53.334795537412504deg)",
+                    "transform": "rotate(195.3188532845154deg)",
                     "transformOrigin": "5px 27px",
                   }
                 }
@@ -172,7 +172,7 @@ exports[`Destruction Warlock integration test: example log AlwaysBeCasting match
                 }
               }
             >
-              69
+              120
               %
             </div>
           </div>
@@ -213,41 +213,6 @@ exports[`Destruction Warlock integration test: example log AlwaysBeCasting match
     </div>
   </div>
 </div>
-`;
-
-exports[`Destruction Warlock integration test: example log AlwaysBeCasting matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "spell_mage_altertime",
-    "importance": "minor",
-    "issue": <React.Fragment>
-      Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. When you know you'll be moving, try to save 
-      <ForwardRef
-        id={17962}
-      />
-       or 
-      <ForwardRef
-        id={17877}
-      />
-       charges. Make good use of your 
-      <ForwardRef
-        id={268358}
-      />
-       or 
-      <ForwardRef
-        id={111400}
-      />
-       when you can.
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      {"id":"warlock.destruction.suggestions.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"30.95"}}
-       (
-      &lt;20.00% is recommended
-      )
-    </React.Fragment>,
-  },
-]
 `;
 
 exports[`Destruction Warlock integration test: example log Backdraft matches the statistic snapshot 1`] = `
@@ -6365,8 +6330,8 @@ exports[`Destruction Warlock integration test: example log matches the checklist
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "75.68687360466276%",
+                  "backgroundColor": "#4ec04e",
+                  "width": "100%",
                 }
               }
             />
@@ -6504,7 +6469,7 @@ exports[`Destruction Warlock integration test: example log matches the checklist
                   }
                 >
                    
-                  30.95%
+                  -19.76%
                    
                    
                 </div>
@@ -6524,9 +6489,9 @@ exports[`Destruction Warlock integration test: example log matches the checklist
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "75.68687360466276%",
+                        "width": "100%",
                       }
                     }
                   />
