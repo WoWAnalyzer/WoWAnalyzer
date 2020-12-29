@@ -10,32 +10,49 @@ import { formatNumber } from 'common/format';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { HealEvent } from 'parser/core/Events';
+import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 
-import AtonementDamageSource from '../../features/AtonementDamageSource';
-import isAtonement from '../../core/isAtonement';
+import AtonementDamageSource from 'parser/priest/discipline/modules/features/AtonementDamageSource';
+import isAtonement from 'parser/priest/discipline/modules/core/isAtonement';
+import SPECS from 'game/SPECS';
+import ItemDamageDone from 'interface/ItemDamageDone';
 
+// Shadow: https://www.warcraftlogs.com/reports/CdrMAqzkLaKZTVn4#fight=1&type=damage-done&graphperf=1&source=19
+// Holy: https://www.warcraftlogs.com/reports/xf7zjvNghdXVRrFT#fight=7&type=healing&graphperf=1&source=18
+// Disc: https://www.warcraftlogs.com/reports/FwfkDG87xzV9CWra#fight=17&type=healing&source=14
 class BoonOfTheAscended extends Analyzer {
-  static dependencies = {
-    atonementDamageSource: AtonementDamageSource,
-  };
-
-  protected atonementDamageSource!: AtonementDamageSource;
-
-  atonementHealing = 0;
+  totalDamage = 0;
   directHealing = 0;
+
+  // Disc Specific
+  atonementDamageSource: AtonementDamageSource | null = null;
+  atonementHealing = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id);
 
+    this.active = this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id);
+    if (!this.active) {
+      return;
+    }
+
+    if(this.selectedCombatant.spec === SPECS.DISCIPLINE_PRIEST) {
+      this.atonementDamageSource = this.owner.getModule(AtonementDamageSource);
+    }
+
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.ASCENDED_BLAST, SPELLS.ASCENDED_NOVA, SPELLS.ASCENDED_ERUPTION]), this.onDamage)
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.ASCENDED_BLAST, SPELLS.ASCENDED_NOVA, SPELLS.ASCENDED_ERUPTION]), this.onHeal);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.ASCENDED_BLAST_HEAL, SPELLS.ASCENDED_NOVA_HEAL, SPELLS.ASCENDED_ERUPTION_HEAL]), this.onHeal);
+  }
+
+  onDamage(event: DamageEvent) {
+    this.totalDamage += event.amount + (event.absorb || 0);
   }
 
   onHeal(event: HealEvent) {
-    if (isAtonement(event)) {
-
+    if (isAtonement(event) && this.atonementDamageSource) {
+      console.log("Is Atonement", event);
       const atonenementDamageEvent = this.atonementDamageSource.event;
 
       if (!atonenementDamageEvent) {
@@ -64,6 +81,7 @@ class BoonOfTheAscended extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.BOON_OF_THE_ASCENDED}>
           <>
+            <ItemDamageDone amount={this.totalDamage} /><br/>
             <ItemHealingDone amount={this.atonementHealing + this.directHealing} />
           </>
         </BoringSpellValueText>

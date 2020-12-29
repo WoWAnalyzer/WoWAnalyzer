@@ -346,6 +346,37 @@ class Abilities extends CoreAbilities {
           majorIssueEfficiency: 0.4,
         },
       },
+      {
+        spell: SPELLS.BOON_OF_THE_ASCENDED,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 180,
+        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+          averageIssueEfficiency: 0.6,
+          majorIssueEfficiency: 0.4,
+        },
+      },
+
+      {
+        spell: SPELLS.ASCENDED_BLAST,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+      },
+      {
+        spell: SPELLS.ASCENDED_NOVA,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+      },
+      {
+        spell: SPELLS.ASCENDED_ERUPTION,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+      }
     ];
   }
 }

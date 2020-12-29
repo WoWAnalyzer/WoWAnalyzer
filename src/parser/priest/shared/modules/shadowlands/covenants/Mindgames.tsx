@@ -39,7 +39,11 @@ class Mindgames extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id);
+    if (!this.active) {
+      return;
+    }
 
     if(this.selectedCombatant.spec === SPECS.DISCIPLINE_PRIEST) {
       this.atonementDamageSource = this.owner.getModule(AtonementDamageSource);

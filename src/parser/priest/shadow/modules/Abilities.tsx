@@ -375,6 +375,22 @@ class Abilities extends CoreAbilities {
           majorIssueEfficiency: 0.7,
         },
       },
+
+      {
+        spell: SPELLS.ASCENDED_BLAST,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+      },
+      {
+        spell: SPELLS.ASCENDED_NOVA,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+      },
+      {
+        spell: SPELLS.ASCENDED_ERUPTION,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+      },
       {
         spell: SPELLS.UNHOLY_NOVA,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,

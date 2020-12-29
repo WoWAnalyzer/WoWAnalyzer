@@ -334,7 +334,7 @@ const spells = {
     id: 120517,
     name: 'Halo',
     icon: 'ability_priest_halo',
-    manaCost: 2700,
+    manaCost: 1350,
   },
 
   // Holy Priest Spells
