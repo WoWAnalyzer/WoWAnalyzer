@@ -24,7 +24,7 @@ class GlacialFragments extends Analyzer {
   }
 
   onFragmentDamage(event: DamageEvent) {
-    this.fragmentDamage += event.amount + (event.absorb || 0);
+    this.fragmentDamage += event.amount + (event.absorbed || 0);
   }
 
   suggestions(when: When) {
