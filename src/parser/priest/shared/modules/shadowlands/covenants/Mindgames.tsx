@@ -19,6 +19,7 @@ import SPECS from 'game/SPECS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ItemInsanityGained from 'parser/priest/shadow/interface/ItemInsanityGained';
 import ItemDamageDone from 'interface/ItemDamageDone';
+import ItemManaGained from 'interface/ItemManaGained';
 
 // Shadow: https://www.warcraftlogs.com/reports/Bx7h3bzGKm9CHqF6#fight=1&type=damage-done&source=10
 // Holy: https://www.warcraftlogs.com/reports/MCyn6jhQf13YbRHt#fight=14&type=healing&source=41
@@ -27,6 +28,7 @@ class Mindgames extends Analyzer {
   directHealing = 0;
   preventedDamage = 0;
   totalDamage = 0;
+  manaGenerated = 0;
 
   // Disc Specific
   atonementDamageSource: AtonementDamageSource | null = null;
@@ -72,6 +74,9 @@ class Mindgames extends Analyzer {
   }
 
   onEnergize(event: EnergizeEvent) {
+    if (event.resourceChangeType === RESOURCE_TYPES.MANA.id) {
+      this.manaGenerated += (event.resourceChange || 0);
+    }
     if (event.resourceChangeType === RESOURCE_TYPES.INSANITY.id) {
       this.insanityGenerated += (event.resourceChange || 0);
     }
@@ -101,7 +106,8 @@ class Mindgames extends Analyzer {
           <>
             <ItemDamageDone amount={this.totalDamage} /><br/>
             <ItemHealingDone amount={this.atonementHealing + this.directHealing + this.preventedDamage} /><br/>
-            {this.insanityGenerated > 0 && <><ItemInsanityGained amount={this.insanityGenerated} /></>}
+            {this.insanityGenerated > 0 && <><ItemInsanityGained amount={this.insanityGenerated} /><br/></>}
+            {this.manaGenerated > 0 && <><ItemManaGained amount={this.manaGenerated} /><br/></>}
           </>
         </BoringSpellValueText>
       </Statistic>
