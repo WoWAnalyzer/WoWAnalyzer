@@ -67,7 +67,9 @@ class InfernalStrike extends Analyzer {
     // Track overcapped data
     if (this.infernalCharges === 2) {
       this.castsAtCap++;
-      if (this.lastCastTimestamp > 0)  this.secsOverCap += (this.currentCastTimestamp - this.lastCastTimestamp - 1200) / 1000;
+      if (this.lastCastTimestamp > 0) {
+        this.secsOverCap += (this.currentCastTimestamp - this.lastCastTimestamp - 1200) / 1000;
+      }
     }
 
     this.infernalCharges--;
