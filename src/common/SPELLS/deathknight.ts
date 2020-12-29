@@ -399,6 +399,17 @@ const spells = {
     icon: 'spell_nature_nullifydisease'
   },
 
+  EPIDEMIC_DAMAGE: {
+    id: 212739,
+    name: 'Epidemic',
+    icon: 'spell_nature_nullifydisease'
+  },
+
+  SOUL_REAPER_TALENT_SECOND_HIT: {
+    id: 343295,
+    name: 'Soul Reaper',
+    icon: 'ability_deathknight_soulreaper',
+  },
 
   // Shared:
   RUNEFORGING: {

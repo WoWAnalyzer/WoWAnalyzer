@@ -33,6 +33,7 @@ class SoulReaper extends ExecuteHelper {
     this.addEventListener(Events.fightend, this.adjustMaxCasts);
     const ctor = this.constructor as typeof ExecuteHelper;
     ctor.executeSpells.push(SPELLS.SOUL_REAPER_TALENT);
+    ctor.executeSpells.push(SPELLS.SOUL_REAPER_TALENT_SECOND_HIT);
 
     (options.abilities as Abilities).add({
       spell: SPELLS.SOUL_REAPER_TALENT,
@@ -45,6 +46,7 @@ class SoulReaper extends ExecuteHelper {
         suggestion: true,
         recommendedEfficiency: 0.85,
         maxCasts: () => this.maxCasts,
+        extraSuggestion: " (This module only starts tracking possible casts once you damage a target with 35% or less health)",
       },
     });
   }
