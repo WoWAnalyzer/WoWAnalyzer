@@ -83,6 +83,10 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: any) =
           <AbilityRequirement spell={SPELLS.SHADOWFIEND.id} />
         }
 
+        {combatant.hasTalent(SPELLS.VOID_TORRENT_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.VOID_TORRENT_TALENT.id} />
+        )}
+
         {combatant.hasTalent(SPELLS.SHADOW_CRASH_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.SHADOW_CRASH_TALENT.id} />
         )}
