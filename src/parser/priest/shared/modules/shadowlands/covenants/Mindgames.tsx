@@ -6,7 +6,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 import SPELLS from 'common/SPELLS';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -26,6 +26,7 @@ import ItemManaGained from 'interface/ItemManaGained';
 // Disc: https://www.warcraftlogs.com/reports/NWctPky1vKapJVM8#fight=10&type=healing&graphperf=1&source=183
 class Mindgames extends Analyzer {
   directHealing = 0;
+  directOverHealing = 0;
   preventedDamage = 0;
   totalDamage = 0;
   manaGenerated = 0;
@@ -33,6 +34,7 @@ class Mindgames extends Analyzer {
   // Disc Specific
   atonementDamageSource: AtonementDamageSource | null = null;
   atonementHealing = 0;
+  atonementOverHealing = 0;
 
   // Shadow Specific
   insanityGenerated = 0;
@@ -63,12 +65,14 @@ class Mindgames extends Analyzer {
       }
 
       this.atonementHealing += event.amount + (event.absorbed || 0);
+      this.atonementOverHealing += event.overheal || 0;
       return;
     }
 
     const spellId = event.ability.guid;
     if (spellId === SPELLS.MINDGAMES_HEAL.id) {
       this.directHealing += event.amount + (event.absorbed || 0);
+      this.directOverHealing += event.overheal || 0;
       return;
     }
   }
@@ -98,8 +102,8 @@ class Mindgames extends Analyzer {
           <>
             Healing Breakdown:
             <ul>
-              {this.atonementHealing > 0 && <li>{formatNumber(this.atonementHealing)} Atonement Healing</li>}
-              <li>{formatNumber(this.directHealing)} Direct Healing</li>
+              {this.atonementHealing > 0 && <li>{formatNumber(this.atonementHealing)} Atonement Healing ({formatPercentage(this.atonementOverHealing/(this.atonementOverHealing + this.atonementHealing))} %OH)</li>}
+              <li>{formatNumber(this.directHealing)} Direct Healing ({formatPercentage(this.directOverHealing/(this.directHealing + this.directOverHealing))} %OH)</li>
               <li>{formatNumber(this.preventedDamage)} Prevented Damage</li>
             </ul>
           </>

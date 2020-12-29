@@ -6,7 +6,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 import SPELLS from 'common/SPELLS';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -14,7 +14,6 @@ import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 
 import AtonementDamageSource from 'parser/priest/discipline/modules/features/AtonementDamageSource';
-import isAtonement from 'parser/priest/discipline/modules/core/isAtonement';
 import SPECS from 'game/SPECS';
 import ItemDamageDone from 'interface/ItemDamageDone';
 
@@ -24,10 +23,21 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 class BoonOfTheAscended extends Analyzer {
   totalDamage = 0;
   directHealing = 0;
+  directOverHealing = 0;
+  stackTracker: number[] = [];
 
   // Disc Specific
   atonementDamageSource: AtonementDamageSource | null = null;
   atonementHealing = 0;
+  atonementOverHealing = 0;
+
+  get averageStacks() {
+    if (this.stackTracker.length === 0) {
+      return 0;
+    }
+
+    return this.stackTracker.reduce((a,b) => a + b, 0) / this.stackTracker.length;
+  }
 
   constructor(options: Options) {
     super(options);
@@ -42,26 +52,43 @@ class BoonOfTheAscended extends Analyzer {
     }
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.ASCENDED_BLAST, SPELLS.ASCENDED_NOVA, SPELLS.ASCENDED_ERUPTION]), this.onDamage)
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.ASCENDED_BLAST, SPELLS.ASCENDED_NOVA, SPELLS.ASCENDED_ERUPTION]), this.onHeal);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.ASCENDED_BLAST_HEAL, SPELLS.ASCENDED_NOVA_HEAL, SPELLS.ASCENDED_ERUPTION_HEAL]), this.onHeal);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.ASCENDED_BLAST_HEAL, SPELLS.ASCENDED_NOVA_HEAL, SPELLS.ASCENDED_ERUPTION_HEAL]), this.onNormalHeal);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.ATONEMENT_HEAL_NON_CRIT, SPELLS.ATONEMENT_HEAL_CRIT]), this.onAtonmentHeal);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BOON_OF_THE_ASCENDED), this.onBuffRemove);
   }
 
   onDamage(event: DamageEvent) {
     this.totalDamage += event.amount + (event.absorb || 0);
   }
 
-  onHeal(event: HealEvent) {
-    if (isAtonement(event) && this.atonementDamageSource) {
-      console.log("Is Atonement", event);
-      const atonenementDamageEvent = this.atonementDamageSource.event;
-
-      if (!atonenementDamageEvent) {
-        return;
-      }
-      this.atonementHealing += event.amount + (event.absorbed || 0);
-    } else {
-      this.directHealing += event.amount + (event.absorbed || 0);
+  onAtonmentHeal(event: HealEvent) {
+    if (!this.atonementDamageSource) {
+      return;
     }
+    const atonenementDamageEvent = this.atonementDamageSource.event;
+    if (!atonenementDamageEvent) {
+      return;
+    }
+
+    if (
+      (atonenementDamageEvent.ability.guid !== SPELLS.ASCENDED_BLAST.id &&
+        atonenementDamageEvent.ability.guid !== SPELLS.ASCENDED_NOVA.id &&
+        atonenementDamageEvent.ability.guid !== SPELLS.ASCENDED_ERUPTION.id)) {
+      return;
+    }
+
+    this.atonementHealing += event.amount + (event.absorb || 0);
+    this.atonementOverHealing += (event.overheal || 0)
+  }
+
+  onNormalHeal(event: HealEvent) {
+    this.directHealing += event.amount + (event.absorbed || 0);
+    this.directOverHealing += (event.overheal || 0);
+  }
+
+  onBuffRemove() {
+    // This still tracks the buff count until after this event resolves.
+    this.stackTracker.push(this.selectedCombatant.getBuffStacks(SPELLS.BOON_OF_THE_ASCENDED.id));
   }
 
   statistic() {
@@ -70,10 +97,11 @@ class BoonOfTheAscended extends Analyzer {
         size="flexible"
         tooltip={(
           <>
+            Average Boon Stacks: {this.averageStacks}<br />
             Healing Breakdown:
             <ul>
-              <li>{formatNumber(this.atonementHealing)} Atonement Healing</li>
-              <li>{formatNumber(this.directHealing)} Direct Healing</li>
+              {this.atonementHealing > 0 && <li>{formatNumber(this.atonementHealing)} Atonement Healing ({formatPercentage(this.atonementOverHealing/(this.atonementOverHealing + this.atonementHealing))} %OH)</li>}
+              <li>{formatNumber(this.directHealing)} Direct Healing ({formatPercentage(this.directOverHealing/(this.directOverHealing + this.directHealing))} %OH)</li>
             </ul>
           </>
         )}
