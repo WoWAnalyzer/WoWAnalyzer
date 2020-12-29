@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
@@ -16,12 +16,9 @@ class ControlledDestruction extends Analyzer {
   conduitRank = 0;
   bonusDamage = 0;
 
-  constructor(props: Options) {
-    super(props);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.CONTROLLED_DESTRUCTION.id);
-    if (!this.active) {
-      return;
-    }
     this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.CONTROLLED_DESTRUCTION.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.PYROBLAST), this.onPyroDamage);
   }
@@ -36,9 +33,9 @@ class ControlledDestruction extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
         size="flexible"
       >
-        <BoringSpellValueText spell={SPELLS.CONTROLLED_DESTRUCTION}>
-          <ItemDamageDone amount={this.bonusDamage} />
-        </BoringSpellValueText>
+        <ConduitSpellText spell={SPELLS.CONTROLLED_DESTRUCTION} rank={this.conduitRank}>
+         <ItemDamageDone amount={this.bonusDamage} />
+        </ConduitSpellText>
       </Statistic>
     );
   }

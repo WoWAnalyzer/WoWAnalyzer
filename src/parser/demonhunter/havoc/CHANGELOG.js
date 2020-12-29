@@ -5,6 +5,8 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  change(date(2020, 12, 29), <>Fixed bug where <SpellLink id={SPELLS.DEMONIC_TALENT_HAVOC.id} /> were causing errors</>, [flurreN]),
+  change(date(2020, 12, 28), <><SpellLink id={SPELLS.COLLECTIVE_ANGUISH.id} /> and <SpellLink id={SPELLS.CHAOS_THEORY.id} /> is added to Statistics</>, flurreN),
   change(date(2020, 12, 28), <><SpellLink id={SPELLS.FELBLADE_TALENT.id} /> is now shown correctly in timeline and more information added to Statistic box</>, [flurreN]),
   change(date(2020, 12, 28), 'Legendary, Covenant and Conduits added for Havoc', [flurreN]),
   change(date(2020, 12, 28), <><SpellLink id={SPELLS.EYE_BEAM.id} /> is now showed correct in the Timeline.</>, flurreN),

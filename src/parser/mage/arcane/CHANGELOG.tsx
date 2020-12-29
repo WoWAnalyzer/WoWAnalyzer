@@ -7,6 +7,7 @@ import { change, date } from 'common/changelog';
 
 // prettier-ignore
 export default [
+  change(date(2020, 12, 28), <>Updated conduit statistic boxes to use the new layout.</>, Sharrq),
   change(date(2020, 12, 24), <>Fixed an issue that was showing <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> as lasting the entire fight duration in the Cooldowns tab.</>, Sharrq),
   change(date(2020, 12, 19), <>Added module to check the active time during <SpellLink id={SPELLS.ARCANE_POWER.id} />.</>, Sharrq),
   change(date(2020, 12, 16), `Fixed an abe with suggestions showing {0} instead of the suggestion text in Arcane modules.`, Sharrq),
