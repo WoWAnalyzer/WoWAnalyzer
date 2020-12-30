@@ -1,10 +1,10 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
-import Events from 'parser/core/Events';
+import Events, { ChangeDebuffStackEvent, DamageEvent } from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -18,19 +18,28 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import UptimeBar from 'interface/statistics/components/UptimeBar';
 
 import { t } from '@lingui/macro';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 const BONUS_PER_STACK = 0.03;
 const BUFFER = 50; // for some reason, changedebuffstack triggers twice on the same timestamp for each event, ignore an event if it happened < BUFFER ms after another
 const debug = false;
 
-class ShadowEmbrace extends Analyzer {
+type ShadowEmbraceStacks = 0 | 1 | 2 | 3;
+type ShadowEmbraceUptime = {
+  start: number | null;
+  count: number;
+  uptime: number;
+};
 
+class ShadowEmbrace extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
+  protected enemies!: Enemies;
+
   damage = 0;
-  _lastEventTimestamp = null;
-  debuffs = {
+  private _lastEventTimestamp: number | null = null;
+  debuffs: Record<ShadowEmbraceStacks, ShadowEmbraceUptime> = {
     0: {
       // ignored, see comment in stackedUptime getter
       start: null,
@@ -54,13 +63,16 @@ class ShadowEmbrace extends Analyzer {
     },
   };
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
-    this.addEventListener(Events.changedebuffstack.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_EMBRACE_DEBUFF), this.onChangeDebuffStack);
+    this.addEventListener(
+      Events.changedebuffstack.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_EMBRACE_DEBUFF),
+      this.onChangeDebuffStack,
+    );
   }
 
-  onDamage(event) {
+  onDamage(event: DamageEvent) {
     const enemy = this.enemies.getEntity(event);
     if (!enemy) {
       return;
@@ -72,24 +84,34 @@ class ShadowEmbrace extends Analyzer {
     this.damage += calculateEffectiveDamage(event, shadowEmbrace.stacks * BONUS_PER_STACK);
   }
 
-  onChangeDebuffStack(event) {
+  onChangeDebuffStack(event: ChangeDebuffStackEvent) {
     if (event.targetIsFriendly) {
       return;
     }
     if (this._lastEventTimestamp !== null && event.timestamp <= this._lastEventTimestamp + BUFFER) {
-      debug && console.log(`!! (${this.owner.formatTimestamp(event.timestamp, 3)}) ignoring duplicate event`);
+      debug &&
+        console.log(
+          `!! (${this.owner.formatTimestamp(event.timestamp, 3)}) ignoring duplicate event`,
+        );
       return;
     }
     this._lastEventTimestamp = event.timestamp;
-    debug && console.log(`-- (${this.owner.formatTimestamp(event.timestamp, 3)}) changedebuffstack on ${encodeTargetString(event.targetID, event.targetInstance)}`);
+    debug &&
+      console.log(
+        `-- (${this.owner.formatTimestamp(
+          event.timestamp,
+          3,
+        )}) changedebuffstack on ${encodeTargetString(event.targetID, event.targetInstance)}`,
+      );
 
-    const oldStacks = this.debuffs[event.oldStacks];
-    const newStacks = this.debuffs[event.newStacks];
+    const oldStacks = this.debuffs[event.oldStacks as ShadowEmbraceStacks];
+    const newStacks = this.debuffs[event.newStacks as ShadowEmbraceStacks];
     oldStacks.count = Math.max(oldStacks.count - 1, 0);
     debug && console.log(`OLD (${event.oldStacks}), count reduced to ${oldStacks.count}`);
     if (oldStacks.count === 0) {
-      oldStacks.uptime += event.timestamp - oldStacks.start;
-      debug && console.log(`OLD (${event.oldStacks}) count 0, updated uptime to ${oldStacks.uptime}`);
+      oldStacks.uptime += event.timestamp - (oldStacks.start || 0);
+      debug &&
+        console.log(`OLD (${event.oldStacks}) count 0, updated uptime to ${oldStacks.uptime}`);
     }
 
     if (newStacks.count === 0) {
@@ -107,12 +129,12 @@ class ShadowEmbrace extends Analyzer {
   get suggestionThresholds() {
     return {
       actual: this.totalUptimePercentage,
-     isLessThan: {
+      isLessThan: {
         minor: 0.95,
         average: 0.9,
         major: 0.8,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -128,22 +150,26 @@ class ShadowEmbrace extends Analyzer {
   }
 
   get dps() {
-    return this.damage / this.owner.fightDuration * 1000;
+    return (this.damage / this.owner.fightDuration) * 1000;
   }
 
-  suggestions(when) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(
-          <>
-            Your <SpellLink id={SPELLS.SHADOW_EMBRACE_DEBUFF.id} /> uptime can be improved. Try to pay more attention to your Shadow Embrace on the boss, perhaps use some debuff tracker.
-          </>,
+  suggestions(when: When) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your <SpellLink id={SPELLS.SHADOW_EMBRACE_DEBUFF.id} /> uptime can be improved. Try to pay
+          more attention to your Shadow Embrace on the boss, perhaps use some debuff tracker.
+        </>,
+      )
+        .icon(SPELLS.SHADOW_EMBRACE_DEBUFF.icon)
+        .actual(
+          t({
+            id: 'warlock.affliction.suggestions.shadowembrace.uptime',
+            message: `${formatPercentage(actual)}% Shadow Embrace uptime`,
+          }),
         )
-          .icon(SPELLS.SHADOW_EMBRACE_DEBUFF.icon)
-          .actual(t({
-      id: "warlock.affliction.suggestions.shadowembrace.uptime",
-      message: `${formatPercentage(actual)}% Shadow Embrace uptime`
-    }))
-          .recommended(`>${formatPercentage(recommended)}% is recommended`));
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   subStatistic() {
@@ -153,18 +179,14 @@ class ShadowEmbrace extends Analyzer {
         <div className="flex-sub icon">
           <SpellIcon id={SPELLS.SHADOW_EMBRACE_DEBUFF.id} />
         </div>
-        <div
-          className="flex-sub value"
-          style={{ width: 140 }}
-        >
-          {formatPercentage(this.uptime, 0)} % <small>uptime</small>
+        <div className="flex-sub value" style={{ width: 140 }}>
+          {formatPercentage(this.totalUptimePercentage, 0)} % <small>uptime</small>
         </div>
         <div className="flex-main chart" style={{ padding: 15 }}>
           <UptimeBar
             uptimeHistory={history}
             start={this.owner.fight.start_time}
             end={this.owner.fight.end_time}
-            style={{ height: '100%' }}
           />
         </div>
       </div>
@@ -181,17 +203,25 @@ class ShadowEmbrace extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.SHADOW_EMBRACE}>
           {formatPercentage(this.totalUptimePercentage)} %
-                <TooltipElement content={(
-                  <>
-                    No stacks: {formatPercentage(uptimes[0])} %<br />
-                    1 stack: {formatPercentage(uptimes[1])} %<br />
-                    2 stacks: {formatPercentage(uptimes[2])} %<br />
-                    3 stacks: {formatPercentage(uptimes[3])} %
-                  </>
-                )}>
-                  <small> uptime <sup>*</sup></small>
-                </TooltipElement><br />
-          {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total</small>
+          <TooltipElement
+            content={
+              <>
+                No stacks: {formatPercentage(uptimes[0])} %<br />1 stack:{' '}
+                {formatPercentage(uptimes[1])} %<br />2 stacks: {formatPercentage(uptimes[2])} %
+                <br />3 stacks: {formatPercentage(uptimes[3])} %
+              </>
+            }
+          >
+            <small>
+              {' '}
+              uptime <sup>*</sup>
+            </small>
+          </TooltipElement>
+          <br />
+          {formatNumber(this.dps)} DPS{' '}
+          <small>
+            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total
+          </small>
         </BoringSpellValueText>
       </Statistic>
     );
