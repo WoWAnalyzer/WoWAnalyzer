@@ -17,8 +17,8 @@ import { formatThousands } from 'common/format';
  */
 class TheHunt extends Analyzer {
 
-    damage = 0;
-    heal = 0;
+  damage = 0;
+  heal = 0;
 
   constructor(options: Options) {
     super(options);
@@ -26,43 +26,42 @@ class TheHunt extends Analyzer {
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id);
 
     if (!this.active) {
-        return;
+      return;
     }
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.THE_HUNT_CHARGE, SPELLS.THE_HUNT_DOT]), this.onDamage);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.THE_HUNT_HEAL]), this.onHeal);
-
   }
 
-    onDamage(event: DamageEvent) {
+  onDamage(event: DamageEvent) {
     this.damage += event.amount + (event.absorbed || 0);
-    }
+  }
 
-    onHeal(event: HealEvent) {
+  onHeal(event: HealEvent) {
     this.heal += event.amount + (event.absorbed || 0);
-    }
+  }
 
-    statistic() {
-        return (
-            <Statistic
-                position={STATISTIC_ORDER.CORE()}
-                size="flexible"
-                category={STATISTIC_CATEGORY.COVENANTS}
-                tooltip={(
-                    <>
-                        {formatThousands(this.damage)} Total damage
-                        {formatThousands(this.heal)} Total heal
-                    </>
-                )}
-            >
-            <BoringSpellValueText spell={SPELLS.THE_HUNT}>
-                <ItemDamageDone amount={this.damage} />
-                <br />
-                <ItemHealingDone amount={this.heal} />
-            </BoringSpellValueText>
-            </Statistic>
-        );
-    }
+  statistic() {
+    return (
+      <Statistic
+        position={STATISTIC_ORDER.CORE()}
+        size="flexible"
+        category={STATISTIC_CATEGORY.COVENANTS}
+        tooltip={(
+          <>
+            {formatThousands(this.damage)} Total damage
+            {formatThousands(this.heal)} Total heal
+          </>
+        )}
+      >
+        <BoringSpellValueText spell={SPELLS.THE_HUNT}>
+            <ItemDamageDone amount={this.damage} />
+            <br />
+            <ItemHealingDone amount={this.heal} />
+        </BoringSpellValueText>
+      </Statistic>
+    );
+  }
 
 }
 

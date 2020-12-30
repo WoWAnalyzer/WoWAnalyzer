@@ -36,20 +36,20 @@ class SinfulBrand extends Analyzer {
 
   statistic() {
     return (
-        <Statistic
-            position={STATISTIC_ORDER.CORE()}
-            size="flexible"
-            category={STATISTIC_CATEGORY.COVENANTS}
-            tooltip={(
-                <>
-                  {formatThousands(this.damage)} Total damage
-                </>
-            )}
-        >
-        <BoringSpellValueText spell={SPELLS.SINFUL_BRAND}>
-            <ItemDamageDone amount={this.damage} />
-        </BoringSpellValueText>
-      </Statistic>
+      <Statistic
+        position={STATISTIC_ORDER.CORE()}
+        size="flexible"
+        category={STATISTIC_CATEGORY.COVENANTS}
+        tooltip={(
+          <>
+            {formatThousands(this.damage)} Total damage
+          </>
+        )}
+      >
+      <BoringSpellValueText spell={SPELLS.SINFUL_BRAND}>
+        <ItemDamageDone amount={this.damage} />
+      </BoringSpellValueText>
+    </Statistic>
     );
   }
 
