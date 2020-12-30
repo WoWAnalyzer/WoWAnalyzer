@@ -16,8 +16,9 @@ const affectedByCreepingDeath = [
   SPELLS.UNSTABLE_AFFLICTION.id,
 ] as const;
 
-export const getDotDurations = (combatant: Combatant): Record<number, number> => {
-  return combatant.hasTalent(SPELLS.CREEPING_DEATH_TALENT.id)
+// TODO Add VT & covenant dots
+export const getDotDurations = (combatant: Combatant): Record<number, number> =>
+  combatant.hasTalent(SPELLS.CREEPING_DEATH_TALENT.id)
     ? Object.fromEntries(
         Object.entries(defaultDurations).map(([key, value]) => [
           key,
@@ -25,6 +26,3 @@ export const getDotDurations = (combatant: Combatant): Record<number, number> =>
         ]),
       )
     : defaultDurations;
-
-  // TODO Add VT & covenant dots
-};
