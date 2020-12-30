@@ -146,7 +146,6 @@ class Darkglare extends Analyzer {
     const dotInfo = this.dots[encoded].dots[spellId];
     // this also filters out Corruption damage if player has AC (extendExpectedEnd ends up NaN), which is correct (if it's permanent, it can't get extended - no actual bonus damage)
     const isExtended = dotInfo.extendStart !== null;
-    console.dir(dotInfo);
     const isInExtendedWindow =
       dotInfo.expectedEnd <= event.timestamp &&
       dotInfo.extendExpectedEnd !== null &&
