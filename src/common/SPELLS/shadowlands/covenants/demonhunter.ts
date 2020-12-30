@@ -21,7 +21,7 @@ const covenants = {
   //endregion
 
   //region Night Fae
-  THE_HUNT: { //Cast
+  THE_HUNT: {
     id: 323639,
     name: 'The Hunt',
     icon: 'ability_ardenweald_demonhunter',
