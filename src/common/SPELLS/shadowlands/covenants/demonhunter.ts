@@ -21,16 +21,27 @@ const covenants = {
   //endregion
 
   //region Night Fae
-  THE_HUNT: {
+  THE_HUNT: { //Cast
     id: 323639,
     name: 'The Hunt',
     icon: 'ability_ardenweald_demonhunter',
   },
-  THE_HUNT_DAMAGE: {
+  THE_HUNT_CHARGE: {
+    id: 323802,
+    name: 'The Hunt',
+    icon: 'ability_ardenweald_demonhunter',
+  },
+  THE_HUNT_DOT: {
     id: 345335,
     name: 'The Hunt',
     icon: 'ability_ardenweald_demonhunter',
   },
+  THE_HUNT_HEAL: {
+    id: 345423,
+    name: 'The Hunt',
+    icon: 'ability_ardenweald_demonhunter',
+  },
+
   //endregion
 
   //region Venthyr
