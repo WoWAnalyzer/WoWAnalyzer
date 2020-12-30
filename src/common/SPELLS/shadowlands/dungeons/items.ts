@@ -21,6 +21,12 @@ const dungeonItemSpells = {
     name: 'Inscrutable Quantum Device',
     icon: 'inv_trinket_80_titan02a',
   },
+  //Spires of Ascension
+  OVERCHARGED_ANIMA_BATTERY_BUFF: {
+    id: 345530,
+    name: 'Overcharged Anima Battery',
+    icon: 'inv_battery_01',
+  }
 } as const;
 
 export default dungeonItemSpells;
