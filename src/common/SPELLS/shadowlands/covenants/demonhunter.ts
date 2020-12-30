@@ -39,11 +39,6 @@ const covenants = {
     name: 'Sinful Brand',
     icon: 'ability_revendreth_demonhunter',
   },
-  SINFUL_BRAND_DAMAGE: {
-    id: 317075,
-    name: 'Sinful Brand',
-    icon: 'ability_revendreth_demonhunter',
-  },
   //endregion
 } as const;
 export default covenants;
