@@ -251,7 +251,7 @@ class Darkglare extends Analyzer {
             Combined damage: {formatThousands(totalDamage)} (
             {this.owner.formatItemDamageDone(totalDamage)})<br />
             <br />
-            <sup>*</sup> This only counts the damage that happened after the dot{' '}
+            <sup>*</sup> This only counts the damage that happened after the dot
             <u>should have fallen off</u> (but instead was extended with Darkglare).
           </>
         }
@@ -265,7 +265,6 @@ class Darkglare extends Analyzer {
               </>
             }
           >
-            {' '}
             <small>
               bonus damage <sup>*</sup>
             </small>
@@ -275,7 +274,6 @@ class Darkglare extends Analyzer {
           <br />
           {formatDPS(totalDamage)}
           <TooltipElement content="including pet damage">
-            {' '}
             <small>
               total damage <sup>*</sup>
             </small>

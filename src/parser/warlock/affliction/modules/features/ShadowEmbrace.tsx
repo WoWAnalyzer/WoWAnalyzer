@@ -206,19 +206,18 @@ class ShadowEmbrace extends Analyzer {
           <TooltipElement
             content={
               <>
-                No stacks: {formatPercentage(uptimes[0])} %<br />1 stack:{' '}
+                No stacks: {formatPercentage(uptimes[0])} %<br />1 stack:
                 {formatPercentage(uptimes[1])} %<br />2 stacks: {formatPercentage(uptimes[2])} %
                 <br />3 stacks: {formatPercentage(uptimes[3])} %
               </>
             }
           >
             <small>
-              {' '}
               uptime <sup>*</sup>
             </small>
           </TooltipElement>
           <br />
-          {formatNumber(this.dps)} DPS{' '}
+          {formatNumber(this.dps)} DPS
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total
           </small>

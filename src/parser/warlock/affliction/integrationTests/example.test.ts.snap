@@ -4146,7 +4146,6 @@ exports[`Affliction Warlock integration test: example log Darkglare matches the 
             onTouchStart={[Function]}
             style={Object {}}
           >
-             
             <small>
               bonus damage 
               <sup>
@@ -4169,7 +4168,6 @@ exports[`Affliction Warlock integration test: example log Darkglare matches the 
             onTouchStart={[Function]}
             style={Object {}}
           >
-             
             <small>
               total damage 
               <sup>
@@ -5144,7 +5142,6 @@ exports[`Affliction Warlock integration test: example log Haunt matches the stat
           <br />
           195
            DPS
-           
           <small>
             7.14
              % of total
@@ -5238,7 +5235,6 @@ exports[`Affliction Warlock integration test: example log PhantomSingularity mat
         >
           109
            DPS
-           
           <small>
             3.97
              % of total
@@ -5339,7 +5335,6 @@ exports[`Affliction Warlock integration test: example log ShadowEmbrace matches 
             style={Object {}}
           >
             <small>
-               
               uptime 
               <sup>
                 *
@@ -5349,7 +5344,6 @@ exports[`Affliction Warlock integration test: example log ShadowEmbrace matches 
           <br />
           0
            DPS
-           
           <small>
             0.00
              % of total
