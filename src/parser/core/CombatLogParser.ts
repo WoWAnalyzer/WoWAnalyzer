@@ -84,7 +84,6 @@ import BloodFury from '../shared/modules/racials/orc/BloodFury';
 // Shared Buffs
 import VantusRune from '../shared/modules/spells/VantusRune';
 // Shadowlands
-import SoulInfusion from '../shared/modules/spells/SoulInfusion';
 // Dungeons
 // PVP
 //Enchants
@@ -93,6 +92,7 @@ import DarkmoonDeckVoracity from '../shared/modules/items/shadowlands/crafted/Da
 //Dungeons
 import OverchargedAnimaBattery from '../shared/modules/items/shadowlands/dungeons/OverchargedAnimaBattery';
 // Castle Nathria
+import SoulInfusion from '../shared/modules/spells/SoulInfusion';
 
 // Legendaries
 
