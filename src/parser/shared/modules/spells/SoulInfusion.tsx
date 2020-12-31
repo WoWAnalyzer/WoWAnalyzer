@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import CoreChanneling from 'parser/shared/modules/Channeling';
-import Events, {RemoveBuffEvent, CastEvent, BeginChannelEvent, EndChannelEvent} from 'parser/core/Events';
+import Events, {RemoveBuffEvent, CastEvent} from 'parser/core/Events';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 
