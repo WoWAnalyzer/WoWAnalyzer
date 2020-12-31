@@ -5,23 +5,7 @@ import SPELLS from 'common/SPELLS';
 
 import COVENANTS from 'game/shadowlands/COVENANTS';
 
-const FEL_CELERITY_REDUCTION_SEC = {
-  1: 48,
-  2: 51,
-  3: 54,
-  4: 57,
-  5: 60,
-  6: 63,
-  7: 66,
-  8: 69,
-  9: 72,
-  10: 75,
-  11: 78,
-  12: 81,
-  13: 84,
-  14: 87,
-  15: 90,
-};
+const FEL_CELERITY_REDUCTION_SEC = [0, 48, 51, 54, 57, 60, 63, 66, 69, 72, 75, 78, 81, 84, 87, 90];
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -387,9 +371,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FEL_DOMINATION,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: combatant.hasConduitBySpellID(SPELLS.FEL_CELERITY.id)
-          ? 180 - FEL_CELERITY_REDUCTION_SEC[combatant.conduitRankBySpellID(SPELLS.FEL_CELERITY.id)]
-          : 180,
+        cooldown: () =>
+          180 -
+          FEL_CELERITY_REDUCTION_SEC[combatant.conduitRankBySpellID(SPELLS.FEL_CELERITY.id) || 0],
         gcd: {
           base: 1500,
         },

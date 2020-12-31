@@ -6,15 +6,7 @@ import { Enchant } from 'common/ITEMS/Item';
 import SPELLS from 'common/SPELLS';
 import { findByBossId } from 'raids';
 import CombatLogParser, { Player } from 'parser/core/CombatLogParser';
-import {
-  Buff,
-  CombatantInfoEvent,
-  Conduit,
-  ConduitRank,
-  EventType,
-  Item,
-  SoulbindTrait,
-} from 'parser/core/Events';
+import { Buff, CombatantInfoEvent, Conduit, EventType, Item, SoulbindTrait } from 'parser/core/Events';
 
 import Entity from './Entity';
 
@@ -244,7 +236,7 @@ class Combatant extends Entity {
       return;
     }
 
-    const ilvlToRankMapping: { [key: number]: ConduitRank } = {
+    const ilvlToRankMapping: { [key: number]: number } = {
       145: 1,
       158: 2,
       171: 3,
@@ -260,7 +252,7 @@ class Combatant extends Entity {
       304: 13,
       317: 14,
       330: 15,
-    } as const;
+    };
 
     conduits.forEach((conduit: Conduit) => {
       conduit.rank = ilvlToRankMapping[conduit.rank];
