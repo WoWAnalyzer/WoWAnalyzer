@@ -11,26 +11,12 @@ class SoulInfusion extends CoreChanneling {
 
   constructor(options: Options) {
     super(options);
+    
     const boss = this.owner.boss;
-
-    //if(boss === bosses.bosses["SunKingsSalvation"]) {
-    //  this.active = true;
-    //} else {
-    //  this.active = false;
-    //  return;
-    //}
-
     this.active = (boss === bosses.bosses["SunKingsSalvation"]) ? true : false;
     if (!this.active) {
       return;
     }
-
-
-    //this.active = boss ? bosses.bosses["SunKingsSalvation"] : false;
-    //if (!this.active) {
-    //  return;
-    //}
-
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SOUL_INFUSION), this.onBeginChannel);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SOUL_INFUSION), this.onRemoveBuff);
