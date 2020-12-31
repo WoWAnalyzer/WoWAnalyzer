@@ -12,14 +12,19 @@ class SoulInfusion extends CoreChanneling {
   constructor(options: Options) {
     super(options);
     const boss = this.owner.boss;
-    //this.active = boss ? bosses.bosses["SunKingsSalvation"] : false;
 
-    if(boss === bosses.bosses["SunKingsSalvation"]) {
-      this.active = true;
-    } else {
-      this.active = false;
+    //if(boss === bosses.bosses["SunKingsSalvation"]) {
+    //  this.active = true;
+    //} else {
+    //  this.active = false;
+    //  return;
+    //}
+
+    this.active = (boss === bosses.bosses["SunKingsSalvation"]) ? true : false;
+    if (!this.active) {
       return;
     }
+
 
     //this.active = boss ? bosses.bosses["SunKingsSalvation"] : false;
     //if (!this.active) {
