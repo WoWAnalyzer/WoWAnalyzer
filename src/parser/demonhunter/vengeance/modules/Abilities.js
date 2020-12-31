@@ -19,7 +19,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
-          extraSuggestion: <>This is a great Pain filler spell. Try to always cast it on cooldown, specially when using the <SpellLink id={SPELLS.FALLOUT_TALENT.id} /> talent in order to maximize your <SpellLink id={SPELLS.SOUL_FRAGMENT.id} /> generation.</>,
+          extraSuggestion: <>This is a great Fury filler spell. Try to always cast it on cooldown, specially when using the <SpellLink id={SPELLS.FALLOUT_TALENT.id} /> talent in order to maximize your <SpellLink id={SPELLS.SOUL_FRAGMENT.id} /> generation.</>,
         },
       },
       {
@@ -166,9 +166,9 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-		//TODO: Remove the suggestion if player is Kyrian and using Razelikh's Defilement legendary power
+        enabled: !(combatant.hasCovenant(COVENANTS.KYRIAN.id) && combatant.hasLegendaryByBonusID(SPELLS.RAZELIKHS_DEFILEMENT.bonusID)),
         castEfficiency: {
-          suggestion: true,
+          suggestion: !(combatant.hasCovenant(COVENANTS.KYRIAN.id) && combatant.hasLegendaryByBonusID(SPELLS.RAZELIKHS_DEFILEMENT.bonusID)),
           recommendedEfficiency: 0.90,
           extraSuggestion: combatant.hasTalent(SPELLS.ABYSSAL_STRIKE_TALENT.id) ? <>Line this up with <SpellLink id={SPELLS.INFERNAL_STRIKE.id} /> to double stack <SpellLink id={SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id} /> because of the <SpellLink id={SPELLS.ABYSSAL_STRIKE_TALENT.id} /> talent.</> : `Cast on cooldown for a dps increase.`,
         },
@@ -180,6 +180,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: combatant.hasTalent(SPELLS.ABYSSAL_STRIKE_TALENT.id) ? 12 : 20,
         charges: 2,
+        enabled: false, // TODO: change this to true, when infernal strike logging is working, see infernalstrike module for more details.
       },
 
       {
@@ -228,8 +229,8 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.HIDDEN,
         gcd: null,
       },
-
-	  // Covenant (move these if needed)
+	  
+	    // Covenant (move these if needed)
       {
         spell: SPELLS.ELYSIAN_DECREE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
@@ -237,7 +238,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-		enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+		    enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
       },
       {
         spell: SPELLS.SINFUL_BRAND,
@@ -246,7 +247,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-		enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+		    enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
       },
       {
         spell: SPELLS.FODDER_TO_THE_FLAME,
@@ -255,8 +256,8 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-		enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
-      },
+		    enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+      },	  
       {
         spell: SPELLS.THE_HUNT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
@@ -264,8 +265,8 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-		enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
-      },
+		    enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+      },		  
     ];
   }
 }
