@@ -207,6 +207,8 @@ class CombatLogParser {
     darkmoonDeckVoracity: DarkmoonDeckVoracity,
 
     // Shadowlands 
+
+    // Castle Nathria
     soulInfusion: SoulInfusion,
 
     // Dungeons
