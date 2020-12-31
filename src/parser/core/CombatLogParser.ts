@@ -90,6 +90,8 @@ import SoulInfusion from '../shared/modules/spells/SoulInfusion';
 //Enchants
 // Crafted
 import DarkmoonDeckVoracity from '../shared/modules/items/shadowlands/crafted/DarkmoonDeckVoracity';
+//Dungeons
+import OverchargedAnimaBattery from '../shared/modules/items/shadowlands/dungeons/OverchargedAnimaBattery';
 // Castle Nathria
 
 // Legendaries
@@ -207,6 +209,8 @@ class CombatLogParser {
     // Shadowlands 
     soulInfusion: SoulInfusion,
 
+    // Dungeons
+    overchargedAnimaBattery: OverchargedAnimaBattery,
   };
   // Override this with spec specific modules when extending
   static specModules: DependenciesDefinition = {};
