@@ -1,130 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Demonology Warlock integration test: example log AlwaysBeCasting matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad"
-      >
-        <label>
-          <img
-            alt="Downtime"
-            className="icon game "
-            src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
-          />
-           
-          <trans
-            id="shared.alwaysBeCasting.statistic.label"
-            message="Downtime"
-          />
-        </label>
-        <div
-          className="value"
-        >
-          25.41 %
-        </div>
-        <div
-          style={
-            Object {
-              "marginTop": "0.5em",
-            }
-          }
-        >
-          <div
-            className="statistic-box-bar"
-          >
-            <div
-              className="stat-health-bg"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={[Function]}
-              style={
-                Object {
-                  "width": "74.5907170921509%",
-                }
-              }
-            >
-              <img
-                alt="Active time"
-                src="/img/sword.png"
-              />
-            </div>
-            <div
-              className="remainder DeathKnight-bg"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={[Function]}
-            >
-              <img
-                alt="Downtime"
-                src="/img/afk.png"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Demonology Warlock integration test: example log AlwaysBeCasting matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "spell_mage_altertime",
-    "importance": "regular",
-    "issue": <React.Fragment>
-      Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting something instant. Make good use of your 
-      <ForwardRef
-        id={268358}
-      />
-       or 
-      <ForwardRef
-        id={111400}
-      />
-       when you can.
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      {"id":"warlock.demonology.suggestions.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"25.41"}}
-       (
-      &lt;10.00% is recommended
-      )
-    </React.Fragment>,
-  },
-]
-`;
-
 exports[`Demonology Warlock integration test: example log CastEfficiency matches the statistic snapshot 1`] = `
 <div
   className="panel "
@@ -6191,7 +6066,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
     </div>
   </li>
   <li
-    className="expandable expanded failed"
+    className="expandable  passed"
   >
     <div
       className="meta"
@@ -6215,8 +6090,8 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#df7102",
-                  "width": "48.58708791686248%",
+                  "backgroundColor": "#4ec04e",
+                  "width": "100%",
                 }
               }
             />
@@ -6369,7 +6244,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  25.41%
+                  -38.45%
                    
                    
                 </div>
@@ -6389,9 +6264,9 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#df7102",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "48.58708791686248%",
+                        "width": "100%",
                       }
                     }
                   />
