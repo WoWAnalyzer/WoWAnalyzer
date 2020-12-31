@@ -8044,6 +8044,11 @@ exports[`Holy Paladin integration test: example log RuleOfLaw matches the statis
         >
           <div
             className="uptime-bar"
+            style={
+              Object {
+                "height": "100%",
+              }
+            }
           />
         </div>
       </div>

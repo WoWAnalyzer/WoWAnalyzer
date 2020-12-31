@@ -13,11 +13,11 @@ type Props = {
   end: number;
 };
 
-const UptimeBar = ({ uptimeHistory, start: fightStart, end: fightEnd }: Props) => {
+const UptimeBar = ({ uptimeHistory, start: fightStart, end: fightEnd, ...others }: Props) => {
   const fightDuration = fightEnd - fightStart;
 
   return (
-    <div className="uptime-bar">
+    <div className="uptime-bar" {...others}>
       {uptimeHistory.map((buff) => {
         const start = buff.start;
         const end = buff.end !== null ? buff.end : fightEnd;

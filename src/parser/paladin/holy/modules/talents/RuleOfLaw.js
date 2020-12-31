@@ -63,6 +63,7 @@ class RuleOfLaw extends Analyzer {
               uptimeHistory={history}
               start={this.owner.fight.start_time}
               end={this.owner.fight.end_time}
+              style={{ height: '100%' }}
             />
           </div>
         </div>
