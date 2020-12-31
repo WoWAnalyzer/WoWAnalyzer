@@ -7174,7 +7174,7 @@ exports[`Mistweaver Monk integration test: example log StatValues matches the st
             <td
               className="text-right"
             >
-              Infinity
+              10.21
             </td>
             <td
               style={
