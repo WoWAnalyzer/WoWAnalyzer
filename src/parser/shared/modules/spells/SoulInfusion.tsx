@@ -3,6 +3,10 @@ import CoreChanneling from 'parser/shared/modules/Channeling';
 import Events, {RemoveBuffEvent, CastEvent, BeginChannelEvent, EndChannelEvent} from 'parser/core/Events';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
+
+/* Soul Infusion for Sun king's Salvation */
+/* Example Data: https://Wowanalyzer.com/report/g4Pja6pLHnmQtbvk/32-Normal+Sun+King's+Salvation+-+Kill+(10:14)/Pjurbo/standard/timeline */
+
 class SoulInfusion extends CoreChanneling {
 
   constructor(options: Options) {
