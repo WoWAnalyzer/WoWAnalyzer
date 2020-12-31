@@ -518,6 +518,11 @@ class StatTracker extends Analyzer {
    * @returns {number}
    */
   calculateStatPercentage(rating, baselineRatingPerPercent, returnRatingForNextPercent = false, isSecondary = true, coef = 1) {
+    //Check if the value is 0 or less (if so return 0 you can't have negative stats)
+    if(rating <= 0){
+      return 0;
+    }
+
     //Which penalty thresholds we should use based on type of stat
     const penaltyThresholds = isSecondary ? this.secondaryStatPenaltyThresholds : this.tertiaryStatPenaltyThresholds;
     //The percentage of stats we would have if diminishing return was not a thing
