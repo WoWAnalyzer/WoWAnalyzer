@@ -32,7 +32,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         <>
           Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay
           between casting spells. Even if you have to move, try casting something instant - maybe
-          refresh your dots. Make good use of your <SpellLink id={SPELLS.DEMONIC_CIRCLE.id} /> or{' '}
+          refresh your dots. Make good use of your <SpellLink id={SPELLS.DEMONIC_CIRCLE.id} /> or
           <SpellLink id={SPELLS.BURNING_RUSH_TALENT.id} /> when you can.
         </>,
       )
