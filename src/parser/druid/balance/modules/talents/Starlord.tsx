@@ -2,12 +2,12 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import { formatDuration, formatPercentage } from 'common/format';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import Events, { EventType } from 'parser/core/Events';
+import Events, { EventType, ApplyBuffEvent, ApplyBuffStackEvent, RemoveBuffEvent, RemoveBuffStackEvent, FightEndEvent } from 'parser/core/Events';
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 import HasteIcon from 'interface/icons/Haste';
 
@@ -18,19 +18,18 @@ class Starlord extends Analyzer {
 
   get averageHaste() {
     let avgStacks = 0;
-    this.buffStacks.forEach((elem, index) => {
+    this.buffStacks.forEach((elem: number[], index: number) => {
       avgStacks += elem.reduce((a, b) => a + b) / this.owner.fightDuration * index;
     });
     return (avgStacks * HASTE_PER_STACK).toFixed(2);
   }
 
-  buffStacks = [];
+  buffStacks: number[][];
   lastStacks = 0;
   lastUpdate = this.owner.fight.start_time;
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(5);
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.STARLORD_TALENT.id);
     this.buffStacks = Array.from({ length: MAX_STACKS + 1 }, x => [0]);
 
@@ -41,7 +40,7 @@ class Starlord extends Analyzer {
     this.addEventListener(Events.fightend, this.handleStacks);
   }
 
-  handleStacks(event, stack = null) {
+  handleStacks(event: ApplyBuffEvent | ApplyBuffStackEvent | RemoveBuffEvent | RemoveBuffStackEvent | FightEndEvent, stack = null) {
     this.buffStacks[this.lastStacks].push(event.timestamp - this.lastUpdate);
     if (event.type === EventType.FightEnd) {
       return;
