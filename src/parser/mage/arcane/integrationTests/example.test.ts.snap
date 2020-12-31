@@ -1,5 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Arcane Mage integration test: example log AlwaysBeCasting matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_mage_altertime",
+    "importance": "minor",
+    "issue": <span>
+      Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. If a fight requires movement, try saving 
+      <ForwardRef
+        id={205025}
+      />
+       to make your next 2 
+      <ForwardRef
+        id={30451}
+      />
+       casts instant.
+    </span>,
+    "stat": <React.Fragment>
+      <Trans
+        id="mage.arcane.suggestions.alwaysBeCasting.downtime"
+        message="{0}% downtime"
+        values={
+          Object {
+            "0": "34.93",
+          }
+        }
+      />
+       (
+      &lt;20.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
 exports[`Arcane Mage integration test: example log ArcaneEcho matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -490,7 +525,7 @@ exports[`Arcane Mage integration test: example log ArcanePowerActiveTime matches
         <div
           className="value"
         >
-          195.34
+          111.34
           % 
           <small>
             Arcane Power Active Time
@@ -5642,7 +5677,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  195.34%
+                  111.34%
                    
                    
                 </div>
@@ -6040,7 +6075,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
     </div>
   </li>
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -6064,8 +6099,8 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "90.70194805194805%",
+                  "backgroundColor": "#df7102",
+                  "width": "43.562194391944715%",
                 }
               }
             />
@@ -6158,7 +6193,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  1.68%
+                  34.93%
                    
                    
                 </div>
@@ -6178,9 +6213,9 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "5.72049267999332%",
                       }
                     }
                   />

@@ -34,7 +34,7 @@ exports[`Brewmaster Monk integration test: example log AlwaysBeCasting matches t
         <div
           className="value"
         >
-          53.26 %
+          53.73 %
         </div>
         <div
           style={
@@ -53,7 +53,7 @@ exports[`Brewmaster Monk integration test: example log AlwaysBeCasting matches t
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "46.74218272047787%",
+                  "width": "46.265299220646966%",
                 }
               }
             >
@@ -106,7 +106,7 @@ Array [
     "importance": "major",
     "issue": "Your downtime can be improved. Try to Always Be Casting (ABC).",
     "stat": <React.Fragment>
-      {"id":"monk.brewmaster.suggestions.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"53.26"}}
+      {"id":"monk.brewmaster.suggestions.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"53.73"}}
        (
       &lt;20.00% is recommended
       )

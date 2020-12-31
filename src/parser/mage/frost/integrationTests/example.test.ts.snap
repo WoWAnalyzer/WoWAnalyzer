@@ -145,7 +145,7 @@ exports[`Frost Mage integration test: example log AlwaysBeCasting matches the st
                   Object {
                     "fill": "none",
                     "margin": 0,
-                    "transform": "rotate(140.38769565963645deg)",
+                    "transform": "rotate(36.9104037488743deg)",
                     "transformOrigin": "5px 27px",
                   }
                 }
@@ -175,7 +175,7 @@ exports[`Frost Mage integration test: example log AlwaysBeCasting matches the st
                 }
               }
             >
-              100
+              63
               %
             </div>
           </div>
@@ -216,6 +216,45 @@ exports[`Frost Mage integration test: example log AlwaysBeCasting matches the st
     </div>
   </div>
 </div>
+`;
+
+exports[`Frost Mage integration test: example log AlwaysBeCasting matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_mage_altertime",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your downtime can be improved. Try to Always Be Casting (ABC) and try to reduce the delay between casting spells. If you have to move, try casting instants like 
+      <ForwardRef
+        id={108853}
+      />
+       or 
+      <ForwardRef
+        id={1449}
+      />
+       (if there are 2+ targets); even unbuffed 
+      <ForwardRef
+        id={30455}
+      />
+       spam is better than nothing. Additionally, if you are standing still while waiting for a boss damage reduction or immunity phase to end, you should still be casting 
+      <ForwardRef
+        id={116}
+      />
+       to generate procs or build 
+      <ForwardRef
+        id={205473}
+      />
+      .
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      {"id":"mage.frost.suggestions.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"36.82"}}
+       (
+      &lt;5.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
 `;
 
 exports[`Frost Mage integration test: example log BrainFreeze matches the statistic snapshot 1`] = `
@@ -4147,7 +4186,7 @@ exports[`Frost Mage integration test: example log IcyVeins matches the statistic
         <div
           className="value"
         >
-          129.90
+          79.32
           % 
           <small>
             Icy Veins Active Time
@@ -4174,6 +4213,45 @@ exports[`Frost Mage integration test: example log IcyVeins matches the statistic
     </div>
   </div>
 </div>
+`;
+
+exports[`Frost Mage integration test: example log IcyVeins matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_frost_coldhearted",
+    "importance": "regular",
+    "issue": <React.Fragment>
+      You spent 
+      19
+       seconds (
+      10
+      s per cast) not casting anything while 
+      <ForwardRef
+        id={12472}
+      />
+       was active. Because a large portion of your damage comes from Icy Veins, you should ensure that you are getting the most out of it every time it is cast. While sometimes this is out of your control (you got targeted by a mechanic at the worst possible time), you should try to minimize that risk by casting 
+      <ForwardRef
+        id={12472}
+      />
+       when you are at a low risk of being interrupted or when the target is vulnerable.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <Trans
+        id="mage.frost.suggestions.icyVeins.icyVeinsActiveTime"
+        message="{0}% Active Time during Icy Veins"
+        values={
+          Object {
+            "0": "79.32",
+          }
+        }
+      />
+       (
+      90.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
 `;
 
 exports[`Frost Mage integration test: example log LonelyWinter matches the statistic snapshot 1`] = `
@@ -6291,7 +6369,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
     </div>
   </li>
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -6315,8 +6393,8 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "89.1%",
+                  "backgroundColor": "#ffc84a",
+                  "width": "51.41196194423324%",
                 }
               }
             />
@@ -6409,7 +6487,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  -0.14%
+                  36.82%
                    
                    
                 </div>
@@ -6429,9 +6507,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "22.611399062245784%",
                       }
                     }
                   />
@@ -6529,7 +6607,7 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                   }
                 >
                    
-                  129.90%
+                  79.32%
                    
                    
                 </div>
@@ -6549,9 +6627,9 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "64.32448677045393%",
                       }
                     }
                   />

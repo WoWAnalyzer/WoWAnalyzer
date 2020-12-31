@@ -145,7 +145,7 @@ exports[`Holy Paladin integration test: example log AlwaysBeCasting matches the 
                   Object {
                     "fill": "none",
                     "margin": 0,
-                    "transform": "rotate(93.23266463807042deg)",
+                    "transform": "rotate(36.97803999523816deg)",
                     "transformOrigin": "5px 27px",
                   }
                 }
@@ -175,7 +175,7 @@ exports[`Holy Paladin integration test: example log AlwaysBeCasting matches the 
                 }
               }
             >
-              83
+              63
               %
             </div>
           </div>
@@ -249,12 +249,24 @@ Array [
   Object {
     "details": null,
     "icon": "petbattle_health-down",
-    "importance": "minor",
+    "importance": "major",
     "issue": "Your time spent healing can be improved. Try to reduce the amount of time you're not healing, for example by reducing the delay between casting spells, moving during the GCD and if you have to move try to continue healing with instant spells.",
     "stat": <React.Fragment>
-      {"id":"shared.suggestions.alwaysBeCastingHealing.timeSpentHealing","message":"{0}% time spent healing","values":{"0":-36.55}}
+      {"id":"shared.suggestions.alwaysBeCastingHealing.timeSpentHealing","message":"{0}% time spent healing","values":{"0":-56.37}}
        (
       &gt;70.00% is recommended
+      )
+    </React.Fragment>,
+  },
+  Object {
+    "details": null,
+    "icon": "spell_mage_altertime",
+    "importance": "regular",
+    "issue": "Your active time can be improved. Try to reduce your downtime, for example by reducing the delay between casting spells and when you're not healing try to contribute some damage.",
+    "stat": <React.Fragment>
+      {"id":"shared.suggestions.alwaysBeCasting.activeTime","message":"{0}% active time","values":{"0":"63.21"}}
+       (
+      &gt;80.00% is recommended
       )
     </React.Fragment>,
   },
@@ -10664,7 +10676,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
     </div>
   </li>
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -10691,8 +10703,8 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "87.43494708800019%",
+                  "backgroundColor": "#df7102",
+                  "width": "45.899604093906255%",
                 }
               }
             />
@@ -10803,7 +10815,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  37.55%
+                  57.37%
                    
                    
                 </div>
@@ -10823,9 +10835,9 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "74.86989417600037%",
+                        "width": "26.118061309562883%",
                       }
                     }
                   />
@@ -10866,7 +10878,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  16.70%
+                  36.79%
                    
                    
                 </div>
@@ -10886,9 +10898,9 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "65.68114687824962%",
                       }
                     }
                   />
