@@ -22,14 +22,14 @@ import { TooltipElement } from 'common/Tooltip';
 const DAMAGING_SPELL_IDS = [
   SPELLS.ASCENDED_BLAST.id,
   SPELLS.ASCENDED_NOVA.id,
-  SPELLS.ASCENDED_ERUPTION.id
-]
+  SPELLS.ASCENDED_ERUPTION.id,
+];
 
 const HEALING_SPELL_ID_MAP = {
   [SPELLS.ASCENDED_BLAST_HEAL.id]: SPELLS.ASCENDED_BLAST.id,
   [SPELLS.ASCENDED_NOVA_HEAL.id]: SPELLS.ASCENDED_NOVA.id,
-  [SPELLS.ASCENDED_ERUPTION_HEAL.id]: SPELLS.ASCENDED_ERUPTION.id
-}
+  [SPELLS.ASCENDED_ERUPTION_HEAL.id]: SPELLS.ASCENDED_ERUPTION.id,
+};
 
 interface AscendedSpellTracker {
   casts: number;
@@ -61,7 +61,7 @@ class BoonOfTheAscended extends Analyzer {
       overHealingDone: 0,
       atonmentHealingDone: 0,
       atonementOverHealingDone: 0,
-      damageDone: 0
+      damageDone: 0,
     },
     [SPELLS.ASCENDED_NOVA.id]: {
       casts: 0,
@@ -71,7 +71,7 @@ class BoonOfTheAscended extends Analyzer {
       overHealingDone: 0,
       atonmentHealingDone: 0,
       atonementOverHealingDone: 0,
-      damageDone: 0
+      damageDone: 0,
     },
     [SPELLS.ASCENDED_ERUPTION.id]: {
       casts: 0,
@@ -81,13 +81,13 @@ class BoonOfTheAscended extends Analyzer {
       overHealingDone: 0,
       atonmentHealingDone: 0,
       atonementOverHealingDone: 0,
-      damageDone: 0
+      damageDone: 0,
     },
-  }
+  };
 
   get totalDamage() {
     let total = 0;
-    for (const spellId in this.ascendedSpellTracker){
+    for (const spellId in this.ascendedSpellTracker) {
       total += this.ascendedSpellTracker[spellId].damageDone;
     }
     return total;
@@ -95,7 +95,7 @@ class BoonOfTheAscended extends Analyzer {
 
   get totalDirectHealing() {
     let total = 0;
-    for (const spellId in this.ascendedSpellTracker){
+    for (const spellId in this.ascendedSpellTracker) {
       total += this.ascendedSpellTracker[spellId].healingDone;
     }
     return total;
@@ -103,7 +103,7 @@ class BoonOfTheAscended extends Analyzer {
 
   get totalDirectOverHealing() {
     let total = 0;
-    for (const spellId in this.ascendedSpellTracker){
+    for (const spellId in this.ascendedSpellTracker) {
       total += this.ascendedSpellTracker[spellId].overHealingDone;
     }
     return total;
@@ -111,7 +111,7 @@ class BoonOfTheAscended extends Analyzer {
 
   get totalAtonementHealing() {
     let total = 0;
-    for (const spellId in this.ascendedSpellTracker){
+    for (const spellId in this.ascendedSpellTracker) {
       total += this.ascendedSpellTracker[spellId].atonmentHealingDone;
     }
     return total;
@@ -119,7 +119,7 @@ class BoonOfTheAscended extends Analyzer {
 
   get totalAtonementOverHealing() {
     let total = 0;
-    for (const spellId in this.ascendedSpellTracker){
+    for (const spellId in this.ascendedSpellTracker) {
       total += this.ascendedSpellTracker[spellId].atonementOverHealingDone;
     }
     return total;
@@ -130,10 +130,10 @@ class BoonOfTheAscended extends Analyzer {
       return 0;
     }
 
-    return this.stackTracker.reduce((a,b) => a + b, 0) / this.stackTracker.length;
+    return this.stackTracker.reduce((a, b) => a + b, 0) / this.stackTracker.length;
   }
 
-  get isDisc(){
+  get isDisc() {
     return this.selectedCombatant.spec === SPECS.DISCIPLINE_PRIEST;
   }
 
@@ -145,14 +145,14 @@ class BoonOfTheAscended extends Analyzer {
       return;
     }
 
-    if(this.isDisc) {
+    if (this.isDisc) {
       this.atonementDamageSource = this.owner.getModule(AtonementDamageSource);
       this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.ATONEMENT_HEAL_NON_CRIT, SPELLS.ATONEMENT_HEAL_CRIT]), this.onAtonmentHeal);
     }
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BOON_OF_THE_ASCENDED), this.onCast)
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BOON_OF_THE_ASCENDED), this.onCast);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BOON_OF_THE_ASCENDED), this.onBuffRemove);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.ASCENDED_BLAST, SPELLS.ASCENDED_NOVA, SPELLS.ASCENDED_ERUPTION]), this.onDamage)
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.ASCENDED_BLAST, SPELLS.ASCENDED_NOVA, SPELLS.ASCENDED_ERUPTION]), this.onDamage);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.ASCENDED_BLAST_HEAL, SPELLS.ASCENDED_NOVA_HEAL, SPELLS.ASCENDED_ERUPTION_HEAL]), this.onNormalHeal);
   }
 
@@ -161,7 +161,7 @@ class BoonOfTheAscended extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    this.ascendedSpellTracker[event.ability.guid].damageDone += event.amount + (event.absorb || 0);
+    this.ascendedSpellTracker[event.ability.guid].damageDone += event.amount + (event.absorbed || 0);
     this.ascendedSpellTracker[event.ability.guid].enemyHits += 1;
   }
 
@@ -180,7 +180,7 @@ class BoonOfTheAscended extends Analyzer {
       this.ascendedSpellTracker[atonenementDamageEvent.ability.guid].atonmentHealingDone += event.absorb || 0;
     }
 
-    this.ascendedSpellTracker[atonenementDamageEvent.ability.guid].atonementOverHealingDone += (event.overheal || 0)
+    this.ascendedSpellTracker[atonenementDamageEvent.ability.guid].atonementOverHealingDone += (event.overheal || 0);
   }
 
   onNormalHeal(event: HealEvent) {
@@ -200,7 +200,7 @@ class BoonOfTheAscended extends Analyzer {
   }
 
   getOverhealingPercent(totalHealing: number, totalOverHealing: number) {
-    return formatPercentage(totalOverHealing/(totalHealing + totalOverHealing));
+    return formatPercentage(totalOverHealing / (totalHealing + totalOverHealing));
   }
 
   spellTable() {
@@ -222,10 +222,10 @@ class BoonOfTheAscended extends Analyzer {
           </td>}
           <td>{formatNumber(this.ascendedSpellTracker[spellId].damageDone)}</td>
           <td>
-            <span style={{color:'green'}}>{this.ascendedSpellTracker[spellId].friendlyHits}</span> |
-            <span style={{color:'red'}}> {this.ascendedSpellTracker[spellId].enemyHits}</span>
+            <span style={{ color: 'green' }}>{this.ascendedSpellTracker[spellId].friendlyHits}</span> |
+            <span style={{ color: 'red' }}> {this.ascendedSpellTracker[spellId].enemyHits}</span>
           </td>
-        </tr>
+        </tr>,
       );
     }
 
@@ -244,14 +244,19 @@ class BoonOfTheAscended extends Analyzer {
           </>
         }
         dropdown={(
-          <table className={this.isDisc ? "table" : "table table-condensed"}>
+          <table className={this.isDisc ? 'table' : 'table table-condensed'}>
             <thead>
               <tr>
                 <th>Spell</th>
                 <th>Healing</th>
                 {this.isDisc && <th>Atonement Healing</th>}
                 <th>Damage</th>
-                <th>Targets Hit</th>
+
+                <th>
+                  <TooltipElement content={(<><span style={{ color: 'green' }}>Friendly</span> | <span style={{ color: 'red' }}>Enemy</span></>)}>
+                    Targets Hit
+                  </TooltipElement>
+                </th>
               </tr>
             </thead>
             <tbody>
