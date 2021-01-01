@@ -33,7 +33,7 @@ class Demonic extends Analyzer {
   goodDeathSweep = 0;
   eyeBeamTimeStamp: number = 0;
   deathsweepsInMetaCounter: number = 0;
-  badCasts = 1;
+  badCasts = 0;
 
   constructor(options: Options) {
     super(options);
@@ -48,9 +48,10 @@ class Demonic extends Analyzer {
   onEyeBeamCast(event: CastEvent) {
     const hasMetaBuff = this.selectedCombatant.hasBuff(SPELLS.METAMORPHOSIS_HAVOC_BUFF.id, event.timestamp - 1000);
 
-    if (hasMetaBuff) {
+    if (hasMetaBuff || !(this.selectedCombatant.hasTalent(SPELLS.TRAIL_OF_RUIN_TALENT) || this.selectedCombatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT))) {
       return;
     }
+
     this.eyeBeamCasts += 1;
     this.eyeBeamTimeStamp = event.timestamp;
 

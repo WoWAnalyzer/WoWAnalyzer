@@ -42,9 +42,9 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id),
-          recommendedEfficiency: 0.95,
-          extraSuggestion: <>This should be part of your single target rotation due to the <SpellLink id={SPELLS.FIRST_BLOOD_TALENT.id} /> talent. This includes the <SpellLink id={SPELLS.DEATH_SWEEP.id} /> casts since they are the same ability and share their cooldowns.</>,
+          suggestion: combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id) || combatant.hasTalent(SPELLS.TRAIL_OF_RUIN_TALENT.id),
+          recommendedEfficiency: 0.85,
+          extraSuggestion: <>This should be part of your single target rotation due to using either or both of the <SpellLink id={SPELLS.FIRST_BLOOD_TALENT.id} /> and <SpellLink id={SPELLS.TRAIL_OF_RUIN_TALENT.id} /> talent. This includes the <SpellLink id={SPELLS.DEATH_SWEEP.id} /> casts since they are the same ability and share their cooldowns.</>,
         },
       },
       {
