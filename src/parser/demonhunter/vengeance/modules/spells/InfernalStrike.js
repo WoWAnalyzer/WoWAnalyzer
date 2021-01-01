@@ -1,19 +1,12 @@
-import React from 'react';
-
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Enemies from 'parser/shared/modules/Enemies';
 
 import SPELLS from 'common/SPELLS/index';
-
-import { formatPercentage, formatThousands, formatDuration } from 'common/format';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Events from 'parser/core/Events';
 
 /*  When considering Infernal Strike, it is worth tracking how much time is spent overcapped on charges.
-    Unless you are in a fight that requires quick back-to-back movement uses, it is best to use a charge of this before, 
+    Unless you are in a fight that requires quick back-to-back movement uses, it is best to use a charge of this before,
     or shortly after gaining a second use. */
 class InfernalStrike extends Analyzer {
   static dependencies = {
@@ -29,7 +22,7 @@ class InfernalStrike extends Analyzer {
   secsOverCap = 0;
 
   get percentCastsAtCap() {
-      return this.castsAtCap / this.infernalCasts;
+    return this.castsAtCap / this.infernalCasts;
   }
 
   get suggestionThresholdsEfficiency() {
@@ -47,15 +40,15 @@ class InfernalStrike extends Analyzer {
   constructor(options) {
     super(options);
     /* TODO: Continue to monitor this if the logging ever gets fixed. Until then, this module won't work
-         
+
         As of 12/28/2020 logging for infernal strikes is broken. Casts aren't recorded at all.
         Damage events are triggered, but this doesn't capture using the ability for mobility
     */
-    
+
     this.addEventListener(Events.cast.spell(SPELLS.INFERNAL_STRIKE).by(SELECTED_PLAYER), this.onCast);
   }
 
-  onCast(event) {  
+  onCast(event) {
     this.currentCastTimestamp = event.timestamp;
 
     // Track recharge
@@ -73,37 +66,8 @@ class InfernalStrike extends Analyzer {
     }
 
     this.infernalCharges--;
-    
+
   }
-
-  /*
-  TODO - Uncomment this when logging is fixed on Blizzard's sode
-  
-  statistic() {
-
-    return (
-      <Statistic
-        position={STATISTIC_ORDER.CORE(5)}
-        size="flexible"
-        tooltip={(
-          <>
-            Using Infernal Strike as an OCD ability in rotation will increase DPS, as long as the fight doesn't require back-to-back uses for mechanics<br /><br />
-
-            Infernal Strike casts when at two stacks: {this.castsAtCap}.<br />
-            Infernal Strike time spent at two stacks: ({formatDuration(this.secsOverCap)}).<br />
-            
-          </>
-        )}
-      >
-        <BoringSpellValueText spell={SPELLS.INFERNAL_STRIKE}>
-          <>
-            {this.infernalCasts} <small>times</small>
-          </>
-        </BoringSpellValueText>
-      </Statistic>
-    );
-  }
-  */
 }
 
 export default InfernalStrike;

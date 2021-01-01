@@ -8,6 +8,7 @@ import { change, date } from 'common/changelog';
 
 // prettier-ignore
 export default [
+  change(date(2021, 1, 1), 'Happy New Years! Added most used legendaries, conduits, covenants and soulbinds to the character page.', Putro),
   change(date(2020, 12, 29), <> Add support for <ItemLink id={ITEMS.OVERCHARGED_ANIMA_BATTERY.id}/>. </>, Putro),
   change(date(2020, 12, 28), <>Resolved a crash that would occur if the player did not have a weapon equipped.</>, Sharrq),
   change(date(2020, 12, 28), <>Fixed the Changelog dropdown selector displaying incorrectly.</>, Adoraci),
