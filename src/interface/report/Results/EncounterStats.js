@@ -69,6 +69,7 @@ class EncounterStats extends React.PureComponent {
         name: item.name.replace(/\\'/g, '\''),
         quality: item.quality,
         icon: item.icon,
+        bonusIDs: item?.bonusIDs,
         amount: 1,
       });
     } else {
@@ -105,6 +106,7 @@ class EncounterStats extends React.PureComponent {
       const talentCounter = [[], [], [], [], [], [], []];
       const talents = [];
       let trinkets = [];
+      let legendaries = [];
       const similiarKillTimes = []; //These are the reports within the defined variance of the analyzed log
       const closestKillTimes = []; //These are the reports closest to the analyzed log regardless of it being within variance or not
       const combatantName = this.props.combatant._combatantInfo.name;
@@ -120,8 +122,11 @@ class EncounterStats extends React.PureComponent {
           if (itemSlot === 12 || itemSlot === 13) {
             trinkets = this.addItem(trinkets, item);
           }
+          if (item.quality === 'legendary') {
+            legendaries = this.addItem(legendaries, item);
+          }
         });
-        
+
         if (!rank.name.match(combatantName)) {
           if (this.props.duration > rank.duration * (1 - this.durationVariancePercentage) && this.props.duration < rank.duration * (1 + this.durationVariancePercentage)) {
             similiarKillTimes.push({ rank, variance: rank.duration - this.props.duration > 0 ? rank.duration - this.props.duration : this.props.duration - rank.duration });
@@ -140,12 +145,15 @@ class EncounterStats extends React.PureComponent {
 
       trinkets.sort((a, b) => (a.amount < b.amount) ? 1 : ((b.amount < a.amount) ? -1 : 0));
 
+      legendaries.sort((a, b) => (a.amount < b.amount) ? 1 : ((b.amount < a.amount) ? -1 : 0));
+
       similiarKillTimes.sort((a, b) => a.variance - b.variance);
 
       closestKillTimes.sort((a, b) => a.variance - b.variance);
 
       this.setState({
         mostUsedTrinkets: trinkets.slice(0, this.SHOW_TOP_ENTRYS),
+        mostUsedLegendaries: legendaries.slice(0, this.SHOW_TOP_ENTRYS),
         mostUsedTalents: talents,
         similiarKillTimes: similiarKillTimes.slice(0, this.SHOW_CLOSEST_KILL_TIME_LOGS),
         closestKillTimes: closestKillTimes.slice(0, this.SHOW_CLOSEST_KILL_TIME_LOGS),
@@ -197,10 +205,12 @@ class EncounterStats extends React.PureComponent {
             {formatPercentage(item.amount / this.amountOfParses, 0)}%
           </div>
           <div className="col-md-10">
-            <ItemLink id={item.id} className={item.quality} icon={false}>
+            <ItemLink id={item.id} className={item.quality} details={item} icon={false}>
               <Icon
                 icon={this.state.items[item.id] === undefined ? this.state.items[0].icon : this.state.items[item.id].icon}
                 className={item.quality}
+                details={item}
+
                 style={{ width: '2em', height: '2em', border: '1px solid', marginRight: 10 }}
               />
               {item.name}
@@ -213,7 +223,7 @@ class EncounterStats extends React.PureComponent {
 
   singleLog(log) {
     return (
-      <div key={`${log.reportID}-`} className="col-md-12 flex-main" style={{ textAlign: 'left', margin: '5px auto' }}>
+      <div key={`${log.reportID}-${log.name}`} className="col-md-12 flex-main" style={{ textAlign: 'left', margin: '5px auto' }}>
         <div className="row" style={{ opacity: '.8', fontSize: '.9em', lineHeight: '2em' }}>
           <div className="flex-column col-md-6">
             <a
@@ -237,18 +247,18 @@ class EncounterStats extends React.PureComponent {
     );
   }
 
-  similiarLogs() {
+  get similiarLogs() {
     return (
-      <div className="col-md-12 flex-main" style={{ textAlign: 'left', margin: '5px auto' }}>
+      <div className="col-md-12 flex-main" style={{ textAlign: 'left', margin: '5px auto' }} key='similiar-wcl-logs'>
         {this.state.similiarKillTimes.length > 1 ? 'These are' : 'This is'} {this.state.similiarKillTimes.length} of the top {this.amountOfParses} {this.state.similiarKillTimes.length > 1 ? 'logs' : 'log'} that {this.state.similiarKillTimes.length > 1 ? 'are' : 'is'} closest to your kill-time within {formatPercentage(this.durationVariancePercentage, 0)}% variance.
         {this.state.similiarKillTimes.map(log => this.singleLog(log.rank))}
       </div>
     );
   }
 
-  closestLogs() {
+  get closestLogs() {
     return (
-      <div className="col-md-12 flex-main" style={{ textAlign: 'left', margin: '5px auto' }}>
+      <div className="col-md-12 flex-main" style={{ textAlign: 'left', margin: '5px auto' }} key='closest-wcl-logs'>
         {this.state.closestKillTimes.length > 1 ? 'These are' : 'This is'} {this.state.closestKillTimes.length} of the top {this.amountOfParses} {this.state.closestKillTimes.length > 1 ? 'logs' : 'log'} that {this.state.closestKillTimes.length > 1 ? 'are' : 'is'} closest to your kill-time. Large differences won't be good for comparing.
         {this.state.closestKillTimes.map(log => this.singleLog(log.rank))}
       </div>
@@ -305,12 +315,22 @@ class EncounterStats extends React.PureComponent {
               <div className="col-md-4">
                 <div className="row" style={{ marginBottom: '2em' }}>
                   <div className="col-md-12">
+                    <h2>Most used Legendaries</h2>
+                  </div>
+                </div>
+                <div className="row" style={{ marginBottom: '2em' }}>
+                  {this.state.mostUsedLegendaries.map(legendary => this.singleItem(legendary))}
+                </div>
+              </div>
+              <div className="col-md-4">
+                <div className="row" style={{ marginBottom: '2em' }}>
+                  <div className="col-md-12">
                     <h2>{this.state.similiarKillTimes.length > 0 ? 'Similiar' : 'Closest'} kill times</h2>
                   </div>
                 </div>
                 <div className="row" style={{ marginBottom: '2em' }}>
-                  {this.state.similiarKillTimes.length > 0 ? this.similiarLogs() : ''}
-                  {this.state.similiarKillTimes.length === 0 && this.state.closestKillTimes.length > 0 ? this.closestLogs() : ''}
+                  {this.state.similiarKillTimes.length > 0 ? this.similiarLogs : ''}
+                  {this.state.similiarKillTimes.length === 0 && this.state.closestKillTimes.length > 0 ? this.closestLogs : ''}
                 </div>
               </div>
             </div>

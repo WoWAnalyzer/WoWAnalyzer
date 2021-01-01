@@ -11,15 +11,14 @@ interface Props {
 
 const Gear = (props: Props) => {
   const { gear } = props;
-  const EPIC_ITEMS_ILVL = 340;
+  const EPIC_ITEMS_ILVL = 200;
 
   return (
     <>
       {
         gear.filter(item => item.id !== 0)
         .map(item => {
-          // Items seem to turn epic from 340 item level, but WCL doesn't show this properly
-          // TODO: After pre-patch level squish this number should be different.
+          // Items seem to turn epic from 200 item level, but WCL doesn't show this properly
           let quality = item.itemLevel >= EPIC_ITEMS_ILVL ? ITEM_QUALITIES.EPIC : item.quality;
           if (!quality) {
             quality = ITEM_QUALITIES.EPIC; // relics don't have a quality, but they're always epic
