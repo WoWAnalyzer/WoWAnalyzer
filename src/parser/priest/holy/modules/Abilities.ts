@@ -414,6 +414,9 @@ class Abilities extends CoreAbilities {
           averageIssueEfficiency: 0.6,
           majorIssueEfficiency: 0.4,
         },
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.MINDGAMES,
@@ -449,16 +452,25 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ASCENDED_BLAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+        gcd: {
+          base: 1000,
+        },
       },
       {
         spell: SPELLS.ASCENDED_NOVA,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+        gcd: {
+          base: 1000,
+        },
       },
       {
         spell: SPELLS.ASCENDED_ERUPTION,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+        gcd: {
+          base: 1000,
+        },
       }
     ];
   }
