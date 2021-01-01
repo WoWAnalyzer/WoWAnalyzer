@@ -103,7 +103,6 @@ class Combatant extends Entity {
     this._parseSoulbind(combatantInfo.soulbindID);
     this._parseSoulbindTraits(combatantInfo.soulbindTraits);
     this._parseConduits(combatantInfo.conduits);
-
   }
 
   // region Talents
