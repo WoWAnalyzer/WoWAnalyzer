@@ -48,17 +48,15 @@ const PlayerTile = (props: Props) => {
 
   const avatar = characterInfo?.thumbnail
     ? `https://render-${
-        characterInfo.region
-      }.worldofwarcraft.com/character/${characterInfo.thumbnail.replace('avatar', 'inset')}`
+      characterInfo.region
+    }.worldofwarcraft.com/character/${characterInfo.thumbnail.replace('avatar', 'inset')}`
     : '/img/fallback-character.jpg';
   const spec = SPECS[player.combatant.specID];
   const analysisUrl = makeUrl(player.id);
   const covenant = player.combatant.covenantID || null;
-  let covenantIcon = "";
   let covenantName: string | undefined = '';
-  if(covenant!==null){
+  if (covenant !== null) {
     covenantName = getCovenantById(covenant)?.name;
-    covenantIcon = '/covenant/' + covenantName + '.jpg';
   }
 
   const isParsable = !player.combatant.error && spec;
@@ -80,10 +78,10 @@ const PlayerTile = (props: Props) => {
             <SpecIcon id={spec.id} /> {spec.specName} {spec.className}
           </small>
           {covenant && (
-              <div className="flex-main text-muted text-small">
-                <img src={covenantIcon} className="icon game" alt="The icon for your Covenant!"/> {covenantName}
-              </div>
-            )}
+            <div className="flex-main text-muted text-small">
+              <Icon icon={getCovenantById(covenant)?.icon} /> {covenantName}
+            </div>
+          )}
           <div className="flex text-muted text-small">
             <div className="flex-main">
               <Icon icon="inv_helmet_03" /> {Math.round(getAverageItemLevel(player.combatant.gear))}
