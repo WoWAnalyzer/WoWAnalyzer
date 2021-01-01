@@ -64,7 +64,7 @@ class BladeDance extends Analyzer {
 
   suggestions(when: When) {
     when(this.suggestionThresholds)
-    .addSuggestion((suggest, actual, recommended) => suggest(<>You should not cast <SpellLink id={SPELLS.BLADE_DANCE.id} /> or <SpellLink id={SPELLS.DEATH_SWEEP.id} /> on single target with your current spec,</>)
+    .addSuggestion((suggest, actual, recommended) => suggest(<>You should not cast <SpellLink id={SPELLS.BLADE_DANCE.id} /> or <SpellLink id={SPELLS.DEATH_SWEEP.id} /> on single target when you are not using <SpellLink id={SPELLS.FIRST_BLOOD_TALENT.id} /> or <SpellLink id={SPELLS.TRAIL_OF_RUIN_TALENT.id} /> as a talent,</>)
         .icon(SPELLS.BLADE_DANCE.icon)
         .actual(<>{actual} bad casts</>)
         .recommended(`No bad casts is recommended.`));
