@@ -28,7 +28,7 @@ class Demonic extends Analyzer {
       style: ThresholdStyle.NUMBER,
     };
   }
-
+  talentsCheck = this.selectedCombatant.hasTalent(SPELLS.TRAIL_OF_RUIN_TALENT) || this.selectedCombatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT)
   eyeBeamCasts = 0;
   goodDeathSweep = 0;
   eyeBeamTimeStamp: number = 0;
@@ -48,7 +48,7 @@ class Demonic extends Analyzer {
   onEyeBeamCast(event: CastEvent) {
     const hasMetaBuff = this.selectedCombatant.hasBuff(SPELLS.METAMORPHOSIS_HAVOC_BUFF.id, event.timestamp - 1000);
 
-    if (hasMetaBuff || !(this.selectedCombatant.hasTalent(SPELLS.TRAIL_OF_RUIN_TALENT) || this.selectedCombatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT))) {
+    if (hasMetaBuff || !this.talentsCheck) {
       return;
     }
 
@@ -68,7 +68,7 @@ class Demonic extends Analyzer {
   }
 
   onDeathSweepCast(event: CastEvent) {
-    if (this.eyeBeamTimeStamp !== undefined && (event.timestamp - this.eyeBeamTimeStamp) < META_BUFF_DURATION_EYEBEAM) {
+    if ((event.timestamp - this.eyeBeamTimeStamp) < META_BUFF_DURATION_EYEBEAM) {
       this.goodDeathSweep += 1;
       this.deathsweepsInMetaCounter += 1;
     }
