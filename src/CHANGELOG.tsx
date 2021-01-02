@@ -1,5 +1,5 @@
 import React from 'react';
-import { Abelito75, AdamKelly, Adoraci, Amani, Barter, ChagriAli, ChristopherKiss, Dambroda, emallson, flurreN, Guyius, Haelrail, HolySchmidt, Jafowler, jos3p, joshinator, Juko8, Keraldi, Khazak, Kruzershtern, Mae, Moonrabbit, niseko, Putro, Sharrq, Ssabbar, Zeboot, Zerotorescue } from 'CONTRIBUTORS';
+import { Abelito75, AdamKelly, Adoraci, Amani, Barry, Barter, ChagriAli, ChristopherKiss, Dambroda, emallson, flurreN, Guyius, Haelrail, HolySchmidt, Jafowler, jos3p, joshinator, Juko8, Keraldi, Khazak, Kruzershtern, Mae, Moonrabbit, niseko, Putro, Sharrq, Ssabbar, Zeboot, Zerotorescue } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
@@ -8,6 +8,7 @@ import { change, date } from 'common/changelog';
 
 // prettier-ignore
 export default [
+  change(date(2021, 1, 2), <> Added <SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id}/> uptime to resto druid checklist. </>, Barry),
   change(date(2021, 1, 2), <><SpellLink id={SPELLS.SOUL_INFUSION.id} /> is now being shown as channeld in Timeline and fixed bad icon</>, flurreN),
   change(date(2021, 1, 1), 'Happy New Years! Added most used legendaries, conduits, covenants and soulbinds to the character page.', Putro),
   change(date(2020, 12, 29), <> Add support for <ItemLink id={ITEMS.OVERCHARGED_ANIMA_BATTERY.id}/>. </>, Putro),
