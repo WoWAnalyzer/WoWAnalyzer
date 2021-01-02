@@ -7,6 +7,8 @@ import SPELLS from 'common/SPELLS'
 import SpellLink from 'common/SpellLink';
 
 export default [
+  change(date(2021, 1, 2), <>Add <SpellLink id={SPELLS.DEATH_COIL.id} /> Rank 2 cooldown reduction and add detection for prepull <SpellLink id={SPELLS.ARMY_OF_THE_DEAD.id} /> casts</>, [Khazak]),
+  change(date(2021, 1, 2), <>Add <SpellLink id={SPELLS.UNHOLY_BLIGHT_TALENT.id} /> to Cooldowns tab</>, [Khazak]),
   change(date(2020, 12, 29), <>Add <SpellLink id={SPELLS.EPIDEMIC.id} /> to <SpellLink id={SPELLS.SWARMING_MIST.id} /> module and clarifying note to <SpellLink id={SPELLS.SOUL_REAPER_TALENT.id} />.  Also tweaked downtime thresholds slightly to be more generous.</>, [Khazak]),
   change(date(2020, 12, 20), <>Added module for <SpellLink id={SPELLS.SWARMING_MIST.id} /> and added RP gained from <SpellLink id={SPELLS.SUPERSTRAIN.id} /> to statistic damage</>, joshinator),
   change(date(2020, 12, 17), <>Fix <SpellLink id={SPELLS.SOUL_REAPER_TALENT.id} /> module from showing when it shouldn't and lower suggestion threshold for <SpellLink id={SPELLS.VIRULENT_PLAGUE.id} /></>, [Khazak]),
