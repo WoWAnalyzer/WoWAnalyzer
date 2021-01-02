@@ -698,6 +698,8 @@ export interface Covenant {
   name: string;
   description: string;
   id: number;
+  spellID: number;
+  icon: string;
 }
 
 export interface Soulbind {
