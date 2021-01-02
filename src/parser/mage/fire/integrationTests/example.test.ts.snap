@@ -4461,7 +4461,7 @@ exports[`Fire Mage integration test: example log InfernalCascade matches the sta
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    category="ITEMS"
+    category="COVENANT"
     className="panel statistic flexible "
   >
     <div
@@ -4492,6 +4492,8 @@ exports[`Fire Mage integration test: example log InfernalCascade matches the sta
           >
             Infernal Cascade
           </a>
+           - Rank 
+          4
         </label>
         <div
           className="value"
@@ -4641,6 +4643,49 @@ exports[`Fire Mage integration test: example log MirrorImage matches the statist
     </div>
   </div>
 </div>
+`;
+
+exports[`Fire Mage integration test: example log PhoenixFlames matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "artifactability_firemage_phoenixbolt",
+    "importance": "major",
+    "issue": <React.Fragment>
+      You spent 
+      75
+      s (
+      20.10
+      % of the fight) capped on 
+      <ForwardRef
+        id={257541}
+      />
+       charges. While it is important to pool charges for your next 
+      <ForwardRef
+        id={190319}
+      />
+      , it is also important that you avoid capping on charges whenever possible. To avoid this, you should use a charge of 
+      <ForwardRef
+        id={257541}
+      />
+       if you are capped or are about to cap on charges.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <Trans
+        id="mage.fire.suggestions.phoenixFlames.phoenixFlamesCappedCharges"
+        message="{0}% of fight capped on charges"
+        values={
+          Object {
+            "0": "20.10",
+          }
+        }
+      />
+       (
+      5.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
 `;
 
 exports[`Fire Mage integration test: example log RuneOfPower matches the statistic snapshot 1`] = `

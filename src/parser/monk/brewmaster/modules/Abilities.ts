@@ -10,7 +10,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.KEG_SMASH,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 8 / (1 + haste),
+        cooldown: (haste) => 8 / (1 + haste),
         charges: 1,
         castEfficiency: {
           suggestion: true,
@@ -48,10 +48,34 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.RUSHING_JADE_WIND_TALENT_BREWMASTER,
+        spell: SPELLS.RUSHING_JADE_WIND,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 6 / (1 + haste),
-        enabled: combatant.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT_BREWMASTER.id),
+        cooldown: (haste) => 6 / (1 + haste),
+        enabled: combatant.hasTalent(SPELLS.RUSHING_JADE_WIND.id),
+        gcd: {
+          static: 1000,
+        },
+      },
+      {
+        spell: SPELLS.CHI_BURST_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 30,
+        enabled: combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+        },
+        gcd: {
+          static: 1000,
+        },
+      },
+      {
+        spell: SPELLS.CHI_WAVE_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 15,
+        enabled: combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+        },
         gcd: {
           static: 1000,
         },
@@ -83,7 +107,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.PURIFYING_BREW,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: haste => (combatant.hasTalent(SPELLS.LIGHT_BREWING_TALENT) ? 20 : 16) / (1 + haste),
+        cooldown: (haste) =>
+          (combatant.hasTalent(SPELLS.LIGHT_BREWING_TALENT) ? 16 : 20) / (1 + haste),
         charges: 2,
         gcd: null,
         castEfficiency: {
@@ -94,7 +119,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CELESTIAL_BREW,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: combatant.hasTalent(SPELLS.LIGHT_BREWING_TALENT) ? 60 : 48,
+        cooldown: combatant.hasTalent(SPELLS.LIGHT_BREWING_TALENT) ? 48 : 60,
         gcd: {
           static: 1000,
         },

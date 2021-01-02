@@ -189,19 +189,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BLESSING_OF_SACRIFICE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 120,
-        // castEfficiency: {
-        //   suggestion: true,
-        //   recommendedEfficiency: 0.85,
-        // },
-      },
-      {
-        spell: SPELLS.AEGIS_OF_LIGHT_TALENT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 180,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(SPELLS.AEGIS_OF_LIGHT_TALENT.id),
       },
       {
         spell: SPELLS.CLEANSE_TOXINS,
@@ -254,12 +241,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(SPELLS.REPENTANCE_TALENT.id),
-      },
-      {
-        spell: SPELLS.BASTION_OF_LIGHT_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 120,
-        enabled: combatant.hasTalent(SPELLS.BASTION_OF_LIGHT_TALENT.id),
       },
     ];
   }

@@ -6,6 +6,8 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 12, 28), <>Updated conduit statistic boxes to use the new layout.</>, Sharrq),
+  change(date(2020, 12, 24), <>Added module to check for capping on <SpellLink id={SPELLS.PHOENIX_FLAMES.id} /> charges and fixed an issue that was showing <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> as lasting the entire fight duration in the Cooldowns tab.</>, Sharrq),
   change(date(2020, 12, 19), <>Added module to check the active time during <SpellLink id={SPELLS.COMBUSTION.id} /> and fixed a typo in <SpellLink id={SPELLS.FIRESTORM.id} />.</>, Sharrq),
   change(date(2020, 12, 19), <>Resolved an issue in <SpellLink id={SPELLS.COMBUSTION.id} /> that was marking <SpellLink id={SPELLS.FIREBALL.id} /> casts that started before Combustion and ended after Combustion as being cast during Combustion.</>, Sharrq),
   change(date(2020, 12, 16), `Fixed an abe with suggestions showing {0} instead of the suggestion text in Fire modules and an abe that was causing a crash in Pyroclasm.`, Sharrq),

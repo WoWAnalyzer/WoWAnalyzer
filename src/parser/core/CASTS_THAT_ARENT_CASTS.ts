@@ -41,6 +41,8 @@ const spells: number[] = [
   SPELLS.RUNE_1.id,
   SPELLS.RUNE_2.id,
   SPELLS.RUNE_3.id,
+  SPELLS.ABOMINATION_LIMB_HIDDEN_CAST.id,
+  SPELLS.ABOMINATION_LIMB_GRIP.id,
   //endregion
 
   //region Hunter
@@ -57,6 +59,10 @@ const spells: number[] = [
   //region Covenants
   SPELLS.COMBAT_MEDITATION_TRIGGER.id, //The Spell ID when Combat Meditation from Kyrian Soulbind triggers, so that there is now a soul ready to pick up
   SPELLS.COMBAT_MEDITATION_PICK_UP.id, //The Spell ID that is "cast" when an orb is picked up
+  //endregion
+
+  //region Demon Hunter
+  SPELLS.FELBLADE_DAMAGE.id, //The spell that generates fury when casting 
   //endregion
 ];
 

@@ -1079,7 +1079,6 @@ export const Tora: Contributor = {
     "Website": "https://warlock.ai"
   },
 };
-
 export const Kettlepaw: Contributor = {
   nickname: 'Kettlepaw',
   github: 'abbottmg',
@@ -1117,7 +1116,73 @@ export const flurreN: Contributor = {
   }],
 };
 
+export const Carrottopp: Contributor = {
+  nickname: "Carrottopp",
+  github: "Chasson1992",
+  avatar: require('./interface/images/avatars/Carrottopp_avatar.png'),
+  discord: "Carrottopp#2592",
+  mains: [{
+    name: "Carrottopp",
+    spec: SPECS.ARMS_WARRIOR,
+    link: "https://worldofwarcraft.com/en-us/character/us/stormrage/carrottopp",
+  }],
+};
+
 export const Vexxra: Contributor = {
   nickname: 'Vexxra',
   github: 'vexxra',
 };
+
+export const TurianSniper: Contributor = {
+  nickname: 'TurianSniper',
+  github: 'tjw87912',
+  discord: 'TurianSniper#2941',
+  mains: [{
+    name: "Nakofel",
+    spec: SPECS.VENGEANCE_DEMON_HUNTER,
+    link: "https://worldofwarcraft.com/en-us/character/us/bleeding-hollow/nakofel",
+  }],  
+};
+
+export const Geeii: Contributor = {
+  nickname: 'Geeii',
+  github: 'radean0909',
+  discord: 'Geei#8447',
+  mains: [{
+    name: "Geeii",
+    spec: SPECS.VENGEANCE_DEMON_HUNTER, 
+    link: "https://worldofwarcraft.com/en-us/character/us/area52/geei",
+  }],
+};
+
+export const Akhtal: Contributor = {
+  nickname: 'Akhtal',
+  github: 'JoeyBG',
+  discord: 'Akhtal#6439',
+  mains: [
+    {
+      name: 'Yllanis',
+      spec: SPECS.AFFLICTION_WARLOCK,
+      link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/Yllanis',
+    },
+    {
+      name: 'Olwië',
+      spec: SPECS.BREWMASTER_MONK,
+      link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/Olwi%C3%AB',
+    },
+  ],
+};
+
+export const Barry: Contributor = {
+  nickname: 'Barry',
+  github: 'bcrabbe',
+  discord: 'Barry#5878',
+  avatar: require('./interface/images/avatars/barry-avatar.jpg'),
+  mains: [
+    {
+      name: 'Druulux',
+      spec: SPECS.RESTORATION_DRUID,
+      link: 'https://worldofwarcraft.com/en-gb/character/eu/silvermoon/druulux',
+    },
+  ],
+}

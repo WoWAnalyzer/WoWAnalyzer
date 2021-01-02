@@ -38,6 +38,8 @@ import Grace from './modules/spells/Grace';
 import Schism from './modules/spells/Schism';
 import SinsOfTheMany from './modules/spells/SinsOfTheMany';
 
+// Covenants
+import UnholyNova from '../shared/modules/shadowlands/covenants/UnholyNova';
 import Mindgames from './modules/shadowlands/covenants/MindGames';
 import BoonOfTheAscended from './modules/shadowlands/covenants/BoonOfTheAscended';
 
@@ -95,6 +97,7 @@ class CombatLogParser extends CoreCombatLogParser {
     schism: Schism,
 
     // Covenants
+    unholyNova: UnholyNova,
     mindgames: Mindgames,
     boonOfTheAscended: BoonOfTheAscended,
 

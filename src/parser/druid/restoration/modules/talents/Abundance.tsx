@@ -66,7 +66,7 @@ class Abundance extends Analyzer {
         tooltip={(
           <>
             Average mana reductions gained was {formatPercentage(avgManaSavingsPercent)}% or {formatNumber(avgManaSaings)} mana per cast.<br />
-            Maximum mana saved was {avgManaSaings * this.manaSavings.length} <br />
+            Total mana saved was {(avgManaSaings * this.manaSavings.length).toFixed(0)} <br />
             Average crit gain was {formatPercentage(avgCritGains)}%.
           </>
         )}

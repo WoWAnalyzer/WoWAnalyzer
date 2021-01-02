@@ -247,9 +247,9 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.CHIMAERA_SHOT_BM_TALENT,
+        spell: SPELLS.CHIMAERA_SHOT_TALENT_BEAST_MASTERY,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.CHIMAERA_SHOT_BM_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT_BEAST_MASTERY.id),
         cooldown: haste => hastedCooldown(15, haste),
         gcd: {
           base: 1500,
