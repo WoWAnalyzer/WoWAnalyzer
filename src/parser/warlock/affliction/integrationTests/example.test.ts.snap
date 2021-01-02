@@ -249,7 +249,7 @@ Array [
       <ForwardRef
         id={268358}
       />
-       or 
+       or
       <ForwardRef
         id={111400}
       />
@@ -4146,7 +4146,6 @@ exports[`Affliction Warlock integration test: example log Darkglare matches the 
             onTouchStart={[Function]}
             style={Object {}}
           >
-             
             <small>
               bonus damage 
               <sup>
@@ -4169,7 +4168,6 @@ exports[`Affliction Warlock integration test: example log Darkglare matches the 
             onTouchStart={[Function]}
             style={Object {}}
           >
-             
             <small>
               total damage 
               <sup>
@@ -4346,11 +4344,6 @@ exports[`Affliction Warlock integration test: example log DotUptimeStatisticBox 
         >
           <div
             className="uptime-bar"
-            style={
-              Object {
-                "height": "100%",
-              }
-            }
           >
             <div
               style={
@@ -4414,11 +4407,6 @@ exports[`Affliction Warlock integration test: example log DotUptimeStatisticBox 
         >
           <div
             className="uptime-bar"
-            style={
-              Object {
-                "height": "100%",
-              }
-            }
           >
             <div
               style={
@@ -4470,7 +4458,6 @@ exports[`Affliction Warlock integration test: example log DotUptimeStatisticBox 
           className="flex-sub value"
           style={
             Object {
-              "paddingRight": 8,
               "width": 140,
             }
           }
@@ -4491,11 +4478,6 @@ exports[`Affliction Warlock integration test: example log DotUptimeStatisticBox 
         >
           <div
             className="uptime-bar"
-            style={
-              Object {
-                "height": "100%",
-              }
-            }
           >
             <div
               style={
@@ -4575,11 +4557,6 @@ exports[`Affliction Warlock integration test: example log DotUptimeStatisticBox 
         >
           <div
             className="uptime-bar"
-            style={
-              Object {
-                "height": "100%",
-              }
-            }
           >
             <div
               style={
@@ -4602,6 +4579,123 @@ exports[`Affliction Warlock integration test: example log DotUptimeStatisticBox 
                 Object {
                   "left": "66.18390005935062%",
                   "width": "32.58059379568912%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub icon"
+        >
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=32390"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Shadow Embrace"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_shadowembrace.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-sub value"
+          style={
+            Object {
+              "width": 140,
+            }
+          }
+        >
+          0
+           % 
+          <small>
+            uptime
+          </small>
+        </div>
+        <div
+          className="flex-main chart"
+          style={
+            Object {
+              "padding": 15,
+            }
+          }
+        >
+          <div
+            className="uptime-bar"
+          />
+        </div>
+      </div>
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub icon"
+        >
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=48181"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Haunt"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_haunt.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-sub value"
+          style={
+            Object {
+              "width": 140,
+            }
+          }
+        >
+          80
+           % 
+          <small>
+            uptime
+          </small>
+        </div>
+        <div
+          className="flex-main chart"
+          style={
+            Object {
+              "padding": 15,
+            }
+          }
+        >
+          <div
+            className="uptime-bar"
+          >
+            <div
+              style={
+                Object {
+                  "left": "4.3021959728434735%",
+                  "width": "36.311721023146745%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "55.35024102140965%",
+                  "width": "13.028184305380641%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "69.35988187779563%",
+                  "width": "30.596690841186437%",
                 }
               }
             />
@@ -5047,7 +5141,7 @@ exports[`Affliction Warlock integration test: example log Haunt matches the stat
           </small>
           <br />
           195
-           DPS 
+           DPS
           <small>
             7.14
              % of total
@@ -5140,7 +5234,7 @@ exports[`Affliction Warlock integration test: example log PhantomSingularity mat
           className="value"
         >
           109
-           DPS 
+           DPS
           <small>
             3.97
              % of total
@@ -5241,7 +5335,7 @@ exports[`Affliction Warlock integration test: example log ShadowEmbrace matches 
             style={Object {}}
           >
             <small>
-               uptime 
+              uptime 
               <sup>
                 *
               </sup>
@@ -5249,7 +5343,7 @@ exports[`Affliction Warlock integration test: example log ShadowEmbrace matches 
           </dfn>
           <br />
           0
-           DPS 
+           DPS
           <small>
             0.00
              % of total
