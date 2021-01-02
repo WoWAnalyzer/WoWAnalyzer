@@ -1177,6 +1177,7 @@ export const Barry: Contributor = {
   nickname: 'Barry',
   github: 'bcrabbe',
   discord: 'Barry#5878',
+  avatar: require('./interface/images/avatars/barry-avatar.jpg'),
   mains: [
     {
       name: 'Druulux',
