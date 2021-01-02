@@ -9,11 +9,24 @@ import BoringValue from 'interface/statistics/components/BoringValueText';
 import { t } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 
 import Mastery from '../core/Mastery';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 class Cultivation extends Analyzer {
+  static dependencies = {
+    mastery: Mastery,
+  };
+
+  protected mastery!: Mastery;
+
+  constructor(options: Options) {
+    super(options);
+    const hasCultivation = this.selectedCombatant.hasTalent(SPELLS.CULTIVATION_TALENT.id);
+    this.active = hasCultivation;
+  }
+
   get directPercent() {
     return this.owner.getPercentageOfTotalHealingDone(this.mastery.getDirectHealing(SPELLS.CULTIVATION.id));
   }
@@ -34,24 +47,26 @@ class Cultivation extends Analyzer {
         average: 0.045,
         major: 0.03,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  static dependencies = {
-    mastery: Mastery,
-  };
-
-  constructor(...args) {
-    super(...args);
-    const hasCultivation = this.selectedCombatant.hasTalent(SPELLS.CULTIVATION_TALENT.id);
-    this.active = hasCultivation;
+  suggestions(when: When) {
+    when(this.suggestionThresholds)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>Your healing from <SpellLink id={SPELLS.CULTIVATION.id} /> could be improved. You may have too many healers or doing easy
+        content, thus having low cultivation proc rate. You may considering selecting another talent.</>)
+        .icon(SPELLS.CULTIVATION.icon)
+        .actual(t({
+      id: "druid.restoration.suggestions.cultivation.notOptimal",
+      message: `${formatPercentage(this.totalPercent)}% healing`
+    }))
+        .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
-
+  
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL}
+        position={STATISTIC_ORDER.OPTIONAL(11)}
         size="flexible"
         tooltip={(
           <>
@@ -70,18 +85,6 @@ class Cultivation extends Analyzer {
         </BoringValue>
       </Statistic>
     );
-  }
-
-  suggestions(when) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>Your healing from <SpellLink id={SPELLS.CULTIVATION.id} /> could be improved. You may have too many healers or doing easy
-        content, thus having low cultivation proc rate. You may considering selecting another talent.</>)
-        .icon(SPELLS.CULTIVATION.icon)
-        .actual(t({
-      id: "druid.restoration.suggestions.cultivation.notOptimal",
-      message: `${formatPercentage(this.totalPercent)}% healing`
-    }))
-        .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`));
   }
 }
 

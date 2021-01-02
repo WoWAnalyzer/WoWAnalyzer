@@ -2,6 +2,7 @@ import { Abelito75, Zeboot, LeoZhekov, Putro, Vexxra } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2021, 1, 2), 'Fixed an issue with innervate.', Abelito75),
   change(date(2020, 12, 24), 'Added support for Dark Titan\'s Lesson', Vexxra),
   change(date(2020, 12, 19), 'Fixed an issue with innervate.', Abelito75),
   change(date(2020, 12, 19), 'Updated Innervate to factor in self casts are bad and correct mana spent value.', Abelito75),

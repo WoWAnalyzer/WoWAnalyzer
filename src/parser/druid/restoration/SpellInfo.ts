@@ -189,4 +189,4 @@ export const DRUID_HEAL_INFO = {
   },
 };
 
-export const getSpellInfo = id => DRUID_HEAL_INFO[id] || DEFAULT_INFO;
+export const getSpellInfo = (id: number) => DRUID_HEAL_INFO[id] || DEFAULT_INFO;

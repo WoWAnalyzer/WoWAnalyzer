@@ -6,7 +6,7 @@ import SpellIcon from 'common/SpellIcon';
 import BoringValue from 'interface/statistics/components/BoringValueText';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 
 import Mastery from '../core/Mastery';
 
@@ -15,8 +15,10 @@ class CenarionWard extends Analyzer {
     mastery: Mastery,
   };
 
-  constructor(...args) {
-    super(...args);
+  protected mastery!: Mastery;
+
+  constructor(options: Options) {
+    super(options);
     const hasCenarionWard = this.selectedCombatant.hasTalent(SPELLS.CENARION_WARD_TALENT.id);
     this.active = hasCenarionWard;
   }
@@ -32,7 +34,7 @@ class CenarionWard extends Analyzer {
 
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL}
+        position={STATISTIC_ORDER.OPTIONAL(10)}
         size="flexible"
         tooltip={(
           <>
