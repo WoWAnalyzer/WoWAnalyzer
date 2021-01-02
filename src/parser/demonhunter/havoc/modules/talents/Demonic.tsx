@@ -69,6 +69,10 @@ class Demonic extends Analyzer {
 
   onDeathSweepCast(event: CastEvent) {
     if ((event.timestamp - this.eyeBeamTimeStamp) < META_BUFF_DURATION_EYEBEAM) {
+<<<<<<< HEAD
+=======
+      console.log(this.eyeBeamTimeStamp)
+>>>>>>> aef16e5a2be262df46f93a8960fcc70cdf6bcd80
       this.goodDeathSweep += 1;
       this.deathsweepsInMetaCounter += 1;
     }
