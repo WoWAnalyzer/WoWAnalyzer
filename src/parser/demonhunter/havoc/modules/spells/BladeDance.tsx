@@ -39,7 +39,7 @@ class BladeDance extends Analyzer {
   onDamage(event: DamageEvent) {
     //Function both for Blade Dance and Death Sweep
     //less than 5 hits = single target, bad cast.
-    var hitTimeStamp = event.timestamp;
+    const hitTimeStamp = event.timestamp;
     if (hitTimeStamp > this.firstHitTimeStamp + this.strikeTime){
       //New Strike
       if(this.hitCount < 5 && this.hitCount > 1) {
