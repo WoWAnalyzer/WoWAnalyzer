@@ -12,9 +12,9 @@ class BladeDance extends Analyzer {
     return {
       actual: this.badCast,
       isGreaterThan: {
-        minor: 0,
-        average: 0,
-        major: 1,
+        minor: 1,
+        average: 2,
+        major: 3,
       },
       style: ThresholdStyle.NUMBER,
     };
@@ -22,7 +22,7 @@ class BladeDance extends Analyzer {
 
   badCast = 0;
   hitCount = 0;
-  hitTimeStamp: number = 0;
+  //hitTimeStamp: number = 0;
   firstHitTimeStamp: number = 0;
   strikeTime: number = 1000;
 
@@ -39,14 +39,14 @@ class BladeDance extends Analyzer {
   onDamage(event: DamageEvent) {
     //Function both for Blade Dance and Death Sweep
     //less than 5 hits = single target, bad cast.
-    this.hitTimeStamp = event.timestamp;
-    if (event.timestamp > this.firstHitTimeStamp + this.strikeTime){
+    var hitTimeStamp = event.timestamp;
+    if (hitTimeStamp > this.firstHitTimeStamp + this.strikeTime){
       //New Strike
       if(this.hitCount < 5 && this.hitCount > 1) {
         //chech if last strike was bad
         this.badCast += 1;
       }
-      this.firstHitTimeStamp = this.hitTimeStamp //Timestamp for first hit in strike
+      this.firstHitTimeStamp = hitTimeStamp //Timestamp for first hit in strike
       this.hitCount = 0;
     }
     this.hitCount += 1;
