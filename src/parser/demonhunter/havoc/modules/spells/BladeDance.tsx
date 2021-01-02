@@ -1,11 +1,11 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SPECS from 'game/SPECS';
 import Events, { DamageEvent, FightEndEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellLink from 'common/SpellLink';
 
+//Example data for bad cast https://wowanalyzer.com/report/g4Pja6pLHnmQtbvk/32-Normal+Sun+King's+Salvation+-+Kill+(10:14)/Zyg/standard
 //For Blade dance and Death Sweep
 class BladeDance extends Analyzer {
   get suggestionThresholds() {
@@ -28,14 +28,11 @@ class BladeDance extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.spec === SPECS.HAVOC_DEMON_HUNTER;
-    if (!this.active || this.selectedCombatant.hasTalent(SPELLS.TRAIL_OF_RUIN_TALENT) || this.selectedCombatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT)) {
-        return;
+    this.active = !(this.selectedCombatant.hasTalent(SPELLS.TRAIL_OF_RUIN_TALENT) || this.selectedCombatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT));
+    if (!this.active) {
+      return;
     }
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DEATH_SWEEP_DAMAGE), this.onDamage);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLADE_DANCE_DAMAGE), this.onDamage);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLADE_DANCE_DAMAGE_LAST_HIT), this.onDamage);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DEATH_SWEEP_DAMAGE_LAST_HIT), this.onDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.DEATH_SWEEP_DAMAGE, SPELLS.BLADE_DANCE_DAMAGE, SPELLS.BLADE_DANCE_DAMAGE_LAST_HIT, SPELLS.DEATH_SWEEP_DAMAGE_LAST_HIT]), this.onDamage);
     this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
@@ -64,7 +61,7 @@ class BladeDance extends Analyzer {
 
   suggestions(when: When) {
     when(this.suggestionThresholds)
-    .addSuggestion((suggest, actual, recommended) => suggest(<>You should not cast <SpellLink id={SPELLS.BLADE_DANCE.id} /> or <SpellLink id={SPELLS.DEATH_SWEEP.id} /> on single target when you are not using <SpellLink id={SPELLS.FIRST_BLOOD_TALENT.id} /> or <SpellLink id={SPELLS.TRAIL_OF_RUIN_TALENT.id} /> as a talent,</>)
+    .addSuggestion((suggest, actual, recommended) => suggest(<>You should not cast <SpellLink id={SPELLS.BLADE_DANCE.id} /> or <SpellLink id={SPELLS.DEATH_SWEEP.id} /> on single target when you are not using <SpellLink id={SPELLS.FIRST_BLOOD_TALENT.id} /> or <SpellLink id={SPELLS.TRAIL_OF_RUIN_TALENT.id} /> as a talent.</>)
         .icon(SPELLS.BLADE_DANCE.icon)
         .actual(<>{actual} bad casts</>)
         .recommended(`No bad casts is recommended.`));
