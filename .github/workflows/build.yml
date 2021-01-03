@@ -288,3 +288,17 @@ jobs:
         with:
           node-version: '14.x'
       - run: node scripts/require-changelog-entry.js
+
+  prettier:
+    name: 'Prettier format'
+    runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Prettier code
+        uses: creyD/prettier_action@v3.1
+        with:
+          commit_message: 'Prettier'
+          prettier_options: --write **/*.{js,ts,tsx,json,css,scss,graphql,yml,md}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
