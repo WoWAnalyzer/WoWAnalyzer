@@ -36,6 +36,44 @@ const conduits = {
   },
   //endregion
 
+  //region Shared
+  HARMONY_OF_THE_TORTOLLAN_CONDUIT: {
+    id: 339377,
+    name: 'Harmony of the Tortollan',
+    icon: 'inv_shield_21',
+  },
+  MARKMANS_ADVANTAGE_CONDUIT: {
+    id: 339264,
+    name: 'Markman\'s Advantage',
+    icon: 'ability_argus_soulbombdebuffsmall',
+  },
+  REJUVENATING_WIND_CONDUIT: {
+    id: 339399,
+    name: 'Rejuvenating Wind',
+    icon: 'ability_druid_galewinds',
+  },
+  REJUVENATING_WIND_BUFF: {
+    id: 339400,
+    name: 'Rejuvenating Wind',
+    icon: 'ability_druid_galewinds',
+  },
+  RESILIENCE_OF_THE_HUNTER_CONDUIT: {
+    id: 339459,
+    name: 'Resilience of the Hunter',
+    icon: 'spell_nature_spiritarmor',
+  },
+  RESILIENCE_OF_THE_HUNTER_BUFF: {
+    id: 339461,
+    name: 'Resilience of the Hunter',
+    icon: 'spell_nature_spiritarmor',
+  },
+  REVERSAL_OF_FORTUNE_CONDUIT: {
+    id: 339495,
+    name: 'Reversal of Fortune',
+    icon: 'inv_trickshot',
+  },
+  //endregion
+
   //region Beast Mastery
   FEROCIOUS_APPETITE_CONDUIT: {
     id: 339704,
