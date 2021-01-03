@@ -78,6 +78,9 @@ class CastEfficiency extends Analyzer {
     ).reduce((acc, event) => {
       if (event.trigger === EventType.BeginCooldown) {
         lastRechargeTimestamp = event.timestamp;
+        if (mainSpellId === 42650 || mainSpellId === 48707){
+          console.log(mainSpellId + " 85 " + acc);
+        }
         return acc;
       } else if (event.trigger === EventType.EndCooldown) {
         //limit by start time in case of pre phase events
@@ -85,6 +88,10 @@ class CastEfficiency extends Analyzer {
         lastRechargeTimestamp = undefined;
         // this is just event.timePassed except `endcooldown` events
         // don't have `timePassed` filled in.
+        if (mainSpellId === 42650 || mainSpellId === 48707){
+          
+          console.log(mainSpellId + " 97 " + (acc + event.timestamp - event.start))
+        }
         return acc + event.timestamp - event.start;
         // This might cause oddness if we add anything that externally refreshes charges, but so far nothing does
       } else if (event.trigger === EventType.RestoreCharge) {
@@ -101,6 +108,10 @@ class CastEfficiency extends Analyzer {
         lastRechargeTimestamp = event.timestamp;
         return acc + timePassed;
       } else {
+        if (mainSpellId === 42650 || mainSpellId === 48707){
+          
+          console.log(mainSpellId + " 118" + acc);
+        }
         return acc;
       }
     }, 0);
@@ -294,6 +305,9 @@ class CastEfficiency extends Analyzer {
     // Legacy support: if maxCasts is defined, cast efficiency will be calculated using casts/rawMaxCasts
     let rawMaxCasts: number | undefined;
     const averageCooldown = cdInfo.recharges === 0 ? null : cdInfo.completedRechargeTime / cdInfo.recharges;
+    if (spellId === 42650) {
+      debugger;
+    }
     if (ability.castEfficiency.maxCasts) {
       // maxCasts expects cooldown in seconds
       rawMaxCasts = ability.castEfficiency.maxCasts(cooldown);
@@ -303,6 +317,10 @@ class CastEfficiency extends Analyzer {
         availableFightDuration /
         (averageCooldown + averageTimeSpentCasting + averageTimeWaitingOnGCD) +
         (ability.charges || 1) - 1;
+      
+      if (rawMaxCasts < 1) {
+        rawMaxCasts += 1;
+      }
     } else if (!includeNoCooldownEfficiency) {
       rawMaxCasts = availableFightDuration / cooldownMs! + (ability.charges || 1) - 1;
     } else if (casts > 0) {
