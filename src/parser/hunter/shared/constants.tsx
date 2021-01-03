@@ -153,11 +153,13 @@ export const EMPOWERED_RELEASE_INCREASE_KS_DAMAGE = [0, 0.05, 0.06, 0.07, 0.085,
 //endregion
 
 //region Endurance
-
+export const HARMONY_OF_THE_TORTOLLAN_EFFECT_BY_RANK = [0, -10000, -11500, -13000, -14500, -16000, -17500, -19000, -20500, -23000, -24500, -26000, -27500, -29000, -30500, -32000];
+export const MARKMANS_ADVANTAGE_EFFECT_BY_RANK = [0, 0.03, 0.035, 0.04, 0.045, 0.05, 0.055, 0.06, 0.065, 0.07, 0.075, 0.08, 0.085, 0.09, 0.095, 0.1];
+export const RESILIENCE_OF_THE_HUNTER_EFFECT_BY_RANK = [0, 0.03, 0.038, 0.046, 0.054, 0.062, 0.07, 0.078, 0.086, 0.094, 0.102, 0.11, 0.118, 0.126, 0.134, 0.142];
 //endregion
 
 //region Finesse
-
+export const REVERSAL_OF_FORTUNE_EFFECT_BY_RANK = [0, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
 //endregion
 
 //endregion
