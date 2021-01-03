@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
 import CoreAbilities from 'parser/core/modules/Abilities';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 //import SpellLink from 'common/SpellLink';
 
 class Abilities extends CoreAbilities {
@@ -241,18 +240,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(SPELLS.REPENTANCE_TALENT.id),
-      },
-      {
-        spell: SPELLS.DIVINE_TOLL,
-        category: Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE,
-        cooldown: 180,
-        castEfficiency: {
-          suggestion: true,
-        },
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
       },
       {
         spell: SPELLS.FINAL_STAND_CAST,
