@@ -23,9 +23,9 @@ class VanishFindWeakness extends Analyzer {
     enemies: Enemies,
   }
 
-  private BAD_CAST_WINDOW: number = 1000;
-  private FW_DEBUFF_LENGTH: number = 18 * 1000;
-  private DEBUFF_CAP: number = this.FW_DEBUFF_LENGTH; // Verified with Ravenholdt discord that FW does not follow pandemic debuff length rules (1.3 times base length).
+  private BAD_CAST_WINDOW = 1000;
+  private FW_DEBUFF_LENGTH = 18 * 1000;
+  private DEBUFF_CAP = this.FW_DEBUFF_LENGTH; // Verified with Ravenholdt discord that FW does not follow pandemic debuff length rules (1.3 times base length).
 
   private lastVanishPtr: CastEvent | null = null;
   private badVanishCasts: Map<CastEvent, number> = new Map<CastEvent, number>();
@@ -44,7 +44,6 @@ class VanishFindWeakness extends Analyzer {
 
   onFindWeaknessApplierCast(event: CastEvent): void {
     if (event.targetID === undefined) {
-      this.debug(`Skipping FW buff tracking for FW applier cast at timestamp ${event.timestamp} due to missing target ID.`);
       return;
     }
     if (this.lastVanishPtr === null) {
@@ -102,16 +101,16 @@ class VanishFindWeakness extends Analyzer {
   statistic(): React.ReactNode {
     const tableEntries: React.ReactNode[] = [];
     const keys: CastEvent[] = Array.from(this.badVanishCasts.keys());
-    for (let i: number = 0; i < keys.length; i++) {
+    keys.forEach((cast: CastEvent, idx: number) => {
       tableEntries.push(
         <>
-          <tr key={i}>
-            <td>{this.owner.formatTimestamp(keys[i].timestamp)}</td>
-            <td>{formatMilliseconds(this.badVanishCasts.get(keys[i]) as number)}</td>
+          <tr key={idx}>
+            <td>{this.owner.formatTimestamp(cast.timestamp)}</td>
+            <td>{formatMilliseconds(this.badVanishCasts.get(cast) as number)}</td>
           </tr>
         </>
       );
-    }
+    });
 
     return (
       <>

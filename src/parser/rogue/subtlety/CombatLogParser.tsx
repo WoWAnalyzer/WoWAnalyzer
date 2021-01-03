@@ -28,7 +28,6 @@ import Energy from './modules/core/Energy';
 import SymbolsDamageTracker from './modules/core/SymbolsDamageTracker';
 import DanceDamageTracker from './modules/core/DanceDamageTracker';
 import DarkShadowContribution from './modules/talents/DarkShadow/DarkShadowContribution';
-import FindWeakness from './modules/spells/FindWeakness';
 import BlackPowder from './modules/core/BlackPowder';
 
 import SerratedBoneSpike from '../shared/shadowlands/covenants/necrolord/SerratedBoneSpike';
@@ -72,7 +71,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Core
     danceCooldownReduction: DeepeningShadows,
-    findWeakness: FindWeakness,
 
     //Casts
     symbolsOfDeathUptime: SymbolsOfDeathUptime,
