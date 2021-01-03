@@ -44,7 +44,7 @@ class SoulsOvercap extends Analyzer {
   }
 
   wasterPerGenerated() {
-    return this.soulFragmentsTracker.soulsWasted / this.soulFragmentsTracker.soulsGenerated;
+    return this.soulFragmentsTracker.overcap / this.soulFragmentsTracker.soulsGenerated;
   }
 
   suggestions(when) {
@@ -74,7 +74,7 @@ class SoulsOvercap extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.SOUL_FRAGMENT}>
           <>
-            {formatPercentage(this.wasterPerGenerated())}% <small>souls</small>
+            {formatPercentage(this.wasterPerGenerated())}% <small>souls over cap</small>
           </>
         </BoringSpellValueText>
       </Statistic>

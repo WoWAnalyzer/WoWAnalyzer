@@ -58,11 +58,11 @@ const HavocDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }) =>
             thresholds={thresholds.blindFuryBadCasts}
           />
         )}
-        {combatant.hasTalent(SPELLS.DEMONIC_TALENT.id) && (
+        {combatant.hasTalent(SPELLS.DEMONIC_TALENT_HAVOC.id) && (
           <Requirement
             name={(
               <>
-                <SpellLink id={SPELLS.DEMONIC_TALENT.id} /> bad casts
+                <SpellLink id={SPELLS.DEMONIC_TALENT_HAVOC.id} /> bad casts
               </>
             )}
             thresholds={thresholds.demonicBadCasts}
@@ -99,7 +99,6 @@ const HavocDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }) =>
           </>
         )}
       >
-        {combatant.hasTalent(SPELLS.NEMESIS_TALENT.id) && <AbilityRequirement spell={SPELLS.NEMESIS_TALENT.id} />}
         {combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id) && (
           <Requirement
             name={(
@@ -124,7 +123,7 @@ const HavocDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }) =>
         <AbilityRequirement spell={SPELLS.METAMORPHOSIS_HAVOC.id} />
         <AbilityRequirement spell={SPELLS.EYE_BEAM.id} />
         {combatant.hasTalent(SPELLS.FEL_BARRAGE_TALENT.id) && <AbilityRequirement spell={SPELLS.FEL_BARRAGE_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.DARK_SLASH_TALENT.id) && <AbilityRequirement spell={SPELLS.DARK_SLASH_TALENT.id} />}
+        {combatant.hasTalent(SPELLS.ESSENCE_BREAK_TALENT.id) && <AbilityRequirement spell={SPELLS.ESSENCE_BREAK_TALENT.id} />}
       </Rule>
 
       <Rule

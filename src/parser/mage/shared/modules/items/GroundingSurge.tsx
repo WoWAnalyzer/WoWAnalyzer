@@ -15,8 +15,8 @@ class GroundingSurge extends Analyzer {
   conduitRank = 0;
   bonusDamage = 0;
 
-  constructor(props: Options) {
-    super(props);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.GROUNDING_SURGE.id);
     if (!this.active) {
       return;

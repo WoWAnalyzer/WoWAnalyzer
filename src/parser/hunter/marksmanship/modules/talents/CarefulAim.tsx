@@ -11,7 +11,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { CA_MODIFIER, CAREFUL_AIM_THRESHOLD } from 'parser/hunter/marksmanship/constants';
-import ExecuteHelper from 'parser/shared/ExecuteHelper';
+import ExecuteHelper from 'parser/shared/modules/helpers/ExecuteHelper';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { abbreviateBossNames } from 'common/abbreviateLongNames';
 

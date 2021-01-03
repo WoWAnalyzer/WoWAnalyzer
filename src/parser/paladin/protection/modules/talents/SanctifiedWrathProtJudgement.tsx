@@ -20,7 +20,7 @@ class SanctifiedWrathProtJudgement extends Analyzer {
 
     constructor(options: Options) {
         super(options);
-        this.active = this.selectedCombatant.hasTalent(SPELLS.SANCTIFIED_WRATH_PROT_TALENT.id);
+        this.active = this.selectedCombatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT_PROTECTION.id);
         if (!this.active) {
             return;
         }
@@ -37,7 +37,7 @@ class SanctifiedWrathProtJudgement extends Analyzer {
 
     trackedWastedJudgmentHP(event: EnergizeEvent) {
         const hasAW: boolean = this.selectedCombatant.hasBuff(SPELLS.AVENGING_WRATH.id);
-        
+
         const judgementSource: boolean = event.ability.guid === SPELLS.JUDGMENT_HP_ENERGIZE.id;
         const wastedHolyPower: boolean = event.waste !== null && event.waste !== undefined && event.waste > 0;
         if (hasAW && judgementSource) {
@@ -54,12 +54,12 @@ class SanctifiedWrathProtJudgement extends Analyzer {
      * 4 - crit with no Holy Avenger Buff
      * 3 - non-crit with Holy Avenger Buff
      * 6 - crit with Holy Avenger Buff
-     * 
+     *
      * To consider the wasted holy power generation to be due to a bad Judgement during Avenging Wrath,
      * the spell must not be a crit with HA up (wasted HP no matter what), the cast must not have been made with >3 HP on
-     * a non-HA cast (crits are random so we let the wasted HP slide), or the cast must not have been made with >2 HP on a 
+     * a non-HA cast (crits are random so we let the wasted HP slide), or the cast must not have been made with >2 HP on a
      * HA cast.
-     * @param event 
+     * @param event
      * @returns Number of wasted Holy Power due to Sanctified Wrath talent.
      */
     wasteDueToSanctifiedWrath(event: EnergizeEvent): number {
@@ -90,7 +90,7 @@ class SanctifiedWrathProtJudgement extends Analyzer {
                 }
             >
                 <BoringSpellValue
-                    spell={SPELLS.SANCTIFIED_WRATH_PROT_TALENT}
+                    spell={SPELLS.SANCTIFIED_WRATH_TALENT_PROTECTION}
                     value={formatNumber(bonusHP)}
                     label="Extra Holy Power"
                 />

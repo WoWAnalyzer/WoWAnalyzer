@@ -32,6 +32,7 @@ export const TEACHINGS_OF_THE_MONASTERY_DURATION = 20000;
 // Talent Constants
 export const SPIRIT_OF_THE_CRANE_MANA_RETURN = .0065;
 export const LIFECYCLES_MANA_REDUCTION_PERCENT = .25;
+export const MANA_TEA_DURATION = 10000;
 
 // Conduit scaling
 export function conduitScaling(rankOne: number, requiredRank: number) {

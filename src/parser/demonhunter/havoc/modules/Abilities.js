@@ -1,8 +1,9 @@
 import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import CoreAbilities from 'parser/core/modules/Abilities';
+import COVENANTS from 'game/shadowlands/COVENANTS';
+
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -34,7 +35,9 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.BLADE_DANCE, SPELLS.DEATH_SWEEP],
         category: combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id) ? Abilities.SPELL_CATEGORIES.ROTATIONAL : Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        cooldown: haste => 9 / (1 + haste),
+        cooldown: haste => combatant.hasBuff(SPELLS.METAMORPHOSIS_HAVOC_BUFF.id) ? 9 / (1 + haste) : 15 / (1 + haste),
+        //Blade dance = 15s cd
+        //Death Sweep = 9s cd
         gcd: {
           base: 1500,
         },
@@ -48,7 +51,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FELBLADE_TALENT,
         enabled: combatant.hasTalent(SPELLS.FELBLADE_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        // Felblade cooldown can be reset by Shear or Demon Blades (when talented). But it's CD reset is not any event, so can't track if it resets or not.
+        // Felblade cooldown can be reset by Demon Bite. But it's CD reset is not any event, so can't track if it resets or not.
         cooldown: haste => 15 / (1 + haste),
         gcd: {
           base: 1500,
@@ -61,9 +64,8 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.IMMOLATION_AURA,
-        // IMMOLATION_AURA is the ID for cast and the buff. But damage is done from IMMOLATION_AURA_FIRST_STRIKE_DPS and IMMOLATION_AURA_BUFF_DPS
+        // IMMOLATION_AURA is the ID for cast and the buff. But damage is done from IMMOLATION_AURA_INITIAL_HIT_DAMAGE and IMMOLATION_AURA_BUFF_DAMAGE
         buffSpellId: SPELLS.IMMOLATION_AURA.id,
-        enabled: combatant.hasTalent(SPELLS.IMMOLATION_AURA.id),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 30 / (1 + haste),
         gcd: {
@@ -76,8 +78,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.DARK_SLASH_TALENT,
-        enabled: combatant.hasTalent(SPELLS.DARK_SLASH_TALENT.id),
+        spell: SPELLS.ESSENCE_BREAK_TALENT,
+        enabled: combatant.hasTalent(SPELLS.ESSENCE_BREAK_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 20,
         gcd: {
@@ -92,8 +94,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.THROW_GLAIVE_HAVOC,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        charges: combatant.hasTalent(SPELLS.MASTER_OF_THE_GLAIVE_TALENT.id) ? 2 : 1,
-        cooldown: haste => 10 / (1 + haste),
+        cooldown: haste => 9 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -211,28 +212,106 @@ class Abilities extends CoreAbilities {
           extraSuggestion: `This is a great AoE damage spell, but also does a great damage on single target. You should cast it as soon as it gets off cooldown. The only moment you can delay it's cast is if you already expect an add wave to maximize it's efficiency and damage output.`,
         },
       },
-
+      {
+        spell: SPELLS.GLAIVE_TEMPEST_TALENT,
+        enabled: combatant.hasTalent(SPELLS.GLAIVE_TEMPEST_TALENT.id),
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: haste => 20 / (1 + haste),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.95,
+          extraSuggestion: <>The only time you should delay casting <SpellLink id={SPELLS.GLAIVE_TEMPEST_TALENT.id} /> is when you're expecting adds to spawn soon.</>,
+        },
+      },
+      //Covenant
+      {
+        spell: SPELLS.SINFUL_BRAND,
+        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.95,
+          extraSuggestion: `This should be part of your single target rotation.`,
+        },
+      },
+      {
+        spell: SPELLS.ELYSIAN_DECREE,
+        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+          extraSuggestion: <>The only time you should delay casting <SpellLink id={SPELLS.ELYSIAN_DECREE.id} /> is when you're expecting adds to spawn soon.</>,
+        },
+      },
+      {
+        spell: SPELLS.FODDER_TO_THE_FLAME,
+        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 120,
+        gcd: {
+          base: 1500,
+        }
+      },
+      {
+        spell: SPELLS.THE_HUNT,
+        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 90,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+          extraSuggestion: <>The only time you should delay casting <SpellLink id={SPELLS.THE_HUNT.id} /> is when you're expecting adds to spawn soon or for an upcoming haste buff.</>,
+        },
+      },
+      {
+        spell: SPELLS.DOOR_OF_SHADOWS,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+      },
+      {
+        spell: SPELLS.FLESHCRAFT,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 120,
+        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+      },
+      {
+        spell: SPELLS.SOULSHAPE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 30,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+      },
       // Big DPS Cooldowns
       {
         spell: SPELLS.METAMORPHOSIS_HAVOC,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         buffSpellId: SPELLS.METAMORPHOSIS_HAVOC_BUFF.id,
-        cooldown: 240,
+        cooldown: 300,
         gcd: null, // Logs track the "landing" spell which is not on GCD
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.80, //4 minute cd. You want some leeway in when to burn it.
-        },
-      },
-      {
-        spell: SPELLS.NEMESIS_TALENT,
-        enabled: combatant.hasTalent(SPELLS.NEMESIS_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 120,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-          extraSuggestion: 'This is your main damage increase buff. You should use it as much as you can to maximize your damage output.',
+          recommendedEfficiency: 0.80, //5 minute cd. You want some leeway in when to burn it.
         },
       },
 
@@ -248,12 +327,18 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.DARKNESS.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 180,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.NETHERWALK_TALENT,
         enabled: combatant.hasTalent(SPELLS.NETHERWALK_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: 120,
+        cooldown: 180,
+        gcd: {
+          base: 1500,
+        },
       },
     ];
   }

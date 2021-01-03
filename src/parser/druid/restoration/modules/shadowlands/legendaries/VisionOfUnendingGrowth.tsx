@@ -17,7 +17,7 @@ import ItemHealingDone from 'interface/ItemHealingDone';
 class VisionOfUnendingGrowth extends Analyzer {
 
   extraRejuvs = 0;
-  
+
   healing = 0;
   overhealing = 0;
 
@@ -32,7 +32,7 @@ class VisionOfUnendingGrowth extends Analyzer {
       return;
     }
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATION), this.rejuvCast)
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATION), this.rejuvCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATION), this.rejuvHeal);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATION), this.rejuvBuffApplied);
     this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATION), this.rejuvBuffRefreshed);

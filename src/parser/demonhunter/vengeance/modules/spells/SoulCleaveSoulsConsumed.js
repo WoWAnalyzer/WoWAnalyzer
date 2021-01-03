@@ -11,8 +11,10 @@ import SoulFragmentsTracker from '../features/SoulFragmentsTracker';
 
 class SoulCleaveSoulsConsumed extends Analyzer {
   get suggestionThresholdsEfficiency() {
-    const totalAvailable = this.soulFragmentsTracker.soulsGenerated - this.soulFragmentsTracker.soulsWasted;
+    
+    const totalAvailable = this.soulFragmentsTracker.soulsGenerated - this.soulFragmentsTracker.overcap;
     const fractionOnSoulCleave = (totalAvailable === 0) ? 0 : (this.soulFragmentsConsume.soulCleaveSouls() / totalAvailable);
+
     return {
       actual: fractionOnSoulCleave,
       isGreaterThan: {

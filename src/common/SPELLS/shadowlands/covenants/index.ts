@@ -9,6 +9,7 @@ import PALADIN from './paladin';
 import PRIEST from './priest';
 import ROGUE from './rogue';
 import SHAMAN from './shaman';
+import SHARED from './shared';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
 
@@ -26,6 +27,7 @@ const covenants = {
   ...SHAMAN,
   ...WARLOCK,
   ...WARRIOR,
+  ...SHARED,
 } as const;
 
 export default covenants;

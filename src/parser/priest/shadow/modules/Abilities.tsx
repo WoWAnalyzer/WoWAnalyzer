@@ -167,6 +167,10 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+        },
       },
 
       {
@@ -189,7 +193,7 @@ class Abilities extends CoreAbilities {
         isDefensive: true,
         buffSpellId: SPELLS.DISPERSION.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 120 - (combatant.hasTalent(SPELLS.INTANGABILITY_TALENT.id) ? 30 : 0),
+        cooldown: 120 - (combatant.hasTalent(SPELLS.INTANGIBILITY_TALENT.id) ? 30 : 0),
         gcd: {
           base: 1500,
         },
@@ -357,15 +361,63 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },
       {
-        spell: SPELLS.UNHOLY_NOVA,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 60,
-        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+        spell: SPELLS.BOON_OF_THE_ASCENDED,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 180,
+        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.8,
-          averageIssueEfficiency: 0.7,
-          majorIssueEfficiency: 0.6,
+          recommendedEfficiency: 0.9,
+          averageIssueEfficiency: 0.8,
+          majorIssueEfficiency: 0.7,
+        },
+      },
+      {
+        spell: SPELLS.UNHOLY_NOVA,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 60,
+        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+          averageIssueEfficiency: 0.8,
+          majorIssueEfficiency: 0.7,
+        },
+      },
+      {
+        spell: SPELLS.MINDGAMES,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 45,
+        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.95,
+          averageIssueEfficiency: 0.85,
+          majorIssueEfficiency: 0.75,
+        },
+      },
+      {
+        spell: SPELLS.FAE_GUARDIANS,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 90,
+        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+          averageIssueEfficiency: 0.8,
+          majorIssueEfficiency: 0.7,
         },
       },
     ];
