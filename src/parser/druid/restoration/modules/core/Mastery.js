@@ -37,8 +37,8 @@ class Mastery extends Analyzer {
   constructor(...args) {
     super(...args);
     Object.entries(DRUID_HEAL_INFO)
-      .filter(infoEntry => infoEntry[1].masteryStack)
-      .forEach(infoEntry => {
+      .filter((infoEntry) => infoEntry[1].masteryStack)
+      .forEach((infoEntry) => {
         this.hotHealingAttrib[infoEntry[0]] = { direct: 0, mastery: {} };
       });
 
@@ -49,7 +49,7 @@ class Mastery extends Analyzer {
       [SPELLS.JACINS_RUSE.id]: { amount: 3000 },
     };
 
-    Object.values(this.masteryBuffs).forEach(entry => {
+    Object.values(this.masteryBuffs).forEach((entry) => {
       entry.attributableHealing = 0;
     });
 
@@ -80,13 +80,16 @@ class Mastery extends Analyzer {
       this.masteryTimesHealing += decomposedHeal.noMastery * decomposedHeal.effectiveStackBenefit;
 
       hotsOn
-        .filter(hotOn => hotOn !== spellId) // don't double count
-        .forEach(hotOn => this._tallyMasteryBenefit(hotOn, spellId, decomposedHeal.oneStack));
+        .filter((hotOn) => hotOn !== spellId) // don't double count
+        .forEach((hotOn) => this._tallyMasteryBenefit(hotOn, spellId, decomposedHeal.oneStack));
 
       Object.entries(this.masteryBuffs)
-        .filter(entry => this.selectedCombatant.hasBuff(entry[0]))
-        .forEach(entry => {
-          entry[1].attributableHealing += calculateEffectiveHealing(event, decomposedHeal.relativeBuffBenefit(entry[1].amount));
+        .filter((entry) => this.selectedCombatant.hasBuff(entry[0]))
+        .forEach((entry) => {
+          entry[1].attributableHealing += calculateEffectiveHealing(
+            event,
+            decomposedHeal.relativeBuffBenefit(entry[1].amount),
+          );
         });
     } else {
       this.totalNoMasteryHealing += healVal.effective;
@@ -110,8 +113,7 @@ class Mastery extends Analyzer {
    * Gets the total mastery healing attributed to the given resto HoT ID
    */
   getMasteryHealing(healId) {
-    return Object.values(this.hotHealingAttrib[healId].mastery)
-      .reduce((s, v) => s + v, 0);
+    return Object.values(this.hotHealingAttrib[healId].mastery).reduce((s, v) => s + v, 0);
   }
 
   /*
@@ -120,9 +122,9 @@ class Mastery extends Analyzer {
    */
   getMultiMasteryHealing(healIds) {
     let total = 0;
-    healIds.forEach(healId => {
+    healIds.forEach((healId) => {
       total += Object.entries(this.hotHealingAttrib[healId].mastery)
-        .filter(entry => !healIds.includes(Number(entry[0])))
+        .filter((entry) => !healIds.includes(Number(entry[0])))
         .reduce((sum, entry) => sum + entry[1], 0);
       total += this.hotHealingAttrib[healId].direct;
     });
@@ -163,9 +165,10 @@ class Mastery extends Analyzer {
    * Given an Entity object, returns an array of the spell IDs of the Mastery boosting HoTs the Druid currently has on that target.
    */
   getHotsOn(target) {
-    return target.activeBuffs()
-      .map(buffObj => buffObj.ability.guid)
-      .filter(buffId => getSpellInfo(buffId).masteryStack);
+    return target
+      .activeBuffs()
+      .map((buffObj) => buffObj.ability.guid)
+      .filter((buffId) => getSpellInfo(buffId).masteryStack);
   }
 
   /**
@@ -196,7 +199,7 @@ class Mastery extends Analyzer {
 
   _decompHeal(healVal, hotCount) {
     const masteryBonus = this.statTracker.currentMasteryPercentage;
-    const healMasteryMult = 1 + (hotCount * masteryBonus);
+    const healMasteryMult = 1 + hotCount * masteryBonus;
 
     const rawNoMasteryHealing = healVal.raw / healMasteryMult;
     const noMasteryHealing = Math.min(rawNoMasteryHealing, healVal.effective);
@@ -211,10 +214,16 @@ class Mastery extends Analyzer {
     // if this heal didn't overheal at all, will be the same as hotCount
     const effectiveStackBenefit = effectiveMasteryHealing / oneStackMasteryHealingRaw;
 
-    const relativeBuffBenefit = (buffRating => {
-      const buffBonus = hotCount * buffRating / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentMasteryRating, this.statTracker.statBaselineRatingPerPercent[STAT.MASTERY], this.selectedCombatant.spec.masteryCoefficient);
+    const relativeBuffBenefit = (buffRating) => {
+      const buffBonus =
+        (hotCount * buffRating) /
+        this.statTracker.ratingNeededForNextPercentage(
+          this.statTracker.currentMasteryRating,
+          this.statTracker.statBaselineRatingPerPercent[STAT.MASTERY],
+          this.selectedCombatant.spec.masteryCoefficient,
+        );
       return buffBonus / healMasteryMult;
-    });
+    };
 
     return {
       noMastery: noMasteryHealing,

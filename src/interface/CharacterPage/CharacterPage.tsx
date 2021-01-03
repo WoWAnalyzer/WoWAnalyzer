@@ -11,12 +11,7 @@ interface CharacterPageProps {
   name: string;
 }
 
-const CharacterPage = ({
-  region,
-  realm,
-  name,
-  ...others
-}: CharacterPageProps) => (
+const CharacterPage = ({ region, realm, name, ...others }: CharacterPageProps) => (
   <>
     <DocumentTitle title={`${name}-${realm} (${region})`} />
 

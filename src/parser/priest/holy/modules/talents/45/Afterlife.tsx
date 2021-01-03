@@ -25,13 +25,19 @@ class Afterlife extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.AFTERLIFE_TALENT.id);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SPIRIT_OF_REDEMPTION_BUFF), this.onApplyBuff);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SPIRIT_OF_REDEMPTION_BUFF), this.onRemoveBuff);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SPIRIT_OF_REDEMPTION_BUFF),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SPIRIT_OF_REDEMPTION_BUFF),
+      this.onRemoveBuff,
+    );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
   }
 
   get extraTimeInSoR() {
-    return this.timeInSoR - (SPIRIT_OF_REDEMPTION_DURATION * this.sorCount);
+    return this.timeInSoR - SPIRIT_OF_REDEMPTION_DURATION * this.sorCount;
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
@@ -51,7 +57,10 @@ class Afterlife extends Analyzer {
   }
 
   onHeal(event: HealEvent) {
-    if (this.inSpiritOfRedemption && event.timestamp - this.spiritOfRedemptionStartTime > SPIRIT_OF_REDEMPTION_DURATION) {
+    if (
+      this.inSpiritOfRedemption &&
+      event.timestamp - this.spiritOfRedemptionStartTime > SPIRIT_OF_REDEMPTION_DURATION
+    ) {
       this.healingInAfterlife += event.amount || 0;
     }
   }
@@ -59,7 +68,9 @@ class Afterlife extends Analyzer {
   statistic() {
     return (
       <Statistic
-        tooltip={`Extra Spirit of Redemption time: ${Math.floor(this.spiritOfRedemptionBonusTime / 1000)}s`}
+        tooltip={`Extra Spirit of Redemption time: ${Math.floor(
+          this.spiritOfRedemptionBonusTime / 1000,
+        )}s`}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(3)}

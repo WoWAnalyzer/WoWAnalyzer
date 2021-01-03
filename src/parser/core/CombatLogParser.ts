@@ -7,7 +7,8 @@ import ModuleError from 'parser/core/ModuleError';
 import {
   AnyEvent,
   CombatantInfoEvent,
-  Event, EventType,
+  Event,
+  EventType,
   HasSource,
   HasTarget,
   MappedEvent,
@@ -206,7 +207,7 @@ class CombatLogParser {
     // Crafted
     darkmoonDeckVoracity: DarkmoonDeckVoracity,
 
-    // Shadowlands 
+    // Shadowlands
 
     // Castle Nathria
     soulInfusion: SoulInfusion,
@@ -232,7 +233,7 @@ class CombatLogParser {
     name: string;
     id: number;
     guid: number;
-    type: "Pet",
+    type: 'Pet';
     icon: string;
   }>;
   fight: Fight;

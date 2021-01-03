@@ -28,7 +28,10 @@ class RuptureSnapshot extends Snapshot {
     if (combatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id)) {
       this.active = false;
     }
-    this.addEventListener(Events.SpendResource.by(SELECTED_PLAYER).spell(SPELLS.RUPTURE), this.onSpendResource);
+    this.addEventListener(
+      Events.SpendResource.by(SELECTED_PLAYER).spell(SPELLS.RUPTURE),
+      this.onSpendResource,
+    );
   }
 
   onSpendResource(event) {

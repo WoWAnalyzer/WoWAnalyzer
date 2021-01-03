@@ -13,13 +13,13 @@ import PreparationRule from 'parser/shared/modules/features/Checklist/Preparatio
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 
 const AfflictionWarlockChecklist = ({ combatant, castEfficiency, thresholds, shardTracker }) => {
-  const DotUptime = props => (
+  const DotUptime = (props) => (
     <Requirement
-      name={(
+      name={
         <>
           <SpellLink id={props.id} icon /> uptime
         </>
-      )}
+      }
       thresholds={props.thresholds}
     />
   );
@@ -27,7 +27,7 @@ const AfflictionWarlockChecklist = ({ combatant, castEfficiency, thresholds, sha
     id: PropTypes.number.isRequired,
   };
 
-  const AbilityRequirement = props => (
+  const AbilityRequirement = (props) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
@@ -47,8 +47,12 @@ const AfflictionWarlockChecklist = ({ combatant, castEfficiency, thresholds, sha
         <DotUptime id={SPELLS.CORRUPTION_CAST.id} thresholds={thresholds.corruption} />
         <DotUptime id={SPELLS.UNSTABLE_AFFLICTION.id} thresholds={thresholds.unstableAffliction} />
         <DotUptime id={SPELLS.SHADOW_EMBRACE.id} thresholds={thresholds.shadowEmbrace} />
-        {combatant.hasTalent(SPELLS.SIPHON_LIFE_TALENT.id) && <DotUptime id={SPELLS.SIPHON_LIFE_TALENT.id} thresholds={thresholds.siphonLife} />}
-        {combatant.hasTalent(SPELLS.HAUNT_TALENT.id) && <DotUptime id={SPELLS.HAUNT_TALENT.id} thresholds={thresholds.haunt} />}
+        {combatant.hasTalent(SPELLS.SIPHON_LIFE_TALENT.id) && (
+          <DotUptime id={SPELLS.SIPHON_LIFE_TALENT.id} thresholds={thresholds.siphonLife} />
+        )}
+        {combatant.hasTalent(SPELLS.HAUNT_TALENT.id) && (
+          <DotUptime id={SPELLS.HAUNT_TALENT.id} thresholds={thresholds.haunt} />
+        )}
       </Rule>
       <Rule
         name="Don't cap your Soul Shards"
@@ -65,32 +69,62 @@ const AfflictionWarlockChecklist = ({ combatant, castEfficiency, thresholds, sha
         description="Be mindful of your cooldowns if you are specced into them and use them when it's appropriate. It's okay to hold a cooldown for a little bit when the encounter requires it (burn phases), but generally speaking you should use them as much as you can."
       >
         <AbilityRequirement spell={SPELLS.SUMMON_DARKGLARE.id} />
-        {combatant.hasTalent(SPELLS.DARK_SOUL_MISERY_TALENT.id) && <AbilityRequirement spell={SPELLS.DARK_SOUL_MISERY_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.VILE_TAINT_TALENT.id) && <AbilityRequirement spell={SPELLS.VILE_TAINT_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.PHANTOM_SINGULARITY_TALENT.id) && <AbilityRequirement spell={SPELLS.PHANTOM_SINGULARITY_TALENT.id} />}
-        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && <AbilityRequirement spell={SPELLS.SOUL_ROT.id} />}
+        {combatant.hasTalent(SPELLS.DARK_SOUL_MISERY_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.DARK_SOUL_MISERY_TALENT.id} />
+        )}
+        {combatant.hasTalent(SPELLS.VILE_TAINT_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.VILE_TAINT_TALENT.id} />
+        )}
+        {combatant.hasTalent(SPELLS.PHANTOM_SINGULARITY_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.PHANTOM_SINGULARITY_TALENT.id} />
+        )}
+        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
+          <AbilityRequirement spell={SPELLS.SOUL_ROT.id} />
+        )}
       </Rule>
       <Rule
         name="Use your utility and defensive spells"
-        description={(
+        description={
           <>
-            Use other spells in your toolkit to your advantage. For example, you can try to minimize necessary movement by using <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon />, <SpellLink id={SPELLS.DEMONIC_CIRCLE.id} icon />, <SpellLink id={SPELLS.BURNING_RUSH_TALENT.id} icon /> or mitigate incoming damage with <SpellLink id={SPELLS.UNENDING_RESOLVE.id} icon />/<SpellLink id={SPELLS.DARK_PACT_TALENT.id} icon />.<br />
-            While you shouldn't cast these defensives on cooldown, be aware of them and use them whenever effective. Not using them at all indicates you might not be aware of them or not using them optimally.
+            Use other spells in your toolkit to your advantage. For example, you can try to minimize
+            necessary movement by using <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon />,{' '}
+            <SpellLink id={SPELLS.DEMONIC_CIRCLE.id} icon />,{' '}
+            <SpellLink id={SPELLS.BURNING_RUSH_TALENT.id} icon /> or mitigate incoming damage with{' '}
+            <SpellLink id={SPELLS.UNENDING_RESOLVE.id} icon />/
+            <SpellLink id={SPELLS.DARK_PACT_TALENT.id} icon />.<br />
+            While you shouldn't cast these defensives on cooldown, be aware of them and use them
+            whenever effective. Not using them at all indicates you might not be aware of them or
+            not using them optimally.
           </>
-        )}
+        }
       >
         <AbilityRequirement spell={SPELLS.DEMONIC_CIRCLE_TELEPORT.id} />
-        {combatant.hasTalent(SPELLS.DARK_PACT_TALENT.id) && <AbilityRequirement spell={SPELLS.DARK_PACT_TALENT.id} />}
+        {combatant.hasTalent(SPELLS.DARK_PACT_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.DARK_PACT_TALENT.id} />
+        )}
         <AbilityRequirement spell={SPELLS.UNENDING_RESOLVE.id} />
-        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && <AbilityRequirement spell={SPELLS.SOULSHAPE.id} />}
+        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
+          <AbilityRequirement spell={SPELLS.SOULSHAPE.id} />
+        )}
       </Rule>
       <Rule
         name="Always be casting"
-        description={(
+        description={
           <>
-            You should try to avoid doing nothing during the fight. When you're out of Soul Shards, cast <SpellLink id={SPELLS.SHADOW_BOLT_AFFLI.id} icon />/<SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} icon />, refresh your DoTs etc. When you have to move, use your instant abilities or try to utilize <SpellLink id={SPELLS.DEMONIC_CIRCLE.id} icon>Teleport</SpellLink> or <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon>Gateway</SpellLink> to reduce the movement even further.
+            You should try to avoid doing nothing during the fight. When you're out of Soul Shards,
+            cast <SpellLink id={SPELLS.SHADOW_BOLT_AFFLI.id} icon />/
+            <SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} icon />, refresh your DoTs etc. When you
+            have to move, use your instant abilities or try to utilize{' '}
+            <SpellLink id={SPELLS.DEMONIC_CIRCLE.id} icon>
+              Teleport
+            </SpellLink>{' '}
+            or{' '}
+            <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon>
+              Gateway
+            </SpellLink>{' '}
+            to reduce the movement even further.
           </>
-        )}
+        }
       >
         <Requirement name="Downtime" thresholds={thresholds.downtime} />
       </Rule>

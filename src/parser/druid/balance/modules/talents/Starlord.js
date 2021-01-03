@@ -15,11 +15,10 @@ const MAX_STACKS = 3;
 const HASTE_PER_STACK = 3;
 
 class Starlord extends Analyzer {
-
   get averageHaste() {
     let avgStacks = 0;
     this.buffStacks.forEach((elem, index) => {
-      avgStacks += elem.reduce((a, b) => a + b) / this.owner.fightDuration * index;
+      avgStacks += (elem.reduce((a, b) => a + b) / this.owner.fightDuration) * index;
     });
     return (avgStacks * HASTE_PER_STACK).toFixed(2);
   }
@@ -32,12 +31,24 @@ class Starlord extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.STARLORD_TALENT.id);
-    this.buffStacks = Array.from({ length: MAX_STACKS + 1 }, x => [0]);
+    this.buffStacks = Array.from({ length: MAX_STACKS + 1 }, (x) => [0]);
 
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.STARLORD), this.handleStacks);
-    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.STARLORD), this.handleStacks);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.STARLORD), this.handleStacks);
-    this.addEventListener(Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.STARLORD), this.handleStacks);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.STARLORD),
+      this.handleStacks,
+    );
+    this.addEventListener(
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.STARLORD),
+      this.handleStacks,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.STARLORD),
+      this.handleStacks,
+    );
+    this.addEventListener(
+      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.STARLORD),
+      this.handleStacks,
+    );
     this.addEventListener(Events.fightend, this.handleStacks);
   }
 
@@ -55,7 +66,7 @@ class Starlord extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(7)}
         size="flexible"
-        dropdown={(
+        dropdown={
           <>
             <table className="table table-condensed">
               <thead>
@@ -70,13 +81,15 @@ class Starlord extends Analyzer {
                   <tr key={i}>
                     <th>{(i * HASTE_PER_STACK).toFixed(0)}%</th>
                     <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
-                    <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
+                    <td>
+                      {formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.STARLORD_TALENT}>
           <>

@@ -30,17 +30,12 @@ class Judgment extends Analyzer {
     SPELLS.DIVINE_STORM,
     SPELLS.TEMPLARS_VERDICT_DAMAGE,
     SPELLS.EXECUTION_SENTENCE_TALENT,
-    SPELLS.JUSTICARS_VENGEANCE_TALENT
+    SPELLS.JUSTICARS_VENGEANCE_TALENT,
   ];
 
-  protHolyPowerAbilities: Spell[] = [
-    SPELLS.SHIELD_OF_THE_RIGHTEOUS
-  ];
+  protHolyPowerAbilities: Spell[] = [SPELLS.SHIELD_OF_THE_RIGHTEOUS];
 
-  judgmentSpells: Spell[] = [
-    SPELLS.JUDGMENT_CAST,
-    SPELLS.JUDGMENT_CAST_PROTECTION
-  ];
+  judgmentSpells: Spell[] = [SPELLS.JUDGMENT_CAST, SPELLS.JUDGMENT_CAST_PROTECTION];
 
   allHolyPowerAbilities: Spell[] = [...this.retHolyPowerAbilities, ...this.protHolyPowerAbilities];
 
@@ -57,8 +52,14 @@ class Judgment extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(this.allHolyPowerAbilities), this.trackDamageEvent);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.judgmentSpells), this.trackJudgmentCasts);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(this.allHolyPowerAbilities),
+      this.trackDamageEvent,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(this.judgmentSpells),
+      this.trackJudgmentCasts,
+    );
   }
 
   getSupportedSpellWithId(spellId: number): Spell | undefined {
@@ -70,16 +71,22 @@ class Judgment extends Analyzer {
     if (!enemy || !enemy.hasBuff(SPELLS.JUDGMENT_DEBUFF.id, null, 250)) {
       return;
     }
-    const holyPowerDamageSpell: Spell | undefined = this.getSupportedSpellWithId(event.ability.guid);
+    const holyPowerDamageSpell: Spell | undefined = this.getSupportedSpellWithId(
+      event.ability.guid,
+    );
     if (holyPowerDamageSpell === undefined) {
       return;
     }
     this.totalJudgmentConsumptions += 1;
     const oldCastNumber: number | undefined = this.spellCastMap.get(holyPowerDamageSpell);
     this.spellCastMap.set(holyPowerDamageSpell, !oldCastNumber ? 1 : oldCastNumber + 1);
-    const extraJudgmentDamage: number = event.amount - (event.amount * (1 / (1+ this.DAMAGE_MODIFIER)));
+    const extraJudgmentDamage: number =
+      event.amount - event.amount * (1 / (1 + this.DAMAGE_MODIFIER));
     const oldDamageNumber: number | undefined = this.spellDamageMap.get(holyPowerDamageSpell);
-    this.spellDamageMap.set(holyPowerDamageSpell, !oldDamageNumber ? extraJudgmentDamage : oldDamageNumber + extraJudgmentDamage);
+    this.spellDamageMap.set(
+      holyPowerDamageSpell,
+      !oldDamageNumber ? extraJudgmentDamage : oldDamageNumber + extraJudgmentDamage,
+    );
   }
 
   trackJudgmentCasts(event: CastEvent): void {
@@ -89,14 +96,20 @@ class Judgment extends Analyzer {
   getStatisticTooltip(): React.ReactNode {
     const tooltipRows: React.ReactNode[] = [];
     this.spellCastMap.forEach((castNum: number, spell: Spell) => {
-      tooltipRows.push(<>{spell.name} Judgment Consumptions: {castNum} ({formatNumber(this.spellDamageMap.get(spell) || 0)} total extra damage)<br /></>);
+      tooltipRows.push(
+        <>
+          {spell.name} Judgment Consumptions: {castNum} (
+          {formatNumber(this.spellDamageMap.get(spell) || 0)} total extra damage)
+          <br />
+        </>,
+      );
     });
     return (
       <>
         Total Judgments Consumed: {this.totalJudgmentConsumptions} <br />
         {tooltipRows}
       </>
-    )
+    );
   }
 
   get percentageJudgmentsConsumed(): number {
@@ -116,13 +129,21 @@ class Judgment extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You're not consuming all your <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> debuffs.</>)
-      .icon(SPELLS.JUDGMENT_DEBUFF.icon)
-      .actual(t({
-      id: "paladin.retribution.suggestions.judgement.consumed",
-      message: `${formatPercentage(this.percentageJudgmentsConsumed)}% Judgments consumed`
-    }))
-      .recommended(`>${formatPercentage(recommended)}% is recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You're not consuming all your <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> debuffs.
+        </>,
+      )
+        .icon(SPELLS.JUDGMENT_DEBUFF.icon)
+        .actual(
+          t({
+            id: 'paladin.retribution.suggestions.judgement.consumed',
+            message: `${formatPercentage(this.percentageJudgmentsConsumed)}% Judgments consumed`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic(): React.ReactNode {

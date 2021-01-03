@@ -8,7 +8,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 import Statistic from './Statistic';
 
-const ItemStatistic = props => <Statistic {...props} />;
+const ItemStatistic = (props) => <Statistic {...props} />;
 ItemStatistic.propTypes = Statistic.propTypes;
 ItemStatistic.defaultProps = {
   ...Statistic.defaultProps,

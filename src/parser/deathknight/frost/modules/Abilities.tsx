@@ -33,8 +33,14 @@ class Abilities extends CoreAbilities {
         cooldown: 120,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.80,
-          extraSuggestion: <>You should use this with every <SpellLink id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} /> if it is talented. Otherwise use it with <SpellLink id={SPELLS.PILLAR_OF_FROST.id} />.</>,
+          recommendedEfficiency: 0.8,
+          extraSuggestion: (
+            <>
+              You should use this with every{' '}
+              <SpellLink id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} /> if it is talented. Otherwise
+              use it with <SpellLink id={SPELLS.PILLAR_OF_FROST.id} />.
+            </>
+          ),
         },
         timelineSortIndex: 1,
       },
@@ -48,7 +54,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.HORN_OF_WINTER_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -60,8 +66,9 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
-          extraSuggestion: 'You should only save this if there is a mechanic you will need to deal with in the next 30 seconds or if you need to save it for a particular phase',
+          recommendedEfficiency: 0.9,
+          extraSuggestion:
+            'You should only save this if there is a mechanic you will need to deal with in the next 30 seconds or if you need to save it for a particular phase',
         },
         timelineSortIndex: 2,
       },
@@ -74,8 +81,14 @@ class Abilities extends CoreAbilities {
         cooldown: 180,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
-          extraSuggestion: <>Although you normally want to use this off CD, you can save it to line it up with <SpellLink id={SPELLS.PILLAR_OF_FROST.id} icon />.  You can also hold it if you know there will be an opportunity to hit more than one enemy in the next 30 seconds.</>,
+          recommendedEfficiency: 0.9,
+          extraSuggestion: (
+            <>
+              Although you normally want to use this off CD, you can save it to line it up with{' '}
+              <SpellLink id={SPELLS.PILLAR_OF_FROST.id} icon />. You can also hold it if you know
+              there will be an opportunity to hit more than one enemy in the next 30 seconds.
+            </>
+          ),
         },
       },
       {
@@ -109,7 +122,7 @@ class Abilities extends CoreAbilities {
         cooldown: 20,
         castEfficiency: {
           suggestion: false,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -137,7 +150,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.GLACIAL_ADVANCE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 6 / (1 + haste),
+        cooldown: (haste) => 6 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -213,7 +226,9 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CHAINS_OF_ICE,
-        category: combatant.hasTalent(SPELLS.COLD_HEART_TALENT.id) ? Abilities.SPELL_CATEGORIES.ROTATIONAL : Abilities.SPELL_CATEGORIES.UTILITY,
+        category: combatant.hasTalent(SPELLS.COLD_HEART_TALENT.id)
+          ? Abilities.SPELL_CATEGORIES.ROTATIONAL
+          : Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
         },
@@ -297,46 +312,46 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
-        }
+        },
       },
       // RUNES
       {
         spell: SPELLS.RUNE_1,
         category: Abilities.SPELL_CATEGORIES.HIDDEN,
-        cooldown: haste => 10 / (1 + haste),
+        cooldown: (haste) => 10 / (1 + haste),
         charges: 2,
       },
 
       {
         spell: SPELLS.RUNE_2,
         category: Abilities.SPELL_CATEGORIES.HIDDEN,
-        cooldown: haste => 10 / (1 + haste),
+        cooldown: (haste) => 10 / (1 + haste),
         charges: 2,
       },
 
       {
         spell: SPELLS.RUNE_3,
         category: Abilities.SPELL_CATEGORIES.HIDDEN,
-        cooldown: haste => 10 / (1 + haste),
+        cooldown: (haste) => 10 / (1 + haste),
         charges: 2,
       },
       // covenants
       {
         spell: SPELLS.SWARMING_MIST,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,     
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
         gcd: {
           base: 1500,
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
         enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
       },
       {
         spell: SPELLS.DOOR_OF_SHADOWS,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,     
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 60,
         gcd: {
           base: 1500,
@@ -345,52 +360,52 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ABOMINATION_LIMB,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,     
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
         gcd: {
           base: 1500,
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
         enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },
       {
         spell: SPELLS.FLESHCRAFT,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,     
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
         enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },
       {
         spell: SPELLS.SHACKLE_THE_UNWORTHY,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,     
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
         gcd: {
           base: 1500,
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
         enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
       },
       {
         spell: SPELLS.DEATHS_DUE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,     
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 30,
         gcd: {
           base: 1500,
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
         enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
       },
       {
         spell: SPELLS.SOULSHAPE,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,     
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
         gcd: {
           base: 1500,

@@ -41,7 +41,9 @@ class Penance extends Analyzer {
   }
 
   static isPenance = (spellId) =>
-    spellId === SPELLS.PENANCE.id || spellId === SPELLS.PENANCE_HEAL.id || spellId === SPELLS.PENANCE_CAST.id;
+    spellId === SPELLS.PENANCE.id ||
+    spellId === SPELLS.PENANCE_HEAL.id ||
+    spellId === SPELLS.PENANCE_CAST.id;
 
   onDamage(event) {
     if (!Penance.isPenance(event.ability.guid)) {
@@ -68,20 +70,23 @@ class Penance extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(13)}
         size="small"
-        tooltip={(
+        tooltip={
           <>
-            Each <SpellLink id={SPELLS.PENANCE.id} /> cast has 3 bolts (4 if you're using <SpellLink id={SPELLS.CASTIGATION_TALENT.id} />). You should try to let this channel finish as much as possible. You channeled Penance {this.casts} times.
+            Each <SpellLink id={SPELLS.PENANCE.id} /> cast has 3 bolts (4 if you're using{' '}
+            <SpellLink id={SPELLS.CASTIGATION_TALENT.id} />
+            ). You should try to let this channel finish as much as possible. You channeled Penance{' '}
+            {this.casts} times.
           </>
-        )}
+        }
       >
         <BoringSpellValue
           spell={SPELLS.PENANCE}
           value={this.missedBolts}
-          label={(
+          label={
             <>
               Wasted <SpellLink id={SPELLS.PENANCE.id} /> bolts
             </>
-          )}
+          }
         />
       </Statistic>
     );

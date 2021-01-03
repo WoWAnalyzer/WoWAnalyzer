@@ -23,7 +23,7 @@ class ChiTracker extends ResourceTracker {
 
     // Blackout Kick costs 3 chi when learned, but is reduced in cost during levelling
     if (spellId === SPELLS.BLACKOUT_KICK.id) {
-        cost = 1;
+      cost = 1;
     }
     return cost;
   }

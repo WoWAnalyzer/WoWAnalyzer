@@ -74,12 +74,12 @@ class RootErrorBoundary extends React.Component {
         return (
           <FullscreenError
             error={t({
-              id: "interface.rootErrorBoundary.errorDuringAnalysis",
-              message: `An error occured during analysis`
+              id: 'interface.rootErrorBoundary.errorDuringAnalysis',
+              message: `An error occured during analysis`,
             })}
             details={t({
-              id: "interface.rootErrorBoundary.errorDuringAnalysisDetails",
-              message: `We fucked up and our code broke like the motherfucker that it is. Please let us know on Discord and we will fix it for you.`
+              id: 'interface.rootErrorBoundary.errorDuringAnalysisDetails',
+              message: `We fucked up and our code broke like the motherfucker that it is. Please let us know on Discord and we will fix it for you.`,
             })}
             background="https://media.giphy.com/media/2sdHZ0iBuI45s6fqc9/giphy.gif"
           />
@@ -89,33 +89,34 @@ class RootErrorBoundary extends React.Component {
       return (
         <FullscreenError
           error={<Trans id="interface.rootErrorBoundary.errorOccured">An error occured.</Trans>}
-          details={<Trans id="interface.rootErrorBoundary.errorOccuredDetails">An unexpected error occured in the app. Please try again.</Trans>}
+          details={
+            <Trans id="interface.rootErrorBoundary.errorOccuredDetails">
+              An unexpected error occured in the app. Please try again.
+            </Trans>
+          }
           background={ApiDownBackground}
-          errorDetails={(
+          errorDetails={
             <>
               <p>{this.state.error.message}</p>
               <pre style={{ color: 'red', backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>
                 {this.state.error.stack}
               </pre>
               {this.state.errorDetails && (
-                <pre style={{ color: 'red' }}>
-                  {this.state.errorDetails}
-                </pre>
+                <pre style={{ color: 'red' }}>{this.state.errorDetails}</pre>
               )}
             </>
-          )}
+          }
         >
           <div className="text-muted">
-            <Trans id="interface.rootErrorBoundary.bug">This is usually caused by a bug, please let us know about the issue on GitHub or Discord so we can fix it.</Trans>
+            <Trans id="interface.rootErrorBoundary.bug">
+              This is usually caused by a bug, please let us know about the issue on GitHub or
+              Discord so we can fix it.
+            </Trans>
           </div>
         </FullscreenError>
       );
     }
-    return (
-      <ErrorBoundary>
-        {this.props.children}
-      </ErrorBoundary>
-    );
+    return <ErrorBoundary>{this.props.children}</ErrorBoundary>;
   }
 }
 

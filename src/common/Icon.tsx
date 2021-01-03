@@ -3,14 +3,14 @@ import React from 'react';
 import BAD_ICONS from 'common/BAD_ICONS';
 
 interface Props extends React.HTMLAttributes<HTMLImageElement> {
-  icon?: string
-  className?: string
+  icon?: string;
+  className?: string;
   /**
    * Implementers should annotate these as desired, but it's usually just
    * decorating the name of a spell/item so doesn't add anything and in fact
    * makes copy-pasting uglier
    */
-  alt?: string
+  alt?: string;
 }
 
 const Icon = ({ icon, className, alt = '', ...others }: Props) => {

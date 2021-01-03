@@ -82,28 +82,37 @@ class Downpour extends Analyzer {
     }
     // downpourHits are all hits and downpourHitsSum are only the ones with effective healing done
     const downpourHits = downpour.healingHits;
-    const downpourAverageHits = (this.downpourHitsSum) / downpourCasts;
+    const downpourAverageHits = this.downpourHitsSum / downpourCasts;
     const downpourAverageOverhealedHits = (downpourHits - this.downpourHitsSum) / downpourCasts;
-    const downpourAverageCooldown = 5 + (this.downpourHitsSum / downpourCasts * 5);
+    const downpourAverageCooldown = 5 + (this.downpourHitsSum / downpourCasts) * 5;
 
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.DOWNPOUR_TALENT.id} />}
-        value={<Trans id="shaman.restoration.downpour.statistic.value">{downpourAverageCooldown.toFixed(1)} seconds</Trans>}
+        value={
+          <Trans id="shaman.restoration.downpour.statistic.value">
+            {downpourAverageCooldown.toFixed(1)} seconds
+          </Trans>
+        }
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(90)}
-        label={(
+        label={
           <TooltipElement
-            content={(
+            content={
               <Trans id="shaman.restoration.downpour.statistic.label.tooltip">
-                You cast a total of {downpourCasts} Downpours, which on average hit {(downpourAverageHits + downpourAverageOverhealedHits).toFixed(1)} out of 6 targets. <br />
-                Of those hits, {downpourAverageHits.toFixed(1)} had effective healing and increased the cooldown.
+                You cast a total of {downpourCasts} Downpours, which on average hit{' '}
+                {(downpourAverageHits + downpourAverageOverhealedHits).toFixed(1)} out of 6 targets.{' '}
+                <br />
+                Of those hits, {downpourAverageHits.toFixed(1)} had effective healing and increased
+                the cooldown.
               </Trans>
-            )}
+            }
           >
-            <Trans id="shaman.restoration.downpour.statistic.label">Average Downpour cooldown</Trans>
+            <Trans id="shaman.restoration.downpour.statistic.label">
+              Average Downpour cooldown
+            </Trans>
           </TooltipElement>
-        )}
+        }
       />
     );
   }
@@ -113,12 +122,12 @@ class Downpour extends Analyzer {
     return (
       <StatisticListBoxItem
         title={<SpellLink id={SPELLS.DOWNPOUR_TALENT.id} />}
-        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing + feeding))} %`}
+        value={`${formatPercentage(
+          this.owner.getPercentageOfTotalHealingDone(this.healing + feeding),
+        )} %`}
       />
     );
   }
-
 }
 
 export default Downpour;
-

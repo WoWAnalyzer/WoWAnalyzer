@@ -12,7 +12,6 @@ import { t } from '@lingui/macro';
 
 // Example log: /reports/P3FbCaGB4DMyNQxA#fight=47&type=damage-done
 class Bladestorm extends Analyzer {
-
   totalDamage: number = 0;
   rageGained: number = 0;
   goodCast: number = 0;
@@ -26,9 +25,20 @@ class Bladestorm extends Analyzer {
       return;
     }
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLADESTORM_TALENT), this.enrageCheck);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.BLADESTORM_DAMAGE, SPELLS.BLADESTORM_OH_DAMAGE]), this.onBladestormDamage);
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.BLADESTORM_TALENT), this.onBladestormEnergize);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLADESTORM_TALENT),
+      this.enrageCheck,
+    );
+    this.addEventListener(
+      Events.damage
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.BLADESTORM_DAMAGE, SPELLS.BLADESTORM_OH_DAMAGE]),
+      this.onBladestormDamage,
+    );
+    this.addEventListener(
+      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.BLADESTORM_TALENT),
+      this.onBladestormEnergize,
+    );
   }
 
   get percentageDamage() {
@@ -37,11 +47,11 @@ class Bladestorm extends Analyzer {
 
   get suggestionThresholds() {
     return {
-      actual: (this.goodCast / this.totalCasts),
+      actual: this.goodCast / this.totalCasts,
       isLessThan: {
-        minor: .9,
-        average: .8,
-        major: .7,
+        minor: 0.9,
+        average: 0.8,
+        major: 0.7,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
@@ -67,13 +77,21 @@ class Bladestorm extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You're casting <SpellLink id={SPELLS.BLADESTORM_TALENT.id} /> outside of enrage.</>)
-      .icon(SPELLS.SIEGEBREAKER_TALENT.icon)
-      .actual(t({
-      id: "warrior.fury.suggestions.bladestorm.castsEnrage",
-      message: `${formatPercentage(1 - actual)}% of Bladestorm casts outside of enrage`
-    }))
-      .recommended(`${formatPercentage(recommended)}+% is recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You're casting <SpellLink id={SPELLS.BLADESTORM_TALENT.id} /> outside of enrage.
+        </>,
+      )
+        .icon(SPELLS.SIEGEBREAKER_TALENT.icon)
+        .actual(
+          t({
+            id: 'warrior.fury.suggestions.bladestorm.castsEnrage',
+            message: `${formatPercentage(1 - actual)}% of Bladestorm casts outside of enrage`,
+          }),
+        )
+        .recommended(`${formatPercentage(recommended)}+% is recommended`),
+    );
   }
 
   statistic() {
@@ -81,12 +99,18 @@ class Bladestorm extends Analyzer {
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={<><strong>{formatThousands(this.totalDamage)} ({formatPercentage(this.percentageDamage)}%)</strong> damage was done by Bladestorm, and <strong>{formatThousands(this.rageGained)}</strong> rage was generated.</>}
+        tooltip={
+          <>
+            <strong>
+              {formatThousands(this.totalDamage)} ({formatPercentage(this.percentageDamage)}%)
+            </strong>{' '}
+            damage was done by Bladestorm, and <strong>{formatThousands(this.rageGained)}</strong>{' '}
+            rage was generated.
+          </>
+        }
       >
         <BoringSpellValueText spell={SPELLS.BLADESTORM_TALENT}>
-          <>
-            {formatNumber(this.totalDamage / this.owner.fightDuration * 1000)} DPS
-          </>
+          <>{formatNumber((this.totalDamage / this.owner.fightDuration) * 1000)} DPS</>
         </BoringSpellValueText>
       </Statistic>
     );

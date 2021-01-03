@@ -20,11 +20,14 @@ class AtonementHealingDone extends Analyzer {
   };
   total = 0;
   _lastPenanceBoltNumber = 0;
-  bySource: Record<string, {
-    ability: Ability;
-    healing: HealingValue;
-    bolts?: HealingValue[];
-  }> = {};
+  bySource: Record<
+    string,
+    {
+      ability: Ability;
+      healing: HealingValue;
+      bolts?: HealingValue[];
+    }
+  > = {};
   protected atonementDamageSource!: AtonementDamageSource;
   protected penance!: Penance;
 
@@ -72,7 +75,11 @@ class AtonementHealingDone extends Analyzer {
     this._totalAtonement = this._totalAtonement.add(amount, absorbed, overheal);
     this.bySource[spellId] = this.bySource[spellId] || {};
     this.bySource[spellId].ability = ability;
-    this.bySource[spellId].healing = (this.bySource[spellId].healing || new HealingValue()).add(amount, absorbed, overheal);
+    this.bySource[spellId].healing = (this.bySource[spellId].healing || new HealingValue()).add(
+      amount,
+      absorbed,
+      overheal,
+    );
 
     if (spellId === SPELLS.PENANCE.id) {
       const source = this.bySource[SPELLS.PENANCE.id];
@@ -83,7 +90,11 @@ class AtonementHealingDone extends Analyzer {
       if (!source.bolts[this._lastPenanceBoltNumber]) {
         source.bolts[this._lastPenanceBoltNumber] = new HealingValue();
       }
-      source.bolts[this._lastPenanceBoltNumber] = source.bolts[this._lastPenanceBoltNumber].add(amount, absorbed, overheal);
+      source.bolts[this._lastPenanceBoltNumber] = source.bolts[this._lastPenanceBoltNumber].add(
+        amount,
+        absorbed,
+        overheal,
+      );
     }
   }
 
@@ -91,11 +102,12 @@ class AtonementHealingDone extends Analyzer {
     return (
       <Panel
         title="Atonement sources"
-        explanation={(
+        explanation={
           <>
-            This shows a breakdown of the damage that caused <SpellLink id={SPELLS.ATONEMENT_BUFF.id} /> healing.
+            This shows a breakdown of the damage that caused{' '}
+            <SpellLink id={SPELLS.ATONEMENT_BUFF.id} /> healing.
           </>
-        )}
+        }
         position={90}
         pad={false}
       >

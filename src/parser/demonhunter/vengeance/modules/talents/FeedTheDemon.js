@@ -30,7 +30,7 @@ class FeedTheDemon extends Analyzer {
 
   get averageReduction() {
     const casts = this.abilityTracker.getAbility(SPELLS.DEMON_SPIKES.id).casts;
-    return (this.reduction / casts) || 0;
+    return this.reduction / casts || 0;
   }
 
   get wastedPercent() {
@@ -48,14 +48,20 @@ class FeedTheDemon extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CONSUME_SOUL_VDH), this.onHeal);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CONSUME_SOUL_VDH),
+      this.onHeal,
+    );
   }
 
   onHeal(event) {
     if (!this.spellUsable.isOnCooldown(SPELLS.DEMON_SPIKES.id)) {
       this.totalCooldownReductionWasted += COOLDOWN_REDUCTION_MS;
     } else {
-      const effectiveReduction = this.spellUsable.reduceCooldown(SPELLS.DEMON_SPIKES.id, COOLDOWN_REDUCTION_MS);
+      const effectiveReduction = this.spellUsable.reduceCooldown(
+        SPELLS.DEMON_SPIKES.id,
+        COOLDOWN_REDUCTION_MS,
+      );
       this.totalCooldownReduction += effectiveReduction;
       this.totalCooldownReductionWasted += COOLDOWN_REDUCTION_MS - effectiveReduction;
     }
@@ -68,12 +74,14 @@ class FeedTheDemon extends Analyzer {
         position={STATISTIC_ORDER.CORE(6)}
         value={`${formatNumber(this.averageReduction)} sec`}
         label="Feed the Demon average reduction"
-        tooltip={(
+        tooltip={
           <>
-            {formatNumber(this.reduction)} sec total effective reduction.<br />
-            {formatNumber(this.wastedReduction)} sec ({formatPercentage(this.wastedPercent)}%) wasted reduction.
+            {formatNumber(this.reduction)} sec total effective reduction.
+            <br />
+            {formatNumber(this.wastedReduction)} sec ({formatPercentage(this.wastedPercent)}%)
+            wasted reduction.
           </>
-        )}
+        }
       />
     );
   }

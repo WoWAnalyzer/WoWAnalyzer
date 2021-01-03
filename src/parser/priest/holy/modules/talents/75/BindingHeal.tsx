@@ -22,8 +22,14 @@ class BindingHeal extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BINDING_HEAL_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BINDING_HEAL_TALENT), this.onCast);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.BINDING_HEAL_TALENT), this.onHeal);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BINDING_HEAL_TALENT),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.BINDING_HEAL_TALENT),
+      this.onHeal,
+    );
   }
 
   get bindingHealHealing() {
@@ -63,13 +69,26 @@ class BindingHeal extends Analyzer {
   statistic() {
     return (
       <Statistic
-        tooltip={(
+        tooltip={
           <>
-            Casts: {this.bindingHealCasts}<br />
-            Self Healing: {formatThousands(this.bindingHealSelfHealing)} ({formatPercentage(this.getOverhealPercent(this.bindingHealSelfHealing, this.bindingHealSelfOverhealing))}% OH)<br />
-            Party Healing: {formatThousands(this.bindingHealPartyHealing)} ({formatPercentage(this.getOverhealPercent(this.bindingHealPartyHealing, this.bindingHealPartyOverhealing))}% OH)
+            Casts: {this.bindingHealCasts}
+            <br />
+            Self Healing: {formatThousands(this.bindingHealSelfHealing)} (
+            {formatPercentage(
+              this.getOverhealPercent(this.bindingHealSelfHealing, this.bindingHealSelfOverhealing),
+            )}
+            % OH)
+            <br />
+            Party Healing: {formatThousands(this.bindingHealPartyHealing)} (
+            {formatPercentage(
+              this.getOverhealPercent(
+                this.bindingHealPartyHealing,
+                this.bindingHealPartyOverhealing,
+              ),
+            )}
+            % OH)
           </>
-        )}
+        }
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(5)}

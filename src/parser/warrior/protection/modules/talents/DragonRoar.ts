@@ -3,7 +3,6 @@ import AoESpellEfficiency from 'parser/shared/modules/features/AoESpellEfficienc
 import { Options } from 'parser/core/Analyzer';
 
 class DragonRoar extends AoESpellEfficiency {
-
   constructor(options: Options) {
     super(options);
     this.ability = SPELLS.DRAGON_ROAR_TALENT;
@@ -12,4 +11,3 @@ class DragonRoar extends AoESpellEfficiency {
 }
 
 export default DragonRoar;
-

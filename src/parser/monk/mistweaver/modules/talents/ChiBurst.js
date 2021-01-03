@@ -40,8 +40,14 @@ class ChiBurst extends Analyzer {
     super(...options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CHI_BURST_TALENT.id);
     this.raidSize = Object.keys(this.combatants.players).length;
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHI_BURST_TALENT), this.onCast);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CHI_BURST_HEAL), this.onHeal);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHI_BURST_TALENT),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CHI_BURST_HEAL),
+      this.onHeal,
+    );
     this.addEventListener(Events.fightend, this.onFightend);
   }
 
@@ -60,20 +66,26 @@ class ChiBurst extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        You are not utilizing your <SpellLink id={SPELLS.CHI_BURST_TALENT.id} /> talent as effectively as you should. You should work on both your positioning and aiming of the spell. Always aim for the highest concentration of players, which is normally melee.
-      </>,
-    )
-      .icon(SPELLS.CHI_BURST_TALENT.icon)
-      .actual(`${this.avgTargetsHitPerCB.toFixed(2)} ${t({
-      id: "monk.mistweaver.suggestions.chiBurst.targetsHit",
-      message: `targets hit per Chi Burst cast - `
-    })}${formatPercentage(this.avgTargetsHitPerCB / this.raidSize)}${t({
-      id: "monk.mistweaver.suggestions.chiBurst.targetsHitPartTwo",
-      message: `% of raid hit`
-    })}`)
-      .recommended('30% of the raid hit is recommended'));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You are not utilizing your <SpellLink id={SPELLS.CHI_BURST_TALENT.id} /> talent as
+          effectively as you should. You should work on both your positioning and aiming of the
+          spell. Always aim for the highest concentration of players, which is normally melee.
+        </>,
+      )
+        .icon(SPELLS.CHI_BURST_TALENT.icon)
+        .actual(
+          `${this.avgTargetsHitPerCB.toFixed(2)} ${t({
+            id: 'monk.mistweaver.suggestions.chiBurst.targetsHit',
+            message: `targets hit per Chi Burst cast - `,
+          })}${formatPercentage(this.avgTargetsHitPerCB / this.raidSize)}${t({
+            id: 'monk.mistweaver.suggestions.chiBurst.targetsHitPartTwo',
+            message: `% of raid hit`,
+          })}`,
+        )
+        .recommended('30% of the raid hit is recommended'),
+    );
   }
 
   onFightend() {

@@ -1,6 +1,6 @@
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
-import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker'
+import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 import { Options } from 'parser/core/Analyzer';
 import { CastEvent } from 'parser/core/Events';
 

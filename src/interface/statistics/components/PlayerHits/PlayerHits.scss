@@ -26,7 +26,12 @@
       background-repeat: no-repeat;
       background-size: 100% auto;
       transform: translateX(-50%);
-      mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) calc(100% * var(--p)), rgba(0, 0, 0, 0) calc(100% * var(--p)));
+      mask-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 1) calc(100% * var(--p)),
+        rgba(0, 0, 0, 0) calc(100% * var(--p))
+      );
     }
     > div:nth-child(2) {
       left: 39%;

@@ -14,25 +14,25 @@ class ResourceBreakdown extends React.Component {
 
   prepareGenerated(buildersObj) {
     return Object.keys(buildersObj)
-      .map(abilityId => ({
+      .map((abilityId) => ({
         abilityId: Number(abilityId),
         generated: buildersObj[abilityId].generated,
         wasted: buildersObj[abilityId].wasted,
       }))
       .sort((a, b) => b.generated - a.generated)
-      .filter(ability => ability.generated > 0);
+      .filter((ability) => ability.generated > 0);
   }
 
   prepareSpent(spendersObj) {
     return Object.keys(spendersObj)
-      .map(abilityId => ({
+      .map((abilityId) => ({
         abilityId: Number(abilityId),
         spent: spendersObj[abilityId].spent,
         casts: spendersObj[abilityId].casts,
-        maxCP: spendersObj[abilityId].spentByCast.filter(spent => spent === 5).length,
+        maxCP: spendersObj[abilityId].spentByCast.filter((spent) => spent === 5).length,
       }))
       .sort((a, b) => b.spent - a.spent)
-      .filter(ability => ability.spent > 0);
+      .filter((ability) => ability.spent > 0);
   }
 
   render() {
@@ -47,10 +47,10 @@ class ResourceBreakdown extends React.Component {
     let totalSpent = tracker.spent;
 
     // looks wrong but totals are only for the purpose of percentage, and if nothing was wasted, then 0/1 gives correct result 0% wasted, if it's not 0 it retains its original value
-    totalGenerated = (totalGenerated === 0) ? 1 : totalGenerated;
-    totalWasted = (totalWasted === 0) ? 1 : totalWasted;
+    totalGenerated = totalGenerated === 0 ? 1 : totalGenerated;
+    totalWasted = totalWasted === 0 ? 1 : totalWasted;
 
-    totalSpent = (totalSpent === 0) ? 1 : totalSpent;
+    totalSpent = totalSpent === 0 ? 1 : totalSpent;
 
     return (
       <div>
@@ -59,18 +59,26 @@ class ResourceBreakdown extends React.Component {
             <tr>
               <th>Ability</th>
               <th colSpan="2">{resourceName} generated</th>
-              <th colSpan="2"><TooltipElement content="This is the amount of resources that were generated while you were already at cap.">{resourceName} wasted</TooltipElement></th>
+              <th colSpan="2">
+                <TooltipElement content="This is the amount of resources that were generated while you were already at cap.">
+                  {resourceName} wasted
+                </TooltipElement>
+              </th>
             </tr>
           </thead>
           <tbody>
-            {generated && generated
-              .map(ability => (
+            {generated &&
+              generated.map((ability) => (
                 <tr key={ability.abilityId}>
                   <td style={{ width: '30%' }}>
                     <SpellLink id={ability.abilityId} />
                   </td>
                   <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
-                    <TooltipElement content={`${formatPercentage(ability.generated / totalGenerated)} %`}>{ability.generated}</TooltipElement>
+                    <TooltipElement
+                      content={`${formatPercentage(ability.generated / totalGenerated)} %`}
+                    >
+                      {ability.generated}
+                    </TooltipElement>
                   </td>
                   <td style={{ width: '40%' }}>
                     <div
@@ -79,7 +87,9 @@ class ResourceBreakdown extends React.Component {
                     />
                   </td>
                   <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
-                    <TooltipElement content={`${formatPercentage(ability.wasted / totalWasted)} %`}>{ability.wasted}</TooltipElement>
+                    <TooltipElement content={`${formatPercentage(ability.wasted / totalWasted)} %`}>
+                      {ability.wasted}
+                    </TooltipElement>
                   </td>
                   <td style={{ width: '30%' }}>
                     <div
@@ -101,14 +111,16 @@ class ResourceBreakdown extends React.Component {
               </tr>
             </thead>
             <tbody>
-              {spent && spent
-                .map(ability => (
+              {spent &&
+                spent.map((ability) => (
                   <tr key={ability.abilityId}>
                     <td style={{ width: '30%' }}>
                       <SpellLink id={ability.abilityId} />
                     </td>
                     <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
-                      <TooltipElement content={`${formatPercentage(ability.spent / totalSpent)} %`}>{ability.spent}</TooltipElement>
+                      <TooltipElement content={`${formatPercentage(ability.spent / totalSpent)} %`}>
+                        {ability.spent}
+                      </TooltipElement>
                     </td>
                     <td style={{ width: '40%' }}>
                       <div
@@ -117,7 +129,9 @@ class ResourceBreakdown extends React.Component {
                       />
                     </td>
                     <td style={{ width: 50, paddingRight: 5 }} />
-                    <td style={{ width: '30%', textAlign: 'left' }}>{ability.maxCP} / {ability.casts}</td>
+                    <td style={{ width: '30%', textAlign: 'left' }}>
+                      {ability.maxCP} / {ability.casts}
+                    </td>
                   </tr>
                 ))}
             </tbody>

@@ -18,8 +18,8 @@ class Subterfuge extends StealthCasts {
 
   get stealthsWithAtleastOneGarrote() {
     let stealthsWithGarrote = 0;
-    this.stealthSequences.forEach(sequence => {
-      const firstGarroteCast = sequence.find(e => e.ability.guid === SPELLS.GARROTE.id);
+    this.stealthSequences.forEach((sequence) => {
+      const firstGarroteCast = sequence.find((e) => e.ability.guid === SPELLS.GARROTE.id);
       if (firstGarroteCast) {
         stealthsWithGarrote += 1;
       }
@@ -32,7 +32,7 @@ class Subterfuge extends StealthCasts {
   }
 
   get percentGoodStealthCasts() {
-    return (this.stealthsWithAtleastOneGarrote / this.stealthCasts) || 0;
+    return this.stealthsWithAtleastOneGarrote / this.stealthCasts || 0;
   }
 
   get suggestionThresholds() {
@@ -57,13 +57,25 @@ class Subterfuge extends StealthCasts {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your failed to cast atleast one <SpellLink id={SPELLS.GARROTE.id} /> during <SpellLink id={SPELLS.SUBTERFUGE_BUFF.id} /> {this.stealthCasts - this.stealthsWithAtleastOneGarrote} time(s). Make sure to prioritize snapshotting <SpellLink id={SPELLS.GARROTE.id} /> during <SpellLink id={SPELLS.SUBTERFUGE_BUFF.id} />.</>)
-      .icon(SPELLS.GARROTE.icon)
-      .actual(t({
-      id: "rogue.assassinations.suggestions.subterfuge.efficiency",
-      message: `${formatPercentage(actual)}% of Subterfuges with atleast one Garrote cast`
-    }))
-      .recommended(`>${formatPercentage(recommended)}% is recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your failed to cast atleast one <SpellLink id={SPELLS.GARROTE.id} /> during{' '}
+          <SpellLink id={SPELLS.SUBTERFUGE_BUFF.id} />{' '}
+          {this.stealthCasts - this.stealthsWithAtleastOneGarrote} time(s). Make sure to prioritize
+          snapshotting <SpellLink id={SPELLS.GARROTE.id} /> during{' '}
+          <SpellLink id={SPELLS.SUBTERFUGE_BUFF.id} />.
+        </>,
+      )
+        .icon(SPELLS.GARROTE.icon)
+        .actual(
+          t({
+            id: 'rogue.assassinations.suggestions.subterfuge.efficiency',
+            message: `${formatPercentage(actual)}% of Subterfuges with atleast one Garrote cast`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
@@ -76,7 +88,6 @@ class Subterfuge extends StealthCasts {
       />
     );
   }
-
 }
 
 export default Subterfuge;

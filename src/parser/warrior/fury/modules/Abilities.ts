@@ -24,7 +24,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RAGING_BLOW,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste: number) => (8 / (1 + haste)),
+        cooldown: (haste: number) => 8 / (1 + haste),
         charges: 2,
         gcd: {
           base: 1500,
@@ -148,7 +148,8 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.6,
           importance: ISSUE_IMPORTANCE.MINOR,
-          extraSuggestion: 'Use it preemptively as a buffer against large AOE, or reactively if you notice your raid is getting dangerously low on health.',
+          extraSuggestion:
+            'Use it preemptively as a buffer against large AOE, or reactively if you notice your raid is getting dangerously low on health.',
         },
       },
       // Utility
@@ -176,7 +177,8 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.4,
-          extraSuggestion: 'If you\'re picking a utility talent over something that increases your mobility or survivability, you better use it.',
+          extraSuggestion:
+            "If you're picking a utility talent over something that increases your mobility or survivability, you better use it.",
         },
         enabled: combatant.hasTalent(SPELLS.STORM_BOLT_TALENT.id),
       },

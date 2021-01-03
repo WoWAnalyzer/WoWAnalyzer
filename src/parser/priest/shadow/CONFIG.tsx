@@ -16,15 +16,31 @@ export default {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      Welcome to the Shadow Priest analyzer! We hope you find these suggestions and statistics useful.<br /><br />
-
-      If you need general help learning the spec, Wowhead has a great getting started guide for Shadow. You can find it <a href="https://www.wowhead.com/shadow-priest-guide" target="_blank" rel="noopener noreferrer">here</a>.<br /><br />
-
-      If you have any questions about playing Shadow Priest, join the Priest community at the <a href="https://discord.gg/WarcraftPriests" target="_blank" rel="noopener noreferrer">Warcraft Priests discord channel</a>.
+      Welcome to the Shadow Priest analyzer! We hope you find these suggestions and statistics
+      useful.
+      <br />
+      <br />
+      If you need general help learning the spec, Wowhead has a great getting started guide for
+      Shadow. You can find it{' '}
+      <a
+        href="https://www.wowhead.com/shadow-priest-guide"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        here
+      </a>
+      .<br />
+      <br />
+      If you have any questions about playing Shadow Priest, join the Priest community at the{' '}
+      <a href="https://discord.gg/WarcraftPriests" target="_blank" rel="noopener noreferrer">
+        Warcraft Priests discord channel
+      </a>
+      .
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/ZLn4BXHc28Njyx31/39-Heroic+Lady+Inerva+Darkvein+-+Kill+(5:41)/Shadowz/standard/cooldowns',
+  exampleReport:
+    '/report/ZLn4BXHc28Njyx31/39-Heroic+Lady+Inerva+Darkvein+-+Kill+(5:41)/Shadowz/standard/cooldowns',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
@@ -32,7 +48,10 @@ export default {
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () => import('./CombatLogParser' /* webpackChunkName: "ShadowPriest" */).then(exports => exports.default),
+  parser: () =>
+    import('./CombatLogParser' /* webpackChunkName: "ShadowPriest" */).then(
+      (exports) => exports.default,
+    ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };

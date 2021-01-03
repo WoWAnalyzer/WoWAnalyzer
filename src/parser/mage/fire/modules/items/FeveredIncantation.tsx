@@ -15,7 +15,6 @@ import HIT_TYPES from 'game/HIT_TYPES';
 const DAMAGE_BONUS_PER_STACK = 0.02;
 
 class FeveredIncantation extends Analyzer {
-
   bonusDamage = 0;
 
   constructor(options: Options) {
@@ -35,17 +34,18 @@ class FeveredIncantation extends Analyzer {
   }
 
   get buffUptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.FEVERED_INCANTATION_BUFF.id) / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.FEVERED_INCANTATION_BUFF.id) /
+      this.owner.fightDuration
+    );
   }
 
   statistic() {
     return (
-      <Statistic
-        category={STATISTIC_CATEGORY.ITEMS}
-        size="flexible"
-      >
+      <Statistic category={STATISTIC_CATEGORY.ITEMS} size="flexible">
         <BoringSpellValueText spell={SPELLS.FEVERED_INCANTATION}>
-          <ItemDamageDone amount={this.bonusDamage} /><br />
+          <ItemDamageDone amount={this.bonusDamage} />
+          <br />
           <UptimeIcon /> {formatPercentage(this.buffUptime)}% <small>Buff uptime</small>
         </BoringSpellValueText>
       </Statistic>

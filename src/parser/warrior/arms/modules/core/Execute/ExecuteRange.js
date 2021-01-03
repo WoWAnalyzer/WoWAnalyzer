@@ -14,8 +14,9 @@ const EXECUTE_RANGE_MASSACRE = 0.35;
  * @extends Analyzer
  */
 class ExecuteRangeTracker extends Analyzer {
-
-  execRange = (this.selectedCombatant.hasTalent(SPELLS.MASSACRE_TALENT_ARMS.id) ? EXECUTE_RANGE_MASSACRE : EXECUTE_RANGE);
+  execRange = this.selectedCombatant.hasTalent(SPELLS.MASSACRE_TALENT_ARMS.id)
+    ? EXECUTE_RANGE_MASSACRE
+    : EXECUTE_RANGE;
   enemyMap = {};
 
   isExecPhase = false;
@@ -46,7 +47,11 @@ class ExecuteRangeTracker extends Analyzer {
       debug && console.log('Execution phase started');
     }
 
-    if (!this.isTargetInExecuteRange(event) && this.isExecPhase && event.timestamp > this.lastHitInExecPhase + 2000) {
+    if (
+      !this.isTargetInExecuteRange(event) &&
+      this.isExecPhase &&
+      event.timestamp > this.lastHitInExecPhase + 2000
+    ) {
       this.isExecPhase = false;
       this.execPhaseDuration += event.timestamp - this.execPhaseStart;
       debug && console.log('Execution phase finished, total duration: ' + this.execPhaseDuration);

@@ -20,7 +20,6 @@ import Events, { DamageEvent } from 'parser/core/Events';
  */
 
 class ExplosiveShot extends Analyzer {
-
   hits = 0;
   damage = 0;
   casts = 0;
@@ -28,8 +27,14 @@ class ExplosiveShot extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.EXPLOSIVE_SHOT_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EXPLOSIVE_SHOT_TALENT), this.onCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.EXPLOSIVE_SHOT_DAMAGE), this.onDamage);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EXPLOSIVE_SHOT_TALENT),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.EXPLOSIVE_SHOT_DAMAGE),
+      this.onDamage,
+    );
   }
 
   onCast() {
@@ -50,7 +55,8 @@ class ExplosiveShot extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.EXPLOSIVE_SHOT_TALENT}>
           <>
-            <ItemDamageDone amount={this.damage} /><br />
+            <ItemDamageDone amount={this.damage} />
+            <br />
             <AverageTargetsHit casts={this.casts} hits={this.hits} unique />
           </>
         </BoringSpellValueText>

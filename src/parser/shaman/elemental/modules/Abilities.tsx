@@ -10,7 +10,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LAVA_BURST,
         charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT_ELEMENTAL.id) ? 2 : 1,
-        cooldown: haste => 8 / (1 + haste),
+        cooldown: (haste) => 8 / (1 + haste),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -87,7 +87,11 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        damageSpellIds: [SPELLS.FIRE_BLAST.id, SPELLS.METEOR_DAMAGE.id, SPELLS.FIRE_ELEMENTAL_IMMOLATE.id],
+        damageSpellIds: [
+          SPELLS.FIRE_BLAST.id,
+          SPELLS.METEOR_DAMAGE.id,
+          SPELLS.FIRE_ELEMENTAL_IMMOLATE.id,
+        ],
         enabled: !combatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id),
         castEfficiency: {
           suggestion: true,

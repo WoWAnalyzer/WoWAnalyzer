@@ -34,8 +34,14 @@ class BoomingVoice extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEMORALIZING_SHOUT), this.onShoutCast);
-    this.addEventListener(Events.energize.to(SELECTED_PLAYER).spell(SPELLS.DEMORALIZING_SHOUT), this.onShoutEnergize);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEMORALIZING_SHOUT),
+      this.onShoutCast,
+    );
+    this.addEventListener(
+      Events.energize.to(SELECTED_PLAYER).spell(SPELLS.DEMORALIZING_SHOUT),
+      this.onShoutEnergize,
+    );
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
@@ -81,14 +87,22 @@ class BoomingVoice extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.uptimeSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>You wasted Rage by casting <SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> with more than {this.maxRage - BOOMING_VOICE_RAGE_GENERATION} Rage.</>)
+    when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You wasted Rage by casting <SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> with more than{' '}
+          {this.maxRage - BOOMING_VOICE_RAGE_GENERATION} Rage.
+        </>,
+      )
         .icon(SPELLS.BOOMING_VOICE_TALENT.icon)
-        .actual(t({
-      id: "warrior.protection.suggestions.boominVoice.rage.wasted",
-      message: `${actual} Rage wasted`
-    }))
-        .recommended(`<${recommended} wasted Rage is recommended`));
+        .actual(
+          t({
+            id: 'warrior.protection.suggestions.boominVoice.rage.wasted',
+            message: `${actual} Rage wasted`,
+          }),
+        )
+        .recommended(`<${recommended} wasted Rage is recommended`),
+    );
   }
 
   statistic() {
@@ -97,14 +111,21 @@ class BoomingVoice extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={(
+        tooltip={
           <>
-            {formatNumber(this.bonusDmg)} damage contributed<br />
+            {formatNumber(this.bonusDmg)} damage contributed
+            <br />
             {this.rageWasted} Rage wasted
           </>
-        )}
+        }
       >
-        <BoringValueText label={<><SpellLink id={SPELLS.BOOMING_VOICE_TALENT.id} /> Rage generated</>}>
+        <BoringValueText
+          label={
+            <>
+              <SpellLink id={SPELLS.BOOMING_VOICE_TALENT.id} /> Rage generated
+            </>
+          }
+        >
           <>
             {this.rageGenerated} <small>rage</small>
           </>

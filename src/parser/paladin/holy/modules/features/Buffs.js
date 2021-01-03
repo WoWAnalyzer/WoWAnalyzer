@@ -88,7 +88,7 @@ class Buffs extends CoreBuffs {
         spellId: SPELLS.BLESSING_OF_SACRIFICE.id,
       },
       {
-        spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
+        spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),
         timelineHighlight: true,
       },
     ];

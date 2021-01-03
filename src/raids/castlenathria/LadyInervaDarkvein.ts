@@ -1,4 +1,4 @@
-import { Boss } from "raids/index";
+import { Boss } from 'raids/index';
 import DIFFICULTIES from 'game/DIFFICULTIES';
 import { EventType } from 'parser/core/Events';
 
@@ -21,14 +21,22 @@ const LadyInervaDarkvein: Boss = {
       P1: {
         name: 'Stage 1: Container of Desire',
         multiple: false,
-        key: "P1",
-        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
+        key: 'P1',
+        difficulties: [
+          DIFFICULTIES.NORMAL_RAID,
+          DIFFICULTIES.HEROIC_RAID,
+          DIFFICULTIES.MYTHIC_RAID,
+        ],
       },
       P2: {
-        key: "P2",
+        key: 'P2',
         name: 'Stage 2: Container of Bottled Anima',
         multiple: false,
-        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
+        difficulties: [
+          DIFFICULTIES.NORMAL_RAID,
+          DIFFICULTIES.HEROIC_RAID,
+          DIFFICULTIES.MYTHIC_RAID,
+        ],
         filter: {
           type: EventType.Health,
           guid: 165521,
@@ -37,10 +45,14 @@ const LadyInervaDarkvein: Boss = {
         },
       },
       P3: {
-        key: "P3",
+        key: 'P3',
         name: 'Stage 3: Container of Sin',
         multiple: false,
-        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
+        difficulties: [
+          DIFFICULTIES.NORMAL_RAID,
+          DIFFICULTIES.HEROIC_RAID,
+          DIFFICULTIES.MYTHIC_RAID,
+        ],
         filter: {
           type: EventType.Health,
           guid: 165521,
@@ -49,10 +61,14 @@ const LadyInervaDarkvein: Boss = {
         },
       },
       P4: {
-        key: "P3",
+        key: 'P3',
         name: 'Stage 3: Container of Concentrated Anima',
         multiple: false,
-        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
+        difficulties: [
+          DIFFICULTIES.NORMAL_RAID,
+          DIFFICULTIES.HEROIC_RAID,
+          DIFFICULTIES.MYTHIC_RAID,
+        ],
         filter: {
           type: EventType.Health,
           guid: 165521,
@@ -64,4 +80,4 @@ const LadyInervaDarkvein: Boss = {
   },
 };
 
-export default LadyInervaDarkvein
+export default LadyInervaDarkvein;

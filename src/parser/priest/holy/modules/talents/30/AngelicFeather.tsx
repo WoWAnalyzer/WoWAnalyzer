@@ -15,8 +15,14 @@ class AngelicFeather extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ANGELIC_FEATHER_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ANGELIC_FEATHER_TALENT), this.onCast);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ANGELIC_FEATHER_TALENT), this.onApplyBuff);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ANGELIC_FEATHER_TALENT),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ANGELIC_FEATHER_TALENT),
+      this.onApplyBuff,
+    );
   }
 
   onCast(event: CastEvent) {

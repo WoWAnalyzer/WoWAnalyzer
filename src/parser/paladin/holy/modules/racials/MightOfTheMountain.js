@@ -13,7 +13,7 @@ class MightOfTheMountain extends BaseMightOfTheMountain {
     // We use its "beacontransfer" event
     beaconHealSource: BeaconHealSource,
   };
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.beacontransfer, this.onBeaconTransfer);
   }

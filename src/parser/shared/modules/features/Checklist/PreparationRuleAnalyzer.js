@@ -37,19 +37,27 @@ class PreparationRuleAnalyzer extends Analyzer {
       },
       itemsBestEnchanted: {
         // numSlotsMissingMaxEnchant doesn't include items without an enchant at all
-        actual: this.enchantChecker.numEnchantableGear - this.enchantChecker.numSlotsMissingEnchant - this.enchantChecker.numSlotsMissingMaxEnchant,
+        actual:
+          this.enchantChecker.numEnchantableGear -
+          this.enchantChecker.numSlotsMissingEnchant -
+          this.enchantChecker.numSlotsMissingMaxEnchant,
         max: this.enchantChecker.numEnchantableGear,
         isLessThan: this.enchantChecker.numEnchantableGear,
         style: ThresholdStyle.NUMBER,
       },
       weaponsEnhanced: {
-        actual: this.weaponEnhancementChecker.numWeapons - this.weaponEnhancementChecker.numWeaponsMissingEnhancement,
+        actual:
+          this.weaponEnhancementChecker.numWeapons -
+          this.weaponEnhancementChecker.numWeaponsMissingEnhancement,
         max: this.weaponEnhancementChecker.numWeapons,
         isLessThan: this.weaponEnhancementChecker.numWeapons,
         style: ThresholdStyle.NUMBER,
       },
       bestWeaponEnhancements: {
-        actual: this.weaponEnhancementChecker.numWeapons - this.weaponEnhancementChecker.numWeaponsMissingEnhancement - this.weaponEnhancementChecker.numWeaponsMissingMaxEnhancement,
+        actual:
+          this.weaponEnhancementChecker.numWeapons -
+          this.weaponEnhancementChecker.numWeaponsMissingEnhancement -
+          this.weaponEnhancementChecker.numWeaponsMissingMaxEnhancement,
         max: this.weaponEnhancementChecker.numWeapons,
         isLessThan: this.weaponEnhancementChecker.numWeapons,
         style: ThresholdStyle.NUMBER,
@@ -58,10 +66,8 @@ class PreparationRuleAnalyzer extends Analyzer {
       flaskPresent: this.flaskChecker.flaskSuggestionThresholds,
       higherFoodPresent: this.foodChecker.higherFoodSuggestionThresholds,
       foodPresent: this.foodChecker.isPresentFoodSuggestionThresholds,
-
     };
   }
-
 }
 
 export default PreparationRuleAnalyzer;

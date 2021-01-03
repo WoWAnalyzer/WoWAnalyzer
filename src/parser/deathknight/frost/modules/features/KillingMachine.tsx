@@ -4,7 +4,12 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import Events, { ApplyBuffEvent, GlobalCooldownEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  GlobalCooldownEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { t } from '@lingui/macro';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -33,9 +38,18 @@ class KillingMachineEfficiency extends Analyzer {
     super(options);
 
     this.addEventListener(Events.GlobalCooldown, this.globalCooldown);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.KILLING_MACHINE), this.onApplyBuff);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.KILLING_MACHINE), this.onRemoveBuff);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.KILLING_MACHINE), this.onRefreshBuff);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.KILLING_MACHINE),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.KILLING_MACHINE),
+      this.onRemoveBuff,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.KILLING_MACHINE),
+      this.onRefreshBuff,
+    );
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
@@ -45,7 +59,7 @@ class KillingMachineEfficiency extends Analyzer {
 
   onRemoveBuff(event: RemoveBuffEvent) {
     const durationHeld = event.timestamp - this.lastProcTime;
-    if (durationHeld > (BUFF_DURATION_MS)) {
+    if (durationHeld > BUFF_DURATION_MS) {
       this.expiredKMProcs += 1;
     }
   }
@@ -83,9 +97,9 @@ class KillingMachineEfficiency extends Analyzer {
     return {
       actual: this.efficiency,
       isLessThan: {
-        minor: .95,
-        average: .90,
-        major: .85,
+        minor: 0.95,
+        average: 0.9,
+        major: 0.85,
       },
       style: ThresholdStyle.PERCENTAGE,
       suffix: 'Average',
@@ -93,14 +107,28 @@ class KillingMachineEfficiency extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<React.Fragment> You wasted <SpellLink id={SPELLS.KILLING_MACHINE.id} /> procs. You should be casting <SpellLink id={SPELLS.OBLITERATE_CAST.id} /> or <SpellLink id={SPELLS.FROSTSCYTHE_TALENT.id} /> within 1 or 2 GCDs of gaining a Killing Machine proc to avoid wasting it. See one of the guides on the About tab for more information on when another ability takes precedence over spending Killing Machine</React.Fragment>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <React.Fragment>
+          {' '}
+          You wasted <SpellLink id={SPELLS.KILLING_MACHINE.id} /> procs. You should be casting{' '}
+          <SpellLink id={SPELLS.OBLITERATE_CAST.id} /> or{' '}
+          <SpellLink id={SPELLS.FROSTSCYTHE_TALENT.id} /> within 1 or 2 GCDs of gaining a Killing
+          Machine proc to avoid wasting it. See one of the guides on the About tab for more
+          information on when another ability takes precedence over spending Killing Machine
+        </React.Fragment>,
+      )
         .icon(SPELLS.KILLING_MACHINE.icon)
-        .actual(t({
-      id: "deathknight.frost.suggestions.killingMachine.wasted",
-      message: `${formatPercentage(this.wastedProcRate)}% of Killing Machine procs were either refreshed and lost or expired without being used`
-    }))
-        .recommended(`<${formatPercentage(1 - recommended)}% is recommended`));
+        .actual(
+          t({
+            id: 'deathknight.frost.suggestions.killingMachine.wasted',
+            message: `${formatPercentage(
+              this.wastedProcRate,
+            )}% of Killing Machine procs were either refreshed and lost or expired without being used`,
+          }),
+        )
+        .recommended(`<${formatPercentage(1 - recommended)}% is recommended`),
+    );
   }
 
   statistic() {
@@ -108,12 +136,14 @@ class KillingMachineEfficiency extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(5)}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            You wasted {this.totalWastedProcs} out of {this.totalProcs} Killing Machine procs ({formatPercentage(this.wastedProcRate)}%). <br />
-            {this.expiredKMProcs} procs expired without being used and {this.refreshedKMProcs} procs were overwritten by new procs.
+            You wasted {this.totalWastedProcs} out of {this.totalProcs} Killing Machine procs (
+            {formatPercentage(this.wastedProcRate)}%). <br />
+            {this.expiredKMProcs} procs expired without being used and {this.refreshedKMProcs} procs
+            were overwritten by new procs.
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.KILLING_MACHINE}>
           <>

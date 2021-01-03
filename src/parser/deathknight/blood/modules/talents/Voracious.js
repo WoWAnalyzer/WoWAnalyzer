@@ -6,7 +6,6 @@ import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 class Voracious extends Analyzer {
-
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.VORACIOUS_TALENT.id);
@@ -22,7 +21,7 @@ class Voracious extends Analyzer {
       isLessThan: {
         minor: 0.95,
         average: 0.9,
-        major: .8,
+        major: 0.8,
       },
       style: 'percentage',
     };
@@ -30,7 +29,6 @@ class Voracious extends Analyzer {
 
   statistic() {
     return (
-
       <TalentStatisticBox
         talent={SPELLS.VORACIOUS_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}

@@ -1,6 +1,9 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import { AFFECTED_BY_GUERRILLA_TACTICS, GUERRILLA_TACTICS_INIT_HIT_MODIFIER } from 'parser/hunter/survival/constants';
+import {
+  AFFECTED_BY_GUERRILLA_TACTICS,
+  GUERRILLA_TACTICS_INIT_HIT_MODIFIER,
+} from 'parser/hunter/survival/constants';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import React from 'react';
@@ -17,7 +20,6 @@ import Events, { DamageEvent } from 'parser/core/Events';
  * https://www.warcraftlogs.com/reports/Kk4nL12CDJVQ6Yyf#fight=34&type=damage-done&source=799
  */
 class GuerrillaTactics extends Analyzer {
-
   damage = 0;
 
   constructor(options: Options) {
@@ -25,7 +27,10 @@ class GuerrillaTactics extends Analyzer {
 
     this.active = this.selectedCombatant.hasTalent(SPELLS.GUERRILLA_TACTICS_TALENT.id);
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(AFFECTED_BY_GUERRILLA_TACTICS), this.onDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(AFFECTED_BY_GUERRILLA_TACTICS),
+      this.onDamage,
+    );
   }
 
   onDamage(event: DamageEvent) {
@@ -47,7 +52,6 @@ class GuerrillaTactics extends Analyzer {
       </Statistic>
     );
   }
-
 }
 
 export default GuerrillaTactics;

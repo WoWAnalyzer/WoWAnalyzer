@@ -7,7 +7,19 @@ import CooldownOverview from 'interface/others/CooldownOverview';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import EventHistory from 'parser/shared/modules/EventHistory';
-import Events, { AnyEvent, AbsorbedEvent, ApplyBuffEvent, ApplyDebuffEvent, CastEvent, DamageEvent, HealEvent, RemoveBuffEvent, RemoveDebuffEvent, SummonEvent, DeathEvent } from 'parser/core/Events';
+import Events, {
+  AnyEvent,
+  AbsorbedEvent,
+  ApplyBuffEvent,
+  ApplyDebuffEvent,
+  CastEvent,
+  DamageEvent,
+  HealEvent,
+  RemoveBuffEvent,
+  RemoveDebuffEvent,
+  SummonEvent,
+  DeathEvent,
+} from 'parser/core/Events';
 import EventFilter, { SELECTED_PLAYER_PET } from 'parser/core/EventFilter';
 import { t, Trans } from '@lingui/macro';
 
@@ -25,25 +37,25 @@ export enum BUILT_IN_SUMMARY_TYPES {
 type TrackedEvent = CastEvent | HealEvent | AbsorbedEvent | DamageEvent | ApplyBuffEvent;
 
 export type SummaryDef = {
-  label: string,
-  tooltip: string,
-  value: number | string,
-}
+  label: string;
+  tooltip: string;
+  value: number | string;
+};
 
 export type CooldownSpell = {
-  spell: any,
-  summary: Array<BUILT_IN_SUMMARY_TYPES | SummaryDef>,
-  startBufferFilter?: EventFilter<any>,
-  startBufferMS?: number,
-  startBufferEvents?: number,
-  petID?: number,
-  duration?: number,
+  spell: any;
+  summary: Array<BUILT_IN_SUMMARY_TYPES | SummaryDef>;
+  startBufferFilter?: EventFilter<any>;
+  startBufferMS?: number;
+  startBufferEvents?: number;
+  petID?: number;
+  duration?: number;
 };
 
 export type TrackedCooldown = CooldownSpell & {
-  start: number,
-  end: number | null,
-  events: AnyEvent[],
+  start: number;
+  end: number | null;
+  events: AnyEvent[];
 };
 
 class CooldownThroughputTracker extends Analyzer {
@@ -77,7 +89,7 @@ class CooldownThroughputTracker extends Analyzer {
   pastCooldowns: TrackedCooldown[] = [];
   activeCooldowns: TrackedCooldown[] = [];
 
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.fightend, this.onFightend);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
@@ -94,14 +106,21 @@ class CooldownThroughputTracker extends Analyzer {
     this.addEventListener(Events.death.to(SELECTED_PLAYER_PET), this.onPetDeath);
   }
 
-  startCooldown(event: CastEvent | ApplyBuffEvent | ApplyDebuffEvent, isCastCooldown: boolean = false) {
+  startCooldown(
+    event: CastEvent | ApplyBuffEvent | ApplyDebuffEvent,
+    isCastCooldown: boolean = false,
+  ) {
     const spellId = event.ability.guid;
     const ctor = this.constructor as typeof CooldownThroughputTracker;
     let cooldownSpell: CooldownSpell | undefined;
     if (isCastCooldown) {
-      cooldownSpell = ctor.castCooldowns.find(cooldownSpell => cooldownSpell.spell.id === spellId);
+      cooldownSpell = ctor.castCooldowns.find(
+        (cooldownSpell) => cooldownSpell.spell.id === spellId,
+      );
     } else {
-      cooldownSpell = ctor.cooldownSpells.find(cooldownSpell => cooldownSpell.spell.id === spellId);
+      cooldownSpell = ctor.cooldownSpells.find(
+        (cooldownSpell) => cooldownSpell.spell.id === spellId,
+      );
     }
 
     if (!cooldownSpell) {
@@ -110,7 +129,8 @@ class CooldownThroughputTracker extends Analyzer {
 
     const cooldown = this.addCooldown(cooldownSpell, event.timestamp);
     this.activeCooldowns.push(cooldown);
-    debug && console.log(`%cCooldown started: ${cooldownSpell.spell.name}`, 'color: green', cooldown);
+    debug &&
+      console.log(`%cCooldown started: ${cooldownSpell.spell.name}`, 'color: green', cooldown);
   }
 
   addCooldown(cooldownSpell: CooldownSpell, timestamp: number): TrackedCooldown {
@@ -141,7 +161,7 @@ class CooldownThroughputTracker extends Analyzer {
 
   endCooldown(event: RemoveDebuffEvent | RemoveBuffEvent) {
     const spellId = event.ability.guid;
-    const index = this.activeCooldowns.findIndex(cooldown => cooldown.spell.id === spellId);
+    const index = this.activeCooldowns.findIndex((cooldown) => cooldown.spell.id === spellId);
     if (index === -1) {
       return;
     }
@@ -151,7 +171,7 @@ class CooldownThroughputTracker extends Analyzer {
     this.activeCooldowns.splice(index, 1);
     debug && console.log(`%cCooldown ended: ${cooldown.spell.name}`, 'color: red', cooldown);
   }
-  
+
   onFightend() {
     this.activeCooldowns.forEach((cooldown) => {
       cooldown.end = this.owner.fight.end_time;
@@ -164,7 +184,9 @@ class CooldownThroughputTracker extends Analyzer {
   trackEvent(event: TrackedEvent) {
     const ctor = this.constructor as typeof CooldownThroughputTracker;
     if (ctor.castCooldowns.length) {
-      this.activeCooldowns = this.activeCooldowns.filter(cooldown => !cooldown.end || event.timestamp < cooldown.end);
+      this.activeCooldowns = this.activeCooldowns.filter(
+        (cooldown) => !cooldown.end || event.timestamp < cooldown.end,
+      );
     }
 
     this.activeCooldowns.forEach((cooldown) => {
@@ -178,7 +200,7 @@ class CooldownThroughputTracker extends Analyzer {
     if (ctor.ignoredSpells.includes(spellId)) {
       return;
     }
-    if (ctor.castCooldowns.findIndex(cooldown => cooldown.spell.id === spellId) !== -1) {
+    if (ctor.castCooldowns.findIndex((cooldown) => cooldown.spell.id === spellId) !== -1) {
       this.startCooldown(event, true);
     } else {
       this.trackEvent(event);
@@ -224,13 +246,15 @@ class CooldownThroughputTracker extends Analyzer {
   onSummon(event: SummonEvent) {
     const spellId = event.ability.guid;
     const ctor = this.constructor as typeof CooldownThroughputTracker;
-    const cooldownSpell = ctor.cooldownSpells.find(cooldownSpell => cooldownSpell.spell.id === spellId);
+    const cooldownSpell = ctor.cooldownSpells.find(
+      (cooldownSpell) => cooldownSpell.spell.id === spellId,
+    );
     if (!cooldownSpell) {
       return;
     }
 
     // This fixes weirdness were you can get the pet and the buff at the same time *cough yu'lon*
-    const index = this.activeCooldowns.findIndex(cooldown => cooldown.spell.id === spellId);
+    const index = this.activeCooldowns.findIndex((cooldown) => cooldown.spell.id === spellId);
     if (index !== -1) {
       return;
     }
@@ -238,12 +262,13 @@ class CooldownThroughputTracker extends Analyzer {
     const cooldown = this.addCooldown(cooldownSpell, event.timestamp);
     cooldown.petID = event.targetID;
     this.activeCooldowns.push(cooldown);
-    debug && console.log(`%cCooldown started: ${cooldownSpell.spell.name}`, 'color: green', cooldown);
+    debug &&
+      console.log(`%cCooldown started: ${cooldownSpell.spell.name}`, 'color: green', cooldown);
   }
 
   onPetDeath(event: DeathEvent) {
     const petID = event.targetID;
-    const index = this.activeCooldowns.findIndex(cooldown => cooldown.petID === petID);
+    const index = this.activeCooldowns.findIndex((cooldown) => cooldown.petID === petID);
     if (index === -1) {
       return;
     }
@@ -258,20 +283,25 @@ class CooldownThroughputTracker extends Analyzer {
 
   tab() {
     return {
-    title: t({
-      id: "shared.cooldownThroughputTracker.tab",
-      message: `Cooldowns`
-    }),
+      title: t({
+        id: 'shared.cooldownThroughputTracker.tab',
+        message: `Cooldowns`,
+      }),
       icon: CooldownIcon,
       url: 'cooldowns',
       render: () => (
         <Panel
-          title={<Trans id="shared.cooldownThroughputTracker.tab.title">Throughput cooldowns</Trans>}
-          explanation={(
+          title={
+            <Trans id="shared.cooldownThroughputTracker.tab.title">Throughput cooldowns</Trans>
+          }
+          explanation={
             <Trans id="shared.cooldownThroughputTracker.tab.explanation">
-              This shows the effectiveness of your throughput cooldowns and your cast behavior during them. Click on <i>More</i> to see details such as the delay between casting spells and the healing or damage done with them. Take a look at the timeline for a different kind of view of your casts during buffs.
+              This shows the effectiveness of your throughput cooldowns and your cast behavior
+              during them. Click on <i>More</i> to see details such as the delay between casting
+              spells and the healing or damage done with them. Take a look at the timeline for a
+              different kind of view of your casts during buffs.
             </Trans>
-          )}
+          }
           pad={false}
         >
           <CooldownOverview

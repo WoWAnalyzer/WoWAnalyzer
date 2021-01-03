@@ -16,9 +16,15 @@ export default {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      Welcome to the Resto Druid analyzer! We hope you find these suggestions and statistics useful.<br /><br />
-
-      If you want to learn more about Resto Druids, join the Druid community at the <a href="https://discord.gg/dreamgrove" target="_blank" rel="noopener noreferrer">Dreamgrove discord channel</a>. Remember to check the pins (ctrl-P while in #resto channel) for guides, FAQs, and gearing guidelines.
+      Welcome to the Resto Druid analyzer! We hope you find these suggestions and statistics useful.
+      <br />
+      <br />
+      If you want to learn more about Resto Druids, join the Druid community at the{' '}
+      <a href="https://discord.gg/dreamgrove" target="_blank" rel="noopener noreferrer">
+        Dreamgrove discord channel
+      </a>
+      . Remember to check the pins (ctrl-P while in #resto channel) for guides, FAQs, and gearing
+      guidelines.
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
@@ -30,7 +36,10 @@ export default {
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () => import('./CombatLogParser' /* webpackChunkName: "RestorationDruid" */).then(exports => exports.default),
+  parser: () =>
+    import('./CombatLogParser' /* webpackChunkName: "RestorationDruid" */).then(
+      (exports) => exports.default,
+    ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };

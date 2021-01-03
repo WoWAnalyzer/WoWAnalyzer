@@ -33,15 +33,29 @@ class LastEmperorsCapacitor extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.LAST_EMPERORS_CAPACITOR.bonusID);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(
+      SPELLS.LAST_EMPERORS_CAPACITOR.bonusID,
+    );
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.LAST_EMPERORS_CAPACITOR_BUFF), this.applyBuff);
-    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.LAST_EMPERORS_CAPACITOR_BUFF), this.applyBuffStack);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.LAST_EMPERORS_CAPACITOR_BUFF),
+      this.applyBuff,
+    );
+    this.addEventListener(
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.LAST_EMPERORS_CAPACITOR_BUFF),
+      this.applyBuffStack,
+    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(CHI_SPENDERS), this.castChiSpender);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CRACKLING_JADE_LIGHTNING), this.castCracklingJadeLightning);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CRACKLING_JADE_LIGHTNING), this.cracklingJadeLightningDamage);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CRACKLING_JADE_LIGHTNING),
+      this.castCracklingJadeLightning,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CRACKLING_JADE_LIGHTNING),
+      this.cracklingJadeLightningDamage,
+    );
   }
 
   applyBuff() {
@@ -76,11 +90,13 @@ class LastEmperorsCapacitor extends Analyzer {
   }
 
   get averageStacksUsed() {
-    return this.stacksUsed / this.abilityTracker.getAbility(SPELLS.CRACKLING_JADE_LIGHTNING.id).casts;
+    return (
+      this.stacksUsed / this.abilityTracker.getAbility(SPELLS.CRACKLING_JADE_LIGHTNING.id).casts
+    );
   }
 
   get stacksWastedPerMinute() {
-    return this.stacksWasted / this.owner.fightDuration * 1000 / 60;
+    return ((this.stacksWasted / this.owner.fightDuration) * 1000) / 60;
   }
 
   get averageStacksSuggestionThresholds() {
@@ -114,7 +130,8 @@ class LastEmperorsCapacitor extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
         tooltip={
-          <Trans id="monk.windwalker.modules.items.lastEmperorsCapacitor.tooltip">Damage dealt does not account for opportunity cost
+          <Trans id="monk.windwalker.modules.items.lastEmperorsCapacitor.tooltip">
+            Damage dealt does not account for opportunity cost
             <br />
             Stacks generated <b>{this.totalStacks}</b>
             <br />
@@ -122,7 +139,9 @@ class LastEmperorsCapacitor extends Analyzer {
             <br />
             Stacks wasted by generating at cap: <b>{this.stacksWasted}</b>
             <br />
-            Average stacks spent on each cast: <b>{this.averageStacksUsed.toFixed(2)}</b></Trans>}
+            Average stacks spent on each cast: <b>{this.averageStacksUsed.toFixed(2)}</b>
+          </Trans>
+        }
       >
         <BoringSpellValueText spell={SPELLS.LAST_EMPERORS_CAPACITOR}>
           <ItemDamageDone amount={this.damage} />
@@ -132,29 +151,49 @@ class LastEmperorsCapacitor extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.wastedStacksSuggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <Trans id="monk.windwalker.modules.items.lastEmperorsCapacitor.wastedStacks"> You wasted your <SpellLink id={SPELLS.LAST_EMPERORS_CAPACITOR_BUFF.id}/> stacks by using chi spenders while at 20 stacks </Trans>)
+    when(this.wastedStacksSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <Trans id="monk.windwalker.modules.items.lastEmperorsCapacitor.wastedStacks">
+          {' '}
+          You wasted your <SpellLink id={SPELLS.LAST_EMPERORS_CAPACITOR_BUFF.id} /> stacks by using
+          chi spenders while at 20 stacks{' '}
+        </Trans>,
+      )
         .icon(SPELLS.LAST_EMPERORS_CAPACITOR.icon)
-        .actual(t({
-      id: "monk.windwalker.modules.items.lastEmperorsCapacitor.wastedStacks.actual",
-      message: `${actual.toFixed(2)} Wasted stacks per minute`
-    }))
-        .recommended(t({
-      id: "monk.windwalker.modules.items.lastEmperorsCapacitor.wastedStacks.recommended",
-      message: `${(recommended)} Wasted stacks per minute is recommended`
-    }))
+        .actual(
+          t({
+            id: 'monk.windwalker.modules.items.lastEmperorsCapacitor.wastedStacks.actual',
+            message: `${actual.toFixed(2)} Wasted stacks per minute`,
+          }),
+        )
+        .recommended(
+          t({
+            id: 'monk.windwalker.modules.items.lastEmperorsCapacitor.wastedStacks.recommended',
+            message: `${recommended} Wasted stacks per minute is recommended`,
+          }),
+        ),
     );
-    when(this.averageStacksSuggestionThresholds).addSuggestion((suggest, actual) => suggest(
-      <Trans id="monk.windwalker.modules.items.lastEmperorsCapacitor.averageStacks"> Your average number of <SpellLink id={SPELLS.LAST_EMPERORS_CAPACITOR_BUFF.id} /> stacks used when you cast <SpellLink id={SPELLS.CRACKLING_JADE_LIGHTNING.id}/> was low </Trans>)
+    when(this.averageStacksSuggestionThresholds).addSuggestion((suggest, actual) =>
+      suggest(
+        <Trans id="monk.windwalker.modules.items.lastEmperorsCapacitor.averageStacks">
+          {' '}
+          Your average number of <SpellLink id={SPELLS.LAST_EMPERORS_CAPACITOR_BUFF.id} /> stacks
+          used when you cast <SpellLink id={SPELLS.CRACKLING_JADE_LIGHTNING.id} /> was low{' '}
+        </Trans>,
+      )
         .icon(SPELLS.LAST_EMPERORS_CAPACITOR.icon)
-        .actual(t({
-      id: "monk.windwalker.modules.items.lastEmperorsCapacitor.averageStacks.actual",
-      message: `${actual.toFixed(2)} average stacks used`
-    }))
-        .recommended(t({
-      id: "monk.windwalker.modules.items.lastEmperorsCapacitor.averageStacks.recommended",
-      message: `Try to cast Crackling Jade Lightning while as close to 20 stacks as possible`
-    }))
+        .actual(
+          t({
+            id: 'monk.windwalker.modules.items.lastEmperorsCapacitor.averageStacks.actual',
+            message: `${actual.toFixed(2)} average stacks used`,
+          }),
+        )
+        .recommended(
+          t({
+            id: 'monk.windwalker.modules.items.lastEmperorsCapacitor.averageStacks.recommended',
+            message: `Try to cast Crackling Jade Lightning while as close to 20 stacks as possible`,
+          }),
+        ),
     );
   }
 }

@@ -11,7 +11,6 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
  */
 
 class Netherwalk extends Analyzer {
-
   damageImmuned = [];
 
   constructor(...args) {
@@ -37,24 +36,28 @@ class Netherwalk extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(6)}
         size="flexible"
-        dropdown={(
-          this.damageImmuned.length !== 0 ? <>
-            <table className="table table-condensed">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Object.values(this.damageImmuned).map((e, i) => (
-                  <tr key={i}>
-                    <th>{this.damageImmuned[i].name}</th>
+        dropdown={
+          this.damageImmuned.length !== 0 ? (
+            <>
+              <table className="table table-condensed">
+                <thead>
+                  <tr>
+                    <th>Name</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </> : ''
-        )}
+                </thead>
+                <tbody>
+                  {Object.values(this.damageImmuned).map((e, i) => (
+                    <tr key={i}>
+                      <th>{this.damageImmuned[i].name}</th>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </>
+          ) : (
+            ''
+          )
+        }
       >
         <BoringSpellValueText spell={SPELLS.NETHERWALK_TALENT}>
           <>
@@ -62,7 +65,6 @@ class Netherwalk extends Analyzer {
           </>
         </BoringSpellValueText>
       </Statistic>
-
     );
   }
 }

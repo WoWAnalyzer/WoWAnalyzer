@@ -7,9 +7,7 @@ import ExecuteHelper from 'parser/shared/modules/helpers/ExecuteHelper';
 const MINUTE = 600000;
 
 class TouchOfDeath extends ExecuteHelper {
-  static executeSpells = [
-    SPELLS.TOUCH_OF_DEATH,
-  ];
+  static executeSpells = [SPELLS.TOUCH_OF_DEATH];
   static executeSources = SELECTED_PLAYER;
   static lowerThreshold = 0.15;
   static executeOutsideRangeEnablers = [];

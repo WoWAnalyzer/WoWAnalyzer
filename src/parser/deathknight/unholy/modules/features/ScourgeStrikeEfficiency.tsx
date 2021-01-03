@@ -28,7 +28,9 @@ class ScourgeStrikeEfficiency extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.activeSpell = this.selectedCombatant.hasTalent(SPELLS.CLAWING_SHADOWS_TALENT.id) ? SPELLS.CLAWING_SHADOWS_TALENT : SPELLS.SCOURGE_STRIKE;
+    this.activeSpell = this.selectedCombatant.hasTalent(SPELLS.CLAWING_SHADOWS_TALENT.id)
+      ? SPELLS.CLAWING_SHADOWS_TALENT
+      : SPELLS.SCOURGE_STRIKE;
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.activeSpell), this.onCast);
   }
@@ -52,30 +54,41 @@ class ScourgeStrikeEfficiency extends Analyzer {
   }
 
   get strikeEfficiency() {
-    return 1 - (this.zeroWoundCasts / this.totalCasts);
+    return 1 - this.zeroWoundCasts / this.totalCasts;
   }
 
   get suggestionThresholds() {
     return {
       actual: this.strikeEfficiency,
       isLessThan: {
-        minor: .80,
-        average: .70,
-        major: .60,
+        minor: 0.8,
+        average: 0.7,
+        major: 0.6,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>You are casting <SpellLink id={this.activeSpell.id} /> too often. When spending runes remember to cast <SpellLink id={this.activeSpell.id} /> instead on targets with no stacks of <SpellLink id={this.activeSpell.id} /></>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You are casting <SpellLink id={this.activeSpell.id} /> too often. When spending runes
+          remember to cast <SpellLink id={this.activeSpell.id} /> instead on targets with no stacks
+          of <SpellLink id={this.activeSpell.id} />
+        </>,
+      )
         .icon(this.activeSpell.icon)
-        .actual(t({
-      id: "deathknight.unholy.suggestions.scourgeStrike.efficiency",
-      message: `${formatPercentage(actual)}% of ${this.activeSpell.name} were used with Wounds on the target`
-    }))
-        .recommended(`>${formatPercentage(recommended)}% is recommended`));
+        .actual(
+          t({
+            id: 'deathknight.unholy.suggestions.scourgeStrike.efficiency',
+            message: `${formatPercentage(actual)}% of ${
+              this.activeSpell.name
+            } were used with Wounds on the target`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {

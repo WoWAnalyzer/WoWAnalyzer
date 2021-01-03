@@ -21,7 +21,6 @@ import Events, { DamageEvent } from 'parser/core/Events';
  */
 
 class SteelTrap extends Analyzer {
-
   static dependencies = {
     spellUsable: SpellUsable,
   };
@@ -36,8 +35,14 @@ class SteelTrap extends Analyzer {
 
     this.active = this.selectedCombatant.hasTalent(SPELLS.STEEL_TRAP_TALENT.id);
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STEEL_TRAP_TALENT), this.onCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.STEEL_TRAP_DEBUFF), this.onDamage);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STEEL_TRAP_TALENT),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.STEEL_TRAP_DEBUFF),
+      this.onDamage,
+    );
   }
 
   onCast() {

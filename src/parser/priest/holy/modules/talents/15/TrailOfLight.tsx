@@ -18,13 +18,16 @@ class TrailOfLight extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.TRAIL_OF_LIGHT_TALENT.id);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.TRAIL_OF_LIGHT_HEAL), this.onHeal);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.TRAIL_OF_LIGHT_HEAL),
+      this.onHeal,
+    );
   }
 
   onHeal(event: HealEvent) {
     this.totalToLProcs += 1;
     this.totalToLHealing += event.overheal || 0;
-    this.totalToLOverhealing += (event.amount || 0);
+    this.totalToLOverhealing += event.amount || 0;
   }
 
   statistic() {

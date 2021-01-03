@@ -57,19 +57,23 @@ class NameSearch extends React.PureComponent<Props, State> {
     const makePageUrl =
       this.props.type === SearchType.CHARACTER ? makeCharacterPageUrl : makeGuildPageUrl;
     if (!region || !realm || !name) {
-      alert(t({
-        id: "interface.nameSearch.pleaseSelect",
-        message: `Please select a region, realm, and guild.`
-      }));
+      alert(
+        t({
+          id: 'interface.nameSearch.pleaseSelect',
+          message: `Please select a region, realm, and guild.`,
+        }),
+      );
       return;
     }
 
     // Checking for guild-exists here makes it more userfriendly and saves WCL-requests when guild doesn't exist
     if (this.state.loading) {
-      alert(t({
-        id: "interface.nameSearch.stillWorking",
-        message: `Still working...`
-      }));
+      alert(
+        t({
+          id: 'interface.nameSearch.stillWorking',
+          message: `Still working...`,
+        }),
+      );
       return;
     }
     this.setState({ loading: true });
@@ -84,8 +88,8 @@ class NameSearch extends React.PureComponent<Props, State> {
       if (response.status === 500) {
         alert(
           t({
-            id: "interface.nameSearch.noResponse",
-            message: `It looks like we couldn't get a response in time from the API. Try and paste your report-code manually.`
+            id: 'interface.nameSearch.noResponse',
+            message: `It looks like we couldn't get a response in time from the API. Try and paste your report-code manually.`,
           }),
         );
         this.setState({
@@ -93,10 +97,12 @@ class NameSearch extends React.PureComponent<Props, State> {
         });
         return;
       } else if (response.status === 404) {
-        alert(t({
-          id: "interface.nameSearch.nameNotFound",
-          message: `${name} not found on ${realm}. Double check the region, realm, and name.`
-        }));
+        alert(
+          t({
+            id: 'interface.nameSearch.nameNotFound',
+            message: `${name} not found on ${realm}. Double check the region, realm, and name.`,
+          }),
+        );
         this.setState({
           loading: false,
         });
@@ -104,8 +110,8 @@ class NameSearch extends React.PureComponent<Props, State> {
       } else if (!response.ok) {
         alert(
           t({
-            id: "interface.nameSearch.noAPIResponse",
-            message: `It looks like we couldn't get a response in time from the API, this usually happens when the servers are under heavy load. Please try and use your report-code or try again later.`
+            id: 'interface.nameSearch.noAPIResponse',
+            message: `It looks like we couldn't get a response in time from the API, this usually happens when the servers are under heavy load. Please try and use your report-code or try again later.`,
           }),
         );
         this.setState({
@@ -120,7 +126,7 @@ class NameSearch extends React.PureComponent<Props, State> {
   changeRegion(targetRegion: string) {
     let newRealm = this.state.currentRealm;
     // If the new region doesn't have a realm by the same name, clear the input
-    if (!REALMS[targetRegion].some(realm => realm.name === newRealm)) {
+    if (!REALMS[targetRegion].some((realm) => realm.name === newRealm)) {
       newRealm = '';
     }
     this.setState({
@@ -130,22 +136,25 @@ class NameSearch extends React.PureComponent<Props, State> {
   }
 
   render() {
-    const namePlaceholder = this.props.type === SearchType.CHARACTER ? t({
-      id: "interface.nameSearch.character",
-      message: `Character`
-    }) : t({
-      id: "interface.nameSearch.guild",
-      message: `Guild`
-    });
+    const namePlaceholder =
+      this.props.type === SearchType.CHARACTER
+        ? t({
+            id: 'interface.nameSearch.character',
+            message: `Character`,
+          })
+        : t({
+            id: 'interface.nameSearch.guild',
+            message: `Guild`,
+          });
     return (
       <form onSubmit={this.handleSubmit} className="character-guild-selector">
         <select
           className="form-control region"
           ref={this.regionInput}
           defaultValue={this.state.currentRegion}
-          onChange={e => this.changeRegion(e.target.value)}
+          onChange={(e) => this.changeRegion(e.target.value)}
         >
-          {Object.keys(REALMS).map(elem => (
+          {Object.keys(REALMS).map((elem) => (
             <option key={elem} value={elem}>
               {elem}
             </option>
@@ -155,7 +164,7 @@ class NameSearch extends React.PureComponent<Props, State> {
           key={this.state.currentRegion}
           className="realm"
           search
-          options={REALMS[this.state.currentRegion].map(elem => ({
+          options={REALMS[this.state.currentRegion].map((elem) => ({
             value: elem.name,
             name: elem.name,
           }))}
@@ -166,8 +175,8 @@ class NameSearch extends React.PureComponent<Props, State> {
             });
           }}
           placeholder={t({
-            id: "interface.nameSearch.realm",
-            message: `Realm`
+            id: 'interface.nameSearch.realm',
+            message: `Realm`,
           })}
         />
         <input
@@ -186,7 +195,8 @@ class NameSearch extends React.PureComponent<Props, State> {
             this.state.loading ? 'fill-button' : ''
           }`}
         >
-          <Trans id="interface.nameSearch.search">Search</Trans> <span className="glyphicon glyphicon-chevron-right" aria-hidden />
+          <Trans id="interface.nameSearch.search">Search</Trans>{' '}
+          <span className="glyphicon glyphicon-chevron-right" aria-hidden />
         </button>
       </form>
     );

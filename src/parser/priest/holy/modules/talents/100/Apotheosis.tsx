@@ -28,8 +28,14 @@ class Apotheosis extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.APOTHEOSIS_TALENT.id);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.APOTHEOSIS_TALENT), this.onApplyBuff);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.APOTHEOSIS_TALENT), this.onRemoveBuff);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.APOTHEOSIS_TALENT),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.APOTHEOSIS_TALENT),
+      this.onRemoveBuff,
+    );
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
@@ -44,21 +50,37 @@ class Apotheosis extends Analyzer {
   statistic() {
     return (
       <Statistic
-        tooltip={(
+        tooltip={
           <>
-            Serenity: {this.sanctify.apotheosisCooldownReduction / 1000}s CDR | {this.sanctify.apotheosisManaReduction} Mana saved <br />
-            Sanctify: {this.serenity.apotheosisCooldownReduction / 1000}s CDR | {this.serenity.apotheosisManaReduction} Mana saved <br />
-            Chastise: {this.chastise.apotheosisCooldownReduction / 1000}s CDR | {this.chastise.apotheosisManaReduction} Mana saved
+            Serenity: {this.sanctify.apotheosisCooldownReduction / 1000}s CDR |{' '}
+            {this.sanctify.apotheosisManaReduction} Mana saved <br />
+            Sanctify: {this.serenity.apotheosisCooldownReduction / 1000}s CDR |{' '}
+            {this.serenity.apotheosisManaReduction} Mana saved <br />
+            Chastise: {this.chastise.apotheosisCooldownReduction / 1000}s CDR |{' '}
+            {this.chastise.apotheosisManaReduction} Mana saved
           </>
-        )}
+        }
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(7)}
       >
         <BoringSpellValueText spell={SPELLS.APOTHEOSIS_TALENT}>
           <>
-            <ItemManaGained amount={this.sanctify.apotheosisManaReduction + this.serenity.apotheosisManaReduction + this.chastise.apotheosisManaReduction} /><br />
-            {formatNumber((this.sanctify.apotheosisCooldownReduction + this.serenity.apotheosisCooldownReduction + this.chastise.apotheosisCooldownReduction) / 1000)}s Cooldown Reduction
+            <ItemManaGained
+              amount={
+                this.sanctify.apotheosisManaReduction +
+                this.serenity.apotheosisManaReduction +
+                this.chastise.apotheosisManaReduction
+              }
+            />
+            <br />
+            {formatNumber(
+              (this.sanctify.apotheosisCooldownReduction +
+                this.serenity.apotheosisCooldownReduction +
+                this.chastise.apotheosisCooldownReduction) /
+                1000,
+            )}
+            s Cooldown Reduction
           </>
         </BoringSpellValueText>
       </Statistic>

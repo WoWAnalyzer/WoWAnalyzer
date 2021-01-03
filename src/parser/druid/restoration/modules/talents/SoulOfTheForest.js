@@ -28,9 +28,9 @@ class SoulOfTheForest extends Analyzer {
     return {
       actual: this.wgUsagePercent,
       isLessThan: {
-        minor: 1.00,
-        average: 0.80,
-        major: 0.60,
+        minor: 1.0,
+        average: 0.8,
+        major: 0.6,
       },
       style: 'percentage',
     };
@@ -68,9 +68,17 @@ class SoulOfTheForest extends Analyzer {
     }
 
     // Saving the "valid" targets to track the healing done on. I.e. get the targets that had an "empowered" WG/Rejuv applied on them.
-    if (this.wildGrowthProccTimestamp !== null && SPELLS.WILD_GROWTH.id === spellId && (event.timestamp - this.wildGrowthProccTimestamp) < 100) {
+    if (
+      this.wildGrowthProccTimestamp !== null &&
+      SPELLS.WILD_GROWTH.id === spellId &&
+      event.timestamp - this.wildGrowthProccTimestamp < 100
+    ) {
       this.wildGrowthTargets.push(event.targetID);
-    } else if (this.rejuvenationProccTimestamp !== null && (SPELLS.REJUVENATION.id === spellId || SPELLS.REJUVENATION_GERMINATION.id === spellId) && (event.timestamp - this.rejuvenationProccTimestamp) < 100) {
+    } else if (
+      this.rejuvenationProccTimestamp !== null &&
+      (SPELLS.REJUVENATION.id === spellId || SPELLS.REJUVENATION_GERMINATION.id === spellId) &&
+      event.timestamp - this.rejuvenationProccTimestamp < 100
+    ) {
       this.rejuvenationTargets.push(event.targetID);
     }
   }
@@ -79,7 +87,10 @@ class SoulOfTheForest extends Analyzer {
     const spellId = event.ability.guid;
 
     // proccConsumsed it used because WG and RG has a cast time. So whenever you queue cast WG + rejuv they will happen at the exact same timestamp.
-    if (this.selectedCombatant.hasBuff(SPELLS.SOUL_OF_THE_FOREST_BUFF.id) && this.proccConsumed === false) {
+    if (
+      this.selectedCombatant.hasBuff(SPELLS.SOUL_OF_THE_FOREST_BUFF.id) &&
+      this.proccConsumed === false
+    ) {
       if (SPELLS.REJUVENATION.id === spellId || SPELLS.REJUVENATION_GERMINATION === spellId) {
         this.rejuvenations += 1;
         this.rejuvenationProccTimestamp = event.timestamp;
@@ -99,10 +110,10 @@ class SoulOfTheForest extends Analyzer {
     const spellId = event.ability.guid;
 
     // Reset procc variables
-    if ((event.timestamp + 200) > (this.rejuvenationProccTimestamp + this.rejuvenationDuration)) {
+    if (event.timestamp + 200 > this.rejuvenationProccTimestamp + this.rejuvenationDuration) {
       this.rejuvenationProccTimestamp = null;
       this.rejuvenationTargets = [];
-    } else if ((event.timestamp + 200) > (this.wildGrowthProccTimestamp + WILD_GROWTH_DURATION)) {
+    } else if (event.timestamp + 200 > this.wildGrowthProccTimestamp + WILD_GROWTH_DURATION) {
       this.wildGrowthProccTimestamp = null;
       this.wildGrowthTargets = [];
     }
@@ -110,15 +121,19 @@ class SoulOfTheForest extends Analyzer {
     if (SPELLS.REGROWTH.id === spellId && this.regrowthProccTimestamp === event.timestamp) {
       this.regrowthHealing += calculateEffectiveHealing(event, REGROWTH_HEALING_INCREASE);
       this.regrowthProccTimestamp = null;
-    } else if (this.rejuvenationProccTimestamp !== null
-      && (SPELLS.REJUVENATION.id === spellId || SPELLS.REJUVENATION_GERMINATION === spellId)
-      && (event.timestamp - (this.rejuvenationProccTimestamp + this.rejuvenationDuration)) <= 0) {
+    } else if (
+      this.rejuvenationProccTimestamp !== null &&
+      (SPELLS.REJUVENATION.id === spellId || SPELLS.REJUVENATION_GERMINATION === spellId) &&
+      event.timestamp - (this.rejuvenationProccTimestamp + this.rejuvenationDuration) <= 0
+    ) {
       if (this.rejuvenationTargets.includes(event.targetID)) {
         this.rejuvenationHealing += calculateEffectiveHealing(event, REJUVENATION_HEALING_INCREASE);
       }
-    } else if (this.wildGrowthProccTimestamp !== null
-      && SPELLS.WILD_GROWTH.id === spellId
-      && (event.timestamp - (this.wildGrowthProccTimestamp + WILD_GROWTH_DURATION)) <= 0) {
+    } else if (
+      this.wildGrowthProccTimestamp !== null &&
+      SPELLS.WILD_GROWTH.id === spellId &&
+      event.timestamp - (this.wildGrowthProccTimestamp + WILD_GROWTH_DURATION) <= 0
+    ) {
       if (this.wildGrowthTargets.includes(event.targetID)) {
         this.wildGrowthHealing += calculateEffectiveHealing(event, WILD_GROWTH_HEALING_INCREASE);
       }
@@ -126,15 +141,27 @@ class SoulOfTheForest extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<span>You did not consume all your <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> buffs with <SpellLink id={SPELLS.WILD_GROWTH.id} />.
-          Try to use <SpellLink id={SPELLS.WILD_GROWTH.id} /> every time you get a <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> buff.</span>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <span>
+          You did not consume all your{' '}
+          <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> buffs with{' '}
+          <SpellLink id={SPELLS.WILD_GROWTH.id} />. Try to use{' '}
+          <SpellLink id={SPELLS.WILD_GROWTH.id} /> every time you get a{' '}
+          <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> buff.
+        </span>,
+      )
         .icon(SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.icon)
-        .actual(t({
-      id: "druid.restoration.suggestions.soulOfTheForest.efficiency",
-      message: `Wild growth consumed ${formatPercentage(this.wgUsagePercent)}% of all the buffs.`
-    }))
-        .recommended(`${Math.round(formatPercentage(recommended))}% is recommended`));
+        .actual(
+          t({
+            id: 'druid.restoration.suggestions.soulOfTheForest.efficiency',
+            message: `Wild growth consumed ${formatPercentage(
+              this.wgUsagePercent,
+            )}% of all the buffs.`,
+          }),
+        )
+        .recommended(`${Math.round(formatPercentage(recommended))}% is recommended`),
+    );
   }
 
   statistic() {
@@ -149,21 +176,35 @@ class SoulOfTheForest extends Analyzer {
       <Statistic
         size="flexible"
         position={STATISTIC_ORDER.OPTIONAL(20)}
-        tooltip={(
+        tooltip={
           <>
             You gained {this.proccs} total Soul of the Forest procs.
             <ul>
-              <li>Consumed {this.wildGrowths} procs with Wild Growth for {formatPercentage(wgPercent)}% healing</li>
-              <li>Consumed {this.rejuvenations} procs with Rejuvenation for {formatPercentage(rejuvPercent)}% healing</li>
-              <li>Consumed {this.regrowths} procs with Regrowth for {formatPercentage(regrowthPercent)}% healing</li>
+              <li>
+                Consumed {this.wildGrowths} procs with Wild Growth for {formatPercentage(wgPercent)}
+                % healing
+              </li>
+              <li>
+                Consumed {this.rejuvenations} procs with Rejuvenation for{' '}
+                {formatPercentage(rejuvPercent)}% healing
+              </li>
+              <li>
+                Consumed {this.regrowths} procs with Regrowth for{' '}
+                {formatPercentage(regrowthPercent)}% healing
+              </li>
             </ul>
           </>
-        )}
+        }
       >
-        <BoringValue label={<><SpellIcon id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> Soul of the Forest healing</>}>
-          <>
-            {formatPercentage(totalPercent)} %
-          </>
+        <BoringValue
+          label={
+            <>
+              <SpellIcon id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} /> Soul of the Forest
+              healing
+            </>
+          }
+        >
+          <>{formatPercentage(totalPercent)} %</>
         </BoringValue>
       </Statistic>
     );

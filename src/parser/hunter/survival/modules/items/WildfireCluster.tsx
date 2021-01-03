@@ -15,13 +15,17 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
  */
 
 class WildfireCluster extends Analyzer {
-
   damage = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.WILDFIRE_CLUSTER_EFFECT.bonusID);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.WILDFIRE_CLUSTER_DAMAGE), this.onDamage);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(
+      SPELLS.WILDFIRE_CLUSTER_EFFECT.bonusID,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.WILDFIRE_CLUSTER_DAMAGE),
+      this.onDamage,
+    );
   }
 
   onDamage(event: DamageEvent) {
@@ -30,10 +34,7 @@ class WildfireCluster extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        size="flexible"
-        category={STATISTIC_CATEGORY.ITEMS}
-      >
+      <Statistic size="flexible" category={STATISTIC_CATEGORY.ITEMS}>
         <BoringSpellValueText spell={SPELLS.WILDFIRE_CLUSTER_EFFECT}>
           <>
             <ItemDamageDone amount={this.damage} />

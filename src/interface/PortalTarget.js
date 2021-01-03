@@ -25,9 +25,7 @@ class PortalTarget extends React.PureComponent {
   }
 
   render() {
-    return (
-      <div id={ROOT_ELEMENT_ID} />
-    );
+    return <div id={ROOT_ELEMENT_ID} />;
   }
 }
 

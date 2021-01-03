@@ -11,16 +11,17 @@ import SoulFragmentsTracker from '../features/SoulFragmentsTracker';
 
 class SoulCleaveSoulsConsumed extends Analyzer {
   get suggestionThresholdsEfficiency() {
-    
-    const totalAvailable = this.soulFragmentsTracker.soulsGenerated - this.soulFragmentsTracker.overcap;
-    const fractionOnSoulCleave = (totalAvailable === 0) ? 0 : (this.soulFragmentsConsume.soulCleaveSouls() / totalAvailable);
+    const totalAvailable =
+      this.soulFragmentsTracker.soulsGenerated - this.soulFragmentsTracker.overcap;
+    const fractionOnSoulCleave =
+      totalAvailable === 0 ? 0 : this.soulFragmentsConsume.soulCleaveSouls() / totalAvailable;
 
     return {
       actual: fractionOnSoulCleave,
       isGreaterThan: {
-        minor: 0.10,
+        minor: 0.1,
         average: 0.15,
-        major: .20,
+        major: 0.2,
       },
       style: 'percentage',
     };
@@ -39,20 +40,31 @@ class SoulCleaveSoulsConsumed extends Analyzer {
   */
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id) && !this.selectedCombatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id);
+    this.active =
+      this.selectedCombatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id) &&
+      !this.selectedCombatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id);
   }
 
   suggestions(when) {
-    when(this.suggestionThresholdsEfficiency)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>You should avoid consuming souls with <SpellLink id={SPELLS.SOUL_CLEAVE.id} /> and instead try to consume them only with <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> for the increased dps. Your talent choices suggests your going for a balanced approch versus a defensive one with <SpellLink id={SPELLS.FEED_THE_DEMON_TALENT.id} />.</>)
+    when(this.suggestionThresholdsEfficiency).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You should avoid consuming souls with <SpellLink id={SPELLS.SOUL_CLEAVE.id} /> and instead
+          try to consume them only with <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> for the
+          increased dps. Your talent choices suggests your going for a balanced approch versus a
+          defensive one with <SpellLink id={SPELLS.FEED_THE_DEMON_TALENT.id} />.
+        </>,
+      )
         .icon(SPELLS.SOUL_CLEAVE.icon)
-        .actual(t({
-      id: "demonhunter.vengeance.suggestions.soulCleave.soulsConsumed",
-      message: `${formatPercentage(actual)}% of souls consumed.`
-    }))
-        .recommended(`<${formatPercentage(recommended)}% is recommended`));
+        .actual(
+          t({
+            id: 'demonhunter.vengeance.suggestions.soulCleave.soulsConsumed',
+            message: `${formatPercentage(actual)}% of souls consumed.`,
+          }),
+        )
+        .recommended(`<${formatPercentage(recommended)}% is recommended`),
+    );
   }
-
 }
 
 export default SoulCleaveSoulsConsumed;

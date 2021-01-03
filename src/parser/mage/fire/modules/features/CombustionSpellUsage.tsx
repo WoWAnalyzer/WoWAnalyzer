@@ -29,10 +29,19 @@ class CombustionSpellUsage extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FIREBALL), this.fireballCasts);
-    this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.FIREBALL), this.fireballCasts);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FIREBALL),
+      this.fireballCasts,
+    );
+    this.addEventListener(
+      Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.FIREBALL),
+      this.fireballCasts,
+    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SCORCH), this.scorchCasts);
-    this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.SCORCH), this.scorchCasts);
+    this.addEventListener(
+      Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.SCORCH),
+      this.scorchCasts,
+    );
   }
 
   //Because Fireball has a longer cast time than Scorch, the player should never cast Fireball during Combustion.
@@ -43,8 +52,15 @@ class CombustionSpellUsage extends Analyzer {
       return;
     }
 
-    const combustionApplied = this.eventHistory.last(1, undefined, Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION))[0].timestamp;
-    if (event.type === EventType.Cast && (!event.channel?.beginChannel || event.channel.beginChannel.timestamp >= combustionApplied)) {
+    const combustionApplied = this.eventHistory.last(
+      1,
+      undefined,
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION),
+    )[0].timestamp;
+    if (
+      event.type === EventType.Cast &&
+      (!event.channel?.beginChannel || event.channel.beginChannel.timestamp >= combustionApplied)
+    ) {
       this.fireballCastsCompleted += 1;
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
@@ -59,7 +75,7 @@ class CombustionSpellUsage extends Analyzer {
   scorchCasts(event: CastEvent | BeginCastEvent) {
     const hasCombustion = this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id);
     const fireBlastCharges = this.spellUsable.chargesAvailable(SPELLS.FIRE_BLAST.id);
-    const phoenixFlamesCharges = (this.spellUsable.chargesAvailable(SPELLS.PHOENIX_FLAMES.id) || 0);
+    const phoenixFlamesCharges = this.spellUsable.chargesAvailable(SPELLS.PHOENIX_FLAMES.id) || 0;
 
     //If the player has the Blaster Master trait, it is acceptable to cast Scorch during Combustion
     if (!hasCombustion) {
@@ -71,12 +87,12 @@ class CombustionSpellUsage extends Analyzer {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
       event.meta.inefficientCastReason = `This Scorch was cast during Combustion while an instant cast ability like Fire Blast or Phoenix Flames was available. Unless you have the Blaster Master trait, make sure you are using your instant abilities first before hard casting Scorch. `;
-      debug && this.log("Cast completed with instants available");
+      debug && this.log('Cast completed with instants available');
     }
 
     if (event.type === EventType.BeginCast && (fireBlastCharges > 0 || phoenixFlamesCharges > 0)) {
       this.scorchCastsStarted += 1;
-      debug && this.log("Cast started with instants available");
+      debug && this.log('Cast started with instants available');
     }
   }
 
@@ -117,16 +133,45 @@ class CombustionSpellUsage extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.scorchDuringCombustionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>You started to cast <SpellLink id={SPELLS.SCORCH.id} /> {this.scorchCastsStarted} times ({this.badScorchesPerCombustion.toFixed(2)} per Combustion), and completed {this.scorchCastsCompleted} casts, while you had charges of <SpellLink id={SPELLS.FIRE_BLAST.id} />  or <SpellLink id={SPELLS.PHOENIX_FLAMES.id} /> available. Make sure you are using up all of your charges of Fire Blast and Phoenix Flames before using Scorch during Combustion.</>)
-          .icon(SPELLS.COMBUSTION.icon)
-          .actual(<Trans id="mage.fire.suggestions.combustion.charge.utilization">{this.badScorchesPerCombustion.toFixed(2)} Casts Per Combustion</Trans>)
-          .recommended(`${formatNumber(recommended)} is recommended`));
-    when(this.fireballDuringCombustionThresholds)
-    .addSuggestion((suggest, actual, recommended) => suggest(<>You started to cast <SpellLink id={SPELLS.FIREBALL.id} /> {this.fireballCastsStarted} times ({this.fireballCastsPerCombustion.toFixed(2)} per Combustion), and completed {this.fireballCastsCompleted} casts, during <SpellLink id={SPELLS.COMBUSTION.id} />. Combustion has a short duration, so you are better off using instant abilities like <SpellLink id={SPELLS.FIRE_BLAST.id} /> or <SpellLink id={SPELLS.PHOENIX_FLAMES.id} />. If you run out of instant cast abilities, use <SpellLink id={SPELLS.SCORCH.id} /> instead of Fireball since it has a shorter cast time.</>)
+    when(this.scorchDuringCombustionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You started to cast <SpellLink id={SPELLS.SCORCH.id} /> {this.scorchCastsStarted} times (
+          {this.badScorchesPerCombustion.toFixed(2)} per Combustion), and completed{' '}
+          {this.scorchCastsCompleted} casts, while you had charges of{' '}
+          <SpellLink id={SPELLS.FIRE_BLAST.id} /> or <SpellLink id={SPELLS.PHOENIX_FLAMES.id} />{' '}
+          available. Make sure you are using up all of your charges of Fire Blast and Phoenix Flames
+          before using Scorch during Combustion.
+        </>,
+      )
         .icon(SPELLS.COMBUSTION.icon)
-        .actual(<Trans id="mage.fire.suggestions.combustion.castsPerCombustion">{this.fireballCastsPerCombustion.toFixed(2)} Casts Per Combustion</Trans>)
-        .recommended(`${formatNumber(recommended)} is recommended`));
+        .actual(
+          <Trans id="mage.fire.suggestions.combustion.charge.utilization">
+            {this.badScorchesPerCombustion.toFixed(2)} Casts Per Combustion
+          </Trans>,
+        )
+        .recommended(`${formatNumber(recommended)} is recommended`),
+    );
+    when(this.fireballDuringCombustionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You started to cast <SpellLink id={SPELLS.FIREBALL.id} /> {this.fireballCastsStarted}{' '}
+          times ({this.fireballCastsPerCombustion.toFixed(2)} per Combustion), and completed{' '}
+          {this.fireballCastsCompleted} casts, during <SpellLink id={SPELLS.COMBUSTION.id} />.
+          Combustion has a short duration, so you are better off using instant abilities like{' '}
+          <SpellLink id={SPELLS.FIRE_BLAST.id} /> or <SpellLink id={SPELLS.PHOENIX_FLAMES.id} />. If
+          you run out of instant cast abilities, use <SpellLink id={SPELLS.SCORCH.id} /> instead of
+          Fireball since it has a shorter cast time.
+        </>,
+      )
+        .icon(SPELLS.COMBUSTION.icon)
+        .actual(
+          <Trans id="mage.fire.suggestions.combustion.castsPerCombustion">
+            {this.fireballCastsPerCombustion.toFixed(2)} Casts Per Combustion
+          </Trans>,
+        )
+        .recommended(`${formatNumber(recommended)} is recommended`),
+    );
   }
 }
 export default CombustionSpellUsage;

@@ -14,7 +14,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
     {
       it: 'generates combo point energize if Swipe (cat) hits',
       events: [
-        { // cast AoE
+        {
+          // cast AoE
           timestamp: 1,
           type: EventType.Cast,
           sourceID: playerId,
@@ -23,7 +24,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           targetIsFriendly: false,
           ability: { guid: SPELLS.SWIPE_CAT.id },
         },
-        { // AoE does damage
+        {
+          // AoE does damage
           timestamp: 2,
           type: EventType.Damage,
           sourceID: playerId,
@@ -37,7 +39,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
       ],
       expected: [
-        { // cast AoE
+        {
+          // cast AoE
           timestamp: 1,
           type: EventType.Cast,
           sourceID: playerId,
@@ -46,7 +49,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           targetIsFriendly: false,
           ability: { guid: SPELLS.SWIPE_CAT.id },
         },
-        { // fabricated combo point energize
+        {
+          // fabricated combo point energize
           __fabricated: true,
           timestamp: 1,
           type: EventType.Energize,
@@ -59,7 +63,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           waste: 0,
           ability: { guid: SPELLS.SWIPE_CAT.id },
         },
-        { // AoE does damage
+        {
+          // AoE does damage
           timestamp: 2,
           type: EventType.Damage,
           sourceID: playerId,
@@ -76,7 +81,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
     {
       it: 'generates combo point energize if Thrash (cat) hits',
       events: [
-        { // cast AoE
+        {
+          // cast AoE
           timestamp: 1,
           type: EventType.Cast,
           sourceID: playerId,
@@ -85,7 +91,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           targetIsFriendly: false,
           ability: { guid: SPELLS.THRASH_FERAL.id },
         },
-        { // AoE does damage
+        {
+          // AoE does damage
           timestamp: 2,
           type: EventType.Damage,
           sourceID: playerId,
@@ -99,7 +106,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
       ],
       expected: [
-        { // cast AoE
+        {
+          // cast AoE
           timestamp: 1,
           type: EventType.Cast,
           sourceID: playerId,
@@ -108,7 +116,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           targetIsFriendly: false,
           ability: { guid: SPELLS.THRASH_FERAL.id },
         },
-        { // fabricated combo point energize
+        {
+          // fabricated combo point energize
           __fabricated: true,
           timestamp: 1,
           type: EventType.Energize,
@@ -121,7 +130,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           waste: 0,
           ability: { guid: SPELLS.THRASH_FERAL.id },
         },
-        { // AoE does damage
+        {
+          // AoE does damage
           timestamp: 2,
           type: EventType.Damage,
           sourceID: playerId,
@@ -138,7 +148,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
     {
       it: 'generates combo point energize if Brutal Slash hits',
       events: [
-        { // cast AoE
+        {
+          // cast AoE
           timestamp: 1,
           type: EventType.Cast,
           sourceID: playerId,
@@ -147,7 +158,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           targetIsFriendly: false,
           ability: { guid: SPELLS.BRUTAL_SLASH_TALENT.id },
         },
-        { // AoE does damage
+        {
+          // AoE does damage
           timestamp: 2,
           type: EventType.Damage,
           sourceID: playerId,
@@ -161,7 +173,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
       ],
       expected: [
-        { // cast AoE
+        {
+          // cast AoE
           timestamp: 1,
           type: EventType.Cast,
           sourceID: playerId,
@@ -170,7 +183,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           targetIsFriendly: false,
           ability: { guid: SPELLS.BRUTAL_SLASH_TALENT.id },
         },
-        { // fabricated combo point energize
+        {
+          // fabricated combo point energize
           __fabricated: true,
           timestamp: 1,
           type: EventType.Energize,
@@ -183,7 +197,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           waste: 0,
           ability: { guid: SPELLS.BRUTAL_SLASH_TALENT.id },
         },
-        { // AoE does damage
+        {
+          // AoE does damage
           timestamp: 2,
           type: EventType.Damage,
           sourceID: playerId,
@@ -200,7 +215,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
     {
       it: 'only generates once per cast, even if multiple damage events',
       events: [
-        { // cast AoE
+        {
+          // cast AoE
           timestamp: 1,
           type: EventType.Cast,
           sourceID: playerId,
@@ -209,7 +225,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           targetIsFriendly: false,
           ability: { guid: SPELLS.SWIPE_CAT.id },
         },
-        { // AoE does damage
+        {
+          // AoE does damage
           timestamp: 2,
           type: EventType.Damage,
           sourceID: playerId,
@@ -221,7 +238,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           hitType: HIT_TYPES.NORMAL,
           ability: { guid: SPELLS.SWIPE_CAT.id },
         },
-        { // AoE does damage to a second target
+        {
+          // AoE does damage to a second target
           timestamp: 2,
           type: EventType.Damage,
           sourceID: playerId,
@@ -233,7 +251,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           hitType: HIT_TYPES.NORMAL,
           ability: { guid: SPELLS.SWIPE_CAT.id },
         },
-        { // AoE does damage to the first target again
+        {
+          // AoE does damage to the first target again
           timestamp: 3,
           type: EventType.Damage,
           sourceID: playerId,
@@ -247,7 +266,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
       ],
       expected: [
-        { // cast AoE
+        {
+          // cast AoE
           timestamp: 1,
           type: EventType.Cast,
           sourceID: playerId,
@@ -256,7 +276,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           targetIsFriendly: false,
           ability: { guid: SPELLS.SWIPE_CAT.id },
         },
-        { // fabricated combo point energize
+        {
+          // fabricated combo point energize
           __fabricated: true,
           timestamp: 1,
           type: EventType.Energize,
@@ -269,7 +290,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           waste: 0,
           ability: { guid: SPELLS.SWIPE_CAT.id },
         },
-        { // AoE does damage
+        {
+          // AoE does damage
           timestamp: 2,
           type: EventType.Damage,
           sourceID: playerId,
@@ -281,7 +303,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           hitType: HIT_TYPES.NORMAL,
           ability: { guid: SPELLS.SWIPE_CAT.id },
         },
-        { // AoE does damage to a second target
+        {
+          // AoE does damage to a second target
           timestamp: 2,
           type: EventType.Damage,
           sourceID: playerId,
@@ -293,7 +316,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           hitType: HIT_TYPES.NORMAL,
           ability: { guid: SPELLS.SWIPE_CAT.id },
         },
-        { // AoE does damage to the first target again
+        {
+          // AoE does damage to the first target again
           timestamp: 3,
           type: EventType.Damage,
           sourceID: playerId,
@@ -308,9 +332,10 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
       ],
     },
     {
-      it: 'doesn\'t generate if the damage event fails to connect',
+      it: "doesn't generate if the damage event fails to connect",
       events: [
-        { // cast AoE
+        {
+          // cast AoE
           timestamp: 1,
           type: EventType.Cast,
           sourceID: playerId,
@@ -319,7 +344,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           targetIsFriendly: false,
           ability: { guid: SPELLS.SWIPE_CAT.id },
         },
-        { // AoE damage event, but is parried so does 0 damge
+        {
+          // AoE damage event, but is parried so does 0 damge
           timestamp: 2,
           type: EventType.Damage,
           sourceID: playerId,
@@ -333,7 +359,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
       ],
       expected: [
-        { // cast AoE
+        {
+          // cast AoE
           timestamp: 1,
           type: EventType.Cast,
           sourceID: playerId,
@@ -342,7 +369,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           targetIsFriendly: false,
           ability: { guid: SPELLS.SWIPE_CAT.id },
         },
-        { // AoE damage event, but is parried so does 0 damge
+        {
+          // AoE damage event, but is parried so does 0 damge
           timestamp: 2,
           type: EventType.Damage,
           sourceID: playerId,
@@ -357,9 +385,10 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
       ],
     },
     {
-      it: 'doesn\'t generate if damage event is from another ability',
+      it: "doesn't generate if damage event is from another ability",
       events: [
-        { // cast AoE
+        {
+          // cast AoE
           timestamp: 1,
           type: EventType.Cast,
           sourceID: playerId,
@@ -368,7 +397,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           targetIsFriendly: false,
           ability: { guid: SPELLS.SWIPE_CAT.id },
         },
-        { // damage from a different AoE ability
+        {
+          // damage from a different AoE ability
           timestamp: 2,
           type: EventType.Damage,
           sourceID: playerId,
@@ -382,7 +412,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
       ],
       expected: [
-        { // cast AoE
+        {
+          // cast AoE
           timestamp: 1,
           type: EventType.Cast,
           sourceID: playerId,
@@ -391,7 +422,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           targetIsFriendly: false,
           ability: { guid: SPELLS.SWIPE_CAT.id },
         },
-        { // damage from a different AoE ability
+        {
+          // damage from a different AoE ability
           timestamp: 2,
           type: EventType.Damage,
           sourceID: playerId,
@@ -406,9 +438,10 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
       ],
     },
     {
-      it: 'doesn\'t generate if damage event is from another player',
+      it: "doesn't generate if damage event is from another player",
       events: [
-        { // cast AoE
+        {
+          // cast AoE
           timestamp: 1,
           type: EventType.Cast,
           sourceID: playerId,
@@ -417,7 +450,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           targetIsFriendly: false,
           ability: { guid: SPELLS.SWIPE_CAT.id },
         },
-        { // damage event from same ability, but a different player
+        {
+          // damage event from same ability, but a different player
           timestamp: 2,
           type: EventType.Damage,
           sourceID: otherPlayerId,
@@ -431,7 +465,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
       ],
       expected: [
-        { // cast AoE
+        {
+          // cast AoE
           timestamp: 1,
           type: EventType.Cast,
           sourceID: playerId,
@@ -440,7 +475,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           targetIsFriendly: false,
           ability: { guid: SPELLS.SWIPE_CAT.id },
         },
-        { // damage event from same ability, but a different player
+        {
+          // damage event from same ability, but a different player
           timestamp: 2,
           type: EventType.Damage,
           sourceID: otherPlayerId,
@@ -457,7 +493,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
     {
       it: 'generated event shows waste if player is already at full combo points',
       events: [
-        { // energize to 5/5 combo points
+        {
+          // energize to 5/5 combo points
           timestamp: 1,
           type: EventType.Energize,
           sourceID: playerId,
@@ -469,7 +506,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           waste: 0,
           ability: { guid: SPELLS.SHRED.id },
         },
-        { // cast AoE
+        {
+          // cast AoE
           timestamp: 2,
           type: EventType.Cast,
           sourceID: playerId,
@@ -478,7 +516,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           targetIsFriendly: false,
           ability: { guid: SPELLS.SWIPE_CAT.id },
         },
-        { // damage from AoE
+        {
+          // damage from AoE
           timestamp: 3,
           type: EventType.Damage,
           sourceID: playerId,
@@ -492,7 +531,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
       ],
       expected: [
-        { // energize to 5/5 combo points
+        {
+          // energize to 5/5 combo points
           timestamp: 1,
           type: EventType.Energize,
           sourceID: playerId,
@@ -504,7 +544,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           waste: 0,
           ability: { guid: SPELLS.SHRED.id },
         },
-        { // cast AoE
+        {
+          // cast AoE
           timestamp: 2,
           type: EventType.Cast,
           sourceID: playerId,
@@ -513,7 +554,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           targetIsFriendly: false,
           ability: { guid: SPELLS.SWIPE_CAT.id },
         },
-        { // fabricated combo point energize, showing it wasted a combo point
+        {
+          // fabricated combo point energize, showing it wasted a combo point
           __fabricated: true,
           timestamp: 2,
           type: EventType.Energize,
@@ -526,7 +568,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           waste: 1,
           ability: { guid: SPELLS.SWIPE_CAT.id },
         },
-        { // damage from AoE
+        {
+          // damage from AoE
           timestamp: 3,
           type: EventType.Damage,
           sourceID: playerId,
@@ -541,9 +584,11 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
       ],
     },
     {
-      it: 'generated event doesn\'t show waste if player was at full combo points earlier but spent them',
+      it:
+        "generated event doesn't show waste if player was at full combo points earlier but spent them",
       events: [
-        { // generate 5 combo points
+        {
+          // generate 5 combo points
           timestamp: 1,
           type: EventType.Energize,
           sourceID: playerId,
@@ -555,7 +600,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           waste: 0,
           ability: { guid: SPELLS.SHRED.id },
         },
-        { // spend 5 combo points
+        {
+          // spend 5 combo points
           timestamp: 2,
           type: EventType.Cast,
           sourceID: playerId,
@@ -563,14 +609,17 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           targetID: enemyId,
           targetIsFriendly: false,
           ability: { guid: SPELLS.RIP.id },
-          classResources: [{
-            amount: 5,
-            cost: 5,
-            max: 5,
-            type: RESOURCE_TYPES.COMBO_POINTS.id,
-          }],
+          classResources: [
+            {
+              amount: 5,
+              cost: 5,
+              max: 5,
+              type: RESOURCE_TYPES.COMBO_POINTS.id,
+            },
+          ],
         },
-        { // cast AoE
+        {
+          // cast AoE
           timestamp: 3,
           type: EventType.Cast,
           sourceID: playerId,
@@ -579,7 +628,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           targetIsFriendly: false,
           ability: { guid: SPELLS.SWIPE_CAT.id },
         },
-        { // AoE does damage
+        {
+          // AoE does damage
           timestamp: 4,
           type: EventType.Damage,
           sourceID: playerId,
@@ -593,7 +643,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
       ],
       expected: [
-        { // generate 5 combo points
+        {
+          // generate 5 combo points
           timestamp: 1,
           type: EventType.Energize,
           sourceID: playerId,
@@ -605,7 +656,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           waste: 0,
           ability: { guid: SPELLS.SHRED.id },
         },
-        { // spend 5 combo points
+        {
+          // spend 5 combo points
           timestamp: 2,
           type: EventType.Cast,
           sourceID: playerId,
@@ -613,14 +665,17 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           targetID: enemyId,
           targetIsFriendly: false,
           ability: { guid: SPELLS.RIP.id },
-          classResources: [{
-            amount: 5,
-            cost: 5,
-            max: 5,
-            type: RESOURCE_TYPES.COMBO_POINTS.id,
-          }],
+          classResources: [
+            {
+              amount: 5,
+              cost: 5,
+              max: 5,
+              type: RESOURCE_TYPES.COMBO_POINTS.id,
+            },
+          ],
         },
-        { // cast AoE
+        {
+          // cast AoE
           timestamp: 3,
           type: EventType.Cast,
           sourceID: playerId,
@@ -629,7 +684,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           targetIsFriendly: false,
           ability: { guid: SPELLS.SWIPE_CAT.id },
         },
-        { // fabricated energize event showing no waste
+        {
+          // fabricated energize event showing no waste
           __fabricated: true,
           timestamp: 3,
           type: EventType.Energize,
@@ -642,7 +698,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           waste: 0,
           ability: { guid: SPELLS.SWIPE_CAT.id },
         },
-        { // AoE does damage
+        {
+          // AoE does damage
           timestamp: 4,
           type: EventType.Damage,
           sourceID: playerId,
@@ -657,9 +714,10 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
       ],
     },
     {
-      it: 'doesn\'t generate if damage event is significantly later than cast',
+      it: "doesn't generate if damage event is significantly later than cast",
       events: [
-        { // cast AoE
+        {
+          // cast AoE
           timestamp: 1,
           type: EventType.Cast,
           sourceID: playerId,
@@ -668,7 +726,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           targetIsFriendly: false,
           ability: { guid: SPELLS.SWIPE_CAT.id },
         },
-        { // damage from AoE 5 seconds after the cast
+        {
+          // damage from AoE 5 seconds after the cast
           timestamp: 5000,
           type: EventType.Damage,
           sourceID: playerId,
@@ -682,7 +741,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
       ],
       expected: [
-        { // cast AoE
+        {
+          // cast AoE
           timestamp: 1,
           type: EventType.Cast,
           sourceID: playerId,
@@ -691,7 +751,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           targetIsFriendly: false,
           ability: { guid: SPELLS.SWIPE_CAT.id },
         },
-        { // damage from AoE 5 seconds after the cast
+        {
+          // damage from AoE 5 seconds after the cast
           timestamp: 5000,
           type: EventType.Damage,
           sourceID: playerId,
@@ -708,7 +769,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
     {
       it: 'copes with other events happening at the same time',
       events: [
-        { // cast AoE
+        {
+          // cast AoE
           timestamp: 1,
           type: EventType.Cast,
           sourceID: playerId,
@@ -717,7 +779,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           targetIsFriendly: false,
           ability: { guid: SPELLS.SWIPE_CAT.id },
         },
-        { // energy energize from another ability
+        {
+          // energy energize from another ability
           timestamp: 1,
           type: EventType.Energize,
           sourceID: playerId,
@@ -729,7 +792,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           waste: 0,
           ability: { guid: SPELLS.TIGERS_FURY.id },
         },
-        { // cast another ability
+        {
+          // cast another ability
           timestamp: 1,
           type: EventType.Cast,
           sourceID: playerId,
@@ -738,7 +802,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           targetIsFriendly: false,
           ability: { guid: SPELLS.MELEE.id },
         },
-        { // damage from another ability
+        {
+          // damage from another ability
           timestamp: 1,
           type: EventType.Damage,
           sourceID: playerId,
@@ -750,7 +815,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           hitType: HIT_TYPES.NORMAL,
           ability: { guid: SPELLS.MELEE.id },
         },
-        { // damage from AoE
+        {
+          // damage from AoE
           timestamp: 2,
           type: EventType.Damage,
           sourceID: playerId,
@@ -764,7 +830,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
       ],
       expected: [
-        { // cast AoE
+        {
+          // cast AoE
           timestamp: 1,
           type: EventType.Cast,
           sourceID: playerId,
@@ -773,7 +840,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           targetIsFriendly: false,
           ability: { guid: SPELLS.SWIPE_CAT.id },
         },
-        { // fabricated combo point energize
+        {
+          // fabricated combo point energize
           __fabricated: true,
           timestamp: 1,
           type: EventType.Energize,
@@ -786,7 +854,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           waste: 0,
           ability: { guid: SPELLS.SWIPE_CAT.id },
         },
-        { // energy energize from another ability
+        {
+          // energy energize from another ability
           timestamp: 1,
           type: EventType.Energize,
           sourceID: playerId,
@@ -798,7 +867,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           waste: 0,
           ability: { guid: SPELLS.TIGERS_FURY.id },
         },
-        { // cast another ability
+        {
+          // cast another ability
           timestamp: 1,
           type: EventType.Cast,
           sourceID: playerId,
@@ -807,7 +877,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           targetIsFriendly: false,
           ability: { guid: SPELLS.MELEE.id },
         },
-        { // damage from another ability
+        {
+          // damage from another ability
           timestamp: 1,
           type: EventType.Damage,
           sourceID: playerId,
@@ -819,7 +890,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           hitType: HIT_TYPES.NORMAL,
           ability: { guid: SPELLS.MELEE.id },
         },
-        { // damage from AoE
+        {
+          // damage from AoE
           timestamp: 2,
           type: EventType.Damage,
           sourceID: playerId,
@@ -834,9 +906,10 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
       ],
     },
     {
-      it: 'doesn\'t generate if there\'s already an energize event for the cast',
+      it: "doesn't generate if there's already an energize event for the cast",
       events: [
-        { // cast AoE
+        {
+          // cast AoE
           timestamp: 1,
           type: EventType.Cast,
           sourceID: playerId,
@@ -845,7 +918,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           targetIsFriendly: false,
           ability: { guid: SPELLS.SWIPE_CAT.id },
         },
-        { // energize combo points from AoE
+        {
+          // energize combo points from AoE
           timestamp: 1,
           type: EventType.Energize,
           sourceID: playerId,
@@ -857,7 +931,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           waste: 0,
           ability: { guid: SPELLS.SWIPE_CAT.id },
         },
-        { // damage from AoE
+        {
+          // damage from AoE
           timestamp: 2,
           type: EventType.Damage,
           sourceID: playerId,
@@ -871,7 +946,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
         },
       ],
       expected: [
-        { // cast AoE
+        {
+          // cast AoE
           timestamp: 1,
           type: EventType.Cast,
           sourceID: playerId,
@@ -880,7 +956,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           targetIsFriendly: false,
           ability: { guid: SPELLS.SWIPE_CAT.id },
         },
-        { // energize combo points from AoE
+        {
+          // energize combo points from AoE
           timestamp: 1,
           type: EventType.Energize,
           sourceID: playerId,
@@ -892,7 +969,8 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
           waste: 0,
           ability: { guid: SPELLS.SWIPE_CAT.id },
         },
-        { // damage from AoE
+        {
+          // damage from AoE
           timestamp: 2,
           type: EventType.Damage,
           sourceID: playerId,
@@ -908,7 +986,7 @@ describe('Druid/Feral/Normalizers/ComboPointsFromAoE', () => {
     },
   ];
 
-  scenarios.forEach(scenario => {
+  scenarios.forEach((scenario) => {
     it(scenario.it, () => {
       const parser = new ComboPointsFromAoE({});
       parser.playerId = playerId;

@@ -25,8 +25,14 @@ class CrimsonScourge extends Analyzer {
 
   constructor(options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEATH_AND_DECAY), this.onCast);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.CRIMSON_SCOURGE), this.onApplyBuff);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEATH_AND_DECAY),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.CRIMSON_SCOURGE),
+      this.onApplyBuff,
+    );
   }
 
   onCast(event) {
@@ -85,16 +91,25 @@ class CrimsonScourge extends Analyzer {
   }
 
   suggestions(when) {
-    if(this.selectedCombatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id)){
+    if (this.selectedCombatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id)) {
       return;
     }
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You had unspent <SpellLink id={SPELLS.CRIMSON_SCOURGE.id} /> procs. Make sure you always use them.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You had unspent <SpellLink id={SPELLS.CRIMSON_SCOURGE.id} /> procs. Make sure you always
+          use them.
+        </>,
+      )
         .icon(SPELLS.CRIMSON_SCOURGE.icon)
-        .actual(t({
-      id: "deathknight.blood.suggestions.crimsonScourge.procsWasted",
-      message: `${formatPercentage(actual)}% Crimson Scourge procs wasted`
-    }))
-        .recommended(`<${formatPercentage(recommended)}% is recommended`));
+        .actual(
+          t({
+            id: 'deathknight.blood.suggestions.crimsonScourge.procsWasted',
+            message: `${formatPercentage(actual)}% Crimson Scourge procs wasted`,
+          }),
+        )
+        .recommended(`<${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {

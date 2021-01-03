@@ -16,12 +16,33 @@ export default {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      Hello Everyone! We are always looking to improve the Arcane Mage Analyzers and Modules; so if you find any issues or if there is something missing that you would like to see added, please open an Issue on GitHub or send a message to Sharrq on Discord (Sharrq#7530) <br /> <br />
-	    Additionally, if you need further assistance in improving your gameplay as an Arcane Mage, you can refer to the following resources:<br />
-      <a href="https://discord.gg/0gLMHikX2aZ23VdA" target="_blank" rel="noopener noreferrer">Mage Class Discord</a> <br />
-      <a href="https://discord.gg/UrczP9U" target="_blank" rel="noopener noreferrer">Arcane Spec Discord</a> <br />
-      <a href="https://www.altered-time.com/forum/" target="_blank" rel="noopener noreferrer">Altered Time (Mage Forums/Guides)</a> <br />
-      <a href="https://www.icy-veins.com/wow/arcane-mage-pve-dps-guide" target="_blank" rel="noopener noreferrer">Icy Veins (Arcane Mage Guide)</a> <br /><br />
+      Hello Everyone! We are always looking to improve the Arcane Mage Analyzers and Modules; so if
+      you find any issues or if there is something missing that you would like to see added, please
+      open an Issue on GitHub or send a message to Sharrq on Discord (Sharrq#7530) <br /> <br />
+      Additionally, if you need further assistance in improving your gameplay as an Arcane Mage, you
+      can refer to the following resources:
+      <br />
+      <a href="https://discord.gg/0gLMHikX2aZ23VdA" target="_blank" rel="noopener noreferrer">
+        Mage Class Discord
+      </a>{' '}
+      <br />
+      <a href="https://discord.gg/UrczP9U" target="_blank" rel="noopener noreferrer">
+        Arcane Spec Discord
+      </a>{' '}
+      <br />
+      <a href="https://www.altered-time.com/forum/" target="_blank" rel="noopener noreferrer">
+        Altered Time (Mage Forums/Guides)
+      </a>{' '}
+      <br />
+      <a
+        href="https://www.icy-veins.com/wow/arcane-mage-pve-dps-guide"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Icy Veins (Arcane Mage Guide)
+      </a>{' '}
+      <br />
+      <br />
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
@@ -33,7 +54,10 @@ export default {
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () => import('./CombatLogParser' /* webpackChunkName: "ArcaneMage" */).then(exports => exports.default),
+  parser: () =>
+    import('./CombatLogParser' /* webpackChunkName: "ArcaneMage" */).then(
+      (exports) => exports.default,
+    ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };

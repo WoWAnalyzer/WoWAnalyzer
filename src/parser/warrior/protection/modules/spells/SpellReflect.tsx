@@ -34,9 +34,9 @@ class SpellReflect extends Analyzer {
     return {
       actual: this.magicDamageReduced / this.magicDamage,
       isLessThan: {
-        minor: .25,
-        average: .15,
-        major: .05,
+        minor: 0.25,
+        average: 0.15,
+        major: 0.05,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
@@ -59,17 +59,22 @@ class SpellReflect extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        Try to cast <SpellLink id={SPELLS.SPELL_REFLECTION.id} /> more often when magic damage is going out to take less damage.
-      </>,
-    )
-      .icon(SPELLS.SPELL_REFLECTION.icon)
-      .actual(t({
-      id: "warrior.protection.suggestions.spellReflect.efficiency",
-      message: `${formatPercentage(actual)} % magic damage With Spell Reflect Up`
-    }))
-      .recommended(`${formatPercentage(recommended)} % recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Try to cast <SpellLink id={SPELLS.SPELL_REFLECTION.id} /> more often when magic damage is
+          going out to take less damage.
+        </>,
+      )
+        .icon(SPELLS.SPELL_REFLECTION.icon)
+        .actual(
+          t({
+            id: 'warrior.protection.suggestions.spellReflect.efficiency',
+            message: `${formatPercentage(actual)} % magic damage With Spell Reflect Up`,
+          }),
+        )
+        .recommended(`${formatPercentage(recommended)} % recommended`),
+    );
   }
 }
 

@@ -12,7 +12,10 @@ import PlayerGearHeader from './PlayerGearHeader';
 import Talents from './Talents';
 
 function _parseTalents(talents: TalentsType[]): number[] {
-  return talents.reduce((talentsByRow: number[], talent: TalentsType) => talentsByRow.concat(talent.id), []);
+  return talents.reduce(
+    (talentsByRow: number[], talent: TalentsType) => talentsByRow.concat(talent.id),
+    [],
+  );
 }
 
 function _parseGear(gear: Item[]) {
@@ -34,7 +37,15 @@ const PlayerInfo = ({ combatant }: Props) => {
 
   const averageIlvl = getAverageItemLevel(gear);
 
-  const background = combatant.characterProfile && combatant.characterProfile.thumbnail ? `https://render-${combatant.characterProfile.region}.worldofwarcraft.com/character/${combatant.characterProfile.thumbnail.replace('avatar', 'main')}` : '/img/fallback-character.jpg';
+  const background =
+    combatant.characterProfile && combatant.characterProfile.thumbnail
+      ? `https://render-${
+          combatant.characterProfile.region
+        }.worldofwarcraft.com/character/${combatant.characterProfile.thumbnail.replace(
+          'avatar',
+          'main',
+        )}`
+      : '/img/fallback-character.jpg';
 
   return (
     <div className="player-info">

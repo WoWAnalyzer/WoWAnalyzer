@@ -4,7 +4,11 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELLS from 'common/SPELLS';
 import Events, { CastEvent } from 'parser/core/Events';
 
-import { ASSASSINATION_ABILITY_COOLDOWNS, OUTLAW_ABILITY_COOLDOWNS, SUBTLETY_ABILITY_COOLDOWNS } from 'parser/rogue/shared/constants';
+import {
+  ASSASSINATION_ABILITY_COOLDOWNS,
+  OUTLAW_ABILITY_COOLDOWNS,
+  SUBTLETY_ABILITY_COOLDOWNS,
+} from 'parser/rogue/shared/constants';
 import { SpellList } from 'common/SPELLS/Spell';
 
 /**
@@ -39,7 +43,9 @@ class InvigoratingShadowdust extends Analyzer {
       default:
         break;
     }
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.INVIGORATING_SHADOWDUST.bonusID);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(
+      SPELLS.INVIGORATING_SHADOWDUST.bonusID,
+    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VANISH), this.onCast);
   }
 

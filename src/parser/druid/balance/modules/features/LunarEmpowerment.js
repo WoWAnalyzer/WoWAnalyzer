@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import Empowerment from './Empowerment';
 
 class LunarEmpowerment extends Empowerment {
-
   empowermentBuff = SPELLS.LUNAR_EMP_BUFF;
   statisticOrder = STATISTIC_ORDER.CORE(5);
 

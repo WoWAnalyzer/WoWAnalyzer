@@ -16,7 +16,7 @@ export type Build = {
    */
   visible: boolean;
   active?: boolean;
-}
+};
 export type Builds = { [name: string]: Build };
 
 interface Config {

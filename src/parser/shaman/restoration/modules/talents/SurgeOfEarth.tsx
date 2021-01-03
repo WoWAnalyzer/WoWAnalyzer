@@ -32,7 +32,10 @@ class SurgeOfEarth extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SURGE_OF_EARTH_TALENT.id);
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.SURGE_OF_EARTH_HEAL), this._onHeal);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.SURGE_OF_EARTH_HEAL),
+      this._onHeal,
+    );
   }
 
   _onHeal(event: HealEvent) {
@@ -47,7 +50,9 @@ class SurgeOfEarth extends Analyzer {
     return (
       <StatisticListBoxItem
         title={<SpellLink id={SPELLS.SURGE_OF_EARTH_TALENT.id} />}
-        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing + this.feeding))} %`}
+        value={`${formatPercentage(
+          this.owner.getPercentageOfTotalHealingDone(this.healing + this.feeding),
+        )} %`}
       />
     );
   }
@@ -66,18 +71,31 @@ class SurgeOfEarth extends Analyzer {
 
   suggestions(when: When) {
     const suggestionThreshold = this.suggestionThreshold;
-    when(suggestionThreshold.actual).isLessThan(suggestionThreshold.isLessThan.minor)
-      .addSuggestion((suggest, _actual, _recommended) => suggest(<Trans id="shaman.restoration.suggestions.aoeTargets.label">Try to always cast <SpellLink id={SPELLS.SURGE_OF_EARTH_TALENT.id} /> on groups of people, so that it heals all {this.maxTargets} potential targets.</Trans>)
+    when(suggestionThreshold.actual)
+      .isLessThan(suggestionThreshold.isLessThan.minor)
+      .addSuggestion((suggest, _actual, _recommended) =>
+        suggest(
+          <Trans id="shaman.restoration.suggestions.aoeTargets.label">
+            Try to always cast <SpellLink id={SPELLS.SURGE_OF_EARTH_TALENT.id} /> on groups of
+            people, so that it heals all {this.maxTargets} potential targets.
+          </Trans>,
+        )
           .icon(SPELLS.SURGE_OF_EARTH_TALENT.icon)
-          .actual(`${suggestionThreshold.actual.toFixed(2)} ${t({
-      id: "shaman.restoration.suggestions.aoeTargets.averageTargets",
-      message: `average targets healed`
-    })}`)
-          .recommended(`>${suggestionThreshold.isLessThan.minor.toFixed(2)} ${t({
-      id: "shaman.restoration.suggestions.aoeTargets.averageTargets",
-      message: `average targets healed`
-    })}`)
-          .regular(suggestionThreshold.isLessThan.average).major(suggestionThreshold.isLessThan.average));
+          .actual(
+            `${suggestionThreshold.actual.toFixed(2)} ${t({
+              id: 'shaman.restoration.suggestions.aoeTargets.averageTargets',
+              message: `average targets healed`,
+            })}`,
+          )
+          .recommended(
+            `>${suggestionThreshold.isLessThan.minor.toFixed(2)} ${t({
+              id: 'shaman.restoration.suggestions.aoeTargets.averageTargets',
+              message: `average targets healed`,
+            })}`,
+          )
+          .regular(suggestionThreshold.isLessThan.average)
+          .major(suggestionThreshold.isLessThan.average),
+      );
   }
 
   get suggestionThreshold() {

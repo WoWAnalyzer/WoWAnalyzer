@@ -48,8 +48,8 @@ const PlayerTile = (props: Props) => {
 
   const avatar = characterInfo?.thumbnail
     ? `https://render-${
-      characterInfo.region
-    }.worldofwarcraft.com/character/${characterInfo.thumbnail.replace('avatar', 'inset')}`
+        characterInfo.region
+      }.worldofwarcraft.com/character/${characterInfo.thumbnail.replace('avatar', 'inset')}`
     : '/img/fallback-character.jpg';
   const spec = SPECS[player.combatant.specID];
   const analysisUrl = makeUrl(player.id);

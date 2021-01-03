@@ -12,7 +12,10 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 class ReverseEntropy extends Analyzer {
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.REVERSE_ENTROPY_BUFF.id) / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.REVERSE_ENTROPY_BUFF.id) /
+      this.owner.fightDuration
+    );
   }
 
   constructor(...args) {
@@ -22,10 +25,7 @@ class ReverseEntropy extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        category={STATISTIC_CATEGORY.TALENTS}
-        size="small"
-      >
+      <Statistic category={STATISTIC_CATEGORY.TALENTS} size="small">
         <BoringSpellValueText spell={SPELLS.REVERSE_ENTROPY_TALENT}>
           <UptimeIcon /> {formatPercentage(this.uptime, 0)} % <small>uptime</small>
         </BoringSpellValueText>

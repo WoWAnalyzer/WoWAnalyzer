@@ -5,12 +5,12 @@ import { Config } from 'vega-lite';
 import FooterChart from './FooterChart';
 
 export interface Props {
-  data: any[],
-  config?: Config,
-  x?: string,
-  y?: string,
-  duration?: number,
-  height?: number,
+  data: any[];
+  config?: Config;
+  x?: string;
+  y?: string;
+  duration?: number;
+  height?: number;
 }
 
 export default function FlushLineChart(props: Props) {
@@ -40,18 +40,19 @@ export default function FlushLineChart(props: Props) {
         key: x,
         keyvals: {
           start: 0,
-          stop: props.duration ? Math.ceil(props.duration) : Math.max.apply(null, props.data.map((obj: any) => obj[x])),
+          stop: props.duration
+            ? Math.ceil(props.duration)
+            : Math.max.apply(
+                null,
+                props.data.map((obj: any) => obj[x]),
+              ),
         },
         method: 'value' as const,
         value: 0,
       },
       {
-        window: [
-          { op: 'mean' as const, field: y, as: 'sum_val' },
-        ],
-        sort: [
-          { field: x, order: 'ascending' as const },
-        ],
+        window: [{ op: 'mean' as const, field: y, as: 'sum_val' }],
+        sort: [{ field: x, order: 'ascending' as const }],
         frame: [-3, 3],
       },
     ],
@@ -61,7 +62,7 @@ export default function FlushLineChart(props: Props) {
         type: 'quantitative' as const,
         axis: null,
         scale: {
-          nice: false
+          nice: false,
         },
       },
       y: {

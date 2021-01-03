@@ -6,17 +6,13 @@ import Panel from 'interface/others/Panel';
 import './FightSelection.scss';
 import FightSelectionPanelList from './FightSelectionPanelList';
 
-const FightSelectionPanel = props => {
+const FightSelectionPanel = (props) => {
   const { report, killsOnly } = props;
 
   return (
     <>
       <Panel pad={false}>
-        <FightSelectionPanelList
-          report={report}
-          fights={report.fights}
-          killsOnly={killsOnly}
-        />
+        <FightSelectionPanelList report={report} fights={report.fights} killsOnly={killsOnly} />
       </Panel>
     </>
   );

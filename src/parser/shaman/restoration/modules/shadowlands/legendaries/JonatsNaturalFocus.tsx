@@ -10,7 +10,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
-const HEAL_INCREASE_PER_STACK = 0.1
+const HEAL_INCREASE_PER_STACK = 0.1;
 
 /**
  * Healing Wave and Healing Surge increase the healing done by your next Chain Heal by 10%, stacking up to 5 times.
@@ -27,7 +27,11 @@ class JonatsNaturalFocus extends Analyzer {
   }
 
   chainHeal(event: HealEvent) {
-    const buff = this.selectedCombatant.getBuff(SPELLS.JONATS_NATURAL_FOCUS_BUFF.id, event.timestamp, 200);
+    const buff = this.selectedCombatant.getBuff(
+      SPELLS.JONATS_NATURAL_FOCUS_BUFF.id,
+      event.timestamp,
+      200,
+    );
     if (buff) {
       this.healing += calculateEffectiveHealing(event, HEAL_INCREASE_PER_STACK * buff.stacks);
     }
@@ -35,10 +39,7 @@ class JonatsNaturalFocus extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        size="flexible"
-        category={STATISTIC_CATEGORY.ITEMS}
-      >
+      <Statistic size="flexible" category={STATISTIC_CATEGORY.ITEMS}>
         <BoringSpellValueText spell={SPELLS.JONATS_NATURAL_FOCUS}>
           <ItemHealingDone amount={this.healing} />
         </BoringSpellValueText>

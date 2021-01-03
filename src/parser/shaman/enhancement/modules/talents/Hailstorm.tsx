@@ -14,7 +14,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import Spell from 'common/SPELLS/Spell';
 
 const HAILSTORM = {
-  INCREASE_PER_STACK: .35,
+  INCREASE_PER_STACK: 0.35,
 };
 
 const MAX_STACKS = 5;
@@ -57,7 +57,7 @@ class Hailstorm extends Analyzer {
       SPELLS.LIGHTNING_BOLT,
     ];
 
-    SPELLS_WITH_CAST_TIME.forEach(spell => {
+    SPELLS_WITH_CAST_TIME.forEach((spell) => {
       this.addEventListener(
         Events.cast.by(SELECTED_PLAYER).spell(spell),
         this.onSpellWithCastTimeCast,
@@ -65,14 +65,12 @@ class Hailstorm extends Analyzer {
     });
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER)
-        .spell(SPELLS.FROST_SHOCK),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FROST_SHOCK),
       this.onFrostShockCast,
     );
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(SPELLS.FROST_SHOCK),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FROST_SHOCK),
       this.onFrostShockDamage,
     );
 
@@ -125,7 +123,10 @@ class Hailstorm extends Analyzer {
 
     this.hits += 1;
     // TODO: hailstorm buff stacks are buggy right now, so assume that they're correctly using 5 stacks
-    this.damage += calculateEffectiveDamage(event, HAILSTORM.INCREASE_PER_STACK * STACKS_CONSUMED_PER_FROST_SHOCK_CAST);
+    this.damage += calculateEffectiveDamage(
+      event,
+      HAILSTORM.INCREASE_PER_STACK * STACKS_CONSUMED_PER_FROST_SHOCK_CAST,
+    );
   }
 
   onHailstormStackRemove(event: RemoveBuffStackEvent) {
@@ -134,7 +135,7 @@ class Hailstorm extends Analyzer {
       return;
     }
 
-    this.lostStacks += (this.currentStacks - event.stack);
+    this.lostStacks += this.currentStacks - event.stack;
     this.currentStacks = event.stack;
   }
 
@@ -154,19 +155,29 @@ class Hailstorm extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={(
+        tooltip={
           <ul>
-            <li>{`${formatNumber(this.totalStacksGained)} / ${formatNumber(this.totalStacksGained + this.overcappedStacks)} stacks gained: you overcapped ${this.overcappedStacks} stacks.`}</li>
-            <li>{`${formatNumber(this.totalStacksGained - this.lostStacks)} / ${formatNumber(this.totalStacksGained)} stacks used: ${this.lostStacks} stacks lost due to timeout.`}</li>
+            <li>{`${formatNumber(this.totalStacksGained)} / ${formatNumber(
+              this.totalStacksGained + this.overcappedStacks,
+            )} stacks gained: you overcapped ${this.overcappedStacks} stacks.`}</li>
+            <li>{`${formatNumber(this.totalStacksGained - this.lostStacks)} / ${formatNumber(
+              this.totalStacksGained,
+            )} stacks used: ${this.lostStacks} stacks lost due to timeout.`}</li>
           </ul>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.HAILSTORM_TALENT}>
           <>
-            <ItemDamageDone amount={this.damage} approximate /><br />
-            <AverageTargetsHit casts={this.casts} hits={this.hits} /><br />
+            <ItemDamageDone amount={this.damage} approximate />
+            <br />
+            <AverageTargetsHit casts={this.casts} hits={this.hits} />
+            <br />
             <>
-              {formatPercentage((this.totalStacksGained - this.lostStacks) / (this.totalStacksGained + this.overcappedStacks))}{'% '}
+              {formatPercentage(
+                (this.totalStacksGained - this.lostStacks) /
+                  (this.totalStacksGained + this.overcappedStacks),
+              )}
+              {'% '}
               <small>stacks used</small>
             </>
           </>

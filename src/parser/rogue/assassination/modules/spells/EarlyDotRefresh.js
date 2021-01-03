@@ -12,11 +12,21 @@ const MAJOR_THRESHOLD = 0.9;
 
 class EarlyDotRefresh extends EarlyDotRefreshesCore {
   get suggestionThresholdsRuptureEfficiency() {
-    return this.makeSuggestionThresholds(SPELLS.RUPTURE, MINOR_THRESHOLD, AVERAGE_THRESHOLD, MAJOR_THRESHOLD);
+    return this.makeSuggestionThresholds(
+      SPELLS.RUPTURE,
+      MINOR_THRESHOLD,
+      AVERAGE_THRESHOLD,
+      MAJOR_THRESHOLD,
+    );
   }
 
   get suggestionThresholdsGarroteEfficiency() {
-    return this.makeSuggestionThresholds(SPELLS.GARROTE, MINOR_THRESHOLD, AVERAGE_THRESHOLD, MAJOR_THRESHOLD);
+    return this.makeSuggestionThresholds(
+      SPELLS.GARROTE,
+      MINOR_THRESHOLD,
+      AVERAGE_THRESHOLD,
+      MAJOR_THRESHOLD,
+    );
   }
 
   static dots = [

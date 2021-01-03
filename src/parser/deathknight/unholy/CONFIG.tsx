@@ -16,12 +16,42 @@ export default {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      Welcome to the Unholy Death Knight analyzer! We worked hard to provide useful statistics and suggestions.  If you have questions or comments feel free to contact Khazak(Khazak#3360) or Bicepspump(<span role="img" aria-label="Muscle">💪</span>Bicepspump<span role="img" aria-label="Muscle">💪</span>#6318) on Discord.  We are still working on full support for Battle For Azeroth.  If you want to help, check the Github link in the top right corner.
-
-      <br /><br />More resources for Unholy:<br />
-      <a href=" https://discord.gg/acherus" target="_blank" rel="noopener noreferrer">Death Knight Class Discord</a> <br />
-      <a href="http://www.wowhead.com/unholy-death-knight-guide" target="_blank" rel="noopener noreferrer">Wowhead Guide</a> <br />
-      <a href="https://www.icy-veins.com/wow/unholy-death-knight-pve-dps-guide" target="_blank" rel="noopener noreferrer">Icy Veins Guide</a> <br />
+      Welcome to the Unholy Death Knight analyzer! We worked hard to provide useful statistics and
+      suggestions. If you have questions or comments feel free to contact Khazak(Khazak#3360) or
+      Bicepspump(
+      <span role="img" aria-label="Muscle">
+        💪
+      </span>
+      Bicepspump
+      <span role="img" aria-label="Muscle">
+        💪
+      </span>
+      #6318) on Discord. We are still working on full support for Battle For Azeroth. If you want to
+      help, check the Github link in the top right corner.
+      <br />
+      <br />
+      More resources for Unholy:
+      <br />
+      <a href=" https://discord.gg/acherus" target="_blank" rel="noopener noreferrer">
+        Death Knight Class Discord
+      </a>{' '}
+      <br />
+      <a
+        href="http://www.wowhead.com/unholy-death-knight-guide"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Wowhead Guide
+      </a>{' '}
+      <br />
+      <a
+        href="https://www.icy-veins.com/wow/unholy-death-knight-pve-dps-guide"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Icy Veins Guide
+      </a>{' '}
+      <br />
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
@@ -33,7 +63,10 @@ export default {
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () => import('./CombatLogParser' /* webpackChunkName: "UnholyDeathKnight" */).then(exports => exports.default),
+  parser: () =>
+    import('./CombatLogParser' /* webpackChunkName: "UnholyDeathKnight" */).then(
+      (exports) => exports.default,
+    ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };

@@ -31,7 +31,8 @@ class TwistOfFate extends Analyzer {
   }
 
   statistic() {
-    const uptime = this.selectedCombatant.getBuffUptime(SPELLS.TWIST_OF_FATE_BUFF.id) / this.owner.fightDuration;
+    const uptime =
+      this.selectedCombatant.getBuffUptime(SPELLS.TWIST_OF_FATE_BUFF.id) / this.owner.fightDuration;
     return (
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}

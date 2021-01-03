@@ -29,7 +29,10 @@ class PowerSiphonNormalizer extends EventsNormalizer {
     for (let i = 0; i < events.length; i += 1) {
       const event = events[i];
       // skip everything till first PS cast
-      if (!lastPowerSiphonCast && (!event.ability || event.ability.guid !== SPELLS.POWER_SIPHON_TALENT.id)) {
+      if (
+        !lastPowerSiphonCast &&
+        (!event.ability || event.ability.guid !== SPELLS.POWER_SIPHON_TALENT.id)
+      ) {
         continue;
       }
       if (event.ability && event.ability.guid === SPELLS.POWER_SIPHON_TALENT.id) {
@@ -42,7 +45,11 @@ class PowerSiphonNormalizer extends EventsNormalizer {
         lastPowerSiphonCast = event;
       } else {
         // all events after PS cast
-        if (CHECKED_EVENT_TYPES.includes(event.type) && this.owner.byPlayerPet(event) && this._isFromWildImp(event)) {
+        if (
+          CHECKED_EVENT_TYPES.includes(event.type) &&
+          this.owner.byPlayerPet(event) &&
+          this._isFromWildImp(event)
+        ) {
           const targetString = encodeTargetString(event.sourceID, event.sourceInstance);
           if (!activeImpsAfterCast.includes(targetString)) {
             activeImpsAfterCast.push(targetString);
@@ -53,13 +60,20 @@ class PowerSiphonNormalizer extends EventsNormalizer {
     // modify the last PS cast
     lastPowerSiphonCast.activeImpsAfterCast = [...activeImpsAfterCast];
     lastPowerSiphonCast.__modified = true;
-    debug && console.log('PS casts after normalizing', events.filter(event => event.type === EventType.Cast && event.ability.guid === SPELLS.POWER_SIPHON_TALENT.id));
+    debug &&
+      console.log(
+        'PS casts after normalizing',
+        events.filter(
+          (event) =>
+            event.type === EventType.Cast && event.ability.guid === SPELLS.POWER_SIPHON_TALENT.id,
+        ),
+      );
     return events;
   }
 
   _isFromWildImp(event) {
     // if event is not from player pet (is not in this.owner.playerPets), this function shouldn't even get called, but just to be safe
-    const info = this.owner.playerPets.find(pet => pet.id === event.sourceID);
+    const info = this.owner.playerPets.find((pet) => pet.id === event.sourceID);
     if (!info) {
       return false;
     }

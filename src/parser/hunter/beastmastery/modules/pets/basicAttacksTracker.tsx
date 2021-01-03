@@ -16,8 +16,12 @@ import React from 'react';
 
 import { Trans } from '@lingui/macro';
 
-import { BASIC_ATTACK_SPELLS, MACRO_TIME_BETWEEN_BASIC_ATK, MAX_TIME_BETWEEN_BASIC_ATK, NO_DELAY_TIME_BETWEEN_BASIC_ATK } from '../../constants';
-
+import {
+  BASIC_ATTACK_SPELLS,
+  MACRO_TIME_BETWEEN_BASIC_ATK,
+  MAX_TIME_BETWEEN_BASIC_ATK,
+  NO_DELAY_TIME_BETWEEN_BASIC_ATK,
+} from '../../constants';
 
 /**
  * Macroing pet basic attacks to the hunters general abilities is a DPS increase, because there is a natural delay before the pet decides to cast the spell by itself.
@@ -36,7 +40,10 @@ class BasicAttacks extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(BASIC_ATTACK_SPELLS), this.onPetBasicAttackDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER_PET).spell(BASIC_ATTACK_SPELLS),
+      this.onPetBasicAttackDamage,
+    );
   }
 
   get additionalAttacksFromMacroing() {
@@ -65,7 +72,11 @@ class BasicAttacks extends Analyzer {
 
   onPetBasicAttackDamage(event: DamageEvent) {
     if (!this.basicAttackChecked) {
-      this.usedBasicAttack = { id: event.ability.guid, name: event.ability.name, icon: event.ability.abilityIcon };
+      this.usedBasicAttack = {
+        id: event.ability.guid,
+        name: event.ability.name,
+        icon: event.ability.abilityIcon,
+      };
       this.basicAttackChecked = true;
     }
     this.damage += event.amount + (event.absorbed || 0);
@@ -80,8 +91,13 @@ class BasicAttacks extends Analyzer {
   }
 
   potentialExtraCasts(dreamScenario: boolean = false) {
-    const usedTimeBetween = dreamScenario ? NO_DELAY_TIME_BETWEEN_BASIC_ATK : MACRO_TIME_BETWEEN_BASIC_ATK;
-    return Math.max(Math.floor((this.timeBetweenAttacks - (usedTimeBetween * this.chainCasts)) / usedTimeBetween), 0);
+    const usedTimeBetween = dreamScenario
+      ? NO_DELAY_TIME_BETWEEN_BASIC_ATK
+      : MACRO_TIME_BETWEEN_BASIC_ATK;
+    return Math.max(
+      Math.floor((this.timeBetweenAttacks - usedTimeBetween * this.chainCasts) / usedTimeBetween),
+      0,
+    );
   }
 
   potentialExtraDamage(dreamScenario: boolean = false) {
@@ -89,16 +105,37 @@ class BasicAttacks extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.totalAttacksFromBasicAttacks).addSuggestion((suggest, actual, recommended) => suggest(<> Make sure that your pet is casting it's Basic Attacks, such as <SpellLink id={SPELLS.BITE_BASIC_ATTACK.id} />.</>)
-      .icon(SPELLS.BITE_BASIC_ATTACK.icon)
-      .actual(<Trans id='hunter.beastmastery.suggestions.petBasicAttacks.actual'> Your pet didn't cast any Basic Attacks this fight </Trans>)
-      .recommended(<Trans id='hunter.beastmastery.suggestions.petBasicAttacks.suggestions'> Your pet should be autocast Basic Attacks </Trans>));
+    when(this.totalAttacksFromBasicAttacks).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          {' '}
+          Make sure that your pet is casting it's Basic Attacks, such as{' '}
+          <SpellLink id={SPELLS.BITE_BASIC_ATTACK.id} />.
+        </>,
+      )
+        .icon(SPELLS.BITE_BASIC_ATTACK.icon)
+        .actual(
+          <Trans id="hunter.beastmastery.suggestions.petBasicAttacks.actual">
+            {' '}
+            Your pet didn't cast any Basic Attacks this fight{' '}
+          </Trans>,
+        )
+        .recommended(
+          <Trans id="hunter.beastmastery.suggestions.petBasicAttacks.suggestions">
+            {' '}
+            Your pet should be autocast Basic Attacks{' '}
+          </Trans>,
+        ),
+    );
   }
 
   statistic() {
     if (debug) {
       console.log('Avg time between BAs', this.timeBetweenAttacks / this.chainCasts);
-      console.log('Total lost BA time', this.timeBetweenAttacks - (MACRO_TIME_BETWEEN_BASIC_ATK * this.chainCasts));
+      console.log(
+        'Total lost BA time',
+        this.timeBetweenAttacks - MACRO_TIME_BETWEEN_BASIC_ATK * this.chainCasts,
+      );
       console.log('Potential extra casts (with macro):', this.potentialExtraCasts());
       console.log('Potential extra damage (with macro):', this.potentialExtraDamage());
       console.log('Potential extra casts (with 0 delay):', this.potentialExtraCasts(true));
@@ -108,7 +145,7 @@ class BasicAttacks extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(20)}
         size="flexible"
-        dropdown={(
+        dropdown={
           <>
             <table className="table table-condensed">
               <thead>
@@ -120,36 +157,35 @@ class BasicAttacks extends Analyzer {
               </thead>
               <tbody>
                 <tr>
-                  <td>
-                    Casts
-                  </td>
-                  <td>
-                    {this.potentialExtraCasts()}
-                  </td>
-                  <td>
-                    {this.potentialExtraCasts(true)}
-                  </td>
+                  <td>Casts</td>
+                  <td>{this.potentialExtraCasts()}</td>
+                  <td>{this.potentialExtraCasts(true)}</td>
                 </tr>
                 <tr>
+                  <td>Damage</td>
                   <td>
-                    Damage
+                    {formatNumber((this.potentialExtraDamage() / this.owner.fightDuration) * 1000)}{' '}
+                    DPS
                   </td>
                   <td>
-                    {formatNumber(this.potentialExtraDamage() / this.owner.fightDuration * 1000)} DPS
-                  </td>
-                  <td>
-                    {formatNumber(this.potentialExtraDamage(true) / this.owner.fightDuration * 1000)} DPS
+                    {formatNumber(
+                      (this.potentialExtraDamage(true) / this.owner.fightDuration) * 1000,
+                    )}{' '}
+                    DPS
                   </td>
                 </tr>
               </tbody>
             </table>
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={this.usedBasicAttack}>
           <>
             <ItemDamageDone amount={this.damage} /> <br />
-            {formatNumber((this.timeBetweenAttacks / this.chainCasts) - NO_DELAY_TIME_BETWEEN_BASIC_ATK)} ms <small>average delay</small>
+            {formatNumber(
+              this.timeBetweenAttacks / this.chainCasts - NO_DELAY_TIME_BETWEEN_BASIC_ATK,
+            )}{' '}
+            ms <small>average delay</small>
           </>
         </BoringSpellValueText>
       </Statistic>

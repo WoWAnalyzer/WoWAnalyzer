@@ -29,14 +29,24 @@ class DemonicConsumption extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DEMONIC_CONSUMPTION_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SUMMON_DEMONIC_TYRANT), this.handleCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.DEMONIC_TYRANT_DAMAGE), this.handleDemonicTyrantDamage);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SUMMON_DEMONIC_TYRANT),
+      this.handleCast,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.DEMONIC_TYRANT_DAMAGE),
+      this.handleDemonicTyrantDamage,
+    );
   }
 
   handleCast() {
-    const imps = this.demoPets.currentPets.filter(pet => isWildImp(pet.guid) && !pet.shouldImplode);
+    const imps = this.demoPets.currentPets.filter(
+      (pet) => isWildImp(pet.guid) && !pet.shouldImplode,
+    );
     debug && this.log('Imps on Tyrant cast', JSON.parse(JSON.stringify(imps)));
-    this._currentBonus = imps.map(imp => imp.currentEnergy).reduce((total, current) => total + current, 0) * DAMAGE_BONUS_PER_ENERGY;
+    this._currentBonus =
+      imps.map((imp) => imp.currentEnergy).reduce((total, current) => total + current, 0) *
+      DAMAGE_BONUS_PER_ENERGY;
     debug && this.log('Current bonus: ', this._currentBonus);
   }
 

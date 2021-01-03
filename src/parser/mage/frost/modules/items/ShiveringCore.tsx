@@ -9,10 +9,26 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
-const DAMAGE_BONUS = [0, .08, .09, .10, .10, .11, .12, .13, .14, .14, .15, .16, .17, .18, .18, .19];
+const DAMAGE_BONUS = [
+  0,
+  0.08,
+  0.09,
+  0.1,
+  0.1,
+  0.11,
+  0.12,
+  0.13,
+  0.14,
+  0.14,
+  0.15,
+  0.16,
+  0.17,
+  0.18,
+  0.18,
+  0.19,
+];
 
 class ShiveringCore extends Analyzer {
-  
   conduitRank = 0;
   bonusDamage = 0;
 
@@ -20,19 +36,19 @@ class ShiveringCore extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.SHIVERING_CORE.id);
     this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.SHIVERING_CORE.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLIZZARD_DAMAGE), this.onBlizzardDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLIZZARD_DAMAGE),
+      this.onBlizzardDamage,
+    );
   }
 
   onBlizzardDamage(event: DamageEvent) {
-    this.bonusDamage += calculateEffectiveDamage(event.amount,DAMAGE_BONUS[this.conduitRank]);
+    this.bonusDamage += calculateEffectiveDamage(event.amount, DAMAGE_BONUS[this.conduitRank]);
   }
 
   statistic() {
     return (
-      <Statistic
-        category={STATISTIC_CATEGORY.COVENANTS}
-        size="flexible"
-      >
+      <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
         <ConduitSpellText spell={SPELLS.SHIVERING_CORE} rank={this.conduitRank}>
           <ItemDamageDone amount={this.bonusDamage} />
         </ConduitSpellText>

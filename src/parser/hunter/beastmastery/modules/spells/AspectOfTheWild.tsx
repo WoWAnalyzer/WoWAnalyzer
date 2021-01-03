@@ -31,27 +31,33 @@ class AspectOfTheWild extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.selectedCombatant.hasLegendaryByBonusID(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT.bonusID) && this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.ASPECT_OF_THE_WILD), this.checkNesingwaryFocusGain);
+    this.selectedCombatant.hasLegendaryByBonusID(
+      SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT.bonusID,
+    ) &&
+      this.addEventListener(
+        Events.energize.by(SELECTED_PLAYER).spell(SPELLS.ASPECT_OF_THE_WILD),
+        this.checkNesingwaryFocusGain,
+      );
   }
 
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.ASPECT_OF_THE_WILD.id) / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.ASPECT_OF_THE_WILD.id) / this.owner.fightDuration
+    );
   }
 
   checkNesingwaryFocusGain(event: EnergizeEvent) {
     const waste = ASPECT_OF_THE_WILD_FOCUS - event.resourceChange;
     if (this.selectedCombatant.hasBuff(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_ENERGIZE.id)) {
-      this.additionalFocusFromNesingwary += event.resourceChange * (1 - 1 / NESINGWARY_FOCUS_GAIN_MULTIPLIER) - waste;
+      this.additionalFocusFromNesingwary +=
+        event.resourceChange * (1 - 1 / NESINGWARY_FOCUS_GAIN_MULTIPLIER) - waste;
       this.possibleAdditionalFocusFromNesingwary += ASPECT_OF_THE_WILD_FOCUS;
     }
   }
 
   statistic() {
     return (
-      <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(5)}
-        size="flexible"
-      >
+      <Statistic position={STATISTIC_ORDER.OPTIONAL(5)} size="flexible">
         <BoringSpellValueText spell={SPELLS.ASPECT_OF_THE_WILD}>
           <>
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
@@ -60,7 +66,6 @@ class AspectOfTheWild extends Analyzer {
       </Statistic>
     );
   }
-
 }
 
 export default AspectOfTheWild;

@@ -50,8 +50,14 @@ class DrainSoul extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DRAIN_SOUL_TALENT.id);
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DRAIN_SOUL_KILL_SHARD_GEN), this.onDrainSoulEnergize);
-    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.DRAIN_SOUL_TALENT), this.onDrainSoulRemove);
+    this.addEventListener(
+      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DRAIN_SOUL_KILL_SHARD_GEN),
+      this.onDrainSoulEnergize,
+    );
+    this.addEventListener(
+      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.DRAIN_SOUL_TALENT),
+      this.onDrainSoulRemove,
+    );
     this.addEventListener(Events.fightend, this.onFinished);
   }
 
@@ -79,31 +85,46 @@ class DrainSoul extends Analyzer {
   onFinished() {
     const allEnemies = this.enemies.getEntities();
     this.totalNumOfAdds = Object.values(allEnemies)
-      .filter(enemy => enemy.type === 'NPC')
+      .filter((enemy) => enemy.type === 'NPC')
       .reduce((count, enemy) => count + enemy._baseInfo.fights[0].instances, 0);
-    this._shardsGained = this.soulShardTracker.getGeneratedBySpell(SPELLS.DRAIN_SOUL_KILL_SHARD_GEN.id) - this._subtractBossShards;
+    this._shardsGained =
+      this.soulShardTracker.getGeneratedBySpell(SPELLS.DRAIN_SOUL_KILL_SHARD_GEN.id) -
+      this._subtractBossShards;
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
         <>
-          You sniped {formatPercentage(actual)} % of mobs in this fight ({this.mobsSniped - this._subtractBossShards} / {this.totalNumOfAdds}) for total of {this._shardsGained} Soul Shards. You could get up to {this.totalNumOfAdds} Shards from them. Try to snipe shards from adds (cast <SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} /> on them before they die) as it is a great source of extra Soul Shards.<br /><br />
-          <small>Note that the number of adds <em>might be a bit higher than usual</em>, as there sometimes are adds that die too quickly, aren't meant to be killed or are not killed in the fight.</small>
+          You sniped {formatPercentage(actual)} % of mobs in this fight (
+          {this.mobsSniped - this._subtractBossShards} / {this.totalNumOfAdds}) for total of{' '}
+          {this._shardsGained} Soul Shards. You could get up to {this.totalNumOfAdds} Shards from
+          them. Try to snipe shards from adds (cast <SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} />{' '}
+          on them before they die) as it is a great source of extra Soul Shards.
+          <br />
+          <br />
+          <small>
+            Note that the number of adds <em>might be a bit higher than usual</em>, as there
+            sometimes are adds that die too quickly, aren't meant to be killed or are not killed in
+            the fight.
+          </small>
         </>,
       )
         .icon('ability_hunter_snipershot')
-        .actual(t({
-      id: "warlock.affliction.suggestions.drainSoul.mobsSniped",
-      message: `${formatPercentage(actual)} % of mobs sniped.`
-    }))
-        .recommended(`>= ${formatPercentage(recommended)} % is recommended`));
+        .actual(
+          t({
+            id: 'warlock.affliction.suggestions.drainSoul.mobsSniped',
+            message: `${formatPercentage(actual)} % of mobs sniped.`,
+          }),
+        )
+        .recommended(`>= ${formatPercentage(recommended)} % is recommended`),
+    );
   }
 
   statistic() {
     const ds = this.abilityTracker.getAbility(SPELLS.DRAIN_SOUL_TALENT.id);
     const damage = ds.damageEffective + ds.damageAbsorbed;
-    const dps = damage / this.owner.fightDuration * 1000;
+    const dps = (damage / this.owner.fightDuration) * 1000;
     return (
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
@@ -111,7 +132,11 @@ class DrainSoul extends Analyzer {
         tooltip={`${formatThousands(damage)} total damage`}
       >
         <BoringSpellValueText spell={SPELLS.DRAIN_SOUL_TALENT}>
-          {formatNumber(dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total</small><br />
+          {formatNumber(dps)} DPS{' '}
+          <small>
+            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total
+          </small>
+          <br />
           <CriticalStrikeIcon /> {this._shardsGained} <small>shards sniped</small>
         </BoringSpellValueText>
       </Statistic>

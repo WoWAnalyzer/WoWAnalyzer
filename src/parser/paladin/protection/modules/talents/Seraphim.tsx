@@ -18,7 +18,7 @@ import Haste from 'parser/paladin/protection/modules/core/Haste';
 const STAT_MODIFIER = 0.08;
 const debug = false;
 
-type BonusStats = {haste: number, crit: number, versatility: number, mastery: number};
+type BonusStats = { haste: number; crit: number; versatility: number; mastery: number };
 
 /**
  * Consumes 3 Holy Power to grant 8% Haste, Crit, Versatility, and Mastery for 15 seconds.
@@ -26,12 +26,11 @@ type BonusStats = {haste: number, crit: number, versatility: number, mastery: nu
 class Seraphim extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
-  }
+  };
 
   protected statTracker!: StatTracker;
 
   bonusStatGains: BonusStats[] = [];
-
 
   constructor(options: Options) {
     super(options);
@@ -39,11 +38,16 @@ class Seraphim extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.SERAPHIM_TALENT), this.onSeraphimGain);
+    this.addEventListener(
+      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.SERAPHIM_TALENT),
+      this.onSeraphimGain,
+    );
   }
 
   get uptime(): number {
-    return this.selectedCombatant.getBuffUptime(SPELLS.SERAPHIM_TALENT.id) / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.SERAPHIM_TALENT.id) / this.owner.fightDuration
+    );
   }
 
   get averageMasteryGain(): number {
@@ -59,7 +63,13 @@ class Seraphim extends Analyzer {
   }
 
   get averageHasteGain(): number {
-    return this.bonusStatGains.map((gain: BonusStats) => gain.haste).reduce((sum, next) => sum + next, 0) / this.bonusStatGains.length * this.uptime;
+    return (
+      (this.bonusStatGains
+        .map((gain: BonusStats) => gain.haste)
+        .reduce((sum, next) => sum + next, 0) /
+        this.bonusStatGains.length) *
+      this.uptime
+    );
   }
 
   onSeraphimGain(event: ApplyBuffEvent): void {
@@ -67,7 +77,9 @@ class Seraphim extends Analyzer {
   }
 
   getBonusStats(statTracker: StatTracker): BonusStats {
-    const hasteChange = Haste.addHaste(statTracker.currentHastePercentage, STAT_MODIFIER) - statTracker.currentHastePercentage;
+    const hasteChange =
+      Haste.addHaste(statTracker.currentHastePercentage, STAT_MODIFIER) -
+      statTracker.currentHastePercentage;
     debug && console.log(`Calculation haste change of ${hasteChange}`);
     return {
       haste: hasteChange,
@@ -78,11 +90,14 @@ class Seraphim extends Analyzer {
   }
 
   calculateBonusStatFromCurrent(currentStat: number): number {
-    return currentStat - (currentStat * (1 / (1 + STAT_MODIFIER)));
+    return currentStat - currentStat * (1 / (1 + STAT_MODIFIER));
   }
 
   statistic(): React.ReactNode {
-    debug && console.log(`Stat gains: haste - ${this.averageHasteGain} crit - ${this.averageCritGain} - vers ${this.averageCritGain} - mastery ${this.averageMasteryGain}.`);
+    debug &&
+      console.log(
+        `Stat gains: haste - ${this.averageHasteGain} crit - ${this.averageCritGain} - vers ${this.averageCritGain} - mastery ${this.averageMasteryGain}.`,
+      );
     return (
       <Statistic
         position={STATISTIC_ORDER.DEFAULT}
@@ -90,11 +105,20 @@ class Seraphim extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spell={SPELLS.SERAPHIM_TALENT}>
-          <UptimeIcon /> {formatPercentage(this.uptime, 0)}% <small>uptime</small><br />
-          <HasteIcon /> {formatPercentage(this.averageHasteGain)}% <small>average Haste gained</small><br />
-          <CriticalStrikeIcon /> {formatPercentage(this.averageCritGain)}% <small>average Crit gained</small><br />
-          <VersatilityIcon /> {formatPercentage(this.averageVersatilityGain)}% <small>average Versatility gained</small><br />
-          <MasteryIcon /> {formatPercentage(this.averageMasteryGain)}% <small>average Mastery gained</small><br />
+          <UptimeIcon /> {formatPercentage(this.uptime, 0)}% <small>uptime</small>
+          <br />
+          <HasteIcon /> {formatPercentage(this.averageHasteGain)}%{' '}
+          <small>average Haste gained</small>
+          <br />
+          <CriticalStrikeIcon /> {formatPercentage(this.averageCritGain)}%{' '}
+          <small>average Crit gained</small>
+          <br />
+          <VersatilityIcon /> {formatPercentage(this.averageVersatilityGain)}%{' '}
+          <small>average Versatility gained</small>
+          <br />
+          <MasteryIcon /> {formatPercentage(this.averageMasteryGain)}%{' '}
+          <small>average Mastery gained</small>
+          <br />
         </BoringSpellValueText>
       </Statistic>
     );

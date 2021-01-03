@@ -26,8 +26,14 @@ class Cataclysm extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CATACLYSM_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CATACLYSM_TALENT), this.onCataclysmCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CATACLYSM_TALENT), this.onCataclysmDamage);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CATACLYSM_TALENT),
+      this.onCataclysmCast,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CATACLYSM_TALENT),
+      this.onCataclysmDamage,
+    );
     this.addEventListener(Events.fightend, this.onFinished);
   }
 
@@ -56,8 +62,9 @@ class Cataclysm extends Analyzer {
   statistic() {
     const spell = this.abilityTracker.getAbility(SPELLS.CATACLYSM_TALENT.id);
     const damage = spell.damageEffective + spell.damageAbsorbed;
-    const dps = damage / this.owner.fightDuration * 1000;
-    const averageTargetsHit = (this.casts.reduce((total, current) => total + current, 0) / spell.casts) || 0;
+    const dps = (damage / this.owner.fightDuration) * 1000;
+    const averageTargetsHit =
+      this.casts.reduce((total, current) => total + current, 0) / spell.casts || 0;
     debug && this.log('Casts array at fight end: ', JSON.parse(JSON.stringify(this.casts)));
 
     return (
@@ -67,7 +74,11 @@ class Cataclysm extends Analyzer {
         tooltip={`${formatThousands(damage)} damage`}
       >
         <BoringSpellValueText spell={SPELLS.CATACLYSM_TALENT}>
-          {formatNumber(dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total</small> <br />
+          {formatNumber(dps)} DPS{' '}
+          <small>
+            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total
+          </small>{' '}
+          <br />
           {averageTargetsHit.toFixed(2)} <small>average targets hit</small>
         </BoringSpellValueText>
       </Statistic>

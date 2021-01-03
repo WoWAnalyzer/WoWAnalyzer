@@ -28,8 +28,14 @@ class RegrowthAttributor extends Analyzer {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH), this.onCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH), this.onHeal);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH), this._getRegrowthAttribution);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH), this._getRegrowthAttribution);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH),
+      this._getRegrowthAttribution,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH),
+      this._getRegrowthAttribution,
+    );
   }
 
   onCast(event) {
@@ -62,17 +68,23 @@ class RegrowthAttributor extends Analyzer {
     const timestamp = event.timestamp;
     const attributions = [];
 
-    if (event.prepull || (this.lastRegrowthCastTimestamp + BUFFER_MS > timestamp && this.lastRegrowthTarget === targetId)) { // regular cast (assume prepull applications are hardcast)
+    if (
+      event.prepull ||
+      (this.lastRegrowthCastTimestamp + BUFFER_MS > timestamp &&
+        this.lastRegrowthTarget === targetId)
+    ) {
+      // regular cast (assume prepull applications are hardcast)
       // standard hardcast gets no special attribution
     } else {
-      console.warn(`Unable to attribute Regrowth @${this.owner.formatTimestamp(timestamp)} on ${targetId}`);
+      console.warn(
+        `Unable to attribute Regrowth @${this.owner.formatTimestamp(timestamp)} on ${targetId}`,
+      );
     }
 
-    attributions.forEach(att => {
+    attributions.forEach((att) => {
       this.hotTracker.addAttribution(att, targetId, spellId);
     });
   }
-
 }
 
 export default RegrowthAttributor;

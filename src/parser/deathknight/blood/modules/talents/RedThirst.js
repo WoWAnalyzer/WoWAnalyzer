@@ -21,26 +21,29 @@ class RedThirst extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.RED_THIRST_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VAMPIRIC_BLOOD), this.onCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VAMPIRIC_BLOOD),
+      this.onCast,
+    );
   }
 
   onCast(event) {
     this.casts += 1;
   }
 
-  get reduction(){
+  get reduction() {
     return this.runicPowerTracker.cooldownReduction / 1000;
   }
 
-  get wastedReduction(){
+  get wastedReduction() {
     return this.runicPowerTracker.cooldownReductionWasted / 1000;
   }
 
-  get averageReduction(){
-    return (this.reduction / this.casts) || 0;
+  get averageReduction() {
+    return this.reduction / this.casts || 0;
   }
 
-  get wastedPercent(){
+  get wastedPercent() {
     return this.wastedReduction / (this.wastedReduction + this.reduction);
   }
 
@@ -50,15 +53,18 @@ class RedThirst extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(2)}
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            {formatNumber(this.reduction)} sec total effective reduction and {formatNumber(this.wastedReduction)} sec ({formatPercentage(this.wastedPercent)}%) wasted reduction.
+            {formatNumber(this.reduction)} sec total effective reduction and{' '}
+            {formatNumber(this.wastedReduction)} sec ({formatPercentage(this.wastedPercent)}%)
+            wasted reduction.
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.RED_THIRST_TALENT}>
           <>
-            <UptimeIcon /> {formatNumber(this.averageReduction)} sec <small>average reduction</small>
+            <UptimeIcon /> {formatNumber(this.averageReduction)} sec{' '}
+            <small>average reduction</small>
           </>
         </BoringSpellValueText>
       </Statistic>

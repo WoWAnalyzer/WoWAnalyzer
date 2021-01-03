@@ -11,7 +11,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MORTAL_STRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 6 / (1 + haste),
+        cooldown: (haste) => 6 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -61,7 +61,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SKULLSPLITTER_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 21 / (1 + haste),
+        cooldown: (haste) => 21 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -81,7 +81,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-       enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
       },
       // Rotational AOE
       {
@@ -100,7 +100,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CLEAVE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        cooldown: haste => 9 / (1 + haste),
+        cooldown: (haste) => 9 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -160,7 +160,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id)
+        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
       },
       {
         spell: SPELLS.SPEAR_OF_BASTION,
@@ -255,7 +255,8 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.6,
           importance: ISSUE_IMPORTANCE.MINOR,
-          extraSuggestion: 'Use it preemptively as a buffer against large AOE, or reactively if you notice your raid is getting dangerously low on health.',
+          extraSuggestion:
+            'Use it preemptively as a buffer against large AOE, or reactively if you notice your raid is getting dangerously low on health.',
         },
         buffSpellId: SPELLS.RALLYING_CRY_BUFF.id,
       },
@@ -269,7 +270,8 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.01,
-          extraSuggestion: 'Use it to get back into range after moving out to avoid mechanics. Not only does this allow you to get back to DPSing faster, it also generates rage for you to DPS with.',
+          extraSuggestion:
+            'Use it to get back into range after moving out to avoid mechanics. Not only does this allow you to get back to DPSing faster, it also generates rage for you to DPS with.',
         },
       },
       {
@@ -281,7 +283,8 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.01,
-          extraSuggestion: 'Use it to escape mechanics at the last moment, allowing you more time to DPS.',
+          extraSuggestion:
+            'Use it to escape mechanics at the last moment, allowing you more time to DPS.',
         },
       },
       {
@@ -294,7 +297,8 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.4,
-          extraSuggestion: 'If you\'re picking a utility talent over something that increases your mobility or survivability, you better use it.',
+          extraSuggestion:
+            "If you're picking a utility talent over something that increases your mobility or survivability, you better use it.",
         },
         enabled: combatant.hasTalent(SPELLS.STORM_BOLT_TALENT.id),
       },

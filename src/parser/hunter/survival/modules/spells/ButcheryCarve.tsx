@@ -35,9 +35,13 @@ class ButcheryCarve extends Analyzer {
   wastedReductionMs: number = 0;
   targetsHit: number = 0;
   casts: number = 0;
-  spellKnown: Spell = this.selectedCombatant.hasTalent(SPELLS.BUTCHERY_TALENT.id) ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE;
+  spellKnown: Spell = this.selectedCombatant.hasTalent(SPELLS.BUTCHERY_TALENT.id)
+    ? SPELLS.BUTCHERY_TALENT
+    : SPELLS.CARVE;
   damage: number = 0;
-  bombSpellKnown: number = this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id) ? SPELLS.WILDFIRE_INFUSION_TALENT.id : SPELLS.WILDFIRE_BOMB.id;
+  bombSpellKnown: number = this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id)
+    ? SPELLS.WILDFIRE_INFUSION_TALENT.id
+    : SPELLS.WILDFIRE_BOMB.id;
 
   protected spellUsable!: SpellUsable;
 
@@ -83,7 +87,7 @@ class ButcheryCarve extends Analyzer {
     if (this.spellUsable.cooldownRemaining(spellId) < ONE_SECOND_IN_MS) {
       const effectiveReductionMs = this.spellUsable.reduceCooldown(spellId, ONE_SECOND_IN_MS);
       this.effectiveReductionMs += effectiveReductionMs;
-      this.wastedReductionMs += (ONE_SECOND_IN_MS - effectiveReductionMs);
+      this.wastedReductionMs += ONE_SECOND_IN_MS - effectiveReductionMs;
     } else {
       this.effectiveReductionMs += this.spellUsable.reduceCooldown(spellId, ONE_SECOND_IN_MS);
     }
@@ -92,13 +96,22 @@ class ButcheryCarve extends Analyzer {
   suggestions(when: When) {
     if (this.casts > 0) {
       //Since you're not casting Butchery or Carve on single-target, there's no reason to show the suggestions in cases where the abilities were cast 0 times.
-      when(this.avgTargetsHitThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>You should aim to hit as many targets as possible with <SpellLink id={this.spellKnown.id} />. Using it on single-target is not recommended.</>)
-        .icon(this.spellKnown.icon)
-        .actual(t({
-        id: "hunter.survival.suggestions.butcheryCarve.averageTargets",
-        message: `${actual} average targets hit per cast`
-      }))
-        .recommended(`>${recommended} is recommended`));
+      when(this.avgTargetsHitThreshold).addSuggestion((suggest, actual, recommended) =>
+        suggest(
+          <>
+            You should aim to hit as many targets as possible with{' '}
+            <SpellLink id={this.spellKnown.id} />. Using it on single-target is not recommended.
+          </>,
+        )
+          .icon(this.spellKnown.icon)
+          .actual(
+            t({
+              id: 'hunter.survival.suggestions.butcheryCarve.averageTargets',
+              message: `${actual} average targets hit per cast`,
+            }),
+          )
+          .recommended(`>${recommended} is recommended`),
+      );
     }
   }
 
@@ -106,10 +119,7 @@ class ButcheryCarve extends Analyzer {
     if (this.casts > 0) {
       //Since you're not casting Butchery or Carve on single-target, there's no reason to show the statistics in cases where the abilities were cast 0 times.
       return (
-        <Statistic
-          position={STATISTIC_ORDER.OPTIONAL(5)}
-          size="flexible"
-        >
+        <Statistic position={STATISTIC_ORDER.OPTIONAL(5)} size="flexible">
           <BoringSpellValueText spell={this.spellKnown}>
             <>
               <ItemDamageDone amount={this.damage} />

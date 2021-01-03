@@ -5,17 +5,26 @@ import { formatPercentage } from 'common/format';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import RadarChart, { maxDataValue } from 'interface/statistics/components/RadarChart/RadarChart';
 
-const StatDisplay = props => {
+const StatDisplay = (props) => {
   const { statTracker, ...others } = props;
 
   const data = [
     {
       color: '#f8b700',
       points: [
-        { axis: 'Critical Strike', value: statTracker.critPercentage(statTracker.startingCritRating) },
+        {
+          axis: 'Critical Strike',
+          value: statTracker.critPercentage(statTracker.startingCritRating),
+        },
         { axis: 'Haste', value: statTracker.hastePercentage(statTracker.startingHasteRating) },
-        { axis: 'Mastery', value: statTracker.masteryPercentage(statTracker.startingMasteryRating) },
-        { axis: 'Versatility', value: statTracker.versatilityPercentage(statTracker.startingVersatilityRating) },
+        {
+          axis: 'Mastery',
+          value: statTracker.masteryPercentage(statTracker.startingMasteryRating),
+        },
+        {
+          axis: 'Versatility',
+          value: statTracker.versatilityPercentage(statTracker.startingVersatilityRating),
+        },
         { axis: 'Leech', value: statTracker.leechPercentage(statTracker.startingLeechRating) },
       ],
     },
@@ -31,7 +40,7 @@ const StatDisplay = props => {
       data={data}
       maxValue={maxValue}
       levels={levels}
-      labelFormatter={value => `${formatPercentage(value, 0)}%`}
+      labelFormatter={(value) => `${formatPercentage(value, 0)}%`}
       labelMaxWidth={100} // Don't wrap "Critical Strike"
       opacityCircles={0.05} // Gray on a dark background needs more opacity to look ok
       margin={{ top: 40, right: 40, left: 40, bottom: 10 }} // because we have 5 axis, the bottom labels are further up than the top label. This makes the chart *appear* uncentered even though technically it is centered.

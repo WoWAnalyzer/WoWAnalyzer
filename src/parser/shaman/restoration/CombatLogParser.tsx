@@ -170,9 +170,7 @@ class CombatLogParser extends CoreCombatLogParser {
         url: 'feeding',
         render: () => (
           <Panel style={{ padding: 0 }}>
-            <Feeding
-              cooldownThroughputTracker={this.getModule(CooldownThroughputTracker)}
-            />
+            <Feeding cooldownThroughputTracker={this.getModule(CooldownThroughputTracker)} />
           </Panel>
         ),
       },

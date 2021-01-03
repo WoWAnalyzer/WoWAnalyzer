@@ -16,7 +16,7 @@ const ICECAP_ABILITIES = [
   SPELLS.OBLITERATE_OFF_HAND_DAMAGE,
   SPELLS.FROST_STRIKE_MAIN_HAND_DAMAGE,
   SPELLS.FROST_STRIKE_OFF_HAND_DAMAGE,
-  SPELLS.FROSTSCYTHE_TALENT
+  SPELLS.FROSTSCYTHE_TALENT,
 ];
 
 class SpellUsable extends CoreSpellUsable {
@@ -43,11 +43,11 @@ class SpellUsable extends CoreSpellUsable {
       return;
     }
 
-    const offInternalCD = (this.lastCritTime + ICECAP_INTERNAL_CD) <= event.timestamp;
-      if (this.isOnCooldown(SPELLS.PILLAR_OF_FROST.id) && offInternalCD) {
-        this.reduceCooldown(SPELLS.PILLAR_OF_FROST.id, ICECAP_COOLDOWN_REDUCTION_MS);
-        this.lastCritTime = event.timestamp;
-      }
+    const offInternalCD = this.lastCritTime + ICECAP_INTERNAL_CD <= event.timestamp;
+    if (this.isOnCooldown(SPELLS.PILLAR_OF_FROST.id) && offInternalCD) {
+      this.reduceCooldown(SPELLS.PILLAR_OF_FROST.id, ICECAP_COOLDOWN_REDUCTION_MS);
+      this.lastCritTime = event.timestamp;
+    }
   }
 }
 

@@ -14,7 +14,9 @@ import Events from 'parser/core/Events';
 
 class SoulBarrier extends Analyzer {
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.SOUL_BARRIER_TALENT.id) / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.SOUL_BARRIER_TALENT.id) / this.owner.fightDuration
+    );
   }
 
   get suggestionThresholdsEfficiency() {
@@ -22,8 +24,8 @@ class SoulBarrier extends Analyzer {
       actual: this.uptime,
       isLessThan: {
         minor: 0.35,
-        average: 0.30,
-        major: .25,
+        average: 0.3,
+        major: 0.25,
       },
       style: 'percentage',
     };
@@ -44,9 +46,18 @@ class SoulBarrier extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SOUL_BARRIER_TALENT.id);
-    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.SOUL_BARRIER_TALENT), this.onApplyBuff);
-    this.addEventListener(Events.absorbed.to(SELECTED_PLAYER).spell(SPELLS.SOUL_BARRIER_TALENT), this.onAbsorb);
-    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.SOUL_BARRIER_TALENT), this.onRemoveBuff);
+    this.addEventListener(
+      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.SOUL_BARRIER_TALENT),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.absorbed.to(SELECTED_PLAYER).spell(SPELLS.SOUL_BARRIER_TALENT),
+      this.onAbsorb,
+    );
+    this.addEventListener(
+      Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.SOUL_BARRIER_TALENT),
+      this.onRemoveBuff,
+    );
   }
 
   onApplyBuff(event) {
@@ -68,32 +79,42 @@ class SoulBarrier extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholdsEfficiency)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>Your uptime with <SpellLink id={SPELLS.SOUL_BARRIER_TALENT.id} /> can be improved.</>)
+    when(this.suggestionThresholdsEfficiency).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your uptime with <SpellLink id={SPELLS.SOUL_BARRIER_TALENT.id} /> can be improved.
+        </>,
+      )
         .icon(SPELLS.SOUL_BARRIER_TALENT.icon)
-        .actual(t({
-      id: "demonhunter.vengeance.suggestions.soulBarrier.uptime",
-      message: `${formatPercentage(actual)}% Soul Barrier`
-    }))
-        .recommended(`>${formatPercentage(recommended)}% is recommended`));
+        .actual(
+          t({
+            id: 'demonhunter.vengeance.suggestions.soulBarrier.uptime',
+            message: `${formatPercentage(actual)}% Soul Barrier`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
-    const avgBuffLength = (this.totalBuffLength / this.casts) / 1000;
+    const avgBuffLength = this.totalBuffLength / this.casts / 1000;
     return (
       <TalentStatisticBox
         talent={SPELLS.SOUL_BARRIER_TALENT.id}
         position={STATISTIC_ORDER.CORE(7)}
         value={`${formatPercentage(this.uptime)} %`}
         label="Soul Barrier uptime"
-        tooltip={(
+        tooltip={
           <>
-            Average Buff Length: <strong>{formatNumber(avgBuffLength)} seconds</strong><br />
-            Total Damage Absorbed: <strong>{formatNumber(this.totalAbsorbed)}</strong><br />
-            Healing <strong>{this.owner.formatItemHealingDone(this.totalAbsorbed)}</strong><br />
+            Average Buff Length: <strong>{formatNumber(avgBuffLength)} seconds</strong>
+            <br />
+            Total Damage Absorbed: <strong>{formatNumber(this.totalAbsorbed)}</strong>
+            <br />
+            Healing <strong>{this.owner.formatItemHealingDone(this.totalAbsorbed)}</strong>
+            <br />
             Total Casts: <strong>{this.casts}</strong>
           </>
-        )}
+        }
       />
     );
   }

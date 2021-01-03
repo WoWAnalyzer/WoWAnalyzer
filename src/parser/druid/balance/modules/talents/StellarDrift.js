@@ -40,7 +40,9 @@ class StellarDrift extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(7)}
         size="flexible"
-        tooltip={`Contributed ${formatNumber(this.perSecond)} DPS (${formatNumber(this.bonusDamage)} total damage). This does not account for any extra damage gained from the increased radius or the ability to move while casting.`}
+        tooltip={`Contributed ${formatNumber(this.perSecond)} DPS (${formatNumber(
+          this.bonusDamage,
+        )} total damage). This does not account for any extra damage gained from the increased radius or the ability to move while casting.`}
       >
         <BoringSpellValueText spell={SPELLS.STELLAR_DRIFT_TALENT}>
           <>

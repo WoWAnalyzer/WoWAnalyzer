@@ -18,7 +18,6 @@ import Events, { DamageEvent } from 'parser/core/Events';
  */
 
 class ChimaeraShot extends Analyzer {
-
   damage = 0;
   casts = 0;
   hits = 0;
@@ -26,10 +25,18 @@ class ChimaeraShot extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT_MARKSMANSHIP.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHIMAERA_SHOT_TALENT_MARKSMANSHIP), () => {
-      this.casts += 1;
-    });
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.CHIMAERA_SHOT_MM_FROST_DAMAGE, SPELLS.CHIMAERA_SHOT_MM_NATURE_DAMAGE]), this.onChimaeraDamage);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHIMAERA_SHOT_TALENT_MARKSMANSHIP),
+      () => {
+        this.casts += 1;
+      },
+    );
+    this.addEventListener(
+      Events.damage
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.CHIMAERA_SHOT_MM_FROST_DAMAGE, SPELLS.CHIMAERA_SHOT_MM_NATURE_DAMAGE]),
+      this.onChimaeraDamage,
+    );
   }
 
   onChimaeraDamage(event: DamageEvent) {

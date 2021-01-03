@@ -18,13 +18,14 @@ import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
  * TODO: Verify how this applies to Bestial Wrath (Multiplicate or Additive)
  */
 class OneWithTheBeast extends Analyzer {
-
   conduitRank: number = 0;
   addedDamage: number = 0;
 
   constructor(options: Options) {
     super(options);
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.ONE_WITH_THE_BEAST_CONDUIT.id);
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(
+      SPELLS.ONE_WITH_THE_BEAST_CONDUIT.id,
+    );
     if (!this.conduitRank) {
       this.active = false;
       return;
@@ -38,7 +39,10 @@ class OneWithTheBeast extends Analyzer {
     if (!this.selectedCombatant.hasBuff(SPELLS.BESTIAL_WRATH.id)) {
       return;
     }
-    this.addedDamage += calculateEffectiveDamage(event, ONE_WITH_THE_BEAST_DAMAGE_INCREASE[this.conduitRank]);
+    this.addedDamage += calculateEffectiveDamage(
+      event,
+      ONE_WITH_THE_BEAST_DAMAGE_INCREASE[this.conduitRank],
+    );
   }
 
   statistic() {
@@ -56,7 +60,6 @@ class OneWithTheBeast extends Analyzer {
       </Statistic>
     );
   }
-
 }
 
 export default OneWithTheBeast;

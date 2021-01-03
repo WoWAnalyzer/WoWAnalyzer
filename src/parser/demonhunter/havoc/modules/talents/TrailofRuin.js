@@ -11,7 +11,6 @@ import { formatThousands } from 'common/format';
  */
 
 class TrailofRuin extends Analyzer {
-
   damage = 0;
 
   constructor(...args) {
@@ -20,7 +19,10 @@ class TrailofRuin extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.TRAIL_OF_RUIN_DAMAGE), this.trailOfRuinDot);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.TRAIL_OF_RUIN_DAMAGE),
+      this.trailOfRuinDot,
+    );
   }
 
   trailOfRuinDot(event) {

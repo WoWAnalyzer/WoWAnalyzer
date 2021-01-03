@@ -25,10 +25,16 @@ class CrimsonTempestSnapshot extends Snapshot {
   constructor(...args) {
     super(...args);
     const combatant = this.selectedCombatant;
-    if (combatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id) || !combatant.hasTalent(SPELLS.CRIMSON_TEMPEST_TALENT.id)) {
+    if (
+      combatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id) ||
+      !combatant.hasTalent(SPELLS.CRIMSON_TEMPEST_TALENT.id)
+    ) {
       this.active = false;
     }
-    this.addEventListener(Events.SpendResource.by(SELECTED_PLAYER).spell(SPELLS.CRIMSON_TEMPEST_TALENT), this.onSpendResource);
+    this.addEventListener(
+      Events.SpendResource.by(SELECTED_PLAYER).spell(SPELLS.CRIMSON_TEMPEST_TALENT),
+      this.onSpendResource,
+    );
   }
 
   onSpendResource(event) {

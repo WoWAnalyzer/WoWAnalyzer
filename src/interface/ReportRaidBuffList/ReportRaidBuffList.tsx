@@ -71,11 +71,7 @@ const ReportRaidBuffList = ({ combatants }: Props) => {
     <div className="raidbuffs">
       <h1>Raid Buffs</h1>
       {Array.from(buffs, ([spellId, count]) => (
-        <ReportRaidBuffListItem
-          key={spellId}
-          spellId={Number(spellId)}
-          count={count}
-        />
+        <ReportRaidBuffListItem key={spellId} spellId={Number(spellId)} count={count} />
       ))}
     </div>
   );

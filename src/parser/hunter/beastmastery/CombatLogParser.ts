@@ -82,7 +82,6 @@ import RylakstalkersPiercingFangs from './modules/items/RylakstalkersPiercingFan
 import NesingwarysTrappingApparatus from './modules/items/NesingwarysTrappingApparatus';
 import SoulforgeEmbers from '../shared/modules/items/SoulforgeEmbers';
 
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     globalCooldown: GlobalCooldown,

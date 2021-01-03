@@ -41,9 +41,7 @@ describe('[PENANCE] Spell Calculations', () => {
   });
 
   it('Estimates Offensive Penance Bolts Correctly with Versatility', () => {
-    const boltEstimator = OffensivePenanceBoltEstimation(
-      mockStatTracker(100, 0.25),
-    );
+    const boltEstimator = OffensivePenanceBoltEstimation(mockStatTracker(100, 0.25));
 
     expect(boltEstimator()).toEqual({
       boltDamage: 50,
@@ -103,10 +101,9 @@ describe('[SMITE] Spell Calculations', () => {
 
   fixtures.forEach((fixture, i) => {
     it(`Estimates Smite Correctly #${i}`, () => {
-      const smiteEstimator = SmiteEstimation(
-        mockStatTracker(fixture.int, fixture.vers),
-        { currentBonus: fixture.sins },
-      );
+      const smiteEstimator = SmiteEstimation(mockStatTracker(fixture.int, fixture.vers), {
+        currentBonus: fixture.sins,
+      });
 
       expect(smiteEstimator()).toEqual(fixture.expected);
     });

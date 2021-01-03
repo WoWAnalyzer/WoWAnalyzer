@@ -25,10 +25,22 @@ class GuardianOfElune extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.GUARDIAN_OF_ELUNE_TALENT.id);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.GUARDIAN_OF_ELUNE), this.onApplyBuff);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.GUARDIAN_OF_ELUNE), this.onRefreshBuff);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.IRONFUR), this.onCastIronfur);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FRENZIED_REGENERATION), this.onCastFrenziedRegen);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.GUARDIAN_OF_ELUNE),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.GUARDIAN_OF_ELUNE),
+      this.onRefreshBuff,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.IRONFUR),
+      this.onCastIronfur,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FRENZIED_REGENERATION),
+      this.onCastFrenziedRegen,
+    );
   }
 
   onApplyBuff(event) {
@@ -82,28 +94,45 @@ class GuardianOfElune extends Analyzer {
   }
 
   suggestions(when) {
-    const unusedGoEProcs = 1 - (this.consumedGoEProc / this.GoEProcsTotal);
+    const unusedGoEProcs = 1 - this.consumedGoEProc / this.GoEProcsTotal;
 
-    when(unusedGoEProcs).isGreaterThan(0.3)
-      .addSuggestion((suggest, actual, recommended) => suggest(<span>You wasted {formatPercentage(unusedGoEProcs)}% of your <SpellLink id={SPELLS.GUARDIAN_OF_ELUNE.id} /> procs. Try to use the procs as soon as you get them so they are not overwritten.</span>)
-        .icon(SPELLS.GUARDIAN_OF_ELUNE.icon)
-        .actual(t({
-      id: "druid.guardian.suggestions.guardianOfElune.unused",
-      message: `${formatPercentage(unusedGoEProcs)}% unused`
-    }))
-        .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
-        .regular(recommended + 0.15).major(recommended + 0.3));
+    when(unusedGoEProcs)
+      .isGreaterThan(0.3)
+      .addSuggestion((suggest, actual, recommended) =>
+        suggest(
+          <span>
+            You wasted {formatPercentage(unusedGoEProcs)}% of your{' '}
+            <SpellLink id={SPELLS.GUARDIAN_OF_ELUNE.id} /> procs. Try to use the procs as soon as
+            you get them so they are not overwritten.
+          </span>,
+        )
+          .icon(SPELLS.GUARDIAN_OF_ELUNE.icon)
+          .actual(
+            t({
+              id: 'druid.guardian.suggestions.guardianOfElune.unused',
+              message: `${formatPercentage(unusedGoEProcs)}% unused`,
+            }),
+          )
+          .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
+          .regular(recommended + 0.15)
+          .major(recommended + 0.3),
+      );
   }
 
   statistic() {
-    const unusedGoEProcs = 1 - (this.consumedGoEProc / this.GoEProcsTotal);
+    const unusedGoEProcs = 1 - this.consumedGoEProc / this.GoEProcsTotal;
 
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.GUARDIAN_OF_ELUNE.id} />}
         value={`${formatPercentage(unusedGoEProcs)}%`}
         label="Unused Guardian of Elune"
-        tooltip={<>You got total <strong>{this.GoEProcsTotal}</strong> guardian of elune procs and <strong>used {this.consumedGoEProc}</strong> of them.</>}
+        tooltip={
+          <>
+            You got total <strong>{this.GoEProcsTotal}</strong> guardian of elune procs and{' '}
+            <strong>used {this.consumedGoEProc}</strong> of them.
+          </>
+        }
       />
     );
   }

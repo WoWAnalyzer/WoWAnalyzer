@@ -10,11 +10,7 @@ import HIT_TYPES from 'game/HIT_TYPES';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const REDUCTION_MS = 1500;
-const COMBUST_REDUCTION_SPELLS = [
-  SPELLS.FIREBALL,
-  SPELLS.PYROBLAST,
-  SPELLS.FIRE_BLAST,
-];
+const COMBUST_REDUCTION_SPELLS = [SPELLS.FIREBALL, SPELLS.PYROBLAST, SPELLS.FIRE_BLAST];
 
 class Kindling extends Analyzer {
   static dependencies = {
@@ -27,7 +23,10 @@ class Kindling extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.KINDLING_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(COMBUST_REDUCTION_SPELLS), this.onCritDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(COMBUST_REDUCTION_SPELLS),
+      this.onCritDamage,
+    );
   }
 
   //Look for crit damage events to reduce the cooldown on Kindling
@@ -37,7 +36,7 @@ class Kindling extends Analyzer {
       return;
     }
     if (combustionOnCD) {
-      this.cooldownReduction += this.spellUsable.reduceCooldown(SPELLS.COMBUSTION.id, (REDUCTION_MS));
+      this.cooldownReduction += this.spellUsable.reduceCooldown(SPELLS.COMBUSTION.id, REDUCTION_MS);
     }
   }
 
@@ -47,13 +46,11 @@ class Kindling extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        size="flexible"
-        category={STATISTIC_CATEGORY.TALENTS}
-      >
+      <Statistic size="flexible" category={STATISTIC_CATEGORY.TALENTS}>
         <BoringSpellValueText spell={SPELLS.KINDLING_TALENT}>
           <>
-            {formatNumber(this.cooldownReductionSeconds)}s <small>Combustion Cooldown Reduction</small>
+            {formatNumber(this.cooldownReductionSeconds)}s{' '}
+            <small>Combustion Cooldown Reduction</small>
           </>
         </BoringSpellValueText>
       </Statistic>

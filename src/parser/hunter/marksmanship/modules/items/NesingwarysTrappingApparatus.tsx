@@ -19,7 +19,6 @@ import { formatNumber } from 'common/format';
  *
  */
 class NesingwarysTrappingApparatus extends Analyzer {
-
   static dependencies = {
     rapidFire: RapidFire,
     steadyShot: SteadyShot,
@@ -33,11 +32,16 @@ class NesingwarysTrappingApparatus extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT.bonusID);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(
+      SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT.bonusID,
+    );
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_ENERGIZE), this.onEnergize);
+    this.addEventListener(
+      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_ENERGIZE),
+      this.onEnergize,
+    );
   }
 
   onEnergize(event: EnergizeEvent) {
@@ -46,11 +50,16 @@ class NesingwarysTrappingApparatus extends Analyzer {
   }
 
   get effectiveFocus() {
-    return formatNumber(this.steadyShot.additionalFocusFromNesingwary + this.rapidFire.additionalFocusFromNesingwary);
+    return formatNumber(
+      this.steadyShot.additionalFocusFromNesingwary + this.rapidFire.additionalFocusFromNesingwary,
+    );
   }
 
   get possibleFocus() {
-    return formatNumber(this.steadyShot.possibleAdditionalFocusFromNesingwary + this.rapidFire.possibleAdditionalFocusFromNesingwary);
+    return formatNumber(
+      this.steadyShot.possibleAdditionalFocusFromNesingwary +
+        this.rapidFire.possibleAdditionalFocusFromNesingwary,
+    );
   }
 
   statistic() {
@@ -61,9 +70,11 @@ class NesingwarysTrappingApparatus extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
       >
         <BoringSpellValueText spell={SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT}>
-          <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /> {this.focusGained}/{this.focusWasted + this.focusGained} <small>gained Focus immediately</small>
+          <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /> {this.focusGained}/
+          {this.focusWasted + this.focusGained} <small>gained Focus immediately</small>
           <br />
-          <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /> {this.effectiveFocus}/{this.possibleFocus} <small>gained Focus from generators</small>
+          <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /> {this.effectiveFocus}/
+          {this.possibleFocus} <small>gained Focus from generators</small>
         </BoringSpellValueText>
       </Statistic>
     );

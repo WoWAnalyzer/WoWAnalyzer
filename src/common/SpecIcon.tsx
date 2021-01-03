@@ -3,8 +3,8 @@ import React from 'react';
 import SPECS from 'game/SPECS';
 
 interface Props extends Omit<React.HTMLAttributes<HTMLImageElement>, 'id'> {
-  id: number
-  className?: string
+  id: number;
+  className?: string;
 }
 
 const SpecIcon = ({ id, className, ...others }: Props) => {

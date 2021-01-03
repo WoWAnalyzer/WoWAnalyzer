@@ -13,7 +13,8 @@ import SPELLS from 'common/SPELLS';
  * ignored: spell should be ignored for purpose of stat weights
  */
 
-const DEFAULT_INFO = { // we assume unlisted spells scale with vers only (this will mostly be trinkets)
+const DEFAULT_INFO = {
+  // we assume unlisted spells scale with vers only (this will mostly be trinkets)
   int: false,
   crit: false,
   hasteHpm: false,
@@ -87,7 +88,8 @@ export const DRUID_HEAL_INFO = {
     masteryStack: true,
     vers: true,
   },
-  [SPELLS.FRENZIED_REGENERATION.id]: { // it's weird this scles with anything, but confirmed on live that it does
+  [SPELLS.FRENZIED_REGENERATION.id]: {
+    // it's weird this scles with anything, but confirmed on live that it does
     int: false,
     crit: false,
     hasteHpm: false,
@@ -151,7 +153,8 @@ export const DRUID_HEAL_INFO = {
     masteryStack: false,
     vers: true,
   },
-  [SPELLS.YSERAS_GIFT_OTHERS.id]: { // TODO does it really scale with nothing (except stam)?
+  [SPELLS.YSERAS_GIFT_OTHERS.id]: {
+    // TODO does it really scale with nothing (except stam)?
     int: false,
     crit: false,
     hasteHpm: false,
@@ -160,7 +163,8 @@ export const DRUID_HEAL_INFO = {
     masteryStack: false,
     vers: false,
   },
-  [SPELLS.YSERAS_GIFT_SELF.id]: { // TODO does it really scale with nothing (except stam)?
+  [SPELLS.YSERAS_GIFT_SELF.id]: {
+    // TODO does it really scale with nothing (except stam)?
     int: false,
     crit: false,
     hasteHpm: false,
@@ -169,7 +173,8 @@ export const DRUID_HEAL_INFO = {
     masteryStack: false,
     vers: false,
   },
-  [SPELLS.RENEWAL_TALENT.id]: { // TODO does it really scale with nothing (except stam)?
+  [SPELLS.RENEWAL_TALENT.id]: {
+    // TODO does it really scale with nothing (except stam)?
     int: false,
     crit: false,
     hasteHpm: false,
@@ -178,7 +183,8 @@ export const DRUID_HEAL_INFO = {
     masteryStack: false,
     vers: false,
   },
-  [SPELLS.MARK_OF_SHIFTING.id]: { // TODO does it really scale with nothing (except stam)?
+  [SPELLS.MARK_OF_SHIFTING.id]: {
+    // TODO does it really scale with nothing (except stam)?
     int: false,
     crit: false,
     hasteHpm: false,
@@ -189,4 +195,4 @@ export const DRUID_HEAL_INFO = {
   },
 };
 
-export const getSpellInfo = id => DRUID_HEAL_INFO[id] || DEFAULT_INFO;
+export const getSpellInfo = (id) => DRUID_HEAL_INFO[id] || DEFAULT_INFO;

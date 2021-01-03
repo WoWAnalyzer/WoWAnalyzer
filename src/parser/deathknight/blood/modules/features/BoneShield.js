@@ -12,7 +12,6 @@ import Statistic from 'interface/statistics/Statistic';
 import BoneShieldTimesByStacks from './BoneShieldTimesByStacks';
 
 class BoneShield extends Analyzer {
-
   static dependencies = {
     statTracker: StatTracker,
     boneShieldTimesByStacks: BoneShieldTimesByStacks,
@@ -32,30 +31,32 @@ class BoneShield extends Analyzer {
       isLessThan: {
         minor: 0.95,
         average: 0.9,
-        major: .8,
+        major: 0.8,
       },
       style: 'percentage',
     };
   }
 
   suggestions(when) {
-    when(this.uptimeSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest('Your Bone Shield uptime can be improved. Try to keep it up at all times.')
-          .icon(SPELLS.BONE_SHIELD.icon)
-          .actual(t({
-      id: "deathknight.blood.suggestions.boneShield.uptime",
-      message: `${formatPercentage(actual)}% Bone Shield uptime`
-    }))
-          .recommended(`>${formatPercentage(recommended)}% is recommended`));
+    when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest('Your Bone Shield uptime can be improved. Try to keep it up at all times.')
+        .icon(SPELLS.BONE_SHIELD.icon)
+        .actual(
+          t({
+            id: 'deathknight.blood.suggestions.boneShield.uptime',
+            message: `${formatPercentage(actual)}% Bone Shield uptime`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
-
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(5)}
         size="flexible"
-        dropdown={(
+        dropdown={
           <>
             <table className="table table-condensed">
               <thead>
@@ -70,13 +71,15 @@ class BoneShield extends Analyzer {
                   <tr key={i}>
                     <th>{i}</th>
                     <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
-                    <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
+                    <td>
+                      {formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.BONE_SHIELD}>
           <>

@@ -13,13 +13,10 @@ import ResourceGenerated from 'interface/others/ResourceGenerated';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 const ELEMENTAL_ASSAULT = {
-  INCREASE: .15,
+  INCREASE: 0.15,
 };
 
-const MAIN_HAND_DAMAGES = [
-  SPELLS.STORMSTRIKE_DAMAGE.id,
-  SPELLS.WINDSTRIKE_DAMAGE.id,
-];
+const MAIN_HAND_DAMAGES = [SPELLS.STORMSTRIKE_DAMAGE.id, SPELLS.WINDSTRIKE_DAMAGE.id];
 
 /**
  * Stormstrike damage is increased by 15%, and Stormstrike
@@ -39,8 +36,7 @@ class ElementalAssault extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_ASSAULT_TALENT.id);
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(STORMSTRIKE_DAMAGE_SPELLS),
+      Events.damage.by(SELECTED_PLAYER).spell(STORMSTRIKE_DAMAGE_SPELLS),
       this.onStormstrikeDamage,
     );
   }
@@ -68,8 +64,14 @@ class ElementalAssault extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.ELEMENTAL_ASSAULT_TALENT}>
           <>
-            <ItemDamageDone amount={this.damageGained} /><br />
-            <ResourceGenerated amount={this.maelstromWeaponGained} wasted={this.maelstromWeaponWasted} resourceType={SPELLS.MAELSTROM_WEAPON_BUFF} /><br />
+            <ItemDamageDone amount={this.damageGained} />
+            <br />
+            <ResourceGenerated
+              amount={this.maelstromWeaponGained}
+              wasted={this.maelstromWeaponWasted}
+              resourceType={SPELLS.MAELSTROM_WEAPON_BUFF}
+            />
+            <br />
           </>
         </BoringSpellValueText>
       </Statistic>

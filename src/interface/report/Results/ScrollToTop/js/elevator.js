@@ -13,8 +13,8 @@
  * Elevator.js
  *********************************************/
 
-var Elevator = function(options) {
-  "use strict";
+var Elevator = function (options) {
+  'use strict';
 
   // Elements
   var body = null;
@@ -44,15 +44,14 @@ var Elevator = function(options) {
   // Thanks Mr Penner - http://robertpenner.com/easing/
   function easeInOutQuad(t, b, c, d) {
     t /= d / 2;
-    if (t < 1) return c / 2 * t * t + b;
+    if (t < 1) return (c / 2) * t * t + b;
     t -= 1;
-    return -c / 2 * (t * (t - 2) - 1) + b;
+    return (-c / 2) * (t * (t - 2) - 1) + b;
   }
 
   function extendParameters(options, defaults) {
     for (var option in defaults) {
-      var t =
-        options[option] === undefined && typeof option !== "function";
+      var t = options[option] === undefined && typeof option !== 'function';
       if (t) {
         options[option] = defaults[option];
       }
@@ -89,7 +88,7 @@ var Elevator = function(options) {
       timeSoFar,
       startPosition,
       endPosition - startPosition,
-      duration
+      duration,
     );
 
     window.scrollTo(0, easedPosition);
@@ -114,7 +113,7 @@ var Elevator = function(options) {
   //     C  O  O  O  D
   //     C__O__O__O__D
   //    [_____________]
-  this.elevate = function() {
+  this.elevate = function () {
     if (elevating) {
       return;
     }
@@ -141,11 +140,7 @@ var Elevator = function(options) {
   };
 
   function browserMeetsRequirements() {
-    return (
-      window.requestAnimationFrame &&
-      window.Audio &&
-      window.addEventListener
-    );
+    return window.requestAnimationFrame && window.Audio && window.addEventListener;
   }
 
   function resetPositions() {
@@ -196,10 +191,10 @@ var Elevator = function(options) {
 
   function bindElevateToElement(element) {
     if (element.addEventListener) {
-      element.addEventListener("click", that.elevate, false);
+      element.addEventListener('click', that.elevate, false);
     } else {
       // Older browsers
-      element.attachEvent("onclick", function() {
+      element.attachEvent('onclick', function () {
         updateEndPosition();
         document.documentElement.scrollTop = endPosition;
         document.body.scrollTop = endPosition;
@@ -224,7 +219,7 @@ var Elevator = function(options) {
       preloadAudio: true,
       loopAudio: true,
       startCallback: null,
-      endCallback: null
+      endCallback: null,
     };
 
     _options = extendParameters(_options, defaults);
@@ -246,18 +241,18 @@ var Elevator = function(options) {
       verticalPadding = _options.verticalPadding;
     }
 
-    window.addEventListener("blur", onWindowBlur, false);
+    window.addEventListener('blur', onWindowBlur, false);
 
     if (_options.mainAudio) {
       mainAudio = new Audio(_options.mainAudio);
-      mainAudio.setAttribute("preload", _options.preloadAudio);
-      mainAudio.setAttribute("loop", _options.loopAudio);
+      mainAudio.setAttribute('preload', _options.preloadAudio);
+      mainAudio.setAttribute('loop', _options.loopAudio);
       mainAudio.volume = 0.5;
     }
 
     if (_options.endAudio) {
       endAudio = new Audio(_options.endAudio);
-      endAudio.setAttribute("preload", "true");
+      endAudio.setAttribute('preload', 'true');
       endAudio.volume = 0.5;
     }
 
@@ -273,6 +268,6 @@ var Elevator = function(options) {
   init(options);
 };
 
-if (typeof module !== "undefined" && module.exports) {
+if (typeof module !== 'undefined' && module.exports) {
   module.exports = Elevator;
 }

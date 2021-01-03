@@ -1,4 +1,3 @@
-
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPECS from 'game/SPECS';
@@ -43,7 +42,6 @@ const STR_SPECS = [
 ];
 
 class EnchantChecker extends Analyzer {
-
   static AGI_ENCHANTABLE_SLOTS = {
     4: <Trans id="common.slots.chest">Chest</Trans>,
     7: <Trans id="common.slots.boots">Boots</Trans>,
@@ -122,8 +120,12 @@ class EnchantChecker extends Analyzer {
   ];
 
   get enchantableGear() {
-    const enchantSlots = AGI_SPECS.includes(this.selectedCombatant.specId) ? EnchantChecker.AGI_ENCHANTABLE_SLOTS : STR_SPECS.includes(this.selectedCombatant.specId) ? EnchantChecker.STR_ENCHANTABLE_SLOTS : EnchantChecker.INT_ENCHANTABLE_SLOTS;
-    return Object.keys(enchantSlots).reduce((obj: {[key: number]: Item}, slot) => {
+    const enchantSlots = AGI_SPECS.includes(this.selectedCombatant.specId)
+      ? EnchantChecker.AGI_ENCHANTABLE_SLOTS
+      : STR_SPECS.includes(this.selectedCombatant.specId)
+      ? EnchantChecker.STR_ENCHANTABLE_SLOTS
+      : EnchantChecker.INT_ENCHANTABLE_SLOTS;
+    return Object.keys(enchantSlots).reduce((obj: { [key: number]: Item }, slot) => {
       const item = this.selectedCombatant._getGearItemBySlotId(Number(slot));
 
       // If there is no offhand, disregard the item.
@@ -142,14 +144,16 @@ class EnchantChecker extends Analyzer {
   }
   get slotsMissingEnchant() {
     const gear = this.enchantableGear;
-    return Object.keys(gear).filter(slot => !this.hasEnchant(gear[Number(slot)]));
+    return Object.keys(gear).filter((slot) => !this.hasEnchant(gear[Number(slot)]));
   }
   get numSlotsMissingEnchant() {
     return this.slotsMissingEnchant.length;
   }
   get slotsMissingMaxEnchant() {
     const gear = this.enchantableGear;
-    return Object.keys(gear).filter(slot => this.hasEnchant(gear[Number(slot)]) && !this.hasMaxEnchant(gear[Number(slot)]));
+    return Object.keys(gear).filter(
+      (slot) => this.hasEnchant(gear[Number(slot)]) && !this.hasMaxEnchant(gear[Number(slot)]),
+    );
   }
   get numSlotsMissingMaxEnchant() {
     return this.slotsMissingMaxEnchant.length;
@@ -163,33 +167,54 @@ class EnchantChecker extends Analyzer {
 
   suggestions(when: When) {
     const gear = this.enchantableGear;
-    const enchantSlots: {[key: number]: JSX.Element} = AGI_SPECS.includes(this.selectedCombatant.specId) ? EnchantChecker.AGI_ENCHANTABLE_SLOTS : STR_SPECS.includes(this.selectedCombatant.specId) ? EnchantChecker.STR_ENCHANTABLE_SLOTS : EnchantChecker.INT_ENCHANTABLE_SLOTS;
+    const enchantSlots: { [key: number]: JSX.Element } = AGI_SPECS.includes(
+      this.selectedCombatant.specId,
+    )
+      ? EnchantChecker.AGI_ENCHANTABLE_SLOTS
+      : STR_SPECS.includes(this.selectedCombatant.specId)
+      ? EnchantChecker.STR_ENCHANTABLE_SLOTS
+      : EnchantChecker.INT_ENCHANTABLE_SLOTS;
     // iterating with keys instead of value because the values don't store what slot is being looked at
-    Object.keys(gear)
-      .forEach(slot => {
-        const item = gear[Number(slot)];
-        const slotName = enchantSlots[Number(slot)];
-        const hasEnchant = this.hasEnchant(item);
+    Object.keys(gear).forEach((slot) => {
+      const item = gear[Number(slot)];
+      const slotName = enchantSlots[Number(slot)];
+      const hasEnchant = this.hasEnchant(item);
 
-        when(hasEnchant).isFalse()
-          .addSuggestion((suggest, actual, recommended) => suggest(
-              <Trans id="shared.enchantChecker.suggestions.noEnchant.label">
-                Your <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>{slotName}</ItemLink> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly.
-              </Trans>,
-            )
-              .icon(item.icon)
-              .staticImportance(SUGGESTION_IMPORTANCE.MAJOR));
+      when(hasEnchant)
+        .isFalse()
+        .addSuggestion((suggest, actual, recommended) =>
+          suggest(
+            <Trans id="shared.enchantChecker.suggestions.noEnchant.label">
+              Your{' '}
+              <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>
+                {slotName}
+              </ItemLink>{' '}
+              is missing an enchant. Apply a strong enchant to very easily increase your throughput
+              slightly.
+            </Trans>,
+          )
+            .icon(item.icon)
+            .staticImportance(SUGGESTION_IMPORTANCE.MAJOR),
+        );
 
-        const noMaxEnchant = hasEnchant && !this.hasMaxEnchant(item);
-        when(noMaxEnchant).isTrue()
-          .addSuggestion((suggest, actual, recommended) => suggest(
-              <Trans id="shared.enchantChecker.suggestions.weakEnchant.label">
-                Your <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>{slotName}</ItemLink> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly.
-              </Trans>,
-            )
-              .icon(item.icon)
-              .staticImportance(SUGGESTION_IMPORTANCE.MINOR));
-      });
+      const noMaxEnchant = hasEnchant && !this.hasMaxEnchant(item);
+      when(noMaxEnchant)
+        .isTrue()
+        .addSuggestion((suggest, actual, recommended) =>
+          suggest(
+            <Trans id="shared.enchantChecker.suggestions.weakEnchant.label">
+              Your{' '}
+              <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>
+                {slotName}
+              </ItemLink>{' '}
+              has a cheap enchant. Apply a strong enchant to very easily increase your throughput
+              slightly.
+            </Trans>,
+          )
+            .icon(item.icon)
+            .staticImportance(SUGGESTION_IMPORTANCE.MINOR),
+        );
+    });
   }
 }
 

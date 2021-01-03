@@ -1,5 +1,10 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, CastEvent, DamageEvent, RefreshBuffEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  CastEvent,
+  DamageEvent,
+  RefreshBuffEvent,
+} from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -21,7 +26,6 @@ import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
  *
  */
 class BrutalProjectiles extends Analyzer {
-
   conduitRank = 0;
   addedDamage = 0;
   currentTick = 0;
@@ -31,21 +35,34 @@ class BrutalProjectiles extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.BRUTAL_PROJECTILES_CONDUIT.id);
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(
+      SPELLS.BRUTAL_PROJECTILES_CONDUIT.id,
+    );
     if (!this.conduitRank) {
       this.active = false;
       return;
     }
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE_DAMAGE), this.onRapidFireDamage);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE), this.onRapidFireCast);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BRUTAL_PROJECTILES_NEXT_RF_BUFF), this.onApplyBrutalProjectiles);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BRUTAL_PROJECTILES_NEXT_RF_BUFF), this.onRefreshBrutalProjectiles);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE_DAMAGE),
+      this.onRapidFireDamage,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE),
+      this.onRapidFireCast,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BRUTAL_PROJECTILES_NEXT_RF_BUFF),
+      this.onApplyBrutalProjectiles,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BRUTAL_PROJECTILES_NEXT_RF_BUFF),
+      this.onRefreshBrutalProjectiles,
+    );
   }
 
   onApplyBrutalProjectiles(event: ApplyBuffEvent) {
     this.procs += 1;
-
   }
 
   onRefreshBrutalProjectiles(event: RefreshBuffEvent) {
@@ -64,7 +81,10 @@ class BrutalProjectiles extends Analyzer {
     if (!this.selectedCombatant.hasBuff(SPELLS.BRUTAL_PROJECTILES_DURING_RF_BUFF.id)) {
       return;
     }
-    this.addedDamage += calculateEffectiveDamage(event, (BRUTAL_PROJECTILES_RAMP_DAMAGE[this.conduitRank] * this.currentTick));
+    this.addedDamage += calculateEffectiveDamage(
+      event,
+      BRUTAL_PROJECTILES_RAMP_DAMAGE[this.conduitRank] * this.currentTick,
+    );
     this.currentTick += 1;
   }
 
@@ -74,12 +94,12 @@ class BrutalProjectiles extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
-        tooltip={(
+        tooltip={
           <>
-            You used {this.usedProcs} out of {this.procs} gained.
-            You overwrote the Brutal Projectiles buff {this.overwrittenProcs} times.
+            You used {this.usedProcs} out of {this.procs} gained. You overwrote the Brutal
+            Projectiles buff {this.overwrittenProcs} times.
           </>
-        )}
+        }
       >
         <ConduitSpellText spell={SPELLS.BRUTAL_PROJECTILES_CONDUIT} rank={this.conduitRank}>
           <>

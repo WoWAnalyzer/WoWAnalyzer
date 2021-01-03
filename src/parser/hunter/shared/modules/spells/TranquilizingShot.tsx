@@ -16,7 +16,6 @@ import DispelTracker from 'parser/shared/modules/DispelTracker';
  * TODO Revisit this module when we have more information
  */
 class TranquilizingShot extends DispelTracker {
-
   static dependencies = {
     abilities: Abilities,
   };
@@ -53,9 +52,7 @@ class TranquilizingShot extends DispelTracker {
           category={STATISTIC_CATEGORY.GENERAL}
         >
           <BoringSpellValueText spell={SPELLS.TRANQUILIZING_SHOT}>
-            <>
-              {this.totalDispels}
-            </>
+            <>{this.totalDispels}</>
           </BoringSpellValueText>
         </Statistic>
       );
@@ -63,7 +60,6 @@ class TranquilizingShot extends DispelTracker {
       return null;
     }
   }
-
 }
 
 export default TranquilizingShot;

@@ -72,7 +72,10 @@ class BaseHealerStatValues extends Analyzer {
 
     if (process.env.NODE_ENV === 'development') {
       if (!this.mentioned.includes(spellId)) {
-        console.warn(`Missing spell definition: ${spellId}: ${event.ability.name}, using fallback:`, this.fallbackSpellInfo);
+        console.warn(
+          `Missing spell definition: ${spellId}: ${event.ability.name}, using fallback:`,
+          this.fallbackSpellInfo,
+        );
         this.mentioned.push(spellId);
       }
     }
@@ -98,7 +101,7 @@ class BaseHealerStatValues extends Analyzer {
 
   scaleWeightsWithHealth = false;
 
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER_PET), this.onHeal);
@@ -150,7 +153,10 @@ class BaseHealerStatValues extends Analyzer {
       return;
     }
 
-    this.totalOneLeech += this._adjustGain(this._leech(eventForWeights, healVal, spellInfo), targetHealthPercentage);
+    this.totalOneLeech += this._adjustGain(
+      this._leech(eventForWeights, healVal, spellInfo),
+      targetHealthPercentage,
+    );
 
     if (spellInfo.multiplier) {
       // Multiplier spells aren't counted for weights because they don't **directly** benefit from stat weights
@@ -158,22 +164,40 @@ class BaseHealerStatValues extends Analyzer {
     }
 
     if (spellInfo.int) {
-      this.totalOneInt += this._adjustGain(this._intellect(eventForWeights, healVal), targetHealthPercentage);
+      this.totalOneInt += this._adjustGain(
+        this._intellect(eventForWeights, healVal),
+        targetHealthPercentage,
+      );
     }
     if (spellInfo.crit) {
-      this.totalOneCrit += this._adjustGain(this._criticalStrike(eventForWeights, healVal), targetHealthPercentage);
+      this.totalOneCrit += this._adjustGain(
+        this._criticalStrike(eventForWeights, healVal),
+        targetHealthPercentage,
+      );
     }
     if (spellInfo.hasteHpct) {
-      this.totalOneHasteHpct += this._adjustGain(this._hasteHpct(eventForWeights, healVal), targetHealthPercentage);
+      this.totalOneHasteHpct += this._adjustGain(
+        this._hasteHpct(eventForWeights, healVal),
+        targetHealthPercentage,
+      );
     }
     if (spellInfo.hasteHpm) {
-      this.totalOneHasteHpm += this._adjustGain(this._hasteHpm(eventForWeights, healVal), targetHealthPercentage);
+      this.totalOneHasteHpm += this._adjustGain(
+        this._hasteHpm(eventForWeights, healVal),
+        targetHealthPercentage,
+      );
     }
     if (spellInfo.mastery) {
-      this.totalOneMastery += this._adjustGain(this._mastery(eventForWeights, healVal), targetHealthPercentage);
+      this.totalOneMastery += this._adjustGain(
+        this._mastery(eventForWeights, healVal),
+        targetHealthPercentage,
+      );
     }
     if (spellInfo.vers) {
-      this.totalOneVers += this._adjustGain(this._versatility(eventForWeights, healVal), targetHealthPercentage);
+      this.totalOneVers += this._adjustGain(
+        this._versatility(eventForWeights, healVal),
+        targetHealthPercentage,
+      );
     }
   }
   _adjustGain(gain, targetHealthPercentage) {
@@ -182,7 +206,12 @@ class BaseHealerStatValues extends Analyzer {
     }
     // We want 0-20% health to get value gain, and then linearly decay to 100% health
     const maxValueHealthPercentage = 0.3;
-    const mult = 1 - Math.max(0, (targetHealthPercentage - maxValueHealthPercentage) / (1 - maxValueHealthPercentage));
+    const mult =
+      1 -
+      Math.max(
+        0,
+        (targetHealthPercentage - maxValueHealthPercentage) / (1 - maxValueHealthPercentage),
+      );
     return this.scaleWeightsWithHealth ? gain * mult : gain;
   }
   _leech(event, healVal, spellInfo) {
@@ -199,7 +228,7 @@ class BaseHealerStatValues extends Analyzer {
       return this._leechPrediction(event, healVal, spellInfo);
     }
   }
-  _leechHasLeech(event, healVal/*, spellInfo*/) {
+  _leechHasLeech(event, healVal /*, spellInfo*/) {
     // When the user has Leech we can use the actual Leech healing to accuractely calculate its HPS value without having to do any kind of predicting
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.LEECH.id) {
@@ -218,8 +247,16 @@ class BaseHealerStatValues extends Analyzer {
     if (spellInfo.multiplier) {
       return 0; // Leech doesn't proc from multipliers such as Velen's Future Sight
     }
-    if (this.playerHealthMissing > 0) { // if the player is full HP this would have overhealed.
-      const healIncreaseFromOneLeech = this.statTracker.statMultiplier.leech / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentLeechRating, this.statTracker.statBaselineRatingPerPercent[STAT.LEECH], 1, false);
+    if (this.playerHealthMissing > 0) {
+      // if the player is full HP this would have overhealed.
+      const healIncreaseFromOneLeech =
+        this.statTracker.statMultiplier.leech /
+        this.statTracker.ratingNeededForNextPercentage(
+          this.statTracker.currentLeechRating,
+          this.statTracker.statBaselineRatingPerPercent[STAT.LEECH],
+          1,
+          false,
+        );
       return healVal.raw * healIncreaseFromOneLeech;
     }
     return 0;
@@ -229,13 +266,19 @@ class BaseHealerStatValues extends Analyzer {
       // If a spell overheals, it could not have healed for more. Seeing as Int only adds HP on top of the existing heal we can skip it as increasing the power of this heal would only be more overhealing.
       return 0;
     }
-    const healIncreaseFromOneInt = this.statTracker.statMultiplier.intellect / this.statTracker.currentIntellectRating;
+    const healIncreaseFromOneInt =
+      this.statTracker.statMultiplier.intellect / this.statTracker.currentIntellectRating;
     return healVal.effective * healIncreaseFromOneInt;
   }
   _getCritChance(event) {
     const rating = this.statTracker.currentCritRating;
     const baseCritChance = this.statTracker.baseCritPercentage;
-    const ratingCritChance = rating / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentCritRating, this.statTracker.statBaselineRatingPerPercent[STAT.CRITICAL_STRIKE]);
+    const ratingCritChance =
+      rating /
+      this.statTracker.ratingNeededForNextPercentage(
+        this.statTracker.currentCritRating,
+        this.statTracker.statBaselineRatingPerPercent[STAT.CRITICAL_STRIKE],
+      );
 
     return { baseCritChance, ratingCritChance };
   }
@@ -250,7 +293,15 @@ class BaseHealerStatValues extends Analyzer {
       const { baseCritChance, ratingCritChance } = this._getCritChance(event);
 
       const totalCritChance = baseCritChance + ratingCritChance;
-      if (totalCritChance > (1 + 1 / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentCritRating, this.statTracker.statBaselineRatingPerPercent[STAT.CRITICAL_STRIKE]))) {
+      if (
+        totalCritChance >
+        1 +
+          1 /
+            this.statTracker.ratingNeededForNextPercentage(
+              this.statTracker.currentCritRating,
+              this.statTracker.statBaselineRatingPerPercent[STAT.CRITICAL_STRIKE],
+            )
+      ) {
         // If the crit chance was more than 100%+1 rating, then the last rating was over the cap and worth 0.
         return 0;
       }
@@ -260,7 +311,8 @@ class BaseHealerStatValues extends Analyzer {
       const rawBaseHealing = healVal.raw / critMult;
       const effectiveCritHealing = Math.max(0, healVal.effective - rawBaseHealing);
       const rating = this.statTracker.currentCritRating;
-      const healIncreaseFromOneCrit = this.statTracker.statMultiplier.crit * ratingCritChanceContribution / rating;
+      const healIncreaseFromOneCrit =
+        (this.statTracker.statMultiplier.crit * ratingCritChanceContribution) / rating;
 
       return effectiveCritHealing * healIncreaseFromOneCrit;
     }
@@ -268,12 +320,22 @@ class BaseHealerStatValues extends Analyzer {
   }
   _hasteHpct(event, healVal) {
     const currHastePerc = this.statTracker.currentHastePercentage;
-    const healIncreaseFromOneHaste = this.statTracker.statMultiplier.haste / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentHasteRating, this.statTracker.statBaselineRatingPerPercent[STAT.HASTE]);
+    const healIncreaseFromOneHaste =
+      this.statTracker.statMultiplier.haste /
+      this.statTracker.ratingNeededForNextPercentage(
+        this.statTracker.currentHasteRating,
+        this.statTracker.statBaselineRatingPerPercent[STAT.HASTE],
+      );
     const baseHeal = healVal.effective / (1 + currHastePerc);
     return baseHeal * healIncreaseFromOneHaste;
   }
   _hasteHpm(event, healVal) {
-    const healIncreaseFromOneHaste = this.statTracker.statMultiplier.haste / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentHasteRating, this.statTracker.statBaselineRatingPerPercent[STAT.HASTE]);
+    const healIncreaseFromOneHaste =
+      this.statTracker.statMultiplier.haste /
+      this.statTracker.ratingNeededForNextPercentage(
+        this.statTracker.currentHasteRating,
+        this.statTracker.statBaselineRatingPerPercent[STAT.HASTE],
+      );
     const noHasteHealing = healVal.effective / (1 + this.statTracker.currentHastePercentage);
     return noHasteHealing * healIncreaseFromOneHaste;
   }
@@ -286,7 +348,14 @@ class BaseHealerStatValues extends Analyzer {
       return 0;
     }
     const currVersPerc = this.statTracker.currentVersatilityPercentage;
-    const healIncreaseFromOneVers = this.statTracker.statMultiplier.versatility / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentVersatilityRating, this.statTracker.statBaselineRatingPerPercent[STAT.VERSATILITY], 1, false);
+    const healIncreaseFromOneVers =
+      this.statTracker.statMultiplier.versatility /
+      this.statTracker.ratingNeededForNextPercentage(
+        this.statTracker.currentVersatilityRating,
+        this.statTracker.statBaselineRatingPerPercent[STAT.VERSATILITY],
+        1,
+        false,
+      );
     const baseHeal = healVal.effective / (1 + currVersPerc);
     return baseHeal * healIncreaseFromOneVers;
   }
@@ -303,7 +372,15 @@ class BaseHealerStatValues extends Analyzer {
   _versatilityDamageReduction(event, damageVal) {
     const amount = damageVal.effective;
     const currentVersDamageReductionPercentage = this.statTracker.currentVersatilityPercentage / 2;
-    const damageReductionIncreaseFromOneVers = this.statTracker.statMultiplier.versatility / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentVersatilityRating, this.statTracker.statBaselineRatingPerPercent[STAT.VERSATILITY], 1, false) / 2; // the DR part is only 50% of the Versa percentage
+    const damageReductionIncreaseFromOneVers =
+      this.statTracker.statMultiplier.versatility /
+      this.statTracker.ratingNeededForNextPercentage(
+        this.statTracker.currentVersatilityRating,
+        this.statTracker.statBaselineRatingPerPercent[STAT.VERSATILITY],
+        1,
+        false,
+      ) /
+      2; // the DR part is only 50% of the Versa percentage
 
     const noVersDamage = amount / (1 - currentVersDamageReductionPercentage);
     return noVersDamage * damageReductionIncreaseFromOneVers;
@@ -313,7 +390,8 @@ class BaseHealerStatValues extends Analyzer {
     this._updateMissingHealth(event);
   }
   _updateMissingHealth(event) {
-    if (event.hitPoints && event.maxHitPoints) { // fields not always populated, don't know why
+    if (event.hitPoints && event.maxHitPoints) {
+      // fields not always populated, don't know why
       // `maxHitPoints` is always the value *after* the effect applied
       this.playerHealthMissing = event.maxHitPoints - event.hitPoints;
     }
@@ -333,53 +411,65 @@ class BaseHealerStatValues extends Analyzer {
   }
 
   get hpsPerIntellect() {
-    return this._getGain(STAT.INTELLECT) / this.owner.fightDuration * 1000;
+    return (this._getGain(STAT.INTELLECT) / this.owner.fightDuration) * 1000;
   }
   get hpsPerCriticalStrike() {
-    return this._getGain(STAT.CRITICAL_STRIKE) / this.owner.fightDuration * 1000;
+    return (this._getGain(STAT.CRITICAL_STRIKE) / this.owner.fightDuration) * 1000;
   }
   get hpsPerHasteHPCT() {
-    return this._getGain(STAT.HASTE_HPCT) / this.owner.fightDuration * 1000;
+    return (this._getGain(STAT.HASTE_HPCT) / this.owner.fightDuration) * 1000;
   }
   get hpsPerHasteHPM() {
-    return this._getGain(STAT.HASTE_HPM) / this.owner.fightDuration * 1000;
+    return (this._getGain(STAT.HASTE_HPM) / this.owner.fightDuration) * 1000;
   }
   get hpsPerHaste() {
     return this.hpsPerHasteHPCT + this.hpsPerHasteHPM;
   }
   get hpsPerMastery() {
-    return this._getGain(STAT.MASTERY) / this.owner.fightDuration * 1000;
+    return (this._getGain(STAT.MASTERY) / this.owner.fightDuration) * 1000;
   }
   get hpsPerVersatility() {
-    return this._getGain(STAT.VERSATILITY) / this.owner.fightDuration * 1000;
+    return (this._getGain(STAT.VERSATILITY) / this.owner.fightDuration) * 1000;
   }
   get hpsPerVersatilityDR() {
-    return this._getGain(STAT.VERSATILITY_DR) / this.owner.fightDuration * 1000;
+    return (this._getGain(STAT.VERSATILITY_DR) / this.owner.fightDuration) * 1000;
   }
   get hpsPerLeech() {
-    return this._getGain(STAT.LEECH) / this.owner.fightDuration * 1000;
+    return (this._getGain(STAT.LEECH) / this.owner.fightDuration) * 1000;
   }
 
   // region Item values
   calculateItemStatsHps(baseStats, itemLevel) {
     let hps = 0;
     if (baseStats.primary) {
-      hps += calculatePrimaryStat(baseStats.itemLevel, baseStats.primary, itemLevel) * this.hpsPerIntellect;
+      hps +=
+        calculatePrimaryStat(baseStats.itemLevel, baseStats.primary, itemLevel) *
+        this.hpsPerIntellect;
     }
     if (baseStats.criticalStrike) {
-      hps += calculateSecondaryStatDefault(baseStats.itemLevel, baseStats.criticalStrike, itemLevel) * this.hpsPerCriticalStrike;
+      hps +=
+        calculateSecondaryStatDefault(baseStats.itemLevel, baseStats.criticalStrike, itemLevel) *
+        this.hpsPerCriticalStrike;
     }
     if (baseStats.haste) {
-      hps += calculateSecondaryStatDefault(baseStats.itemLevel, baseStats.haste, itemLevel) * this.hpsPerHaste;
+      hps +=
+        calculateSecondaryStatDefault(baseStats.itemLevel, baseStats.haste, itemLevel) *
+        this.hpsPerHaste;
     }
     if (baseStats.mastery) {
-      hps += calculateSecondaryStatDefault(baseStats.itemLevel, baseStats.mastery, itemLevel) * this.hpsPerMastery;
+      hps +=
+        calculateSecondaryStatDefault(baseStats.itemLevel, baseStats.mastery, itemLevel) *
+        this.hpsPerMastery;
     }
     if (baseStats.versatility) {
-      hps += calculateSecondaryStatDefault(baseStats.itemLevel, baseStats.versatility, itemLevel) * this.hpsPerVersatility;
+      hps +=
+        calculateSecondaryStatDefault(baseStats.itemLevel, baseStats.versatility, itemLevel) *
+        this.hpsPerVersatility;
     }
     if (baseStats.leech) {
-      hps += calculateSecondaryStatDefault(baseStats.itemLevel, baseStats.leech, itemLevel) * this.hpsPerLeech;
+      hps +=
+        calculateSecondaryStatDefault(baseStats.itemLevel, baseStats.leech, itemLevel) *
+        this.hpsPerLeech;
     }
     return hps;
   }
@@ -415,11 +505,30 @@ class BaseHealerStatValues extends Analyzer {
   _getTooltip(stat) {
     switch (stat) {
       case STAT.HASTE_HPCT:
-        return <Trans id="shared.healerStatValues.stats.hpct">HPCT stands for "Healing per Cast Time". This is the value that Haste would be worth if you would cast everything you are already casting (and that scales with Haste) faster. Mana is not accounted for in any way and you should consider the Haste stat weight 0 if you run out of mana while doing everything else right.</Trans>;
+        return (
+          <Trans id="shared.healerStatValues.stats.hpct">
+            HPCT stands for "Healing per Cast Time". This is the value that Haste would be worth if
+            you would cast everything you are already casting (and that scales with Haste) faster.
+            Mana is not accounted for in any way and you should consider the Haste stat weight 0 if
+            you run out of mana while doing everything else right.
+          </Trans>
+        );
       case STAT.HASTE_HPM:
-        return <Trans id="shared.healerStatValues.stats.hpm">HPM stands for "Healing per Mana". In valuing Haste, it considers only the faster HoT ticking and not the reduced cast times. Effectively it models haste's bonus to mana efficiency. This is typically the better calculation to use for raid encounters where mana is an issue.</Trans>;
+        return (
+          <Trans id="shared.healerStatValues.stats.hpm">
+            HPM stands for "Healing per Mana". In valuing Haste, it considers only the faster HoT
+            ticking and not the reduced cast times. Effectively it models haste's bonus to mana
+            efficiency. This is typically the better calculation to use for raid encounters where
+            mana is an issue.
+          </Trans>
+        );
       case STAT.VERSATILITY_DR:
-        return <Trans id="shared.healerStatValues.stats.versDR">Weight includes both healing boost and damage reduction, counting the damage reduced as additional throughput.</Trans>;
+        return (
+          <Trans id="shared.healerStatValues.stats.versDR">
+            Weight includes both healing boost and damage reduction, counting the damage reduced as
+            additional throughput.
+          </Trans>
+        );
       default:
         return null;
     }
@@ -427,19 +536,21 @@ class BaseHealerStatValues extends Analyzer {
   static position = STATISTIC_ORDER.CORE(9);
   statistic() {
     const results = this._prepareResults();
-    const qeLink = results.reduce((urlParts, stat) => {
-      if (stat === 'intellect' || stat === 'versatilitydr') {
+    const qeLink = results
+      .reduce((urlParts, stat) => {
+        if (stat === 'intellect' || stat === 'versatilitydr') {
+          return urlParts;
+        }
+
+        const statValue = typeof stat === 'object' ? stat.stat : stat;
+        const gain = this._getGain(statValue);
+        const weight = gain / (this.totalOneInt || 1);
+        const statName = getName(statValue).replace(/[()\s+]/g, '');
+
+        urlParts.push(statName + '=' + weight.toFixed(2));
         return urlParts;
-      }
-
-      const statValue = typeof stat === 'object' ? stat.stat : stat;
-      const gain = this._getGain(statValue);
-      const weight = gain / (this.totalOneInt || 1);
-      const statName = getName(statValue).replace(/[()\s+]/g, '');
-
-      urlParts.push(statName + '=' + weight.toFixed(2));
-      return urlParts;
-    }, []).join('&');
+      }, [])
+      .join('&');
     return (
       <StatisticWrapper position={this.constructor.position}>
         <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -450,12 +561,18 @@ class BaseHealerStatValues extends Analyzer {
                   <tr className="text-muted">
                     <th style={{ minWidth: 30, fontWeight: 400 }}>
                       <TooltipElement
-                        content={(
+                        content={
                           <Trans id="shared.healerStatValues.statistic.title.tooltip">
-                            These stat values are calculated using the actual circumstances of this encounter. These values reveal the value of the last 1 rating of each stat, they may not necessarily be the best way to gear. The stat values are likely to differ based on fight, raid size, items used, talents chosen, etc.<br /><br />
+                            These stat values are calculated using the actual circumstances of this
+                            encounter. These values reveal the value of the last 1 rating of each
+                            stat, they may not necessarily be the best way to gear. The stat values
+                            are likely to differ based on fight, raid size, items used, talents
+                            chosen, etc.
+                            <br />
+                            <br />
                             DPS gains are not included in any of the stat values.
                           </Trans>
-                        )}
+                        }
                       >
                         <Trans id="shared.healerStatValues.statistic.title">Stat Values</Trans>
                       </TooltipElement>
@@ -466,20 +583,37 @@ class BaseHealerStatValues extends Analyzer {
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            <Trans id="shared.healerStatValues.statistic.qeLink"><img src={QELiveLogo} alt="Questionably Epic Live" style={{ height: '1.2em', marginLeft: 15 }} /> Open Questionably Epic Live</Trans>
+                            <Trans id="shared.healerStatValues.statistic.qeLink">
+                              <img
+                                src={QELiveLogo}
+                                alt="Questionably Epic Live"
+                                style={{ height: '1.2em', marginLeft: 15 }}
+                              />{' '}
+                              Open Questionably Epic Live
+                            </Trans>
                           </a>
                         </Tooltip>
                       )}
                     </th>
-                    <th className="text-right" style={{ minWidth: 30, fontWeight: 400 }} colSpan={2}>
-                      <TooltipElement content={<Trans id="shared.healerStatValues.statistic.title.value.tooltip">Normalized so Intellect is always 1.00.</Trans>}>
+                    <th
+                      className="text-right"
+                      style={{ minWidth: 30, fontWeight: 400 }}
+                      colSpan={2}
+                    >
+                      <TooltipElement
+                        content={
+                          <Trans id="shared.healerStatValues.statistic.title.value.tooltip">
+                            Normalized so Intellect is always 1.00.
+                          </Trans>
+                        }
+                      >
                         <Trans id="shared.healerStatValues.statistic.title.value">Value</Trans>
                       </TooltipElement>
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {results.map(row => {
+                  {results.map((row) => {
                     const stat = typeof row === 'object' ? row.stat : row;
                     const tooltip = typeof row === 'object' ? row.tooltip : this._getTooltip(stat);
                     const gain = this._getGain(stat);
@@ -488,9 +622,18 @@ class BaseHealerStatValues extends Analyzer {
 
                     const Icon = getIcon(stat);
 
-                    const gainPerSecond = (gain / this.owner.fightDuration * 1000).toFixed(2);
-                    const rating = gain !== null ? (ratingForOne === Infinity ? '∞' : formatNumber(ratingForOne)) : 'NYI';
-                    const informationIconTooltip = <Trans id="shared.healerStatValues.statistic.stats.tooltip">{gainPerSecond} HPS per 1 rating / {rating} rating per 1% throughput</Trans>;
+                    const gainPerSecond = ((gain / this.owner.fightDuration) * 1000).toFixed(2);
+                    const rating =
+                      gain !== null
+                        ? ratingForOne === Infinity
+                          ? '∞'
+                          : formatNumber(ratingForOne)
+                        : 'NYI';
+                    const informationIconTooltip = (
+                      <Trans id="shared.healerStatValues.statistic.stats.tooltip">
+                        {gainPerSecond} HPS per 1 rating / {rating} rating per 1% throughput
+                      </Trans>
+                    );
 
                     return (
                       <tr key={stat}>
@@ -502,10 +645,17 @@ class BaseHealerStatValues extends Analyzer {
                               marginRight: 10,
                             }}
                           />{' '}
-                          {tooltip ? <TooltipElement content={tooltip}>{getNameTranslated(stat)}</TooltipElement> : getNameTranslated(stat)}
+                          {tooltip ? (
+                            <TooltipElement content={tooltip}>
+                              {getNameTranslated(stat)}
+                            </TooltipElement>
+                          ) : (
+                            getNameTranslated(stat)
+                          )}
                         </td>
                         <td className="text-right">
-                          {stat === STAT.HASTE_HPCT && '0.00 - '}{gain !== null ? weight.toFixed(2) : 'NYI'}
+                          {stat === STAT.HASTE_HPCT && '0.00 - '}
+                          {gain !== null ? weight.toFixed(2) : 'NYI'}
                         </td>
                         <td style={{ padding: 6 }}>
                           <Tooltip content={informationIconTooltip}>

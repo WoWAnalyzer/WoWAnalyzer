@@ -5,7 +5,6 @@ import Events from 'parser/core/Events';
 const STEALTH_CHECK_BUFFER_MS = 50;
 
 class StealthCasts extends Analyzer {
-
   stealthSequences = [];
   latestStealth = null;
   usedStealthOnPull = false;
@@ -16,16 +15,19 @@ class StealthCasts extends Analyzer {
   }
 
   evaluateCast(event) {
-    if (this.selectedCombatant.hasBuff(SPELLS.STEALTH_BUFF.id, null, STEALTH_CHECK_BUFFER_MS) ||
-      this.selectedCombatant.hasBuff(SPELLS.STEALTH.id, null, STEALTH_CHECK_BUFFER_MS)) {
+    if (
+      this.selectedCombatant.hasBuff(SPELLS.STEALTH_BUFF.id, null, STEALTH_CHECK_BUFFER_MS) ||
+      this.selectedCombatant.hasBuff(SPELLS.STEALTH.id, null, STEALTH_CHECK_BUFFER_MS)
+    ) {
       this.usedStealthOnPull = true;
     }
-    if (!this.selectedCombatant.hasBuff(SPELLS.STEALTH_BUFF.id) &&
+    if (
+      !this.selectedCombatant.hasBuff(SPELLS.STEALTH_BUFF.id) &&
       !this.selectedCombatant.hasBuff(SPELLS.STEALTH.id) &&
       !this.selectedCombatant.hasBuff(SPELLS.VANISH_BUFF.id) &&
       !this.selectedCombatant.hasBuff(SPELLS.SUBTERFUGE_BUFF.id) &&
-      !this.selectedCombatant.hasBuff(SPELLS.MASTER_ASSASSIN_BUFF.id)) {
-
+      !this.selectedCombatant.hasBuff(SPELLS.MASTER_ASSASSIN_BUFF.id)
+    ) {
       if (this.latestStealth) {
         this.latestStealth = null;
       }
@@ -37,7 +39,6 @@ class StealthCasts extends Analyzer {
     }
     this.latestStealth.push(event);
   }
-
 }
 
 export default StealthCasts;

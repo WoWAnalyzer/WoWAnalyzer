@@ -50,7 +50,6 @@ import ShockBarrier from './modules/shadowlands/legendaries/ShockBarrier';
 import AshenHallow from '../shared/shadowlands/covenants/AshenHallow';
 import DivineToll from '../shared/shadowlands/covenants/DivineToll';
 
-
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -82,7 +81,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lightOfDawn: LightOfDawn,
     lightOfDawnIndexer: LightOfDawnIndexer,
     hammerOfWrath: HammerOfWrath,
-    
+
     // Features
     checklist: Checklist,
     abilities: Abilities,

@@ -21,19 +21,25 @@ class ImplosionHandler extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.IMPLOSION_CAST), this.onImplosionCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.IMPLOSION_DAMAGE), this.onImplosionDamage);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.IMPLOSION_CAST),
+      this.onImplosionCast,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.IMPLOSION_DAMAGE),
+      this.onImplosionDamage,
+    );
   }
 
   onImplosionCast(event) {
     // Mark current Wild Imps as "implodable"
-    const imps = this.demoPets.currentPets.filter(pet => isWildImp(pet.guid));
+    const imps = this.demoPets.currentPets.filter((pet) => isWildImp(pet.guid));
     test && this.log('Implosion cast, current imps', JSON.parse(JSON.stringify(imps)));
-    if (imps.some(imp => imp.x === null || imp.y === null)) {
-      debug && this.error('Implosion cast, some imps don\'t have coordinates', imps);
+    if (imps.some((imp) => imp.x === null || imp.y === null)) {
+      debug && this.error("Implosion cast, some imps don't have coordinates", imps);
       return;
     }
-    imps.forEach(imp => {
+    imps.forEach((imp) => {
       imp.shouldImplode = true;
       imp.pushHistory(event.timestamp, 'Marked for implosion', event);
     });
@@ -43,7 +49,7 @@ class ImplosionHandler extends Analyzer {
 
   onImplosionDamage(event) {
     if (!event.x || !event.y) {
-      debug && this.error('Implosion damage event doesn\'t have a target position', event);
+      debug && this.error("Implosion damage event doesn't have a target position", event);
       return;
     }
     // Pairing damage events with Imploded Wild Imps
@@ -54,7 +60,10 @@ class ImplosionHandler extends Analyzer {
     if (this._targetsHit.length === 0) {
       test && this.log(`First Implosion damage after cast on ${target}`);
     } else if (this._targetsHit.includes(target)) {
-      test && this.log(`Implosion damage on ${target}, already marked => new imp exploded, reset array, marked`);
+      test &&
+        this.log(
+          `Implosion damage on ${target}, already marked => new imp exploded, reset array, marked`,
+        );
     } else if (this._targetsHit.length > 0 && !this._targetsHit.includes(target)) {
       this._targetsHit.push(target);
       test && this.log(`Implosion damage on ${target}, not hit yet, marked, skipped`);
@@ -65,8 +74,9 @@ class ImplosionHandler extends Analyzer {
     // handle Implosion
     // Implosion pulls all Wild Imps towards target, exploding them and dealing AoE damage
     // there's no connection of each damage event to individual Wild Imp, so take Imps that were present at the Implosion cast, order them by the distance from the target and kill them in this order (they should be travelling with the same speed)
-    const imps = this.demoPets._getPets(this._lastCast) // there's a delay between cast and damage events, might be possible to generate another imps, those shouldn't count, that's why I use Implosion cast timestamp instead of current pets
-      .filter(pet => isWildImp(pet.guid) && pet.shouldImplode && !pet.realDespawn)
+    const imps = this.demoPets
+      ._getPets(this._lastCast) // there's a delay between cast and damage events, might be possible to generate another imps, those shouldn't count, that's why I use Implosion cast timestamp instead of current pets
+      .filter((pet) => isWildImp(pet.guid) && pet.shouldImplode && !pet.realDespawn)
       .sort((imp1, imp2) => {
         const distance1 = this._getDistance(imp1.x, imp1.y, event.x, event.y);
         const distance2 = this._getDistance(imp2.x, imp2.y, event.x, event.y);
@@ -75,11 +85,15 @@ class ImplosionHandler extends Analyzer {
     test && this.log('Implosion damage, Imps to be imploded: ', JSON.parse(JSON.stringify(imps)));
     if (imps.length === 0) {
       debug && this.error('Error during calculating Implosion distance for imps');
-      if (!this.demoPets._getPets(this._lastCast).some(pet => isWildImp(pet.guid))) {
+      if (!this.demoPets._getPets(this._lastCast).some((pet) => isWildImp(pet.guid))) {
         debug && this.error('No imps');
         return;
       }
-      if (!this.demoPets._getPets(this._lastCast).some(pet => isWildImp(pet.guid) && pet.shouldImplode)) {
+      if (
+        !this.demoPets
+          ._getPets(this._lastCast)
+          .some((pet) => isWildImp(pet.guid) && pet.shouldImplode)
+      ) {
         debug && this.error('No implodable imps');
       }
       return;

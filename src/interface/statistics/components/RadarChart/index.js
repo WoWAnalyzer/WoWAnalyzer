@@ -11,35 +11,51 @@ import SvgWrappingText from './SvgWrappingText';
 // The original code was licensed as "license: mit". These modifications (basically any code not straight from the original) is licensed under the regular license used in this project. If you need a MIT license you should use the code in the above link instead.
 
 export function maxDataValue(data) {
-  return data.reduce((dataMax, series) => series.points.reduce((seriesMax, item) => (
-    Math.max(seriesMax, item.value)
-  ), dataMax), 0);
+  return data.reduce(
+    (dataMax, series) =>
+      series.points.reduce((seriesMax, item) => Math.max(seriesMax, item.value), dataMax),
+    0,
+  );
 }
 
-const RadarChart = props => {
-  const { data, width, height, margin, levels, opacityCircles, labelFactor, labelMaxWidth, roundStrokes, color, opacityArea, strokeWidth, dotRadius, labelFormatter, ...others } = props;
+const RadarChart = (props) => {
+  const {
+    data,
+    width,
+    height,
+    margin,
+    levels,
+    opacityCircles,
+    labelFactor,
+    labelMaxWidth,
+    roundStrokes,
+    color,
+    opacityArea,
+    strokeWidth,
+    dotRadius,
+    labelFormatter,
+    ...others
+  } = props;
 
   //If the supplied maxValue is smaller than the actual one, replace by the max in the data
   const maxValue = Math.max(props.maxValue, maxDataValue(data));
 
   //Names of each axis
-  const allAxis = data[0].points.map(i => i.axis);
+  const allAxis = data[0].points.map((i) => i.axis);
   //The number of different axes
   const total = allAxis.length;
   //Radius of the outermost circle
   const radius = Math.min(width / 2, height / 2);
   //The width in radians of each "slice"
-  const angleSlice = Math.PI * 2 / total;
+  const angleSlice = (Math.PI * 2) / total;
 
   //Scale for the radius
-  const rScale = scaleLinear()
-    .range([0, radius])
-    .domain([0, maxValue]);
+  const rScale = scaleLinear().range([0, radius]).domain([0, maxValue]);
 
   //The radial line function
   const radarLine = lineRadial()
     .curve(curveLinearClosed)
-    .radius(d => rScale(d.value))
+    .radius((d) => rScale(d.value))
     .angle((_, i) => i * angleSlice);
   if (roundStrokes) {
     radarLine.curve(curveCardinalClosed);
@@ -65,11 +81,11 @@ const RadarChart = props => {
         </defs>
         <g className="axisWrapper">
           {/* the background circles */}
-          {[...Array(3).keys()].reverse().map(level => (
+          {[...Array(3).keys()].reverse().map((level) => (
             <circle
               key={level}
               className="gridCircle"
-              r={radius / levels * (level + 1)}
+              r={(radius / levels) * (level + 1)}
               style={{
                 fill: '#CDCDCD',
                 stroke: '#CDCDCD',
@@ -81,17 +97,17 @@ const RadarChart = props => {
           ))}
           {/* the background circle labels */}
           {/* don't merge with the above loop since we need text to overlap ALL circles */}
-          {[...Array(3).keys()].reverse().map(level => (
+          {[...Array(3).keys()].reverse().map((level) => (
             <text
               key={level}
               className="axisLabel"
               x={4}
-              y={-(level + 1) * radius / levels}
+              y={(-(level + 1) * radius) / levels}
               dy="0.4em"
               style={{ fontSize: 10 }}
               fill="rgba(200, 200, 200, 0.7)"
             >
-              {labelFormatter(maxValue * (level + 1) / levels)}
+              {labelFormatter((maxValue * (level + 1)) / levels)}
             </text>
           ))}
           {/* Create the straight lines radiating outward from the center */}
@@ -188,13 +204,17 @@ RadarChart.propTypes = {
   strokeWidth: PropTypes.number,
   roundStrokes: PropTypes.bool,
   color: PropTypes.object,
-  data: PropTypes.arrayOf(PropTypes.shape({
-    color: PropTypes.string,
-    points: PropTypes.arrayOf(PropTypes.shape({
-      axis: PropTypes.string.isRequired,
-      value: PropTypes.number.isRequired,
-    })).isRequired,
-  })).isRequired,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      color: PropTypes.string,
+      points: PropTypes.arrayOf(
+        PropTypes.shape({
+          axis: PropTypes.string.isRequired,
+          value: PropTypes.number.isRequired,
+        }),
+      ).isRequired,
+    }),
+  ).isRequired,
   labelFormatter: PropTypes.array.isRequired,
 };
 
@@ -202,16 +222,16 @@ RadarChart.defaultProps = {
   width: 500, //Width of the circle
   height: 500, //Height of the circle
   margin: { top: 40, right: 40, bottom: 40, left: 40 }, //The margins of the SVG
-  levels: 3,				//How many levels or inner circles should there be drawn
-  maxValue: 0, 			//What is the value that the biggest circle will represent
-  labelFactor: 1.25, 	//How much farther than the radius of the outer circle should the labels be placed
-  labelMaxWidth: 60, 		//The number of pixels after which a label needs to be given a new line
-  opacityArea: 0.35, 	//The opacity of the area of the blob
-  dotRadius: 4, 			//The size of the colored circles of each blog
-  opacityCircles: 0.1, 	//The opacity of the circles of each blob
-  strokeWidth: 2, 		//The width of the stroke around each blob
-  roundStrokes: false,	//If true the area and stroke will follow a round path (cardinal-closed)
-  color: scaleOrdinal(schemeCategory10),	//Color function
+  levels: 3, //How many levels or inner circles should there be drawn
+  maxValue: 0, //What is the value that the biggest circle will represent
+  labelFactor: 1.25, //How much farther than the radius of the outer circle should the labels be placed
+  labelMaxWidth: 60, //The number of pixels after which a label needs to be given a new line
+  opacityArea: 0.35, //The opacity of the area of the blob
+  dotRadius: 4, //The size of the colored circles of each blog
+  opacityCircles: 0.1, //The opacity of the circles of each blob
+  strokeWidth: 2, //The width of the stroke around each blob
+  roundStrokes: false, //If true the area and stroke will follow a round path (cardinal-closed)
+  color: scaleOrdinal(schemeCategory10), //Color function
 };
 
 export default RadarChart;

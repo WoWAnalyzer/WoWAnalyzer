@@ -39,13 +39,13 @@ class AngerManagement extends Analyzer {
       return;
     }
 
-    const rage = event.classResources.find(e => e.type === RESOURCE_TYPES.RAGE.id);
+    const rage = event.classResources.find((e) => e.type === RESOURCE_TYPES.RAGE.id);
     if (!rage || !rage.cost) {
       return;
     }
 
     const rageSpent = rage.cost / 10;
-    const reduction = rageSpent / RAGE_NEEDED_FOR_PROC * CDR_PER_PROC;
+    const reduction = (rageSpent / RAGE_NEEDED_FOR_PROC) * CDR_PER_PROC;
 
     if (!this.spellUsable.isOnCooldown(SPELLS.RECKLESSNESS.id)) {
       this.wastedReduction += reduction;
@@ -64,9 +64,7 @@ class AngerManagement extends Analyzer {
         tooltip={`${formatNumber(this.wastedReduction / 1000)}s missed CDR`}
       >
         <BoringSpellValueText spell={SPELLS.ANGER_MANAGEMENT_TALENT}>
-          <>
-            {formatNumber(this.effectiveReduction / 1000)}s Recklessness CDR
-          </>
+          <>{formatNumber(this.effectiveReduction / 1000)}s Recklessness CDR</>
         </BoringSpellValueText>
       </Statistic>
     );

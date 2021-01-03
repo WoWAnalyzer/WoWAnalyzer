@@ -52,9 +52,18 @@ class Empowerment extends Analyzer {
 
   constructor(options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STARSURGE_MOONKIN), this.onCast);
-    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(this.empowermentBuff), this.onApplyBuff);
-    this.addEventListener(Events.applybuffstack.to(SELECTED_PLAYER).spell(this.empowermentBuff), this.onApplyBuffStack);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STARSURGE_MOONKIN),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.applybuff.to(SELECTED_PLAYER).spell(this.empowermentBuff),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.applybuffstack.to(SELECTED_PLAYER).spell(this.empowermentBuff),
+      this.onApplyBuffStack,
+    );
   }
 
   onCast(event) {
@@ -62,7 +71,8 @@ class Empowerment extends Analyzer {
     if (!buff) {
       return;
     }
-    if (buff.stacks < 3) { // Did not overcap
+    if (buff.stacks < 3) {
+      // Did not overcap
       return;
     }
     this.wasted += 1;
@@ -78,13 +88,26 @@ class Empowerment extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholdsInverted).addSuggestion((suggest, actual, recommended) => suggest(<>You overcapped {this.wasted} {this.empowermentPrefix} Empowerments by casting <SpellLink id={SPELLS.STARSURGE_MOONKIN.id} /> while already at 3 stacks. Try to always spend your empowerments before casting <SpellLink id={SPELLS.STARSURGE_MOONKIN.id} /> if you are not going to overcap Astral Power.</>)
-      .icon(this.icon)
-      .actual(t({
-      id: "druid.balance.suggestions.empowerment.overcapped",
-      message: `${formatPercentage(actual)}% overcapped ${this.empowermentPrefix} Empowerments`
-    }))
-      .recommended(`<${formatPercentage(recommended)}% is recommended`));
+    when(this.suggestionThresholdsInverted).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You overcapped {this.wasted} {this.empowermentPrefix} Empowerments by casting{' '}
+          <SpellLink id={SPELLS.STARSURGE_MOONKIN.id} /> while already at 3 stacks. Try to always
+          spend your empowerments before casting <SpellLink id={SPELLS.STARSURGE_MOONKIN.id} /> if
+          you are not going to overcap Astral Power.
+        </>,
+      )
+        .icon(this.icon)
+        .actual(
+          t({
+            id: 'druid.balance.suggestions.empowerment.overcapped',
+            message: `${formatPercentage(actual)}% overcapped ${
+              this.empowermentPrefix
+            } Empowerments`,
+          }),
+        )
+        .recommended(`<${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
@@ -94,7 +117,14 @@ class Empowerment extends Analyzer {
         size="flexible"
         tooltip={`${this.wasted} out of ${this.generated} ${this.empowermentPrefix} Empowerments wasted. ${this.empowermentPrefix} Empowerment overcapping should never occur when it is possible to cast a ${this.empoweredSpell.name} without overcapping Astral Power.`}
       >
-        <BoringValue label={<>Overcapped <SpellIcon id={this.empoweredSpell.id} /> {this.empowermentPrefix} Empowerments </>}>
+        <BoringValue
+          label={
+            <>
+              Overcapped <SpellIcon id={this.empoweredSpell.id} /> {this.empowermentPrefix}{' '}
+              Empowerments{' '}
+            </>
+          }
+        >
           <>
             {formatPercentage(this.wastedPercentage)} % <small>wasted</small>
           </>

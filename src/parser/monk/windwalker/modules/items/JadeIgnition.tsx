@@ -31,10 +31,22 @@ class JadeIgnition extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.JADE_IGNITION_BUFF), this.applyBuff);
-    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.JADE_IGNITION_BUFF), this.applyBuffStack);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FISTS_OF_FURY_DAMAGE), this.onFistsDamage);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SPINNING_CRANE_KICK), this.castSpinningCraneKick);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.JADE_IGNITION_BUFF),
+      this.applyBuff,
+    );
+    this.addEventListener(
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.JADE_IGNITION_BUFF),
+      this.applyBuffStack,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FISTS_OF_FURY_DAMAGE),
+      this.onFistsDamage,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SPINNING_CRANE_KICK),
+      this.castSpinningCraneKick,
+    );
   }
 
   applyBuff() {
@@ -61,7 +73,7 @@ class JadeIgnition extends Analyzer {
   }
 
   get stackUsage() {
-    return 1 - (this.stacksWasted / this.totalStacks);
+    return 1 - this.stacksWasted / this.totalStacks;
   }
 
   get suggestionThresholds() {
@@ -93,11 +105,17 @@ class JadeIgnition extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <Trans id="monk.windwalker.suggestions.jadeIgnitionWastedStacks"> You wasted your <SpellLink id={SPELLS.JADE_IGNITION_BUFF.id} /> stacks by using Fists of Fury at full stacks</Trans>)
-      .icon(SPELLS.JADE_IGNITION.icon)
-      .actual(`${formatPercentage(actual, 0)}% Stacks used`)
-      .recommended(`${formatPercentage(recommended, 0)}% Stacks used is recommended`),
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <Trans id="monk.windwalker.suggestions.jadeIgnitionWastedStacks">
+          {' '}
+          You wasted your <SpellLink id={SPELLS.JADE_IGNITION_BUFF.id} /> stacks by using Fists of
+          Fury at full stacks
+        </Trans>,
+      )
+        .icon(SPELLS.JADE_IGNITION.icon)
+        .actual(`${formatPercentage(actual, 0)}% Stacks used`)
+        .recommended(`${formatPercentage(recommended, 0)}% Stacks used is recommended`),
     );
   }
 }

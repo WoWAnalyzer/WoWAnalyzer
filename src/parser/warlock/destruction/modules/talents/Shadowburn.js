@@ -22,7 +22,7 @@ const FRAGMENTS_PER_CHAOS_BOLT = 20;
 
 class Shadowburn extends Analyzer {
   get dps() {
-    return this.damage / this.owner.fightDuration * 1000;
+    return (this.damage / this.owner.fightDuration) * 1000;
   }
 
   static dependencies = {
@@ -34,7 +34,10 @@ class Shadowburn extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SHADOWBURN_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOWBURN_TALENT), this.onShadowburnDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOWBURN_TALENT),
+      this.onShadowburnDamage,
+    );
   }
 
   onShadowburnDamage(event) {
@@ -43,24 +46,31 @@ class Shadowburn extends Analyzer {
 
   statistic() {
     const spell = this.abilityTracker.getAbility(SPELLS.CHAOS_BOLT.id);
-    const avg = ((spell.damageEffective + spell.damageAbsorbed) / spell.casts) || 0;
+    const avg = (spell.damageEffective + spell.damageAbsorbed) / spell.casts || 0;
     const fragments = this.soulShardTracker.getGeneratedBySpell(SPELLS.SHADOWBURN_TALENT.id);
     const estimatedDamage = Math.floor(fragments / FRAGMENTS_PER_CHAOS_BOLT) * avg;
     return (
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            {formatThousands(this.damage)} damage<br /><br />
-
-            If fragments generated with Shadowburn were used on Chaos Bolts, they would deal an estimated {formatThousands(estimatedDamage)} damage ({this.owner.formatItemDamageDone(estimatedDamage)}).
-            This is estimated using average Chaos Bolt damage over the fight.
+            {formatThousands(this.damage)} damage
+            <br />
+            <br />
+            If fragments generated with Shadowburn were used on Chaos Bolts, they would deal an
+            estimated {formatThousands(estimatedDamage)} damage (
+            {this.owner.formatItemDamageDone(estimatedDamage)}). This is estimated using average
+            Chaos Bolt damage over the fight.
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.SHADOWBURN_TALENT}>
-          {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total</small> <br />
+          {formatNumber(this.dps)} DPS{' '}
+          <small>
+            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total
+          </small>{' '}
+          <br />
           {fragments} <small>generated Fragments</small>
         </BoringSpellValueText>
       </Statistic>

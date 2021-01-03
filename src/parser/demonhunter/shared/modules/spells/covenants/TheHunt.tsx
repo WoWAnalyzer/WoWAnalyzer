@@ -11,12 +11,10 @@ import ItemHealingDone from 'interface/ItemHealingDone';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { formatThousands } from 'common/format';
 
-
 /**
  * Night Fae - The Hunt
  */
 class TheHunt extends Analyzer {
-
   damage = 0;
   heal = 0;
 
@@ -29,8 +27,14 @@ class TheHunt extends Analyzer {
       return;
     }
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.THE_HUNT_CHARGE, SPELLS.THE_HUNT_DOT]), this.onDamage);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.THE_HUNT_HEAL]), this.onHeal);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.THE_HUNT_CHARGE, SPELLS.THE_HUNT_DOT]),
+      this.onDamage,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.THE_HUNT_HEAL]),
+      this.onHeal,
+    );
   }
 
   onDamage(event: DamageEvent) {
@@ -47,22 +51,21 @@ class TheHunt extends Analyzer {
         position={STATISTIC_ORDER.CORE()}
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
-        tooltip={(
+        tooltip={
           <>
             {formatThousands(this.damage)} Total damage
             {formatThousands(this.heal)} Total heal
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.THE_HUNT}>
-            <ItemDamageDone amount={this.damage} />
-            <br />
-            <ItemHealingDone amount={this.heal} />
+          <ItemDamageDone amount={this.damage} />
+          <br />
+          <ItemHealingDone amount={this.heal} />
         </BoringSpellValueText>
       </Statistic>
     );
   }
-
 }
 
 export default TheHunt;

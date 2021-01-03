@@ -17,7 +17,10 @@ const Radar = ({ distance, size, style, playerColor }) => {
         ...style,
       }}
     >
-      <Ring size={40 * pixelsPerYard} style={{ opacity: 0.25, background: 'rgba(255, 255, 255, 0.05)' }} />
+      <Ring
+        size={40 * pixelsPerYard}
+        style={{ opacity: 0.25, background: 'rgba(255, 255, 255, 0.05)' }}
+      />
       <Ring size={30 * pixelsPerYard} style={{ opacity: 0.5 }} />
       <Ring size={20 * pixelsPerYard} style={{ opacity: 0.75 }} />
       <Ring size={10 * pixelsPerYard} style={{ opacity: 1 }} />

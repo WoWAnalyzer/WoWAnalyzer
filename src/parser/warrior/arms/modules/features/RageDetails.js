@@ -11,7 +11,7 @@ import RageTracker from './RageTracker';
 
 class RageDetails extends Analyzer {
   get wastedPercent() {
-    return (this.rageTracker.wasted / (this.rageTracker.wasted + this.rageTracker.generated) || 0);
+    return this.rageTracker.wasted / (this.rageTracker.wasted + this.rageTracker.generated) || 0;
   }
 
   get efficiencySuggestionThresholds() {
@@ -19,8 +19,8 @@ class RageDetails extends Analyzer {
       actual: 1 - this.wastedPercent,
       isLessThan: {
         minor: 0.95,
-        average: 0.90,
-        major: .85,
+        average: 0.9,
+        major: 0.85,
       },
       style: 'percentage',
     };
@@ -32,7 +32,7 @@ class RageDetails extends Analyzer {
       isGreaterThan: {
         minor: 0.05,
         average: 0.1,
-        major: .15,
+        major: 0.15,
       },
       style: 'percentage',
     };
@@ -43,13 +43,17 @@ class RageDetails extends Analyzer {
   };
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Rage.`)
-      .icon('spell_nature_reincarnation')
-      .actual(t({
-      id: "warrior.arms.suggestions.rage.wasted",
-      message: `${formatPercentage(actual)}% wasted`
-    }))
-      .recommended(`<${formatPercentage(recommended)}% is recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Rage.`)
+        .icon('spell_nature_reincarnation')
+        .actual(
+          t({
+            id: 'warrior.arms.suggestions.rage.wasted',
+            message: `${formatPercentage(actual)}% wasted`,
+          }),
+        )
+        .recommended(`<${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
@@ -59,7 +63,9 @@ class RageDetails extends Analyzer {
         icon={<Icon icon="spell_nature_reincarnation" />}
         value={`${formatPercentage(this.wastedPercent)} %`}
         label="Rage wasted"
-        tooltip={`${this.rageTracker.wasted} out of ${this.rageTracker.wasted + this.rageTracker.generated} rage wasted.`}
+        tooltip={`${this.rageTracker.wasted} out of ${
+          this.rageTracker.wasted + this.rageTracker.generated
+        } rage wasted.`}
       />
     );
   }
@@ -70,15 +76,11 @@ class RageDetails extends Analyzer {
       url: 'rage-usage',
       render: () => (
         <Panel>
-          <ResourceBreakdown
-            tracker={this.rageTracker}
-            showSpenders
-          />
+          <ResourceBreakdown tracker={this.rageTracker} showSpenders />
         </Panel>
       ),
     };
   }
-
 }
 
 export default RageDetails;

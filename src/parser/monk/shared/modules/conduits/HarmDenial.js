@@ -14,9 +14,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 
 import { conduitScaling } from '../../../mistweaver/constants';
 
-
 class HarmDenial extends Analyzer {
-
   healingIncrease = 0;
 
   healingBoost = 0;
@@ -29,21 +27,24 @@ class HarmDenial extends Analyzer {
     super(...args);
 
     const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.HARM_DENIAL.id);
-    
+
     if (!conduitRank) {
       this.active = false;
       return;
     }
 
-    this.healingBoost = conduitScaling(.25, conduitRank);
+    this.healingBoost = conduitScaling(0.25, conduitRank);
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.EXPEL_HARM, SPELLS.EXPEL_HARM_TARGET_HEAL]), this.extraHealing);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.EXPEL_HARM, SPELLS.EXPEL_HARM_TARGET_HEAL]),
+      this.extraHealing,
+    );
   }
 
   extraHealing(event) {
     const bonusHealing = calculateEffectiveHealing(event, this.healingBoost) || 0;
     this.healingIncrease += bonusHealing;
-    this.bonusDamage += bonusHealing * .1;
+    this.bonusDamage += bonusHealing * 0.1;
   }
 
   statistic() {
@@ -54,7 +55,8 @@ class HarmDenial extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
       >
         <BoringSpellValueText spell={SPELLS.HARM_DENIAL}>
-          <ItemDamageDone amount={this.bonusDamage} /><br />
+          <ItemDamageDone amount={this.bonusDamage} />
+          <br />
           <ItemHealingDone amount={this.healingIncrease} />
         </BoringSpellValueText>
       </Statistic>

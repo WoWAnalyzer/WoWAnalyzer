@@ -70,7 +70,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -83,7 +83,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -140,7 +140,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -153,7 +153,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
         buffSpellId: SPELLS.NETHER_PORTAL_BUFF.id,
       },
@@ -167,7 +167,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -180,9 +180,9 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
-          averageIssueEfficiency: 0.80,
-          majorIssueEfficiency: 0.70,
+          recommendedEfficiency: 0.9,
+          averageIssueEfficiency: 0.8,
+          majorIssueEfficiency: 0.7,
         },
       },
       {
@@ -195,7 +195,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
       },
 
@@ -210,8 +210,8 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           importance: ISSUE_IMPORTANCE.MINOR,
           recommendedEfficiency: 0.33,
-          averageIssueEfficiency: 0.20,
-          majorIssueEfficiency: 0.10,
+          averageIssueEfficiency: 0.2,
+          majorIssueEfficiency: 0.1,
         },
       },
       {
@@ -224,8 +224,8 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           importance: ISSUE_IMPORTANCE.MINOR,
           recommendedEfficiency: 0.33,
-          averageIssueEfficiency: 0.20,
-          majorIssueEfficiency: 0.10,
+          averageIssueEfficiency: 0.2,
+          majorIssueEfficiency: 0.1,
         },
         buffSpellId: SPELLS.DARK_PACT_TALENT.id,
       },
@@ -388,7 +388,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FEL_DOMINATION,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: combatant.hasConduitBySpellID(SPELLS.FEL_CELERITY.id) ? 180 - FEL_CELERITY_REDUCTION_SEC[combatant.conduitRankBySpellID(SPELLS.FEL_CELERITY.id)] : 180,
+        cooldown: combatant.hasConduitBySpellID(SPELLS.FEL_CELERITY.id)
+          ? 180 - FEL_CELERITY_REDUCTION_SEC[combatant.conduitRankBySpellID(SPELLS.FEL_CELERITY.id)]
+          : 180,
         gcd: {
           base: 1500,
         },

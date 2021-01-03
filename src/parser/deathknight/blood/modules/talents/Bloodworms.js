@@ -17,26 +17,31 @@ class Bloodworms extends Analyzer {
     abilityTracker: AbilityTracker,
   };
 
-  totalSummons=0;
-  totalHealing=0;
-  totalDamage=0;
-  poppedEarly=0;
-  wormID=0;
+  totalSummons = 0;
+  totalHealing = 0;
+  totalDamage = 0;
+  poppedEarly = 0;
+  wormID = 0;
 
   bloodworm = [];
-
 
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BLOODWORMS_TALENT.id);
     this.addEventListener(Events.summon.by(SELECTED_PLAYER).spell(SPELLS.BLOODWORM), this.onSummon);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onDamage);
-    this.addEventListener(Events.instakill.by(SELECTED_PLAYER_PET).spell(SPELLS.BLOODWORM_DEATH), this.onInstakill);
-    this.addEventListener(Events.heal.to(SELECTED_PLAYER).spell(SPELLS.BLOODWORM_DEATH), this.onHeal);
+    this.addEventListener(
+      Events.instakill.by(SELECTED_PLAYER_PET).spell(SPELLS.BLOODWORM_DEATH),
+      this.onInstakill,
+    );
+    this.addEventListener(
+      Events.heal.to(SELECTED_PLAYER).spell(SPELLS.BLOODWORM_DEATH),
+      this.onHeal,
+    );
   }
 
   poppedWorms(bloodworm) {
-    return bloodworm.filter(e => e.killedTime - e.summonedTime <= WORMLIFESPAN).length;
+    return bloodworm.filter((e) => e.killedTime - e.summonedTime <= WORMLIFESPAN).length;
   }
 
   onSummon(event) {
@@ -44,7 +49,7 @@ class Bloodworms extends Analyzer {
       uniqueID: event.targetInstance,
       summonedTime: event.timestamp,
     });
-    this.totalSummons+= 1;
+    this.totalSummons += 1;
     this.wormID = event.targetID;
   }
 
@@ -54,7 +59,6 @@ class Bloodworms extends Analyzer {
     }
     this.totalDamage += event.amount + (event.absorbed || 0);
   }
-
 
   onInstakill(event) {
     let index = -1;
@@ -71,7 +75,7 @@ class Bloodworms extends Analyzer {
   }
 
   onHeal(event) {
-    this.totalHealing+= (event.amount || 0) + (event.absorbed || 0);
+    this.totalHealing += (event.amount || 0) + (event.absorbed || 0);
   }
 
   statistic() {
@@ -80,13 +84,16 @@ class Bloodworms extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(2)}
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            <strong>Damage:</strong> {formatThousands(this.totalDamage)} / {this.owner.formatItemDamageDone(this.totalDamage)}<br />
-            <strong>Number of worms summoned:</strong> {this.totalSummons}<br />
+            <strong>Damage:</strong> {formatThousands(this.totalDamage)} /{' '}
+            {this.owner.formatItemDamageDone(this.totalDamage)}
+            <br />
+            <strong>Number of worms summoned:</strong> {this.totalSummons}
+            <br />
             <strong>Number of worms popped early:</strong> {this.poppedWorms(this.bloodworm)}
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.BLOODWORMS_TALENT}>
           <>

@@ -6,10 +6,7 @@ import Config from 'parser/Config';
 import useParser from '../useParser';
 
 interface Props {
-  children: (
-    isLoading: boolean,
-    parser: typeof CombatLogParser | undefined,
-  ) => ReactNode;
+  children: (isLoading: boolean, parser: typeof CombatLogParser | undefined) => ReactNode;
   config: Config;
 }
 

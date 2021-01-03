@@ -35,7 +35,11 @@ class EventsLoader extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps, prevState, prevContext) {
-    if (prevProps.report !== this.props.report || prevProps.fight !== this.props.fight || prevProps.player !== this.props.player) {
+    if (
+      prevProps.report !== this.props.report ||
+      prevProps.fight !== this.props.fight ||
+      prevProps.player !== this.props.player
+    ) {
       this.setState({
         isLoading: true,
         events: null,

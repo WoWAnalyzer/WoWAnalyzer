@@ -25,11 +25,11 @@ class Nightstalker extends StealthCasts {
 
   get vanishCastsSpentOnRupture() {
     let vanishWithRupture = 0;
-    this.stealthSequences.forEach(sequence => {
+    this.stealthSequences.forEach((sequence) => {
       if (this.usedStealthOnPull && sequence === this.stealthSequences[0]) {
         return;
       }
-      const firstRuptureCast = sequence.find(e => e.ability.guid === SPELLS.RUPTURE.id);
+      const firstRuptureCast = sequence.find((e) => e.ability.guid === SPELLS.RUPTURE.id);
       if (firstRuptureCast) {
         vanishWithRupture += 1;
       }
@@ -42,8 +42,12 @@ class Nightstalker extends StealthCasts {
       return false;
     }
 
-    const RuptureOpener = this.stealthSequences[0].find(e => e.ability.guid === SPELLS.RUPTURE.id);
-    const GarroteOpener = this.stealthSequences[0].find(e => e.ability.guid === SPELLS.GARROTE.id);
+    const RuptureOpener = this.stealthSequences[0].find(
+      (e) => e.ability.guid === SPELLS.RUPTURE.id,
+    );
+    const GarroteOpener = this.stealthSequences[0].find(
+      (e) => e.ability.guid === SPELLS.GARROTE.id,
+    );
     if (RuptureOpener || GarroteOpener) {
       return true;
     }
@@ -55,7 +59,7 @@ class Nightstalker extends StealthCasts {
   }
 
   get percentGoodVanishCasts() {
-    return (this.vanishCastsSpentOnRupture / this.vanishCasts) || 0;
+    return this.vanishCastsSpentOnRupture / this.vanishCasts || 0;
   }
 
   get suggestionThresholds() {
@@ -90,29 +94,58 @@ class Nightstalker extends StealthCasts {
     if (!this.active) {
       return;
     }
-    const allowedAbilities = ABILITIES_AFFECTED_BY_DAMAGE_INCREASES.filter(spell => !NIGHTSTALKER_BLACKLIST.includes(spell));
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(allowedAbilities), this.addBonusDamageIfBuffed);
+    const allowedAbilities = ABILITIES_AFFECTED_BY_DAMAGE_INCREASES.filter(
+      (spell) => !NIGHTSTALKER_BLACKLIST.includes(spell),
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(allowedAbilities),
+      this.addBonusDamageIfBuffed,
+    );
   }
 
   addBonusDamageIfBuffed(event) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.STEALTH.id) &&
+    if (
+      !this.selectedCombatant.hasBuff(SPELLS.STEALTH.id) &&
       !this.selectedCombatant.hasBuff(SPELLS.STEALTH_BUFF.id) &&
-      !this.selectedCombatant.hasBuff(SPELLS.VANISH_BUFF.id)) {
+      !this.selectedCombatant.hasBuff(SPELLS.VANISH_BUFF.id)
+    ) {
       return;
     }
     this.bonusDamage += calculateEffectiveDamage(event, DAMAGE_BONUS);
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your failed to cast <SpellLink id={SPELLS.RUPTURE.id} /> after <SpellLink id={SPELLS.VANISH.id} /> {this.vanishCasts - this.vanishCastsSpentOnRupture} time(s). Make sure to prioritize spending your Vanish on snapshotting <SpellLink id={SPELLS.RUPTURE.id} /> when using <SpellLink id={SPELLS.NIGHTSTALKER_TALENT.id} />.</>)
-      .icon(SPELLS.GARROTE.icon)
-      .actual(t({
-      id: "rogue.assassination.suggestions.nightstalker.snapshots",
-      message: `${formatPercentage(actual)}% of Vanishes used to snapshot Rupture`
-    }))
-      .recommended(`>${formatPercentage(recommended)}% is recommended`));
-    when(this.suggestionThresholdsOpener).isFalse().addSuggestion((suggest, actual, recommended) => suggest(<>You failed to snapshot a <SpellLink id={SPELLS.RUPTURE.id} /> or <SpellLink id={SPELLS.GARROTE.id} /> on pull from stealth. Make sure your first cast when using <SpellLink id={SPELLS.NIGHTSTALKER_TALENT.id} /> is a <SpellLink id={SPELLS.RUPTURE.id} /> or <SpellLink id={SPELLS.GARROTE.id} />.</>)
-      .icon(SPELLS.NIGHTSTALKER_TALENT.icon));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your failed to cast <SpellLink id={SPELLS.RUPTURE.id} /> after{' '}
+          <SpellLink id={SPELLS.VANISH.id} /> {this.vanishCasts - this.vanishCastsSpentOnRupture}{' '}
+          time(s). Make sure to prioritize spending your Vanish on snapshotting{' '}
+          <SpellLink id={SPELLS.RUPTURE.id} /> when using{' '}
+          <SpellLink id={SPELLS.NIGHTSTALKER_TALENT.id} />.
+        </>,
+      )
+        .icon(SPELLS.GARROTE.icon)
+        .actual(
+          t({
+            id: 'rogue.assassination.suggestions.nightstalker.snapshots',
+            message: `${formatPercentage(actual)}% of Vanishes used to snapshot Rupture`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
+    when(this.suggestionThresholdsOpener)
+      .isFalse()
+      .addSuggestion((suggest, actual, recommended) =>
+        suggest(
+          <>
+            You failed to snapshot a <SpellLink id={SPELLS.RUPTURE.id} /> or{' '}
+            <SpellLink id={SPELLS.GARROTE.id} /> on pull from stealth. Make sure your first cast
+            when using <SpellLink id={SPELLS.NIGHTSTALKER_TALENT.id} /> is a{' '}
+            <SpellLink id={SPELLS.RUPTURE.id} /> or <SpellLink id={SPELLS.GARROTE.id} />.
+          </>,
+        ).icon(SPELLS.NIGHTSTALKER_TALENT.icon),
+      );
   }
 
   statistic() {
@@ -124,7 +157,6 @@ class Nightstalker extends StealthCasts {
       />
     );
   }
-
 }
 
 export default Nightstalker;

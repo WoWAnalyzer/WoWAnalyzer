@@ -20,10 +20,7 @@ class DevouringPlague extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        position={STATISTIC_ORDER.CORE(4)}
-        size="flexible"
-      >
+      <Statistic position={STATISTIC_ORDER.CORE(4)} size="flexible">
         <BoringSpellValueText spell={SPELLS.DEVOURING_PLAGUE}>
           <>
             {formatPercentage(this.uptime)}% <small>Uptime</small>

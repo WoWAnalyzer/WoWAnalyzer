@@ -14,7 +14,10 @@ class AstralPowerTracker extends ResourceTracker {
   // Split Warrior of Elune Astral Power bonus into it's own entry.
   onEnergize(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.LUNAR_STRIKE.id || !this.selectedCombatant.hasBuff(SPELLS.WARRIOR_OF_ELUNE_TALENT.id)) {
+    if (
+      spellId !== SPELLS.LUNAR_STRIKE.id ||
+      !this.selectedCombatant.hasBuff(SPELLS.WARRIOR_OF_ELUNE_TALENT.id)
+    ) {
       super.onEnergize(event);
       return;
     }
@@ -28,7 +31,12 @@ class AstralPowerTracker extends ResourceTracker {
     const baseGain = gain - eluneRaw - baseWaste;
     const eluneGain = eluneRaw - eluneWaste;
     this._applyBuilder(spellId, this.getResource(event), baseGain, baseWaste);
-    this._applyBuilder(SPELLS.WARRIOR_OF_ELUNE_TALENT.id, this.getResource(event), eluneGain, eluneWaste);
+    this._applyBuilder(
+      SPELLS.WARRIOR_OF_ELUNE_TALENT.id,
+      this.getResource(event),
+      eluneGain,
+      eluneWaste,
+    );
   }
 
   getReducedCost(event) {
@@ -37,7 +45,10 @@ class AstralPowerTracker extends ResourceTracker {
     }
     let cost = this.getResource(event).cost / 10;
     const abilityId = event.ability.guid;
-    if (abilityId === SPELLS.STARFALL_CAST.id && this.selectedCombatant.hasTalent(SPELLS.SOUL_OF_THE_FOREST_TALENT_BALANCE.id)) {
+    if (
+      abilityId === SPELLS.STARFALL_CAST.id &&
+      this.selectedCombatant.hasTalent(SPELLS.SOUL_OF_THE_FOREST_TALENT_BALANCE.id)
+    ) {
       cost = cost - SOUL_OF_THE_FOREST_REDUCTION;
     }
     return cost;

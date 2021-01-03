@@ -36,11 +36,7 @@ function renderWithParser(output, parser) {
   }
 
   return renderer
-    .create(
-      <ParserContextProvider parser={parser}>
-        {sanitizedOutput}
-      </ParserContextProvider>,
-    )
+    .create(<ParserContextProvider parser={parser}>{sanitizedOutput}</ParserContextProvider>)
     .toJSON();
 }
 
@@ -80,7 +76,8 @@ export default function snapshotTest(
   suppressLog = true,
   suppressWarn = true,
 ) {
-  return () => loadLog(key).then(log => {
+  return () =>
+    loadLog(key).then((log) => {
       const parser = parseLog(parserClass, log, suppressLog, suppressWarn);
       expectSnapshot(parser, moduleClass, propFn);
     });

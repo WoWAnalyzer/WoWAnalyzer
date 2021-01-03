@@ -57,10 +57,10 @@ class PrePullCooldowns extends EventsNormalizer {
       });
     };
 
-    this.buffs.activeBuffs.forEach(buff => {
+    this.buffs.activeBuffs.forEach((buff) => {
       if (buff.spellId instanceof Array) {
         // Add each buff separate to make usage easier
-        buff.spellId.forEach(spellId => {
+        buff.spellId.forEach((spellId) => {
           addBuff(buff, spellId);
         });
       } else {
@@ -68,7 +68,7 @@ class PrePullCooldowns extends EventsNormalizer {
       }
     });
 
-    this.abilities.activeAbilities.forEach(ability => {
+    this.abilities.activeAbilities.forEach((ability) => {
       if (ability.damageSpellIds) {
         damageSpells.push({
           castId: ability.spell.id,
@@ -108,9 +108,13 @@ class PrePullCooldowns extends EventsNormalizer {
         for (let i = 0; i < buffSpells.length; i += 1) {
           if (buffSpells[i].buffId === event.ability.guid) {
             debug && console.debug(`Detected a precast buff cooldown: ${event.ability.name}`);
-            if(buffSpells[i].castId instanceof Array && buffSpells[i].castId.includes(event.ability.guid)){ //try to find corresponding cast, otherwise pass list of casts
+            if (
+              buffSpells[i].castId instanceof Array &&
+              buffSpells[i].castId.includes(event.ability.guid)
+            ) {
+              //try to find corresponding cast, otherwise pass list of casts
               prepullCasts.push(this.constructor._fabricateCastEvent(event));
-            }else{
+            } else {
               prepullCasts.push(this.constructor._fabricateCastEvent(event, buffSpells[i].castId));
             }
             buffSpells.splice(i, 1);
@@ -153,7 +157,7 @@ class PrePullCooldowns extends EventsNormalizer {
       if (event.type === EventType.Damage) {
         // If a damage event already has a cast event, it shouldn't be in the array
         for (let i = 0; i < damageSpells.length; i += 1) {
-          if (damageSpells[i].damageIds.some(id => id === event.ability.guid)) {
+          if (damageSpells[i].damageIds.some((id) => id === event.ability.guid)) {
             debug && console.debug(`Detected a precast damage cooldown: ${event.ability.name}`);
             prepullCasts.push(this.constructor._fabricateCastEvent(event, damageSpells[i].castId));
             damageSpells.splice(i, 1);

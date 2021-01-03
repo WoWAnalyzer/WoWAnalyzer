@@ -9,10 +9,26 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
-const DAMAGE_BONUS = [0, .05, .06, .06, .07, .07, .08, .08, .09, .09, .10, .10, .11, .11, .12, .12];
+const DAMAGE_BONUS = [
+  0,
+  0.05,
+  0.06,
+  0.06,
+  0.07,
+  0.07,
+  0.08,
+  0.08,
+  0.09,
+  0.09,
+  0.1,
+  0.1,
+  0.11,
+  0.11,
+  0.12,
+  0.12,
+];
 
 class IreOfTheAscended extends Analyzer {
-
   conduitRank = 0;
   bonusDamage = 0;
 
@@ -32,10 +48,7 @@ class IreOfTheAscended extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        category={STATISTIC_CATEGORY.COVENANTS}
-        size="flexible"
-      >
+      <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
         <ConduitSpellText spell={SPELLS.IRE_OF_THE_ASCENDED} rank={this.conduitRank}>
           <ItemDamageDone amount={this.bonusDamage} />
         </ConduitSpellText>

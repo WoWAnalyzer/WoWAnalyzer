@@ -4,10 +4,7 @@ import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 
 class SurvivalFocusUsage extends SharedHunterFocusUsage {
-
-  static listOfResourceSpenders: Spell[] = [
-    ...LIST_OF_FOCUS_SPENDERS_SV,
-  ];
+  static listOfResourceSpenders: Spell[] = [...LIST_OF_FOCUS_SPENDERS_SV];
 
   static spellsThatShouldShowAsOtherSpells: any = {
     [SPELLS.MONGOOSE_BITE_TALENT_AOTE.id]: SPELLS.MONGOOSE_BITE_TALENT,

@@ -27,14 +27,20 @@ class CycleOfHatred extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.CHAOS_STRIKE_ENERGIZE), this.onEnergizeEvent);
+    this.addEventListener(
+      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.CHAOS_STRIKE_ENERGIZE),
+      this.onEnergizeEvent,
+    );
   }
 
   onEnergizeEvent(event) {
     if (!this.spellUsable.isOnCooldown(SPELLS.EYE_BEAM.id)) {
       return;
     }
-    const effectiveReduction = this.spellUsable.reduceCooldown(SPELLS.EYE_BEAM.id, COOLDOWN_REDUCTION_MS);
+    const effectiveReduction = this.spellUsable.reduceCooldown(
+      SPELLS.EYE_BEAM.id,
+      COOLDOWN_REDUCTION_MS,
+    );
     this.totalCooldownReduction += effectiveReduction;
   }
 
@@ -43,7 +49,14 @@ class CycleOfHatred extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.CYCLE_OF_HATRED_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(7)}
-        value={<>{formatNumber(this.totalCooldownReduction / 1000)} sec <small>total <SpellIcon id={SPELLS.EYE_BEAM.id} /> Eye Beam cooldown reduction</small></>}
+        value={
+          <>
+            {formatNumber(this.totalCooldownReduction / 1000)} sec{' '}
+            <small>
+              total <SpellIcon id={SPELLS.EYE_BEAM.id} /> Eye Beam cooldown reduction
+            </small>
+          </>
+        }
       />
     );
   }

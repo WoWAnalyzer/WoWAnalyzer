@@ -25,12 +25,7 @@ class ThroughputStatisticGroup extends Analyzer {
 
   statistic() {
     return (
-      <StatisticGroup
-        position={0}
-        wide
-        large={false}
-        style={{ marginBottom: 30 }}
-      >
+      <StatisticGroup position={0} wide large={false} style={{ marginBottom: 30 }}>
         {this.damageDone.subStatistic()}
         {this.healingDone.subStatistic()}
         {this.damageTaken.subStatistic()}

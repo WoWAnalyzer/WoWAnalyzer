@@ -12,7 +12,7 @@ export default function lazyLoadComponent(load, delay = 1000) {
     constructor() {
       super();
       if (!this.constructor.loadedComponent) {
-        load().then(component => {
+        load().then((component) => {
           this.constructor.loadedComponent = component;
           this.setState({
             loaded: true,

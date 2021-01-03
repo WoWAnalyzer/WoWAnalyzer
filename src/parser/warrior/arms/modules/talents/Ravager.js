@@ -26,7 +26,11 @@ class Ravager extends Analyzer {
     const total = ravager.damageEffective || 0;
     return (
       <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.RAVAGER_TALENT_ARMS.id} /> damage</>}
+        title={
+          <>
+            <SpellLink id={SPELLS.RAVAGER_TALENT_ARMS.id} /> damage
+          </>
+        }
         value={formatThousands(total)}
       />
     );

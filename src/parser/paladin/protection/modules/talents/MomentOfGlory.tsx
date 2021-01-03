@@ -22,11 +22,22 @@ class MomentOfGlory extends Analyzer {
       return;
     }
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.AVENGERS_SHIELD), this.trackASDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.AVENGERS_SHIELD),
+      this.trackASDamage,
+    );
   }
 
   trackASDamage(event: DamageEvent): void {
-    if (!this.selectedCombatant.hasBuff(SPELLS.MOMENT_OF_GLORY_TALENT.id, event.timestamp, undefined, undefined, this.owner.playerId)) {
+    if (
+      !this.selectedCombatant.hasBuff(
+        SPELLS.MOMENT_OF_GLORY_TALENT.id,
+        event.timestamp,
+        undefined,
+        undefined,
+        this.owner.playerId,
+      )
+    ) {
       return;
     }
     this.damageBoostedHits += 1;
@@ -35,7 +46,7 @@ class MomentOfGlory extends Analyzer {
 
   getBonusDamageFromMoG(event: DamageEvent): number {
     const baseDamageDone = event.amount + (event.absorbed || 0);
-    return baseDamageDone - (baseDamageDone * (1 / (1 + DAMAGE_MODIFIER)));
+    return baseDamageDone - baseDamageDone * (1 / (1 + DAMAGE_MODIFIER));
   }
 
   statistic(): React.ReactNode {
@@ -44,11 +55,13 @@ class MomentOfGlory extends Analyzer {
         position={STATISTIC_ORDER.DEFAULT}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={(
+        tooltip={
           <>
-            You hit <b>{formatNumber(this.damageBoostedHits)}</b> targets with a <SpellLink id={SPELLS.AVENGERS_SHIELD.id} /> boosted with <SpellLink id={SPELLS.MOMENT_OF_GLORY_TALENT.id} />.
+            You hit <b>{formatNumber(this.damageBoostedHits)}</b> targets with a{' '}
+            <SpellLink id={SPELLS.AVENGERS_SHIELD.id} /> boosted with{' '}
+            <SpellLink id={SPELLS.MOMENT_OF_GLORY_TALENT.id} />.
           </>
-        )}
+        }
       >
         <BoringSpellValue
           spell={SPELLS.MOMENT_OF_GLORY_TALENT}

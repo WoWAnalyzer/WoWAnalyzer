@@ -17,7 +17,6 @@ import SpellUsable from '../core/SpellUsable';
  */
 
 class ScentOfBlood extends Analyzer {
-
   static dependencies = {
     spellUsable: SpellUsable,
   };
@@ -31,7 +30,10 @@ class ScentOfBlood extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SCENT_OF_BLOOD_TALENT.id);
 
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BESTIAL_WRATH), this.bestialWrathApplication);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BESTIAL_WRATH),
+      this.bestialWrathApplication,
+    );
   }
 
   bestialWrathApplication() {
@@ -49,7 +51,8 @@ class ScentOfBlood extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.SCENT_OF_BLOOD_TALENT}>
           <>
-            {this.chargesGained}/{this.chargesGained + this.chargesWasted} <small>charges gained</small>
+            {this.chargesGained}/{this.chargesGained + this.chargesWasted}{' '}
+            <small>charges gained</small>
           </>
         </BoringSpellValueText>
       </Statistic>

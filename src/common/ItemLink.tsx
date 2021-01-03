@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
 import TooltipProvider from 'interface/common/TooltipProvider';
 
@@ -19,10 +19,11 @@ interface Props {
 export const EPIC_ITEMS_ILVL = 184;
 
 const ItemLink = (props: Props) => {
-
   const [elem, setElem] = useState<HTMLAnchorElement | null>(null);
 
-  useEffect(() => {TooltipProvider.refresh(elem);})
+  useEffect(() => {
+    TooltipProvider.refresh(elem);
+  });
 
   const { id, children, details, ...others } = props;
   delete others.icon;
@@ -47,15 +48,16 @@ const ItemLink = (props: Props) => {
       target="_blank"
       rel="noopener noreferrer"
       className={getItemQualityLabel(quality) + 'item-link-text'}
-      ref={elem => {setElem(elem)}}
+      ref={(elem) => {
+        setElem(elem);
+      }}
       {...others}
     >
-      {props.icon && <ItemIcon id={id} noLink />}{' '}
-      {children || ITEMS[id].name}
+      {props.icon && <ItemIcon id={id} noLink />} {children || ITEMS[id].name}
     </a>
   );
-}
+};
 
-ItemLink.defaultProps = {icon: true}
+ItemLink.defaultProps = { icon: true };
 
 export default ItemLink;

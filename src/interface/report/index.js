@@ -15,7 +15,7 @@ import ParserLoader from './ParserLoader';
 import EventsLoader from './EventsLoader';
 import BossPhaseEventsLoader from './BossPhaseEventsLoader';
 import CharacterProfileLoader from './CharacterProfileLoader';
-import PhaseParser , { SELECTION_ALL_PHASES } from './PhaseParser';
+import PhaseParser, { SELECTION_ALL_PHASES } from './PhaseParser';
 import TimeEventFilter from './TimeEventFilter';
 import EventParser from './EventParser';
 import Results from './Results';
@@ -102,14 +102,14 @@ class ResultsLoader extends React.PureComponent {
     });
     return null;
   }
-  handlePhaseParser(isLoadingPhases, phases){
+  handlePhaseParser(isLoadingPhases, phases) {
     this.setState({
       isLoadingPhases,
       phases,
     });
     return null;
   }
-  handleTimeFilter(isFilteringEvents, filteredEvents, filteredFight){
+  handleTimeFilter(isFilteringEvents, filteredEvents, filteredFight) {
     this.setState({
       isFilteringEvents,
       filteredEvents,
@@ -122,20 +122,29 @@ class ResultsLoader extends React.PureComponent {
       selectedPhase: phase,
       selectedInstance: instance,
       //set time filter to null if no phase selected
-      timeFilter: (phase === SELECTION_ALL_PHASES ? null : {start: this.state.phases[phase].start[instance], end: this.state.phases[phase].end[instance]}),
+      timeFilter:
+        phase === SELECTION_ALL_PHASES
+          ? null
+          : {
+              start: this.state.phases[phase].start[instance],
+              end: this.state.phases[phase].end[instance],
+            },
     });
     return null;
   }
   applyTimeFilter(start, end) {
     this.setState({
       //set time filter to null if 0 and end of fight are selected as boundaries
-      timeFilter: (start === 0 && end === this.props.fight.end_time - this.props.fight.start_time ? null :{start: start + this.props.fight.start_time, end: end + this.props.fight.start_time}),
+      timeFilter:
+        start === 0 && end === this.props.fight.end_time - this.props.fight.start_time
+          ? null
+          : { start: start + this.props.fight.start_time, end: end + this.props.fight.start_time },
       selectedPhase: SELECTION_ALL_PHASES,
       selectedInstance: 0,
     });
     return null;
   }
-  handleBuildSelection(build){
+  handleBuildSelection(build) {
     this.setState({
       build,
     });
@@ -143,12 +152,12 @@ class ResultsLoader extends React.PureComponent {
 
   get progress() {
     return (
-      (!this.state.isLoadingParser ? 0.05 : 0)
-      + (!this.state.isLoadingEvents ? 0.05 : 0)
-      + (this.state.bossPhaseEventsLoadingState !== BOSS_PHASES_STATE.LOADING ? 0.05 : 0)
-      + (!this.state.isLoadingCharacterProfile ? 0.05 : 0)
-      + (!this.state.isFilteringEvents ? 0.05 : 0)
-      + (this.state.parsingEventsProgress * 0.75)
+      (!this.state.isLoadingParser ? 0.05 : 0) +
+      (!this.state.isLoadingEvents ? 0.05 : 0) +
+      (this.state.bossPhaseEventsLoadingState !== BOSS_PHASES_STATE.LOADING ? 0.05 : 0) +
+      (!this.state.isLoadingCharacterProfile ? 0.05 : 0) +
+      (!this.state.isFilteringEvents ? 0.05 : 0) +
+      this.state.parsingEventsProgress * 0.75
     );
   }
 
@@ -158,69 +167,54 @@ class ResultsLoader extends React.PureComponent {
     return (
       <>
         {/* Load these different api calls asynchronously */}
-        <ParserLoader
-          config={config}
-        >
-          {this.handleParserLoader}
-        </ParserLoader>
-        <EventsLoader
-          report={report}
-          fight={fight}
-          player={player}
-        >
+        <ParserLoader config={config}>{this.handleParserLoader}</ParserLoader>
+        <EventsLoader report={report} fight={fight} player={player}>
           {this.handleEventsLoader}
         </EventsLoader>
-        <BossPhaseEventsLoader
-          report={report}
-          fight={fight}
-          player={player}
-        >
+        <BossPhaseEventsLoader report={report} fight={fight} player={player}>
           {this.handleBossPhaseEventsLoader}
         </BossPhaseEventsLoader>
-        <CharacterProfileLoader
-          report={report}
-          player={player}
-        >
+        <CharacterProfileLoader report={report} player={player}>
           {this.handleCharacterProfileLoader}
         </CharacterProfileLoader>
 
-        {!this.state.isLoadingEvents && this.state.bossPhaseEventsLoadingState !== BOSS_PHASES_STATE.LOADING && (
-          <PhaseParser
-            fight={fight}
-            bossPhaseEvents={this.state.bossPhaseEvents}
-          >
-            {this.handlePhaseParser}
-          </PhaseParser>
-        )}
-        {!this.state.isLoadingEvents && this.state.bossPhaseEventsLoadingState !== BOSS_PHASES_STATE.LOADING && (
-          <TimeEventFilter
-            fight={fight}
-            events={this.state.events}
-            bossPhaseEvents={this.state.bossPhaseEvents}
-            filter={this.state.timeFilter}
-            phase={this.state.selectedPhase}
-            phaseinstance={this.state.selectedInstance}
-          >
-            {this.handleTimeFilter}
-          </TimeEventFilter>
-        )}
-        {!this.state.isLoadingParser && !this.state.isLoadingCharacterProfile && !this.state.isFilteringEvents && (
-          <EventParser
-            report={report}
-            fight={this.state.filteredFight}
-            player={player}
-            combatants={combatants}
-            applyTimeFilter={this.applyTimeFilter}
-            applyPhaseFilter={this.handlePhaseSelection}
-            parserClass={this.state.parserClass}
-            characterProfile={this.state.characterProfile}
-            events={this.state.filteredEvents}
-            builds={config.builds}
-          >
-            {this.handleEventsParser}
-          </EventParser>
-        )}
-
+        {!this.state.isLoadingEvents &&
+          this.state.bossPhaseEventsLoadingState !== BOSS_PHASES_STATE.LOADING && (
+            <PhaseParser fight={fight} bossPhaseEvents={this.state.bossPhaseEvents}>
+              {this.handlePhaseParser}
+            </PhaseParser>
+          )}
+        {!this.state.isLoadingEvents &&
+          this.state.bossPhaseEventsLoadingState !== BOSS_PHASES_STATE.LOADING && (
+            <TimeEventFilter
+              fight={fight}
+              events={this.state.events}
+              bossPhaseEvents={this.state.bossPhaseEvents}
+              filter={this.state.timeFilter}
+              phase={this.state.selectedPhase}
+              phaseinstance={this.state.selectedInstance}
+            >
+              {this.handleTimeFilter}
+            </TimeEventFilter>
+          )}
+        {!this.state.isLoadingParser &&
+          !this.state.isLoadingCharacterProfile &&
+          !this.state.isFilteringEvents && (
+            <EventParser
+              report={report}
+              fight={this.state.filteredFight}
+              player={player}
+              combatants={combatants}
+              applyTimeFilter={this.applyTimeFilter}
+              applyPhaseFilter={this.handlePhaseSelection}
+              parserClass={this.state.parserClass}
+              characterProfile={this.state.characterProfile}
+              events={this.state.filteredEvents}
+              builds={config.builds}
+            >
+              {this.handleEventsParser}
+            </EventParser>
+          )}
 
         <Results
           isLoadingParser={this.state.isLoadingParser}
@@ -231,7 +225,7 @@ class ResultsLoader extends React.PureComponent {
           progress={this.progress}
           report={report}
           // eslint-disable-next-line @typescript-eslint/camelcase
-          fight={this.state.filteredFight || {offset_time: 0, filtered: false, ...fight}} //if no filtered fight has been parsed yet, pass previous fight object alongside 0 offset time and no filtering
+          fight={this.state.filteredFight || { offset_time: 0, filtered: false, ...fight }} //if no filtered fight has been parsed yet, pass previous fight object alongside 0 offset time and no filtering
           player={player}
           characterProfile={this.state.characterProfile}
           parser={this.state.parser}
@@ -244,7 +238,7 @@ class ResultsLoader extends React.PureComponent {
           applyFilter={this.applyTimeFilter}
           timeFilter={this.state.timeFilter}
           build={build}
-          makeTabUrl={tab => makeAnalyzerUrl(report, fight.id, player.id, tab, build)}
+          makeTabUrl={(tab) => makeAnalyzerUrl(report, fight.id, player.id, tab, build)}
           makeBuildUrl={(tab, build) => makeAnalyzerUrl(report, fight.id, player.id, tab, build)}
         />
       </>
@@ -261,23 +255,13 @@ const Report = () => (
     <ErrorBoundary>
       <ReportLoader>
         {(report, refreshReport) => (
-          <PatchChecker
-            report={report}
-          >
-            <FightSelection
-              report={report}
-              refreshReport={refreshReport}
-            >
-              {fight => (
-                <PlayerLoader
-                  report={report}
-                  fight={fight}
-                >
+          <PatchChecker report={report}>
+            <FightSelection report={report} refreshReport={refreshReport}>
+              {(fight) => (
+                <PlayerLoader report={report} fight={fight}>
                   {(player, combatant, combatants) => (
-                    <ConfigLoader
-                      specId={combatant.specID}
-                    >
-                      {config => (
+                    <ConfigLoader specId={combatant.specID}>
+                      {(config) => (
                         <SupportChecker
                           config={config}
                           report={report}

@@ -13,9 +13,9 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Events from 'parser/core/Events';
 
 /*Purpose of this module is to track the sigil of flame debuff and see when 2 of them overlap for a damage increase.
-* This is important for damage and also squeezing extra fire damage during Fiery Brand because of the
-* Fiery Demise talent that increases your fire damage during that CD. Also due to trait charred blades that heals
-* us for 15% of the fire damage we do it also increases our self healing.*/
+ * This is important for damage and also squeezing extra fire damage during Fiery Brand because of the
+ * Fiery Demise talent that increases your fire damage during that CD. Also due to trait charred blades that heals
+ * us for 15% of the fire damage we do it also increases our self healing.*/
 class SigilOfFlame extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
@@ -28,7 +28,10 @@ class SigilOfFlame extends Analyzer {
 
   constructor(options) {
     super(options);
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.SIGIL_OF_FLAME_DEBUFF), this.onApplyDebuff);
+    this.addEventListener(
+      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.SIGIL_OF_FLAME_DEBUFF),
+      this.onApplyDebuff,
+    );
   }
 
   onApplyDebuff(event) {
@@ -42,7 +45,7 @@ class SigilOfFlame extends Analyzer {
 
     /*3 sec is the cut off because we want most of the 2 buffs to stack. So if the second
     buff application isnt within 3 seconds of the first its effectiveness is reduced quiet a bit*/
-    if ((timeStampDifference / 1000) < 3) {
+    if (timeStampDifference / 1000 < 3) {
       this.successfulStack += 1;
     }
     this.lastApplicationTimestamp = this.currentApplicationTimestamp;
@@ -51,20 +54,23 @@ class SigilOfFlame extends Analyzer {
   statistic() {
     const sigilOfFlameUptime = this.enemies.getBuffUptime(SPELLS.SIGIL_OF_FLAME_DEBUFF.id);
     const sigilOfFlameUptimePercentage = sigilOfFlameUptime / this.owner.fightDuration;
-    const sigilOfFlameDamage = this.abilityTracker.getAbility(SPELLS.SIGIL_OF_FLAME_DEBUFF.id).damageEffective;
+    const sigilOfFlameDamage = this.abilityTracker.getAbility(SPELLS.SIGIL_OF_FLAME_DEBUFF.id)
+      .damageEffective;
 
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(5)}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            Having two stacks of Sigil Of Flames on the boss is a damage increase.<br /><br />
-
-            Sigil of Flame uptime: {formatPercentage(sigilOfFlameUptimePercentage)}% / ({formatDuration(sigilOfFlameUptime / 1000)})<br />
+            Having two stacks of Sigil Of Flames on the boss is a damage increase.
+            <br />
+            <br />
+            Sigil of Flame uptime: {formatPercentage(sigilOfFlameUptimePercentage)}% / (
+            {formatDuration(sigilOfFlameUptime / 1000)})<br />
             Sigil of Flame total damage: {formatThousands(sigilOfFlameDamage)}.
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.SIGIL_OF_FLAME_CONCENTRATED}>
           <>

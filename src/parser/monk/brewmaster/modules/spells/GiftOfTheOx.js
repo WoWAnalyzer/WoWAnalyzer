@@ -51,10 +51,20 @@ export default class GiftOfTheOx extends Analyzer {
   constructor(...args) {
     super(...args);
     this.addEventListener(GOTOX_GENERATED_EVENT, this._orbGenerated);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EXPEL_HARM), this._expelCast);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(GIFT_OF_THE_OX_SPELLS), this._gotoxHeal);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EXPEL_HARM),
+      this._expelCast,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(GIFT_OF_THE_OX_SPELLS),
+      this._gotoxHeal,
+    );
 
-    this._wdps = calculatePrimaryStat(WDPS_BASE_ILVL, WDPS_310_AGI_POLEARM, this.selectedCombatant.mainHand.itemLevel);
+    this._wdps = calculatePrimaryStat(
+      WDPS_BASE_ILVL,
+      WDPS_310_AGI_POLEARM,
+      this.selectedCombatant.mainHand.itemLevel,
+    );
   }
 
   _orbGenerated(event) {
@@ -82,14 +92,16 @@ export default class GiftOfTheOx extends Analyzer {
     //           = Heal * (BonusAgi / (6 WDPS + BonusAgi + BaseAgi))
     //
     // and similar for bonus WDPS healing and base agi healing
-    const denom = (6 * this._wdps + this.stats.currentAgilityRating);
-    this.agiBonusHealing += amount * (this.stats.currentAgilityRating - BASE_AGI) / denom;
-    this.wdpsBonusHealing += amount * 6 * this._wdps / denom;
-    this._baseAgiHealing += amount * BASE_AGI / denom;
+    const denom = 6 * this._wdps + this.stats.currentAgilityRating;
+    this.agiBonusHealing += (amount * (this.stats.currentAgilityRating - BASE_AGI)) / denom;
+    this.wdpsBonusHealing += (amount * 6 * this._wdps) / denom;
+    this._baseAgiHealing += (amount * BASE_AGI) / denom;
     // MasteryBonusHeal = 1.5 * AP * (1 + BonusMastery + BaseMastery) * Vers - 1.5 * AP * (1 + BaseMastery) * Vers
     //                  = Heal * (1 - (1 + BaseMastery) / (1 + BonusMastery + BaseMastery))
     //                  = Heal * BonusMastery / (1 + BonusMastery + BaseMastery)
-    this.masteryBonusHealing += amount * (this.stats.currentMasteryPercentage - this.stats.masteryPercentage(0, true)) / (1 + this.stats.currentMasteryPercentage);
+    this.masteryBonusHealing +=
+      (amount * (this.stats.currentMasteryPercentage - this.stats.masteryPercentage(0, true))) /
+      (1 + this.stats.currentMasteryPercentage);
 
     if (event.timestamp === this._lastEHTimestamp) {
       this.expelHarmOrbsConsumed += 1;
@@ -102,17 +114,24 @@ export default class GiftOfTheOx extends Analyzer {
       <Statistic
         size="flexible"
         position={STATISTIC_ORDER.OPTIONAL()}
-        tooltip={(
+        tooltip={
           <>
-            You generated {formatNumber(this.orbsGenerated)} healing spheres and consumed {formatNumber(this.orbsConsumed)} of them, healing for <b>{formatNumber(this.totalHealing)}</b>.<br />
-            {formatNumber(this.expelHarmOrbsConsumed)} of these were consumed with Expel Harm over {formatNumber(this.expelHarmCasts)} casts.
+            You generated {formatNumber(this.orbsGenerated)} healing spheres and consumed{' '}
+            {formatNumber(this.orbsConsumed)} of them, healing for{' '}
+            <b>{formatNumber(this.totalHealing)}</b>.<br />
+            {formatNumber(this.expelHarmOrbsConsumed)} of these were consumed with Expel Harm over{' '}
+            {formatNumber(this.expelHarmCasts)} casts.
           </>
-        )}
+        }
       >
-        <BoringValue label={<><SpellIcon id={GIFT_OF_THE_OX_SPELLS[0].id} /> Gift of the Ox Healing</>}>
-          <>
-            {formatNumber(this.totalHealing / (this.owner.fightDuration / 1000))} HPS
-          </>
+        <BoringValue
+          label={
+            <>
+              <SpellIcon id={GIFT_OF_THE_OX_SPELLS[0].id} /> Gift of the Ox Healing
+            </>
+          }
+        >
+          <>{formatNumber(this.totalHealing / (this.owner.fightDuration / 1000))} HPS</>
         </BoringValue>
       </Statistic>
     );

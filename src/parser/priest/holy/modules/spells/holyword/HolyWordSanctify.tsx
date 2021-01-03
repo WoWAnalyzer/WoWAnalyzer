@@ -18,12 +18,15 @@ class HolyWordSanctify extends HolyWordBase {
     this.serendipityProccers = {
       [SPELLS.PRAYER_OF_HEALING.id]: {
         baseReduction: () => PRAYER_OF_HEALING_SERENDIPITY_REDUCTION,
-        lightOfTheNaaruReduction: () => PRAYER_OF_HEALING_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,
-        apotheosisReduction: () => PRAYER_OF_HEALING_SERENDIPITY_REDUCTION * this.apotheosisMultiplier,
+        lightOfTheNaaruReduction: () =>
+          PRAYER_OF_HEALING_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,
+        apotheosisReduction: () =>
+          PRAYER_OF_HEALING_SERENDIPITY_REDUCTION * this.apotheosisMultiplier,
       },
       [SPELLS.BINDING_HEAL_TALENT.id]: {
         baseReduction: () => BINDING_HEAL_SERENDIPITY_REDUCTION,
-        lightOfTheNaaruReduction: () => BINDING_HEAL_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,
+        lightOfTheNaaruReduction: () =>
+          BINDING_HEAL_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,
         apotheosisReduction: () => BINDING_HEAL_SERENDIPITY_REDUCTION * this.apotheosisMultiplier,
       },
       [SPELLS.RENEW.id]: {
@@ -35,8 +38,10 @@ class HolyWordSanctify extends HolyWordBase {
     if (this.selectedCombatant.hasLegendaryByBonusID(SPELLS.HARMONIOUS_APPARATUS.bonusID)) {
       this.serendipityProccers[SPELLS.CIRCLE_OF_HEALING_TALENT.id] = {
         baseReduction: () => CIRCLE_OF_HEALING_SERENDIPITY_REDUCTION,
-        lightOfTheNaaruReduction: () => CIRCLE_OF_HEALING_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,
-        apotheosisReduction: () => CIRCLE_OF_HEALING_SERENDIPITY_REDUCTION * this.apotheosisMultiplier,
+        lightOfTheNaaruReduction: () =>
+          CIRCLE_OF_HEALING_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,
+        apotheosisReduction: () =>
+          CIRCLE_OF_HEALING_SERENDIPITY_REDUCTION * this.apotheosisMultiplier,
       };
     }
   }

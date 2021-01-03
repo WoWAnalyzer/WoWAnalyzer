@@ -27,7 +27,10 @@ class HolyWordSalvation extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.HOLY_WORD_SALVATION_TALENT.id);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HOLY_WORD_SALVATION_TALENT), this.onHeal);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HOLY_WORD_SALVATION_TALENT),
+      this.onHeal,
+    );
   }
 
   get renewCount() {
@@ -84,13 +87,15 @@ class HolyWordSalvation extends Analyzer {
   statistic() {
     return (
       <Statistic
-        tooltip={(
+        tooltip={
           <>
-            Healing from Salv: {formatThousands(this.healingFromSalv + this.absorptionFromSalv)}<br />
-            Healing from Renews: {formatThousands(this.healingFromRenew + this.absorptionFromRenew)}<br />
+            Healing from Salv: {formatThousands(this.healingFromSalv + this.absorptionFromSalv)}
+            <br />
+            Healing from Renews: {formatThousands(this.healingFromRenew + this.absorptionFromRenew)}
+            <br />
             Healing from PoMs: {formatThousands(this.healingFromPom + this.absorptionFromPom)}
           </>
-        )}
+        }
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(7)}

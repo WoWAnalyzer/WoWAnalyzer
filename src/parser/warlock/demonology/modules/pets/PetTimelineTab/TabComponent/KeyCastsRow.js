@@ -5,19 +5,21 @@ import SpellIcon from 'common/SpellIcon';
 import Tooltip from 'common/Tooltip';
 import { EventType } from 'parser/core/Events';
 
-const KeyCastsRow = props => {
+const KeyCastsRow = (props) => {
   const { className, events, start, totalWidth, secondWidth } = props;
   return (
     <div className={`events ${className || ''}`} style={{ width: totalWidth }}>
       {events.map((event, index) => {
         if (event.type === EventType.Cast) {
-          const left = (event.timestamp - start) / 1000 * secondWidth;
+          const left = ((event.timestamp - start) / 1000) * secondWidth;
           const tooltipInfo = [];
           if (event.extraInfo) {
             tooltipInfo.push(event.extraInfo);
           }
           if (event.nearbyCasts) {
-            tooltipInfo.push(`This cast overlaps with following casts: ${event.nearbyCasts.join(', ')}.`);
+            tooltipInfo.push(
+              `This cast overlaps with following casts: ${event.nearbyCasts.join(', ')}.`,
+            );
           }
           const hasTooltip = tooltipInfo.length > 0;
           return (
@@ -26,30 +28,27 @@ const KeyCastsRow = props => {
               style={{
                 left,
                 top: -1,
-                zIndex: (event.important) ? 20 : 10,
+                zIndex: event.important ? 20 : 10,
               }}
             >
               {hasTooltip ? (
                 <Tooltip content={tooltipInfo.join('\n')}>
                   <div>
-                    <SpellIcon
-                      id={event.abilityId}
-                      className={event.important && 'enhanced'}
-                    />
+                    <SpellIcon id={event.abilityId} className={event.important && 'enhanced'} />
                   </div>
                 </Tooltip>
               ) : (
-                <SpellIcon
-                  id={event.abilityId}
-                  className={event.important && 'enhanced'}
-                />
+                <SpellIcon id={event.abilityId} className={event.important && 'enhanced'} />
               )}
             </div>
           );
         } else if (event.type === 'duration') {
-          const left = (event.timestamp - start) / 1000 * secondWidth;
+          const left = ((event.timestamp - start) / 1000) * secondWidth;
           const maxWidth = totalWidth - left; // don't expand beyond the container width
-          const width = Math.min(maxWidth, (event.endTimestamp - event.timestamp) / 1000 * secondWidth);
+          const width = Math.min(
+            maxWidth,
+            ((event.endTimestamp - event.timestamp) / 1000) * secondWidth,
+          );
           return (
             <div
               key={index}

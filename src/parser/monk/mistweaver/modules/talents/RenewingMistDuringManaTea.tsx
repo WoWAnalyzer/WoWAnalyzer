@@ -36,7 +36,7 @@ class RenewingMistDuringManaTea extends Analyzer {
   }
 
   get avgRemDuringMT() {
-    return (this.vivify.remDuringManaTea / (this.manaTea.casts.get('Vivify') || 0)) || 0;
+    return this.vivify.remDuringManaTea / (this.manaTea.casts.get('Vivify') || 0) || 0;
   }
 
   get suggestionThresholds() {
@@ -52,17 +52,22 @@ class RenewingMistDuringManaTea extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        During <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> you should have a minimum of two <SpellLink id={SPELLS.RENEWING_MIST.id} /> out to maximize your healing during the buff.
-      </>,
-    )
-      .icon(SPELLS.MANA_TEA_TALENT.icon)
-      .actual(`${this.avgRemDuringMT.toFixed(2)}${t({
-      id: "monk.mistweaver.suggestions.renewingMistDuringManaTea.avgRenewingMists",
-      message: ` average Renewing Mists during Mana Tea`
-    })}`)
-      .recommended(`${recommended} average Renewing Mists recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          During <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> you should have a minimum of two{' '}
+          <SpellLink id={SPELLS.RENEWING_MIST.id} /> out to maximize your healing during the buff.
+        </>,
+      )
+        .icon(SPELLS.MANA_TEA_TALENT.icon)
+        .actual(
+          `${this.avgRemDuringMT.toFixed(2)}${t({
+            id: 'monk.mistweaver.suggestions.renewingMistDuringManaTea.avgRenewingMists',
+            message: ` average Renewing Mists during Mana Tea`,
+          })}`,
+        )
+        .recommended(`${recommended} average Renewing Mists recommended`),
+    );
   }
 
   statistic() {
@@ -71,18 +76,16 @@ class RenewingMistDuringManaTea extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(30)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={(
-          <>
-            This is the average number of Renewing Mists active during Mana Tea
-          </>
-        )}
+        tooltip={<>This is the average number of Renewing Mists active during Mana Tea</>}
       >
         <BoringValueText
-          label={<><SpellIcon id={SPELLS.MANA_TEA_TALENT.id} /> Average Renewing Mists</>}
+          label={
+            <>
+              <SpellIcon id={SPELLS.MANA_TEA_TALENT.id} /> Average Renewing Mists
+            </>
+          }
         >
-          <>
-            {this.avgRemDuringMT.toFixed(2)}
-          </>
+          <>{this.avgRemDuringMT.toFixed(2)}</>
         </BoringValueText>
       </Statistic>
     );

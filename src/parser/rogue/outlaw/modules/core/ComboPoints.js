@@ -13,7 +13,11 @@ class ComboPoints extends Analyzer {
   };
 
   makeExtraSuggestion(spell) {
-    return <>Avoid wasting combo points when casting <SpellLink id={spell.id} />.</>;
+    return (
+      <>
+        Avoid wasting combo points when casting <SpellLink id={spell.id} />.
+      </>
+    );
   }
 
   suggestions(when) {

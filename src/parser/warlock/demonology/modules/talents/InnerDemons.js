@@ -17,9 +17,11 @@ import { isRandomPet } from '../pets/helpers';
 class InnerDemons extends Analyzer {
   get damage() {
     const wildImps = this.demoPets.getPetDamage(PETS.WILD_IMP_INNER_DEMONS.guid);
-    const otherPetsSummonedByID = this.demoPets.timeline.filter(pet => isRandomPet(pet.guid) && pet.summonedBy === SPELLS.INNER_DEMONS_TALENT.id);
+    const otherPetsSummonedByID = this.demoPets.timeline.filter(
+      (pet) => isRandomPet(pet.guid) && pet.summonedBy === SPELLS.INNER_DEMONS_TALENT.id,
+    );
     const other = otherPetsSummonedByID
-      .map(pet => this.demoPets.getPetDamage(pet.guid, pet.instance))
+      .map((pet) => this.demoPets.getPetDamage(pet.guid, pet.instance))
       .reduce((total, current) => total + current, 0);
     return wildImps + other;
   }
@@ -38,12 +40,14 @@ class InnerDemons extends Analyzer {
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            {formatThousands(this.damage)} damage<br />
-            Note that this only counts the direct damage from them, not Implosion damage (if used) from Wild Imps
+            {formatThousands(this.damage)} damage
+            <br />
+            Note that this only counts the direct damage from them, not Implosion damage (if used)
+            from Wild Imps
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.INNER_DEMONS_TALENT}>
           <ItemDamageDone amount={this.damage} />

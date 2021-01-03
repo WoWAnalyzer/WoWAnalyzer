@@ -5,13 +5,11 @@ import { PremiumLoginPanel } from './PremiumLoginPanel';
 
 describe('PremiumLoginPanel', () => {
   it('matches snapshot when logged out', () => {
-    const tree = shallow((
-      <PremiumLoginPanel />
-    ));
+    const tree = shallow(<PremiumLoginPanel />);
     expect(tree).toMatchSnapshot();
   });
   it('matches snapshot when logged in with GitHub', () => {
-    const tree = shallow((
+    const tree = shallow(
       <PremiumLoginPanel
         user={{
           name: 'Martijn Hols',
@@ -20,12 +18,12 @@ describe('PremiumLoginPanel', () => {
             expires: '2018-07-02T11:48:40.000Z',
           },
         }}
-      />
-    ));
+      />,
+    );
     expect(tree).toMatchSnapshot();
   });
   it('matches snapshot when logged in with Patreon', () => {
-    const tree = shallow((
+    const tree = shallow(
       <PremiumLoginPanel
         user={{
           name: 'Martijn Hols',
@@ -33,8 +31,8 @@ describe('PremiumLoginPanel', () => {
             premium: true,
           },
         }}
-      />
-    ));
+      />,
+    );
     expect(tree).toMatchSnapshot();
   });
 });

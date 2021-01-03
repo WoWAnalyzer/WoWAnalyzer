@@ -26,7 +26,9 @@ class DeeperDaggers extends Analyzer {
     return (
       <Statistic size="flexible">
         <div className="pad">
-          <label><SpellLink id={SPELLS.DEEPER_DAGGERS.id} /> Uptime</label>
+          <label>
+            <SpellLink id={SPELLS.DEEPER_DAGGERS.id} /> Uptime
+          </label>
           <div className="value">{formatPercentage(this.percentUptime)}%</div>
         </div>
       </Statistic>

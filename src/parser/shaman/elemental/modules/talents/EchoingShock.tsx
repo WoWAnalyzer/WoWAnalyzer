@@ -9,7 +9,6 @@ import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 class EchoingShock extends Analyzer {
-
   badCasts = 0;
   casts = 0;
 
@@ -20,7 +19,7 @@ class EchoingShock extends Analyzer {
   }
 
   get efficiency() {
-    return 1 - (this.badCasts / this.casts) || 0;
+    return 1 - this.badCasts / this.casts || 0;
   }
 
   get suggestionThresholds() {
@@ -41,22 +40,25 @@ class EchoingShock extends Analyzer {
 
     this.casts += 1;
 
-    if (event.ability.guid !== SPELLS.LAVA_BURST.id && event.ability.guid !== SPELLS.EARTHQUAKE.id) {
+    if (
+      event.ability.guid !== SPELLS.LAVA_BURST.id &&
+      event.ability.guid !== SPELLS.EARTHQUAKE.id
+    ) {
       this.badCasts += 1;
     }
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) =>
-        suggest(
-          <span>
-            Maximize your damage with Echoing Shock by always duplicating Lava Burst or Earthquake.
-          </span>,
-        )
-          .icon(SPELLS.ECHOING_SHOCK_TALENT.icon)
-          .actual(`${formatPercentage(actual)}% of Echoing Shocks used on Lava Burst or Earthquake`)
-          .recommended(`${formatPercentage(recommended)}% is recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <span>
+          Maximize your damage with Echoing Shock by always duplicating Lava Burst or Earthquake.
+        </span>,
+      )
+        .icon(SPELLS.ECHOING_SHOCK_TALENT.icon)
+        .actual(`${formatPercentage(actual)}% of Echoing Shocks used on Lava Burst or Earthquake`)
+        .recommended(`${formatPercentage(recommended)}% is recommended`),
+    );
   }
 }
 

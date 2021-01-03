@@ -9,7 +9,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import Events, {CastEvent, DamageEvent} from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 
 import { t } from '@lingui/macro';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -24,8 +24,14 @@ class RighteousVerdict extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.RIGHTEOUS_VERDICT_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TEMPLARS_VERDICT), this.onCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.TEMPLARS_VERDICT_DAMAGE), this.onDamage);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TEMPLARS_VERDICT),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.TEMPLARS_VERDICT_DAMAGE),
+      this.onDamage,
+    );
   }
 
   onCast(event: CastEvent) {
@@ -43,22 +49,35 @@ class RighteousVerdict extends Analyzer {
     return {
       actual: this.spendersInsideBuff / this.totalSpenders,
       isLessThan: {
-        minor: 0.80,
+        minor: 0.8,
         average: 0.75,
-        major: 0.70,
+        major: 0.7,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your usage of <SpellLink id={SPELLS.RIGHTEOUS_VERDICT_TALENT.id} icon /> can be improved.  Do not cast <SpellLink id={SPELLS.TEMPLARS_VERDICT.id} icon /> early to try and keep the buff active. Maintaining a proper roatation will passively lead to good <SpellLink id={SPELLS.RIGHTEOUS_VERDICT_TALENT.id} icon /> efficiency. Consider using another talent if the fight mechanics are preventing you from getting high enough efficiency.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your usage of <SpellLink id={SPELLS.RIGHTEOUS_VERDICT_TALENT.id} icon /> can be improved.
+          Do not cast <SpellLink id={SPELLS.TEMPLARS_VERDICT.id} icon /> early to try and keep the
+          buff active. Maintaining a proper roatation will passively lead to good{' '}
+          <SpellLink id={SPELLS.RIGHTEOUS_VERDICT_TALENT.id} icon /> efficiency. Consider using
+          another talent if the fight mechanics are preventing you from getting high enough
+          efficiency.
+        </>,
+      )
         .icon(SPELLS.RIGHTEOUS_VERDICT_TALENT.icon)
-        .actual(t({
-      id: "paladin.retribution.suggestions.righteousVerdict.efficiency",
-      message: `${formatPercentage(actual)}% of Templars Verdicts with the buff.`
-    }))
-        .recommended(`>${formatPercentage(recommended)}% is recommended`));
+        .actual(
+          t({
+            id: 'paladin.retribution.suggestions.righteousVerdict.efficiency',
+            message: `${formatPercentage(actual)}% of Templars Verdicts with the buff.`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
@@ -68,13 +87,17 @@ class RighteousVerdict extends Analyzer {
         icon={<SpellIcon id={SPELLS.RIGHTEOUS_VERDICT_TALENT.id} />}
         value={formatNumber(this.damageDone)}
         label="Damage Done"
-        tooltip={(
+        tooltip={
           <>
-            The effective damage contributed by Righteous Verdict.<br />
-            Total Damage: {formatNumber(this.damageDone)} ({formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damageDone))} %)<br />
-            Buffed Casts: {formatNumber(this.spendersInsideBuff)} ({formatPercentage(this.spendersInsideBuff / this.totalSpenders)}%)
+            The effective damage contributed by Righteous Verdict.
+            <br />
+            Total Damage: {formatNumber(this.damageDone)} (
+            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damageDone))} %)
+            <br />
+            Buffed Casts: {formatNumber(this.spendersInsideBuff)} (
+            {formatPercentage(this.spendersInsideBuff / this.totalSpenders)}%)
           </>
-        )}
+        }
       />
     );
   }

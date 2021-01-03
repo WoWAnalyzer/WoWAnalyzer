@@ -42,9 +42,18 @@ class BlackoutCombo extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BLACKOUT_COMBO_TALENT.id);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF), this.onApplyBuff);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF), this.onRefreshBuff);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS_WHICH_REMOVE_BOC), this.onCast);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF),
+      this.onRefreshBuff,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS_WHICH_REMOVE_BOC),
+      this.onCast,
+    );
   }
 
   onApplyBuff(event) {
@@ -62,7 +71,10 @@ class BlackoutCombo extends Analyzer {
   onCast(event) {
     const spellId = event.ability.guid;
     // BOC should be up
-    if (this.lastBlackoutComboCast > 0 && this.lastBlackoutComboCast + BOC_DURATION > event.timestamp) {
+    if (
+      this.lastBlackoutComboCast > 0 &&
+      this.lastBlackoutComboCast + BOC_DURATION > event.timestamp
+    ) {
       this.blackoutComboConsumed += 1;
       if (this.spellsBOCWasUsedOn[spellId] === undefined) {
         this.spellsBOCWasUsedOn[spellId] = 0;
@@ -73,44 +85,69 @@ class BlackoutCombo extends Analyzer {
   }
 
   suggestions(when) {
-    const wastedPerc = (this.blackoutComboBuffs - this.blackoutComboConsumed) / this.blackoutComboBuffs;
+    const wastedPerc =
+      (this.blackoutComboBuffs - this.blackoutComboConsumed) / this.blackoutComboBuffs;
 
-    when(wastedPerc).isGreaterThan(0.1)
-      .addSuggestion((suggest, actual, recommended) => suggest(<span>You wasted {formatPercentage(actual)}% of your <SpellLink id={SPELLS.BLACKOUT_COMBO_BUFF.id} /> procs. Try to use the procs as soon as you get them so they are not overwritten.</span>)
-        .icon(SPELLS.BLACKOUT_COMBO_BUFF.icon)
-        .actual(t({
-      id: "monk.brewmaster.suggestions.blackoutCombo.wasted",
-      message: `${formatPercentage(actual)}% unused`
-    }))
-        .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
-        .regular(recommended + 0.1).major(recommended + 0.2));
+    when(wastedPerc)
+      .isGreaterThan(0.1)
+      .addSuggestion((suggest, actual, recommended) =>
+        suggest(
+          <span>
+            You wasted {formatPercentage(actual)}% of your{' '}
+            <SpellLink id={SPELLS.BLACKOUT_COMBO_BUFF.id} /> procs. Try to use the procs as soon as
+            you get them so they are not overwritten.
+          </span>,
+        )
+          .icon(SPELLS.BLACKOUT_COMBO_BUFF.icon)
+          .actual(
+            t({
+              id: 'monk.brewmaster.suggestions.blackoutCombo.wasted',
+              message: `${formatPercentage(actual)}% unused`,
+            }),
+          )
+          .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
+          .regular(recommended + 0.1)
+          .major(recommended + 0.2),
+      );
   }
 
   statistic() {
-    const wastedPerc = (this.blackoutComboBuffs - this.blackoutComboConsumed) / this.blackoutComboBuffs;
+    const wastedPerc =
+      (this.blackoutComboBuffs - this.blackoutComboConsumed) / this.blackoutComboBuffs;
 
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            You got total <strong>{this.blackoutComboBuffs}</strong> Blackout Combo procs and used <strong>{this.blackoutComboConsumed}</strong> of them.<br />
+            You got total <strong>{this.blackoutComboBuffs}</strong> Blackout Combo procs and used{' '}
+            <strong>{this.blackoutComboConsumed}</strong> of them.
+            <br />
             Blackout combo buff usage:
             <ul>
               {Object.keys(this.spellsBOCWasUsedOn)
                 .sort((a, b) => this.spellsBOCWasUsedOn[b] - this.spellsBOCWasUsedOn[a])
-                .map(type => (
-                  <li key={type}><em>{SPELLS[type].name || 'Unknown'}</em> was used {this.spellsBOCWasUsedOn[type]} time{this.spellsBOCWasUsedOn[type] === 1 ? '' : 's'} ({formatPercentage(this.spellsBOCWasUsedOn[type] / this.blackoutComboConsumed)}%)</li>),
-                )}
+                .map((type) => (
+                  <li key={type}>
+                    <em>{SPELLS[type].name || 'Unknown'}</em> was used{' '}
+                    {this.spellsBOCWasUsedOn[type]} time
+                    {this.spellsBOCWasUsedOn[type] === 1 ? '' : 's'} (
+                    {formatPercentage(this.spellsBOCWasUsedOn[type] / this.blackoutComboConsumed)}%)
+                  </li>
+                ))}
             </ul>
           </>
-        )}
+        }
       >
-        <BoringValue label={<><SpellIcon id={SPELLS.BLACKOUT_COMBO_BUFF.id} /> Wasted Blackout Combo</>}>
-          <>
-            {formatPercentage(wastedPerc)}%
-          </>
+        <BoringValue
+          label={
+            <>
+              <SpellIcon id={SPELLS.BLACKOUT_COMBO_BUFF.id} /> Wasted Blackout Combo
+            </>
+          }
+        >
+          <>{formatPercentage(wastedPerc)}%</>
         </BoringValue>
       </Statistic>
     );

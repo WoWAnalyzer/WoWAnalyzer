@@ -9,15 +9,20 @@ import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import { formatNumber } from 'common/format';
 
 class Firestorm extends Analyzer {
-
   castsDuringFirestorm = 0;
   firestormProcs = 0;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.FIRESTORM.bonusID);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.PYROBLAST,SPELLS.FLAMESTRIKE]), this.onCast);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FIRESTORM_BUFF), this.onFirestormApplied);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.PYROBLAST, SPELLS.FLAMESTRIKE]),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FIRESTORM_BUFF),
+      this.onFirestormApplied,
+    );
   }
 
   onCast(event: CastEvent) {
@@ -37,13 +42,12 @@ class Firestorm extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        category={STATISTIC_CATEGORY.ITEMS}
-        size="flexible"
-      >
+      <Statistic category={STATISTIC_CATEGORY.ITEMS} size="flexible">
         <BoringSpellValueText spell={SPELLS.FIRESTORM}>
-          {formatNumber(this.firestormProcs)} <small>Total Procs</small><br />
-          {formatNumber(this.castsPerProc)} <small>Avg. Casts per Proc</small><br />
+          {formatNumber(this.firestormProcs)} <small>Total Procs</small>
+          <br />
+          {formatNumber(this.castsPerProc)} <small>Avg. Casts per Proc</small>
+          <br />
         </BoringSpellValueText>
       </Statistic>
     );

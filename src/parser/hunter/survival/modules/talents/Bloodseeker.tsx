@@ -21,7 +21,6 @@ import { MS_BUFFER } from 'parser/hunter/shared/constants';
  */
 
 class Bloodseeker extends Analyzer {
-
   averageStacks: number = 0;
   kcCastTimestamp: number = 0;
   damage: number = 0;
@@ -31,21 +30,31 @@ class Bloodseeker extends Analyzer {
 
     this.active = this.selectedCombatant.hasTalent(SPELLS.BLOODSEEKER_TALENT.id);
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.KILL_COMMAND_DAMAGE_SV), this.onPetDamage);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.KILL_COMMAND_CAST_SV), this.onCast);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.KILL_COMMAND_DAMAGE_SV),
+      this.onPetDamage,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.KILL_COMMAND_CAST_SV),
+      this.onCast,
+    );
   }
 
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.BLOODSEEKER_BUFF.id) / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.BLOODSEEKER_BUFF.id) / this.owner.fightDuration
+    );
   }
 
   get averageAttackSpeedGain() {
-    this.averageStacks = this.selectedCombatant.getStackWeightedBuffUptime(SPELLS.BLOODSEEKER_BUFF.id) / this.owner.fightDuration;
+    this.averageStacks =
+      this.selectedCombatant.getStackWeightedBuffUptime(SPELLS.BLOODSEEKER_BUFF.id) /
+      this.owner.fightDuration;
     return this.averageStacks * BLOODSEEKER_ATTACK_SPEED_GAIN;
   }
 
   onPetDamage(event: DamageEvent) {
-    if (event.timestamp > (this.kcCastTimestamp + MS_BUFFER)) {
+    if (event.timestamp > this.kcCastTimestamp + MS_BUFFER) {
       this.damage += event.amount + (event.absorbed || 0);
     }
   }
@@ -59,11 +68,12 @@ class Bloodseeker extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(2)}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            You had {formatPercentage(this.uptime)}% uptime on the buff, with an average of {(this.averageStacks).toFixed(2)} stacks.
+            You had {formatPercentage(this.uptime)}% uptime on the buff, with an average of{' '}
+            {this.averageStacks.toFixed(2)} stacks.
           </>
-        )}
+        }
         category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spell={SPELLS.BLOODSEEKER_TALENT}>
@@ -75,7 +85,6 @@ class Bloodseeker extends Analyzer {
       </Statistic>
     );
   }
-
 }
 
 export default Bloodseeker;

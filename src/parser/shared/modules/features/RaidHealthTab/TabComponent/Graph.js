@@ -20,7 +20,6 @@ const CLASS_CHART_LINE_COLORS = {
   DemonHunter: 'rgba(163, 48, 201, 0.6)',
 };
 
-
 class Graph extends React.PureComponent {
   static propTypes = {
     reportCode: PropTypes.string.isRequired,
@@ -41,7 +40,11 @@ class Graph extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.reportCode !== this.props.reportCode || prevProps.start !== this.props.start || prevProps.end !== this.props.end) {
+    if (
+      prevProps.reportCode !== this.props.reportCode ||
+      prevProps.start !== this.props.start ||
+      prevProps.end !== this.props.end
+    ) {
       this.load();
     }
   }
@@ -52,32 +55,27 @@ class Graph extends React.PureComponent {
       start,
       end,
       abilityid: 1000,
-    })
-      .then(json => {
-        console.log('Received player health', json);
-        this.setState({
-          data: json,
-        });
+    }).then((json) => {
+      console.log('Received player health', json);
+      this.setState({
+        data: json,
       });
+    });
   }
 
   render() {
     const data = this.state.data;
     if (!data) {
-      return (
-        <div>
-          Loading...
-        </div>
-      );
+      return <div>Loading...</div>;
     }
 
     const { start, end, offset } = this.props;
 
-    const players = data.series.filter(item => Boolean(CLASS_CHART_LINE_COLORS[item.type]));
+    const players = data.series.filter((item) => Boolean(CLASS_CHART_LINE_COLORS[item.type]));
 
     const entities = [];
 
-    players.forEach(series => {
+    players.forEach((series) => {
       const newSeries = {
         ...series,
         lastValue: 100, // fights start at full hp
@@ -114,8 +112,11 @@ class Graph extends React.PureComponent {
     }
 
     // transform data into react-vis format
-    const playerHealth = entities.map(player => {
-      const data = Object.entries(player.data).map(([key, value]) => ({ x: Number(key), y: value }));
+    const playerHealth = entities.map((player) => {
+      const data = Object.entries(player.data).map(([key, value]) => ({
+        x: Number(key),
+        y: value,
+      }));
       return {
         title: player.name,
         backgroundColor: CLASS_CHART_LINE_COLORS[player.type],
@@ -123,7 +124,9 @@ class Graph extends React.PureComponent {
         data,
       };
     });
-    const deaths = Object.entries(deathsBySecond).filter(([_, value]) => Boolean(value)).map(([key]) => ({ x: Number(key) }));
+    const deaths = Object.entries(deathsBySecond)
+      .filter(([_, value]) => Boolean(value))
+      .map(([key]) => ({ x: Number(key) }));
 
     return (
       <div className="graph-container">

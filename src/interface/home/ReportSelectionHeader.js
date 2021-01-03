@@ -59,15 +59,20 @@ class ReportSelectionHeader extends React.PureComponent {
   renderSearch() {
     switch (this.state.searchType) {
       case STATE_SEARCH_CHAR:
-        return (<>
-          <NameSearch type={SearchType.CHARACTER} />
-          <br />
-          <Warning>
-            <Trans id="interface.home.reportSelectionHeader.onlyRankedWCLogs">
-              The character page will only show fights that have been ranked by Warcraft Logs. Wipes are not included and during busy periods there might be a delay before new reports appear. You can still analyze these fights by manually finding the report on Warcraft Logs and using the report link.
-            </Trans>
-          </Warning>
-        </>);
+        return (
+          <>
+            <NameSearch type={SearchType.CHARACTER} />
+            <br />
+            <Warning>
+              <Trans id="interface.home.reportSelectionHeader.onlyRankedWCLogs">
+                The character page will only show fights that have been ranked by Warcraft Logs.
+                Wipes are not included and during busy periods there might be a delay before new
+                reports appear. You can still analyze these fights by manually finding the report on
+                Warcraft Logs and using the report link.
+              </Trans>
+            </Warning>
+          </>
+        );
       case STATE_SEARCH_GUILD:
         return <NameSearch type={SearchType.GUILD} />;
       case STATE_SEARCH_REPORT:
@@ -84,23 +89,54 @@ class ReportSelectionHeader extends React.PureComponent {
         <div className="container">
           <div className="row">
             <div className={reportHistory.length !== 0 ? 'col-md-8' : 'col-md-12'}>
-
               <a href="/" className="brand-name">
                 <Logo />
                 <h1>WoWAnalyzer</h1>
               </a>
-              <Trans id="interface.home.reportSelectionHeader.improveYourPerformance">Improve your performance with personal feedback and stats. Just enter the link of a <a href="https://www.warcraftlogs.com/" target="_blank" rel="noopener noreferrer">Warcraft Logs</a> report below.</Trans>
+              <Trans id="interface.home.reportSelectionHeader.improveYourPerformance">
+                Improve your performance with personal feedback and stats. Just enter the link of a{' '}
+                <a href="https://www.warcraftlogs.com/" target="_blank" rel="noopener noreferrer">
+                  Warcraft Logs
+                </a>{' '}
+                report below.
+              </Trans>
               <div style={{ margin: '30px auto', maxWidth: 700, textAlign: 'left' }}>
                 <nav>
                   <ul>
-                    <li key="report" className={this.state.searchType === STATE_SEARCH_REPORT ? "active" : undefined}>
-                      <a href="/" style={{padding:'5px'}} onClick={this.handleReportSearchClick}><ReportIcon /><Trans id="interface.home.reportSelectionHeader.report">Report</Trans></a>
+                    <li
+                      key="report"
+                      className={
+                        this.state.searchType === STATE_SEARCH_REPORT ? 'active' : undefined
+                      }
+                    >
+                      <a href="/" style={{ padding: '5px' }} onClick={this.handleReportSearchClick}>
+                        <ReportIcon />
+                        <Trans id="interface.home.reportSelectionHeader.report">Report</Trans>
+                      </a>
                     </li>
-                    <li key="character" className={this.state.searchType === STATE_SEARCH_CHAR ? "active" : undefined}>
-                      <a href="/" style={{padding:'5px'}} onClick={this.handleCharacterSearchClick}><CharacterIcon /><Trans id="interface.home.reportSelectionHeader.character">Character</Trans></a>
+                    <li
+                      key="character"
+                      className={this.state.searchType === STATE_SEARCH_CHAR ? 'active' : undefined}
+                    >
+                      <a
+                        href="/"
+                        style={{ padding: '5px' }}
+                        onClick={this.handleCharacterSearchClick}
+                      >
+                        <CharacterIcon />
+                        <Trans id="interface.home.reportSelectionHeader.character">Character</Trans>
+                      </a>
                     </li>
-                    <li key="guild" className={this.state.searchType === STATE_SEARCH_GUILD ? "active" : undefined}>
-                      <a href="/" style={{padding:'5px'}} onClick={this.handleGuildSearchClick}><GuildIcon /><Trans id="interface.home.reportSelectionHeader.guild">Guild</Trans></a>
+                    <li
+                      key="guild"
+                      className={
+                        this.state.searchType === STATE_SEARCH_GUILD ? 'active' : undefined
+                      }
+                    >
+                      <a href="/" style={{ padding: '5px' }} onClick={this.handleGuildSearchClick}>
+                        <GuildIcon />
+                        <Trans id="interface.home.reportSelectionHeader.guild">Guild</Trans>
+                      </a>
                     </li>
                   </ul>
                 </nav>
@@ -109,7 +145,12 @@ class ReportSelectionHeader extends React.PureComponent {
             </div>
             {reportHistory.length !== 0 && (
               <div className="col-md-4 text-left" style={{ marginTop: -10, marginBottom: -10 }}>
-                <small><Trans id="interface.home.reportSelectionHeader.recentlyViewed">Recently viewed</Trans></small><br />
+                <small>
+                  <Trans id="interface.home.reportSelectionHeader.recentlyViewed">
+                    Recently viewed
+                  </Trans>
+                </small>
+                <br />
 
                 <ReportHistory reportHistory={reportHistory} />
               </div>
@@ -121,10 +162,8 @@ class ReportSelectionHeader extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   reportHistory: getReportHistory(state),
 });
 
-export default connect(
-  mapStateToProps,
-)(ReportSelectionHeader);
+export default connect(mapStateToProps)(ReportSelectionHeader);

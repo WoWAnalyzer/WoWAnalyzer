@@ -38,7 +38,7 @@ class StatWeights extends BaseHealerStatValues {
       const rating = this.statTracker.currentCritRating;
 
       const effectiveCritHealing = event.eolCritAmount;
-      return effectiveCritHealing * ratingCritChanceContribution / rating;
+      return (effectiveCritHealing * ratingCritChanceContribution) / rating;
     }
     return 0;
   }
@@ -48,7 +48,12 @@ class StatWeights extends BaseHealerStatValues {
     if (spellId !== SPELLS.ECHO_OF_LIGHT_HEAL.id) {
       return 0;
     }
-    return healVal.effective * (1 - (this.statTracker.masteryPercentage(this.statTracker.currentMasteryRating - 1, true) / this.statTracker.masteryPercentage(this.statTracker.currentMasteryRating, true)));
+    return (
+      healVal.effective *
+      (1 -
+        this.statTracker.masteryPercentage(this.statTracker.currentMasteryRating - 1, true) /
+          this.statTracker.masteryPercentage(this.statTracker.currentMasteryRating, true))
+    );
   }
 
   _prepareResults() {
@@ -63,7 +68,6 @@ class StatWeights extends BaseHealerStatValues {
       STAT.LEECH,
     ];
   }
-
 }
 
 export default StatWeights;

@@ -17,21 +17,23 @@ class ArticleLoader extends React.PureComponent {
     super(props);
     this.load(props.fileName);
     setTimeout(() => {
-      this.setState(state => ({
+      this.setState((state) => ({
         showLoader: !state.article,
       }));
     }, 1000);
   }
 
   load(fileName) {
-    return retryingPromise(() => import(/* webpackChunkName: "articles/[request]" */ `articles/${fileName}/index.tsx`)
-      .then(exports => exports.default)
-      .then(article => {
-        this.setState({
-          article,
-          showLoader: false,
-        });
-      }));
+    return retryingPromise(() =>
+      import(/* webpackChunkName: "articles/[request]" */ `articles/${fileName}/index.tsx`)
+        .then((exports) => exports.default)
+        .then((article) => {
+          this.setState({
+            article,
+            showLoader: false,
+          });
+        }),
+    );
   }
 
   render() {

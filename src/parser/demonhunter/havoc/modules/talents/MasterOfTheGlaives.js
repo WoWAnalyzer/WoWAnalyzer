@@ -10,7 +10,6 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
  */
 
 class MasterOfTheGlaives extends Analyzer {
-
   slows = 0;
 
   constructor(...args) {
@@ -19,7 +18,10 @@ class MasterOfTheGlaives extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.MASTER_OF_THE_GLAIVE_DEBUFF), this.countingSlows);
+    this.addEventListener(
+      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.MASTER_OF_THE_GLAIVE_DEBUFF),
+      this.countingSlows,
+    );
   }
 
   countingSlows(event) {
@@ -31,7 +33,11 @@ class MasterOfTheGlaives extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.MASTER_OF_THE_GLAIVE_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
-        value={<>{this.slows} <small>slows provided</small></>}
+        value={
+          <>
+            {this.slows} <small>slows provided</small>
+          </>
+        }
       />
     );
   }

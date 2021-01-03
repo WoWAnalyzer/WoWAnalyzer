@@ -1,4 +1,9 @@
-import Events, { ApplyBuffEvent, DamageEvent, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  DamageEvent,
+  FightEndEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { formatDuration } from 'common/format';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
@@ -108,7 +113,7 @@ class ExecuteHelper extends Analyzer {
     if (!event.hitPoints || !event.maxHitPoints) {
       return false;
     }
-    return (event.hitPoints / event.maxHitPoints) < this.lowerThreshold;
+    return event.hitPoints / event.maxHitPoints < this.lowerThreshold;
   }
 
   /**
@@ -120,7 +125,7 @@ class ExecuteHelper extends Analyzer {
     if (!event.hitPoints || !event.maxHitPoints) {
       return false;
     }
-    return (event.hitPoints / event.maxHitPoints) > this.upperThreshold;
+    return event.hitPoints / event.maxHitPoints > this.upperThreshold;
   }
 
   /**
@@ -131,7 +136,7 @@ class ExecuteHelper extends Analyzer {
     if (!event.hitPoints || !event.maxHitPoints) {
       return false;
     }
-    return (this.isTargetInExecuteRange(event) || this.isTargetInReverseExecuteRange(event));
+    return this.isTargetInExecuteRange(event) || this.isTargetInReverseExecuteRange(event);
   }
 
   /**
@@ -139,7 +144,7 @@ class ExecuteHelper extends Analyzer {
    */
   get isExecuteUsableOutsideExecuteRange() {
     let usable: boolean = false;
-    this.executeOutsideRangeEnablers.forEach(spell => {
+    this.executeOutsideRangeEnablers.forEach((spell) => {
       if (this.selectedCombatant.hasBuff(spell.id)) {
         usable = true;
       }
@@ -152,7 +157,7 @@ class ExecuteHelper extends Analyzer {
    */
   get areExecuteSpellsOnCD() {
     let allOnCD: boolean = true;
-    this.executeSpells.forEach(spell => {
+    this.executeSpells.forEach((spell) => {
       if (!this.spellUsable.isOnCooldown(spell.id)) {
         allOnCD = false;
       }
@@ -165,10 +170,22 @@ class ExecuteHelper extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(Events.damage.by(this.executeSources), this.onGeneralDamage);
-    this.addEventListener(Events.cast.by(this.executeSources).spell(this.executeSpells), this.onExecuteCast);
-    this.addEventListener(Events.damage.by(this.executeSources).spell(this.executeSpells), this.onExecuteDamage);
-    this.addEventListener(Events.applybuff.to(this.executeSources).spell(this.executeOutsideRangeEnablers), this.applyExecuteEnablerBuff);
-    this.addEventListener(Events.removebuff.to(this.executeSources).spell(this.executeOutsideRangeEnablers), this.removeExecuteEnablerBuff);
+    this.addEventListener(
+      Events.cast.by(this.executeSources).spell(this.executeSpells),
+      this.onExecuteCast,
+    );
+    this.addEventListener(
+      Events.damage.by(this.executeSources).spell(this.executeSpells),
+      this.onExecuteDamage,
+    );
+    this.addEventListener(
+      Events.applybuff.to(this.executeSources).spell(this.executeOutsideRangeEnablers),
+      this.applyExecuteEnablerBuff,
+    );
+    this.addEventListener(
+      Events.removebuff.to(this.executeSources).spell(this.executeOutsideRangeEnablers),
+      this.removeExecuteEnablerBuff,
+    );
     this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
@@ -234,7 +251,11 @@ class ExecuteHelper extends Analyzer {
     if (event.targetIsFriendly) {
       return;
     }
-    if (this.areExecuteSpellsOnCD || this.isExecuteUsableOutsideExecuteRange || this.isTargetInHealthExecuteWindow(event)) {
+    if (
+      this.areExecuteSpellsOnCD ||
+      this.isExecuteUsableOutsideExecuteRange ||
+      this.isTargetInHealthExecuteWindow(event)
+    ) {
       this.lastExecuteHitTimestamp = event.timestamp;
       if (!this.inExecuteWindow) {
         this.inExecuteWindow = true;
@@ -282,9 +303,17 @@ class ExecuteHelper extends Analyzer {
     if (!this.inHealthExecuteWindow) {
       this.inExecuteWindow = false;
       this.totalExecuteWindowDuration += event.timestamp - this.executeWindowStart;
-      debug && console.log(event.ability.name, ' was removed ending the execute window, current total: ', this.totalExecuteDuration);
+      debug &&
+        console.log(
+          event.ability.name,
+          ' was removed ending the execute window, current total: ',
+          this.totalExecuteDuration,
+        );
     } else {
-      debug && console.log('Execute enabler buff ended, but inside execute health window so window still ongoing.');
+      debug &&
+        console.log(
+          'Execute enabler buff ended, but inside execute health window so window still ongoing.',
+        );
     }
   }
 
@@ -293,7 +322,13 @@ class ExecuteHelper extends Analyzer {
       this.totalExecuteWindowDuration += event.timestamp - this.executeWindowStart;
       this.inExecuteWindow = false;
     }
-    debug && console.log('Fight ended, total duration of execute: ' + this.totalExecuteDuration + ' | ' + formatDuration(this.totalExecuteDuration));
+    debug &&
+      console.log(
+        'Fight ended, total duration of execute: ' +
+          this.totalExecuteDuration +
+          ' | ' +
+          formatDuration(this.totalExecuteDuration),
+      );
   }
 
   //endregion

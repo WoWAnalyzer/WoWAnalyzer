@@ -33,8 +33,14 @@ class LegionStrike extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER_PET).spell(SPELLS.FELGUARD_LEGION_STRIKE), this.legionStrikeCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.FELGUARD_LEGION_STRIKE), this.legionStrikeDamage);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER_PET).spell(SPELLS.FELGUARD_LEGION_STRIKE),
+      this.legionStrikeCast,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.FELGUARD_LEGION_STRIKE),
+      this.legionStrikeDamage,
+    );
   }
 
   legionStrikeCast(event) {
@@ -51,7 +57,7 @@ class LegionStrike extends Analyzer {
   }
 
   _getPetGuid(id) {
-    return this.owner.playerPets.find(pet => pet.id === id).guid;
+    return this.owner.playerPets.find((pet) => pet.id === id).guid;
   }
 
   _isPermanentPet(id) {
@@ -60,14 +66,23 @@ class LegionStrike extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>Your Felguard didn't cast <SpellLink id={SPELLS.FELGUARD_LEGION_STRIKE.id} /> at all. Remember to turn on the auto-cast for this ability as it's a great portion of your total damage.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your Felguard didn't cast <SpellLink id={SPELLS.FELGUARD_LEGION_STRIKE.id} /> at all.
+          Remember to turn on the auto-cast for this ability as it's a great portion of your total
+          damage.
+        </>,
+      )
         .icon(SPELLS.FELGUARD_LEGION_STRIKE.icon)
-        .actual(t({
-      id: "warlock.demonology.suggestions.legionStrike.casts",
-      message: `${actual} Legion Strike casts`
-    }))
-        .recommended(`> ${recommended} casts are recommended`));
+        .actual(
+          t({
+            id: 'warlock.demonology.suggestions.legionStrike.casts',
+            message: `${actual} Legion Strike casts`,
+          }),
+        )
+        .recommended(`> ${recommended} casts are recommended`),
+    );
   }
 
   statistic() {

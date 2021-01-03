@@ -30,7 +30,10 @@ class SurgeOfLight extends Analyzer {
       return;
     }
 
-    this.addEventListener(Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.SURGE_OF_LIGHT_BUFF), this.onChangeBuffStack);
+    this.addEventListener(
+      Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.SURGE_OF_LIGHT_BUFF),
+      this.onChangeBuffStack,
+    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLASH_HEAL), this.onCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.FLASH_HEAL), this.onHeal);
   }
@@ -71,7 +74,8 @@ class SurgeOfLight extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.SURGE_OF_LIGHT_TALENT}>
           <>
-            {this.solFlashHeals} free <SpellLink id={SPELLS.FLASH_HEAL.id} /> casts<br />
+            {this.solFlashHeals} free <SpellLink id={SPELLS.FLASH_HEAL.id} /> casts
+            <br />
             <ItemManaGained amount={this.solManaSaved} />
           </>
         </BoringSpellValueText>

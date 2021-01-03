@@ -8,7 +8,9 @@ import Tooltip from 'common/Tooltip';
 import './ReportSelecter.css';
 
 export function getReportCode(input: string) {
-  const match = input.trim().match(/^(.*reports\/)?((?:[a:]{2})([a-zA-Z0-9]{16})|([a-zA-Z0-9]{16}))\/?(#.*)?$/);
+  const match = input
+    .trim()
+    .match(/^(.*reports\/)?((?:[a:]{2})([a-zA-Z0-9]{16})|([a-zA-Z0-9]{16}))\/?(#.*)?$/);
   return match && match[2];
 }
 
@@ -140,11 +142,11 @@ const ReportSelecter = () => {
               className="form-control"
               style={{ width: '100%', height: '100%' }}
               ref={reportCodeRef}
-              onChange={e => setReportCode(e.target.value)}
+              onChange={(e) => setReportCode(e.target.value)}
               value={reportCode}
               placeholder={t({
-                id: "interface.reportSelecter.reportSelecter.placeholder",
-                message: `https://www.warcraftlogs.com/reports/<report code>`
+                id: 'interface.reportSelecter.reportSelecter.placeholder',
+                message: `https://www.warcraftlogs.com/reports/<report code>`,
               })}
               autoCorrect="off"
               autoCapitalize="off"
@@ -154,7 +156,8 @@ const ReportSelecter = () => {
         </Tooltip>
 
         <button type="submit" className="btn btn-primary analyze">
-          <Trans id="interface.reportSelecter.reportSelecter.button">Analyze</Trans> <span className="glyphicon glyphicon-chevron-right" aria-hidden />
+          <Trans id="interface.reportSelecter.reportSelecter.button">Analyze</Trans>{' '}
+          <span className="glyphicon glyphicon-chevron-right" aria-hidden />
         </button>
       </div>
     </form>

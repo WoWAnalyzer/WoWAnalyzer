@@ -35,7 +35,7 @@ class FocusCapTracker extends RegenResourceCapTracker {
   }
 
   get wastedPercent() {
-    return (this.missedRegen / this.naturalRegen) || 0;
+    return this.missedRegen / this.naturalRegen || 0;
   }
 
   get focusNaturalRegenWasteThresholds() {
@@ -56,33 +56,43 @@ class FocusCapTracker extends RegenResourceCapTracker {
 
   onEnergizeByPlayer(event: EnergizeEvent) {
     const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
-    this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || this.current);
+    this.bySecond[secondsIntoFight] = this.bySecond[secondsIntoFight] || this.current;
   }
 
   onCast(event: CastEvent) {
     super.onCast(event);
     const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
-    this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || this.current);
+    this.bySecond[secondsIntoFight] = this.bySecond[secondsIntoFight] || this.current;
   }
 
   onDamage(event: DamageEvent) {
     super.onDamage(event);
     const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
-    this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || this.current);
+    this.bySecond[secondsIntoFight] = this.bySecond[secondsIntoFight] || this.current;
   }
 
   suggestions(when: When) {
-    when(this.focusNaturalRegenWasteThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You're allowing your focus to reach its cap. While at its maximum value you miss out on the focus that would have regenerated. Although it can be beneficial to let focus pool ready to be used at the right time, try to spend some before it reaches the cap.</>)
-      .icon('ability_hunter_focusfire')
-      .actual(t({
-      id: "hunter.marksmanship.suggestions.focusCapTracker.focusLost",
-      message: `${formatPercentage(1 - actual)}% regenerated focus lost due to being capped.`
-    }))
-      .recommended(`<${formatPercentage(recommended, 0)}% is recommended.`));
+    when(this.focusNaturalRegenWasteThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You're allowing your focus to reach its cap. While at its maximum value you miss out on
+          the focus that would have regenerated. Although it can be beneficial to let focus pool
+          ready to be used at the right time, try to spend some before it reaches the cap.
+        </>,
+      )
+        .icon('ability_hunter_focusfire')
+        .actual(
+          t({
+            id: 'hunter.marksmanship.suggestions.focusCapTracker.focusLost',
+            message: `${formatPercentage(1 - actual)}% regenerated focus lost due to being capped.`,
+          }),
+        )
+        .recommended(`<${formatPercentage(recommended, 0)}% is recommended.`),
+    );
   }
 
   statistic() {
-    const data = Object.entries(this.bySecond).map(([sec, val]) => ({ 'time': sec, 'val': val }));
+    const data = Object.entries(this.bySecond).map(([sec, val]) => ({ time: sec, val: val }));
     return (
       <StatisticBar
         position={STATISTIC_ORDER.CORE(1)}
@@ -91,25 +101,31 @@ class FocusCapTracker extends RegenResourceCapTracker {
         large={false}
         ultrawide={false}
       >
-        <Tooltip content={<>Natural Focus regen lost: <strong>{formatThousands(this.missedRegen)}</strong> <br /> That is <strong>{formatPercentage(this.wastedPercent)}%</strong> of natural regenerated focus over the course of the encounter.</>}>
+        <Tooltip
+          content={
+            <>
+              Natural Focus regen lost: <strong>{formatThousands(this.missedRegen)}</strong> <br />{' '}
+              That is <strong>{formatPercentage(this.wastedPercent)}%</strong> of natural
+              regenerated focus over the course of the encounter.
+            </>
+          }
+        >
           <div className="flex">
             <div className="flex-sub icon">
-              <img
-                src="/img/bullseye.png"
-                alt="Focus"
-              />
+              <img src="/img/bullseye.png" alt="Focus" />
             </div>
-            <div
-              className="flex-sub value"
-              style={{ width: 100 }}
-            >
+            <div className="flex-sub value" style={{ width: 100 }}>
               Focus
             </div>
             <div className="flex-main chart">
               {this.missedRegen > 0 && (
                 <AutoSizer disableWidth>
                   {({ height }) => (
-                    <FlushLineChart data={data} duration={this.owner.fightDuration / 1000} height={height} />
+                    <FlushLineChart
+                      data={data}
+                      duration={this.owner.fightDuration / 1000}
+                      height={height}
+                    />
                   )}
                 </AutoSizer>
               )}

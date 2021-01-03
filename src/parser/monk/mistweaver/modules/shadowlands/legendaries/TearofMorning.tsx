@@ -12,10 +12,9 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { formatThousands } from 'common/format';
 import DonutChart from 'interface/statistics/components/DonutChart';
 
-const POWER_TRANSFER = .25;
+const POWER_TRANSFER = 0.25;
 
 class TearofMorning extends Analyzer {
-
   vivHealing: number = 0;
   envHealing: number = 0;
   envbHealing: number = 0;
@@ -33,10 +32,22 @@ class TearofMorning extends Analyzer {
       return;
     }
 
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.TEAR_OF_MORNING_BUFF), this.manageBuffApplied);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.TEAR_OF_MORNING_BUFF), this.manageBuffRemoved);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_MIST), this.envelopingMistHealing);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH), this.envelopingBreathHealing);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.TEAR_OF_MORNING_BUFF),
+      this.manageBuffApplied,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.TEAR_OF_MORNING_BUFF),
+      this.manageBuffRemoved,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_MIST),
+      this.envelopingMistHealing,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH),
+      this.envelopingBreathHealing,
+    );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.vivifyHealing);
   }
 
@@ -49,15 +60,24 @@ class TearofMorning extends Analyzer {
   }
 
   envelopingMistHealing(event: HealEvent) {
-    this.envHealing += ((event.amount || 0) + (event.absorbed || 0) + (event.overheal || 0)) * POWER_TRANSFER * this.numberOExtendLifes;
+    this.envHealing +=
+      ((event.amount || 0) + (event.absorbed || 0) + (event.overheal || 0)) *
+      POWER_TRANSFER *
+      this.numberOExtendLifes;
   }
 
   envelopingBreathHealing(event: HealEvent) {
-    this.envbHealing += ((event.amount || 0) + (event.absorbed || 0) + (event.overheal || 0)) * POWER_TRANSFER * this.numberOExtendLifes;
+    this.envbHealing +=
+      ((event.amount || 0) + (event.absorbed || 0) + (event.overheal || 0)) *
+      POWER_TRANSFER *
+      this.numberOExtendLifes;
   }
 
   vivifyHealing(event: HealEvent) {
-    this.vivHealing += ((event.amount || 0) + (event.absorbed || 0) + (event.overheal || 0)) * POWER_TRANSFER * this.numberOExtendLifes;
+    this.vivHealing +=
+      ((event.amount || 0) + (event.absorbed || 0) + (event.overheal || 0)) *
+      POWER_TRANSFER *
+      this.numberOExtendLifes;
   }
 
   renderDonutChart() {
@@ -89,11 +109,7 @@ class TearofMorning extends Analyzer {
       },
     ];
 
-    return (
-      <DonutChart
-        items={items}
-      />
-    );
+    return <DonutChart items={items} />;
   }
 
   statistic() {
@@ -104,7 +120,9 @@ class TearofMorning extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
       >
         <div className="pad">
-          <label><SpellLink id={SPELLS.TEAR_OF_MORNING_BUFF.id}>Tear of Morning</SpellLink> breakdown</label>
+          <label>
+            <SpellLink id={SPELLS.TEAR_OF_MORNING_BUFF.id}>Tear of Morning</SpellLink> breakdown
+          </label>
           {this.renderDonutChart()}
         </div>
       </Statistic>

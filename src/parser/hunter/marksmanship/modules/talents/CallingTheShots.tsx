@@ -36,11 +36,24 @@ class CallingTheShots extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CALLING_THE_SHOTS_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM, SPELLS.CHIMAERA_SHOT_MM_NATURE_DAMAGE, SPELLS.CHIMAERA_SHOT_MM_FROST_DAMAGE]), this.onCTSPotentialProc);
+    this.addEventListener(
+      Events.damage
+        .by(SELECTED_PLAYER)
+        .spell([
+          SPELLS.ARCANE_SHOT,
+          SPELLS.MULTISHOT_MM,
+          SPELLS.CHIMAERA_SHOT_MM_NATURE_DAMAGE,
+          SPELLS.CHIMAERA_SHOT_MM_FROST_DAMAGE,
+        ]),
+      this.onCTSPotentialProc,
+    );
   }
 
   get callingTheShotsEfficacy() {
-    return this.effectiveTrueshotReductionMs / (this.effectiveTrueshotReductionMs + this.wastedTrueshotReductionMs);
+    return (
+      this.effectiveTrueshotReductionMs /
+      (this.effectiveTrueshotReductionMs + this.wastedTrueshotReductionMs)
+    );
   }
 
   get callingTheShotsEfficacyThresholds() {
@@ -59,11 +72,17 @@ class CallingTheShots extends Analyzer {
     if (event.timestamp > this.reductionTimestamp + MS_BUFFER) {
       if (this.spellUsable.isOnCooldown(SPELLS.TRUESHOT.id)) {
         if (this.spellUsable.cooldownRemaining(SPELLS.TRUESHOT.id) < CTS_CDR_MS) {
-          const effectiveReductionMs = this.spellUsable.reduceCooldown(SPELLS.TRUESHOT.id, CTS_CDR_MS);
+          const effectiveReductionMs = this.spellUsable.reduceCooldown(
+            SPELLS.TRUESHOT.id,
+            CTS_CDR_MS,
+          );
           this.effectiveTrueshotReductionMs += effectiveReductionMs;
-          this.wastedTrueshotReductionMs += (CTS_CDR_MS - effectiveReductionMs);
+          this.wastedTrueshotReductionMs += CTS_CDR_MS - effectiveReductionMs;
         } else {
-          this.effectiveTrueshotReductionMs += this.spellUsable.reduceCooldown(SPELLS.TRUESHOT.id, CTS_CDR_MS);
+          this.effectiveTrueshotReductionMs += this.spellUsable.reduceCooldown(
+            SPELLS.TRUESHOT.id,
+            CTS_CDR_MS,
+          );
         }
       } else {
         this.wastedTrueshotReductionMs += CTS_CDR_MS;
@@ -73,16 +92,31 @@ class CallingTheShots extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.callingTheShotsEfficacyThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        When talented into <SpellLink id={SPELLS.CALLING_THE_SHOTS_TALENT.id} />, it is important to maximize its potential by not casting {this.selectedCombatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT_MARKSMANSHIP.id) ? <SpellLink id={SPELLS.CHIMAERA_SHOT_TALENT_MARKSMANSHIP.id} /> : <SpellLink id={SPELLS.ARCANE_SHOT.id} />} or <SpellLink id={SPELLS.MULTISHOT_MM.id} /> while <SpellLink id={SPELLS.TRUESHOT.id} /> isn't on cooldown.
-      </>)
-      .icon(SPELLS.CALLING_THE_SHOTS_TALENT.icon)
-      .actual(t({
-      id: "hunter.marksmanship.suggestions.callingTheShots.efficiency",
-      message: `You had ${formatPercentage(actual)}% effective cooldown reduction from Calling the Shots`
-    }))
-      .recommended(`>${formatPercentage(recommended)}% is recommended`));
+    when(this.callingTheShotsEfficacyThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          When talented into <SpellLink id={SPELLS.CALLING_THE_SHOTS_TALENT.id} />, it is important
+          to maximize its potential by not casting{' '}
+          {this.selectedCombatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT_MARKSMANSHIP.id) ? (
+            <SpellLink id={SPELLS.CHIMAERA_SHOT_TALENT_MARKSMANSHIP.id} />
+          ) : (
+            <SpellLink id={SPELLS.ARCANE_SHOT.id} />
+          )}{' '}
+          or <SpellLink id={SPELLS.MULTISHOT_MM.id} /> while <SpellLink id={SPELLS.TRUESHOT.id} />{' '}
+          isn't on cooldown.
+        </>,
+      )
+        .icon(SPELLS.CALLING_THE_SHOTS_TALENT.icon)
+        .actual(
+          t({
+            id: 'hunter.marksmanship.suggestions.callingTheShots.efficiency',
+            message: `You had ${formatPercentage(
+              actual,
+            )}% effective cooldown reduction from Calling the Shots`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
@@ -94,7 +128,11 @@ class CallingTheShots extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.CALLING_THE_SHOTS_TALENT}>
           <>
-            {formatNumber(this.effectiveTrueshotReductionMs / 1000)}s / {formatNumber((this.effectiveTrueshotReductionMs + this.wastedTrueshotReductionMs) / 1000)}s <small>CDR</small>
+            {formatNumber(this.effectiveTrueshotReductionMs / 1000)}s /{' '}
+            {formatNumber(
+              (this.effectiveTrueshotReductionMs + this.wastedTrueshotReductionMs) / 1000,
+            )}
+            s <small>CDR</small>
           </>
         </BoringSpellValueText>
       </Statistic>

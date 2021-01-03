@@ -51,7 +51,7 @@ class PatchChecker extends React.PureComponent {
     const orderedPatches = PATCHES.sort((a, b) => b.timestamp - a.timestamp);
 
     const expansionStartPatch = orderedPatches[orderedPatches.length - 1];
-    const reportPatch = orderedPatches.find(patch => reportTimestamp > patch.timestamp);
+    const reportPatch = orderedPatches.find((patch) => reportTimestamp > patch.timestamp);
 
     if ((reportPatch && reportPatch.isCurrent) || this.continue) {
       return children;
@@ -60,49 +60,81 @@ class PatchChecker extends React.PureComponent {
 
       return (
         <div className="container offset">
-          <h1>{report.title} - {reportDate}</h1>
+          <h1>
+            {report.title} - {reportDate}
+          </h1>
 
           <Panel
-            title={isThisExpansion ? <Trans id="interface.report.patchChecker.earlierPatch">This report is for an earlier patch</Trans> : <Trans id="interface.report.patchChecker.previousExpansion">This report is for a previous expansion</Trans>}
+            title={
+              isThisExpansion ? (
+                <Trans id="interface.report.patchChecker.earlierPatch">
+                  This report is for an earlier patch
+                </Trans>
+              ) : (
+                <Trans id="interface.report.patchChecker.previousExpansion">
+                  This report is for a previous expansion
+                </Trans>
+              )
+            }
             pad={false}
           >
             <div className="flex wrapable">
               <div className="flex-main pad">
                 {isThisExpansion ? (
                   <Trans id="interface.report.patchChecker.viewAnalysisOnOlderVersion">
-                    WoWAnalyzer is constantly being updated to support the latest changes. This can cause some functionality to be modified for the latest talents/traits/trinkets or be removed.<br /><br />
-
-                    This could mean that some parts of your report will no longer be analysed accurately.<br /><br />
-
-                    If you would like to view the analysis on an older version of WoWAnalyzer, <a
+                    WoWAnalyzer is constantly being updated to support the latest changes. This can
+                    cause some functionality to be modified for the latest talents/traits/trinkets
+                    or be removed.
+                    <br />
+                    <br />
+                    This could mean that some parts of your report will no longer be analysed
+                    accurately.
+                    <br />
+                    <br />
+                    If you would like to view the analysis on an older version of WoWAnalyzer,{' '}
+                    <a
                       href={this.makePreviousPatchUrl(reportPatch)}
                       onClick={this.handleClickContinue}
                       style={{ fontSize: '1.1em' }}
                     >
                       <Trans id="interface.report.patchChecker.clickHere">click here</Trans>
-                    </a>.<br /><br />
-
-                    If you would still like to view the analysis using the latest updates, you can click 'Continue anyway' below.
+                    </a>
+                    .<br />
+                    <br />
+                    If you would still like to view the analysis using the latest updates, you can
+                    click 'Continue anyway' below.
                   </Trans>
                 ) : (
                   <Trans id="interface.report.patchChecker.viewAnalysisOldExpansion">
-                    Due to the number of class changes since the last expansion (class abilities, talents, etc.), the analysis provided by WoWAnalyzer will most likely be inaccurate.<br /><br />
-
-                    You can still access the Analysis by clicking 'Continue anyway' below if required.
+                    Due to the number of class changes since the last expansion (class abilities,
+                    talents, etc.), the analysis provided by WoWAnalyzer will most likely be
+                    inaccurate.
+                    <br />
+                    <br />
+                    You can still access the Analysis by clicking 'Continue anyway' below if
+                    required.
                   </Trans>
-                )}<br /><br />
+                )}
+                <br />
+                <br />
 
                 <div style={{ marginBottom: 15 }}>
-                  <GitHubButton />{' '}
-                  <DiscordButton />
+                  <GitHubButton /> <DiscordButton />
                 </div>
-                <Tooltip content={<Trans id="interface.report.patchChecker.khadgarApproves">Khadgar approves your bravery</Trans>}>
+                <Tooltip
+                  content={
+                    <Trans id="interface.report.patchChecker.khadgarApproves">
+                      Khadgar approves your bravery
+                    </Trans>
+                  }
+                >
                   <Link
                     to={window.location.pathname}
                     onClick={this.handleClickContinue}
                     style={{ fontSize: '1.1em' }}
                   >
-                    <Icon icon="quest_khadgar" /> <Trans id="interface.report.patchChecker.continueAnyway">Continue anyway</Trans>
+                    <Icon icon="quest_khadgar" />{' '}
+                    <Trans id="interface.report.patchChecker.continueAnyway">Continue anyway</Trans>
                   </Link>
                 </Tooltip>
               </div>
@@ -125,7 +157,7 @@ class PatchChecker extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   ignored: getReportCodesIgnoredPreviousPatchWarning(state),
 });
 export default connect(mapStateToProps, {

@@ -1,7 +1,13 @@
 import React from 'react';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  CastEvent,
+  RemoveBuffEvent,
+  RemoveBuffStackEvent,
+} from 'parser/core/Events';
 import SPELLS from 'common/SPELLS/index';
 import UptimeIcon from 'interface/icons/Uptime';
 import Spell from 'common/SPELLS/Spell';
@@ -77,10 +83,7 @@ class MaelstromWeapon extends Analyzer {
 
   // this method is a helper for determining if removebuff event corresponds to stack expiration or spending
   castMaelstromWeaponSpender(event: CastEvent) {
-    const stacksUsed = Math.min(
-      this.currentStacks,
-      MAX_STACKS_SPENT_PER_CAST,
-    );
+    const stacksUsed = Math.min(this.currentStacks, MAX_STACKS_SPENT_PER_CAST);
 
     if (stacksUsed === 0) {
       return;
@@ -140,18 +143,24 @@ class MaelstromWeapon extends Analyzer {
   }
 
   statistic() {
-    return <Statistic
-      position={STATISTIC_ORDER.CORE()}
-      size="flexible"
-      tooltip={<>
-        You gained {this.stacksGained} Maelstrom Weapon stacks and used {this.stacksUsed}
-      </>}
-    >
-      <BoringSpellValueText spell={SPELLS.MAELSTROM_WEAPON}>
-        <UptimeIcon /> {formatPercentage(this.timePercentageSpentWithCappedStacks)}% <small>of fight with max stacks</small><br />
-        {formatPercentage(this.stacksUsed / this.stacksGained)}% <small>of stacks used</small>
-      </BoringSpellValueText>
-    </Statistic>;
+    return (
+      <Statistic
+        position={STATISTIC_ORDER.CORE()}
+        size="flexible"
+        tooltip={
+          <>
+            You gained {this.stacksGained} Maelstrom Weapon stacks and used {this.stacksUsed}
+          </>
+        }
+      >
+        <BoringSpellValueText spell={SPELLS.MAELSTROM_WEAPON}>
+          <UptimeIcon /> {formatPercentage(this.timePercentageSpentWithCappedStacks)}%{' '}
+          <small>of fight with max stacks</small>
+          <br />
+          {formatPercentage(this.stacksUsed / this.stacksGained)}% <small>of stacks used</small>
+        </BoringSpellValueText>
+      </Statistic>
+    );
   }
 }
 

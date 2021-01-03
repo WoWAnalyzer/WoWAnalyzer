@@ -25,7 +25,10 @@ class AlphaPredator extends Analyzer {
 
     this.active = this.selectedCombatant.hasTalent(SPELLS.ALPHA_PREDATOR_TALENT.id);
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.KILL_COMMAND_DAMAGE_SV), this.onPetDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.KILL_COMMAND_DAMAGE_SV),
+      this.onPetDamage,
+    );
   }
 
   onPetDamage(event: DamageEvent) {
@@ -37,11 +40,13 @@ class AlphaPredator extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(1)}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            This statistic shows the damage gained from the increased Kill Command damage. It does not reflect the potential damage gain from having 2 charges of Kill Command or from the focus gain from Kill Command overall.
+            This statistic shows the damage gained from the increased Kill Command damage. It does
+            not reflect the potential damage gain from having 2 charges of Kill Command or from the
+            focus gain from Kill Command overall.
           </>
-        )}
+        }
         category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spell={SPELLS.ALPHA_PREDATOR_TALENT}>

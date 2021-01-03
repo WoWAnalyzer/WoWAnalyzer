@@ -1,4 +1,9 @@
-import { SimpleFight, damageTaken, buffsRefreshed, casts } from 'parser/druid/guardian/test-fixtures/SimpleFight';
+import {
+  SimpleFight,
+  damageTaken,
+  buffsRefreshed,
+  casts,
+} from 'parser/druid/guardian/test-fixtures/SimpleFight';
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 
 import Gore from './Gore';
@@ -6,8 +11,7 @@ import Gore from './Gore';
 const mockSpellUsable = {
   isOnCooldown: () => false,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  endCooldown: () => {
-  },
+  endCooldown: () => {},
 };
 
 describe('Druid/Guardian/Gore', () => {

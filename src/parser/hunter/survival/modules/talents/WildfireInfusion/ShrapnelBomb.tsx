@@ -9,7 +9,12 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import Events, { ApplyDebuffEvent, ApplyDebuffStackEvent, DamageEvent, EventType } from 'parser/core/Events';
+import Events, {
+  ApplyDebuffEvent,
+  ApplyDebuffStackEvent,
+  DamageEvent,
+  EventType,
+} from 'parser/core/Events';
 
 /**
  * Lace your Wildfire Bomb with extra reagents, randomly giving it one of the following enhancements each time you throw it:
@@ -38,9 +43,24 @@ class ShrapnelBomb extends Analyzer {
 
     this.active = this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id);
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.SHRAPNEL_BOMB_WFI_DOT, SPELLS.SHRAPNEL_BOMB_WFI_IMPACT, SPELLS.INTERNAL_BLEEDING_SV]), this.onDamage);
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.INTERNAL_BLEEDING_SV), this.onDebuffApplication);
-    this.addEventListener(Events.applydebuffstack.by(SELECTED_PLAYER).spell(SPELLS.INTERNAL_BLEEDING_SV), this.onDebuffApplication);
+    this.addEventListener(
+      Events.damage
+        .by(SELECTED_PLAYER)
+        .spell([
+          SPELLS.SHRAPNEL_BOMB_WFI_DOT,
+          SPELLS.SHRAPNEL_BOMB_WFI_IMPACT,
+          SPELLS.INTERNAL_BLEEDING_SV,
+        ]),
+      this.onDamage,
+    );
+    this.addEventListener(
+      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.INTERNAL_BLEEDING_SV),
+      this.onDebuffApplication,
+    );
+    this.addEventListener(
+      Events.applydebuffstack.by(SELECTED_PLAYER).spell(SPELLS.INTERNAL_BLEEDING_SV),
+      this.onDebuffApplication,
+    );
   }
 
   onDamage(event: DamageEvent) {
@@ -63,7 +83,7 @@ class ShrapnelBomb extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(2)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        dropdown={(
+        dropdown={
           <>
             <table className="table table-condensed">
               <thead>
@@ -82,7 +102,7 @@ class ShrapnelBomb extends Analyzer {
               </tbody>
             </table>
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.SHRAPNEL_BOMB_WFI}>
           <>

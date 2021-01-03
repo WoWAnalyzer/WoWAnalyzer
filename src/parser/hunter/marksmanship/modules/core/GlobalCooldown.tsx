@@ -17,7 +17,6 @@ class GlobalCooldown extends CoreGlobalCooldown {
     }
     super.onCast(event);
   }
-
 }
 
 export default GlobalCooldown;

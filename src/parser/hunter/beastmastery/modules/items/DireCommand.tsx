@@ -23,7 +23,6 @@ import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
  *
  */
 class DireCommand extends Analyzer {
-
   damage: number = 0;
   activeDireBeasts: string[] = [];
   targetId: string = '';
@@ -36,13 +35,21 @@ class DireCommand extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.summon.by(SELECTED_PLAYER).spell(SPELLS.DIRE_BEAST_SUMMON), this.direBeastSummon);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.KILL_COMMAND_DAMAGE_BM), this.killCommandDamage);
+    this.addEventListener(
+      Events.summon.by(SELECTED_PLAYER).spell(SPELLS.DIRE_BEAST_SUMMON),
+      this.direBeastSummon,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.KILL_COMMAND_DAMAGE_BM),
+      this.killCommandDamage,
+    );
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
   }
 
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.DIRE_BEAST_BUFF.id) / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.DIRE_BEAST_BUFF.id) / this.owner.fightDuration
+    );
   }
 
   direBeastSummon(event: SummonEvent) {
@@ -71,14 +78,21 @@ class DireCommand extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
         tooltip={<>You had {formatPercentage(this.uptime)}% uptime on the Dire Beast Haste buff.</>}
-        dropdown={(
+        dropdown={
           <>
             <div style={{ padding: '8px' }}>
-              {plotOneVariableBinomChart(this.direCommandProcs, this.killCommandHits, DIRE_COMMAND_PROC_CHANCE)}
-              <p>Likelihood of getting <em>exactly</em> as many procs as estimated on a fight given your number of <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> casts.</p>
+              {plotOneVariableBinomChart(
+                this.direCommandProcs,
+                this.killCommandHits,
+                DIRE_COMMAND_PROC_CHANCE,
+              )}
+              <p>
+                Likelihood of getting <em>exactly</em> as many procs as estimated on a fight given
+                your number of <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> casts.
+              </p>
             </div>
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.DIRE_COMMAND_EFFECT}>
           <ItemDamageDone amount={this.damage} />

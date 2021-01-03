@@ -1,0 +1,5 @@
+/build
+/.yarn-cache
+/src/localization/_build
+/src/localization/*/messages.js
+/.vscode/*

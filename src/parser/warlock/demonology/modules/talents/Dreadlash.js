@@ -23,8 +23,14 @@ class Dreadlash extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DREADLASH_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.DREADBITE), this.handleDreadbite);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CALL_DREADSTALKERS), this.handleDreadstalkerCast);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.DREADBITE),
+      this.handleDreadbite,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CALL_DREADSTALKERS),
+      this.handleDreadstalkerCast,
+    );
   }
 
   handleDreadbite(event) {
@@ -49,13 +55,16 @@ class Dreadlash extends Analyzer {
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            {formatThousands(total)} bonus damage<br />
-            Bonus damage on primary target hits: {formatThousands(this.bonusDamage)} ({this.owner.formatItemDamageDone(this.bonusDamage)})<br />
-            Bonus cleaved damage: {formatThousands(this.cleavedDamage)} ({this.owner.formatItemDamageDone(this.cleavedDamage)})
+            {formatThousands(total)} bonus damage
+            <br />
+            Bonus damage on primary target hits: {formatThousands(this.bonusDamage)} (
+            {this.owner.formatItemDamageDone(this.bonusDamage)})<br />
+            Bonus cleaved damage: {formatThousands(this.cleavedDamage)} (
+            {this.owner.formatItemDamageDone(this.cleavedDamage)})
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.DREADLASH_TALENT}>
           <ItemDamageDone amount={total} />

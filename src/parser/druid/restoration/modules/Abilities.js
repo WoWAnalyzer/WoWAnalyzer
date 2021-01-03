@@ -17,16 +17,14 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.75,
           averageIssueEfficiency: 0.55,
-          majorIssueEfficiency: 0.30,
+          majorIssueEfficiency: 0.3,
         },
-        healSpellIds: [
-          SPELLS.TRANQUILITY_HEAL.id,
-        ],
+        healSpellIds: [SPELLS.TRANQUILITY_HEAL.id],
       },
       {
         spell: SPELLS.NATURES_SWIFTNESS,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 60,//TODO include conduit reduction
+        cooldown: 60, //TODO include conduit reduction
         castEfficiency: {
           suggestion: true,
         },
@@ -46,7 +44,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           importance: ISSUE_IMPORTANCE.MINOR,
-          recommendedEfficiency: 0.60,
+          recommendedEfficiency: 0.6,
         },
       },
       {
@@ -57,7 +55,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           importance: ISSUE_IMPORTANCE.MINOR,
-          recommendedEfficiency: 0.60,
+          recommendedEfficiency: 0.6,
         },
       },
       {
@@ -71,9 +69,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
-        healSpellIds: [
-          SPELLS.CENARION_WARD_HEAL.id,
-        ],
+        healSpellIds: [SPELLS.CENARION_WARD_HEAL.id],
       },
       {
         spell: SPELLS.FLOURISH_TALENT,
@@ -87,7 +83,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.75,
           averageIssueEfficiency: 0.55,
-          majorIssueEfficiency: 0.30,
+          majorIssueEfficiency: 0.3,
         },
       },
       {
@@ -104,10 +100,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        healSpellIds: [
-          SPELLS.EFFLORESCENCE_HEAL.id,
-          SPELLS.SPRING_BLOSSOMS.id,
-        ],
+        healSpellIds: [SPELLS.EFFLORESCENCE_HEAL.id, SPELLS.SPRING_BLOSSOMS.id],
       },
       {
         spell: SPELLS.REJUVENATION,
@@ -115,10 +108,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        healSpellIds: [
-          SPELLS.REJUVENATION_GERMINATION.id,
-          SPELLS.CULTIVATION.id,
-        ],
+        healSpellIds: [SPELLS.REJUVENATION_GERMINATION.id, SPELLS.CULTIVATION.id],
       },
       {
         spell: SPELLS.INCARNATION_TREE_OF_LIFE_TALENT,
@@ -130,9 +120,9 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.80,
-          averageIssueEfficiency: 0.60,
-          majorIssueEfficiency: 0.40,
+          recommendedEfficiency: 0.8,
+          averageIssueEfficiency: 0.6,
+          majorIssueEfficiency: 0.4,
         },
       },
       {
@@ -151,8 +141,8 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.40,
-          averageIssueEfficiency: 0.00, // average and "negative" major included for checklist bar scaling in line with a "minor" issue
+          recommendedEfficiency: 0.4,
+          averageIssueEfficiency: 0.0, // average and "negative" major included for checklist bar scaling in line with a "minor" issue
           majorIssueEfficiency: -1,
           importance: ISSUE_IMPORTANCE.MINOR,
         },
@@ -173,9 +163,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        healSpellIds: [
-          SPELLS.LIFEBLOOM_BLOOM_HEAL.id,
-        ],
+        healSpellIds: [SPELLS.LIFEBLOOM_BLOOM_HEAL.id],
       },
       {
         spell: SPELLS.LIFEBLOOM_DTL_HOT_HEAL,
@@ -184,9 +172,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        healSpellIds: [
-          SPELLS.LIFEBLOOM_BLOOM_HEAL.id,
-        ],
+        healSpellIds: [SPELLS.LIFEBLOOM_BLOOM_HEAL.id],
       },
       {
         spell: SPELLS.NATURES_CURE,
@@ -241,7 +227,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MANGLE_BEAR,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
-        cooldown: haste => 6 / (1 + haste),
+        cooldown: (haste) => 6 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -419,7 +405,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DASH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 120,
-        gcd: (combatant => {
+        gcd: (combatant) => {
           if (combatant.hasBuff(SPELLS.CAT_FORM.id)) {
             // off the GCD if player is already in cat form
             return null;
@@ -427,14 +413,14 @@ class Abilities extends CoreAbilities {
           return {
             static: 1500,
           };
-        }),
+        },
       },
       {
         spell: SPELLS.TIGER_DASH_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.TIGER_DASH_TALENT.id),
         cooldown: 45,
-        gcd: (combatant => {
+        gcd: (combatant) => {
           if (combatant.hasBuff(SPELLS.CAT_FORM.id)) {
             // off the GCD if player is already in cat form
             return null;
@@ -442,7 +428,7 @@ class Abilities extends CoreAbilities {
           return {
             static: 1500,
           };
-        }),
+        },
       },
 
       //CC

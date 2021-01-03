@@ -12,7 +12,10 @@ class BlackPowder extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLACK_POWDER), this.onDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLACK_POWDER),
+      this.onDamage,
+    );
   }
 
   onDamage(event: DamageEvent) {
@@ -21,10 +24,7 @@ class BlackPowder extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        size="flexible"
-        category={STATISTIC_CATEGORY.GENERAL}
-      >
+      <Statistic size="flexible" category={STATISTIC_CATEGORY.GENERAL}>
         <BoringSpellValueText spell={SPELLS.BLACK_POWDER}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>

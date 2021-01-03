@@ -18,12 +18,13 @@ import ItemDamageDone from 'interface/ItemDamageDone';
  *
  */
 class RylakstalkersPiercingFangs extends Analyzer {
-
   damage: number = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.RYLAKSTALKERS_PIERCING_FANGS_EFFECT.bonusID);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(
+      SPELLS.RYLAKSTALKERS_PIERCING_FANGS_EFFECT.bonusID,
+    );
     if (!this.active) {
       return;
     }

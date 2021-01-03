@@ -13,7 +13,7 @@ import PlayerInfo from './PlayerInfo';
 import Stats from './Stats';
 import Race from './Race';
 
-const CharacterTab = props => {
+const CharacterTab = (props) => {
   const { statTracker, combatant } = props;
 
   return (
@@ -29,9 +29,7 @@ const CharacterTab = props => {
 
           <div className="row">
             <div className="col-md-12">
-              <h2>
-                Other pages
-              </h2>
+              <h2>Other pages</h2>
             </div>
           </div>
           <div className="row">
@@ -39,16 +37,17 @@ const CharacterTab = props => {
               {/* some bonus padding so it looks to be aligned with the icon for stats */}
               {combatant.characterProfile ? (
                 <>
-                  <Link to={makeCharacterUrl(combatant)}><WoWAnalyzerIcon /> Character parses</Link><br />
-                  <a
-                    href={makeArmoryUrl(combatant)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <Link to={makeCharacterUrl(combatant)}>
+                    <WoWAnalyzerIcon /> Character parses
+                  </Link>
+                  <br />
+                  <a href={makeArmoryUrl(combatant)} target="_blank" rel="noopener noreferrer">
                     <ArmoryIcon /> Armory
                   </a>
                 </>
-              ) : <small>Unavailable because your character could not be found.</small>}
+              ) : (
+                <small>Unavailable because your character could not be found.</small>
+              )}
             </div>
           </div>
         </div>

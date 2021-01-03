@@ -16,7 +16,6 @@ import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
  *
  */
 class EchoingCall extends Analyzer {
-
   conduitRank: number = 0;
   procChances: number = 0;
 
@@ -28,7 +27,10 @@ class EchoingCall extends Analyzer {
       return;
     }
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.AUTO_SHOT), this.onAutoShotDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.AUTO_SHOT),
+      this.onAutoShotDamage,
+    );
   }
 
   onAutoShotDamage(event: DamageEvent) {
@@ -44,21 +46,25 @@ class EchoingCall extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
-        tooltip={(
+        tooltip={
           <>
-            Since there is no way to track Wild Call resets, this is an approximation of how many resets Echoing Call granted you.
+            Since there is no way to track Wild Call resets, this is an approximation of how many
+            resets Echoing Call granted you.
           </>
-        )}
+        }
       >
         <ConduitSpellText spell={SPELLS.ECHOING_CALL_CONDUIT} rank={this.conduitRank}>
           <>
-            ≈{(this.procChances * ECHOING_CALL_INCREASED_WILD_CALL_CHANCE[this.conduitRank]).toFixed(1)} <small>resets</small>
+            ≈
+            {(this.procChances * ECHOING_CALL_INCREASED_WILD_CALL_CHANCE[this.conduitRank]).toFixed(
+              1,
+            )}{' '}
+            <small>resets</small>
           </>
         </ConduitSpellText>
       </Statistic>
     );
   }
-
 }
 
 export default EchoingCall;

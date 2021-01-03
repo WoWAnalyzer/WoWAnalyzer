@@ -4,14 +4,17 @@ import EventFilter from 'parser/core/EventFilter';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 
 class EventHistory extends Module {
-
   /**
    * @param count the maximum number of events to return, or null for no limit
    * @param maxTime the maximum number of milliseconds to look back, or null for no limit
    * @param filterDef an optional EventFilter to apply to all events
    * @returns the last `count` events that match the given filters, with the oldest events first
    */
-  public last<ET extends EventType, E extends MappedEvent<ET>>(count?: number, maxTime?: number, filterDef?: EventFilter<ET>): E[] {
+  public last<ET extends EventType, E extends MappedEvent<ET>>(
+    count?: number,
+    maxTime?: number,
+    filterDef?: EventFilter<ET>,
+  ): E[] {
     let filter = (event: AnyEvent) => true;
 
     if (maxTime) {
@@ -28,7 +31,7 @@ class EventHistory extends Module {
     if (filterDef) {
       const ee: EventEmitter = this.owner.getModule(EventEmitter);
       const prevFilter = filter;
-      filter = event => {
+      filter = (event) => {
         if (event.type !== filterDef.eventType) {
           return false;
         }
@@ -39,7 +42,7 @@ class EventHistory extends Module {
         const prevFilter = filter;
         const toFilter = ee.createToCheck(filterTo);
         if (toFilter) {
-          filter = event => {
+          filter = (event) => {
             if (!toFilter(event)) {
               return false;
             }
@@ -52,7 +55,7 @@ class EventHistory extends Module {
         const prevFilter = filter;
         const byFilter = ee.createByCheck(filterBy);
         if (byFilter) {
-          filter = event => {
+          filter = (event) => {
             if (!byFilter(event)) {
               return false;
             }
@@ -64,7 +67,7 @@ class EventHistory extends Module {
       if (filterSpell) {
         const prevFilter = filter;
         const spellFilter = ee.createSpellCheck(filterSpell);
-        filter = event => {
+        filter = (event) => {
           if (!spellFilter(event)) {
             return false;
           }
@@ -73,13 +76,12 @@ class EventHistory extends Module {
       }
     }
 
-    let history = this.owner.eventHistory.filter(event => filter(event));
+    let history = this.owner.eventHistory.filter((event) => filter(event));
     if (count && count < history.length) {
       history = history.slice(-count);
     }
     return history as E[];
   }
-
 }
 
 export default EventHistory;

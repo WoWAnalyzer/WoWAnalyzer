@@ -37,8 +37,6 @@ class Torrent extends Analyzer {
       />
     );
   }
-
 }
 
 export default Torrent;
-

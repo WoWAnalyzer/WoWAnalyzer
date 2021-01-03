@@ -63,14 +63,19 @@ class AstralPowerDetails extends Analyzer {
   };
 
   suggestions(when) {
-    when(this.suggestionThresholdsWasted)
-      .addSuggestion((suggest, actual, recommended) => suggest(`You overcapped ${this.wasted} Astral Power. Always prioritize spending it over avoiding the overcap of any other ability.`)
+    when(this.suggestionThresholdsWasted).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        `You overcapped ${this.wasted} Astral Power. Always prioritize spending it over avoiding the overcap of any other ability.`,
+      )
         .icon('ability_druid_cresentburn')
-        .actual(t({
-      id: "druid.balance.suggestions.astralPower.overcapped",
-      message: `${formatPercentage(actual)}% overcapped Astral Power`
-    }))
-        .recommended(`${formatPercentage(recommended)}% is recommended`));
+        .actual(
+          t({
+            id: 'druid.balance.suggestions.astralPower.overcapped',
+            message: `${formatPercentage(actual)}% overcapped Astral Power`,
+          }),
+        )
+        .recommended(`${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
@@ -95,15 +100,11 @@ class AstralPowerDetails extends Analyzer {
       url: 'astral-power-usage',
       render: () => (
         <Panel>
-          <ResourceBreakdown
-            tracker={this.astralPowerTracker}
-            showSpenders
-          />
+          <ResourceBreakdown tracker={this.astralPowerTracker} showSpenders />
         </Panel>
       ),
     };
   }
-
 }
 
 export default AstralPowerDetails;

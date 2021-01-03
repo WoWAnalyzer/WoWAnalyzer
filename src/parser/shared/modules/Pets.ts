@@ -35,7 +35,7 @@ class Pets extends Entities<Pet> {
     }
     let pet = this.pets[entityId];
     if (!pet) {
-      const baseInfo = this.owner.playerPets.find(pet => pet.id === entityId);
+      const baseInfo = this.owner.playerPets.find((pet) => pet.id === entityId);
       if (!baseInfo) {
         debug && console.warn('Pet not noteworthy enough:', entityId, event);
         return null;

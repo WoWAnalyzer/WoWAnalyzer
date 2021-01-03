@@ -15,12 +15,11 @@ class SliceAndDiceUptime extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        position={STATISTIC_ORDER.CORE(100)}
-        size="flexible"
-      >
+      <Statistic position={STATISTIC_ORDER.CORE(100)} size="flexible">
         <div className="pad">
-          <label><SpellLink id={SPELLS.SLICE_AND_DICE.id} /> Uptime</label>
+          <label>
+            <SpellLink id={SPELLS.SLICE_AND_DICE.id} /> Uptime
+          </label>
           <div className="value">{formatPercentage(this.percentUptime)}%</div>
         </div>
       </Statistic>

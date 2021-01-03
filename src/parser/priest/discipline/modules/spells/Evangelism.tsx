@@ -25,20 +25,25 @@ class Evangelism extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.EVANGELISM_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EVANGELISM_TALENT), this.onCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EVANGELISM_TALENT),
+      this.onCast,
+    );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
   }
 
   _evangelismStatistics: {
     [timestamp: number]: {
-      count: number,
-      atonementSeconds: number,
-      healing: number,
-    }
+      count: number;
+      atonementSeconds: number;
+      healing: number;
+    };
   } = {};
 
   get evangelismStatistics() {
-    return Object.keys(this._evangelismStatistics).map(Number).map((key: number) => this._evangelismStatistics[key]);
+    return Object.keys(this._evangelismStatistics)
+      .map(Number)
+      .map((key: number) => this._evangelismStatistics[key]);
   }
 
   onCast(event: CastEvent) {
@@ -54,7 +59,9 @@ class Evangelism extends Analyzer {
 
   onHeal(event: HealEvent) {
     if (isAtonement(event)) {
-      const target = this.atonementModule.currentAtonementTargets.find(id => id.target === event.targetID);
+      const target = this.atonementModule.currentAtonementTargets.find(
+        (id) => id.target === event.targetID,
+      );
       // Pets, guardians, etc.
       if (!target) {
         return;
@@ -62,7 +69,8 @@ class Evangelism extends Analyzer {
 
       // Add all healing that shouldn't exist to expiration
       if (event.timestamp > target.atonementExpirationTimestamp && this._previousEvangelismCast) {
-        this._evangelismStatistics[this._previousEvangelismCast.timestamp].healing += (event.amount + (event.absorbed || 0));
+        this._evangelismStatistics[this._previousEvangelismCast.timestamp].healing +=
+          event.amount + (event.absorbed || 0);
       }
     }
   }
@@ -73,12 +81,22 @@ class Evangelism extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.EVANGELISM_TALENT.id} />}
-        value={`${formatNumber(evangelismStatistics.reduce((total, c) => total + c.healing, 0) / this.owner.fightDuration * 1000)} HPS`}
-        label={(
-          <TooltipElement content={`Evangelism accounted for approximately ${formatPercentage(this.owner.getPercentageOfTotalHealingDone(evangelismStatistics.reduce((p, c) => p + c.healing, 0)))}% of your healing.`}>
+        value={`${formatNumber(
+          (evangelismStatistics.reduce((total, c) => total + c.healing, 0) /
+            this.owner.fightDuration) *
+            1000,
+        )} HPS`}
+        label={
+          <TooltipElement
+            content={`Evangelism accounted for approximately ${formatPercentage(
+              this.owner.getPercentageOfTotalHealingDone(
+                evangelismStatistics.reduce((p, c) => p + c.healing, 0),
+              ),
+            )}% of your healing.`}
+          >
             Evangelism contribution
           </TooltipElement>
-        )}
+        }
       >
         <table className="table table-condensed">
           <thead>
@@ -90,17 +108,14 @@ class Evangelism extends Analyzer {
             </tr>
           </thead>
           <tbody>
-            {
-              this.evangelismStatistics
-                .map((evangelism, index) => (
-                  <tr key={index}>
-                    <th scope="row">{index + 1}</th>
-                    <td>{formatNumber(evangelism.healing)}</td>
-                    <td>{evangelism.atonementSeconds}s</td>
-                    <td>{evangelism.count}</td>
-                  </tr>
-                ))
-            }
+            {this.evangelismStatistics.map((evangelism, index) => (
+              <tr key={index}>
+                <th scope="row">{index + 1}</th>
+                <td>{formatNumber(evangelism.healing)}</td>
+                <td>{evangelism.atonementSeconds}s</td>
+                <td>{evangelism.count}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </StatisticBox>

@@ -28,7 +28,6 @@ class Checklist extends BaseModule {
   protected runeTracker!: RuneTracker;
   protected runicPowerDetails!: RunicPowerDetails;
 
-
   render() {
     return (
       <Component

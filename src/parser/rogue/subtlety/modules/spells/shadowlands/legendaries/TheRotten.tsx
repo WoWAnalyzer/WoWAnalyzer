@@ -21,7 +21,12 @@ class TheRotten extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.THE_ROTTEN.bonusID);
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell([SPELLS.SHADOWSTRIKE, SPELLS.BACKSTAB, SPELLS.GLOOMBLADE_TALENT]), this.onDamage);
+    this.addEventListener(
+      Events.energize
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.SHADOWSTRIKE, SPELLS.BACKSTAB, SPELLS.GLOOMBLADE_TALENT]),
+      this.onDamage,
+    );
   }
 
   onDamage(event: EnergizeEvent) {
@@ -37,7 +42,8 @@ class TheRotten extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
         tooltip={
           <>
-            The Rotten helped you gain {this.cpGained + this.cpWasted} extra Combo Points with {this.cpWasted} Combo Points being wasted.
+            The Rotten helped you gain {this.cpGained + this.cpWasted} extra Combo Points with{' '}
+            {this.cpWasted} Combo Points being wasted.
           </>
         }
       >

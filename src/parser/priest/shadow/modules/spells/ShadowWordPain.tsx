@@ -44,7 +44,7 @@ class ShadowWordPain extends Analyzer {
       actual: this.uptime,
       isLessThan: {
         minor: 0.95,
-        average: 0.90,
+        average: 0.9,
         major: 0.8,
       },
       style: ThresholdStyle.PERCENTAGE,
@@ -52,22 +52,27 @@ class ShadowWordPain extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<span>Your <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> uptime can be improved. Try to pay more attention to your <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> on the boss.</span>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <span>
+          Your <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> uptime can be improved. Try to pay more
+          attention to your <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> on the boss.
+        </span>,
+      )
         .icon(SPELLS.SHADOW_WORD_PAIN.icon)
-        .actual(t({
-      id: "priest.shadow.suggestions.shadowWordPain.uptime",
-      message: `${formatPercentage(actual)}% Shadow Word: Pain uptime`
-    }))
-        .recommended(`>${formatPercentage(recommended)}% is recommended`));
+        .actual(
+          t({
+            id: 'priest.shadow.suggestions.shadowWordPain.uptime',
+            message: `${formatPercentage(actual)}% Shadow Word: Pain uptime`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
     return (
-      <Statistic
-        position={STATISTIC_ORDER.CORE(4)}
-        size="flexible"
-      >
+      <Statistic position={STATISTIC_ORDER.CORE(4)} size="flexible">
         <BoringSpellValueText spell={SPELLS.SHADOW_WORD_PAIN}>
           <>
             {formatPercentage(this.uptime)}% <small>Uptime</small>

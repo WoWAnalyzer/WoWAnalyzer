@@ -11,7 +11,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import ItemDamageDone from 'interface/ItemDamageDone';
 
 const FORCEFUL_WINDS = {
-  INCREASE_PER_STACK: .5,
+  INCREASE_PER_STACK: 0.5,
 };
 
 /**
@@ -27,8 +27,7 @@ class ForcefulWinds extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.FORCEFUL_WINDS_TALENT.id);
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(SPELLS.WINDFURY_ATTACK),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.WINDFURY_ATTACK),
       this.onDamage,
     );
   }
@@ -54,7 +53,8 @@ class ForcefulWinds extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.FORCEFUL_WINDS_TALENT}>
           <>
-            <ItemDamageDone amount={this.damageGained} /><br />
+            <ItemDamageDone amount={this.damageGained} />
+            <br />
           </>
         </BoringSpellValueText>
       </Statistic>

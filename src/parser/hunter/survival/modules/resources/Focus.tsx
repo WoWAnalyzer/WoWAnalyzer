@@ -20,7 +20,13 @@ class Focus extends Analyzer {
       minor: 0.025,
       avg: 0.05,
       major: 0.1,
-      extraSuggestion: <>Try to keep focus below max by using <SpellLink id={SPELLS.SERPENT_STING_SV.id} />, <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} /> or <SpellLink id={SPELLS.RAPTOR_STRIKE.id} />.</>,
+      extraSuggestion: (
+        <>
+          Try to keep focus below max by using <SpellLink id={SPELLS.SERPENT_STING_SV.id} />,{' '}
+          <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} /> or{' '}
+          <SpellLink id={SPELLS.RAPTOR_STRIKE.id} />.
+        </>
+      ),
     });
   }
 }

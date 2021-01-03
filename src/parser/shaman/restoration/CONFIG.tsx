@@ -19,12 +19,23 @@ const CONFIG: Config = {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <Trans id="shaman.restoration.config.description">
-      Welcome to the Resto Shaman analyzer! We hope you find these suggestions and statistics useful.<br /><br />
-
-      If you want to learn more about Resto Shaman, join the Resto Shaman community at the <a href="https://discord.gg/AcTek6e" target="_blank" rel="noopener noreferrer">Ancestral Guidance</a> discord server and make sure to visit the guides on <a href="https://www.wowhead.com/restoration-shaman-guide">Wowhead</a> and <a href="https://www.icy-veins.com/wow/restoration-shaman-pve-healing-guide">Icy Veins</a>.<br /><br />
-
+      Welcome to the Resto Shaman analyzer! We hope you find these suggestions and statistics
+      useful.
+      <br />
+      <br />
+      If you want to learn more about Resto Shaman, join the Resto Shaman community at the{' '}
+      <a href="https://discord.gg/AcTek6e" target="_blank" rel="noopener noreferrer">
+        Ancestral Guidance
+      </a>{' '}
+      discord server and make sure to visit the guides on{' '}
+      <a href="https://www.wowhead.com/restoration-shaman-guide">Wowhead</a> and{' '}
+      <a href="https://www.icy-veins.com/wow/restoration-shaman-pve-healing-guide">Icy Veins</a>.
+      <br />
+      <br />
       <Warning>
-        If there is something missing, incorrect, or inaccurate, please report it on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact us on <a href="https://discord.gg/AxphPxU">Discord</a>.
+        If there is something missing, incorrect, or inaccurate, please report it on{' '}
+        <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact us on{' '}
+        <a href="https://discord.gg/AxphPxU">Discord</a>.
       </Warning>
     </Trans>
   ),
@@ -37,7 +48,10 @@ const CONFIG: Config = {
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () => import('./CombatLogParser' /* webpackChunkName: "RestorationShaman" */).then(exports => exports.default),
+  parser: () =>
+    import('./CombatLogParser' /* webpackChunkName: "RestorationShaman" */).then(
+      (exports) => exports.default,
+    ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };

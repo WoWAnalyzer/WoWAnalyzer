@@ -9,9 +9,9 @@ import { ContributorType } from 'interface/ContributorButton/ContributorButton';
 interface Props {
   title: ReactNode;
   bodyStyle?: CSSProperties;
-  children: ReactNode,
-  publishedAt: string,
-  publishedBy: ContributorType
+  children: ReactNode;
+  publishedAt: string;
+  publishedBy: ContributorType;
 }
 
 const RegularArticle = (props: Props) => {
@@ -20,7 +20,11 @@ const RegularArticle = (props: Props) => {
   return (
     <article>
       <Panel
-        title={<Link to={makeNewsUrl(title)} className="hidden-link">{title}</Link>}
+        title={
+          <Link to={makeNewsUrl(title)} className="hidden-link">
+            {title}
+          </Link>
+        }
         bodyStyle={bodyStyle}
       >
         {children}

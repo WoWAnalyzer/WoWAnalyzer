@@ -32,7 +32,10 @@ class NaturesGuardian extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.NATURES_GUARDIAN_TALENT.id);
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.NATURES_GUARDIAN_HEAL), this._onHeal);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.NATURES_GUARDIAN_HEAL),
+      this._onHeal,
+    );
   }
 
   _onHeal(event: HealEvent) {
@@ -61,7 +64,9 @@ class NaturesGuardian extends Analyzer {
     return (
       <StatisticListBoxItem
         title={<SpellLink id={SPELLS.NATURES_GUARDIAN_TALENT.id} />}
-        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing + this.feeding))} %`}
+        value={`${formatPercentage(
+          this.owner.getPercentageOfTotalHealingDone(this.healing + this.feeding),
+        )} %`}
       />
     );
   }

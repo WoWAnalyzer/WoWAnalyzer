@@ -36,7 +36,10 @@ class ThunderFocusTea extends Analyzer {
     super(options);
     this.ftActive = this.selectedCombatant.hasTalent(SPELLS.FOCUSED_THUNDER_TALENT.id);
     this.rmActive = this.selectedCombatant.hasTalent(SPELLS.RISING_MIST_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.THUNDER_FOCUS_TEA), this.tftCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.THUNDER_FOCUS_TEA),
+      this.tftCast,
+    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.buffedCast);
   }
 
@@ -65,12 +68,15 @@ class ThunderFocusTea extends Analyzer {
 
     // Implemented as a way to remove non-buffed REM casts that occur at the same timestamp as the buffed Viv cast.
     // Need to think of cleaner solution
-    if ((event.timestamp - this.castBufferTimestamp) < 25) {
+    if (event.timestamp - this.castBufferTimestamp < 25) {
       return;
     }
 
     if (this.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id)) {
-      if (SPELLS.VIVIFY.id === spellId && !event.classResources?.find(resource => resource.type === RESOURCE_TYPES.MANA.id)?.cost) {
+      if (
+        SPELLS.VIVIFY.id === spellId &&
+        !event.classResources?.find((resource) => resource.type === RESOURCE_TYPES.MANA.id)?.cost
+      ) {
         this.castsUnderTft += 1;
         this.castsTftViv += 1;
         this.correctCasts += 1;
@@ -129,35 +135,42 @@ class ThunderFocusTea extends Analyzer {
       },
     ];
 
-    return (
-      <DonutChart
-        items={items}
-      />
-    );
+    return <DonutChart items={items} />;
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        You are currently using <SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} /> to buff spells other than {this.rmActive ? <SpellLink id={SPELLS.RISING_SUN_KICK.id} /> : <SpellLink id={SPELLS.VIVIFY.id} />} or <SpellLink id={SPELLS.RENEWING_MIST.id} />. It is advised to limit the number of spells buffed to only these two.
-      </>,
-    )
-      .icon(SPELLS.THUNDER_FOCUS_TEA.icon)
-      .actual(`${this.incorrectTftCasts}${t({
-      id: "monk.mistweaver.suggestions.thunderFocusTea.incorrectCasts",
-      message: `incorrect casts with Thunder Focus Tea`
-    })}`)
-      .recommended(`<${recommended} incorrect cast is recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You are currently using <SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} /> to buff spells
+          other than{' '}
+          {this.rmActive ? (
+            <SpellLink id={SPELLS.RISING_SUN_KICK.id} />
+          ) : (
+            <SpellLink id={SPELLS.VIVIFY.id} />
+          )}{' '}
+          or <SpellLink id={SPELLS.RENEWING_MIST.id} />. It is advised to limit the number of spells
+          buffed to only these two.
+        </>,
+      )
+        .icon(SPELLS.THUNDER_FOCUS_TEA.icon)
+        .actual(
+          `${this.incorrectTftCasts}${t({
+            id: 'monk.mistweaver.suggestions.thunderFocusTea.incorrectCasts',
+            message: `incorrect casts with Thunder Focus Tea`,
+          })}`,
+        )
+        .recommended(`<${recommended} incorrect cast is recommended`),
+    );
   }
 
   statistic() {
     return (
-      <Statistic
-        position={STATISTIC_ORDER.CORE(20)}
-        size="flexible"
-      >
+      <Statistic position={STATISTIC_ORDER.CORE(20)} size="flexible">
         <div className="pad">
-          <label><SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} /> usage</label>
+          <label>
+            <SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} /> usage
+          </label>
           {this.renderCastRatioChart()}
         </div>
       </Statistic>

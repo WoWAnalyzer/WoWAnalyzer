@@ -27,7 +27,11 @@ class Cleave extends Analyzer {
     const avg = total / (Cleave.casts || 1);
     return (
       <StatisticListBoxItem
-        title={<>Average <SpellLink id={SPELLS.CLEAVE_TALENT.id} /> damage</>}
+        title={
+          <>
+            Average <SpellLink id={SPELLS.CLEAVE_TALENT.id} /> damage
+          </>
+        }
         value={formatThousands(avg)}
         valueTooltip={`Total Cleave damage: ${formatThousands(total)}`}
       />

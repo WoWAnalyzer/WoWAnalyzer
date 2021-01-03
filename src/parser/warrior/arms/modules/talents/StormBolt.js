@@ -21,7 +21,10 @@ class StormBolt extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.STORM_BOLT_TALENT.id);
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.STORM_BOLT_TALENT_DEBUFF), this._onStun);
+    this.addEventListener(
+      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.STORM_BOLT_TALENT_DEBUFF),
+      this._onStun,
+    );
   }
 
   _onStun() {
@@ -33,7 +36,11 @@ class StormBolt extends Analyzer {
     const total = stormBolt.damageEffective || 0;
     return (
       <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.STORM_BOLT_TALENT.id} /> Stun</>}
+        title={
+          <>
+            <SpellLink id={SPELLS.STORM_BOLT_TALENT.id} /> Stun
+          </>
+        }
         value={formatNumber(this.stun)}
         valueTooltip={`Total Storm Bolt damage: ${formatThousands(total)}`}
       />

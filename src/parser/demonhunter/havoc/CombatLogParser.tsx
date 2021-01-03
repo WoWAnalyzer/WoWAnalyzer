@@ -42,7 +42,7 @@ import CollectiveAnguish from './modules/shadowlands/legendaries/CollectiveAngui
 import ChaosTheory from './modules/shadowlands/legendaries/ChaosTheory';
 
 //Covenants
-import SinfulBrand from "../shared/modules/spells/covenants/SinfulBrand"
+import SinfulBrand from '../shared/modules/spells/covenants/SinfulBrand';
 import TheHunt from '../shared/modules/spells/covenants/TheHunt';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -81,7 +81,7 @@ class CombatLogParser extends CoreCombatLogParser {
     essenceBreak: EssenceBreak,
     cycleOfHatred: CycleOfHatred,
     demonic: Demonic,
-    glaiveTempest:GlaiveTempest,
+    glaiveTempest: GlaiveTempest,
 
     //Resources
     furyTracker: FuryTracker,
@@ -89,7 +89,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
-    
+
     //Legendaries
     collectiveAnguish: CollectiveAnguish,
     chaosTheory: ChaosTheory,

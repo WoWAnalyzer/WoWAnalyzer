@@ -11,7 +11,7 @@ type Props = {
   noLink?: boolean;
   details?: Item;
   className?: string;
-}
+};
 
 const ItemIcon = ({ id, noLink, details, className }: Props) => {
   const icon = (

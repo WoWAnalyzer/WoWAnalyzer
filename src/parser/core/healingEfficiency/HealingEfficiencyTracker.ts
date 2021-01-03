@@ -86,7 +86,8 @@ class HealingEfficiencyTracker extends Analyzer {
         const healingAbility = this.abilityTracker.getAbility(healingSpellIds[healingSpellId]);
 
         spellInfo.healingHits += healingAbility.healingHits || 0;
-        spellInfo.healingDone += (healingAbility.healingEffective || 0) + (healingAbility.healingAbsorbed || 0);
+        spellInfo.healingDone +=
+          (healingAbility.healingEffective || 0) + (healingAbility.healingAbsorbed || 0);
         spellInfo.overhealingDone += healingAbility.healingOverheal || 0;
       }
     }
@@ -99,8 +100,8 @@ class HealingEfficiencyTracker extends Analyzer {
       [spellId: number]: {
         spent: number;
         spentByCast: number[];
-        casts: number
-      }
+        casts: number;
+      };
     };
     spellInfo.manaSpent = spenders[spellId] ? spenders[spellId].spent : 0;
 
@@ -108,15 +109,18 @@ class HealingEfficiencyTracker extends Analyzer {
     // Now we can add custom logic for spells.
     spellInfo = this.getCustomSpellStats(spellInfo, spellId, healingSpellIds);
 
-    spellInfo.percentOverhealingDone = spellInfo.overhealingDone / ((spellInfo.healingDone || 0) + spellInfo.overhealingDone) || 0;
+    spellInfo.percentOverhealingDone =
+      spellInfo.overhealingDone / ((spellInfo.healingDone || 0) + spellInfo.overhealingDone) || 0;
     spellInfo.percentHealingDone = spellInfo.healingDone / this.healingDone.total.regular || 0;
     spellInfo.percentDamageDone = spellInfo.damageDone / this.damageDone.total.regular || 0;
     spellInfo.manaPercentSpent = spellInfo.manaSpent / this.manaTracker.spent;
 
-    spellInfo.hpm = (spellInfo.healingDone / spellInfo.manaSpent) || 0;
-    spellInfo.dpm = (spellInfo.damageDone / spellInfo.manaSpent) || 0;
+    spellInfo.hpm = spellInfo.healingDone / spellInfo.manaSpent || 0;
+    spellInfo.dpm = spellInfo.damageDone / spellInfo.manaSpent || 0;
 
-    spellInfo.timeSpentCasting = this.castEfficiency.getTimeSpentCasting(spellId).timeSpentCasting + this.castEfficiency.getTimeSpentCasting(spellId).gcdSpent;
+    spellInfo.timeSpentCasting =
+      this.castEfficiency.getTimeSpentCasting(spellId).timeSpentCasting +
+      this.castEfficiency.getTimeSpentCasting(spellId).gcdSpent;
     spellInfo.percentTimeSpentCasting = spellInfo.timeSpentCasting / this.owner.fightDuration;
 
     spellInfo.hpet = (spellInfo.healingDone / spellInfo.timeSpentCasting) | 0;
@@ -125,7 +129,11 @@ class HealingEfficiencyTracker extends Analyzer {
     return spellInfo;
   }
 
-  getCustomSpellStats(spellInfo: SpellInfoDetails, spellId: number, healingSpellIds: number[] | null) {
+  getCustomSpellStats(
+    spellInfo: SpellInfoDetails,
+    spellId: number,
+    healingSpellIds: number[] | null,
+  ) {
     // Overwrite this function to add specific logic for spells.
     return spellInfo;
   }
@@ -138,7 +146,7 @@ class HealingEfficiencyTracker extends Analyzer {
     let topDpet = 0;
 
     for (const index in this.abilities.abilities) {
-      const ability = this.abilities.abilities[index] as unknown as SpellbookAbility;
+      const ability = (this.abilities.abilities[index] as unknown) as SpellbookAbility;
 
       if (ability.spell instanceof Array) {
         continue;

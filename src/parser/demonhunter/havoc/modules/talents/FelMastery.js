@@ -11,7 +11,6 @@ import { formatThousands } from 'common/format';
  */
 
 class FelMastery extends Analyzer {
-
   damage = 0;
 
   constructor(...args) {
@@ -20,7 +19,10 @@ class FelMastery extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FEL_RUSH_DAMAGE), this.felRushExtraDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FEL_RUSH_DAMAGE),
+      this.felRushExtraDamage,
+    );
   }
 
   //Since fel mastery doubles the damage of fel rush, halfing the damage to get the talent damage part.
@@ -34,13 +36,12 @@ class FelMastery extends Analyzer {
         talent={SPELLS.FEL_MASTERY_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
         value={this.owner.formatItemDamageDone(this.damage)}
-        tooltip={(
+        tooltip={
           <>
             {formatThousands(this.damage)} Total damage <br /> <br />
             This shows the extra damage done by Fel Rush due to the Fel Mastery talent.
           </>
-        )}
-
+        }
       />
     );
   }

@@ -47,7 +47,6 @@ class Checklist extends BaseModule {
     // Resources
     furyDetails: FuryDetails,
     soulsOvercap: SoulsOvercap,
-
   };
 
   render() {

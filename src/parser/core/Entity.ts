@@ -1,12 +1,12 @@
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { BuffEvent, HasSource } from 'parser/core/Events';
 
-type StackHistory = Array<{ stacks: number, timestamp: number }>
+type StackHistory = Array<{ stacks: number; timestamp: number }>;
 export interface TrackedBuffEvent extends BuffEvent<any> {
-  start: number
-  end: number | null,
-  stackHistory: StackHistory,
-  stacks: number,
+  start: number;
+  end: number | null;
+  stackHistory: StackHistory;
+  stacks: number;
 }
 
 class Entity {
@@ -27,7 +27,9 @@ class Entity {
    * @returns {function} The buffs within the time period.
    */
   private activeAtTimestampFilter(timestamp: number, bufferTime = 0, minimalActiveTime = 0) {
-    return (buff: TrackedBuffEvent) => (timestamp - minimalActiveTime) >= buff.start && (buff.end === null || (buff.end + bufferTime) >= timestamp);
+    return (buff: TrackedBuffEvent) =>
+      timestamp - minimalActiveTime >= buff.start &&
+      (buff.end === null || buff.end + bufferTime >= timestamp);
   }
 
   private spellIdFilter(spellId: number) {
@@ -42,11 +44,15 @@ class Entity {
   }
 
   // Override in extended classes
-  get name(): string { throw new Error("attempted to access name of unimplemented Entity"); }
+  get name(): string {
+    throw new Error('attempted to access name of unimplemented Entity');
+  }
 
   activeBuffs(forTimestamp: number | null = null, bufferTime = 0, minimalActiveTime = 0) {
     const currentTimestamp = forTimestamp !== null ? forTimestamp : this.owner.currentTimestamp;
-    return this.buffs.filter(this.activeAtTimestampFilter(currentTimestamp, bufferTime, minimalActiveTime));
+    return this.buffs.filter(
+      this.activeAtTimestampFilter(currentTimestamp, bufferTime, minimalActiveTime),
+    );
   }
 
   /**
@@ -57,8 +63,16 @@ class Entity {
    * @param {number} sourceID - source ID the buff must have come from, or any source if null
    * @returns {boolean} - Whether the buff is present with the given specifications.
    */
-  hasBuff(spellId: number, forTimestamp: number | null = null, bufferTime = 0, minimalActiveTime = 0, sourceID: number | null = null) {
-    return this.getBuff(spellId, forTimestamp, bufferTime, minimalActiveTime, sourceID) !== undefined;
+  hasBuff(
+    spellId: number,
+    forTimestamp: number | null = null,
+    bufferTime = 0,
+    minimalActiveTime = 0,
+    sourceID: number | null = null,
+  ) {
+    return (
+      this.getBuff(spellId, forTimestamp, bufferTime, minimalActiveTime, sourceID) !== undefined
+    );
   }
 
   /**
@@ -69,12 +83,20 @@ class Entity {
    * @param {number} sourceID - source ID the buff must have come from, or any source if null.
    * @returns {Object} - A buff with the given specifications. The buff object will have all the properties of the associated applybuff event, along with a start timestamp, an end timestamp if the buff has fallen, and an isDebuff flag. If multiple buffs meet the specifications, there's no guarantee which you'll get (this could happen if multiple spells with the same spellId but from different sources are on the same target)
    */
-  getBuff(spellId: number, forTimestamp: number | null = null, bufferTime = 0, minimalActiveTime = 0, sourceID: number | null = null) {
+  getBuff(
+    spellId: number,
+    forTimestamp: number | null = null,
+    bufferTime = 0,
+    minimalActiveTime = 0,
+    sourceID: number | null = null,
+  ) {
     const currentTimestamp = forTimestamp !== null ? forTimestamp : this.owner.currentTimestamp;
     const isCorrectSpell = this.spellIdFilter(spellId);
     const isActive = this.activeAtTimestampFilter(currentTimestamp, bufferTime, minimalActiveTime);
     const isCorrectSource = this.sourceIdFilter(sourceID);
-    return this.buffs.find(buff => isCorrectSpell(buff) && isActive(buff) && isCorrectSource(buff));
+    return this.buffs.find(
+      (buff) => isCorrectSpell(buff) && isActive(buff) && isCorrectSource(buff),
+    );
   }
 
   /**
@@ -85,7 +107,7 @@ class Entity {
   getBuffHistory(spellId: number, sourceID: number | null = null): TrackedBuffEvent[] {
     const isCorrectSpell = this.spellIdFilter(spellId);
     const isCorrectSource = this.sourceIdFilter(sourceID);
-    return this.buffs.filter(buff => isCorrectSpell(buff) && isCorrectSource(buff));
+    return this.buffs.filter((buff) => isCorrectSpell(buff) && isCorrectSource(buff));
   }
   /**
    * @param {number} spellId - buff ID to check for
@@ -93,8 +115,11 @@ class Entity {
    * @returns {number} - Time (in ms) the specified buff has been active.
    */
   getBuffUptime(spellId: number, sourceID: number | null = null) {
-    return this.getBuffHistory(spellId, sourceID)
-      .reduce((uptime, buff) => uptime + (buff.end !== null ? buff.end : this.owner.currentTimestamp) - buff.start, 0);
+    return this.getBuffHistory(spellId, sourceID).reduce(
+      (uptime, buff) =>
+        uptime + (buff.end !== null ? buff.end : this.owner.currentTimestamp) - buff.start,
+      0,
+    );
   }
   /**
    * @param {number} spellId - buff ID to check for
@@ -111,28 +136,27 @@ class Entity {
    * @returns {array} - Time (in ms) the specified buff has been active at each stack count.
    */
   getStackBuffUptimes(spellId: number, sourceID: number | null = null) {
-    const stackUptimes: {[key: number]: number} = {0: this.owner.fightDuration};
-    this.getBuffHistory(spellId, sourceID)
-      .forEach((buff, idx, arr) => {
-        let startTime: number;
-        let startStacks: number;
-        buff.stackHistory.forEach((stack, idx, arr) => {
-          if(startStacks !== undefined){
-            const duration = !startTime ? 0 : (stack.timestamp - startTime);
-            stackUptimes[startStacks] = (stackUptimes[startStacks] || 0) + duration;
-            stackUptimes[0] -= duration; //reduce time spent at no stacks by time spent at current stack
-          }
+    const stackUptimes: { [key: number]: number } = { 0: this.owner.fightDuration };
+    this.getBuffHistory(spellId, sourceID).forEach((buff, idx, arr) => {
+      let startTime: number;
+      let startStacks: number;
+      buff.stackHistory.forEach((stack, idx, arr) => {
+        if (startStacks !== undefined) {
+          const duration = !startTime ? 0 : stack.timestamp - startTime;
+          stackUptimes[startStacks] = (stackUptimes[startStacks] || 0) + duration;
+          stackUptimes[0] -= duration; //reduce time spent at no stacks by time spent at current stack
+        }
 
-          startTime = stack.timestamp;
-          startStacks = stack.stacks;
-          if (buff.end === null && idx === arr.length - 1) {
-            // If the buff instance didn't end (usually because it was still active at the end of the fight) we need to manually account for it
-            const finalStackUptime = this.owner.currentTimestamp - startTime;
-            stackUptimes[startStacks] = (stackUptimes[startStacks] || 0) + finalStackUptime;
-            stackUptimes[0] -= finalStackUptime; //reduce time spent at no stacks by time spent at current stack
-          }
-        });
+        startTime = stack.timestamp;
+        startStacks = stack.stacks;
+        if (buff.end === null && idx === arr.length - 1) {
+          // If the buff instance didn't end (usually because it was still active at the end of the fight) we need to manually account for it
+          const finalStackUptime = this.owner.currentTimestamp - startTime;
+          stackUptimes[startStacks] = (stackUptimes[startStacks] || 0) + finalStackUptime;
+          stackUptimes[0] -= finalStackUptime; //reduce time spent at no stacks by time spent at current stack
+        }
       });
+    });
     return stackUptimes;
   }
 
@@ -144,7 +168,9 @@ class Entity {
    */
   getStackWeightedBuffUptime(spellId: number, sourceID: number | null = null) {
     const stackBuffUptimes = this.getStackBuffUptimes(spellId, sourceID);
-    return Object.keys(stackBuffUptimes).map(stack => stackBuffUptimes[Number(stack)] * Number(stack)).reduce((total, cur) => total + cur, 0);
+    return Object.keys(stackBuffUptimes)
+      .map((stack) => stackBuffUptimes[Number(stack)] * Number(stack))
+      .reduce((total, cur) => total + cur, 0);
   }
 
   applyBuff(buff: BuffEvent<any> & { start: number }) {

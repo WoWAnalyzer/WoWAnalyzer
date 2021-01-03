@@ -11,12 +11,11 @@ import Spell from 'common/SPELLS/Spell';
 import React from 'react';
 
 class ResourceUsage extends Analyzer {
-
   //region IMPLEMENTME statics
   /**
    * One of the types from game/RESOURCE_TYPES
    */
-  static resourceType: { id: number, name: string, icon: string, url: string };
+  static resourceType: { id: number; name: string; icon: string; url: string };
 
   /**
    * Array of objects from common/SPELLS
@@ -29,7 +28,9 @@ class ResourceUsage extends Analyzer {
    * Example format
    * [SPELLS.RAPTOR_STRIKE_AOTE.id]: SPELLS.RAPTOR_STRIKE,
    */
-  static spellsThatShouldShowAsOtherSpells: { [spellID: number]: { guid: number, name: string, abilityIcon: string, type: number } } = {};
+  static spellsThatShouldShowAsOtherSpells: {
+    [spellID: number]: { guid: number; name: string; abilityIcon: string; type: number };
+  } = {};
   //endregion
 
   //region Optional IMPLEMENTME statics
@@ -53,12 +54,15 @@ class ResourceUsage extends Analyzer {
   static statisticOrder = STATISTIC_ORDER.CORE(12);
   //endregion
 
-  listOfSpellsUsed: { [key: string]: { casts: number, resourceUsed: number } } = {};
+  listOfSpellsUsed: { [key: string]: { casts: number; resourceUsed: number } } = {};
   ctor = this.constructor as typeof ResourceUsage;
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.resourceSpenders), this.onCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(this.resourceSpenders),
+      this.onCast,
+    );
   }
 
   get resourceSpenders() {
@@ -96,7 +100,9 @@ class ResourceUsage extends Analyzer {
       spellID = event.ability.guid;
     }
 
-    const resource = event.classResources?.find(resource => resource.type === this.resourceTypeID);
+    const resource = event.classResources?.find(
+      (resource) => resource.type === this.resourceTypeID,
+    );
     if (!resource) {
       return;
     }
@@ -122,7 +128,7 @@ class ResourceUsage extends Analyzer {
     );
   }
 
-  sortResourceUsage(a: { value: number; }, b: { value: number; }) {
+  sortResourceUsage(a: { value: number }, b: { value: number }) {
     let comparison = 0;
     if (a.value > b.value) {
       comparison = -1;
@@ -133,9 +139,15 @@ class ResourceUsage extends Analyzer {
   }
 
   get resourceUsageChart() {
-    const items: Array<{ color: string, label: string, spellId: number, value: number, valueTooltip: JSX.Element }> = [];
+    const items: Array<{
+      color: string;
+      label: string;
+      spellId: number;
+      value: number;
+      valueTooltip: JSX.Element;
+    }> = [];
     let colourIndex = 0;
-    this.resourceSpenders.forEach(spell => {
+    this.resourceSpenders.forEach((spell) => {
       if (this.listOfSpellsUsed[spell.id] && this.listOfSpellsUsed[spell.id].resourceUsed > 0) {
         items.push({
           color: this.listOfDefaultColours[colourIndex],
@@ -150,25 +162,21 @@ class ResourceUsage extends Analyzer {
 
     items.sort(this.sortResourceUsage);
 
-    return (
-      <DonutChart
-        items={items}
-      />
-    );
+    return <DonutChart items={items} />;
   }
 
   statistic() {
     return (
       <Statistic position={this.resourceUsageStatisticOrder}>
         <div className="pad">
-          <label><ResourceLink id={this.resourceTypeID} /> usage</label>
+          <label>
+            <ResourceLink id={this.resourceTypeID} /> usage
+          </label>
           {this.resourceUsageChart}
         </div>
-
       </Statistic>
     );
   }
-
 }
 
 export default ResourceUsage;

@@ -7,7 +7,13 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  CastEvent,
+  HealEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
@@ -20,7 +26,7 @@ const bounceReduction = 0.7;
 const debug = false;
 
 interface BufferHealEvent extends HealEvent {
-  baseHealingDone: number
+  baseHealingDone: number;
 }
 
 /**
@@ -60,10 +66,22 @@ class HighTide extends Analyzer {
     this.addEventListener(Events.fightend, this.onFightEnd);
 
     // these are for tracking high tide efficiency
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HEAL), this.onChainHealCast);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.HIGH_TIDE_BUFF), this.onHighTideBuff);
-    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.HIGH_TIDE_BUFF), this.onHighTideBuff);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.HIGH_TIDE_BUFF), this.onHighTideRemoveBuff);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HEAL),
+      this.onChainHealCast,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.HIGH_TIDE_BUFF),
+      this.onHighTideBuff,
+    );
+    this.addEventListener(
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.HIGH_TIDE_BUFF),
+      this.onHighTideBuff,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.HIGH_TIDE_BUFF),
+      this.onHighTideRemoveBuff,
+    );
   }
 
   // in the event of a High Tide buff, if a buff still exists adds it to unused then resets buff counter to 2
@@ -126,7 +144,10 @@ class HighTide extends Analyzer {
       heal /= critMult;
     }
     const currentMastery = this.statTracker.currentMasteryPercentage;
-    const masteryEffectiveness = Math.max(0, 1 - (event.hitPoints - event.amount) / event.maxHitPoints);
+    const masteryEffectiveness = Math.max(
+      0,
+      1 - (event.hitPoints - event.amount) / event.maxHitPoints,
+    );
     const baseHealingDone = heal / (1 + currentMastery * masteryEffectiveness);
 
     this.buffer.push({
@@ -145,16 +166,30 @@ class HighTide extends Analyzer {
     for (const [index, event] of Object.entries(this.buffer)) {
       // 20%, 71%, 145%, 250% increase per hit over not having High Tide
       const i = parseInt(index); // why is it a string tho
-      const FACTOR_CONTRIBUTED_BY_HT_HIT = (HIGH_TIDE_COEFFICIENT) / (CHAIN_HEAL_COEFFICIENT * bounceReduction ** i) - 1;
+      const FACTOR_CONTRIBUTED_BY_HT_HIT =
+        HIGH_TIDE_COEFFICIENT / (CHAIN_HEAL_COEFFICIENT * bounceReduction ** i) - 1;
 
       this.healing += calculateEffectiveHealing(event, FACTOR_CONTRIBUTED_BY_HT_HIT);
-      debug && this.log(`HT: ${this.owner.formatTimestamp(event.timestamp)} ${event.amount + (event.overheal || 0)} - ${FACTOR_CONTRIBUTED_BY_HT_HIT} - ${calculateEffectiveHealing(event, FACTOR_CONTRIBUTED_BY_HT_HIT)}`);
+      debug &&
+        this.log(
+          `HT: ${this.owner.formatTimestamp(event.timestamp)} ${
+            event.amount + (event.overheal || 0)
+          } - ${FACTOR_CONTRIBUTED_BY_HT_HIT} - ${calculateEffectiveHealing(
+            event,
+            FACTOR_CONTRIBUTED_BY_HT_HIT,
+          )}`,
+        );
     }
     this.buffer = [];
   }
 
   subStatistic() {
-    const highTideToolTip = <Trans id="shaman.restoration.highTide.statistic.tooltip">{this.usedHighTides} High Tide buff stacks used out of {(this.usedHighTides + this.unusedHighTides + this.currentHighTideBuff)}.</Trans>;
+    const highTideToolTip = (
+      <Trans id="shaman.restoration.highTide.statistic.tooltip">
+        {this.usedHighTides} High Tide buff stacks used out of{' '}
+        {this.usedHighTides + this.unusedHighTides + this.currentHighTideBuff}.
+      </Trans>
+    );
 
     return (
       <div>
@@ -169,4 +204,3 @@ class HighTide extends Analyzer {
 }
 
 export default HighTide;
-

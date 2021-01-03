@@ -1,27 +1,34 @@
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import Events, { EventType, ClassResources, EnergizeEvent, CastEvent, HealEvent, SpendResourceEvent } from 'parser/core/Events';
+import Events, {
+  EventType,
+  ClassResources,
+  EnergizeEvent,
+  CastEvent,
+  HealEvent,
+  SpendResourceEvent,
+} from 'parser/core/Events';
 import { Resource } from 'game/RESOURCE_TYPES';
 
 export type BuilderObj = {
-  generated: number,
-  wasted: number,
-  casts: number,
-}
+  generated: number;
+  wasted: number;
+  casts: number;
+};
 
 export type SpenderObj = {
-  spent: number,
-  spentByCast: number[],
-  casts: number,
-}
+  spent: number;
+  spentByCast: number[];
+  casts: number;
+};
 
 type ResourceUpdate = {
-  timestamp: number | undefined,
-  current: number,
-  waste: number,
-  generated: number,
-  used: number,
-}
+  timestamp: number | undefined;
+  current: number;
+  waste: number;
+  generated: number;
+  used: number;
+};
 
 /**
  * This is an 'abstract' implementation of a framework for tracking resource generating/spending.
@@ -40,8 +47,8 @@ class ResourceTracker extends Analyzer {
   resourceUpdates: ResourceUpdate[] = [];
 
   // stores resource gained/spent/wasted by ability ID
-  buildersObj: {[index: number]: BuilderObj} = {};
-  spendersObj: {[index: number]: SpenderObj} = {};
+  buildersObj: { [index: number]: BuilderObj } = {};
+  spendersObj: { [index: number]: SpenderObj } = {};
 
   // TODO set this to the resource you wish to track constructor.. see the appropriate objects in game/RESOURCE_TYPES
   resource!: Resource;
@@ -49,7 +56,7 @@ class ResourceTracker extends Analyzer {
   // TODO a classes 'main' resource passes the max along with events, but for other resources this may need to be defined
   maxResource!: number;
 
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.energize.to(SELECTED_PLAYER), this.onEnergize);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
@@ -73,8 +80,8 @@ class ResourceTracker extends Analyzer {
   onEnergize(event: EnergizeEvent) {
     const spellId = event.ability.guid;
 
-    if(event.resourceChangeType !== this.resource.id) {
-        return;
+    if (event.resourceChangeType !== this.resource.id) {
+      return;
     }
 
     const waste = event.waste;
@@ -98,9 +105,15 @@ class ResourceTracker extends Analyzer {
     this._applyBuilder(spellId, gain, waste);
   }
 
-  _applyBuilder(spellId: number, gain: number, waste: number,  resource?: ClassResources, timestamp?: number) {
+  _applyBuilder(
+    spellId: number,
+    gain: number,
+    waste: number,
+    resource?: ClassResources,
+    timestamp?: number,
+  ) {
     if (!this.buildersObj[spellId]) {
-        this.initBuilderAbility(spellId);
+      this.initBuilderAbility(spellId);
     }
 
     this.buildersObj[spellId].wasted += waste;
@@ -130,12 +143,12 @@ class ResourceTracker extends Analyzer {
   onCast(event: CastEvent) {
     const spellId = event.ability.guid;
 
-    if(!this.shouldProcessCastEvent(event)) {
-        return;
+    if (!this.shouldProcessCastEvent(event)) {
+      return;
     }
     const eventResource = this.getResource(event);
 
-    if(!eventResource){
+    if (!eventResource) {
       return;
     }
 
@@ -154,7 +167,7 @@ class ResourceTracker extends Analyzer {
 
     this.spendersObj[spellId].casts += 1;
     this.spendersObj[spellId].spentByCast.push(cost);
-    if(cost > 0) {
+    if (cost > 0) {
       this.spendersObj[spellId].spent += cost;
     }
 
@@ -180,16 +193,15 @@ class ResourceTracker extends Analyzer {
     return this.getResource(event)?.cost;
   }
 
-  getResource(event: CastEvent | HealEvent | EnergizeEvent ) {
-    if(!event.classResources) {
+  getResource(event: CastEvent | HealEvent | EnergizeEvent) {
+    if (!event.classResources) {
       return undefined;
     } else {
-      return event.classResources.find(r => r.type === this.resource.id);
+      return event.classResources.find((r) => r.type === this.resource.id);
     }
-  }  
+  }
 
   triggerSpendEvent(spent: number, event: CastEvent) {
-
     const fabricatedEvent: SpendResourceEvent = {
       type: EventType.SpendResource,
       timestamp: event.timestamp,

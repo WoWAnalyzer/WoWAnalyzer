@@ -34,8 +34,7 @@ class IceStrike extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.ICE_STRIKE_TALENT.id);
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(SPELLS.ICE_STRIKE_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ICE_STRIKE_TALENT),
       this.onIceStrikeDamage,
     );
   }
@@ -57,11 +56,16 @@ class IceStrike extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={`You cast Ice Strike ${this.casts} times, for a total shock cooldown reduction of ${formatNumber(shockCooldownReducedInSeconds)} seconds.`}
+        tooltip={`You cast Ice Strike ${
+          this.casts
+        } times, for a total shock cooldown reduction of ${formatNumber(
+          shockCooldownReducedInSeconds,
+        )} seconds.`}
       >
         <BoringSpellValueText spell={SPELLS.ICE_STRIKE_TALENT}>
           <>
-            {formatNumber(shockCooldownReducedInSeconds / this.casts)}s <small> avg. Shock Cooldown Reduction</small>
+            {formatNumber(shockCooldownReducedInSeconds / this.casts)}s{' '}
+            <small> avg. Shock Cooldown Reduction</small>
           </>
         </BoringSpellValueText>
       </Statistic>

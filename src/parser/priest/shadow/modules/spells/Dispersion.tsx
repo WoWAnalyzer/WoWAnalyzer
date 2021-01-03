@@ -21,19 +21,27 @@ class Disperion extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DISPERSION), this.onBuffApplied);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.DISPERSION), this.onBuffRemoved);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DISPERSION),
+      this.onBuffApplied,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.DISPERSION),
+      this.onBuffRemoved,
+    );
   }
 
   _dispersions: any = {};
 
   get dispersions() {
-    return Object.keys(this._dispersions).map(key => this._dispersions[key]);
+    return Object.keys(this._dispersions).map((key) => this._dispersions[key]);
   }
 
   get suggestionThresholds() {
     this.dispersionUptime = this.selectedCombatant.getBuffUptime(SPELLS.DISPERSION.id);
-    this.maxDispersionTime = Math.floor(calculateMaxCasts(DISPERSION_BASE_CD, this.owner.fightDuration)) * DISPERSION_UPTIME_MS;
+    this.maxDispersionTime =
+      Math.floor(calculateMaxCasts(DISPERSION_BASE_CD, this.owner.fightDuration)) *
+      DISPERSION_UPTIME_MS;
     this.dispersedTime = this.dispersionUptime / this.maxDispersionTime;
     return {
       actual: this.dispersedTime,
@@ -64,14 +72,26 @@ class Disperion extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<span>You spent {Math.round(this.dispersionUptime / 1000)} seconds (out of a possible {Math.round(this.maxDispersionTime / 1000)} seconds) in <SpellLink id={SPELLS.DISPERSION.id} />. Consider using <SpellLink id={SPELLS.DISPERSION.id} /> less or cancel it early.</span>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <span>
+          You spent {Math.round(this.dispersionUptime / 1000)} seconds (out of a possible{' '}
+          {Math.round(this.maxDispersionTime / 1000)} seconds) in{' '}
+          <SpellLink id={SPELLS.DISPERSION.id} />. Consider using{' '}
+          <SpellLink id={SPELLS.DISPERSION.id} /> less or cancel it early.
+        </span>,
+      )
         .icon(SPELLS.DISPERSION.icon)
-        .actual(t({
-      id: "priest.shadow.suggestions.dispersion.uptime",
-      message: `${formatPercentage(actual)}% Dispersion uptime`
-    }))
-        .recommended(`<${formatPercentage(recommended)}% is recommended, unless the encounter requires it.`));
+        .actual(
+          t({
+            id: 'priest.shadow.suggestions.dispersion.uptime',
+            message: `${formatPercentage(actual)}% Dispersion uptime`,
+          }),
+        )
+        .recommended(
+          `<${formatPercentage(recommended)}% is recommended, unless the encounter requires it.`,
+        ),
+    );
   }
 }
 

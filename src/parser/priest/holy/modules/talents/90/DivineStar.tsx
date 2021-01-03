@@ -19,9 +19,18 @@ class DivineStar extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DIVINE_STAR_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.DIVINE_STAR_HEAL, SPELLS.DIVINE_STAR_DAMAGE]), this.onDamage);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_STAR_HEAL), this.onHeal);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_STAR_TALENT), this.onCast);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.DIVINE_STAR_HEAL, SPELLS.DIVINE_STAR_DAMAGE]),
+      this.onDamage,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_STAR_HEAL),
+      this.onHeal,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_STAR_TALENT),
+      this.onCast,
+    );
   }
 
   onDamage(event: DamageEvent) {
@@ -48,7 +57,8 @@ class DivineStar extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.DIVINE_STAR_TALENT}>
           <>
-            <ItemHealingDone amount={this.divineStarHealing} /><br />
+            <ItemHealingDone amount={this.divineStarHealing} />
+            <br />
             <ItemDamageDone amount={this.divineStarDamage} />
           </>
         </BoringSpellValueText>

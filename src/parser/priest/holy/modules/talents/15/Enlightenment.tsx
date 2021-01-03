@@ -9,11 +9,10 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 const MAX_MANA = 100000;
-const BASE_MANA_REGEN = .04;
+const BASE_MANA_REGEN = 0.04;
 
 // Example Log: /report/PNYB4zgrnR86h7Lc/6-Normal+Zek'voz,+Herald+of+N'zoth/Khadaj
 class Enlightenment extends Analyzer {
-
   static dependencies = {
     spiritOfRedemption: SpiritOfRedemption,
   };
@@ -26,9 +25,10 @@ class Enlightenment extends Analyzer {
 
   get enlightenmentMana() {
     const normalManaRegen = MAX_MANA * BASE_MANA_REGEN;
-    const enlightenmentRegen = normalManaRegen * .1;
+    const enlightenmentRegen = normalManaRegen * 0.1;
     // Convert from MS to S and from 1 second to 5.
-    const totalEnlightenmentManaBack = (this.spiritOfRedemption.aliveTime / 1000 / 5) * enlightenmentRegen;
+    const totalEnlightenmentManaBack =
+      (this.spiritOfRedemption.aliveTime / 1000 / 5) * enlightenmentRegen;
     return totalEnlightenmentManaBack;
   }
 

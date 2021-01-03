@@ -31,14 +31,21 @@ class EnfeebledMark extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id) && this.selectedCombatant.hasConduitBySpellID(SPELLS.ENFEEBLED_MARK_CONDUIT.id);
+    this.active =
+      this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id) &&
+      this.selectedCombatant.hasConduitBySpellID(SPELLS.ENFEEBLED_MARK_CONDUIT.id);
     if (!this.active) {
       return;
     }
 
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.ENFEEBLED_MARK_CONDUIT.id);
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(
+      SPELLS.ENFEEBLED_MARK_CONDUIT.id,
+    );
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER | SELECTED_PLAYER_PET), this.onGenericDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER | SELECTED_PLAYER_PET),
+      this.onGenericDamage,
+    );
   }
 
   onGenericDamage(event: DamageEvent) {
@@ -46,7 +53,10 @@ class EnfeebledMark extends Analyzer {
     if (!enemy || !enemy.hasBuff(SPELLS.RESONATING_ARROW_DEBUFF.id)) {
       return;
     }
-    this.addedDamage += calculateEffectiveDamage(event, ENFEEBLED_MARK_DAMAGE_INCREASE[this.conduitRank]);
+    this.addedDamage += calculateEffectiveDamage(
+      event,
+      ENFEEBLED_MARK_DAMAGE_INCREASE[this.conduitRank],
+    );
   }
 
   statistic() {

@@ -12,7 +12,6 @@ const CAST_WINDOW = 100;
  * @returns {Array} Events possibly with some reordered.
  */
 class EmpowermentNormalizer extends EventsNormalizer {
-
   empowermentBuff = null;
 
   normalize(events) {
@@ -25,13 +24,20 @@ class EmpowermentNormalizer extends EventsNormalizer {
         const castTimestamp = event.timestamp;
 
         // look for matching recent applybuff or applybuffstack
-        for (let previousEventIndex = eventIndex; previousEventIndex >= 0; previousEventIndex -= 1) {
+        for (
+          let previousEventIndex = eventIndex;
+          previousEventIndex >= 0;
+          previousEventIndex -= 1
+        ) {
           const previousEvent = fixedEvents[previousEventIndex];
-          if ((castTimestamp - previousEvent.timestamp) > CAST_WINDOW) {
+          if (castTimestamp - previousEvent.timestamp > CAST_WINDOW) {
             break;
           }
-          if ((previousEvent.type === EventType.ApplyBuff || previousEvent.type === EventType.ApplyBuffStack) &&
-            previousEvent.ability.guid === this.empowermentBuff.id) {
+          if (
+            (previousEvent.type === EventType.ApplyBuff ||
+              previousEvent.type === EventType.ApplyBuffStack) &&
+            previousEvent.ability.guid === this.empowermentBuff.id
+          ) {
             fixedEvents.splice(previousEventIndex, 1);
             fixedEvents.push(previousEvent);
             previousEvent.__modified = true;

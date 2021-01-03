@@ -9,7 +9,6 @@ import { EventType } from 'parser/core/Events';
  * @returns {Array} Events possibly with some reordered.
  */
 class GarroteNormalizer extends EventsNormalizer {
-
   normalize(events) {
     const fixedEvents = [];
     let eventsRemoved = 0;
@@ -18,15 +17,20 @@ class GarroteNormalizer extends EventsNormalizer {
 
       // find an applybuff event for Garrote
       if (event.type === EventType.ApplyDebuff && event.ability.guid === SPELLS.GARROTE.id) {
-
         // look for matching removebuff
-        for (let previousEventIndex = (eventIndex - eventsRemoved); previousEventIndex >= 0; previousEventIndex -= 1) {
+        for (
+          let previousEventIndex = eventIndex - eventsRemoved;
+          previousEventIndex >= 0;
+          previousEventIndex -= 1
+        ) {
           const previousEvent = fixedEvents[previousEventIndex];
           if (event.timestamp > previousEvent.timestamp) {
             break;
           }
-          if (previousEvent.type === EventType.RemoveDebuff &&
-            previousEvent.ability.guid === SPELLS.GARROTE.id) {
+          if (
+            previousEvent.type === EventType.RemoveDebuff &&
+            previousEvent.ability.guid === SPELLS.GARROTE.id
+          ) {
             event.type = EventType.RefreshDebuff;
             event.__modified = true;
             fixedEvents.splice(previousEventIndex, 1);

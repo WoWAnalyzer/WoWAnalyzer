@@ -19,7 +19,8 @@ interface MarkOfTheCraneTarget {
   instance: number;
 }
 
-const isEqual = (a: MarkOfTheCraneTarget, b: MarkOfTheCraneTarget) => a.id === b.id && a.instance === b.instance;
+const isEqual = (a: MarkOfTheCraneTarget, b: MarkOfTheCraneTarget) =>
+  a.id === b.id && a.instance === b.instance;
 
 class SpinningCraneKick extends Analyzer {
   static dependencies = {

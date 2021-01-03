@@ -40,17 +40,29 @@ class CancelledCasts extends CoreCancelledCasts {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You cancelled {formatPercentage(this.cancelledPercentage)}% of your spells. While it is expected that you will have to cancel a few casts to react to a boss mechanic or to move, you should try to ensure that you are cancelling as few casts as possible. This is generally done by planning ahead in terms of positioning, and moving while you're casting instant cast spells.</>)
-      .icon('inv_misc_map_01')
-      .actual(t({
-      id: "hunter.marksmanship.suggestions.castsCanceled.efficiency",
-      message: `${formatPercentage(1 - actual)}% casts cancelled`
-    }))
-      .recommended(`<${formatPercentage(1 - recommended)}% is recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You cancelled {formatPercentage(this.cancelledPercentage)}% of your spells. While it is
+          expected that you will have to cancel a few casts to react to a boss mechanic or to move,
+          you should try to ensure that you are cancelling as few casts as possible. This is
+          generally done by planning ahead in terms of positioning, and moving while you're casting
+          instant cast spells.
+        </>,
+      )
+        .icon('inv_misc_map_01')
+        .actual(
+          t({
+            id: 'hunter.marksmanship.suggestions.castsCanceled.efficiency',
+            message: `${formatPercentage(1 - actual)}% casts cancelled`,
+          }),
+        )
+        .recommended(`<${formatPercentage(1 - recommended)}% is recommended`),
+    );
   }
 
   statistic() {
-    const tooltipText = Object.values(this.cancelledSpellList).map(cancelledSpell => (
+    const tooltipText = Object.values(this.cancelledSpellList).map((cancelledSpell) => (
       <li key={cancelledSpell.spellName}>
         {cancelledSpell.spellName}: {cancelledSpell.amount}
       </li>
@@ -60,14 +72,13 @@ class CancelledCasts extends CoreCancelledCasts {
       <Statistic
         position={STATISTIC_ORDER.CORE(14)}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            You started casting a total of {this.totalCasts} spells with a cast timer. You cancelled {this.castsCancelled} of those casts.
-            <ul>
-              {tooltipText}
-            </ul>
+            You started casting a total of {this.totalCasts} spells with a cast timer. You cancelled{' '}
+            {this.castsCancelled} of those casts.
+            <ul>{tooltipText}</ul>
           </>
-        )}
+        }
       >
         <BoringValueText label="Cancelled Casts">
           <CrossIcon /> {formatPercentage(this.cancelledPercentage)}% <small>casts cancelled</small>

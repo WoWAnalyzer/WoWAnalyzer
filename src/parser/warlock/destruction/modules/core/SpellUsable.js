@@ -32,8 +32,14 @@ class SpellUsable extends CoreSpellUsable {
     this.hasSB = this.selectedCombatant.hasTalent(SPELLS.SHADOWBURN_TALENT.id);
     this.hasSF = this.selectedCombatant.hasTalent(SPELLS.SOUL_FIRE_TALENT.id);
     this.addEventListener(Events.SpendResource.by(SELECTED_PLAYER), this.onSpendResource);
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.SHADOWBURN_TALENT), this._handleShadowburn);
-    this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.SHADOWBURN_TALENT), this._handleShadowburn);
+    this.addEventListener(
+      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.SHADOWBURN_TALENT),
+      this._handleShadowburn,
+    );
+    this.addEventListener(
+      Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.SHADOWBURN_TALENT),
+      this._handleShadowburn,
+    );
     this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER), this.onRemoveDebuff);
   }
 
@@ -72,7 +78,9 @@ class SpellUsable extends CoreSpellUsable {
       return;
     }
     // the Shadowburn debuff sometimes expires earlier than in full 5 seconds (e.g. on bosses), so we're checking for even earlier expiration
-    const diedEarlier = this.shadowburnedEnemies[target].start <= event.timestamp && event.timestamp <= this.shadowburnedEnemies[target].expectedEnd - BUFFER;
+    const diedEarlier =
+      this.shadowburnedEnemies[target].start <= event.timestamp &&
+      event.timestamp <= this.shadowburnedEnemies[target].expectedEnd - BUFFER;
     if (diedEarlier && this.isOnCooldown(SPELLS.SHADOWBURN_TALENT.id)) {
       debug && this.log(`Shadowburned enemy died (${target}), cooldown reset.`);
       this.endCooldown(SPELLS.SHADOWBURN_TALENT.id);

@@ -1,7 +1,9 @@
 import DamageDone from 'parser/shared/modules/throughput/DamageDone';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Abilities from 'parser/core/modules/Abilities';
-import CoreHealingEfficiencyTracker, { SpellInfoDetails } from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
+import CoreHealingEfficiencyTracker, {
+  SpellInfoDetails,
+} from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import EarthShield from 'parser/shaman/shared/talents/EarthShield';
 import SPELLS from 'common/SPELLS';
@@ -78,7 +80,7 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
 
   // Remove Unleash Life's contribution to the affected spells
   getUnleashLifeBuffDetails(spellInfo: SpellInfoDetails, spellId: number) {
-    const unleashLifeContribution = (this.unleashLife.healingBuff[spellId].healing || 0);
+    const unleashLifeContribution = this.unleashLife.healingBuff[spellId].healing || 0;
     spellInfo.healingDone -= unleashLifeContribution;
   }
 
@@ -104,7 +106,8 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
   }
   getPrimordialWaveDetails(spellInfo: SpellInfoDetails) {
     spellInfo.healingDone += this.primordialWave.riptideHealing + this.primordialWave.waveHealing;
-    spellInfo.overhealingDone += this.primordialWave.riptideOverHealing + this.primordialWave.waveOverHealing;
+    spellInfo.overhealingDone +=
+      this.primordialWave.riptideOverHealing + this.primordialWave.waveOverHealing;
   }
 }
 

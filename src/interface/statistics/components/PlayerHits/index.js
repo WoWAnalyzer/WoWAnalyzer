@@ -14,7 +14,7 @@ import char5Active from './images/char5-active.png';
 
 import './PlayerHits.scss';
 
-const CharacterHitPerCast = props => {
+const CharacterHitPerCast = (props) => {
   const { performance } = props;
 
   return (

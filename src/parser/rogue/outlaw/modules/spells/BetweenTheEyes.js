@@ -36,13 +36,22 @@ class BetweenTheEyes extends Analyzer {
   };
 
   suggestions(when) {
-    when(this.thresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You casted <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> without having <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> active.</>)
-      .icon(SPELLS.BETWEEN_THE_EYES.icon)
-      .actual(t({
-      id: "rogue.outlaw.suggestions.betweentheEyes.efficiency",
-      message: `${formatPercentage(actual)}% inefficient casts`
-    }))
-      .recommended(`${formatPercentage(recommended)}% is recommended`));
+    when(this.thresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You casted <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> without having{' '}
+          <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> active.
+        </>,
+      )
+        .icon(SPELLS.BETWEEN_THE_EYES.icon)
+        .actual(
+          t({
+            id: 'rogue.outlaw.suggestions.betweentheEyes.efficiency',
+            message: `${formatPercentage(actual)}% inefficient casts`,
+          }),
+        )
+        .recommended(`${formatPercentage(recommended)}% is recommended`),
+    );
   }
 }
 

@@ -13,18 +13,17 @@ const DEATH_BUFFER = 200;
 
 /**
  * Goal is to remove pressure from healers by selfhealing more when really needed (eg. at low health) / improving tanks reactive selfhealing timings
-*/
+ */
 class SelfHealTimingGraph extends Analyzer {
   _hpEvents = [];
   _deathEvents = [];
   _selfhealTimestamps = [];
 
-
   selfHealSpell = SPELLS.HEALTHSTONE;
-  tabTitle = "Selheal Timing";
+  tabTitle = 'Selheal Timing';
   tabURL = 'selfheal-timings';
 
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.death.to(SELECTED_PLAYER), this.onDeath);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
@@ -50,15 +49,15 @@ class SelfHealTimingGraph extends Analyzer {
   get plot() {
     const _deaths = this._deathEvents.map(({ timestamp, ability }) => {
       // find last HP event (within 200ms of death event, usually should be the same timestamp)
-      const lastHpIndex = this._hpEvents.findIndex(e => e.timestamp >= timestamp - DEATH_BUFFER);
+      const lastHpIndex = this._hpEvents.findIndex((e) => e.timestamp >= timestamp - DEATH_BUFFER);
       // this event is usually with hitPoints already 0, so we need one event before that
       // return if event doesn't exist or is actually the first event (on-pull death?)
       if (lastHpIndex === -1 || lastHpIndex === 0) {
-        this.log('Didn\'t find last HP event before death');
+        this.log("Didn't find last HP event before death");
         return undefined;
       }
       const { hitPoints, maxHitPoints } = this._hpEvents[lastHpIndex - 1];
-      const p = (hitPoints / maxHitPoints) || 0;
+      const p = hitPoints / maxHitPoints || 0;
       const percentage = Math.min(Math.round(p * 100), 100);
       return {
         x: timestamp - this.owner.fight.start_time,
@@ -67,18 +66,20 @@ class SelfHealTimingGraph extends Analyzer {
       };
     });
 
-    const _hp = this._hpEvents.filter(event => event.hitPoints !== undefined && event.maxHitPoints !== undefined)
+    const _hp = this._hpEvents
+      .filter((event) => event.hitPoints !== undefined && event.maxHitPoints !== undefined)
       .map(({ timestamp, hitPoints, maxHitPoints }) => {
-        const p = (hitPoints / maxHitPoints) || 0;
+        const p = hitPoints / maxHitPoints || 0;
         return {
           x: timestamp - this.owner.fight.start_time,
           y: Math.min(Math.round(p * 100), 100),
         };
       });
 
-    const _casts = this._selfhealTimestamps.map(event => {
-      const startingHP = event.hitPoints - (event.amount || 0) + (event.absorbed || 0) + (event.absorb || 0);
-      const p = (startingHP / event.maxHitPoints) || 0;
+    const _casts = this._selfhealTimestamps.map((event) => {
+      const startingHP =
+        event.hitPoints - (event.amount || 0) + (event.absorbed || 0) + (event.absorb || 0);
+      const p = startingHP / event.maxHitPoints || 0;
       const percentage = Math.min(Math.round(p * 100), 100);
       return {
         x: event.timestamp - this.owner.fight.start_time,
@@ -168,16 +169,19 @@ class SelfHealTimingGraph extends Analyzer {
       ],
     };
     const data = {
-      hp: [{x: 0, y: 100}].concat(_hp),
+      hp: [{ x: 0, y: 100 }].concat(_hp),
       casts: _casts,
       deaths: _deaths,
     };
 
     return (
-      <div className="graph-container" style={{
-        width: '100%',
-        minHeight: 200,
-      }}>
+      <div
+        className="graph-container"
+        style={{
+          width: '100%',
+          minHeight: 200,
+        }}
+      >
         <AutoSizer>
           {({ width, height }) => (
             <BaseChart width={width} height={height} spec={spec} data={data} />
@@ -194,12 +198,16 @@ class SelfHealTimingGraph extends Analyzer {
       render: () => (
         <Panel
           title={this.tabTitle}
-          explanation={(
+          explanation={
             <>
-              This plot shows you your <SpellLink id={this.selfHealSpell.id} /> casts relative to your Health Points to help you improve your <SpellLink id={this.selfHealSpell.id} /> timings.<br />
-              Improving those timings by selfhealing at low health and the correct time will remove a lot of pressure from your healers.
+              This plot shows you your <SpellLink id={this.selfHealSpell.id} /> casts relative to
+              your Health Points to help you improve your <SpellLink id={this.selfHealSpell.id} />{' '}
+              timings.
+              <br />
+              Improving those timings by selfhealing at low health and the correct time will remove
+              a lot of pressure from your healers.
             </>
-          )}
+          }
         >
           {this.plot}
         </Panel>

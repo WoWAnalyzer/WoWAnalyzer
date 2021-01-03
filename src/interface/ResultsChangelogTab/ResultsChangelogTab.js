@@ -31,11 +31,13 @@ class ResultsChangelogTab extends React.PureComponent {
               <Toggle
                 defaultChecked={this.state.includeCore}
                 icons={false}
-                onChange={event => this.setState({ includeCore: event.target.checked })}
+                onChange={(event) => this.setState({ includeCore: event.target.checked })}
                 id="core-entries-toggle"
               />{' '}
               <label htmlFor="core-entries-toggle">
-                <TooltipElement content="Turn this off to only see changes to this spec's implementation.">Shared changes</TooltipElement>
+                <TooltipElement content="Turn this off to only see changes to this spec's implementation.">
+                  Shared changes
+                </TooltipElement>
               </label>
             </div>
           )}

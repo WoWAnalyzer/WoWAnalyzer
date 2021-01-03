@@ -9,10 +9,26 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
-const DAMAGE_BONUS = [0, .02, .02, .02, .03, .03, .03, .03, .03, .04, .04, .04, .04, .04, .05, .05];
+const DAMAGE_BONUS = [
+  0,
+  0.02,
+  0.02,
+  0.02,
+  0.03,
+  0.03,
+  0.03,
+  0.03,
+  0.03,
+  0.04,
+  0.04,
+  0.04,
+  0.04,
+  0.04,
+  0.05,
+  0.05,
+];
 
 class SiphonedMalice extends Analyzer {
-
   conduitRank = 0;
   bonusDamage = 0;
 
@@ -28,15 +44,15 @@ class SiphonedMalice extends Analyzer {
     if (!buff) {
       return;
     }
-    this.bonusDamage += calculateEffectiveDamage(event, DAMAGE_BONUS[this.conduitRank] * buff.stacks);
+    this.bonusDamage += calculateEffectiveDamage(
+      event,
+      DAMAGE_BONUS[this.conduitRank] * buff.stacks,
+    );
   }
 
   statistic() {
     return (
-      <Statistic
-        category={STATISTIC_CATEGORY.COVENANTS}
-        size="flexible"
-      >
+      <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
         <ConduitSpellText spell={SPELLS.SIPHONED_MALICE} rank={this.conduitRank}>
           <ItemDamageDone amount={this.bonusDamage} />
         </ConduitSpellText>

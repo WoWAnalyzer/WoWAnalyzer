@@ -8,7 +8,7 @@ class SpellManaCost extends SpellResourceCost {
 
   incorrectCosts = {};
 
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.fightend, this.onFightend);
   }
@@ -16,7 +16,7 @@ class SpellManaCost extends SpellResourceCost {
   getHardcodedManaCost(event) {
     const spellId = event.ability.guid;
     const spell = SPELLS[spellId];
-    return (spell && spell.manaCost) ? spell.manaCost : null;
+    return spell && spell.manaCost ? spell.manaCost : null;
   }
 
   getRawResourceCost(event) {
@@ -51,8 +51,10 @@ class SpellManaCost extends SpellResourceCost {
       return;
     }
 
-    console.warn(`There were ${incorrectCostCount} abilities that did not match their expected cost, see below for suggested values.`);
-    Object.values(this.incorrectCosts).forEach(ability => console.warn(ability));
+    console.warn(
+      `There were ${incorrectCostCount} abilities that did not match their expected cost, see below for suggested values.`,
+    );
+    Object.values(this.incorrectCosts).forEach((ability) => console.warn(ability));
   }
 }
 

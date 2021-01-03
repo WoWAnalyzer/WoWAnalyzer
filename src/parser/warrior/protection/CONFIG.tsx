@@ -21,11 +21,29 @@ const CONFIG: Config = {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      Hello all! Thanks so much for taking the time use this tool as a way to improve your play. The goal is to provide targeted suggestions to improve your overall Protection Warrior play. The suggestions are based on the current theorycrafting and practical knowledge from some of the best Protection Warrior playing this game. (And even some former Protection Warrior who still like to help us dreamers out.) <br /> <br />
-
-      The tool is not perfect so I am always looking to improve it. If you have any suggestions or comments, don't hesitated to swing by the GitHub Issue linked below, or the <a href="https://discord.gg/0pYY7932lTH4FHW6" target="_blank" rel="noopener noreferrer">Skyhold</a> discord server. You can also contact me directly on Discord (Abelito75#0001). Thanks and I hope you continue to enjoy the tool!
+      Hello all! Thanks so much for taking the time use this tool as a way to improve your play. The
+      goal is to provide targeted suggestions to improve your overall Protection Warrior play. The
+      suggestions are based on the current theorycrafting and practical knowledge from some of the
+      best Protection Warrior playing this game. (And even some former Protection Warrior who still
+      like to help us dreamers out.) <br /> <br />
+      The tool is not perfect so I am always looking to improve it. If you have any suggestions or
+      comments, don't hesitated to swing by the GitHub Issue linked below, or the{' '}
+      <a href="https://discord.gg/0pYY7932lTH4FHW6" target="_blank" rel="noopener noreferrer">
+        Skyhold
+      </a>{' '}
+      discord server. You can also contact me directly on Discord (Abelito75#0001). Thanks and I
+      hope you continue to enjoy the tool!
       <Warning>
-        Because resets of <SpellLink id={SPELLS.SHIELD_SLAM.id} /> <TooltipElement content="The combatlog does not contain any events for random cooldown resets.">can't be tracked</TooltipElement> properly, any cooldown information of <SpellLink id={SPELLS.SHIELD_SLAM.id} /> should be treated as <TooltipElement content="Whenever Shield Slams would be cast before its cooldown would have expired normally, the cooldown expiry will be set back to the last possible trigger of Revenge, Devastate, Devastator or Thunder Clap. This may lead to higher times on cooldown than you actually experienced in-game.">educated guesses</TooltipElement>.
+        Because resets of <SpellLink id={SPELLS.SHIELD_SLAM.id} />{' '}
+        <TooltipElement content="The combatlog does not contain any events for random cooldown resets.">
+          can't be tracked
+        </TooltipElement>{' '}
+        properly, any cooldown information of <SpellLink id={SPELLS.SHIELD_SLAM.id} /> should be
+        treated as{' '}
+        <TooltipElement content="Whenever Shield Slams would be cast before its cooldown would have expired normally, the cooldown expiry will be set back to the last possible trigger of Revenge, Devastate, Devastator or Thunder Clap. This may lead to higher times on cooldown than you actually experienced in-game.">
+          educated guesses
+        </TooltipElement>
+        .
       </Warning>
     </>
   ),
@@ -38,7 +56,10 @@ const CONFIG: Config = {
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () => import('./CombatLogParser' /* webpackChunkName: "ProtectionWarrior" */).then(exports => exports.default),
+  parser: () =>
+    import('./CombatLogParser' /* webpackChunkName: "ProtectionWarrior" */).then(
+      (exports) => exports.default,
+    ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };

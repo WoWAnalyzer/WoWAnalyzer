@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 //region Core
 /** Abilities */
 //A simple function to calculate hasted cooldowns
-export const hastedCooldown = (baseCD: number, haste: number) => (baseCD / (1 + haste));
+export const hastedCooldown = (baseCD: number, haste: number) => baseCD / (1 + haste);
 /** GCDs */
 //Hunter GCDs don't go below 750ms
 export const MIN_GCD = 750;
@@ -27,10 +27,7 @@ export const TIME_SPENT_DEAD_THRESHOLD = 0.0025; //0.25%
 export const KILL_SHOT_EXECUTE_RANGE = 0.2;
 /** Multi Shot */
 //List of Multi Shots for use in Rapid Reload module
-export const MULTI_SHOTS_LIST = [
-  SPELLS.MULTISHOT_BM,
-  SPELLS.MULTISHOT_MM,
-];
+export const MULTI_SHOTS_LIST = [SPELLS.MULTISHOT_BM, SPELLS.MULTISHOT_MM];
 /** Aspects */
 //This is the baseline cooldown of Aspect of the Turtle / Cheetah
 export const BASELINE_TURTLE_CHEETAH_CD = 180000;
@@ -125,7 +122,24 @@ export const FLAYED_SHOT_RESET_CHANCE = 0.15;
 //region Kyrian
 /** Enfeebled Mark */
 //Enfeebled Mark increases the damage against targets affected by Resonating Arrow
-export const ENFEEBLED_MARK_DAMAGE_INCREASE = [0, 0.05, 0.055, 0.06, 0.0675, 0.075, 0.0825, 0.09, 0.0975, 0.105, 0.1125, 0.12, 0.1275, 0.135, 0.1425, 0.15];
+export const ENFEEBLED_MARK_DAMAGE_INCREASE = [
+  0,
+  0.05,
+  0.055,
+  0.06,
+  0.0675,
+  0.075,
+  0.0825,
+  0.09,
+  0.0975,
+  0.105,
+  0.1125,
+  0.12,
+  0.1275,
+  0.135,
+  0.1425,
+  0.15,
+];
 //endregion
 
 //region Necrolord
@@ -133,7 +147,24 @@ export const ENFEEBLED_MARK_DAMAGE_INCREASE = [0, 0.05, 0.055, 0.06, 0.0675, 0.0
 //Necrotic Barrage makes Death Chakram generate 2 additional focus
 export const NECROTIC_BARRAGE_ADDITIONAL_FOCUS = 2;
 //Necrotic Barrage makes Death Chakram do additional damage
-export const NECROTIC_BARRAGE_DAMAGE_INCREASE = [0, 0.05, 0.06, 0.07, 0.085, 0.095, 0.105, 0.115, 0.13, 0.14, 0.15, 0.16, 0.17, 0.18, 0.19, 0.20];
+export const NECROTIC_BARRAGE_DAMAGE_INCREASE = [
+  0,
+  0.05,
+  0.06,
+  0.07,
+  0.085,
+  0.095,
+  0.105,
+  0.115,
+  0.13,
+  0.14,
+  0.15,
+  0.16,
+  0.17,
+  0.18,
+  0.19,
+  0.2,
+];
 //endregion
 
 //region Night Fae
@@ -141,7 +172,24 @@ export const NECROTIC_BARRAGE_DAMAGE_INCREASE = [0, 0.05, 0.06, 0.07, 0.085, 0.0
 //Spirit Attunement increases the duration of Wild Spirits by 3 seconds
 export const SPIRIT_ATTUNEMENT_DURATION_INCREASE = 3000;
 //Spirit Attunement increases damage done by Wild Spirits by X%
-export const SPIRIT_ATTUNEMENT_DAMAGE_INCREASE = [0, 0.10, 0.11, 0.12, 0.135, 0.145, 0.155, 0.165, 0.18, 0.19, 0.20, 0.21, 0.22, 0.23, 0.24, 0.25];
+export const SPIRIT_ATTUNEMENT_DAMAGE_INCREASE = [
+  0,
+  0.1,
+  0.11,
+  0.12,
+  0.135,
+  0.145,
+  0.155,
+  0.165,
+  0.18,
+  0.19,
+  0.2,
+  0.21,
+  0.22,
+  0.23,
+  0.24,
+  0.25,
+];
 //endregion
 
 //region Venthyr
@@ -149,17 +197,102 @@ export const SPIRIT_ATTUNEMENT_DAMAGE_INCREASE = [0, 0.10, 0.11, 0.12, 0.135, 0.
 //Empowered Release increases Flayed Shot proc chance by 5%, not increasing with ranks.
 export const EMPOWERED_RELEASE_INCREASED_FLAYED_PROC_CHANCE = 0.05;
 //Empowered Release makes Flayer's Mark also increase the damage of next Kill Shot by 5.0% (scaling)
-export const EMPOWERED_RELEASE_INCREASE_KS_DAMAGE = [0, 0.05, 0.06, 0.07, 0.085, 0.095, 0.105, 0.115, 0.13, 0.14, 0.15, 0.16, 0.17, 0.18, 0.19, 0.20];
+export const EMPOWERED_RELEASE_INCREASE_KS_DAMAGE = [
+  0,
+  0.05,
+  0.06,
+  0.07,
+  0.085,
+  0.095,
+  0.105,
+  0.115,
+  0.13,
+  0.14,
+  0.15,
+  0.16,
+  0.17,
+  0.18,
+  0.19,
+  0.2,
+];
 //endregion
 
 //region Endurance
-export const HARMONY_OF_THE_TORTOLLAN_EFFECT_BY_RANK = [0, -10000, -11500, -13000, -14500, -16000, -17500, -19000, -20500, -23000, -24500, -26000, -27500, -29000, -30500, -32000];
-export const MARKMANS_ADVANTAGE_EFFECT_BY_RANK = [0, 0.03, 0.035, 0.04, 0.045, 0.05, 0.055, 0.06, 0.065, 0.07, 0.075, 0.08, 0.085, 0.09, 0.095, 0.1];
-export const RESILIENCE_OF_THE_HUNTER_EFFECT_BY_RANK = [0, 0.03, 0.038, 0.046, 0.054, 0.062, 0.07, 0.078, 0.086, 0.094, 0.102, 0.11, 0.118, 0.126, 0.134, 0.142];
+export const HARMONY_OF_THE_TORTOLLAN_EFFECT_BY_RANK = [
+  0,
+  -10000,
+  -11500,
+  -13000,
+  -14500,
+  -16000,
+  -17500,
+  -19000,
+  -20500,
+  -23000,
+  -24500,
+  -26000,
+  -27500,
+  -29000,
+  -30500,
+  -32000,
+];
+export const MARKMANS_ADVANTAGE_EFFECT_BY_RANK = [
+  0,
+  0.03,
+  0.035,
+  0.04,
+  0.045,
+  0.05,
+  0.055,
+  0.06,
+  0.065,
+  0.07,
+  0.075,
+  0.08,
+  0.085,
+  0.09,
+  0.095,
+  0.1,
+];
+export const RESILIENCE_OF_THE_HUNTER_EFFECT_BY_RANK = [
+  0,
+  0.03,
+  0.038,
+  0.046,
+  0.054,
+  0.062,
+  0.07,
+  0.078,
+  0.086,
+  0.094,
+  0.102,
+  0.11,
+  0.118,
+  0.126,
+  0.134,
+  0.142,
+];
 //endregion
 
 //region Finesse
-export const REVERSAL_OF_FORTUNE_EFFECT_BY_RANK = [0, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
+export const REVERSAL_OF_FORTUNE_EFFECT_BY_RANK = [
+  0,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+];
 //endregion
 
 //endregion

@@ -15,11 +15,15 @@ import Mastery from '../core/Mastery';
 
 class Cultivation extends Analyzer {
   get directPercent() {
-    return this.owner.getPercentageOfTotalHealingDone(this.mastery.getDirectHealing(SPELLS.CULTIVATION.id));
+    return this.owner.getPercentageOfTotalHealingDone(
+      this.mastery.getDirectHealing(SPELLS.CULTIVATION.id),
+    );
   }
 
   get masteryPercent() {
-    return this.owner.getPercentageOfTotalHealingDone(this.mastery.getMasteryHealing(SPELLS.CULTIVATION.id));
+    return this.owner.getPercentageOfTotalHealingDone(
+      this.mastery.getMasteryHealing(SPELLS.CULTIVATION.id),
+    );
   }
 
   get totalPercent() {
@@ -53,35 +57,52 @@ class Cultivation extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            This is the sum of the direct healing from Cultivation and the healing enabled by Cultivation's extra mastery stack.
+            This is the sum of the direct healing from Cultivation and the healing enabled by
+            Cultivation's extra mastery stack.
             <ul>
-              <li>Direct: <strong>{formatPercentage(this.directPercent)}%</strong></li>
-              <li>Mastery: <strong>{formatPercentage(this.masteryPercent)}%</strong></li>
+              <li>
+                Direct: <strong>{formatPercentage(this.directPercent)}%</strong>
+              </li>
+              <li>
+                Mastery: <strong>{formatPercentage(this.masteryPercent)}%</strong>
+              </li>
             </ul>
           </>
-        )}
+        }
       >
-        <BoringValue label={<><SpellIcon id={SPELLS.CULTIVATION.id} /> Cultivation healing </>}>
-          <>
-            {formatPercentage(this.totalPercent)} %
-          </>
+        <BoringValue
+          label={
+            <>
+              <SpellIcon id={SPELLS.CULTIVATION.id} /> Cultivation healing{' '}
+            </>
+          }
+        >
+          <>{formatPercentage(this.totalPercent)} %</>
         </BoringValue>
       </Statistic>
     );
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>Your healing from <SpellLink id={SPELLS.CULTIVATION.id} /> could be improved. You may have too many healers or doing easy
-        content, thus having low cultivation proc rate. You may considering selecting another talent.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your healing from <SpellLink id={SPELLS.CULTIVATION.id} /> could be improved. You may have
+          too many healers or doing easy content, thus having low cultivation proc rate. You may
+          considering selecting another talent.
+        </>,
+      )
         .icon(SPELLS.CULTIVATION.icon)
-        .actual(t({
-      id: "druid.restoration.suggestions.cultivation.notOptimal",
-      message: `${formatPercentage(this.totalPercent)}% healing`
-    }))
-        .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`));
+        .actual(
+          t({
+            id: 'druid.restoration.suggestions.cultivation.notOptimal',
+            message: `${formatPercentage(this.totalPercent)}% healing`,
+          }),
+        )
+        .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`),
+    );
   }
 }
 

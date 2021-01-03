@@ -25,8 +25,8 @@ class SharedBrews extends Analyzer {
   // also reduces BoB & FB cooldowns
   reduceCooldown(amount: number) {
     BREWS.slice(0, -1)
-      .filter(spell => this.spellUsable.isOnCooldown(spell.id))
-      .forEach(spell => this.spellUsable.reduceCooldown(spell.id, amount));
+      .filter((spell) => this.spellUsable.isOnCooldown(spell.id))
+      .forEach((spell) => this.spellUsable.reduceCooldown(spell.id, amount));
 
     const finalBrew = BREWS[BREWS.length - 1];
     if (!this.spellUsable.isOnCooldown(finalBrew.id)) {

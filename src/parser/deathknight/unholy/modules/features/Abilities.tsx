@@ -64,7 +64,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -102,7 +102,12 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
-          extraSuggestion: <span>Making sure to use <SpellLink id={SPELLS.APOCALYPSE.id} /> immediately after it's cooldown is up is important, try to plan for it's use as it is coming off cooldown.</span>,
+          extraSuggestion: (
+            <span>
+              Making sure to use <SpellLink id={SPELLS.APOCALYPSE.id} /> immediately after it's
+              cooldown is up is important, try to plan for it's use as it is coming off cooldown.
+            </span>
+          ),
         },
       },
 
@@ -116,7 +121,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.SUMMON_GARGOYLE_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
       },
 
@@ -129,7 +134,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
       },
 
@@ -182,7 +187,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.DEFILE_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -192,7 +197,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.UNHOLY_ASSAULT_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: .90,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -205,7 +210,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: .90,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -290,7 +295,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RUNE_1,
         category: Abilities.SPELL_CATEGORIES.HIDDEN,
-        cooldown: haste => {
+        cooldown: (haste) => {
           const multiplier = combatant.hasBuff(SPELLS.RUNIC_CORRUPTION.id) ? 1 : 0;
           return 10 / (1 + haste) / (1 + multiplier);
         },
@@ -300,7 +305,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RUNE_2,
         category: Abilities.SPELL_CATEGORIES.HIDDEN,
-        cooldown: haste => {
+        cooldown: (haste) => {
           const multiplier = combatant.hasBuff(SPELLS.RUNIC_CORRUPTION.id) ? 1 : 0;
           return 10 / (1 + haste) / (1 + multiplier);
         },
@@ -310,7 +315,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RUNE_3,
         category: Abilities.SPELL_CATEGORIES.HIDDEN,
-        cooldown: haste => {
+        cooldown: (haste) => {
           const multiplier = combatant.hasBuff(SPELLS.RUNIC_CORRUPTION.id) ? 1 : 0;
           return 10 / (1 + haste) / (1 + multiplier);
         },
@@ -320,20 +325,20 @@ class Abilities extends CoreAbilities {
       // covenants
       {
         spell: SPELLS.SWARMING_MIST,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,     
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
         gcd: {
           base: 1500,
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
         enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
       },
       {
         spell: SPELLS.DOOR_OF_SHADOWS,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,     
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 60,
         gcd: {
           base: 1500,
@@ -342,52 +347,52 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ABOMINATION_LIMB,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,     
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
         gcd: {
           base: 1500,
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
         enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },
       {
         spell: SPELLS.FLESHCRAFT,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,     
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
         enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },
       {
         spell: SPELLS.SHACKLE_THE_UNWORTHY,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,     
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
         gcd: {
           base: 1500,
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
         enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
       },
       {
         spell: SPELLS.DEATHS_DUE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,     
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 30,
         gcd: {
           base: 1500,
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
         enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
       },
       {
         spell: SPELLS.SOULSHAPE,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,     
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
         gcd: {
           base: 1500,

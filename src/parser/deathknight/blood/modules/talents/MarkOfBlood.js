@@ -28,21 +28,28 @@ class MarkOfBlood extends Analyzer {
       isLessThan: {
         minor: 0.95,
         average: 0.9,
-        major: .8,
+        major: 0.8,
       },
       style: 'percentage',
     };
   }
 
   suggestions(when) {
-    when(this.uptimeSuggestionThresholds)
-        .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.MARK_OF_BLOOD_TALENT.id} /> uptime can be improved.</>)
-            .icon(SPELLS.MARK_OF_BLOOD_TALENT.icon)
-            .actual(t({
-      id: "deathknight.blood.suggestions.markOfBlood.uptime",
-      message: `${formatPercentage(actual)}% Mark Of Blood Uptime`
-    }))
-            .recommended(`>${formatPercentage(recommended)}% is recommended`));
+    when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your <SpellLink id={SPELLS.MARK_OF_BLOOD_TALENT.id} /> uptime can be improved.
+        </>,
+      )
+        .icon(SPELLS.MARK_OF_BLOOD_TALENT.icon)
+        .actual(
+          t({
+            id: 'deathknight.blood.suggestions.markOfBlood.uptime',
+            message: `${formatPercentage(actual)}% Mark Of Blood Uptime`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {

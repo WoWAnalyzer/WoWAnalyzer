@@ -1,7 +1,13 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Events, { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  CastEvent,
+  HealEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
@@ -13,14 +19,13 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import ItemManaGained from 'interface/ItemManaGained';
 
-const BUFF_AMOUNT_PER_STACK = .15;
+const BUFF_AMOUNT_PER_STACK = 0.15;
 
 /**
  * Whenever you cast a vivify or enveloping mist during soothing mist's channel you gain a stack of clouded focus which increases their healing by 15% and descreases their
  * mana cost by 15% as well. You can have up to 3 stack but you lose all the stacks when you stop channeling soothing mist.
  */
 class CloudedFocus extends Analyzer {
-
   manaSaved: number = 0;
   healingDone: number = 0;
 
@@ -33,11 +38,26 @@ class CloudedFocus extends Analyzer {
       return;
     }
 
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.CLOUDED_FOCUS_BUFF), this.applybuff);
-    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.CLOUDED_FOCUS_BUFF), this.applyBuffStack);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.CLOUDED_FOCUS_BUFF), this.removeBuff);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.VIVIFY, SPELLS.ENVELOPING_MIST]), this.calculateManaEffect);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.VIVIFY, SPELLS.ENVELOPING_MIST]), this.calculateHealingEffect);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.CLOUDED_FOCUS_BUFF),
+      this.applybuff,
+    );
+    this.addEventListener(
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.CLOUDED_FOCUS_BUFF),
+      this.applyBuffStack,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.CLOUDED_FOCUS_BUFF),
+      this.removeBuff,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.VIVIFY, SPELLS.ENVELOPING_MIST]),
+      this.calculateManaEffect,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.VIVIFY, SPELLS.ENVELOPING_MIST]),
+      this.calculateHealingEffect,
+    );
   }
 
   calculateManaEffect(event: CastEvent) {
@@ -77,7 +97,8 @@ class CloudedFocus extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
       >
         <BoringSpellValueText spell={SPELLS.CLOUDED_FOCUS_BUFF}>
-          <ItemHealingDone amount={this.healingDone} /><br />
+          <ItemHealingDone amount={this.healingDone} />
+          <br />
           <ItemManaGained amount={this.manaSaved} />
         </BoringSpellValueText>
       </Statistic>

@@ -16,7 +16,7 @@ class PowerSiphon extends Analyzer {
   }
 
   get averageCores() {
-    return (this.totalCores / this.casts.length) || 0;
+    return this.totalCores / this.casts.length || 0;
   }
 
   _cast = null;
@@ -26,10 +26,22 @@ class PowerSiphon extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.POWER_SIPHON_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.POWER_SIPHON_TALENT), this.handlePowerSiphonCast);
-    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.DEMONIC_CORE_BUFF), this.handleDemonicCore);
-    this.addEventListener(Events.applybuffstack.to(SELECTED_PLAYER).spell(SPELLS.DEMONIC_CORE_BUFF), this.handleDemonicCore);
-    this.addEventListener(Events.refreshbuff.to(SELECTED_PLAYER).spell(SPELLS.DEMONIC_CORE_BUFF), this.handleDemonicCore);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.POWER_SIPHON_TALENT),
+      this.handlePowerSiphonCast,
+    );
+    this.addEventListener(
+      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.DEMONIC_CORE_BUFF),
+      this.handleDemonicCore,
+    );
+    this.addEventListener(
+      Events.applybuffstack.to(SELECTED_PLAYER).spell(SPELLS.DEMONIC_CORE_BUFF),
+      this.handleDemonicCore,
+    );
+    this.addEventListener(
+      Events.refreshbuff.to(SELECTED_PLAYER).spell(SPELLS.DEMONIC_CORE_BUFF),
+      this.handleDemonicCore,
+    );
     this.addEventListener(Events.fightend, this.onFinished);
   }
 

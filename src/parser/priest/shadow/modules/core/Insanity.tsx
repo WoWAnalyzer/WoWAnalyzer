@@ -16,10 +16,7 @@ class Insanity extends Analyzer {
 
   onInsanityEnergize(event: EnergizeEvent) {
     if (event.resourceChangeType === RESOURCE_TYPES.INSANITY.id) {
-      this._insanityEvents = [
-        ...this._insanityEvents,
-        event,
-      ];
+      this._insanityEvents = [...this._insanityEvents, event];
     }
   }
 }

@@ -48,7 +48,10 @@ class WildfireBomb extends Analyzer {
     this.active = !this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id);
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WILDFIRE_BOMB), this.onCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.WILDFIRE_BOMB_IMPACT), this.onDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.WILDFIRE_BOMB_IMPACT),
+      this.onDamage,
+    );
   }
 
   get uptimePercentage() {
@@ -86,7 +89,11 @@ class WildfireBomb extends Analyzer {
   onCast(event: CastEvent) {
     this.casts += 1;
     this.currentGCD = this.globalCooldown.getGlobalCooldownDuration(event.ability.guid);
-    if (!this.spellUsable.isOnCooldown(SPELLS.WILDFIRE_BOMB.id) || this.spellUsable.cooldownRemaining(SPELLS.WILDFIRE_BOMB.id) < WILDFIRE_BOMB_LEEWAY_BUFFER + this.currentGCD) {
+    if (
+      !this.spellUsable.isOnCooldown(SPELLS.WILDFIRE_BOMB.id) ||
+      this.spellUsable.cooldownRemaining(SPELLS.WILDFIRE_BOMB.id) <
+        WILDFIRE_BOMB_LEEWAY_BUFFER + this.currentGCD
+    ) {
       this.acceptedCastDueToCapping = true;
     }
   }
@@ -101,27 +108,49 @@ class WildfireBomb extends Analyzer {
     if (this.acceptedCastDueToCapping || !enemy) {
       return;
     }
-    if (enemy.hasBuff(SPELLS.WILDFIRE_BOMB_DOT.id) && event.timestamp > this.lastRefresh + MS_BUFFER) {
+    if (
+      enemy.hasBuff(SPELLS.WILDFIRE_BOMB_DOT.id) &&
+      event.timestamp > this.lastRefresh + MS_BUFFER
+    ) {
       this.badRefreshes += 1;
       this.lastRefresh = event.timestamp;
     }
   }
 
   suggestions(when: When) {
-    when(this.badWFBThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You shouldn't refresh <SpellLink id={SPELLS.WILDFIRE_BOMB.id} /> since it doesn't pandemic. It's generally better to cast something else and wait for the DOT to drop off before reapplying.</>)
-      .icon(SPELLS.WILDFIRE_BOMB.icon)
-      .actual(t({
-        id: 'hunter.survival.suggestions.wildfireBomb.pandemic.efficiency',
-        message: `${actual} casts unnecessarily refreshed WFB`,
-      }))
-      .recommended(`<${recommended} is recommended`));
-    when(this.uptimeThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Try and maximize your uptime on <SpellLink id={SPELLS.WILDFIRE_BOMB.id} />. This is achieved through not unnecessarily refreshing the debuff as it doesn't pandemic. </>)
-      .icon(SPELLS.WILDFIRE_BOMB.icon)
-      .actual(t({
-        id: 'hunter.survival.suggestions.wildfireBomb.uptime',
-        message: `${formatPercentage(actual)}% uptime`,
-      }))
-      .recommended(`>${formatPercentage(recommended)}% is recommended`));
+    when(this.badWFBThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You shouldn't refresh <SpellLink id={SPELLS.WILDFIRE_BOMB.id} /> since it doesn't
+          pandemic. It's generally better to cast something else and wait for the DOT to drop off
+          before reapplying.
+        </>,
+      )
+        .icon(SPELLS.WILDFIRE_BOMB.icon)
+        .actual(
+          t({
+            id: 'hunter.survival.suggestions.wildfireBomb.pandemic.efficiency',
+            message: `${actual} casts unnecessarily refreshed WFB`,
+          }),
+        )
+        .recommended(`<${recommended} is recommended`),
+    );
+    when(this.uptimeThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Try and maximize your uptime on <SpellLink id={SPELLS.WILDFIRE_BOMB.id} />. This is
+          achieved through not unnecessarily refreshing the debuff as it doesn't pandemic.{' '}
+        </>,
+      )
+        .icon(SPELLS.WILDFIRE_BOMB.icon)
+        .actual(
+          t({
+            id: 'hunter.survival.suggestions.wildfireBomb.uptime',
+            message: `${formatPercentage(actual)}% uptime`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {

@@ -42,9 +42,18 @@ class SpellUsable extends CoreSpellUsable {
   constructor(...args) {
     super(...args);
     this.hasPredator = this.selectedCombatant.hasTalent(SPELLS.PREDATOR_TALENT.id);
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(BLEED_SPELLS), this.onApplyDebuff);
-    this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell(BLEED_SPELLS), this.onRefreshDebuff);
-    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(BLEED_SPELLS), this.onRemoveDebuff);
+    this.addEventListener(
+      Events.applydebuff.by(SELECTED_PLAYER).spell(BLEED_SPELLS),
+      this.onApplyDebuff,
+    );
+    this.addEventListener(
+      Events.refreshdebuff.by(SELECTED_PLAYER).spell(BLEED_SPELLS),
+      this.onRefreshDebuff,
+    );
+    this.addEventListener(
+      Events.removedebuff.by(SELECTED_PLAYER).spell(BLEED_SPELLS),
+      this.onRemoveDebuff,
+    );
   }
 
   onApplyDebuff(event) {
@@ -71,7 +80,7 @@ class SpellUsable extends CoreSpellUsable {
     }
     // existingExpire may be null if combat log missed the original applydebuff
     const existingExpire = this.activeBleedsExpire[target][spellId];
-    const remainingOnPrevious = Math.max(0, existingExpire ? (existingExpire - event.timestamp) : 0);
+    const remainingOnPrevious = Math.max(0, existingExpire ? existingExpire - event.timestamp : 0);
     const durationWithoutPandemic = BLEED_BASE_DURATIONS[spellId];
     const pandemic = Math.min(durationWithoutPandemic * PANDEMIC_FRACTION, remainingOnPrevious);
     this.activeBleedsExpire[target][spellId] = event.timestamp + durationWithoutPandemic + pandemic;
@@ -87,16 +96,17 @@ class SpellUsable extends CoreSpellUsable {
       this.activeBleedsExpire[target] = {};
     }
     const expire = this.activeBleedsExpire[target][spellId];
-    const beforeExpire = expire ? (expire - event.timestamp) : 0;
+    const beforeExpire = expire ? expire - event.timestamp : 0;
     if (beforeExpire > EARLY_BLEED_EXPIRE_TO_COUNT_AS_DEATH) {
       this.possibleRecentKill = event.timestamp;
     }
   }
 
   beginCooldown(spellId, cooldownTriggerEvent) {
-    if (SPELLS.TIGERS_FURY.id === spellId &&
-      this.hasPredator && this.isOnCooldown(spellId)) {
-      const resetTime = this.possibleRecentKill ? this.possibleRecentKill : cooldownTriggerEvent.timestamp;
+    if (SPELLS.TIGERS_FURY.id === spellId && this.hasPredator && this.isOnCooldown(spellId)) {
+      const resetTime = this.possibleRecentKill
+        ? this.possibleRecentKill
+        : cooldownTriggerEvent.timestamp;
       this.earlyCastsOfTigersFury += 1;
       this.endCooldown(spellId, false, resetTime);
     }

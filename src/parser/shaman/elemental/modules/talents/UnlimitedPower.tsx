@@ -11,7 +11,6 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 const HASTE_PER_STACK = 0.02;
 
 class UnlimitedPower extends Analyzer {
-
   static dependencies = {
     unlimitedPowerTimesByStacks: UnlimitedPowerTimesByStacks,
   };
@@ -28,7 +27,10 @@ class UnlimitedPower extends Analyzer {
   }
 
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.UNLIMITED_POWER_BUFF.id) / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.UNLIMITED_POWER_BUFF.id) /
+      this.owner.fightDuration
+    );
   }
 
   get averageHaste() {
@@ -41,7 +43,7 @@ class UnlimitedPower extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        dropdown={(
+        dropdown={
           <>
             <table className="table table-condensed">
               <thead>
@@ -56,18 +58,18 @@ class UnlimitedPower extends Analyzer {
                   <tr key={i}>
                     <th>{i}</th>
                     <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
-                    <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
+                    <td>
+                      {formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.UNLIMITED_POWER_TALENT}>
-          <>
-            Unlimited Power Average Haste Gain (Uptime {formatPercentage(this.uptime)}%)
-          </>
+          <>Unlimited Power Average Haste Gain (Uptime {formatPercentage(this.uptime)}%)</>
         </BoringSpellValueText>
       </Statistic>
     );

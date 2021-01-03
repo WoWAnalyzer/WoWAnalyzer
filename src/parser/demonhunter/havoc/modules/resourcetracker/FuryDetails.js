@@ -36,13 +36,17 @@ class FuryDetails extends Analyzer {
   };
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(`You wasted ${formatNumber(this.furyTracker.wasted)} Fury.`)
-      .icon(furyIcon)
-      .actual(t({
-      id: "demonhunter.havoc.suggestions.fury.wasted",
-      message: `${formatPercentage(actual)}% Fury wasted`
-    }))
-      .recommended(`<${formatPercentage(recommended)}% is recommended.`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(`You wasted ${formatNumber(this.furyTracker.wasted)} Fury.`)
+        .icon(furyIcon)
+        .actual(
+          t({
+            id: 'demonhunter.havoc.suggestions.fury.wasted',
+            message: `${formatPercentage(actual)}% Fury wasted`,
+          }),
+        )
+        .recommended(`<${formatPercentage(recommended)}% is recommended.`),
+    );
   }
 
   statistic() {
@@ -67,10 +71,7 @@ class FuryDetails extends Analyzer {
       url: 'fury-usage',
       render: () => (
         <Panel>
-          <ResourceBreakdown
-            tracker={this.furyTracker}
-            showSpenders
-          />
+          <ResourceBreakdown tracker={this.furyTracker} showSpenders />
         </Panel>
       ),
     };

@@ -8,7 +8,7 @@ import BaseChart, { defaultConfig, formatTime } from './BaseChart';
 
 export { formatTime };
 
-export type Spec = Omit<TopLevelSpec, "data">;
+export type Spec = Omit<TopLevelSpec, 'data'>;
 
 export interface Props {
   spec: Spec;
@@ -26,10 +26,12 @@ export default function FooterChart(props: Props) {
   const height = props.height || 75;
 
   return (
-    <div style={{
-      width: '100%',
-      height,
-    }}>
+    <div
+      style={{
+        width: '100%',
+        height,
+      }}
+    >
       <AutoSizer disableHeight>
         {({ width }) => {
           if (width > 0) {
@@ -38,7 +40,7 @@ export default function FooterChart(props: Props) {
                 width={width}
                 height={height}
                 // eslint-disable-next-line @typescript-eslint/camelcase
-                data={{default_data: props.data}}
+                data={{ default_data: props.data }}
                 config={props.config || defaultConfig}
                 spec={spec as VisualizationSpec}
               />

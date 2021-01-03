@@ -31,14 +31,7 @@ class OneVariableBinomialChart extends React.Component {
   };
 
   render() {
-    const {
-      probabilities,
-      actualEvent,
-      xAxis,
-      yAxis,
-      yDomain,
-      tooltip,
-    } = this.props;
+    const { probabilities, actualEvent, xAxis, yAxis, yDomain, tooltip } = this.props;
 
     const data = {
       probabilities,
@@ -94,25 +87,15 @@ class OneVariableBinomialChart extends React.Component {
             size: 60,
           },
           encoding: {
-            tooltip: [
-              { field: 'x', title: tooltip },
-            ],
+            tooltip: [{ field: 'x', title: tooltip }],
           },
         },
       ],
     };
 
-
     return (
       <AutoSizer disableHeight>
-        {({width}) => (
-          <BaseChart
-            height={150}
-            width={width}
-            spec={spec}
-            data={data}
-          />
-        )}
+        {({ width }) => <BaseChart height={150} width={width} spec={spec} data={data} />}
       </AutoSizer>
     );
   }

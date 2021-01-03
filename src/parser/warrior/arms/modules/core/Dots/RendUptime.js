@@ -38,19 +38,32 @@ class RendUptime extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.REND_TALENT.id} /> uptime can be improved. If you choose this talent, you better use it !</>)
-      .icon(SPELLS.REND_TALENT.icon)
-      .actual(t({
-      id: "warrior.arms.suggestions.rend.uptime",
-      message: `${formatPercentage(actual)}% Rend uptime`
-    }))
-      .recommended(`>${formatPercentage(recommended)}% is recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your <SpellLink id={SPELLS.REND_TALENT.id} /> uptime can be improved. If you choose this
+          talent, you better use it !
+        </>,
+      )
+        .icon(SPELLS.REND_TALENT.icon)
+        .actual(
+          t({
+            id: 'warrior.arms.suggestions.rend.uptime',
+            message: `${formatPercentage(actual)}% Rend uptime`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.REND_TALENT.id} /> uptime</>}
+        title={
+          <>
+            <SpellLink id={SPELLS.REND_TALENT.id} /> uptime
+          </>
+        }
         value={`${formatPercentage(this.uptime)} %`}
       />
     );

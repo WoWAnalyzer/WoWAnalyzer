@@ -28,25 +28,58 @@ class ImbuedReflections extends Analyzer {
    */
   constructor(...args) {
     super(...args);
-    const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.FORTIFYING_INGREDIENTS.id);
+    const conduitRank = this.selectedCombatant.conduitRankBySpellID(
+      SPELLS.FORTIFYING_INGREDIENTS.id,
+    );
     if (!conduitRank) {
       this.active = false;
       return;
     }
 
-    this.boost = conduitScaling(.3625, conduitRank);
+    this.boost = conduitScaling(0.3625, conduitRank);
 
     //summon events (need to track this to get melees)
-    this.addEventListener(Events.summon.by(SELECTED_PLAYER).spell([SPELLS.FALLEN_ORDER_OX_CLONE, SPELLS.FALLEN_ORDER_TIGER_CLONE, SPELLS.FALLEN_ORDER_CRANE_CLONE]), this.trackSummons);
+    this.addEventListener(
+      Events.summon
+        .by(SELECTED_PLAYER)
+        .spell([
+          SPELLS.FALLEN_ORDER_OX_CLONE,
+          SPELLS.FALLEN_ORDER_TIGER_CLONE,
+          SPELLS.FALLEN_ORDER_CRANE_CLONE,
+        ]),
+      this.trackSummons,
+    );
 
     //mistweaver spells
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER_PET).spell([SPELLS.FALLEN_ORDER_ENVELOPING_MIST, SPELLS.FALLEN_ORDER_SOOTHING_MIST]), this.normalizeHealingBoost);
+    this.addEventListener(
+      Events.heal
+        .by(SELECTED_PLAYER_PET)
+        .spell([SPELLS.FALLEN_ORDER_ENVELOPING_MIST, SPELLS.FALLEN_ORDER_SOOTHING_MIST]),
+      this.normalizeHealingBoost,
+    );
     //brewmaster spells
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell([SPELLS.FALLEN_ORDER_KEG_SMASH, SPELLS.FALLEN_ORDER_BREATH_OF_FIRE, SPELLS.BREATH_OF_FIRE_DEBUFF]), this.normalizeDamageBoost);
+    this.addEventListener(
+      Events.damage
+        .by(SELECTED_PLAYER_PET)
+        .spell([
+          SPELLS.FALLEN_ORDER_KEG_SMASH,
+          SPELLS.FALLEN_ORDER_BREATH_OF_FIRE,
+          SPELLS.BREATH_OF_FIRE_DEBUFF,
+        ]),
+      this.normalizeDamageBoost,
+    );
     //windwalker spells
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell([SPELLS.FALLEN_ORDER_SPINNING_CRANE_KICK, SPELLS.FISTS_OF_FURY_DAMAGE]), this.normalizeDamageBoost);
+    this.addEventListener(
+      Events.damage
+        .by(SELECTED_PLAYER_PET)
+        .spell([SPELLS.FALLEN_ORDER_SPINNING_CRANE_KICK, SPELLS.FISTS_OF_FURY_DAMAGE]),
+      this.normalizeDamageBoost,
+    );
     //shared
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.MELEE), this.handleMelee);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.MELEE),
+      this.handleMelee,
+    );
   }
 
   trackSummons(event) {
@@ -59,7 +92,7 @@ class ImbuedReflections extends Analyzer {
 
   normalizeDamageBoost(event) {
     const damage = event.amount;
-    const amount = (damage - damage / (1 + this.boost)) || 0;
+    const amount = damage - damage / (1 + this.boost) || 0;
     this.damage += amount;
   }
 
@@ -77,7 +110,8 @@ class ImbuedReflections extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
       >
         <BoringSpellValueText spell={SPELLS.IMBUED_REFLECTIONS}>
-          <ItemHealingDone amount={this.healing} /><br />
+          <ItemHealingDone amount={this.healing} />
+          <br />
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

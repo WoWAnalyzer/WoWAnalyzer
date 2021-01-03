@@ -24,12 +24,18 @@ const FrostDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: an
     <Checklist>
       <Rule
         name="Use cooldowns as often as possible"
-        description={(
+        description={
           <>
             You should aim to use your cooldowns as often as you can to maximize your damage output.{' '}
-            <a href="https://www.wowhead.com/frost-death-knight-rotation-guide#cooldown-usage" target="_blank" rel="noopener noreferrer">More info.</a>
+            <a
+              href="https://www.wowhead.com/frost-death-knight-rotation-guide#cooldown-usage"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              More info.
+            </a>
           </>
-        )}
+        }
       >
         <AbilityRequirement spell={SPELLS.PILLAR_OF_FROST.id} />
         {combatant.hasTalent(SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id) && (
@@ -43,11 +49,13 @@ const FrostDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: an
       </Rule>
       <Rule
         name="Try to avoid being inactive for a large portion of the fight"
-        description={(
+        description={
           <>
-            While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes.  In a worst case scenario, you can cast <SpellLink id={SPELLS.HOWLING_BLAST.id} /> to prevent Rune capping
+            While some downtime is inevitable in fights with movement, you should aim to reduce
+            downtime to prevent capping Runes. In a worst case scenario, you can cast{' '}
+            <SpellLink id={SPELLS.HOWLING_BLAST.id} /> to prevent Rune capping
           </>
-        )}
+        }
       >
         <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />
       </Rule>
@@ -59,7 +67,13 @@ const FrostDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: an
       </Rule>
       <Rule
         name="Avoid capping Runic Power"
-        description={(<>Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities.  Cast <SpellLink id={SPELLS.FROST_STRIKE_CAST.id} /> when you have 73+ Runic Power to avoid overcapping.</>)}
+        description={
+          <>
+            Death Knights are a resource based class, relying on Runes and Runic Power to cast core
+            abilities. Cast <SpellLink id={SPELLS.FROST_STRIKE_CAST.id} /> when you have 73+ Runic
+            Power to avoid overcapping.
+          </>
+        }
       >
         <Requirement name="Runic Power Efficiency" thresholds={thresholds.runicPowerEfficiency} />
       </Rule>

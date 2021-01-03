@@ -38,7 +38,14 @@ class CarefulAim extends ExecuteHelper {
 
   caProcs = 0;
   bossIDs: number[] = [];
-  carefulAimPeriods: { [key: string]: { aimedShotsInCA: number; timestampSub100: number; caDamage: number; timestampSub70: number; } } = {
+  carefulAimPeriods: {
+    [key: string]: {
+      aimedShotsInCA: number;
+      timestampSub100: number;
+      caDamage: number;
+      timestampSub70: number;
+    };
+  } = {
     /*
     [bossName]: {
           caDamage: 0,
@@ -48,7 +55,7 @@ class CarefulAim extends ExecuteHelper {
           },
         };
      */
-    'Adds': {
+    Adds: {
       caDamage: 0,
       aimedShotsInCA: 0,
       timestampSub100: 0,
@@ -61,8 +68,8 @@ class CarefulAim extends ExecuteHelper {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CAREFUL_AIM_TALENT.id);
-    this.owner.report.enemies.forEach((enemy: { fights: any[]; type: string; id: number; }) => {
-      enemy.fights.forEach(fight => {
+    this.owner.report.enemies.forEach((enemy: { fights: any[]; type: string; id: number }) => {
+      enemy.fights.forEach((fight) => {
         if (fight.id === this.owner.fight.id && enemy.type === 'Boss') {
           this.bossIDs.push(enemy.id);
         }
@@ -74,7 +81,8 @@ class CarefulAim extends ExecuteHelper {
 
   onDamage(event: DamageEvent) {
     const spellId = event.ability.guid;
-    const healthPercent = event.hitPoints && event.maxHitPoints && event.hitPoints / event.maxHitPoints;
+    const healthPercent =
+      event.hitPoints && event.maxHitPoints && event.hitPoints / event.maxHitPoints;
     const targetID = event.targetID;
     let target: string;
     const outsideCarefulAim = healthPercent && healthPercent < CAREFUL_AIM_THRESHOLD;
@@ -91,10 +99,12 @@ class CarefulAim extends ExecuteHelper {
         };
       }
       if (healthPercent && healthPercent > CAREFUL_AIM_THRESHOLD) {
-        this.carefulAimPeriods[target].timestampSub100 = this.carefulAimPeriods[target].timestampSub100 || event.timestamp;
+        this.carefulAimPeriods[target].timestampSub100 =
+          this.carefulAimPeriods[target].timestampSub100 || event.timestamp;
       }
       if (healthPercent && outsideCarefulAim) {
-        this.carefulAimPeriods[target].timestampSub70 = this.carefulAimPeriods[target].timestampSub70 || event.timestamp;
+        this.carefulAimPeriods[target].timestampSub70 =
+          this.carefulAimPeriods[target].timestampSub70 || event.timestamp;
       }
     } else {
       target = 'Adds';
@@ -109,7 +119,7 @@ class CarefulAim extends ExecuteHelper {
   }
 
   calculateCarefulAimPeriods() {
-    Object.values(this.carefulAimPeriods).forEach(boss => {
+    Object.values(this.carefulAimPeriods).forEach((boss) => {
       boss.timestampSub100 = boss.timestampSub100 || this.owner.fight.start_time;
       boss.timestampSub70 = boss.timestampSub70 || this.owner.fight.end_time;
     });
@@ -121,7 +131,7 @@ class CarefulAim extends ExecuteHelper {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        dropdown={(
+        dropdown={
           <>
             <table className="table table-condensed">
               <thead>
@@ -138,21 +148,24 @@ class CarefulAim extends ExecuteHelper {
                     <td>{boss[0]}</td>
                     <td>{formatNumber(boss[1].caDamage)}</td>
                     <td>{boss[1].aimedShotsInCA}</td>
-                    <td>{boss[0] === 'Adds' ?
-                      'N/A' :
-                      formatDuration((boss[1].timestampSub70 - boss[1].timestampSub100) / 1000)}</td>
+                    <td>
+                      {boss[0] === 'Adds'
+                        ? 'N/A'
+                        : formatDuration((boss[1].timestampSub70 - boss[1].timestampSub100) / 1000)}
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.CAREFUL_AIM_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />
-            {this.caProcs} <small>hits for</small> ≈ {formatNumber(this.damage / this.caProcs)} <small>each</small>
+            {this.caProcs} <small>hits for</small> ≈ {formatNumber(this.damage / this.caProcs)}{' '}
+            <small>each</small>
           </>
         </BoringSpellValueText>
       </Statistic>

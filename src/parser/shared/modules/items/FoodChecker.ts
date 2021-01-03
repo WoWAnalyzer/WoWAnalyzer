@@ -54,7 +54,7 @@ class FoodChecker extends Analyzer {
   midTierFoodUp = false;
   higherFoodUp = false;
 
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER), this.onApplybuff.bind(this));
   }
@@ -89,17 +89,20 @@ class FoodChecker extends Analyzer {
   }
   suggestions(when: When) {
     let importance = SUGGESTION_IMPORTANCE.MINOR;
-    let suggestionText = 'You did not have any food active when starting the fight. Having the right food buff during combat is an easy way to improve performance.';
+    let suggestionText =
+      'You did not have any food active when starting the fight. Having the right food buff during combat is an easy way to improve performance.';
     if (!this.higherFoodUp && (this.lowerFoodUp || this.midTierFoodUp)) {
-      suggestionText = 'You did not have the best food active when starting the fight. Using the best food available is an easy way to improve performance.';
+      suggestionText =
+        'You did not have the best food active when starting the fight. Using the best food available is an easy way to improve performance.';
     }
     if (!this.higherFoodUp && !this.lowerFoodUp && !this.midTierFoodUp) {
       importance = SUGGESTION_IMPORTANCE.MAJOR;
     }
-    when(this.higherFoodSuggestionThresholds)
-      .addSuggestion((suggest) => suggest(suggestionText)
-          .icon(SPELLS.FEAST_OF_GLUTTONOUS_HEDONISM_INT.icon)
-          .staticImportance(importance));
+    when(this.higherFoodSuggestionThresholds).addSuggestion((suggest) =>
+      suggest(suggestionText)
+        .icon(SPELLS.FEAST_OF_GLUTTONOUS_HEDONISM_INT.icon)
+        .staticImportance(importance),
+    );
   }
 }
 export default FoodChecker;

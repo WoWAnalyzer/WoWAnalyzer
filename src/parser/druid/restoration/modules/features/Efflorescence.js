@@ -21,8 +21,14 @@ class Efflorescence extends Analyzer {
 
   constructor(options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EFFLORESCENCE_CAST), this.onCast);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EFFLORESCENCE_HEAL), this.onHeal);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EFFLORESCENCE_CAST),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EFFLORESCENCE_HEAL),
+      this.onHeal,
+    );
   }
 
   onCast(event) {
@@ -40,12 +46,17 @@ class Efflorescence extends Analyzer {
   }
 
   get lastCastTimestamp() {
-    return this.castTimestamps.length === 0 ? null : this.castTimestamps[this.castTimestamps.length - 1];
+    return this.castTimestamps.length === 0
+      ? null
+      : this.castTimestamps[this.castTimestamps.length - 1];
   }
 
   get uptime() {
     // uptime from a cast is only tallied in 'castUptime' on the *next* cast, so the most recent cast must be handled special
-    const activeUptime = this.lastCastTimestamp === null ? 0 : Math.min(DURATION, this.owner.currentTimestamp - this.lastCastTimestamp);
+    const activeUptime =
+      this.lastCastTimestamp === null
+        ? 0
+        : Math.min(DURATION, this.owner.currentTimestamp - this.lastCastTimestamp);
     return this.precastUptime + this.castUptime + activeUptime;
   }
 
@@ -57,8 +68,8 @@ class Efflorescence extends Analyzer {
     return {
       actual: this.uptimePercent,
       isLessThan: {
-        minor: 0.90,
-        average: 0.50,
+        minor: 0.9,
+        average: 0.5,
         major: 0.25,
       },
       style: 'percentage',
@@ -66,25 +77,35 @@ class Efflorescence extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<span>Your <SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} /> uptime can be improved.</span>)
-          .icon(SPELLS.EFFLORESCENCE_CAST.icon)
-          .actual(t({
-      id: "druid.restoration.efflorescence.uptime",
-      message: `${formatPercentage(this.uptimePercent)}% uptime`
-    }))
-          .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <span>
+          Your <SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} /> uptime can be improved.
+        </span>,
+      )
+        .icon(SPELLS.EFFLORESCENCE_CAST.icon)
+        .actual(
+          t({
+            id: 'druid.restoration.efflorescence.uptime',
+            message: `${formatPercentage(this.uptimePercent)}% uptime`,
+          }),
+        )
+        .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`),
+    );
 
     // TODO suggestion for early refreshes
   }
 
   statistic() {
     return (
-      <Statistic
-        position={STATISTIC_ORDER.CORE(12)}
-        size="flexible"
-      >
-        <BoringValue label={<><SpellIcon id={SPELLS.EFFLORESCENCE_CAST.id} /> Efflorescence uptime</>} >
+      <Statistic position={STATISTIC_ORDER.CORE(12)} size="flexible">
+        <BoringValue
+          label={
+            <>
+              <SpellIcon id={SPELLS.EFFLORESCENCE_CAST.id} /> Efflorescence uptime
+            </>
+          }
+        >
           <>
             <UptimeIcon /> {formatPercentage(this.uptimePercent)} %
           </>

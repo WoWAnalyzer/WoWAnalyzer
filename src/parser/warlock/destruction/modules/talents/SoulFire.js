@@ -29,28 +29,35 @@ class SoulFire extends Analyzer {
     const fragments = this.soulShardTracker.getGeneratedBySpell(SPELLS.SOUL_FIRE_TALENT.id);
 
     const chaosBolt = this.abilityTracker.getAbility(SPELLS.CHAOS_BOLT.id);
-    const avg = ((chaosBolt.damageEffective + chaosBolt.damageAbsorbed) / chaosBolt.casts) || 0;
+    const avg = (chaosBolt.damageEffective + chaosBolt.damageAbsorbed) / chaosBolt.casts || 0;
     const estimatedDamage = Math.floor(fragments / FRAGMENTS_PER_CHAOS_BOLT) * avg;
 
     const spell = this.abilityTracker.getAbility(SPELLS.SOUL_FIRE_TALENT.id);
     const damage = spell.damageEffective + spell.damageAbsorbed;
-    const dps = damage / this.owner.fightDuration * 1000;
+    const dps = (damage / this.owner.fightDuration) * 1000;
 
     return (
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            {formatThousands(damage)} damage<br /><br />
-
-            If fragments generated with Soul Fire were used on Chaos Bolts, they would deal an estimated {formatThousands(estimatedDamage)} damage ({this.owner.formatItemDamageDone(estimatedDamage)}).
-            This is estimated using average Chaos Bolt damage over the fight.
+            {formatThousands(damage)} damage
+            <br />
+            <br />
+            If fragments generated with Soul Fire were used on Chaos Bolts, they would deal an
+            estimated {formatThousands(estimatedDamage)} damage (
+            {this.owner.formatItemDamageDone(estimatedDamage)}). This is estimated using average
+            Chaos Bolt damage over the fight.
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.SOUL_FIRE_TALENT}>
-          {formatNumber(dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total</small> <br />
+          {formatNumber(dps)} DPS{' '}
+          <small>
+            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total
+          </small>{' '}
+          <br />
           {fragments} <small>generated Fragments</small>
         </BoringSpellValueText>
       </Statistic>

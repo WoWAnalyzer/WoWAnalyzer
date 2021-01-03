@@ -9,7 +9,10 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 
-import { IsPenanceDamageEvent, IsPenanceHealEvent } from 'parser/priest/discipline/modules/spells/Helper';
+import {
+  IsPenanceDamageEvent,
+  IsPenanceHealEvent,
+} from 'parser/priest/discipline/modules/spells/Helper';
 
 import isAtonement from '../core/isAtonement';
 import Penance from './Penance';
@@ -75,12 +78,20 @@ class Castigation extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.CASTIGATION_TALENT.id} />}
-        value={`${formatNumber(healing / this.owner.fightDuration * 1000)} HPS`}
-        label={(
-          <TooltipElement content={`The effective healing contributed by Castigation (${formatPercentage(this.owner.getPercentageOfTotalHealingDone(healing))}% of total healing done). Castigation also contributed ${formatNumber(damage / this.owner.fightDuration * 1000)} DPS (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))}% of total damage done), the healing gain of this damage was included in the shown numbers.`}>
+        value={`${formatNumber((healing / this.owner.fightDuration) * 1000)} HPS`}
+        label={
+          <TooltipElement
+            content={`The effective healing contributed by Castigation (${formatPercentage(
+              this.owner.getPercentageOfTotalHealingDone(healing),
+            )}% of total healing done). Castigation also contributed ${formatNumber(
+              (damage / this.owner.fightDuration) * 1000,
+            )} DPS (${formatPercentage(
+              this.owner.getPercentageOfTotalDamageDone(damage),
+            )}% of total damage done), the healing gain of this damage was included in the shown numbers.`}
+          >
             Castigation healing
           </TooltipElement>
-        )}
+        }
       />
     );
   }

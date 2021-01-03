@@ -28,9 +28,18 @@ class HarmoniousApparatus extends Analyzer {
   get reductionForAllSpells() {
     let totalReductionBySpell: { [spellId: number]: { base: number } } = {};
 
-    totalReductionBySpell = this.sumCooldown(totalReductionBySpell, this.sanctify.totalHolyWordReductionPerSpellPerTalent);
-    totalReductionBySpell = this.sumCooldown(totalReductionBySpell, this.serenity.totalHolyWordReductionPerSpellPerTalent);
-    totalReductionBySpell = this.sumCooldown(totalReductionBySpell, this.chastise.totalHolyWordReductionPerSpellPerTalent);
+    totalReductionBySpell = this.sumCooldown(
+      totalReductionBySpell,
+      this.sanctify.totalHolyWordReductionPerSpellPerTalent,
+    );
+    totalReductionBySpell = this.sumCooldown(
+      totalReductionBySpell,
+      this.serenity.totalHolyWordReductionPerSpellPerTalent,
+    );
+    totalReductionBySpell = this.sumCooldown(
+      totalReductionBySpell,
+      this.chastise.totalHolyWordReductionPerSpellPerTalent,
+    );
 
     return totalReductionBySpell;
   }
@@ -58,7 +67,8 @@ class HarmoniousApparatus extends Analyzer {
   }
 
   statistic() {
-    const totalHealingSpellReduction = this.reductionForSpell(SPELLS.CIRCLE_OF_HEALING_TALENT.id) +
+    const totalHealingSpellReduction =
+      this.reductionForSpell(SPELLS.CIRCLE_OF_HEALING_TALENT.id) +
       this.reductionForSpell(SPELLS.PRAYER_OF_MENDING_CAST.id);
 
     return (
@@ -66,16 +76,22 @@ class HarmoniousApparatus extends Analyzer {
         position={STATISTIC_ORDER.CORE()}
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
-        tooltip={(
+        tooltip={
           <>
-            Serenity: {Math.ceil(this.reductionForSpell(SPELLS.CIRCLE_OF_HEALING_TALENT.id) / 1000)}s CDR<br />
-            Sanctify: {Math.ceil(this.reductionForSpell(SPELLS.PRAYER_OF_MENDING_CAST.id) / 1000)}s CDR<br />
-            Chastise : {Math.ceil(this.reductionForSpell(SPELLS.HOLY_FIRE.id) / 1000)}s CDR<br />
+            Serenity: {Math.ceil(this.reductionForSpell(SPELLS.CIRCLE_OF_HEALING_TALENT.id) / 1000)}
+            s CDR
+            <br />
+            Sanctify: {Math.ceil(this.reductionForSpell(SPELLS.PRAYER_OF_MENDING_CAST.id) / 1000)}s
+            CDR
+            <br />
+            Chastise : {Math.ceil(this.reductionForSpell(SPELLS.HOLY_FIRE.id) / 1000)}s CDR
+            <br />
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.HARMONIOUS_APPARATUS}>
-          {Math.ceil(totalHealingSpellReduction / 1000)}s <small>Healing Spell Cooldown Reduction</small>
+          {Math.ceil(totalHealingSpellReduction / 1000)}s{' '}
+          <small>Healing Spell Cooldown Reduction</small>
         </BoringSpellValueText>
       </Statistic>
     );

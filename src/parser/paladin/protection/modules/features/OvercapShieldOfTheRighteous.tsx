@@ -16,7 +16,7 @@ const SOTR_SOFT_CAP = ACTIVE_MITIGATION_CAP - SOTR_BUFF_LENGTH;
 const SECOND = 1000;
 const debug = false;
 
-type OvercapRecord = {cast: CastEvent, overcap: number};
+type OvercapRecord = { cast: CastEvent; overcap: number };
 
 class OvercapShieldOfTheRighteous extends Analyzer {
   static dependencies = {
@@ -41,7 +41,10 @@ class OvercapShieldOfTheRighteous extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_OF_THE_RIGHTEOUS), this.trackSotRCasts);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_OF_THE_RIGHTEOUS),
+      this.trackSotRCasts,
+    );
   }
 
   trackSotRCasts(event: CastEvent): void {
@@ -56,16 +59,29 @@ class OvercapShieldOfTheRighteous extends Analyzer {
     if (buffAmountAtCurrentCast >= SOTR_SOFT_CAP && !this.castIsForgivable(event)) {
       this.badSotrCasts += 1;
       this.overcapRecords.push({
-        cast:event,
+        cast: event,
         overcap: ACTIVE_MITIGATION_CAP - buffAmountAtCurrentCast,
       });
-      debug && console.log(`Determined cast at ${event.timestamp} is bad cast with buff amount of ${buffAmountAtCurrentCast}. Adding overcap amount of ${ACTIVE_MITIGATION_CAP - buffAmountAtCurrentCast}`);
+      debug &&
+        console.log(
+          `Determined cast at ${
+            event.timestamp
+          } is bad cast with buff amount of ${buffAmountAtCurrentCast}. Adding overcap amount of ${
+            ACTIVE_MITIGATION_CAP - buffAmountAtCurrentCast
+          }`,
+        );
     } else {
       this.goodSotrCasts += 1;
-      debug && console.log(`Determined cast at ${event.timestamp} is good cast with buff amount of ${buffAmountAtCurrentCast}.`);
+      debug &&
+        console.log(
+          `Determined cast at ${event.timestamp} is good cast with buff amount of ${buffAmountAtCurrentCast}.`,
+        );
     }
     this.lastSotrCastTimestamp = event.timestamp;
-    this.buffTimeAtLastCast = Math.min(buffAmountAtCurrentCast + SOTR_BUFF_LENGTH, ACTIVE_MITIGATION_CAP);
+    this.buffTimeAtLastCast = Math.min(
+      buffAmountAtCurrentCast + SOTR_BUFF_LENGTH,
+      ACTIVE_MITIGATION_CAP,
+    );
   }
 
   /**
@@ -85,7 +101,9 @@ class OvercapShieldOfTheRighteous extends Analyzer {
 
   statistic(): React.ReactNode {
     const idealSotrUptime = (this.goodSotrCasts + this.badSotrCasts) * SOTR_BUFF_LENGTH;
-    const actualSotrUptime = this.selectedCombatant.getBuffUptime(SPELLS.SHIELD_OF_THE_RIGHTEOUS_BUFF.id);
+    const actualSotrUptime = this.selectedCombatant.getBuffUptime(
+      SPELLS.SHIELD_OF_THE_RIGHTEOUS_BUFF.id,
+    );
     const lostUptimeDueToOvercap = idealSotrUptime - actualSotrUptime;
     return (
       <>
@@ -93,13 +111,17 @@ class OvercapShieldOfTheRighteous extends Analyzer {
           position={STATISTIC_ORDER.DEFAULT}
           size="flexible"
           category={STATISTIC_CATEGORY.GENERAL}
-          tooltip={(
+          tooltip={
             <>
-              You lost {formatNumber(lostUptimeDueToOvercap/SECOND)} seconds due to overcapping <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} />.<br />
-              Overcapping occurs when you cast <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> with more than {formatNumber(SOTR_SOFT_CAP/SECOND)} seconds left on the buff.
+              You lost {formatNumber(lostUptimeDueToOvercap / SECOND)} seconds due to overcapping{' '}
+              <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} />.<br />
+              Overcapping occurs when you cast <SpellLink
+                id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id}
+              />{' '}
+              with more than {formatNumber(SOTR_SOFT_CAP / SECOND)} seconds left on the buff.
             </>
-          )}
-          dropdown={(
+          }
+          dropdown={
             <>
               <table className="table table-condensed">
                 <thead>
@@ -118,10 +140,11 @@ class OvercapShieldOfTheRighteous extends Analyzer {
                 </tbody>
               </table>
             </>
-          )}
+          }
         >
-          <BoringSpellValue spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS}
-            value={`${formatNumber(lostUptimeDueToOvercap/SECOND)}s`}
+          <BoringSpellValue
+            spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS}
+            value={`${formatNumber(lostUptimeDueToOvercap / SECOND)}s`}
             label="Uptime lost to overcapping"
           />
         </Statistic>

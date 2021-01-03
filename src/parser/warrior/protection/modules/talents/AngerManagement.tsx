@@ -12,10 +12,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellLink from 'common/SpellLink';
 
-const COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT = [
-  SPELLS.AVATAR_TALENT.id,
-  SPELLS.SHIELD_WALL.id,
-];
+const COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT = [SPELLS.AVATAR_TALENT.id, SPELLS.SHIELD_WALL.id];
 const RAGE_NEEDED_FOR_A_PROC = 10;
 const CDR_PER_PROC = 1000; // ms
 
@@ -33,7 +30,7 @@ class AngerManagement extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ANGER_MANAGEMENT_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
-    COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.forEach(e => {
+    COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.forEach((e) => {
       this.wastedReduction[e] = 0;
       this.effectiveReduction[e] = 0;
     });
@@ -50,7 +47,7 @@ class AngerManagement extends Analyzer {
           </tr>
         </thead>
         <tbody>
-          {COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.map(value => (
+          {COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.map((value) => (
             <tr key={value}>
               <td>{SPELLS[value].name}</td>
               <td>{formatDuration(this.effectiveReduction[value] / 1000)}</td>
@@ -63,13 +60,13 @@ class AngerManagement extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    const classResources = event.classResources?.find(e => e.type === RESOURCE_TYPES.RAGE.id);
+    const classResources = event.classResources?.find((e) => e.type === RESOURCE_TYPES.RAGE.id);
     if (!classResources || !classResources.cost) {
       return;
     }
     const rageSpend = classResources.cost / RAGE_NEEDED_FOR_A_PROC;
-    const reduction = rageSpend / RAGE_NEEDED_FOR_A_PROC * CDR_PER_PROC;
-    COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.forEach(e => {
+    const reduction = (rageSpend / RAGE_NEEDED_FOR_A_PROC) * CDR_PER_PROC;
+    COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.forEach((e) => {
       if (!this.spellUsable.isOnCooldown(e)) {
         this.wastedReduction[e] += reduction;
       } else {
@@ -89,7 +86,14 @@ class AngerManagement extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         dropdown={this.tooltip}
       >
-        <BoringValueText label={<><SpellLink id={SPELLS.ANGER_MANAGEMENT_TALENT.id} /> Possible cooldown reduction</>}>
+        <BoringValueText
+          label={
+            <>
+              <SpellLink id={SPELLS.ANGER_MANAGEMENT_TALENT.id} /> Possible cooldown reduction
+            </>
+          }
+        >
+          ?
         </BoringValueText>
       </Statistic>
     );

@@ -12,8 +12,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 class WindfuryTotem extends Analyzer {
   get uptime() {
     return (
-      this.selectedCombatant.getBuffUptime(SPELLS.WINDFURY_TOTEM_BUFF.id) /
-      this.owner.fightDuration
+      this.selectedCombatant.getBuffUptime(SPELLS.WINDFURY_TOTEM_BUFF.id) / this.owner.fightDuration
     );
   }
 
@@ -35,8 +34,7 @@ class WindfuryTotem extends Analyzer {
       <Statistic position={STATISTIC_ORDER.CORE()}>
         <BoringSpellValueText spell={SPELLS.WINDFURY_TOTEM}>
           <>
-            <UptimeIcon /> {formatPercentage(this.uptime)}%{' '}
-            <small>uptime</small>
+            <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
           </>
         </BoringSpellValueText>
       </Statistic>
@@ -44,21 +42,23 @@ class WindfuryTotem extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        Your <SpellLink id={SPELLS.WINDFURY_TOTEM_BUFF.id} /> uptime can be
-        improved. Make sure it's always active. Cast{' '}
-        <SpellLink id={SPELLS.WINDFURY_TOTEM.id} /> if the buff is about to
-        fall off or if all other spells are on cooldown.
-      </>,
-    )
-      .icon(SPELLS.WINDFURY_TOTEM_BUFF.icon)
-      .actual(
+    when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) =>
+      suggest(
         <>
-          <SpellLink id={SPELLS.WINDFURY_TOTEM_BUFF.id} /> was active for {formatPercentage(actual)}% of the fight
+          Your <SpellLink id={SPELLS.WINDFURY_TOTEM_BUFF.id} /> uptime can be improved. Make sure
+          it's always active. Cast <SpellLink id={SPELLS.WINDFURY_TOTEM.id} /> if the buff is about
+          to fall off or if all other spells are on cooldown.
         </>,
       )
-      .recommended(`recommended: ${formatPercentage(recommended)}%`));
+        .icon(SPELLS.WINDFURY_TOTEM_BUFF.icon)
+        .actual(
+          <>
+            <SpellLink id={SPELLS.WINDFURY_TOTEM_BUFF.id} /> was active for{' '}
+            {formatPercentage(actual)}% of the fight
+          </>,
+        )
+        .recommended(`recommended: ${formatPercentage(recommended)}%`),
+    );
   }
 }
 

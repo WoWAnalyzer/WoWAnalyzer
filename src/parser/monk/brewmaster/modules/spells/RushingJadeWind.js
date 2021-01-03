@@ -27,7 +27,9 @@ class RushingJadeWind extends Analyzer {
   }
 
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(RUSHING_JADE_WIND_BUFF.id) / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getBuffUptime(RUSHING_JADE_WIND_BUFF.id) / this.owner.fightDuration
+    );
   }
 
   constructor(...args) {
@@ -39,14 +41,22 @@ class RushingJadeWind extends Analyzer {
 
   // purely offensive
   suggestions(when) {
-    when(this.uptimeThreshold)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>You had low uptime on <SpellLink id={SPELLS.RUSHING_JADE_WIND.id} />. Try to maintain 100% uptime by refreshing the buff before it drops.</>)
+    when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You had low uptime on <SpellLink id={SPELLS.RUSHING_JADE_WIND.id} />. Try to maintain 100%
+          uptime by refreshing the buff before it drops.
+        </>,
+      )
         .icon(SPELLS.RUSHING_JADE_WIND.icon)
-        .actual(t({
-      id: "monk.brewmaster.suggestions.rushingJadeWind.uptime",
-      message: `${formatPercentage(actual)}% uptime`
-    }))
-        .recommended(`${Math.round(formatPercentage(recommended))}% is recommended`));
+        .actual(
+          t({
+            id: 'monk.brewmaster.suggestions.rushingJadeWind.uptime',
+            message: `${formatPercentage(actual)}% uptime`,
+          }),
+        )
+        .recommended(`${Math.round(formatPercentage(recommended))}% is recommended`),
+    );
   }
 }
 

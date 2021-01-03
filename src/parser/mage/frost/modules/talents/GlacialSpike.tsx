@@ -32,8 +32,14 @@ class GlacialSpike extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id);
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.GLACIAL_SPIKE_TALENT), this.onGlacialSpikeCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.GLACIAL_SPIKE_DAMAGE), this.onGlacialSpikeDamage);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.GLACIAL_SPIKE_TALENT),
+      this.onGlacialSpikeCast,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.GLACIAL_SPIKE_DAMAGE),
+      this.onGlacialSpikeDamage,
+    );
     this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
@@ -51,7 +57,10 @@ class GlacialSpike extends Analyzer {
       return;
     }
 
-    const castTarget = encodeTargetString(this.lastCastEvent.targetID, this.lastCastEvent.targetInstance);
+    const castTarget = encodeTargetString(
+      this.lastCastEvent.targetID,
+      this.lastCastEvent.targetInstance,
+    );
     const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
 
     //We dont care about the Glacial Spikes that split to something else via Splitting Ice.
@@ -61,7 +70,7 @@ class GlacialSpike extends Analyzer {
 
     this.lastCastDidDamage = true;
     const enemy: any = this.enemies.getEntity(event);
-    if (enemy && SHATTER_DEBUFFS.some(effect => enemy.hasBuff(effect.id, event.timestamp))) {
+    if (enemy && SHATTER_DEBUFFS.some((effect) => enemy.hasBuff(effect.id, event.timestamp))) {
       this.spikeShattered += 1;
     } else {
       this.spikeNotShattered += 1;
@@ -86,12 +95,13 @@ class GlacialSpike extends Analyzer {
     if (this.lastCastDidDamage) {
       event.meta.inefficientCastReason = `You cast Glacial Spike without shattering it. You should wait until it is frozen or you are able to use a Brain Freeze proc to maximize its damage.`;
     } else {
-      event.meta.inefficientCastReason = 'The target died before Glacial Spike hit it. You should avoid this by casting faster spells on very low-health targets, it is important to not waste potential Glacial Spike damage.';
+      event.meta.inefficientCastReason =
+        'The target died before Glacial Spike hit it. You should avoid this by casting faster spells on very low-health targets, it is important to not waste potential Glacial Spike damage.';
     }
   }
 
   get utilPercentage() {
-    return (this.spikeShattered / this.totalCasts) || 0;
+    return this.spikeShattered / this.totalCasts || 0;
   }
 
   get totalCasts() {
@@ -111,19 +121,34 @@ class GlacialSpike extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.glacialSpikeUtilizationThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(
-          <>
-            You cast <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> without <SpellLink id={SPELLS.SHATTER.id} />ing it {this.spikeNotShattered} times. Because it is such a potent ability, it is important to maximize it's damage by only casting it if the target is
-            <TooltipElement
-              content={(<>Winter's Chill, Frost Nova, Ice Nova, Ring of Frost, and your pet's Freeze will all cause the target to be frozen or act as frozen.</>)}
-            >
+    when(this.glacialSpikeUtilizationThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You cast <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> without{' '}
+          <SpellLink id={SPELLS.SHATTER.id} />
+          ing it {this.spikeNotShattered} times. Because it is such a potent ability, it is
+          important to maximize it's damage by only casting it if the target is
+          <TooltipElement
+            content={
+              <>
+                Winter's Chill, Frost Nova, Ice Nova, Ring of Frost, and your pet's Freeze will all
+                cause the target to be frozen or act as frozen.
+              </>
+            }
+          >
             Frozen or acting as Frozen
-            </TooltipElement>.
-          </>)
-          .icon(SPELLS.GLACIAL_SPIKE_TALENT.icon)
-          .actual(<Trans id="mage.frost.suggestions.glacialSpike.castsWithoutShatter">{formatPercentage(actual, 1)}% utilization</Trans>)
-          .recommended(`${formatPercentage(recommended, 1)}% is recommended`));
+          </TooltipElement>
+          .
+        </>,
+      )
+        .icon(SPELLS.GLACIAL_SPIKE_TALENT.icon)
+        .actual(
+          <Trans id="mage.frost.suggestions.glacialSpike.castsWithoutShatter">
+            {formatPercentage(actual, 1)}% utilization
+          </Trans>,
+        )
+        .recommended(`${formatPercentage(recommended, 1)}% is recommended`),
+    );
   }
 
   statistic() {
@@ -131,10 +156,15 @@ class GlacialSpike extends Analyzer {
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={(<>You cast Glacial Spike {this.totalCasts} times, {this.spikeShattered} casts of which were Shattered</>)}
+        tooltip={
+          <>
+            You cast Glacial Spike {this.totalCasts} times, {this.spikeShattered} casts of which
+            were Shattered
+          </>
+        }
       >
         <BoringSpellValueText spell={SPELLS.GLACIAL_SPIKE_TALENT}>
-        {`${formatPercentage(this.utilPercentage, 0)}%`} <small>Cast utilization</small>
+          {`${formatPercentage(this.utilPercentage, 0)}%`} <small>Cast utilization</small>
         </BoringSpellValueText>
       </Statistic>
     );

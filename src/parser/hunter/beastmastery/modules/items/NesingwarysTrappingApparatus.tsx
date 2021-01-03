@@ -19,7 +19,6 @@ import BarbedShot from 'parser/hunter/beastmastery/modules/spells/BarbedShot';
  *
  */
 class NesingwarysTrappingApparatus extends Analyzer {
-
   static dependencies = {
     aspectOfTheWild: AspectOfTheWild,
     barbedShot: BarbedShot,
@@ -33,11 +32,16 @@ class NesingwarysTrappingApparatus extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT.bonusID);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(
+      SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT.bonusID,
+    );
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_ENERGIZE), this.onEnergize);
+    this.addEventListener(
+      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_ENERGIZE),
+      this.onEnergize,
+    );
   }
 
   onEnergize(event: EnergizeEvent) {
@@ -46,11 +50,17 @@ class NesingwarysTrappingApparatus extends Analyzer {
   }
 
   get effectiveFocus() {
-    return formatNumber(this.aspectOfTheWild.additionalFocusFromNesingwary + this.barbedShot.additionalFocusFromNesingwary);
+    return formatNumber(
+      this.aspectOfTheWild.additionalFocusFromNesingwary +
+        this.barbedShot.additionalFocusFromNesingwary,
+    );
   }
 
   get possibleFocus() {
-    return formatNumber(this.aspectOfTheWild.possibleAdditionalFocusFromNesingwary + this.barbedShot.possibleAdditionalFocusFromNesingwary);
+    return formatNumber(
+      this.aspectOfTheWild.possibleAdditionalFocusFromNesingwary +
+        this.barbedShot.possibleAdditionalFocusFromNesingwary,
+    );
   }
 
   statistic() {
@@ -61,9 +71,11 @@ class NesingwarysTrappingApparatus extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
       >
         <BoringSpellValueText spell={SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT}>
-          <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /> {this.focusGained}/{this.focusWasted + this.focusGained} <small>gained Focus immediately</small>
+          <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /> {this.focusGained}/
+          {this.focusWasted + this.focusGained} <small>gained Focus immediately</small>
           <br />
-          <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /> {this.effectiveFocus}/{this.possibleFocus} <small>gained Focus from generators</small>
+          <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /> {this.effectiveFocus}/
+          {this.possibleFocus} <small>gained Focus from generators</small>
         </BoringSpellValueText>
       </Statistic>
     );

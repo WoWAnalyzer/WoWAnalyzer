@@ -23,25 +23,38 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: any) => 
     <Checklist>
       <Rule
         name="Use your cooldowns"
-        description={(
+        description={
           <>
-            Using your cooldown abilities as often as possible can help raise your dps significantly. Some help more than others, but as a general rule of thumb you should be looking to use most of your damaging abilities and damage cooldowns as often as possible unless you need to save them for a priority burst phase that is coming up soon.
+            Using your cooldown abilities as often as possible can help raise your dps
+            significantly. Some help more than others, but as a general rule of thumb you should be
+            looking to use most of your damaging abilities and damage cooldowns as often as possible
+            unless you need to save them for a priority burst phase that is coming up soon.
           </>
-        )}
+        }
       >
         <AbilityRequirement spell={SPELLS.ARCANE_POWER.id} />
         <AbilityRequirement spell={SPELLS.EVOCATION.id} />
-        {combatant.hasTalent(SPELLS.SUPERNOVA_TALENT.id) && <AbilityRequirement spell={SPELLS.SUPERNOVA_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.ARCANE_ORB_TALENT.id) && <AbilityRequirement spell={SPELLS.ARCANE_ORB_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) && <AbilityRequirement spell={SPELLS.RUNE_OF_POWER_TALENT.id} />}
+        {combatant.hasTalent(SPELLS.SUPERNOVA_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.SUPERNOVA_TALENT.id} />
+        )}
+        {combatant.hasTalent(SPELLS.ARCANE_ORB_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.ARCANE_ORB_TALENT.id} />
+        )}
+        {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.RUNE_OF_POWER_TALENT.id} />
+        )}
       </Rule>
       <Rule
         name="Use Arcane Power effectively"
-        description={(
+        description={
           <>
-            Using <SpellLink id={SPELLS.ARCANE_POWER.id} /> properly is one of the most important aspects of playing Arcane well. Therefore it is critical that you make the most of the time that you have while Arcane Power is active. This include things such as not wasting time or GCDs while Arcane Power is active and ensuring that you properly setup for your "burn phase" before hitting Arcane Power.
+            Using <SpellLink id={SPELLS.ARCANE_POWER.id} /> properly is one of the most important
+            aspects of playing Arcane well. Therefore it is critical that you make the most of the
+            time that you have while Arcane Power is active. This include things such as not wasting
+            time or GCDs while Arcane Power is active and ensuring that you properly setup for your
+            "burn phase" before hitting Arcane Power.
           </>
-        )}
+        }
       >
         <Requirement
           name="Spells Cast During Arcane Power"
@@ -58,7 +71,6 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: any) => 
           tooltip="In order to get the most out of Arcane Power, which is a large contributor to your damage, you should ensure that you are using every second of the cooldown to cast spells and get damage out. Any time spent not casting anything during Arcane Power is a major loss of damage."
           thresholds={thresholds.arcanePowerActiveTime}
         />
-
       </Rule>
       <Rule
         name="Use your talents effectively"
@@ -95,38 +107,63 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: any) => 
       </Rule>
       <Rule
         name="Avoid downtime"
-        description={(
+        description={
           <>
-            As a DPS, it is important to spend as much time casting as possible as if you arent casting you arent doing damage. Therefore it is important to minimize your movements, stay within range of the target, and try to avoid cancelling casts (unless you have to). While some fights will have an amount of time that is unavoidable downtime; the more you can minimize that downtime, the better.
+            As a DPS, it is important to spend as much time casting as possible as if you arent
+            casting you arent doing damage. Therefore it is important to minimize your movements,
+            stay within range of the target, and try to avoid cancelling casts (unless you have to).
+            While some fights will have an amount of time that is unavoidable downtime; the more you
+            can minimize that downtime, the better.
           </>
-        )}
+        }
       >
         <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />
         <Requirement name="Cancelled Casts" thresholds={thresholds.cancelledCasts} />
       </Rule>
       <Rule
         name="Maintain your buffs"
-        description={(
+        description={
           <>
-            You should ensure that you maintain <SpellLink id={SPELLS.ARCANE_INTELLECT.id} /> for the entire fight and recast it whenever you are ressurected and likewise, if you have the appropriate classes/specs in your group you should also ensure that you maintain their buffs as possible. Additionally, you should also maintain other buffs such as <SpellLink id={SPELLS.ARCANE_FAMILIAR_TALENT.id} /> if you are talented into them.
+            You should ensure that you maintain <SpellLink id={SPELLS.ARCANE_INTELLECT.id} /> for
+            the entire fight and recast it whenever you are ressurected and likewise, if you have
+            the appropriate classes/specs in your group you should also ensure that you maintain
+            their buffs as possible. Additionally, you should also maintain other buffs such as{' '}
+            <SpellLink id={SPELLS.ARCANE_FAMILIAR_TALENT.id} /> if you are talented into them.
           </>
-        )}
+        }
       >
         <Requirement name="Arcane Intellect Uptime" thresholds={thresholds.arcaneIntellectUptime} />
-        {combatant.hasTalent(SPELLS.ARCANE_FAMILIAR_TALENT.id) && <Requirement name="Arcane Familiar Uptime" thresholds={thresholds.arcaneFamiliarUptime} />}
+        {combatant.hasTalent(SPELLS.ARCANE_FAMILIAR_TALENT.id) && (
+          <Requirement name="Arcane Familiar Uptime" thresholds={thresholds.arcaneFamiliarUptime} />
+        )}
       </Rule>
       <Rule
         name={<>Manage your mana</>}
-        description={(
+        description={
           <>
-            The biggest aspect of playing Arcane properly is managing your mana effectively. Essentially your mana dictates how much damage you can do and therefore needs to be managed properly. Things such as running out of mana during <SpellLink id={SPELLS.ARCANE_POWER.id} />, letting your mana cap out at 100% for too long, or ending the fight with mana remaining all have negative effects on your DPS.
+            The biggest aspect of playing Arcane properly is managing your mana effectively.
+            Essentially your mana dictates how much damage you can do and therefore needs to be
+            managed properly. Things such as running out of mana during{' '}
+            <SpellLink id={SPELLS.ARCANE_POWER.id} />, letting your mana cap out at 100% for too
+            long, or ending the fight with mana remaining all have negative effects on your DPS.
           </>
-        )}
+        }
       >
         <Requirement name="Mana left on boss kill" thresholds={thresholds.manaOnKill} />
-        <Requirement name="Arcane Power Mana Mgmt." thresholds={thresholds.arcanePowerManaUtilization} />
-        <Requirement name="Arcane Missiles only with Clearcasting" thresholds={thresholds.arcaneMissilesUtilization} />
-        {combatant.hasTalent(SPELLS.TIME_ANOMALY_TALENT.id) && <Requirement name="Time Anomaly Mana Mgmt." thresholds={thresholds.timeAnomalyManaUtilization} />}
+        <Requirement
+          name="Arcane Power Mana Mgmt."
+          thresholds={thresholds.arcanePowerManaUtilization}
+        />
+        <Requirement
+          name="Arcane Missiles only with Clearcasting"
+          thresholds={thresholds.arcaneMissilesUtilization}
+        />
+        {combatant.hasTalent(SPELLS.TIME_ANOMALY_TALENT.id) && (
+          <Requirement
+            name="Time Anomaly Mana Mgmt."
+            thresholds={thresholds.timeAnomalyManaUtilization}
+          />
+        )}
       </Rule>
 
       <PreparationRule thresholds={thresholds} />

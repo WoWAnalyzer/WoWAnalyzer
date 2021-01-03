@@ -15,9 +15,16 @@ class SpellEnergyCost extends SpellResourceCost {
 
     // no need to check for Clearcasting as the zero cost is already applied in the log
 
-    if (this.selectedCombatant.hasBuff(SPELLS.BERSERK.id) ||
-      this.selectedCombatant.hasBuff(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id)) {
-      debug && console.log(`Cost of ${this.event.ability.name} reduced to ${cost * BERSERK_COST_MULTIPLIER} by Berserk/Incarnation`);
+    if (
+      this.selectedCombatant.hasBuff(SPELLS.BERSERK.id) ||
+      this.selectedCombatant.hasBuff(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id)
+    ) {
+      debug &&
+        console.log(
+          `Cost of ${this.event.ability.name} reduced to ${
+            cost * BERSERK_COST_MULTIPLIER
+          } by Berserk/Incarnation`,
+        );
       return cost * BERSERK_COST_MULTIPLIER;
     }
 

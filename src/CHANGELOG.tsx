@@ -1,5 +1,35 @@
 import React from 'react';
-import { Abelito75, AdamKelly, Adoraci, Amani, Barry, Barter, ChagriAli, ChristopherKiss, Dambroda, emallson, flurreN, Guyius, Haelrail, HolySchmidt, Jafowler, jos3p, joshinator, Juko8, Keraldi, Khazak, Kruzershtern, Mae, Moonrabbit, niseko, Putro, Sharrq, Ssabbar, Zeboot, Zerotorescue } from 'CONTRIBUTORS';
+import {
+  Abelito75,
+  AdamKelly,
+  Adoraci,
+  Amani,
+  Barry,
+  Barter,
+  ChagriAli,
+  ChristopherKiss,
+  Dambroda,
+  emallson,
+  flurreN,
+  Guyius,
+  Haelrail,
+  HolySchmidt,
+  Jafowler,
+  jos3p,
+  joshinator,
+  Juko8,
+  Keraldi,
+  Khazak,
+  Kruzershtern,
+  Mae,
+  Moonrabbit,
+  niseko,
+  Putro,
+  Sharrq,
+  Ssabbar,
+  Zeboot,
+  Zerotorescue,
+} from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';

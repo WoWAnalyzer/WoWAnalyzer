@@ -19,8 +19,13 @@ class AkaarisSoulFragment extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.AKAARIS_SOUL_FRAGMENT.bonusID);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.AKAARIS_SOUL_FRAGMENT_SHADOWSTRIKE), this.onDamage);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(
+      SPELLS.AKAARIS_SOUL_FRAGMENT.bonusID,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.AKAARIS_SOUL_FRAGMENT_SHADOWSTRIKE),
+      this.onDamage,
+    );
   }
 
   onDamage(event: DamageEvent) {
@@ -32,11 +37,12 @@ class AkaarisSoulFragment extends Analyzer {
       <Statistic
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
-        tooltip={(
+        tooltip={
           <>
-            Akaari's Soul Fragment contributed {formatNumber(this.damage)} total damage done with a secondary Shadowstrike.
+            Akaari's Soul Fragment contributed {formatNumber(this.damage)} total damage done with a
+            secondary Shadowstrike.
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.AKAARIS_SOUL_FRAGMENT}>
           <>

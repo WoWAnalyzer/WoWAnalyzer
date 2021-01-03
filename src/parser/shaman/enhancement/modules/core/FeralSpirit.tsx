@@ -23,8 +23,7 @@ class FeralSpirit extends Analyzer {
     super(options);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER)
-        .spell(SPELLS.FERAL_SPIRIT),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FERAL_SPIRIT),
       this.onFeralSpiritCast,
     );
   }
@@ -33,7 +32,8 @@ class FeralSpirit extends Analyzer {
     const expectedMaelstromGained =
       FERAL_SPIRIT.INITIAL_MAELSTROM_WEAPON_GAIN +
       FERAL_SPIRIT.MAELSTROM_WEAPON_GAIN_PER_INTERVAL *
-      (FERAL_SPIRIT.MAELSTROM_WEAPON_GAIN_TOTAL_DURATION / FERAL_SPIRIT.MAELSTROM_WEAPON_GAIN_INTERVAL);
+        (FERAL_SPIRIT.MAELSTROM_WEAPON_GAIN_TOTAL_DURATION /
+          FERAL_SPIRIT.MAELSTROM_WEAPON_GAIN_INTERVAL);
 
     this.maelstromWeaponGained += expectedMaelstromGained;
   }

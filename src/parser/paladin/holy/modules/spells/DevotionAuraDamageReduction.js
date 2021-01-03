@@ -15,7 +15,7 @@ import SpellLink from 'common/SpellLink';
 import Events, { EventType } from 'parser/core/Events';
 
 // Source: https://github.com/MartijnHols/HolyPaladin/blob/master/Spells/Talents/60/DevotionAura.md#about-the-passive-effect
-const DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION = .03;
+const DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION = 0.03;
 const DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION = 0.15;
 
 /**
@@ -142,9 +142,10 @@ class DevotionAuraDamageReduction extends Analyzer {
     // WCL's filter requires the timestamp to be relative to fight start
     return buffHistory
       .map(
-        buff =>
-          `(timestamp>=${buff.start - this.owner.fight.start_time} AND timestamp<=${buff.end -
-            this.owner.fight.start_time})`,
+        (buff) =>
+          `(timestamp>=${buff.start - this.owner.fight.start_time} AND timestamp<=${
+            buff.end - this.owner.fight.start_time
+          })`,
       )
       .join(' OR ');
   }
@@ -165,7 +166,7 @@ class DevotionAuraDamageReduction extends Analyzer {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
       filter: this.filter,
-    }).then(json => {
+    }).then((json) => {
       console.log('Received AM damage taken', json);
       const totalDamageTaken = json.entries.reduce(
         (damageTaken, entry) => damageTaken + entry.total,
@@ -213,8 +214,16 @@ class DevotionAuraDamageReduction extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(60)}
         loader={this.load.bind(this)}
         icon={<SpellIcon id={SPELLS.DEVOTION_AURA.id} />}
-        value={<Trans id="paladin.holy.modules.talents.devotionAuraDamageReduction.drps">≈{formatNumber(this.totalDrps)} DRPS</Trans>}
-        label={<Trans id="paladin.holy.modules.talents.devotionAuraDamageReduction.damageReduction">Damage reduction</Trans>}
+        value={
+          <Trans id="paladin.holy.modules.talents.devotionAuraDamageReduction.drps">
+            ≈{formatNumber(this.totalDrps)} DRPS
+          </Trans>
+        }
+        label={
+          <Trans id="paladin.holy.modules.talents.devotionAuraDamageReduction.damageReduction">
+            Damage reduction
+          </Trans>
+        }
         tooltip={tooltip}
         drilldown={makeWclUrl(this.owner.report.code, {
           fight: this.owner.fightId,

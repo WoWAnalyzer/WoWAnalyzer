@@ -1,7 +1,6 @@
 import { default as Enemy, EnemyInfo } from './Enemy';
 import CombatLogParser from './CombatLogParser';
 
-
 class EnemyInstance extends Enemy {
   _instanceID: number;
 

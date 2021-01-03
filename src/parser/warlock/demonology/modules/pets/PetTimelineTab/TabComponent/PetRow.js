@@ -6,15 +6,18 @@ import SpellIcon from 'common/SpellIcon';
 import Icon from 'common/Icon';
 import Tooltip from 'common/Tooltip';
 
-const PetRow = props => {
+const PetRow = (props) => {
   const { className, pets, start, totalWidth, secondWidth } = props;
   return (
     <div className={`events ${className || ''}`} style={{ width: totalWidth }}>
       {pets.map((pet, index) => {
-        const iconLeft = (pet.spawn - start) / 1000 * secondWidth;
-        const barLeft = (pet.spawn - start) / 1000 * secondWidth;
+        const iconLeft = ((pet.spawn - start) / 1000) * secondWidth;
+        const barLeft = ((pet.spawn - start) / 1000) * secondWidth;
         const maxWidth = totalWidth - barLeft; // don't expand beyond the container width
-        const width = Math.min(maxWidth, ((pet.realDespawn || pet.expectedDespawn) - pet.spawn) / 1000 * secondWidth);
+        const width = Math.min(
+          maxWidth,
+          (((pet.realDespawn || pet.expectedDespawn) - pet.spawn) / 1000) * secondWidth,
+        );
         const isSummonAbilityKnown = Boolean(SPELLS[pet.summonAbility]);
         const hasTooltip = pet.meta.tooltip !== '';
         return (
@@ -27,21 +30,15 @@ const PetRow = props => {
                 zIndex: 10,
               }}
             >
-              {isSummonAbilityKnown && (
-                hasTooltip ? (
+              {isSummonAbilityKnown &&
+                (hasTooltip ? (
                   <Tooltip content={pet.meta.tooltip}>
                     <div>
-                      <SpellIcon
-                        id={pet.summonAbility}
-                        className={pet.meta.iconClass}
-                      />
+                      <SpellIcon id={pet.summonAbility} className={pet.meta.iconClass} />
                     </div>
                   </Tooltip>
                 ) : (
-                  <SpellIcon
-                    id={pet.summonAbility}
-                    className={pet.meta.iconClass}
-                  />
+                  <SpellIcon id={pet.summonAbility} className={pet.meta.iconClass} />
                 ))}
               {!isSummonAbilityKnown && (
                 <Tooltip content={pet.name}>

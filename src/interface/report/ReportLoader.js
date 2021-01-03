@@ -98,10 +98,12 @@ class ReportLoader extends React.PureComponent {
   }
   renderLoading() {
     return (
-      <ActivityIndicator text={t({
-        id: "interface.report.reportLoader",
-        message: `Pulling report info...`
-      })} />
+      <ActivityIndicator
+        text={t({
+          id: 'interface.report.reportLoader',
+          message: `Pulling report info...`,
+        })}
+      />
     );
   }
   render() {

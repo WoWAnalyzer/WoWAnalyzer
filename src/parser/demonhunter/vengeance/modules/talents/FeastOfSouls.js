@@ -8,14 +8,16 @@ import Events from 'parser/core/Events';
 
 //WCL: https://www.warcraftlogs.com/reports/7DNACRhnaKzBfHLM/#fight=1&source=19
 class FeastOfSouls extends Analyzer {
-
   heal = 0;
   overHeal = 0;
 
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FEAST_OF_SOULS_TALENT.id);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.FEAST_OF_SOULS_HEAL), this.onHeal);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.FEAST_OF_SOULS_HEAL),
+      this.onHeal,
+    );
   }
 
   onHeal(event) {
@@ -30,13 +32,16 @@ class FeastOfSouls extends Analyzer {
         talent={SPELLS.FEAST_OF_SOULS_TALENT.id}
         position={STATISTIC_ORDER.CORE(8)}
         value={this.owner.formatItemHealingDone(this.heal)}
-        tooltip={(
+        tooltip={
           <>
-            This shows the extra hps that the talent provides.<br />
-            <strong>Effective healing:</strong> {formatNumber(this.heal)}<br />
-            <strong>Overhealing:</strong> {formatNumber(this.overHeal)} | {formatPercentage(overHealPercent)}%
+            This shows the extra hps that the talent provides.
+            <br />
+            <strong>Effective healing:</strong> {formatNumber(this.heal)}
+            <br />
+            <strong>Overhealing:</strong> {formatNumber(this.overHeal)} |{' '}
+            {formatPercentage(overHealPercent)}%
           </>
-        )}
+        }
       />
     );
   }

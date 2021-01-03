@@ -23,8 +23,8 @@ class FuryDetails extends Analyzer {
       actual: 1 - this.wastedPercent,
       isLessThan: {
         minor: 0.95,
-        average: 0.90,
-        major: .85,
+        average: 0.9,
+        major: 0.85,
       },
       style: 'percentage',
     };
@@ -35,7 +35,7 @@ class FuryDetails extends Analyzer {
       actual: this.wastedPercent,
       isGreaterThan: {
         minor: 0.05,
-        average: 0.10,
+        average: 0.1,
         major: 0.15,
       },
       style: 'percentage',
@@ -47,14 +47,17 @@ class FuryDetails extends Analyzer {
   };
 
   suggestions(when) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Fury.`)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Fury.`)
         .icon('ability_demonhunter_demonspikes')
-        .actual(t({
-      id: "demonhunter.vengeance.suggestions.fury.wasted",
-      message: `${formatPercentage(actual)}% wasted`
-    }))
-        .recommended(`<${formatPercentage(recommended)}% is recommended`));
+        .actual(
+          t({
+            id: 'demonhunter.vengeance.suggestions.fury.wasted',
+            message: `${formatPercentage(actual)}% wasted`,
+          }),
+        )
+        .recommended(`<${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
@@ -62,12 +65,14 @@ class FuryDetails extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(4)}
         size="small"
-        tooltip={`${this.furyTracker.wasted} out of ${this.furyTracker.wasted + this.furyTracker.generated} fury wasted.`}
+        tooltip={`${this.furyTracker.wasted} out of ${
+          this.furyTracker.wasted + this.furyTracker.generated
+        } fury wasted.`}
       >
         <BoringResourceValue
           resource={RESOURCE_TYPES.FURY}
           value={`${formatPercentage(this.wastedPercent)} %`}
-          label='Fury wasted'
+          label="Fury wasted"
         />
       </Statistic>
     );
@@ -79,15 +84,11 @@ class FuryDetails extends Analyzer {
       url: 'fury-usage',
       render: () => (
         <Panel>
-          <ResourceBreakdown
-            tracker={this.furyTracker}
-            showSpenders
-          />
+          <ResourceBreakdown tracker={this.furyTracker} showSpenders />
         </Panel>
       ),
     };
   }
-
 }
 
 export default FuryDetails;

@@ -22,7 +22,10 @@ class Sepsis extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SEPSIS), this.onDamage);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SEPSIS_POISON), this.onPoisonDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SEPSIS_POISON),
+      this.onPoisonDamage,
+    );
   }
 
   onDamage(event: DamageEvent) {

@@ -21,9 +21,7 @@ class Abilities extends CoreAbilities {
           majorIssueEfficiency: 0.4,
         },
         buffSpellId: SPELLS.PRAYER_OF_MENDING_BUFF.id,
-        healSpellIds: [
-          SPELLS.PRAYER_OF_MENDING_HEAL.id,
-        ],
+        healSpellIds: [SPELLS.PRAYER_OF_MENDING_HEAL.id],
       },
       {
         spell: SPELLS.DESPERATE_PRAYER,
@@ -33,7 +31,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.35,
-          averageIssueEfficiency: 0.20,
+          averageIssueEfficiency: 0.2,
           majorIssueEfficiency: 0,
         },
       },
@@ -47,8 +45,8 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.30,
-          averageIssueEfficiency: 0.10,
+          recommendedEfficiency: 0.3,
+          averageIssueEfficiency: 0.1,
           majorIssueEfficiency: 0,
         },
       },
@@ -62,13 +60,11 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.30,
-          averageIssueEfficiency: 0.10,
+          recommendedEfficiency: 0.3,
+          averageIssueEfficiency: 0.1,
           majorIssueEfficiency: 0,
         },
-        healSpellIds: [
-          SPELLS.DIVINE_HYMN_HEAL.id,
-        ],
+        healSpellIds: [SPELLS.DIVINE_HYMN_HEAL.id],
       },
       {
         spell: SPELLS.SYMBOL_OF_HOPE,
@@ -93,8 +89,8 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.30,
-          averageIssueEfficiency: 0.10,
+          recommendedEfficiency: 0.3,
+          averageIssueEfficiency: 0.1,
           majorIssueEfficiency: 0,
         },
       },
@@ -140,9 +136,7 @@ class Abilities extends CoreAbilities {
           averageIssueEfficiency: 0.6,
           majorIssueEfficiency: 0.4,
         },
-        healSpellIds: [
-          SPELLS.DIVINE_STAR_HEAL.id,
-        ],
+        healSpellIds: [SPELLS.DIVINE_STAR_HEAL.id],
       },
       {
         spell: SPELLS.HALO_TALENT,
@@ -158,9 +152,7 @@ class Abilities extends CoreAbilities {
           averageIssueEfficiency: 0.6,
           majorIssueEfficiency: 0.4,
         },
-        healSpellIds: [
-          SPELLS.HALO_HEAL.id,
-        ],
+        healSpellIds: [SPELLS.HALO_HEAL.id],
       },
       {
         spell: SPELLS.CIRCLE_OF_HEALING_TALENT,
@@ -236,9 +228,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        healSpellIds: [
-          SPELLS.HOLY_NOVA_HEAL.id,
-        ],
+        healSpellIds: [SPELLS.HOLY_NOVA_HEAL.id],
       },
       {
         spell: SPELLS.HOLY_WORD_CHASTISE,
@@ -273,9 +263,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.01, // This spell should be cast at least one per encounter
           majorIssueEfficiency: 0,
         },
-        healSpellIds: [
-          SPELLS.GUARDIAN_SPIRIT_HEAL.id,
-        ],
+        healSpellIds: [SPELLS.GUARDIAN_SPIRIT_HEAL.id],
       },
       {
         spell: SPELLS.LEAP_OF_FAITH,

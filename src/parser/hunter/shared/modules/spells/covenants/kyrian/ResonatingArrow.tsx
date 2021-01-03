@@ -50,9 +50,18 @@ class ResonatingArrow extends Analyzer {
       },
     });
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RESONATING_ARROW), this.onCast);
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.RESONATING_ARROW_DEBUFF), this.onDebuff);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RESONATING_ARROW_DAMAGE), this.onDamage);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RESONATING_ARROW),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.RESONATING_ARROW_DEBUFF),
+      this.onDebuff,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RESONATING_ARROW_DAMAGE),
+      this.onDamage,
+    );
   }
 
   get uptime() {
@@ -77,25 +86,27 @@ class ResonatingArrow extends Analyzer {
         position={STATISTIC_ORDER.CORE()}
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
-        tooltip={(
+        tooltip={
           <>
-            You had {this.casts} {this.casts === 1 ? 'cast' : 'casts'} of Resonating Arrow and applied the debuff {this.debuffs} {this.debuffs === 1 ? 'time' : 'times'}.
+            You had {this.casts} {this.casts === 1 ? 'cast' : 'casts'} of Resonating Arrow and
+            applied the debuff {this.debuffs} {this.debuffs === 1 ? 'time' : 'times'}.
             <br />
-            The direct damage of Resonating Arrow did {this.damage} damage or {formatNumber((this.damage / this.owner.fightDuration) * 1000)} DPS
+            The direct damage of Resonating Arrow did {this.damage} damage or{' '}
+            {formatNumber((this.damage / this.owner.fightDuration) * 1000)} DPS
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.RESONATING_ARROW}>
           <>
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small> debuff uptime</small>
             <br />
-            <CritIcon /> {formatPercentage(this.uptime * RESONATING_ARROW_CRIT_INCREASE)}% <small>average Critical Strike</small>
+            <CritIcon /> {formatPercentage(this.uptime * RESONATING_ARROW_CRIT_INCREASE)}%{' '}
+            <small>average Critical Strike</small>
           </>
         </BoringSpellValueText>
       </Statistic>
     );
   }
-
 }
 
 export default ResonatingArrow;

@@ -2,16 +2,15 @@ import { WCLFight } from 'parser/core/Fight';
 import { AnyEvent } from 'parser/core/Events';
 
 export interface WCLGuildReport {
-  "id": string;
-  "title": string;
-  "owner": string;
-  "zone": number;
-  "start": number;
-  "end": number;
+  id: string;
+  title: string;
+  owner: string;
+  zone: number;
+  start: number;
+  end: number;
 }
 
 export type WCLGuildReportsResponse = WCLGuildReport[];
-
 
 export interface WCLFightsResponse {
   fights: WCLFight[];
@@ -60,8 +59,8 @@ export interface WCLDamageTakenTableResponse {
 }
 
 export interface WCLDamageTaken {
-  abilities: Array<{name: string; total: number; totalReduced: number; type: number;}>;
-  sources: Array<{name: string; total: number; totalReduced: number; type: string;}>;
+  abilities: Array<{ name: string; total: number; totalReduced: number; type: number }>;
+  sources: Array<{ name: string; total: number; totalReduced: number; type: string }>;
   activeTime: number;
   activeTimeReduced: number;
   efftmi: number;
@@ -73,7 +72,13 @@ export interface WCLDamageTaken {
   overheal?: number;
 }
 
-export type WCLResponseJSON = WCLGuildReportsResponse | WCLFightsResponse | WCLEventsResponse | WCLHealingTableResponse | WCLDamageTakenTableResponse | WCLRankingsResponse;
+export type WCLResponseJSON =
+  | WCLGuildReportsResponse
+  | WCLFightsResponse
+  | WCLEventsResponse
+  | WCLHealingTableResponse
+  | WCLDamageTakenTableResponse
+  | WCLRankingsResponse;
 
 export interface WclOptions {
   timeout: number;

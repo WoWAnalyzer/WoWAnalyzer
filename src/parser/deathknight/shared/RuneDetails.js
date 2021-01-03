@@ -8,7 +8,6 @@ import BaseChart, { formatTime } from 'interface/others/BaseChart';
 import RuneBreakdown from './RuneBreakdown';
 import RuneTracker from './RuneTracker';
 
-
 class RuneDetails extends Analyzer {
   static dependencies = {
     runeTracker: RuneTracker,
@@ -53,24 +52,15 @@ class RuneDetails extends Analyzer {
       render: () => (
         <Panel>
           <AutoSizer disableHeight>
-            {({width}) => (
-              <BaseChart
-                width={width}
-                height={400}
-                spec={spec}
-                data={{ runes: data }}
-              />
+            {({ width }) => (
+              <BaseChart width={width} height={400} spec={spec} data={{ runes: data }} />
             )}
           </AutoSizer>
-          <RuneBreakdown
-            tracker={this.runeTracker}
-            showSpenders
-          />
+          <RuneBreakdown tracker={this.runeTracker} showSpenders />
         </Panel>
       ),
     };
- }
-
+  }
 }
 
 export default RuneDetails;

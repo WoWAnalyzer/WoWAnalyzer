@@ -13,9 +13,9 @@ const DAMAGE_REDUCTION = 0.2;
 class MirrorImage extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-  }
+  };
   protected abilityTracker!: AbilityTracker;
-  
+
   damageDuringMirrorImages = 0;
 
   constructor(options: Options) {
@@ -31,7 +31,7 @@ class MirrorImage extends Analyzer {
   }
 
   get totalDamageReduction() {
-    return this.damageDuringMirrorImages / (1 - DAMAGE_REDUCTION) * DAMAGE_REDUCTION;
+    return (this.damageDuringMirrorImages / (1 - DAMAGE_REDUCTION)) * DAMAGE_REDUCTION;
   }
 
   get reductionPerCast() {
@@ -43,7 +43,13 @@ class MirrorImage extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(30)}
         size="flexible"
-        tooltip={<>This is the amount of damage that your Mirror Images prevented while they were active. Remember that Mirror Image is not a damage cooldown anymore and should solely be used as a defensive ability to help reduce incoming damage.</>}
+        tooltip={
+          <>
+            This is the amount of damage that your Mirror Images prevented while they were active.
+            Remember that Mirror Image is not a damage cooldown anymore and should solely be used as
+            a defensive ability to help reduce incoming damage.
+          </>
+        }
       >
         <BoringSpellValueText spell={SPELLS.MIRROR_IMAGE}>
           <>

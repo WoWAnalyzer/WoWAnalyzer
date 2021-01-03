@@ -23,9 +23,14 @@ class GuileCharm extends Analyzer {
   }
 
   get percentUptime() {
-    this.shallowInsightUptime = this.selectedCombatant.getBuffUptime(SPELLS.SHALLOW_INSIGHT_BUFF.id) / this.owner.fightDuration;
-    this.moderateInsightUptime = this.selectedCombatant.getBuffUptime(SPELLS.MODERATE_INSIGHT_BUFF.id) / this.owner.fightDuration;
-    this.deepInsightUptime = this.selectedCombatant.getBuffUptime(SPELLS.DEEP_INSIGHT_BUFF.id) / this.owner.fightDuration;
+    this.shallowInsightUptime =
+      this.selectedCombatant.getBuffUptime(SPELLS.SHALLOW_INSIGHT_BUFF.id) /
+      this.owner.fightDuration;
+    this.moderateInsightUptime =
+      this.selectedCombatant.getBuffUptime(SPELLS.MODERATE_INSIGHT_BUFF.id) /
+      this.owner.fightDuration;
+    this.deepInsightUptime =
+      this.selectedCombatant.getBuffUptime(SPELLS.DEEP_INSIGHT_BUFF.id) / this.owner.fightDuration;
     return {
       shallowInsight: this.shallowInsightUptime,
       moderateInsight: this.moderateInsightUptime,
@@ -35,11 +40,21 @@ class GuileCharm extends Analyzer {
 
   statistic() {
     return (
-      <Statistic size="flexible" tooltip="This measures how long each buff from this legendary is active.">
+      <Statistic
+        size="flexible"
+        tooltip="This measures how long each buff from this legendary is active."
+      >
         <BoringSpellValueText spell={SPELLS.GUILE_CHARM}>
-          <SpellIcon id={SPELLS.SHALLOW_INSIGHT_BUFF.id} /> {formatPercentage(this.percentUptime.shallowInsight)}% <small>Shallow Insight uptime</small><br />
-          <SpellIcon id={SPELLS.MODERATE_INSIGHT_BUFF.id} /> {formatPercentage(this.percentUptime.moderateInsight)}% <small>Moderate Insight uptime</small><br />
-          <SpellIcon id={SPELLS.DEEP_INSIGHT_BUFF.id} /> {formatPercentage(this.percentUptime.deepInsight)}% <small>Deep Insight uptime</small>
+          <SpellIcon id={SPELLS.SHALLOW_INSIGHT_BUFF.id} />{' '}
+          {formatPercentage(this.percentUptime.shallowInsight)}%{' '}
+          <small>Shallow Insight uptime</small>
+          <br />
+          <SpellIcon id={SPELLS.MODERATE_INSIGHT_BUFF.id} />{' '}
+          {formatPercentage(this.percentUptime.moderateInsight)}%{' '}
+          <small>Moderate Insight uptime</small>
+          <br />
+          <SpellIcon id={SPELLS.DEEP_INSIGHT_BUFF.id} />{' '}
+          {formatPercentage(this.percentUptime.deepInsight)}% <small>Deep Insight uptime</small>
         </BoringSpellValueText>
       </Statistic>
     );

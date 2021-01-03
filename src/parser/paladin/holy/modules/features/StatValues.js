@@ -38,7 +38,7 @@ class StatValues extends BaseHealerStatValues {
   qeLive = true;
   active = true;
 
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.beacontransfer, this.onBeaconTransfer);
   }
@@ -110,7 +110,15 @@ class StatValues extends BaseHealerStatValues {
       const { baseCritChance, ratingCritChance } = this._getCritChance(event);
 
       const totalCritChance = baseCritChance + ratingCritChance;
-      if (totalCritChance > 1 + 1 / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentHasteRating, this.statTracker.statBaselineRatingPerPercent[STAT.CRITICAL_STRIKE])) {
+      if (
+        totalCritChance >
+        1 +
+          1 /
+            this.statTracker.ratingNeededForNextPercentage(
+              this.statTracker.currentHasteRating,
+              this.statTracker.statBaselineRatingPerPercent[STAT.CRITICAL_STRIKE],
+            )
+      ) {
         // If the crit chance was more than 100%+1 rating, then the last rating was over the cap and worth 0.
         return 0;
       }
@@ -142,7 +150,12 @@ class StatValues extends BaseHealerStatValues {
 
     const masteryEffectiveness = event.masteryEffectiveness;
     const healIncreaseFromOneMastery =
-      (this.statTracker.statMultiplier.mastery / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentMasteryRating, this.statTracker.statBaselineRatingPerPercent[STAT.MASTERY], this.selectedCombatant.spec.masteryCoefficient)) *
+      (this.statTracker.statMultiplier.mastery /
+        this.statTracker.ratingNeededForNextPercentage(
+          this.statTracker.currentMasteryRating,
+          this.statTracker.statBaselineRatingPerPercent[STAT.MASTERY],
+          this.selectedCombatant.spec.masteryCoefficient,
+        )) *
       masteryEffectiveness;
     const baseHeal =
       healVal.effective / (1 + this.statTracker.currentMasteryPercentage * masteryEffectiveness);

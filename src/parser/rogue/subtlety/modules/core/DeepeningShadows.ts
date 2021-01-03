@@ -17,7 +17,8 @@ class DeepeningShadows extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.cdrPerComboPoint = 1500 + (this.selectedCombatant.hasTalent(SPELLS.ENVELOPING_SHADOWS_TALENT.id) ? 1000 : 0);
+    this.cdrPerComboPoint =
+      1500 + (this.selectedCombatant.hasTalent(SPELLS.ENVELOPING_SHADOWS_TALENT.id) ? 1000 : 0);
     this.addEventListener(Events.SpendResource.by(SELECTED_PLAYER), this.onSpendResource);
   }
 
@@ -28,7 +29,10 @@ class DeepeningShadows extends Analyzer {
     }
 
     if (this.spellUsable.isOnCooldown(SPELLS.SHADOW_DANCE.id)) {
-      this.spellUsable.reduceCooldown(SPELLS.SHADOW_DANCE.id, comboPointsSpent * this.cdrPerComboPoint);
+      this.spellUsable.reduceCooldown(
+        SPELLS.SHADOW_DANCE.id,
+        comboPointsSpent * this.cdrPerComboPoint,
+      );
     }
   }
 }

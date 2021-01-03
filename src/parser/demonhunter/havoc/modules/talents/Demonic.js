@@ -13,7 +13,6 @@ import SpellLink from 'common/SpellLink';
 const META_BUFF_DURATION_EYEBEAM = 10000;
 
 class Demonic extends Analyzer {
-
   get suggestionThresholds() {
     return {
       actual: this.badCasts,
@@ -38,12 +37,21 @@ class Demonic extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EYE_BEAM), this.onEyeBeamCast);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEATH_SWEEP), this.onDeathSweepCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EYE_BEAM),
+      this.onEyeBeamCast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEATH_SWEEP),
+      this.onDeathSweepCast,
+    );
   }
 
   onEyeBeamCast(event) {
-    const hasMetaBuff = this.selectedCombatant.hasBuff(SPELLS.METAMORPHOSIS_HAVOC_BUFF.id, event.timestamp - 1000);
+    const hasMetaBuff = this.selectedCombatant.hasBuff(
+      SPELLS.METAMORPHOSIS_HAVOC_BUFF.id,
+      event.timestamp - 1000,
+    );
 
     if (hasMetaBuff) {
       return;
@@ -64,18 +72,35 @@ class Demonic extends Analyzer {
   }
 
   onDeathSweepCast(event) {
-    if (this.eyeBeamTimeStamp !== undefined && (event.timestamp - this.eyeBeamTimeStamp) < META_BUFF_DURATION_EYEBEAM) {
+    if (
+      this.eyeBeamTimeStamp !== undefined &&
+      event.timestamp - this.eyeBeamTimeStamp < META_BUFF_DURATION_EYEBEAM
+    ) {
       this.goodDeathSweep += 1;
       this.deathsweepsInMetaCounter += 1;
     }
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>Try to have <SpellLink id={SPELLS.BLADE_DANCE.id} /> almost off cooldown before casting <SpellLink id={SPELLS.EYE_BEAM.id} />. This will allow for two casts of <SpellLink id={SPELLS.DEATH_SWEEP.id} /> during the <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} /> buff you get from the <SpellLink id={SPELLS.DEMONIC_TALENT_HAVOC.id} /> talent.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Try to have <SpellLink id={SPELLS.BLADE_DANCE.id} /> almost off cooldown before casting{' '}
+          <SpellLink id={SPELLS.EYE_BEAM.id} />. This will allow for two casts of{' '}
+          <SpellLink id={SPELLS.DEATH_SWEEP.id} /> during the{' '}
+          <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} /> buff you get from the{' '}
+          <SpellLink id={SPELLS.DEMONIC_TALENT_HAVOC.id} /> talent.
+        </>,
+      )
         .icon(SPELLS.DEMONIC_TALENT_HAVOC.icon)
-        .actual(<>{actual} time(s) during <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} /> <SpellLink id={SPELLS.DEATH_SWEEP.id} /> wasn't casted twice.</>)
-        .recommended(`No bad casts is recommended.`));
+        .actual(
+          <>
+            {actual} time(s) during <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} />{' '}
+            <SpellLink id={SPELLS.DEATH_SWEEP.id} /> wasn't casted twice.
+          </>,
+        )
+        .recommended(`No bad casts is recommended.`),
+    );
   }
 
   statistic() {
@@ -83,11 +108,12 @@ class Demonic extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.DEMONIC_TALENT_HAVOC.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
-        value={(
+        value={
           <>
-            {this.badCasts} <small>Bad casts</small><br />
+            {this.badCasts} <small>Bad casts</small>
+            <br />
           </>
-        )}
+        }
         tooltip={`A bad cast is triggered when you don't do atleast 2 Death Sweep casts inside
                   the Metamorphosis window you get from Eye Beam due to the Demonic talent.`}
       />

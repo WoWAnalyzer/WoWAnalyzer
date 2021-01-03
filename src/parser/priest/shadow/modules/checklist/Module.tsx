@@ -31,14 +31,12 @@ class Checklist extends BaseChecklist {
       <Component
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
-
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
 
           shadowWordPain: this.shadowWordPain.suggestionThresholds,
           vampiricTouch: this.vampiricTouch.suggestionThresholds,
           downtime: this.alwaysBeCasting.suggestionThresholds,
-
         }}
       />
     );

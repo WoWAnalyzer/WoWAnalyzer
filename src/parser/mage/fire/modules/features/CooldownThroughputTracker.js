@@ -1,4 +1,6 @@
-import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'parser/shared/modules/CooldownThroughputTracker';
+import CoreCooldownThroughputTracker, {
+  BUILT_IN_SUMMARY_TYPES,
+} from 'parser/shared/modules/CooldownThroughputTracker';
 
 import SPELLS from 'common/SPELLS';
 
@@ -8,15 +10,11 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     {
       spell: SPELLS.COMBUSTION,
       startBufferMS: 4000,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
+      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
     {
       spell: SPELLS.RUNE_OF_POWER_BUFF,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
+      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
   ];
 
@@ -25,9 +23,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     {
       spell: SPELLS.MIRROR_IMAGE,
       duration: 40,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.DAMAGE,
-      ],
+      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
   ];
 }

@@ -56,7 +56,7 @@ const config: Config = {
   changelog: CHANGELOG,
   parser: () =>
     import('./CombatLogParser' /* webpackChunkName: "HolyPaladin" */).then(
-      exports => exports.default,
+      (exports) => exports.default,
     ),
   path: __dirname,
 };

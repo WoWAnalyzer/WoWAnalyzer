@@ -15,9 +15,7 @@ class Healthstone extends Potion {
 
   protected combatants!: Combatants;
 
-  static spells = [
-    SPELLS.HEALTHSTONE,
-  ];
+  static spells = [SPELLS.HEALTHSTONE];
   static recommendedEfficiency = 0;
   static extraAbilityInfo = {
     isDefensive: true,
@@ -25,7 +23,7 @@ class Healthstone extends Potion {
 
   get isAvailable() {
     const players = Object.values(this.combatants.players);
-    return players.some(combatant => (combatant.spec.className === Class.Warlock));
+    return players.some((combatant) => combatant.spec.className === Class.Warlock);
   }
 }
 

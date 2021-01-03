@@ -12,7 +12,6 @@ const CAST_WINDOW = 100;
  * @returns {Array} Events possibly with some reordered.
  */
 class GarroteNormalizer extends EventsNormalizer {
-
   normalize(events) {
     const fixedEvents = [];
     events.forEach((event, eventIndex) => {
@@ -21,12 +20,19 @@ class GarroteNormalizer extends EventsNormalizer {
       if (event.type === EventType.Cast && event.ability.guid === SPELLS.GARROTE.id) {
         const castTimestamp = event.timestamp;
 
-        for (let previousEventIndex = eventIndex; previousEventIndex >= 0; previousEventIndex -= 1) {
+        for (
+          let previousEventIndex = eventIndex;
+          previousEventIndex >= 0;
+          previousEventIndex -= 1
+        ) {
           const previousEvent = fixedEvents[previousEventIndex];
-          if ((castTimestamp - previousEvent.timestamp) > CAST_WINDOW) {
+          if (castTimestamp - previousEvent.timestamp > CAST_WINDOW) {
             break;
           }
-          if (previousEvent.type === EventType.Energize && previousEvent.ability.guid === SPELLS.GARROTE.id) {
+          if (
+            previousEvent.type === EventType.Energize &&
+            previousEvent.ability.guid === SPELLS.GARROTE.id
+          ) {
             event.timestamp = previousEvent.timestamp;
             fixedEvents.splice(eventIndex, 1);
             fixedEvents.splice(previousEventIndex, 0, event);

@@ -14,7 +14,10 @@ import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 class Channeling extends CoreChanneling {
   constructor(options) {
     super(options);
-    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.DRAIN_SOUL_TALENT), this.onRemoveDebuff);
+    this.addEventListener(
+      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.DRAIN_SOUL_TALENT),
+      this.onRemoveDebuff,
+    );
   }
 
   // TODO: add shared module tracking Drain Life similarly, make this class extend that one instead
@@ -29,7 +32,11 @@ class Channeling extends CoreChanneling {
   cancelChannel(event, ability) {
     if (this.isChannelingSpell(SPELLS.DRAIN_SOUL_TALENT.id)) {
       // If a channeling spell is "canceled" it was actually just ended, so if it looks canceled then instead just mark it as ended
-      this.log('Marking', this._currentChannel.ability.name, 'as ended since we started casting something else');
+      this.log(
+        'Marking',
+        this._currentChannel.ability.name,
+        'as ended since we started casting something else',
+      );
       this.endChannel(event);
     } else {
       super.cancelChannel(event, ability);

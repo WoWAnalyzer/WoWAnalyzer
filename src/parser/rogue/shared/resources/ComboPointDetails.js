@@ -60,10 +60,7 @@ class ComboPointDetails extends Analyzer {
       url: 'combo-points',
       render: () => (
         <Panel>
-          <ResourceBreakdown
-            tracker={this.comboPointTracker}
-            showSpenders
-          />
+          <ResourceBreakdown tracker={this.comboPointTracker} showSpenders />
         </Panel>
       ),
     };

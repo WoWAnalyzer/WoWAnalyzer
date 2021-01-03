@@ -21,11 +21,18 @@ class ColdFront extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.COLD_FRONT.bonusID);
-    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.COLD_FRONT_BUFF), this.onBuffApplied);
+    this.addEventListener(
+      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.COLD_FRONT_BUFF),
+      this.onBuffApplied,
+    );
   }
 
   onBuffApplied() {
-    const buffRemovedEvent = this.eventHistory.last(1,500,Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.COLD_FRONT_BUFF));
+    const buffRemovedEvent = this.eventHistory.last(
+      1,
+      500,
+      Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.COLD_FRONT_BUFF),
+    );
     if (buffRemovedEvent) {
       this.bonusFrozenOrbs += 1;
     }
@@ -39,7 +46,8 @@ class ColdFront extends Analyzer {
         tooltip="This shows the number of extra Frozen Orb casts that were gained by using the Cold Front legendary effect."
       >
         <BoringSpellValueText spell={SPELLS.COLD_FRONT}>
-          <SpellIcon id={SPELLS.FROZEN_ORB.id} /> {`${formatNumber(this.bonusFrozenOrbs)}`} <small>Extra Frozen Orbs</small>
+          <SpellIcon id={SPELLS.FROZEN_ORB.id} /> {`${formatNumber(this.bonusFrozenOrbs)}`}{' '}
+          <small>Extra Frozen Orbs</small>
         </BoringSpellValueText>
       </Statistic>
     );

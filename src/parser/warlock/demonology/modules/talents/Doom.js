@@ -40,7 +40,10 @@ class Doom extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DOOM_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DOOM_TALENT), this.handleDoomDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DOOM_TALENT),
+      this.handleDoomDamage,
+    );
   }
 
   handleDoomDamage(event) {
@@ -48,14 +51,22 @@ class Doom extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.DOOM_TALENT.id} /> uptime can be improved. Try to pay more attention to your Doom on the boss, as it is one of your Soul Shard generators.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your <SpellLink id={SPELLS.DOOM_TALENT.id} /> uptime can be improved. Try to pay more
+          attention to your Doom on the boss, as it is one of your Soul Shard generators.
+        </>,
+      )
         .icon(SPELLS.DOOM_TALENT.icon)
-        .actual(t({
-      id: "warlock.demonology.suggestions.doom.uptime",
-      message: `${formatPercentage(actual)}% Doom uptime`
-    }))
-        .recommended(`>${formatPercentage(recommended)}% is recommended`));
+        .actual(
+          t({
+            id: 'warlock.demonology.suggestions.doom.uptime',
+            message: `${formatPercentage(actual)}% Doom uptime`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
@@ -66,7 +77,8 @@ class Doom extends Analyzer {
         tooltip={`${formatThousands(this.damage)} damage`}
       >
         <BoringSpellValueText spell={SPELLS.DOOM_TALENT}>
-          <ItemDamageDone amount={this.damage} /><br />
+          <ItemDamageDone amount={this.damage} />
+          <br />
           <UptimeIcon /> {formatPercentage(this.uptime)}% <small>Uptime</small>
         </BoringSpellValueText>
       </Statistic>

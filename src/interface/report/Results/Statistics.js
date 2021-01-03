@@ -49,22 +49,30 @@ class Statistics extends React.PureComponent {
         <Toggle
           defaultChecked={this.state.adjustForDowntime}
           icons={false}
-          onChange={event => this.setState({ adjustForDowntime: event.target.checked })}
+          onChange={(event) => this.setState({ adjustForDowntime: event.target.checked })}
           id="adjust-for-downtime-toggle"
         />
         <label htmlFor="adjust-for-downtime-toggle">
           <Trans id="interface.report.results.statistics.adjustStatistics">
-            Adjust statistics for <TooltipElement
-            content={t({
-              id: 'interface.report.results.statistics.fightDowntime',
-              message: `Fight downtime is any forced downtime caused by fight mechanics or dying. Downtime caused by simply not doing anything is not included.`,
-            })}
-          >fight downtime</TooltipElement> (<TooltipElement
-            content={t({
-              id: 'interface.report.results.statistics.fightDowntimeDetails',
-              message: `We're still working out the kinks of this feature, some modules might output weird results with this on. When we're finished this will be enabled by default.`,
-            })}
-          >experimental</TooltipElement>)
+            Adjust statistics for{' '}
+            <TooltipElement
+              content={t({
+                id: 'interface.report.results.statistics.fightDowntime',
+                message: `Fight downtime is any forced downtime caused by fight mechanics or dying. Downtime caused by simply not doing anything is not included.`,
+              })}
+            >
+              fight downtime
+            </TooltipElement>{' '}
+            (
+            <TooltipElement
+              content={t({
+                id: 'interface.report.results.statistics.fightDowntimeDetails',
+                message: `We're still working out the kinks of this feature, some modules might output weird results with this on. When we're finished this will be enabled by default.`,
+              })}
+            >
+              experimental
+            </TooltipElement>
+            )
           </Trans>
         </label>
       </div>
@@ -114,32 +122,34 @@ class Statistics extends React.PureComponent {
     return (
       <div className="container">
         {/* eslint-disable-next-line no-restricted-syntax */}
-        {Object.keys(groups).sort((a, b) => categoryByIndex.indexOf(a) - categoryByIndex.indexOf(b)).map(name => {
-          const statistics = groups[name];
-          return (
-            <React.Fragment key={name}>
-              <StatisticsSectionTitle
-                rightAddon={name === STATISTIC_CATEGORY.GENERAL && parser.hasDowntime && this.renderFightDowntimeToggle()}
-              >
-                {this.renderStatisticGroupName(name)}
-              </StatisticsSectionTitle>
+        {Object.keys(groups)
+          .sort((a, b) => categoryByIndex.indexOf(a) - categoryByIndex.indexOf(b))
+          .map((name) => {
+            const statistics = groups[name];
+            return (
+              <React.Fragment key={name}>
+                <StatisticsSectionTitle
+                  rightAddon={
+                    name === STATISTIC_CATEGORY.GENERAL &&
+                    parser.hasDowntime &&
+                    this.renderFightDowntimeToggle()
+                  }
+                >
+                  {this.renderStatisticGroupName(name)}
+                </StatisticsSectionTitle>
 
-              <Masonry className="row statistics">
-                {/* Masonry uses the first div to determine its column width */}
-                <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12" />
-                {/* And we need this second div to use the rest of the space so masonry layouts the first item first */}
-                <div className="col-lg-9 col-md-8 col-sm-6 hidden-xs" />
-                {statistics.sort(this.sortByPosition)}
-              </Masonry>
-            </React.Fragment>
-          );
-        })}
+                <Masonry className="row statistics">
+                  {/* Masonry uses the first div to determine its column width */}
+                  <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12" />
+                  {/* And we need this second div to use the rest of the space so masonry layouts the first item first */}
+                  <div className="col-lg-9 col-md-8 col-sm-6 hidden-xs" />
+                  {statistics.sort(this.sortByPosition)}
+                </Masonry>
+              </React.Fragment>
+            );
+          })}
 
-        {panels && panels.length > 0 && (
-          <StatisticsSectionTitle>
-            Details
-          </StatisticsSectionTitle>
-        )}
+        {panels && panels.length > 0 && <StatisticsSectionTitle>Details</StatisticsSectionTitle>}
 
         {panels && panels.sort(this.sortByPosition)}
       </div>

@@ -4,19 +4,16 @@ import SelfHealTimingGraph from 'parser/shared/modules/features/SelfHealTimingGr
 import SPELLS from 'common/SPELLS';
 
 class DeathStrikeTiming extends SelfHealTimingGraph {
-
   constructor(...args) {
     super(...args);
     this.selfHealSpell = SPELLS.DEATH_STRIKE_HEAL;
-    this.tabTitle = "Death Strike Timing";
-    this.tabURL = "death-strike-timings";
+    this.tabTitle = 'Death Strike Timing';
+    this.tabURL = 'death-strike-timings';
   }
 
   render() {
-    return (
-      <SelfHealTimingGraph />
-    );
-  } 
+    return <SelfHealTimingGraph />;
+  }
 }
 
 export default DeathStrikeTiming;

@@ -13,7 +13,6 @@ import { ABILITIES_AFFECTED_BY_POISON_DAMAGE_INCREASES } from '../../constants';
 const DAMAGE_BONUS = 0.3;
 
 class MasterPoisoner extends Analyzer {
-
   bonusDmg = 0;
 
   constructor(...args) {
@@ -22,7 +21,10 @@ class MasterPoisoner extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_POISON_DAMAGE_INCREASES), this.addBonusDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_POISON_DAMAGE_INCREASES),
+      this.addBonusDamage,
+    );
   }
 
   addBonusDamage(event) {
@@ -38,7 +40,6 @@ class MasterPoisoner extends Analyzer {
       />
     );
   }
-
 }
 
 export default MasterPoisoner;

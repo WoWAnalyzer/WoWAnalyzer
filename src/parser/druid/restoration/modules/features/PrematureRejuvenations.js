@@ -38,8 +38,14 @@ class PrematureRejuvenations extends Analyzer {
     super(...args);
     // TODO - Extend this module to also support when using Germination.
     this.active = !this.selectedCombatant.hasTalent(SPELLS.GERMINATION_TALENT.id);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATION), this.onRemoveBuff);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.REJUVENATION, SPELLS.FLOURISH_TALENT]), this.onCast);
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATION),
+      this.onRemoveBuff,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.REJUVENATION, SPELLS.FLOURISH_TALENT]),
+      this.onCast,
+    );
     this.addEventListener(Events.fightend, this.onFightend);
   }
 
@@ -50,20 +56,21 @@ class PrematureRejuvenations extends Analyzer {
     }
 
     // Sanity check - Remove rejuvenation from array if it was removed from target player.
-    this.rejuvenations = this.rejuvenations.filter(e => e.targetId !== event.targetID);
+    this.rejuvenations = this.rejuvenations.filter((e) => e.targetId !== event.targetID);
   }
 
   onCast(event) {
     if (event.ability.guid === SPELLS.REJUVENATION.id) {
       this.totalRejuvsCasts += 1;
 
-      const oldRejuv = this.rejuvenations.find(e => e.targetId === event.targetID);
+      const oldRejuv = this.rejuvenations.find((e) => e.targetId === event.targetID);
       if (oldRejuv == null) {
-        this.rejuvenations.push({ 'targetId': event.targetID, 'timestamp': event.timestamp });
+        this.rejuvenations.push({ targetId: event.targetID, timestamp: event.timestamp });
         return;
       }
 
-      const pandemicTimestamp = oldRejuv.timestamp + ((REJUV_DURATION * PANDEMIC_THRESHOLD) + MS_BUFFER);
+      const pandemicTimestamp =
+        oldRejuv.timestamp + (REJUV_DURATION * PANDEMIC_THRESHOLD + MS_BUFFER);
       if (pandemicTimestamp > event.timestamp) {
         this.earlyRefreshments += 1;
         this.timeLost += pandemicTimestamp - event.timestamp;
@@ -71,10 +78,13 @@ class PrematureRejuvenations extends Analyzer {
 
       // Account for pandemic time if hot was applied within the pandemic timeframe.
       let pandemicTime = 0;
-      if (event.timestamp >= pandemicTimestamp && event.timestamp <= oldRejuv.timestamp + REJUV_DURATION) {
-        pandemicTime = (oldRejuv.timestamp + REJUV_DURATION) - event.timestamp;
+      if (
+        event.timestamp >= pandemicTimestamp &&
+        event.timestamp <= oldRejuv.timestamp + REJUV_DURATION
+      ) {
+        pandemicTime = oldRejuv.timestamp + REJUV_DURATION - event.timestamp;
       } else if (event.timestamp <= pandemicTime) {
-        pandemicTime = REJUV_DURATION - (REJUV_DURATION * PANDEMIC_THRESHOLD);
+        pandemicTime = REJUV_DURATION - REJUV_DURATION * PANDEMIC_THRESHOLD;
       }
       debug && console.log('Extended within pandemic time frame: ' + pandemicTime);
 
@@ -82,7 +92,10 @@ class PrematureRejuvenations extends Analyzer {
       oldRejuv.timestamp = event.timestamp + pandemicTime;
     } else if (event.ability.guid === SPELLS.FLOURISH_TALENT.id) {
       // TODO - Flourish extends all active rejuvenations within 60 yards by 8 seconds. Add range check possible?
-      this.rejuvenations = this.rejuvenations.map(o => ({ ...o, timestamp: o.timestamp + FLOURISH_EXTENSION }));
+      this.rejuvenations = this.rejuvenations.map((o) => ({
+        ...o,
+        timestamp: o.timestamp + FLOURISH_EXTENSION,
+      }));
     }
   }
 
@@ -109,14 +122,22 @@ class PrematureRejuvenations extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.timeLostThreshold)
-      .addSuggestion((suggest) => suggest(<>Don't refresh <SpellLink id={SPELLS.REJUVENATION.id} /> if it's not within pandemic time frame (4.5s left on buff).</>)
-          .icon(SPELLS.REJUVENATION.icon)
-          .actual(t({
-      id: "druid.restoration.suggestions.rejuvenation.wastedSeconds",
-      message: `You refreshed early ${this.earlyRefreshments} times which made you waste ${this.timeLostInSeconds} seconds of rejuvenation.`
-    }))
-          .recommended(`0 seconds lost is recommended`));
+    when(this.timeLostThreshold).addSuggestion((suggest) =>
+      suggest(
+        <>
+          Don't refresh <SpellLink id={SPELLS.REJUVENATION.id} /> if it's not within pandemic time
+          frame (4.5s left on buff).
+        </>,
+      )
+        .icon(SPELLS.REJUVENATION.icon)
+        .actual(
+          t({
+            id: 'druid.restoration.suggestions.rejuvenation.wastedSeconds',
+            message: `You refreshed early ${this.earlyRefreshments} times which made you waste ${this.timeLostInSeconds} seconds of rejuvenation.`,
+          }),
+        )
+        .recommended(`0 seconds lost is recommended`),
+    );
   }
 
   statistic() {
@@ -126,10 +147,14 @@ class PrematureRejuvenations extends Analyzer {
         size="flexible"
         tooltip={`The total time lost from your early refreshments was ${this.timeLostInSeconds} seconds.`}
       >
-        <BoringValue label={<><SpellIcon id={SPELLS.REJUVENATION.id} /> Early Rejuvenation refreshes</>} >
-          <>
-            {this.earlyRefreshments}
-          </>
+        <BoringValue
+          label={
+            <>
+              <SpellIcon id={SPELLS.REJUVENATION.id} /> Early Rejuvenation refreshes
+            </>
+          }
+        >
+          <>{this.earlyRefreshments}</>
         </BoringValue>
       </Statistic>
     );
@@ -137,4 +162,3 @@ class PrematureRejuvenations extends Analyzer {
 }
 
 export default PrematureRejuvenations;
-

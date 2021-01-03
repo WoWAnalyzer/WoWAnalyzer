@@ -79,7 +79,6 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
     astralShift: AstralShift,
   };
-
 }
 
 export default CombatLogParser;

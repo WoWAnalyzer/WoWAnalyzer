@@ -12,7 +12,7 @@ class LoadingBar extends React.PureComponent {
     progress: 0,
     chunks: 12,
   };
-  
+
   constructor(props) {
     super(props);
     this.state = {
@@ -26,11 +26,7 @@ class LoadingBar extends React.PureComponent {
     const progressPerChunk = 1 / chunks;
 
     return (
-      <div
-        className="LoadingBar"
-        data-progress={progress}
-        {...others}
-      >
+      <div className="LoadingBar" data-progress={progress} {...others}>
         {this.state.chunksArray.map((_, chunk) => {
           const startProgress = chunk * progressPerChunk;
           const endProgress = startProgress + progressPerChunk;

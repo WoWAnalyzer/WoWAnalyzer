@@ -22,10 +22,18 @@ class SpellFocusCost extends SpellResourceCost {
   getResourceCost(event: CastEvent) {
     const cost = super.getResourceCost(event);
     const spellId = event.ability.guid;
-    if (this.lockAndLoad && this.selectedCombatant.hasBuff(SPELLS.LOCK_AND_LOAD_BUFF.id) && spellId === SPELLS.AIMED_SHOT.id) {
+    if (
+      this.lockAndLoad &&
+      this.selectedCombatant.hasBuff(SPELLS.LOCK_AND_LOAD_BUFF.id) &&
+      spellId === SPELLS.AIMED_SHOT.id
+    ) {
       return cost * LNL_COST_MULTIPLIER;
     }
-    if (this.vipersVenom && this.selectedCombatant.hasBuff(SPELLS.VIPERS_VENOM_BUFF.id) && spellId === SPELLS.SERPENT_STING_SV.id) {
+    if (
+      this.vipersVenom &&
+      this.selectedCombatant.hasBuff(SPELLS.VIPERS_VENOM_BUFF.id) &&
+      spellId === SPELLS.SERPENT_STING_SV.id
+    ) {
       return cost * VIPERS_VENOM_COST_MULTIPLIER;
     }
     return cost;

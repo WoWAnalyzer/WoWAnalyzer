@@ -231,7 +231,9 @@ export class PremiumPage extends React.PureComponent {
                       user.github.premium &&
                       ` ${t({
                         id: 'interface.premiumPage.status.gitHub',
-                        message: `because of a recent GitHub contribution (active until ${this.props.dateToLocaleString(new Date(user.github.expires))})`,
+                        message: `because of a recent GitHub contribution (active until ${this.props.dateToLocaleString(
+                          new Date(user.github.expires),
+                        )})`,
                       })}`}
                     .{' '}
                     {user.premium

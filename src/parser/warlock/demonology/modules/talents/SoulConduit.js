@@ -34,14 +34,21 @@ class SoulConduit extends Analyzer {
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
             You gained {generated} Shards from this talent
-            {max > 0 ? <>, which is <strong>{formatPercentage(generated / max)}%</strong> of Shards you were most likely to get in this fight ({max} Shards).</> : ', while you were most likely to not get any Shards.'}
+            {max > 0 ? (
+              <>
+                , which is <strong>{formatPercentage(generated / max)}%</strong> of Shards you were
+                most likely to get in this fight ({max} Shards).
+              </>
+            ) : (
+              ', while you were most likely to not get any Shards.'
+            )}
             <br />
             You would get {extraHogs} extra 3 shard Hands of Gul'dan with shards from this talent.
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.SOUL_CONDUIT_TALENT}>
           {generated} <small>Shards generated</small>

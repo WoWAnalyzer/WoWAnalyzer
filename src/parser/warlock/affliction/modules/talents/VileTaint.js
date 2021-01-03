@@ -28,8 +28,14 @@ class VileTaint extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.VILE_TAINT_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VILE_TAINT_TALENT), this.onVileTaintCast);
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.VILE_TAINT_TALENT), this.onVileTaintApplyDebuff);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VILE_TAINT_TALENT),
+      this.onVileTaintCast,
+    );
+    this.addEventListener(
+      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.VILE_TAINT_TALENT),
+      this.onVileTaintApplyDebuff,
+    );
     this.addEventListener(Events.fightend, this.onFinished);
   }
 
@@ -58,21 +64,26 @@ class VileTaint extends Analyzer {
   statistic() {
     const spell = this.abilityTracker.getAbility(SPELLS.VILE_TAINT_TALENT.id);
     const damage = spell.damageEffective + spell.damageAbsorbed;
-    const averageTargetsHit = (this.casts.reduce((total, current) => total + current, 0) / spell.casts) || 0;
-    const dps = damage / this.owner.fightDuration * 1000;
+    const averageTargetsHit =
+      this.casts.reduce((total, current) => total + current, 0) / spell.casts || 0;
+    const dps = (damage / this.owner.fightDuration) * 1000;
     return (
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            {formatThousands(damage)} damage<br />
+            {formatThousands(damage)} damage
+            <br />
             Average targets hit: {averageTargetsHit.toFixed(2)}
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.VILE_TAINT_TALENT}>
-          {formatNumber(dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total</small>
+          {formatNumber(dps)} DPS{' '}
+          <small>
+            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total
+          </small>
         </BoringSpellValueText>
       </Statistic>
     );

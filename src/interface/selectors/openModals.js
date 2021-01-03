@@ -1,1 +1,1 @@
-export const getOpenModals = state => state.openModals;
+export const getOpenModals = (state) => state.openModals;

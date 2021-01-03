@@ -38,13 +38,19 @@ class RisingSunRevival extends Analyzer {
       return;
     }
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RISING_SUN_KICK), this.rskCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RISING_SUN_KICK),
+      this.rskCast,
+    );
   }
 
   rskCast(event: CastEvent) {
     // Cooldown Reduction on Revival
     if (this.spellUsable.isOnCooldown(SPELLS.REVIVAL.id)) {
-      this.cooldownReductionUsed += this.spellUsable.reduceCooldown(SPELLS.REVIVAL.id, RISING_SUN_REDUCTION);
+      this.cooldownReductionUsed += this.spellUsable.reduceCooldown(
+        SPELLS.REVIVAL.id,
+        RISING_SUN_REDUCTION,
+      );
     } else {
       this.cooldownReductionWasted += RISING_SUN_REDUCTION;
     }
@@ -57,15 +63,17 @@ class RisingSunRevival extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
-        tooltip={(
+        tooltip={
           <>
-            Effective Cooldown Reduction: {formatNumber(this.cooldownReductionUsed / 1000)} Seconds<br />
+            Effective Cooldown Reduction: {formatNumber(this.cooldownReductionUsed / 1000)} Seconds
+            <br />
             Wasted Cooldown Reduction: {formatNumber(this.cooldownReductionWasted / 1000)} Seconds
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.RISING_SUN_REVIVAL}>
-          <ItemHealingDone amount={healing} /><br />
+          <ItemHealingDone amount={healing} />
+          <br />
         </BoringSpellValueText>
       </Statistic>
     );

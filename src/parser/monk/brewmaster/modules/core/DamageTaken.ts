@@ -9,7 +9,10 @@ class DamageTaken extends CoreDamageTaken {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(Events.absorbed.to(SELECTED_PLAYER).spell(SPELLS.STAGGER), this.onToPlayerAbsorbed);
+    this.addEventListener(
+      Events.absorbed.to(SELECTED_PLAYER).spell(SPELLS.STAGGER),
+      this.onToPlayerAbsorbed,
+    );
   }
 
   onToPlayerAbsorbed(event: AbsorbedEvent) {

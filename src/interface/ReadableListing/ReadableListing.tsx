@@ -5,10 +5,7 @@ interface ReadableListingProps {
   groupType?: 'and' | 'or';
 }
 
-const ReadableListing = ({
-  children,
-  groupType = 'and',
-}: ReadableListingProps) => {
+const ReadableListing = ({ children, groupType = 'and' }: ReadableListingProps) => {
   const numItems = children.length;
   const results: React.ReactNode[] = [];
   React.Children.forEach(children, (child, index) => {

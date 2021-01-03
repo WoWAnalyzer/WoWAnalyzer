@@ -19,15 +19,11 @@ const ItemHealingDone = (
   { parser }: Context,
 ) => (
   <>
-    <img src="/img/healing.png" alt="Healing" className="icon" />{' '}
-    {approximate && '≈'}
+    <img src="/img/healing.png" alt="Healing" className="icon" /> {approximate && '≈'}
     {greaterThan && '>'}
     {lessThan && '<'}
     {formatNumber((amount / parser.fightDuration) * 1000)} HPS{' '}
-    <small>
-      {formatPercentage(parser.getPercentageOfTotalHealingDone(amount))}% of
-      total
-    </small>
+    <small>{formatPercentage(parser.getPercentageOfTotalHealingDone(amount))}% of total</small>
   </>
 );
 ItemHealingDone.contextTypes = {

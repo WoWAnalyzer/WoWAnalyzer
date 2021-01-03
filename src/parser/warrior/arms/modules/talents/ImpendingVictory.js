@@ -24,7 +24,10 @@ class ImpendingVictory extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.IMPENDING_VICTORY_TALENT.id);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.IMPENDING_VICTORY_TALENT_HEAL), this._onImpendingVictoryHeal);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.IMPENDING_VICTORY_TALENT_HEAL),
+      this._onImpendingVictoryHeal,
+    );
   }
 
   _onImpendingVictoryHeal(event) {
@@ -37,14 +40,18 @@ class ImpendingVictory extends Analyzer {
     const avg = this.totalHeal / (impendingVictory.casts || 1);
     return (
       <StatisticListBoxItem
-        title={<>Average <SpellLink id={SPELLS.IMPENDING_VICTORY_TALENT.id} /> heal</>}
+        title={
+          <>
+            Average <SpellLink id={SPELLS.IMPENDING_VICTORY_TALENT.id} /> heal
+          </>
+        }
         value={formatThousands(avg)}
-        valueTooltip={(
+        valueTooltip={
           <>
             Total Impending Victory heal: {formatThousands(this.totalHeal)} <br />
             Total Impending Victory damages: {formatThousands(total)}
           </>
-        )}
+        }
       />
     );
   }

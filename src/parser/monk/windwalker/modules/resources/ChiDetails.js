@@ -42,13 +42,17 @@ class ChiDetails extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest('You are wasting Chi. Try to use it and not let it cap and go to waste')
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest('You are wasting Chi. Try to use it and not let it cap and go to waste')
         .icon('creatureportrait_bubble')
-        .actual(t({
-      id: "monk.windwalker.suggestions.chi.wastedPerMinute",
-      message: `${this.chiWasted} Chi wasted (${(actual.toFixed(2))} per minute)`
-    }))
-        .recommended(`${recommended} Chi wasted is recommended`));
+        .actual(
+          t({
+            id: 'monk.windwalker.suggestions.chi.wastedPerMinute',
+            message: `${this.chiWasted} Chi wasted (${actual.toFixed(2)} per minute)`,
+          }),
+        )
+        .recommended(`${recommended} Chi wasted is recommended`),
+    );
   }
 
   statistic() {
@@ -73,11 +77,7 @@ class ChiDetails extends Analyzer {
       url: 'chi',
       render: () => (
         <Panel>
-          <ResourceBreakdown
-            tracker={this.chiTracker}
-            resourceName="Chi"
-            showSpenders
-          />
+          <ResourceBreakdown tracker={this.chiTracker} resourceName="Chi" showSpenders />
         </Panel>
       ),
     };

@@ -26,29 +26,47 @@ const EnhancementShamanChecklist = ({ castEfficiency, combatant, thresholds }: a
     <Checklist>
       <Rule
         name="Always be casting"
-        description={<>You should try to avoid doing nothing during the fight. If you have to move, try casting something instant with range like <SpellLink id={SPELLS.FLAME_SHOCK.id} />, <SpellLink id={SPELLS.FROST_SHOCK.id} />, or an instant <SpellLink id={SPELLS.LIGHTNING_BOLT.id} />/<SpellLink id={SPELLS.CHAIN_LIGHTNING.id} /></>}
+        description={
+          <>
+            You should try to avoid doing nothing during the fight. If you have to move, try casting
+            something instant with range like <SpellLink id={SPELLS.FLAME_SHOCK.id} />,{' '}
+            <SpellLink id={SPELLS.FROST_SHOCK.id} />, or an instant{' '}
+            <SpellLink id={SPELLS.LIGHTNING_BOLT.id} />/<SpellLink id={SPELLS.CHAIN_LIGHTNING.id} />
+          </>
+        }
       >
         <Requirement name="Downtime" thresholds={thresholds.alwaysBeCasting} />
       </Rule>
       <Rule
         name="Use your offensive cooldowns as often as possible"
-        description={(
+        description={
           <>
-            You should aim to use your offensive cooldowns as often as you can to maximize your damage output.{' '}
-            <a href="https://www.wowhead.com/enhancement-shaman-rotation-guide#offensive-defensive-cooldowns" target="_blank" rel="noopener noreferrer">More info.</a>
+            You should aim to use your offensive cooldowns as often as you can to maximize your
+            damage output.{' '}
+            <a
+              href="https://www.wowhead.com/enhancement-shaman-rotation-guide#offensive-defensive-cooldowns"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              More info.
+            </a>
           </>
-        )}
+        }
       >
         <AbilityRequirement spell={SPELLS.FERAL_SPIRIT.id} />
         <AbilityRequirement spell={SPELLS.EARTH_ELEMENTAL.id} />
-        {combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id) &&
-        <AbilityRequirement spell={SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id} />}
-        {combatant.hasTalent(SPELLS.STORMKEEPER_TALENT_ENHANCEMENT.id) &&
-        <AbilityRequirement spell={SPELLS.STORMKEEPER_TALENT_ENHANCEMENT.id} />}
-        {combatant.hasTalent(SPELLS.EARTHEN_SPIKE_TALENT.id) &&
-        <AbilityRequirement spell={SPELLS.EARTHEN_SPIKE_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.SUNDERING_TALENT.id) &&
-        <AbilityRequirement spell={SPELLS.SUNDERING_TALENT.id} />}
+        {combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id) && (
+          <AbilityRequirement spell={SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id} />
+        )}
+        {combatant.hasTalent(SPELLS.STORMKEEPER_TALENT_ENHANCEMENT.id) && (
+          <AbilityRequirement spell={SPELLS.STORMKEEPER_TALENT_ENHANCEMENT.id} />
+        )}
+        {combatant.hasTalent(SPELLS.EARTHEN_SPIKE_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.EARTHEN_SPIKE_TALENT.id} />
+        )}
+        {combatant.hasTalent(SPELLS.SUNDERING_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.SUNDERING_TALENT.id} />
+        )}
       </Rule>
       <Rule
         name="Keep your Windfury Totem active"
@@ -58,7 +76,14 @@ const EnhancementShamanChecklist = ({ castEfficiency, combatant, thresholds }: a
           </>
         }
       >
-        <Requirement name={(<><SpellLink id={SPELLS.WINDFURY_TOTEM_BUFF.id} /> uptime</>)} thresholds={thresholds.windfuryTotemUptime} />
+        <Requirement
+          name={
+            <>
+              <SpellLink id={SPELLS.WINDFURY_TOTEM_BUFF.id} /> uptime
+            </>
+          }
+          thresholds={thresholds.windfuryTotemUptime}
+        />
       </Rule>
 
       {/* <Rule

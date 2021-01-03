@@ -29,8 +29,8 @@ class RageDetails extends Analyzer {
       actual: 1 - this.wastedPercent,
       isLessThan: {
         minor: 0.95,
-        average: 0.90,
-        major: .85,
+        average: 0.9,
+        major: 0.85,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
@@ -42,20 +42,24 @@ class RageDetails extends Analyzer {
       isGreaterThan: {
         minor: 0.05,
         average: 0.1,
-        major: .15,
+        major: 0.15,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Rage.`)
-      .icon('spell_nature_reincarnation')
-      .actual(t({
-      id: "warrior.fury.suggestions.rage.wasted",
-      message: `${formatPercentage(actual)}% wasted`
-    }))
-      .recommended(`<${formatPercentage(recommended)}% is recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Rage.`)
+        .icon('spell_nature_reincarnation')
+        .actual(
+          t({
+            id: 'warrior.fury.suggestions.rage.wasted',
+            message: `${formatPercentage(actual)}% wasted`,
+          }),
+        )
+        .recommended(`<${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
@@ -63,7 +67,9 @@ class RageDetails extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(3)}
         size="flexible"
-        tooltip={`${this.rageTracker.wasted} out of ${this.rageTracker.wasted + this.rageTracker.generated} Rage wasted.`}
+        tooltip={`${this.rageTracker.wasted} out of ${
+          this.rageTracker.wasted + this.rageTracker.generated
+        } Rage wasted.`}
       >
         <BoringResourceValue
           resource={RESOURCE_TYPES.RAGE}
@@ -80,15 +86,11 @@ class RageDetails extends Analyzer {
       url: 'rage-usage',
       render: () => (
         <Panel>
-          <ResourceBreakdown
-            tracker={this.rageTracker}
-            showSpenders
-          />
+          <ResourceBreakdown tracker={this.rageTracker} showSpenders />
         </Panel>
       ),
     };
   }
-
 }
 
 export default RageDetails;

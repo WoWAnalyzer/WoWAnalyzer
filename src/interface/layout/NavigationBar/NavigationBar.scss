@@ -41,7 +41,8 @@ nav.global {
     color: $primaryColor;
     text-decoration: none;
   }
-  .menu-item img, .menu-item svg {
+  .menu-item img,
+  .menu-item svg {
     height: 2.1em;
     margin: -0.4em 0 -0.2em 0;
     vertical-align: middle;
@@ -49,7 +50,8 @@ nav.global {
   .menu-item span.optional {
     margin-left: 6px;
   }
-  .menu-item.logo img, .menu-item.logo svg {
+  .menu-item.logo img,
+  .menu-item.logo svg {
     font-size: 1.2em;
     margin-top: -0.2em;
   }

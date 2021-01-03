@@ -28,13 +28,16 @@ class Buffs extends Module {
     // I think anyway, this might all change lul.
     return [
       // Convert the legacy buffSpellId prop
-      ...this.abilities.activeAbilities.filter(ability => Boolean(ability.buffSpellId)).map(ability => ({
-        spellId: ability.buffSpellId,
-        triggeredBySpellId: ability.spell.id !== ability.buffSpellId ? ability.primarySpell.id : undefined,
-        timelineHighlight: true,
-      })),
+      ...this.abilities.activeAbilities
+        .filter((ability) => Boolean(ability.buffSpellId))
+        .map((ability) => ({
+          spellId: ability.buffSpellId,
+          triggeredBySpellId:
+            ability.spell.id !== ability.buffSpellId ? ability.primarySpell.id : undefined,
+          timelineHighlight: true,
+        })),
       {
-        spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
+        spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),
         timelineHighlight: true,
       },
       {
@@ -50,7 +53,9 @@ class Buffs extends Module {
     this.loadBuffs(this.buffs());
   }
   loadBuffs(buffs) {
-    this.activeBuffs = buffs.map(options => new this.constructor.BUFF_CLASS(options)).filter(ability => ability.enabled);
+    this.activeBuffs = buffs
+      .map((options) => new this.constructor.BUFF_CLASS(options))
+      .filter((ability) => ability.enabled);
   }
 
   /**
@@ -66,7 +71,7 @@ class Buffs extends Module {
    * Returns the first ACTIVE buff with the given spellId (or undefined if there is no such buff)
    */
   getBuff(spellId) {
-    return this.activeBuffs.find(buff => {
+    return this.activeBuffs.find((buff) => {
       if (buff.spellId instanceof Array) {
         return buff.spellId.includes(spellId);
       } else {

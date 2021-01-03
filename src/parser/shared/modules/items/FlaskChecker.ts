@@ -21,7 +21,7 @@ class FlaskChecker extends Analyzer {
   startFightWithFlaskUp = false;
   strongFlaskUsed = false;
 
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER), this.onApplybuff.bind(this));
   }
@@ -51,14 +51,20 @@ class FlaskChecker extends Analyzer {
     };
   }
   suggestions(when: When) {
-    when(this.flaskSuggestionThresholds)
-      .addSuggestion((suggest) => suggest('You did not have a flask up before combat. Having a flask during combat increases your primary stat significantly.')
-          .icon(SPELLS.SPECTRAL_FLASK_OF_POWER.icon)
-          .staticImportance(SUGGESTION_IMPORTANCE.MINOR));
-    when(this.flaskStrengthSuggestion)
-      .addSuggestion((suggest) => suggest('You did not have the best flask active when starting the fight. Using the best flask available is an easy way to improve performance.')
-          .icon(SPELLS.SPECTRAL_FLASK_OF_POWER.icon)
-          .staticImportance(SUGGESTION_IMPORTANCE.MINOR));
+    when(this.flaskSuggestionThresholds).addSuggestion((suggest) =>
+      suggest(
+        'You did not have a flask up before combat. Having a flask during combat increases your primary stat significantly.',
+      )
+        .icon(SPELLS.SPECTRAL_FLASK_OF_POWER.icon)
+        .staticImportance(SUGGESTION_IMPORTANCE.MINOR),
+    );
+    when(this.flaskStrengthSuggestion).addSuggestion((suggest) =>
+      suggest(
+        'You did not have the best flask active when starting the fight. Using the best flask available is an easy way to improve performance.',
+      )
+        .icon(SPELLS.SPECTRAL_FLASK_OF_POWER.icon)
+        .staticImportance(SUGGESTION_IMPORTANCE.MINOR),
+    );
   }
 }
 

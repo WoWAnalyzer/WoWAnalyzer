@@ -24,23 +24,33 @@ class FrostFeverUptime extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.frostFeverUptime).isLessThan(0.95)
-      .addSuggestion((suggest, actual, recommended) => suggest(<span>Your <SpellLink id={SPELLS.FROST_FEVER.id} /> uptime can be improved. Try to pay attention to when Frost Fever is about to fall off the priority target, using <SpellLink id={SPELLS.HOWLING_BLAST.id} /> to refresh Frost Fever. Using a debuff tracker can help.</span>)
-        .icon(SPELLS.FROST_FEVER.icon)
-        .actual(t({
-      id: "deathknight.frost.suggestions.frostFever.uptime",
-      message: `${formatPercentage(actual)}% Frost Fever uptime`
-    }))
-        .recommended(`>${formatPercentage(recommended)}% is recommended`)
-        .regular(recommended - 0.05).major(recommended - 0.15));
+    when(this.frostFeverUptime)
+      .isLessThan(0.95)
+      .addSuggestion((suggest, actual, recommended) =>
+        suggest(
+          <span>
+            Your <SpellLink id={SPELLS.FROST_FEVER.id} /> uptime can be improved. Try to pay
+            attention to when Frost Fever is about to fall off the priority target, using{' '}
+            <SpellLink id={SPELLS.HOWLING_BLAST.id} /> to refresh Frost Fever. Using a debuff
+            tracker can help.
+          </span>,
+        )
+          .icon(SPELLS.FROST_FEVER.icon)
+          .actual(
+            t({
+              id: 'deathknight.frost.suggestions.frostFever.uptime',
+              message: `${formatPercentage(actual)}% Frost Fever uptime`,
+            }),
+          )
+          .recommended(`>${formatPercentage(recommended)}% is recommended`)
+          .regular(recommended - 0.05)
+          .major(recommended - 0.15),
+      );
   }
 
   statistic() {
     return (
-      <Statistic
-        position={STATISTIC_ORDER.CORE(20)}
-        size="flexible"
-      >
+      <Statistic position={STATISTIC_ORDER.CORE(20)} size="flexible">
         <BoringSpellValueText spell={SPELLS.FROST_FEVER}>
           <>
             <UptimeIcon /> {formatPercentage(this.frostFeverUptime)}% <small>uptime</small>

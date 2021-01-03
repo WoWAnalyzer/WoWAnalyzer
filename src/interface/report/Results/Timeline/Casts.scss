@@ -5,7 +5,7 @@
   margin-bottom: -32px;
   height: 54px;
   height: calc(54px + var(--levels) * 25px);
-  box-shadow: 0 0 3px rgba(0, 0, 0, .3);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
   box-sizing: content-box;
 
   &:before {

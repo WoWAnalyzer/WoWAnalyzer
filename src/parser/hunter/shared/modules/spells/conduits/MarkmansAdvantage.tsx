@@ -18,7 +18,6 @@ import { formatNumber } from 'common/format';
  * https://www.warcraftlogs.com/reports/QR4PmNAWVZ3cBdvw#fight=56&type=summary&source=6
  */
 class MarkmansAdvantage extends Analyzer {
-
   static dependencies = {
     enemies: Enemies,
   };
@@ -36,7 +35,9 @@ class MarkmansAdvantage extends Analyzer {
       return;
     }
 
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.MARKMANS_ADVANTAGE_CONDUIT.id);
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(
+      SPELLS.MARKMANS_ADVANTAGE_CONDUIT.id,
+    );
     this.conduitDR = MARKMANS_ADVANTAGE_EFFECT_BY_RANK[this.conduitRank];
 
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.damageTaken);
@@ -72,9 +73,6 @@ class MarkmansAdvantage extends Analyzer {
       </Statistic>
     );
   }
-
 }
 
 export default MarkmansAdvantage;
-
-

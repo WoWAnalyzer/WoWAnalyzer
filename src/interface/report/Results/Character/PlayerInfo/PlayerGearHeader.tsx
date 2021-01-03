@@ -15,7 +15,8 @@ const PlayerGearHeader = ({ player, averageIlvl }: Props) => (
       <Link to={makeCharacterUrl(player)}>
         {player.name}
         <br></br>
-        {player.characterProfile && player.characterProfile.realm}</Link>
+        {player.characterProfile && player.characterProfile.realm}
+      </Link>
     </div>
     <div>
       {player.race && player.race.name} {player.spec.className}

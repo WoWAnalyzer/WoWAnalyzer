@@ -11,10 +11,10 @@ import { TooltipElement } from 'common/Tooltip';
 type Props = {
   language: string;
   setLanguage: Function;
-}
+};
 type State = {
   expanded: boolean;
-}
+};
 
 class LanguageSwitcher extends React.PureComponent<Props, State> {
   state: State = {
@@ -41,8 +41,9 @@ class LanguageSwitcher extends React.PureComponent<Props, State> {
   renderExpanded() {
     return (
       <ReadableListing groupType="or">
-        {Object.keys(languages).map(code => (
-          <a key={code} onClick={() => this.selectLanguage(code)}>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+        {Object.keys(languages).map((code) => (
+          <a key={code} onClick={() => this.selectLanguage(code)}>
+            {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
             {languages[code].localName}
           </a>
         ))}
@@ -57,11 +58,14 @@ class LanguageSwitcher extends React.PureComponent<Props, State> {
     }
 
     return (
-      <a onClick={this.handleClickExpand}>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
-        <TooltipElement content={t({
-          id: "interface.languageSwitcher.clickToSwitch",
-          message: `Click to switch languages. We've only just started localizing the app, it will take some time until everything is localized.`
-        })}>
+      <a onClick={this.handleClickExpand}>
+        {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+        <TooltipElement
+          content={t({
+            id: 'interface.languageSwitcher.clickToSwitch',
+            message: `Click to switch languages. We've only just started localizing the app, it will take some time until everything is localized.`,
+          })}
+        >
           {languages[language].localName}
         </TooltipElement>
       </a>

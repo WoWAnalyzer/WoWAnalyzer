@@ -3,7 +3,11 @@ import React from 'react';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import { RAPTOR_MONGOOSE_VARIANTS, TIP_DAMAGE_INCREASE, TIP_MAX_STACKS } from 'parser/hunter/survival/constants';
+import {
+  RAPTOR_MONGOOSE_VARIANTS,
+  TIP_DAMAGE_INCREASE,
+  TIP_MAX_STACKS,
+} from 'parser/hunter/survival/constants';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -32,10 +36,22 @@ class TipOfTheSpear extends Analyzer {
 
     this.active = this.selectedCombatant.hasTalent(SPELLS.TIP_OF_THE_SPEAR_TALENT.id);
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.KILL_COMMAND_CAST_SV), this.onKillCommandCast);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(RAPTOR_MONGOOSE_VARIANTS), this.onSpenderCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(RAPTOR_MONGOOSE_VARIANTS), this.onDamage);
-    this.addEventListener(Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.TIP_OF_THE_SPEAR_CAST), this.onChangeBuffStack);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.KILL_COMMAND_CAST_SV),
+      this.onKillCommandCast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(RAPTOR_MONGOOSE_VARIANTS),
+      this.onSpenderCast,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(RAPTOR_MONGOOSE_VARIANTS),
+      this.onDamage,
+    );
+    this.addEventListener(
+      Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.TIP_OF_THE_SPEAR_CAST),
+      this.onChangeBuffStack,
+    );
   }
 
   onSpenderCast() {
@@ -43,7 +59,10 @@ class TipOfTheSpear extends Analyzer {
   }
 
   onKillCommandCast(event: CastEvent) {
-    if (this.stacks === TIP_MAX_STACKS && event.timestamp > this.lastApplicationTimestamp + MS_BUFFER) {
+    if (
+      this.stacks === TIP_MAX_STACKS &&
+      event.timestamp > this.lastApplicationTimestamp + MS_BUFFER
+    ) {
       this.wastedStacks += 1;
     }
   }
@@ -70,7 +89,8 @@ class TipOfTheSpear extends Analyzer {
         <BoringSpellValueText spell={SPELLS.TIP_OF_THE_SPEAR_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} /> <br />
-            <small>Used </small>{this.usedStacks}/{this.usedStacks + this.wastedStacks} <small>possible stacks</small>
+            <small>Used </small>
+            {this.usedStacks}/{this.usedStacks + this.wastedStacks} <small>possible stacks</small>
           </>
         </BoringSpellValueText>
       </Statistic>

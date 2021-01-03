@@ -10,7 +10,7 @@ import PreparationRule from 'parser/shared/modules/features/Checklist/Preparatio
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 
 const OutlawRogueChecklist = ({ combatant, castEfficiency, thresholds }) => {
-  const AbilityRequirement = props => (
+  const AbilityRequirement = (props) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
@@ -24,17 +24,27 @@ const OutlawRogueChecklist = ({ combatant, castEfficiency, thresholds }) => {
     <Checklist>
       <Rule
         name="Maximize your Roll the Bones usage"
-        description={<>Efficient use of <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> is a critical part of Outlaw rogue. You should try to keep as high of an uptime as possible with any of the buffs, and reroll efficiently to get higher value buffs. <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> and <SpellLink id={SPELLS.GRAND_MELEE.id} /> are the highest value of the six possible buffs. You should reroll until you get one of them, or any two other buffs. Any high value roll should be kept for the full duration.</>}
+        description={
+          <>
+            Efficient use of <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> is a critical part of
+            Outlaw rogue. You should try to keep as high of an uptime as possible with any of the
+            buffs, and reroll efficiently to get higher value buffs.{' '}
+            <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> and{' '}
+            <SpellLink id={SPELLS.GRAND_MELEE.id} /> are the highest value of the six possible
+            buffs. You should reroll until you get one of them, or any two other buffs. Any high
+            value roll should be kept for the full duration.
+          </>
+        }
       >
         <Requirement
-          name={(
+          name={
             <>
               <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> uptime
             </>
-          )}
+          }
           thresholds={thresholds.rollTheBonesBuffs}
         />
-        {thresholds.rollTheBonesEfficiency.map(suggestion => (
+        {thresholds.rollTheBonesEfficiency.map((suggestion) => (
           <Requirement
             key={suggestion.label}
             name={`Reroll ${suggestion.label} efficiency`}
@@ -44,37 +54,49 @@ const OutlawRogueChecklist = ({ combatant, castEfficiency, thresholds }) => {
       </Rule>
       <Rule
         name="Use your finishers efficiently"
-        description={<>Your two damaging finishers should typically be used at maximum combo points. If you have <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> active you should prioritize <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> as your damaging finisher.</>}
+        description={
+          <>
+            Your two damaging finishers should typically be used at maximum combo points. If you
+            have <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> active you should prioritize{' '}
+            <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> as your damaging finisher.
+          </>
+        }
       >
         <Requirement name="Finisher combo point inefficiency" thresholds={thresholds.finishers} />
         <Requirement
-          name={(
+          name={
             <>
               Inefficient <SpellLink id={SPELLS.DISPATCH.id} /> casts
             </>
-          )}
+          }
           thresholds={thresholds.dispatch}
         />
         <Requirement
-          name={(
+          name={
             <>
               Inefficient <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> casts
             </>
-          )}
+          }
           thresholds={thresholds.betweenTheEyes}
         />
-
       </Rule>
       <Rule
         name="Make sure to use your opportunity procs"
-        description={<>Your <SpellLink id={SPELLS.OPPORTUNITY.id} /> proc will do more damage than a <SpellLink id={SPELLS.SINISTER_STRIKE.id} />, so make sure to use <SpellLink id={SPELLS.PISTOL_SHOT.id} /> as your combo point builder when the proc is available and you aren't already capped on combo points.</>}
+        description={
+          <>
+            Your <SpellLink id={SPELLS.OPPORTUNITY.id} /> proc will do more damage than a{' '}
+            <SpellLink id={SPELLS.SINISTER_STRIKE.id} />, so make sure to use{' '}
+            <SpellLink id={SPELLS.PISTOL_SHOT.id} /> as your combo point builder when the proc is
+            available and you aren't already capped on combo points.
+          </>
+        }
       >
         <Requirement
-          name={(
+          name={
             <>
               Delayed <SpellLink id={SPELLS.OPPORTUNITY.id} /> procs
             </>
-          )}
+          }
           thresholds={thresholds.opportunity}
         />
       </Rule>
@@ -84,7 +106,10 @@ const OutlawRogueChecklist = ({ combatant, castEfficiency, thresholds }) => {
       >
         <Requirement name="Energy generator efficiency" thresholds={thresholds.energyEfficiency} />
         <Requirement name="Combo Point efficiency" thresholds={thresholds.comboPointEfficiency} />
-        <Requirement name="Energy regeneration efficiency" thresholds={thresholds.energyCapEfficiency} />
+        <Requirement
+          name="Energy regeneration efficiency"
+          thresholds={thresholds.energyCapEfficiency}
+        />
       </Rule>
       <Rule
         name="Use your cooldowns"

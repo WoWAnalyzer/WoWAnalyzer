@@ -18,12 +18,15 @@ class AngelsMercy extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ANGELS_MERCY_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DESPERATE_PRAYER), this.onCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DESPERATE_PRAYER),
+      this.onCast,
+    );
   }
 
   onCast(event: CastEvent) {
     if (this.desperatePrayersCast > 0) {
-      const timeSinceLastDP = (event.timestamp - this.lastDesperatePrayerTimestamp);
+      const timeSinceLastDP = event.timestamp - this.lastDesperatePrayerTimestamp;
       const timeReduced = DESPERATE_PRAYER_BASE_COOLDOWN - timeSinceLastDP;
       if (timeReduced > 0) {
         this.desperatePrayerTimeReduced += DESPERATE_PRAYER_BASE_COOLDOWN - timeSinceLastDP;
@@ -40,9 +43,10 @@ class AngelsMercy extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(2)}
-      ><BoringSpellValueText spell={SPELLS.ANGELS_MERCY_TALENT}>
-        {Math.floor(this.desperatePrayerTimeReduced / 1000)}s Cooldown Reduction Used
-      </BoringSpellValueText>
+      >
+        <BoringSpellValueText spell={SPELLS.ANGELS_MERCY_TALENT}>
+          {Math.floor(this.desperatePrayerTimeReduced / 1000)}s Cooldown Reduction Used
+        </BoringSpellValueText>
       </Statistic>
     );
   }

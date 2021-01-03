@@ -14,9 +14,11 @@ import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from '../../constants';
 const DAMAGE_BONUS = 0.1;
 
 class ElaboratePlanning extends Analyzer {
-
   get percentUptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.ELABORATE_PLANNING_BUFF.id) / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.ELABORATE_PLANNING_BUFF.id) /
+      this.owner.fightDuration
+    );
   }
 
   bonusDmg = 0;
@@ -27,11 +29,17 @@ class ElaboratePlanning extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_DAMAGE_INCREASES), this.addBonusDamageIfBuffed);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_DAMAGE_INCREASES),
+      this.addBonusDamageIfBuffed,
+    );
   }
 
   addBonusDamageIfBuffed(event) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.ELABORATE_PLANNING_BUFF.id) && !this.selectedCombatant.hasBuff(SPELLS.VANISH_BUFF.id)) {
+    if (
+      !this.selectedCombatant.hasBuff(SPELLS.ELABORATE_PLANNING_BUFF.id) &&
+      !this.selectedCombatant.hasBuff(SPELLS.VANISH_BUFF.id)
+    ) {
       return;
     }
     this.bonusDmg += calculateEffectiveDamage(event, DAMAGE_BONUS);
@@ -47,7 +55,6 @@ class ElaboratePlanning extends Analyzer {
       />
     );
   }
-
 }
 
 export default ElaboratePlanning;

@@ -32,28 +32,33 @@ class SunfireUptime extends Analyzer {
   statisticOrder = STATISTIC_ORDER.CORE(7);
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.SUNFIRE.id} /> uptime can be improved. Try to pay more attention to your Sunfire on the boss.</>)
-      .icon(SPELLS.SUNFIRE.icon)
-      .actual(t({
-      id: "druid.balance.suggestions.sunfire.uptime",
-      message: `${formatPercentage(actual)}% Sunfire uptime`
-    }))
-      .recommended(`>${formatPercentage(recommended)}% is recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your <SpellLink id={SPELLS.SUNFIRE.id} /> uptime can be improved. Try to pay more
+          attention to your Sunfire on the boss.
+        </>,
+      )
+        .icon(SPELLS.SUNFIRE.icon)
+        .actual(
+          t({
+            id: 'druid.balance.suggestions.sunfire.uptime',
+            message: `${formatPercentage(actual)}% Sunfire uptime`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
     const sunfireUptime = this.enemies.getBuffUptime(SPELLS.SUNFIRE.id) / this.owner.fightDuration;
     return (
-      <Statistic
-        position={STATISTIC_ORDER.CORE(4)}
-        size="flexible"
-      >
+      <Statistic position={STATISTIC_ORDER.CORE(4)} size="flexible">
         <BoringSpellValueText spell={SPELLS.SUNFIRE}>
           <>
             <UptimeIcon /> {formatPercentage(sunfireUptime)} % <small>uptime</small>
           </>
         </BoringSpellValueText>
-
       </Statistic>
     );
   }

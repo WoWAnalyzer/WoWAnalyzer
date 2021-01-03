@@ -32,10 +32,9 @@ class Stormkeeper extends Analyzer {
 
     this.active = this.selectedCombatant.hasTalent(SPELLS.STORMKEEPER_TALENT_ENHANCEMENT.id);
 
-    AFFECTED_SPELLS.forEach(affectedSpell => {
+    AFFECTED_SPELLS.forEach((affectedSpell) => {
       this.addEventListener(
-        Events.damage.by(SELECTED_PLAYER)
-          .spell(affectedSpell),
+        Events.damage.by(SELECTED_PLAYER).spell(affectedSpell),
         this.onSpellDamage,
       );
     });
@@ -63,11 +62,14 @@ class Stormkeeper extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={`Buffed casts contributed ${formatNumber(this.damageDoneByBuffedCasts)} damage (${formatPercentage(this.damagePercent)}% of your damage)`}
+        tooltip={`Buffed casts contributed ${formatNumber(
+          this.damageDoneByBuffedCasts,
+        )} damage (${formatPercentage(this.damagePercent)}% of your damage)`}
       >
         <BoringSpellValueText spell={SPELLS.STORMKEEPER_TALENT_ENHANCEMENT}>
           <>
-            <ItemDamageDone amount={this.damageDoneByBuffedCasts} /><br />
+            <ItemDamageDone amount={this.damageDoneByBuffedCasts} />
+            <br />
           </>
         </BoringSpellValueText>
       </Statistic>

@@ -8,7 +8,10 @@ class HealingDone extends CoreHealingDone {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.SPIRIT_LINK_TOTEM_REDISTRIBUTE), this.onSLTDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.SPIRIT_LINK_TOTEM_REDISTRIBUTE),
+      this.onSLTDamage,
+    );
   }
 
   onSLTDamage(event: DamageEvent) {

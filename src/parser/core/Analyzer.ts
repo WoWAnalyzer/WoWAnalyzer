@@ -1,18 +1,14 @@
 import React from 'react';
 
 import EventSubscriber, { EventListener, Options as _Options } from './EventSubscriber';
-import EventFilter, {
-  SELECTED_PLAYER,
-  SELECTED_PLAYER_PET,
-} from './EventFilter';
+import EventFilter, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from './EventFilter';
 import { When } from './ParseResults';
 import { EventType, MappedEvent } from './Events';
 
 export { SELECTED_PLAYER, SELECTED_PLAYER_PET };
-export type Options = _Options
+export type Options = _Options;
 
 class Analyzer extends EventSubscriber {
-
   /**
    * Called when the parser finished initializing; after all required
    * dependencies are loaded, normalizers have ran and combatants were

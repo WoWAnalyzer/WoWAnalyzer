@@ -20,8 +20,14 @@ class ImpendingVicory extends Analyzer {
       return;
     }
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.IMPENDING_VICTORY_TALENT_HEAL), this.onImpendingVictoryHeal);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.IMPENDING_VICTORY_TALENT), this.onImpendingVictoryDamage);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.IMPENDING_VICTORY_TALENT_HEAL),
+      this.onImpendingVictoryHeal,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.IMPENDING_VICTORY_TALENT),
+      this.onImpendingVictoryDamage,
+    );
   }
 
   get percentageDamage() {
@@ -41,12 +47,17 @@ class ImpendingVicory extends Analyzer {
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={<><strong>{formatThousands(this.totalDamage)} ({formatPercentage(this.percentageDamage)}%)</strong> damage was done by Impending Victory.</>}
+        tooltip={
+          <>
+            <strong>
+              {formatThousands(this.totalDamage)} ({formatPercentage(this.percentageDamage)}%)
+            </strong>{' '}
+            damage was done by Impending Victory.
+          </>
+        }
       >
         <BoringSpellValueText spell={SPELLS.IMPENDING_VICTORY_TALENT}>
-          <>
-            {formatNumber(this.totalHeal)} Healing
-          </>
+          <>{formatNumber(this.totalHeal)} Healing</>
         </BoringSpellValueText>
       </Statistic>
     );

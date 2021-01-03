@@ -16,7 +16,10 @@ class LiquidMagmaTotem extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.LIQUID_MAGMA_TOTEM_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LIQUID_MAGMA_TOTEM_DAMAGE), this.onLMTDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LIQUID_MAGMA_TOTEM_DAMAGE),
+      this.onLMTDamage,
+    );
   }
 
   onLMTDamage(event: DamageEvent) {
@@ -25,10 +28,7 @@ class LiquidMagmaTotem extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        position={STATISTIC_ORDER.OPTIONAL()}
-        size="flexible"
-      >
+      <Statistic position={STATISTIC_ORDER.OPTIONAL()} size="flexible">
         <BoringSpellValueText spell={SPELLS.LIQUID_MAGMA_TOTEM_TALENT}>
           <>
             <ItemDamageDone amount={this.damageGained} />

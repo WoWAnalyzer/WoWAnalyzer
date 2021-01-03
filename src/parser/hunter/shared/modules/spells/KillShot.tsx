@@ -27,7 +27,10 @@ class KillShot extends ExecuteHelper {
   };
 
   maxCasts: number = 0;
-  activeKillShotSpell = this.selectedCombatant.spec === SPECS.SURVIVAL_HUNTER ? SPELLS.KILL_SHOT_SV : SPELLS.KILL_SHOT_MM_BM;
+  activeKillShotSpell =
+    this.selectedCombatant.spec === SPECS.SURVIVAL_HUNTER
+      ? SPELLS.KILL_SHOT_SV
+      : SPELLS.KILL_SHOT_MM_BM;
 
   protected abilities!: Abilities;
   protected flayedShot!: FlayedShot;

@@ -1,4 +1,4 @@
-import { Boss } from "raids/index";
+import { Boss } from 'raids/index';
 import DIFFICULTIES from 'game/DIFFICULTIES';
 import { EventType } from 'parser/core/Events';
 
@@ -22,14 +22,22 @@ const HuntsmanAltimor: Boss = {
       P1: {
         name: 'Stage 1: Margore',
         multiple: false,
-        key: "P1",
-        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
+        key: 'P1',
+        difficulties: [
+          DIFFICULTIES.NORMAL_RAID,
+          DIFFICULTIES.HEROIC_RAID,
+          DIFFICULTIES.MYTHIC_RAID,
+        ],
       },
       P2: {
-        key: "P2",
+        key: 'P2',
         name: 'Stage 2: Bargast',
         multiple: false,
-        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
+        difficulties: [
+          DIFFICULTIES.NORMAL_RAID,
+          DIFFICULTIES.HEROIC_RAID,
+          DIFFICULTIES.MYTHIC_RAID,
+        ],
         filter: {
           type: EventType.Health,
           guid: 169457,
@@ -38,10 +46,14 @@ const HuntsmanAltimor: Boss = {
         },
       },
       P3: {
-        key: "P3",
+        key: 'P3',
         name: 'Stage 3: Hecutis',
         multiple: false,
-        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
+        difficulties: [
+          DIFFICULTIES.NORMAL_RAID,
+          DIFFICULTIES.HEROIC_RAID,
+          DIFFICULTIES.MYTHIC_RAID,
+        ],
         filter: {
           type: EventType.Health,
           guid: 169458,
@@ -53,4 +65,4 @@ const HuntsmanAltimor: Boss = {
   },
 };
 
-export default HuntsmanAltimor
+export default HuntsmanAltimor;

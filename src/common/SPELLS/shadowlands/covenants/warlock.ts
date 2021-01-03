@@ -17,7 +17,7 @@ const covenants = {
   DECIMATING_BOLT: {
     id: 325289,
     name: 'Decimating Bolt',
-    icon: 'ability_maldraxxus_warlock'
+    icon: 'ability_maldraxxus_warlock',
   },
 
   //Night Fae

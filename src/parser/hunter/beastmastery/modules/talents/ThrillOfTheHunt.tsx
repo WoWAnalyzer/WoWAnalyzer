@@ -7,7 +7,13 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import CriticalStrike from 'interface/icons/CriticalStrike';
-import Events, { ApplyBuffEvent, ApplyBuffStackEvent, EventType, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  EventType,
+  FightEndEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 import { CRIT_PER_THRILL_STACK, MAX_THRILL_STACKS } from 'parser/hunter/beastmastery/constants';
 
@@ -19,7 +25,6 @@ import { CRIT_PER_THRILL_STACK, MAX_THRILL_STACKS } from 'parser/hunter/beastmas
  */
 
 class ThrillOfTheHunt extends Analyzer {
-
   thrillStacks: number[][] = [];
   lastThrillStack = 0;
   lastThrillUpdate = this.owner.fight.start_time;
@@ -30,10 +35,19 @@ class ThrillOfTheHunt extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.thrillStacks = Array.from({ length: MAX_THRILL_STACKS + 1 }, x => []);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.THRILL_OF_THE_HUNT_BUFF), this.handleStacks);
-    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.THRILL_OF_THE_HUNT_BUFF), this.handleStacks);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.THRILL_OF_THE_HUNT_BUFF), this.handleStacks);
+    this.thrillStacks = Array.from({ length: MAX_THRILL_STACKS + 1 }, (x) => []);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.THRILL_OF_THE_HUNT_BUFF),
+      this.handleStacks,
+    );
+    this.addEventListener(
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.THRILL_OF_THE_HUNT_BUFF),
+      this.handleStacks,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.THRILL_OF_THE_HUNT_BUFF),
+      this.handleStacks,
+    );
     this.addEventListener(Events.fightend, this.handleStacks);
   }
 
@@ -48,7 +62,10 @@ class ThrillOfTheHunt extends Analyzer {
   get averageCritPercent() {
     let averageCrit = 0;
     this.thrillStacks.forEach((elem, index) => {
-      averageCrit += elem.reduce((a, b) => a + b, 0) / this.owner.fightDuration * index * CRIT_PER_THRILL_STACK;
+      averageCrit +=
+        (elem.reduce((a, b) => a + b, 0) / this.owner.fightDuration) *
+        index *
+        CRIT_PER_THRILL_STACK;
     });
     return formatPercentage(averageCrit);
   }
@@ -68,7 +85,7 @@ class ThrillOfTheHunt extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        dropdown={(
+        dropdown={
           <>
             <table className="table table-condensed">
               <thead>
@@ -84,14 +101,16 @@ class ThrillOfTheHunt extends Analyzer {
                   <tr key={i}>
                     <th>{i}</th>
                     <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
-                    <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
+                    <td>
+                      {formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%
+                    </td>
                     <td>{formatPercentage(CRIT_PER_THRILL_STACK * i, 0)}%</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.THRILL_OF_THE_HUNT_TALENT}>
           <>

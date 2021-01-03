@@ -31,7 +31,10 @@ class FesteringStrikeEfficiency extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FESTERING_STRIKE), this.onCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FESTERING_STRIKE),
+      this.onCast,
+    );
   }
 
   totalFesteringStrikeCasts = 0;
@@ -50,30 +53,41 @@ class FesteringStrikeEfficiency extends Analyzer {
   }
 
   get strikeEfficiency(): number {
-    return 1 - (this.festeringStrikeCastsOverSafeCount / this.totalFesteringStrikeCasts);
+    return 1 - this.festeringStrikeCastsOverSafeCount / this.totalFesteringStrikeCasts;
   }
 
   get suggestionThresholds() {
     return {
       actual: this.strikeEfficiency,
       isLessThan: {
-        minor: .80,
-        average: .70,
-        major: .60,
+        minor: 0.8,
+        average: 0.7,
+        major: 0.6,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>You are casting <SpellLink id={SPELLS.FESTERING_STRIKE.id} /> too often. When spending runes remember to cast <SpellLink id={SPELLS.SCOURGE_STRIKE.id} /> instead on targets with more than three stacks of <SpellLink id={SPELLS.FESTERING_WOUND.id} /></>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You are casting <SpellLink id={SPELLS.FESTERING_STRIKE.id} /> too often. When spending
+          runes remember to cast <SpellLink id={SPELLS.SCOURGE_STRIKE.id} /> instead on targets with
+          more than three stacks of <SpellLink id={SPELLS.FESTERING_WOUND.id} />
+        </>,
+      )
         .icon(SPELLS.FESTERING_STRIKE.icon)
-        .actual(t({
-      id: "deathknight.unholy.suggestions.festeringStrikes.efficiency",
-      message: `${formatPercentage(actual)}% of Festering Strikes did not risk overcapping Festering Wounds`
-    }))
-        .recommended(`>${formatPercentage(recommended)}% is recommended`));
+        .actual(
+          t({
+            id: 'deathknight.unholy.suggestions.festeringStrikes.efficiency',
+            message: `${formatPercentage(
+              actual,
+            )}% of Festering Strikes did not risk overcapping Festering Wounds`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {

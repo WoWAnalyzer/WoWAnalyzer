@@ -12,20 +12,21 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FISTS_OF_FURY_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 24 / (1 + haste),
+        cooldown: (haste) => 24 / (1 + haste),
         gcd: {
           static: 1000,
         },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
-          extraSuggestion: 'Delaying the cast somewhat to line up with add spawns is acceptable, however.',
+          extraSuggestion:
+            'Delaying the cast somewhat to line up with add spawns is acceptable, however.',
         },
       },
       {
         spell: SPELLS.RISING_SUN_KICK,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => (10 / (1 + haste)),
+        cooldown: (haste) => 10 / (1 + haste),
         gcd: {
           static: 1000,
         },
@@ -36,7 +37,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.WHIRLING_DRAGON_PUNCH_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 24 / (1 + haste),
+        cooldown: (haste) => 24 / (1 + haste),
         gcd: {
           static: 1000,
         },
@@ -44,7 +45,8 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
-          extraSuggestion: 'Delaying the cast somewhat to line up with add spawns is acceptable, however.',
+          extraSuggestion:
+            'Delaying the cast somewhat to line up with add spawns is acceptable, however.',
         },
       },
       {
@@ -121,7 +123,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RUSHING_JADE_WIND_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        cooldown: haste => 6 / (1 + haste),
+        cooldown: (haste) => 6 / (1 + haste),
         gcd: {
           static: 1000,
         },
@@ -137,7 +139,8 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.6,
-          extraSuggestion: "Touch of Karma is typically used offensively as often as possible, but use changes a lot varying on the encounter",
+          extraSuggestion:
+            'Touch of Karma is typically used offensively as often as possible, but use changes a lot varying on the encounter',
         },
       },
       {

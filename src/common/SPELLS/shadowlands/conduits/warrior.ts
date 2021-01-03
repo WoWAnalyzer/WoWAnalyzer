@@ -1,22 +1,26 @@
 const conduits = {
   // Potency
   // Generic
-  PIERCING_VERDICT: {//kyrian
+  PIERCING_VERDICT: {
+    //kyrian
     id: 339259,
     name: 'Piercing Verdict',
     icon: 'ability_bastion_warrior',
   },
-  VETERANS_REPUTE: {//necrolord
+  VETERANS_REPUTE: {
+    //necrolord
     id: 339265,
-    name: 'Veteran\'s Repute',
+    name: "Veteran's Repute",
     icon: 'spell_animamaldraxxus_buff',
   },
-  HARROWING_PUNISHMENT: {//venthyr
+  HARROWING_PUNISHMENT: {
+    //venthyr
     id: 339370,
     name: 'Harrowing Punishment',
     icon: 'spell_animarevendreth_debuff',
   },
-  DESTRUCTIVE_REVERBERATIONS: {//nightfae
+  DESTRUCTIVE_REVERBERATIONS: {
+    //nightfae
     id: 339939,
     name: 'Destructive Reverberations',
     icon: 'spell_animaardenweald_wave',
@@ -44,7 +48,6 @@ const conduits = {
     name: 'Mortal Combo',
     icon: 'warrior_talent_icon_igniteweapon',
   },
-
 
   // Fury
   DEPTHS_OF_INSANITY: {
@@ -104,6 +107,5 @@ const conduits = {
     name: 'Fueled by Violence',
     icon: 'ability_demonhunter_bloodlet',
   },
-
 } as const;
 export default conduits;

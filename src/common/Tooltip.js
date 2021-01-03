@@ -38,14 +38,7 @@ export default class Tooltip extends React.Component {
   };
 
   render() {
-    const {
-      content,
-      children,
-      className,
-      direction,
-      hoverable,
-      ...others
-    } = this.props;
+    const { content, children, className, direction, hoverable, ...others } = this.props;
     return (
       <ReactTooltip
         className={className}

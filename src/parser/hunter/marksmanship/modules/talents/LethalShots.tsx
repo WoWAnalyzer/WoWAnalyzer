@@ -9,7 +9,11 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import SPELLS from 'common/SPELLS';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { MS_BUFFER } from 'parser/hunter/shared/constants';
-import { ARCANE_SHOT_MAX_TRAVEL_TIME, LETHAL_SHOTS_CHANCE, LETHAL_SHOTS_REDUCTION } from 'parser/hunter/marksmanship/constants';
+import {
+  ARCANE_SHOT_MAX_TRAVEL_TIME,
+  LETHAL_SHOTS_CHANCE,
+  LETHAL_SHOTS_REDUCTION,
+} from 'parser/hunter/marksmanship/constants';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SpellLink from 'common/SpellLink';
 import { t } from '@lingui/macro';
@@ -21,7 +25,6 @@ import { t } from '@lingui/macro';
  *
  */
 class LethalShots extends Analyzer {
-
   static dependencies = {
     spellUsable: SpellUsable,
   };
@@ -36,8 +39,23 @@ class LethalShots extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.LETHAL_SHOTS_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM, SPELLS.CHIMAERA_SHOT_TALENT_MARKSMANSHIP]), this.castChecker);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM, SPELLS.CHIMAERA_SHOT_MM_NATURE_DAMAGE, SPELLS.CHIMAERA_SHOT_MM_FROST_DAMAGE]), this.onPotentialProc);
+    this.addEventListener(
+      Events.cast
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM, SPELLS.CHIMAERA_SHOT_TALENT_MARKSMANSHIP]),
+      this.castChecker,
+    );
+    this.addEventListener(
+      Events.damage
+        .by(SELECTED_PLAYER)
+        .spell([
+          SPELLS.ARCANE_SHOT,
+          SPELLS.MULTISHOT_MM,
+          SPELLS.CHIMAERA_SHOT_MM_NATURE_DAMAGE,
+          SPELLS.CHIMAERA_SHOT_MM_FROST_DAMAGE,
+        ]),
+      this.onPotentialProc,
+    );
   }
 
   get wastedPotentialCDR() {
@@ -81,7 +99,12 @@ class LethalShots extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.LETHAL_SHOTS_TALENT}>
           <>
-            ≈{(Math.round(this.procChances * LETHAL_SHOTS_CHANCE) * (LETHAL_SHOTS_REDUCTION / 1000)).toFixed(1)}s <small> potential Rapid Fire CDR</small>
+            ≈
+            {(
+              Math.round(this.procChances * LETHAL_SHOTS_CHANCE) *
+              (LETHAL_SHOTS_REDUCTION / 1000)
+            ).toFixed(1)}
+            s <small> potential Rapid Fire CDR</small>
           </>
         </BoringSpellValueText>
       </Statistic>
@@ -89,17 +112,30 @@ class LethalShots extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.wastedPotentialCDR).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        You cast {this.selectedCombatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT_MARKSMANSHIP) ? <SpellLink id={SPELLS.CHIMAERA_SHOT_TALENT_MARKSMANSHIP.id} /> : <SpellLink id={SPELLS.ARCANE_SHOT.id} />} or <SpellLink id={SPELLS.MULTISHOT_MM.id} /> whilst <SpellLink id={SPELLS.RAPID_FIRE.id} /> wasn't on cooldown. You want to try and avoid this when using <SpellLink id={SPELLS.LETHAL_SHOTS_TALENT.id} />, as it is wasting potential cooldown reduction.
-      </>,
-    )
-      .icon(SPELLS.LETHAL_SHOTS_TALENT.icon)
-      .actual(t({
-      id: "hunter.marksmanship.suggestions.lethalShots.efficiency",
-      message: `${actual} Lethal Shot trigger casts while Rapid Fire wasn't on cooldown`
-    }))
-      .recommended(`${recommended} bad casts are recommended`));
+    when(this.wastedPotentialCDR).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You cast{' '}
+          {this.selectedCombatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT_MARKSMANSHIP) ? (
+            <SpellLink id={SPELLS.CHIMAERA_SHOT_TALENT_MARKSMANSHIP.id} />
+          ) : (
+            <SpellLink id={SPELLS.ARCANE_SHOT.id} />
+          )}{' '}
+          or <SpellLink id={SPELLS.MULTISHOT_MM.id} /> whilst{' '}
+          <SpellLink id={SPELLS.RAPID_FIRE.id} /> wasn't on cooldown. You want to try and avoid this
+          when using <SpellLink id={SPELLS.LETHAL_SHOTS_TALENT.id} />, as it is wasting potential
+          cooldown reduction.
+        </>,
+      )
+        .icon(SPELLS.LETHAL_SHOTS_TALENT.icon)
+        .actual(
+          t({
+            id: 'hunter.marksmanship.suggestions.lethalShots.efficiency',
+            message: `${actual} Lethal Shot trigger casts while Rapid Fire wasn't on cooldown`,
+          }),
+        )
+        .recommended(`${recommended} bad casts are recommended`),
+    );
   }
 }
 

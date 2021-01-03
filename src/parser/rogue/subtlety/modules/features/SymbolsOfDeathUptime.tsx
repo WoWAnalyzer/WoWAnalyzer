@@ -18,13 +18,17 @@ class SymbolsOfDeathUptime extends Analyzer {
   protected enemies!: Enemies;
 
   statistic() {
-    const symbolsOfDeathUptime = this.selectedCombatant.getBuffUptime(SPELLS.SYMBOLS_OF_DEATH.id) / this.owner.fightDuration;
+    const symbolsOfDeathUptime =
+      this.selectedCombatant.getBuffUptime(SPELLS.SYMBOLS_OF_DEATH.id) / this.owner.fightDuration;
     return (
-      <Statistic
-        size="flexible"
-        category={STATISTIC_CATEGORY.GENERAL}
-      >
-        <BoringValueText label={<><SpellIcon id={SPELLS.SYMBOLS_OF_DEATH.id} /> Symbols of Death Uptime</>}>
+      <Statistic size="flexible" category={STATISTIC_CATEGORY.GENERAL}>
+        <BoringValueText
+          label={
+            <>
+              <SpellIcon id={SPELLS.SYMBOLS_OF_DEATH.id} /> Symbols of Death Uptime
+            </>
+          }
+        >
           {formatPercentage(symbolsOfDeathUptime)} %
         </BoringValueText>
       </Statistic>

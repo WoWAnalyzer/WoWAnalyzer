@@ -12,16 +12,24 @@ import Events from 'parser/core/Events';
  */
 
 class SuddenDeath extends Analyzer {
-
   totalProc = 0;
   totalDamages = 0;
 
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SUDDEN_DEATH_TALENT_ARMS.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.EXECUTE_DAMAGE), this._onExecuteDamage);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SUDDEN_DEATH_ARMS_TALENT_BUFF), this._countSuddenDeathProc);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.SUDDEN_DEATH_ARMS_TALENT_BUFF), this._countSuddenDeathProc);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.EXECUTE_DAMAGE),
+      this._onExecuteDamage,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SUDDEN_DEATH_ARMS_TALENT_BUFF),
+      this._countSuddenDeathProc,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.SUDDEN_DEATH_ARMS_TALENT_BUFF),
+      this._countSuddenDeathProc,
+    );
   }
 
   _onExecuteDamage(event) {
@@ -38,7 +46,12 @@ class SuddenDeath extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.EXECUTE_DAMAGE.id} /> with <SpellLink id={SPELLS.SUDDEN_DEATH_TALENT_ARMS.id} /> damage</>}
+        title={
+          <>
+            <SpellLink id={SPELLS.EXECUTE_DAMAGE.id} /> with{' '}
+            <SpellLink id={SPELLS.SUDDEN_DEATH_TALENT_ARMS.id} /> damage
+          </>
+        }
         value={formatNumber(this.totalDamages)}
         valueTooltip={`Total Execute damage while Sudden Death was active (${this.totalProc} proc)`}
       />

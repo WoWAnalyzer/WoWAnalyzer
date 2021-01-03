@@ -29,12 +29,20 @@ abstract class SuggestionAssertion<T extends number | boolean> {
 
   addSuggestion(func: (suggest: SuggestionFactory, actual: T, recommended: T) => Suggestion) {
     if (this._isApplicable()) {
-      const suggestion = func((suggestionText: React.ReactNode) => new Suggestion(suggestionText), this._actual, this._triggerThreshold);
+      const suggestion = func(
+        (suggestionText: React.ReactNode) => new Suggestion(suggestionText),
+        this._actual,
+        this._triggerThreshold,
+      );
 
       this._addIssue({
         issue: suggestion._text,
         // stat is a string and not a React node on purpose: this is quicker and we don't want the stats to become complicated
-        stat: suggestion._actualText ? <>{suggestion._actualText} ({suggestion._recommendedText})</> : null,
+        stat: suggestion._actualText ? (
+          <>
+            {suggestion._actualText} ({suggestion._recommendedText})
+          </>
+        ) : null,
         icon: suggestion._icon,
         importance: this._getIssueImportance(suggestion),
         details: suggestion._details,
@@ -106,7 +114,7 @@ export class NumberSuggestionAssertion extends SuggestionAssertion<number> {
       threshold = threshold.minor ?? threshold.average ?? threshold.major;
     }
     if (threshold === undefined) {
-      throw new Error("You must set a number threshold before finalizing the suggestion");
+      throw new Error('You must set a number threshold before finalizing the suggestion');
     }
     return threshold;
   }
@@ -187,8 +195,8 @@ export class BoolSuggestionAssertion extends SuggestionAssertion<boolean> {
   }
 
   get _triggerThreshold(): boolean {
-    if(this._compareTo === undefined) {
-      throw new Error("You must set a boolean target before finalizing the suggestion");
+    if (this._compareTo === undefined) {
+      throw new Error('You must set a boolean target before finalizing the suggestion');
     }
     return this._compareTo;
   }
@@ -258,12 +266,12 @@ class Suggestion {
 }
 
 export type Issue = {
-  icon?: string,
-  issue: React.ReactNode,
-  stat?: React.ReactNode,
-  importance: ISSUE_IMPORTANCE,
-  details: (() => React.ReactNode) | null
-}
+  icon?: string;
+  issue: React.ReactNode;
+  stat?: React.ReactNode;
+  importance: ISSUE_IMPORTANCE;
+  details: (() => React.ReactNode) | null;
+};
 
 export enum ThresholdStyle {
   BOOLEAN = 'boolean',
@@ -275,51 +283,55 @@ export enum ThresholdStyle {
 }
 
 export interface Threshold<T extends number | boolean> {
-  style: ThresholdStyle,
-  actual: T,
+  style: ThresholdStyle;
+  actual: T;
 }
 
 export type ThresholdRange = {
-  minor?: number,
-  average?: number,
-  major?: number,
-}
+  minor?: number;
+  average?: number;
+  major?: number;
+};
 
 /* If you're looking here to fix an error, it's likely that you either:
   a) declared more than one comparator for the threshold (i.e isEqual and isLess than, etc.)
   b) didn't declare one at all
  */
 interface BaseNumberThreshold extends Threshold<number> {
-  max?: number,
+  max?: number;
   // Require exactly one of the below
-  isEqual: number,
-  isLessThan: ThresholdRange,
-  isGreaterThan: ThresholdRange,
-  isGreaterThanOrEqual: ThresholdRange,
-  isLessThanOrEqual: ThresholdRange,
+  isEqual: number;
+  isLessThan: ThresholdRange;
+  isGreaterThan: ThresholdRange;
+  isGreaterThanOrEqual: ThresholdRange;
+  isLessThanOrEqual: ThresholdRange;
 }
 
-export type NumberThreshold = RequireExactlyOne<BaseNumberThreshold,
-  'isEqual' | 'isLessThan' | 'isGreaterThan' | 'isGreaterThanOrEqual' | 'isLessThanOrEqual'>
+export type NumberThreshold = RequireExactlyOne<
+  BaseNumberThreshold,
+  'isEqual' | 'isLessThan' | 'isGreaterThan' | 'isGreaterThanOrEqual' | 'isLessThanOrEqual'
+>;
 
 export interface BoolThreshold extends Threshold<boolean> {
-  isEqual: boolean,
+  isEqual: boolean;
 }
 
 // https://github.com/sindresorhus/type-fest/blob/master/source/require-exactly-one.d.ts
-type RequireExactlyOne<T, Keys extends keyof T = keyof T> =
-  Pick<T, Exclude<keyof T, Keys>>
-  & { [K in Keys]-?:
-  Required<Pick<T, K>>
-  & Partial<Record<Exclude<Keys, K>, undefined>>
-}[Keys];
+type RequireExactlyOne<T, Keys extends keyof T = keyof T> = Pick<T, Exclude<keyof T, Keys>> &
+  {
+    [K in Keys]-?: Required<Pick<T, K>> & Partial<Record<Exclude<Keys, K>, undefined>>;
+  }[Keys];
 
 export type ValidThresholds = number | boolean | BoolThreshold | NumberThreshold;
-type GenericSuggestionType<T extends ValidThresholds> =
-  T extends number ? NumberSuggestionAssertion :
-    T extends boolean ? BoolSuggestionAssertion :
-      T extends NumberThreshold ? NumberSuggestionAssertion :
-        T extends BoolThreshold ? BoolSuggestionAssertion : never;
+type GenericSuggestionType<T extends ValidThresholds> = T extends number
+  ? NumberSuggestionAssertion
+  : T extends boolean
+  ? BoolSuggestionAssertion
+  : T extends NumberThreshold
+  ? NumberSuggestionAssertion
+  : T extends BoolThreshold
+  ? BoolSuggestionAssertion
+  : never;
 
 export type When = <T extends ValidThresholds>(threshold: T) => GenericSuggestionType<T>;
 
@@ -342,20 +354,20 @@ class ParseResults {
     we can typecheck everything else while keeping the "bad" code into this one method with the ts-ignores.
     */
     when: <T extends ValidThresholds>(threshold: T): GenericSuggestionType<T> => {
-      if (typeof threshold === "number") {
+      if (typeof threshold === 'number') {
         // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
         return new NumberSuggestionAssertion(threshold, this.addIssue);
-      } else if (typeof threshold === "string") {
-        captureException(new Error("Sent string threshold, only number and boolean allowed"));
+      } else if (typeof threshold === 'string') {
+        captureException(new Error('Sent string threshold, only number and boolean allowed'));
         // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore TODO find all instances of javascript sending in formatted numbers here (via captured error above), then remove this
         return new NumberSuggestionAssertion(Number(threshold), this.addIssue);
-      } else if (typeof threshold === "boolean") {
+      } else if (typeof threshold === 'boolean') {
         // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
         return new BoolSuggestionAssertion(threshold, this.addIssue);
-      } else if (typeof threshold === "object") {
+      } else if (typeof threshold === 'object') {
         const th = threshold as Threshold<any>;
         switch (th.style) {
           case ThresholdStyle.BOOLEAN:
@@ -368,10 +380,9 @@ class ParseResults {
             return new NumberSuggestionAssertion(threshold, this.addIssue);
         }
       }
-      throw new Error("Invalid threshold type");
+      throw new Error('Invalid threshold type');
     },
-  }
-
+  };
 }
 
 export default ParseResults;

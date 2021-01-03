@@ -18,8 +18,14 @@ class InvokeYulon extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH), this.handleEnvelopingBreath);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_BREATH), this.handleSoothingBreath);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH),
+      this.handleEnvelopingBreath,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_BREATH),
+      this.handleSoothingBreath,
+    );
   }
 
   handleEnvelopingBreath(event: HealEvent) {
@@ -46,7 +52,8 @@ class InvokeYulon extends Analyzer {
         }
       >
         <BoringSpellValueText spell={SPELLS.INVOKE_YULON_THE_JADE_SERPENT}>
-          <ItemHealingDone amount={this.soothHealing + this.envelopHealing} /><br />
+          <ItemHealingDone amount={this.soothHealing + this.envelopHealing} />
+          <br />
         </BoringSpellValueText>
       </Statistic>
     );

@@ -92,7 +92,9 @@ async function rawFetchWcl(endpoint: string, queryParams: QueryParams) {
   const response = await fetch(url);
 
   if (Object.values(HTTP_CODES.CLOUDFLARE).includes(response.status)) {
-    throw new ApiDownError('The API is currently down. This is usually for maintenance which should only take about 10 seconds. Please try again in a moment.');
+    throw new ApiDownError(
+      'The API is currently down. This is usually for maintenance which should only take about 10 seconds. Please try again in a moment.',
+    );
   }
   const json = await toJson(response);
 
@@ -122,25 +124,33 @@ async function rawFetchWcl(endpoint: string, queryParams: QueryParams) {
 const defaultOptions: WclOptions = {
   timeout: 10000,
 };
-export default function fetchWcl<T extends WCLResponseJSON>(endpoint: string, queryParams: QueryParams, options?: WclOptions): Promise<T> {
+export default function fetchWcl<T extends WCLResponseJSON>(
+  endpoint: string,
+  queryParams: QueryParams,
+  options?: WclOptions,
+): Promise<T> {
   options = !options ? defaultOptions : { ...defaultOptions, ...options };
 
   return new Promise<T>((resolve, reject) => {
     let timedOut = false;
     const timeoutTimer = setTimeout(() => {
       timedOut = true;
-      reject(new Error('Request timed out. This usually happens because the Warcraft Logs API did not respond in a timely fashion. Try again.'));
+      reject(
+        new Error(
+          'Request timed out. This usually happens because the Warcraft Logs API did not respond in a timely fashion. Try again.',
+        ),
+      );
     }, options!.timeout);
 
     rawFetchWcl(endpoint, queryParams)
-      .then(results => {
+      .then((results) => {
         clearTimeout(timeoutTimer);
         if (timedOut) {
           return;
         }
         resolve(results);
       })
-      .catch(err => {
+      .catch((err) => {
         clearTimeout(timeoutTimer);
         if (timedOut) {
           return;
@@ -173,7 +183,13 @@ export async function fetchFights(code: string, refresh = false) {
 
   return json;
 }
-function rawFetchEventsPage(code: string, start: number, end: number, actorId?: number, filter?: string) {
+function rawFetchEventsPage(
+  code: string,
+  start: number,
+  end: number,
+  actorId?: number,
+  filter?: string,
+) {
   return fetchWcl<WCLEventsResponse>(`report/events/${code}`, {
     start,
     end,
@@ -182,7 +198,14 @@ function rawFetchEventsPage(code: string, start: number, end: number, actorId?: 
     translate: true, // it's better to have 1 consistent language so long as we don't have the entire site localized
   });
 }
-export async function fetchEvents(reportCode: string, fightStart: number, fightEnd: number, actorId?: number, filter?: string, maxPages = 3) {
+export async function fetchEvents(
+  reportCode: string,
+  fightStart: number,
+  fightEnd: number,
+  actorId?: number,
+  filter?: string,
+  maxPages = 3,
+) {
   let pageStartTimestamp = fightStart;
 
   let events: AnyEvent[] = [];
@@ -190,11 +213,14 @@ export async function fetchEvents(reportCode: string, fightStart: number, fightE
   // eslint-disable-next-line no-constant-condition
   while (true) {
     // eslint-disable-next-line no-await-in-loop
-    const json = await rawFetchEventsPage(reportCode, pageStartTimestamp, fightEnd, actorId, filter);
-    events = [
-      ...events,
-      ...json.events!,
-    ];
+    const json = await rawFetchEventsPage(
+      reportCode,
+      pageStartTimestamp,
+      fightEnd,
+      actorId,
+      filter,
+    );
+    events = [...events, ...json.events!];
     if (json.nextPageTimestamp) {
       if (json.nextPageTimestamp > fightEnd) {
         console.error('nextPageTimestamp is after fightEnd, do we need to manually filter too?');

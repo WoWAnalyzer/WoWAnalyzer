@@ -6,7 +6,10 @@ import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 class SpellUsable extends CoreSpellUsable {
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.dispel.by(SELECTED_PLAYER).spell(SPELLS.PURIFY_SPIRIT), this.onDispel);
+    this.addEventListener(
+      Events.dispel.by(SELECTED_PLAYER).spell(SPELLS.PURIFY_SPIRIT),
+      this.onDispel,
+    );
   }
   onDispel(event: DispelEvent) {
     super.beginCooldown(event.ability.guid, event);

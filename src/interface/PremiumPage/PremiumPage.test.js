@@ -5,13 +5,11 @@ import { PremiumPage } from './PremiumPage';
 
 describe('PremiumPage', () => {
   it('matches snapshot when logged out', () => {
-    const tree = shallow((
-      <PremiumPage />
-    ));
+    const tree = shallow(<PremiumPage />);
     expect(tree).toMatchSnapshot();
   });
   it('matches snapshot when logged in with GitHub', () => {
-    const tree = shallow((
+    const tree = shallow(
       <PremiumPage
         user={{
           name: 'Martijn Hols',
@@ -20,13 +18,13 @@ describe('PremiumPage', () => {
             expires: '2018-07-02T11:48:40.000Z',
           },
         }}
-        dateToLocaleString={a => a.toUTCString()}
-      />
-    ));
+        dateToLocaleString={(a) => a.toUTCString()}
+      />,
+    );
     expect(tree).toMatchSnapshot();
   });
   it('matches snapshot when logged in with Patreon', () => {
-    const tree = shallow((
+    const tree = shallow(
       <PremiumPage
         user={{
           name: 'Martijn Hols',
@@ -34,8 +32,8 @@ describe('PremiumPage', () => {
             premium: true,
           },
         }}
-      />
-    ));
+      />,
+    );
     expect(tree).toMatchSnapshot();
   });
 });

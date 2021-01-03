@@ -16,14 +16,15 @@ import UptimeIcon from 'interface/icons/Uptime';
  * https://www.warcraftlogs.com/reports/1YZkWvbFGNgTA7L4#fight=3&type=summary&source=97
  */
 class Trailblazer extends Analyzer {
-
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.TRAILBLAZER_TALENT.id);
   }
 
   get percentUptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.TRAILBLAZER_BUFF.id) / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.TRAILBLAZER_BUFF.id) / this.owner.fightDuration
+    );
   }
 
   statistic() {

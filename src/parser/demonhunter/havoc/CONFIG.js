@@ -15,12 +15,32 @@ export default {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      Welcome to the Havoc Demon Hunter analyzer! We hope you find these suggestions and statistics useful.<br />
-      <br />More resources for Havoc:<br />
-      <a href="https://discord.gg/zGGkNGC" target="_blank" rel="noopener noreferrer">Demon Hunter Class Discord</a> <br />
-      <a href="https://www.wowhead.com/havoc-demon-hunter-guide" target="_blank" rel="noopener noreferrer">Wowhead Guide</a> <br />
-      <a href="https://www.icy-veins.com/wow/havoc-demon-hunter-pve-dps-guide" target="_blank" rel="noopener noreferrer">Icy Veins Guide</a> <br />
-
+      Welcome to the Havoc Demon Hunter analyzer! We hope you find these suggestions and statistics
+      useful.
+      <br />
+      <br />
+      More resources for Havoc:
+      <br />
+      <a href="https://discord.gg/zGGkNGC" target="_blank" rel="noopener noreferrer">
+        Demon Hunter Class Discord
+      </a>{' '}
+      <br />
+      <a
+        href="https://www.wowhead.com/havoc-demon-hunter-guide"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Wowhead Guide
+      </a>{' '}
+      <br />
+      <a
+        href="https://www.icy-veins.com/wow/havoc-demon-hunter-pve-dps-guide"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Icy Veins Guide
+      </a>{' '}
+      <br />
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
@@ -32,7 +52,10 @@ export default {
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () => import('./CombatLogParser' /* webpackChunkName: "HavocDemonHunter" */).then(exports => exports.default),
+  parser: () =>
+    import('./CombatLogParser' /* webpackChunkName: "HavocDemonHunter" */).then(
+      (exports) => exports.default,
+    ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };

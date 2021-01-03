@@ -14,19 +14,29 @@ import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
  */
 
 class SerpentstalkersTrickery extends Analyzer {
-
   damage = 0;
   aimedShotTargets: string[] = [];
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SERPENTSTALKERS_TRICKERY_EFFECT.bonusID);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(
+      SPELLS.SERPENTSTALKERS_TRICKERY_EFFECT.bonusID,
+    );
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_TALENT), this.onSerpentStingDamage);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT), this.onAimedShotCast);
-    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT), this.onStingRemoval);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_TALENT),
+      this.onSerpentStingDamage,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT),
+      this.onAimedShotCast,
+    );
+    this.addEventListener(
+      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT),
+      this.onStingRemoval,
+    );
   }
 
   onSerpentStingDamage(event: DamageEvent) {

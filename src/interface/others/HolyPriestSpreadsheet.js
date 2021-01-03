@@ -15,19 +15,32 @@ import Renew from 'parser/priest/holy/modules/spells/Renew';
 import CosmicRipple from 'parser/priest/holy/modules/talents/45/CosmicRipple';
 import DamageDone from 'parser/shared/modules/throughput/DamageDone';
 
-const HolyPriestSpreadsheet = props => {
+const HolyPriestSpreadsheet = (props) => {
   const { parser } = props;
 
   const styles = {
     cellBorder: { borderTop: '.5px solid #dddddd' },
-    table: { borderBottom: '1px solid #dddddd', borderTop: '1px solid #dddddd', align: 'left', padding: '8px', float: 'left', margin: '2px' },
+    table: {
+      borderBottom: '1px solid #dddddd',
+      borderTop: '1px solid #dddddd',
+      align: 'left',
+      padding: '8px',
+      float: 'left',
+      margin: '2px',
+    },
   };
 
-  const getAbility = spellId => parser.getModule(AbilityTracker).getAbility(spellId);
+  const getAbility = (spellId) => parser.getModule(AbilityTracker).getAbility(spellId);
 
-  const overhealingSpell = spellId => ((getAbility(spellId).healingOverheal || 0) / ((getAbility(spellId).healingOverheal || 0) + (getAbility(spellId).healingEffective || 0)) || 0).toFixed(5);
+  const overhealingSpell = (spellId) =>
+    (
+      (getAbility(spellId).healingOverheal || 0) /
+        ((getAbility(spellId).healingOverheal || 0) +
+          (getAbility(spellId).healingEffective || 0)) || 0
+    ).toFixed(5);
 
-  const cpm = spellId => (getAbility(spellId).casts / (parser.fightDuration / 1000 / 60) || 0).toFixed(5);
+  const cpm = (spellId) =>
+    (getAbility(spellId).casts / (parser.fightDuration / 1000 / 60) || 0).toFixed(5);
 
   const targetsPerCast = (spellId, healId) => {
     const ability = getAbility(spellId);
@@ -141,7 +154,18 @@ const HolyPriestSpreadsheet = props => {
 
   return (
     <div>
-      <div style={{ padding: '0px 22px 15px 0px' }}>Please use the below table to populate the Player Log section of the Holy Priest Spreadsheet by Niphyr. <a href="https://docs.google.com/spreadsheets/d/1a8dNKpU49UkUxzWBgffWM-zXxhPWOUl8sFSM6Bp9Sl0/edit" target="_blank" rel="noopener noreferrer">Link to the sheet</a><br /></div>
+      <div style={{ padding: '0px 22px 15px 0px' }}>
+        Please use the below table to populate the Player Log section of the Holy Priest Spreadsheet
+        by Niphyr.{' '}
+        <a
+          href="https://docs.google.com/spreadsheets/d/1a8dNKpU49UkUxzWBgffWM-zXxhPWOUl8sFSM6Bp9Sl0/edit"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Link to the sheet
+        </a>
+        <br />
+      </div>
       <div>
         <table style={styles.table}>
           <tbody>
@@ -266,7 +290,6 @@ const HolyPriestSpreadsheet = props => {
               <td>Total Raw Self Healing</td>
               <td>{parser.getModule(HealingTargetTracker).rawHealingDoneToSelf}</td>
             </tr>
-
           </tbody>
         </table>
         <table style={styles.table}>
@@ -317,7 +340,9 @@ const HolyPriestSpreadsheet = props => {
               <td>{overhealingSpell(SPELLS.PRAYER_OF_MENDING_HEAL.id)}</td>
               <td>{cpm(SPELLS.PRAYER_OF_MENDING_CAST.id)}</td>
               <td>{castEfficiency(SPELLS.PRAYER_OF_MENDING_CAST.id)}</td>
-              <td>{targetsPerCast(SPELLS.PRAYER_OF_MENDING_CAST.id, SPELLS.PRAYER_OF_MENDING_HEAL.id)}</td>
+              <td>
+                {targetsPerCast(SPELLS.PRAYER_OF_MENDING_CAST.id, SPELLS.PRAYER_OF_MENDING_HEAL.id)}
+              </td>
             </tr>
             <tr>
               <td>Holy Word: Serenity</td>
@@ -365,7 +390,10 @@ const HolyPriestSpreadsheet = props => {
               <td>{overhealingSpell(SPELLS.COSMIC_RIPPLE_HEAL.id)}</td>
               <td>N/A</td>
               <td>N/A</td>
-              <td>{parser.getModule(CosmicRipple).totalHits / parser.getModule(CosmicRipple).totalRipples}</td>
+              <td>
+                {parser.getModule(CosmicRipple).totalHits /
+                  parser.getModule(CosmicRipple).totalRipples}
+              </td>
             </tr>
             <tr>
               <td>Binding Heal</td>

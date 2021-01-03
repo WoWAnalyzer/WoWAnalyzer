@@ -13,8 +13,14 @@ class DivineHymn extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_HYMN_HEAL), this.onHeal);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_HYMN_CAST), this.onCast);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_HYMN_HEAL),
+      this.onHeal,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_HYMN_CAST),
+      this.onCast,
+    );
   }
 
   onHeal(event: HealEvent) {
@@ -31,17 +37,25 @@ class DivineHymn extends Analyzer {
   }
 
   suggestions(when: When) {
-    const missedHymnTicks = (this.casts * 5) - this.ticks;
+    const missedHymnTicks = this.casts * 5 - this.ticks;
 
-    when(missedHymnTicks).isGreaterThan(0)
-      .addSuggestion((suggest, actual, recommended) => suggest('You wasted Divine Hymn ticks. Try to avoid clipping the end of Divine Hymn as well as positioning such that you will not have to move during its duration. ')
-        .icon('spell_holy_divinehymn')
-        .actual(t({
-      id: "priest.holy.suggestions.divineHymn.wastedTicks",
-      message: `${actual} missed Hymn ticks`
-    }))
-        .recommended('0 is recommended')
-        .regular(recommended).major(recommended));
+    when(missedHymnTicks)
+      .isGreaterThan(0)
+      .addSuggestion((suggest, actual, recommended) =>
+        suggest(
+          'You wasted Divine Hymn ticks. Try to avoid clipping the end of Divine Hymn as well as positioning such that you will not have to move during its duration. ',
+        )
+          .icon('spell_holy_divinehymn')
+          .actual(
+            t({
+              id: 'priest.holy.suggestions.divineHymn.wastedTicks',
+              message: `${actual} missed Hymn ticks`,
+            }),
+          )
+          .recommended('0 is recommended')
+          .regular(recommended)
+          .major(recommended),
+      );
   }
 }
 

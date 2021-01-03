@@ -63,7 +63,9 @@ class MissedRampage extends Analyzer {
       return;
     }
 
-    if (!event.classResources.find(classResources => classResources.type === RESOURCE_TYPES.RAGE.id)) {
+    if (
+      !event.classResources.find((classResources) => classResources.type === RESOURCE_TYPES.RAGE.id)
+    ) {
       return;
     }
 
@@ -74,19 +76,27 @@ class MissedRampage extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        There were {actual} times you casted a rage generating ability when you should have cast <SpellLink id={SPELLS.RAMPAGE.id} />.
-        <SpellLink id={SPELLS.RAMPAGE.id} /> is your 2nd highest damage ability behind <SpellLink id={SPELLS.EXECUTE_FURY.id} /> and causes you to <SpellLink id={SPELLS.ENRAGE.id} />, increasing all of your damage done.
-        You should never hold a <SpellLink id={SPELLS.RAMPAGE.id} />, unless you are casting <SpellLink id={SPELLS.WHIRLWIND_FURY_CAST.id} /> to cleave it.
-      </>,
-    )
-      .icon(SPELLS.RAMPAGE.icon)
-      .actual(t({
-      id: "warrior.fury.suggestions.rampages.missed",
-      message: `${actual} missed Rampages.`
-    }))
-      .recommended(`${recommended} is recommended.`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          There were {actual} times you casted a rage generating ability when you should have cast{' '}
+          <SpellLink id={SPELLS.RAMPAGE.id} />.
+          <SpellLink id={SPELLS.RAMPAGE.id} /> is your 2nd highest damage ability behind{' '}
+          <SpellLink id={SPELLS.EXECUTE_FURY.id} /> and causes you to{' '}
+          <SpellLink id={SPELLS.ENRAGE.id} />, increasing all of your damage done. You should never
+          hold a <SpellLink id={SPELLS.RAMPAGE.id} />, unless you are casting{' '}
+          <SpellLink id={SPELLS.WHIRLWIND_FURY_CAST.id} /> to cleave it.
+        </>,
+      )
+        .icon(SPELLS.RAMPAGE.icon)
+        .actual(
+          t({
+            id: 'warrior.fury.suggestions.rampages.missed',
+            message: `${actual} missed Rampages.`,
+          }),
+        )
+        .recommended(`${recommended} is recommended.`),
+    );
   }
 }
 

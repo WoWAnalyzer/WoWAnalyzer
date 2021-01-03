@@ -39,16 +39,28 @@ class ResonantWords extends Analyzer {
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.FLASH_HEAL), this.onHeal);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GREATER_HEAL), this.onHeal);
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_WORD_CHASTISE), this.onHolyWordCast);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_WORD_SANCTIFY), this.onHolyWordCast);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_WORD_SERENITY), this.onHolyWordCast);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_WORD_SALVATION_TALENT), this.onHolyWordCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_WORD_CHASTISE),
+      this.onHolyWordCast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_WORD_SANCTIFY),
+      this.onHolyWordCast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_WORD_SERENITY),
+      this.onHolyWordCast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_WORD_SALVATION_TALENT),
+      this.onHolyWordCast,
+    );
   }
 
   onHeal(event: HealEvent) {
     if (this.selectedCombatant.hasBuff(SPELLS.RESONANT_WORDS_BUFF.id)) {
       this.usedResonantWords += 1;
-      const eventBonusAmount = event.amount / (1 + (this.healingMultiplier / 100));
+      const eventBonusAmount = event.amount / (1 + this.healingMultiplier / 100);
       this.bonusHealing += eventBonusAmount;
     }
   }
@@ -71,7 +83,6 @@ class ResonantWords extends Analyzer {
       </Statistic>
     );
   }
-
 }
 
 export default ResonantWords;

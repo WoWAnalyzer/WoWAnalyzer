@@ -2,8 +2,8 @@ import { Soulbind } from 'parser/core/Events';
 import indexById from 'common/indexById';
 
 const SOULBINDS: {
-  [key: string]: Soulbind,
-  [id: number]: Soulbind,
+  [key: string]: Soulbind;
+  [id: number]: Soulbind;
 } = {
   NIYA: {
     name: 'Niya',

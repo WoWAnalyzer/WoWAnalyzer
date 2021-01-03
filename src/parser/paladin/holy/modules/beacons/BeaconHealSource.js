@@ -213,7 +213,7 @@ class BeaconHealSource extends Analyzer {
       (beaconTransferEvent.absorbed || 0) +
       (beaconTransferEvent.overheal || 0);
 
-    return this.healBacklog.findIndex(healEvent => {
+    return this.healBacklog.findIndex((healEvent) => {
       const expectedBeaconTransfer = this.beaconTransferFactor.getExpectedTransfer(
         healEvent,
         beaconTransferEvent,

@@ -6,7 +6,14 @@ import { Enchant } from 'common/ITEMS/Item';
 import SPELLS from 'common/SPELLS';
 import { findByBossId } from 'raids';
 import CombatLogParser, { Player } from 'parser/core/CombatLogParser';
-import { Buff, CombatantInfoEvent, Conduit, EventType, Item, SoulbindTrait } from 'parser/core/Events';
+import {
+  Buff,
+  CombatantInfoEvent,
+  Conduit,
+  EventType,
+  Item,
+  SoulbindTrait,
+} from 'parser/core/Events';
 
 import Entity from './Entity';
 

@@ -1,7 +1,14 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Events, { ApplyBuffEvent, CastEvent, HasTarget, HealEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  CastEvent,
+  HasTarget,
+  HealEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
@@ -34,11 +41,23 @@ class SwirlingCurrents extends Analyzer {
     this.healingBoost = SWIRLING_CURRENTS_RANKS[this.conduitRank] / 100;
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.riptideHeal);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.HEALING_SURGE, SPELLS.HEALING_WAVE]), this.notRiptideHeal);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.HEALING_SURGE, SPELLS.HEALING_WAVE]),
+      this.notRiptideHeal,
+    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.trackRiptide);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.trackRiptide);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.removeRiptide);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.pandemicRiptide);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE),
+      this.trackRiptide,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE),
+      this.removeRiptide,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE),
+      this.pandemicRiptide,
+    );
   }
 
   riptideHeal(event: HealEvent) {
@@ -84,7 +103,8 @@ class SwirlingCurrents extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
       >
         <ConduitSpellText spell={SPELLS.SWIRLING_CURRENTS} rank={this.conduitRank}>
-          <ItemHealingDone amount={this.healing} /><br />
+          <ItemHealingDone amount={this.healing} />
+          <br />
         </ConduitSpellText>
       </Statistic>
     );

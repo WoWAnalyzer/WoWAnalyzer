@@ -1,6 +1,13 @@
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events, { Ability, AbsorbedEvent, CastEvent, DamageEvent, EventType, HealEvent } from 'parser/core/Events';
+import Events, {
+  Ability,
+  AbsorbedEvent,
+  CastEvent,
+  DamageEvent,
+  EventType,
+  HealEvent,
+} from 'parser/core/Events';
 import HIT_TYPES from 'game/HIT_TYPES';
 
 import SpellManaCost from './SpellManaCost';
@@ -34,7 +41,7 @@ class AbilityTracker extends Analyzer {
 
   abilities = new Map<number, TrackedAbility>();
 
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
@@ -69,7 +76,7 @@ class AbilityTracker extends Analyzer {
         healingCriticalHits: 0,
         healingCriticalEffective: 0,
         healingCriticalAbsorbed: 0,
-        healingCriticalOverheal: 0
+        healingCriticalOverheal: 0,
       };
       this.abilities.set(spellId, ability);
     }

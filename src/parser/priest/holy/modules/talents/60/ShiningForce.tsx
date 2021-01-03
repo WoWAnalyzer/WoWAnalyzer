@@ -15,8 +15,14 @@ class ShiningForce extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SHINING_FORCE_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHINING_FORCE_TALENT), this.onCast);
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.SHINING_FORCE_TALENT), this.onApplyDebuff);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHINING_FORCE_TALENT),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.SHINING_FORCE_TALENT),
+      this.onApplyDebuff,
+    );
   }
 
   onCast(event: CastEvent) {

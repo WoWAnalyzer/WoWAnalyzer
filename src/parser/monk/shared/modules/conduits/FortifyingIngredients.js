@@ -21,7 +21,9 @@ class FortifyingIngredients extends Analyzer {
   constructor(...args) {
     super(...args);
 
-    const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.FORTIFYING_INGREDIENTS.id);
+    const conduitRank = this.selectedCombatant.conduitRankBySpellID(
+      SPELLS.FORTIFYING_INGREDIENTS.id,
+    );
     if (!conduitRank) {
       this.active = false;
       return;

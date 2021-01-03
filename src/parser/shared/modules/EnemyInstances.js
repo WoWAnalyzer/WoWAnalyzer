@@ -6,7 +6,7 @@ export function encodeTargetString(id, instance = 0) {
 }
 
 export function decodeTargetString(string) {
-  const [ id, instance = 0 ] = string.split('.');
+  const [id, instance = 0] = string.split('.');
   return { id, instance };
 }
 
@@ -24,7 +24,7 @@ class EnemyInstances extends Enemies {
 
     let enemy = this.enemies[enemyId];
     if (!enemy) {
-      const baseInfo = this.owner.report.enemies.find(enemy => enemy.id === targetId);
+      const baseInfo = this.owner.report.enemies.find((enemy) => enemy.id === targetId);
       if (!baseInfo) {
         debug && console.warn('Enemy not noteworthy enough:', targetId, event);
         return null;

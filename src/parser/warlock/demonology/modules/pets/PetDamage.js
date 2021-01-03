@@ -3,8 +3,8 @@ import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
 class PetDamage {
   get permanentPetDamage() {
     return Object.keys(this.pets)
-      .filter(guid => isPermanentPet(guid))
-      .map(guid => this.getDamageForGuid(guid, null))
+      .filter((guid) => isPermanentPet(guid))
+      .map((guid) => this.getDamageForGuid(guid, null))
       .reduce((total, current) => total + current, 0);
   }
 

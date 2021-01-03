@@ -18,21 +18,15 @@ class FlametongueRefresh extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER)
-        .spell(SPELLS.FLAMETONGUE),
-      this.onCast,
-    );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLAMETONGUE), this.onCast);
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER)
-        .spell(SPELLS.FLAMETONGUE_BUFF),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FLAMETONGUE_BUFF),
       this.onApplyBuff,
     );
 
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER)
-        .spell(SPELLS.FLAMETONGUE_BUFF),
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.FLAMETONGUE_BUFF),
       this.onRefreshBuff,
     );
   }
@@ -71,26 +65,28 @@ class FlametongueRefresh extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.flametongueEarlyRefreshThreshold)
-      .addSuggestion(
-        (suggest, actual, recommended) => suggest(
-          <><Trans id="shaman.enhancement.modules.core.flametongueRefresh.suggestion">
-            Avoid refreshing Flametongue with more then 4.5 sec left on the buff.
-            Some early refreshes are unavoidable.
-          </Trans></>)
-          .icon(SPELLS.FLAMETONGUE_BUFF.icon)
-          .actual(
-            <Trans id="shaman.enhancement.modules.core.flametongueRefresh.actual">
-              {actual} of {this.flametongueCasts} ({formatPercentage(
-              this.refreshPercentageCast,
-              0,
-            )}%) early refreshes
-            </Trans>,
-          )
-          .recommended(
-            <Trans id="shaman.enhancement.modules.core.flametongueRefresh.recommended">{recommended} recommended</Trans>,
-          ),
-      );
+    when(this.flametongueEarlyRefreshThreshold).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          <Trans id="shaman.enhancement.modules.core.flametongueRefresh.suggestion">
+            Avoid refreshing Flametongue with more then 4.5 sec left on the buff. Some early
+            refreshes are unavoidable.
+          </Trans>
+        </>,
+      )
+        .icon(SPELLS.FLAMETONGUE_BUFF.icon)
+        .actual(
+          <Trans id="shaman.enhancement.modules.core.flametongueRefresh.actual">
+            {actual} of {this.flametongueCasts} ({formatPercentage(this.refreshPercentageCast, 0)}%)
+            early refreshes
+          </Trans>,
+        )
+        .recommended(
+          <Trans id="shaman.enhancement.modules.core.flametongueRefresh.recommended">
+            {recommended} recommended
+          </Trans>,
+        ),
+    );
   }
 }
 

@@ -42,24 +42,25 @@ const spells = {
 
   // Abilities:
   FEL_DEVASTATION: {
-	  id: 212084,
-	  name: "Fel Devastation",
-	  icon: "ability_demonhunter_feldevastation",
+    id: 212084,
+    name: 'Fel Devastation',
+    icon: 'ability_demonhunter_feldevastation',
   },
-  FRACTURE: { //Fracture replaces shear when you take the fracture talent
+  FRACTURE: {
+    //Fracture replaces shear when you take the fracture talent
     id: 209795,
-    name: "Fracture",
-    icon: "ability_creature_felsunder",
+    name: 'Fracture',
+    icon: 'ability_creature_felsunder',
   },
   FRACTURE_MAIN_HAND: {
     id: 225919,
-    name: "Fracture(Main Hand)",
-    icon: "ability_creature_felsunder",
+    name: 'Fracture(Main Hand)',
+    icon: 'ability_creature_felsunder',
   },
   FRACTURE_OFF_HAND: {
     id: 225921,
-    name: "Fracture(Off Hand)",
-    icon: "ability_creature_felsunder",
+    name: 'Fracture(Off Hand)',
+    icon: 'ability_creature_felsunder',
   },
   SHEAR: {
     id: 203782,
@@ -224,7 +225,7 @@ const spells = {
   //spells
   DEMONS_BITE: {
     id: 162243,
-    name: 'Demon\'s Bite',
+    name: "Demon's Bite",
     icon: 'inv_weapon_glave_01',
   },
   CHAOS_STRIKE: {
@@ -232,7 +233,8 @@ const spells = {
     name: 'Chaos Strike',
     icon: 'ability_demonhunter_chaosstrike',
   },
-  CHAOS_STRIKE_ENERGIZE: { //This occures due the cycle of hatred talent
+  CHAOS_STRIKE_ENERGIZE: {
+    //This occures due the cycle of hatred talent
     id: 193840,
     name: 'Chaos Strike',
     icon: 'ability_demonhunter_chaosstrike',
@@ -274,7 +276,7 @@ const spells = {
   },
   DEATH_SWEEP_DAMAGE: {
     id: 210153,
-    name : 'Death Sweep',
+    name: 'Death Sweep',
     icon: 'inv_glaive_1h_artifactaldrochi_d_02dual',
   },
   DEATH_SWEEP_DAMAGE_LAST_HIT: {
@@ -374,12 +376,13 @@ const spells = {
   },
   DECEIVERS_FURY_FURY: {
     id: 202120,
-    name: 'Deceiver\'s Fury',
+    name: "Deceiver's Fury",
     icon: 'ability_demonhunter_blur',
   },
 
   // Havoc Talents
-  DEMONIC_APPETITE_FURY: { //Generates Fury for the Demonic Appetite talent
+  DEMONIC_APPETITE_FURY: {
+    //Generates Fury for the Demonic Appetite talent
     id: 210041,
     name: 'Demonic Appetite',
     icon: 'spell_misc_zandalari_council_soulswap',

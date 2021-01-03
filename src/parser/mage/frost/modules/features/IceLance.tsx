@@ -29,7 +29,7 @@ class IceLance extends Analyzer {
 
   hasGlacialFragments: boolean;
   hadFingersProc = false;
-  iceLanceTargetId = "";
+  iceLanceTargetId = '';
   nonShatteredCasts = 0;
 
   iceLanceCastTimestamp = 0;
@@ -39,10 +39,18 @@ class IceLance extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.hasGlacialFragments = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.GLACIAL_FRAGMENTS.bonusID);
+    this.hasGlacialFragments = this.selectedCombatant.hasLegendaryByBonusID(
+      SPELLS.GLACIAL_FRAGMENTS.bonusID,
+    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ICE_LANCE), this.onCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ICE_LANCE_DAMAGE), this.onDamage);
-    this.addEventListener(Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.FINGERS_OF_FROST), this.onFingersStackChange);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ICE_LANCE_DAMAGE),
+      this.onDamage,
+    );
+    this.addEventListener(
+      Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.FINGERS_OF_FROST),
+      this.onFingersStackChange,
+    );
   }
 
   onCast(event: CastEvent) {
@@ -63,15 +71,22 @@ class IceLance extends Analyzer {
     }
 
     //If the player has Glacial Fragments, Blizzard is active (checking its CD because the spell lasts as long as it's cooldown), and the target is in a Blizzard, then do not count it against the player
-    const recentBlizzardHit = this.eventHistory.last(1, 1000, Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLIZZARD_DAMAGE))[0];
+    const recentBlizzardHit = this.eventHistory.last(
+      1,
+      1000,
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLIZZARD_DAMAGE),
+    )[0];
     const blizzardOnCooldown = this.spellUsable.isOnCooldown(SPELLS.BLIZZARD.id);
     if (this.hasGlacialFragments && recentBlizzardHit && blizzardOnCooldown) {
       return;
     }
 
-
     const enemy = this.enemies.getEntity(event);
-    if (enemy && !SHATTER_DEBUFFS.some(effect => enemy.hasBuff(effect.id, event.timestamp)) && !this.hadFingersProc) {
+    if (
+      enemy &&
+      !SHATTER_DEBUFFS.some((effect) => enemy.hasBuff(effect.id, event.timestamp)) &&
+      !this.hadFingersProc
+    ) {
       this.nonShatteredCasts += 1;
     }
   }
@@ -81,12 +96,15 @@ class IceLance extends Analyzer {
     const stackChange = event.stacksGained;
     if (stackChange > 0) {
       this.totalFingersProcs += stackChange;
-    } else if (this.iceLanceCastTimestamp && this.iceLanceCastTimestamp + MS_BUFFER_100 > event.timestamp) {
+    } else if (
+      this.iceLanceCastTimestamp &&
+      this.iceLanceCastTimestamp + MS_BUFFER_100 > event.timestamp
+    ) {
       // just cast ice lance, so this stack removal probably a proc used
     } else if (event.newStacks === 0) {
-      this.expiredFingersProcs += (-stackChange); // stacks zero out, must be expiration
+      this.expiredFingersProcs += -stackChange; // stacks zero out, must be expiration
     } else {
-      this.overwrittenFingersProcs += (-stackChange); // stacks don't zero, this is an overwrite
+      this.overwrittenFingersProcs += -stackChange; // stacks don't zero, this is an overwrite
     }
   }
 
@@ -99,16 +117,16 @@ class IceLance extends Analyzer {
   }
 
   get shatteredPercent() {
-    return 1 - (this.nonShatteredCasts / this.abilityTracker.getAbility(SPELLS.ICE_LANCE.id).casts);
+    return 1 - this.nonShatteredCasts / this.abilityTracker.getAbility(SPELLS.ICE_LANCE.id).casts;
   }
 
   get fingersProcUtilizationThresholds() {
     return {
-      actual: 1 - (this.wastedFingersProcs / this.totalFingersProcs) || 0,
+      actual: 1 - this.wastedFingersProcs / this.totalFingersProcs || 0,
       isLessThan: {
         minor: 0.95,
         average: 0.85,
-        major: 0.70,
+        major: 0.7,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
@@ -116,7 +134,7 @@ class IceLance extends Analyzer {
 
   get nonShatteredIceLanceThresholds() {
     return {
-      actual: (this.nonShatteredCasts / this.abilityTracker.getAbility(SPELLS.ICE_LANCE.id).casts),
+      actual: this.nonShatteredCasts / this.abilityTracker.getAbility(SPELLS.ICE_LANCE.id).casts,
       isGreaterThan: {
         minor: 0.05,
         average: 0.15,
@@ -127,11 +145,25 @@ class IceLance extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.nonShatteredIceLanceThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>You cast <SpellLink id={SPELLS.ICE_LANCE.id} /> {this.nonShatteredCasts} times ({formatPercentage(actual)}%) without <SpellLink id={SPELLS.SHATTER.id} />. Make sure that you are only casting Ice Lance when the target has <SpellLink id={SPELLS.WINTERS_CHILL.id} /> (or other Shatter effects), if you have a <SpellLink id={SPELLS.FINGERS_OF_FROST.id} /> proc, or if you are moving and you cant cast anything else.</>)
-          .icon(SPELLS.ICE_LANCE.icon)
-          .actual(<Trans id="mage.frost.suggestions.iceLance.nonShatterCasts">{formatPercentage(actual)}% missed</Trans>)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`));
+    when(this.nonShatteredIceLanceThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You cast <SpellLink id={SPELLS.ICE_LANCE.id} /> {this.nonShatteredCasts} times (
+          {formatPercentage(actual)}%) without <SpellLink id={SPELLS.SHATTER.id} />. Make sure that
+          you are only casting Ice Lance when the target has{' '}
+          <SpellLink id={SPELLS.WINTERS_CHILL.id} /> (or other Shatter effects), if you have a{' '}
+          <SpellLink id={SPELLS.FINGERS_OF_FROST.id} /> proc, or if you are moving and you cant cast
+          anything else.
+        </>,
+      )
+        .icon(SPELLS.ICE_LANCE.icon)
+        .actual(
+          <Trans id="mage.frost.suggestions.iceLance.nonShatterCasts">
+            {formatPercentage(actual)}% missed
+          </Trans>,
+        )
+        .recommended(`<${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {

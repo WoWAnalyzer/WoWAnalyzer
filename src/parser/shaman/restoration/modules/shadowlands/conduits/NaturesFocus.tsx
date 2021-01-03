@@ -33,8 +33,14 @@ class NaturesFocus extends Analyzer {
     }
     this.healingBoost = NATURES_FOCUS_RANKS[this.conduitRank] / 100;
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HEAL), this._onChainHealCast);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HEAL), this._onChainHealHeal);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HEAL),
+      this._onChainHealCast,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HEAL),
+      this._onChainHealHeal,
+    );
   }
 
   _onChainHealCast(event: CastEvent) {
@@ -72,7 +78,8 @@ class NaturesFocus extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
       >
         <ConduitSpellText spell={SPELLS.NATURES_FOCUS} rank={this.conduitRank}>
-          <ItemHealingDone amount={this.healing} /><br />
+          <ItemHealingDone amount={this.healing} />
+          <br />
         </ConduitSpellText>
       </Statistic>
     );

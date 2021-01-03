@@ -25,7 +25,11 @@ class SecondWind extends Analyzer {
     const heal = secondWind.healingEffective || 0;
     return (
       <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.SECOND_WIND_TALENT.id} /> health restored</>}
+        title={
+          <>
+            <SpellLink id={SPELLS.SECOND_WIND_TALENT.id} /> health restored
+          </>
+        }
         value={formatThousands(heal)}
       />
     );

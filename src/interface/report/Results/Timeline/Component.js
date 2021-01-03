@@ -86,7 +86,7 @@ class Timeline extends React.PureComponent {
     if (!ability || !ability.cooldown) {
       return false;
     }
-    if(event.timestamp >= this.end){
+    if (event.timestamp >= this.end) {
       return false;
     }
     return true;
@@ -96,7 +96,7 @@ class Timeline extends React.PureComponent {
       // begincooldown is unnecessary since endcooldown includes the start time
       return false;
     }
-    if(event.trigger === EventType.RestoreCharge && event.timestamp < this.start){
+    if (event.trigger === EventType.RestoreCharge && event.timestamp < this.start) {
       //ignore restore charge events if they happen before the phase
       return false;
     }
@@ -112,7 +112,7 @@ class Timeline extends React.PureComponent {
    */
   getEventsBySpellId(events) {
     const eventsBySpellId = new Map();
-    events.forEach(event => {
+    events.forEach((event) => {
       if (!this.isApplicableEvent(event)) {
         return;
       }
@@ -126,7 +126,7 @@ class Timeline extends React.PureComponent {
     return eventsBySpellId;
   }
 
-  _getCanonicalId(spellId){
+  _getCanonicalId(spellId) {
     const ability = this.props.abilities.getAbility(spellId);
     if (!ability) {
       return spellId; // not a class ability
@@ -166,7 +166,7 @@ class Timeline extends React.PureComponent {
               paddingBottom: 0,
               paddingLeft: this.state.padding,
               paddingRight: this.state.padding, // we also want the user to have the satisfying feeling of being able to get the right side to line up
-              margin: "auto", //center horizontally if it's too small to take up the page
+              margin: 'auto', //center horizontally if it's too small to take up the page
             }}
           >
             <Buffs
@@ -176,19 +176,16 @@ class Timeline extends React.PureComponent {
               buffs={buffs}
             />
             <div className="time-line">
-              {this.seconds > 0 && [...Array(Math.ceil(this.seconds))].map((_, second) => (
-                <div
-                  key={second+this.offset/1000}
-                  style={{ width: this.secondWidth * skipInterval }}
-                  data-duration={formatDuration(second+this.offset/1000)}
-                />
-              ))}
+              {this.seconds > 0 &&
+                [...Array(Math.ceil(this.seconds))].map((_, second) => (
+                  <div
+                    key={second + this.offset / 1000}
+                    style={{ width: this.secondWidth * skipInterval }}
+                    data-duration={formatDuration(second + this.offset / 1000)}
+                  />
+                ))}
             </div>
-            <Casts
-              start={this.start}
-              secondWidth={this.secondWidth}
-              parser={parser}
-            />
+            <Casts start={this.start} secondWidth={this.secondWidth} parser={parser} />
             <Cooldowns
               start={this.start}
               end={this.end}

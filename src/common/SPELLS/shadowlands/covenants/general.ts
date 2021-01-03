@@ -28,7 +28,7 @@ const covenants = {
     id: 300728,
     name: 'Door of Shadows',
     icon: 'ability_venthyr_doorofshadows',
-  }
+  },
   //endregion
 } as const;
 export default covenants;

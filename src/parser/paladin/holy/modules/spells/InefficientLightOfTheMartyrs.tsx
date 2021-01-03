@@ -52,8 +52,8 @@ class InefficientLightOfTheMartyrs extends Analyzer {
       cast.meta = cast.meta || {};
       cast.meta.isInefficientCast = true;
       cast.meta.inefficientCastReason = t({
-        id: "paladin.holy.timeline.badLotM",
-        message: `This cast dealt more damage to you than it healed the target. If there is nothing to heal, you should deal damage instead.`
+        id: 'paladin.holy.timeline.badLotM',
+        message: `This cast dealt more damage to you than it healed the target. If there is nothing to heal, you should deal damage instead.`,
       });
     }
 

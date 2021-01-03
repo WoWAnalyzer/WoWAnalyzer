@@ -5,7 +5,13 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, CastEvent, EventType, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  CastEvent,
+  EventType,
+  HealEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
@@ -29,7 +35,6 @@ class CloudburstTotem extends Analyzer {
   protected eventEmitter!: EventEmitter;
   protected cooldownThroughputTracker!: CooldownThroughputTracker;
 
-
   healing = 0;
   cbtActive = false;
 
@@ -37,8 +42,14 @@ class CloudburstTotem extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id);
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CLOUDBURST_TOTEM_HEAL), this._onHeal);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CLOUDBURST_TOTEM_TALENT), this._onCast);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CLOUDBURST_TOTEM_HEAL),
+      this._onHeal,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CLOUDBURST_TOTEM_TALENT),
+      this._onCast,
+    );
   }
 
   _onHeal(event: HealEvent) {
@@ -60,7 +71,11 @@ class CloudburstTotem extends Analyzer {
     this.cbtActive = true;
   }
 
-  _createFabricatedEvent(event: CastEvent | HealEvent, type: EventType.ApplyBuff | EventType.RemoveBuff, timestamp: number) {
+  _createFabricatedEvent(
+    event: CastEvent | HealEvent,
+    type: EventType.ApplyBuff | EventType.RemoveBuff,
+    timestamp: number,
+  ) {
     const fabricatedEvent: ApplyBuffEvent | RemoveBuffEvent = {
       ability: {
         ...event.ability,
@@ -78,15 +93,18 @@ class CloudburstTotem extends Analyzer {
   }
 
   subStatistic() {
-    const feeding = this.cooldownThroughputTracker.getIndirectHealing(SPELLS.CLOUDBURST_TOTEM_HEAL.id);
+    const feeding = this.cooldownThroughputTracker.getIndirectHealing(
+      SPELLS.CLOUDBURST_TOTEM_HEAL.id,
+    );
     return (
       <StatisticListBoxItem
         title={<SpellLink id={SPELLS.CLOUDBURST_TOTEM_TALENT.id} />}
-        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing + feeding))} %`}
+        value={`${formatPercentage(
+          this.owner.getPercentageOfTotalHealingDone(this.healing + feeding),
+        )} %`}
       />
     );
   }
-
 }
 
 export default CloudburstTotem;

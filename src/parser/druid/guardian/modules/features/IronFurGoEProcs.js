@@ -26,7 +26,12 @@ class IronFurGoEProcs extends Analyzer {
         icon={<SpellIcon id={SPELLS.IRONFUR.id} />}
         value={`${formatPercentage(nonGoEIronFur / (nonGoEIronFur + GoEIronFur))}%`}
         label="Unbuffed Ironfur"
-        tooltip={<>You cast <strong>{nonGoEIronFur + GoEIronFur}</strong> total {SPELLS.IRONFUR.name} and <strong>{GoEIronFur}</strong> were buffed by 2s.</>}
+        tooltip={
+          <>
+            You cast <strong>{nonGoEIronFur + GoEIronFur}</strong> total {SPELLS.IRONFUR.name} and{' '}
+            <strong>{GoEIronFur}</strong> were buffed by 2s.
+          </>
+        }
       />
     );
   }

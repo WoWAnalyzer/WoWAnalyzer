@@ -14,9 +14,11 @@ import DemoPets from '../pets/DemoPets';
 
 class NetherPortal extends Analyzer {
   get damage() {
-    const petsSummonedByNP = this.demoPets.timeline.filter(pet => pet.summonedBy === SPELLS.NETHER_PORTAL_TALENT.id);
+    const petsSummonedByNP = this.demoPets.timeline.filter(
+      (pet) => pet.summonedBy === SPELLS.NETHER_PORTAL_TALENT.id,
+    );
     return petsSummonedByNP
-      .map(pet => this.demoPets.getPetDamage(pet.guid, pet.instance))
+      .map((pet) => this.demoPets.getPetDamage(pet.guid, pet.instance))
       .reduce((total, current) => total + current, 0);
   }
 

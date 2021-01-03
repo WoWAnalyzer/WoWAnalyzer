@@ -11,7 +11,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import ItemDamageDone from 'interface/ItemDamageDone';
 import ExecuteHelper from 'parser/shared/modules/helpers/ExecuteHelper';
 
-const SOUL_REAPER_EXECUTE_RANGE = .35
+const SOUL_REAPER_EXECUTE_RANGE = 0.35;
 
 class SoulReaper extends ExecuteHelper {
   static executeSources = SELECTED_PLAYER;
@@ -46,13 +46,14 @@ class SoulReaper extends ExecuteHelper {
         suggestion: true,
         recommendedEfficiency: 0.85,
         maxCasts: () => this.maxCasts,
-        extraSuggestion: " (This module only starts tracking possible casts once you damage a target with 35% or less health)",
+        extraSuggestion:
+          ' (This module only starts tracking possible casts once you damage a target with 35% or less health)',
       },
     });
   }
 
   adjustMaxCasts(event: FightEndEvent) {
-    super.onFightEnd(event)
+    super.onFightEnd(event);
     this.maxCasts += Math.ceil(this.totalExecuteDuration / 6000);
   }
 

@@ -30,19 +30,23 @@ class AncestralProtectionTotem extends Analyzer {
   aptEvents: Array<CastEvent | ApplyDebuffEvent> = [];
   constructor(options: Options) {
     super(options);
-    this.active = Boolean(this.selectedCombatant.hasTalent(SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id));
+    this.active = Boolean(
+      this.selectedCombatant.hasTalent(SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id),
+    );
   }
 
   // recursively fetch events until no nextPageTimestamp is returned
   fetchAll(pathname: string, query: WclOptions) {
     const checkAndFetch: any = async (_query: WclOptions) => {
-      const json = await fetchWcl(pathname, _query) as WCLEventsResponse;
+      const json = (await fetchWcl(pathname, _query)) as WCLEventsResponse;
       const events = json.events as Array<CastEvent | ApplyDebuffEvent>;
       this.aptEvents.push(...events);
       if (json.nextPageTimestamp) {
-        return checkAndFetch(Object.assign(query, {
-          start: json.nextPageTimestamp,
-        }));
+        return checkAndFetch(
+          Object.assign(query, {
+            start: json.nextPageTimestamp,
+          }),
+        );
       }
       this.loaded = true;
       return null;
@@ -76,61 +80,84 @@ class AncestralProtectionTotem extends Analyzer {
       case SPELLS.TOTEMIC_REVIVAL_CAST.id:
         return <Trans id="shaman.restoration.apt.status.res">Resurrected</Trans>;
       default:
-        return "";
+        return '';
     }
   }
 
   statistic() {
-    const tooltip = this.loaded
-      ? <Trans id="shaman.restoration.apt.statistic.tooltip.active">This includes the APT casts of all Restoration Shamans in the fight.</Trans>
-      : <Trans id="shaman.restoration.apt.statistic.tooltip.inactive">Click to analyze APT usage on this fight.</Trans>;
-    const value = this.aptEvents.length > 0 ? <Trans id="shaman.restoration.apt.statistic.label.success">{this.aptEvents.length} events found</Trans> : <Trans id="shaman.restoration.apt.statistic.label.failure">No Results</Trans>;
+    const tooltip = this.loaded ? (
+      <Trans id="shaman.restoration.apt.statistic.tooltip.active">
+        This includes the APT casts of all Restoration Shamans in the fight.
+      </Trans>
+    ) : (
+      <Trans id="shaman.restoration.apt.statistic.tooltip.inactive">
+        Click to analyze APT usage on this fight.
+      </Trans>
+    );
+    const value =
+      this.aptEvents.length > 0 ? (
+        <Trans id="shaman.restoration.apt.statistic.label.success">
+          {this.aptEvents.length} events found
+        </Trans>
+      ) : (
+        <Trans id="shaman.restoration.apt.statistic.label.failure">No Results</Trans>
+      );
 
     return (
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
         icon={<SpellIcon id={SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id} />}
-        label={<Trans id="shaman.restoration.apt.statistic.label">Ancestral Protection Totem</Trans>}
+        label={
+          <Trans id="shaman.restoration.apt.statistic.label">Ancestral Protection Totem</Trans>
+        }
         value={value}
         tooltip={tooltip}
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(60)}
       >
-        {(this.aptEvents.length > 0) && (
+        {this.aptEvents.length > 0 && (
           <table className="table table-condensed">
             <thead>
               <tr>
-                <th><Trans id="common.time">Time</Trans></th>
-                <th><Trans id="common.player">Player</Trans></th>
-                <th style={{ textAlign: 'center' }}><Trans id="common.ability">Ability</Trans></th>
+                <th>
+                  <Trans id="common.time">Time</Trans>
+                </th>
+                <th>
+                  <Trans id="common.player">Player</Trans>
+                </th>
+                <th style={{ textAlign: 'center' }}>
+                  <Trans id="common.ability">Ability</Trans>
+                </th>
               </tr>
             </thead>
             <tbody>
-              {
-                this.aptEvents.map((event, index) => {
-                  if (!HasSource(event)) {
-                    return null;
-                  }
-                  const combatant = this.combatants.players[event.sourceID];
-                  if (!combatant) {
-                    return null; // pet or something
-                  }
+              {this.aptEvents.map((event, index) => {
+                if (!HasSource(event)) {
+                  return null;
+                }
+                const combatant = this.combatants.players[event.sourceID];
+                if (!combatant) {
+                  return null; // pet or something
+                }
 
-                  const spec = SPECS[combatant.specId];
-                  const specClassName = spec.className.replace(' ', '');
+                const spec = SPECS[combatant.specId];
+                const specClassName = spec.className.replace(' ', '');
 
-                  return (
-                    <tr key={index}>
-                      <th scope="row">{formatDuration((event.timestamp - this.owner.fight.start_time) / 1000, 0)}</th>
-                      <td className={specClassName}>{combatant.name}</td>
-                      <td style={{ textAlign: 'center' }}>
-                        <SpellLink id={event.ability.guid} icon={false}>
-                          <Icon icon={event.ability.abilityIcon} /> {this.spellToText(event.ability.guid)}
-                        </SpellLink></td>
-                    </tr>
-                  );
-                })
-              }
+                return (
+                  <tr key={index}>
+                    <th scope="row">
+                      {formatDuration((event.timestamp - this.owner.fight.start_time) / 1000, 0)}
+                    </th>
+                    <td className={specClassName}>{combatant.name}</td>
+                    <td style={{ textAlign: 'center' }}>
+                      <SpellLink id={event.ability.guid} icon={false}>
+                        <Icon icon={event.ability.abilityIcon} />{' '}
+                        {this.spellToText(event.ability.guid)}
+                      </SpellLink>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         )}

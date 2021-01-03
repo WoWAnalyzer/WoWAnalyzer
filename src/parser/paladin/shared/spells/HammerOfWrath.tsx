@@ -11,9 +11,7 @@ class HammerofWrath extends ExecuteHelper {
     abilities: Abilities,
   };
 
-  static executeSpells: Spell[] = [
-    SPELLS.HAMMER_OF_WRATH,
-  ];
+  static executeSpells: Spell[] = [SPELLS.HAMMER_OF_WRATH];
   static executeSources: number = SELECTED_PLAYER;
   static lowerThreshold: number = 0.2;
   static executeOutsideRangeEnablers: Spell[] = [
@@ -31,18 +29,18 @@ class HammerofWrath extends ExecuteHelper {
 
     //FIXME added reduction from legendary when we can get that info
     (options.abilities as Abilities).add({
-        spell: SPELLS.HAMMER_OF_WRATH,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 7.5,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.85,
-          maxCasts: () => this.maxCasts || 0,
-        },
-      });
+      spell: SPELLS.HAMMER_OF_WRATH,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      cooldown: 7.5,
+      gcd: {
+        base: 1500,
+      },
+      castEfficiency: {
+        suggestion: true,
+        recommendedEfficiency: 0.85,
+        maxCasts: () => this.maxCasts || 0,
+      },
+    });
   }
 
   adjustMaxCasts(event: FightEndEvent) {

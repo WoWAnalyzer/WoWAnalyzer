@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, {DamageEvent} from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Enemies from 'parser/shared/modules/Enemies';
@@ -34,7 +34,10 @@ class ExecutionSentence extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.EXECUTION_SENTENCE_TALENT.id);
 
     // event listeners
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_HOLY_DAMAGE_INCREASES), this.onAffectedDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_HOLY_DAMAGE_INCREASES),
+      this.onAffectedDamage,
+    );
   }
 
   onAffectedDamage(event: DamageEvent) {
@@ -52,11 +55,11 @@ class ExecutionSentence extends Analyzer {
   }
 
   get directDps() {
-    return this.directDamage / this.owner.fightDuration * 1000;
+    return (this.directDamage / this.owner.fightDuration) * 1000;
   }
 
   get indirectDps() {
-    return this.damageIncrease / this.owner.fightDuration * 1000;
+    return (this.damageIncrease / this.owner.fightDuration) * 1000;
   }
 
   get totalDamage() {
@@ -64,7 +67,7 @@ class ExecutionSentence extends Analyzer {
   }
 
   get totalDps() {
-    return this.totalDamage / this.owner.fightDuration * 1000;
+    return (this.totalDamage / this.owner.fightDuration) * 1000;
   }
 
   statistic() {
@@ -72,13 +75,13 @@ class ExecutionSentence extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(12)}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
             Total damage contributed: {formatNumber(this.totalDamage)} <br />
             DPS from Execution Sentence's direct damage: {formatNumber(this.directDps)} <br />
             DPS gained from Execution Sentence's debuff: {formatNumber(this.indirectDps)}
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.EXECUTION_SENTENCE_TALENT}>
           <ItemDamageDone amount={this.totalDamage} />

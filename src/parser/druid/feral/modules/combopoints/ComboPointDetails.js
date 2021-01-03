@@ -37,17 +37,17 @@ class ComboPointDetails extends Analyzer {
   };
 
   suggestions(when) {
-    when(this.wastingSuggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        You are wasting combo points. Avoid using generators once you reach the maximum.
-      </>,
-    )
-      .icon('creatureportrait_bubble')
-      .actual(t({
-      id: "druid.feral.suggestions.comboPoints.wasted",
-      message: `${actual.toFixed(1)} combo points wasted per minute`
-    }))
-      .recommended('zero waste is recommended'));
+    when(this.wastingSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(<>You are wasting combo points. Avoid using generators once you reach the maximum.</>)
+        .icon('creatureportrait_bubble')
+        .actual(
+          t({
+            id: 'druid.feral.suggestions.comboPoints.wasted',
+            message: `${actual.toFixed(1)} combo points wasted per minute`,
+          }),
+        )
+        .recommended('zero waste is recommended'),
+    );
   }
 
   statistic() {
@@ -57,7 +57,8 @@ class ComboPointDetails extends Analyzer {
         tooltip={
           <>
             You wasted a total of <strong>{this.pointsWasted}</strong> combo points. <br />
-            This number does NOT include Primal Fury procs that happened on a point builder used at 4 CPs, because this waste can't be controlled.
+            This number does NOT include Primal Fury procs that happened on a point builder used at
+            4 CPs, because this waste can't be controlled.
           </>
         }
         position={STATISTIC_ORDER.CORE(6)}
@@ -77,10 +78,7 @@ class ComboPointDetails extends Analyzer {
       url: 'combo-points',
       render: () => (
         <Panel>
-          <ResourceBreakdown
-            tracker={this.comboPointTracker}
-            showSpenders
-          />
+          <ResourceBreakdown tracker={this.comboPointTracker} showSpenders />
         </Panel>
       ),
     };

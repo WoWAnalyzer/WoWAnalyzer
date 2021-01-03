@@ -10,7 +10,6 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import SpellIcon from 'common/SpellIcon';
 
-
 const AW_BASE_DURATION = 20;
 
 class SanctifiedWrath extends Analyzer {
@@ -57,7 +56,9 @@ class SanctifiedWrath extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.SANCTIFIED_WRATH_DAMAGE}>
           <ItemDamageDone amount={this.damageDone} /> <br />
-          <><SpellIcon id={SPELLS.AVENGING_WRATH.id} /> +{formatNumber(totalIncrease)} seconds</>
+          <>
+            <SpellIcon id={SPELLS.AVENGING_WRATH.id} /> +{formatNumber(totalIncrease)} seconds
+          </>
         </BoringSpellValueText>
       </Statistic>
     );

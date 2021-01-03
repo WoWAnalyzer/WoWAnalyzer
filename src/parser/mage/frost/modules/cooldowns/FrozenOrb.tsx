@@ -14,7 +14,10 @@ class FrozenOrb extends Analyzer {
 
   constructor(props: Options) {
     super(props);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLIZZARD_DAMAGE), this._reduceCooldown);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLIZZARD_DAMAGE),
+      this._reduceCooldown,
+    );
   }
 
   _reduceCooldown() {

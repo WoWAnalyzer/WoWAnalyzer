@@ -14,7 +14,6 @@ const BASE_DURATION = 20;
  * Your Ice Lances against frozen targets extend your Icy Veins by an additional 1 sec.
  */
 class ThermalVoid extends Analyzer {
-
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.THERMAL_VOID_TALENT.id);
@@ -22,7 +21,7 @@ class ThermalVoid extends Analyzer {
 
   statistic() {
     const hist = this.selectedCombatant.getBuffHistory(SPELLS.ICY_VEINS.id);
-    if(!hist || hist.length === 0) {
+    if (!hist || hist.length === 0) {
       return null;
     }
 
@@ -50,30 +49,32 @@ class ThermalVoid extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip="Extension times include the base 10 second increase from the talent."
-        dropdown={(
+        dropdown={
           <>
             <table className="table table-condensed">
-            <thead>
-              <tr>
-                <th>Cast</th>
-                <th>Duration</th>
-                <th>Extension</th>
-              </tr>
-            </thead>
-            <tbody>
-              {castRows}
-              <tr key="avg">
-                <th>Average</th>
-                <th>{formatDuration(totalDuration / hist.length)}</th>
-                <th>{formatDuration(totalIncrease / hist.length)}</th>
-              </tr>
-            </tbody>
-          </table>
-        </>
-      )}
+              <thead>
+                <tr>
+                  <th>Cast</th>
+                  <th>Duration</th>
+                  <th>Extension</th>
+                </tr>
+              </thead>
+              <tbody>
+                {castRows}
+                <tr key="avg">
+                  <th>Average</th>
+                  <th>{formatDuration(totalDuration / hist.length)}</th>
+                  <th>{formatDuration(totalIncrease / hist.length)}</th>
+                </tr>
+              </tbody>
+            </table>
+          </>
+        }
       >
         <BoringSpellValueText spell={SPELLS.THERMAL_VOID_TALENT}>
-          <><SpellIcon id={SPELLS.ICY_VEINS.id} /> +{formatNumber(totalIncrease)} seconds</>
+          <>
+            <SpellIcon id={SPELLS.ICY_VEINS.id} /> +{formatNumber(totalIncrease)} seconds
+          </>
         </BoringSpellValueText>
       </Statistic>
     );

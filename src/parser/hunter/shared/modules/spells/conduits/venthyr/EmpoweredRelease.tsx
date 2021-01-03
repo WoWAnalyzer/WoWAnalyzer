@@ -4,7 +4,11 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import { EMPOWERED_RELEASE_INCREASE_KS_DAMAGE, EMPOWERED_RELEASE_INCREASED_FLAYED_PROC_CHANCE, FLAYED_SHOT_RESET_CHANCE } from 'parser/hunter/shared/constants';
+import {
+  EMPOWERED_RELEASE_INCREASE_KS_DAMAGE,
+  EMPOWERED_RELEASE_INCREASED_FLAYED_PROC_CHANCE,
+  FLAYED_SHOT_RESET_CHANCE,
+} from 'parser/hunter/shared/constants';
 import Events, { DamageEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/ItemDamageDone';
@@ -20,7 +24,6 @@ import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
  *
  */
 class EmpoweredRelease extends Analyzer {
-
   flayersMarkProcs: number = 0;
   aggregatedContribution: number = 0;
   conduitRank: number = 0;
@@ -28,16 +31,29 @@ class EmpoweredRelease extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id) && this.selectedCombatant.hasConduitBySpellID(SPELLS.EMPOWERED_RELEASE_CONDUIT.id);
+    this.active =
+      this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id) &&
+      this.selectedCombatant.hasConduitBySpellID(SPELLS.EMPOWERED_RELEASE_CONDUIT.id);
     if (!this.active) {
       return;
     }
 
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.EMPOWERED_RELEASE_CONDUIT.id);
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(
+      SPELLS.EMPOWERED_RELEASE_CONDUIT.id,
+    );
 
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FLAYERS_MARK), this.flayedShotProc);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.FLAYERS_MARK), this.flayedShotProc);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.KILL_SHOT_SV, SPELLS.KILL_SHOT_MM_BM]), this.onKillShotDamage);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FLAYERS_MARK),
+      this.flayedShotProc,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.FLAYERS_MARK),
+      this.flayedShotProc,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.KILL_SHOT_SV, SPELLS.KILL_SHOT_MM_BM]),
+      this.onKillShotDamage,
+    );
   }
 
   get averageContributionPercentage() {
@@ -49,7 +65,9 @@ class EmpoweredRelease extends Analyzer {
   }
 
   flayedShotProc() {
-    this.aggregatedContribution += EMPOWERED_RELEASE_INCREASED_FLAYED_PROC_CHANCE / (FLAYED_SHOT_RESET_CHANCE + EMPOWERED_RELEASE_INCREASED_FLAYED_PROC_CHANCE);
+    this.aggregatedContribution +=
+      EMPOWERED_RELEASE_INCREASED_FLAYED_PROC_CHANCE /
+      (FLAYED_SHOT_RESET_CHANCE + EMPOWERED_RELEASE_INCREASED_FLAYED_PROC_CHANCE);
     this.flayersMarkProcs += 1;
   }
 
@@ -57,7 +75,10 @@ class EmpoweredRelease extends Analyzer {
     if (!this.selectedCombatant.hasBuff(SPELLS.EMPOWERED_RELEASE_BUFF.id)) {
       return;
     }
-    this.addedDamage += calculateEffectiveDamage(event, EMPOWERED_RELEASE_INCREASE_KS_DAMAGE[this.conduitRank]);
+    this.addedDamage += calculateEffectiveDamage(
+      event,
+      EMPOWERED_RELEASE_INCREASE_KS_DAMAGE[this.conduitRank],
+    );
   }
 
   statistic() {

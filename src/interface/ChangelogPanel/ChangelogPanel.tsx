@@ -26,7 +26,7 @@ const ChangelogPanel = () => {
           onChange={(e) => setChangelogType(Number(e.target.value))}
         >
           <option value={0}>
-            {t({ id:'interface.changelogPanel.option.core', message: 'Core'})}
+            {t({ id: 'interface.changelogPanel.option.core', message: 'Core' })}
           </option>
           {AVAILABLE_CONFIGS.map((config) => (
             <option value={config.spec.id} key={config.spec.id}>

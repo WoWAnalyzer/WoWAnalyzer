@@ -16,7 +16,15 @@ import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Che
 import Combatant from 'parser/core/Combatant';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 
-const DisciplinePriestChecklist = ({ combatant, castEfficiency, thresholds }: { combatant: Combatant, castEfficiency: CastEfficiency, thresholds: any }) => {
+const DisciplinePriestChecklist = ({
+  combatant,
+  castEfficiency,
+  thresholds,
+}: {
+  combatant: Combatant;
+  castEfficiency: CastEfficiency;
+  thresholds: any;
+}) => {
   const AbilityRequirement = (props: { spell: number }) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
@@ -31,11 +39,12 @@ const DisciplinePriestChecklist = ({ combatant, castEfficiency, thresholds }: { 
     <Checklist>
       <Rule
         name="Use core abilities as often as possible"
-        description={(
+        description={
           <>
-            Using your core abilities as often as possible will typically result in better performance, remember to <SpellLink id={SPELLS.SMITE.id} /> as often as you can!
+            Using your core abilities as often as possible will typically result in better
+            performance, remember to <SpellLink id={SPELLS.SMITE.id} /> as often as you can!
           </>
-        )}
+        }
       >
         <AbilityRequirement spell={SPELLS.PENANCE_CAST.id} />
         {combatant.hasTalent(SPELLS.SCHISM_TALENT.id) && (
@@ -54,13 +63,17 @@ const DisciplinePriestChecklist = ({ combatant, castEfficiency, thresholds }: { 
 
       <Rule
         name="Use cooldowns effectively"
-        description={(
+        description={
           <>
-            Cooldowns are an important part of healing, try to use them to counter fight mechanics. For example if a boss has burst damage every 1.5 minutes, <SpellLink id={SPELLS.RAPTURE.id} /> should be used to counter it.
+            Cooldowns are an important part of healing, try to use them to counter fight mechanics.
+            For example if a boss has burst damage every 1.5 minutes,{' '}
+            <SpellLink id={SPELLS.RAPTURE.id} /> should be used to counter it.
           </>
-        )}
+        }
       >
-        {!combatant.hasTalent(SPELLS.SPIRIT_SHELL_TALENT.id) && <AbilityRequirement spell={SPELLS.RAPTURE.id} />}
+        {!combatant.hasTalent(SPELLS.SPIRIT_SHELL_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.RAPTURE.id} />
+        )}
         {!combatant.hasTalent(SPELLS.MINDBENDER_TALENT_SHARED.id) && (
           <AbilityRequirement spell={SPELLS.SHADOWFIEND.id} />
         )}
@@ -90,18 +103,32 @@ const DisciplinePriestChecklist = ({ combatant, castEfficiency, thresholds }: { 
 
       <Rule
         name="Try to avoid being inactive for a large portion of the fight"
-        description={(
+        description={
           <>
-            High downtime is inexcusable, while it may be tempting to not cast and save mana, Discipline's damage fillers such as <SpellLink id={SPELLS.SMITE.id} /> are extremely cheap. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and <TooltipElement content="You can ignore this while learning Discipline, but contributing DPS whilst healing is a major part of becoming a better than average player.">when you're not healing try to contribute some damage.*</TooltipElement>.
+            High downtime is inexcusable, while it may be tempting to not cast and save mana,
+            Discipline's damage fillers such as <SpellLink id={SPELLS.SMITE.id} /> are extremely
+            cheap. You can reduce your downtime by reducing the delay between casting spells,
+            anticipating movement, moving during the GCD, and{' '}
+            <TooltipElement content="You can ignore this while learning Discipline, but contributing DPS whilst healing is a major part of becoming a better than average player.">
+              when you're not healing try to contribute some damage.*
+            </TooltipElement>
+            .
           </>
-        )}
+        }
       >
-        <Requirement name="Non healing time" thresholds={thresholds.nonHealingTimeSuggestionThresholds} />
+        <Requirement
+          name="Non healing time"
+          thresholds={thresholds.nonHealingTimeSuggestionThresholds}
+        />
         <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />
       </Rule>
 
       <Rule
-        name={<>Use all of your <ResourceLink id={RESOURCE_TYPES.MANA.id} /> effectively</>}
+        name={
+          <>
+            Use all of your <ResourceLink id={RESOURCE_TYPES.MANA.id} /> effectively
+          </>
+        }
         description="If you have a large amount of mana left at the end of the fight that's mana you could have turned into healing. Try to use all your mana during a fight. A good rule of thumb is to try to match your mana level with the boss's health."
       >
         <Requirement name="Mana left" thresholds={thresholds.manaLeft} />

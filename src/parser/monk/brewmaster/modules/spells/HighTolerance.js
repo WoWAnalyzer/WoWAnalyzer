@@ -21,7 +21,7 @@ function hasHighTolerance(combatant) {
 }
 
 function hasteFnGenerator(value) {
-  return { haste: combatant => hasHighTolerance(combatant) ? value : 0.0 };
+  return { haste: (combatant) => (hasHighTolerance(combatant) ? value : 0.0) };
 }
 
 export const HIGH_TOLERANCE_HASTE_FNS = {
@@ -32,9 +32,11 @@ export const HIGH_TOLERANCE_HASTE_FNS = {
 
 class HighTolerance extends Analyzer {
   get meanHaste() {
-    return Object.keys(HIGH_TOLERANCE_HASTE)
-      .map(key => this.staggerDurations[key] * HIGH_TOLERANCE_HASTE[key])
-      .reduce((prev, cur) => prev + cur, 0) / this.owner.fightDuration;
+    return (
+      Object.keys(HIGH_TOLERANCE_HASTE)
+        .map((key) => this.staggerDurations[key] * HIGH_TOLERANCE_HASTE[key])
+        .reduce((prev, cur) => prev + cur, 0) / this.owner.fightDuration
+    );
   }
 
   get lightDuration() {
@@ -50,7 +52,9 @@ class HighTolerance extends Analyzer {
   }
 
   get noneDuration() {
-    return this.owner.fightDuration - this.lightDuration - this.moderateDuration - this.heavyDuration;
+    return (
+      this.owner.fightDuration - this.lightDuration - this.moderateDuration - this.heavyDuration
+    );
   }
 
   staggerDurations = {
@@ -87,7 +91,8 @@ class HighTolerance extends Analyzer {
 
   onFightend() {
     if (this._staggerLevel !== null) {
-      this.staggerDurations[this._staggerLevel] += this.owner.fight.end_time - this._lastDebuffApplied;
+      this.staggerDurations[this._staggerLevel] +=
+        this.owner.fight.end_time - this._lastDebuffApplied;
     }
   }
 
@@ -96,19 +101,40 @@ class HighTolerance extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
             You spent:
             <ul>
-              <li><strong>{formatThousands(this.noneDuration / 1000)}s</strong> ({formatPercentage(this.noneDuration / this.owner.fightDuration)}%) without Stagger.</li>
-              <li><strong>{formatThousands(this.lightDuration / 1000)}s</strong> ({formatPercentage(this.lightDuration / this.owner.fightDuration)}%) in Light Stagger.</li>
-              <li><strong>{formatThousands(this.moderateDuration / 1000)}s</strong> ({formatPercentage(this.moderateDuration / this.owner.fightDuration)}%) in Moderate Stagger.</li>
-              <li><strong>{formatThousands(this.heavyDuration / 1000)}s</strong> ({formatPercentage(this.heavyDuration / this.owner.fightDuration)}%) in Heavy Stagger.</li>
+              <li>
+                <strong>{formatThousands(this.noneDuration / 1000)}s</strong> (
+                {formatPercentage(this.noneDuration / this.owner.fightDuration)}%) without Stagger.
+              </li>
+              <li>
+                <strong>{formatThousands(this.lightDuration / 1000)}s</strong> (
+                {formatPercentage(this.lightDuration / this.owner.fightDuration)}%) in Light
+                Stagger.
+              </li>
+              <li>
+                <strong>{formatThousands(this.moderateDuration / 1000)}s</strong> (
+                {formatPercentage(this.moderateDuration / this.owner.fightDuration)}%) in Moderate
+                Stagger.
+              </li>
+              <li>
+                <strong>{formatThousands(this.heavyDuration / 1000)}s</strong> (
+                {formatPercentage(this.heavyDuration / this.owner.fightDuration)}%) in Heavy
+                Stagger.
+              </li>
             </ul>
           </>
-        )}
+        }
       >
-        <BoringValue label={<><SpellIcon id={SPELLS.HIGH_TOLERANCE_TALENT.id} /> Avg. Haste from High Tolerance</>}>
+        <BoringValue
+          label={
+            <>
+              <SpellIcon id={SPELLS.HIGH_TOLERANCE_TALENT.id} /> Avg. Haste from High Tolerance
+            </>
+          }
+        >
           <>
             <HasteIcon /> {formatPercentage(this.meanHaste)} %
           </>

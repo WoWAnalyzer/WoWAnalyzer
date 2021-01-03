@@ -85,45 +85,44 @@ class CrusadersMight extends Analyzer {
   }
 
   suggestions(when) {
-      when(this.holyShocksMissedThresholds).addSuggestion((suggest, actual, recommended) =>
-        suggest(
-          <>
-            <Trans id="paladin.holy.modules.talents.crusadersMight.suggestion">
-              You cast <SpellLink id={SPELLS.CRUSADER_STRIKE.id} />{' '}
-              {this.wastedHolyShockReductionCount} times when
-              <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was off cooldown.{' '}
-              <SpellLink id={SPELLS.CRUSADER_STRIKE.id} /> should be used to reduce the cooldown of
-              <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> and should never be cast when{' '}
-              <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> is avalible. This is a core component of
-              the <SpellLink id={SPELLS.GLIMMER_OF_LIGHT_TALENT.id} />{' '}
-              <a
-                href="https://questionablyepic.com/glimmer-of-light/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                build.
-              </a>
-            </Trans>
-          </>,
+    when(this.holyShocksMissedThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          <Trans id="paladin.holy.modules.talents.crusadersMight.suggestion">
+            You cast <SpellLink id={SPELLS.CRUSADER_STRIKE.id} />{' '}
+            {this.wastedHolyShockReductionCount} times when
+            <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was off cooldown.{' '}
+            <SpellLink id={SPELLS.CRUSADER_STRIKE.id} /> should be used to reduce the cooldown of
+            <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> and should never be cast when{' '}
+            <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> is avalible. This is a core component of
+            the <SpellLink id={SPELLS.GLIMMER_OF_LIGHT_TALENT.id} />{' '}
+            <a
+              href="https://questionablyepic.com/glimmer-of-light/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              build.
+            </a>
+          </Trans>
+        </>,
+      )
+        .icon(SPELLS.HOLY_SHOCK_CAST.icon)
+        .actual(
+          t({
+            id: 'paladin.holy.modules.talents.crusadersMight.actual',
+
+            message: `${Math.floor(this.holyShocksCastsLost)} Holy Shock cast${
+              Math.floor(this.holyShocksCastsLost) === 1 ? '' : 's'
+            } missed.`,
+          }),
         )
-          .icon(SPELLS.HOLY_SHOCK_CAST.icon)
-          .actual(
-            t({
-              id: 'paladin.holy.modules.talents.crusadersMight.actual',
-
-              message: `${Math.floor(this.holyShocksCastsLost)} Holy Shock cast${
-                Math.floor(this.holyShocksCastsLost) === 1 ? '' : 's'
-              } missed.`,
-            }),
-          )
-          .recommended(
-            t({
-              id: 'paladin.holy.modules.talents.crusadersMight.recommended',
-              message: `Casting Holy Shock on cooldown is recommended.`,
-            }),
-          ),
-      );
-
+        .recommended(
+          t({
+            id: 'paladin.holy.modules.talents.crusadersMight.recommended',
+            message: `Casting Holy Shock on cooldown is recommended.`,
+          }),
+        ),
+    );
   }
 
   statistic() {

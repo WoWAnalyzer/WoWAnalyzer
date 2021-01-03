@@ -83,7 +83,7 @@ class MasteryEffectiveness extends Analyzer {
 
   masteryHealEvents = [];
 
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
@@ -111,7 +111,7 @@ class MasteryEffectiveness extends Analyzer {
     this.processForMasteryEffectiveness(event);
   }
 
-  onAbsorbedByPlayer(event) { 
+  onAbsorbedByPlayer(event) {
     this.processForMasteryEffectiveness(event);
   }
 
@@ -134,11 +134,12 @@ class MasteryEffectiveness extends Analyzer {
       event.timestamp,
     );
 
-    if(!distance){
+    if (!distance) {
       distance = this.distanceSum / this.distanceCount;
     }
 
-    if(!distance){// still undefined? we just die now (should only happen with weird first event absorb logs)
+    if (!distance) {
+      // still undefined? we just die now (should only happen with weird first event absorb logs)
       console.error(
         "Received a heal before we know the player location. Can't process since player location is still unknown.",
         event,
@@ -274,7 +275,9 @@ class MasteryEffectiveness extends Analyzer {
       <Statistic key="Statistic" position={STATISTIC_ORDER.CORE(10)}>
         <div className="pad" style={{ position: 'relative' }}>
           <label>
-            <Trans id="paladin.holy.modules.masteryEffectiveness.masteryEffectiveness">Mastery effectiveness</Trans>
+            <Trans id="paladin.holy.modules.masteryEffectiveness.masteryEffectiveness">
+              Mastery effectiveness
+            </Trans>
           </label>
           <div className="value">
             {formatPercentage(this.masteryEffectivenessMasteryHealingGainAverage, 0)}%
@@ -303,14 +306,20 @@ class MasteryEffectiveness extends Analyzer {
                 fontSize: 13,
               }}
             >
-              <Trans id="paladin.holy.modules.masteryEffectiveness.averageDistance">Average distance</Trans>
+              <Trans id="paladin.holy.modules.masteryEffectiveness.averageDistance">
+                Average distance
+              </Trans>
             </div>
           </div>
         </div>
       </Statistic>,
       <Panel
         key="Panel"
-        title={<Trans id="paladin.holy.modules.masteryEffectiveness.masteryEffectivenessBreakdown">Mastery effectiveness breakdown</Trans>}
+        title={
+          <Trans id="paladin.holy.modules.masteryEffectiveness.masteryEffectivenessBreakdown">
+            Mastery effectiveness breakdown
+          </Trans>
+        }
         explanation={
           <Trans id="paladin.holy.modules.masteryEffectiveness.masteryEffectivenessBreakdownDetails">
             This shows you your mastery effectiveness on each individual player and the amount of
@@ -345,14 +354,18 @@ class MasteryEffectiveness extends Analyzer {
         </Trans>,
       )
         .icon('inv_hammer_04')
-        .actual(t({
-        id: "paladin.holy.modules.masteryEffectiveness.suggestion.actual",
-        message: `${formatPercentage(actual)}% mastery effectiveness`
-      }))
-        .recommended(t({
-        id: "paladin.holy.modules.masteryEffectiveness.suggestion.recommended",
-        message: `>${formatPercentage(recommended)}% is recommended`
-      })),
+        .actual(
+          t({
+            id: 'paladin.holy.modules.masteryEffectiveness.suggestion.actual',
+            message: `${formatPercentage(actual)}% mastery effectiveness`,
+          }),
+        )
+        .recommended(
+          t({
+            id: 'paladin.holy.modules.masteryEffectiveness.suggestion.recommended',
+            message: `>${formatPercentage(recommended)}% is recommended`,
+          }),
+        ),
     );
   }
 }

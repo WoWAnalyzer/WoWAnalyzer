@@ -20,8 +20,14 @@ class Flagellation extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FLAGELLATION), this.onDamage);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FLAGELLATION_LASH), this.onLashDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FLAGELLATION),
+      this.onDamage,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FLAGELLATION_LASH),
+      this.onLashDamage,
+    );
   }
 
   onDamage(event: DamageEvent) {
@@ -35,10 +41,7 @@ class Flagellation extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
-      >
+      <Statistic size="flexible" category={STATISTIC_CATEGORY.COVENANTS}>
         <BoringSpellValueText spell={SPELLS.FLAGELLATION}>
           <>
             <ItemDamageDone amount={this.damage} />

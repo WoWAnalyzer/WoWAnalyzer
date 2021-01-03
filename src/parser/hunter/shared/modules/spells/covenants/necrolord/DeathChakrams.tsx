@@ -46,8 +46,16 @@ class DeathChakrams extends Analyzer {
       },
     });
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.DEATH_CHAKRAM_SINGLE_TARGET, SPELLS.DEATH_CHAKRAM_INITIAL_AND_AOE]), this.onDamage);
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DEATH_CHAKRAM_ENERGIZE), this.onEnergize);
+    this.addEventListener(
+      Events.damage
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.DEATH_CHAKRAM_SINGLE_TARGET, SPELLS.DEATH_CHAKRAM_INITIAL_AND_AOE]),
+      this.onDamage,
+    );
+    this.addEventListener(
+      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DEATH_CHAKRAM_ENERGIZE),
+      this.onEnergize,
+    );
   }
 
   onDamage(event: DamageEvent) {
@@ -70,7 +78,9 @@ class DeathChakrams extends Analyzer {
           <>
             <ItemDamageDone amount={this.damage} />
             <br />
-            <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /> {this.focusGained}/{this.focusWasted + this.focusGained}<small> gained Focus</small>
+            <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /> {this.focusGained}/
+            {this.focusWasted + this.focusGained}
+            <small> gained Focus</small>
           </>
         </BoringSpellValueText>
       </Statistic>

@@ -28,31 +28,77 @@ const FuryWarriorChecklist = ({ combatant, castEfficiency, thresholds }: any) =>
         name="Use cooldowns effectively"
         description="Your cooldowns are an important contributor to your damage throughput. Try to get in as many efficient casts as the fight allows."
       >
-        {combatant.hasTalent(SPELLS.SIEGEBREAKER_TALENT.id) && (<AbilityRequirement spell={SPELLS.SIEGEBREAKER_TALENT.id} />)}
-        {combatant.hasTalent(SPELLS.SIEGEBREAKER_TALENT.id) && <Requirement name={(<><SpellLink id={SPELLS.RECKLESSNESS.id} /> casts with <SpellLink id={SPELLS.SIEGEBREAKER_TALENT.id} />  </>)} thresholds={thresholds.siegeBreaker} />}
-        {combatant.hasTalent(SPELLS.BLADESTORM_TALENT.id) && (<AbilityRequirement spell={SPELLS.BLADESTORM_TALENT.id} />)}
-        {combatant.hasTalent(SPELLS.BLADESTORM_TALENT.id) && <Requirement name={(<><SpellLink id={SPELLS.BLADESTORM_TALENT.id} /> casts inside of Enrage </>)} thresholds={thresholds.bladeStorm} />}
-        {combatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id) && (<AbilityRequirement spell={SPELLS.DRAGON_ROAR_TALENT.id} />)}
-        {combatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id) && <Requirement name={(<><SpellLink id={SPELLS.DRAGON_ROAR_TALENT.id} /> casts inside of Enrage </>)} thresholds={thresholds.dragonRoar} />}
+        {combatant.hasTalent(SPELLS.SIEGEBREAKER_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.SIEGEBREAKER_TALENT.id} />
+        )}
+        {combatant.hasTalent(SPELLS.SIEGEBREAKER_TALENT.id) && (
+          <Requirement
+            name={
+              <>
+                <SpellLink id={SPELLS.RECKLESSNESS.id} /> casts with{' '}
+                <SpellLink id={SPELLS.SIEGEBREAKER_TALENT.id} />{' '}
+              </>
+            }
+            thresholds={thresholds.siegeBreaker}
+          />
+        )}
+        {combatant.hasTalent(SPELLS.BLADESTORM_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.BLADESTORM_TALENT.id} />
+        )}
+        {combatant.hasTalent(SPELLS.BLADESTORM_TALENT.id) && (
+          <Requirement
+            name={
+              <>
+                <SpellLink id={SPELLS.BLADESTORM_TALENT.id} /> casts inside of Enrage{' '}
+              </>
+            }
+            thresholds={thresholds.bladeStorm}
+          />
+        )}
+        {combatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.DRAGON_ROAR_TALENT.id} />
+        )}
+        {combatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id) && (
+          <Requirement
+            name={
+              <>
+                <SpellLink id={SPELLS.DRAGON_ROAR_TALENT.id} /> casts inside of Enrage{' '}
+              </>
+            }
+            thresholds={thresholds.dragonRoar}
+          />
+        )}
         <AbilityRequirement spell={SPELLS.RECKLESSNESS.id} />
-        <Requirement name={(<><SpellLink id={SPELLS.WHIRLWIND_FURY_CAST.id} />  </>)} thresholds={thresholds.whirlWind} />
+        <Requirement
+          name={
+            <>
+              <SpellLink id={SPELLS.WHIRLWIND_FURY_CAST.id} />{' '}
+            </>
+          }
+          thresholds={thresholds.whirlWind}
+        />
         {/* We can't detect race, so disable this when it has never been cast. */}
-        {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_RAGE.id) && (<AbilityRequirement spell={SPELLS.ARCANE_TORRENT_RAGE.id} />)}
+        {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_RAGE.id) && (
+          <AbilityRequirement spell={SPELLS.ARCANE_TORRENT_RAGE.id} />
+        )}
       </Rule>
       <Rule
         name="Use Rampage"
-        description={(
+        description={
           <>
-            Using <SpellLink id={SPELLS.RAMPAGE.id} /> is an important part of the Fury rotation. If you aren't Enraged, <SpellLink id={SPELLS.RAMPAGE.id} /> should be used as soon as you have enough rage. Also, use <SpellLink id={SPELLS.RAMPAGE.id} /> if you would reach maximum rage otherwise.
+            Using <SpellLink id={SPELLS.RAMPAGE.id} /> is an important part of the Fury rotation. If
+            you aren't Enraged, <SpellLink id={SPELLS.RAMPAGE.id} /> should be used as soon as you
+            have enough rage. Also, use <SpellLink id={SPELLS.RAMPAGE.id} /> if you would reach
+            maximum rage otherwise.
           </>
-        )}
+        }
       >
         <Requirement
-          name={(
+          name={
             <>
               Number of missed <SpellLink id={SPELLS.RAMPAGE.id} /> casts
             </>
-          )}
+          }
           thresholds={thresholds.missedRampage}
         />
       </Rule>
@@ -65,21 +111,26 @@ const FuryWarriorChecklist = ({ combatant, castEfficiency, thresholds }: any) =>
       </Rule>
       <Rule
         name="Avoid downtime"
-        description={(
+        description={
           <>
-            As a melee DPS, it is important to stay within range of the target and cast your abiltiies promptly. If you find yourself out of range, try using <SpellLink id={SPELLS.CHARGE.id} /> and <SpellLink id={SPELLS.HEROIC_LEAP.id} /> to get back more quickly.
+            As a melee DPS, it is important to stay within range of the target and cast your
+            abiltiies promptly. If you find yourself out of range, try using{' '}
+            <SpellLink id={SPELLS.CHARGE.id} /> and <SpellLink id={SPELLS.HEROIC_LEAP.id} /> to get
+            back more quickly.
           </>
-        )}
+        }
       >
         <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />
       </Rule>
       <Rule
         name="Don't get too angry"
-        description={(
+        description={
           <>
-            Minimizing your wasted <ResourceLink id={RESOURCE_TYPES.RAGE.id} /> should be top priority as a Fury Warrior, so be sure to use <SpellLink id={SPELLS.RAMPAGE.id} /> to avoid this.
+            Minimizing your wasted <ResourceLink id={RESOURCE_TYPES.RAGE.id} /> should be top
+            priority as a Fury Warrior, so be sure to use <SpellLink id={SPELLS.RAMPAGE.id} /> to
+            avoid this.
           </>
-        )}
+        }
       >
         <Requirement name="Lost Rage" thresholds={thresholds.rageDetails} />
       </Rule>

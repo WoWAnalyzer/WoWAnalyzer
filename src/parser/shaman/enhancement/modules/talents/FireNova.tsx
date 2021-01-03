@@ -28,14 +28,12 @@ class FireNova extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.FIRE_NOVA_TALENT.id);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER)
-        .spell(SPELLS.FIRE_NOVA_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FIRE_NOVA_TALENT),
       this.onFireNovaCast,
     );
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(SPELLS.FIRE_NOVA_DAMAGE),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FIRE_NOVA_DAMAGE),
       this.onFireNovaDamage,
     );
   }
@@ -58,7 +56,8 @@ class FireNova extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.FIRE_NOVA_TALENT}>
           <>
-            <ItemDamageDone amount={this.fireNovaDamage} /><br />
+            <ItemDamageDone amount={this.fireNovaDamage} />
+            <br />
             <AverageTargetsHit casts={this.casts} hits={this.hits} />
           </>
         </BoringSpellValueText>

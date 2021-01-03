@@ -17,16 +17,18 @@ import { t } from '@lingui/macro';
 
 class SpiritBombFrailtyDebuff extends Analyzer {
   get uptime() {
-    return this.enemies.getBuffUptime(SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id) / this.owner.fightDuration;
+    return (
+      this.enemies.getBuffUptime(SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id) / this.owner.fightDuration
+    );
   }
 
   get uptimeSuggestionThresholds() {
     return {
       actual: this.uptime,
       isLessThan: {
-        minor: 0.90,
+        minor: 0.9,
         average: 0.85,
-        major: .80,
+        major: 0.8,
       },
       style: 'percentage',
     };
@@ -43,19 +45,28 @@ class SpiritBombFrailtyDebuff extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.uptimeSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id} /> uptime can be improved. This is easy to maintain and an important source of healing.</>)
+    when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your <SpellLink id={SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id} /> uptime can be improved. This
+          is easy to maintain and an important source of healing.
+        </>,
+      )
         .icon(SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.icon)
-        .actual(t({
-      id: "demonhunter.vengeance.spiritBombFrailtyBuff.uptime",
-      message: `${formatPercentage(actual)}% Frailty uptime`
-    }))
-        .recommended(`>${formatPercentage(recommended)}% is recommended`));
+        .actual(
+          t({
+            id: 'demonhunter.vengeance.spiritBombFrailtyBuff.uptime',
+            message: `${formatPercentage(actual)}% Frailty uptime`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
     const spiritBombUptime = this.enemies.getBuffUptime(SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id);
-    const spiritBombDamage = this.abilityTracker.getAbility(SPELLS.SPIRIT_BOMB_DAMAGE.id).damageEffective;
+    const spiritBombDamage = this.abilityTracker.getAbility(SPELLS.SPIRIT_BOMB_DAMAGE.id)
+      .damageEffective;
 
     return (
       <Statistic

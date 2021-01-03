@@ -48,20 +48,33 @@ class JadeBond extends Analyzer {
 
     this.healingBoost = conduitScaling(JADE_BOND_RANK_ONE, this.conduitRank);
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.EXPEL_HARM, SPELLS.VIVIFY, SPELLS.RENEWING_MIST, SPELLS.ENVELOPING_MIST]), this.gustProcingSpell);
+    this.addEventListener(
+      Events.cast
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.EXPEL_HARM, SPELLS.VIVIFY, SPELLS.RENEWING_MIST, SPELLS.ENVELOPING_MIST]),
+      this.gustProcingSpell,
+    );
 
     if (this.selectedCombatant.hasTalent(SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id)) {
       this.spellToReduce = SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT;
-      this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUST_OF_MISTS_CHIJI), this.normalizeBoost);
+      this.addEventListener(
+        Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUST_OF_MISTS_CHIJI),
+        this.normalizeBoost,
+      );
     } else {
-      this.addEventListener(Events.heal.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_BREATH), this.normalizeBoost);
+      this.addEventListener(
+        Events.heal.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_BREATH),
+        this.normalizeBoost,
+      );
     }
-
   }
 
   gustProcingSpell(event: CastEvent) {
     if (this.spellUsable.isOnCooldown(this.spellToReduce.id)) {
-      this.cooldownReductionUsed += this.spellUsable.reduceCooldown(this.spellToReduce.id, JADE_BOND_REDUCTION);
+      this.cooldownReductionUsed += this.spellUsable.reduceCooldown(
+        this.spellToReduce.id,
+        JADE_BOND_REDUCTION,
+      );
     } else {
       this.cooldownReductionWasted += JADE_BOND_REDUCTION;
     }
@@ -77,15 +90,17 @@ class JadeBond extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
-        tooltip={(
+        tooltip={
           <>
-            Effective Cooldown Reduction: {formatNumber(this.cooldownReductionUsed / 1000)} Seconds<br />
+            Effective Cooldown Reduction: {formatNumber(this.cooldownReductionUsed / 1000)} Seconds
+            <br />
             Wasted Cooldown Reduction: {formatNumber(this.cooldownReductionWasted / 1000)} Seconds
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.JADE_BOND}>
-          <ItemHealingDone amount={this.healing} /><br />
+          <ItemHealingDone amount={this.healing} />
+          <br />
         </BoringSpellValueText>
       </Statistic>
     );

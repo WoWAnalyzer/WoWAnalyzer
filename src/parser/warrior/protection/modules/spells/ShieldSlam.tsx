@@ -30,7 +30,10 @@ class ShieldBlock extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.lastCast = this.owner.fight.start_time / 1000;
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_SLAM), this.onSlamCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_SLAM),
+      this.onSlamCast,
+    );
     this.addEventListener(Events.fightend, this.handleFightEnd);
   }
 
@@ -42,20 +45,22 @@ class ShieldBlock extends Analyzer {
     return {
       actual: this.slamRatio,
       isLessThan: {
-        minor: .90,
-        average: .80,
-        major: .70,
+        minor: 0.9,
+        average: 0.8,
+        major: 0.7,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
   }
 
   onSlamCast(event: CastEvent) {
-    if (this.currentCd === 0) { //we then know this is the first cast
+    if (this.currentCd === 0) {
+      //we then know this is the first cast
       this.timeOnCd = event.timestamp / 1000 - this.owner.fight.start_time / 1000;
     }
 
-    if ((event.timestamp / 1000 - this.lastCast) * 1.05 > this.currentCd) { //normal cast
+    if ((event.timestamp / 1000 - this.lastCast) * 1.05 > this.currentCd) {
+      //normal cast
       this.timeOnCd += event.timestamp / 1000 - this.lastCast;
     }
 
@@ -63,7 +68,8 @@ class ShieldBlock extends Analyzer {
       this.averageCd += this.currentCd;
     }
 
-    this.currentCd = 9 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating));
+    this.currentCd =
+      9 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating));
     this.lastCast = event.timestamp / 1000;
 
     this.totalCastsAssumed += 1;
@@ -75,7 +81,7 @@ class ShieldBlock extends Analyzer {
       this.timeOnCd += this.owner.fight.end_time / 1000 - this.lastCast;
     }
     this.averageCd = this.averageCd / this.totalCastsAssumed;
-    this.totalCastsAssumed += (this.timeOnCd / this.averageCd);
+    this.totalCastsAssumed += this.timeOnCd / this.averageCd;
     //this.totalCastsAssumed = parseInt(this.totalCastsAssumed); [dambroda: not sure what this did?]
     if (debug) {
       console.log('assumed max shield slam casts: ' + this.totalCastsAssumed);
@@ -88,17 +94,26 @@ class ShieldBlock extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        Try to cast <SpellLink id={SPELLS.SHIELD_SLAM.id} /> more often - it is your main <ResourceLink id={RESOURCE_TYPES.RAGE.id} /> generator and damage source.
-      </>,
-    )
-      .icon(SPELLS.SHIELD_SLAM.icon)
-      .actual(t({
-      id: "warrior.protection.suggestions.shieldSlam.casts",
-      message: `${this.actualCasts} shield slam casts`
-    }))
-      .recommended(`${(recommended * this.totalCastsAssumed).toFixed(0)} recommended out of ${this.totalCastsAssumed} maximum`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Try to cast <SpellLink id={SPELLS.SHIELD_SLAM.id} /> more often - it is your main{' '}
+          <ResourceLink id={RESOURCE_TYPES.RAGE.id} /> generator and damage source.
+        </>,
+      )
+        .icon(SPELLS.SHIELD_SLAM.icon)
+        .actual(
+          t({
+            id: 'warrior.protection.suggestions.shieldSlam.casts',
+            message: `${this.actualCasts} shield slam casts`,
+          }),
+        )
+        .recommended(
+          `${(recommended * this.totalCastsAssumed).toFixed(0)} recommended out of ${
+            this.totalCastsAssumed
+          } maximum`,
+        ),
+    );
   }
 }
 

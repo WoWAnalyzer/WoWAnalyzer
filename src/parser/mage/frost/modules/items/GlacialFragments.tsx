@@ -12,7 +12,6 @@ import { When } from 'parser/core/ParseResults';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 
 class GlacialFragments extends Analyzer {
-
   hasSplittingIce: boolean;
   fragmentDamage = 0;
 
@@ -20,7 +19,10 @@ class GlacialFragments extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.GLACIAL_FRAGMENTS.bonusID);
     this.hasSplittingIce = this.selectedCombatant.hasTalent(SPELLS.SPLITTING_ICE_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.GLACIAL_FRAGMENTS_DAMAGE), this.onFragmentDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.GLACIAL_FRAGMENTS_DAMAGE),
+      this.onFragmentDamage,
+    );
   }
 
   onFragmentDamage(event: DamageEvent) {
@@ -28,20 +30,28 @@ class GlacialFragments extends Analyzer {
   }
 
   suggestions(when: When) {
-      when(this.hasSplittingIce).isFalse()
-        .addSuggestion((suggest) => suggest(<>It is highly recommended to talent into <SpellLink id={SPELLS.SPLITTING_ICE_TALENT.id} /> when using the <SpellLink id={SPELLS.GLACIAL_FRAGMENTS.id} /> legendary effect. Without Splitting Ice, you would be better off using a different legendary effect instead.</>)
-            .icon(SPELLS.GLACIAL_FRAGMENTS.icon)
-            .staticImportance(SUGGESTION_IMPORTANCE.REGULAR));
+    when(this.hasSplittingIce)
+      .isFalse()
+      .addSuggestion((suggest) =>
+        suggest(
+          <>
+            It is highly recommended to talent into{' '}
+            <SpellLink id={SPELLS.SPLITTING_ICE_TALENT.id} /> when using the{' '}
+            <SpellLink id={SPELLS.GLACIAL_FRAGMENTS.id} /> legendary effect. Without Splitting Ice,
+            you would be better off using a different legendary effect instead.
+          </>,
+        )
+          .icon(SPELLS.GLACIAL_FRAGMENTS.icon)
+          .staticImportance(SUGGESTION_IMPORTANCE.REGULAR),
+      );
   }
 
   statistic() {
     return (
-      <Statistic
-        category={STATISTIC_CATEGORY.ITEMS}
-        size="flexible"
-      >
+      <Statistic category={STATISTIC_CATEGORY.ITEMS} size="flexible">
         <BoringSpellValueText spell={SPELLS.GLACIAL_FRAGMENTS}>
-          <ItemDamageDone amount={this.fragmentDamage} /><br />
+          <ItemDamageDone amount={this.fragmentDamage} />
+          <br />
         </BoringSpellValueText>
       </Statistic>
     );

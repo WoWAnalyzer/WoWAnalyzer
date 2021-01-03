@@ -19,17 +19,16 @@ class ChaosTheory extends Analyzer {
   }
 
   get buffUptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.CHAOTIC_BLADES.id) / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.CHAOTIC_BLADES.id) / this.owner.fightDuration
+    );
   }
 
   statistic() {
     return (
-      <Statistic
-        size="flexible"
-        category={STATISTIC_CATEGORY.ITEMS}
-      >
+      <Statistic size="flexible" category={STATISTIC_CATEGORY.ITEMS}>
         <BoringSpellValueText spell={SPELLS.CHAOS_THEORY}>
-            <UptimeIcon /> {formatPercentage(this.buffUptime)}% <small>Buff uptime</small>
+          <UptimeIcon /> {formatPercentage(this.buffUptime)}% <small>Buff uptime</small>
         </BoringSpellValueText>
       </Statistic>
     );

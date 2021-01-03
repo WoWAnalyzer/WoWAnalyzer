@@ -8,7 +8,7 @@ import Buffs from 'parser/core/modules/Buffs';
 
 import Component from './Component';
 
-const Container = props => {
+const Container = (props) => {
   const { parser } = props;
 
   return (

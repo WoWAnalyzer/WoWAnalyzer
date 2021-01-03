@@ -18,8 +18,14 @@ class SpellUsable extends CoreSpellUsable {
     super(options);
     this.hasAotd = this.selectedCombatant.hasTalent(SPELLS.ARMY_OF_THE_DAMNED_TALENT.id);
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DEATH_COIL), this.onDeathCoilDamage);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.MELEE), this.onArmyDamage)
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DEATH_COIL),
+      this.onDeathCoilDamage,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.MELEE),
+      this.onArmyDamage,
+    );
   }
 
   onArmyDamage(event: DamageEvent) {
@@ -31,12 +37,16 @@ class SpellUsable extends CoreSpellUsable {
       this.beginCooldown(SPELLS.ARMY_OF_THE_DEAD.id, event);
     }
   }
-  
+
   onDeathCoilDamage(event: DamageEvent) {
     if (this.isOnCooldown(SPELLS.DARK_TRANSFORMATION.id)) {
-      this.reduceCooldown(SPELLS.DARK_TRANSFORMATION.id, DEATH_COIL_RANK_2_REDUCTION, event.timestamp);
+      this.reduceCooldown(
+        SPELLS.DARK_TRANSFORMATION.id,
+        DEATH_COIL_RANK_2_REDUCTION,
+        event.timestamp,
+      );
     }
-    
+
     if (this.hasAotd && this.isOnCooldown(SPELLS.APOCALYPSE.id)) {
       this.reduceCooldown(SPELLS.APOCALYPSE.id, AOTD_APOCALYPSE_REDUCTION, event.timestamp);
     }

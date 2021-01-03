@@ -1,12 +1,9 @@
-import EventFilter, {
-  SELECTED_PLAYER,
-  SELECTED_PLAYER_PET,
-} from './EventFilter';
+import EventFilter, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from './EventFilter';
 import Module, { Options as _Options } from './Module';
 import { EventType, MappedEvent } from './Events';
 
 export { SELECTED_PLAYER, SELECTED_PLAYER_PET };
-export type Options = _Options
+export type Options = _Options;
 
 export type EventListener<ET extends EventType, E extends MappedEvent<ET>> = (event: E) => void;
 

@@ -16,11 +16,21 @@ export default {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      Hello, and welcome to the Brewmaster Analyzer! This analyzer is maintained by <a href="//raider.io/characters/us/turalyon/Eisenpelz"><code>emallson</code></a>, a Brewmaster theorycrafter and main.<br /><br />
-
-      If you are new to the spec, focus first on hitting the targets in the Checklist and Suggestions tabs. The statistics below provide further insight both into your performance and into the effectiveness of your gear and stats.<br /><br />
-
-      If you have questions about the output, please ask in the <code>#brew-questions</code> channel of the <a href="http://discord.gg/peakofserenity">Peak of Serenity</a>. If you have theorycrafting questions or want to contribute, come say hi in <code>#craft-brewing</code>.
+      Hello, and welcome to the Brewmaster Analyzer! This analyzer is maintained by{' '}
+      <a href="//raider.io/characters/us/turalyon/Eisenpelz">
+        <code>emallson</code>
+      </a>
+      , a Brewmaster theorycrafter and main.
+      <br />
+      <br />
+      If you are new to the spec, focus first on hitting the targets in the Checklist and
+      Suggestions tabs. The statistics below provide further insight both into your performance and
+      into the effectiveness of your gear and stats.
+      <br />
+      <br />
+      If you have questions about the output, please ask in the <code>#brew-questions</code> channel
+      of the <a href="http://discord.gg/peakofserenity">Peak of Serenity</a>. If you have
+      theorycrafting questions or want to contribute, come say hi in <code>#craft-brewing</code>.
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
@@ -32,7 +42,10 @@ export default {
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () => import('./CombatLogParser' /* webpackChunkName: "BrewmasterMonk" */).then(exports => exports.default),
+  parser: () =>
+    import('./CombatLogParser' /* webpackChunkName: "BrewmasterMonk" */).then(
+      (exports) => exports.default,
+    ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };

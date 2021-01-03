@@ -13,7 +13,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 class Havoc extends Analyzer {
   get dps() {
-    return this.damage / this.owner.fightDuration * 1000;
+    return (this.damage / this.owner.fightDuration) * 1000;
   }
 
   static dependencies = {
@@ -45,16 +45,21 @@ class Havoc extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(5)}
         size="small"
-        tooltip={(
+        tooltip={
           <>
-            You cleaved {formatThousands(this.damage)} damage to targets afflicted by your Havoc.<br /><br />
-
-            Note: This number is probably higher than it should be, as it also counts the damage you did directly to the Havoc target (not just the cleaved damage).
+            You cleaved {formatThousands(this.damage)} damage to targets afflicted by your Havoc.
+            <br />
+            <br />
+            Note: This number is probably higher than it should be, as it also counts the damage you
+            did directly to the Havoc target (not just the cleaved damage).
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.HAVOC}>
-          {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total</small>
+          {formatNumber(this.dps)} DPS{' '}
+          <small>
+            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total
+          </small>
         </BoringSpellValueText>
       </Statistic>
     );

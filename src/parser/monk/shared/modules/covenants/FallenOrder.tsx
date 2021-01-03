@@ -50,16 +50,47 @@ class FallenOrder extends Analyzer {
     });
 
     //summon events (need to track this to get melees)
-    this.addEventListener(Events.summon.by(SELECTED_PLAYER).spell([SPELLS.FALLEN_ORDER_OX_CLONE, SPELLS.FALLEN_ORDER_TIGER_CLONE, SPELLS.FALLEN_ORDER_CRANE_CLONE]), this.trackSummons);
+    this.addEventListener(
+      Events.summon
+        .by(SELECTED_PLAYER)
+        .spell([
+          SPELLS.FALLEN_ORDER_OX_CLONE,
+          SPELLS.FALLEN_ORDER_TIGER_CLONE,
+          SPELLS.FALLEN_ORDER_CRANE_CLONE,
+        ]),
+      this.trackSummons,
+    );
 
     //mistweaver spells
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER_PET).spell([SPELLS.FALLEN_ORDER_ENVELOPING_MIST, SPELLS.FALLEN_ORDER_SOOTHING_MIST]), this.mistHealingTracker);
+    this.addEventListener(
+      Events.heal
+        .by(SELECTED_PLAYER_PET)
+        .spell([SPELLS.FALLEN_ORDER_ENVELOPING_MIST, SPELLS.FALLEN_ORDER_SOOTHING_MIST]),
+      this.mistHealingTracker,
+    );
     //brewmaster spells
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell([SPELLS.FALLEN_ORDER_KEG_SMASH, SPELLS.FALLEN_ORDER_BREATH_OF_FIRE, SPELLS.BREATH_OF_FIRE_DEBUFF]), this.brewDamageTracker);
+    this.addEventListener(
+      Events.damage
+        .by(SELECTED_PLAYER_PET)
+        .spell([
+          SPELLS.FALLEN_ORDER_KEG_SMASH,
+          SPELLS.FALLEN_ORDER_BREATH_OF_FIRE,
+          SPELLS.BREATH_OF_FIRE_DEBUFF,
+        ]),
+      this.brewDamageTracker,
+    );
     //windwalker spells
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell([SPELLS.FALLEN_ORDER_SPINNING_CRANE_KICK, SPELLS.FISTS_OF_FURY_DAMAGE]), this.windDamageTracker);
+    this.addEventListener(
+      Events.damage
+        .by(SELECTED_PLAYER_PET)
+        .spell([SPELLS.FALLEN_ORDER_SPINNING_CRANE_KICK, SPELLS.FISTS_OF_FURY_DAMAGE]),
+      this.windDamageTracker,
+    );
     //shared
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.MELEE), this.handleMelee);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.MELEE),
+      this.handleMelee,
+    );
   }
 
   trackSummons(event: SummonEvent) {
@@ -104,7 +135,6 @@ class FallenOrder extends Analyzer {
     } else {
       this.mistDamageTracker(event);
     }
-
   }
 
   statistic() {
@@ -115,7 +145,7 @@ class FallenOrder extends Analyzer {
         position={STATISTIC_ORDER.CORE()}
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
-        tooltip={(
+        tooltip={
           <>
             <ul>
               <li>Damage from Brewmaster clones: {formatNumber(this.brewDamage)}</li>
@@ -123,10 +153,11 @@ class FallenOrder extends Analyzer {
               <li>Damage from Windwalker clones: {formatNumber(this.windDamage)}</li>
             </ul>
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.FALLEN_ORDER_CAST}>
-          <ItemHealingDone amount={this.mistHealing} /><br />
+          <ItemHealingDone amount={this.mistHealing} />
+          <br />
           <ItemDamageDone amount={totalDamage} />
         </BoringSpellValueText>
       </Statistic>

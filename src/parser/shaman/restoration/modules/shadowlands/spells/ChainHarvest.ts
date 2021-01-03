@@ -1,4 +1,3 @@
-
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
 
@@ -11,7 +10,6 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import RestorationAbilityTracker from '../../core/RestorationAbilityTracker';
 
 const cooldownDecrease = 5000;
-
 
 /**
  * CD is reduced by crits
@@ -30,7 +28,10 @@ class ChainHarvest extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id);
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HARVEST), this._onHeal);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HARVEST),
+      this._onHeal,
+    );
   }
 
   _onHeal(event: HealEvent) {
@@ -42,4 +43,3 @@ class ChainHarvest extends Analyzer {
 }
 
 export default ChainHarvest;
-

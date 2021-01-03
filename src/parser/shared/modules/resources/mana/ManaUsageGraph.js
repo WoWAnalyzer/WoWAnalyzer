@@ -20,40 +20,46 @@ const COLORS = {
 
 class ManaUsageGraph extends React.Component {
   static propTypes = {
-    mana: PropTypes.arrayOf(PropTypes.shape({
-      x: PropTypes.number.isRequired,
-      y: PropTypes.number.isRequired,
-    })).isRequired,
-    healing: PropTypes.arrayOf(PropTypes.shape({
-      x: PropTypes.number.isRequired,
-      y: PropTypes.number.isRequired,
-    })).isRequired,
-    manaUsed: PropTypes.arrayOf(PropTypes.shape({
-      x: PropTypes.number.isRequired,
-      y: PropTypes.number.isRequired,
-    })).isRequired,
+    mana: PropTypes.arrayOf(
+      PropTypes.shape({
+        x: PropTypes.number.isRequired,
+        y: PropTypes.number.isRequired,
+      }),
+    ).isRequired,
+    healing: PropTypes.arrayOf(
+      PropTypes.shape({
+        x: PropTypes.number.isRequired,
+        y: PropTypes.number.isRequired,
+      }),
+    ).isRequired,
+    manaUsed: PropTypes.arrayOf(
+      PropTypes.shape({
+        x: PropTypes.number.isRequired,
+        y: PropTypes.number.isRequired,
+      }),
+    ).isRequired,
   };
 
   render() {
     const { mana, healing, manaUsed } = this.props;
 
     const baseEncoding = {
-        x: {
-          field: 'x',
-          type: 'quantitative',
-          axis: {
-            labelExpr: formatTime('datum.value * 1000'),
-            grid: false,
-          },
-          title: null,
-          scale: { zero: true, nice: false },
+      x: {
+        field: 'x',
+        type: 'quantitative',
+        axis: {
+          labelExpr: formatTime('datum.value * 1000'),
+          grid: false,
         },
-        y: {
-          field: 'y',
-          type: 'quantitative',
-          title: null,
-        },
-      };
+        title: null,
+        scale: { zero: true, nice: false },
+      },
+      y: {
+        field: 'y',
+        type: 'quantitative',
+        title: null,
+      },
+    };
 
     const spec = {
       data: {
@@ -81,22 +87,15 @@ class ManaUsageGraph extends React.Component {
     };
     const data = {
       combined: [
-        ...mana.map(e => ({...e, kind: 'Mana'})),
-        ...healing.map(e => ({...e, kind: 'HPS'})),
-        ...manaUsed.map(e => ({...e, kind: 'Mana Used'})),
+        ...mana.map((e) => ({ ...e, kind: 'Mana' })),
+        ...healing.map((e) => ({ ...e, kind: 'HPS' })),
+        ...manaUsed.map((e) => ({ ...e, kind: 'Mana Used' })),
       ],
     };
 
     return (
       <AutoSizer disableHeight>
-        {({ width }) => (
-        <BaseChart
-          height={400}
-          width={width}
-          spec={spec}
-          data={data}
-          />
-        )}
+        {({ width }) => <BaseChart height={400} width={width} spec={spec} data={data} />}
       </AutoSizer>
     );
   }

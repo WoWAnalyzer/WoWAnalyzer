@@ -8,10 +8,10 @@ import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/Pr
 import AlwaysBeCasting from '../AlwaysBeCasting';
 import Component from './Component';
 
-import BoneShield from "../BoneShield";
-import BloodPlagueUptime from "../BloodPlagueUptime";
-import CrimsonScourge from "../CrimsonScourge";
-import MarrowrendUsage from "../MarrowrendUsage";
+import BoneShield from '../BoneShield';
+import BloodPlagueUptime from '../BloodPlagueUptime';
+import CrimsonScourge from '../CrimsonScourge';
+import MarrowrendUsage from '../MarrowrendUsage';
 import DeathsCaress from '../../core/DeathsCaress';
 import BoneStorm from '../../talents/Bonestorm';
 import MarkOfBloodUptime from '../../talents/MarkOfBlood';

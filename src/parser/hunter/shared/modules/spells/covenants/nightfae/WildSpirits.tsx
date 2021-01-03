@@ -50,7 +50,12 @@ class WildSpirits extends Analyzer {
       },
     });
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.WILD_SPIRITS_DAMAGE, SPELLS.WILD_SPIRITS_DAMAGE_AOE]), this.onWildSpiritsDamage);
+    this.addEventListener(
+      Events.damage
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.WILD_SPIRITS_DAMAGE, SPELLS.WILD_SPIRITS_DAMAGE_AOE]),
+      this.onWildSpiritsDamage,
+    );
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
@@ -75,8 +80,8 @@ class WildSpirits extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.WILD_SPIRITS}>
           <>
-            <img src="/img/sword.png" alt="Damage" className="icon" />{' '}
-            {formatNumber(this.damage)} <small> direct damage</small>
+            <img src="/img/sword.png" alt="Damage" className="icon" /> {formatNumber(this.damage)}{' '}
+            <small> direct damage</small>
             <br />
             <img src="/img/sword.png" alt="Damage" className="icon" />{' '}
             {formatNumber(this.ampDamage)} <small> Wild Mark damage</small>
@@ -85,7 +90,6 @@ class WildSpirits extends Analyzer {
       </Statistic>
     );
   }
-
 }
 
 export default WildSpirits;

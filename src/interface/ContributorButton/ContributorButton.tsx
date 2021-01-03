@@ -6,18 +6,24 @@ import retryingPromise from 'common/retryingPromise';
 import makeContributorUrl from 'common/makeContributorUrl';
 import Modal from 'interface/modals/Modal';
 
-const ContributorDetails = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'ContributorPage' */ '../ContributorDetails').then(exports => exports.default)));
+const ContributorDetails = lazyLoadComponent(() =>
+  retryingPromise(() =>
+    import(/* webpackChunkName: 'ContributorPage' */ '../ContributorDetails').then(
+      (exports) => exports.default,
+    ),
+  ),
+);
 
 interface Props {
-  nickname: string
-  avatar?: string
-  link?: boolean
+  nickname: string;
+  avatar?: string;
+  link?: boolean;
 }
 
 export type ContributorType = Props;
 
 const ContributorButton = ({ nickname, avatar, link = true }: Props) => {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   let content = (
     <div className="contributor">
@@ -28,10 +34,13 @@ const ContributorButton = ({ nickname, avatar, link = true }: Props) => {
 
   if (link) {
     content = (
-      <Link to={makeContributorUrl(nickname)} onClick={(event) => {
-        event.preventDefault();
-        setOpen(true)
-      }}>
+      <Link
+        to={makeContributorUrl(nickname)}
+        onClick={(event) => {
+          event.preventDefault();
+          setOpen(true);
+        }}
+      >
         {content}
       </Link>
     );
@@ -47,6 +56,6 @@ const ContributorButton = ({ nickname, avatar, link = true }: Props) => {
       )}
     </>
   );
-}
+};
 
 export default ContributorButton;

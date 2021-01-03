@@ -12,16 +12,14 @@ type Props = {
   spell: Spell;
   children: React.ReactNode;
   className?: string;
-}
+};
 
 const BoringSpellValueText = ({ spell, children, className }: Props) => (
   <div className={`pad boring-text ${className || ''}`}>
     <label>
       <SpellIcon id={spell.id} /> <SpellLink id={spell.id} icon={false} />
     </label>
-    <div className="value">
-      {children}
-    </div>
+    <div className="value">{children}</div>
   </div>
 );
 

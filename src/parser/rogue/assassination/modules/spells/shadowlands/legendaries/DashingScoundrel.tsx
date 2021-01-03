@@ -22,7 +22,10 @@ class DashingScoundrel extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.DASHING_SCOUNDREL.bonusID);
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DASHING_SCOUNDREL), this.onEnergize);
+    this.addEventListener(
+      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DASHING_SCOUNDREL),
+      this.onEnergize,
+    );
   }
 
   onEnergize(event: EnergizeEvent) {
@@ -43,7 +46,9 @@ class DashingScoundrel extends Analyzer {
         }
       >
         <BoringSpellValueText spell={SPELLS.DASHING_SCOUNDREL}>
-          <ResourceIcon id={RESOURCE_TYPES.COMBO_POINTS.id} noLink /> {this.comboPointsGained}/{this.comboPointsWasted + this.comboPointsGained} <small> extra Combo Points gained.</small>
+          <ResourceIcon id={RESOURCE_TYPES.COMBO_POINTS.id} noLink /> {this.comboPointsGained}/
+          {this.comboPointsWasted + this.comboPointsGained}{' '}
+          <small> extra Combo Points gained.</small>
         </BoringSpellValueText>
       </Statistic>
     );

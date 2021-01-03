@@ -26,7 +26,7 @@ class VampiricTouch extends Analyzer {
       actual: this.uptime,
       isLessThan: {
         minor: 0.95,
-        average: 0.90,
+        average: 0.9,
         major: 0.8,
       },
       style: ThresholdStyle.PERCENTAGE,
@@ -34,22 +34,27 @@ class VampiricTouch extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<span>Your <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} /> uptime can be improved. Try to pay more attention to your <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} /> on the boss.</span>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <span>
+          Your <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} /> uptime can be improved. Try to pay more
+          attention to your <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} /> on the boss.
+        </span>,
+      )
         .icon(SPELLS.VAMPIRIC_TOUCH.icon)
-        .actual(t({
-      id: "priest.shadow.suggestions.vampiricTouch.uptime",
-      message: `${formatPercentage(actual)}% Vampiric Touch uptime`
-    }))
-        .recommended(`>${formatPercentage(recommended)}% is recommended`));
+        .actual(
+          t({
+            id: 'priest.shadow.suggestions.vampiricTouch.uptime',
+            message: `${formatPercentage(actual)}% Vampiric Touch uptime`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
     return (
-      <Statistic
-        position={STATISTIC_ORDER.CORE(3)}
-        size="flexible"
-      >
+      <Statistic position={STATISTIC_ORDER.CORE(3)} size="flexible">
         <BoringSpellValueText spell={SPELLS.VAMPIRIC_TOUCH}>
           <>
             {formatPercentage(this.uptime)}% <small>Uptime</small>

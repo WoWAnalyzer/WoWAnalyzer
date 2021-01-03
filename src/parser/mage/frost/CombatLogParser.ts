@@ -51,7 +51,7 @@ import TempestBarrier from '../shared/modules/items/TempestBarrier';
 import SiphonedMalice from '../shared/modules/items/SiphonedMalice';
 
 class CombatLogParser extends CoreCombatLogParser {
-   static specModules = {
+  static specModules = {
     checklist: Checklist,
     buffs: Buffs,
 
@@ -81,7 +81,7 @@ class CombatLogParser extends CoreCombatLogParser {
     thermalVoid: ThermalVoid,
     glacialSpike: GlacialSpike,
 
-	  // Cooldowns
+    // Cooldowns
     frozenOrb: FrozenOrb,
     coldSnap: ColdSnap,
 

@@ -8,7 +8,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Combatants from 'parser/shared/modules/Combatants';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import Events, {ApplyBuffEvent, RefreshBuffEvent, CastEvent} from 'parser/core/Events';
+import Events, { ApplyBuffEvent, RefreshBuffEvent, CastEvent } from 'parser/core/Events';
 import { t } from '@lingui/macro';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
@@ -27,18 +27,27 @@ class AoWProcTracker extends Analyzer {
   totalAoWProcs = 0;
   lastAoWProcTime: null | number = null;
 
-  constructor(options: Options){
+  constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLADE_OF_WRATH_PROC), this.onApplyBuff);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BLADE_OF_WRATH_PROC), this.onRefreshBuff);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLADE_OF_JUSTICE), this.onCast);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLADE_OF_WRATH_PROC),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BLADE_OF_WRATH_PROC),
+      this.onRefreshBuff,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLADE_OF_JUSTICE),
+      this.onCast,
+    );
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
     this.totalAoWProcs += 1;
     if (this.spellUsable.isOnCooldown(SPELLS.BLADE_OF_JUSTICE.id)) {
       this.spellUsable.endCooldown(SPELLS.BLADE_OF_JUSTICE.id);
-      this.lastAoWProcTime= event.timestamp;
+      this.lastAoWProcTime = event.timestamp;
     }
   }
 
@@ -77,13 +86,22 @@ class AoWProcTracker extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You used {formatPercentage(this.consumedProcsPercent)}% of your <SpellLink id={SPELLS.ART_OF_WAR.id} icon /> procs.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You used {formatPercentage(this.consumedProcsPercent)}% of your{' '}
+          <SpellLink id={SPELLS.ART_OF_WAR.id} icon /> procs.
+        </>,
+      )
         .icon(SPELLS.ART_OF_WAR.icon)
-        .actual(t({
-      id: "paladin.retribution.suggestions.artOfWar.procsUsed",
-      message: `${formatPercentage(this.consumedProcsPercent)}% proc(s) used.`
-    }))
-        .recommended(`Using >${formatPercentage(recommended)}% is recommended`));
+        .actual(
+          t({
+            id: 'paladin.retribution.suggestions.artOfWar.procsUsed',
+            message: `${formatPercentage(this.consumedProcsPercent)}% proc(s) used.`,
+          }),
+        )
+        .recommended(`Using >${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {

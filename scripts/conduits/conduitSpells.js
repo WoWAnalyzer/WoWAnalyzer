@@ -88,12 +88,12 @@ export default {
   },
   WINTERS_PROTECTION: {
     id: 336613,
-    name: 'Winter\'s Protection',
+    name: "Winter's Protection",
     icon: 'spell_ice_rune',
   },
   XUENS_BOND: {
     id: 336616,
-    name: 'Xuen\'s Bond',
+    name: "Xuen's Bond",
     icon: 'ability_demonhunter_netherbond',
   },
   GROUNDING_BREATH: {
@@ -223,7 +223,7 @@ export default {
   },
   MAGIS_BRAND: {
     id: 337192,
-    name: 'Magi\'s Brand',
+    name: "Magi's Brand",
     icon: 'spell_arcane_arcane01_nightborne',
   },
   HACK_AND_SLASH: {
@@ -333,7 +333,7 @@ export default {
   },
   LIGHTS_INSPIRATION: {
     id: 337748,
-    name: 'Light\'s Inspiration',
+    name: "Light's Inspiration",
     icon: 'spell_holy_restoration',
   },
   REINFORCED_SHELL: {
@@ -548,7 +548,7 @@ export default {
   },
   NATURES_REACH: {
     id: 338346,
-    name: 'Nature\'s Reach',
+    name: "Nature's Reach",
     icon: 'spell_shaman_blessingofeternals',
   },
   EMBRACE_OF_EARTH: {
@@ -743,12 +743,12 @@ export default {
   },
   MARKMANS_ADVANTAGE: {
     id: 339264,
-    name: 'Markman\'s Advantage',
+    name: "Markman's Advantage",
     icon: 'ability_argus_soulbombdebuffsmall',
   },
   VETERANS_REPUTE: {
     id: 339265,
-    name: 'Veteran\'s Repute',
+    name: "Veteran's Repute",
     icon: 'spell_animamaldraxxus_buff',
   },
   RESOLUTE_BARRIER: {
@@ -758,7 +758,7 @@ export default {
   },
   LIGHTS_BARDING: {
     id: 339268,
-    name: 'Light\'s Barding',
+    name: "Light's Barding",
     icon: 'inv_lightforgedmatrixability_lightsjudgment',
   },
   ACCRUED_VITALITY: {
@@ -793,7 +793,7 @@ export default {
   },
   TRUTHS_WAKE: {
     id: 339374,
-    name: 'Truth\'s Wake',
+    name: "Truth's Wake",
     icon: 'inv_mace_104',
   },
   MORTAL_COMBO: {
@@ -838,7 +838,7 @@ export default {
   },
   TEMPLARS_VINDICATION: {
     id: 339531,
-    name: 'Templar\'s Vindication',
+    name: "Templar's Vindication",
     icon: 'ability_priest_evangelism',
   },
   ENKINDLED_SPIRIT: {
@@ -848,7 +848,7 @@ export default {
   },
   CHEETAHS_VIGOR: {
     id: 339558,
-    name: 'Cheetah\'s Vigor',
+    name: "Cheetah's Vigor",
     icon: 'rogue_burstofspeed',
   },
   DEMON_MUZZLE: {
@@ -898,7 +898,7 @@ export default {
   },
   SHARPSHOOTERS_FOCUS: {
     id: 339920,
-    name: 'Sharpshooter\'s Focus',
+    name: "Sharpshooter's Focus",
     icon: 'ability_creature_cursed_04',
   },
   BRUTAL_PROJECTILES: {
@@ -988,7 +988,7 @@ export default {
   },
   TYRANTS_SOUL: {
     id: 339766,
-    name: 'Tyrant\'s Soul',
+    name: "Tyrant's Soul",
     icon: 'spell_warlock_soulburn',
   },
   FEL_COMMANDO: {
@@ -1058,7 +1058,7 @@ export default {
   },
   KILROGGS_CUNNING: {
     id: 58081,
-    name: 'Kilrogg\'s Cunning',
+    name: "Kilrogg's Cunning",
     icon: 'spell_shadow_evileye',
   },
   DIABOLIC_BLOODSTONE: {

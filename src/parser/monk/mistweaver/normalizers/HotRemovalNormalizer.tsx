@@ -8,12 +8,8 @@ const MAX_DELAY = 50;
 // Occasionally HoT heal has same timestamp but happens after the removebuff event, which causes issues when attempting to attribute the heal.
 // This normalizes the heal to always be before the removebuff
 class HotRemovalNormalizer extends EventsNormalizer {
-
   // This ordering issue only happens for the HoTs that tick on removebuff
-  instantTickHotIds: number[] = [
-    SPELLS.RENEWING_MIST_HEAL.id,
-    SPELLS.ESSENCE_FONT_BUFF.id,
-  ];
+  instantTickHotIds: number[] = [SPELLS.RENEWING_MIST_HEAL.id, SPELLS.ESSENCE_FONT_BUFF.id];
 
   normalize(events: AnyEvent[]) {
     const fixedEvents: AnyEvent[] = [];
@@ -27,13 +23,21 @@ class HotRemovalNormalizer extends EventsNormalizer {
           return;
         }
         // Loop through the event history in reverse to detect if there was a removebuff from same spell on same target
-        for (let previousEventIndex = eventIndex; previousEventIndex >= 0; previousEventIndex -= 1) {
+        for (
+          let previousEventIndex = eventIndex;
+          previousEventIndex >= 0;
+          previousEventIndex -= 1
+        ) {
           const previousEvent = fixedEvents[previousEventIndex];
-          if ((castTimestamp - previousEvent.timestamp) > MAX_DELAY) {
+          if (castTimestamp - previousEvent.timestamp > MAX_DELAY) {
             break;
           }
 
-          if (previousEvent.type === EventType.RemoveBuff && previousEvent.ability.guid === spellId && previousEvent.targetID === event.targetID) {
+          if (
+            previousEvent.type === EventType.RemoveBuff &&
+            previousEvent.ability.guid === spellId &&
+            previousEvent.targetID === event.targetID
+          ) {
             fixedEvents.splice(previousEventIndex, 1);
             fixedEvents.push(previousEvent);
             previousEvent.__modified = true;
@@ -41,12 +45,10 @@ class HotRemovalNormalizer extends EventsNormalizer {
           }
         }
       }
-
     });
 
     return fixedEvents;
   }
-
 }
 
 export default HotRemovalNormalizer;

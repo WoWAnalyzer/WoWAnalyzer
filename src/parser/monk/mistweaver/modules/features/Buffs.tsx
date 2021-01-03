@@ -52,7 +52,7 @@ class Buffs extends CoreBuffs {
         spellId: SPELLS.FORTIFYING_BREW.id,
       },
       {
-        spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
+        spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),
         timelineHighlight: true,
       },
     ];

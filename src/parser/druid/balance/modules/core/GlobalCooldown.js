@@ -11,8 +11,12 @@ const NEW_MOON_MULTIPLIER = 2 / 3;
 class GlobalCooldown extends CoreGlobalCooldown {
   getGlobalCooldownDuration(spellId) {
     const gcd = super.getGlobalCooldownDuration(spellId);
-    if ((spellId === SPELLS.SOLAR_WRATH_MOONKIN.id && this.selectedCombatant.hasBuff(SPELLS.SOLAR_EMP_BUFF.id))
-      || (spellId === SPELLS.LUNAR_STRIKE.id && this.selectedCombatant.hasBuff(SPELLS.LUNAR_EMP_BUFF.id))) {
+    if (
+      (spellId === SPELLS.SOLAR_WRATH_MOONKIN.id &&
+        this.selectedCombatant.hasBuff(SPELLS.SOLAR_EMP_BUFF.id)) ||
+      (spellId === SPELLS.LUNAR_STRIKE.id &&
+        this.selectedCombatant.hasBuff(SPELLS.LUNAR_EMP_BUFF.id))
+    ) {
       return Math.max(gcd * STARLORD_MULTIPLIER, 750);
     }
     if (spellId === SPELLS.NEW_MOON_TALENT.id) {

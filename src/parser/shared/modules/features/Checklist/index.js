@@ -4,7 +4,7 @@ import { Trans } from '@lingui/macro';
 
 import './Checklist.scss';
 
-const Checklist = props => {
+const Checklist = (props) => {
   const { children } = props;
 
   return (
@@ -12,7 +12,12 @@ const Checklist = props => {
       {!children && (
         <li>
           <div className="alert alert-danger">
-            <Trans id="shared.checklist.missingChecklist">The checklist is not yet available for this spec. See <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> or join us on <a href="https://discord.gg/AxphPxU">Discord</a> if you're interested in contributing this.</Trans>
+            <Trans id="shared.checklist.missingChecklist">
+              The checklist is not yet available for this spec. See{' '}
+              <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> or join us on{' '}
+              <a href="https://discord.gg/AxphPxU">Discord</a> if you're interested in contributing
+              this.
+            </Trans>
           </div>
         </li>
       )}

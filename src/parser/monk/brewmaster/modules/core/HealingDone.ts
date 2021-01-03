@@ -8,7 +8,10 @@ class HealingDone extends CoreHealingDone {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(Events.absorbed.to(SELECTED_PLAYER).spell(SPELLS.STAGGER), this.onStagger);
+    this.addEventListener(
+      Events.absorbed.to(SELECTED_PLAYER).spell(SPELLS.STAGGER),
+      this.onStagger,
+    );
   }
 
   onStagger(event: AbsorbedEvent) {

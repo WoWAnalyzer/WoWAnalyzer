@@ -36,16 +36,19 @@ class KillerInstinct extends ExecuteHelper {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={(
+        tooltip={
           <>
-            You cast a total of {this.casts} Kill Commands, of which {this.castsWithExecute} were on enemies with less than 35% of their health remaining. <br />
-            These {this.castsWithExecute} casts provided you a total of {formatNumber(this.damage)} extra damage throughout the fight.
+            You cast a total of {this.casts} Kill Commands, of which {this.castsWithExecute} were on
+            enemies with less than 35% of their health remaining. <br />
+            These {this.castsWithExecute} casts provided you a total of {formatNumber(this.damage)}{' '}
+            extra damage throughout the fight.
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.KILLER_INSTINCT_TALENT}>
           <>
-            <ItemDamageDone amount={this.damage} /><br />
+            <ItemDamageDone amount={this.damage} />
+            <br />
             {formatNumber(this.castsWithExecute)} <small>casts at {'<'}35% health</small>
           </>
         </BoringSpellValueText>

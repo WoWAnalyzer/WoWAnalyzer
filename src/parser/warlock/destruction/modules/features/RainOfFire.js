@@ -24,8 +24,8 @@ class RainOfFire extends Analyzer {
   get averageTargetsHit() {
     // first, maps the casts to the targets hit, resulting in array of array of strings
     // [].concat(...array) just flattens it into single array of strings
-    const allTargetsHit = [].concat(...this.casts.map(cast => cast.targetsHit));
-    return (allTargetsHit.length / this.casts.length) || 0;
+    const allTargetsHit = [].concat(...this.casts.map((cast) => cast.targetsHit));
+    return allTargetsHit.length / this.casts.length || 0;
   }
 
   static dependencies = {
@@ -45,8 +45,14 @@ class RainOfFire extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RAIN_OF_FIRE_CAST), this.onRainCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RAIN_OF_FIRE_DAMAGE), this.onRainDamage);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RAIN_OF_FIRE_CAST),
+      this.onRainCast,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RAIN_OF_FIRE_DAMAGE),
+      this.onRainDamage,
+    );
   }
 
   onRainCast(event) {
@@ -61,7 +67,7 @@ class RainOfFire extends Analyzer {
 
   onRainDamage(event) {
     // filter ROF that should be still active
-    const filtered = this.casts.filter(cast => event.timestamp <= cast.expectedEnd + BUFFER);
+    const filtered = this.casts.filter((cast) => event.timestamp <= cast.expectedEnd + BUFFER);
     const target = encodeTargetString(event.targetID, event.targetInstance);
     if (filtered.length === 0) {
       debug && this.log('Something weird happened, ROF damage without any ongoing casts', event);
@@ -81,7 +87,9 @@ class RainOfFire extends Analyzer {
     } else {
       // multiple ROFs active
       // if any cast's last tick is within 100ms of current timestamp, it's probably still the same tick
-      const possibleCurrentTickCast = filtered.find(cast => event.timestamp <= cast.lastTickTimestamp + BUFFER);
+      const possibleCurrentTickCast = filtered.find(
+        (cast) => event.timestamp <= cast.lastTickTimestamp + BUFFER,
+      );
       if (possibleCurrentTickCast) {
         if (!possibleCurrentTickCast.targetsHit.includes(target)) {
           possibleCurrentTickCast.targetsHit.push(target);
@@ -89,18 +97,22 @@ class RainOfFire extends Analyzer {
       } else {
         // it's a "fresh" damage tick (first of them)
         // need to find out which cast in `filtered` it "belongs to"
-        const sortedByDelta = filtered.map(cast => {
-          // for each filtered ROF, get timestamp of next expected tick and get time difference from it and current timestamp
-          const expectedTick = (cast.lastTickTimestamp || cast.timestamp) + this._getAveragePeriod(cast);
-          const delta = Math.abs(expectedTick - event.timestamp);
-          return {
-            cast,
-            delta,
-            expectedTick,
-          };
-        }).sort((cast1, cast2) => cast1.delta - cast2.delta); // sort ascending, cast with lowest difference is in [0]
+        const sortedByDelta = filtered
+          .map((cast) => {
+            // for each filtered ROF, get timestamp of next expected tick and get time difference from it and current timestamp
+            const expectedTick =
+              (cast.lastTickTimestamp || cast.timestamp) + this._getAveragePeriod(cast);
+            const delta = Math.abs(expectedTick - event.timestamp);
+            return {
+              cast,
+              delta,
+              expectedTick,
+            };
+          })
+          .sort((cast1, cast2) => cast1.delta - cast2.delta); // sort ascending, cast with lowest difference is in [0]
         const closest = sortedByDelta[0].cast;
-        const timeSinceLastTick = event.timestamp - (closest.lastTickTimestamp || closest.timestamp);
+        const timeSinceLastTick =
+          event.timestamp - (closest.lastTickTimestamp || closest.timestamp);
         closest.periods.push(timeSinceLastTick);
         closest.lastTickTimestamp = event.timestamp;
         if (!closest.targetsHit.includes(target)) {
@@ -113,7 +125,7 @@ class RainOfFire extends Analyzer {
   _getAveragePeriod(cast) {
     // gets average period of cast of Rain of Fire, or estimates one from the duration of Rain of Fire (it should always tick 8 times)
     if (cast.periods.length > 0) {
-      return (cast.periods.reduce((total, current) => total + current, 0) / cast.periods.length) || 0;
+      return cast.periods.reduce((total, current) => total + current, 0) / cast.periods.length || 0;
     }
     return (cast.expectedEnd - cast.timestamp) / 8;
   }

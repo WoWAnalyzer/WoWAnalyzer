@@ -62,7 +62,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.POWER_WORD_SOLACE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 15 / (1 + haste),
+        cooldown: (haste) => 15 / (1 + haste),
         gcd: {
           base: 1500,
         },

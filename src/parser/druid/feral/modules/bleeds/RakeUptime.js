@@ -21,8 +21,8 @@ class RakeUptime extends Analyzer {
       actual: this.uptime,
       isLessThan: {
         minor: 0.95,
-        average: 0.90,
-        major: 0.80,
+        average: 0.9,
+        major: 0.8,
       },
       style: 'percentage',
     };
@@ -33,25 +33,31 @@ class RakeUptime extends Analyzer {
   };
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        Your <SpellLink id={SPELLS.RAKE.id} /> uptime can be improved. Unless the current application was buffed by Prowl you should refresh the DoT once it has reached its <TooltipElement content="The last 30% of the DoT's duration. When you refresh during this time you don't lose any duration in the process.">pandemic window</TooltipElement>, don't wait for it to wear off.
-      </>,
-    )
-      .icon(SPELLS.RAKE.icon)
-      .actual(t({
-      id: "druid.feral.suggestions.rake.uptime",
-      message: `${formatPercentage(actual)}% uptime`
-    }))
-      .recommended(`>${formatPercentage(recommended)}% is recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your <SpellLink id={SPELLS.RAKE.id} /> uptime can be improved. Unless the current
+          application was buffed by Prowl you should refresh the DoT once it has reached its{' '}
+          <TooltipElement content="The last 30% of the DoT's duration. When you refresh during this time you don't lose any duration in the process.">
+            pandemic window
+          </TooltipElement>
+          , don't wait for it to wear off.
+        </>,
+      )
+        .icon(SPELLS.RAKE.icon)
+        .actual(
+          t({
+            id: 'druid.feral.suggestions.rake.uptime',
+            message: `${formatPercentage(actual)}% uptime`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
     return (
-      <Statistic
-        position={STATISTIC_ORDER.CORE(3)}
-        size="flexible"
-      >
+      <Statistic position={STATISTIC_ORDER.CORE(3)} size="flexible">
         <BoringSpellValueText spell={SPELLS.RAKE}>
           <>
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>

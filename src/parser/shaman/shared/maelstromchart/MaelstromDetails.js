@@ -60,41 +60,34 @@ class MaelstromDetails extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholdsWasted)
-      .addSuggestion((suggest, actual, recommended) => suggest(`You overcapped ${this.wasted} Maelstrom. Always prioritize spending it over avoiding the overcap of any other ability.`)
-          .icon('spell_shadow_mindflay')
-          .actual(t({
-      id: "shaman.shared.suggestions.maelstrom.overcapped",
-      message: `${formatPercentage(actual)}% overcapped Maelstrom`
-    }))
-          .recommended(`${formatPercentage(recommended)}% is recommended`));
+    when(this.suggestionThresholdsWasted).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        `You overcapped ${this.wasted} Maelstrom. Always prioritize spending it over avoiding the overcap of any other ability.`,
+      )
+        .icon('spell_shadow_mindflay')
+        .actual(
+          t({
+            id: 'shaman.shared.suggestions.maelstrom.overcapped',
+            message: `${formatPercentage(actual)}% overcapped Maelstrom`,
+          }),
+        )
+        .recommended(`${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
     return [
-      (
-        <StatisticBox
-          key="StatisticBox"
-          position={STATISTIC_ORDER.CORE(1)}
-          icon={<Icon icon="spell_shadow_mindflay" />}
-          value={`${formatPercentage(this.wastedPercent)} %`}
-          label="Overcapped Maelstrom"
-          tooltip={`${this.wasted} out of ${this.total} Maelstrom wasted.`}
-        />
-      ),
-      (
-        <Panel
-          key="Panel"
-          title="Maelstrom usage"
-          position={200}
-          pad={false}
-        >
-          <ResourceBreakdown
-            tracker={this.maelstromTracker}
-            showSpenders
-          />
-        </Panel>
-      ),
+      <StatisticBox
+        key="StatisticBox"
+        position={STATISTIC_ORDER.CORE(1)}
+        icon={<Icon icon="spell_shadow_mindflay" />}
+        value={`${formatPercentage(this.wastedPercent)} %`}
+        label="Overcapped Maelstrom"
+        tooltip={`${this.wasted} out of ${this.total} Maelstrom wasted.`}
+      />,
+      <Panel key="Panel" title="Maelstrom usage" position={200} pad={false}>
+        <ResourceBreakdown tracker={this.maelstromTracker} showSpenders />
+      </Panel>,
     ];
   }
 }

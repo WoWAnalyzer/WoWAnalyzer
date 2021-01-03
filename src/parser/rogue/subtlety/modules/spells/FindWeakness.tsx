@@ -28,7 +28,10 @@ class FindWeakness extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VANISH), this.handleVanish);
-    this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.FIND_WEAKNESS), this.onRefreshDebuff);
+    this.addEventListener(
+      Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.FIND_WEAKNESS),
+      this.onRefreshDebuff,
+    );
   }
 
   get vanishThresholds() {
@@ -50,8 +53,8 @@ class FindWeakness extends Analyzer {
   handleVanish(event: CastEvent) {
     const entities = this.enemies.getEntities();
     const hasDebuff = Object.values(entities)
-      .filter(enemy => enemy.hasBuff(SPELLS.FIND_WEAKNESS.id))
-      .map(enemy => enemy.getBuff(SPELLS.FIND_WEAKNESS.id)?.timestamp || 0);
+      .filter((enemy) => enemy.hasBuff(SPELLS.FIND_WEAKNESS.id))
+      .map((enemy) => enemy.getBuff(SPELLS.FIND_WEAKNESS.id)?.timestamp || 0);
 
     //For now does not support target switching, just makes sure that enough time has passed since the last application
     if (Math.max(...hasDebuff, this.latestTs) > event.timestamp - 8000) {
@@ -63,24 +66,35 @@ class FindWeakness extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.vanishThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>Use <SpellLink id={SPELLS.VANISH.id} /> only when you do not have <SpellLink id={SPELLS.FIND_WEAKNESS.id} /> applied to your target </>)
+    when(this.vanishThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Use <SpellLink id={SPELLS.VANISH.id} /> only when you do not have{' '}
+          <SpellLink id={SPELLS.FIND_WEAKNESS.id} /> applied to your target{' '}
+        </>,
+      )
         .icon(SPELLS.VANISH.icon)
-        .actual(t({
-      id: "rogue.subtlety.suggestions.findWeakness.alreadyApplied",
-      message: `You used Vanish ${this.badVanishCasts} times when Find Weakness was already applied`
-    }))
-        .recommended(`${recommended} is recommended`));
+        .actual(
+          t({
+            id: 'rogue.subtlety.suggestions.findWeakness.alreadyApplied',
+            message: `You used Vanish ${this.badVanishCasts} times when Find Weakness was already applied`,
+          }),
+        )
+        .recommended(`${recommended} is recommended`),
+    );
   }
 
   statistic() {
     const uptime = this.enemies.getBuffUptime(SPELLS.FIND_WEAKNESS.id) / this.owner.fightDuration;
     return (
-      <Statistic
-        size="flexible"
-        category={STATISTIC_CATEGORY.GENERAL}
-      >
-        <BoringValueText label={<><SpellIcon id={SPELLS.FIND_WEAKNESS.id} /> Find Weakness Uptime</>}>
+      <Statistic size="flexible" category={STATISTIC_CATEGORY.GENERAL}>
+        <BoringValueText
+          label={
+            <>
+              <SpellIcon id={SPELLS.FIND_WEAKNESS.id} /> Find Weakness Uptime
+            </>
+          }
+        >
           {formatPercentage(uptime)} %
         </BoringValueText>
       </Statistic>

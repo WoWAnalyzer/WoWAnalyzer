@@ -14,7 +14,8 @@ import { t } from '@lingui/macro';
 
 class MoonfireUptime extends Analyzer {
   get suggestionThresholds() {
-    const moonfireUptime = this.enemies.getBuffUptime(SPELLS.MOONFIRE_BEAR.id) / this.owner.fightDuration;
+    const moonfireUptime =
+      this.enemies.getBuffUptime(SPELLS.MOONFIRE_BEAR.id) / this.owner.fightDuration;
     return {
       actual: moonfireUptime,
       isLessThan: {
@@ -32,22 +33,29 @@ class MoonfireUptime extends Analyzer {
   statisticOrder = STATISTIC_ORDER.CORE(4);
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> uptime can be improved. Try to pay more attention to your Moonfire on the boss.</>)
-      .icon(SPELLS.MOONFIRE_BEAR.icon)
-      .actual(t({
-      id: "druid.balance.suggestions.moonfire.uptime",
-      message: `${formatPercentage(actual)}% Moonfire uptime`
-    }))
-      .recommended(`>${formatPercentage(recommended)}% is recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> uptime can be improved. Try to pay more
+          attention to your Moonfire on the boss.
+        </>,
+      )
+        .icon(SPELLS.MOONFIRE_BEAR.icon)
+        .actual(
+          t({
+            id: 'druid.balance.suggestions.moonfire.uptime',
+            message: `${formatPercentage(actual)}% Moonfire uptime`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
-    const moonfireUptime = this.enemies.getBuffUptime(SPELLS.MOONFIRE_BEAR.id) / this.owner.fightDuration;
+    const moonfireUptime =
+      this.enemies.getBuffUptime(SPELLS.MOONFIRE_BEAR.id) / this.owner.fightDuration;
     return (
-      <Statistic
-        position={STATISTIC_ORDER.CORE(4)}
-        size="flexible"
-      >
+      <Statistic position={STATISTIC_ORDER.CORE(4)} size="flexible">
         <BoringSpellValueText spell={SPELLS.MOONFIRE_BEAR}>
           <>
             <UptimeIcon /> {formatPercentage(moonfireUptime)} % <small>uptime</small>

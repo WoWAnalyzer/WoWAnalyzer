@@ -69,7 +69,7 @@ class CharacterProfileLoader extends React.PureComponent {
     let realm;
     let name;
     const exportedCharacter = report.exportedCharacters
-      ? report.exportedCharacters.find(char => char.name === player.name)
+      ? report.exportedCharacters.find((char) => char.name === player.name)
       : null;
     if (exportedCharacter) {
       region = exportedCharacter.region.toLowerCase();
@@ -82,13 +82,13 @@ class CharacterProfileLoader extends React.PureComponent {
     }
 
     return fetch(makeCharacterApiUrl(id, region, realm, name))
-      .then(result => {
+      .then((result) => {
         if (!result.ok) {
           throw new Error('Request failed');
         }
         return result;
       })
-      .then(data => data.json());
+      .then((data) => data.json());
   }
 
   render() {

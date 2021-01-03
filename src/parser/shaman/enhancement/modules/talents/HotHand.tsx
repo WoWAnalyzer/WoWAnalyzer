@@ -23,7 +23,6 @@ const HOT_HAND = {
  *
  */
 class HotHand extends Analyzer {
-
   protected buffedLavaLashDamage: number = 0;
 
   constructor(options: Options) {
@@ -32,8 +31,7 @@ class HotHand extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.HOT_HAND_TALENT.id);
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(SPELLS.LAVA_LASH),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LAVA_LASH),
       this.onLavaLashDamage,
     );
   }
@@ -55,7 +53,8 @@ class HotHand extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.HOT_HAND_TALENT}>
           <>
-            <ItemDamageDone amount={this.buffedLavaLashDamage} /><br />
+            <ItemDamageDone amount={this.buffedLavaLashDamage} />
+            <br />
           </>
         </BoringSpellValueText>
       </Statistic>

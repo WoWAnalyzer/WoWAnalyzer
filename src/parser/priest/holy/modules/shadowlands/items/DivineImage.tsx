@@ -36,7 +36,7 @@ class DivineImage extends Analyzer {
 
   onByPlayerPetHeal(event: HealEvent) {
     this.totalHealing += (event.amount || 0) + (event.absorb || 0);
-    this.totalOverhealing += (event.overheal || 0);
+    this.totalOverhealing += event.overheal || 0;
 
     if (DEBUG) {
       this.healingSpells[event.ability.guid] = event.ability.name;
@@ -56,22 +56,26 @@ class DivineImage extends Analyzer {
   }
 
   statistic() {
-    DEBUG && console.log("Healing Spells", this.healingSpells);
-    DEBUG && console.log("Damaging Spells", this.damagingSpells);
+    DEBUG && console.log('Healing Spells', this.healingSpells);
+    DEBUG && console.log('Damaging Spells', this.damagingSpells);
 
     return (
       <Statistic
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
-        tooltip={(
+        tooltip={
           <>
-            Total Images Summoned: {this.totalProcs}<br />
-            Bonus Healing Done: {formatNumber(this.totalHealing)} ({formatPercentage(this.totalOverhealing / (this.totalHealing + this.totalOverhealing))}% OH)
+            Total Images Summoned: {this.totalProcs}
+            <br />
+            Bonus Healing Done: {formatNumber(this.totalHealing)} (
+            {formatPercentage(this.totalOverhealing / (this.totalHealing + this.totalOverhealing))}%
+            OH)
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.DIVINE_IMAGE}>
-          <ItemHealingDone amount={this.totalHealing} /><br />
+          <ItemHealingDone amount={this.totalHealing} />
+          <br />
           <ItemDamageDone amount={this.totalDamage} />
         </BoringSpellValueText>
       </Statistic>

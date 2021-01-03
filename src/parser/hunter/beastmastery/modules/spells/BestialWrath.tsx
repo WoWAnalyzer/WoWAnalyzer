@@ -37,12 +37,20 @@ class BestialWrath extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BESTIAL_WRATH), this.onBestialWrathCast);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BARBED_SHOT), this.onBarbedShotCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BESTIAL_WRATH),
+      this.onBestialWrathCast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BARBED_SHOT),
+      this.onBarbedShotCast,
+    );
   }
 
   get percentUptime() {
-    return formatPercentage(this.selectedCombatant.getBuffUptime(SPELLS.BESTIAL_WRATH.id) / this.owner.fightDuration);
+    return formatPercentage(
+      this.selectedCombatant.getBuffUptime(SPELLS.BESTIAL_WRATH.id) / this.owner.fightDuration,
+    );
   }
 
   get gainedBestialWraths() {
@@ -87,7 +95,9 @@ class BestialWrath extends Analyzer {
 
   onBestialWrathCast(event: CastEvent) {
     this.casts += 1;
-    const resource = event.classResources?.find(resource => resource.type === RESOURCE_TYPES.FOCUS.id);
+    const resource = event.classResources?.find(
+      (resource) => resource.type === RESOURCE_TYPES.FOCUS.id,
+    );
     if (resource) {
       this.accumulatedFocusAtBWCast += resource.amount || 0;
     }
@@ -96,23 +106,67 @@ class BestialWrath extends Analyzer {
   onBarbedShotCast() {
     const bestialWrathIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.BESTIAL_WRATH.id);
     if (bestialWrathIsOnCooldown) {
-      const reductionMs = this.spellUsable.reduceCooldown(SPELLS.BESTIAL_WRATH.id, BARBED_SHOT_BESTIAL_WRATH_CDR_MS);
+      const reductionMs = this.spellUsable.reduceCooldown(
+        SPELLS.BESTIAL_WRATH.id,
+        BARBED_SHOT_BESTIAL_WRATH_CDR_MS,
+      );
       this.effectiveBWReduction += reductionMs;
-      this.wastedBWReduction += (BARBED_SHOT_BESTIAL_WRATH_CDR_MS - reductionMs);
+      this.wastedBWReduction += BARBED_SHOT_BESTIAL_WRATH_CDR_MS - reductionMs;
     } else {
       this.wastedBWReduction += BARBED_SHOT_BESTIAL_WRATH_CDR_MS;
     }
   }
 
   suggestions(when: When) {
-    when(this.focusOnBestialWrathCastThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>You started your average <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> at {formatNumber(this.averageFocusAtBestialWrathCast)} focus, try and pool a bit more before casting <SpellLink id={SPELLS.BESTIAL_WRATH.id} />. This can be achieved by not casting abilities a few moments before <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> comes off cooldown.</>)
-      .icon(SPELLS.BESTIAL_WRATH.icon)
-      .actual(<Trans id='hunter.beastmastery.suggestions.bestialWrath.focusPool.efficiency'> Average of {formatNumber(this.averageFocusAtBestialWrathCast)} focus at start of Bestial Wrath </Trans>)
-      .recommended(<Trans id='hunter.beastmastery.suggestions.bestialWrath.focusPool.recommended'> {'>'}{recommended} focus is recommended </Trans>));
-    when(this.cdrEfficiencyBestialWrathThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>A crucial part of <SpellLink id={SPELLS.BARBED_SHOT.id} /> is the cooldown reduction of <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> it provides. Therefore it's important to be casting <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> as often as possible to ensure you'll be wasting as little potential cooldown reduction as possible.</>)
-      .icon(SPELLS.BESTIAL_WRATH.icon)
-      .actual(<Trans id='hunter.beastmastery.suggestions.bestialWrath.cooldown.efficiency'>You had {formatPercentage(actual)}% effective cooldown reduction of Bestial Wrath</Trans>)
-      .recommended(<Trans id='hunter.beastmastery.suggestions.bestialWrath.cooldown.recommended'> {'>'}{formatPercentage(recommended)}% is recommended</Trans>));
+    when(this.focusOnBestialWrathCastThreshold).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You started your average <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> at{' '}
+          {formatNumber(this.averageFocusAtBestialWrathCast)} focus, try and pool a bit more before
+          casting <SpellLink id={SPELLS.BESTIAL_WRATH.id} />. This can be achieved by not casting
+          abilities a few moments before <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> comes off
+          cooldown.
+        </>,
+      )
+        .icon(SPELLS.BESTIAL_WRATH.icon)
+        .actual(
+          <Trans id="hunter.beastmastery.suggestions.bestialWrath.focusPool.efficiency">
+            {' '}
+            Average of {formatNumber(this.averageFocusAtBestialWrathCast)} focus at start of Bestial
+            Wrath{' '}
+          </Trans>,
+        )
+        .recommended(
+          <Trans id="hunter.beastmastery.suggestions.bestialWrath.focusPool.recommended">
+            {' '}
+            {'>'}
+            {recommended} focus is recommended{' '}
+          </Trans>,
+        ),
+    );
+    when(this.cdrEfficiencyBestialWrathThreshold).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          A crucial part of <SpellLink id={SPELLS.BARBED_SHOT.id} /> is the cooldown reduction of{' '}
+          <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> it provides. Therefore it's important to be
+          casting <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> as often as possible to ensure you'll
+          be wasting as little potential cooldown reduction as possible.
+        </>,
+      )
+        .icon(SPELLS.BESTIAL_WRATH.icon)
+        .actual(
+          <Trans id="hunter.beastmastery.suggestions.bestialWrath.cooldown.efficiency">
+            You had {formatPercentage(actual)}% effective cooldown reduction of Bestial Wrath
+          </Trans>,
+        )
+        .recommended(
+          <Trans id="hunter.beastmastery.suggestions.bestialWrath.cooldown.recommended">
+            {' '}
+            {'>'}
+            {formatPercentage(recommended)}% is recommended
+          </Trans>,
+        ),
+    );
   }
 
   statistic() {
@@ -120,45 +174,55 @@ class BestialWrath extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(2)}
         size="flexible"
-        dropdown={(
+        dropdown={
           <>
             <table className="table table-condensed">
               <thead>
                 <tr>
-                  <td className="text-left"><b>Statistic</b></td>
-                  <td><b>Info</b></td>
+                  <td className="text-left">
+                    <b>Statistic</b>
+                  </td>
+                  <td>
+                    <b>Info</b>
+                  </td>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td className="text-left">Average focus on cast</td>
-                  <td><>{formatNumber(this.averageFocusAtBestialWrathCast)}
-                    <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /></>
+                  <td>
+                    <>
+                      {formatNumber(this.averageFocusAtBestialWrathCast)}
+                      <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink />
+                    </>
                   </td>
                 </tr>
                 <tr>
                   <td className="text-left">Gained Bestial Wraths</td>
-                  <td><>{this.gainedBestialWraths.toFixed(1)}
-                    <SpellIcon id={SPELLS.BESTIAL_WRATH.id} /></>
+                  <td>
+                    <>
+                      {this.gainedBestialWraths.toFixed(1)}
+                      <SpellIcon id={SPELLS.BESTIAL_WRATH.id} />
+                    </>
                   </td>
                 </tr>
                 <tr>
                   <td className="text-left">CDR Efficiency</td>
-                  <td><>{formatNumber(this.effectiveBWReduction /
-                    1000)}s / {this.totalPossibleCDR / 1000}s
-                  </>
+                  <td>
+                    <>
+                      {formatNumber(this.effectiveBWReduction / 1000)}s /{' '}
+                      {this.totalPossibleCDR / 1000}s
+                    </>
                   </td>
                 </tr>
                 <tr>
                   <td className="text-left">CDR Efficiency %</td>
-                  <td>{formatPercentage(this.effectiveBWReduction /
-                    this.totalPossibleCDR)}%
-                  </td>
+                  <td>{formatPercentage(this.effectiveBWReduction / this.totalPossibleCDR)}%</td>
                 </tr>
               </tbody>
             </table>
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.BESTIAL_WRATH}>
           <>

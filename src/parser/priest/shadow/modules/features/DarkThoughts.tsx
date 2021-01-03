@@ -23,8 +23,14 @@ class DarkThoughts extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DARK_THOUGHT_BUFF), this.onBuffApplied);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.DARK_THOUGHT_BUFF), this.onBuffRemoved);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DARK_THOUGHT_BUFF),
+      this.onBuffApplied,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.DARK_THOUGHT_BUFF),
+      this.onBuffRemoved,
+    );
   }
 
   onBuffApplied() {
@@ -32,7 +38,8 @@ class DarkThoughts extends Analyzer {
   }
 
   onBuffRemoved() {
-    if (!this.eventHistory.last(1, 100, Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIND_BLAST))) { // If MB is not instant, it's not a proc
+    if (!this.eventHistory.last(1, 100, Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIND_BLAST))) {
+      // If MB is not instant, it's not a proc
       return;
     }
 
@@ -56,24 +63,31 @@ class DarkThoughts extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds)
-    .addSuggestion((suggest, actual, recommended) => suggest(<>You wasted {this.procsWasted} out of {this.procsGained} <SpellLink id={SPELLS.DARK_THOUGHTS.id} /> procs. Remember that the proc allows you to cast <SpellLink id={SPELLS.MIND_BLAST.id} /> instantly during <SpellLink id={SPELLS.MIND_FLAY.id} />, <SpellLink id={SPELLS.MIND_SEAR.id} />, and <SpellLink id={SPELLS.VOID_TORRENT_TALENT.id} />. Using during one of these casts allows you to double dip on damage during the global.</>)
-          .icon(SPELLS.DARK_THOUGHTS.icon)
-          .actual(
-            t({
-              id:'priest.shadow.suggestions.darkThoughts.efficiency',
-              message: `You wasted ${this.procsWasted} out of ${this.procsGained} Dark Thought procs.`
-            })
-          )
-          .recommended(`${recommended} is recommended.`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You wasted {this.procsWasted} out of {this.procsGained}{' '}
+          <SpellLink id={SPELLS.DARK_THOUGHTS.id} /> procs. Remember that the proc allows you to
+          cast <SpellLink id={SPELLS.MIND_BLAST.id} /> instantly during{' '}
+          <SpellLink id={SPELLS.MIND_FLAY.id} />, <SpellLink id={SPELLS.MIND_SEAR.id} />, and{' '}
+          <SpellLink id={SPELLS.VOID_TORRENT_TALENT.id} />. Using during one of these casts allows
+          you to double dip on damage during the global.
+        </>,
+      )
+        .icon(SPELLS.DARK_THOUGHTS.icon)
+        .actual(
+          t({
+            id: 'priest.shadow.suggestions.darkThoughts.efficiency',
+            message: `You wasted ${this.procsWasted} out of ${this.procsGained} Dark Thought procs.`,
+          }),
+        )
+        .recommended(`${recommended} is recommended.`),
+    );
   }
 
   statistic() {
     return (
-      <Statistic
-        category={STATISTIC_CATEGORY.GENERAL}
-        size="flexible"
-      >
+      <Statistic category={STATISTIC_CATEGORY.GENERAL} size="flexible">
         <BoringSpellValueText spell={SPELLS.DARK_THOUGHTS}>
           <>
             {this.procsUsed}/{this.procsGained} <small>Procs Used</small>

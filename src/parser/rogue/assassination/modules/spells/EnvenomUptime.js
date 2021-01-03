@@ -9,7 +9,6 @@ import { formatPercentage } from 'common/format';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 class EnvenomUptime extends Analyzer {
-
   get percentUptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.ENVENOM.id) / this.owner.fightDuration;
   }
@@ -24,7 +23,6 @@ class EnvenomUptime extends Analyzer {
       />
     );
   }
-
 }
 
 export default EnvenomUptime;

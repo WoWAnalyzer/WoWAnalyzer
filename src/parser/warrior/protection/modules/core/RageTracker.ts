@@ -22,7 +22,10 @@ class RageTracker extends ResourceTracker {
       this.ragePerMeleeHit += 1;
     }
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MELEE), this.onDamage);
-    this.addEventListener(Events.damage.to(SELECTED_PLAYER).spell(SPELLS.MELEE), this.onDamageTaken);
+    this.addEventListener(
+      Events.damage.to(SELECTED_PLAYER).spell(SPELLS.MELEE),
+      this.onDamageTaken,
+    );
   }
 
   onDamage(event: DamageEvent) {

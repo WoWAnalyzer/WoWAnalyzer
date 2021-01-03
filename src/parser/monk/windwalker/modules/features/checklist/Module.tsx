@@ -68,11 +68,13 @@ class Checklist extends BaseChecklist {
           hitCombo: this.hitCombo.suggestionThresholds,
           chiDetails: this.chiDetails.suggestionThresholds,
 
-          lastEmperorsCapacitorAverageStacks: this.lastEmperorsCapacitor.averageStacksSuggestionThresholds,
-          lastEmperorsCapacitorWastedStacks: this.lastEmperorsCapacitor.wastedStacksSuggestionThresholds,
+          lastEmperorsCapacitorAverageStacks: this.lastEmperorsCapacitor
+            .averageStacksSuggestionThresholds,
+          lastEmperorsCapacitorWastedStacks: this.lastEmperorsCapacitor
+            .wastedStacksSuggestionThresholds,
           jadeIgnition: this.jadeIgnition.suggestionThresholds,
-       }}
-     />
+        }}
+      />
     );
   }
 }

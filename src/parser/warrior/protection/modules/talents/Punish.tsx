@@ -26,7 +26,10 @@ class Punish extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.PUNISH_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_SLAM), this.onSlamDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_SLAM),
+      this.onSlamDamage,
+    );
   }
 
   get uptime() {
@@ -43,16 +46,23 @@ class Punish extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={(
+        tooltip={
           <>
-            Punish added a total of {formatNumber(this.bonusDmg)} damage to your Shield Slams ({formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%). <br />
+            Punish added a total of {formatNumber(this.bonusDmg)} damage to your Shield Slams (
+            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%). <br />
             {formatPercentage(this.uptime)}% debuff uptime.
           </>
-        )}
+        }
       >
-        <BoringValueText label={<><SpellLink id={SPELLS.PUNISH_TALENT.id} /> Damage contributed</>}>
+        <BoringValueText
+          label={
+            <>
+              <SpellLink id={SPELLS.PUNISH_TALENT.id} /> Damage contributed
+            </>
+          }
+        >
           <>
-            {formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} <small>DPS</small>
+            {formatNumber((this.bonusDmg / this.owner.fightDuration) * 1000)} <small>DPS</small>
           </>
         </BoringValueText>
       </Statistic>

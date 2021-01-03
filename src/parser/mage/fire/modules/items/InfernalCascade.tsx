@@ -9,10 +9,26 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
-const DAMAGE_BONUS = [0, .09, .099, .108, .117, .126, .135, .144, .153, .162, .171, .18, .189, .198, .207, .216];
+const DAMAGE_BONUS = [
+  0,
+  0.09,
+  0.099,
+  0.108,
+  0.117,
+  0.126,
+  0.135,
+  0.144,
+  0.153,
+  0.162,
+  0.171,
+  0.18,
+  0.189,
+  0.198,
+  0.207,
+  0.216,
+];
 
 class InfernalCascade extends Analyzer {
-  
   conduitRank = 0;
   bonusDamage = 0;
   buffStack = 0;
@@ -24,10 +40,22 @@ class InfernalCascade extends Analyzer {
     this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.INFERNAL_CASCADE.id);
     this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.INFERNAL_CASCADE.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.INFERNAL_CASCADE_BUFF), this.onBuffStack);
-    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.INFERNAL_CASCADE_BUFF), this.onBuffStack);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION), this.onCombustionStart);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION), this.onCombustionEnd);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.INFERNAL_CASCADE_BUFF),
+      this.onBuffStack,
+    );
+    this.addEventListener(
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.INFERNAL_CASCADE_BUFF),
+      this.onBuffStack,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION),
+      this.onCombustionStart,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION),
+      this.onCombustionEnd,
+    );
   }
 
   onDamage(event: DamageEvent) {
@@ -35,7 +63,10 @@ class InfernalCascade extends Analyzer {
     if (!buff || !this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id)) {
       return;
     }
-    this.bonusDamage += calculateEffectiveDamage(event,DAMAGE_BONUS[this.conduitRank] * buff.stacks);
+    this.bonusDamage += calculateEffectiveDamage(
+      event,
+      DAMAGE_BONUS[this.conduitRank] * buff.stacks,
+    );
   }
   onBuffStack() {
     const buff = this.selectedCombatant.getBuff(SPELLS.INFERNAL_CASCADE_BUFF.id);
@@ -57,12 +88,10 @@ class InfernalCascade extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        category={STATISTIC_CATEGORY.COVENANTS}
-        size="flexible"
-      >
+      <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
         <ConduitSpellText spell={SPELLS.INFERNAL_CASCADE} rank={this.conduitRank}>
-          <ItemDamageDone amount={this.bonusDamage} /><br />
+          <ItemDamageDone amount={this.bonusDamage} />
+          <br />
           {this.averageBuffStack} <small>Avg. stacks per Combustion</small>
         </ConduitSpellText>
       </Statistic>

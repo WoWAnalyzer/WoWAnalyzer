@@ -11,7 +11,7 @@ import PreparationRule from 'parser/shared/modules/features/Checklist/Preparatio
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 
 const DestructionWarlockChecklist = ({ combatant, castEfficiency, thresholds, shardTracker }) => {
-  const AbilityRequirement = props => (
+  const AbilityRequirement = (props) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
@@ -25,19 +25,31 @@ const DestructionWarlockChecklist = ({ combatant, castEfficiency, thresholds, sh
     <Checklist>
       <Rule
         name="Use your core spells"
-        description={(
+        description={
           <>
-            Destruction Warlocks have a simple rotation core. Maintain your <SpellLink id={SPELLS.IMMOLATE.id} /> on all enemies if possible, don't waste your <SpellLink id={SPELLS.CONFLAGRATE.id} /> and <SpellLink id={SPELLS.BACKDRAFT.id} /> stacks. Use <SpellLink id={SPELLS.HAVOC.id} /> whenever there's something else to cleave.
+            Destruction Warlocks have a simple rotation core. Maintain your{' '}
+            <SpellLink id={SPELLS.IMMOLATE.id} /> on all enemies if possible, don't waste your{' '}
+            <SpellLink id={SPELLS.CONFLAGRATE.id} /> and <SpellLink id={SPELLS.BACKDRAFT.id} />{' '}
+            stacks. Use <SpellLink id={SPELLS.HAVOC.id} /> whenever there's something else to
+            cleave.
           </>
-        )}
+        }
       >
         <Requirement
-          name={<><SpellLink id={SPELLS.IMMOLATE.id} /> uptime</>}
+          name={
+            <>
+              <SpellLink id={SPELLS.IMMOLATE.id} /> uptime
+            </>
+          }
           thresholds={thresholds.immolate}
         />
         <AbilityRequirement spell={SPELLS.CONFLAGRATE.id} />
         <Requirement
-          name={<>Wasted <SpellLink id={SPELLS.BACKDRAFT.id} /> stacks per minute</>}
+          name={
+            <>
+              Wasted <SpellLink id={SPELLS.BACKDRAFT.id} /> stacks per minute
+            </>
+          }
           thresholds={thresholds.wastedBackdraft}
         />
       </Rule>
@@ -57,37 +69,69 @@ const DestructionWarlockChecklist = ({ combatant, castEfficiency, thresholds, sh
       >
         {combatant.hasTalent(SPELLS.ERADICATION_TALENT.id) && (
           <Requirement
-            name={<><SpellLink id={SPELLS.ERADICATION_TALENT.id} /> uptime</>}
+            name={
+              <>
+                <SpellLink id={SPELLS.ERADICATION_TALENT.id} /> uptime
+              </>
+            }
             thresholds={thresholds.eradication}
           />
         )}
-        {combatant.hasTalent(SPELLS.SHADOWBURN_TALENT.id) && <AbilityRequirement spell={SPELLS.SHADOWBURN_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.CATACLYSM_TALENT.id) && <AbilityRequirement spell={SPELLS.CATACLYSM_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.CHANNEL_DEMONFIRE_TALENT.id) && <AbilityRequirement spell={SPELLS.CHANNEL_DEMONFIRE_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.SOUL_FIRE_TALENT.id) && <AbilityRequirement spell={SPELLS.SOUL_FIRE_TALENT.id} />}
+        {combatant.hasTalent(SPELLS.SHADOWBURN_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.SHADOWBURN_TALENT.id} />
+        )}
+        {combatant.hasTalent(SPELLS.CATACLYSM_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.CATACLYSM_TALENT.id} />
+        )}
+        {combatant.hasTalent(SPELLS.CHANNEL_DEMONFIRE_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.CHANNEL_DEMONFIRE_TALENT.id} />
+        )}
+        {combatant.hasTalent(SPELLS.SOUL_FIRE_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.SOUL_FIRE_TALENT.id} />
+        )}
         <AbilityRequirement spell={SPELLS.SUMMON_INFERNAL.id} />
-        {combatant.hasTalent(SPELLS.DARK_SOUL_INSTABILITY_TALENT.id) && <AbilityRequirement spell={SPELLS.DARK_SOUL_INSTABILITY_TALENT.id} />}
+        {combatant.hasTalent(SPELLS.DARK_SOUL_INSTABILITY_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.DARK_SOUL_INSTABILITY_TALENT.id} />
+        )}
       </Rule>
       <Rule
         name="Use your utility and defensive spells"
-        description={(
+        description={
           <>
-            Use other spells in your toolkit to your advantage. For example, you can try to minimize necessary movement by using <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon />, <SpellLink id={SPELLS.DEMONIC_CIRCLE.id} icon />, <SpellLink id={SPELLS.BURNING_RUSH_TALENT.id} icon /> or mitigate incoming damage with <SpellLink id={SPELLS.UNENDING_RESOLVE.id} icon />/<SpellLink id={SPELLS.DARK_PACT_TALENT.id} icon />.<br />
-            While you shouldn't cast these defensives on cooldown, be aware of them and use them whenever effective. Not using them at all indicates you might not be aware of them or not using them optimally.
+            Use other spells in your toolkit to your advantage. For example, you can try to minimize
+            necessary movement by using <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon />,{' '}
+            <SpellLink id={SPELLS.DEMONIC_CIRCLE.id} icon />,{' '}
+            <SpellLink id={SPELLS.BURNING_RUSH_TALENT.id} icon /> or mitigate incoming damage with{' '}
+            <SpellLink id={SPELLS.UNENDING_RESOLVE.id} icon />/
+            <SpellLink id={SPELLS.DARK_PACT_TALENT.id} icon />.<br />
+            While you shouldn't cast these defensives on cooldown, be aware of them and use them
+            whenever effective. Not using them at all indicates you might not be aware of them or
+            not using them optimally.
           </>
-        )}
+        }
       >
         <AbilityRequirement spell={SPELLS.DEMONIC_CIRCLE_TELEPORT.id} />
-        {combatant.hasTalent(SPELLS.DARK_PACT_TALENT.id) && <AbilityRequirement spell={SPELLS.DARK_PACT_TALENT.id} />}
+        {combatant.hasTalent(SPELLS.DARK_PACT_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.DARK_PACT_TALENT.id} />
+        )}
         <AbilityRequirement spell={SPELLS.UNENDING_RESOLVE.id} />
       </Rule>
       <Rule
         name="Always be casting"
-        description={(
+        description={
           <>
-            You should try to avoid doing nothing during the fight. When you have to move, try to save some <SpellLink id={SPELLS.CONFLAGRATE.id} /> charges or try to utilize <SpellLink id={SPELLS.DEMONIC_CIRCLE.id} icon>Teleport</SpellLink> or <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon>Gateway</SpellLink> to reduce the movement even further.
+            You should try to avoid doing nothing during the fight. When you have to move, try to
+            save some <SpellLink id={SPELLS.CONFLAGRATE.id} /> charges or try to utilize{' '}
+            <SpellLink id={SPELLS.DEMONIC_CIRCLE.id} icon>
+              Teleport
+            </SpellLink>{' '}
+            or{' '}
+            <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon>
+              Gateway
+            </SpellLink>{' '}
+            to reduce the movement even further.
           </>
-        )}
+        }
       >
         <Requirement name="Downtime" thresholds={thresholds.downtime} />
       </Rule>

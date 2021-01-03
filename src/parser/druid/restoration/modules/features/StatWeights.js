@@ -114,15 +114,20 @@ class StatWeights extends BaseHealerStatValues {
   }
 
   _criticalStrike(event, healVal) {
-    const bonusFromOneCrit = 1 / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentHasteRating, this.statTracker.statBaselineRatingPerPercent[STAT.CRITICAL_STRIKE]);
+    const bonusFromOneCrit =
+      1 /
+      this.statTracker.ratingNeededForNextPercentage(
+        this.statTracker.currentHasteRating,
+        this.statTracker.statBaselineRatingPerPercent[STAT.CRITICAL_STRIKE],
+      );
 
     if (healVal.overheal) {
       return 0;
     }
     const critMult = this.critEffectBonus.getBonus(event);
-    const noCritHealing = event.hitType === HIT_TYPES.CRIT ? healVal.effective / critMult : healVal.effective;
+    const noCritHealing =
+      event.hitType === HIT_TYPES.CRIT ? healVal.effective / critMult : healVal.effective;
     return noCritHealing * bonusFromOneCrit * (critMult - 1);
-
   }
 
   _hasteHpm(event, healVal) {
@@ -147,9 +152,16 @@ class StatWeights extends BaseHealerStatValues {
     if (target === null) {
       return 0;
     }
-    const bonusFromOneMastery = 1 / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentMasteryRating, this.statTracker.statBaselineRatingPerPercent[STAT.MASTERY], this.selectedCombatant.spec.masteryCoefficient);
+    const bonusFromOneMastery =
+      1 /
+      this.statTracker.ratingNeededForNextPercentage(
+        this.statTracker.currentMasteryRating,
+        this.statTracker.statBaselineRatingPerPercent[STAT.MASTERY],
+        this.selectedCombatant.spec.masteryCoefficient,
+      );
     const hotCount = this.mastery.getHotCount(target);
-    const noMasteryHealing = healVal.effective / (1 + (this.statTracker.currentMasteryPercentage * hotCount));
+    const noMasteryHealing =
+      healVal.effective / (1 + this.statTracker.currentMasteryPercentage * hotCount);
     return noMasteryHealing * bonusFromOneMastery * hotCount;
   }
 
@@ -173,7 +185,6 @@ class StatWeights extends BaseHealerStatValues {
     }
     return super.statistic();
   }
-
 }
 
 export default StatWeights;

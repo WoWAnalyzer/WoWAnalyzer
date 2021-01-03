@@ -25,7 +25,12 @@ const PURIFY_DELAY_THRESHOLD = 750; // with the removal of ISB, i'm cutting the 
 function markupPurify(event: CastEvent, delay: number, hasHeavyStagger: boolean) {
   const msgs = [];
   if (delay > PURIFY_DELAY_THRESHOLD) {
-    msgs.push(<li key="PURIFY_DELAY_THRESHOLD">You delayed casting it for <b>{(delay / 1000).toFixed(2)}s</b> after being hit, allowing Stagger to tick down.</li>);
+    msgs.push(
+      <li key="PURIFY_DELAY_THRESHOLD">
+        You delayed casting it for <b>{(delay / 1000).toFixed(2)}s</b> after being hit, allowing
+        Stagger to tick down.
+      </li>,
+    );
   }
 
   if (msgs.length === 0) {
@@ -66,7 +71,10 @@ class PurifyingBrew extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(Events.removedebuff.to(SELECTED_PLAYER).spell(SPELLS.HEAVY_STAGGER_DEBUFF), this._removeHeavyStagger);
+    this.addEventListener(
+      Events.removedebuff.to(SELECTED_PLAYER).spell(SPELLS.HEAVY_STAGGER_DEBUFF),
+      this._removeHeavyStagger,
+    );
     this.addEventListener(new EventFilter(EventType.AddStagger), this._addstagger);
     this.addEventListener(new EventFilter(EventType.RemoveStagger), this._removestagger);
   }
@@ -84,11 +92,11 @@ class PurifyingBrew extends Analyzer {
       return 0;
     }
 
-    return this.purifies.reduce((prev, cur) => (prev < cur.amount) ? prev : cur.amount, Infinity);
+    return this.purifies.reduce((prev, cur) => (prev < cur.amount ? prev : cur.amount), Infinity);
   }
 
   get maxPurify() {
-    return this.purifies.reduce((prev, cur) => (prev > cur.amount) ? prev : cur.amount, 0);
+    return this.purifies.reduce((prev, cur) => (prev > cur.amount ? prev : cur.amount), 0);
   }
 
   get totalPurified() {
@@ -119,13 +127,22 @@ class PurifyingBrew extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.purifyDelaySuggestion).addSuggestion((suggest, actual, recommended) => suggest(<>You should delay your <SpellLink id={SPELLS.PURIFYING_BREW.id} /> cast as little as possible after being hit to maximize its effectiveness.</>)
-      .icon(SPELLS.PURIFYING_BREW.icon)
-      .actual(t({
-      id: "monk.brewmaster.suggestions.purifyingBrew.avgdelay",
-      message: `${actual.toFixed(2)}s Average Delay`
-    }))
-      .recommended(`< ${recommended.toFixed(2)}s is recommended`));
+    when(this.purifyDelaySuggestion).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You should delay your <SpellLink id={SPELLS.PURIFYING_BREW.id} /> cast as little as
+          possible after being hit to maximize its effectiveness.
+        </>,
+      )
+        .icon(SPELLS.PURIFYING_BREW.icon)
+        .actual(
+          t({
+            id: 'monk.brewmaster.suggestions.purifyingBrew.avgdelay',
+            message: `${actual.toFixed(2)}s Average Delay`,
+          }),
+        )
+        .recommended(`< ${recommended.toFixed(2)}s is recommended`),
+    );
   }
 
   statistic() {
@@ -158,7 +175,12 @@ class PurifyingBrew extends Analyzer {
         },
         tooltip: [
           { field: 'time_label', type: 'nominal' as const, title: 'Time' },
-          { field: 'amount', type: 'quantitative' as const, title: 'Amount Purified', format: '.3~s' },
+          {
+            field: 'amount',
+            type: 'quantitative' as const,
+            title: 'Amount Purified',
+            format: '.3~s',
+          },
         ],
       },
     };
@@ -167,15 +189,25 @@ class PurifyingBrew extends Analyzer {
       <Statistic
         size="flexible"
         position={STATISTIC_ORDER.OPTIONAL()}
-        tooltip={(
+        tooltip={
           <>
-            Purifying Brew removed <strong>{formatNumber(this.totalPurified)}</strong> damage in total over {this.totalPurifies} casts.<br />
-            The smallest purify removed <strong>{formatNumber(this.minPurify)}</strong> and the largest purify removed <strong>{formatNumber(this.maxPurify)}</strong>.<br />
-            Your purifies were delayed from the nearest peak by <strong>{(this.avgPurifyDelay / 1000).toFixed(2)}s</strong> on average.
+            Purifying Brew removed <strong>{formatNumber(this.totalPurified)}</strong> damage in
+            total over {this.totalPurifies} casts.
+            <br />
+            The smallest purify removed <strong>{formatNumber(this.minPurify)}</strong> and the
+            largest purify removed <strong>{formatNumber(this.maxPurify)}</strong>.<br />
+            Your purifies were delayed from the nearest peak by{' '}
+            <strong>{(this.avgPurifyDelay / 1000).toFixed(2)}s</strong> on average.
           </>
-        )}
+        }
       >
-        <BoringValue label={<><SpellIcon id={SPELLS.PURIFYING_BREW.id} /> Avg. Mitigation per Purifying Brew</>}>
+        <BoringValue
+          label={
+            <>
+              <SpellIcon id={SPELLS.PURIFYING_BREW.id} /> Avg. Mitigation per Purifying Brew
+            </>
+          }
+        >
           <>
             {formatNumber(this.meanPurify)} <br />
             <FooterChart data={this.purifies} spec={spec} />
@@ -193,13 +225,15 @@ class PurifyingBrew extends Analyzer {
 
   private _addstagger(event: AddStaggerEvent) {
     this._lastHit = event;
-    this._msTilPurify = this.spells.isAvailable(SPELLS.PURIFYING_BREW.id) ? 0 : this.spells.cooldownRemaining(SPELLS.PURIFYING_BREW.id);
+    this._msTilPurify = this.spells.isAvailable(SPELLS.PURIFYING_BREW.id)
+      ? 0
+      : this.spells.cooldownRemaining(SPELLS.PURIFYING_BREW.id);
   }
 
   private _removestagger(event: RemoveStaggerEvent) {
     if (this._lastHit === undefined) {
       if (event.amount > 0) {
-        console.warn('Stagger removed but player hasn\'t been hit yet', event);
+        console.warn("Stagger removed but player hasn't been hit yet", event);
       }
       return; // no hit yet
     }
@@ -207,7 +241,11 @@ class PurifyingBrew extends Analyzer {
     // a peak as possible, but if no purify charges are available we
     // want to get the new pooled amount
     const gap = event.timestamp - this._lastHit!.timestamp;
-    if (event.trigger!.ability && event.trigger!.ability.guid === SPELLS.STAGGER.id && this._msTilPurify - gap > 0) {
+    if (
+      event.trigger!.ability &&
+      event.trigger!.ability.guid === SPELLS.STAGGER.id &&
+      this._msTilPurify - gap > 0
+    ) {
       this._msTilPurify = Math.max(0, this._msTilPurify - gap);
       this._lastHit = event;
     }
@@ -221,7 +259,8 @@ class PurifyingBrew extends Analyzer {
     this.purifies.push(event);
     const delay = event.timestamp - this._lastHit.timestamp - this._msTilPurify;
     this.purifyDelays.push(delay);
-    const hasHeavyStagger = this.selectedCombatant.hasBuff(SPELLS.HEAVY_STAGGER_DEBUFF.id) || this._heavyStaggerDropped;
+    const hasHeavyStagger =
+      this.selectedCombatant.hasBuff(SPELLS.HEAVY_STAGGER_DEBUFF.id) || this._heavyStaggerDropped;
     const trigger = event.trigger!;
 
     if (trigger.type === EventType.Cast) {

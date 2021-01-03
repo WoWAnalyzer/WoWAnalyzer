@@ -23,7 +23,7 @@ const legendaries = {
     name: 'Lifebloom',
     icon: 'inv_misc_herb_felblossom',
     manaCost: 800,
-    bonusID: 7097
+    bonusID: 7097,
   },
   //endregion
 

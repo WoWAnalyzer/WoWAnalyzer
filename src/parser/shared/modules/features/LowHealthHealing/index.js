@@ -20,11 +20,19 @@ class LowHealthHealing extends Analyzer {
       render: () => (
         <Panel
           title={<Trans id="shared.lowHealthHealing.tab.title">Triage healing</Trans>}
-          explanation={<Trans id="shared.lowHealthHealing.tab.explanation">This shows all instances of healing people below a certain health threshold.</Trans>}
+          explanation={
+            <Trans id="shared.lowHealthHealing.tab.explanation">
+              This shows all instances of healing people below a certain health threshold.
+            </Trans>
+          }
           pad={false}
         >
           <LowHealthHealingComponent
-            healEvents={this.owner.eventHistory.filter(event => event.type === EventType.Heal && (this.owner.byPlayer(event) || this.owner.byPlayerPet(event)))}
+            healEvents={this.owner.eventHistory.filter(
+              (event) =>
+                event.type === EventType.Heal &&
+                (this.owner.byPlayer(event) || this.owner.byPlayerPet(event)),
+            )}
             fightStart={this.owner.fight.start_time - this.owner.fight.offset_time}
             combatants={this.combatants}
           />

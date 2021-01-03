@@ -39,22 +39,15 @@ class EarthenSpike extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.EARTHEN_SPIKE_TALENT.id);
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(SPELLS.EARTHEN_SPIKE_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.EARTHEN_SPIKE_TALENT),
       this.onEarthenSpikeDamage,
     );
 
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER),
-      this.onAnyDamage,
-    );
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onAnyDamage);
   }
 
   get buffedSchools() {
-    return [
-      MAGIC_SCHOOLS.ids.PHYSICAL,
-      MAGIC_SCHOOLS.ids.NATURE,
-    ];
+    return [MAGIC_SCHOOLS.ids.PHYSICAL, MAGIC_SCHOOLS.ids.NATURE];
   }
 
   onEarthenSpikeDamage(event: DamageEvent) {

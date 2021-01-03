@@ -9,4 +9,4 @@ const DEFAULT_BUILD: Build = {
   icon: <ArmoryIcon />,
 };
 
-export default DEFAULT_BUILD
+export default DEFAULT_BUILD;

@@ -13,7 +13,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 class ChannelDemonfire extends Analyzer {
   get dps() {
-    return this.damage / this.owner.fightDuration * 1000;
+    return (this.damage / this.owner.fightDuration) * 1000;
   }
 
   static dependencies = {
@@ -24,7 +24,10 @@ class ChannelDemonfire extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CHANNEL_DEMONFIRE_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CHANNEL_DEMONFIRE_DAMAGE), this.onCDFdamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CHANNEL_DEMONFIRE_DAMAGE),
+      this.onCDFdamage,
+    );
   }
 
   onCDFdamage(event) {
@@ -39,7 +42,10 @@ class ChannelDemonfire extends Analyzer {
         tooltip={`${formatThousands(this.damage)} damage`}
       >
         <BoringSpellValueText spell={SPELLS.CHANNEL_DEMONFIRE_TALENT}>
-          {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total</small>
+          {formatNumber(this.dps)} DPS{' '}
+          <small>
+            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total
+          </small>
         </BoringSpellValueText>
       </Statistic>
     );

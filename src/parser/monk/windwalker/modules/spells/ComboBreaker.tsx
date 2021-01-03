@@ -29,8 +29,14 @@ class ComboBreaker extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.COMBO_BREAKER_BUFF), this.onApplyBuff);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.COMBO_BREAKER_BUFF), this.onRefreshBuff);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.COMBO_BREAKER_BUFF),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.COMBO_BREAKER_BUFF),
+      this.onRefreshBuff,
+    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_KICK), this.onCast);
   }
 
@@ -78,22 +84,41 @@ class ComboBreaker extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<span>Your <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs should be used before you tiger palm again so they are not overwritten. While some will be overwritten due to higher priority of getting Chi for spenders, wasting <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs is not optimal.</span>)
-      .icon(SPELLS.COMBO_BREAKER_BUFF.icon)
-      .actual(t({
-      id: "monk.windwalker.suggestions.comboBreaker.procsUsed",
-      message: `${formatPercentage(actual)}% used Combo Breaker procs`
-    }))
-      .recommended(`>${formatPercentage(recommended)}% used Combo Breaker Procs is recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <span>
+          Your <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs should be used before you tiger
+          palm again so they are not overwritten. While some will be overwritten due to higher
+          priority of getting Chi for spenders, wasting{' '}
+          <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs is not optimal.
+        </span>,
+      )
+        .icon(SPELLS.COMBO_BREAKER_BUFF.icon)
+        .actual(
+          t({
+            id: 'monk.windwalker.suggestions.comboBreaker.procsUsed',
+            message: `${formatPercentage(actual)}% used Combo Breaker procs`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% used Combo Breaker Procs is recommended`),
+    );
   }
 
   statistic() {
-    const averageCBProcs = this.abilityTracker.getAbility(SPELLS.TIGER_PALM.id).casts * COMBO_BREAKER_PROC_CHANCE;
+    const averageCBProcs =
+      this.abilityTracker.getAbility(SPELLS.TIGER_PALM.id).casts * COMBO_BREAKER_PROC_CHANCE;
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(6)}
         size="flexible"
-        tooltip={<>You got a total of <strong>{this.CBProcsTotal} Combo Breaker procs</strong> and <strong>used {this.consumedCBProc}</strong> of them. The average expected number of procs from your Tiger Palms this fight is <strong>{averageCBProcs.toFixed(2)}</strong>, and you got <strong>{this.CBProcsTotal}</strong>.</>}
+        tooltip={
+          <>
+            You got a total of <strong>{this.CBProcsTotal} Combo Breaker procs</strong> and{' '}
+            <strong>used {this.consumedCBProc}</strong> of them. The average expected number of
+            procs from your Tiger Palms this fight is <strong>{averageCBProcs.toFixed(2)}</strong>,
+            and you got <strong>{this.CBProcsTotal}</strong>.
+          </>
+        }
       >
         <BoringSpellValueText spell={SPELLS.COMBO_BREAKER_BUFF}>
           {formatPercentage(this.usedCBProcs, 0)}% <small>Proc utilization</small>

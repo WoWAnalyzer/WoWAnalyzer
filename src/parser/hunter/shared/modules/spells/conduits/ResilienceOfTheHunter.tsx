@@ -16,19 +16,22 @@ import React from 'react';
  * https://www.warcraftlogs.com/reports/1FV4MbPcn9gJLp7f#fight=5&type=auras&source=23&ability=339461
  */
 class ResilienceOfTheHunter extends Analyzer {
-
   conduitRank = 0;
   conduitDR = 0;
   totalDamageReduction = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.RESILIENCE_OF_THE_HUNTER_CONDUIT.id);
+    this.active = this.selectedCombatant.hasConduitBySpellID(
+      SPELLS.RESILIENCE_OF_THE_HUNTER_CONDUIT.id,
+    );
     if (!this.active) {
       return;
     }
 
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.RESILIENCE_OF_THE_HUNTER_CONDUIT.id);
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(
+      SPELLS.RESILIENCE_OF_THE_HUNTER_CONDUIT.id,
+    );
     this.conduitDR = RESILIENCE_OF_THE_HUNTER_EFFECT_BY_RANK[this.conduitRank];
 
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.damageTaken);

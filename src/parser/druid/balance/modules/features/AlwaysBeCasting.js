@@ -20,13 +20,17 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   statisticOrder = STATISTIC_ORDER.CORE(4);
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest('Your downtime can be improved. Try to Always Be Casting (ABC)...')
-      .icon('spell_mage_altertime')
-      .actual(t({
-      id: "druid.balance.suggestions.alwaysBeCasting.downtime",
-      message: `${formatPercentage(actual)}% downtime`
-    }))
-      .recommended(`${formatPercentage(recommended)}% or less is recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest('Your downtime can be improved. Try to Always Be Casting (ABC)...')
+        .icon('spell_mage_altertime')
+        .actual(
+          t({
+            id: 'druid.balance.suggestions.alwaysBeCasting.downtime',
+            message: `${formatPercentage(actual)}% downtime`,
+          }),
+        )
+        .recommended(`${formatPercentage(recommended)}% or less is recommended`),
+    );
   }
 }
 

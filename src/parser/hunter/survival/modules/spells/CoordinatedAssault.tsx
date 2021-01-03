@@ -44,7 +44,9 @@ class CoordinatedAssault extends Analyzer {
   }
 
   get percentUptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.COORDINATED_ASSAULT.id) / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.COORDINATED_ASSAULT.id) / this.owner.fightDuration
+    );
   }
 
   onPetDamage(event: DamageEvent) {
@@ -66,17 +68,29 @@ class CoordinatedAssault extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(4)}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            Over the course of the encounter you had Coordinated Assault up for a total of {(this.selectedCombatant.getBuffUptime(SPELLS.COORDINATED_ASSAULT.id) / 1000).toFixed(1)} seconds.
+            Over the course of the encounter you had Coordinated Assault up for a total of{' '}
+            {(this.selectedCombatant.getBuffUptime(SPELLS.COORDINATED_ASSAULT.id) / 1000).toFixed(
+              1,
+            )}{' '}
+            seconds.
             <br />
             Total damage breakdown:
             <ul>
-              <li>Player damage: {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.playerDamage))}% / {formatNumber(this.playerDamage / (this.owner.fightDuration / 1000))} DPS</li>
-              <li>Pet damage: {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.petDamage))}% / {formatNumber(this.petDamage / (this.owner.fightDuration / 1000))} DPS</li>
+              <li>
+                Player damage:{' '}
+                {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.playerDamage))}% /{' '}
+                {formatNumber(this.playerDamage / (this.owner.fightDuration / 1000))} DPS
+              </li>
+              <li>
+                Pet damage:{' '}
+                {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.petDamage))}% /{' '}
+                {formatNumber(this.petDamage / (this.owner.fightDuration / 1000))} DPS
+              </li>
             </ul>
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.COORDINATED_ASSAULT}>
           <>

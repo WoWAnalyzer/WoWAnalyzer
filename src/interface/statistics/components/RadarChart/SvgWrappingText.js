@@ -30,10 +30,15 @@ class SvgWrappingText extends React.PureComponent {
     const y = text.attr('y');
     const x = text.attr('x');
     const dy = parseFloat(text.attr('dy'));
-    let tspan = text.text(null).append('tspan').attr('x', x).attr('y', y).attr('dy', dy + 'em');
+    let tspan = text
+      .text(null)
+      .append('tspan')
+      .attr('x', x)
+      .attr('y', y)
+      .attr('dy', dy + 'em');
 
     // noinspection JSAssignmentUsedAsCondition
-    words.forEach(word => {
+    words.forEach((word) => {
       line.push(word);
       tspan.text(line.join(' '));
       if (tspan.node().getComputedTextLength() > width) {
@@ -41,15 +46,18 @@ class SvgWrappingText extends React.PureComponent {
         tspan.text(line.join(' '));
         line = [word];
         lineNumber += 1;
-        tspan = text.append('tspan').attr('x', x).attr('y', y).attr('dy', lineNumber * lineHeight + dy + 'em').text(word);
+        tspan = text
+          .append('tspan')
+          .attr('x', x)
+          .attr('y', y)
+          .attr('dy', lineNumber * lineHeight + dy + 'em')
+          .text(word);
       }
     });
   }
 
   render() {
-    return (
-      <text {...this.props} ref={this.elem} />
-    );
+    return <text {...this.props} ref={this.elem} />;
   }
 }
 

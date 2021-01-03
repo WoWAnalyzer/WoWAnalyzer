@@ -15,7 +15,7 @@ export default function reportHistory(state = defaultState, action) {
   switch (action.type) {
     case APPEND_REPORT_HISTORY: {
       let newState = [
-        ...state.filter(item => item.code !== action.payload.code), // remove existing report with this code
+        ...state.filter((item) => item.code !== action.payload.code), // remove existing report with this code
         action.payload,
       ];
       const numItems = newState.length;

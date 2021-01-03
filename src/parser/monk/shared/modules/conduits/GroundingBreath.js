@@ -15,7 +15,6 @@ import ItemHealingDone from 'interface/ItemHealingDone';
 import { conduitScaling } from '../../../mistweaver/constants';
 
 class GroundingBreath extends Analyzer {
-
   healing = 0;
   resourceReturned = 0;
 
@@ -28,23 +27,28 @@ class GroundingBreath extends Analyzer {
     super(...args);
 
     const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.GROUNDING_BREATH.id);
-    
+
     if (!conduitRank) {
       this.active = false;
       return;
     }
 
-    this.healingBoost = conduitScaling(.15, conduitRank);
+    this.healingBoost = conduitScaling(0.15, conduitRank);
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.vivifyBoost);
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell([SPELLS.GROUNDING_BREATH_MANA_RETURN, SPELLS.GROUNDING_BREATH_ENERGY_RETURN]), this.onResourceRefund);
+    this.addEventListener(
+      Events.energize
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.GROUNDING_BREATH_MANA_RETURN, SPELLS.GROUNDING_BREATH_ENERGY_RETURN]),
+      this.onResourceRefund,
+    );
   }
 
   vivifyBoost(event) {
     if (event.targetID !== event.sourceID) {
       return;
     }
-    this.healing += (calculateEffectiveHealing(event, this.healingBoost) || 0);
+    this.healing += calculateEffectiveHealing(event, this.healingBoost) || 0;
   }
 
   onResourceRefund(event) {
@@ -60,7 +64,8 @@ class GroundingBreath extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.GROUNDING_BREATH}>
           <ItemManaGained amount={this.resourceReturned} />
-          <ItemHealingDone amount={this.healing} /><br />
+          <ItemHealingDone amount={this.healing} />
+          <br />
         </BoringSpellValueText>
       </Statistic>
     );

@@ -11,7 +11,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 class ArtificeOfTheArchmage extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
-  }
+  };
   protected spellUsable!: SpellUsable;
 
   conduitRank = 0;
@@ -20,8 +20,13 @@ class ArtificeOfTheArchmage extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.ARTIFICE_OF_THE_ARCHMAGE.id);
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.ARTIFICE_OF_THE_ARCHMAGE.id);
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.ARTIFICE_OF_THE_ARCHMAGE_ENERGIZE), this.onEnergize);
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(
+      SPELLS.ARTIFICE_OF_THE_ARCHMAGE.id,
+    );
+    this.addEventListener(
+      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.ARTIFICE_OF_THE_ARCHMAGE_ENERGIZE),
+      this.onEnergize,
+    );
   }
 
   onEnergize(event: EnergizeEvent) {
@@ -37,7 +42,9 @@ class ArtificeOfTheArchmage extends Analyzer {
       <Statistic
         category={STATISTIC_CATEGORY.COVENANTS}
         size="flexible"
-        tooltip={<>The number of Arcane Charges you received from the Artifice of the Archmage conduit. </>}
+        tooltip={
+          <>The number of Arcane Charges you received from the Artifice of the Archmage conduit. </>
+        }
       >
         <ConduitSpellText spell={SPELLS.ARTIFICE_OF_THE_ARCHMAGE} rank={this.conduitRank}>
           {this.freeCharges} <small>Free Arcane Charges</small>

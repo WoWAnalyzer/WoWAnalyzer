@@ -11,12 +11,12 @@ import { shouldIgnore, magic } from 'parser/shared/modules/hit-tracking/utilitie
 import Enemies from 'parser/shared/modules/Enemies';
 
 interface CastMetadata {
-  castTime: number,
-  buffStartTime: number,
-  buffEndTime: number,
-  melees: number,
-  tankbusters: number,
-  _event: CastEvent,
+  castTime: number;
+  buffStartTime: number;
+  buffEndTime: number;
+  melees: number;
+  tankbusters: number;
+  _event: CastEvent;
 }
 
 class ShieldOfTheRighteous extends Analyzer {
@@ -38,7 +38,7 @@ class ShieldOfTheRighteous extends Analyzer {
   }
 
   trackHits(event: DamageEvent) {
-    if(shouldIgnore(this.enemies, event) || magic(event)) {
+    if (shouldIgnore(this.enemies, event) || magic(event)) {
       return;
     }
 
@@ -46,7 +46,7 @@ class ShieldOfTheRighteous extends Analyzer {
 
     this.totalHits += 1;
     this.totalDamageTaken += amount;
-    if(this.selectedCombatant.hasBuff(SPELLS.SHIELD_OF_THE_RIGHTEOUS_BUFF.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.SHIELD_OF_THE_RIGHTEOUS_BUFF.id)) {
       this.sotrHits += 1;
       this.sotrDamageTaken += amount;
     }
@@ -58,37 +58,55 @@ class ShieldOfTheRighteous extends Analyzer {
       isLessThan: {
         minor: 0.95,
         average: 0.9,
-        major: 0.85
+        major: 0.85,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
   }
 
   suggestions(when: When) {
-    when(this.hitsMitigatedThreshold)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>You should maintain <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> while actively tanking</>)
+    when(this.hitsMitigatedThreshold).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You should maintain <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> while actively
+          tanking
+        </>,
+      )
         .icon(SPELLS.SHIELD_OF_THE_RIGHTEOUS.icon)
         .actual(`${formatPercentage(actual)}% of hits mitigated by Shield of the Righteous`)
-        .recommended(`at least ${formatPercentage(recommended)}% is recommended`));
+        .recommended(`at least ${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
-
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} />}
         value={`${formatPercentage(this.sotrHits / this.totalHits)}%`}
         label="Physical Hits Mitigated"
-        tooltip={(
+        tooltip={
           <>
             Shield of the Righteous usage breakdown:
             <ul>
-              <li>You were hit <strong>{this.sotrHits}</strong> times with your Shield of the Righteous buff (<strong>{formatThousands(this.sotrDamageTaken)}</strong> damage).</li>
-              <li>You were hit <strong>{this.totalHits - this.sotrHits}</strong> times <strong><em>without</em></strong> your Shield of the Righteous buff (<strong>{formatThousands(this.totalDamageTaken - this.sotrDamageTaken)}</strong> damage).</li>
+              <li>
+                You were hit <strong>{this.sotrHits}</strong> times with your Shield of the
+                Righteous buff (<strong>{formatThousands(this.sotrDamageTaken)}</strong> damage).
+              </li>
+              <li>
+                You were hit <strong>{this.totalHits - this.sotrHits}</strong> times{' '}
+                <strong>
+                  <em>without</em>
+                </strong>{' '}
+                your Shield of the Righteous buff (
+                <strong>{formatThousands(this.totalDamageTaken - this.sotrDamageTaken)}</strong>{' '}
+                damage).
+              </li>
             </ul>
-            <strong>{formatPercentage(this.sotrHits / this.totalHits)}%</strong> of physical attacks were mitigated with Shield of the Righteous.<br />
+            <strong>{formatPercentage(this.sotrHits / this.totalHits)}%</strong> of physical attacks
+            were mitigated with Shield of the Righteous.
+            <br />
           </>
-        )}
+        }
       />
     );
   }

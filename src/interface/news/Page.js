@@ -17,11 +17,7 @@ class Page extends React.PureComponent {
     return breadcrumbs.map((item, index) => (
       <React.Fragment key={index}>
         {item}
-        {index !== (breadcrumbs.length - 1) && (
-          <>
-            {' '}&gt;{' '}
-          </>
-        )}
+        {index !== breadcrumbs.length - 1 && <> &gt; </>}
       </React.Fragment>
     ));
   }
@@ -40,30 +36,30 @@ class Page extends React.PureComponent {
 
     return (
       <div className="container news">
-        <ArticleLoader
-          key={fileName}
-          fileName={fileName}
-        >
-          {({ article, showLoader }) => showLoader ? (
-            <>
-              {this.renderBreadcrumbs(breadcrumbs)}<br /><br />
+        <ArticleLoader key={fileName} fileName={fileName}>
+          {({ article, showLoader }) =>
+            showLoader ? (
+              <>
+                {this.renderBreadcrumbs(breadcrumbs)}
+                <br />
+                <br />
 
-              <div className="spinner" style={{ fontSize: 5 }} />
+                <div className="spinner" style={{ fontSize: 5 }} />
 
-              <DocumentTitle title="News" />
-            </>
-          ) : (
-            <>
-              {this.renderBreadcrumbs([
-                ...breadcrumbs,
-                article.props.title,
-              ])}<br /><br />
+                <DocumentTitle title="News" />
+              </>
+            ) : (
+              <>
+                {this.renderBreadcrumbs([...breadcrumbs, article.props.title])}
+                <br />
+                <br />
 
-              {article}
+                {article}
 
-              <DocumentTitle title={article.props.title} />
-            </>
-          )}
+                <DocumentTitle title={article.props.title} />
+              </>
+            )
+          }
         </ArticleLoader>
       </div>
     );

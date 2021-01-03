@@ -7,7 +7,10 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import SPELLS from 'common/SPELLS';
 import Events from 'parser/core/Events';
 import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
-import { FLAMEWAKERS_PROC_CHANCE, KILL_COMMAND_BM_FOCUS_COST } from 'parser/hunter/beastmastery/constants';
+import {
+  FLAMEWAKERS_PROC_CHANCE,
+  KILL_COMMAND_BM_FOCUS_COST,
+} from 'parser/hunter/beastmastery/constants';
 import SpellLink from 'common/SpellLink';
 
 /**
@@ -17,7 +20,6 @@ import SpellLink from 'common/SpellLink';
  *
  */
 class FlamewakersCobraSting extends Analyzer {
-
   cobraCasts: number = 0;
   procs: number = 0;
   utilizedFlamewakerBuffs: number = 0;
@@ -25,14 +27,25 @@ class FlamewakersCobraSting extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.FLAMEWAKERS_COBRA_STING_EFFECT.bonusID);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(
+      SPELLS.FLAMEWAKERS_COBRA_STING_EFFECT.bonusID,
+    );
     if (!this.active) {
       return;
     }
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.COBRA_SHOT), this.onCobra);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.KILL_COMMAND_CAST_BM), this.onKillCommand);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.FLAMEWAKERS_COBRA_STING_BUFF), this.refreshFlamewaker);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FLAMEWAKERS_COBRA_STING_BUFF), this.applyFlamewaker);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.KILL_COMMAND_CAST_BM),
+      this.onKillCommand,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.FLAMEWAKERS_COBRA_STING_BUFF),
+      this.refreshFlamewaker,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FLAMEWAKERS_COBRA_STING_BUFF),
+      this.applyFlamewaker,
+    );
   }
 
   onCobra() {
@@ -60,17 +73,21 @@ class FlamewakersCobraSting extends Analyzer {
         position={STATISTIC_ORDER.CORE()}
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
-        dropdown={(
+        dropdown={
           <>
             <div style={{ padding: '8px' }}>
               {plotOneVariableBinomChart(this.procs, this.cobraCasts, FLAMEWAKERS_PROC_CHANCE)}
-              <p>Likelihood of getting <em>exactly</em> as many procs as estimated on a fight given your number of <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> casts.</p>
+              <p>
+                Likelihood of getting <em>exactly</em> as many procs as estimated on a fight given
+                your number of <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> casts.
+              </p>
             </div>
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.FLAMEWAKERS_COBRA_STING_EFFECT}>
-          {this.utilizedFlamewakerBuffs}/{this.wastedFlamewakerBuffs + this.utilizedFlamewakerBuffs} <small> Procs utilized </small>
+          {this.utilizedFlamewakerBuffs}/{this.wastedFlamewakerBuffs + this.utilizedFlamewakerBuffs}{' '}
+          <small> Procs utilized </small>
           <br />
           {this.utilizedFlamewakerBuffs * KILL_COMMAND_BM_FOCUS_COST} <small> Focus saved</small>
         </BoringSpellValueText>

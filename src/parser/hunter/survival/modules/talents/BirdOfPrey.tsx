@@ -9,7 +9,10 @@ import SpellLink from 'common/SpellLink';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import { BOP_CA_EXTENSION_PER_CAST, RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
+import {
+  BOP_CA_EXTENSION_PER_CAST,
+  RAPTOR_MONGOOSE_VARIANTS,
+} from 'parser/hunter/survival/constants';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { MS_BUFFER } from 'parser/hunter/shared/constants';
@@ -23,7 +26,6 @@ import { t } from '@lingui/macro';
  */
 
 class BirdOfPrey extends Analyzer {
-
   petTarget: string = '';
   playerTarget: string = '';
   coordinatedAssaultExtended = 0;
@@ -38,8 +40,16 @@ class BirdOfPrey extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.BIRDS_OF_PREY_TALENT.id);
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([...RAPTOR_MONGOOSE_VARIANTS, SPELLS.CARVE, SPELLS.BUTCHERY_TALENT]), this.onPlayerDamage);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.CARVE, SPELLS.BUTCHERY_TALENT]), this.onAoECast);
+    this.addEventListener(
+      Events.damage
+        .by(SELECTED_PLAYER)
+        .spell([...RAPTOR_MONGOOSE_VARIANTS, SPELLS.CARVE, SPELLS.BUTCHERY_TALENT]),
+      this.onPlayerDamage,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.CARVE, SPELLS.BUTCHERY_TALENT]),
+      this.onAoECast,
+    );
     this.addEventListener(Events.fightend, this.aoeCheck);
   }
 
@@ -64,7 +74,9 @@ class BirdOfPrey extends Analyzer {
   }
 
   get percentExtension() {
-    return this.coordinatedAssaultExtended / (this.coordinatedAssaultExtended + this.wastedExtension);
+    return (
+      this.coordinatedAssaultExtended / (this.coordinatedAssaultExtended + this.wastedExtension)
+    );
   }
 
   onAoECast() {
@@ -76,7 +88,11 @@ class BirdOfPrey extends Analyzer {
   }
 
   onPlayerDamage(event: DamageEvent) {
-    if (!this.aoeChecked && this.timestampAoE > 0 && event.timestamp > this.timestampAoE + MS_BUFFER) {
+    if (
+      !this.aoeChecked &&
+      this.timestampAoE > 0 &&
+      event.timestamp > this.timestampAoE + MS_BUFFER
+    ) {
       this.aoeCheck();
     }
     if (!this.selectedCombatant.hasBuff(SPELLS.COORDINATED_ASSAULT.id)) {
@@ -107,13 +123,26 @@ class BirdOfPrey extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.birdPercentEffectiveness).addSuggestion((suggest, actual, recommended) => suggest(<>When talented into <SpellLink id={SPELLS.BIRDS_OF_PREY_TALENT.id} />, it's important to cast <SpellLink id={SPELLS.RAPTOR_STRIKE.id} />, <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />, <SpellLink id={SPELLS.CARVE.id} /> or <SpellLink id={SPELLS.BUTCHERY_TALENT.id} /> on the same target as your pet is attacking.</>)
-      .icon(SPELLS.BIRDS_OF_PREY_TALENT.icon)
-      .actual(t({
-      id: "hunter.survival.suggestions.birdOfPrey.efficiency",
-      message: `${formatPercentage(actual)}% of abilities extending CA were used on your pets target`
-    }))
-      .recommended(`${formatPercentage(recommended)}% is recommended`));
+    when(this.birdPercentEffectiveness).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          When talented into <SpellLink id={SPELLS.BIRDS_OF_PREY_TALENT.id} />, it's important to
+          cast <SpellLink id={SPELLS.RAPTOR_STRIKE.id} />,{' '}
+          <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />, <SpellLink id={SPELLS.CARVE.id} /> or{' '}
+          <SpellLink id={SPELLS.BUTCHERY_TALENT.id} /> on the same target as your pet is attacking.
+        </>,
+      )
+        .icon(SPELLS.BIRDS_OF_PREY_TALENT.icon)
+        .actual(
+          t({
+            id: 'hunter.survival.suggestions.birdOfPrey.efficiency',
+            message: `${formatPercentage(
+              actual,
+            )}% of abilities extending CA were used on your pets target`,
+          }),
+        )
+        .recommended(`${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
@@ -121,14 +150,17 @@ class BirdOfPrey extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(1)}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
             <ul>
               <li>You extended Coordinated Assault by {this.timeExtendedInSeconds} seconds.</li>
-              <li>You lost out on {this.extensionTimeLostInSeconds} seconds of Coordinated Assault by attacking a different target than your pet.</li>
+              <li>
+                You lost out on {this.extensionTimeLostInSeconds} seconds of Coordinated Assault by
+                attacking a different target than your pet.
+              </li>
             </ul>
           </>
-        )}
+        }
         category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spell={SPELLS.BIRDS_OF_PREY_TALENT}>

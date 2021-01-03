@@ -31,7 +31,10 @@ class HeavyRainfall extends Analyzer {
     }
     this.healingBoost = HEAVY_RAINFALL_RANKS[this.conduitRank] / 100;
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_HEAL), this.normalizeBoost);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_HEAL),
+      this.normalizeBoost,
+    );
   }
 
   normalizeBoost(event: HealEvent) {
@@ -48,7 +51,8 @@ class HeavyRainfall extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
       >
         <ConduitSpellText spell={SPELLS.HEAVY_RAINFALL} rank={this.conduitRank}>
-          <ItemHealingDone amount={this.healing} /><br />
+          <ItemHealingDone amount={this.healing} />
+          <br />
         </ConduitSpellText>
       </Statistic>
     );

@@ -111,7 +111,8 @@ class MightOfTheMountain extends Analyzer {
       default:
         value = (
           <>
-            <ItemHealingDone amount={this.healing} /><br />
+            <ItemHealingDone amount={this.healing} />
+            <br />
             <ItemDamageDone amount={this.damage} />
           </>
         );
@@ -123,11 +124,12 @@ class MightOfTheMountain extends Analyzer {
         icon={<SpellIcon id={SPELLS.MIGHT_OF_THE_MOUNTAIN.id} />}
         value={value}
         label="Dwarf crit racial"
-        tooltip={(
+        tooltip={
           <>
-            The racial contributed {this.owner.formatItemDamageDone(this.damage)} and {this.owner.formatItemHealingDone(this.healing)}.
+            The racial contributed {this.owner.formatItemDamageDone(this.damage)} and{' '}
+            {this.owner.formatItemHealingDone(this.healing)}.
           </>
-        )}
+        }
       />
     );
   }

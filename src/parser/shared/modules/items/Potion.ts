@@ -37,12 +37,12 @@ class Potion extends Analyzer {
 
   static spells: Spell[];
   static recommendedEfficiency: number;
-  static extraAbilityInfo: {name?: string, buffSpellId?: number[], isDefensive?: boolean,};
+  static extraAbilityInfo: { name?: string; buffSpellId?: number[]; isDefensive?: boolean };
 
   maxCasts = 1;
   lastDeathWithPotionReady?: number;
 
-  get static(){
+  get static() {
     return this.constructor as typeof Potion;
   }
 
@@ -74,7 +74,8 @@ class Potion extends Analyzer {
       this.static.extraAbilityInfo.buffSpellId.forEach((buff, buffIndex) => {
         (options.buffs as Buffs).add({
           spellId: buff,
-          triggeredBySpellId: this.static.spells.find((_, spellIndex) => spellIndex === buffIndex)!.id,
+          triggeredBySpellId: this.static.spells.find((_, spellIndex) => spellIndex === buffIndex)!
+            .id,
         });
       });
     }
@@ -98,7 +99,8 @@ class Potion extends Analyzer {
       // If the potion was not on cooldown, only increase maxCasts if it would have been ready again since the previous death.
       if (this.lastDeathWithPotionReady) {
         const timeSince = event.timestamp - this.lastDeathWithPotionReady;
-        if (timeSince < COOLDOWN_MS) { // The potion would not have been ready if used on previous death
+        if (timeSince < COOLDOWN_MS) {
+          // The potion would not have been ready if used on previous death
           return;
         }
       }

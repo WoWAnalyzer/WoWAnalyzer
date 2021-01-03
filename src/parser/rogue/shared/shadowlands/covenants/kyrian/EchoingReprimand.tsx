@@ -23,8 +23,14 @@ class EchoingReprimand extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ECHOING_REPRIMAND), this.onDamage);
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.ECHOING_REPRIMAND_ENERGIZE), this.onEnergize);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ECHOING_REPRIMAND),
+      this.onDamage,
+    );
+    this.addEventListener(
+      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.ECHOING_REPRIMAND_ENERGIZE),
+      this.onEnergize,
+    );
   }
 
   onDamage(event: DamageEvent) {
@@ -40,10 +46,7 @@ class EchoingReprimand extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
-      >
+      <Statistic size="flexible" category={STATISTIC_CATEGORY.COVENANTS}>
         <BoringSpellValueText spell={SPELLS.ECHOING_REPRIMAND}>
           <>
             <ItemDamageDone amount={this.damage} />

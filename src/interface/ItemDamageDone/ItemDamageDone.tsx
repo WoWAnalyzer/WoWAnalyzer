@@ -12,18 +12,11 @@ interface Context {
   parser: CombatLogParser;
 }
 
-const ItemDamageDone = (
-  { amount, approximate }: Props,
-  { parser }: Context,
-) => (
+const ItemDamageDone = ({ amount, approximate }: Props, { parser }: Context) => (
   <>
-    <img src="/img/sword.png" alt="Damage" className="icon" />{' '}
-    {approximate && '≈'}
+    <img src="/img/sword.png" alt="Damage" className="icon" /> {approximate && '≈'}
     {formatNumber((amount / parser.fightDuration) * 1000)} DPS{' '}
-    <small>
-      {formatPercentage(parser.getPercentageOfTotalDamageDone(amount))} % of
-      total
-    </small>
+    <small>{formatPercentage(parser.getPercentageOfTotalDamageDone(amount))} % of total</small>
   </>
 );
 ItemDamageDone.contextTypes = {

@@ -9,7 +9,10 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { STORMSTRIKE_CAST_SPELLS, STORMSTRIKE_DAMAGE_SPELLS } from 'parser/shaman/enhancement/constants';
+import {
+  STORMSTRIKE_CAST_SPELLS,
+  STORMSTRIKE_DAMAGE_SPELLS,
+} from 'parser/shaman/enhancement/constants';
 
 const STORMBRINGER_DAMAGE_MODIFIER = 0.25;
 
@@ -26,20 +29,17 @@ class Stormbringer extends Analyzer {
     super(options);
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER)
-        .spell(SPELLS.STORMBRINGER_BUFF),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.STORMBRINGER_BUFF),
       this.onStormbringerApplied,
     );
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER)
-        .spell(STORMSTRIKE_CAST_SPELLS),
+      Events.cast.by(SELECTED_PLAYER).spell(STORMSTRIKE_CAST_SPELLS),
       this.onStormstrikeUseWithStormbringerBuff,
     );
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(STORMSTRIKE_DAMAGE_SPELLS),
+      Events.damage.by(SELECTED_PLAYER).spell(STORMSTRIKE_DAMAGE_SPELLS),
       this.onStrikeDamage,
     );
   }
@@ -75,9 +75,7 @@ class Stormbringer extends Analyzer {
         size="small"
         category={STATISTIC_CATEGORY.GENERAL}
       >
-        <BoringSpellValueText
-          spell={SPELLS.STORMBRINGER}
-        >
+        <BoringSpellValueText spell={SPELLS.STORMBRINGER}>
           <>
             <ItemDamageDone amount={this.damageGained} />
           </>

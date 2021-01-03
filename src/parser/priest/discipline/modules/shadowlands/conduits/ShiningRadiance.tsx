@@ -15,7 +15,6 @@ import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
 import ItemHealingDone from 'interface/ItemHealingDone';
 
 class ShiningRadiance extends Analyzer {
-
   conduitRank: number = 0;
   conduitIncrease: number = 0;
   bonusRadianceHealing: number = 0;
@@ -30,7 +29,10 @@ class ShiningRadiance extends Analyzer {
     }
     this.conduitIncrease = SHINING_RADIANCE_INCREASE[this.conduitRank];
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.POWER_WORD_RADIANCE), this.onRadianceHeal);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.POWER_WORD_RADIANCE),
+      this.onRadianceHeal,
+    );
   }
 
   onRadianceHeal(event: HealEvent) {
@@ -52,7 +54,6 @@ class ShiningRadiance extends Analyzer {
       </Statistic>
     );
   }
-
 }
 
 export default ShiningRadiance;

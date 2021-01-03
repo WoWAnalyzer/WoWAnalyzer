@@ -23,15 +23,24 @@ class FromTheAshes extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FROM_THE_ASHES_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(FIRE_DIRECT_DAMAGE_SPELLS), this.onCritDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(FIRE_DIRECT_DAMAGE_SPELLS),
+      this.onCritDamage,
+    );
   }
 
   //Look for crit damage events to reduce the cooldown on Kindling
   onCritDamage(event: DamageEvent) {
-    if (!this.spellUsable.isOnCooldown(SPELLS.PHOENIX_FLAMES.id) || event.hitType !== HIT_TYPES.CRIT) {
+    if (
+      !this.spellUsable.isOnCooldown(SPELLS.PHOENIX_FLAMES.id) ||
+      event.hitType !== HIT_TYPES.CRIT
+    ) {
       return;
     }
-    this.cooldownReduction += this.spellUsable.reduceCooldown(SPELLS.PHOENIX_FLAMES.id, MS_REDUCTION);
+    this.cooldownReduction += this.spellUsable.reduceCooldown(
+      SPELLS.PHOENIX_FLAMES.id,
+      MS_REDUCTION,
+    );
   }
 
   get cooldownReductionSeconds() {
@@ -40,13 +49,11 @@ class FromTheAshes extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        size="flexible"
-        category={STATISTIC_CATEGORY.TALENTS}
-      >
+      <Statistic size="flexible" category={STATISTIC_CATEGORY.TALENTS}>
         <BoringSpellValueText spell={SPELLS.FROM_THE_ASHES_TALENT}>
           <>
-            {formatNumber(this.cooldownReductionSeconds)}s <small>Phoenix Flames Cooldown Reduction</small>
+            {formatNumber(this.cooldownReductionSeconds)}s{' '}
+            <small>Phoenix Flames Cooldown Reduction</small>
           </>
         </BoringSpellValueText>
       </Statistic>

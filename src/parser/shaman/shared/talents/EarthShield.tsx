@@ -20,7 +20,7 @@ import { Trans } from '@lingui/macro';
 import { HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD } from 'parser/shaman/shared/constants';
 import { EMBRACE_OF_EARTH_RANKS } from 'parser/shaman/restoration/constants';
 
-export const EARTHSHIELD_HEALING_INCREASE = 0.20;
+export const EARTHSHIELD_HEALING_INCREASE = 0.2;
 
 class EarthShield extends Analyzer {
   static dependencies = {
@@ -49,15 +49,27 @@ class EarthShield extends Analyzer {
     }
 
     // event listener for direct heals when taking damage with earth shield
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EARTH_SHIELD_HEAL), this.onEarthShieldHeal);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EARTH_SHIELD_HEAL),
+      this.onEarthShieldHeal,
+    );
 
-    const HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD_FILTERED = HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD.filter(p => p !== SPELLS.EARTH_SHIELD_HEAL);
+    const HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD_FILTERED = HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD.filter(
+      (p) => p !== SPELLS.EARTH_SHIELD_HEAL,
+    );
     // event listener for healing being buffed by having earth shield on the target
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD_FILTERED), this.onEarthShieldAmpSpellHeal);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD_FILTERED),
+      this.onEarthShieldAmpSpellHeal,
+    );
   }
 
   get uptime() {
-    return Object.values((this.combatants.players)).reduce((uptime, player) => uptime + player.getBuffUptime(SPELLS.EARTH_SHIELD_TALENT.id, this.owner.playerId), 0);
+    return Object.values(this.combatants.players).reduce(
+      (uptime, player) =>
+        uptime + player.getBuffUptime(SPELLS.EARTH_SHIELD_TALENT.id, this.owner.playerId),
+      0,
+    );
   }
 
   get uptimePercent() {
@@ -69,15 +81,15 @@ class EarthShield extends Analyzer {
       actual: this.uptimePercent,
       isLessThan: {
         minor: 0.95,
-        average: 0.90,
-        major: 0.80,
+        average: 0.9,
+        major: 0.8,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
   }
 
   onEarthShieldHeal(event: HealEvent) {
-    this.healing += (event.amount + (event.absorbed || 0));
+    this.healing += event.amount + (event.absorbed || 0);
   }
 
   onEarthShieldAmpSpellHeal(event: HealEvent) {
@@ -98,14 +110,19 @@ class EarthShield extends Analyzer {
         label={<SpellLink id={SPELLS.EARTH_SHIELD_TALENT.id} />}
         category={this.category}
         position={STATISTIC_ORDER.OPTIONAL(45)}
-        tooltip={<Trans id="shaman.shared.earthShield.statistic.tooltip">{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))}% from the HoT and {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.buffHealing))}% from the healing increase.</Trans>}
+        tooltip={
+          <Trans id="shaman.shared.earthShield.statistic.tooltip">
+            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))}% from the
+            HoT and {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.buffHealing))}
+            % from the healing increase.
+          </Trans>
+        }
         value={
-          (
-            <div>
-              <UptimeIcon /> {formatPercentage(this.uptimePercent)}% <small>uptime</small><br />
-              <ItemHealingDone amount={this.healing + this.buffHealing + this.getFeeding()} />
-            </div>
-          )
+          <div>
+            <UptimeIcon /> {formatPercentage(this.uptimePercent)}% <small>uptime</small>
+            <br />
+            <ItemHealingDone amount={this.healing + this.buffHealing + this.getFeeding()} />
+          </div>
         }
       />
     );

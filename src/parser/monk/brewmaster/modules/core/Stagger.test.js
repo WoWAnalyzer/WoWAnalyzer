@@ -1,4 +1,8 @@
-import { EarlyFinish, incomingDamage, SimpleFight } from 'parser/monk/brewmaster/test-fixtures/SimpleFight';
+import {
+  EarlyFinish,
+  incomingDamage,
+  SimpleFight,
+} from 'parser/monk/brewmaster/test-fixtures/SimpleFight';
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import FightEnd from 'parser/shared/normalizers/FightEnd';

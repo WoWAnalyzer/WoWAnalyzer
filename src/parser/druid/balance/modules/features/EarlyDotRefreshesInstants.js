@@ -88,7 +88,10 @@ class EarlyDotRefreshesInstants extends CoreEarlyDotRefreshesInstants {
 
   // Check for Stellar Drift on both the cast event and the next event, since it might have expired mid GCD.
   couldCastWhileMoving(castEvent, endEvent) {
-    if (this.selectedCombatant.hasBuff(SPELLS.STELLAR_DRIFT.id, castEvent.timestamp) && this.selectedCombatant.hasBuff(SPELLS.STELLAR_DRIFT.id, endEvent.timestamp)) {
+    if (
+      this.selectedCombatant.hasBuff(SPELLS.STELLAR_DRIFT.id, castEvent.timestamp) &&
+      this.selectedCombatant.hasBuff(SPELLS.STELLAR_DRIFT.id, endEvent.timestamp)
+    ) {
       return SPELLS.STELLAR_DRIFT.name;
     }
     return false;

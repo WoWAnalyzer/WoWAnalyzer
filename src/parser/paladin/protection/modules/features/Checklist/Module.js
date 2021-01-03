@@ -31,7 +31,7 @@ class Checklist extends BaseChecklist {
     wog: WordOfGlory,
   };
 
-  render(){
+  render() {
     return (
       <Component
         combatant={this.combatants.selected}

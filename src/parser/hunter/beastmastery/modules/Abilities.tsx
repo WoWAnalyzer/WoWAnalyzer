@@ -24,7 +24,10 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.9,
           extraSuggestion: (
             <>
-              <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> should be cast on cooldown as its cooldown is quickly reset again through <SpellLink id={SPELLS.BARBED_SHOT.id} />. You want to start each <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> window with as much focus as possible.
+              <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> should be cast on cooldown as its cooldown
+              is quickly reset again through <SpellLink id={SPELLS.BARBED_SHOT.id} />. You want to
+              start each <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> window with as much focus as
+              possible.
             </>
           ),
         },
@@ -32,7 +35,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.KILL_COMMAND_CAST_BM,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => hastedCooldown(7.5, haste),
+        cooldown: (haste) => hastedCooldown(7.5, haste),
         gcd: {
           base: 1500,
         },
@@ -59,7 +62,11 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BARBED_SHOT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         charges: 2,
-        cooldown: haste => hastedCooldown(this.selectedCombatant.hasConduitBySpellID(SPELLS.BLOODLETTING_CONDUIT.id) ? 11 : 12, haste),
+        cooldown: (haste) =>
+          hastedCooldown(
+            this.selectedCombatant.hasConduitBySpellID(SPELLS.BLOODLETTING_CONDUIT.id) ? 11 : 12,
+            haste,
+          ),
         gcd: {
           base: 1500,
         },
@@ -173,7 +180,9 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SOULFORGE_EMBERS_EFFECT.bonusID),
+          suggestion: this.selectedCombatant.hasLegendaryByBonusID(
+            SPELLS.SOULFORGE_EMBERS_EFFECT.bonusID,
+          ),
           recommendedEfficiency: 0.55,
         },
       },
@@ -193,7 +202,9 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SOULFORGE_EMBERS_EFFECT.bonusID),
+          suggestion: this.selectedCombatant.hasLegendaryByBonusID(
+            SPELLS.SOULFORGE_EMBERS_EFFECT.bonusID,
+          ),
           recommendedEfficiency: 0.9,
         },
       },
@@ -250,7 +261,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CHIMAERA_SHOT_TALENT_BEAST_MASTERY,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT_BEAST_MASTERY.id),
-        cooldown: haste => hastedCooldown(15, haste),
+        cooldown: (haste) => hastedCooldown(15, haste),
         gcd: {
           base: 1500,
         },

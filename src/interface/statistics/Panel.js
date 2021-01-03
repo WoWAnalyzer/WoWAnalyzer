@@ -7,9 +7,7 @@ import ErrorBoundary from 'interface/common/ErrorBoundary';
 
 const Panel = ({ category = STATISTIC_CATEGORY.PANELS, position, ...others }) => (
   <ErrorBoundary>
-    <InterfacePanel
-      {...others}
-    />
+    <InterfacePanel {...others} />
   </ErrorBoundary>
 );
 Panel.propTypes = {

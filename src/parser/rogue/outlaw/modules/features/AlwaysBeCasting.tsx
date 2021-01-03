@@ -22,14 +22,21 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   suggestions(when: When) {
     const boss = this.owner.boss;
 
-    if(!boss || !boss.fight.disableDeathSuggestion) {
-      when(this.suggestionThresholds)
-        .addSuggestion((suggest, actual, recommended) => suggest(<span>Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. If everything is on cooldown, try and use <SpellLink id={SPELLS.SINISTER_STRIKE.id} /> to stay off the energy cap and do some damage.</span>)
+    if (!boss || !boss.fight.disableDeathSuggestion) {
+      when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+        suggest(
+          <span>
+            Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay
+            between casting spells. If everything is on cooldown, try and use{' '}
+            <SpellLink id={SPELLS.SINISTER_STRIKE.id} /> to stay off the energy cap and do some
+            damage.
+          </span>,
+        )
           .icon('spell_mage_altertime')
-          .actual(`${formatPercentage(actual)}% downtime`));
+          .actual(`${formatPercentage(actual)}% downtime`),
+      );
     }
   }
 }
 
 export default AlwaysBeCasting;
-

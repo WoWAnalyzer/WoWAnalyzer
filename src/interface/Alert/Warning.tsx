@@ -4,7 +4,7 @@ import Icon from 'interface/icons/Warning';
 
 import Alert, { Props as AlertProps } from './index';
 
-type Props = Omit<AlertProps, 'kind'>
+type Props = Omit<AlertProps, 'kind'>;
 
 const Warning = ({ children, ...otherProps }: Props) => (
   <Alert kind="warning" {...otherProps}>
@@ -12,9 +12,7 @@ const Warning = ({ children, ...otherProps }: Props) => (
       <div className="icon-container">
         <Icon />
       </div>
-      <div>
-        {children}
-      </div>
+      <div>{children}</div>
     </div>
   </Alert>
 );

@@ -24,7 +24,13 @@ class ManaLevelChart extends Analyzer {
     return (
       <Panel
         title={<Trans id="shared.manaLevelChart.statistic.title">Mana pool</Trans>}
-        explanation={<Trans id="shared.manaLevelChart.statistic.explanation">Mana (blue) along with boss HP and deaths. As a rule of thumb aim to burn mana about as quickly as the boss is losing health. Some fights require specific mana management though.</Trans>}
+        explanation={
+          <Trans id="shared.manaLevelChart.statistic.explanation">
+            Mana (blue) along with boss HP and deaths. As a rule of thumb aim to burn mana about as
+            quickly as the boss is losing health. Some fights require specific mana management
+            though.
+          </Trans>
+        }
         position={100}
       >
         <ManaLevelChartComponent

@@ -28,14 +28,12 @@ class Sundering extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.SUNDERING_TALENT.id);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER)
-        .spell(SPELLS.SUNDERING_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SUNDERING_TALENT),
       this.onCast,
     );
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(SPELLS.SUNDERING_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SUNDERING_TALENT),
       this.onDamage,
     );
   }
@@ -58,7 +56,8 @@ class Sundering extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.SUNDERING_TALENT}>
           <>
-            <ItemDamageDone amount={this.damageGained} /><br />
+            <ItemDamageDone amount={this.damageGained} />
+            <br />
             <AverageTargetsHit casts={this.casts} hits={this.hits} />
           </>
         </BoringSpellValueText>

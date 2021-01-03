@@ -20,7 +20,7 @@ const INITIAL_BACKGROUNDS = [
   '8cv2DoGyUClMuCKalT', // human bow https://giphy.com/gifs/warcraft-video-games-8cv2DoGyUClMuCKalT
   'fUZW0LIJhtbDnBtqkX', // orc bow https://giphy.com/gifs/warcraft-video-games-fUZW0LIJhtbDnBtqkX
   '2erqKiXvYpXeGH9XJ5', // gnome bow https://giphy.com/gifs/warcraft-video-games-2erqKiXvYpXeGH9XJ5
-].map(code => `https://media.giphy.com/media/${code}/giphy.mp4`);
+].map((code) => `https://media.giphy.com/media/${code}/giphy.mp4`);
 // const LOGIN_SUCCESSFUL_BACKGROUNDS = [
 //   '1AdZe53o36pL2ifJrW', // approve https://giphy.com/gifs/warcraft-video-games-1AdZe53o36pL2ifJrW
 //   '12gdy23jcbqdvqID9D', // human cheer https://giphy.com/gifs/warcraft-video-games-12gdy23jcbqdvqID9D
@@ -75,7 +75,9 @@ export class PremiumLoginPanel extends React.PureComponent {
           <div className="text">
             <h1>
               <Textfit mode="single">
-                <Trans id="interface.premiumLoginPanel.logged-in.greeting">Hello {user.name}.</Trans>
+                <Trans id="interface.premiumLoginPanel.logged-in.greeting">
+                  Hello {user.name}.
+                </Trans>
               </Textfit>
             </h1>
             {hasPremium ? (
@@ -93,7 +95,8 @@ export class PremiumLoginPanel extends React.PureComponent {
             )}
             <div className="logout">
               <a href="/logout" onClick={this.handleClickLogout}>
-                <LogoutIcon /> <Trans id="interface.premiumLoginPanel.logged-in.logout">Logout</Trans>
+                <LogoutIcon />{' '}
+                <Trans id="interface.premiumLoginPanel.logged-in.logout">Logout</Trans>
               </a>
             </div>
           </div>
@@ -120,16 +123,30 @@ export class PremiumLoginPanel extends React.PureComponent {
             className="row image-background"
             style={{ position: 'relative', paddingTop: 300, paddingBottom: 15 }}
           >
-            <div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, pointerEvents: 'none', overflow: 'hidden' }}>
+            <div
+              style={{
+                position: 'absolute',
+                top: 0,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                pointerEvents: 'none',
+                overflow: 'hidden',
+              }}
+            >
               <CyclingVideo
                 videos={INITIAL_BACKGROUNDS}
                 style={{ objectFit: 'cover', width: '100%', height: '100%' }}
               />
             </div>
             <div className="col-md-12">
-              <h1><Trans id="interface.premiumLoginPanel.panel.sign-in">Premium sign in</Trans></h1>
+              <h1>
+                <Trans id="interface.premiumLoginPanel.panel.sign-in">Premium sign in</Trans>
+              </h1>
               <div className="description">
-              <Trans id="interface.premiumLoginPanel.panel.sign-in.description">Sign in with your Patreon or GitHub account using the buttons below.</Trans>
+                <Trans id="interface.premiumLoginPanel.panel.sign-in.description">
+                  Sign in with your Patreon or GitHub account using the buttons below.
+                </Trans>
               </div>
             </div>
           </div>
@@ -157,7 +174,7 @@ export class PremiumLoginPanel extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   user: getUser(state),
 });
 export default connect(mapStateToProps, {

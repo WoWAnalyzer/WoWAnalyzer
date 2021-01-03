@@ -9,7 +9,6 @@ import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import { formatNumber } from 'common/format';
 
 class TempestBarrier extends Analyzer {
-
   conduitRank = 0;
   damageAbsorbed = 0;
 
@@ -17,7 +16,10 @@ class TempestBarrier extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.TEMPEST_BARRIER.id);
     this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.TEMPEST_BARRIER.id);
-    this.addEventListener(Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.TEMPEST_BARRIER_ABSORB), this.onAbsorb);
+    this.addEventListener(
+      Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.TEMPEST_BARRIER_ABSORB),
+      this.onAbsorb,
+    );
   }
 
   onAbsorb(event: AbsorbedEvent) {
@@ -26,10 +28,7 @@ class TempestBarrier extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        category={STATISTIC_CATEGORY.COVENANTS}
-        size="flexible"
-      >
+      <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
         <ConduitSpellText spell={SPELLS.TEMPEST_BARRIER} rank={this.conduitRank}>
           {formatNumber(this.damageAbsorbed)} <small>Damage absorbed</small>
         </ConduitSpellText>

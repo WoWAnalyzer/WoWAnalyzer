@@ -22,7 +22,6 @@ const FROST_STRIKE_RP = 25;
 const EPIDEMIC_RP = 30;
 
 class SwarmingMist extends Analyzer {
-
   rpGained: number = 0;
   rpWasted: number = 0;
 
@@ -37,16 +36,34 @@ class SwarmingMist extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    const active = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id)
-    this.deathCoilReduction = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.DEADLIEST_COIL.bonusID) ? -10 : 0;
-    this.active = active
+    const active = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id);
+    this.deathCoilReduction = this.selectedCombatant.hasLegendaryByBonusID(
+      SPELLS.DEADLIEST_COIL.bonusID,
+    )
+      ? -10
+      : 0;
+    this.active = active;
     if (!active) {
       return;
     }
 
     this.addEventListener(Events.energize, this._onSwarmingMistEnergize);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SWARMING_MIST_TICK), this._onSwarmingMistDamage);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.DEATH_STRIKE, SPELLS.DEATH_COIL_DAMAGE, SPELLS.EPIDEMIC_DAMAGE, SPELLS.FROST_STRIKE_MAIN_HAND_DAMAGE, SPELLS.FROST_STRIKE_OFF_HAND_DAMAGE]), this._rpSpender);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SWARMING_MIST_TICK),
+      this._onSwarmingMistDamage,
+    );
+    this.addEventListener(
+      Events.damage
+        .by(SELECTED_PLAYER)
+        .spell([
+          SPELLS.DEATH_STRIKE,
+          SPELLS.DEATH_COIL_DAMAGE,
+          SPELLS.EPIDEMIC_DAMAGE,
+          SPELLS.FROST_STRIKE_MAIN_HAND_DAMAGE,
+          SPELLS.FROST_STRIKE_OFF_HAND_DAMAGE,
+        ]),
+      this._rpSpender,
+    );
   }
 
   _onSwarmingMistDamage(event: DamageEvent) {
@@ -54,7 +71,10 @@ class SwarmingMist extends Analyzer {
   }
 
   _onSwarmingMistEnergize(event: EnergizeEvent) {
-    if (event.resourceChangeType !== RESOURCE_TYPES.RUNIC_POWER.id || event.ability.guid !== SPELLS.SWARMING_MIST_RUNIC_POWER_GAIN.id) {
+    if (
+      event.resourceChangeType !== RESOURCE_TYPES.RUNIC_POWER.id ||
+      event.ability.guid !== SPELLS.SWARMING_MIST_RUNIC_POWER_GAIN.id
+    ) {
       return;
     }
 
@@ -89,7 +109,7 @@ class SwarmingMist extends Analyzer {
     }
 
     if (this.selectedCombatant.spec === SPECS.UNHOLY_DEATH_KNIGHT) {
-      return ((DEATH_COIL_RP - this.deathCoilReduction) + EPIDEMIC_RP) / 2;
+      return (DEATH_COIL_RP - this.deathCoilReduction + EPIDEMIC_RP) / 2;
     }
 
     return FROST_STRIKE_RP;
@@ -101,14 +121,14 @@ class SwarmingMist extends Analyzer {
     }
 
     if (this.selectedCombatant.spec === SPECS.UNHOLY_DEATH_KNIGHT) {
-      return SPELLS.DEATH_COIL.name + " and " + SPELLS.EPIDEMIC.name;
+      return SPELLS.DEATH_COIL.name + ' and ' + SPELLS.EPIDEMIC.name;
     }
 
     return SPELLS.FROST_STRIKE_CAST.name;
   }
 
   get rpWastePercentage() {
-    return this.rpWasted / this.rpGained
+    return this.rpWasted / this.rpGained;
   }
 
   get efficiencySuggestionThresholds() {
@@ -116,37 +136,50 @@ class SwarmingMist extends Analyzer {
       actual: this.rpWastePercentage,
       isGreaterThan: {
         minor: 0,
-        average: .2,
-        major: .4,
+        average: 0.2,
+        major: 0.4,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
   }
 
   suggestions(when: When) {
-    when(this.efficiencySuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<span>Avoid being Runic Power capped at all times, you wasted {this.rpWasted} RP by being RP capped.</span>)
-          .icon(SPELLS.SWARMING_MIST_TICK.icon)
-          .actual(t({
-      id: "deathknight.suggestions.swarmingmist.efficiency",
-      message: `You wasted ${(formatPercentage(actual))}% of RP from ${SPELLS.SWARMING_MIST.name} by being RP capped.`
-    }))
-          .recommended(`${formatPercentage(recommended)}% is recommended`));
+    when(this.efficiencySuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <span>
+          Avoid being Runic Power capped at all times, you wasted {this.rpWasted} RP by being RP
+          capped.
+        </span>,
+      )
+        .icon(SPELLS.SWARMING_MIST_TICK.icon)
+        .actual(
+          t({
+            id: 'deathknight.suggestions.swarmingmist.efficiency',
+            message: `You wasted ${formatPercentage(actual)}% of RP from ${
+              SPELLS.SWARMING_MIST.name
+            } by being RP capped.`,
+          }),
+        )
+        .recommended(`${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
-    
     return (
       <Statistic
         category={STATISTIC_CATEGORY.COVENANTS}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            <strong>Runic Power Gained:</strong> {this.rpGained} RP gained ({this.rpWasted} wasted)<br />
-            <strong>Estimated Damage from RP Gained:</strong> {formatNumber(this.rpBonusDamage)} damage ({this.rpSpenderName} did an average of {formatNumber(this.rpSpenderAverageDamage)} damage)<br />
+            <strong>Runic Power Gained:</strong> {this.rpGained} RP gained ({this.rpWasted} wasted)
+            <br />
+            <strong>Estimated Damage from RP Gained:</strong> {formatNumber(this.rpBonusDamage)}{' '}
+            damage ({this.rpSpenderName} did an average of{' '}
+            {formatNumber(this.rpSpenderAverageDamage)} damage)
+            <br />
             <strong>Swarming Mist Damage:</strong> {formatNumber(this.swarmingMistDamage)} damage
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.SWARMING_MIST}>
           <>
@@ -156,7 +189,6 @@ class SwarmingMist extends Analyzer {
       </Statistic>
     );
   }
-
 }
 
 export default SwarmingMist;

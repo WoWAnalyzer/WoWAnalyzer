@@ -16,8 +16,19 @@ class Censure extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CENSURE_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_WORD_CHASTISE), this.onCast);
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell([SPELLS.HOLY_WORD_CHASTISE_CENSURE_INCAPACITATE, SPELLS.HOLY_WORD_CHASTISE_CENSURE_STUN]), this.onApplyDebuff);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_WORD_CHASTISE),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.applydebuff
+        .by(SELECTED_PLAYER)
+        .spell([
+          SPELLS.HOLY_WORD_CHASTISE_CENSURE_INCAPACITATE,
+          SPELLS.HOLY_WORD_CHASTISE_CENSURE_STUN,
+        ]),
+      this.onApplyDebuff,
+    );
   }
 
   onCast(event: CastEvent) {
@@ -38,12 +49,14 @@ class Censure extends Analyzer {
   statistic() {
     return (
       <Statistic
-        tooltip={(
+        tooltip={
           <>
-            {this.chastiseCasts} Chastise Casts<br />
-            {this.censureStuns} Chastise Stuns<br />
+            {this.chastiseCasts} Chastise Casts
+            <br />
+            {this.censureStuns} Chastise Stuns
+            <br />
           </>
-        )}
+        }
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(4)}

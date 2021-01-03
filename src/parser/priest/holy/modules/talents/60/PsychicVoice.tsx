@@ -15,8 +15,14 @@ class PsychicVoice extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.PSYCHIC_VOICE_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PSYCHIC_SCREAM), this.onCast);
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.PSYCHIC_SCREAM), this.onApplyDebuff);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PSYCHIC_SCREAM),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.PSYCHIC_SCREAM),
+      this.onApplyDebuff,
+    );
   }
 
   onCast(event: CastEvent) {

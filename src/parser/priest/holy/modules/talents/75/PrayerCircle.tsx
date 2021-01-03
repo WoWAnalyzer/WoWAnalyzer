@@ -28,14 +28,23 @@ class PrayerCircle extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.PRAYER_CIRCLE_TALENT.id);
 
     if (this.active) {
-      this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CIRCLE_OF_HEALING_TALENT), this.cohCast);
-      this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.PRAYER_OF_HEALING), this.startPohCast);
-      this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PRAYER_OF_HEALING), this.finishPohCast);
+      this.addEventListener(
+        Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CIRCLE_OF_HEALING_TALENT),
+        this.cohCast,
+      );
+      this.addEventListener(
+        Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.PRAYER_OF_HEALING),
+        this.startPohCast,
+      );
+      this.addEventListener(
+        Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PRAYER_OF_HEALING),
+        this.finishPohCast,
+      );
     }
   }
 
   get unbuffedCohCasts() {
-    return (this.abilityTracker.getAbility(SPELLS.PRAYER_OF_HEALING.id).casts) - this.buffedCohCasts;
+    return this.abilityTracker.getAbility(SPELLS.PRAYER_OF_HEALING.id).casts - this.buffedCohCasts;
   }
 
   cohCast(event: CastEvent) {
@@ -55,12 +64,13 @@ class PrayerCircle extends Analyzer {
   statistic() {
     return (
       <Statistic
-        tooltip={(
+        tooltip={
           <>
-            {this.buffedCohCasts} casts with Prayer Circle active.<br />
+            {this.buffedCohCasts} casts with Prayer Circle active.
+            <br />
             {this.unbuffedCohCasts} casts without Prayer Circle active.
           </>
-        )}
+        }
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(5)}

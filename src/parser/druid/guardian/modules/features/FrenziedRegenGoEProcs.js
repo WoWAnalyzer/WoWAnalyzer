@@ -21,7 +21,7 @@ class FrenziedRegenGoEProcs extends Analyzer {
   statistic() {
     const nonGoEFRegen = this.guardianOfElune.nonGoEFRegen;
     const GoEFRegen = this.guardianOfElune.GoEFRegen;
-    if ((nonGoEFRegen + GoEFRegen) === 0) {
+    if (nonGoEFRegen + GoEFRegen === 0) {
       return null;
     }
     return (
@@ -29,7 +29,12 @@ class FrenziedRegenGoEProcs extends Analyzer {
         icon={<SpellIcon id={SPELLS.FRENZIED_REGENERATION.id} />}
         value={`${formatPercentage(nonGoEFRegen / (nonGoEFRegen + GoEFRegen))}%`}
         label="Unbuffed Frenzied Regen"
-        tooltip={<>You cast <strong>{nonGoEFRegen + GoEFRegen}</strong> total {SPELLS.FRENZIED_REGENERATION.name} and <strong>{GoEFRegen}</strong> were buffed by 20%.</>}
+        tooltip={
+          <>
+            You cast <strong>{nonGoEFRegen + GoEFRegen}</strong> total{' '}
+            {SPELLS.FRENZIED_REGENERATION.name} and <strong>{GoEFRegen}</strong> were buffed by 20%.
+          </>
+        }
       />
     );
   }

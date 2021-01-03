@@ -18,7 +18,6 @@ import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
  *
  */
 class Bloodletting extends Analyzer {
-
   conduitRank: number = 0;
   addedDamage: number = 0;
 
@@ -30,11 +29,17 @@ class Bloodletting extends Analyzer {
       return;
     }
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BARBED_SHOT), this.onBarbedShotDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BARBED_SHOT),
+      this.onBarbedShotDamage,
+    );
   }
 
   onBarbedShotDamage(event: DamageEvent) {
-    this.addedDamage += calculateEffectiveDamage(event, BLOODLETTING_BARBED_DOT_INCREASE[this.conduitRank]);
+    this.addedDamage += calculateEffectiveDamage(
+      event,
+      BLOODLETTING_BARBED_DOT_INCREASE[this.conduitRank],
+    );
   }
 
   statistic() {
@@ -52,7 +57,6 @@ class Bloodletting extends Analyzer {
       </Statistic>
     );
   }
-
 }
 
 export default Bloodletting;

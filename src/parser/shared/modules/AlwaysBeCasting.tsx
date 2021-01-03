@@ -99,18 +99,34 @@ class AlwaysBeCasting extends Analyzer {
         icon={<Icon icon="spell_mage_altertime" alt="Downtime" />}
         value={`${formatPercentage(this.downtimePercentage)} %`}
         label={<Trans id="shared.alwaysBeCasting.statistic.label">Downtime</Trans>}
-        tooltip={(
+        tooltip={
           <Trans id="shared.alwaysBeCasting.statistic.tooltip">
-            Downtime is available time not used to cast anything (including not having your GCD rolling). This can be caused by delays between casting spells, latency, cast interrupting or just simply not casting anything (e.g. due to movement/stunned).<br />
+            Downtime is available time not used to cast anything (including not having your GCD
+            rolling). This can be caused by delays between casting spells, latency, cast
+            interrupting or just simply not casting anything (e.g. due to movement/stunned).
+            <br />
             <ul>
-              <li>You spent <strong>{formatPercentage(this.activeTimePercentage)}%</strong> of your time casting something.</li>
-              <li>You spent <strong>{formatPercentage(this.downtimePercentage)}%</strong> of your time casting nothing at all.</li>
+              <li>
+                You spent <strong>{formatPercentage(this.activeTimePercentage)}%</strong> of your
+                time casting something.
+              </li>
+              <li>
+                You spent <strong>{formatPercentage(this.downtimePercentage)}%</strong> of your time
+                casting nothing at all.
+              </li>
             </ul>
           </Trans>
-        )}
-        footer={(
+        }
+        footer={
           <div className="statistic-box-bar">
-            <Tooltip content={<Trans id="shared.alwaysBeCasting.statistic.footer.activetime.tooltip">You spent <strong>{formatPercentage(this.activeTimePercentage)}%</strong> of your time casting something.</Trans>}>
+            <Tooltip
+              content={
+                <Trans id="shared.alwaysBeCasting.statistic.footer.activetime.tooltip">
+                  You spent <strong>{formatPercentage(this.activeTimePercentage)}%</strong> of your
+                  time casting something.
+                </Trans>
+              }
+            >
               <div
                 className="stat-health-bg"
                 style={{
@@ -120,13 +136,20 @@ class AlwaysBeCasting extends Analyzer {
                 <img src={ctor.icons.activeTime} alt="Active time" />
               </div>
             </Tooltip>
-            <Tooltip content={<Trans id="shared.alwaysBeCasting.statistic.footer.downtime.tooltip">You spent <strong>{formatPercentage(this.downtimePercentage)}%</strong> of your time casting nothing at all.</Trans>}>
+            <Tooltip
+              content={
+                <Trans id="shared.alwaysBeCasting.statistic.footer.downtime.tooltip">
+                  You spent <strong>{formatPercentage(this.downtimePercentage)}%</strong> of your
+                  time casting nothing at all.
+                </Trans>
+              }
+            >
               <div className="remainder DeathKnight-bg">
                 <img src={ctor.icons.downtime} alt="Downtime" />
               </div>
             </Tooltip>
           </div>
-        )}
+        }
       />
     );
   }
@@ -144,11 +167,28 @@ class AlwaysBeCasting extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.downtimeSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<Trans id="shared.suggestions.alwaysBeCasting.suggestion">Your downtime can be improved. Try to Always Be Casting (ABC), avoid delays between casting spells and cast instant spells when you have to move.</Trans>)
+    when(this.downtimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <Trans id="shared.suggestions.alwaysBeCasting.suggestion">
+          Your downtime can be improved. Try to Always Be Casting (ABC), avoid delays between
+          casting spells and cast instant spells when you have to move.
+        </Trans>,
+      )
         .icon('spell_mage_altertime')
-        .actual(<Trans id='shared.suggestions.alwaysBeCasting.downtime'> {formatPercentage(actual)}% downtime </Trans>)
-        .recommended(<Trans id='shared.suggestions.alwaysBeCasting.recommended'> {'<'}{formatPercentage(recommended)}% is recommended </Trans>));
+        .actual(
+          <Trans id="shared.suggestions.alwaysBeCasting.downtime">
+            {' '}
+            {formatPercentage(actual)}% downtime{' '}
+          </Trans>,
+        )
+        .recommended(
+          <Trans id="shared.suggestions.alwaysBeCasting.recommended">
+            {' '}
+            {'<'}
+            {formatPercentage(recommended)}% is recommended{' '}
+          </Trans>,
+        ),
+    );
   }
 }
 

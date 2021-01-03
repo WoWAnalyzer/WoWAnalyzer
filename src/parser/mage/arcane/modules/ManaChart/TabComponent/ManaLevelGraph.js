@@ -28,7 +28,11 @@ class Mana extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.reportCode !== this.props.reportCode || prevProps.start !== this.props.start || prevProps.end !== this.props.end) {
+    if (
+      prevProps.reportCode !== this.props.reportCode ||
+      prevProps.start !== this.props.start ||
+      prevProps.end !== this.props.end
+    ) {
       this.load();
     }
   }
@@ -41,21 +45,16 @@ class Mana extends React.PureComponent {
       sourceclass: 'Boss',
       hostility: 1,
       abilityid: 1000,
-    })
-      .then(json => {
-        this.setState({
-          bossHealth: json,
-        });
+    }).then((json) => {
+      this.setState({
+        bossHealth: json,
       });
+    });
   }
 
   render() {
     if (!this.state.bossHealth) {
-      return (
-        <div>
-          Loading...
-        </div>
-      );
+      return <div>Loading...</div>;
     }
 
     const { start, end, manaUpdates, offsetTime } = this.props;
@@ -71,10 +70,10 @@ class Mana extends React.PureComponent {
     let deaths = [];
     if (this.state.bossHealth.deaths) {
       deaths = this.state.bossHealth.deaths
-        .filter(death => death.targetID === this.props.actorId)
+        .filter((death) => death.targetID === this.props.actorId)
         .map(({ timestamp, killingAbility }) => ({
           x: timestamp - start,
-          ability: killingAbility? killingAbility.name : 'Unknown Ability',
+          ability: killingAbility ? killingAbility.name : 'Unknown Ability',
         }));
     }
 
@@ -91,8 +90,11 @@ class Mana extends React.PureComponent {
 
     return (
       <div>
-        Playing Arcane well typically involves managing your mana properly. Things such as not going OOM during Arcane Power, not letting your mana cap, and ensuring you end the fight with as little mana as possible will all help in improving your DPS.<br /><br />
-
+        Playing Arcane well typically involves managing your mana properly. Things such as not going
+        OOM during Arcane Power, not letting your mana cap, and ensuring you end the fight with as
+        little mana as possible will all help in improving your DPS.
+        <br />
+        <br />
         <div className="graph-container">
           <ManaLevelGraph
             mana={mana}
@@ -109,4 +111,3 @@ class Mana extends React.PureComponent {
 }
 
 export default Mana;
-

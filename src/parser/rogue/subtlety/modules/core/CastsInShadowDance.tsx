@@ -26,13 +26,15 @@ class CastsInShadowDance extends CastsInStealthBase {
   constructor(options: Options & { danceDamageTracker: DanceDamageTracker }) {
     super(options);
 
-    this.maxCastsPerStealth = 5 + (this.selectedCombatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id) ? 1 : 0);
+    this.maxCastsPerStealth =
+      5 + (this.selectedCombatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id) ? 1 : 0);
 
     this.stealthCondition = 'Shadow Dance';
 
     options.danceDamageTracker.subscribeInefficientCast(
       this.badStealthSpells,
-      (s: Spell) => `Cast Shadowstrike instead of ${s.name} when you are in ${this.stealthCondition} window`,
+      (s: Spell) =>
+        `Cast Shadowstrike instead of ${s.name} when you are in ${this.stealthCondition} window`,
     );
   }
 
@@ -41,11 +43,15 @@ class CastsInShadowDance extends CastsInStealthBase {
   }
 
   get stealthMaxCasts() {
-    return this.maxCastsPerStealth * this.damageTracker.getAbility(SPELLS.SHADOW_DANCE.id).casts || 0;
+    return (
+      this.maxCastsPerStealth * this.damageTracker.getAbility(SPELLS.SHADOW_DANCE.id).casts || 0
+    );
   }
 
   get stealthActualCasts() {
-    return this.validStealthSpellIds.map(s => this.danceDamageTracker.getAbility(s).casts || 0).reduce((p, c) => p + c);
+    return this.validStealthSpellIds
+      .map((s) => this.danceDamageTracker.getAbility(s).casts || 0)
+      .reduce((p, c) => p + c);
   }
 
   suggestions(when: When) {
@@ -54,13 +60,17 @@ class CastsInShadowDance extends CastsInStealthBase {
   }
 
   statistic() {
-    const shadowDanceUptime = this.selectedCombatant.getBuffUptime(SPELLS.SHADOW_DANCE_BUFF.id) / this.owner.fightDuration;
+    const shadowDanceUptime =
+      this.selectedCombatant.getBuffUptime(SPELLS.SHADOW_DANCE_BUFF.id) / this.owner.fightDuration;
     return (
-      <Statistic
-        size="flexible"
-        category={STATISTIC_CATEGORY.GENERAL}
-      >
-        <BoringValueText label={<><SpellIcon id={SPELLS.SHADOW_DANCE_BUFF.id} /> Shadow Dance Uptime </>}>
+      <Statistic size="flexible" category={STATISTIC_CATEGORY.GENERAL}>
+        <BoringValueText
+          label={
+            <>
+              <SpellIcon id={SPELLS.SHADOW_DANCE_BUFF.id} /> Shadow Dance Uptime{' '}
+            </>
+          }
+        >
           {formatPercentage(shadowDanceUptime)} %
         </BoringValueText>
       </Statistic>

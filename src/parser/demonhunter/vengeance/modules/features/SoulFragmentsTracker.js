@@ -5,7 +5,6 @@ import Events from 'parser/core/Events';
 const MAX_SOUL_FRAGMENTS = 5;
 
 class SoulFragmentsTracker extends Analyzer {
-
   // includes wasted generation
   soulsGenerated = 0;
 
@@ -17,7 +16,10 @@ class SoulFragmentsTracker extends Analyzer {
 
   constructor(options) {
     super(options);
-    this.addEventListener(Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.SOUL_FRAGMENT_STACK), this.onChangeBuffStack);
+    this.addEventListener(
+      Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.SOUL_FRAGMENT_STACK),
+      this.onChangeBuffStack,
+    );
   }
 
   onChangeBuffStack(event) {
@@ -41,7 +43,7 @@ class SoulFragmentsTracker extends Analyzer {
 
     if (event.newStacks > MAX_SOUL_FRAGMENTS) {
       // generating souls above the max
-      this.overcap += (event.newStacks - MAX_SOUL_FRAGMENTS);
+      this.overcap += event.newStacks - MAX_SOUL_FRAGMENTS;
     }
   }
 }

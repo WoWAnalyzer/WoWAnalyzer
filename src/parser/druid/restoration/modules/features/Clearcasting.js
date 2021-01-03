@@ -17,7 +17,6 @@ const MS_BUFFER = 123;
 const ABUNDANCE_EXCEPTION_STACKS = 4;
 
 class Clearcasting extends Analyzer {
-
   procsPerCC;
 
   totalProcs = 0;
@@ -35,28 +34,52 @@ class Clearcasting extends Analyzer {
   constructor(...args) {
     super(...args);
     this.procsPerCC = 1;
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.CLEARCASTING_BUFF), this.onApplyBuff);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.CLEARCASTING_BUFF), this.onRefreshBuff);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.CLEARCASTING_BUFF), this.onRemoveBuff);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.CLEARCASTING_BUFF),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.CLEARCASTING_BUFF),
+      this.onRefreshBuff,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.CLEARCASTING_BUFF),
+      this.onRemoveBuff,
+    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH), this.onCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH), this.onHeal);
   }
 
   onApplyBuff(event) {
-    debug && console.log(`Clearcasting applied @${this.owner.formatTimestamp(event.timestamp)} - ${this.procsPerCC} procs remaining`);
+    debug &&
+      console.log(
+        `Clearcasting applied @${this.owner.formatTimestamp(event.timestamp)} - ${
+          this.procsPerCC
+        } procs remaining`,
+      );
     this.totalProcs += this.procsPerCC;
     this.availableProcs = this.procsPerCC;
   }
 
   onRefreshBuff(event) {
-    debug && console.log(`Clearcasting refreshed @${this.owner.formatTimestamp(event.timestamp)} - overwriting ${this.availableProcs} procs - ${this.procsPerCC} procs remaining`);
+    debug &&
+      console.log(
+        `Clearcasting refreshed @${this.owner.formatTimestamp(event.timestamp)} - overwriting ${
+          this.availableProcs
+        } procs - ${this.procsPerCC} procs remaining`,
+      );
     this.totalProcs += this.procsPerCC;
     this.overwrittenProcs += this.availableProcs;
     this.availableProcs = this.procsPerCC;
   }
 
   onRemoveBuff(event) {
-    debug && console.log(`Clearcasting expired @${this.owner.formatTimestamp(event.timestamp)} - ${this.availableProcs} procs expired`);
+    debug &&
+      console.log(
+        `Clearcasting expired @${this.owner.formatTimestamp(event.timestamp)} - ${
+          this.availableProcs
+        } procs expired`,
+      );
     if (this.availableProcs < 0) {
       this.availableProcs = 0;
     }
@@ -74,7 +97,12 @@ class Clearcasting extends Analyzer {
     if (this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_BUFF.id)) {
       this.availableProcs -= 1;
       this.usedProcs += 1;
-      debug && console.log(`Regrowth w/CC cast @${this.owner.formatTimestamp(event.timestamp)} - ${this.availableProcs} procs remaining`);
+      debug &&
+        console.log(
+          `Regrowth w/CC cast @${this.owner.formatTimestamp(event.timestamp)} - ${
+            this.availableProcs
+          } procs remaining`,
+        );
     } else {
       this.nonCCRegrowths += 1;
       const abundance = this.selectedCombatant.getBuff(SPELLS.ABUNDANCE_BUFF.id);
@@ -92,7 +120,10 @@ class Clearcasting extends Analyzer {
     const hitPointsBeforeHeal = event.hitPoints - effectiveHealing;
     const healthPercentage = hitPointsBeforeHeal / event.maxHitPoints;
     //TODO: could we check if swiftmend &| nature's swiftness is on CD then suggest they were used instead of regrowth?
-    if (healthPercentage < LOW_HEALTH_HEALING_THRESHOLD && !this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_BUFF.id, event.timestamp, MS_BUFFER)) {
+    if (
+      healthPercentage < LOW_HEALTH_HEALING_THRESHOLD &&
+      !this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_BUFF.id, event.timestamp, MS_BUFFER)
+    ) {
       this.lowHealthRegrowthsNoCC += 1;
     }
   }
@@ -103,7 +134,7 @@ class Clearcasting extends Analyzer {
 
   get clearcastingUtilPercent() {
     const util = this.usedProcs / this.totalProcs;
-    return (util > 1) ? 1 : util;
+    return util > 1 ? 1 : util;
   }
 
   get hadInvisibleRefresh() {
@@ -114,8 +145,8 @@ class Clearcasting extends Analyzer {
     return {
       actual: this.clearcastingUtilPercent,
       isLessThan: {
-        minor: 0.90,
-        average: 0.50,
+        minor: 0.9,
+        average: 0.5,
         major: 0.25,
       },
       style: 'percentage',
@@ -145,28 +176,48 @@ class Clearcasting extends Analyzer {
   get regrowthInnefficiencyWarning() {
     return (
       <>
-        <SpellLink id={SPELLS.REGROWTH.id} /> is a very inefficient spell to cast without a <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> proc or {ABUNDANCE_EXCEPTION_STACKS} or more stacks of <SpellLink id={SPELLS.ABUNDANCE_TALENT.id} />. It should only be cast when your target is about to die and you do not have <SpellLink id={SPELLS.SWIFTMEND.id} /> or <SpellLink id={SPELLS.NATURES_SWIFTNESS.id}/> available.
+        <SpellLink id={SPELLS.REGROWTH.id} /> is a very inefficient spell to cast without a{' '}
+        <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> proc or {ABUNDANCE_EXCEPTION_STACKS} or more
+        stacks of <SpellLink id={SPELLS.ABUNDANCE_TALENT.id} />. It should only be cast when your
+        target is about to die and you do not have <SpellLink id={SPELLS.SWIFTMEND.id} /> or{' '}
+        <SpellLink id={SPELLS.NATURES_SWIFTNESS.id} /> available.
       </>
     );
   }
 
   suggestions(when) {
-    when(this.clearcastingUtilSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> procs should be used quickly so they do not get overwritten or expire.</>)
-          .icon(SPELLS.CLEARCASTING_BUFF.icon)
-          .actual(t({
-      id: "druid.restoration.suggestions.clearcasting.wastedProcs",
-      message: `You missed ${this.wastedProcs} out of ${this.totalProcs} (${formatPercentage(1 - this.clearcastingUtilPercent, 1)}%) of your free regrowth procs`
-    }))
-          .recommended(`<${Math.round(formatPercentage(1 - recommended, 1))}% is recommended`));
-    when(this.nonCCRegrowthsSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(this.regrowthInnefficiencyWarning)
-          .icon(SPELLS.REGROWTH.icon)
-          .actual(t({
-      id: "druid.restoration.suggestions.clearcasting.efficiency",
-      message: `You cast ${this.nonCCRegrowthsPerMinute.toFixed(1)} Regrowths per minute without a Clearcasting proc.`
-    }))
-          .recommended(`${recommended.toFixed(1)} CPM is recommended`));
+    when(this.clearcastingUtilSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> procs should be used quickly so they
+          do not get overwritten or expire.
+        </>,
+      )
+        .icon(SPELLS.CLEARCASTING_BUFF.icon)
+        .actual(
+          t({
+            id: 'druid.restoration.suggestions.clearcasting.wastedProcs',
+            message: `You missed ${this.wastedProcs} out of ${this.totalProcs} (${formatPercentage(
+              1 - this.clearcastingUtilPercent,
+              1,
+            )}%) of your free regrowth procs`,
+          }),
+        )
+        .recommended(`<${Math.round(formatPercentage(1 - recommended, 1))}% is recommended`),
+    );
+    when(this.nonCCRegrowthsSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(this.regrowthInnefficiencyWarning)
+        .icon(SPELLS.REGROWTH.icon)
+        .actual(
+          t({
+            id: 'druid.restoration.suggestions.clearcasting.efficiency',
+            message: `You cast ${this.nonCCRegrowthsPerMinute.toFixed(
+              1,
+            )} Regrowths per minute without a Clearcasting proc.`,
+          }),
+        )
+        .recommended(`${recommended.toFixed(1)} CPM is recommended`),
+    );
   }
 
   statistic() {
@@ -175,57 +226,94 @@ class Clearcasting extends Analyzer {
         <Statistic
           size="flexible"
           position={STATISTIC_ORDER.CORE(20)}
-          tooltip={(
+          tooltip={
             <>
               Clearcasting procced <strong>{this.totalProcs} free Regrowths</strong>
               <ul>
-                <li>Used: <strong>{this.usedProcs} {this.hadInvisibleRefresh ? '*' : ''}</strong></li>
-                {this.hadInvisibleRefresh && <li>Overwritten: <strong>{this.overwrittenProcs}</strong></li>}
-                <li>Expired: <strong>{this.expiredProcs}</strong></li>
+                <li>
+                  Used:{' '}
+                  <strong>
+                    {this.usedProcs} {this.hadInvisibleRefresh ? '*' : ''}
+                  </strong>
+                </li>
+                {this.hadInvisibleRefresh && (
+                  <li>
+                    Overwritten: <strong>{this.overwrittenProcs}</strong>
+                  </li>
+                )}
+                <li>
+                  Expired: <strong>{this.expiredProcs}</strong>
+                </li>
               </ul>
               Using a clearcasting proc as soon as you get it should be one of your top priorities.
-              Even if it overheals you still get that extra mastery stack on a target and the minor HoT.
-              Spending your GCD on a free spell also helps with mana management in the long run.<br />
-              {this.hadInvisibleRefresh && <em>* Mark of Clarity can sometimes 'invisibly refresh', which can make your total procs show as lower than you actually got. Basically, you invisibly overwrote some number of procs, but we aren't able to see how many.</em>}
+              Even if it overheals you still get that extra mastery stack on a target and the minor
+              HoT. Spending your GCD on a free spell also helps with mana management in the long
+              run.
+              <br />
+              {this.hadInvisibleRefresh && (
+                <em>
+                  * Mark of Clarity can sometimes 'invisibly refresh', which can make your total
+                  procs show as lower than you actually got. Basically, you invisibly overwrote some
+                  number of procs, but we aren't able to see how many.
+                </em>
+              )}
             </>
-          )}
+          }
         >
-          <BoringValue label={<><SpellIcon id={SPELLS.CLEARCASTING_BUFF.id} /> Clearcasting Util</>} >
-            <>
-              {formatPercentage(this.clearcastingUtilPercent, 1)} %
-            </>
+          <BoringValue
+            label={
+              <>
+                <SpellIcon id={SPELLS.CLEARCASTING_BUFF.id} /> Clearcasting Util
+              </>
+            }
+          >
+            <>{formatPercentage(this.clearcastingUtilPercent, 1)} %</>
           </BoringValue>
         </Statistic>
         <Statistic
           size="flexible"
           position={STATISTIC_ORDER.CORE(21)}
-          tooltip={(
+          tooltip={
             <>
               <strong>
-                {this.nonCCRegrowths} of your {this.totalRegrowths} Regrowths were cast without a <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> or <SpellLink id={SPELLS.INNERVATE.id} />.
+                {this.nonCCRegrowths} of your {this.totalRegrowths} Regrowths were cast without a{' '}
+                <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> or{' '}
+                <SpellLink id={SPELLS.INNERVATE.id} />.
               </strong>
               <br />
               Of these {this.nonCCRegrowths},
               <ul>
-                <li><strong>{this.lowHealthRegrowthsNoCC}</strong> were cast on targets with low health, making them necessary.</li>
-                <li><strong>{this.abundanceRegrowthsNoCC}</strong> were cast with more than {ABUNDANCE_EXCEPTION_STACKS} stacks of <SpellLink id={SPELLS.ABUNDANCE_TALENT.id} />, making them efficient.</li>
+                <li>
+                  <strong>{this.lowHealthRegrowthsNoCC}</strong> were cast on targets with low
+                  health, making them necessary.
+                </li>
+                <li>
+                  <strong>{this.abundanceRegrowthsNoCC}</strong> were cast with more than{' '}
+                  {ABUNDANCE_EXCEPTION_STACKS} stacks of{' '}
+                  <SpellLink id={SPELLS.ABUNDANCE_TALENT.id} />, making them efficient.
+                </li>
               </ul>
-              this leaves {this.inneficientRegrowths} unfavorable <SpellLink id={SPELLS.REGROWTH.id} /> casts that you should aim to replace with <SpellLink id={SPELLS.REJUVENATION.id} />.
+              this leaves {this.inneficientRegrowths} unfavorable{' '}
+              <SpellLink id={SPELLS.REGROWTH.id} /> casts that you should aim to replace with{' '}
+              <SpellLink id={SPELLS.REJUVENATION.id} />.
               <br />
               {this.regrowthInnefficiencyWarning}
             </>
-          )}
+          }
         >
-          <BoringValue label={<><SpellIcon id={SPELLS.REGROWTH.id} /> Inneficient Regrowths</>} >
-            <>
-              {this.inneficientRegrowths}
-            </>
+          <BoringValue
+            label={
+              <>
+                <SpellIcon id={SPELLS.REGROWTH.id} /> Inneficient Regrowths
+              </>
+            }
+          >
+            <>{this.inneficientRegrowths}</>
           </BoringValue>
         </Statistic>
       </>
     );
   }
-
 }
 
 export default Clearcasting;

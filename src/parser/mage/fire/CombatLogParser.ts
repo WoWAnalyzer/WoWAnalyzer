@@ -5,7 +5,7 @@ import FlamestrikeNormalizer from './normalizers/Flamestrike';
 import CombustionNormalizer from './normalizers/Combustion';
 import ScorchNormalizer from './normalizers/Scorch';
 import PyroclasmBuffNormalizer from './normalizers/PyroclasmBuff';
-import ShiftingPowerNormalizer from '../shared/normalizers/ShiftingPower'
+import ShiftingPowerNormalizer from '../shared/normalizers/ShiftingPower';
 import RuneOfPowerNormalizer from '../shared/normalizers/RuneOfPower';
 
 import Checklist from './modules/Checklist/Module';

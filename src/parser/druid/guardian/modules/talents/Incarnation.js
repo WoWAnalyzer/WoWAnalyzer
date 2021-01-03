@@ -10,7 +10,10 @@ class Incarnation extends Analyzer {
 
   constructor(options) {
     super(options);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT), this.onApplyBuff);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT),
+      this.onApplyBuff,
+    );
   }
 
   onApplyBuff(event) {

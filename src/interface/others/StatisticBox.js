@@ -67,25 +67,15 @@ class StatisticBox extends React.PureComponent {
           <label>
             {icon} {label}
           </label>
-          <div className="value">
-            {value}
-          </div>
+          <div className="value">{value}</div>
 
-          {footer && (
-            <div style={{ marginTop: '0.5em' }}>
-              {footer}
-            </div>
-          )}
+          {footer && <div style={{ marginTop: '0.5em' }}>{footer}</div>}
         </div>
         {children && (
           <>
             <div className="row">
               <div className="col-xs-12">
-                {this.state.expanded && (
-                  <div className="statistic-expansion">
-                    {children}
-                  </div>
-                )}
+                {this.state.expanded && <div className="statistic-expansion">{children}</div>}
               </div>
             </div>
 

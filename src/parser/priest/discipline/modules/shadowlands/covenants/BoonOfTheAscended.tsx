@@ -30,12 +30,16 @@ class BoonOfTheAscended extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id);
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.ASCENDED_BLAST, SPELLS.ASCENDED_NOVA, SPELLS.ASCENDED_ERUPTION]), this.onHeal);
+    this.addEventListener(
+      Events.heal
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.ASCENDED_BLAST, SPELLS.ASCENDED_NOVA, SPELLS.ASCENDED_ERUPTION]),
+      this.onHeal,
+    );
   }
 
   onHeal(event: HealEvent) {
     if (isAtonement(event)) {
-
       const atonenementDamageEvent = this.atonementDamageSource.event;
 
       if (!atonenementDamageEvent) {
@@ -51,7 +55,7 @@ class BoonOfTheAscended extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
             Healing Breakdown:
             <ul>
@@ -59,7 +63,7 @@ class BoonOfTheAscended extends Analyzer {
               <li>{formatNumber(this.directHealing)} Direct Healing</li>
             </ul>
           </>
-        )}
+        }
         category={STATISTIC_CATEGORY.COVENANTS}
       >
         <BoringSpellValueText spell={SPELLS.BOON_OF_THE_ASCENDED}>

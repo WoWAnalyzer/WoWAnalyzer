@@ -16,7 +16,10 @@ class DeathTracker extends CoreDeathTracker {
 
   resurrect(event: any) {
     this.lastResurrectionTimestamp = this.owner.currentTimestamp;
-    const percentSpentDead = this.deathPercentageOfEncounter(this.lastDeathTimestamp, this.lastResurrectionTimestamp);
+    const percentSpentDead = this.deathPercentageOfEncounter(
+      this.lastDeathTimestamp,
+      this.lastResurrectionTimestamp,
+    );
     if (percentSpentDead > TIME_SPENT_DEAD_THRESHOLD) {
       super.resurrect(event);
     } else {

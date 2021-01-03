@@ -17,28 +17,35 @@ import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
  *
  */
 class StrengthOfThePack extends Analyzer {
-
   conduitRank: number = 0;
   addedDamage: number = 0;
 
   constructor(options: Options) {
     super(options);
 
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.STRENGTH_OF_THE_PACK_CONDUIT.id);
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(
+      SPELLS.STRENGTH_OF_THE_PACK_CONDUIT.id,
+    );
 
     if (!this.conduitRank) {
       this.active = false;
       return;
     }
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER | SELECTED_PLAYER_PET), this.onGenericDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER | SELECTED_PLAYER_PET),
+      this.onGenericDamage,
+    );
   }
 
   onGenericDamage(event: DamageEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.STRENGTH_OF_THE_PACK_BUFF.id)) {
       return;
     }
-    this.addedDamage += calculateEffectiveDamage(event, STRENGTH_OF_THE_PACK_DAMAGE_MODIFIER[this.conduitRank]);
+    this.addedDamage += calculateEffectiveDamage(
+      event,
+      STRENGTH_OF_THE_PACK_DAMAGE_MODIFIER[this.conduitRank],
+    );
   }
 
   statistic() {

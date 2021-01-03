@@ -21,13 +21,15 @@ import { WILD_CALL_RESET_PERCENT } from '../../constants';
  */
 
 class OneWithThePack extends Analyzer {
-
   procChances = 0;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ONE_WITH_THE_PACK_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.AUTO_SHOT), this.onAutoShotDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.AUTO_SHOT),
+      this.onAutoShotDamage,
+    );
   }
 
   onAutoShotDamage(event: DamageEvent) {
@@ -43,11 +45,12 @@ class OneWithThePack extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={(
+        tooltip={
           <>
-            Since there is no way to track Wild Call resets, this is an approximation of how many resets One With The Pack granted you.
+            Since there is no way to track Wild Call resets, this is an approximation of how many
+            resets One With The Pack granted you.
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.ONE_WITH_THE_PACK_TALENT}>
           <>

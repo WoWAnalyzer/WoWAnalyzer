@@ -16,7 +16,7 @@ type Props = {
   label: React.ReactNode;
   extra?: React.ReactNode;
   className?: string;
-}
+};
 
 const BoringSpellValue = ({ spell, value, label, extra, className }: Props) => (
   <div className={`flex boring-value ${className || ''}`}>

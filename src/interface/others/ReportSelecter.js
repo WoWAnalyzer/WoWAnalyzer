@@ -10,11 +10,13 @@ import Tooltip from 'common/Tooltip';
 import './ReportSelecter.css';
 
 export function getReportCode(input) {
-  const match = input.trim().match(/^(.*reports\/)?((?:[a:]{2})([a-zA-Z0-9]{16})|([a-zA-Z0-9]{16}))\/?(#.*)?$/);
+  const match = input
+    .trim()
+    .match(/^(.*reports\/)?((?:[a:]{2})([a-zA-Z0-9]{16})|([a-zA-Z0-9]{16}))\/?(#.*)?$/);
   return match && match[2];
 }
 
-export function getFight(input){
+export function getFight(input) {
   const match = input.trim().match(/fight=([^&]*)/);
   return match && match[1];
 }
@@ -26,23 +28,28 @@ export function getPlayer(input) {
 
 export function getCharacterFromWCLUrl(input) {
   const match = input.trim().match(/^(.*character\/)(\S*)\/(\S*)\/(\S*)/);
-  return match && {
-    region: match[2],
-    realm: match[3],
-    name: match[4].split('#')[0],
-  };
+  return (
+    match && {
+      region: match[2],
+      realm: match[3],
+      name: match[4].split('#')[0],
+    }
+  );
 }
 
 export function getCharacterFromBattleNetUrl(input) {
   const match = input.trim().match(/^(.*)\/([A-Za-z]{2}-[A-Za-z]{2})\/(character)\/(\S*)\/(\S*)/);
-  return match && REGION_CODES[match[2]] && {
-    region: REGION_CODES[match[2]],
-    realm: match[4],
-    name: match[5].split('#')[0],
-  };
+  return (
+    match &&
+    REGION_CODES[match[2]] && {
+      region: REGION_CODES[match[2]],
+      realm: match[4],
+      name: match[5].split('#')[0],
+    }
+  );
 }
 
-export function constructURL(value){
+export function constructURL(value) {
   const code = getReportCode(value);
   const fight = getFight(value);
   const player = getPlayer(value);
@@ -114,17 +121,24 @@ class ReportSelecter extends React.PureComponent {
       <form onSubmit={this.handleSubmit} className="form-inline">
         <div className="report-selector">
           <Tooltip
-            content={(
+            content={
               <Trans id="interface.others.reportSelecter.tooltip.supportedLinks">
-                Supported links:<br />
+                Supported links:
+                <br />
                 <ul>
                   <li>https://www.warcraftlogs.com/reports/&lt;report code&gt;</li>
-                  <li>https://www.warcraftlogs.com/character/&lt;region&gt;/&lt;realm&gt;/&lt;name&gt;</li>
-                  <li>https://worldofwarcraft.com/&lt;language-code&gt;/character/&lt;realm&gt;/&lt;name&gt;</li>
-                  <li>https://www.wowchina.com/&lt;language-code&gt;/character/&lt;realm&gt;/&lt;name&gt;</li>
+                  <li>
+                    https://www.warcraftlogs.com/character/&lt;region&gt;/&lt;realm&gt;/&lt;name&gt;
+                  </li>
+                  <li>
+                    https://worldofwarcraft.com/&lt;language-code&gt;/character/&lt;realm&gt;/&lt;name&gt;
+                  </li>
+                  <li>
+                    https://www.wowchina.com/&lt;language-code&gt;/character/&lt;realm&gt;/&lt;name&gt;
+                  </li>
                 </ul>
               </Trans>
-            )}
+            }
           >
             {/*the div needs to be there (previously the tooltip was on input directly) because input sets its own ref and Tooltip would overwrite it*/}
             <div style={{ flex: '1 1', cursor: 'help', padding: 0 }}>
@@ -137,8 +151,8 @@ class ReportSelecter extends React.PureComponent {
                 ref={this.codeInput}
                 onChange={this.handleChange}
                 placeholder={t({
-                  id: "interface.others.reportSelecter.placeholder",
-                  message: `https://www.warcraftlogs.com/reports/<report code>`
+                  id: 'interface.others.reportSelecter.placeholder',
+                  message: `https://www.warcraftlogs.com/reports/<report code>`,
                 })}
                 autoCorrect="off"
                 autoCapitalize="off"
@@ -148,7 +162,8 @@ class ReportSelecter extends React.PureComponent {
           </Tooltip>
 
           <button type="submit" className="btn btn-primary analyze">
-            <Trans id="interface.others.reportSelecter.analyze">Analyze</Trans> <span className="glyphicon glyphicon-chevron-right" aria-hidden />
+            <Trans id="interface.others.reportSelecter.analyze">Analyze</Trans>{' '}
+            <span className="glyphicon glyphicon-chevron-right" aria-hidden />
           </button>
         </div>
       </form>

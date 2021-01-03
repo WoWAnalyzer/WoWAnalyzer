@@ -35,8 +35,17 @@ class DamageDone extends Analyzer {
   }
   get totalByPets() {
     return Object.keys(this._byPet)
-      .map(petId => this._byPet[parseInt(petId)])
-      .reduce((total, damageValue) => total.add(damageValue.regular, damageValue.absorbed, damageValue.blocked, damageValue.overkill), new DamageValue());
+      .map((petId) => this._byPet[parseInt(petId)])
+      .reduce(
+        (total, damageValue) =>
+          total.add(
+            damageValue.regular,
+            damageValue.absorbed,
+            damageValue.blocked,
+            damageValue.overkill,
+          ),
+        new DamageValue(),
+      );
   }
 
   bySecond: { [secondsIntoFight: number]: DamageValue } = {};
@@ -46,7 +55,12 @@ class DamageDone extends Analyzer {
       this._total = this._total.add(event.amount, event.absorbed, event.blocked, event.overkill);
 
       const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
-      this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || new DamageValue()).add(event.amount, event.absorbed, event.blocked, event.overkill);
+      this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || new DamageValue()).add(
+        event.amount,
+        event.absorbed,
+        event.blocked,
+        event.overkill,
+      );
     }
   }
   onByPlayerPetDamage(event: DamageEvent) {
@@ -54,20 +68,29 @@ class DamageDone extends Analyzer {
       this._total = this._total.add(event.amount, event.absorbed, event.blocked, event.overkill);
       const petId = event.sourceID;
       if (petId) {
-        this._byPet[petId] = this.byPet(petId).add(event.amount, event.absorbed, event.blocked, event.overkill);
+        this._byPet[petId] = this.byPet(petId).add(
+          event.amount,
+          event.absorbed,
+          event.blocked,
+          event.overkill,
+        );
       }
     }
   }
 
   showStatistic = true;
-  subStatistic() { // rendered by ThroughputStatisticGroup
+  subStatistic() {
+    // rendered by ThroughputStatisticGroup
     if (!this.showStatistic) {
       return null;
     }
 
-    const data = Object.entries(this.bySecond).map(([sec, val]) => ({ 'time': sec, 'val': val.effective }));
+    const data = Object.entries(this.bySecond).map(([sec, val]) => ({
+      time: sec,
+      val: val.effective,
+    }));
 
-    const perSecond = this.total.effective / this.owner.fightDuration * 1000;
+    const perSecond = (this.total.effective / this.owner.fightDuration) * 1000;
     const wclUrl = makeWclUrl(this.owner.report.code, {
       fight: this.owner.fightId,
       source: this.owner.playerId,
@@ -84,37 +107,46 @@ class DamageDone extends Analyzer {
       >
         <div className="flex">
           <div className="flex-sub icon">
-            <img
-              src="/img/sword.png"
-              alt="Damage"
-            />
+            <img src="/img/sword.png" alt="Damage" />
           </div>
-          <Tooltip content={<>Total damage done: <strong>{formatThousands(this.total.effective)}</strong></>}>
-            <div
-              className="flex-sub value"
-              style={{ width: 190 }}
-            >
+          <Tooltip
+            content={
+              <>
+                Total damage done: <strong>{formatThousands(this.total.effective)}</strong>
+              </>
+            }
+          >
+            <div className="flex-sub value" style={{ width: 190 }}>
               {formatThousands(perSecond)} DPS
             </div>
           </Tooltip>
-          <div className="flex-sub" style={{ width: 110, textAlign: 'center', padding: '10px 5px' }}>
+          <div
+            className="flex-sub"
+            style={{ width: 110, textAlign: 'center', padding: '10px 5px' }}
+          >
             <ThroughputPerformance throughput={perSecond} metric="dps">
-              {({ performance, topThroughput }) => performance && performance !== UNAVAILABLE && (
-                <Tooltip
-                  content={(
-                    <>
-                      Your DPS compared to the DPS of a top 100 player. To become a top 100 <span className={this.selectedCombatant.spec.className.replace(' ', '')}>{this.selectedCombatant.spec.specName} {this.selectedCombatant.spec.className}</span> on this fight you need to do at least <strong>{formatThousands(topThroughput || 0)} DPS</strong>.
-                    </>
-                  )}
-                >
-                  <div
-                    className={rankingColor(performance)}
-                    style={{ cursor: 'help' }}
+              {({ performance, topThroughput }) =>
+                performance &&
+                performance !== UNAVAILABLE && (
+                  <Tooltip
+                    content={
+                      <>
+                        Your DPS compared to the DPS of a top 100 player. To become a top 100{' '}
+                        <span className={this.selectedCombatant.spec.className.replace(' ', '')}>
+                          {this.selectedCombatant.spec.specName}{' '}
+                          {this.selectedCombatant.spec.className}
+                        </span>{' '}
+                        on this fight you need to do at least{' '}
+                        <strong>{formatThousands(topThroughput || 0)} DPS</strong>.
+                      </>
+                    }
                   >
-                    {performance >= 1 ? 'TOP 100' : `${formatPercentage(performance, 0)}%`}
-                  </div>
-                </Tooltip>
-              )}
+                    <div className={rankingColor(performance)} style={{ cursor: 'help' }}>
+                      {performance >= 1 ? 'TOP 100' : `${formatPercentage(performance, 0)}%`}
+                    </div>
+                  </Tooltip>
+                )
+              }
             </ThroughputPerformance>
           </div>
           <div className="flex-main chart">
@@ -122,7 +154,11 @@ class DamageDone extends Analyzer {
               {perSecond > 0 && (
                 <AutoSizer disableWidth>
                   {({ height }) => (
-                    <FlushLineChart data={data} duration={this.owner.fightDuration / 1000} height={height} />
+                    <FlushLineChart
+                      data={data}
+                      duration={this.owner.fightDuration / 1000}
+                      height={height}
+                    />
                   )}
                 </AutoSizer>
               )}

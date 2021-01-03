@@ -22,7 +22,6 @@ import { DIRE_BEAST_HASTE_PERCENT } from 'parser/hunter/shared/constants';
  */
 
 class DireBeast extends Analyzer {
-
   damage = 0;
   activeDireBeasts: string[] = [];
   targetId = '';
@@ -31,11 +30,16 @@ class DireBeast extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DIRE_BEAST_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
-    this.addEventListener(Events.summon.by(SELECTED_PLAYER).spell(SPELLS.DIRE_BEAST_SUMMON), this.onDireSummon);
+    this.addEventListener(
+      Events.summon.by(SELECTED_PLAYER).spell(SPELLS.DIRE_BEAST_SUMMON),
+      this.onDireSummon,
+    );
   }
 
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.DIRE_BEAST_BUFF.id) / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.DIRE_BEAST_BUFF.id) / this.owner.fightDuration
+    );
   }
 
   onPetDamage(event: DamageEvent) {
@@ -64,7 +68,8 @@ class DireBeast extends Analyzer {
           <>
             <ItemDamageDone amount={this.damage} />
             <br />
-            <Haste /> {formatPercentage(DIRE_BEAST_HASTE_PERCENT * this.uptime)}% Haste<br />
+            <Haste /> {formatPercentage(DIRE_BEAST_HASTE_PERCENT * this.uptime)}% Haste
+            <br />
           </>
         </BoringSpellValueText>
       </Statistic>

@@ -12,7 +12,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
     return {
       actual: this.activeTimePercentage,
       isLessThan: {
-        minor: 0.90,
+        minor: 0.9,
         average: 0.85,
         major: 0.8,
       },
@@ -21,10 +21,29 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your downtime can be improved. Try to reduce the delay between casting spells. If everything is on cooldown, try and use <SpellLink id={SPELLS.COBRA_SHOT.id} /> to stay off the focus cap and do some damage.</>)
-      .icon('spell_mage_altertime')
-      .actual(<Trans id='hunter.beastmastery.suggestions.alwaysBeCasting.downtime'> {formatPercentage(1 - actual)}% downtime </Trans>)
-      .recommended(<Trans id='hunter.beastmastery.suggestions.alwaysBeCasting.recommended'> {'<'}{formatPercentage(1 - recommended)}% is recommended </Trans>));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your downtime can be improved. Try to reduce the delay between casting spells. If
+          everything is on cooldown, try and use <SpellLink id={SPELLS.COBRA_SHOT.id} /> to stay off
+          the focus cap and do some damage.
+        </>,
+      )
+        .icon('spell_mage_altertime')
+        .actual(
+          <Trans id="hunter.beastmastery.suggestions.alwaysBeCasting.downtime">
+            {' '}
+            {formatPercentage(1 - actual)}% downtime{' '}
+          </Trans>,
+        )
+        .recommended(
+          <Trans id="hunter.beastmastery.suggestions.alwaysBeCasting.recommended">
+            {' '}
+            {'<'}
+            {formatPercentage(1 - recommended)}% is recommended{' '}
+          </Trans>,
+        ),
+    );
   }
 }
 

@@ -17,7 +17,6 @@ import Events, { ApplyBuffEvent } from 'parser/core/Events';
 import STAT from 'parser/shared/modules/features/STAT';
 
 class OverchargedAnimaBattery extends Analyzer {
-
   static dependencies = {
     abilities: Abilities,
     statTracker: StatTracker,
@@ -60,15 +59,26 @@ class OverchargedAnimaBattery extends Analyzer {
         recommendedEfficiency: 0.8,
       },
     });
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.OVERCHARGED_ANIMA_BATTERY_BUFF), this.applyHasteBuff);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.OVERCHARGED_ANIMA_BATTERY_BUFF),
+      this.applyHasteBuff,
+    );
   }
 
   applyHasteBuff(event: ApplyBuffEvent) {
-    this.hastePercentGained += this.haste / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentHasteRating, this.statTracker.statBaselineRatingPerPercent[STAT.HASTE]);
+    this.hastePercentGained +=
+      this.haste /
+      this.statTracker.ratingNeededForNextPercentage(
+        this.statTracker.currentHasteRating,
+        this.statTracker.statBaselineRatingPerPercent[STAT.HASTE],
+      );
   }
 
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.OVERCHARGED_ANIMA_BATTERY_BUFF.id) / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.OVERCHARGED_ANIMA_BATTERY_BUFF.id) /
+      this.owner.fightDuration
+    );
   }
 
   statistic() {
@@ -79,14 +89,14 @@ class OverchargedAnimaBattery extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
       >
         <BoringItemValueText item={ITEMS.OVERCHARGED_ANIMA_BATTERY}>
-          <Haste /> {formatPercentage(this.hastePercentGained * this.uptime)}% <small>average Haste</small>
+          <Haste /> {formatPercentage(this.hastePercentGained * this.uptime)}%{' '}
+          <small>average Haste</small>
           <br />
           <Uptime /> {formatPercentage(this.uptime)}% <small>Uptime</small>
         </BoringItemValueText>
       </Statistic>
     );
   }
-
 }
 
 export default OverchargedAnimaBattery;

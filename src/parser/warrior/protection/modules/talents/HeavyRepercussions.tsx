@@ -30,7 +30,10 @@ class HeavyRepercussions extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.HEAVY_REPERCUSSIONS_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_SLAM), this.onSlamCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_SLAM),
+      this.onSlamCast,
+    );
   }
 
   get shieldBlockuptime() {
@@ -41,9 +44,9 @@ class HeavyRepercussions extends Analyzer {
     return {
       actual: this.sbExtended / this.sbCasts,
       isLessThan: {
-        minor: .9,
-        average: .85,
-        major: .80,
+        minor: 0.9,
+        average: 0.85,
+        major: 0.8,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
@@ -58,14 +61,24 @@ class HeavyRepercussions extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.uptimeSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>Try and cast <SpellLink id={SPELLS.SHIELD_SLAM.id} />'s during <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> to increase the uptime of <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> and the damage of <SpellLink id={SPELLS.SHIELD_SLAM.id} />.</>)
+    when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Try and cast <SpellLink id={SPELLS.SHIELD_SLAM.id} />
+          's during <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> to increase the uptime of{' '}
+          <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> and the damage of{' '}
+          <SpellLink id={SPELLS.SHIELD_SLAM.id} />.
+        </>,
+      )
         .icon(SPELLS.HEAVY_REPERCUSSIONS_TALENT.icon)
-        .actual(t({
-      id: "warrior.protection.suggestions.heavyRepercussions.shieldBlockCasts",
-      message: `${formatPercentage(actual)}% cast during Shield Block`
-    }))
-        .recommended(`${formatPercentage(recommended)}% is recommended`));
+        .actual(
+          t({
+            id: 'warrior.protection.suggestions.heavyRepercussions.shieldBlockCasts',
+            message: `${formatPercentage(actual)}% cast during Shield Block`,
+          }),
+        )
+        .recommended(`${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
@@ -80,13 +93,21 @@ class HeavyRepercussions extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={(
+        tooltip={
           <>
-            You casted Shield Slam {this.sbExtended} times during Shield Block, resulting in additional {sbExtendedMS / 1000} sec uptime.<br />
+            You casted Shield Slam {this.sbExtended} times during Shield Block, resulting in
+            additional {sbExtendedMS / 1000} sec uptime.
+            <br />
           </>
-        )}
+        }
       >
-        <BoringValueText label={<><SpellLink id={SPELLS.HEAVY_REPERCUSSIONS_TALENT.id} /> Extra Shield Block and Rage</>}>
+        <BoringValueText
+          label={
+            <>
+              <SpellLink id={SPELLS.HEAVY_REPERCUSSIONS_TALENT.id} /> Extra Shield Block and Rage
+            </>
+          }
+        >
           <>
             {formatPercentage(sbExtendedMS / (this.shieldBlockuptime - sbExtendedMS))}% <br />
             {rageFromTalent} <small>rage</small>

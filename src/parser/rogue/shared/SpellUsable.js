@@ -15,7 +15,10 @@ class SpellUsable extends CoreSpellUsable {
 
   constructor(options) {
     super(options);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.MARKED_FOR_DEATH_TALENT), this.onRemoveBuff);
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.MARKED_FOR_DEATH_TALENT),
+      this.onRemoveBuff,
+    );
   }
 
   onCast(event) {

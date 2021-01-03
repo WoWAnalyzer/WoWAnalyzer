@@ -18,13 +18,15 @@ import Events, { DamageEvent } from 'parser/core/Events';
  */
 
 class Volley extends Analyzer {
-
   damage = 0;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.VOLLEY_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.VOLLEY_DAMAGE), this.onVolleyDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.VOLLEY_DAMAGE),
+      this.onVolleyDamage,
+    );
   }
 
   onVolleyDamage(event: DamageEvent) {

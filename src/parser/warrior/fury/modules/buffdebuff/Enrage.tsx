@@ -60,21 +60,37 @@ class Enrage extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.ENRAGE.id} /> uptime can be improved.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your <SpellLink id={SPELLS.ENRAGE.id} /> uptime can be improved.
+        </>,
+      )
         .icon(SPELLS.ENRAGE.icon)
-        .actual(t({
-      id: "warrior.fury.suggestions.enrage.uptime",
-      message: `${formatPercentage(actual)}% Enrage uptime`
-    }))
-        .recommended(`>${formatPercentage(recommended)}% is recommended`));
+        .actual(
+          t({
+            id: 'warrior.fury.suggestions.enrage.uptime',
+            message: `${formatPercentage(actual)}% Enrage uptime`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
     return (
       <Statistic
         size="flexible"
-        tooltip={<>You did <strong>{formatThousands(this.damage)} ({formatPercentage(this.damageTotalPercent)}%)</strong> damage while enraged, contributing <strong>{formatNumber(this.dpsIncrease)}</strong> DPS.</>}
+        tooltip={
+          <>
+            You did{' '}
+            <strong>
+              {formatThousands(this.damage)} ({formatPercentage(this.damageTotalPercent)}%)
+            </strong>{' '}
+            damage while enraged, contributing <strong>{formatNumber(this.dpsIncrease)}</strong>{' '}
+            DPS.
+          </>
+        }
       >
         <BoringSpellValueText spell={SPELLS.ENRAGE}>
           <>

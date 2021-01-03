@@ -18,7 +18,10 @@ class GreenskinsWickers extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.GREENSKINS_WICKERS.bonusID);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.GREENSKINS_WICKERS_BUFF), this.onGreenskinBuff);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.GREENSKINS_WICKERS_BUFF),
+      this.onGreenskinBuff,
+    );
   }
 
   // Not sure what else should be tracked here. Maybe the total damage done by Pistol Shot with this legendary equipped?
@@ -28,9 +31,13 @@ class GreenskinsWickers extends Analyzer {
 
   statistic() {
     return (
-      <Statistic size="flexible" tooltip="This shows you the amount of procs gained from Greenskin's Wickers Legendary.">
+      <Statistic
+        size="flexible"
+        tooltip="This shows you the amount of procs gained from Greenskin's Wickers Legendary."
+      >
         <BoringSpellValueText spell={SPELLS.GREENSKINS_WICKERS}>
-          <SpellIcon id={SPELLS.GREENSKINS_WICKERS.id} /> {this.greenskinProcs} <small>Procs gained</small>
+          <SpellIcon id={SPELLS.GREENSKINS_WICKERS.id} /> {this.greenskinProcs}{' '}
+          <small>Procs gained</small>
         </BoringSpellValueText>
       </Statistic>
     );

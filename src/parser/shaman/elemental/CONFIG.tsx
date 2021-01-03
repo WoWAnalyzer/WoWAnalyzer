@@ -16,13 +16,38 @@ export default {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      Hello there! Welcome to the analyzer for Elemental Shaman! This analyzer has functionalities that I hope you find useful when playing the spec. If you have any input or suggestions please contact HawkCorrigan(HawkCorrigan#1811) or Draenal(Draenal#4089) on Discord.<br /><br />
-
-      <br />More resources for Elemental:<br />
-      <a href="https://discord.gg/earthshrine" target="_blank" rel="noopener noreferrer">Shaman Class Discord</a> <br />
-      <a href="https://stormearthandlava.com/" target="_blank" rel="noopener noreferrer">Storm, Earth and Lava</a> <br />
-      <a href="https://www.wowhead.com/elemental-shaman-guide" target="_blank" rel="noopener noreferrer">Wowhead Guide</a> <br />
-      <a href="https://www.icy-veins.com/wow/elemental-shaman-pve-dps-guide" target="_blank" rel="noopener noreferrer">Icy Veins Guide</a> <br />
+      Hello there! Welcome to the analyzer for Elemental Shaman! This analyzer has functionalities
+      that I hope you find useful when playing the spec. If you have any input or suggestions please
+      contact HawkCorrigan(HawkCorrigan#1811) or Draenal(Draenal#4089) on Discord.
+      <br />
+      <br />
+      <br />
+      More resources for Elemental:
+      <br />
+      <a href="https://discord.gg/earthshrine" target="_blank" rel="noopener noreferrer">
+        Shaman Class Discord
+      </a>{' '}
+      <br />
+      <a href="https://stormearthandlava.com/" target="_blank" rel="noopener noreferrer">
+        Storm, Earth and Lava
+      </a>{' '}
+      <br />
+      <a
+        href="https://www.wowhead.com/elemental-shaman-guide"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Wowhead Guide
+      </a>{' '}
+      <br />
+      <a
+        href="https://www.icy-veins.com/wow/elemental-shaman-pve-dps-guide"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Icy Veins Guide
+      </a>{' '}
+      <br />
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
@@ -34,7 +59,10 @@ export default {
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () => import('./CombatLogParser' /* webpackChunkName: "ElementalShaman" */).then(exports => exports.default),
+  parser: () =>
+    import('./CombatLogParser' /* webpackChunkName: "ElementalShaman" */).then(
+      (exports) => exports.default,
+    ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };

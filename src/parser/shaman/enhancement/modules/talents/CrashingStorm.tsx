@@ -27,8 +27,7 @@ class CrashingStorm extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.CRASHING_STORM_TALENT.id);
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(SPELLS.CRASHING_STORM_DAMAGE),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CRASHING_STORM_DAMAGE),
       this.onDamage,
     );
   }

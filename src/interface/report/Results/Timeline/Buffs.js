@@ -16,9 +16,11 @@ class Buffs extends React.PureComponent {
     start: PropTypes.number.isRequired,
     secondWidth: PropTypes.number.isRequired,
     parser: PropTypes.shape({
-      eventHistory: PropTypes.arrayOf(PropTypes.shape({
-        type: PropTypes.string.isRequired,
-      })).isRequired,
+      eventHistory: PropTypes.arrayOf(
+        PropTypes.shape({
+          type: PropTypes.string.isRequired,
+        }),
+      ).isRequired,
       toPlayer: PropTypes.func.isRequired,
     }).isRequired,
     buffs: PropTypes.instanceOf(BuffsModule).isRequired,
@@ -30,7 +32,7 @@ class Buffs extends React.PureComponent {
   }
 
   getOffsetLeft(timestamp) {
-    return (timestamp - this.props.start) / 1000 * this.props.secondWidth;
+    return ((timestamp - this.props.start) / 1000) * this.props.secondWidth;
   }
 
   // TODO: Fabricate removebuff events for buffs that expired after the fight
@@ -117,17 +119,18 @@ class Buffs extends React.PureComponent {
     return (
       <Tooltip
         key={`buff-${left}-${event.ability.guid}`}
-        content={(
+        content={
           <Trans id="interface.report.results.timeline.buffs.tooltip.gainedAbilityForXSec">
-            {formatDuration(fightDuration, 3)}: gained {event.ability.name} for {(duration / 1000).toFixed(2)}s
+            {formatDuration(fightDuration, 3)}: gained {event.ability.name} for{' '}
+            {(duration / 1000).toFixed(2)}s
           </Trans>
-        )}
+        }
       >
         <div
           className="buff hoist"
           style={{
             left,
-            width: (event.timestamp - applied.timestamp) / 1000 * this.props.secondWidth,
+            width: ((event.timestamp - applied.timestamp) / 1000) * this.props.secondWidth,
             '--level': level,
           }}
           data-effect="float"
@@ -138,12 +141,14 @@ class Buffs extends React.PureComponent {
   renderLeftOverBuffs(event) {
     // We don't have a removebuff event for buffs that end *after* the fight, so instead we go through all remaining active buffs and manually trigger the removebuff render.
     const elems = [];
-    Object.keys(this._applied).forEach(spellId => {
+    Object.keys(this._applied).forEach((spellId) => {
       const applied = this._applied[spellId];
-      elems.push(this.renderRemoveBuff({
-        ...applied,
-        timestamp: event.timestamp,
-      }));
+      elems.push(
+        this.renderRemoveBuff({
+          ...applied,
+          timestamp: event.timestamp,
+        }),
+      );
     });
     return elems;
   }
@@ -160,10 +165,7 @@ class Buffs extends React.PureComponent {
           ...style,
         }}
       >
-        <Icon
-          icon={event.ability.abilityIcon.replace('.jpg', '')}
-          alt={event.ability.name}
-        />
+        <Icon icon={event.ability.abilityIcon.replace('.jpg', '')} alt={event.ability.name} />
         {children}
       </SpellLink>
     );

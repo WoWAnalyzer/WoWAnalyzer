@@ -13,7 +13,10 @@ import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 class WarMachine extends Analyzer {
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.WAR_MACHINE_TALENT_BUFF.id) / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.WAR_MACHINE_TALENT_BUFF.id) /
+      this.owner.fightDuration
+    );
   }
 
   constructor(...args) {
@@ -24,7 +27,11 @@ class WarMachine extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.WAR_MACHINE_TALENT_ARMS.id} /> uptime</>}
+        title={
+          <>
+            <SpellLink id={SPELLS.WAR_MACHINE_TALENT_ARMS.id} /> uptime
+          </>
+        }
         value={`${formatPercentage(this.uptime)} %`}
       />
     );

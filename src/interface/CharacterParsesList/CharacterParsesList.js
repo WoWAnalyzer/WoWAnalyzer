@@ -43,14 +43,13 @@ class CharacterParsesList extends React.PureComponent {
   }
   renderItem(item) {
     return (
-      <ItemLink
-        key={item.id}
-        id={item.id}
-        className={item.quality}
-        icon={false}
-      >
+      <ItemLink key={item.id} id={item.id} className={item.quality} icon={false}>
         <Icon
-          icon={this.props.trinkets[item.id] ? this.props.trinkets[item.id].icon : this.props.trinkets[0].icon}
+          icon={
+            this.props.trinkets[item.id]
+              ? this.props.trinkets[item.id].icon
+              : this.props.trinkets[0].icon
+          }
           style={{ ...styles.icon, border: '1px solid' }}
         />
       </ItemLink>
@@ -58,26 +57,30 @@ class CharacterParsesList extends React.PureComponent {
   }
   formatPerformance(elem) {
     const { metric } = this.props;
-    return `${formatNumber(elem.persecondamount)} ${metric.toLocaleUpperCase()} (${formatPercentage(elem.historical_percent / 100, 0)}%)`;
+    return `${formatNumber(elem.persecondamount)} ${metric.toLocaleUpperCase()} (${formatPercentage(
+      elem.historical_percent / 100,
+      0,
+    )}%)`;
   }
 
   render() {
     const { parses } = this.props;
     return (
       <ul className="list parses-list">
-        {parses.map(elem => {
-          const url = makePlainUrl(elem.report_code, elem.report_fight, elem.difficulty + ' ' + elem.name, elem.advanced ? elem.character_name : '');
+        {parses.map((elem) => {
+          const url = makePlainUrl(
+            elem.report_code,
+            elem.report_fight,
+            elem.difficulty + ' ' + elem.name,
+            elem.advanced ? elem.character_name : '',
+          );
           return (
             <li key={url}>
               <Link to={url}>
                 <div className="row">
                   <div className="col-md-4" style={{ color: 'white' }}>
                     <div>
-                      <img
-                        className="spec-icon"
-                        src={this.iconPath(elem.spec)}
-                        alt={elem.spec}
-                      />
+                      <img className="spec-icon" src={this.iconPath(elem.spec)} alt={elem.spec} />
                       <span className="difficulty">{getDifficultyLabel(elem.difficulty)}</span>
                       <span className="boss">{elem.name}</span>
                     </div>
@@ -88,25 +91,22 @@ class CharacterParsesList extends React.PureComponent {
                     </div>
                   </div>
                   <div className="col-md-1 text-right">
-                    {elem.advanced && (
-                      elem.gear
-                        .filter(this.itemFilter)
-                        .map(this.renderItem)
-                    )}
+                    {elem.advanced && elem.gear.filter(this.itemFilter).map(this.renderItem)}
                   </div>
                   <div className="col-md-3">
-                    {elem.advanced && elem.talents.map(talent => (
-                      <SpellIcon
-                        key={talent.id}
-                        id={talent.id}
-                        style={styles.icon}
-                      />
-                    ))}
+                    {elem.advanced &&
+                      elem.talents.map((talent) => (
+                        <SpellIcon key={talent.id} id={talent.id} style={styles.icon} />
+                      ))}
                   </div>
                   <div className="col-md-2" style={{ color: 'white', textAlign: 'right' }}>
                     {new Date(elem.start_time).toLocaleDateString()}
                     {elem.advanced && (
-                      <span className="glyphicon glyphicon-chevron-right" aria-hidden="true" style={{ marginLeft: 10 }} />
+                      <span
+                        className="glyphicon glyphicon-chevron-right"
+                        aria-hidden="true"
+                        style={{ marginLeft: 10 }}
+                      />
                     )}
                   </div>
                 </div>

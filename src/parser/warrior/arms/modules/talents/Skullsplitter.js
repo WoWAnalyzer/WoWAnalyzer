@@ -26,7 +26,11 @@ class Skullsplitter extends Analyzer {
     const avg = total / (Skullsplitter.casts || 1);
     return (
       <StatisticListBoxItem
-        title={<>Average <SpellLink id={SPELLS.SKULLSPLITTER_TALENT.id} /> damage</>}
+        title={
+          <>
+            Average <SpellLink id={SPELLS.SKULLSPLITTER_TALENT.id} /> damage
+          </>
+        }
         value={formatThousands(avg)}
         valueTooltip={`Total Skullsplitter damage: ${formatThousands(total)}`}
       />

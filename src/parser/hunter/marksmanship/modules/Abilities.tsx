@@ -175,7 +175,9 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SOULFORGE_EMBERS_EFFECT.bonusID),
+          suggestion: this.selectedCombatant.hasLegendaryByBonusID(
+            SPELLS.SOULFORGE_EMBERS_EFFECT.bonusID,
+          ),
           recommendedEfficiency: 0.55,
         },
       },
@@ -187,7 +189,9 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SOULFORGE_EMBERS_EFFECT.bonusID),
+          suggestion: this.selectedCombatant.hasLegendaryByBonusID(
+            SPELLS.SOULFORGE_EMBERS_EFFECT.bonusID,
+          ),
           recommendedEfficiency: 0.9,
         },
       },

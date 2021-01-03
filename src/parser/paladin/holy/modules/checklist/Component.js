@@ -130,10 +130,10 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
           <AbilityRequirement spell={SPELLS.RULE_OF_LAW_TALENT.id} />
         )}
         {combatant.hasCovenant(COVENANTS.VENTHYR.id) && (
-        <AbilityRequirement spell={SPELLS.ASHEN_HALLOW.id} />
+          <AbilityRequirement spell={SPELLS.ASHEN_HALLOW.id} />
         )}
         {combatant.hasCovenant(COVENANTS.KYRIAN.id) && (
-        <AbilityRequirement spell={SPELLS.DIVINE_TOLL.id} />
+          <AbilityRequirement spell={SPELLS.DIVINE_TOLL.id} />
         )}
         {/* We can't detect race, so disable this when it has never been cast. */}
         {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_MANA1.id) && (
@@ -148,9 +148,10 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
         }
         description={
           <Trans id="paladin.holy.modules.checklist.avoidFillerSpells.description">
-            <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> and <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} /> are inefficient spells to cast
-            compared to the alternatives. Try to only cast them when it will save someone's life or
-            when you have to move and all other instant cast spells are on cooldown.
+            <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> and{' '}
+            <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} /> are inefficient spells to cast compared to
+            the alternatives. Try to only cast them when it will save someone's life or when you
+            have to move and all other instant cast spells are on cooldown.
           </Trans>
         }
       >
@@ -196,62 +197,62 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
           </Trans>
         }
       >
-          {!combatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT.id) && (
-            <Requirement
-              name={
-                <Trans id="paladin.holy.modules.checklist.beaconOfLightAppliedPrepull">
-                  <SpellLink
-                    id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id}
-                    onClick={(e) => e.preventDefault()}
-                  />{' '}
-                  applied prepull
-                </Trans>
-              }
-              thresholds={thresholds.beaconUptimeBoL}
-            />
-          )}
-          {!combatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT.id) && (
-            <Requirement
-              name={
-                <Trans id="paladin.holy.modules.checklist.beaconOfVirtueTalentUptime">
-                  <SpellLink
-                    id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id}
-                    onClick={(e) => e.preventDefault()}
-                  />{' '}
-                  Uptime
-                </Trans>
-              }
-              thresholds={thresholds.beaconUptimeBoLUptime}
-            />
-          )}
-          {combatant.hasTalent(SPELLS.BEACON_OF_FAITH_TALENT.id) && (
-            <Requirement
-              name={
-                <Trans id="paladin.holy.modules.checklist.beaconOfFaithTalentAppliedPrepull">
-                  <SpellLink
-                    id={SPELLS.BEACON_OF_FAITH_TALENT.id}
-                    onClick={(e) => e.preventDefault()}
-                  />{' '}
-                  applied prepull
-                </Trans>
-              }
-              thresholds={thresholds.beaconUptimeBoF}
-            />
-          )}
-          {combatant.hasTalent(SPELLS.BEACON_OF_FAITH_TALENT.id) && (
-            <Requirement
-              name={
-                <Trans id="paladin.holy.modules.checklist.beaconOfFaithTalentUptime">
-                  <SpellLink
-                    id={SPELLS.BEACON_OF_FAITH_TALENT.id}
-                    onClick={(e) => e.preventDefault()}
-                  />{' '}
-                  Uptime
-                </Trans>
-              }
-              thresholds={thresholds.beaconUptimeBoFUptime}
-            />
-          )}
+        {!combatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT.id) && (
+          <Requirement
+            name={
+              <Trans id="paladin.holy.modules.checklist.beaconOfLightAppliedPrepull">
+                <SpellLink
+                  id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id}
+                  onClick={(e) => e.preventDefault()}
+                />{' '}
+                applied prepull
+              </Trans>
+            }
+            thresholds={thresholds.beaconUptimeBoL}
+          />
+        )}
+        {!combatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT.id) && (
+          <Requirement
+            name={
+              <Trans id="paladin.holy.modules.checklist.beaconOfVirtueTalentUptime">
+                <SpellLink
+                  id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id}
+                  onClick={(e) => e.preventDefault()}
+                />{' '}
+                Uptime
+              </Trans>
+            }
+            thresholds={thresholds.beaconUptimeBoLUptime}
+          />
+        )}
+        {combatant.hasTalent(SPELLS.BEACON_OF_FAITH_TALENT.id) && (
+          <Requirement
+            name={
+              <Trans id="paladin.holy.modules.checklist.beaconOfFaithTalentAppliedPrepull">
+                <SpellLink
+                  id={SPELLS.BEACON_OF_FAITH_TALENT.id}
+                  onClick={(e) => e.preventDefault()}
+                />{' '}
+                applied prepull
+              </Trans>
+            }
+            thresholds={thresholds.beaconUptimeBoF}
+          />
+        )}
+        {combatant.hasTalent(SPELLS.BEACON_OF_FAITH_TALENT.id) && (
+          <Requirement
+            name={
+              <Trans id="paladin.holy.modules.checklist.beaconOfFaithTalentUptime">
+                <SpellLink
+                  id={SPELLS.BEACON_OF_FAITH_TALENT.id}
+                  onClick={(e) => e.preventDefault()}
+                />{' '}
+                Uptime
+              </Trans>
+            }
+            thresholds={thresholds.beaconUptimeBoFUptime}
+          />
+        )}
         <Requirement
           name={
             <Trans id="paladin.holy.modules.checklist.directBeaconHealing">

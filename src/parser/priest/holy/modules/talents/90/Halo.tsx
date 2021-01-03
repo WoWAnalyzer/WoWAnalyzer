@@ -19,7 +19,10 @@ class Halo extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.HALO_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.HALO_DAMAGE), this.onDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.HALO_DAMAGE),
+      this.onDamage,
+    );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HALO_HEAL), this.onHeal);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HALO_TALENT), this.onCast);
   }
@@ -46,7 +49,8 @@ class Halo extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(6)}
       >
         <BoringSpellValueText spell={SPELLS.HALO_TALENT}>
-          <ItemHealingDone amount={this.haloHealing} /><br />
+          <ItemHealingDone amount={this.haloHealing} />
+          <br />
           <ItemDamageDone amount={this.haloDamage} />
         </BoringSpellValueText>
       </Statistic>

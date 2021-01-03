@@ -19,13 +19,17 @@ class ShadowBladesUptime extends Analyzer {
   protected enemies!: Enemies;
 
   statistic() {
-    const shadowBladesUptime = this.selectedCombatant.getBuffUptime(SPELLS.SHADOW_BLADES.id) / this.owner.fightDuration;
+    const shadowBladesUptime =
+      this.selectedCombatant.getBuffUptime(SPELLS.SHADOW_BLADES.id) / this.owner.fightDuration;
     return (
-      <Statistic
-        size="flexible"
-        category={STATISTIC_CATEGORY.GENERAL}
-      >
-        <BoringValueText label={<><SpellIcon id={SPELLS.SHADOW_BLADES.id} /> Shadow Blades Uptime</>}>
+      <Statistic size="flexible" category={STATISTIC_CATEGORY.GENERAL}>
+        <BoringValueText
+          label={
+            <>
+              <SpellIcon id={SPELLS.SHADOW_BLADES.id} /> Shadow Blades Uptime
+            </>
+          }
+        >
           {formatPercentage(shadowBladesUptime)} %
         </BoringValueText>
       </Statistic>

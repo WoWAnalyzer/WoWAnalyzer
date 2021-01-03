@@ -10,7 +10,7 @@ import PreparationRule from 'parser/shared/modules/features/Checklist/Preparatio
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 
 const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }) => {
-  const AbilityRequirement = props => (
+  const AbilityRequirement = (props) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
@@ -27,11 +27,19 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }) =>
         description="These should generally always be recharging to maximize efficiency."
       >
         <AbilityRequirement spell={SPELLS.BLOOD_BOIL.id} />
-        {combatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id) && <AbilityRequirement spell={SPELLS.DEATH_AND_DECAY.id} />}
-        {combatant.hasTalent(SPELLS.BLOODDRINKER_TALENT.id) && <AbilityRequirement spell={SPELLS.BLOODDRINKER_TALENT.id} />}
+        {combatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.DEATH_AND_DECAY.id} />
+        )}
+        {combatant.hasTalent(SPELLS.BLOODDRINKER_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.BLOODDRINKER_TALENT.id} />
+        )}
         {combatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id) && (
           <Requirement
-            name={<><SpellLink id={SPELLS.CRIMSON_SCOURGE.id} /> procs spent</>}
+            name={
+              <>
+                <SpellLink id={SPELLS.CRIMSON_SCOURGE.id} /> procs spent
+              </>
+            }
             thresholds={thresholds.crimsonScourge}
           />
         )}
@@ -40,20 +48,22 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }) =>
         name="Do not overcap your resources"
         description="Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities. Try to spend Runic Power before reaching the maximum amount and always keep atleast 3 Runes on cooldown to avoid wasting resources."
       >
+        <Requirement name="Runic Power Efficiency" thresholds={thresholds.runicPower} />
+        <Requirement name="Rune Efficiency" thresholds={thresholds.runes} />
         <Requirement
-          name="Runic Power Efficiency"
-          thresholds={thresholds.runicPower}
-        />
-        <Requirement
-          name="Rune Efficiency"
-          thresholds={thresholds.runes}
-        />
-        <Requirement
-          name={<><SpellLink id={SPELLS.MARROWREND.id} /> Efficiency</>}
+          name={
+            <>
+              <SpellLink id={SPELLS.MARROWREND.id} /> Efficiency
+            </>
+          }
           thresholds={thresholds.marrowrend}
         />
         <Requirement
-          name={<><SpellLink id={SPELLS.DEATHS_CARESS.id} /> Efficiency</>}
+          name={
+            <>
+              <SpellLink id={SPELLS.DEATHS_CARESS.id} /> Efficiency
+            </>
+          }
           thresholds={thresholds.deathsCaress}
         />
       </Rule>
@@ -65,13 +75,21 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }) =>
         <AbilityRequirement spell={SPELLS.DANCING_RUNE_WEAPON.id} />
         {combatant.hasTalent(SPELLS.CONSUMPTION_TALENT.id) && (
           <Requirement
-            name={<>Possible <SpellLink id={SPELLS.CONSUMPTION_TALENT.id} /> Hits</>}
+            name={
+              <>
+                Possible <SpellLink id={SPELLS.CONSUMPTION_TALENT.id} /> Hits
+              </>
+            }
             thresholds={thresholds.consumption}
           />
         )}
         {combatant.hasTalent(SPELLS.BONESTORM_TALENT.id) && (
           <Requirement
-            name={<><SpellLink id={SPELLS.BONESTORM_TALENT.id} /> Efficiency</>}
+            name={
+              <>
+                <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> Efficiency
+              </>
+            }
             thresholds={thresholds.bonestorm}
           />
         )}
@@ -81,21 +99,37 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }) =>
         description="It is important to maintain these as they contribute a large amount to your DPS and HPS."
       >
         <Requirement
-          name={<><SpellLink id={SPELLS.BLOOD_PLAGUE.id} /> Uptime</>}
+          name={
+            <>
+              <SpellLink id={SPELLS.BLOOD_PLAGUE.id} /> Uptime
+            </>
+          }
           thresholds={thresholds.bloodPlague}
         />
         {combatant.hasTalent(SPELLS.MARK_OF_BLOOD_TALENT.id) && (
           <Requirement
-            name={<><SpellLink id={SPELLS.MARK_OF_BLOOD_TALENT.id} /> Uptime</>}
+            name={
+              <>
+                <SpellLink id={SPELLS.MARK_OF_BLOOD_TALENT.id} /> Uptime
+              </>
+            }
             thresholds={thresholds.markOfBlood}
           />
         )}
         <Requirement
-          name={<><SpellLink id={SPELLS.BONE_SHIELD.id} /> Uptime</>}
+          name={
+            <>
+              <SpellLink id={SPELLS.BONE_SHIELD.id} /> Uptime
+            </>
+          }
           thresholds={thresholds.boneShield}
         />
         <Requirement
-          name={<><SpellLink id={SPELLS.OSSUARY.id} /> Efficiency</>}
+          name={
+            <>
+              <SpellLink id={SPELLS.OSSUARY.id} /> Efficiency
+            </>
+          }
           thresholds={thresholds.ossuary}
         />
       </Rule>
@@ -106,8 +140,12 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }) =>
         <AbilityRequirement spell={SPELLS.VAMPIRIC_BLOOD.id} />
         <AbilityRequirement spell={SPELLS.ICEBOUND_FORTITUDE.id} />
         <AbilityRequirement spell={SPELLS.ANTI_MAGIC_SHELL.id} />
-        {combatant.hasTalent(SPELLS.RUNE_TAP.id) && <AbilityRequirement spell={SPELLS.RUNE_TAP.id} />}
-        {combatant.hasTalent(SPELLS.TOMBSTONE_TALENT.id) && <AbilityRequirement spell={SPELLS.TOMBSTONE_TALENT.id} />}
+        {combatant.hasTalent(SPELLS.RUNE_TAP.id) && (
+          <AbilityRequirement spell={SPELLS.RUNE_TAP.id} />
+        )}
+        {combatant.hasTalent(SPELLS.TOMBSTONE_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.TOMBSTONE_TALENT.id} />
+        )}
       </Rule>
       <PreparationRule thresholds={thresholds} />
     </Checklist>

@@ -35,7 +35,6 @@ class Checklist extends BaseChecklist {
     alwaysBeCasting: AlwaysBeCasting,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     waterElemental: WaterElemental,
-
   };
   protected combatants!: Combatants;
   protected castEfficiency!: CastEfficiency;

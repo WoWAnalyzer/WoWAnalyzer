@@ -113,7 +113,7 @@ class CombatLogParser extends CoreCombatLogParser {
     superStrain: Superstrain,
 
     // Covenants
-    swarmingMist: SwarmingMist
+    swarmingMist: SwarmingMist,
   };
 }
 

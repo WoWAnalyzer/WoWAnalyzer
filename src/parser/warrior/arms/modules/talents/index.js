@@ -37,7 +37,7 @@ class TalentStatisticBox extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = Object.keys(this.constructor.dependencies)
-      .map(name => this[name].active)
+      .map((name) => this[name].active)
       .includes(true);
   }
 
@@ -48,16 +48,12 @@ class TalentStatisticBox extends Analyzer {
         position={STATISTIC_ORDER.CORE(2)}
         tooltip="This provides an overview of the damage contributions of various talents. This isn't meant as a way to 1:1 evaluate talents, as some talents bring other strengths to the table than pure damage."
       >
-        {Object.keys(this.constructor.dependencies).map(name => {
+        {Object.keys(this.constructor.dependencies).map((name) => {
           const module = this[name];
           if (!module.active) {
             return null;
           }
-          return (
-            <React.Fragment key={name}>
-              {module.subStatistic()}
-            </React.Fragment>
-          );
+          return <React.Fragment key={name}>{module.subStatistic()}</React.Fragment>;
         })}
       </StatisticsListBox>
     );

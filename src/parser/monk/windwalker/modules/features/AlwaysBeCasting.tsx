@@ -25,13 +25,22 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<span>Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells.</span>)
-          .icon('spell_mage_altertime')
-          .actual(t({
-      id: "monk.windwalker.alwaysBeCasting.downtime",
-      message: `${formatPercentage(actual)}% downtime`
-    }))
-          .recommended(`<${formatPercentage(recommended)}% is recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <span>
+          Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay
+          between casting spells.
+        </span>,
+      )
+        .icon('spell_mage_altertime')
+        .actual(
+          t({
+            id: 'monk.windwalker.alwaysBeCasting.downtime',
+            message: `${formatPercentage(actual)}% downtime`,
+          }),
+        )
+        .recommended(`<${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statisticOrder = STATISTIC_ORDER.CORE(10);

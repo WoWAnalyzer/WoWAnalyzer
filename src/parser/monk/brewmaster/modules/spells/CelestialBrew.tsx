@@ -3,7 +3,13 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { AbsorbedEvent, ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, {
+  AbsorbedEvent,
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  CastEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import SpellIcon from 'common/SpellIcon';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
@@ -18,11 +24,11 @@ const PURIFIED_CHI_WINDOW = 150;
 const WASTED_THRESHOLD = 0.75;
 
 type Absorb = {
-  cast: CastEvent,
-  timestamp: number, // timestamp relative to start time
-  amount: number,
-  wasted: number,
-  stacks: number,
+  cast: CastEvent;
+  timestamp: number; // timestamp relative to start time
+  amount: number;
+  wasted: number;
+  stacks: number;
 };
 
 class CelestialBrew extends Analyzer {
@@ -36,19 +42,34 @@ class CelestialBrew extends Analyzer {
 
     this._absorbs = [];
 
-    this.addEventListener(Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.CELESTIAL_BREW), this._cbAbsorb);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CELESTIAL_BREW), this._resetAbsorb);
+    this.addEventListener(
+      Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.CELESTIAL_BREW),
+      this._cbAbsorb,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CELESTIAL_BREW),
+      this._resetAbsorb,
+    );
     this.addEventListener(Events.removebuff.spell(SPELLS.CELESTIAL_BREW), this._expireAbsorb);
-    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.PURIFIED_CHI), this._purifiedChiApplied);
-    this.addEventListener(Events.applybuffstack.to(SELECTED_PLAYER).spell(SPELLS.PURIFIED_CHI), this._purifiedChiStackApplied);
-    this.addEventListener(Events.removebuff.spell(SPELLS.PURIFIED_CHI).to(SELECTED_PLAYER), this._expirePurifiedChi);
+    this.addEventListener(
+      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.PURIFIED_CHI),
+      this._purifiedChiApplied,
+    );
+    this.addEventListener(
+      Events.applybuffstack.to(SELECTED_PLAYER).spell(SPELLS.PURIFIED_CHI),
+      this._purifiedChiStackApplied,
+    );
+    this.addEventListener(
+      Events.removebuff.spell(SPELLS.PURIFIED_CHI).to(SELECTED_PLAYER),
+      this._expirePurifiedChi,
+    );
     this.addEventListener(Events.fightend, this._finalize);
   }
 
   get goodCastSuggestion() {
-    const actual = this._absorbs
-      .filter(({ amount, wasted }) => amount / (amount + wasted) >= WASTED_THRESHOLD)
-      .length / this._absorbs.length;
+    const actual =
+      this._absorbs.filter(({ amount, wasted }) => amount / (amount + wasted) >= WASTED_THRESHOLD)
+        .length / this._absorbs.length;
     return {
       actual,
       isLessThan: {
@@ -68,19 +89,31 @@ class CelestialBrew extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.goodCastSuggestion)
-      .addSuggestion((suggest, actual, recommended) => suggest(
-        <>You should try to use <SpellLink id={SPELLS.CELESTIAL_BREW.id} /> when most or all of the absorb will be consumed.</>,
+    when(this.goodCastSuggestion).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You should try to use <SpellLink id={SPELLS.CELESTIAL_BREW.id} /> when most or all of the
+          absorb will be consumed.
+        </>,
       )
         .icon(SPELLS.CELESTIAL_BREW.icon)
-        .actual(`${formatPercentage(actual)}% of your absorbs expired with more than 25% remaining.`)
-        .recommended(`< ${formatPercentage(recommended)}% is recommended`));
+        .actual(
+          `${formatPercentage(actual)}% of your absorbs expired with more than 25% remaining.`,
+        )
+        .recommended(`< ${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
-    const avgAbsorb = this._absorbs.length === 0 ? 0 : this._absorbs.reduce((total, absorb) => total + absorb.amount, 0) / this._absorbs.length;
+    const avgAbsorb =
+      this._absorbs.length === 0
+        ? 0
+        : this._absorbs.reduce((total, absorb) => total + absorb.amount, 0) / this._absorbs.length;
     const wastedAbsorb = this._absorbs.reduce((total, absorb) => total + absorb.wasted, 0);
-    const avgStacks = this._absorbs.length === 0 ? 0 : this._absorbs.reduce((total, absorb) => total + absorb.stacks, 0) / this._absorbs.length;
+    const avgStacks =
+      this._absorbs.length === 0
+        ? 0
+        : this._absorbs.reduce((total, absorb) => total + absorb.stacks, 0) / this._absorbs.length;
 
     const spec = {
       mark: 'bar' as const,
@@ -132,8 +165,18 @@ class CelestialBrew extends Analyzer {
         tooltip: [
           { field: 'time_label', type: 'nominal' as const, title: 'Time' },
           { field: 'stacks', type: 'ordinal' as const, title: 'Purified Chi Stacks' },
-          { field: 'amount', type: 'quantitative' as const, title: 'Damage Absorbed', format: '.3~s' },
-          { field: 'wasted', type: 'quantitative' as const, title: 'Absorb Wasted', format: '.3~s' },
+          {
+            field: 'amount',
+            type: 'quantitative' as const,
+            title: 'Damage Absorbed',
+            format: '.3~s',
+          },
+          {
+            field: 'wasted',
+            type: 'quantitative' as const,
+            title: 'Absorb Wasted',
+            format: '.3~s',
+          },
         ],
       },
     };
@@ -141,15 +184,24 @@ class CelestialBrew extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            Does not include <strong>{formatNumber(wastedAbsorb)} wasted absorb</strong> (avg: <strong>{formatNumber(wastedAbsorb / this._absorbs.length)}</strong>).<br />
-
-            You cast Celestial Brew with an average of <strong>{avgStacks.toFixed(2)} stacks</strong> of Purified Chi, increasing the absorb amount by <strong>{formatPercentage(avgStacks * PURIFIED_CHI_PCT)}%</strong>.
+            Does not include <strong>{formatNumber(wastedAbsorb)} wasted absorb</strong> (avg:{' '}
+            <strong>{formatNumber(wastedAbsorb / this._absorbs.length)}</strong>).
+            <br />
+            You cast Celestial Brew with an average of{' '}
+            <strong>{avgStacks.toFixed(2)} stacks</strong> of Purified Chi, increasing the absorb
+            amount by <strong>{formatPercentage(avgStacks * PURIFIED_CHI_PCT)}%</strong>.
           </>
-        )}
+        }
       >
-        <BoringValue label={<><SpellIcon id={SPELLS.CELESTIAL_BREW.id} /> Avg. Absorb per Celestial Brew</>}>
+        <BoringValue
+          label={
+            <>
+              <SpellIcon id={SPELLS.CELESTIAL_BREW.id} /> Avg. Absorb per Celestial Brew
+            </>
+          }
+        >
           <>
             {formatNumber(avgAbsorb)} % <br />
             <FooterChart spec={spec} data={this._absorbs} />

@@ -40,9 +40,7 @@ interface FullscreenErrorBackgroundImageProps {
   image?: string;
 }
 
-const FullscreenErrorBackgroundImage = ({
-  image,
-}: FullscreenErrorBackgroundImageProps) => (
+const FullscreenErrorBackgroundImage = ({ image }: FullscreenErrorBackgroundImageProps) => (
   <div style={styles.container}>
     <div
       style={{

@@ -9,14 +9,14 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { formatPercentage } from 'common/format';
-import { STORMSTRIKE_CAST_SPELLS, STORMSTRIKE_DAMAGE_SPELLS } from 'parser/shaman/enhancement/constants';
+import {
+  STORMSTRIKE_CAST_SPELLS,
+  STORMSTRIKE_DAMAGE_SPELLS,
+} from 'parser/shaman/enhancement/constants';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
-const MAIN_HAND_DAMAGES = [
-  SPELLS.STORMSTRIKE_DAMAGE.id,
-  SPELLS.WINDSTRIKE_DAMAGE.id,
-];
+const MAIN_HAND_DAMAGES = [SPELLS.STORMSTRIKE_DAMAGE.id, SPELLS.WINDSTRIKE_DAMAGE.id];
 
 const STORMFLURRY = {
   WINDOW: 400,
@@ -46,8 +46,7 @@ class Stormflurry extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.STORMFLURRY_TALENT.id);
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER)
-        .spell(STORMSTRIKE_DAMAGE_SPELLS),
+      Events.damage.by(SELECTED_PLAYER).spell(STORMSTRIKE_DAMAGE_SPELLS),
       this.onStormstrikeDamage,
     );
   }
@@ -55,7 +54,7 @@ class Stormflurry extends Analyzer {
   get totalStormstrikeCasts() {
     let casts = 0;
 
-    STORMSTRIKE_CAST_SPELLS.forEach(spell => {
+    STORMSTRIKE_CAST_SPELLS.forEach((spell) => {
       casts += this.abilityTracker.getAbility(spell.id).casts || 0;
     });
 
@@ -63,7 +62,11 @@ class Stormflurry extends Analyzer {
   }
 
   onStormstrikeDamage(event: DamageEvent): void {
-    const lastDmg = this.eventHistory.last(1, STORMFLURRY.WINDOW, Events.damage.by(SELECTED_PLAYER).spell(STORMSTRIKE_DAMAGE_SPELLS));
+    const lastDmg = this.eventHistory.last(
+      1,
+      STORMFLURRY.WINDOW,
+      Events.damage.by(SELECTED_PLAYER).spell(STORMSTRIKE_DAMAGE_SPELLS),
+    );
     if (!lastDmg.length) {
       return;
     }
@@ -81,11 +84,16 @@ class Stormflurry extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={`You had ${this.extraHits} extra Stormstrike${this.selectedCombatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT) ? `/Windstrike` : ``} hits (+${formatPercentage(this.extraHits / this.totalStormstrikeCasts)}%).`}
+        tooltip={`You had ${this.extraHits} extra Stormstrike${
+          this.selectedCombatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT)
+            ? `/Windstrike`
+            : ``
+        } hits (+${formatPercentage(this.extraHits / this.totalStormstrikeCasts)}%).`}
       >
         <BoringSpellValueText spell={SPELLS.STORMFLURRY_TALENT}>
           <>
-            <ItemDamageDone amount={this.extraDamage} /><br />
+            <ItemDamageDone amount={this.extraDamage} />
+            <br />
           </>
         </BoringSpellValueText>
       </Statistic>

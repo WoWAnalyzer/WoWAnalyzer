@@ -45,12 +45,14 @@ class Heartbreaker extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(1)}
         value={this.totalRPGained}
         label="Runic Power gained"
-        tooltip={(
+        tooltip={
           <>
-            Resulting in about {Math.floor(this.totalRPGained / DEATHSTRIKE_COST)} extra Death Strikes.<br />
+            Resulting in about {Math.floor(this.totalRPGained / DEATHSTRIKE_COST)} extra Death
+            Strikes.
+            <br />
             Your Heart Strike hit on average {this.averageHearStrikeHits} targets.
           </>
-        )}
+        }
       />
     );
   }

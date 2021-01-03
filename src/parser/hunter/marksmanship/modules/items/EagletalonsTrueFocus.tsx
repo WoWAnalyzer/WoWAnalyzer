@@ -14,12 +14,13 @@ import { EAGLETALONS_TRUE_FOCUS_COST_REDUCTION } from 'parser/hunter/marksmanshi
  */
 
 class EagletalonsTrueFocus extends Analyzer {
-
   focusSaved = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.EAGLETALONS_TRUE_FOCUS_EFFECT.bonusID);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(
+      SPELLS.EAGLETALONS_TRUE_FOCUS_EFFECT.bonusID,
+    );
     if (!this.active) {
       return;
     }
@@ -30,7 +31,9 @@ class EagletalonsTrueFocus extends Analyzer {
     if (!this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
       return;
     }
-    const resource = event.classResources?.find(resource => resource.type === RESOURCE_TYPES.FOCUS.id);
+    const resource = event.classResources?.find(
+      (resource) => resource.type === RESOURCE_TYPES.FOCUS.id,
+    );
     if (!resource) {
       return;
     }

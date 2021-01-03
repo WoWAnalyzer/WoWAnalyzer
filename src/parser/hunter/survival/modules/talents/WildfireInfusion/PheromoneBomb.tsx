@@ -40,10 +40,24 @@ class PheromoneBomb extends Analyzer {
 
     this.active = this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id);
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.KILL_COMMAND_DAMAGE_SV), this.onPetDamage);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.PHEROMONE_BOMB_WFI_DOT, SPELLS.PHEROMONE_BOMB_WFI_IMPACT]), this.onPlayerDamage);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PHEROMONE_BOMB_WFI), this.onBombCast);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.KILL_COMMAND_CAST_SV), this.onKillCommandCast);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.KILL_COMMAND_DAMAGE_SV),
+      this.onPetDamage,
+    );
+    this.addEventListener(
+      Events.damage
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.PHEROMONE_BOMB_WFI_DOT, SPELLS.PHEROMONE_BOMB_WFI_IMPACT]),
+      this.onPlayerDamage,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PHEROMONE_BOMB_WFI),
+      this.onBombCast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.KILL_COMMAND_CAST_SV),
+      this.onKillCommandCast,
+    );
   }
 
   onPetDamage(event: DamageEvent) {
@@ -51,7 +65,7 @@ class PheromoneBomb extends Analyzer {
     if (!enemy || !enemy.hasBuff(SPELLS.PHEROMONE_BOMB_WFI_DOT.id)) {
       return;
     }
-    if (event.timestamp < (this.kcCastTimestamp + MS_BUFFER)) {
+    if (event.timestamp < this.kcCastTimestamp + MS_BUFFER) {
       this.focusGained += SV_KILL_COMMAND_FOCUS_GAIN;
       this.resets += 1;
     }
@@ -75,7 +89,7 @@ class PheromoneBomb extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(2)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        dropdown={(
+        dropdown={
           <>
             <table className="table table-condensed">
               <thead>
@@ -94,7 +108,7 @@ class PheromoneBomb extends Analyzer {
               </tbody>
             </table>
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.PHEROMONE_BOMB_WFI}>
           <>

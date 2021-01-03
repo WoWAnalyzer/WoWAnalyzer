@@ -13,7 +13,11 @@ import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Che
 const ArmWarriorChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
   const DotUptime: any = (props: any) => (
     <Requirement
-      name={(<><SpellLink id={props.id} icon /> uptime</>)}
+      name={
+        <>
+          <SpellLink id={props.id} icon /> uptime
+        </>
+      }
       thresholds={props.thresholds}
     />
   );
@@ -35,40 +39,93 @@ const ArmWarriorChecklist = ({ combatant, castEfficiency, thresholds }: any) => 
     <Checklist>
       <Rule
         name="Use core abilities and offensive cooldowns as often as possible"
-        description={(
+        description={
           <>
-            Spells such as <SpellLink id={SPELLS.COLOSSUS_SMASH.id} /> (or <SpellLink id={SPELLS.WARBREAKER_TALENT.id} /> if talented), <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> and <SpellLink id={SPELLS.OVERPOWER.id} /> are your most efficient spells available, try to cast them as much as possible.
-            Keep in mind that it is sometimes more useful to keep <SpellLink id={SPELLS.BLADESTORM.id} /> (or <SpellLink id={SPELLS.RAVAGER_TALENT_ARMS.id} />) and use it when several targets are present in the fight. &nbsp;
-            <a href="https://www.wowhead.com/arms-warrior-rotation-guide" target="_blank" rel="noopener noreferrer">More info.</a>
+            Spells such as <SpellLink id={SPELLS.COLOSSUS_SMASH.id} /> (or{' '}
+            <SpellLink id={SPELLS.WARBREAKER_TALENT.id} /> if talented),{' '}
+            <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> and <SpellLink id={SPELLS.OVERPOWER.id} />{' '}
+            are your most efficient spells available, try to cast them as much as possible. Keep in
+            mind that it is sometimes more useful to keep <SpellLink id={SPELLS.BLADESTORM.id} />{' '}
+            (or <SpellLink id={SPELLS.RAVAGER_TALENT_ARMS.id} />) and use it when several targets
+            are present in the fight. &nbsp;
+            <a
+              href="https://www.wowhead.com/arms-warrior-rotation-guide"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              More info.
+            </a>
           </>
-        )}
+        }
       >
-        <AbilityRequirement spell={combatant.hasTalent(SPELLS.WARBREAKER_TALENT.id) ? SPELLS.WARBREAKER_TALENT.id : SPELLS.COLOSSUS_SMASH.id} />
-        <AbilityRequirement spell={combatant.hasTalent(SPELLS.RAVAGER_TALENT_ARMS.id) ? SPELLS.RAVAGER_TALENT_ARMS.id : SPELLS.BLADESTORM.id} />
-        {combatant.hasTalent(SPELLS.SKULLSPLITTER_TALENT.id) && <AbilityRequirement spell={SPELLS.SKULLSPLITTER_TALENT.id} />}
+        <AbilityRequirement
+          spell={
+            combatant.hasTalent(SPELLS.WARBREAKER_TALENT.id)
+              ? SPELLS.WARBREAKER_TALENT.id
+              : SPELLS.COLOSSUS_SMASH.id
+          }
+        />
+        <AbilityRequirement
+          spell={
+            combatant.hasTalent(SPELLS.RAVAGER_TALENT_ARMS.id)
+              ? SPELLS.RAVAGER_TALENT_ARMS.id
+              : SPELLS.BLADESTORM.id
+          }
+        />
+        {combatant.hasTalent(SPELLS.SKULLSPLITTER_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.SKULLSPLITTER_TALENT.id} />
+        )}
         <AbilityRequirement spell={SPELLS.OVERPOWER.id} />
-        {combatant.hasTalent(SPELLS.AVATAR_TALENT.id) && <AbilityRequirement spell={SPELLS.AVATAR_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.REND_TALENT.id) && <DotUptime id={SPELLS.REND_TALENT.id} thresholds={thresholds.rend} />}
-        {combatant.hasTalent(SPELLS.DEADLY_CALM_TALENT.id) && <AbilityRequirement spell={SPELLS.DEADLY_CALM_TALENT.id} />}
-        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && <AbilityRequirement spell={SPELLS.ANCIENT_AFTERSHOCK.id} />}
-        {combatant.hasCovenant(COVENANTS.KYRIAN.id) && <AbilityRequirement spell={SPELLS.SPEAR_OF_BASTION.id} />}
-        {combatant.hasCovenant(COVENANTS.NECROLORD.id) && <AbilityRequirement spell={SPELLS.CONQUERORS_BANNER.id} />}
+        {combatant.hasTalent(SPELLS.AVATAR_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.AVATAR_TALENT.id} />
+        )}
+        {combatant.hasTalent(SPELLS.REND_TALENT.id) && (
+          <DotUptime id={SPELLS.REND_TALENT.id} thresholds={thresholds.rend} />
+        )}
+        {combatant.hasTalent(SPELLS.DEADLY_CALM_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.DEADLY_CALM_TALENT.id} />
+        )}
+        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
+          <AbilityRequirement spell={SPELLS.ANCIENT_AFTERSHOCK.id} />
+        )}
+        {combatant.hasCovenant(COVENANTS.KYRIAN.id) && (
+          <AbilityRequirement spell={SPELLS.SPEAR_OF_BASTION.id} />
+        )}
+        {combatant.hasCovenant(COVENANTS.NECROLORD.id) && (
+          <AbilityRequirement spell={SPELLS.CONQUERORS_BANNER.id} />
+        )}
       </Rule>
 
       <Rule
-        name={(<>Use <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> efficiently</>)}
-        description={(
+        name={
           <>
-            Mortal Strike shouldn't be used during the execution phase, you should cast it as much as possible when the target is above 20% (or 35% with <SpellLink id={SPELLS.MASSACRE_TALENT_ARMS.id} />) but avoid casting it when you reach the execution phase and use <SpellLink id={SPELLS.EXECUTE.id} /> instead since it is more rage efficient.
+            Use <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> efficiently
           </>
-        )}
+        }
+        description={
+          <>
+            Mortal Strike shouldn't be used during the execution phase, you should cast it as much
+            as possible when the target is above 20% (or 35% with{' '}
+            <SpellLink id={SPELLS.MASSACRE_TALENT_ARMS.id} />) but avoid casting it when you reach
+            the execution phase and use <SpellLink id={SPELLS.EXECUTE.id} /> instead since it is
+            more rage efficient.
+          </>
+        }
       >
         <Requirement
-          name={(<><SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> outside execution phase</>)}
+          name={
+            <>
+              <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> outside execution phase
+            </>
+          }
           thresholds={thresholds.goodMortalStrike}
         />
         <Requirement
-          name={(<><SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> during execution phase</>)}
+          name={
+            <>
+              <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> during execution phase
+            </>
+          }
           thresholds={thresholds.badMortalStrike}
         />
       </Rule>
@@ -81,11 +138,14 @@ const ArmWarriorChecklist = ({ combatant, castEfficiency, thresholds }: any) => 
       </Rule>
       <Rule
         name="Avoid downtime"
-        description={(
+        description={
           <>
-            As a melee DPS, it is important to stay within range of the target and cast your abilities promptly. If you find yourself out of range, try using <SpellLink id={SPELLS.CHARGE.id} /> and <SpellLink id={SPELLS.HEROIC_LEAP.id} /> to get back more quickly.
+            As a melee DPS, it is important to stay within range of the target and cast your
+            abilities promptly. If you find yourself out of range, try using{' '}
+            <SpellLink id={SPELLS.CHARGE.id} /> and <SpellLink id={SPELLS.HEROIC_LEAP.id} /> to get
+            back more quickly.
           </>
-        )}
+        }
       >
         <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />
       </Rule>

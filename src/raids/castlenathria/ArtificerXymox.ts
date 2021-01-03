@@ -1,4 +1,4 @@
-import { Boss } from "raids/index";
+import { Boss } from 'raids/index';
 import DIFFICULTIES from 'game/DIFFICULTIES';
 import { EventType } from 'parser/core/Events';
 
@@ -7,7 +7,7 @@ import Headshot from './images/headshots/ArtificerXymox.jpg';
 
 const ArtificerXymox: Boss = {
   id: 2405,
-  name: 'Artificer Xy\'mox',
+  name: "Artificer Xy'mox",
   background: Background,
   headshot: Headshot,
   icon: 'achievement_raid_revendrethraid_artificerxymox',
@@ -21,14 +21,22 @@ const ArtificerXymox: Boss = {
       P1: {
         name: 'Stage 1: Crystal of Phantasms',
         multiple: false,
-        key: "P1",
-        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
+        key: 'P1',
+        difficulties: [
+          DIFFICULTIES.NORMAL_RAID,
+          DIFFICULTIES.HEROIC_RAID,
+          DIFFICULTIES.MYTHIC_RAID,
+        ],
       },
       P2: {
-        key: "P2",
+        key: 'P2',
         name: 'Stage 2: Root of Extinction',
         multiple: false,
-        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
+        difficulties: [
+          DIFFICULTIES.NORMAL_RAID,
+          DIFFICULTIES.HEROIC_RAID,
+          DIFFICULTIES.MYTHIC_RAID,
+        ],
         filter: {
           type: EventType.Health,
           guid: 166644,
@@ -37,10 +45,14 @@ const ArtificerXymox: Boss = {
         },
       },
       P3: {
-        key: "P3",
+        key: 'P3',
         name: 'Stage 3: Edge of Annihilation',
         multiple: false,
-        difficulties: [DIFFICULTIES.NORMAL_RAID, DIFFICULTIES.HEROIC_RAID, DIFFICULTIES.MYTHIC_RAID],
+        difficulties: [
+          DIFFICULTIES.NORMAL_RAID,
+          DIFFICULTIES.HEROIC_RAID,
+          DIFFICULTIES.MYTHIC_RAID,
+        ],
         filter: {
           type: EventType.Health,
           guid: 166644,

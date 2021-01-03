@@ -34,20 +34,29 @@ class CenarionWard extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            This is the sum of the direct healing from Cenarion Ward and the healing enabled by Cenarion Ward's extra mastery stack.
+            This is the sum of the direct healing from Cenarion Ward and the healing enabled by
+            Cenarion Ward's extra mastery stack.
             <ul>
-              <li>Direct: <strong>{formatPercentage(directPercent)}%</strong></li>
-              <li>Mastery: <strong>{formatPercentage(masteryPercent)}%</strong></li>
+              <li>
+                Direct: <strong>{formatPercentage(directPercent)}%</strong>
+              </li>
+              <li>
+                Mastery: <strong>{formatPercentage(masteryPercent)}%</strong>
+              </li>
             </ul>
           </>
-        )}
+        }
       >
-        <BoringValue label={<><SpellIcon id={SPELLS.CENARION_WARD_HEAL.id} /> Cenarion Ward healing</>}>
-          <>
-            {formatPercentage(totalPercent)} %
-          </>
+        <BoringValue
+          label={
+            <>
+              <SpellIcon id={SPELLS.CENARION_WARD_HEAL.id} /> Cenarion Ward healing
+            </>
+          }
+        >
+          <>{formatPercentage(totalPercent)} %</>
         </BoringValue>
       </Statistic>
     );

@@ -38,18 +38,41 @@ class CancelledCasts extends CoreCancelledCasts {
 
   suggestions(when: When) {
     let extraMovementSpell: any = null;
-    if(this.selectedCombatant.specId === SPECS.FROST_MAGE.id) {
-      extraMovementSpell = <>, and <SpellLink id={SPELLS.ICE_FLOES_TALENT.id} /></>;
-    } else if(this.selectedCombatant.specId === SPECS.ARCANE_MAGE.id) {
-      extraMovementSpell = <>, and <SpellLink id={SPELLS.SLIPSTREAM_TALENT.id} /></>;
+    if (this.selectedCombatant.specId === SPECS.FROST_MAGE.id) {
+      extraMovementSpell = (
+        <>
+          , and <SpellLink id={SPELLS.ICE_FLOES_TALENT.id} />
+        </>
+      );
+    } else if (this.selectedCombatant.specId === SPECS.ARCANE_MAGE.id) {
+      extraMovementSpell = (
+        <>
+          , and <SpellLink id={SPELLS.SLIPSTREAM_TALENT.id} />
+        </>
+      );
     }
     const joiner = extraMovementSpell === null ? ' and ' : ', ';
 
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>You cancelled {formatPercentage(this.cancelledPercentage)}% of your spells. While it is expected that you will have to cancel a few casts to react to boss mechanics or move, you should try to ensure that you are cancelling as few casts as possible by utilizing movement abilities such as <SpellLink id={SPELLS.BLINK.id} />{joiner}<SpellLink id={SPELLS.SHIMMER_TALENT.id} />{extraMovementSpell}.</>)
-          .icon('inv_misc_map_01')
-          .actual(<Trans id="mage.shared.suggestions.castsCancelled">{formatPercentage(actual)}% casts cancelled</Trans>)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You cancelled {formatPercentage(this.cancelledPercentage)}% of your spells. While it is
+          expected that you will have to cancel a few casts to react to boss mechanics or move, you
+          should try to ensure that you are cancelling as few casts as possible by utilizing
+          movement abilities such as <SpellLink id={SPELLS.BLINK.id} />
+          {joiner}
+          <SpellLink id={SPELLS.SHIMMER_TALENT.id} />
+          {extraMovementSpell}.
+        </>,
+      )
+        .icon('inv_misc_map_01')
+        .actual(
+          <Trans id="mage.shared.suggestions.castsCancelled">
+            {formatPercentage(actual)}% casts cancelled
+          </Trans>,
+        )
+        .recommended(`<${formatPercentage(recommended)}% is recommended`),
+    );
   }
 }
 

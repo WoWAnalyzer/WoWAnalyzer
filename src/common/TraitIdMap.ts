@@ -1,4 +1,4 @@
-const TraitIdMap: {[key: number]: number} = {
+const TraitIdMap: { [key: number]: number } = {
   13: 263978,
   14: 268594,
   15: 263962,

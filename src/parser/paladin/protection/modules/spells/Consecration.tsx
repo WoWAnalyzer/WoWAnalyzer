@@ -27,12 +27,12 @@ class Consecration extends Analyzer {
   }
 
   onPlayerDamage(event: DamageEvent) {
-    if(shouldIgnore(this.enemies, event)) {
+    if (shouldIgnore(this.enemies, event)) {
       return;
     }
 
     this._hitsTaken += 1;
-    if(this.selectedCombatant.hasBuff(SPELLS.CONSECRATION_BUFF.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.CONSECRATION_BUFF.id)) {
       this._hitsMitigated += 1;
     }
   }
@@ -47,34 +47,36 @@ class Consecration extends Analyzer {
       isLessThan: {
         minor: 0.95,
         average: 0.9,
-        major: .8,
+        major: 0.8,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
   }
 
   suggestions(when: When) {
-    when(this.uptimeSuggestionThresholds)
-        .addSuggestion((suggest, actual, recommended) => suggest('Your Consecration usage can be improved. Maintain it to reduce all incoming damage and refresh it during rotational downtime.')
-            .icon(SPELLS.CONSECRATION_CAST.icon)
-            .actual(t({
-      id: "paladin.protection.suggestions.consecration.hitsMitigated",
-      message: `${formatPercentage(actual)}% of hits were mitigated by Consecration`
-    }))
-            .recommended(`>${formatPercentage(recommended)}% is recommended`));
+    when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        'Your Consecration usage can be improved. Maintain it to reduce all incoming damage and refresh it during rotational downtime.',
+      )
+        .icon(SPELLS.CONSECRATION_CAST.icon)
+        .actual(
+          t({
+            id: 'paladin.protection.suggestions.consecration.hitsMitigated',
+            message: `${formatPercentage(actual)}% of hits were mitigated by Consecration`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
     return (
-      <Statistic
-        position={STATISTIC_ORDER.CORE(2)}
-        size="flexible"
-        >
-          <BoringSpellValue
-            spell={SPELLS.CONSECRATION_CAST}
-            value={`${formatPercentage(this.pctHitsMitigated)} %`}
-            label="Hits Mitigated w/ Consecration"
-          />
+      <Statistic position={STATISTIC_ORDER.CORE(2)} size="flexible">
+        <BoringSpellValue
+          spell={SPELLS.CONSECRATION_CAST}
+          value={`${formatPercentage(this.pctHitsMitigated)} %`}
+          label="Hits Mitigated w/ Consecration"
+        />
       </Statistic>
     );
   }

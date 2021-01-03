@@ -17,7 +17,6 @@ import Abilities from 'parser/core/modules/Abilities';
  */
 
 class BindingShot extends Analyzer {
-
   static dependencies = {
     abilities: Abilities,
   };
@@ -29,11 +28,25 @@ class BindingShot extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.BINDING_SHOT_TALENT.id) || this.selectedCombatant.spec === SPECS.MARKSMANSHIP_HUNTER;
-    this.category = this.selectedCombatant.spec === SPECS.MARKSMANSHIP_HUNTER ? STATISTIC_CATEGORY.GENERAL : STATISTIC_CATEGORY.TALENTS;
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.BINDING_SHOT_ROOT), this.onRoot);
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.BINDING_SHOT_TETHER), this.onTether);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BINDING_SHOT_TALENT), this.onCast);
+    this.active =
+      this.selectedCombatant.hasTalent(SPELLS.BINDING_SHOT_TALENT.id) ||
+      this.selectedCombatant.spec === SPECS.MARKSMANSHIP_HUNTER;
+    this.category =
+      this.selectedCombatant.spec === SPECS.MARKSMANSHIP_HUNTER
+        ? STATISTIC_CATEGORY.GENERAL
+        : STATISTIC_CATEGORY.TALENTS;
+    this.addEventListener(
+      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.BINDING_SHOT_ROOT),
+      this.onRoot,
+    );
+    this.addEventListener(
+      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.BINDING_SHOT_TETHER),
+      this.onTether,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BINDING_SHOT_TALENT),
+      this.onCast,
+    );
     if (this.active) {
       (options.abilities as Abilities).add({
         spell: SPELLS.BINDING_SHOT_TALENT,
@@ -61,14 +74,11 @@ class BindingShot extends Analyzer {
   statistic() {
     if (this._casts > 0) {
       return (
-        <Statistic
-          position={STATISTIC_ORDER.OPTIONAL(14)}
-          size="flexible"
-          category={this.category}
-        >
+        <Statistic position={STATISTIC_ORDER.OPTIONAL(14)} size="flexible" category={this.category}>
           <BoringSpellValueText spell={SPELLS.BINDING_SHOT_TALENT}>
             <>
-              {this._roots} <small>roots</small> / {this._applications} <small>possible</small> <br />
+              {this._roots} <small>roots</small> / {this._applications} <small>possible</small>{' '}
+              <br />
               {this._casts} <small>casts</small>
             </>
           </BoringSpellValueText>

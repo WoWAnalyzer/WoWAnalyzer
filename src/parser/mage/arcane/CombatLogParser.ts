@@ -48,7 +48,6 @@ import IreOfTheAscended from '../shared/modules/items/IreOfTheAscended';
 import TempestBarrier from '../shared/modules/items/TempestBarrier';
 import SiphonedMalice from '../shared/modules/items/SiphonedMalice';
 
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Normalizers

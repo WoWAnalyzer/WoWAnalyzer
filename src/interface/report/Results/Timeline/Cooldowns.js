@@ -27,7 +27,7 @@ class Cooldowns extends React.PureComponent {
   renderLanes(eventsBySpellId, growUp) {
     return Array.from(eventsBySpellId)
       .sort((a, b) => this.getSortIndex(growUp ? b : a) - this.getSortIndex(growUp ? a : b))
-      .map(item => this.renderLane(item));
+      .map((item) => this.renderLane(item));
   }
   renderLane([spellId, events]) {
     return (
@@ -44,11 +44,7 @@ class Cooldowns extends React.PureComponent {
   }
   render() {
     const { eventsBySpellId } = this.props;
-    return (
-      <div className="cooldowns">
-        {this.renderLanes(eventsBySpellId, false)}
-      </div>
-    );
+    return <div className="cooldowns">{this.renderLanes(eventsBySpellId, false)}</div>;
   }
 }
 

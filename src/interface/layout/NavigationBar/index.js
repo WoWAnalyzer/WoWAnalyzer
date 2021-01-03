@@ -21,7 +21,7 @@ import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 
 import './NavigationBar.scss';
 
-const NavigationBar = props => {
+const NavigationBar = (props) => {
   const { playerName, report, fight, user } = props;
 
   return (
@@ -40,21 +40,31 @@ const NavigationBar = props => {
         {report && (
           <div className="menu-item">
             <Link to={makeAnalyzerUrl(report)}>
-              {fight ? getFightName(report, fight) : <Trans id="interface.layout.navigationBar.fightSelection">Fight selection</Trans>}
+              {fight ? (
+                getFightName(report, fight)
+              ) : (
+                <Trans id="interface.layout.navigationBar.fightSelection">Fight selection</Trans>
+              )}
             </Link>
           </div>
         )}
         {report && (fight || playerName) && (
           <div className="menu-item">
             <Link to={makeAnalyzerUrl(report, fight ? fight.id : undefined)}>
-              {playerName || <Trans id="interface.layout.navigationBar.playerSelection">Player selection</Trans>}
+              {playerName || (
+                <Trans id="interface.layout.navigationBar.playerSelection">Player selection</Trans>
+              )}
             </Link>
           </div>
         )}
         <div className="spacer" />
         <div className="menu-item required">
           {user && user.premium ? (
-            <Tooltip content={<Trans id="interface.layout.navigationBar.premiumActive">Premium active</Trans>}>
+            <Tooltip
+              content={
+                <Trans id="interface.layout.navigationBar.premiumActive">Premium active</Trans>
+              }
+            >
               <Link to="/premium">
                 <PremiumIcon /> <span className="optional">{user.name}</span>
               </Link>

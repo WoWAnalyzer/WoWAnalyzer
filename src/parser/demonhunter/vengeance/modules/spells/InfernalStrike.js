@@ -45,7 +45,10 @@ class InfernalStrike extends Analyzer {
         Damage events are triggered, but this doesn't capture using the ability for mobility
     */
 
-    this.addEventListener(Events.cast.spell(SPELLS.INFERNAL_STRIKE).by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(
+      Events.cast.spell(SPELLS.INFERNAL_STRIKE).by(SELECTED_PLAYER),
+      this.onCast,
+    );
   }
 
   onCast(event) {
@@ -66,7 +69,6 @@ class InfernalStrike extends Analyzer {
     }
 
     this.infernalCharges--;
-
   }
 }
 

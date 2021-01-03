@@ -33,7 +33,10 @@ class HardHowlingBlastCasts extends Analyzer {
     if (!target) {
       return;
     }
-    if (!this.selectedCombatant.hasBuff(SPELLS.RIME.id, event.timestamp) && target.hasBuff(SPELLS.FROST_FEVER.id)) {
+    if (
+      !this.selectedCombatant.hasBuff(SPELLS.RIME.id, event.timestamp) &&
+      target.hasBuff(SPELLS.FROST_FEVER.id)
+    ) {
       this.castsWithoutRime += 1;
       debug && console.log(`Caught a HB hardcast at ${event.timestamp}`);
     }

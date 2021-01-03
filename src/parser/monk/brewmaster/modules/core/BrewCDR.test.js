@@ -12,7 +12,7 @@ describe('BrewCDR', () => {
       CombatLogParser,
       BrewCDR,
       path.resolve(__dirname, '../../integrationTests/example.zip'),
-      ana => ana.cooldownReductionRatio,
+      (ana) => ana.cooldownReductionRatio,
     ),
   );
 });

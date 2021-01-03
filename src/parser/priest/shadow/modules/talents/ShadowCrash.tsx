@@ -10,7 +10,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { formatNumber } from 'common/format';
 import AbilityTracker from 'parser/priest/shadow/modules/core/AbilityTracker';
-import Insanity from 'interface/icons/Insanity'
+import Insanity from 'interface/icons/Insanity';
 
 // Example Log: /report/zgBQ3kr6aAv19MXq/22-Normal+Zul+-+Kill+(2:26)/3-Selur
 class ShadowCrash extends Analyzer {
@@ -26,12 +26,20 @@ class ShadowCrash extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SHADOW_CRASH_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_CRASH_TALENT_DAMAGE), this.onDamage);
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_CRASH_TALENT), this.onEnergize);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_CRASH_TALENT_DAMAGE),
+      this.onDamage,
+    );
+    this.addEventListener(
+      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_CRASH_TALENT),
+      this.onEnergize,
+    );
   }
 
   get averageTargetsHit() {
-    return this.totalTargetsHit / this.abilityTracker.getAbility(SPELLS.SHADOW_CRASH_TALENT.id).casts;
+    return (
+      this.totalTargetsHit / this.abilityTracker.getAbility(SPELLS.SHADOW_CRASH_TALENT.id).casts
+    );
   }
 
   onDamage(event: DamageEvent) {
@@ -52,7 +60,8 @@ class ShadowCrash extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.SHADOW_CRASH_TALENT}>
           <>
-            <ItemDamageDone amount={this.damage} /><br />
+            <ItemDamageDone amount={this.damage} />
+            <br />
             <Insanity /> {formatNumber(this.insanityGained)} <small>Insanity generated</small>
           </>
         </BoringSpellValueText>

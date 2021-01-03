@@ -19,7 +19,10 @@ class RageTracker extends ResourceTracker {
     super(options);
     this.resource = RESOURCE_TYPES.RAGE;
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MELEE), this.onDamage);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MELEE), this.onDamageTaken);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MELEE),
+      this.onDamageTaken,
+    );
   }
 
   getReducedCost(event: CastEvent) {

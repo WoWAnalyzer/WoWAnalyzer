@@ -45,7 +45,12 @@ class StatValues extends BaseHealerStatValues {
     const spellId = event.ability.guid;
     const critChanceBreakdown = super._getCritChance(event);
 
-    const hasTidalWaves = this.selectedCombatant.hasBuff(SPELLS.TIDAL_WAVES_BUFF.id, event.timestamp, 0, BUFFER_MS);
+    const hasTidalWaves = this.selectedCombatant.hasBuff(
+      SPELLS.TIDAL_WAVES_BUFF.id,
+      event.timestamp,
+      0,
+      BUFFER_MS,
+    );
     if (spellId === SPELLS.HEALING_SURGE.id && hasTidalWaves) {
       critChanceBreakdown.baseCritChance += 0.4;
     }
@@ -69,13 +74,25 @@ class StatValues extends BaseHealerStatValues {
       return 0;
     }
     if (event.masteryEffectiveness === undefined) {
-      console.error('This spell does not have a known masteryEffectiveness:', event.ability.guid, event.ability.name);
+      console.error(
+        'This spell does not have a known masteryEffectiveness:',
+        event.ability.guid,
+        event.ability.name,
+      );
       return 0;
     }
 
     const masteryEffectiveness = event.masteryEffectiveness;
-    const healIncreaseFromOneMastery = this.statTracker.statMultiplier.mastery / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentMasteryRating, this.statTracker.statBaselineRatingPerPercent[STAT.MASTERY], this.selectedCombatant.spec.masteryCoefficient) * masteryEffectiveness;
-    const baseHeal = healVal.effective / (1 + this.statTracker.currentMasteryPercentage * masteryEffectiveness);
+    const healIncreaseFromOneMastery =
+      (this.statTracker.statMultiplier.mastery /
+        this.statTracker.ratingNeededForNextPercentage(
+          this.statTracker.currentMasteryRating,
+          this.statTracker.statBaselineRatingPerPercent[STAT.MASTERY],
+          this.selectedCombatant.spec.masteryCoefficient,
+        )) *
+      masteryEffectiveness;
+    const baseHeal =
+      healVal.effective / (1 + this.statTracker.currentMasteryPercentage * masteryEffectiveness);
 
     return baseHeal * healIncreaseFromOneMastery;
   }
@@ -85,17 +102,32 @@ class StatValues extends BaseHealerStatValues {
       STAT.INTELLECT,
       {
         stat: STAT.CRITICAL_STRIKE,
-        tooltip: <Trans id="shaman.restoration.statValues.crit">Weight does not include Resurgence mana gain.</Trans>,
+        tooltip: (
+          <Trans id="shaman.restoration.statValues.crit">
+            Weight does not include Resurgence mana gain.
+          </Trans>
+        ),
       },
       {
         stat: STAT.HASTE_HPCT,
         tooltip: (
           <Trans id="shaman.restoration.statValues.hpct">
-            HPCT stands for "Healing per Cast Time". This is the max value that Haste would be worth if you would cast everything you are already casting (that scales with Haste) faster. Mana and overhealing are not accounted for in any way.<br /><br />
-
-            The real value of Haste (HPCT) will be between 0 and the shown value. It depends on various things, such as if you have the mana left to spend, if the gained casts would overheal, and how well you are at casting spells end-to-end. If you are going OOM before the end of the fight you might instead want to drop some Haste or cast fewer bad heals. If you had mana left-over, Haste could help you convert that into healing. If your Haste usage is optimal Haste will then be worth the shown max value.<br /><br />
-
-            Haste can also help you safe lives during intense damage phases. If you notice you're GCD capped when people are dying, Haste might help you land more heals. This may contribute more towards actually getting the kill.
+            HPCT stands for "Healing per Cast Time". This is the max value that Haste would be worth
+            if you would cast everything you are already casting (that scales with Haste) faster.
+            Mana and overhealing are not accounted for in any way.
+            <br />
+            <br />
+            The real value of Haste (HPCT) will be between 0 and the shown value. It depends on
+            various things, such as if you have the mana left to spend, if the gained casts would
+            overheal, and how well you are at casting spells end-to-end. If you are going OOM before
+            the end of the fight you might instead want to drop some Haste or cast fewer bad heals.
+            If you had mana left-over, Haste could help you convert that into healing. If your Haste
+            usage is optimal Haste will then be worth the shown max value.
+            <br />
+            <br />
+            Haste can also help you safe lives during intense damage phases. If you notice you're
+            GCD capped when people are dying, Haste might help you land more heals. This may
+            contribute more towards actually getting the kill.
           </Trans>
         ),
       },

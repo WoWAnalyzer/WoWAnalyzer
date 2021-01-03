@@ -20,7 +20,7 @@ class MissingBeacons extends Analyzer {
 
   lostBeaconHealing = 0;
 
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
   }
@@ -54,10 +54,16 @@ class MissingBeacons extends Analyzer {
         icon={<SpellIcon id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id} />}
         value={
           <span style={{ fontSize: '75%' }}>
-            <Trans id="paladin.holy.modules.beacons.missingBeacons.lostBeaconHealing">Up to {lostBeaconHealing}</Trans>
+            <Trans id="paladin.holy.modules.beacons.missingBeacons.lostBeaconHealing">
+              Up to {lostBeaconHealing}
+            </Trans>
           </span>
         }
-        label={<Trans id="paladin.holy.modules.beacons.missingBeacons.lostBeaconHealingLabel">Beacon healing lost (missing beacon)</Trans>}
+        label={
+          <Trans id="paladin.holy.modules.beacons.missingBeacons.lostBeaconHealingLabel">
+            Beacon healing lost (missing beacon)
+          </Trans>
+        }
         tooltip={
           <Trans id="paladin.holy.modules.beacons.missingBeacons.lostBeaconHealingTooltip">
             The amount of <strong>raw</strong> healing that didn't transfer to one or more beacon

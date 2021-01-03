@@ -27,7 +27,14 @@
       right: 0;
       bottom: 0;
       z-index: 2;
-      background: linear-gradient(to right, rgba(14, 11, 11, 1) 0%, rgba(14, 11, 11, 0) 35%, rgba(14, 11, 11, 0) 65%, rgba(14, 11, 11, 1) 100%), radial-gradient(ellipse at bottom, rgba(14, 11, 11, 0) 0%, rgba(14, 11, 11, 0.6) 100%);
+      background: linear-gradient(
+          to right,
+          rgba(14, 11, 11, 1) 0%,
+          rgba(14, 11, 11, 0) 35%,
+          rgba(14, 11, 11, 0) 65%,
+          rgba(14, 11, 11, 1) 100%
+        ),
+        radial-gradient(ellipse at bottom, rgba(14, 11, 11, 0) 0%, rgba(14, 11, 11, 0.6) 100%);
     }
     .img {
       width: 100%;
@@ -68,7 +75,7 @@
         display: inline-block;
       }
 
-      .time-input input:last-child{
+      .time-input input:last-child {
         margin-right: 5px;
       }
 
@@ -127,14 +134,15 @@
             border-radius: 50%;
           }
 
-          &:hover img, &.active img {
+          &:hover img,
+          &.active img {
             border: 2px solid $primaryColor;
           }
         }
       }
 
       .details {
-        float:right;
+        float: right;
       }
 
       .avatar {

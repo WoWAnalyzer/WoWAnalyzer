@@ -19,13 +19,7 @@ const ResourceIcon = ({ id, noLink, ...others }: Props) => {
     icon: 'inv_misc_questionmark',
   };
 
-  const icon = (
-    <Icon
-      icon={spell.icon}
-      alt={spell.name}
-      {...others}
-    />
-  );
+  const icon = <Icon icon={spell.icon} alt={spell.name} {...others} />;
 
   if (noLink) {
     return icon;

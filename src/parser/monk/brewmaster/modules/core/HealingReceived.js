@@ -30,28 +30,28 @@ class HealingReceived extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(2)}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
             Healing received:
             <ul>
               <li>From self: {formatThousands(this.HealingReceivedSelf)}</li>
               <li>From external sources: {formatThousands(this.HealingReceivedExternal)}</li>
             </ul>
-            The total healing received was {formatThousands(this.HealingReceivedSelf + this.HealingReceivedExternal)}
+            The total healing received was{' '}
+            {formatThousands(this.HealingReceivedSelf + this.HealingReceivedExternal)}
           </>
-        )}
+        }
       >
         {/*dunno if this works here. I couldn't see it in the page then saw it was disabled. Updated the element nonetheless.*/}
         <BoringValue
-          label={<><img
-            src="/img/healing.png"
-            style={{ border: 0 }}
-            alt="Healing"
-          /> External healing received</>}
+          label={
+            <>
+              <img src="/img/healing.png" style={{ border: 0 }} alt="Healing" /> External healing
+              received
+            </>
+          }
         >
-          <>
-            {formatNumber((this.HealingReceivedExternal) / this.owner.fightDuration * 1000)} HPS
-          </>
+          <>{formatNumber((this.HealingReceivedExternal / this.owner.fightDuration) * 1000)} HPS</>
         </BoringValue>
       </Statistic>
     );

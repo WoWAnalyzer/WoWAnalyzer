@@ -11,7 +11,10 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import { SURGING_SHOTS_DAMAGE_INCREASE, SURGING_SHOTS_RESET_CHANCE } from 'parser/hunter/marksmanship/constants';
+import {
+  SURGING_SHOTS_DAMAGE_INCREASE,
+  SURGING_SHOTS_RESET_CHANCE,
+} from 'parser/hunter/marksmanship/constants';
 
 /**
  * Rapid Fire deals 25% additional damage, and Aimed Shot has a 15% chance to reset the cooldown of Rapid Fire.
@@ -20,7 +23,6 @@ import { SURGING_SHOTS_DAMAGE_INCREASE, SURGING_SHOTS_RESET_CHANCE } from 'parse
  *
  */
 class SurgingShots extends Analyzer {
-
   static dependencies = {
     spellUsable: SpellUsable,
   };
@@ -36,8 +38,14 @@ class SurgingShots extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE_DAMAGE), this.onRapidFireDamage);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT), this.onAimedShotCast);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE_DAMAGE),
+      this.onRapidFireDamage,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT),
+      this.onAimedShotCast,
+    );
   }
 
   onRapidFireDamage(event: DamageEvent) {
@@ -54,14 +62,21 @@ class SurgingShots extends Analyzer {
         position={STATISTIC_ORDER.CORE()}
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
-        dropdown={(
+        dropdown={
           <>
             <div style={{ padding: '8px' }}>
-              {plotOneVariableBinomChart(this.spellUsable.rapidFireResets, this.aimedShotCasts, SURGING_SHOTS_RESET_CHANCE)}
-              <p>Likelihood of getting <em>exactly</em> as many procs as estimated on a fight given your number of <SpellLink id={SPELLS.AIMED_SHOT.id} /> casts.</p>
+              {plotOneVariableBinomChart(
+                this.spellUsable.rapidFireResets,
+                this.aimedShotCasts,
+                SURGING_SHOTS_RESET_CHANCE,
+              )}
+              <p>
+                Likelihood of getting <em>exactly</em> as many procs as estimated on a fight given
+                your number of <SpellLink id={SPELLS.AIMED_SHOT.id} /> casts.
+              </p>
             </div>
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.SURGING_SHOTS_EFFECT}>
           <ItemDamageDone amount={this.damage} />

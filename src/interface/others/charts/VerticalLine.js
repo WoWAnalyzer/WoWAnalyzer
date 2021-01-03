@@ -5,7 +5,7 @@ import Tooltip from 'common/Tooltip';
 
 import './VerticalLine.css';
 
-const VerticalLine = props => {
+const VerticalLine = (props) => {
   const {
     value,
     style,
@@ -26,7 +26,7 @@ const VerticalLine = props => {
   const pixelOffset = (x) => {
     const [x0, x1] = xDomain;
     const [y0, y1] = xRange;
-    return (x - x0) * (y1 - y0) / (x1 - x0) + y0;
+    return ((x - x0) * (y1 - y0)) / (x1 - x0) + y0;
   };
 
   const left = Math.round(marginLeft + pixelOffset(value));
@@ -41,7 +41,6 @@ const VerticalLine = props => {
         ...style.wrapper,
       }}
     >
-
       {!children && (
         <div
           className="rv-vertical-line__line"
@@ -53,10 +52,7 @@ const VerticalLine = props => {
       )}
 
       {children && (
-        <Tooltip
-          content={children}
-          direction={orientation}
-        >
+        <Tooltip content={children} direction={orientation}>
           <div
             className="rv-vertical-line__line"
             style={{

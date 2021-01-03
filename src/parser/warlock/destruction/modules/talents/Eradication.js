@@ -30,7 +30,7 @@ class Eradication extends Analyzer {
   }
 
   get CBpercentage() {
-    return (this._buffedCB / this._totalCB) || 0;
+    return this._buffedCB / this._totalCB || 0;
   }
 
   get suggestionThresholds() {
@@ -46,7 +46,7 @@ class Eradication extends Analyzer {
   }
 
   get dps() {
-    return this.bonusDmg / this.owner.fightDuration * 1000;
+    return (this.bonusDmg / this.owner.fightDuration) * 1000;
   }
 
   static dependencies = {
@@ -70,7 +70,10 @@ class Eradication extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ERADICATION_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.INCINERATE, SPELLS.CHAOS_BOLT]), this.onTravelSpellCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.INCINERATE, SPELLS.CHAOS_BOLT]),
+      this.onTravelSpellCast,
+    );
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
@@ -109,17 +112,35 @@ class Eradication extends Analyzer {
       this._totalCB += 1;
     }
     // first filter out old casts (could happen if player would cast something on a target and BEFORE it hits, it would die - then it couldn't be paired)
-    this.queue = this.queue.filter(cast => cast.timestamp > (event.timestamp - MAX_TRAVEL_TIME));
+    this.queue = this.queue.filter((cast) => cast.timestamp > event.timestamp - MAX_TRAVEL_TIME);
     // try pairing damage event with casts in this.queue
-    const castIndex = this.queue.findIndex(queuedCast => queuedCast.targetID === event.targetID
-      && queuedCast.targetInstance === event.targetInstance
-      && queuedCast.spellId === event.ability.guid);
+    const castIndex = this.queue.findIndex(
+      (queuedCast) =>
+        queuedCast.targetID === event.targetID &&
+        queuedCast.targetInstance === event.targetInstance &&
+        queuedCast.spellId === event.ability.guid,
+    );
     if (castIndex === -1) {
-      debug && console.log(`(${this.owner.formatTimestamp(event.timestamp, 3)}) Encountered damage event with no buffed cast associated, queue:`, JSON.parse(JSON.stringify(this.queue)), 'event', event);
+      debug &&
+        console.log(
+          `(${this.owner.formatTimestamp(
+            event.timestamp,
+            3,
+          )}) Encountered damage event with no buffed cast associated, queue:`,
+          JSON.parse(JSON.stringify(this.queue)),
+          'event',
+          event,
+        );
       return;
     }
 
-    debug && console.log('Paired damage event', event, 'with queued cast', JSON.parse(JSON.stringify(this.queue[castIndex])));
+    debug &&
+      console.log(
+        'Paired damage event',
+        event,
+        'with queued cast',
+        JSON.parse(JSON.stringify(this.queue[castIndex])),
+      );
     if (event.ability.guid === SPELLS.CHAOS_BOLT.id) {
       this._buffedCB += 1;
     }
@@ -128,14 +149,27 @@ class Eradication extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>Your uptime on the <SpellLink id={SPELLS.ERADICATION_DEBUFF.id} /> debuff could be improved. You should try to spread out your <SpellLink id={SPELLS.CHAOS_BOLT.id} /> casts more for higher uptime.<br /><small><em>NOTE:</em> Uptime may vary based on the encounter.</small></>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your uptime on the <SpellLink id={SPELLS.ERADICATION_DEBUFF.id} /> debuff could be
+          improved. You should try to spread out your <SpellLink id={SPELLS.CHAOS_BOLT.id} /> casts
+          more for higher uptime.
+          <br />
+          <small>
+            <em>NOTE:</em> Uptime may vary based on the encounter.
+          </small>
+        </>,
+      )
         .icon(SPELLS.ERADICATION_TALENT.icon)
-        .actual(t({
-      id: "warlock.destruction.suggestions.eradication.uptime",
-      message: `${formatPercentage(actual)}% Eradication uptime`
-    }))
-        .recommended(`>${formatPercentage(recommended)}% is recommended`));
+        .actual(
+          t({
+            id: 'warlock.destruction.suggestions.eradication.uptime',
+            message: `${formatPercentage(actual)}% Eradication uptime`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
@@ -146,11 +180,17 @@ class Eradication extends Analyzer {
         tooltip={`Bonus damage: ${formatThousands(this.bonusDmg)}`}
       >
         <BoringSpellValueText spell={SPELLS.ERADICATION_TALENT}>
-          {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total</small> <br />
+          {formatNumber(this.dps)} DPS{' '}
+          <small>
+            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total
+          </small>{' '}
+          <br />
           <UptimeIcon /> {formatPercentage(this.uptime, 0)} % <small>uptime</small> <br />
           {formatPercentage(this.CBpercentage, 0)} %
           <TooltipElement content={`${this._buffedCB} / ${this._totalCB} Chaos Bolts`}>
-            <small>buffed Chaos Bolts <sup>*</sup></small>
+            <small>
+              buffed Chaos Bolts <sup>*</sup>
+            </small>
           </TooltipElement>
         </BoringSpellValueText>
       </Statistic>

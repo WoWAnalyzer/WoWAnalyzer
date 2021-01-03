@@ -87,13 +87,24 @@ class FinisherTracker extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<React.Fragment>Try to use your finishers at {this.maximumComboPoints} combo points. {this.extraSuggestion()}</React.Fragment>)
-      .icon(this.suggestionIcon())
-      .actual(t({
-      id: "rogue.shared.suggestions.finishers.efficiency",
-      message: `${formatPercentage(actual)}% (${this.inefficientFinisherCount} out of ${this.totalFinisherCount}) inefficient casts`
-    }))
-      .recommended(`<${formatPercentage(recommended)}% is recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <React.Fragment>
+          Try to use your finishers at {this.maximumComboPoints} combo points.{' '}
+          {this.extraSuggestion()}
+        </React.Fragment>,
+      )
+        .icon(this.suggestionIcon())
+        .actual(
+          t({
+            id: 'rogue.shared.suggestions.finishers.efficiency',
+            message: `${formatPercentage(actual)}% (${this.inefficientFinisherCount} out of ${
+              this.totalFinisherCount
+            }) inefficient casts`,
+          }),
+        )
+        .recommended(`<${formatPercentage(recommended)}% is recommended`),
+    );
   }
 }
 

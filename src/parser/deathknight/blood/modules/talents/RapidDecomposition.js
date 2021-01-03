@@ -7,7 +7,6 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Events from 'parser/core/Events';
 
 class RapidDecomposition extends Analyzer {
-
   bpDamage = 0;
   dndDamage = 0;
   totalDamage = 0;
@@ -15,14 +14,19 @@ class RapidDecomposition extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.BLOOD_PLAGUE, SPELLS.DEATH_AND_DECAY_DAMAGE_TICK]), this.onDamage);
+    this.addEventListener(
+      Events.damage
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.BLOOD_PLAGUE, SPELLS.DEATH_AND_DECAY_DAMAGE_TICK]),
+      this.onDamage,
+    );
   }
 
   onDamage(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.BLOOD_PLAGUE.id) {
       this.bpDamage += calculateEffectiveDamage(event, 0.15);
-    }else {
+    } else {
       this.dndDamage += calculateEffectiveDamage(event, 0.15);
     }
     this.totalDamage = this.bpDamage + this.dndDamage;
@@ -34,12 +38,13 @@ class RapidDecomposition extends Analyzer {
         talent={SPELLS.RAPID_DECOMPOSITION_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(2)}
         value={this.owner.formatItemDamageDone(this.totalDamage)}
-        tooltip={(
+        tooltip={
           <>
-            <strong>Blood Plague:</strong> {this.owner.formatItemDamageDone(this.bpDamage)}<br />
+            <strong>Blood Plague:</strong> {this.owner.formatItemDamageDone(this.bpDamage)}
+            <br />
             <strong>Death And Decay:</strong> {this.owner.formatItemDamageDone(this.dndDamage)}
           </>
-        )}
+        }
       />
     );
   }

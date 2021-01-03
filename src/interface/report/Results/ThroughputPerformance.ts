@@ -56,11 +56,14 @@ class ThroughputPerformance extends React.PureComponent<Props, State> {
       const topThroughput = topRank.total;
       this.setState({
         // If the player is in the top 100, this may be >=100%.
-        performance: this.props.throughput && (this.props.throughput / topThroughput),
+        performance: this.props.throughput && this.props.throughput / topThroughput,
         topThroughput,
       });
     } catch (err) {
-      console.error('Failed to load encounter rankings. Not logging since this will happen as expected when WCL partitions the data.', err);
+      console.error(
+        'Failed to load encounter rankings. Not logging since this will happen as expected when WCL partitions the data.',
+        err,
+      );
       this.setState({
         performance: UNAVAILABLE,
         topThroughput: UNAVAILABLE,
@@ -83,13 +86,18 @@ class ThroughputPerformance extends React.PureComponent<Props, State> {
   _getCacheKey(specIndex: number) {
     // We want to cache data for 1 week. To avoid refreshing all specs at at the same time, we also want to stagger the requests.
     // We achieve this by adding a static amount of time to `now` based on the spec index (0-35).
-    const specStaggerOffset = (DAYS_PER_WEEK * SECONDS_PER_DAY * specIndex / TOTAL_SPECS);
+    const specStaggerOffset = (DAYS_PER_WEEK * SECONDS_PER_DAY * specIndex) / TOTAL_SPECS;
     // We mutate now so that if there's a year crossover it will properly go to week 1 instead of 53/54
-    const specAdjustedNow = new Date((new Date()).getTime() + (specStaggerOffset * 1000));
+    const specAdjustedNow = new Date(new Date().getTime() + specStaggerOffset * 1000);
     // We need this to calculate the amount of weeks difference
     const onejan = new Date(specAdjustedNow.getFullYear(), 0, 1);
     // Calculate the current week number
-    const staggeredWeek = Math.ceil((((specAdjustedNow.valueOf() - onejan.valueOf()) / SECONDS_PER_DAY / 1000) + onejan.getDay() + 1) / DAYS_PER_WEEK);
+    const staggeredWeek = Math.ceil(
+      ((specAdjustedNow.valueOf() - onejan.valueOf()) / SECONDS_PER_DAY / 1000 +
+        onejan.getDay() +
+        1) /
+        DAYS_PER_WEEK,
+    );
     return `${staggeredWeek}-${process.env.REACT_APP_CURRENT_GAME_PATCH}`; // current calendar-week
   }
   _getRank(rankings: WCLRanking[], desiredRank: number) {

@@ -39,7 +39,10 @@ class CobraShot extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.COBRA_SHOT), this.onCobraShotCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.COBRA_SHOT),
+      this.onCobraShotCast,
+    );
   }
 
   get totalPossibleCDR() {
@@ -91,35 +94,87 @@ class CobraShot extends Analyzer {
     }
     const globalCooldown = this.globalCooldown.getGlobalCooldownDuration(SPELLS.COBRA_SHOT.id);
     const killCommandCooldownRemaining = this.spellUsable.cooldownRemaining(
-      SPELLS.KILL_COMMAND_CAST_BM.id);
+      SPELLS.KILL_COMMAND_CAST_BM.id,
+    );
     if (killCommandCooldownRemaining < COBRA_SHOT_CDR_MS + globalCooldown) {
-      const effectiveReductionMs = killCommandCooldownRemaining -
-        globalCooldown;
-      this.effectiveKCReductionMs += this.spellUsable.reduceCooldown(SPELLS.KILL_COMMAND_CAST_BM.id, effectiveReductionMs);
+      const effectiveReductionMs = killCommandCooldownRemaining - globalCooldown;
+      this.effectiveKCReductionMs += this.spellUsable.reduceCooldown(
+        SPELLS.KILL_COMMAND_CAST_BM.id,
+        effectiveReductionMs,
+      );
       this.wastedKCReductionMs += COBRA_SHOT_CDR_MS - effectiveReductionMs;
 
-      const resource = event.classResources?.find(resource => resource.type === RESOURCE_TYPES.FOCUS.id);
+      const resource = event.classResources?.find(
+        (resource) => resource.type === RESOURCE_TYPES.FOCUS.id,
+      );
       if (!resource) {
         return;
       }
       if (resource.amount < COBRA_SHOT_FOCUS_THRESHOLD_TO_WAIT) {
         event.meta.isInefficientCast = true;
-        event.meta.inefficientCastReason = 'Cobra Shot cast while Kill Command\'s cooldown was under ' + (globalCooldown + COBRA_SHOT_CDR_MS / 1000).toFixed(1) + 's remaining and you were not close to capping focus as you only had ' + (resource.amount) + ' focus.';
+        event.meta.inefficientCastReason =
+          "Cobra Shot cast while Kill Command's cooldown was under " +
+          (globalCooldown + COBRA_SHOT_CDR_MS / 1000).toFixed(1) +
+          's remaining and you were not close to capping focus as you only had ' +
+          resource.amount +
+          ' focus.';
       }
     } else {
-      this.effectiveKCReductionMs += this.spellUsable.reduceCooldown(SPELLS.KILL_COMMAND_CAST_BM.id, COBRA_SHOT_CDR_MS);
+      this.effectiveKCReductionMs += this.spellUsable.reduceCooldown(
+        SPELLS.KILL_COMMAND_CAST_BM.id,
+        COBRA_SHOT_CDR_MS,
+      );
     }
   }
 
   suggestions(when: When) {
-    when(this.cdrEfficiencyCobraShotThreshold).addSuggestion((suggest, actual, recommended) => suggest(<>A crucial part of <SpellLink id={SPELLS.COBRA_SHOT.id} /> is the cooldown reduction of <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> it provides. When the cooldown of <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> is larger than the duration of your GCD + 1s, you'll want to be casting <SpellLink id={SPELLS.COBRA_SHOT.id} /> to maximize the amount of casts of <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} />. If the cooldown of <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> is lower than GCD + 1s, you'll only want to be casting <SpellLink id={SPELLS.COBRA_SHOT.id} />, if you'd be capping focus otherwise.</>)
-      .icon(SPELLS.COBRA_SHOT.icon)
-      .actual(<Trans id='hunter.beastmastery.suggestions.cobraShot.efficiency'> You had {formatPercentage(actual)}% effective cooldown reduction of Kill Command</Trans>)
-      .recommended(<Trans id='hunter.beastmastery.suggestions.cobraShot.recommended'> {'>'}{formatPercentage(recommended)}% is recommended</Trans>));
-    when(this.wastedCobraShotsThreshold).addSuggestion((suggest, actual) => suggest(<>You should never cast <SpellLink id={SPELLS.COBRA_SHOT.id} /> when <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> is off cooldown.</>)
-      .icon(SPELLS.COBRA_SHOT.icon)
-      .actual(<Trans id='hunter.beastmastery.suggestions.cobraShot.cooldown.wasted'>You cast {actual} Cobra Shots when Kill Command wasn't on cooldown</Trans>)
-      .recommended(<Trans id='hunter.beastmastery.suggestions.cobraShot.cooldown.recommended'>0 inefficient casts is recommended</Trans>));
+    when(this.cdrEfficiencyCobraShotThreshold).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          A crucial part of <SpellLink id={SPELLS.COBRA_SHOT.id} /> is the cooldown reduction of{' '}
+          <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> it provides. When the cooldown of{' '}
+          <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> is larger than the duration of your GCD
+          + 1s, you'll want to be casting <SpellLink id={SPELLS.COBRA_SHOT.id} /> to maximize the
+          amount of casts of <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} />. If the cooldown of{' '}
+          <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> is lower than GCD + 1s, you'll only want
+          to be casting <SpellLink id={SPELLS.COBRA_SHOT.id} />, if you'd be capping focus
+          otherwise.
+        </>,
+      )
+        .icon(SPELLS.COBRA_SHOT.icon)
+        .actual(
+          <Trans id="hunter.beastmastery.suggestions.cobraShot.efficiency">
+            {' '}
+            You had {formatPercentage(actual)}% effective cooldown reduction of Kill Command
+          </Trans>,
+        )
+        .recommended(
+          <Trans id="hunter.beastmastery.suggestions.cobraShot.recommended">
+            {' '}
+            {'>'}
+            {formatPercentage(recommended)}% is recommended
+          </Trans>,
+        ),
+    );
+    when(this.wastedCobraShotsThreshold).addSuggestion((suggest, actual) =>
+      suggest(
+        <>
+          You should never cast <SpellLink id={SPELLS.COBRA_SHOT.id} /> when{' '}
+          <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> is off cooldown.
+        </>,
+      )
+        .icon(SPELLS.COBRA_SHOT.icon)
+        .actual(
+          <Trans id="hunter.beastmastery.suggestions.cobraShot.cooldown.wasted">
+            You cast {actual} Cobra Shots when Kill Command wasn't on cooldown
+          </Trans>,
+        )
+        .recommended(
+          <Trans id="hunter.beastmastery.suggestions.cobraShot.cooldown.recommended">
+            0 inefficient casts is recommended
+          </Trans>,
+        ),
+    );
   }
 
   statistic() {
@@ -127,21 +182,28 @@ class CobraShot extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(3)}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            {this.wastedCasts > 0 &&
-            <>You had {this.wastedCasts} {this.wastedCasts > 1 ? 'casts' : 'cast'} of Cobra Shot when Kill Command wasn't on cooldown. </>}
+            {this.wastedCasts > 0 && (
+              <>
+                You had {this.wastedCasts} {this.wastedCasts > 1 ? 'casts' : 'cast'} of Cobra Shot
+                when Kill Command wasn't on cooldown.{' '}
+              </>
+            )}
             {this.wastedCasts > 0 && this.wastedKCReductionMs > 0 && <br />}
             {this.wastedKCReductionMs > 0 &&
-            `You wasted ${this.wastedCDR.toFixed(2)} seconds of potential cooldown reduction by casting Cobra Shot while Kill Command had less than 1 + GCD seconds remaining on its CD.`}
+              `You wasted ${this.wastedCDR.toFixed(
+                2,
+              )} seconds of potential cooldown reduction by casting Cobra Shot while Kill Command had less than 1 + GCD seconds remaining on its CD.`}
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.COBRA_SHOT}>
           <>
             {formatNumber(this.effectiveKCReductionMs / 1000)}s / {this.totalPossibleCDR / 1000}s
             <br />
-            {formatPercentage(this.effectiveKCReductionMs / this.totalPossibleCDR)}% <small>effectiveness</small>
+            {formatPercentage(this.effectiveKCReductionMs / this.totalPossibleCDR)}%{' '}
+            <small>effectiveness</small>
           </>
         </BoringSpellValueText>
       </Statistic>

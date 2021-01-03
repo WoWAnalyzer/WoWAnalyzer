@@ -9,15 +9,21 @@ const FIRE_BLAST_REDUCTION_MS = 4000;
 class MirrorsOfTorment extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
-  }
+  };
   protected spellUsable!: SpellUsable;
 
   //Currently only added to Fire Mage CombatLogParser, but leaving module in Shared in case i add to it for other specs
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id);
-    this.addEventListener(Events.removedebuffstack.by(SELECTED_PLAYER).spell(SPELLS.MIRRORS_OF_TORMENT), this.onDebuffRemoved);
-    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.MIRRORS_OF_TORMENT), this.onDebuffRemoved);
+    this.addEventListener(
+      Events.removedebuffstack.by(SELECTED_PLAYER).spell(SPELLS.MIRRORS_OF_TORMENT),
+      this.onDebuffRemoved,
+    );
+    this.addEventListener(
+      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.MIRRORS_OF_TORMENT),
+      this.onDebuffRemoved,
+    );
   }
 
   onDebuffRemoved(event: RemoveDebuffEvent | RemoveDebuffStackEvent) {

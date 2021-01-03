@@ -7,20 +7,17 @@ import GiftOfTheOx from './GiftOfTheOx';
 
 describe('GiftOfTheOx', () => {
   let parser = null;
-  beforeAll(() => loadLog(
-    path.resolve(__dirname, '../../integrationTests/example.zip'),
-  ).then(_log => {
-    parser = parseLog(CombatLogParser, _log);
-  }));
+  beforeAll(() =>
+    loadLog(path.resolve(__dirname, '../../integrationTests/example.zip')).then((_log) => {
+      parser = parseLog(CombatLogParser, _log);
+    }),
+  );
 
   it('should have wdps and agility healing sum to totalHealing', () => {
     const gotox = parser.getModule(GiftOfTheOx);
     expect(
       Math.abs(
-        gotox._baseAgiHealing +
-        gotox.wdpsBonusHealing +
-        gotox.agiBonusHealing -
-        gotox.totalHealing,
+        gotox._baseAgiHealing + gotox.wdpsBonusHealing + gotox.agiBonusHealing - gotox.totalHealing,
       ),
     ).toBeLessThan(1e-6);
   });

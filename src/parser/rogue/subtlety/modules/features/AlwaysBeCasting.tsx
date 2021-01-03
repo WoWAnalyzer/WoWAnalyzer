@@ -11,7 +11,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       actual: this.downtimePercentage,
       isGreaterThan: {
         minor: 0.25,
-        average: 0.30,
+        average: 0.3,
         major: 0.35,
       },
       style: ThresholdStyle.PERCENTAGE,
@@ -21,11 +21,19 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   suggestions(when: When) {
     const boss = this.owner.boss;
 
-    if(!boss || !boss.fight.disableDeathSuggestion) {
-      when(this.suggestionThresholds)
-        .addSuggestion((suggest, actual, recommended) => suggest(<span>Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. If everything is on cooldown, try to use <SpellLink id={SPELLS.BACKSTAB.id} /> or <SpellLink id={SPELLS.SHADOWSTRIKE.id} /> to stay off the energy cap and do some damage.</span>)
+    if (!boss || !boss.fight.disableDeathSuggestion) {
+      when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+        suggest(
+          <span>
+            Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay
+            between casting spells. If everything is on cooldown, try to use{' '}
+            <SpellLink id={SPELLS.BACKSTAB.id} /> or <SpellLink id={SPELLS.SHADOWSTRIKE.id} /> to
+            stay off the energy cap and do some damage.
+          </span>,
+        )
           .icon('spell_mage_altertime')
-          .actual(`${formatPercentage(actual)}% downtime`));
+          .actual(`${formatPercentage(actual)}% downtime`),
+      );
     }
   }
 }

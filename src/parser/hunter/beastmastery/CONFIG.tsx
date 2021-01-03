@@ -23,10 +23,23 @@ export default {
   // in the `<Warning>` component.
   description: (
     <>
-      Hello and welcome to the Beast Mastery Hunter analyzer! I hope that the suggestions given will be helpful in aiding you improve your overall performance. Try and focus on improving only a few things at a time, until those become ingrained in your muscle memory so as to not be concentrating on many different things.
+      Hello and welcome to the Beast Mastery Hunter analyzer! I hope that the suggestions given will
+      be helpful in aiding you improve your overall performance. Try and focus on improving only a
+      few things at a time, until those become ingrained in your muscle memory so as to not be
+      concentrating on many different things.
       <br />
       <br />
-      If you want to learn more about Beast Mastery Hunters, join the Hunter community on the Trueshot Lodge Discord: <a href="https://www.discord.gg/trueshot" target="_blank" rel="noopener noreferrer">discord.gg/trueshot</a>. The <kbd>#beast-mastery</kbd> channel has a lot of helpful people, and if you post your logs in <kbd>#log-reviews</kbd>, you can expect to get some good pointers for improvement from the community. The best guide available currently is the guide on <a href="https://www.icy-veins.com/wow/beast-mastery-hunter-pve-dps-guide">Icy-veins</a>. It is maintained by Azortharion, and it is constantly fact-checked by community-members, and improved upon on an almost weekly basis.
+      If you want to learn more about Beast Mastery Hunters, join the Hunter community on the
+      Trueshot Lodge Discord:{' '}
+      <a href="https://www.discord.gg/trueshot" target="_blank" rel="noopener noreferrer">
+        discord.gg/trueshot
+      </a>
+      . The <kbd>#beast-mastery</kbd> channel has a lot of helpful people, and if you post your logs
+      in <kbd>#log-reviews</kbd>, you can expect to get some good pointers for improvement from the
+      community. The best guide available currently is the guide on{' '}
+      <a href="https://www.icy-veins.com/wow/beast-mastery-hunter-pve-dps-guide">Icy-veins</a>. It
+      is maintained by Azortharion, and it is constantly fact-checked by community-members, and
+      improved upon on an almost weekly basis.
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be
@@ -40,8 +53,10 @@ export default {
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () => import('./CombatLogParser' /* webpackChunkName: "BeastMasteryHunter" */).then(
-    exports => exports.default),
+  parser: () =>
+    import('./CombatLogParser' /* webpackChunkName: "BeastMasteryHunter" */).then(
+      (exports) => exports.default,
+    ),
   // The path to the current directory (relative form project root). This is
   // used for generating a GitHub link directly to your spec's code.
   path: __dirname,

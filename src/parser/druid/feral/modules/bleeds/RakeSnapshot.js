@@ -51,7 +51,7 @@ class RakeSnapshot extends Snapshot {
       isGreaterThan: {
         minor: 0,
         average: 0.15,
-        major: 0.60,
+        major: 0.6,
       },
       style: 'percentage',
     };
@@ -88,11 +88,15 @@ class RakeSnapshot extends Snapshot {
         this.prowlLostCastCount += 1;
         event.meta = event.meta || {};
         event.meta.isInefficientCast = true;
-        event.meta.inefficientCastReason = `You lost ${(timeLost / 1000).toFixed(1)} seconds of a Rake empowered with Prowl by refreshing early.`;
+        event.meta.inefficientCastReason = `You lost ${(timeLost / 1000).toFixed(
+          1,
+        )} seconds of a Rake empowered with Prowl by refreshing early.`;
       }
-    } else if (stateOld.pandemicTime > stateNew.startTime &&
+    } else if (
+      stateOld.pandemicTime > stateNew.startTime &&
       stateOld.power > stateNew.power &&
-      !stateNew.prowl) {
+      !stateNew.prowl
+    ) {
       // refreshed with weaker DoT before pandemic window - but ignore this rule if the new Rake has Prowl buff as that's more important.
       this.downgradeCastCount += 1;
 
@@ -106,29 +110,55 @@ class RakeSnapshot extends Snapshot {
   }
 
   suggestions(when) {
-    when(this.prowlLostSuggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        When <SpellLink id={SPELLS.RAKE.id} /> is empowered by <SpellLink id={SPELLS.PROWL.id} /> avoid refreshing it unless the replacement would also be empowered. You ended {this.prowlLostCastCount} empowered <SpellLink id={SPELLS.RAKE.id} /> bleed{this.prowlLostCastCount !== 1 ? 's' : ''} more than 1 second early.
-      </>,
-    )
-      .icon(SPELLS.RAKE.icon)
-      .actual(t({
-      id: "druid.feral.suggestions.rakeSnapshot.prowlBuffed",
-      message: `${actual.toFixed(1)} seconds of Prowl buffed Rake was lost per minute.`
-    }))
-      .recommended(`<${recommended} is recommended`));
+    when(this.prowlLostSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          When <SpellLink id={SPELLS.RAKE.id} /> is empowered by <SpellLink id={SPELLS.PROWL.id} />{' '}
+          avoid refreshing it unless the replacement would also be empowered. You ended{' '}
+          {this.prowlLostCastCount} empowered <SpellLink id={SPELLS.RAKE.id} /> bleed
+          {this.prowlLostCastCount !== 1 ? 's' : ''} more than 1 second early.
+        </>,
+      )
+        .icon(SPELLS.RAKE.icon)
+        .actual(
+          t({
+            id: 'druid.feral.suggestions.rakeSnapshot.prowlBuffed',
+            message: `${actual.toFixed(1)} seconds of Prowl buffed Rake was lost per minute.`,
+          }),
+        )
+        .recommended(`<${recommended} is recommended`),
+    );
 
-    when(this.downgradeSuggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        Try to only refresh <SpellLink id={SPELLS.RAKE.id} /> before the <TooltipElement content={`The last ${(this.constructor.durationOfFresh * PANDEMIC_FRACTION / 1000).toFixed(1)} seconds of Rake's duration. When you refresh during this time you don't lose any duration in the process.`}>pandemic window</TooltipElement> if you have more powerful <TooltipElement content="Applying Rake with Prowl, Tiger's Fury will boost its damage until you reapply it.">snapshot buffs</TooltipElement> than were present when it was first cast.
-      </>,
-    )
-      .icon(SPELLS.RAKE.icon)
-      .actual(t({
-      id: "druid.feral.suggestions.rakeSnapshot.earlyRefresh",
-      message: `${formatPercentage(actual)}% of Rake refreshes were early downgrades.`
-    }))
-      .recommended(`${recommended}% is recommended`));
+    when(this.downgradeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Try to only refresh <SpellLink id={SPELLS.RAKE.id} /> before the{' '}
+          <TooltipElement
+            content={`The last ${(
+              (this.constructor.durationOfFresh * PANDEMIC_FRACTION) /
+              1000
+            ).toFixed(
+              1,
+            )} seconds of Rake's duration. When you refresh during this time you don't lose any duration in the process.`}
+          >
+            pandemic window
+          </TooltipElement>{' '}
+          if you have more powerful{' '}
+          <TooltipElement content="Applying Rake with Prowl, Tiger's Fury will boost its damage until you reapply it.">
+            snapshot buffs
+          </TooltipElement>{' '}
+          than were present when it was first cast.
+        </>,
+      )
+        .icon(SPELLS.RAKE.icon)
+        .actual(
+          t({
+            id: 'druid.feral.suggestions.rakeSnapshot.earlyRefresh',
+            message: `${formatPercentage(actual)}% of Rake refreshes were early downgrades.`,
+          }),
+        )
+        .recommended(`${recommended}% is recommended`),
+    );
   }
 
   statistic() {

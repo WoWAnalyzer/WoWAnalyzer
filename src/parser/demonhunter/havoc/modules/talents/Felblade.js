@@ -10,12 +10,10 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemDamageDone from 'interface/ItemDamageDone';
 
-
 /**
  * Example Report: https://www.warcraftlogs.com/reports/1HRhNZa2cCkgK9AV#fight=48&type=summary&source=10
  */
 class Felblade extends Analyzer {
-
   get furyPerMin() {
     return ((this.furyGain - this.furyWaste) / (this.owner.fightDuration / 60000)).toFixed(2);
   }
@@ -42,8 +40,14 @@ class Felblade extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.FELBLADE_DAMAGE), this.onEnergizeEvent);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FELBLADE_DAMAGE), this.onDamageEvent);
+    this.addEventListener(
+      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.FELBLADE_DAMAGE),
+      this.onEnergizeEvent,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FELBLADE_DAMAGE),
+      this.onDamageEvent,
+    );
   }
 
   onEnergizeEvent(event) {
@@ -56,14 +60,23 @@ class Felblade extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<> Avoid casting <SpellLink id={SPELLS.FELBLADE_TALENT.id} /> close to Fury cap and cast abilities regularly to avoid accidently capping your fury.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          {' '}
+          Avoid casting <SpellLink id={SPELLS.FELBLADE_TALENT.id} /> close to Fury cap and cast
+          abilities regularly to avoid accidently capping your fury.
+        </>,
+      )
         .icon(SPELLS.FELBLADE_TALENT.icon)
-        .actual(t({
-      id: "demonhunter.havoc.suggestions.felBlade.furyWasted",
-      message: `${formatPercentage(actual)}% Fury wasted`
-    }))
-        .recommended(`${formatPercentage(recommended)}% is recommended.`));
+        .actual(
+          t({
+            id: 'demonhunter.havoc.suggestions.felBlade.furyWasted',
+            message: `${formatPercentage(actual)}% Fury wasted`,
+          }),
+        )
+        .recommended(`${formatPercentage(recommended)}% is recommended.`),
+    );
   }
 
   statistic() {
@@ -72,25 +85,28 @@ class Felblade extends Analyzer {
       <Statistic
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={(
+        tooltip={
           <>
-            {effectiveFuryGain} Effective Fury gained<br />
-            {this.furyGain} Total Fury gained<br />
-            {this.furyWaste} Fury wasted<br />
+            {effectiveFuryGain} Effective Fury gained
+            <br />
+            {this.furyGain} Total Fury gained
+            <br />
+            {this.furyWaste} Fury wasted
+            <br />
             {formatThousands(this.damage)} Total damage
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.FELBLADE_TALENT}>
           <>
-            {this.furyPerMin} <small>Fury per min </small><br />
-            <ItemDamageDone amount={this.damage}/>
+            {this.furyPerMin} <small>Fury per min </small>
+            <br />
+            <ItemDamageDone amount={this.damage} />
           </>
         </BoringSpellValueText>
       </Statistic>
     );
   }
-
 }
 
 export default Felblade;

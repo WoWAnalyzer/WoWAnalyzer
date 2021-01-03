@@ -25,30 +25,48 @@ const UnholyDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }) =
     <Checklist>
       <Rule
         name="Use cooldowns as often as possible"
-        description={(
+        description={
           <>
             You should aim to use your cooldowns as often as you can to maximize your damage output.
-            <a href="https://www.wowhead.com/unholy-death-knight-rotation-guide#cooldown-usage" target="_blank" rel="noopener noreferrer">More info.</a>
+            <a
+              href="https://www.wowhead.com/unholy-death-knight-rotation-guide#cooldown-usage"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              More info.
+            </a>
           </>
-        )}
+        }
       >
         <AbilityRequirement spell={SPELLS.APOCALYPSE.id} />
         <AbilityRequirement spell={SPELLS.DARK_TRANSFORMATION.id} />
-        {combatant.hasTalent(SPELLS.SOUL_REAPER_TALENT.id) && <AbilityRequirement spell={SPELLS.SOUL_REAPER_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.SUMMON_GARGOYLE_TALENT.id) && <AbilityRequirement spell={SPELLS.SUMMON_GARGOYLE_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.UNHOLY_ASSAULT_TALENT.id) && <AbilityRequirement spell={SPELLS.UNHOLY_ASSAULT_TALENT.id} />}
-        {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_RUNIC_POWER.id) && (<AbilityRequirement spell={SPELLS.ARCANE_TORRENT_RUNIC_POWER.id} />)}
-        {combatant.hasTalent(SPELLS.UNHOLY_BLIGHT_TALENT.id) && <AbilityRequirement spell={SPELLS.UNHOLY_BLIGHT_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.DEFILE_TALENT.id) && <AbilityRequirement spell={SPELLS.DEFILE_TALENT.id} />}
-
+        {combatant.hasTalent(SPELLS.SOUL_REAPER_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.SOUL_REAPER_TALENT.id} />
+        )}
+        {combatant.hasTalent(SPELLS.SUMMON_GARGOYLE_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.SUMMON_GARGOYLE_TALENT.id} />
+        )}
+        {combatant.hasTalent(SPELLS.UNHOLY_ASSAULT_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.UNHOLY_ASSAULT_TALENT.id} />
+        )}
+        {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_RUNIC_POWER.id) && (
+          <AbilityRequirement spell={SPELLS.ARCANE_TORRENT_RUNIC_POWER.id} />
+        )}
+        {combatant.hasTalent(SPELLS.UNHOLY_BLIGHT_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.UNHOLY_BLIGHT_TALENT.id} />
+        )}
+        {combatant.hasTalent(SPELLS.DEFILE_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.DEFILE_TALENT.id} />
+        )}
       </Rule>
       <Rule
         name="Try to avoid being inactive for a large portion of the fight"
-        description={(
+        description={
           <>
-            While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes.
+            While some downtime is inevitable in fights with movement, you should aim to reduce
+            downtime to prevent capping Runes.
           </>
-        )}
+        }
       >
         <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />
       </Rule>
@@ -60,7 +78,13 @@ const UnholyDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }) =
       </Rule>
       <Rule
         name="Avoid capping Runic Power"
-        description={(<>Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities.  Cast <SpellLink id={SPELLS.DEATH_COIL.id} /> when you have 80 or more Runic Power to avoid overcapping.</>)}
+        description={
+          <>
+            Death Knights are a resource based class, relying on Runes and Runic Power to cast core
+            abilities. Cast <SpellLink id={SPELLS.DEATH_COIL.id} /> when you have 80 or more Runic
+            Power to avoid overcapping.
+          </>
+        }
       >
         <Requirement name="Runic Power Efficiency" thresholds={thresholds.runicPowerEfficiency} />
       </Rule>

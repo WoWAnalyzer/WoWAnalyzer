@@ -3,9 +3,7 @@ import EventsNormalizer from 'parser/core/EventsNormalizer';
 import SPELLS from 'common/SPELLS';
 import { AnyEvent, EventType } from 'parser/core/Events';
 
-const BUFFS_TO_MOVE = [
-  SPELLS.ATONEMENT_BUFF.id,
-];
+const BUFFS_TO_MOVE = [SPELLS.ATONEMENT_BUFF.id];
 const MAX_TIME_SINCE_CAST = 250; // ms
 
 /**
@@ -33,9 +31,16 @@ class PowerWordRadianceNormalizer extends EventsNormalizer {
         }
       }
 
-      if (event.type === EventType.ApplyBuff || event.type === EventType.RefreshBuff || event.type === EventType.ApplyBuffStack) {
+      if (
+        event.type === EventType.ApplyBuff ||
+        event.type === EventType.RefreshBuff ||
+        event.type === EventType.ApplyBuffStack
+      ) {
         const spellId = event.ability.guid;
-        if ((event.timestamp - lastRadianceTimestamp) < MAX_TIME_SINCE_CAST && BUFFS_TO_MOVE.includes(spellId)) {
+        if (
+          event.timestamp - lastRadianceTimestamp < MAX_TIME_SINCE_CAST &&
+          BUFFS_TO_MOVE.includes(spellId)
+        ) {
           event.timestamp = lastRadianceTimestamp;
           event.__modified = true;
           fixedEvents.splice(lastRadianceIndex + 1, 0, event);

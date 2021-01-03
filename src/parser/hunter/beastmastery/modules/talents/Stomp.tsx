@@ -33,10 +33,16 @@ class Stomp extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.STOMP_TALENT.id);
     this.hasAC = this.selectedCombatant.hasTalent(SPELLS.ANIMAL_COMPANION_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.BARBED_SHOT, SPELLS.DIRE_BEAST_TALENT]), () => {
-      this.casts += 1;
-    });
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.STOMP_DAMAGE), this.onPetStompDamage);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.BARBED_SHOT, SPELLS.DIRE_BEAST_TALENT]),
+      () => {
+        this.casts += 1;
+      },
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.STOMP_DAMAGE),
+      this.onPetStompDamage,
+    );
   }
 
   onPetStompDamage(event: DamageEvent) {
@@ -53,8 +59,12 @@ class Stomp extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.STOMP_TALENT}>
           <>
-            <ItemDamageDone amount={this.damage} /><br />
-            <AverageTargetsHit casts={this.casts} hits={this.hasAC ? this.hits / AMOUNT_OF_PETS_WITH_AC : this.hits} />
+            <ItemDamageDone amount={this.damage} />
+            <br />
+            <AverageTargetsHit
+              casts={this.casts}
+              hits={this.hasAC ? this.hits / AMOUNT_OF_PETS_WITH_AC : this.hits}
+            />
           </>
         </BoringSpellValueText>
       </Statistic>

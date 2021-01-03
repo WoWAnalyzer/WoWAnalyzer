@@ -12,7 +12,7 @@ interface Props {
   talents: number[];
 }
 
-const Talents = ({talents}: Props) => {
+const Talents = ({ talents }: Props) => {
   const rows = [15, 25, 30, 35, 40, 45, 50];
 
   return (
@@ -22,10 +22,12 @@ const Talents = ({talents}: Props) => {
       </h3>
       <div className="talent-info">
         {talents.map((spellId: number, index: number) => (
-          <div key={index} className="talent-info-row" style={{ marginBottom: '0.8em', fontSize: '1.3em' }}>
-            <div className="talent-level">
-              {rows[index]}
-            </div>
+          <div
+            key={index}
+            className="talent-info-row"
+            style={{ marginBottom: '0.8em', fontSize: '1.3em' }}
+          >
+            <div className="talent-level">{rows[index]}</div>
             {spellId ? (
               <>
                 <div className="talent-icon">

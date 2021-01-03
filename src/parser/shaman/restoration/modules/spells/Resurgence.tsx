@@ -17,10 +17,9 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringValue from 'interface/statistics/components/BoringValueText';
 import ManaIcon from 'interface/icons/Mana';
 
-import './ManaTideTotem.scss'
+import './ManaTideTotem.scss';
 import ManaTideTotem, { MANA_REGEN_PER_SECOND } from './ManaTideTotem';
 import WaterShield from './WaterShield';
-
 
 const SPELLS_PROCCING_RESURGENCE = {
   [SPELLS.HEALING_SURGE.id]: 0.006,
@@ -54,8 +53,22 @@ class Resurgence extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.HEALING_SURGE, SPELLS.HEALING_WAVE, SPELLS.CHAIN_HEAL, SPELLS.UNLEASH_LIFE_TALENT, SPELLS.RIPTIDE]), this.onRelevantHeal);
-    this.addEventListener(Events.energize.to(SELECTED_PLAYER).spell(SPELLS.RESURGENCE), this.onResurgenceProc);
+    this.addEventListener(
+      Events.heal
+        .by(SELECTED_PLAYER)
+        .spell([
+          SPELLS.HEALING_SURGE,
+          SPELLS.HEALING_WAVE,
+          SPELLS.CHAIN_HEAL,
+          SPELLS.UNLEASH_LIFE_TALENT,
+          SPELLS.RIPTIDE,
+        ]),
+      this.onRelevantHeal,
+    );
+    this.addEventListener(
+      Events.energize.to(SELECTED_PLAYER).spell(SPELLS.RESURGENCE),
+      this.onResurgenceProc,
+    );
   }
 
   onRelevantHeal(event: HealEvent) {
@@ -73,7 +86,8 @@ class Resurgence extends Analyzer {
     }
 
     if (event.hitType === HIT_TYPES.CRIT) {
-      this.resurgence[spellId].resurgenceTotal += SPELLS_PROCCING_RESURGENCE[spellId] * this.manaTracker.maxResource;
+      this.resurgence[spellId].resurgenceTotal +=
+        SPELLS_PROCCING_RESURGENCE[spellId] * this.manaTracker.maxResource;
       this.resurgence[spellId].castAmount += 1;
     }
   }
@@ -93,44 +107,70 @@ class Resurgence extends Analyzer {
     const naturalManaRegen = (this.owner.fightDuration / 1000) * MANA_REGEN_PER_SECOND;
     const mttMana = this.manaTideTotem.regenOnPlayer;
     const wsMana = this.waterShield.regenOnPlayer;
-    return naturalManaRegen + this.totalResurgenceGain + this.manaTracker.maxResource + this.otherManaGain + mttMana + wsMana;
+    return (
+      naturalManaRegen +
+      this.totalResurgenceGain +
+      this.manaTracker.maxResource +
+      this.otherManaGain +
+      mttMana +
+      wsMana
+    );
   }
 
   statistic() {
     return (
       <Statistic
         position={STATISTIC_ORDER.UNIMPORTANT(90)}
-        size='flexible'
-        dropdown={(
+        size="flexible"
+        dropdown={
           <>
             <div>
-              <Trans id="shaman.restoration.resurgence.statistic.table.description"><SpellLink id={SPELLS.RESURGENCE.id} iconStyle={{ height: '1.25em' }} /> accounted for {formatPercentage(this.totalResurgenceGain / this.totalMana, 0)}% of your mana pool ({formatNumber(this.totalMana)} mana).</Trans>
+              <Trans id="shaman.restoration.resurgence.statistic.table.description">
+                <SpellLink id={SPELLS.RESURGENCE.id} iconStyle={{ height: '1.25em' }} /> accounted
+                for {formatPercentage(this.totalResurgenceGain / this.totalMana, 0)}% of your mana
+                pool ({formatNumber(this.totalMana)} mana).
+              </Trans>
             </div>
             <table className="table table-condensed">
               <thead>
                 <tr>
-                  <th><Trans id="shaman.restoration.resurgence.statistic.tableHeader.spell">Spell</Trans></th>
-                  <th><Trans id="shaman.restoration.resurgence.statistic.tableHeader.amount">Amount</Trans></th>
-                  <th><Trans id="shaman.restoration.resurgence.statistic.tableHeader.crits">Crits</Trans></th>
-                  <th><Trans id="shaman.restoration.resurgence.statistic.tableHeader.mana">% of mana</Trans></th>
+                  <th>
+                    <Trans id="shaman.restoration.resurgence.statistic.tableHeader.spell">
+                      Spell
+                    </Trans>
+                  </th>
+                  <th>
+                    <Trans id="shaman.restoration.resurgence.statistic.tableHeader.amount">
+                      Amount
+                    </Trans>
+                  </th>
+                  <th>
+                    <Trans id="shaman.restoration.resurgence.statistic.tableHeader.crits">
+                      Crits
+                    </Trans>
+                  </th>
+                  <th>
+                    <Trans id="shaman.restoration.resurgence.statistic.tableHeader.mana">
+                      % of mana
+                    </Trans>
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                {
-                  this.resurgence
-                    .map(spell => (
-                      <tr key={spell.spellId}>
-                        <th scope="row"><SpellIcon id={spell.spellId} style={{ height: '2.5em' }} /></th>
-                        <td>{formatNumber(spell.resurgenceTotal)}</td>
-                        <td>{formatNumber(spell.castAmount)}</td>
-                        <td>{formatPercentage(spell.resurgenceTotal / this.totalMana)}%</td>
-                      </tr>
-                    ))
-                }
+                {this.resurgence.map((spell) => (
+                  <tr key={spell.spellId}>
+                    <th scope="row">
+                      <SpellIcon id={spell.spellId} style={{ height: '2.5em' }} />
+                    </th>
+                    <td>{formatNumber(spell.resurgenceTotal)}</td>
+                    <td>{formatNumber(spell.castAmount)}</td>
+                    <td>{formatPercentage(spell.resurgenceTotal / this.totalMana)}%</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </>
-        )}
+        }
       >
         <BoringValue label={<SpellLink id={SPELLS.RESURGENCE.id} />}>
           <div className="flex mtt-value">
@@ -141,7 +181,9 @@ class Resurgence extends Analyzer {
               {formatNumber(this.totalResurgenceGain)}
               <br />
               <small>
-                <Trans id="shaman.restoration.resurgence.statistic.label">Mana gained from Resurgence</Trans>
+                <Trans id="shaman.restoration.resurgence.statistic.label">
+                  Mana gained from Resurgence
+                </Trans>
               </small>
             </div>
           </div>

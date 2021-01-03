@@ -36,7 +36,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CHANNEL_DEMONFIRE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 25 / (1 + haste),
+        cooldown: (haste) => 25 / (1 + haste),
         enabled: combatant.hasTalent(SPELLS.CHANNEL_DEMONFIRE_TALENT.id),
         gcd: {
           base: 1500,
@@ -49,7 +49,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CONFLAGRATE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 13 / (1 + haste),
+        cooldown: (haste) => 13 / (1 + haste),
         charges: 2,
         gcd: {
           base: 1500,
@@ -80,7 +80,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SHADOWBURN_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 12 / (1 + haste),
+        cooldown: (haste) => 12 / (1 + haste),
         charges: 2,
         enabled: combatant.hasTalent(SPELLS.SHADOWBURN_TALENT.id),
         gcd: {
@@ -171,8 +171,8 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           importance: ISSUE_IMPORTANCE.MINOR,
           recommendedEfficiency: 0.33,
-          averageIssueEfficiency: 0.20,
-          majorIssueEfficiency: 0.10,
+          averageIssueEfficiency: 0.2,
+          majorIssueEfficiency: 0.1,
         },
       },
       {
@@ -185,8 +185,8 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           importance: ISSUE_IMPORTANCE.MINOR,
           recommendedEfficiency: 0.33,
-          averageIssueEfficiency: 0.20,
-          majorIssueEfficiency: 0.10,
+          averageIssueEfficiency: 0.2,
+          majorIssueEfficiency: 0.1,
         },
         buffSpellId: SPELLS.DARK_PACT_TALENT.id,
       },
@@ -357,7 +357,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FEL_DOMINATION,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: combatant.hasConduitBySpellID(SPELLS.FEL_CELERITY.id) ? 180 - FEL_CELERITY_REDUCTION_SEC[combatant.conduitRankBySpellID(SPELLS.FEL_CELERITY.id)] : 180,
+        cooldown: combatant.hasConduitBySpellID(SPELLS.FEL_CELERITY.id)
+          ? 180 - FEL_CELERITY_REDUCTION_SEC[combatant.conduitRankBySpellID(SPELLS.FEL_CELERITY.id)]
+          : 180,
         gcd: {
           base: 1500,
         },

@@ -16,9 +16,7 @@ class Channeling extends CoreChanneling {
 
   constructor(options: Options) {
     super(options);
-    this._hasCastigation = this.selectedCombatant.hasTalent(
-      SPELLS.CASTIGATION_TALENT.id,
-    );
+    this._hasCastigation = this.selectedCombatant.hasTalent(SPELLS.CASTIGATION_TALENT.id);
   }
 
   isNewPenanceCast(timestamp: number) {
@@ -59,12 +57,13 @@ class Channeling extends CoreChanneling {
   cancelChannel(event: EndChannelEvent, ability: Ability) {
     if (this.isChannelingSpell(SPELLS.PENANCE.id)) {
       // If a channeling spell is "canceled" it was actually just ended, so if it looks canceled then instead just mark it as ended
-      debug && this.debug(
-        'Marking',
-        this._currentChannel.ability.name,
-        'as ended since we started casting something else:',
-        event.ability.name,
-      );
+      debug &&
+        this.debug(
+          'Marking',
+          this._currentChannel.ability.name,
+          'as ended since we started casting something else:',
+          event.ability.name,
+        );
       this.endChannel(event);
     } else {
       super.cancelChannel(event, ability);

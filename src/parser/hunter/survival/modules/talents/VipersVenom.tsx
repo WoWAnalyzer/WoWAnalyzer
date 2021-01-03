@@ -44,10 +44,22 @@ class VipersVenom extends Analyzer {
       this.spellKnown = SPELLS.MONGOOSE_BITE_TALENT;
     }
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV), this.onCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV), this.onDamage);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.VIPERS_VENOM_BUFF), this.onApplyBuff);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.VIPERS_VENOM_BUFF), this.onRefreshBuff);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV),
+      this.onDamage,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.VIPERS_VENOM_BUFF),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.VIPERS_VENOM_BUFF),
+      this.onRefreshBuff,
+    );
   }
 
   get averageTimeBetweenBuffAndUsage() {
@@ -60,7 +72,8 @@ class VipersVenom extends Analyzer {
     }
     this.buffedSerpentSting = true;
     this.currentGCD = this.globalCooldown.getGlobalCooldownDuration(event.ability.guid);
-    this.accumulatedTimeFromBuffToCast += event.timestamp - this.lastProcTimestamp - this.currentGCD;
+    this.accumulatedTimeFromBuffToCast +=
+      event.timestamp - this.lastProcTimestamp - this.currentGCD;
   }
 
   onDamage(event: DamageEvent) {
@@ -84,20 +97,29 @@ class VipersVenom extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(1)}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
             <ul>
-              <li>Average time between gaining Viper's Venom buff and using it was <b>{this.averageTimeBetweenBuffAndUsage.toFixed(2)}</b> seconds. This accounts for the GCD after the {this.spellKnown.name} proccing Viper's Venom.
-                {this.wastedProcs > 0 && <li>You wasted {this.wastedProcs} procs by gaining a new proc, whilst your current proc was still active.</li>}
+              <li>
+                Average time between gaining Viper's Venom buff and using it was{' '}
+                <b>{this.averageTimeBetweenBuffAndUsage.toFixed(2)}</b> seconds. This accounts for
+                the GCD after the {this.spellKnown.name} proccing Viper's Venom.
+                {this.wastedProcs > 0 && (
+                  <li>
+                    You wasted {this.wastedProcs} procs by gaining a new proc, whilst your current
+                    proc was still active.
+                  </li>
+                )}
               </li>
             </ul>
           </>
-        )}
+        }
         category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spell={SPELLS.VIPERS_VENOM_TALENT}>
           <>
-            <ItemDamageDone amount={this.bonusDamage} /><br />
+            <ItemDamageDone amount={this.bonusDamage} />
+            <br />
             {this.procs} / {this.wastedProcs + this.procs} <small>procs used</small>
           </>
         </BoringSpellValueText>

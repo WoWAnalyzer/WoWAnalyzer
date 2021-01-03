@@ -20,7 +20,6 @@ import { SPITTING_COBRA_DAMAGE_INCREASE } from '../../constants';
  */
 
 class SpittingCobra extends Analyzer {
-
   damage = 0;
   casts = 0;
   totalIncrease = 0;
@@ -28,8 +27,14 @@ class SpittingCobra extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SPITTING_COBRA_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.BESTIAL_WRATH, SPELLS.COBRA_SHOT]), this.bestialWrathCobraShotCasts);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.SPITTING_COBRA_DAMAGE), this.spittingCobraDamage);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.BESTIAL_WRATH, SPELLS.COBRA_SHOT]),
+      this.bestialWrathCobraShotCasts,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.SPITTING_COBRA_DAMAGE),
+      this.spittingCobraDamage,
+    );
   }
 
   get averageIncrease() {

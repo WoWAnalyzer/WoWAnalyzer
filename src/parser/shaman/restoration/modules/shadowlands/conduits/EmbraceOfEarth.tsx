@@ -51,7 +51,7 @@ class EmbraceOfEarth extends Analyzer {
       const boostedHeal = (event.amount || 0) + (event.absorbed || 0) + (event.overheal || 0);
       const heal = boostedHeal / (1 + EARTHSHIELD_HEALING_INCREASE + this.boost);
       const bonusHeal = heal * this.boost;
-      const effectiveHealing = Math.max(0, (bonusHeal - (event.overheal || 0)));
+      const effectiveHealing = Math.max(0, bonusHeal - (event.overheal || 0));
       this.healing += effectiveHealing;
     }
   }
@@ -64,7 +64,8 @@ class EmbraceOfEarth extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
       >
         <ConduitSpellText spell={SPELLS.EMBRACE_OF_EARTH} rank={this.conduitRank}>
-          <ItemHealingDone amount={this.healing} /><br />
+          <ItemHealingDone amount={this.healing} />
+          <br />
         </ConduitSpellText>
       </Statistic>
     );

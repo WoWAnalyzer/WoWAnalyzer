@@ -15,7 +15,8 @@ import UptimeIcon from 'interface/icons/Uptime';
 
 class StellarFlareUptime extends Analyzer {
   get suggestionThresholds() {
-    const stellarFlareUptime = this.enemies.getBuffUptime(SPELLS.STELLAR_FLARE_TALENT.id) / this.owner.fightDuration;
+    const stellarFlareUptime =
+      this.enemies.getBuffUptime(SPELLS.STELLAR_FLARE_TALENT.id) / this.owner.fightDuration;
     return {
       actual: stellarFlareUptime,
       isLessThan: {
@@ -38,22 +39,29 @@ class StellarFlareUptime extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id} /> uptime can be improved. Try to pay more attention to your Stellar Flare on the boss.</>)
-      .icon(SPELLS.STELLAR_FLARE_TALENT.icon)
-      .actual(t({
-      id: "druid.balance.suggestions.stellarFlare.uptime",
-      message: `${formatPercentage(actual)}% Stellar Flare uptime`
-    }))
-      .recommended(`>${formatPercentage(recommended)}% is recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your <SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id} /> uptime can be improved. Try to pay
+          more attention to your Stellar Flare on the boss.
+        </>,
+      )
+        .icon(SPELLS.STELLAR_FLARE_TALENT.icon)
+        .actual(
+          t({
+            id: 'druid.balance.suggestions.stellarFlare.uptime',
+            message: `${formatPercentage(actual)}% Stellar Flare uptime`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
-    const stellarFlareUptime = this.enemies.getBuffUptime(SPELLS.STELLAR_FLARE_TALENT.id) / this.owner.fightDuration;
+    const stellarFlareUptime =
+      this.enemies.getBuffUptime(SPELLS.STELLAR_FLARE_TALENT.id) / this.owner.fightDuration;
     return (
-      <Statistic
-        position={STATISTIC_ORDER.CORE(7)}
-        size="flexible"
-      >
+      <Statistic position={STATISTIC_ORDER.CORE(7)} size="flexible">
         <BoringSpellValueText spell={SPELLS.STELLAR_FLARE_TALENT}>
           <>
             <UptimeIcon /> {formatPercentage(stellarFlareUptime)} % <small>uptime</small>

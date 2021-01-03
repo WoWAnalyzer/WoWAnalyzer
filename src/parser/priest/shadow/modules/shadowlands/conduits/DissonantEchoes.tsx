@@ -47,13 +47,19 @@ class DissonantEchoes extends Analyzer {
     }
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.VOID_BOLT), this.onDamage);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DISSONANT_ECHOES_BUFF), this.onBuffApplied);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.DISSONANT_ECHOES_BUFF), this.onBuffRemoved);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DISSONANT_ECHOES_BUFF),
+      this.onBuffApplied,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.DISSONANT_ECHOES_BUFF),
+      this.onBuffRemoved,
+    );
   }
 
   onDamage(event: DamageEvent) {
     const raw = event.amount + (event.absorbed || 0);
-    this.damage += raw - (raw / DISSONANT_ECHOES_DAMAGE_INCREASE);
+    this.damage += raw - raw / DISSONANT_ECHOES_DAMAGE_INCREASE;
   }
 
   onBuffApplied() {
@@ -81,16 +87,24 @@ class DissonantEchoes extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>You wasted {this.procsWasted} out of {this.procsGained} <SpellLink id={SPELLS.DISSONANT_ECHOES_BUFF.id} /> procs. Make sure to use these procs to benefit from the increased <SpellLink id={SPELLS.VOID_BOLT.id} /> damage and extend your damage over time abilities.</>)
-      .icon(SPELLS.DISSONANT_ECHOES_BUFF.icon)
-      .actual(
-        t({
-          id:'priest.shadow.conduits.dissonantEchoes.efficiency',
-          message: `You wasted ${this.procsWasted} out of ${this.procsGained} Dissonant Echoes procs.`
-        })
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You wasted {this.procsWasted} out of {this.procsGained}{' '}
+          <SpellLink id={SPELLS.DISSONANT_ECHOES_BUFF.id} /> procs. Make sure to use these procs to
+          benefit from the increased <SpellLink id={SPELLS.VOID_BOLT.id} /> damage and extend your
+          damage over time abilities.
+        </>,
       )
-      .recommended(`None wasted is recommended.`));
+        .icon(SPELLS.DISSONANT_ECHOES_BUFF.icon)
+        .actual(
+          t({
+            id: 'priest.shadow.conduits.dissonantEchoes.efficiency',
+            message: `You wasted ${this.procsWasted} out of ${this.procsGained} Dissonant Echoes procs.`,
+          }),
+        )
+        .recommended(`None wasted is recommended.`),
+    );
   }
 
   statistic() {
@@ -99,11 +113,13 @@ class DissonantEchoes extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
-        tooltip={(
+        tooltip={
           <>
-            <Trans id="priest.shadow.conduits.dissonantEchoes.tooltip">You used {this.procsUsed} out of the {this.procsGained} procs gained.</Trans>
+            <Trans id="priest.shadow.conduits.dissonantEchoes.tooltip">
+              You used {this.procsUsed} out of the {this.procsGained} procs gained.
+            </Trans>
           </>
-        )}
+        }
       >
         <ConduitSpellText spell={SPELLS.DISSONANT_ECHOES} rank={this.conduitRank}>
           <>
@@ -113,7 +129,6 @@ class DissonantEchoes extends Analyzer {
       </Statistic>
     );
   }
-
 }
 
 export default DissonantEchoes;

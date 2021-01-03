@@ -18,8 +18,10 @@ class Lifebloom extends Analyzer {
   get uptime() {
     // Only either LIFEBLOOM_HOT_HEAL or LIFEBLOOM_DTL_HOT_HEAL can be up (with or without the DTL legendary), but
     // DTL Lifeblooms (LIFEBLOOM_DTL_HOT_HEAL) are on two targets so their BuffUptime need to behalved for a percentage
-    return this.combatants.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id)
-      + this.combatants.getBuffUptime(SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id);
+    return (
+      this.combatants.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id) +
+      this.combatants.getBuffUptime(SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id)
+    );
   }
 
   get uptimePercent() {
@@ -31,9 +33,9 @@ class Lifebloom extends Analyzer {
     return {
       actual: this.uptimePercent,
       isLessThan: {
-        minor: 0.80,
-        average: 0.60,
-        major: 0.40,
+        minor: 0.8,
+        average: 0.6,
+        major: 0.4,
       },
       style: 'percentage',
     };
@@ -44,23 +46,41 @@ class Lifebloom extends Analyzer {
   };
 
   suggestions(when) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} /> uptime can be improved. {this.hasDta ? <>High uptime is particularly important for taking advantage of your equipped <ItemLink id={ITEMS.THE_DARK_TITANS_ADVICE.id} /></> : ''}</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your <SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} /> uptime can be improved.{' '}
+          {this.hasDta ? (
+            <>
+              High uptime is particularly important for taking advantage of your equipped{' '}
+              <ItemLink id={ITEMS.THE_DARK_TITANS_ADVICE.id} />
+            </>
+          ) : (
+            ''
+          )}
+        </>,
+      )
         .icon(SPELLS.LIFEBLOOM_HOT_HEAL.icon)
-        .actual(t({
-          id: "druid.restoration.suggestions.lifebloom.uptime",
-          message: `${formatPercentage(this.uptimePercent)}% uptime`
-        }))
-        .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`));
+        .actual(
+          t({
+            id: 'druid.restoration.suggestions.lifebloom.uptime',
+            message: `${formatPercentage(this.uptimePercent)}% uptime`,
+          }),
+        )
+        .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`),
+    );
   }
 
   statistic() {
     return (
-      <Statistic
-        size="flexible"
-        position={STATISTIC_ORDER.CORE(10)}
-      >
-        <BoringValue label={<><SpellIcon id={SPELLS.LIFEBLOOM_HOT_HEAL.id} /> Lifebloom Uptime</>}>
+      <Statistic size="flexible" position={STATISTIC_ORDER.CORE(10)}>
+        <BoringValue
+          label={
+            <>
+              <SpellIcon id={SPELLS.LIFEBLOOM_HOT_HEAL.id} /> Lifebloom Uptime
+            </>
+          }
+        >
           <>
             <UptimeIcon /> {formatPercentage(this.uptimePercent)} %
           </>

@@ -1,4 +1,4 @@
-import { ItemList } from "common/ITEMS/Item";
+import { ItemList } from 'common/ITEMS/Item';
 
 import indexById from '../indexById';
 import safeMerge from '../safeMerge';
@@ -21,7 +21,6 @@ import WARRIOR from './warrior';
 import OTHERS from './others';
 import SHADOWLANDS from './shadowlands';
 
-
 const ITEMS: ItemList = {
   //Class items
   ...safeMerge(
@@ -39,10 +38,7 @@ const ITEMS: ItemList = {
     WARRIOR,
   ),
   //Any non class-specific items
-  ...safeMerge(
-    OTHERS,
-    SHADOWLANDS,
-  ),
+  ...safeMerge(OTHERS, SHADOWLANDS),
 };
 
 export default indexById(ITEMS);

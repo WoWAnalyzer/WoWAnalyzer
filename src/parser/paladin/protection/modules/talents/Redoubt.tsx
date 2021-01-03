@@ -15,7 +15,6 @@ class Redoubt extends Analyzer {
     statTracker: StatTracker,
   };
 
-
   protected statTracker!: StatTracker;
 
   constructor(options: Options) {
@@ -27,7 +26,7 @@ class Redoubt extends Analyzer {
     const localStatTracker: StatTracker = options.statTracker as StatTracker;
     localStatTracker.add(SPELLS.REDOUBT_BUFF.id, {
       stamina: this.bonusStaminaGain(localStatTracker),
-      strength: this.bonusStrenghGain(localStatTracker)
+      strength: this.bonusStrenghGain(localStatTracker),
     });
   }
 
@@ -40,7 +39,10 @@ class Redoubt extends Analyzer {
   }
 
   get averageStacks() {
-    return this.selectedCombatant.getStackWeightedBuffUptime(SPELLS.REDOUBT_BUFF.id) / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getStackWeightedBuffUptime(SPELLS.REDOUBT_BUFF.id) /
+      this.owner.fightDuration
+    );
   }
 
   statistic(): React.ReactNode {
@@ -51,11 +53,12 @@ class Redoubt extends Analyzer {
         position={STATISTIC_ORDER.DEFAULT}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={(
+        tooltip={
           <>
-            Taking the Redoubt talent gave you on average {formatNumber(averageStamGain)} Stamina and {formatNumber(averageStrengthGain)} Strength.
+            Taking the Redoubt talent gave you on average {formatNumber(averageStamGain)} Stamina
+            and {formatNumber(averageStrengthGain)} Strength.
           </>
-        )}
+        }
       >
         <BoringSpellValue
           spell={SPELLS.REDOUBT_TALENT}

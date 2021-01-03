@@ -15,8 +15,15 @@ export default {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      If you have any questions about Warlocks, feel free to pay a visit to <a href="https://discord.gg/BlackHarvest" target="_blank" rel="noopener noreferrer">Council of the Black Harvest Discord</a>&nbsp;
-      or <a href="http://lockonestopshop.com" target="_blank" rel="noopener noreferrer">Lock One Stop Shop</a>.
+      If you have any questions about Warlocks, feel free to pay a visit to{' '}
+      <a href="https://discord.gg/BlackHarvest" target="_blank" rel="noopener noreferrer">
+        Council of the Black Harvest Discord
+      </a>
+      &nbsp; or{' '}
+      <a href="http://lockonestopshop.com" target="_blank" rel="noopener noreferrer">
+        Lock One Stop Shop
+      </a>
+      .
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
@@ -28,7 +35,10 @@ export default {
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () => import('./CombatLogParser' /* webpackChunkName: "DestructionWarlock" */).then(exports => exports.default),
+  parser: () =>
+    import('./CombatLogParser' /* webpackChunkName: "DestructionWarlock" */).then(
+      (exports) => exports.default,
+    ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };

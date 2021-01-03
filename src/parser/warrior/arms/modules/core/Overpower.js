@@ -44,14 +44,23 @@ class OverpowerAnalyzer extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.OVERPOWER), this._onOverpowerCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.OVERPOWER),
+      this._onOverpowerCast,
+    );
   }
 
   _onOverpowerCast(event) {
     this.overpowerCasts += 1;
     const overpower = this.selectedCombatant.getBuff(SPELLS.OVERPOWER.id);
 
-    if (!(overpower && overpower.stacks === 2 && this.spellUsable.isAvailable(SPELLS.MORTAL_STRIKE.id))) {
+    if (
+      !(
+        overpower &&
+        overpower.stacks === 2 &&
+        this.spellUsable.isAvailable(SPELLS.MORTAL_STRIKE.id)
+      )
+    ) {
       return;
     }
 
@@ -61,18 +70,29 @@ class OverpowerAnalyzer extends Analyzer {
 
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = 'This Overpower was used while already at 2 stacks and Mortal Strike was available';
+      event.meta.inefficientCastReason =
+        'This Overpower was used while already at 2 stacks and Mortal Strike was available';
     }
   }
 
   suggestions(when) {
-    when(this.WastedOverpowerThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Try to avoid using <SpellLink id={SPELLS.OVERPOWER.id} icon /> at 2 stacks when <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> is available. Use your stacks of Overpower with Mortal Strike to avoid over stacking, which result in a loss of damage.</>)
-      .icon(SPELLS.OVERPOWER.icon)
-      .actual(t({
-      id: "warrior.arms.suggestions.overpower.stacksWasted",
-      message: `${formatPercentage(actual)}% of Overpower stacks were wasted.`
-    }))
-      .recommended(`${formatPercentage(recommended)}% is recommended.`));
+    when(this.WastedOverpowerThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Try to avoid using <SpellLink id={SPELLS.OVERPOWER.id} icon /> at 2 stacks when{' '}
+          <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> is available. Use your stacks of Overpower
+          with Mortal Strike to avoid over stacking, which result in a loss of damage.
+        </>,
+      )
+        .icon(SPELLS.OVERPOWER.icon)
+        .actual(
+          t({
+            id: 'warrior.arms.suggestions.overpower.stacksWasted',
+            message: `${formatPercentage(actual)}% of Overpower stacks were wasted.`,
+          }),
+        )
+        .recommended(`${formatPercentage(recommended)}% is recommended.`),
+    );
   }
 
   statistic() {
@@ -81,19 +101,20 @@ class OverpowerAnalyzer extends Analyzer {
         icon={<SpellIcon id={SPELLS.OVERPOWER.id} />}
         label="Overpower Buffs Wasted"
         position={STATISTIC_ORDER.OPTIONAL(6)}
-        value={(
+        value={
           <>
-            {this.wastedProc} <small>wasted buffs</small><br />
+            {this.wastedProc} <small>wasted buffs</small>
+            <br />
             {this.overpowerCasts} <small>total casts</small>
           </>
-        )}
-        tooltip={(
+        }
+        tooltip={
           <>
-            The overpower buff caps at two stacks. When at cap, casting Overpower will waste a buff stack.
-            This is not important during execute phase as Mortal Strike is replaced with Execute which does not
-            consume Overpower buff stacks.
+            The overpower buff caps at two stacks. When at cap, casting Overpower will waste a buff
+            stack. This is not important during execute phase as Mortal Strike is replaced with
+            Execute which does not consume Overpower buff stacks.
           </>
-        )}
+        }
       />
     );
   }

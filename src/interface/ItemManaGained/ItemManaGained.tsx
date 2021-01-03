@@ -13,10 +13,7 @@ interface Context {
   parser: CombatLogParser;
 }
 
-const ItemManaGained = (
-  { amount, approximate }: Props,
-  { parser }: Context,
-) => (
+const ItemManaGained = ({ amount, approximate }: Props, { parser }: Context) => (
   <>
     <ManaIcon /> {approximate && '≈'}
     {formatThousands((amount / parser.fightDuration) * 1000 * 5)} MP5{' '}

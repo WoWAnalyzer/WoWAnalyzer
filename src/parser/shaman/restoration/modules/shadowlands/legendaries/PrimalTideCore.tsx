@@ -1,7 +1,14 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Events, { ApplyBuffEvent, CastEvent, HasTarget, HealEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  CastEvent,
+  HasTarget,
+  HealEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 
 import Statistic from 'interface/statistics/Statistic';
@@ -38,12 +45,21 @@ class PrimalTideCore extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.PRIMAL_TIDE_CORE.bonusID);
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.RIPTIDE, SPELLS.PRIMORDIAL_WAVE_CAST]), this.castedRiptide);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.trackRiptide);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.RIPTIDE, SPELLS.PRIMORDIAL_WAVE_CAST]),
+      this.castedRiptide,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE),
+      this.trackRiptide,
+    );
     // we figured out it can never refresh a riptide
     // this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.trackRiptide);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.riptideHeal);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.removeRiptide);
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE),
+      this.removeRiptide,
+    );
   }
 
   castedRiptide(event: CastEvent) {
@@ -70,7 +86,7 @@ class PrimalTideCore extends Analyzer {
   riptideHeal(event: HealEvent) {
     if (this.targetsWithBoostedRiptides[event.targetID]) {
       this.healing += event.amount + (event.absorbed || 0);
-      this.overhealing += (event.overheal || 0);
+      this.overhealing += event.overheal || 0;
     }
   }
 
@@ -83,10 +99,17 @@ class PrimalTideCore extends Analyzer {
       <Statistic
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
-        tooltip={<>
-          <Trans id="shaman.restoration.legendaries.primalTideCore.statistic.tooltip">{this.gainedRiptideCasts} Riptide applications</Trans><br />
-          <Trans id="shaman.restoration.legendaries.primalTideCore.statistic.tooltip2">{formatPercentage(this.overhealing / (this.healing + this.overhealing))}% Overhealing</Trans>
-        </>}
+        tooltip={
+          <>
+            <Trans id="shaman.restoration.legendaries.primalTideCore.statistic.tooltip">
+              {this.gainedRiptideCasts} Riptide applications
+            </Trans>
+            <br />
+            <Trans id="shaman.restoration.legendaries.primalTideCore.statistic.tooltip2">
+              {formatPercentage(this.overhealing / (this.healing + this.overhealing))}% Overhealing
+            </Trans>
+          </>
+        }
       >
         <BoringSpellValueText spell={SPELLS.PRIMAL_TIDE_CORE}>
           <ItemHealingDone amount={this.healing} />

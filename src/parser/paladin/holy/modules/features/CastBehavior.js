@@ -23,7 +23,7 @@ class CastBehavior extends Analyzer {
 
   iolCastRatioChart() {
     const abilityTracker = this.abilityTracker;
-    const getAbility = spellId => abilityTracker.getAbility(spellId);
+    const getAbility = (spellId) => abilityTracker.getAbility(spellId);
 
     const flashOfLight = getAbility(SPELLS.FLASH_OF_LIGHT.id);
     const holyLight = getAbility(SPELLS.HOLY_LIGHT.id);
@@ -75,7 +75,7 @@ class CastBehavior extends Analyzer {
 
   fillerCastRatioChart() {
     const abilityTracker = this.abilityTracker;
-    const getAbility = spellId => abilityTracker.getAbility(spellId);
+    const getAbility = (spellId) => abilityTracker.getAbility(spellId);
 
     const flashOfLight = getAbility(SPELLS.FLASH_OF_LIGHT.id);
     const holyLight = getAbility(SPELLS.HOLY_LIGHT.id);

@@ -37,7 +37,10 @@ export default class ExpelHarm extends EventsNormalizer {
       //
       // Celestial Fortune heals can occur between orb heals.
       let i = idx;
-      while (events[i - 1].timestamp > event.timestamp - BUFFER_WINDOW && (isGotOxHeal(events[i - 1]) || isCFHeal(events[i - 1]))) {
+      while (
+        events[i - 1].timestamp > event.timestamp - BUFFER_WINDOW &&
+        (isGotOxHeal(events[i - 1]) || isCFHeal(events[i - 1]))
+      ) {
         i -= 1;
       }
       const target = i;

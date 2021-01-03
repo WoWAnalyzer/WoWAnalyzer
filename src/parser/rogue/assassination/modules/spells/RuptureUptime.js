@@ -33,13 +33,22 @@ class RuptureUptime extends Analyzer {
   };
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.RUPTURE.id} /> uptime can be improved. Try to pay more attention to your <SpellLink id={SPELLS.RUPTURE.id} /> on the boss.</>)
-      .icon(SPELLS.RUPTURE.icon)
-      .actual(t({
-      id: "rogue.assassination.suggestions.rupture.uptime",
-      message: `${formatPercentage(actual)}% Rupture uptime`
-    }))
-      .recommended(`>${formatPercentage(recommended)}% is recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your <SpellLink id={SPELLS.RUPTURE.id} /> uptime can be improved. Try to pay more
+          attention to your <SpellLink id={SPELLS.RUPTURE.id} /> on the boss.
+        </>,
+      )
+        .icon(SPELLS.RUPTURE.icon)
+        .actual(
+          t({
+            id: 'rogue.assassination.suggestions.rupture.uptime',
+            message: `${formatPercentage(actual)}% Rupture uptime`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
@@ -52,7 +61,6 @@ class RuptureUptime extends Analyzer {
       />
     );
   }
-
 }
 
 export default RuptureUptime;

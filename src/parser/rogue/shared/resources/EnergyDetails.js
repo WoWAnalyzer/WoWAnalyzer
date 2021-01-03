@@ -60,15 +60,11 @@ class EnergyDetails extends Analyzer {
       url: 'energy-usage',
       render: () => (
         <Panel>
-          <ResourceBreakdown
-            tracker={this.energyTracker}
-            showSpenders
-          />
+          <ResourceBreakdown tracker={this.energyTracker} showSpenders />
         </Panel>
       ),
     };
   }
-
 }
 
 export default EnergyDetails;

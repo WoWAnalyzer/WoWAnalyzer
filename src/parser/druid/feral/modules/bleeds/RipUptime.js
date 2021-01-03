@@ -21,8 +21,8 @@ class RipUptime extends Analyzer {
       actual: this.uptime,
       isLessThan: {
         minor: 0.95,
-        average: 0.90,
-        major: 0.80,
+        average: 0.9,
+        major: 0.8,
       },
       style: 'percentage',
     };
@@ -33,28 +33,40 @@ class RipUptime extends Analyzer {
   };
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        Your <SpellLink id={SPELLS.RIP.id} /> uptime can be improved. You can refresh the DoT once it has reached its <TooltipElement content="The last 30% of the DoT's duration. When you refresh during this time you don't lose any duration in the process.">pandemic window</TooltipElement>, don't wait for it to wear off.
-        {!this.selectedCombatant.hasTalent(SPELLS.SABERTOOTH_TALENT.id) ?
-          <> Avoid spending combo points on <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> if <SpellLink id={SPELLS.RIP.id} /> will need refreshing soon.</> : <></>
-        }
-      </>,
-    )
-      .icon(SPELLS.RIP.icon)
-      .actual(t({
-      id: "druid.feral.suggestions.rip.uptime",
-      message: `${formatPercentage(actual)}% uptime`
-    }))
-      .recommended(`>${formatPercentage(recommended)}% is recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your <SpellLink id={SPELLS.RIP.id} /> uptime can be improved. You can refresh the DoT once
+          it has reached its{' '}
+          <TooltipElement content="The last 30% of the DoT's duration. When you refresh during this time you don't lose any duration in the process.">
+            pandemic window
+          </TooltipElement>
+          , don't wait for it to wear off.
+          {!this.selectedCombatant.hasTalent(SPELLS.SABERTOOTH_TALENT.id) ? (
+            <>
+              {' '}
+              Avoid spending combo points on <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> if{' '}
+              <SpellLink id={SPELLS.RIP.id} /> will need refreshing soon.
+            </>
+          ) : (
+            <></>
+          )}
+        </>,
+      )
+        .icon(SPELLS.RIP.icon)
+        .actual(
+          t({
+            id: 'druid.feral.suggestions.rip.uptime',
+            message: `${formatPercentage(actual)}% uptime`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
     return (
-      <Statistic
-        position={STATISTIC_ORDER.CORE(4)}
-        size="flexible"
-      >
+      <Statistic position={STATISTIC_ORDER.CORE(4)} size="flexible">
         <BoringSpellValueText spell={SPELLS.RIP}>
           <>
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>

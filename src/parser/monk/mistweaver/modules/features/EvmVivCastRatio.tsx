@@ -11,7 +11,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 /* Add in Statistic box to show Vivfy to Enveloping Mist Cast ratio.
  * TODO:
  * Add in suggestion thresholds and checklist item on ratio. Need additional log data to implement.
-*/
+ */
 
 class CastRatio extends Analyzer {
   static dependencies = {
@@ -29,7 +29,11 @@ class CastRatio extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.OPTIONAL(10)}
-        icon={<><SpellIcon id={SPELLS.ENVELOPING_MIST.id} /> : <SpellIcon id={SPELLS.VIVIFY.id} /> </>}
+        icon={
+          <>
+            <SpellIcon id={SPELLS.ENVELOPING_MIST.id} /> : <SpellIcon id={SPELLS.VIVIFY.id} />{' '}
+          </>
+        }
         value={`${evmCasts} : ${vivCasts}`}
         label="Enveloping Mist to Vivify Casts"
       />

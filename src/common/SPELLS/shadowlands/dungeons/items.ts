@@ -26,7 +26,7 @@ const dungeonItemSpells = {
     id: 345530,
     name: 'Overcharged Anima Battery',
     icon: 'inv_battery_01',
-  }
+  },
 } as const;
 
 export default dungeonItemSpells;

@@ -13,7 +13,11 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
-import { conduitScaling, LIFE_COCOON_HEALING_BOOST, NOURISHING_CHI_RANK_ONE } from '../../../constants';
+import {
+  conduitScaling,
+  LIFE_COCOON_HEALING_BOOST,
+  NOURISHING_CHI_RANK_ONE,
+} from '../../../constants';
 
 /**
  * HoT Healing during Life cocoon is buffed by x% and this boost lasts for an extra 6 second after cocoon breaks or ends.
@@ -61,7 +65,7 @@ class NourishingChi extends Analyzer {
       const boostedHeal = (event.amount || 0) + (event.absorbed || 0) + (event.overheal || 0);
       const heal = boostedHeal / (1 + LIFE_COCOON_HEALING_BOOST + this.boost);
       const bonusHeal = heal * this.boost;
-      const effectiveHealing = Math.max(0, (bonusHeal - (event.overheal || 0)));
+      const effectiveHealing = Math.max(0, bonusHeal - (event.overheal || 0));
       this.healing += effectiveHealing;
     }
 
@@ -78,7 +82,8 @@ class NourishingChi extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
       >
         <BoringSpellValueText spell={SPELLS.NOURISHING_CHI}>
-          <ItemHealingDone amount={this.healing} /><br />
+          <ItemHealingDone amount={this.healing} />
+          <br />
         </BoringSpellValueText>
       </Statistic>
     );

@@ -39,14 +39,19 @@ class PetTimeline extends React.PureComponent {
     const { historyBySpellId, selectedCombatant } = this.props;
     // these casts are extracted manually with flag "important"
     const importantEvents = [];
-    const manualCastIds = [SPELLS.SUMMON_DEMONIC_TYRANT.id, SPELLS.IMPLOSION_CAST.id, SPELLS.NETHER_PORTAL_TALENT.id, SPELLS.POWER_SIPHON_TALENT.id];
+    const manualCastIds = [
+      SPELLS.SUMMON_DEMONIC_TYRANT.id,
+      SPELLS.IMPLOSION_CAST.id,
+      SPELLS.NETHER_PORTAL_TALENT.id,
+      SPELLS.POWER_SIPHON_TALENT.id,
+    ];
     const tyrantCasts = this.filterHistoryCasts(SPELLS.SUMMON_DEMONIC_TYRANT.id);
     const implosionCasts = this.filterHistoryCasts(SPELLS.IMPLOSION_CAST.id);
     const powerSiphonCasts = this.filterHistoryCasts(SPELLS.POWER_SIPHON_TALENT.id);
     importantEvents.push(...tyrantCasts, ...implosionCasts, ...powerSiphonCasts);
     if (selectedCombatant.hasTalent(SPELLS.NETHER_PORTAL_TALENT.id)) {
       const netherPortalCasts = this.filterHistoryCasts(SPELLS.NETHER_PORTAL_TALENT.id);
-      const netherPortalWindows = netherPortalCasts.map(cast => ({
+      const netherPortalWindows = netherPortalCasts.map((cast) => ({
         type: 'duration',
         timestamp: cast.timestamp,
         endTimestamp: cast.timestamp + NETHER_PORTAL_DURATION,
@@ -55,15 +60,20 @@ class PetTimeline extends React.PureComponent {
       if (netherPortalCasts.length > 0) {
         // iterate through all spells
         Object.keys(historyBySpellId)
-          .filter(key => !manualCastIds.includes(Number(key))) // filter out casts we got manually
-          .map(key => historyBySpellId[key])
-          .forEach(historyArray => {
+          .filter((key) => !manualCastIds.includes(Number(key))) // filter out casts we got manually
+          .map((key) => historyBySpellId[key])
+          .forEach((historyArray) => {
             // filter casts and only those, that fall into any Nether Portal window
             const casts = historyArray
-              .filter(event => event.type === EventType.Cast
-                && netherPortalWindows.some(window => window.timestamp <= event.timestamp
-                  && event.timestamp <= window.endTimestamp))
-              .map(event => ({
+              .filter(
+                (event) =>
+                  event.type === EventType.Cast &&
+                  netherPortalWindows.some(
+                    (window) =>
+                      window.timestamp <= event.timestamp && event.timestamp <= window.endTimestamp,
+                  ),
+              )
+              .map((event) => ({
                 type: EventType.Cast,
                 timestamp: event.timestamp,
                 abilityId: event.ability.guid,
@@ -72,7 +82,11 @@ class PetTimeline extends React.PureComponent {
             castsDuringNetherPortal.push(...casts);
           });
       }
-      importantEvents.push(...netherPortalCasts, ...netherPortalWindows, ...castsDuringNetherPortal);
+      importantEvents.push(
+        ...netherPortalCasts,
+        ...netherPortalWindows,
+        ...castsDuringNetherPortal,
+      );
     }
     return importantEvents.sort((event1, event2) => event1.timestamp - event2.timestamp);
   }
@@ -140,9 +154,14 @@ class PetTimeline extends React.PureComponent {
 
   decorateImplosionCasts(events) {
     const { petTimeline } = this.props;
-    events.filter(event => event.type === EventType.Cast && event.abilityId === SPELLS.IMPLOSION_CAST.id)
-      .forEach(cast => {
-        const impCount = petTimeline.getPetsAtTimestamp(cast.timestamp).filter(pet => isWildImp(pet.guid)).length;
+    events
+      .filter(
+        (event) => event.type === EventType.Cast && event.abilityId === SPELLS.IMPLOSION_CAST.id,
+      )
+      .forEach((cast) => {
+        const impCount = petTimeline
+          .getPetsAtTimestamp(cast.timestamp)
+          .filter((pet) => isWildImp(pet.guid)).length;
         cast.extraInfo = `Imploded ${impCount} Wild Imp${impCount > 1 ? 's' : ''}`;
       });
     return events;
@@ -154,8 +173,8 @@ class PetTimeline extends React.PureComponent {
       return [];
     }
     return historyBySpellId[id]
-      .filter(event => event.type === EventType.Cast)
-      .map(event => ({
+      .filter((event) => event.type === EventType.Cast)
+      .map((event) => ({
         type: EventType.Cast,
         important: true,
         timestamp: event.timestamp,
@@ -189,15 +208,21 @@ class PetTimeline extends React.PureComponent {
         <div className="flex-sub legend">
           <div className="lane ruler-lane">
             <div className="btn-group">
-              {[1, 1.5, 2, 2.5, 3, 5].map(zoom => (
-                <button key={zoom} className={`btn btn-default btn-xs ${zoom === this.state.zoom ? 'active' : ''}`} onClick={() => this.setState({ zoom })}>{zoom}x</button>
+              {[1, 1.5, 2, 2.5, 3, 5].map((zoom) => (
+                <button
+                  key={zoom}
+                  className={`btn btn-default btn-xs ${zoom === this.state.zoom ? 'active' : ''}`}
+                  onClick={() => this.setState({ zoom })}
+                >
+                  {zoom}x
+                </button>
               ))}
             </div>
           </div>
           <div className="lane" key="casts">
             Key casts
           </div>
-          {Object.keys(pets).map(spellId => (
+          {Object.keys(pets).map((spellId) => (
             <div className="lane" key={spellId}>
               {spellId !== 'unknown' && <SpellLink id={Number(spellId)} />}
               {spellId === 'unknown' && (
@@ -212,22 +237,23 @@ class PetTimeline extends React.PureComponent {
           className="timeline flex-main"
           style={{ height: totalHeight }}
           onWheel={this.handleMouseWheel}
-          ref={comp => {
+          ref={(comp) => {
             this.gemini = comp;
           }}
         >
           <div className={`ruler interval-${skipInterval}`} style={{ width: totalWidth }}>
-            {seconds > 0 && [...Array(seconds)].map((_, second) => {
-              if (second % skipInterval !== 0) {
-                // Skip every second second when the text width becomes larger than the container
-                return null;
-              }
-              return (
-                <div key={second} className="lane" style={{ width: secondWidth * skipInterval }}>
-                  {formatDuration(second)}
-                </div>
-              );
-            })}
+            {seconds > 0 &&
+              [...Array(seconds)].map((_, second) => {
+                if (second % skipInterval !== 0) {
+                  // Skip every second second when the text width becomes larger than the container
+                  return null;
+                }
+                return (
+                  <div key={second} className="lane" style={{ width: secondWidth * skipInterval }}>
+                    {formatDuration(second)}
+                  </div>
+                );
+              })}
           </div>
           <KeyCastsRow
             key="keyCastsRow"
@@ -237,7 +263,7 @@ class PetTimeline extends React.PureComponent {
             totalWidth={totalWidth}
             secondWidth={secondWidth}
           />
-          {Object.keys(pets).map(spellId => (
+          {Object.keys(pets).map((spellId) => (
             <PetRow
               key={spellId}
               className="lane"

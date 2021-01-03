@@ -29,17 +29,26 @@ class Frostscythe extends Analyzer {
       return;
     }
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FROSTSCYTHE_TALENT), this.onCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FROSTSCYTHE_TALENT), this.onDamage);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FROSTSCYTHE_TALENT),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FROSTSCYTHE_TALENT),
+      this.onDamage,
+    );
     this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
   onCast(event: CastEvent) {
-    if (this.hits >= this.hitThreshold) { // this is checking the previous cast, not the cast in the current event
+    if (this.hits >= this.hitThreshold) {
+      // this is checking the previous cast, not the cast in the current event
       this.goodCasts += 1;
     }
     this.casts += 1;
-    this.hitThreshold = this.selectedCombatant.hasBuff(SPELLS.KILLING_MACHINE.id, event.timestamp) ? 1 : 2;
+    this.hitThreshold = this.selectedCombatant.hasBuff(SPELLS.KILLING_MACHINE.id, event.timestamp)
+      ? 1
+      : 2;
     this.hits = 0;
   }
 
@@ -47,7 +56,8 @@ class Frostscythe extends Analyzer {
     this.hits += 1;
   }
 
-  onFightEnd() { // check if the last cast of Fsc was good
+  onFightEnd() {
+    // check if the last cast of Fsc was good
     if (this.hits >= this.hitThreshold) {
       this.goodCasts += 1;
     }
@@ -63,23 +73,30 @@ class Frostscythe extends Analyzer {
       isLessThan: {
         minor: 0.95,
         average: 0.85,
-        major: .75,
+        major: 0.75,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
   }
 
   suggestions(when: When) {
-    when(this.efficencyThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        Your <SpellLink id={SPELLS.FROSTSCYTHE_TALENT.id} /> efficiency can be improved. Only cast Frostscythe if you have a <SpellLink id={SPELLS.KILLING_MACHINE.id} icon /> proc or you can hit 2+ targets.
-      </>)
-      .icon(SPELLS.FROSTSCYTHE_TALENT.icon)
-      .actual(t({
-      id: "deathknight.forst.frostScythe.efficiency",
-      message: `${formatPercentage(actual)}% Frostscythe efficiency`
-    }))
-      .recommended(`>${formatPercentage(recommended)}% is recommended`));
+    when(this.efficencyThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your <SpellLink id={SPELLS.FROSTSCYTHE_TALENT.id} /> efficiency can be improved. Only cast
+          Frostscythe if you have a <SpellLink id={SPELLS.KILLING_MACHINE.id} icon /> proc or you
+          can hit 2+ targets.
+        </>,
+      )
+        .icon(SPELLS.FROSTSCYTHE_TALENT.icon)
+        .actual(
+          t({
+            id: 'deathknight.forst.frostScythe.efficiency',
+            message: `${formatPercentage(actual)}% Frostscythe efficiency`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {

@@ -5,7 +5,10 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import React from 'react';
 import Events, { DamageEvent } from 'parser/core/Events';
-import { RAPTOR_MONGOOSE_VARIANTS, STINGING_STRIKE_RS_MB_DMG_INCREASE } from 'parser/hunter/survival/constants';
+import {
+  RAPTOR_MONGOOSE_VARIANTS,
+  STINGING_STRIKE_RS_MB_DMG_INCREASE,
+} from 'parser/hunter/survival/constants';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import SPELLS from 'common/SPELLS';
 import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
@@ -17,25 +20,32 @@ import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
  *
  */
 class StingingStrike extends Analyzer {
-
   conduitRank: number = 0;
   addedDamage: number = 0;
 
   constructor(options: Options) {
     super(options);
 
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.STINGING_STRIKE_CONDUIT.id);
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(
+      SPELLS.STINGING_STRIKE_CONDUIT.id,
+    );
 
     if (!this.conduitRank) {
       this.active = false;
       return;
     }
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(RAPTOR_MONGOOSE_VARIANTS), this.onRaptorMongooseDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(RAPTOR_MONGOOSE_VARIANTS),
+      this.onRaptorMongooseDamage,
+    );
   }
 
   onRaptorMongooseDamage(event: DamageEvent) {
-    this.addedDamage += calculateEffectiveDamage(event, STINGING_STRIKE_RS_MB_DMG_INCREASE[this.conduitRank]);
+    this.addedDamage += calculateEffectiveDamage(
+      event,
+      STINGING_STRIKE_RS_MB_DMG_INCREASE[this.conduitRank],
+    );
   }
 
   statistic() {

@@ -15,7 +15,6 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { t } from '@lingui/macro';
 
 class RelishInBlood extends Analyzer {
-
   runicPowerGained: number = 0;
   runicPowerWasted: number = 0;
   healing: number = 0;
@@ -25,8 +24,11 @@ class RelishInBlood extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.RELISH_IN_BLOOD_TALENT.id);
 
-    this.addEventListener(Events.energize.spell(SPELLS.RELISH_IN_BLOOD), this._relishBuffed)
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RELISH_IN_BLOOD), this._onHeal);
+    this.addEventListener(Events.energize.spell(SPELLS.RELISH_IN_BLOOD), this._relishBuffed);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RELISH_IN_BLOOD),
+      this._onHeal,
+    );
   }
 
   _relishBuffed(event: EnergizeEvent) {
@@ -34,23 +36,23 @@ class RelishInBlood extends Analyzer {
       return;
     }
 
-    this.runicPowerGained += event.resourceChange
-    this.runicPowerWasted += event.waste
+    this.runicPowerGained += event.resourceChange;
+    this.runicPowerWasted += event.waste;
   }
 
   _onHeal(event: HealEvent) {
     if (event.overheal) {
-      this.overhealing += event.overheal
+      this.overhealing += event.overheal;
     }
-    this.healing += event.amount + event.absorb
+    this.healing += event.amount + event.absorb;
   }
 
   get overhealPercentage() {
-    return this.overhealing / this.healing
+    return this.overhealing / this.healing;
   }
 
   get rpWastePercentage() {
-    return this.runicPowerWasted / this.runicPowerGained
+    return this.runicPowerWasted / this.runicPowerGained;
   }
 
   get efficiencySuggestionThresholds() {
@@ -58,22 +60,32 @@ class RelishInBlood extends Analyzer {
       actual: this.rpWastePercentage,
       isGreaterThan: {
         minor: 0,
-        average: .2,
-        major: .4,
+        average: 0.2,
+        major: 0.4,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
   }
 
   suggestions(when: When) {
-    when(this.efficiencySuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<span>Avoid being Runic Power capped at all times, you wasted {this.runicPowerWasted} PR by being RP capped.</span>)
-          .icon(SPELLS.RELISH_IN_BLOOD_TALENT.icon)
-          .actual(t({
-      id: "deathknight.suggestions.hysteria.efficiency",
-      message: `You wasted ${(formatPercentage(actual))}% of RP from ${SPELLS.RELISH_IN_BLOOD_TALENT.name} by being RP capped.`
-    }))
-          .recommended(`${formatPercentage(recommended)}% is recommended`));
+    when(this.efficiencySuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <span>
+          Avoid being Runic Power capped at all times, you wasted {this.runicPowerWasted} PR by
+          being RP capped.
+        </span>,
+      )
+        .icon(SPELLS.RELISH_IN_BLOOD_TALENT.icon)
+        .actual(
+          t({
+            id: 'deathknight.suggestions.hysteria.efficiency',
+            message: `You wasted ${formatPercentage(actual)}% of RP from ${
+              SPELLS.RELISH_IN_BLOOD_TALENT.name
+            } by being RP capped.`,
+          }),
+        )
+        .recommended(`${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
@@ -82,13 +94,16 @@ class RelishInBlood extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(2)}
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            <strong>RP wasted: </strong> {this.runicPowerWasted} ({formatPercentage(this.rpWastePercentage)} %)<br />
+            <strong>RP wasted: </strong> {this.runicPowerWasted} (
+            {formatPercentage(this.rpWastePercentage)} %)
+            <br />
             <strong>Healing: </strong> {formatNumber(this.healing)} <br />
-            <strong>Overhealing: </strong> {formatNumber(this.overhealing)} ({formatPercentage(this.overhealPercentage)} %) <br />
+            <strong>Overhealing: </strong> {formatNumber(this.overhealing)} (
+            {formatPercentage(this.overhealPercentage)} %) <br />
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.RELISH_IN_BLOOD_TALENT}>
           <>
@@ -98,7 +113,6 @@ class RelishInBlood extends Analyzer {
       </Statistic>
     );
   }
-
 }
 
 export default RelishInBlood;

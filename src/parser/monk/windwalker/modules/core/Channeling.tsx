@@ -1,6 +1,12 @@
 import SPELLS from 'common/SPELLS';
 import CoreChanneling from 'parser/shared/modules/Channeling';
-import Events, { ApplyBuffEvent, ApplyDebuffEvent, CastEvent, RemoveBuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  ApplyDebuffEvent,
+  CastEvent,
+  RemoveBuffEvent,
+  RemoveDebuffEvent,
+} from 'parser/core/Events';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Ability from 'parser/core/modules/Ability';
 
@@ -13,17 +19,31 @@ import Ability from 'parser/core/modules/Ability';
  * To avoid Crackling Jade Lightning as being marked "canceled" when we start a new spell we mark it as ended instead on the begincast/cast.
  */
 class Channeling extends CoreChanneling {
-
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FISTS_OF_FURY_CAST), this.onApplyBuff);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.FISTS_OF_FURY_CAST), this.onRemoveBuff);
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.CRACKLING_JADE_LIGHTNING), this.onApplyDebuff);
-    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.CRACKLING_JADE_LIGHTNING), this.onRemoveDebuff);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FISTS_OF_FURY_CAST),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.FISTS_OF_FURY_CAST),
+      this.onRemoveBuff,
+    );
+    this.addEventListener(
+      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.CRACKLING_JADE_LIGHTNING),
+      this.onApplyDebuff,
+    );
+    this.addEventListener(
+      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.CRACKLING_JADE_LIGHTNING),
+      this.onRemoveDebuff,
+    );
   }
 
   onCast(event: CastEvent) {
-    if (event.ability.guid === SPELLS.CRACKLING_JADE_LIGHTNING.id || event.ability.guid === SPELLS.FISTS_OF_FURY_CAST.id) {
+    if (
+      event.ability.guid === SPELLS.CRACKLING_JADE_LIGHTNING.id ||
+      event.ability.guid === SPELLS.FISTS_OF_FURY_CAST.id
+    ) {
       // We track Crackling Jade Lightning and Fists of Fury differently
       return;
     }
@@ -31,9 +51,16 @@ class Channeling extends CoreChanneling {
   }
 
   cancelChannel(event: CastEvent, ability: Ability) {
-    if (this.isChannelingSpell(SPELLS.CRACKLING_JADE_LIGHTNING.id) || this.isChannelingSpell(SPELLS.FISTS_OF_FURY_CAST.id)) {
+    if (
+      this.isChannelingSpell(SPELLS.CRACKLING_JADE_LIGHTNING.id) ||
+      this.isChannelingSpell(SPELLS.FISTS_OF_FURY_CAST.id)
+    ) {
       // If a channeling spell is "canceled" it was actually just ended, so if it looks canceled then instead just mark it as ended
-      this.log('Marking', this._currentChannel.ability.name, 'as ended since we started casting something else');
+      this.log(
+        'Marking',
+        this._currentChannel.ability.name,
+        'as ended since we started casting something else',
+      );
       this.endChannel(event);
     } else {
       super.cancelChannel(event, ability);

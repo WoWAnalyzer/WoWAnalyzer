@@ -1,10 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
-export const BREWS = [
-  SPELLS.PURIFYING_BREW,
-  SPELLS.FORTIFYING_BREW,
-  SPELLS.BLACK_OX_BREW_TALENT,
-];
+export const BREWS = [SPELLS.PURIFYING_BREW, SPELLS.FORTIFYING_BREW, SPELLS.BLACK_OX_BREW_TALENT];
 
 // Yes there are 7... The cake is a lie (8 really)
 export const GIFT_OF_THE_OX_SPELLS = [
@@ -20,10 +16,6 @@ export const GIFT_OF_THE_OX_SPELLS = [
 
 export const GIFT_OF_THE_OX_SPELL_IDS = GIFT_OF_THE_OX_SPELLS.map(({ id }) => id);
 
-export const SPELLS_WHICH_REMOVE_BOC = [
-  SPELLS.TIGER_PALM,
-  SPELLS.BREATH_OF_FIRE,
-  SPELLS.KEG_SMASH,
-];
+export const SPELLS_WHICH_REMOVE_BOC = [SPELLS.TIGER_PALM, SPELLS.BREATH_OF_FIRE, SPELLS.KEG_SMASH];
 
 export const BASE_AGI = 1468;

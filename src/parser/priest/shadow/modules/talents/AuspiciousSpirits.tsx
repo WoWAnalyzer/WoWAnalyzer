@@ -20,7 +20,10 @@ class AuspiciousSpirits extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.AUSPICIOUS_SPIRITS_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOWY_APPARITION_DAMAGE), this.onApparitionDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOWY_APPARITION_DAMAGE),
+      this.onApparitionDamage,
+    );
   }
 
   onApparitionDamage(event: DamageEvent) {
@@ -33,11 +36,12 @@ class AuspiciousSpirits extends Analyzer {
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip='The damage displayed is the additional damage you gained from taking this talent.'
+        tooltip="The damage displayed is the additional damage you gained from taking this talent."
       >
         <BoringSpellValueText spell={SPELLS.AUSPICIOUS_SPIRITS_TALENT}>
           <>
-            <ItemDamageDone amount={this.damage - (this.damage / SPIRIT_DAMAGE_MULTIPLIER)} /><br />
+            <ItemDamageDone amount={this.damage - this.damage / SPIRIT_DAMAGE_MULTIPLIER} />
+            <br />
             <Insanity /> {formatNumber(this.insanity)} <small>Insanity generated</small>
           </>
         </BoringSpellValueText>

@@ -19,7 +19,6 @@ example report: https://www.warcraftlogs.com/reports/1HRhNZa2cCkgK9AV/#fight=48&
 * */
 
 class Momentum extends Analyzer {
-
   get buffUptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.MOMENTUM_BUFF.id) / this.owner.fightDuration;
   }
@@ -34,7 +33,7 @@ class Momentum extends Analyzer {
       isLessThan: {
         minor: 0.55,
         average: 0.45,
-        major: 0.40,
+        major: 0.4,
       },
       style: 'percentage',
     };
@@ -46,14 +45,22 @@ class Momentum extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<> Maintain the <SpellLink id={SPELLS.MOMENTUM_TALENT.id} /> buff to maximize damage.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          {' '}
+          Maintain the <SpellLink id={SPELLS.MOMENTUM_TALENT.id} /> buff to maximize damage.
+        </>,
+      )
         .icon(SPELLS.MOMENTUM_TALENT.icon)
-        .actual(t({
-      id: "demonhunter.havoc.suggestions.momentum.uptime",
-      message: `${formatPercentage(actual)}% buff uptime`
-    }))
-        .recommended(`${formatPercentage(recommended)}% is recommended.`));
+        .actual(
+          t({
+            id: 'demonhunter.havoc.suggestions.momentum.uptime',
+            message: `${formatPercentage(actual)}% buff uptime`,
+          }),
+        )
+        .recommended(`${formatPercentage(recommended)}% is recommended.`),
+    );
   }
 
   statistic() {

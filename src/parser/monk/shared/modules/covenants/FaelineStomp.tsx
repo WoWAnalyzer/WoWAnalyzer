@@ -17,7 +17,6 @@ class FaelineStomp extends Analyzer {
     spellUsable: SpellUsable,
   };
 
-
   protected abilities!: Abilities;
   protected spellUsable!: SpellUsable;
 
@@ -50,19 +49,30 @@ class FaelineStomp extends Analyzer {
       },
     });
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FAELINE_STOMP_CAST), this.casts);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FAELINE_STOMP_RESET), this.reset);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FAELINE_STOMP_DAMAGE_AND_HEAL), this.damage);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.FAELINE_STOMP_DAMAGE_AND_HEAL), this.heal);
-
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FAELINE_STOMP_CAST),
+      this.casts,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FAELINE_STOMP_RESET),
+      this.reset,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FAELINE_STOMP_DAMAGE_AND_HEAL),
+      this.damage,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.FAELINE_STOMP_DAMAGE_AND_HEAL),
+      this.heal,
+    );
   }
 
-  casts(event: CastEvent){
+  casts(event: CastEvent) {
     this.flsCasts += 1;
   }
 
   reset(event: ApplyBuffEvent) {
-    if(this.spellUsable.isOnCooldown(SPELLS.FAELINE_STOMP_CAST.id)){
+    if (this.spellUsable.isOnCooldown(SPELLS.FAELINE_STOMP_CAST.id)) {
       this.spellUsable.endCooldown(SPELLS.FAELINE_STOMP_CAST.id);
       this.resets += 1;
     }
@@ -73,7 +83,7 @@ class FaelineStomp extends Analyzer {
   }
 
   heal(event: HealEvent) {
-    this.targetsHealed += 1; 
+    this.targetsHealed += 1;
   }
 
   statistic() {

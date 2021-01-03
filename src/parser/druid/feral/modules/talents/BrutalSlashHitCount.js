@@ -35,17 +35,23 @@ class BrutalSlashHitCount extends HitCountAoE {
   }
 
   suggestions(when) {
-    when(this.hitNoneThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        You are using <SpellLink id={SPELLS.BRUTAL_SLASH_TALENT.id} /> out of range of any targets. Try to get familiar with the range of your area of effect abilities so you can avoid wasting charges and energy when they'll not hit anything.
-      </>,
-    )
-      .icon(SPELLS.BRUTAL_SLASH_TALENT.icon)
-      .actual(t({
-      id: "druid.feral.suggestions.brutalSlash.hitcount.outOfRange",
-      message: `${actual.toFixed(1)} uses per minute that hit nothing.`
-    }))
-      .recommended(`${recommended} is recommended`));
+    when(this.hitNoneThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You are using <SpellLink id={SPELLS.BRUTAL_SLASH_TALENT.id} /> out of range of any
+          targets. Try to get familiar with the range of your area of effect abilities so you can
+          avoid wasting charges and energy when they'll not hit anything.
+        </>,
+      )
+        .icon(SPELLS.BRUTAL_SLASH_TALENT.icon)
+        .actual(
+          t({
+            id: 'druid.feral.suggestions.brutalSlash.hitcount.outOfRange',
+            message: `${actual.toFixed(1)} uses per minute that hit nothing.`,
+          }),
+        )
+        .recommended(`${recommended} is recommended`),
+    );
   }
 }
 

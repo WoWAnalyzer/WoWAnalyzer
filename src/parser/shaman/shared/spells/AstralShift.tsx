@@ -27,11 +27,11 @@ class AstralShift extends Analyzer {
       return;
     }
     const damageTaken = event.amount + (event.absorbed || 0);
-    this.damageReduced += damageTaken / (1 - (ASTRAL_SHIFT_DR)) * (ASTRAL_SHIFT_DR);
+    this.damageReduced += (damageTaken / (1 - ASTRAL_SHIFT_DR)) * ASTRAL_SHIFT_DR;
   }
 
   get totalDrps() {
-    return this.damageReduced / this.owner.fightDuration * 1000;
+    return (this.damageReduced / this.owner.fightDuration) * 1000;
   }
 
   statistic() {
@@ -41,17 +41,21 @@ class AstralShift extends Analyzer {
         icon={<SpellIcon id={SPELLS.ASTRAL_SHIFT.id} />}
         value={`≈${formatNumber(this.totalDrps)} DRPS`}
         label={<Trans id="shaman.shared.damageReduced.label">Estimated damage reduced</Trans>}
-        tooltip={(
+        tooltip={
           <Trans id="shaman.shared.damageReduced.tooltip">
-            The total estimated damage reduced was {formatThousands(this.damageReduced)}.<br /><br />
-            
-            This is the lowest possible value. This value is pretty accurate for this log if you are looking at the actual gain over not having <SpellLink id={SPELLS.ASTRAL_SHIFT.id} /> bonus at all, but the gain may end up higher when taking interactions with other damage reductions into account.
+            The total estimated damage reduced was {formatThousands(this.damageReduced)}.<br />
+            <br />
+            This is the lowest possible value. This value is pretty accurate for this log if you are
+            looking at the actual gain over not having <SpellLink
+              id={SPELLS.ASTRAL_SHIFT.id}
+            />{' '}
+            bonus at all, but the gain may end up higher when taking interactions with other damage
+            reductions into account.
           </Trans>
-        )}
+        }
       />
     );
   }
-
 }
 
 export default AstralShift;

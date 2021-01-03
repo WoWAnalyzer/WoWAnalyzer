@@ -15,11 +15,7 @@ class RaidHealthTab extends Analyzer {
     return {
       title: 'Raid health',
       url: 'raid-health',
-      render: () => (
-        <TabComponent
-          parser={this.owner}
-        />
-      ),
+      render: () => <TabComponent parser={this.owner} />,
     };
   }
 }

@@ -10,12 +10,10 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { formatThousands } from 'common/format';
 
-
 /**
  * Venthyr - Sinful Brand
  */
 class SinfulBrand extends Analyzer {
-
   damage = 0;
 
   constructor(options: Options) {
@@ -27,7 +25,10 @@ class SinfulBrand extends Analyzer {
       return;
     }
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SINFUL_BRAND), this.onDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SINFUL_BRAND),
+      this.onDamage,
+    );
   }
 
   onDamage(event: DamageEvent) {
@@ -40,19 +41,14 @@ class SinfulBrand extends Analyzer {
         position={STATISTIC_ORDER.CORE()}
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
-        tooltip={(
-          <>
-            {formatThousands(this.damage)} Total damage
-          </>
-        )}
+        tooltip={<>{formatThousands(this.damage)} Total damage</>}
       >
-      <BoringSpellValueText spell={SPELLS.SINFUL_BRAND}>
-        <ItemDamageDone amount={this.damage} />
-      </BoringSpellValueText>
-    </Statistic>
+        <BoringSpellValueText spell={SPELLS.SINFUL_BRAND}>
+          <ItemDamageDone amount={this.damage} />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
-
 }
 
 export default SinfulBrand;

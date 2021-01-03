@@ -40,7 +40,7 @@ const NavigationBar = ({ makeTabUrl, tabs, selectedTab }: Props) => {
     },
     ...(tabs
       ?.sort((a, b) => (a.order || 0) - (b.order || 0))
-      .map(tab => ({
+      .map((tab) => ({
         icon: tab.icon || OtherIcon,
         name: tab.title,
         url: tab.url,

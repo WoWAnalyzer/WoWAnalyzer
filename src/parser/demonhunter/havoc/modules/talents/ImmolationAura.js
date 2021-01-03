@@ -12,10 +12,12 @@ import { t } from '@lingui/macro';
  * Example Report: https://www.warcraftlogs.com/reports/KGJgZPxanBX82LzV/#fight=4&source=20
  */
 
-const IMMOLATION_AURA = [SPELLS.IMMOLATION_AURA_INITIAL_HIT_DAMAGE, SPELLS.IMMOLATION_AURA_BUFF_DAMAGE];
+const IMMOLATION_AURA = [
+  SPELLS.IMMOLATION_AURA_INITIAL_HIT_DAMAGE,
+  SPELLS.IMMOLATION_AURA_BUFF_DAMAGE,
+];
 
 class ImmolationAura extends Analyzer {
-
   get furyPerMin() {
     return ((this.furyGain - this.furyWaste) / (this.owner.fightDuration / 60000)).toFixed(2);
   }
@@ -42,8 +44,14 @@ class ImmolationAura extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(IMMOLATION_AURA), this.onEnergizeEvent);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(IMMOLATION_AURA), this.onDamageEvent);
+    this.addEventListener(
+      Events.energize.by(SELECTED_PLAYER).spell(IMMOLATION_AURA),
+      this.onEnergizeEvent,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(IMMOLATION_AURA),
+      this.onDamageEvent,
+    );
   }
 
   onEnergizeEvent(event) {
@@ -56,14 +64,22 @@ class ImmolationAura extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<> Avoid casting <SpellLink id={SPELLS.IMMOLATION_AURA.id} /> when close to max Fury.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          {' '}
+          Avoid casting <SpellLink id={SPELLS.IMMOLATION_AURA.id} /> when close to max Fury.
+        </>,
+      )
         .icon(SPELLS.IMMOLATION_AURA.icon)
-        .actual(t({
-      id: "demonhunter.havoc.suggestions.immolationAura.furyWasted",
-      message: `${formatPercentage(actual)}% Fury wasted`
-    }))
-        .recommended(`${formatPercentage(recommended)}% is recommended.`));
+        .actual(
+          t({
+            id: 'demonhunter.havoc.suggestions.immolationAura.furyWasted',
+            message: `${formatPercentage(actual)}% Fury wasted`,
+          }),
+        )
+        .recommended(`${formatPercentage(recommended)}% is recommended.`),
+    );
   }
 
   statistic() {
@@ -72,20 +88,24 @@ class ImmolationAura extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.IMMOLATION_AURA.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
-        value={(
+        value={
           <>
-            {this.furyPerMin} <small>Fury per min </small><br />
+            {this.furyPerMin} <small>Fury per min </small>
+            <br />
             {this.owner.formatItemDamageDone(this.damage)}
           </>
-        )}
-        tooltip={(
+        }
+        tooltip={
           <>
-            {formatThousands(this.damage)} Total damage<br />
-            {effectiveFuryGain} Effective Fury gained<br />
-            {this.furyGain} Total Fury gained<br />
+            {formatThousands(this.damage)} Total damage
+            <br />
+            {effectiveFuryGain} Effective Fury gained
+            <br />
+            {this.furyGain} Total Fury gained
+            <br />
             {this.furyWaste} Fury wasted
           </>
-        )}
+        }
       />
     );
   }

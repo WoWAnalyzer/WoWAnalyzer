@@ -28,9 +28,9 @@ class HealingSurge extends Analyzer {
     return {
       actual: unbuffedHealingSurgesPerc,
       isGreaterThan: {
-        minor: 0.20,
-        average: 0.40,
-        major: 0.60,
+        minor: 0.2,
+        average: 0.4,
+        major: 0.6,
       },
       style: 'percentage',
     };
@@ -38,18 +38,32 @@ class HealingSurge extends Analyzer {
 
   suggestions(when: When) {
     const suggestedThreshold = this.suggestedThreshold;
-    when(suggestedThreshold.actual).isGreaterThan(suggestedThreshold.isGreaterThan.minor)
-      .addSuggestion((suggest) => suggest(<span>Casting <SpellLink id={SPELLS.HEALING_SURGE.id} /> without <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> is very inefficient, try not to cast more than is necessary.</span>)
-        .icon(SPELLS.HEALING_SURGE.icon)
-        .actual(t({
-          id: "shaman.restoration.suggestions.healingSurge.unbuffed",
-          message: `${formatPercentage(suggestedThreshold.actual)}% of unbuffed Healing Surges`
-        }))
-        .recommended(`${formatPercentage(suggestedThreshold.isGreaterThan.minor)}% of unbuffed Healing Surges`)
-        .regular(suggestedThreshold.isGreaterThan.average).major(suggestedThreshold.isGreaterThan.major));
+    when(suggestedThreshold.actual)
+      .isGreaterThan(suggestedThreshold.isGreaterThan.minor)
+      .addSuggestion((suggest) =>
+        suggest(
+          <span>
+            Casting <SpellLink id={SPELLS.HEALING_SURGE.id} /> without{' '}
+            <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> is very inefficient, try not to cast more
+            than is necessary.
+          </span>,
+        )
+          .icon(SPELLS.HEALING_SURGE.icon)
+          .actual(
+            t({
+              id: 'shaman.restoration.suggestions.healingSurge.unbuffed',
+              message: `${formatPercentage(suggestedThreshold.actual)}% of unbuffed Healing Surges`,
+            }),
+          )
+          .recommended(
+            `${formatPercentage(
+              suggestedThreshold.isGreaterThan.minor,
+            )}% of unbuffed Healing Surges`,
+          )
+          .regular(suggestedThreshold.isGreaterThan.average)
+          .major(suggestedThreshold.isGreaterThan.major),
+      );
   }
-
 }
 
 export default HealingSurge;
-

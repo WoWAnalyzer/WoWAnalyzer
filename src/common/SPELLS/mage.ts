@@ -172,7 +172,6 @@ const spells = {
     icon: 'inv_mawrat',
   },
 
-
   //Frost
   MASTERY_ICICLES: {
     id: 76613,
@@ -216,7 +215,7 @@ const spells = {
   },
   WINTERS_CHILL: {
     id: 228358,
-    name: 'Winter\'s Chill',
+    name: "Winter's Chill",
     icon: 'spell_frost_frostward',
   },
   GLACIAL_SPIKE_BUFF: {
@@ -403,7 +402,7 @@ const spells = {
   },
   DRAGONS_BREATH: {
     id: 31661,
-    name: 'Dragon\'s Breath',
+    name: "Dragon's Breath",
     icon: 'inv_misc_head_dragon_01',
   },
   METEOR_DAMAGE: {

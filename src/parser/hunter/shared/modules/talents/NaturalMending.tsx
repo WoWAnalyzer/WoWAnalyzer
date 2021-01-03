@@ -40,7 +40,9 @@ class NaturalMending extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    const resource = event.classResources?.find(resource => resource.type === RESOURCE_TYPES.FOCUS.id);
+    const resource = event.classResources?.find(
+      (resource) => resource.type === RESOURCE_TYPES.FOCUS.id,
+    );
     if (!resource) {
       return;
     }
@@ -52,12 +54,18 @@ class NaturalMending extends Analyzer {
       return;
     }
     if (this.spellUsable.cooldownRemaining(SPELLS.EXHILARATION.id) < cooldownReductionMS) {
-      const effectiveReductionMs = this.spellUsable.reduceCooldown(SPELLS.EXHILARATION.id, cooldownReductionMS);
+      const effectiveReductionMs = this.spellUsable.reduceCooldown(
+        SPELLS.EXHILARATION.id,
+        cooldownReductionMS,
+      );
       this.effectiveExhilReductionMs += effectiveReductionMs;
-      this.wastedExhilReductionMs += (cooldownReductionMS - effectiveReductionMs);
+      this.wastedExhilReductionMs += cooldownReductionMS - effectiveReductionMs;
       return;
     }
-    this.effectiveExhilReductionMs += this.spellUsable.reduceCooldown(SPELLS.EXHILARATION.id, cooldownReductionMS);
+    this.effectiveExhilReductionMs += this.spellUsable.reduceCooldown(
+      SPELLS.EXHILARATION.id,
+      cooldownReductionMS,
+    );
   }
 
   statistic() {
@@ -69,7 +77,10 @@ class NaturalMending extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.NATURAL_MENDING_TALENT}>
           <>
-            {formatNumber(this.effectiveExhilReductionMs / 1000)}s/{formatNumber((this.wastedExhilReductionMs + this.effectiveExhilReductionMs) / 1000)}s <small> cooldown reduction</small>
+            {formatNumber(this.effectiveExhilReductionMs / 1000)}s/
+            {formatNumber(
+              (this.wastedExhilReductionMs + this.effectiveExhilReductionMs) / 1000,
+            )}s <small> cooldown reduction</small>
           </>
         </BoringSpellValueText>
       </Statistic>

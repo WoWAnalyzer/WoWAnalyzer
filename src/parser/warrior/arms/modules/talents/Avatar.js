@@ -15,9 +15,8 @@ import Events from 'parser/core/Events';
 const AVATAR_BONUS_DAMAGE = 0.2;
 
 class Avatar extends Analyzer {
-
   get dps() {
-    return this.totalDamages / this.owner.fightDuration * 1000;
+    return (this.totalDamages / this.owner.fightDuration) * 1000;
   }
 
   totalDamages = 0;
@@ -29,7 +28,10 @@ class Avatar extends Analyzer {
   }
 
   _onDamage(event) {
-    if (event.targetIsFriendly || !this.selectedCombatant.hasBuff(SPELLS.AVATAR_TALENT.id, event.timestamp)) {
+    if (
+      event.targetIsFriendly ||
+      !this.selectedCombatant.hasBuff(SPELLS.AVATAR_TALENT.id, event.timestamp)
+    ) {
       return;
     }
     this.totalDamages += calculateEffectiveDamage(event, AVATAR_BONUS_DAMAGE);
@@ -38,14 +40,20 @@ class Avatar extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.AVATAR_TALENT.id} /> bonus damage</>}
-        value={`${formatThousands(this.dps)} DPS`}
-        valueTooltip={(
+        title={
           <>
-            Your Avatar contributed {formatThousands(this.totalDamages)} total damage ({formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalDamages))} %).<br />
+            <SpellLink id={SPELLS.AVATAR_TALENT.id} /> bonus damage
+          </>
+        }
+        value={`${formatThousands(this.dps)} DPS`}
+        valueTooltip={
+          <>
+            Your Avatar contributed {formatThousands(this.totalDamages)} total damage (
+            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalDamages))} %).
+            <br />
             This only accounts for the passive 20% increased damage of Avatar.
           </>
-        )}
+        }
       />
     );
   }

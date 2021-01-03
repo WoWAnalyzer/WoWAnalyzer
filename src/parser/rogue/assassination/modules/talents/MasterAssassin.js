@@ -28,10 +28,14 @@ const GOOD_OPENER_CASTS = [...GOOD_MASTER_ASSASSIN_ABILITIES, SPELLS.GARROTE.id,
 class MasterAssassin extends StealthCasts {
   get goodStealthCasts() {
     let goodCasts = 0;
-    this.stealthSequences.forEach(sequence => {
-      const goodSpells = sequence === this.stealthSequences[0] || (this.usedStealthOnPull && sequence === this.stealthSequences[1]) ? GOOD_OPENER_CASTS : GOOD_MASTER_ASSASSIN_ABILITIES;
+    this.stealthSequences.forEach((sequence) => {
+      const goodSpells =
+        sequence === this.stealthSequences[0] ||
+        (this.usedStealthOnPull && sequence === this.stealthSequences[1])
+          ? GOOD_OPENER_CASTS
+          : GOOD_MASTER_ASSASSIN_ABILITIES;
       let goodCastsSeq = 0;
-      sequence.forEach(e => {
+      sequence.forEach((e) => {
         if (goodSpells.includes(e.ability.guid)) {
           goodCastsSeq += 1;
         }
@@ -46,7 +50,7 @@ class MasterAssassin extends StealthCasts {
   }
 
   get percentGoodCasts() {
-    return (this.goodStealthCasts / (this.stealthCasts * CASTS_POSSIBLE)) || 0;
+    return this.goodStealthCasts / (this.stealthCasts * CASTS_POSSIBLE) || 0;
   }
 
   get suggestionThresholds() {
@@ -72,7 +76,10 @@ class MasterAssassin extends StealthCasts {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_DAMAGE_INCREASES), this.addBonusDamageIfBuffed);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_DAMAGE_INCREASES),
+      this.addBonusDamageIfBuffed,
+    );
   }
 
   addBonusDamageIfBuffed(event) {
@@ -81,18 +88,31 @@ class MasterAssassin extends StealthCasts {
     }
     const critChance = this.statTracker.currentCritPercentage;
     const critBonusFromMasterAssassin = Math.min(CRIT_BONUS, 1 - critChance);
-    const damageBonus = critBonusFromMasterAssassin / (1 + critBonusFromMasterAssassin + critChance);
+    const damageBonus =
+      critBonusFromMasterAssassin / (1 + critBonusFromMasterAssassin + critChance);
     this.bonusDamage += calculateEffectiveDamage(event, damageBonus);
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You failed to take full advantage of <SpellLink id={SPELLS.MASTER_ASSASSIN_TALENT.id} />. Make sure to prioritize spending the buff on <SpellLink id={SPELLS.MUTILATE.id} /> or <SpellLink id={SPELLS.ENVENOM.id} /> (<SpellLink id={SPELLS.FAN_OF_KNIVES.id} /> is acceptable for AOE). During your opener <SpellLink id={SPELLS.GARROTE.id} /> and <SpellLink id={SPELLS.RUPTURE.id} /> is also okay.</>)
-      .icon(SPELLS.MASTER_ASSASSIN_TALENT.icon)
-      .actual(t({
-      id: "rogue.assassination.suggestions.masterAssassin.efficiency",
-      message: `${formatPercentage(actual)}% good casts during Master Assassin`
-    }))
-      .recommended(`>${formatPercentage(recommended)}% is recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You failed to take full advantage of <SpellLink id={SPELLS.MASTER_ASSASSIN_TALENT.id} />.
+          Make sure to prioritize spending the buff on <SpellLink id={SPELLS.MUTILATE.id} /> or{' '}
+          <SpellLink id={SPELLS.ENVENOM.id} /> (<SpellLink id={SPELLS.FAN_OF_KNIVES.id} /> is
+          acceptable for AOE). During your opener <SpellLink id={SPELLS.GARROTE.id} /> and{' '}
+          <SpellLink id={SPELLS.RUPTURE.id} /> is also okay.
+        </>,
+      )
+        .icon(SPELLS.MASTER_ASSASSIN_TALENT.icon)
+        .actual(
+          t({
+            id: 'rogue.assassination.suggestions.masterAssassin.efficiency',
+            message: `${formatPercentage(actual)}% good casts during Master Assassin`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
@@ -104,7 +124,6 @@ class MasterAssassin extends StealthCasts {
       />
     );
   }
-
 }
 
 export default MasterAssassin;

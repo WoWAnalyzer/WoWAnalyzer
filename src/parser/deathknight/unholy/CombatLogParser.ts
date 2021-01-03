@@ -10,7 +10,7 @@ import ScourgeStrikeEfficiency from './modules/features/ScourgeStrikeEfficiency'
 import Apocalypse from './modules/features/Apocalypse';
 import VirulentPlagueEfficiency from './modules/features/VirulentPlagueEfficiency';
 import WoundTracker from './modules/features/WoundTracker';
-import SpellUsable from './modules/features/SpellUsable'
+import SpellUsable from './modules/features/SpellUsable';
 
 import SoulReaper from './modules/talents/SoulReaper';
 
@@ -39,7 +39,7 @@ class CombatLogParser extends CoreCombatLogParser {
     festeringStrikeEfficiency: FesteringStrikeEfficiency,
     checklist: Checklist,
     scourgeStrikeEfficiency: ScourgeStrikeEfficiency,
-  	apocalypse: Apocalypse,
+    apocalypse: Apocalypse,
     virulentPlagueEfficiency: VirulentPlagueEfficiency,
     woundTracker: WoundTracker,
     spellUsable: SpellUsable,
@@ -54,7 +54,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //RuneTracker
     runeTracker: RuneTracker,
     runeDetails: RuneDetails,
-    
+
     // Runes
     runeOfTheFallenCrusader: RuneOfTheFallenCrusader,
     runeOfHysteria: RuneOfHysteria,

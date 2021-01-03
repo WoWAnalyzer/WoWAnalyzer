@@ -24,15 +24,20 @@ class SummonDemonicTyrant extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SUMMON_DEMONIC_TYRANT), this.summonDemonicTyrantCast);
-    this._hasDemonicConsumption = this.selectedCombatant.hasTalent(SPELLS.DEMONIC_CONSUMPTION_TALENT.id);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SUMMON_DEMONIC_TYRANT),
+      this.summonDemonicTyrantCast,
+    );
+    this._hasDemonicConsumption = this.selectedCombatant.hasTalent(
+      SPELLS.DEMONIC_CONSUMPTION_TALENT.id,
+    );
   }
 
   summonDemonicTyrantCast() {
     const pets = this.demoPets.currentPets;
     const countsPerCast = {};
     let tyrantPower = 0;
-    pets.forEach(pet => {
+    pets.forEach((pet) => {
       if (isWildImp(pet.guid)) {
         tyrantPower += pet.currentEnergy / 2;
       }
@@ -44,43 +49,51 @@ class SummonDemonicTyrant extends Analyzer {
   }
 
   statistic() {
-    const avgPets = (this._petsPerCast.reduce((total, cast) =>
-      total + Object.values(cast).reduce((totalPerSource, source) =>
-      totalPerSource + source, 0)
-      , 0) / this._petsPerCast.length) || 0;
+    const avgPets =
+      this._petsPerCast.reduce(
+        (total, cast) =>
+          total +
+          Object.values(cast).reduce((totalPerSource, source) => totalPerSource + source, 0),
+        0,
+      ) / this._petsPerCast.length || 0;
     const mergedPets = {};
-    this._petsPerCast.forEach(cast => {
-      Object.keys(cast).forEach(demonSource => {
+    this._petsPerCast.forEach((cast) => {
+      Object.keys(cast).forEach((demonSource) => {
         mergedPets[demonSource] = (mergedPets[demonSource] || 0) + cast[demonSource];
       });
     });
 
     const petTableRows = [];
-    Object.keys(mergedPets).forEach(demonSource => {
+    Object.keys(mergedPets).forEach((demonSource) => {
       petTableRows.push(
         <tr key={demonSource}>
-          <td align="left"><SpellLink id={Number(demonSource)} /></td>
+          <td align="left">
+            <SpellLink id={Number(demonSource)} />
+          </td>
           <td align="middle">{(mergedPets[demonSource] / this._petsPerCast.length).toFixed(2)}</td>
         </tr>,
       );
     });
 
-    const avgTyrantPower = ((this.demonicTyrantPower.reduce((acc, val) => acc + val, 0)) / this.demonicTyrantPower.length) || 0;
-    const tyrantFooter = this._hasDemonicConsumption ? `Average demonic consumption power: ${avgTyrantPower.toFixed(2)}%` : null;
+    const avgTyrantPower =
+      this.demonicTyrantPower.reduce((acc, val) => acc + val, 0) / this.demonicTyrantPower.length ||
+      0;
+    const tyrantFooter = this._hasDemonicConsumption
+      ? `Average demonic consumption power: ${avgTyrantPower.toFixed(2)}%`
+      : null;
 
-    const petTable = (this._petsPerCast.length > 0) ? (
-      <>
-        <thead>
-          <tr>
-            <th>Pet Source</th>
-            <th>Avg Pets per Cast</th>
-          </tr>
-        </thead>
-        <tbody>
-          {petTableRows}
-        </tbody>
-      </>
-    ) : null;
+    const petTable =
+      this._petsPerCast.length > 0 ? (
+        <>
+          <thead>
+            <tr>
+              <th>Pet Source</th>
+              <th>Avg Pets per Cast</th>
+            </tr>
+          </thead>
+          <tbody>{petTableRows}</tbody>
+        </>
+      ) : null;
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(6)}

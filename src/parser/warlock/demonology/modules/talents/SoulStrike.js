@@ -22,7 +22,10 @@ class SoulStrike extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SOUL_STRIKE_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.SOUL_STRIKE_DAMAGE), this.handleSoulStrikeDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.SOUL_STRIKE_DAMAGE),
+      this.handleSoulStrikeDamage,
+    );
   }
 
   handleSoulStrikeDamage(event) {
@@ -38,7 +41,8 @@ class SoulStrike extends Analyzer {
         tooltip={`${formatThousands(this.damage)} damage`}
       >
         <BoringSpellValueText spell={SPELLS.SOUL_STRIKE_TALENT}>
-          <ItemDamageDone amount={this.damage} /><br />
+          <ItemDamageDone amount={this.damage} />
+          <br />
           {shardsGained} <small>Shards generated</small>
         </BoringSpellValueText>
       </Statistic>

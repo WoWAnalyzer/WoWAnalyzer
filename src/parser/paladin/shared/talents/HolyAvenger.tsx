@@ -10,7 +10,6 @@ import BoringValueText from 'interface/statistics/components/BoringValueText';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 class HolyAvenger extends Analyzer {
-
   wastedHolyPower: number = 0;
   gainedHolyPower: number = 0;
 
@@ -26,29 +25,29 @@ class HolyAvenger extends Analyzer {
     this.addEventListener(Events.energize.by(SELECTED_PLAYER), this.getHolyPower);
   }
 
-  getHolyPower(event: EnergizeEvent){
-    if(!this.selectedCombatant.hasBuff(SPELLS.HOLY_AVENGER_TALENT.id)){
+  getHolyPower(event: EnergizeEvent) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.HOLY_AVENGER_TALENT.id)) {
       return;
     }
 
-    if(event.resourceChangeType !== RESOURCE_TYPES.HOLY_POWER.id) {
+    if (event.resourceChangeType !== RESOURCE_TYPES.HOLY_POWER.id) {
       return;
     }
 
     //holy avenger triples resource generate so we need to find base resource generation from the spell
-    const baseAmount = event.resourceChange/3;
-    const formHA = event.resourceChange - baseAmount;// this is also baseAmount * 2
+    const baseAmount = event.resourceChange / 3;
+    const formHA = event.resourceChange - baseAmount; // this is also baseAmount * 2
 
     let waste = event.waste;
     const gain = event.resourceChange - waste;
 
     //We only care about what is from HA not the base spell
-    if(waste > formHA){
+    if (waste > formHA) {
       waste = formHA;
     }
 
     this.wastedHolyPower += waste;
-    this.gainedHolyPower += Math.max(gain - baseAmount, 0);//Anything gained from HA is baseAmount + n where n >= 1
+    this.gainedHolyPower += Math.max(gain - baseAmount, 0); //Anything gained from HA is baseAmount + n where n >= 1
   }
 
   statistic() {
@@ -58,8 +57,15 @@ class HolyAvenger extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringValueText label={<><SpellIcon id={SPELLS.HOLY_AVENGER_TALENT.id} /> Holy Avenger Holy Power</>}>
-          {this.gainedHolyPower} Gained<br />
+        <BoringValueText
+          label={
+            <>
+              <SpellIcon id={SPELLS.HOLY_AVENGER_TALENT.id} /> Holy Avenger Holy Power
+            </>
+          }
+        >
+          {this.gainedHolyPower} Gained
+          <br />
           {this.wastedHolyPower} Wasted
         </BoringValueText>
       </Statistic>

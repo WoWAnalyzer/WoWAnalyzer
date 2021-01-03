@@ -28,30 +28,48 @@ class Abundance extends Analyzer {
   }
 
   onCast(event) {
-    const abundanceBuff = this.selectedCombatant.getBuff(SPELLS.ABUNDANCE_BUFF.id, event.timestamp, MS_BUFFER);
+    const abundanceBuff = this.selectedCombatant.getBuff(
+      SPELLS.ABUNDANCE_BUFF.id,
+      event.timestamp,
+      MS_BUFFER,
+    );
     if (abundanceBuff == null) {
       return;
     }
 
-    if (!this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_BUFF.id) && !this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
-      this.manaSavings.push(abundanceBuff.stacks * ABUNDANCE_MANA_REDUCTION > 1 ? 1 : abundanceBuff.stacks * ABUNDANCE_MANA_REDUCTION);
+    if (
+      !this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_BUFF.id) &&
+      !this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)
+    ) {
+      this.manaSavings.push(
+        abundanceBuff.stacks * ABUNDANCE_MANA_REDUCTION > 1
+          ? 1
+          : abundanceBuff.stacks * ABUNDANCE_MANA_REDUCTION,
+      );
       this.manaCasts += 1;
     }
 
-    this.critGains.push((abundanceBuff.stacks * ABUNDANCE_INCREASED_CRIT) > 1 ? 1 : abundanceBuff.stacks * ABUNDANCE_INCREASED_CRIT);
+    this.critGains.push(
+      abundanceBuff.stacks * ABUNDANCE_INCREASED_CRIT > 1
+        ? 1
+        : abundanceBuff.stacks * ABUNDANCE_INCREASED_CRIT,
+    );
     this.stacks.push(abundanceBuff.stacks);
   }
 
   statistic() {
-    const avgManaSavingsPercent = (this.manaSavings.reduce(function(a, b) {
-      return a + b;
-    }, 0) / this.manaSavings.length) || 0;
-    const avgCritGains = (this.critGains.reduce(function(a, b) {
-      return a + b;
-    }, 0) / this.critGains.length) || 0;
-    const avgStacks = (this.stacks.reduce(function(a, b) {
-      return a + b;
-    }, 0) / this.stacks.length) || 0;
+    const avgManaSavingsPercent =
+      this.manaSavings.reduce(function (a, b) {
+        return a + b;
+      }, 0) / this.manaSavings.length || 0;
+    const avgCritGains =
+      this.critGains.reduce(function (a, b) {
+        return a + b;
+      }, 0) / this.critGains.length || 0;
+    const avgStacks =
+      this.stacks.reduce(function (a, b) {
+        return a + b;
+      }, 0) / this.stacks.length || 0;
     const avgManaSaings = SPELLS.REGROWTH.manaCost * avgManaSavingsPercent;
 
     // TODO translate these values into healing/throughput.
@@ -59,18 +77,24 @@ class Abundance extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(20)}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            Average mana reductions gained was {formatPercentage(avgManaSavingsPercent)}% or {formatNumber(avgManaSaings)} mana per cast.<br />
+            Average mana reductions gained was {formatPercentage(avgManaSavingsPercent)}% or{' '}
+            {formatNumber(avgManaSaings)} mana per cast.
+            <br />
             Total mana saved was {(avgManaSaings * this.manaSavings.length).toFixed(0)} <br />
             Average crit gain was {formatPercentage(avgCritGains)}%.
           </>
-        )}
+        }
       >
-        <BoringValue label={<><SpellIcon id={SPELLS.ABUNDANCE_TALENT.id} /> Average Abundance stacks</>}>
-          <>
-            {avgStacks.toFixed(2)}
-          </>
+        <BoringValue
+          label={
+            <>
+              <SpellIcon id={SPELLS.ABUNDANCE_TALENT.id} /> Average Abundance stacks
+            </>
+          }
+        >
+          <>{avgStacks.toFixed(2)}</>
         </BoringValue>
       </Statistic>
     );

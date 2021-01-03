@@ -14,9 +14,18 @@ import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 class Channeling extends CoreChanneling {
   constructor(options) {
     super(options);
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.CRACKLING_JADE_LIGHTNING), this.onApplyDebuff);
-    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.CRACKLING_JADE_LIGHTNING), this.onRemoveDebuff);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.CRACKLING_JADE_LIGHTNING), this.onRemoveBuff);
+    this.addEventListener(
+      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.CRACKLING_JADE_LIGHTNING),
+      this.onApplyDebuff,
+    );
+    this.addEventListener(
+      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.CRACKLING_JADE_LIGHTNING),
+      this.onRemoveDebuff,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.CRACKLING_JADE_LIGHTNING),
+      this.onRemoveBuff,
+    );
   }
 
   onCast(event) {
@@ -32,9 +41,16 @@ class Channeling extends CoreChanneling {
   }
 
   cancelChannel(event, ability) {
-    if (this.isChannelingSpell(SPELLS.CRACKLING_JADE_LIGHTNING.id) || this.isChannelingSpell(SPELLS.ZEN_MEDITATION.id)) {
+    if (
+      this.isChannelingSpell(SPELLS.CRACKLING_JADE_LIGHTNING.id) ||
+      this.isChannelingSpell(SPELLS.ZEN_MEDITATION.id)
+    ) {
       // If a channeling spell is "canceled" it was actually just ended, so if it looks canceled then instead just mark it as ended
-      this.log('Marking', this._currentChannel.ability.name, 'as ended since we started casting something else');
+      this.log(
+        'Marking',
+        this._currentChannel.ability.name,
+        'as ended since we started casting something else',
+      );
       this.endChannel(event);
     } else {
       super.cancelChannel(event, ability);

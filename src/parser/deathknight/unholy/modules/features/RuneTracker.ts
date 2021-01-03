@@ -1,7 +1,6 @@
 import CoreRuneTracker from '../../../shared/RuneTracker';
 
-class RuneTracker extends CoreRuneTracker{
-
+class RuneTracker extends CoreRuneTracker {
   get suggestionThresholds() {
     return {
       actual: 1 - this.runeEfficiency,
@@ -25,7 +24,6 @@ class RuneTracker extends CoreRuneTracker{
       style: 'percentage',
     };
   }
-
-} 
+}
 
 export default RuneTracker;

@@ -23,32 +23,49 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
     <Checklist>
       <Rule
         name="Use your cooldowns"
-        description={(
+        description={
           <>
-            Using your cooldown abilities as often as possible can help raise your dps significantly. Some help more than others, but as a general rule of thumb you should be looking to use most of your damaging abilities and damage cooldowns as often as possible unless you need to save them for a priority burst phase that is coming up soon.
+            Using your cooldown abilities as often as possible can help raise your dps
+            significantly. Some help more than others, but as a general rule of thumb you should be
+            looking to use most of your damaging abilities and damage cooldowns as often as possible
+            unless you need to save them for a priority burst phase that is coming up soon.
           </>
-        )}
+        }
       >
         <AbilityRequirement spell={SPELLS.COMBUSTION.id} />
         <AbilityRequirement spell={SPELLS.FIRE_BLAST.id} />
         <AbilityRequirement spell={SPELLS.PHOENIX_FLAMES.id} />
-        {combatant.hasTalent(SPELLS.BLAST_WAVE_TALENT.id) && <AbilityRequirement spell={SPELLS.BLAST_WAVE_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) && <AbilityRequirement spell={SPELLS.RUNE_OF_POWER_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.LIVING_BOMB_TALENT.id) && <AbilityRequirement spell={SPELLS.LIVING_BOMB_TALENT.id} />}
+        {combatant.hasTalent(SPELLS.BLAST_WAVE_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.BLAST_WAVE_TALENT.id} />
+        )}
+        {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.RUNE_OF_POWER_TALENT.id} />
+        )}
+        {combatant.hasTalent(SPELLS.LIVING_BOMB_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.LIVING_BOMB_TALENT.id} />
+        )}
         {combatant.hasTalent(SPELLS.METEOR_TALENT.id) && (
           <Requirement
-            name={<><SpellLink id={SPELLS.METEOR_TALENT.id} /></>}
+            name={
+              <>
+                <SpellLink id={SPELLS.METEOR_TALENT.id} />
+              </>
+            }
             thresholds={thresholds.meteorEfficiency}
           />
         )}
       </Rule>
       <Rule
         name="Use Combustion effectively"
-        description={(
+        description={
           <>
-            Using <SpellLink id={SPELLS.COMBUSTION.id} /> properly is one of the most important aspects of playing Fire well. Therefore it is critical that you make the most of the time that you have while Combustion is active. This include things such as not wasting time or GCDs while Combustion is active and ensuring that you properly setup for your "Combustion Window".
+            Using <SpellLink id={SPELLS.COMBUSTION.id} /> properly is one of the most important
+            aspects of playing Fire well. Therefore it is critical that you make the most of the
+            time that you have while Combustion is active. This include things such as not wasting
+            time or GCDs while Combustion is active and ensuring that you properly setup for your
+            "Combustion Window".
           </>
-        )}
+        }
       >
         <Requirement
           name="Fire Blast Charges"
@@ -85,11 +102,13 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
       </Rule>
       <Rule
         name="Use your procs effectively"
-        description={(
+        description={
           <>
-            Fire Mage revolves almost entirely around utilizing your procs effectively. Therefore it is very important that you manage your procs correctly to ensure that you get the most out of them.
+            Fire Mage revolves almost entirely around utilizing your procs effectively. Therefore it
+            is very important that you manage your procs correctly to ensure that you get the most
+            out of them.
           </>
-        )}
+        }
       >
         <Requirement
           name="Hot Streak Proc Utilization"
@@ -142,13 +161,14 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
             tooltip="Using Rune of Power effectively means being able to stay within the range of it for it's entire duration. If you are unable to do so or if you frequently have to move out of the range of the buff, consider taking a different talent instead."
           />
         )}
-        {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) && combatant.hasTalent(SPELLS.METEOR_TALENT.id) && (
-          <Requirement
-            name="Meteor Overall Utilization"
-            thresholds={thresholds.meteorUtilization}
-            tooltip="In order to get the most out of your Meteor casts, you should only cast Meteor while you are buffed by Rune of Power."
-          />
-        )}
+        {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) &&
+          combatant.hasTalent(SPELLS.METEOR_TALENT.id) && (
+            <Requirement
+              name="Meteor Overall Utilization"
+              thresholds={thresholds.meteorUtilization}
+              tooltip="In order to get the most out of your Meteor casts, you should only cast Meteor while you are buffed by Rune of Power."
+            />
+          )}
         {combatant.hasTalent(SPELLS.METEOR_TALENT.id) && (
           <Requirement
             name="Meteor Utilization During Combustion"
@@ -159,11 +179,15 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
       </Rule>
       <Rule
         name="Avoid downtime"
-        description={(
+        description={
           <>
-            As a DPS, it is important to spend as much time casting as possible as if you are not casting then you are not doing damage. Therefore it is important to minimize your movements, stay within range of the target, and avoid cancelling casts if you can avoid it. While some fights will have an amount of time that is unavoidable downtime; the more you can minimize that downtime, the better.
+            As a DPS, it is important to spend as much time casting as possible as if you are not
+            casting then you are not doing damage. Therefore it is important to minimize your
+            movements, stay within range of the target, and avoid cancelling casts if you can avoid
+            it. While some fights will have an amount of time that is unavoidable downtime; the more
+            you can minimize that downtime, the better.
           </>
-        )}
+        }
       >
         <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />
         <Requirement name="Cancelled Casts" thresholds={thresholds.cancelledCasts} />

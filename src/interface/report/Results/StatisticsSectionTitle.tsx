@@ -2,8 +2,8 @@
 import React from 'react';
 
 interface Props {
-  rightAddon?: JSX.Element,
-  premium: boolean
+  rightAddon?: JSX.Element;
+  premium: boolean;
 }
 
 const StatisticsSectionTitle: React.FC<Props> = (props) => {
@@ -11,14 +11,8 @@ const StatisticsSectionTitle: React.FC<Props> = (props) => {
 
   return (
     <div className="statistics-section-title">
-      {rightAddon && (
-        <div className="pull-right">
-          {rightAddon}
-        </div>
-      )}
-      <h1>
-        {children}
-      </h1>
+      {rightAddon && <div className="pull-right">{rightAddon}</div>}
+      <h1>{children}</h1>
     </div>
   );
 };

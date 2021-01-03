@@ -9,11 +9,7 @@ class ManaTab extends Analyzer {
     return {
       title: 'Mana',
       url: 'mana',
-      render: () => (
-        <TabComponent
-          parser={this.owner}
-        />
-      ),
+      render: () => <TabComponent parser={this.owner} />,
     };
   }
 }
