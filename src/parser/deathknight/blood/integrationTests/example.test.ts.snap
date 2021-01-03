@@ -105,11 +105,12 @@ Array [
     "icon": "spell_mage_altertime",
     "importance": "regular",
     "issue": <React.Fragment>
-      While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes.  You can reduce downtime by casting ranged/filler abilities like 
+      While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes. You can reduce downtime by casting ranged/filler abilities like 
       <ForwardRef
         id={206931}
       />
-       or 
+       or
+       
       <ForwardRef
         id={50842}
       />
@@ -635,8 +636,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
             >
               27
               /35
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -738,8 +738,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
             >
               4
               /5
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -841,8 +840,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
             >
               20
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -927,8 +925,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1013,8 +1010,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
             >
               4
               /13
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1111,8 +1107,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
             >
               38
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1197,8 +1192,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
             >
               10
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1341,8 +1335,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
             >
               0
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1497,8 +1490,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1653,8 +1645,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1756,8 +1747,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
             >
               1
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1859,8 +1849,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
             >
               1
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1962,8 +1951,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2060,8 +2048,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
             >
               0
               /7
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2221,8 +2208,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
             >
               2
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2377,8 +2363,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2521,8 +2506,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
             >
               0
               /10
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2619,8 +2603,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
             >
               1
               /18
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2717,8 +2700,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
             >
               0
               /10
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2815,8 +2797,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
             >
               3
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2913,8 +2894,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3011,8 +2991,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3097,8 +3076,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
             >
               0
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3253,8 +3231,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3351,8 +3328,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={

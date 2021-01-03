@@ -225,15 +225,18 @@ Array [
     "icon": "spell_mage_altertime",
     "importance": "major",
     "issue": <React.Fragment>
-      Your downtime can be improved. Try to Always Be Casting (ABC) and try to reduce the delay between casting spells. If you have to move, try casting instants like 
+      Your downtime can be improved. Try to Always Be Casting (ABC) and try to reduce the delay between casting spells. If you have to move, try casting instants like
+       
       <ForwardRef
         id={108853}
       />
-       or 
+       or
+       
       <ForwardRef
         id={1449}
       />
-       (if there are 2+ targets); even unbuffed 
+       (if there are 2+ targets); even unbuffed
+       
       <ForwardRef
         id={30455}
       />
@@ -335,11 +338,13 @@ Array [
     "issue": <React.Fragment>
       You overwrote 
       7.14
-      % of your 
+      % of your
+       
       <ForwardRef
         id={190446}
       />
-       procs. You should use your 
+       procs. You should use your
+       
       <ForwardRef
         id={190446}
       />
@@ -375,7 +380,8 @@ Array [
       <ForwardRef
         id={190446}
       />
-       procs to expire. Make sure you are using your procs as soon as possible to avoid this.
+       
+      procs to expire. Make sure you are using your procs as soon as possible to avoid this.
     </React.Fragment>,
     "stat": <React.Fragment>
       <Trans
@@ -667,8 +673,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               68
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -753,8 +758,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               0
               /35
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -851,8 +855,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -937,8 +940,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               69
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1023,8 +1025,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               25
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1109,8 +1110,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               0
               /30
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1207,8 +1207,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               5
               /6
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1368,8 +1367,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               0
               /52
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1524,8 +1522,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               5
               /8
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1627,8 +1624,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               2
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1725,8 +1721,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1823,8 +1818,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               3
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1984,8 +1978,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               8
               /14
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2082,8 +2075,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               1
               /121
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2180,8 +2172,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               1
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2336,8 +2327,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2422,8 +2412,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               0
               /13
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2520,8 +2509,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               15
               /17
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2618,8 +2606,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               0
               /15
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2716,8 +2703,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               0
               /44
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2814,8 +2800,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2900,8 +2885,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2986,8 +2970,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3072,8 +3055,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3158,8 +3140,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3256,8 +3237,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               1
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3354,8 +3334,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3498,8 +3477,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3596,8 +3574,7 @@ exports[`Frost Mage integration test: example log CastEfficiency matches the sta
             >
               2
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -4118,11 +4095,13 @@ Array [
       <ForwardRef
         id={12982}
       />
-      . Make sure that you are only casting Ice Lance when the target has 
+      . Make sure that you are only casting Ice Lance when the target has
+       
       <ForwardRef
         id={228358}
       />
-       (or other Shatter effects), if you have a 
+       (or other Shatter effects), if you have a
+       
       <ForwardRef
         id={44544}
       />
@@ -4226,11 +4205,13 @@ Array [
       19
        seconds (
       10
-      s per cast) not casting anything while 
+      s per cast) not casting anything while
+       
       <ForwardRef
         id={12472}
       />
-       was active. Because a large portion of your damage comes from Icy Veins, you should ensure that you are getting the most out of it every time it is cast. While sometimes this is out of your control (you got targeted by a mechanic at the worst possible time), you should try to minimize that risk by casting 
+       was active. Because a large portion of your damage comes from Icy Veins, you should ensure that you are getting the most out of it every time it is cast. While sometimes this is out of your control (you got targeted by a mechanic at the worst possible time), you should try to minimize that risk by casting
+       
       <ForwardRef
         id={12472}
       />
@@ -4429,13 +4410,15 @@ exports[`Frost Mage integration test: example log RuneOfPower matches the statis
           className="value"
         >
           16
-          % 
+          %
+           
           <small>
             Damage added by Rune of Power
           </small>
           <br />
           12
-          s 
+          s
+           
           <small>
             Average time in Rune per cast
           </small>
@@ -4474,7 +4457,8 @@ Array [
       <ForwardRef
         id={116011}
       />
-       for its full duration. Try to only use it when you know you won't have to move for the duration of the effect.
+       
+      for its full duration. Try to only use it when you know you won't have to move for the duration of the effect.
     </React.Fragment>,
     "stat": <React.Fragment>
       <Trans
@@ -5005,7 +4989,8 @@ exports[`Frost Mage integration test: example log WintersChill matches the stati
           </a>
            
           96
-          % 
+          %
+           
           <small>
             Spells shattered
           </small>
@@ -5024,7 +5009,8 @@ exports[`Frost Mage integration test: example log WintersChill matches the stati
           </a>
            
           76
-          % 
+          %
+           
           <small>
             Pre-casts shattered
           </small>
@@ -5059,7 +5045,8 @@ Array [
     "icon": "spell_frost_frostbolt02",
     "importance": "regular",
     "issue": <React.Fragment>
-      You failed to use a pre-cast ability before spending your 
+      You failed to use a pre-cast ability before spending your
+       
       <ForwardRef
         id={190446}
       />
@@ -5067,21 +5054,25 @@ Array [
       6
        times (
       24.00
-      %). Because of the travel time of 
+      %). Because of the travel time of
+       
       <ForwardRef
         id={44614}
       />
-      , you should cast a damaging ability such as 
+      , you should cast a damaging ability such as
+       
       <ForwardRef
         id={116}
       />
        
       
-       immediately before using your instant cast 
+       
+      immediately before using your instant cast 
       <ForwardRef
         id={44614}
       />
-      . Doing this will allow your pre-cast ability to hit the target after 
+      . Doing this will allow your pre-cast ability to hit the target after
+       
       <ForwardRef
         id={44614}
       />
@@ -5572,7 +5563,8 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                
               Frostbolt
             </a>
-            , 
+            ,
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=257537"
@@ -5587,7 +5579,8 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                
               Ebonbolt
             </a>
-            , or 
+            , or
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=199786"
@@ -5617,7 +5610,8 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                
               Ice Lance
             </a>
-            s. Against non-boss enemies, you can also utilize other things like 
+            s. Against non-boss enemies, you can also utilize other things like
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=122"
@@ -5632,7 +5626,8 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                
               Frost Nova
             </a>
-             or your pet's 
+             or your pet's
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=33395"
@@ -5965,7 +5960,8 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                
               Frostbolt
             </a>
-            , 
+            ,
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=257537"
@@ -5980,7 +5976,8 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                
               Ebonbolt
             </a>
-            , or 
+            , or
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=199786"
@@ -5995,7 +5992,8 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                
               Glacial Spike
             </a>
-             and you have both a 
+             and you have both a
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=190446"
@@ -6010,7 +6008,8 @@ exports[`Frost Mage integration test: example log matches the checklist snapshot
                
               Brain Freeze
             </a>
-             and a 
+             and a
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=44544"

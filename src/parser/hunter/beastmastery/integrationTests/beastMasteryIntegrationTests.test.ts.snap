@@ -184,7 +184,8 @@ exports[`Beast Mastery Hunter integration test: Multi Target AnimalCompanion mat
           className="value"
         >
           878k
-           / 
+           /
+           
           2,546
            DPS
         </div>
@@ -331,7 +332,8 @@ exports[`Beast Mastery Hunter integration test: Multi Target BarbedShot matches 
           </svg>
            
           75.17
-          % 
+          %
+           
           <small>
             3 stack uptime
           </small>
@@ -385,11 +387,13 @@ Array [
     "icon": "ability_hunter_barbedshot",
     "importance": "regular",
     "issue": <React.Fragment>
-      Your pet has a general low uptime of the buff from 
+      Your pet has a general low uptime of the buff from
+       
       <ForwardRef
         id={217200}
       />
-      , you should never be sitting on 2 stacks of this spell. 
+      , you should never be sitting on 2 stacks of this spell.
+       
     </React.Fragment>,
     "stat": <React.Fragment>
       <Trans
@@ -419,11 +423,13 @@ Array [
     "icon": "ability_hunter_barbedshot",
     "importance": "regular",
     "issue": <React.Fragment>
-      Your pet has a general low uptime of the 3 stacked buff from 
+      Your pet has a general low uptime of the 3 stacked buff from
+       
       <ForwardRef
         id={217200}
       />
-      . It's important to try and maintain the buff at 3 stacks for as long as possible, this is done by spacing out your casts, but at the same time never letting them cap on charges. 
+      . It's important to try and maintain the buff at 3 stacks for as long as possible, this is done by spacing out your casts, but at the same time never letting them cap on charges.
+       
     </React.Fragment>,
     "stat": <React.Fragment>
       <Trans
@@ -512,7 +518,8 @@ exports[`Beast Mastery Hunter integration test: Multi Target BasicAttacks matche
            
           <br />
           222
-           ms 
+           
+          ms 
           <small>
             average delay
           </small>
@@ -633,7 +640,8 @@ Array [
       1
        
       time
-       without your pets doing any 
+       without your pets doing any
+       
       <ForwardRef
         id={118455}
       />
@@ -1056,7 +1064,8 @@ Array [
       <ForwardRef
         id={217200}
       />
-       is the cooldown reduction of 
+       is the cooldown reduction of
+       
       <ForwardRef
         id={19574}
       />
@@ -1306,8 +1315,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               45
               /72
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1409,8 +1417,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               34
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1495,8 +1502,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1581,8 +1587,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               56
               /64
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1679,8 +1684,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               3
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1777,8 +1781,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               12
               /16
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1938,8 +1941,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               42
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2082,8 +2084,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               4
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2238,8 +2239,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               10
               /10
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2336,8 +2336,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               3
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2492,8 +2491,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2590,8 +2588,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               0
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2688,8 +2685,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2844,8 +2840,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2942,8 +2937,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               4
               /18
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3040,8 +3034,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               2
               /69
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3138,8 +3131,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               2
               /15
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3236,8 +3228,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               1
               /12
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3334,8 +3325,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               0
               /14
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3432,8 +3422,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               9
               /14
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3530,8 +3519,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               0
               /12
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3628,8 +3616,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               8
               /18
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3731,8 +3718,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3817,8 +3803,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3915,8 +3900,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               0
               /8
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -4013,8 +3997,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               0
               /6
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -4111,8 +4094,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -4197,8 +4179,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -4283,8 +4264,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               5
               /35
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -4439,8 +4419,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -4537,8 +4516,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -4771,7 +4749,8 @@ exports[`Beast Mastery Hunter integration test: Multi Target CobraShot matches t
           s
           <br />
           67.98
-          % 
+          %
+           
           <small>
             effectiveness
           </small>
@@ -4810,11 +4789,13 @@ Array [
       <ForwardRef
         id={193455}
       />
-       is the cooldown reduction of 
+       is the cooldown reduction of
+       
       <ForwardRef
         id={34026}
       />
-       it provides. When the cooldown of 
+       it provides. When the cooldown of
+       
       <ForwardRef
         id={34026}
       />
@@ -4826,7 +4807,8 @@ Array [
       <ForwardRef
         id={34026}
       />
-      . If the cooldown of 
+      . If the cooldown of
+       
       <ForwardRef
         id={34026}
       />
@@ -4868,7 +4850,8 @@ Array [
       <ForwardRef
         id={193455}
       />
-       when 
+       when
+       
       <ForwardRef
         id={34026}
       />
@@ -4955,7 +4938,8 @@ exports[`Beast Mastery Hunter integration test: Multi Target DarkmoonDeckVoracit
           </svg>
            
           5.17
-          % 
+          %
+           
           <small>
             Haste
           </small>
@@ -4971,7 +4955,8 @@ exports[`Beast Mastery Hunter integration test: Multi Target DarkmoonDeckVoracit
           </svg>
            
           11.60
-          % 
+          %
+           
           <small>
             Uptime
           </small>
@@ -5282,31 +5267,38 @@ Array [
       <ForwardRef
         id={193455}
       />
-       whilst 
+       whilst
+       
       <ForwardRef
         id={34026}
       />
-       isn't on cooldown, when you have 
+       isn't on cooldown, when you have
+       
       <ForwardRef
         id={19574}
       />
-       up. Utilize the reset effect of 
+       up. Utilize the reset effect of
+       
       <ForwardRef
         id={199532}
       />
-       by only casting 
+       by only casting
+       
       <ForwardRef
         id={193455}
       />
-       to reset 
+       to reset
+       
       <ForwardRef
         id={34026}
       />
-       when 
+       when
+       
       <ForwardRef
         id={19574}
       />
-       is up. 
+       is up.
+       
     </React.Fragment>,
     "stat": <React.Fragment>
       <Trans
@@ -6575,7 +6567,8 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                
               Barbed Shot
             </a>
-             as long as possible, and using it to reduce the cooldown of 
+             as long as possible, and using it to reduce the cooldown of
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=19574"
@@ -6590,7 +6583,8 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                
               Bestial Wrath
             </a>
-             as much as possible, to ensure high uptime on 
+             as much as possible, to ensure high uptime on
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=19574"
@@ -7031,7 +7025,8 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                    
                   Cobra Shot
                 </a>
-                 casts when 
+                 casts when
+                 
                 <a
                   className="spell-link-text"
                   href="http://wowhead.com/spell=34026"
@@ -7118,7 +7113,8 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                     src="//render-us.worldofwarcraft.com/icons/56/ability_hunter_focusfire.jpg"
                   />
                 </a>
-                 Average focus on 
+                 Average focus on
+                 
                 <a
                   className="spell-link-text"
                   href="http://wowhead.com/spell=19574"
@@ -7131,7 +7127,8 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                     src="//render-us.worldofwarcraft.com/icons/56/ability_druid_ferociousbite.jpg"
                   />
                 </a>
-                 cast 
+                 cast
+                 
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -7325,7 +7322,8 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
               <div
                 className="flex-main"
               >
-                 Wasted 
+                 
+                Wasted 
                 <a
                   className="spell-link-text"
                   href="http://wowhead.com/spell=199532"
@@ -7340,7 +7338,8 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                    
                   Killer Cobra
                 </a>
-                 resets 
+                 resets
+                 
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -7478,7 +7477,8 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
           <div
             className="col-md-12"
           >
-            As a DPS, you should try to reduce the delay between casting spells, and stay off resource capping as much as possible. If everything is on cooldown, try and use 
+            As a DPS, you should try to reduce the delay between casting spells, and stay off resource capping as much as possible. If everything is on cooldown, try and use
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=193455"
@@ -8615,7 +8615,8 @@ exports[`Beast Mastery Hunter integration test: Single Target AnimalCompanion ma
           className="value"
         >
           789k
-           / 
+           /
+           
           2,542
            DPS
         </div>
@@ -8762,7 +8763,8 @@ exports[`Beast Mastery Hunter integration test: Single Target BarbedShot matches
           </svg>
            
           87.73
-          % 
+          %
+           
           <small>
             3 stack uptime
           </small>
@@ -8870,7 +8872,8 @@ exports[`Beast Mastery Hunter integration test: Single Target BasicAttacks match
            
           <br />
           132
-           ms 
+           
+          ms 
           <small>
             average delay
           </small>
@@ -9219,7 +9222,8 @@ Array [
       <ForwardRef
         id={217200}
       />
-       is the cooldown reduction of 
+       is the cooldown reduction of
+       
       <ForwardRef
         id={19574}
       />
@@ -9469,8 +9473,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               57
               /65
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -9567,8 +9570,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               94
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -9653,8 +9655,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -9739,8 +9740,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               53
               /54
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -9837,8 +9837,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               5
               /6
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -9940,8 +9939,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               3
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -10038,8 +10036,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               3
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -10199,8 +10196,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -10343,8 +10339,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               4
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -10499,8 +10494,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               10
               /10
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -10597,8 +10591,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               3
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -10753,8 +10746,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -10851,8 +10843,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               2
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -10949,8 +10940,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -11105,8 +11095,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -11203,8 +11192,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               0
               /16
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -11301,8 +11289,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               0
               /63
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -11399,8 +11386,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               0
               /13
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -11497,8 +11483,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               0
               /11
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -11595,8 +11580,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               0
               /13
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -11693,8 +11677,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               0
               /13
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -11791,8 +11774,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               0
               /11
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -11889,8 +11871,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               0
               /16
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -11987,8 +11968,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -12073,8 +12053,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               0
               /6
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -12171,8 +12150,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -12269,8 +12247,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               0
               /7
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -12367,8 +12344,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               0
               /6
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -12465,8 +12441,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -12551,8 +12526,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -12637,8 +12611,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               0
               /32
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -12793,8 +12766,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -12891,8 +12863,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -13081,7 +13052,8 @@ exports[`Beast Mastery Hunter integration test: Single Target CobraShot matches 
           s
           <br />
           80.08
-          % 
+          %
+           
           <small>
             effectiveness
           </small>
@@ -13120,11 +13092,13 @@ Array [
       <ForwardRef
         id={193455}
       />
-       is the cooldown reduction of 
+       is the cooldown reduction of
+       
       <ForwardRef
         id={34026}
       />
-       it provides. When the cooldown of 
+       it provides. When the cooldown of
+       
       <ForwardRef
         id={34026}
       />
@@ -13136,7 +13110,8 @@ Array [
       <ForwardRef
         id={34026}
       />
-      . If the cooldown of 
+      . If the cooldown of
+       
       <ForwardRef
         id={34026}
       />
@@ -13178,7 +13153,8 @@ Array [
       <ForwardRef
         id={193455}
       />
-       when 
+       when
+       
       <ForwardRef
         id={34026}
       />
@@ -13585,7 +13561,8 @@ exports[`Beast Mastery Hunter integration test: Single Target OverchargedAnimaBa
           </svg>
            
           9.59
-          % 
+          %
+           
           <small>
             average Haste
           </small>
@@ -14833,7 +14810,8 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                
               Barbed Shot
             </a>
-             as long as possible, and using it to reduce the cooldown of 
+             as long as possible, and using it to reduce the cooldown of
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=19574"
@@ -14848,7 +14826,8 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                
               Bestial Wrath
             </a>
-             as much as possible, to ensure high uptime on 
+             as much as possible, to ensure high uptime on
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=19574"
@@ -15289,7 +15268,8 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                    
                   Cobra Shot
                 </a>
-                 casts when 
+                 casts when
+                 
                 <a
                   className="spell-link-text"
                   href="http://wowhead.com/spell=34026"
@@ -15376,7 +15356,8 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                     src="//render-us.worldofwarcraft.com/icons/56/ability_hunter_focusfire.jpg"
                   />
                 </a>
-                 Average focus on 
+                 Average focus on
+                 
                 <a
                   className="spell-link-text"
                   href="http://wowhead.com/spell=19574"
@@ -15389,7 +15370,8 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                     src="//render-us.worldofwarcraft.com/icons/56/ability_druid_ferociousbite.jpg"
                   />
                 </a>
-                 cast 
+                 cast
+                 
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -15661,7 +15643,8 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
           <div
             className="col-md-12"
           >
-            As a DPS, you should try to reduce the delay between casting spells, and stay off resource capping as much as possible. If everything is on cooldown, try and use 
+            As a DPS, you should try to reduce the delay between casting spells, and stay off resource capping as much as possible. If everything is on cooldown, try and use
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=193455"

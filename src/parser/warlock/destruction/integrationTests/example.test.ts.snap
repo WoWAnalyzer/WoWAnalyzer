@@ -222,7 +222,8 @@ Array [
     "icon": "spell_mage_altertime",
     "importance": "minor",
     "issue": <React.Fragment>
-      Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. When you know you'll be moving, try to save 
+      Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. When you know you'll be moving, try to save
+       
       <ForwardRef
         id={17962}
       />
@@ -230,11 +231,13 @@ Array [
       <ForwardRef
         id={17877}
       />
-       charges. Make good use of your 
+       
+      charges. Make good use of your 
       <ForwardRef
         id={268358}
       />
-       or 
+       or
+       
       <ForwardRef
         id={111400}
       />
@@ -453,8 +456,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               37
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -539,8 +541,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               40
               /40
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -637,8 +638,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -723,8 +723,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               30
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -809,8 +808,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               46
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -895,8 +893,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               3
               /7
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1051,8 +1048,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1137,8 +1133,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               2
               /7
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1293,8 +1288,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               2
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1391,8 +1385,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               2
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1547,8 +1540,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1708,8 +1700,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1794,8 +1785,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1880,8 +1870,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               1
               /5
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1978,8 +1967,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               0
               /21
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2076,8 +2064,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               0
               /7
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2174,8 +2161,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2260,8 +2246,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               0
               /21
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2358,8 +2343,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2444,8 +2428,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2530,8 +2513,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2628,8 +2610,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2714,8 +2695,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2800,8 +2780,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2886,8 +2865,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2972,8 +2950,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3058,8 +3035,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3144,8 +3120,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3230,8 +3205,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3316,8 +3290,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               0
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3414,8 +3387,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3512,8 +3484,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3656,8 +3627,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3754,8 +3724,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3895,7 +3864,8 @@ exports[`Destruction Warlock integration test: example log Cataclysm matches the
           className="value"
         >
           191
-           DPS 
+           DPS
+           
           <small>
             0.25
              % of total
@@ -4331,7 +4301,8 @@ exports[`Destruction Warlock integration test: example log Eradication matches t
           className="value"
         >
           4,522
-           DPS 
+           DPS
+           
           <small>
             6.01
              % of total
@@ -4460,7 +4431,8 @@ exports[`Destruction Warlock integration test: example log Havoc matches the sta
           className="value"
         >
           2,627
-           DPS 
+           DPS
+           
           <small>
             3.49
              % of total
@@ -4620,7 +4592,8 @@ exports[`Destruction Warlock integration test: example log InternalCombustion ma
           className="value"
         >
           7,059
-           DPS 
+           DPS
+           
           <small>
             9.38
              % of total
@@ -5180,7 +5153,8 @@ exports[`Destruction Warlock integration test: example log matches the checklist
           <div
             className="col-md-12"
           >
-            Destruction Warlocks have a simple rotation core. Maintain your 
+            Destruction Warlocks have a simple rotation core. Maintain your
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=348"
@@ -5195,7 +5169,8 @@ exports[`Destruction Warlock integration test: example log matches the checklist
                
               Immolate
             </a>
-             on all enemies if possible, don't waste your 
+             on all enemies if possible, don't waste your
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=17962"
@@ -5225,7 +5200,8 @@ exports[`Destruction Warlock integration test: example log matches the checklist
                
               Backdraft
             </a>
-             stacks. Use 
+             
+            stacks. Use 
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=80240"
@@ -6117,7 +6093,8 @@ exports[`Destruction Warlock integration test: example log matches the checklist
                
               Demonic Gateway
             </a>
-            , 
+            ,
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=268358"
@@ -6132,7 +6109,8 @@ exports[`Destruction Warlock integration test: example log matches the checklist
                
               Demonic Circle
             </a>
-            , 
+            ,
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=111400"
@@ -6147,7 +6125,8 @@ exports[`Destruction Warlock integration test: example log matches the checklist
                
               Burning Rush
             </a>
-             or mitigate incoming damage with 
+             or mitigate incoming damage with
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=104773"
@@ -6433,7 +6412,8 @@ exports[`Destruction Warlock integration test: example log matches the checklist
                
               Conflagrate
             </a>
-             charges or try to utilize 
+             charges or try to utilize
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=268358"
@@ -6448,7 +6428,9 @@ exports[`Destruction Warlock integration test: example log matches the checklist
                
               Teleport
             </a>
-             or 
+             
+            or
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=111771"
@@ -6463,7 +6445,8 @@ exports[`Destruction Warlock integration test: example log matches the checklist
                
               Gateway
             </a>
-             to reduce the movement even further.
+             
+            to reduce the movement even further.
           </div>
         </div>
         <div

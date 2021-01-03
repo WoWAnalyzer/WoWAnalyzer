@@ -44,7 +44,8 @@ exports[`Elemental Shaman integration test: example log Aftershock matches the s
           480
            
           Maelstrom
-           generated 
+           generated
+           
           <small />
         </div>
       </div>
@@ -158,7 +159,8 @@ Array [
     "icon": "spell_mage_altertime",
     "importance": "minor",
     "issue": <React.Fragment>
-      Your downtime can be improved. If you need to move use 
+      Your downtime can be improved. If you need to move use
+       
       <ForwardRef
         id={188389}
       />
@@ -166,7 +168,8 @@ Array [
       <ForwardRef
         id={8042}
       />
-       or 
+       or
+       
       <ForwardRef
         id={196840}
       />
@@ -493,8 +496,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
             >
               57
               /61
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -591,8 +593,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
             >
               27
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -677,8 +678,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
             >
               15
               /46
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -775,8 +775,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
             >
               51
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -861,8 +860,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
             >
               23
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1005,8 +1003,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
             >
               12
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1091,8 +1088,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1177,8 +1173,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
             >
               9
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1321,8 +1316,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
             >
               2
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1419,8 +1413,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
             >
               3
               /5
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1522,8 +1515,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
             >
               8
               /9
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1620,8 +1612,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1706,8 +1697,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1850,8 +1840,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
             >
               2
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2006,8 +1995,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2150,8 +2138,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
             >
               0
               /5
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2248,8 +2235,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
             >
               0
               /7
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2346,8 +2332,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2432,8 +2417,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
             >
               0
               /23
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2588,8 +2572,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2686,8 +2669,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -5560,7 +5542,8 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                
               Earth Shock
             </a>
-            , 
+            ,
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=77762"
@@ -5575,7 +5558,8 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                
               Lava Surge
             </a>
-             empowered 
+             empowered
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=51505"
@@ -5818,7 +5802,8 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
           <div
             className="col-md-12"
           >
-            It's important to maintain flame shock on your target to guarantee 
+            It's important to maintain flame shock on your target to guarantee
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=51505"
@@ -5833,7 +5818,8 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                
               Lava Burst
             </a>
-             will crit and to allow for 
+             will crit and to allow for
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=77762"
@@ -5848,7 +5834,8 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                
               Lava Surge
             </a>
-             procs. Applying 
+             procs. Applying
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=188389"
@@ -5952,7 +5939,8 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
               <div
                 className="flex-main"
               >
-                 Bad 
+                 
+                Bad 
                 <a
                   className="spell-link-text"
                   href="http://wowhead.com/spell=188389"
@@ -5967,7 +5955,8 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                    
                   Flame Shock
                 </a>
-                 refreshes 
+                 refreshes
+                 
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6150,7 +6139,8 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
               Frost Shock
             </a>
              casts during the buff's duration.
-             While you should try to buff as many 
+             
+            While you should try to buff as many 
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=210714"
@@ -6165,7 +6155,8 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                
               Icefury
             </a>
-             empowered 
+             
+            empowered 
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=196840"
@@ -6180,7 +6171,8 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                
               Frost Shock
             </a>
-             as you can with 
+             as you can with
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=16166"
@@ -6225,7 +6217,8 @@ exports[`Elemental Shaman integration test: example log matches the checklist sn
                    
                   Frost Shock
                 </a>
-                 Casts within 
+                 Casts within
+                 
                 <a
                   className="spell-link-text"
                   href="http://wowhead.com/spell=210714"

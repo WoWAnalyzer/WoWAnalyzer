@@ -105,7 +105,8 @@ Array [
     "icon": "spell_mage_altertime",
     "importance": "regular",
     "issue": <span>
-      Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. If you have to move, try casting 
+      Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. If you have to move, try casting
+       
       <ForwardRef
         id={2948}
       />
@@ -427,8 +428,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               27
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -513,8 +513,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -599,8 +598,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               84
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -685,8 +683,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               28
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -771,8 +768,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               13
               /19
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -874,8 +870,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               45
               /53
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1035,8 +1030,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1121,8 +1115,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               0
               /21
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1219,8 +1212,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1363,8 +1355,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1461,8 +1452,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               4
               /5
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1564,8 +1554,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               4
               /10
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1667,8 +1656,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               4
               /7
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1828,8 +1816,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               7
               /16
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1926,8 +1913,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               1
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2024,8 +2010,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               1
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2180,8 +2165,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2266,8 +2250,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               0
               /13
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2364,8 +2347,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               9
               /18
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2462,8 +2444,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               0
               /16
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2560,8 +2541,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               0
               /47
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2658,8 +2638,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2744,8 +2723,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2830,8 +2808,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2916,8 +2893,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3002,8 +2978,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3100,8 +3075,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3244,8 +3218,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               1
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3342,8 +3315,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
             >
               1
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3698,11 +3670,13 @@ Array [
       7
        seconds (
       1
-      s per cast) not casting anything while 
+      s per cast) not casting anything while
+       
       <ForwardRef
         id={190319}
       />
-       was active. Because a large portion of your damage comes from Combustion, you should ensure that you are getting the most out of it every time it is cast. While sometimes this is out of your control (you got targeted by a mechanic at the worst possible time), you should try to minimize that risk by casting 
+       was active. Because a large portion of your damage comes from Combustion, you should ensure that you are getting the most out of it every time it is cast. While sometimes this is out of your control (you got targeted by a mechanic at the worst possible time), you should try to minimize that risk by casting
+       
       <ForwardRef
         id={190319}
       />
@@ -3741,17 +3715,20 @@ Array [
       2
        times with less than 
       2
-       charges of 
+       
+      charges of 
       <ForwardRef
         id={108853}
       />
-      . Make sure you are saving at least 
+      . Make sure you are saving at least
+       
       2
        charges while Combustion is on cooldown so you can get as many 
       <ForwardRef
         id={48108}
       />
-       procs as possible before Combustion ends.
+       
+      procs as possible before Combustion ends.
     </React.Fragment>,
     "stat": <React.Fragment>
       <Trans
@@ -3786,17 +3763,20 @@ Array [
       2
        times (
       0.40
-       per Combustion), and completed 
+       per Combustion), and completed
+       
       1
-       casts, while you had charges of 
+       casts, while you had charges of
+       
       <ForwardRef
         id={108853}
       />
-        or 
+       or 
       <ForwardRef
         id={257541}
       />
-       available. Make sure you are using up all of your charges of Fire Blast and Phoenix Flames before using Scorch during Combustion.
+       
+      available. Make sure you are using up all of your charges of Fire Blast and Phoenix Flames before using Scorch during Combustion.
     </React.Fragment>,
     "stat": <React.Fragment>
       <Trans
@@ -3827,13 +3807,15 @@ Array [
       2.45
       % of the fight duration (
       9
-       seconds). Dying has a significant performance cost. View the 
+       seconds). Dying has a significant performance cost. View the
+       
       <Link
         to="/report/TryHCcA7LBNK2xvR/5-%7B%22id%22:%22common.getFightName.fightname%22,%22message%22:%22%7BbossName%7D+-+%7BfightResult%7D+(%7Bduration%7D)%22,%22values%22:%7B%22bossName%22:%22%5C%22%7B0%7D+%7B1%7D%5C%22%22,%22fightResult%22:%22%7B%5C%22id%5C%22:%5C%22common.getFightName.kill%5C%22,%5C%22message%5C%22:%5C%22Kill%5C%22%7D%22,%22duration%22:%226:22%22%7D%7D/Ifrosty/standard/death-recap"
       >
         Death Recap
       </Link>
-       to see the damage taken and what defensives and potions were still available.
+       
+      to see the damage taken and what defensives and potions were still available.
     </React.Fragment>,
     "stat": <React.Fragment>
       <Trans
@@ -4189,7 +4171,8 @@ exports[`Fire Mage integration test: example log HeatingUp matches the statistic
           </a>
            
           93
-          % 
+          %
+           
           <small>
             Fire Blast Utilization
           </small>
@@ -4249,13 +4232,15 @@ Array [
       />
        
       1
-       times while 
+       times while
+       
       <ForwardRef
         id={48108}
       />
        was active and 
       2
-       times while you didnt have 
+       
+      times while you didnt have 
       <ForwardRef
         id={48107}
       />
@@ -4326,7 +4311,8 @@ exports[`Fire Mage integration test: example log HotStreak matches the statistic
           </small>
           <br />
           40
-          % 
+          %
+           
           <small>
             Procs used alongside Fireball
           </small>
@@ -4369,35 +4355,42 @@ Array [
       
        
        and the target is over 30% health
-      , 
+      ,
+       
       <ForwardRef
         id={48108}
       />
-       procs should be used immediately after casting 
+       procs should be used immediately after casting
+       
       <ForwardRef
         id={133}
       />
        
       
-      . This way, if one of the two abilities crit you will gain a new 
+      . This way, if one of the two abilities crit you will gain a new
+       
       <ForwardRef
         id={48107}
       />
-       proc, and if both crit you will get a new 
+       proc, and if both crit you will get a new
+       
       <ForwardRef
         id={48108}
       />
-       proc. You failed to do this 
+       proc. You failed to do this
+       
       15
        times. If you have a 
       <ForwardRef
         id={48108}
       />
-       proc and need to move, you can hold the proc and cast 
+       
+      proc and need to move, you can hold the proc and cast 
       <ForwardRef
         id={2948}
       />
-       once or twice until you are able to stop and cast 
+       
+      once or twice until you are able to stop and cast 
       <ForwardRef
         id={133}
       />
@@ -4432,7 +4425,8 @@ Array [
       3
        (
       0
-       Per Minute) direct damage abilities while 
+       
+      Per Minute) direct damage abilities while 
       <ForwardRef
         id={48108}
       />
@@ -4565,7 +4559,8 @@ exports[`Fire Mage integration test: example log Kindling matches the statistic 
           className="value"
         >
           183
-          s 
+          s
+           
           <small>
             Combustion Cooldown Reduction
           </small>
@@ -4729,13 +4724,15 @@ exports[`Fire Mage integration test: example log RuneOfPower matches the statist
           className="value"
         >
           16
-          % 
+          %
+           
           <small>
             Damage added by Rune of Power
           </small>
           <br />
           13
-          s 
+          s
+           
           <small>
             Average time in Rune per cast
           </small>
