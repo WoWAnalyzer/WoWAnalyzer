@@ -244,7 +244,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DIVINE_TOLL,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE,
         cooldown: 180,
         castEfficiency: {
           suggestion: true,
@@ -253,6 +253,19 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+      },
+      {
+        spell: SPELLS.FINAL_STAND_CAST,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 300 * (combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 0.7 : 1),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.6,
+        },
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(SPELLS.FINAL_STAND_TALENT.id),
       },
     ];
   }
