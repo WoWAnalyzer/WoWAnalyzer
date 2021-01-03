@@ -71,6 +71,8 @@ import Bloodletting from './modules/spells/conduits/Bloodletting';
 import EchoingCall from './modules/spells/conduits/EchoingCall';
 import FerociousAppetite from './modules/spells/conduits/FerociousAppetite';
 import OneWithTheBeast from './modules/spells/conduits/OneWithTheBeast';
+import MarkmansAdvantage from '../shared/modules/spells/conduits/MarkmansAdvantage';
+import ResilienceOfTheHunter from '../shared/modules/spells/conduits/ResilienceOfTheHunter';
 
 //Legendaries
 import DireCommand from './modules/items/DireCommand';
@@ -79,6 +81,7 @@ import QaplaEredunWarOrder from './modules/items/QaplaEredunWarOrder';
 import RylakstalkersPiercingFangs from './modules/items/RylakstalkersPiercingFangs';
 import NesingwarysTrappingApparatus from './modules/items/NesingwarysTrappingApparatus';
 import SoulforgeEmbers from '../shared/modules/items/SoulforgeEmbers';
+
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -150,6 +153,8 @@ class CombatLogParser extends CoreCombatLogParser {
     echoingCall: EchoingCall,
     ferociousAppetite: FerociousAppetite,
     oneWithTheBeast: OneWithTheBeast,
+    markmansAdvantage: MarkmansAdvantage,
+    resilienceOfTheHunter: ResilienceOfTheHunter,
 
     //Generic Legendaries
     nesingwarysTrappingApparatus: NesingwarysTrappingApparatus,
