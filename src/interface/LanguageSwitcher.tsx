@@ -42,8 +42,8 @@ class LanguageSwitcher extends React.PureComponent<Props, State> {
     return (
       <ReadableListing groupType="or">
         {Object.keys(languages).map((code) => (
+          // eslint-disable-next-line jsx-a11y/anchor-is-valid
           <a key={code} onClick={() => this.selectLanguage(code)}>
-            {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
             {languages[code].localName}
           </a>
         ))}
@@ -58,8 +58,8 @@ class LanguageSwitcher extends React.PureComponent<Props, State> {
     }
 
     return (
+      // eslint-disable-next-line jsx-a11y/anchor-is-valid
       <a onClick={this.handleClickExpand}>
-        {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
         <TooltipElement
           content={t({
             id: 'interface.languageSwitcher.clickToSwitch',

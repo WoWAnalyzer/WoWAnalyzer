@@ -256,9 +256,8 @@ class EventsTab extends React.Component {
 
       return searchTerms.some((searchTerm) => {
         if (event.ability !== undefined) {
-          // noinspection EqualityComparisonWithCoercionJS
+          // eslint-disable-next-line eqeqeq
           if (event.ability.guid == searchTerm) {
-            // eslint-disable-line eqeqeq
             return true;
           } else if (event.ability.name && event.ability.name.toLowerCase().includes(searchTerm)) {
             return true;
