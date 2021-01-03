@@ -90,6 +90,7 @@
     "test:integration": "yarn test integrationTests",
     "typecheck": "tsc",
     "lint": "eslint . --ext .js,.ts,.tsx",
+    "reformat": "yarn prettier --write '**/*.{js,ts,tsx,json,md,css,scss,graphql,yml}'",
     "extract": "lingui extract --overwrite --clean",
     "script": "set NODE_ENV=development&&babel-node",
     "postinstall": "patch-package"
