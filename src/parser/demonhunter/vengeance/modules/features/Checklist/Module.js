@@ -18,7 +18,7 @@ import SoulCleaveSoulsConsumed from '../../spells/SoulCleaveSoulsConsumed';
 import DemonSpikes from '../../spells/DemonSpikes';
 
 // Resources
-import PainDetails from '../../pain/PainDetails';
+import FuryDetails from '../../fury/FuryDetails';
 import SoulsOvercap from '../../statistics/SoulsOvercap';
 
 import AlwaysBeCasting from '../AlwaysBeCasting';
@@ -45,7 +45,7 @@ class Checklist extends BaseModule {
     demonSpikes: DemonSpikes,
 
     // Resources
-    painDetails: PainDetails,
+    furyDetails: FuryDetails,
     soulsOvercap: SoulsOvercap,
 
   };
@@ -65,7 +65,7 @@ class Checklist extends BaseModule {
           soulBarrier: this.soulBarrier.suggestionThresholdsEfficiency,
           soulCleaveSoulsConsumed: this.soulCleaveSoulsConsumed.suggestionThresholdsEfficiency,
           demonSpikes: this.demonSpikes.suggestionThresholdsEfficiency,
-          painDetails: this.painDetails.suggestionThresholds,
+          furyDetails: this.furyDetails.suggestionThresholds,
           soulsOvercap: this.soulsOvercap.suggestionThresholdsEfficiency,
         }}
       />

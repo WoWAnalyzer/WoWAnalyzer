@@ -11,7 +11,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import SPECS from 'game/SPECS';
-import ExecuteHelper from 'parser/shared/ExecuteHelper';
+import ExecuteHelper from 'parser/shared/modules/helpers/ExecuteHelper';
 import FlayedShot from 'parser/hunter/shared/modules/spells/covenants/venthyr/FlayedShot';
 
 class KillShot extends ExecuteHelper {
