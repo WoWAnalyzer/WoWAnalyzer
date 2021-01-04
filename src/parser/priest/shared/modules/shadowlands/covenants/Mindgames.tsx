@@ -20,11 +20,17 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ItemInsanityGained from 'parser/priest/shadow/interface/ItemInsanityGained';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import ItemManaGained from 'interface/ItemManaGained';
+import Abilities from 'parser/core/modules/Abilities';
 
 // Shadow: https://www.warcraftlogs.com/reports/Bx7h3bzGKm9CHqF6#fight=1&type=damage-done&source=10
 // Holy: https://www.warcraftlogs.com/reports/MCyn6jhQf13YbRHt#fight=14&type=healing&source=41
 // Disc: https://www.warcraftlogs.com/reports/NWctPky1vKapJVM8#fight=10&type=healing&graphperf=1&source=183
 class Mindgames extends Analyzer {
+  static dependencies = {
+    abilities: Abilities
+  };
+  protected abilities!: Abilities;
+
   directHealing = 0;
   directOverHealing = 0;
   preventedDamage = 0;
@@ -47,9 +53,31 @@ class Mindgames extends Analyzer {
       return;
     }
 
-    if(this.selectedCombatant.spec === SPECS.DISCIPLINE_PRIEST) {
+    if (this.selectedCombatant.spec === SPECS.DISCIPLINE_PRIEST) {
       this.atonementDamageSource = this.owner.getModule(AtonementDamageSource);
     }
+
+    const castEfficiency = this.selectedCombatant.spec === SPECS.SHADOW_PRIEST ? {
+      suggestion: true,
+      recommendedEfficiency: 0.95,
+      averageIssueEfficiency: 0.85,
+      majorIssueEfficiency: 0.75,
+    } : {
+      suggestion: true,
+      recommendedEfficiency: 0.8,
+      averageIssueEfficiency: 0.6,
+      majorIssueEfficiency: 0.4,
+    };
+    (options.abilities as Abilities).add({
+      spell: SPELLS.MINDGAMES,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      cooldown: 45,
+      enabled: true,
+      gcd: {
+        base: 1500,
+      },
+      castEfficiency: castEfficiency,
+    });
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
     this.addEventListener(Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.MINDGAMES_ABSORB), this.onMindgamesAbsorbed);
@@ -112,10 +140,10 @@ class Mindgames extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.MINDGAMES}>
           <>
-            <ItemDamageDone amount={this.totalDamage} /><br/>
-            <ItemHealingDone amount={this.atonementHealing + this.directHealing + this.preventedDamage} /><br/>
-            {this.insanityGenerated > 0 && <><ItemInsanityGained amount={this.insanityGenerated} /><br/></>}
-            {this.manaGenerated > 0 && <><ItemManaGained amount={this.manaGenerated} /><br/></>}
+            <ItemDamageDone amount={this.totalDamage} /><br />
+            <ItemHealingDone amount={this.atonementHealing + this.directHealing + this.preventedDamage} /><br />
+            {this.insanityGenerated > 0 && <><ItemInsanityGained amount={this.insanityGenerated} /><br /></>}
+            {this.manaGenerated > 0 && <><ItemManaGained amount={this.manaGenerated} /><br /></>}
           </>
         </BoringSpellValueText>
       </Statistic>

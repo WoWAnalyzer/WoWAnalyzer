@@ -14,6 +14,8 @@ import Combatants from 'parser/shared/modules/Combatants';
 import ItemManaGained from 'interface/ItemManaGained';
 import ItemInsanityGained from 'parser/priest/shadow/interface/ItemInsanityGained';
 import { formatNumber } from 'common/format';
+import Abilities from 'parser/core/modules/Abilities';
+import SPECS from 'game/SPECS';
 
 const GUARDIAN_DAMAGE_REDUCTION = .1;
 
@@ -23,8 +25,10 @@ const GUARDIAN_DAMAGE_REDUCTION = .1;
 class FaeGuardians extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-  }
+    abilities: Abilities
+  };
   protected combatants!: Combatants;
+  protected abilities!: Abilities;
 
   totalCasts = 0;
 
@@ -48,6 +52,28 @@ class FaeGuardians extends Analyzer {
       return;
     }
 
+    const castEfficiency = this.selectedCombatant.spec === SPECS.SHADOW_PRIEST ? {
+      suggestion: true,
+      recommendedEfficiency: 0.9,
+      averageIssueEfficiency: 0.8,
+      majorIssueEfficiency: 0.7,
+    } : {
+      suggestion: true,
+      recommendedEfficiency: 0.8,
+      averageIssueEfficiency: 0.6,
+      majorIssueEfficiency: 0.4,
+    };
+    (options.abilities as Abilities).add({
+      spell: SPELLS.FAE_GUARDIANS,
+      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+      cooldown: 90,
+      enabled: true,
+      gcd: {
+        base: 1500,
+      },
+      castEfficiency: castEfficiency,
+    });
+
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FAE_GUARDIANS), this.onCast);
     this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.WRATHFUL_FAERIE_ENERGIZE), this.onEnergize);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.GUARDIAN_FAERIE), this.onGuardianApply);
@@ -58,10 +84,10 @@ class FaeGuardians extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    if (event.targetID !== this.currentShieldedTargetId){
+    if (event.targetID !== this.currentShieldedTargetId) {
       return;
     }
-    this.damageReduced += (event.amount || 0)/(1-GUARDIAN_DAMAGE_REDUCTION)
+    this.damageReduced += (event.amount || 0) / (1 - GUARDIAN_DAMAGE_REDUCTION);
   }
 
   onEnergize(event: EnergizeEvent) {
@@ -101,10 +127,10 @@ class FaeGuardians extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.FAE_GUARDIANS}>
           <>
-            {this.manaGenerated > 0 && <><ItemManaGained amount={this.manaGenerated} /><br/></>}
-            {this.insanityGenerated > 0 && <><ItemInsanityGained amount={this.insanityGenerated} /><br/></>}
+            {this.manaGenerated > 0 && <><ItemManaGained amount={this.manaGenerated} /><br /></>}
+            {this.insanityGenerated > 0 && <><ItemInsanityGained amount={this.insanityGenerated} /><br /></>}
             {formatNumber(this.damageReduced)} Dmg Reduced<br />
-            {formatNumber(this.benevolentBuffUptime/1000)} Seconds CDR
+            {formatNumber(this.benevolentBuffUptime / 1000)} Seconds CDR
           </>
         </BoringSpellValueText>
       </Statistic>
