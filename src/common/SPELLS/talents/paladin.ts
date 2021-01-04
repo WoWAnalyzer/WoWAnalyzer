@@ -54,6 +54,7 @@ const talents: SpellList = {
   CONSECRATED_GROUND_TALENT: { id: 204054, name: 'Consecrated Ground', icon: 'ability_paladin_righteousvengeance' },
   RIGHTEOUS_PROTECTOR_TALENT: { id: 204074, name: 'Righteous Protector', icon: 'ability_paladin_shieldofthetemplar' },
   FINAL_STAND_TALENT: { id: 204077, name: 'Final Stand', icon: 'spell_holy_crusade' },
+  FINAL_STAND_CAST: {id: 204079, name: 'Final Stand', icon: 'spell_holy_crusade'},
   SANCTIFIED_WRATH_TALENT_PROTECTION: { id: 171648, name: 'Sanctified Wrath', icon: 'ability_paladin_judgementsofthejust' },
 
   //Retribution
