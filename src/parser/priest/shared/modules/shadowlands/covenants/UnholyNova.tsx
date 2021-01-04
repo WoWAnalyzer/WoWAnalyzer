@@ -24,7 +24,7 @@ const APPLICATION_THRESHOLD = 5000;
 // Disc: https://www.warcraftlogs.com/reports/GWPC9kQ41yg6z8Xx#fight=47
 class UnholyNova extends Analyzer {
   static dependencies = {
-    abilities: Abilities
+    abilities: Abilities,
   };
   protected abilities!: Abilities;
 
@@ -45,10 +45,10 @@ class UnholyNova extends Analyzer {
 
   get totalMisses(): number {
     let totalMisses = 0;
-    for(const castEvent of this.castEvents) {
+    for (const castEvent of this.castEvents) {
       let didHit = false;
-      for (const applicationEvent of this.applicationEvents){
-        if (Math.abs(applicationEvent.timestamp - castEvent.timestamp) < APPLICATION_THRESHOLD){
+      for (const applicationEvent of this.applicationEvents) {
+        if (Math.abs(applicationEvent.timestamp - castEvent.timestamp) < APPLICATION_THRESHOLD) {
           didHit = true;
           break;
         }
@@ -97,7 +97,7 @@ class UnholyNova extends Analyzer {
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.UNHOLY_TRANSFUSION_DAMAGE), this.onApplyDebuff);
   }
 
-  onCast(event: CastEvent){
+  onCast(event: CastEvent) {
     this.castEvents.push(event);
   }
 
@@ -105,13 +105,13 @@ class UnholyNova extends Analyzer {
     this.applicationEvents.push(event);
   }
 
-  onDamage(event: DamageEvent){
-    this.totalDamage += event.amount + (event.absorb || 0)
+  onDamage(event: DamageEvent) {
+    this.totalDamage += event.amount + (event.absorb || 0);
   }
 
   onHeal(event: HealEvent) {
     this.totalHealing += event.amount;
-    this.totalOverHealing += (event.overheal  || 0);
+    this.totalOverHealing += (event.overheal || 0);
   }
 
   get efficiencySuggestionThresholds() {
@@ -130,7 +130,7 @@ class UnholyNova extends Analyzer {
     when(this.efficiencySuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>
         <span>Try not to miss with <SpellLink id={SPELLS.UNHOLY_NOVA.id} />.</span><br />
-          <span><SpellLink id={SPELLS.UNHOLY_NOVA.id} /> is a projectile that targets the ground where your target is currently standing.
+        <span><SpellLink id={SPELLS.UNHOLY_NOVA.id} /> is a projectile that targets the ground where your target is currently standing.
             If your target moves or becomes untargetable, Unholy Nova can completely miss.
             Try and avoid casting Unholy Nova when the target is about to move.
           </span></>)
@@ -139,16 +139,17 @@ class UnholyNova extends Analyzer {
         .recommended(`0 misses is recommended`));
   }
 
-
   statistic() {
     return (
       <Statistic
         category={STATISTIC_CATEGORY.COVENANTS}
         size="flexible"
         tooltip={(<>
-          <>Enemies hit per cast: {(this.totalApplications/this.totalCasts).toFixed(2)}</><br />
-          <>Complete misses: {this.totalMisses}</><br />
-          <>Total Healing: {formatNumber(this.totalHealing)} ({formatPercentage(this.totalOverHealing/(this.totalHealing + this.totalOverHealing))}% OH)</>
+          <>Enemies hit per cast: {(this.totalApplications / this.totalCasts).toFixed(2)}</>
+          <br />
+          <>Complete misses: {this.totalMisses}</>
+          <br />
+          <>Total Healing: {formatNumber(this.totalHealing)} ({formatPercentage(this.totalOverHealing / (this.totalHealing + this.totalOverHealing))}% OH)</>
         </>)}
       >
         <BoringSpellValueText spell={SPELLS.UNHOLY_NOVA}>

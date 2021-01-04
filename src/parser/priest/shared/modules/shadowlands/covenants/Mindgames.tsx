@@ -27,7 +27,7 @@ import Abilities from 'parser/core/modules/Abilities';
 // Disc: https://www.warcraftlogs.com/reports/NWctPky1vKapJVM8#fight=10&type=healing&graphperf=1&source=183
 class Mindgames extends Analyzer {
   static dependencies = {
-    abilities: Abilities
+    abilities: Abilities,
   };
   protected abilities!: Abilities;
 
@@ -130,8 +130,8 @@ class Mindgames extends Analyzer {
           <>
             Healing Breakdown:
             <ul>
-              {this.atonementHealing > 0 && <li>{formatNumber(this.atonementHealing)} Atonement Healing ({formatPercentage(this.atonementOverHealing/(this.atonementOverHealing + this.atonementHealing))} %OH)</li>}
-              <li>{formatNumber(this.directHealing)} Direct Healing ({formatPercentage(this.directOverHealing/(this.directHealing + this.directOverHealing))} %OH)</li>
+              {this.atonementHealing > 0 && <li>{formatNumber(this.atonementHealing)} Atonement Healing ({formatPercentage(this.atonementOverHealing / (this.atonementOverHealing + this.atonementHealing))} %OH)</li>}
+              <li>{formatNumber(this.directHealing)} Direct Healing ({formatPercentage(this.directOverHealing / (this.directHealing + this.directOverHealing))} %OH)</li>
               <li>{formatNumber(this.preventedDamage)} Prevented Damage</li>
             </ul>
           </>

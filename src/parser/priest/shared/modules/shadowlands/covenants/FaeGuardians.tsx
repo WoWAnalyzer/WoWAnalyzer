@@ -25,7 +25,7 @@ const GUARDIAN_DAMAGE_REDUCTION = .1;
 class FaeGuardians extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    abilities: Abilities
+    abilities: Abilities,
   };
   protected combatants!: Combatants;
   protected abilities!: Abilities;

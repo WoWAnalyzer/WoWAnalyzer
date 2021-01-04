@@ -48,7 +48,7 @@ interface AscendedSpellTracker {
 // Disc: https://www.warcraftlogs.com/reports/FwfkDG87xzV9CWra#fight=17&type=healing&source=14
 class BoonOfTheAscended extends Analyzer {
   static dependencies = {
-    abilities: Abilities
+    abilities: Abilities,
   };
   protected abilities!: Abilities;
 
