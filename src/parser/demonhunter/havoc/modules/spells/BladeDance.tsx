@@ -22,7 +22,6 @@ class BladeDance extends Analyzer {
 
   badCast = 0;
   hitCount = 0;
-  //hitTimeStamp: number = 0;
   firstHitTimeStamp: number = 0;
   strikeTime: number = 1000;
 
