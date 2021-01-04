@@ -403,33 +403,6 @@ class Abilities extends CoreAbilities {
           majorIssueEfficiency: 0.4,
         },
       },
-      {
-        spell: SPELLS.FAE_GUARDIANS,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 90,
-        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-          averageIssueEfficiency: 0.6,
-          majorIssueEfficiency: 0.4,
-        },
-      },
-      {
-        spell: SPELLS.MINDGAMES,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 45,
-        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-          averageIssueEfficiency: 0.6,
-          majorIssueEfficiency: 0.4,
-        },
-      },
     ];
   }
 }
