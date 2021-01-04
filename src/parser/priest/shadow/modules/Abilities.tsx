@@ -390,21 +390,6 @@ class Abilities extends CoreAbilities {
           majorIssueEfficiency: 0.7,
         },
       },
-      {
-        spell: SPELLS.MINDGAMES,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 45,
-        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-          averageIssueEfficiency: 0.85,
-          majorIssueEfficiency: 0.75,
-        },
-      },
     ];
   }
 }
