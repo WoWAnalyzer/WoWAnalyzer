@@ -18,6 +18,7 @@ import SPECS from 'game/SPECS';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import SpellIcon from 'common/SpellIcon';
 import { TooltipElement } from 'common/Tooltip';
+import Abilities from 'parser/core/modules/Abilities';
 
 const DAMAGING_SPELL_IDS = [
   SPELLS.ASCENDED_BLAST.id,
@@ -46,6 +47,11 @@ interface AscendedSpellTracker {
 // Holy: https://www.warcraftlogs.com/reports/xf7zjvNghdXVRrFT#fight=7&type=healing&graphperf=1&source=18
 // Disc: https://www.warcraftlogs.com/reports/FwfkDG87xzV9CWra#fight=17&type=healing&source=14
 class BoonOfTheAscended extends Analyzer {
+  static dependencies = {
+    abilities: Abilities
+  };
+  protected abilities!: Abilities;
+
   castCount = 0;
   stackTracker: number[] = [];
 
@@ -144,6 +150,52 @@ class BoonOfTheAscended extends Analyzer {
     if (!this.active) {
       return;
     }
+
+    const castEfficiency = this.selectedCombatant.spec === SPECS.SHADOW_PRIEST ? {
+      suggestion: true,
+      recommendedEfficiency: 0.9,
+      averageIssueEfficiency: 0.8,
+      majorIssueEfficiency: 0.7,
+    } : {
+      suggestion: true,
+      recommendedEfficiency: 0.8,
+      averageIssueEfficiency: 0.6,
+      majorIssueEfficiency: 0.4,
+    };
+    (options.abilities as Abilities).add({
+      spell: SPELLS.BOON_OF_THE_ASCENDED,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      cooldown: 180,
+      enabled: true,
+      gcd: {
+        base: 1500,
+      },
+      castEfficiency: castEfficiency,
+    });
+    (options.abilities as Abilities).add({
+      spell: SPELLS.ASCENDED_BLAST,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      enabled: true,
+      gcd: {
+        base: 1000,
+      },
+    });
+    (options.abilities as Abilities).add({
+      spell: SPELLS.ASCENDED_NOVA,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      enabled: true,
+      gcd: {
+        base: 1000,
+      },
+    });
+    (options.abilities as Abilities).add({
+      spell: SPELLS.ASCENDED_ERUPTION,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      enabled: true,
+      gcd: {
+        base: 0,
+      },
+    });
 
     if (this.isDisc) {
       this.atonementDamageSource = this.owner.getModule(AtonementDamageSource);
