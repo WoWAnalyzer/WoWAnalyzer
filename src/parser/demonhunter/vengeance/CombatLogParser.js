@@ -1,7 +1,7 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
-import PainTracker from './modules/pain/PainTracker';
-import PainDetails from './modules/pain/PainDetails';
+import FuryTracker from './modules/fury/FuryTracker';
+import FuryDetails from './modules/fury/FuryDetails';
 
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Abilities from './modules/Abilities';
@@ -27,6 +27,7 @@ import ImmolationAura from './modules/spells/ImmolationAura';
 import DemonSpikes from './modules/spells/DemonSpikes';
 import SigilOfFlame from './modules/spells/SigilOfFlame';
 import SoulCleaveSoulsConsumed from './modules/spells/SoulCleaveSoulsConsumed';
+import InfernalStrike from './modules/spells/InfernalStrike';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -41,8 +42,8 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
 
     // Resource Tracker
-    painTracker: PainTracker,
-    painDetails: PainDetails,
+    furyTracker: FuryTracker,
+    furyDetails: FuryDetails,
 
     // Talents
     SpiritBombFrailtyDebuff: SpiritBombFrailtyDebuff,
@@ -59,6 +60,7 @@ class CombatLogParser extends CoreCombatLogParser {
     sigilOfFlame: SigilOfFlame,
     soulCleaveSoulsConsumed: SoulCleaveSoulsConsumed,
     voidReaverDebuff: VoidReaverDebuff,
+    infernalStrike: InfernalStrike,
 
     // Stats
     soulsOvercap: SoulsOvercap,

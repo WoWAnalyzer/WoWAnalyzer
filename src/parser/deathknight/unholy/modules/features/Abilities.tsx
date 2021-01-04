@@ -164,6 +164,13 @@ class Abilities extends CoreAbilities {
         cooldown: 60,
         gcd: null,
       },
+      {
+        spell: SPELLS.LICHBORNE,
+        buffSpellId: SPELLS.LICHBORNE.id,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 120,
+        gcd: null,
+      },
       // talents
       {
         spell: SPELLS.DEFILE_TALENT,

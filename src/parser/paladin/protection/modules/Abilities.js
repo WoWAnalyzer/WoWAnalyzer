@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
 import CoreAbilities from 'parser/core/modules/Abilities';
-
 //import SpellLink from 'common/SpellLink';
 
 class Abilities extends CoreAbilities {
@@ -241,6 +240,19 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(SPELLS.REPENTANCE_TALENT.id),
+      },
+      {
+        spell: SPELLS.FINAL_STAND_CAST,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 300 * (combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 0.7 : 1),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.6,
+        },
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(SPELLS.FINAL_STAND_TALENT.id),
       },
     ];
   }

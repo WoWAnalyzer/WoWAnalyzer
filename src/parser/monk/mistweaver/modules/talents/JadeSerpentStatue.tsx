@@ -27,7 +27,7 @@ class JadeSerpentStatue extends Analyzer {
   overHealing: number = 0;
   casts: number = 0;
   soothingMistUptime: number = 0;
-  lastBuffApplyTimestamp: number = 0;
+  lastBuffApplyTimestamp: number = -1;
   jssCasting: boolean = false;
   protected abilityTracker!: AbilityTracker;
   protected combatants!: Combatants;
@@ -93,7 +93,7 @@ class JadeSerpentStatue extends Analyzer {
     }
 
     // Care for buff application before fight.
-    if (this.lastBuffApplyTimestamp === null) {
+    if (this.lastBuffApplyTimestamp === -1) {
       this.soothingMistUptime += event.timestamp - this.owner.fight.start_time;
     } else {
       this.soothingMistUptime += event.timestamp - this.lastBuffApplyTimestamp;
