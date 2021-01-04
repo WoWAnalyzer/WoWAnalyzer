@@ -59,6 +59,7 @@ import ResonantWords from './modules/shadowlands/conduits/ResonantWords';
 // Covenants
 import UnholyNova from '../shared/modules/shadowlands/covenants/UnholyNova';
 import FaeGuardians from '../shared/modules/shadowlands/covenants/FaeGuardians';
+import Mindgames from '../shared/modules/shadowlands/covenants/Mindgames';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
@@ -147,6 +148,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Covenants
     unholyNova: UnholyNova,
     faeGuardians: FaeGuardians,
+    mindGames: Mindgames
   };
 
   generateResults(adjustForDowntime: boolean) {
