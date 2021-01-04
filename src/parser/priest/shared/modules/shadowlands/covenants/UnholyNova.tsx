@@ -14,6 +14,8 @@ import ItemHealingDone from 'interface/ItemHealingDone';
 import { formatNumber, formatPercentage } from 'common/format';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellLink from 'common/SpellLink';
+import SPECS from 'game/SPECS';
+import Abilities from 'parser/core/modules/Abilities';
 
 const APPLICATION_THRESHOLD = 5000;
 
@@ -21,6 +23,11 @@ const APPLICATION_THRESHOLD = 5000;
 // Shadow: https://www.warcraftlogs.com/reports/KVDfG2wnb8pABJhj#fight=45
 // Disc: https://www.warcraftlogs.com/reports/GWPC9kQ41yg6z8Xx#fight=47
 class UnholyNova extends Analyzer {
+  static dependencies = {
+    abilities: Abilities
+  };
+  protected abilities!: Abilities;
+
   totalDamage = 0;
   totalHealing = 0;
   totalOverHealing = 0;
@@ -60,6 +67,28 @@ class UnholyNova extends Analyzer {
     if (!this.active) {
       return;
     }
+
+    const castEfficiency = this.selectedCombatant.spec === SPECS.SHADOW_PRIEST ? {
+      suggestion: true,
+      recommendedEfficiency: 0.9,
+      averageIssueEfficiency: 0.8,
+      majorIssueEfficiency: 0.7,
+    } : {
+      suggestion: true,
+      recommendedEfficiency: 0.8,
+      averageIssueEfficiency: 0.6,
+      majorIssueEfficiency: 0.4,
+    };
+    (options.abilities as Abilities).add({
+      spell: SPELLS.UNHOLY_NOVA,
+      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+      cooldown: 60,
+      enabled: true,
+      gcd: {
+        base: 1500,
+      },
+      castEfficiency: castEfficiency,
+    });
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.UNHOLY_NOVA), this.onCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.UNHOLY_TRANSFUSION_DAMAGE), this.onDamage);
