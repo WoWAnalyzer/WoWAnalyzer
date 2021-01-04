@@ -91,7 +91,7 @@ const MarksmanshipChecklist = ({ combatant, castEfficiency, thresholds }: any) =
         name="Resource generators"
         description={(
           <>
-            Capping on Focus is a loss of potential DPS, as you could've used that Focus for a damaging ability at a later point. If everything is on cooldown, try and use {combatant.hasTalent(SPELLS.CHIMAERA_SHOT_MM_TALENT.id) ? <SpellLink id={SPELLS.CHIMAERA_SHOT_MM_TALENT.id} /> : <SpellLink id={SPELLS.ARCANE_SHOT.id} />} to stay off the focus cap and do some damage.
+            Capping on Focus is a loss of potential DPS, as you could've used that Focus for a damaging ability at a later point. If everything is on cooldown, try and use {combatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT_MARKSMANSHIP.id) ? <SpellLink id={SPELLS.CHIMAERA_SHOT_TALENT_MARKSMANSHIP.id} /> : <SpellLink id={SPELLS.ARCANE_SHOT.id} />} to stay off the focus cap and do some damage.
           </>
         )}
       >

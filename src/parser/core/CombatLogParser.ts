@@ -89,7 +89,10 @@ import VantusRune from '../shared/modules/spells/VantusRune';
 //Enchants
 // Crafted
 import DarkmoonDeckVoracity from '../shared/modules/items/shadowlands/crafted/DarkmoonDeckVoracity';
+//Dungeons
+import OverchargedAnimaBattery from '../shared/modules/items/shadowlands/dungeons/OverchargedAnimaBattery';
 // Castle Nathria
+import SoulInfusion from '../shared/modules/spells/SoulInfusion';
 
 // Legendaries
 
@@ -202,6 +205,14 @@ class CombatLogParser {
 
     // Crafted
     darkmoonDeckVoracity: DarkmoonDeckVoracity,
+
+    // Shadowlands 
+
+    // Castle Nathria
+    soulInfusion: SoulInfusion,
+
+    // Dungeons
+    overchargedAnimaBattery: OverchargedAnimaBattery,
   };
   // Override this with spec specific modules when extending
   static specModules: DependenciesDefinition = {};

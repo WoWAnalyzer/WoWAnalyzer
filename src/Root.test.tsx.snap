@@ -18,6 +18,7 @@ exports[`Root matches snapshot 1`] = `
         i18n={
           Object {
             "_": [Function],
+            "loadLocaleData": [Function],
           }
         }
       >
@@ -25,6 +26,7 @@ exports[`Root matches snapshot 1`] = `
           i18n={
             Object {
               "_": [Function],
+              "loadLocaleData": [Function],
             }
           }
         >
@@ -1319,6 +1321,9 @@ exports[`Root matches snapshot 1`] = `
                                           <li>
                                             link by arjuazka
                                           </li>
+                                          <li>
+                                            swirl by Gregor Cresnar
+                                          </li>
                                         </ul>
                                       </React.Fragment>
                                     }
@@ -1397,6 +1402,9 @@ exports[`Root matches snapshot 1`] = `
                                             </li>
                                             <li>
                                               link by arjuazka
+                                            </li>
+                                            <li>
+                                              swirl by Gregor Cresnar
                                             </li>
                                           </ul>
                                         </React.Fragment>

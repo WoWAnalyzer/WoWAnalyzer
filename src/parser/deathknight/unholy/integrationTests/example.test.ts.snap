@@ -98,6 +98,33 @@ exports[`Unholy Death Knight integration test: example log AlwaysBeCasting match
 </div>
 `;
 
+exports[`Unholy Death Knight integration test: example log AlwaysBeCasting matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_mage_altertime",
+    "importance": "regular",
+    "issue": <span>
+      Your downtime can be improved. Try to Always Be Casting (ABC), reducing time away from the boss unless due to mechanics.  If you do have to move, try casting filler spells, such as 
+      <ForwardRef
+        id={47541}
+      />
+       or 
+      <ForwardRef
+        id={77575}
+      />
+      .
+    </span>,
+    "stat": <React.Fragment>
+      {"id":"deathknight.unholy.suggestions.alwaysBeCasting","message":"{0}% downtime","values":{"0":"15.85"}}
+       (
+      &lt;10.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
 exports[`Unholy Death Knight integration test: example log Apocalypse matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -1843,6 +1870,104 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               51.56%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=49039"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_raisedead.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Lichborne
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /1
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
             </td>
             <td
               style={
@@ -4691,8 +4816,8 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#df7102",
-                  "width": "47.10699236777817%",
+                  "backgroundColor": "#ffc84a",
+                  "width": "60.913984735556326%",
                 }
               }
             />
@@ -4805,9 +4930,9 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#df7102",
+                        "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "47.10699236777817%",
+                        "width": "60.913984735556326%",
                       }
                     }
                   />
@@ -5070,7 +5195,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                
               Death Coil
             </a>
-             when you have 72 or more Runic Power to avoid overcapping.
+             when you have 80 or more Runic Power to avoid overcapping.
           </div>
         </div>
         <div

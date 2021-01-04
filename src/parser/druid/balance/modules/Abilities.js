@@ -171,9 +171,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.INNERVATE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 180,
-        gcd: {
-          base: 1500,
-        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.70,
@@ -244,7 +241,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.TYPHOON,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
-        enabled: combatant.hasTalent(SPELLS.TYPHOON_TALENT.id),
         gcd: {
           base: 1500,
         },

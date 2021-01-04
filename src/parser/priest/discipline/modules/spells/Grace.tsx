@@ -15,10 +15,10 @@ import Events, { AbsorbedEvent, ApplyBuffEvent, HealEvent } from 'parser/core/Ev
 import isAtonement from '../core/isAtonement';
 
 // Use the priest spell list to whitelist abilities
-const PRIEST_WHITELIST = Object.entries({
+const PRIEST_WHITELIST: number[] = Object.values({
   ...PRIEST_SPELLS,
   ...PRIEST_TALENTS,
-}).map(ability => ability[1].id);
+}).map(ability => ability.id);
 
 class Grace extends Analyzer {
   static dependencies = {

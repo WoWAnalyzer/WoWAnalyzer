@@ -22,7 +22,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       ],
     },
     {
-      spell: SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT,
+      spell: SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT,
       summary: [
         BUILT_IN_SUMMARY_TYPES.HEALING,
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,

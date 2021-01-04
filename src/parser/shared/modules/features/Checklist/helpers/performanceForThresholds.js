@@ -40,13 +40,13 @@ function performanceForGreaterThanThresholds(actual, { minor, average, major }) 
   }
 }
 export default function performanceForThresholds(thresholds) {
-  if (thresholds.isGreaterThan) {
+  if (thresholds.isGreaterThan || thresholds.isGreaterThan === 0) {
     if (typeof thresholds.isGreaterThan === 'object') {
       return performanceForGreaterThanThresholds(thresholds.actual, thresholds.isGreaterThan);
     } else {
       return thresholds.isGreaterThan / thresholds.actual;
     }
-  } else if (thresholds.isLessThan) {
+  } else if (thresholds.isLessThan || thresholds.isLessThan === 0) {
     if (typeof thresholds.isLessThan === 'object') {
       return performanceForLessThanThresholds(thresholds.actual, thresholds.isLessThan);
     } else {
