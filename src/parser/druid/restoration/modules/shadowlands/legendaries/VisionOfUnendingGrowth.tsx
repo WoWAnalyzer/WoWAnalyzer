@@ -65,6 +65,10 @@ class VisionOfUnendingGrowth extends Analyzer {
   }
 
   handleApplication(targetID: number) {
+    if(this.selectedCombatant.hasBuff(SPELLS.CONVOKE_SPIRITS.id)){
+      return;
+    }
+
     if(this.lastTarget !== targetID){
       this.extraRejuvs += 1;
       this.rejuvsToTrack.push(targetID);
@@ -72,7 +76,7 @@ class VisionOfUnendingGrowth extends Analyzer {
   }
 
   handleRemove(targetID: number){
-    const toRemove = this.rejuvsToTrack.find(e => e === targetID);
+    const toRemove = this.rejuvsToTrack.indexOf(targetID);
     if(toRemove !== undefined){
       delete this.rejuvsToTrack[toRemove];
     }
