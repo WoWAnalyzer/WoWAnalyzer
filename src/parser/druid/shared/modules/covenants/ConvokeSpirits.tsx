@@ -11,6 +11,15 @@ import COVENANTS from 'game/shadowlands/COVENANTS';
 import SPECS from 'game/SPECS';
 import SpellLink from 'common/SpellLink';
 
+const SPELLS_WITH_TRAVEL_TIME = [
+  SPELLS.STARSURGE_AFFINITY.id,
+  SPELLS.STARSURGE_MOONKIN.id,
+  SPELLS.FULL_MOON.id,
+  SPELLS.SOLAR_WRATH.id,
+  SPELLS.SOLAR_WRATH_AFFINITY.id,
+  SPELLS.SOLAR_WRATH_MOONKIN.id,
+];
+
 class ConvokeSpirits extends Analyzer {
   static dependencies = {
     abilities: Abilities,
@@ -27,6 +36,8 @@ class ConvokeSpirits extends Analyzer {
   extraRejuvsFromOtherSources = 0;
 
   whatHappendIneachConvoke: ConvokeCast[] = [];
+  
+  travelTimeSpellsCastToDamageRatio: number[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -36,7 +47,12 @@ class ConvokeSpirits extends Analyzer {
       return;
     }
 
-    if(this.selectedCombatant.spec === SPECS.RESTORATION_DRUID){
+    //populate
+    SPELLS_WITH_TRAVEL_TIME.forEach(e => {
+      this.travelTimeSpellsCastToDamageRatio[e] = 0;
+    });
+
+    if(this.selectedCombatant.spec === SPECS.RESTORATION_DRUID) {
       this.spellsToTrack = 12;
     }
 
@@ -73,7 +89,7 @@ class ConvokeSpirits extends Analyzer {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.SOLAR_WRATH, SPELLS.SOLAR_WRATH_AFFINITY, SPELLS.SOLAR_WRATH_MOONKIN]), this.newWrath);
     
     //Balance stuff deal with it. idk which one it will be (it should be solar wrath moonkin but like edge cases)
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.STARSURGE_AFFINITY, SPELLS.STARSURGE_MOONKIN]), this.newWrath);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.STARSURGE_AFFINITY, SPELLS.STARSURGE_MOONKIN]), this.newStarSurge);
     
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.STARFALL_CAST), this.newStarFall);
     this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.STARFALL_CAST), this.newStarFall);
@@ -120,6 +136,12 @@ class ConvokeSpirits extends Analyzer {
     //stop tracker
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.CONVOKE_SPIRITS), this.stopTracking);
 
+    //for travel time bs
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.SOLAR_WRATH, SPELLS.SOLAR_WRATH_AFFINITY, SPELLS.SOLAR_WRATH_MOONKIN]), this.wrathCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.STARSURGE_AFFINITY, SPELLS.STARSURGE_MOONKIN]), this.starsurgeCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FULL_MOON), this.fullMoonCast);
+
+
   }
 
   startTracking(event: ApplyBuffEvent) {
@@ -140,8 +162,12 @@ class ConvokeSpirits extends Analyzer {
     this.multiSpellSafety(event.timestamp);
   }
 
-  newWrath(event: DamageEvent){
+  newWrath(event: DamageEvent) {
     this.addemUp(event.ability.guid, event.timestamp);
+  }
+
+  newStarSurge(event: DamageEvent) {
+    
   }
 
   newStarFall(event: ApplyBuffEvent | RefreshBuffEvent) {
@@ -153,15 +179,15 @@ class ConvokeSpirits extends Analyzer {
     this.multiSpellSafety(event.timestamp);
   }
 
-  newFerociousBite(event: DamageEvent){
+  newFerociousBite(event: DamageEvent) {
     this.addemUp(event.ability.guid, event.timestamp);
   }
 
-  newRake(event: ApplyDebuffEvent | RefreshDebuffEvent){
+  newRake(event: ApplyDebuffEvent | RefreshDebuffEvent) {
     this.addemUp(event.ability.guid, event.timestamp);
   }
 
-  newShred(event: DamageEvent){
+  newShred(event: DamageEvent) {
     this.addemUp(event.ability.guid, event.timestamp);
   }
 
@@ -173,7 +199,7 @@ class ConvokeSpirits extends Analyzer {
     this.addemUp(event.ability.guid, event.timestamp);
   }
 
-  newMangle(event: DamageEvent){
+  newMangle(event: DamageEvent) {
     this.addemUp(event.ability.guid, event.timestamp);
   }
 
@@ -186,11 +212,11 @@ class ConvokeSpirits extends Analyzer {
     this.multiSpellSafety(event.timestamp);
   }
 
-  newPulverize(event: DamageEvent){
+  newPulverize(event: DamageEvent) {
     this.addemUp(event.ability.guid, event.timestamp);
   }
 
-  newSwiftMend(event: HealEvent){
+  newSwiftMend(event: HealEvent) {
     this.addemUp(event.ability.guid, event.timestamp);
   }
 
@@ -208,40 +234,71 @@ class ConvokeSpirits extends Analyzer {
     this.houseKeeping();
   }
 
+  wrathCast(event: CastEvent) {
+    this.travelTimeSpellsCastToDamageRatio[event.ability.guid] += 1;
+  }
+
+  starsurgeCast(event: CastEvent) {
+    this.travelTimeSpellsCastToDamageRatio[event.ability.guid] += 1;
+  }
+
+  fullMoonCast(event: CastEvent) {
+    this.travelTimeSpellsCastToDamageRatio[event.ability.guid] += 1;
+  }
+
   //just adds to spell to a tracker... yeah i know i could feed them all down to addemUp my default but i don't want something like (event: DamageEvent | ApplyBuffEvent | RefreshBuffEvent... ) deal with it
-  addemUp(spellId: number, timestamp: number){
-    if(!this.tracking){
-      return;
+  addemUp(spellId: number, timestamp: number) {
+
+    let fromConvokeButWeNoticeAfterwards = false;
+    //since travel time is the stupidiest thing in the world we have a weird af check
+    if(SPELLS_WITH_TRAVEL_TIME.includes(spellId)) {
+      //check if its from convoke or not (if 0 then it is)
+      if(this.travelTimeSpellsCastToDamageRatio[spellId] === 0) {
+        fromConvokeButWeNoticeAfterwards = true;
+      } else {
+        this.travelTimeSpellsCastToDamageRatio[spellId] -= 1;
+      }
+    }
+
+    if(!this.tracking) {
+      if(!fromConvokeButWeNoticeAfterwards){
+        return;
+      }
     }
 
     //check for weird multiapplication spells
-    if(this.flexTimeStampForMultiApplySpells + 100 > timestamp){
+    if(this.flexTimeStampForMultiApplySpells + 100 > timestamp) {
       return;
     }
 
     //make sure we got this object if not make a new one (cry a little too)
-    if(!this.whatHappendIneachConvoke[this.cast]){
+    if(!this.whatHappendIneachConvoke[this.cast]) {
       this.whatHappendIneachConvoke[this.cast] = {spellIdToCasts: []};
     }
 
     //we know it exists
     const oneCast = this.whatHappendIneachConvoke[this.cast];
-    if(!oneCast.spellIdToCasts[spellId]){
+    if(!oneCast.spellIdToCasts[spellId]) {
       oneCast.spellIdToCasts[spellId] = 0;
     }
     oneCast.spellIdToCasts[spellId] += 1;
-    }
 
-  multiSpellSafety(timestamp: number){
+    //Might seem weird but we gotta do this if we get extra events.
+    if(fromConvokeButWeNoticeAfterwards){
+      this.houseKeeping();
+    }
+  }
+
+  multiSpellSafety(timestamp: number) {
       //add a tenth of a second for safety this actually might be riskey but YOLO
-      if(this.flexTimeStampForMultiApplySpells + 100 < timestamp){
+      if(this.flexTimeStampForMultiApplySpells + 100 < timestamp) {
         this.flexTimeStampForMultiApplySpells = timestamp;
       }
   }
 
-  houseKeeping(){
+  houseKeeping() {
     //gotta have our safety : ^)
-    if(this.tracking){
+    if(this.tracking) {
       return;
     }
 
@@ -249,10 +306,10 @@ class ConvokeSpirits extends Analyzer {
 
     //this can happen due to a resto druid lego that just randomly adds rejuvs (with no cast event)
     //so lets remove those if possible. if not then ??? sorry fam
-    if(howManyDidWeCount > this.spellsToTrack){
+    if(howManyDidWeCount > this.spellsToTrack) {
       const diff = howManyDidWeCount - this.spellsToTrack;
       const rejuvs = this.whatHappendIneachConvoke[this.cast].spellIdToCasts[SPELLS.REJUVENATION.id];
-      if(rejuvs - diff > 0){
+      if(rejuvs - diff > 0) {
         this.whatHappendIneachConvoke[this.cast].spellIdToCasts[SPELLS.REJUVENATION.id] -= diff;
       }
     }
@@ -284,12 +341,11 @@ class ConvokeSpirits extends Analyzer {
                 {
                   this.whatHappendIneachConvoke.map((spellIdToCasts, index) => (
                     <tr key={index}>
-                      <th scope="row">{index}</th>
+                      <td scope="row">{index}</td>
                       <td>
                         {spellIdToCasts.spellIdToCasts.map((casts, spellId) => (
                           <>
-                            <SpellLink id={spellId} /> {casts}
-                          <br />
+                            <SpellLink id={spellId} /> {casts} <br />
                           </>
                       ))
                       }
