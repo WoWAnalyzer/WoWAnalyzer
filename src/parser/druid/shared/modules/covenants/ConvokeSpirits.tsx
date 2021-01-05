@@ -167,7 +167,7 @@ class ConvokeSpirits extends Analyzer {
   }
 
   newStarSurge(event: DamageEvent) {
-    
+    this.addemUp(event.ability.guid, event.timestamp);
   }
 
   newStarFall(event: ApplyBuffEvent | RefreshBuffEvent) {
