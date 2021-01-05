@@ -8,7 +8,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import ExecuteHelper from 'parser/shared/ExecuteHelper';
+import ExecuteHelper from 'parser/shared/modules/helpers/ExecuteHelper';
 
 import { KILLER_INSTINCT_MULTIPLIER, KILLER_INSTINCT_THRESHOLD } from '../../constants';
 

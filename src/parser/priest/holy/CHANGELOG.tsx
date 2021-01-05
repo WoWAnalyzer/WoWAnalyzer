@@ -6,6 +6,8 @@ import SPELLS from 'common/SPELLS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 12, 28), <>Adding support for <SpellLink id={SPELLS.MINDGAMES.id} /></>, Khadaj),
+  change(date(2020, 12, 28), <>Adding support for <SpellLink id={SPELLS.FAE_GUARDIANS.id} /></>, Khadaj),
   change(date(2020, 12, 28), <>Adding support for <SpellLink id={SPELLS.UNHOLY_NOVA.id} /></>, Khadaj),
   change(date(2020, 12, 21), <>Fixing bugs with <SpellLink id={SPELLS.HARMONIOUS_APPARATUS.id} /> and <SpellLink id={SPELLS.SURGE_OF_LIGHT_TALENT.id} /></>, Khadaj),
   change(date(2020, 12, 15), <>Adding card for <SpellLink id={SPELLS.DIVINE_IMAGE.id} /></>, Khadaj),

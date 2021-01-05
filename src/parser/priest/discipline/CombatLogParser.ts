@@ -40,8 +40,9 @@ import SinsOfTheMany from './modules/spells/SinsOfTheMany';
 
 // Covenants
 import UnholyNova from '../shared/modules/shadowlands/covenants/UnholyNova';
-import Mindgames from './modules/shadowlands/covenants/MindGames';
+import Mindgames from '../shared/modules/shadowlands/covenants/Mindgames';
 import BoonOfTheAscended from './modules/shadowlands/covenants/BoonOfTheAscended';
+import FaeGuardians from '../shared/modules/shadowlands/covenants/FaeGuardians';
 
 import ShiningRadiance from './modules/shadowlands/conduits/ShiningRadiance';
 
@@ -100,6 +101,7 @@ class CombatLogParser extends CoreCombatLogParser {
     unholyNova: UnholyNova,
     mindgames: Mindgames,
     boonOfTheAscended: BoonOfTheAscended,
+    faeGuardians: FaeGuardians,
 
     // Conduits
     shiningRadiance: ShiningRadiance,
