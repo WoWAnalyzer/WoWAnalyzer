@@ -322,7 +322,7 @@ class ConvokeSpirits extends Analyzer {
         tooltip={<>
         Normally when a cast of an ability happens in wow there is a CastEvent with it. 
         During convoke there isn't. 
-        This means we have to track damage events, heal events, and buff/debuff events meaning if you trash in the open near nothing you don't create any events meaning we can't track it. 
+        This means we have to track damage events, heal events, and buff/debuff events meaning if you thrash and hit nothing you don't create any events meaning we can't track it. 
         This means if your number don't add up to the expected amount then that is the cause of it.
         </>}
         dropdown={
