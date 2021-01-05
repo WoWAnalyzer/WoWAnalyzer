@@ -5,6 +5,7 @@ import Statistic from 'interface/statistics/Statistic';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import BoringValue from 'interface/statistics/components/BoringValueText';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 import { t } from '@lingui/macro';
 
@@ -12,7 +13,6 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 
 import Mastery from '../core/Mastery';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 class Cultivation extends Analyzer {
   static dependencies = {

@@ -140,8 +140,6 @@ class ConvokeSpirits extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.SOLAR_WRATH, SPELLS.SOLAR_WRATH_AFFINITY, SPELLS.SOLAR_WRATH_MOONKIN]), this.wrathCast);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.STARSURGE_AFFINITY, SPELLS.STARSURGE_MOONKIN]), this.starsurgeCast);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FULL_MOON), this.fullMoonCast);
-
-
   }
 
   startTracking(event: ApplyBuffEvent) {
@@ -313,7 +311,6 @@ class ConvokeSpirits extends Analyzer {
         this.whatHappendIneachConvoke[this.cast].spellIdToCasts[SPELLS.REJUVENATION.id] -= diff;
       }
     }
-
   }
 
   statistic() {
