@@ -2,6 +2,7 @@ import { Abelito75, Zeboot, LeoZhekov, Putro, Vexxra } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2021, 1, 5), 'Noticed a small bug that was infalting the value of Vision of Unending Growth.', Abelito75),
   change(date(2021, 1, 2), 'Made a Convoke the Spirits tracker.', Abelito75),
   change(date(2021, 1, 2), 'Converted a few files to typescript.', Abelito75),
   change(date(2021, 1, 2), 'Re-wrote soul of the forest to be a bit more accurate.', Abelito75),
