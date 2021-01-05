@@ -4,8 +4,8 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent } from 'parser/core/Events';
 import SpellIcon from 'common/SpellIcon';
 import BoringValue from 'interface/statistics/components/BoringValueText';
 
@@ -17,17 +17,21 @@ const ABUNDANCE_INCREASED_CRIT = 0.06;
   For each Rejuvenation you have active, Regrowth's cost is reduced by 6% and critical effect chance is increased by 6%.
  */
 class Abundance extends Analyzer {
-  manaSavings = [];
-  critGains = [];
-  stacks = [];
+  manaSavings: number[] = [];
+  critGains: number[] = [];
+  stacks: number[] = [];
+  manaCasts = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ABUNDANCE_TALENT.id);
+    if(!this.active){
+      return;
+    }
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH), this.onCast);
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     const abundanceBuff = this.selectedCombatant.getBuff(SPELLS.ABUNDANCE_BUFF.id, event.timestamp, MS_BUFFER);
     if (abundanceBuff == null) {
       return;

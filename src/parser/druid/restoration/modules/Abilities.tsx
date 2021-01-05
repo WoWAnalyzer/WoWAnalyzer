@@ -241,7 +241,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MANGLE_BEAR,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
-        cooldown: haste => 6 / (1 + haste),
+        cooldown: (haste: number) => 6 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -418,31 +418,20 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DASH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        enabled: !combatant.hasTalent(SPELLS.TIGER_DASH_TALENT.id),
         cooldown: 120,
-        gcd: (combatant => {
-          if (combatant.hasBuff(SPELLS.CAT_FORM.id)) {
-            // off the GCD if player is already in cat form
-            return null;
-          }
-          return {
-            static: 1500,
-          };
-        }),
+        gcd: {
+          static: combatant.hasBuff(SPELLS.CAT_FORM.id) ? 0 : 1500,
+        },
       },
       {
         spell: SPELLS.TIGER_DASH_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.TIGER_DASH_TALENT.id),
         cooldown: 45,
-        gcd: (combatant => {
-          if (combatant.hasBuff(SPELLS.CAT_FORM.id)) {
-            // off the GCD if player is already in cat form
-            return null;
-          }
-          return {
-            static: 1500,
-          };
-        }),
+        gcd: {
+          static: combatant.hasBuff(SPELLS.CAT_FORM.id) ? 0 : 1500,
+        },
       },
 
       //CC

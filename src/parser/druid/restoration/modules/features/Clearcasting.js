@@ -216,7 +216,7 @@ class Clearcasting extends Analyzer {
             </>
           )}
         >
-          <BoringValue label={<><SpellIcon id={SPELLS.REGROWTH.id} /> Inneficient Regrowths</>} >
+          <BoringValue label={<><SpellIcon id={SPELLS.REGROWTH.id} /> Inefficient Regrowths</>} >
             <>
               {this.inneficientRegrowths}
             </>

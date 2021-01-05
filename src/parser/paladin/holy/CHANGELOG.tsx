@@ -4,6 +4,7 @@ import { Abelito75, Putro, Zeboot } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [  
+  change(date(2020, 12, 21), <>Fixed a bug where glimmer wasn't being tracked to feed into beacon.</>, Abelito75),
   change(date(2020, 12, 21), <>Rewrote the checklist to not be 3 miles long.</>, Abelito75),
   change(date(2020, 12, 21), <>Fixed stat weights for logs with first events being absorb healing.</>, Abelito75),
   change(date(2020, 12, 21), <>Removed glimmer build as its default now.</>, Abelito75),
