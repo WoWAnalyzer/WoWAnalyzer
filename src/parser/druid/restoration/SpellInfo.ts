@@ -133,7 +133,6 @@ export const DRUID_HEAL_INFO = {
     vers: true,
   },
   [SPELLS.TRANQUILITY_HEAL.id]: {
-    ignored: false, // Have to enable this again because of the changes to Tranq including a HoT part.
     int: true,
     crit: true,
     hasteHpm: false,
@@ -169,16 +168,7 @@ export const DRUID_HEAL_INFO = {
     masteryStack: false,
     vers: false,
   },
-  [SPELLS.RENEWAL_TALENT.id]: { // TODO does it really scale with nothing (except stam)?
-    int: false,
-    crit: false,
-    hasteHpm: false,
-    hasteHpct: false,
-    mastery: false,
-    masteryStack: false,
-    vers: false,
-  },
-  [SPELLS.MARK_OF_SHIFTING.id]: { // TODO does it really scale with nothing (except stam)?
+  [SPELLS.RENEWAL_TALENT.id]: { 
     int: false,
     crit: false,
     hasteHpm: false,

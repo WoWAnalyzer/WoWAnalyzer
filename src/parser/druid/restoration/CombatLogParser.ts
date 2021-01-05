@@ -48,13 +48,17 @@ import HealingEfficiencyTracker from './modules/features/RestoDruidHealingEffici
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
-// Concduits
+// Covenants
+import ConvokeSpirits from '../shared/modules/covenants/ConvokeSpirits';
+
+// Conduits
 
 // Potency
 import FlashOfClarity from './modules/shadowlands/conduits/FlashOfClarity';
 
 //legos
 import VisionOfUnendingGrowrth from './modules/shadowlands/legendaries/VisionOfUnendingGrowth';
+
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
@@ -114,6 +118,9 @@ class CombatLogParser extends CoreCombatLogParser {
     manaTracker: ManaTracker,
     hpmDetails: HealingEfficiencyDetails,
     hpmTracker: HealingEfficiencyTracker,
+
+    // Covenants
+    convokeSpirits: ConvokeSpirits,
 
     // Conduits
     // Potency
