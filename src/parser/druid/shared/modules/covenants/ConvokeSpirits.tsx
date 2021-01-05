@@ -341,7 +341,7 @@ class ConvokeSpirits extends Analyzer {
                 {
                   this.whatHappendIneachConvoke.map((spellIdToCasts, index) => (
                     <tr key={index}>
-                      <td scope="row">{index}</td>
+                      <th scope="row">{index}</tg>
                       <td>
                         {spellIdToCasts.spellIdToCasts.map((casts, spellId) => (
                           <>
