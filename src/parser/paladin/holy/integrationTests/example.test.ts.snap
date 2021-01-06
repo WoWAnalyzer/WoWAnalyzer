@@ -5244,7 +5244,7 @@ exports[`Holy Paladin integration test: example log DirectBeaconHealing matches 
               }
             }
           >
-            8
+            9
             %
           </div>
           <div
@@ -5301,7 +5301,7 @@ exports[`Holy Paladin integration test: example log DirectBeaconHealing matches 
                     }
                   }
                 >
-                  0
+                  13
                   %
                 </div>
               </div>
@@ -10461,7 +10461,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  8.33%
+                  9.46%
                    
                    
                 </div>
