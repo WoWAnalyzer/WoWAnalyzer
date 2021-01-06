@@ -6,7 +6,7 @@ const covenants = {
     icon: 'ability_bastion_demonhunter',
   },
   ELYSIAN_DECREE_DAMAGE: {
-    id: 339894,
+    id: 307046,
     name: 'Elysian Decree',
     icon: 'ability_bastion_demonhunter',
   },
