@@ -15,7 +15,7 @@ class Abilities extends CoreAbilities {
     const hasSanctifiedWrath = combatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT_HOLY.id);
     return [
       {
-        spell: SPELLS.HOLY_SHOCK_CAST,
+        spell: [SPELLS.HOLY_SHOCK_CAST, SPELLS.HOLY_SHOCK_HEAL],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => {
           const swCdr = hasSanctifiedWrath && combatant.hasBuff(SPELLS.AVENGING_WRATH.id) ? 0.5 : 0;
