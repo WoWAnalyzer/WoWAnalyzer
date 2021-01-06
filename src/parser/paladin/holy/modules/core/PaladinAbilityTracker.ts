@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import { Ability, AbsorbedEvent, CastEvent, EventType, HealEvent } from 'parser/core/Events';
+import { Ability, AbsorbedEvent, EventType, HealEvent } from 'parser/core/Events';
 import AbilityTracker, { TrackedAbility } from 'parser/shared/modules/AbilityTracker';
 
 import BeaconTargets from '../beacons/BeaconTargets';
