@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
@@ -16,12 +16,9 @@ class SiphonedMalice extends Analyzer {
   conduitRank = 0;
   bonusDamage = 0;
 
-  constructor(props: Options) {
-    super(props);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.SIPHONED_MALICE.id);
-    if (!this.active) {
-      return;
-    }
     this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.SIPHONED_MALICE.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
@@ -37,12 +34,12 @@ class SiphonedMalice extends Analyzer {
   statistic() {
     return (
       <Statistic
-        category={STATISTIC_CATEGORY.ITEMS}
+        category={STATISTIC_CATEGORY.COVENANTS}
         size="flexible"
       >
-        <BoringSpellValueText spell={SPELLS.SIPHONED_MALICE}>
+        <ConduitSpellText spell={SPELLS.SIPHONED_MALICE} rank={this.conduitRank}>
           <ItemDamageDone amount={this.bonusDamage} />
-        </BoringSpellValueText>
+        </ConduitSpellText>
       </Statistic>
     );
   }

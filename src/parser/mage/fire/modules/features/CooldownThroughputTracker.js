@@ -13,7 +13,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       ],
     },
     {
-      spell: SPELLS.RUNE_OF_POWER_TALENT,
+      spell: SPELLS.RUNE_OF_POWER_BUFF,
       summary: [
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],

@@ -13,8 +13,8 @@ class Firestorm extends Analyzer {
   castsDuringFirestorm = 0;
   firestormProcs = 0;
 
-  constructor(props: Options) {
-    super(props);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.FIRESTORM.bonusID);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.PYROBLAST,SPELLS.FLAMESTRIKE]), this.onCast);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FIRESTORM_BUFF), this.onFirestormApplied);
@@ -33,10 +33,6 @@ class Firestorm extends Analyzer {
 
   get castsPerProc() {
     return this.castsDuringFirestorm / this.firestormProcs;
-  }
-
-  get buffUptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.FEVERED_INCANTATION_BUFF.id) / this.owner.fightDuration;
   }
 
   statistic() {

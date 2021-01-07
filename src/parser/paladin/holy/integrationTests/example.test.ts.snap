@@ -522,7 +522,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
               }
             }
           >
-            33.97
+            33.31
              %
           </td>
           <td
@@ -561,7 +561,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
                 message="{0} HPS"
                 values={
                   Object {
-                    "0": "1,153",
+                    "0": "1,131",
                   }
                 }
               />
@@ -575,7 +575,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
               }
             }
           >
-            23.31
+            23.58
              %
           </td>
         </tr>
@@ -611,7 +611,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
               }
             }
           >
-            24.32
+            24.98
              %
           </td>
           <td
@@ -625,7 +625,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
               className="performance-bar"
               style={
                 Object {
-                  "width": "71.58866493884807%",
+                  "width": "75.00278599007531%",
                 }
               }
             />
@@ -650,7 +650,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
                 message="{0} HPS"
                 values={
                   Object {
-                    "0": "826",
+                    "0": "848",
                   }
                 }
               />
@@ -664,7 +664,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
               }
             }
           >
-            16.78
+            16.45
              %
           </td>
         </tr>
@@ -700,7 +700,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
               }
             }
           >
-            15.02
+            15.03
              %
           </td>
           <td
@@ -714,7 +714,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
               className="performance-bar"
               style={
                 Object {
-                  "width": "44.221731959646156%",
+                  "width": "45.112936389837586%",
                 }
               }
             />
@@ -803,7 +803,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
               className="performance-bar"
               style={
                 Object {
-                  "width": "29.610169854563367%",
+                  "width": "30.206906196260437%",
                 }
               }
             />
@@ -892,7 +892,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
               className="performance-bar"
               style={
                 Object {
-                  "width": "28.578619315869513%",
+                  "width": "29.154566729378757%",
                 }
               }
             />
@@ -981,7 +981,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
               className="performance-bar"
               style={
                 Object {
-                  "width": "11.444727654379165%",
+                  "width": "11.675374251333452%",
                 }
               }
             />
@@ -1070,7 +1070,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
               className="performance-bar"
               style={
                 Object {
-                  "width": "8.92004198170797%",
+                  "width": "9.099808367584624%",
                 }
               }
             />
@@ -5244,7 +5244,7 @@ exports[`Holy Paladin integration test: example log DirectBeaconHealing matches 
               }
             }
           >
-            8
+            9
             %
           </div>
           <div
@@ -5301,7 +5301,7 @@ exports[`Holy Paladin integration test: example log DirectBeaconHealing matches 
                     }
                   }
                 >
-                  0
+                  13
                   %
                 </div>
               </div>
@@ -5705,7 +5705,7 @@ exports[`Holy Paladin integration test: example log FailedBeaconTransfers matche
               message="Up to {lostBeaconHealing}"
               values={
                 Object {
-                  "lostBeaconHealing": "0.72 % / 111 HPS",
+                  "lostBeaconHealing": "1.07 % / 164 HPS",
                 }
               }
             />
@@ -5944,7 +5944,7 @@ Array [
   >
     <div
       className="panel statistic small "
-      position={4}
+      position={20}
     >
       <div
         className="panel-body"
@@ -6259,94 +6259,6 @@ exports[`Holy Paladin integration test: example log LightOfDawn matches the stat
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Holy Paladin integration test: example log ManaLevelChart matches the statistic snapshot 1`] = `
-<div
-  className="panel "
->
-  <div
-    className="panel-heading"
-  >
-    <h1
-      style={
-        Object {
-          "position": "relative",
-        }
-      }
-    >
-      <trans
-        id="shared.manaLevelChart.statistic.title"
-        message="Mana pool"
-      />
-    </h1>
-    <small>
-      <trans
-        id="shared.manaLevelChart.statistic.explanation"
-        message="Mana (blue) along with boss HP and deaths. As a rule of thumb aim to burn mana about as quickly as the boss is losing health. Some fights require specific mana management though."
-      />
-    </small>
-  </div>
-  <div
-    className="panel-body pad"
-  >
-    <div>
-      Loading...
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Holy Paladin integration test: example log ManaUsageChart matches the statistic snapshot 1`] = `
-<div
-  className="panel "
->
-  <div
-    className="panel-heading"
-  >
-    <h1
-      style={
-        Object {
-          "position": "relative",
-        }
-      }
-    >
-      <trans
-        id="shared.manaUsageChart.statistic.title"
-        message="Mana usage"
-      />
-    </h1>
-    <small>
-      <trans
-        id="shared.manaUsageChart.statistic.explanation"
-        message="This shows you your mana usage in correlation with your throughput. Big spikes in mana usage without increases in throughput may indicate poor mana usage. The scale for both mana lines is 0-100% where 100% is aligned with the max HPS throughput."
-      />
-    </small>
-  </div>
-  <div
-    className="panel-body pad"
-  >
-    <div
-      className="graph-container"
-      style={
-        Object {
-          "marginBottom": 20,
-        }
-      }
-    >
-      <div
-        style={
-          Object {
-            "overflow": "visible",
-            "width": 0,
-          }
-        }
-      >
-        <div />
       </div>
     </div>
   </div>
@@ -8195,29 +8107,6 @@ exports[`Holy Paladin integration test: example log StatValues matches the stati
   <div
     className="panel items statistic"
   >
-    <a
-      href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/parser/paladin/holy/modules/StatValues.md"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      <div
-        className="detail-corner"
-        data-place="top"
-        onMouseEnter={[Function]}
-        onMouseLeave={[Function]}
-        onTouchStart={[Function]}
-      >
-        <svg
-          className="icon"
-          viewBox="0 0 100 100"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-          />
-        </svg>
-      </div>
-    </a>
     <div
       className="panel-body"
       style={
@@ -8382,7 +8271,7 @@ exports[`Holy Paladin integration test: example log StatValues matches the stati
             <td
               className="text-right"
             >
-              1.06
+              1.05
             </td>
             <td
               style={
@@ -8515,7 +8404,7 @@ exports[`Holy Paladin integration test: example log StatValues matches the stati
             <td
               className="text-right"
             >
-              1.40
+              1.39
             </td>
             <td
               style={
@@ -9108,7 +8997,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "7.179639899555116%",
+                  "width": "14.202393654364275%",
                 }
               }
             />
@@ -9501,92 +9390,12 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               </div>
             </div>
           </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                <trans
-                  components={
-                    Object {
-                      "0": <ForwardRef
-                        id={19750}
-                      />,
-                      "1": <span
-                        style={
-                          Object {
-                            "whiteSpace": "nowrap",
-                          }
-                        }
-                      />,
-                      "2": <ForwardRef
-                        id={20473}
-                      />,
-                    }
-                  }
-                  id="paladin.holy.modules.checklist.totalFillerWhileHolyShock"
-                  message="Total filler <0/>s cast while <1><2/></1> was available"
-                />
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  30
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "3.7442242500000007%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
   </li>
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -9613,8 +9422,8 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "80.84690962520474%",
+                  "backgroundColor": "#ffc84a",
+                  "width": "53.897939750136494%",
                 }
               }
             />
@@ -9835,6 +9644,79 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               </div>
             </div>
           </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  className="spell-link-text"
+                  href="http://wowhead.com/spell=214202"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_longarmofthelaw.jpg"
+                  />
+                   
+                  Rule of Law
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0.00%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -9853,16 +9735,8 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
           className="flex-main name"
         >
           <trans
-            components={
-              Object {
-                "0": <ForwardRef
-                  id={183998}
-                  onClick={[Function]}
-                />,
-              }
-            }
-            id="paladin.holy.modules.checklist.useLightOfTheMartyrOnlyWhenNecessary"
-            message="Only use <0/> when absolutely necessary"
+            id="paladin.holy.modules.checklist.avoidFillerSpells"
+            message="Avoiding Filler Spells"
           />
         </div>
         <div
@@ -9875,8 +9749,8 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#df7102",
-                  "width": "41.40854360839103%",
+                  "backgroundColor": "#ac1f39",
+                  "width": "18.721121250000003%",
                 }
               }
             />
@@ -9940,12 +9814,12 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                     id={183998}
                   />,
                   "1": <ForwardRef
-                    id={183998}
+                    id={19750}
                   />,
                 }
               }
-              id="paladin.holy.modules.checklist.useLightOfTheMartyrOnlyWhenNecessary.description"
-              message="<0/> is an inefficient spell to cast compared to the alternatives. Try to only cast <1/> when it will save someone's life or when you have to move and all other instant cast spells are on cooldown."
+              id="paladin.holy.modules.checklist.avoidFillerSpells.description"
+              message="<0/> and <1/> are inefficient spells to cast compared to the alternatives. Try to only cast them when it will save someone's life or when you have to move and all other instant cast spells are on cooldown."
             />
           </div>
         </div>
@@ -10085,6 +9959,86 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               </div>
             </div>
           </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <trans
+                  components={
+                    Object {
+                      "0": <ForwardRef
+                        id={19750}
+                      />,
+                      "1": <span
+                        style={
+                          Object {
+                            "whiteSpace": "nowrap",
+                          }
+                        }
+                      />,
+                      "2": <ForwardRef
+                        id={20473}
+                      />,
+                    }
+                  }
+                  id="paladin.holy.modules.checklist.totalFillerWhileHolyShock"
+                  message="Total filler <0/>s cast while <1><2/></1> was available"
+                />
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  30
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "3.7442242500000007%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -10104,7 +10058,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
         >
           <trans
             id="paladin.holy.modules.checklist.dontTunnelTanks"
-            message="Don't tunnel the tanks"
+            message="Effective Beacon Usage"
           />
         </div>
         <div
@@ -10194,6 +10148,296 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                 className="flex-main"
               >
                 <trans
+                  components={
+                    Object {
+                      "0": <ForwardRef
+                        id={53563}
+                        onClick={[Function]}
+                      />,
+                    }
+                  }
+                  id="paladin.holy.modules.checklist.beaconOfLightAppliedPrepull"
+                  message="<0/> applied prepull"
+                />
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  <trans
+                    id="common.yes"
+                    message="Yes"
+                  />
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <trans
+                  components={
+                    Object {
+                      "0": <ForwardRef
+                        id={53563}
+                        onClick={[Function]}
+                      />,
+                    }
+                  }
+                  id="paladin.holy.modules.checklist.beaconOfVirtueTalentUptime"
+                  message="<0/> Uptime"
+                />
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  100.00%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <trans
+                  components={
+                    Object {
+                      "0": <ForwardRef
+                        id={156910}
+                        onClick={[Function]}
+                      />,
+                    }
+                  }
+                  id="paladin.holy.modules.checklist.beaconOfFaithTalentAppliedPrepull"
+                  message="<0/> applied prepull"
+                />
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  <trans
+                    id="common.yes"
+                    message="Yes"
+                  />
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <trans
+                  components={
+                    Object {
+                      "0": <ForwardRef
+                        id={156910}
+                        onClick={[Function]}
+                      />,
+                    }
+                  }
+                  id="paladin.holy.modules.checklist.beaconOfFaithTalentUptime"
+                  message="<0/> Uptime"
+                />
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  100.00%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <trans
                   id="paladin.holy.modules.checklist.directBeaconHealing"
                   message="Direct beacon healing"
                 />
@@ -10217,7 +10461,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  8.33%
+                  9.46%
                    
                    
                 </div>
@@ -10398,176 +10642,6 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                 >
                    
                   93.18%
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#4ec04e",
-                        "transition": "background-color 800ms",
-                        "width": "100%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </li>
-  <li
-    className="expandable  passed"
-  >
-    <div
-      className="meta"
-      onClick={[Function]}
-    >
-      <div
-        className="flex wrapable"
-      >
-        <div
-          className="flex-main name"
-        >
-          <trans
-            components={
-              Object {
-                "0": <ResourceLink
-                  id={0}
-                  onClick={[Function]}
-                />,
-              }
-            }
-            id="paladin.holy.modules.checklist.useAllOfMana"
-            message="Use all of your <0/>"
-          />
-        </div>
-        <div
-          className="flex-sub perf"
-        >
-          <div
-            className="perf-container"
-          >
-            <div
-              className="perf-bar"
-              style={
-                Object {
-                  "backgroundColor": "#4ec04e",
-                  "width": "100%",
-                }
-              }
-            />
-          </div>
-        </div>
-        <div
-          className="flex-sub chevron"
-        >
-          <div>
-            <svg
-              className="icon"
-              viewBox="0 0 16 9"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-              />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      aria-hidden={true}
-      className="rah-static rah-static--height-zero details"
-      style={
-        Object {
-          "height": 0,
-          "overflow": "hidden",
-        }
-      }
-    >
-      <div
-        style={Object {}}
-      >
-        <div
-          className="row text-muted description"
-        >
-          <svg
-            className="icon"
-            viewBox="0 0 100 100"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-            />
-            <path
-              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-            />
-            <path
-              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-            />
-          </svg>
-          <div
-            className="col-md-12"
-          >
-            <trans
-              id="paladin.holy.modules.checklist.useAllOfMana.description"
-              message="If you have a large amount of mana left at the end of the fight that's mana you could have turned into healing. Try to use all your mana during a fight. A good rule of thumb is to try to match your mana level with the boss's health."
-            />
-          </div>
-        </div>
-        <div
-          className="row"
-        >
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                <trans
-                  id="paladin.holy.modules.checklist.manaLeft"
-                  message="Mana left"
-                />
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  10.00%
                    
                    
                 </div>
@@ -10839,7 +10913,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
     </div>
   </li>
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -10852,8 +10926,8 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
           className="flex-main name"
         >
           <trans
-            id="paladin.holy.modules.checklist.avoidOverhealing"
-            message="Avoid overhealing"
+            id="paladin.holy.modules.checklist.useSupportiveAbilities"
+            message="Use your supportive abilities"
           />
         </div>
         <div
@@ -10866,8 +10940,8 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "95.05820405727924%",
+                  "backgroundColor": "#ac1f39",
+                  "width": "10.063215189676168%",
                 }
               }
             />
@@ -10925,8 +10999,8 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
             className="col-md-12"
           >
             <trans
-              id="paladin.holy.modules.checklist.avoidOverhealing.description"
-              message="Pick the right targets when healing and use the right abilities at the right time. While overhealing still transfers to your beacons, it remains inefficient. Overhealing might be unavoidable when there's not a lot of damage taken (such as in normal mode) or when bringing too many healers."
+              id="paladin.holy.modules.checklist.useSupportiveAbilities.description"
+              message="While you shouldn't aim to cast defensives and externals on cooldown, be aware of them and try to use them whenever effective. Not using them at all indicates you might not be aware of them enough or not utilizing them optimally."
             />
           </div>
         </div>
@@ -10944,17 +11018,17 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=25914"
+                  href="http://wowhead.com/spell=190784"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
                   <img
                     alt=""
                     className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/spell_holy_searinglight.jpg"
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_divinesteed.jpg"
                   />
                    
-                  Holy Shock
+                  Divine Steed
                 </a>
               </div>
               <div
@@ -10976,7 +11050,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  26.34%
+                  11.12%
                    
                    
                 </div>
@@ -10996,9 +11070,9 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "5.695387420320162%",
                       }
                     }
                   />
@@ -11017,17 +11091,17 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=225311"
+                  href="http://wowhead.com/spell=498"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
                   <img
                     alt=""
                     className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/spell_paladin_lightofdawn.jpg"
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_holy_divineprotection.jpg"
                   />
                    
-                  Light of Dawn
+                  Divine Protection
                 </a>
               </div>
               <div
@@ -11049,7 +11123,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  30.01%
+                  19.50%
                    
                    
                 </div>
@@ -11069,9 +11143,9 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "14.431042959032172%",
                       }
                     }
                   />
@@ -11090,17 +11164,17 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=19750"
+                  href="http://wowhead.com/spell=6940"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
                   <img
                     alt=""
                     className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/spell_holy_flashheal.jpg"
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_holy_sealofsacrifice.jpg"
                   />
                    
-                  Flash of Light
+                  Blessing of Sacrifice
                 </a>
               </div>
               <div
@@ -11122,7 +11196,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  14.35%
+                  0.00%
                    
                    
                 </div>
@@ -11142,9 +11216,9 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />
@@ -11163,407 +11237,18 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=223306"
+                  href="http://wowhead.com/spell=633"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
                   <img
                     alt=""
                     className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_blessedmending.jpg"
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_holy_layonhands.jpg"
                   />
                    
-                  Bestow Faith
+                  Lay on Hands
                 </a>
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  45.94%
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#a6c34c",
-                        "transition": "background-color 800ms",
-                        "width": "80.23281622911695%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </li>
-  <li
-    className="expandable  passed"
-  >
-    <div
-      className="meta"
-      onClick={[Function]}
-    >
-      <div
-        className="flex wrapable"
-      >
-        <div
-          className="flex-main name"
-        >
-          <trans
-            id="paladin.holy.modules.checklist.keepBeaconsActive"
-            message="Keep your beacons active"
-          />
-        </div>
-        <div
-          className="flex-sub perf"
-        >
-          <div
-            className="perf-container"
-          >
-            <div
-              className="perf-bar"
-              style={
-                Object {
-                  "backgroundColor": "#4ec04e",
-                  "width": "100%",
-                }
-              }
-            />
-          </div>
-        </div>
-        <div
-          className="flex-sub chevron"
-        >
-          <div>
-            <svg
-              className="icon"
-              viewBox="0 0 16 9"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-              />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      aria-hidden={true}
-      className="rah-static rah-static--height-zero details"
-      style={
-        Object {
-          "height": 0,
-          "overflow": "hidden",
-        }
-      }
-    >
-      <div
-        style={Object {}}
-      >
-        <div
-          className="row text-muted description"
-        >
-          <svg
-            className="icon"
-            viewBox="0 0 100 100"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-            />
-            <path
-              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-            />
-            <path
-              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-            />
-          </svg>
-          <div
-            className="col-md-12"
-          >
-            <trans
-              id="paladin.holy.modules.checklist.keepBeaconsActive.description"
-              message="Beacon of Light and Beacon of Faith, if talented, should be applied prior to the fight starting and maintained active for as long as the paladin is alive. Any beacon downtime will result in lost healing and efficiency."
-            />
-          </div>
-        </div>
-        <div
-          className="row"
-        >
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                <trans
-                  components={
-                    Object {
-                      "0": <ForwardRef
-                        id={53563}
-                        onClick={[Function]}
-                      />,
-                    }
-                  }
-                  id="paladin.holy.modules.checklist.beaconOfLightAppliedPrepull"
-                  message="<0/> applied prepull"
-                />
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  <trans
-                    id="common.yes"
-                    message="Yes"
-                  />
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#4ec04e",
-                        "transition": "background-color 800ms",
-                        "width": "100%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                <trans
-                  components={
-                    Object {
-                      "0": <ForwardRef
-                        id={53563}
-                        onClick={[Function]}
-                      />,
-                    }
-                  }
-                  id="paladin.holy.modules.checklist.beaconOfVirtueTalentUptime"
-                  message="<0/> Uptime"
-                />
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  100.00%
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#4ec04e",
-                        "transition": "background-color 800ms",
-                        "width": "100%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                <trans
-                  components={
-                    Object {
-                      "0": <ForwardRef
-                        id={156910}
-                        onClick={[Function]}
-                      />,
-                    }
-                  }
-                  id="paladin.holy.modules.checklist.beaconOfFaithTalentAppliedPrepull"
-                  message="<0/> applied prepull"
-                />
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  <trans
-                    id="common.yes"
-                    message="Yes"
-                  />
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#4ec04e",
-                        "transition": "background-color 800ms",
-                        "width": "100%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                <trans
-                  components={
-                    Object {
-                      "0": <ForwardRef
-                        id={156910}
-                        onClick={[Function]}
-                      />,
-                    }
-                  }
-                  id="paladin.holy.modules.checklist.beaconOfFaithTalentUptime"
-                  message="<0/> Uptime"
-                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -12352,470 +12037,6 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
                         "width": "0%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </li>
-  <li
-    className="expandable expanded failed"
-  >
-    <div
-      className="meta"
-      onClick={[Function]}
-    >
-      <div
-        className="flex wrapable"
-      >
-        <div
-          className="flex-main name"
-        >
-          <trans
-            id="paladin.holy.modules.checklist.useSupportiveAbilities"
-            message="Use your supportive abilities"
-          />
-        </div>
-        <div
-          className="flex-sub perf"
-        >
-          <div
-            className="perf-container"
-          >
-            <div
-              className="perf-bar"
-              style={
-                Object {
-                  "backgroundColor": "#ac1f39",
-                  "width": "5.695387420320162%",
-                }
-              }
-            />
-          </div>
-        </div>
-        <div
-          className="flex-sub chevron"
-        >
-          <div>
-            <svg
-              className="icon"
-              viewBox="0 0 16 9"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-              />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      aria-hidden={true}
-      className="rah-static rah-static--height-zero details"
-      style={
-        Object {
-          "height": 0,
-          "overflow": "hidden",
-        }
-      }
-    >
-      <div
-        style={Object {}}
-      >
-        <div
-          className="row text-muted description"
-        >
-          <svg
-            className="icon"
-            viewBox="0 0 100 100"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-            />
-            <path
-              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-            />
-            <path
-              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-            />
-          </svg>
-          <div
-            className="col-md-12"
-          >
-            <trans
-              id="paladin.holy.modules.checklist.useSupportiveAbilities.description"
-              message="While you shouldn't aim to cast defensives and externals on cooldown, be aware of them and try to use them whenever effective. Not using them at all indicates you might not be aware of them enough or not utilizing them optimally."
-            />
-          </div>
-        </div>
-        <div
-          className="row"
-        >
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                <a
-                  className="spell-link-text"
-                  href="http://wowhead.com/spell=214202"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_longarmofthelaw.jpg"
-                  />
-                   
-                  Rule of Law
-                </a>
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  0.00%
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                <a
-                  className="spell-link-text"
-                  href="http://wowhead.com/spell=190784"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_divinesteed.jpg"
-                  />
-                   
-                  Divine Steed
-                </a>
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  11.12%
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "5.695387420320162%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                <a
-                  className="spell-link-text"
-                  href="http://wowhead.com/spell=498"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/spell_holy_divineprotection.jpg"
-                  />
-                   
-                  Divine Protection
-                </a>
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  19.50%
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "14.431042959032172%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                <a
-                  className="spell-link-text"
-                  href="http://wowhead.com/spell=6940"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/spell_holy_sealofsacrifice.jpg"
-                  />
-                   
-                  Blessing of Sacrifice
-                </a>
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  0.00%
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "0%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                <a
-                  className="spell-link-text"
-                  href="http://wowhead.com/spell=633"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/spell_holy_layonhands.jpg"
-                  />
-                   
-                  Lay on Hands
-                </a>
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  100.00%
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#4ec04e",
-                        "transition": "background-color 800ms",
-                        "width": "100%",
                       }
                     }
                   />

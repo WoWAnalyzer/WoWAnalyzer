@@ -3,6 +3,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import EventHistory from 'parser/shared/modules/EventHistory';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { BeginCastEvent, CastEvent, EventType } from 'parser/core/Events';
@@ -15,9 +16,11 @@ class CombustionSpellUsage extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
     abilityTracker: AbilityTracker,
+    eventHistory: EventHistory,
   };
   protected spellUsable!: SpellUsable;
   protected abilityTracker!: AbilityTracker;
+  protected eventHistory!: EventHistory;
 
   scorchCastsStarted = 0;
   scorchCastsCompleted = 0;
@@ -40,7 +43,8 @@ class CombustionSpellUsage extends Analyzer {
       return;
     }
 
-    if (event.type === EventType.Cast) {
+    const combustionApplied = this.eventHistory.last(1, undefined, Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION))[0].timestamp;
+    if (event.type === EventType.Cast && (!event.channel?.beginChannel || event.channel.beginChannel.timestamp >= combustionApplied)) {
       this.fireballCastsCompleted += 1;
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;

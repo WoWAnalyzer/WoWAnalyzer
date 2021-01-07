@@ -8,6 +8,7 @@ import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/Pr
 import CombustionCharges from '../features/CombustionCharges';
 import CombustionFirestarter from '../features/CombustionFirestarter';
 import CombustionSpellUsage from '../features/CombustionSpellUsage';
+import CombustionActiveTime from '../features/CombustionActiveTime';
 import HeatingUp from '../features/HeatingUp';
 import HotStreak from '../features/HotStreak';
 import HotStreakWastedCrits from '../features/HotStreakWastedCrits';
@@ -30,6 +31,7 @@ class Checklist extends BaseChecklist {
     combustionCharges: CombustionCharges,
     combustionFirestarter: CombustionFirestarter,
     combustionSpellUsage: CombustionSpellUsage,
+    combustionActiveTime: CombustionActiveTime,
     heatingUp: HeatingUp,
     hotStreak: HotStreak,
     hotStreakWastedCrits: HotStreakWastedCrits,
@@ -50,6 +52,7 @@ class Checklist extends BaseChecklist {
   protected combustionCharges!: CombustionCharges;
   protected combustionFirestarter!: CombustionFirestarter;
   protected combustionSpellUsage!: CombustionSpellUsage;
+  protected combustionActiveTime!: CombustionActiveTime;
   protected heatingUp!: HeatingUp;
   protected hotStreak!: HotStreak;
   protected hotStreakWastedCrits!: HotStreakWastedCrits;
@@ -81,6 +84,7 @@ class Checklist extends BaseChecklist {
           firestarterCombustionUsage: this.combustionFirestarter.SuggestionThresholds,
           scorchSpellUsageDuringCombustion: this.combustionSpellUsage.scorchDuringCombustionThresholds,
           fireballSpellUsageDuringCombustion: this.combustionSpellUsage.fireballDuringCombustionThresholds,
+          combustionActiveTime: this.combustionActiveTime.combustionActiveTimeThresholds,
           fireBlastHeatingUpUsage: this.heatingUp.fireBlastUtilSuggestionThresholds,
           phoenixFlamesHeatingUpUsage: this.heatingUp.phoenixFlamesUtilSuggestionThresholds,
           hotStreakUtilization: this.hotStreak.hotStreakUtilizationThresholds,

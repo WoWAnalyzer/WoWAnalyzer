@@ -138,6 +138,14 @@ class MasteryEffectiveness extends Analyzer {
       distance = this.distanceSum / this.distanceCount;
     }
 
+    if(!distance){// still undefined? we just die now (should only happen with weird first event absorb logs)
+      console.error(
+        "Received a heal before we know the player location. Can't process since player location is still unknown.",
+        event,
+      );
+      return;
+    }
+
     this.distanceSum += distance;
     this.distanceCount += 1;
 

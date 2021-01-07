@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-
 import Checklist from 'parser/shared/modules/features/Checklist';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 
 const VengeanceDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }) => {
   const AbilityRequirement = props => (
@@ -34,10 +33,14 @@ const VengeanceDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }
         )}
       >
         <AbilityRequirement spell={SPELLS.IMMOLATION_AURA.id} />
-        <AbilityRequirement spell={SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id} />
+        {!(combatant.hasCovenant(COVENANTS.KYRIAN.id) && combatant.hasLegendaryByBonusID(SPELLS.RAZELIKHS_DEFILEMENT.bonusID)) && <AbilityRequirement spell={SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id} />}
+        <AbilityRequirement spell={SPELLS.FEL_DEVASTATION.id} />
         {combatant.hasTalent(SPELLS.FRACTURE_TALENT.id) && <AbilityRequirement spell={SPELLS.FRACTURE_TALENT.id} />}
         {combatant.hasTalent(SPELLS.FELBLADE_TALENT.id) && <AbilityRequirement spell={SPELLS.FELBLADE_TALENT.id} />}
-        {combatant.hasTalent(SPELLS.FEL_DEVASTATION_TALENT.id) && <AbilityRequirement spell={SPELLS.FEL_DEVASTATION_TALENT.id} />}
+        {combatant.hasCovenant(COVENANTS.KYRIAN.id) && <AbilityRequirement spell={SPELLS.ELYSIAN_DECREE.id} />}
+        {combatant.hasCovenant(COVENANTS.VENTHYR.id) && <AbilityRequirement spell={SPELLS.SINFUL_BRAND.id} />}
+        {combatant.hasCovenant(COVENANTS.NECROLORD.id) && <AbilityRequirement spell={SPELLS.FODDER_TO_THE_FLAME.id} />}
+        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && <AbilityRequirement spell={SPELLS.THE_HUNT.id} />}
       </Rule>
 
       <Rule
@@ -126,6 +129,30 @@ const VengeanceDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }
         </Rule>
       )}
 
+      <Rule
+        name="Manage your Fury properly"
+        description={(
+          <>
+            You should always avoid capping your Fury and spend it regularly.
+          </>
+        )}
+      >
+        <Requirement
+          name="Total Fury Waste"
+          thresholds={thresholds.furyDetails}
+        />
+        {combatant.hasTalent(SPELLS.IMMOLATION_AURA.id) && (
+          <Requirement
+            name={(
+              <>
+                <SpellLink id={SPELLS.IMMOLATION_AURA.id} /> Fury wasted
+              </>
+            )}
+            thresholds={thresholds.immolationAuraEfficiency}
+          />
+        )}
+      </Rule>
+
       <PreparationRule thresholds={thresholds} />
 
     </Checklist>
@@ -136,6 +163,8 @@ VengeanceDemonHunterChecklist.propTypes = {
   castEfficiency: PropTypes.object.isRequired,
   combatant: PropTypes.shape({
     hasTalent: PropTypes.func.isRequired,
+    hasCovenant: PropTypes.func.isRequired,
+    hasLegendaryByBonusID: PropTypes.func.isRequired,
   }).isRequired,
   thresholds: PropTypes.object.isRequired,
 };

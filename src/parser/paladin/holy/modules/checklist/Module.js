@@ -3,7 +3,6 @@ import React from 'react';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
-import ManaValues from 'parser/shared/modules/ManaValues';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 
 import MasteryEffectiveness from '../features/MasteryEffectiveness';
@@ -12,7 +11,6 @@ import DirectBeaconHealing from '../beacons/DirectBeaconHealing';
 import BeaconUptime from '../beacons/BeaconUptime';
 import FillerLightOfTheMartyrs from '../spells/FillerLightOfTheMartyrs';
 import FillerFlashOfLight from '../spells/FillerFlashOfLight';
-import Overhealing from '../features/Overhealing';
 
 import Component from './Component';
 
@@ -26,9 +24,7 @@ class Checklist extends BaseChecklist {
     beaconUptime: BeaconUptime,
     fillerLightOfTheMartyrs: FillerLightOfTheMartyrs,
     fillerFlashOfLight: FillerFlashOfLight,
-    manaValues: ManaValues,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
-    overhealing: Overhealing,
   };
 
   render() {
@@ -42,8 +38,7 @@ class Checklist extends BaseChecklist {
 
           fillerFlashOfLight: this.fillerFlashOfLight.suggestionThresholds,
           masteryEffectiveness: this.masteryEffectiveness.suggestionThresholds,
-          nonHealingTimeSuggestionThresholds: this.alwaysBeCasting
-            .nonHealingTimeSuggestionThresholds,
+          nonHealingTimeSuggestionThresholds: this.alwaysBeCasting.nonHealingTimeSuggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           directBeaconHealing: this.directBeaconHealing.suggestionThresholds,
           beaconUptimeBoL: this.beaconUptime.suggestionThresholdsBoL,
@@ -51,15 +46,7 @@ class Checklist extends BaseChecklist {
           beaconUptimeBoF: this.beaconUptime.suggestionThresholdsBoF,
           beaconUptimeBoFUptime: this.beaconUptime.suggestionThresholdsBoFUptime,
           fillerLightOfTheMartyrsCpm: this.fillerLightOfTheMartyrs.cpmSuggestionThresholds,
-          fillerLightOfTheMartyrsInefficientCpm: this.fillerLightOfTheMartyrs
-            .inefficientCpmSuggestionThresholds,
-          manaLeft: this.manaValues.suggestionThresholds,
-          overhealing: {
-            holyShock: this.overhealing.holyShockSuggestionThresholds,
-            lightOfDawn: this.overhealing.lightOfDawnSuggestionThresholds,
-            flashOfLight: this.overhealing.flashOfLightSuggestionThresholds,
-            bestowFaith: this.overhealing.bestowFaithSuggestionThresholds,
-          },
+          fillerLightOfTheMartyrsInefficientCpm: this.fillerLightOfTheMartyrs.inefficientCpmSuggestionThresholds,
         }}
       />
     );

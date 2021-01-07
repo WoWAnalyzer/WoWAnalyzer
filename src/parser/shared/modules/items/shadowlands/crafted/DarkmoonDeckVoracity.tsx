@@ -90,6 +90,7 @@ class DarkmoonDeckVoracity extends Analyzer {
 
   protected abilities!: Abilities;
   protected statTracker!: StatTracker;
+  protected buffs!: Buffs;
 
   constructor(options: Options) {
     super(options);

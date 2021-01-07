@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import UptimeIcon from 'interface/icons/Uptime';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
@@ -21,12 +21,9 @@ class ArcaneProdigy extends Analyzer {
   cooldownReduction = 0;
   wastedReduction = 0;
 
-  constructor(props: Options) {
-    super(props);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.ARCANE_PRODIGY.id);
-    if (!this.active) {
-      return;
-    }
     this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.ARCANE_PRODIGY.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_MISSILES), this.onMissilesCast);
   }
@@ -50,14 +47,14 @@ class ArcaneProdigy extends Analyzer {
   statistic() {
     return (
       <Statistic
-        category={STATISTIC_CATEGORY.ITEMS}
+        category={STATISTIC_CATEGORY.COVENANTS}
         size="flexible"
         tooltip={<>You reduced the cooldown on Arcane Power by a total of {this.reductionSeconds}s. Additionally, by casting Arcane Missiles while Arcane Power was not on cooldown, you wasted {this.wastedReductionSeconds}s that could have reduced the cooldown on Arcane Power further. </>}
       >
-        <BoringSpellValueText spell={SPELLS.ARCANE_PRODIGY}>
+        <ConduitSpellText spell={SPELLS.ARCANE_PRODIGY} rank={this.conduitRank}>
           <UptimeIcon /> {this.reductionSeconds}s <small>Arcane Power CDR</small><br />
           {this.wastedReductionSeconds}s <small>Wasted CDR</small>
-        </BoringSpellValueText>
+        </ConduitSpellText>
       </Statistic>
     );
   }

@@ -7,6 +7,9 @@ import { change, date } from 'common/changelog';
 
 // prettier-ignore
 export default [
+  change(date(2020, 12, 28), <>Updated conduit statistic boxes to use the new layout.</>, Sharrq),
+  change(date(2020, 12, 24), <>Fixed an issue that was showing <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> as lasting the entire fight duration in the Cooldowns tab.</>, Sharrq),
+  change(date(2020, 12, 19), <>Added module to check the active time during <SpellLink id={SPELLS.ARCANE_POWER.id} />.</>, Sharrq),
   change(date(2020, 12, 16), `Fixed an abe with suggestions showing {0} instead of the suggestion text in Arcane modules.`, Sharrq),
   change(date(2020, 12, 10), <>Updated <SpellLink id={SPELLS.ARCANE_POWER.id} /> to include <SpellLink id={SPELLS.TOUCH_OF_THE_MAGI.id} /> usage and added support for <SpellLink id={SPELLS.ARCANE_ECHO_TALENT.id} />.</>, Sharrq),
   change(date(2020, 12, 10), <>Removed checks for <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> from <SpellLink id={SPELLS.ARCANE_POWER.id} /> module, as per Shadowlands it is now baked into the spell. </>, Putro),

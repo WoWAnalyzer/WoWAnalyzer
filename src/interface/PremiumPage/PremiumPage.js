@@ -88,7 +88,7 @@ export class PremiumPage extends React.PureComponent {
                       Improve the analysis of a spec or build a new feature to get 1 month of
                       Premium free
                       <TooltipElement content="Only commits that are merged to the master branch are eligible. Your work will have to pass a pull request review before it can be merged.">
-                        *
+                        <>*</>
                       </TooltipElement>
                       .
                     </Trans>

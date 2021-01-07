@@ -15,7 +15,7 @@ const EXECUTE_RANGE_MASSACRE = 0.35;
  */
 class ExecuteRangeTracker extends Analyzer {
 
-  execRange = (this.selectedCombatant.hasTalent(SPELLS.MASSACRE_ARMS_TALENT.id) ? EXECUTE_RANGE_MASSACRE : EXECUTE_RANGE);
+  execRange = (this.selectedCombatant.hasTalent(SPELLS.MASSACRE_TALENT_ARMS.id) ? EXECUTE_RANGE_MASSACRE : EXECUTE_RANGE);
   enemyMap = {};
 
   isExecPhase = false;

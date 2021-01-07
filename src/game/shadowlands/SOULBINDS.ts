@@ -1,5 +1,4 @@
 import indexById from 'common/indexById';
-import { Soulbind } from 'parser/core/Events';
 
 const SOULBINDS = {
   NIYA: {
@@ -74,7 +73,5 @@ const SOULBINDS = {
     covenantID: 1,
     garrisonTalentTreeId: 365,
   },
-} as const;
-
-const combine: typeof SOULBINDS & Record<number, Soulbind> = { ...SOULBINDS, ...indexById(SOULBINDS) };
-export default combine;
+};
+export default indexById(SOULBINDS);

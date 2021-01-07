@@ -31,6 +31,13 @@ const legendaries = {
 
   //region Unholy
 
+  DEADLIEST_COIL: {
+    id: 334949,
+    name: 'Deadliest Coil',
+    icon: 'spell_shadow_deathcoil',
+    bonusID: 6952,
+  },
+
   //endregion
 
   //region Shared

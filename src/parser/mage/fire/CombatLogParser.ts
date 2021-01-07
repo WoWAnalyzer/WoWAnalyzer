@@ -6,6 +6,7 @@ import CombustionNormalizer from './normalizers/Combustion';
 import ScorchNormalizer from './normalizers/Scorch';
 import PyroclasmBuffNormalizer from './normalizers/PyroclasmBuff';
 import ShiftingPowerNormalizer from '../shared/normalizers/ShiftingPower'
+import RuneOfPowerNormalizer from '../shared/normalizers/RuneOfPower';
 
 import Checklist from './modules/Checklist/Module';
 import Buffs from './modules/features/Buffs';
@@ -26,6 +27,8 @@ import HotStreakWastedCrits from './modules/features/HotStreakWastedCrits';
 import CombustionFirestarter from './modules/features/CombustionFirestarter';
 import CombustionCharges from './modules/features/CombustionCharges';
 import CombustionSpellUsage from './modules/features/CombustionSpellUsage';
+import CombustionActiveTime from './modules/features/CombustionActiveTime';
+import PhoenixFlames from './modules/features/PhoenixFlames';
 import HeatingUp from './modules/features/HeatingUp';
 import Pyroclasm from './modules/features/Pyroclasm';
 
@@ -63,6 +66,7 @@ class CombatLogParser extends CoreCombatLogParser {
     pyroclasmBuffNormalizer: PyroclasmBuffNormalizer,
     combustionNormalizer: CombustionNormalizer,
     shiftingPowerNormalizer: ShiftingPowerNormalizer,
+    runeOfPowerNormalizer: RuneOfPowerNormalizer,
 
     //Checklist
     checklist: Checklist,
@@ -79,6 +83,8 @@ class CombatLogParser extends CoreCombatLogParser {
     combustionFirestarter: CombustionFirestarter,
     combustionCharges: CombustionCharges,
     combustionSpellUsage: CombustionSpellUsage,
+    combustionActiveTime: CombustionActiveTime,
+    phoenixFlames: PhoenixFlames,
     heatingUp: HeatingUp,
     mirrorImage: MirrorImage,
     elementalBarrier: ElementalBarrier,

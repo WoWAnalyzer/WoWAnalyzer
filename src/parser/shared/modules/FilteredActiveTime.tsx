@@ -25,9 +25,13 @@ class FilteredActiveTime extends Analyzer {
       if (event.type === EventType.GlobalCooldown) {
         lastGCD = { duration: event.duration, timestamp: event.timestamp };
 
-        //If the GCD was triggered by a BeginChannel event, then this will get counted via the EndChannel event, so we need to return so we dont double count it ... unless it extends beyond the end timestamp.
-        //If the GCD does not extend beyond the start timestamp or was started agter the end timestamp, then we can get rid of those as well.
-        if ((event.trigger.type === EventType.BeginChannel && event.timestamp + event.duration < end) || event.timestamp < start - event.duration || event.timestamp > end) {
+        //If the GCD was triggered by a BeginChannel event, was triggered after the start time, and the entire GCD does not extend beyond the end time, then this event will be handled by End Channel, so we should disregard it to avoid counting twice.
+        if (event.trigger.type === EventType.BeginChannel && event.timestamp > start && event.timestamp + event.duration < end) {
+          return;
+        }
+
+        //If the GCD started and finished before the start time or didnt start until after the end time, disregard those as well.
+        if (event.timestamp + event.duration < start || event.timestamp > end) {
           return;
         }
 
@@ -44,14 +48,13 @@ class FilteredActiveTime extends Analyzer {
       //End Channel
       if (event.type === EventType.EndChannel) {
 
-        //If the channel ended before the start timestamp or began after the end timestamp, then return so it isnt counted.
-        //If the end channel was for an instant spell (end channel and the gcd were at the same timestamp) and it was cast after the end timestamp, then disregard that as well.
-        if (event.start < start - event.duration || event.start > end || (event.timestamp === lastGCD.timestamp && event.timestamp + lastGCD.duration > end)) {
+        //If the channel ended before the start time, the channel started after the end time, or the channel triggered a GCD that extended beyond the end time, then disregard it.
+        if (event.timestamp < start || (event.trigger && event.trigger.timestamp > end) || event.timestamp + lastGCD.duration > end) {
           return;
         }
 
         if (event.start < start) {
-          activeTime += Math.max(event.timestamp - start, (event.timestamp + lastGCD.duration) - start);
+          activeTime += Math.max(event.timestamp - start, (event.start + lastGCD.duration) - start);
         } else if (event.timestamp > end) {
           activeTime += Math.max(end - event.start, end - lastGCD.timestamp);
         } else {

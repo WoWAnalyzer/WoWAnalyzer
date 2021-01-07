@@ -12,7 +12,11 @@ const items = {
   //endregion
 
   //region Ventunax
-
+  OVERCHARGED_ANIMA_BATTERY: {
+    id: 180116,
+    name: 'Overcharged Anima Battery',
+    icon: 'inv_battery_01',
+  },
   //endregion
 
   //region Oryphrion

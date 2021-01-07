@@ -7,7 +7,7 @@ import Analyzer from 'parser/core/Analyzer';
 import { t } from '@lingui/macro';
 
 // the buff events all use this spell
-export const RUSHING_JADE_WIND_BUFF = SPELLS.RUSHING_JADE_WIND_TALENT_BREWMASTER;
+export const RUSHING_JADE_WIND_BUFF = SPELLS.RUSHING_JADE_WIND;
 
 class RushingJadeWind extends Analyzer {
   get uptimeThreshold() {
@@ -32,7 +32,7 @@ class RushingJadeWind extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT_BREWMASTER.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.RUSHING_JADE_WIND.id);
   }
 
   // using a suggestion rather than a checklist item for this as RJW is

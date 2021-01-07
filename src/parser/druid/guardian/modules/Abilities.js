@@ -184,6 +184,8 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.IRONFUR,
         buffSpellId: SPELLS.IRONFUR.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        gcd: null,
+        cooldown: .5,
         timelineSortIndex: 7,
       },
       {
@@ -273,16 +275,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.INCAPACITATING_ROAR,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        enabled: !combatant.hasTalent(SPELLS.INTIMIDATING_ROAR_TALENT.id),
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.INTIMIDATING_ROAR_TALENT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        enabled: combatant.hasTalent(SPELLS.INTIMIDATING_ROAR_TALENT.id),
         cooldown: 30,
         gcd: {
           base: 1500,
@@ -291,7 +283,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.TYPHOON,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        enabled: combatant.hasTalent(SPELLS.TYPHOON_TALENT.id),
         cooldown: 30,
         gcd: {
           base: 1500,

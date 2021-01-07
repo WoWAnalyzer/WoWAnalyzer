@@ -532,6 +532,13 @@ const spells = {
     icon: 'spell_priest_void-blast',
   },
 
+  // Void torrent debuff applied on enemy
+  VOID_TORRENT_BUFF: {
+    id: 289577,
+    name: 'Void Torrent',
+    icon: 'spell_priest_voidsear',
+  },
+
   VOID_BOLT: {
     id: 205448,
     name: 'Void Bolt',
@@ -641,6 +648,12 @@ const spells = {
     id: 341282,
     name: 'Unfurling Darkness',
     icon: 'spell_priest_shadow-mend',
+  },
+
+  DEATH_AND_MADNESS_BUFF: {
+    id: 321973,
+    name: 'Death and Madness',
+    icon: 'spell_shadow_painandsuffering',
   },
 
   // Shadow items:

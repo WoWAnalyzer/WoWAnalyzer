@@ -6,6 +6,10 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 12, 28), <>Updated conduit statistic boxes to use the new layout.</>, Sharrq),
+  change(date(2020, 12, 24), <>Fixed an error in <SpellLink id={SPELLS.GLACIAL_FRAGMENTS.id} /> that was not properly counting absorbed damage.</>, Sharrq),
+  change(date(2020, 12, 24), <>Fixed an issue that was showing <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> as lasting the entire fight duration in the Cooldowns tab.</>, Sharrq),
+  change(date(2020, 12, 19), <>Added module to check the active time during <SpellLink id={SPELLS.ICY_VEINS.id} /> and added support for <SpellLink id={SPELLS.GLACIAL_FRAGMENTS.id} />.</>, Sharrq),
   change(date(2020, 12, 17), <>Resolved an issue in <SpellLink id={SPELLS.WINTERS_CHILL.id} /> that was causing it to miscount shattered spells.</>, Sharrq),
   change(date(2020, 12, 16), `Fixed an abe with suggestions showing {0} instead of the suggestion text in Frost modules and fixed an abe that was causing a crash in Winter's Chill.`, Sharrq),
   change(date(2020, 12, 9), <>Adjusted <SpellLink id={SPELLS.WINTERS_CHILL.id} /> to not require a precast if the target has <SpellLink id={SPELLS.MIRRORS_OF_TORMENT.id} />.</>, Sharrq),
