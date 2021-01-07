@@ -4,6 +4,7 @@ import { Abelito75, Putro, Zeboot } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [  
+  change(date(2021, 1, 7), <>Update direct beacon healing to include Holy Shock.</>, Abelito75),
   change(date(2021, 1, 5), <>Update direct beacon healing to include WoG.</>, Abelito75),
   change(date(2020, 12, 21), <>Fixed a bug where glimmer wasn't being tracked to feed into beacon.</>, Abelito75),
   change(date(2020, 12, 21), <>Rewrote the checklist to not be 3 miles long.</>, Abelito75),
