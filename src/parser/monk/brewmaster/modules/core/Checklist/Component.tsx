@@ -105,7 +105,7 @@ const Component = ({ combatant, castEfficiency, thresholds }: ChecklistProps) =>
           <AbilityRequirement spell={SPELLS.CHI_WAVE_TALENT.id} />
         )}
       </Rule>
-      <PreparationRule thresholds={thresholds}></PreparationRule>
+      <PreparationRule thresholds={thresholds}/>
     </Checklist>
   );
 };

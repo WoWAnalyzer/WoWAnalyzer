@@ -13,15 +13,13 @@ import { t } from '@lingui/macro';
 import Events from 'parser/core/Events';
 
 import { SPELLS_WHICH_REMOVE_BOC } from '../../constants';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 const debug = false;
 const BOC_DURATION = 15000;
 
 class BlackoutCombo extends Analyzer {
   get dpsWasteThreshold() {
-    if (!this.active) {
-      return null;
-    }
     return {
       actual: this.spellsBOCWasUsedOn[SPELLS.TIGER_PALM.id] / this.blackoutComboBuffs,
       isLessThan: {
@@ -29,7 +27,7 @@ class BlackoutCombo extends Analyzer {
         average: 0.9,
         major: 0.85,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
