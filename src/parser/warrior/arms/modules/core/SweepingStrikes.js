@@ -7,9 +7,9 @@ import Abilities from 'parser/core/modules/Abilities';
 import Events from 'parser/core/Events';
 
 import { t } from '@lingui/macro';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 import SpellUsable from '../features/SpellUsable';
-import { ThresholdStyle } from 'parser/core/ParseResults';
 
 /**
  * Example report: /report/YXFby87mzNrLtwj1/12-Normal+King+Rastakhan+-+Wipe+1+(3:32)/30-Korebian/timeline
