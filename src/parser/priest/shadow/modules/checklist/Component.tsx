@@ -10,8 +10,9 @@ import PreparationRule from 'parser/shared/modules/features/Checklist/Preparatio
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 
 import COVENANTS from 'game/shadowlands/COVENANTS';
+import { ChecklistProps } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 
-const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
+const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
   const DotUptime: any = (props: any) => (
     <Requirement
       name={(
@@ -26,15 +27,13 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: any) =
     id: PropTypes.number.isRequired,
   };
 
-  const AbilityRequirement = (props: any) => (
+  const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
     />
   );
-  AbilityRequirement.propTypes = {
-    spell: PropTypes.number.isRequired,
-  };
+
 
   return (
     <Checklist>

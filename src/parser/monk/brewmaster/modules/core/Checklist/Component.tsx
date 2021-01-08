@@ -7,9 +7,10 @@ import Rule, { PERFORMANCE_METHOD } from 'parser/shared/modules/features/Checkli
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
+import { AbilityRequirementProps, ChecklistProps } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 
-const Component = ({ combatant, castEfficiency, thresholds }: any) => {
-  const AbilityRequirement = (props: any) => (
+const Component = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
+  const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
@@ -17,7 +18,7 @@ const Component = ({ combatant, castEfficiency, thresholds }: any) => {
   );
   AbilityRequirement.propTypes = {
     spell: PropTypes.number.isRequired,
-    name: PropTypes.any,
+    name: String,
   };
 
   return (

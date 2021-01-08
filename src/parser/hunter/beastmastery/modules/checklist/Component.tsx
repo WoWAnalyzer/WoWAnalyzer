@@ -10,19 +10,18 @@ import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Che
 import ResourceIcon from 'common/ResourceIcon';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SpellIcon from 'common/SpellIcon';
+import { AbilityRequirementProps, ChecklistProps } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 
-const BeastMasteryChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
+const BeastMasteryChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
 
-  const AbilityRequirement = (props: any) => (
+  const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
     />
   );
 
-  AbilityRequirement.propTypes = {
-    spell: PropTypes.number.isRequired,
-  };
+
 
   return (
     <Checklist>

@@ -9,8 +9,9 @@ import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
+import { AbilityRequirementProps, ChecklistProps } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 
-const ArmWarriorChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
+const ArmWarriorChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
   const DotUptime: any = (props: any) => (
     <Requirement
       name={(<><SpellLink id={props.id} icon /> uptime</>)}
@@ -21,15 +22,13 @@ const ArmWarriorChecklist = ({ combatant, castEfficiency, thresholds }: any) => 
     id: PropTypes.number.isRequired,
   };
 
-  const AbilityRequirement = (props: any) => (
+  const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
     />
   );
-  AbilityRequirement.propTypes = {
-    spell: PropTypes.number.isRequired,
-  };
+
 
   return (
     <Checklist>

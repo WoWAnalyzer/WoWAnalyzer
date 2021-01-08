@@ -15,17 +15,16 @@ import PreparationRule from 'parser/shared/modules/features/Checklist/Preparatio
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import Combatant from 'parser/core/Combatant';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import { AbilityRequirementProps } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 
 const DisciplinePriestChecklist = ({ combatant, castEfficiency, thresholds }: { combatant: Combatant, castEfficiency: CastEfficiency, thresholds: any }) => {
-  const AbilityRequirement = (props: { spell: number }) => (
+  const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
     />
   );
-  AbilityRequirement.propTypes = {
-    spell: PropTypes.number.isRequired,
-  };
+
 
   return (
     <Checklist>

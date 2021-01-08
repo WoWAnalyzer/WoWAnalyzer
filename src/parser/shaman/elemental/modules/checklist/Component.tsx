@@ -7,10 +7,11 @@ import PreparationRule from 'parser/shared/modules/features/Checklist/Preparatio
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import SpellLink from 'common/SpellLink';
+import { AbilityRequirementProps, ChecklistProps } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 
-const ElementalShamanChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
+const ElementalShamanChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
 
-  const AbilityRequirement = (props: { spell: number }) => (
+  const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}

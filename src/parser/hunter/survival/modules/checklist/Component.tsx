@@ -9,17 +9,16 @@ import PreparationRule from 'parser/shared/modules/features/Checklist/Preparatio
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import ResourceIcon from 'common/ResourceIcon';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { AbilityRequirementProps, ChecklistProps } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 
-const SurvivalChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
-  const AbilityRequirement = (props: any) => (
+const SurvivalChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
+  const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
     />
   );
-  AbilityRequirement.propTypes = {
-    spell: PropTypes.number.isRequired,
-  };
+
 
   return (
     <Checklist>
