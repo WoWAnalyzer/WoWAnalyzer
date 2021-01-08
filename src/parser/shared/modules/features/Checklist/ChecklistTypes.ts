@@ -10,6 +10,6 @@ export interface ChecklistProps {
 
 export interface AbilityRequirementProps {
   spell: number,
-  name?: string,
+  name?: string | JSX.Element,
 }
 
