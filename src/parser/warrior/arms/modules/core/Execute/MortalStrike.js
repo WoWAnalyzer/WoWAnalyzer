@@ -9,6 +9,7 @@ import Events from 'parser/core/Events';
 import { t } from '@lingui/macro';
 
 import ExecuteRange from './ExecuteRange';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 class MortalStrikeAnalyzer extends Analyzer {
   get goodMortalStrikeThresholds() {
@@ -23,7 +24,7 @@ class MortalStrikeAnalyzer extends Analyzer {
         average: 0.8,
         major: 0.7,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -39,7 +40,7 @@ class MortalStrikeAnalyzer extends Analyzer {
         average: 0.05,
         major: 0.1,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
