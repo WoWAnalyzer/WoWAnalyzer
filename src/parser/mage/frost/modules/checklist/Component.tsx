@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -16,7 +16,6 @@ const FrostMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklist
       {...props}
     />
   );
-
 
   return (
     <Checklist>
@@ -62,7 +61,8 @@ const FrostMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklist
         name="Use Glacial Spike properly"
         description={(
           <>
-            <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> is one of the most impactful talents that you can choose and it plays a large part in your rotation; So you should always ensure that you are getting the most out of it, because a large part of your damage will come from making sure that you are handling Glacial Spike properly. As a rule, once you have Glacial Spike available, you should not cast it unless you have a <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc to use alongside it (<SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> {'>'} <SpellLink id={SPELLS.FLURRY.id} /> {'>'} <SpellLink id={SPELLS.ICE_LANCE.id} />) or if you also have the <SpellLink id={SPELLS.SPLITTING_ICE_TALENT.id} /> and the Glacial Spike will hit a second target. If neither of those are true, then you should continue casting <SpellLink id={SPELLS.FROSTBOLT.id} /> until you have a <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc. If you are consistently in situations where you are waiting to get a Brain Freeze proc, then consider taking the <SpellLink id={SPELLS.EBONBOLT_TALENT.id} /> talent and saving it for when you need to generate a proc to use with Glacial Spike.
+            <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> is one of the most impactful talents that you can choose and it plays a large part in your rotation; So you should always ensure that you are getting the most out of it, because a large part of your damage will come from making sure that you are handling Glacial Spike properly. As a rule, once you have Glacial Spike available, you should not cast it unless you have a <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc to use alongside it (<SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> {'>'} <SpellLink id={SPELLS.FLURRY.id} /> {'>'}
+            <SpellLink id={SPELLS.ICE_LANCE.id} />) or if you also have the <SpellLink id={SPELLS.SPLITTING_ICE_TALENT.id} /> and the Glacial Spike will hit a second target. If neither of those are true, then you should continue casting <SpellLink id={SPELLS.FROSTBOLT.id} /> until you have a <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc. If you are consistently in situations where you are waiting to get a Brain Freeze proc, then consider taking the <SpellLink id={SPELLS.EBONBOLT_TALENT.id} /> talent and saving it for when you need to generate a proc to use with Glacial Spike.
           </>
         )}
       >
@@ -92,14 +92,6 @@ const FrostMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklist
       </PreparationRule>
     </Checklist>
   );
-};
-
-FrostMageChecklist.propTypes = {
-  castEfficiency: PropTypes.object.isRequired,
-  combatant: PropTypes.shape({
-    hasTalent: PropTypes.func.isRequired,
-  }).isRequired,
-  thresholds: PropTypes.object.isRequired,
 };
 
 export default FrostMageChecklist;

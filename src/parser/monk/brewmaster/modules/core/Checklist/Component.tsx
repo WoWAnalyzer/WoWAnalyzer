@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -16,10 +15,6 @@ const Component = ({ combatant, castEfficiency, thresholds }: ChecklistProps) =>
       {...props}
     />
   );
-  AbilityRequirement.propTypes = {
-    spell: PropTypes.number.isRequired,
-    name: String,
-  };
 
   return (
     <Checklist>
@@ -105,7 +100,7 @@ const Component = ({ combatant, castEfficiency, thresholds }: ChecklistProps) =>
           <AbilityRequirement spell={SPELLS.CHI_WAVE_TALENT.id} />
         )}
       </Rule>
-      <PreparationRule thresholds={thresholds}/>
+      <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
 };

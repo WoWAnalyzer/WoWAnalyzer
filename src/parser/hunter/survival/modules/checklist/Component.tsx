@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -18,7 +17,6 @@ const SurvivalChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
       {...props}
     />
   );
-
 
   return (
     <Checklist>
@@ -78,14 +76,6 @@ const SurvivalChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
-};
-
-SurvivalChecklist.propTypes = {
-  castEfficiency: PropTypes.object.isRequired,
-  combatant: PropTypes.shape({
-    hasTalent: PropTypes.func.isRequired,
-  }).isRequired,
-  thresholds: PropTypes.object.isRequired,
 };
 
 export default SurvivalChecklist;

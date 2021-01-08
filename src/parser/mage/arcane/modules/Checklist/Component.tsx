@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -131,14 +131,6 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
-};
-
-ArcaneMageChecklist.propTypes = {
-  castEfficiency: PropTypes.object.isRequired,
-  combatant: PropTypes.shape({
-    hasTalent: PropTypes.func.isRequired,
-  }).isRequired,
-  thresholds: PropTypes.object.isRequired,
 };
 
 export default ArcaneMageChecklist;

@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -120,14 +120,6 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
-};
-
-ShadowPriestChecklist.propTypes = {
-  castEfficiency: PropTypes.object.isRequired,
-  combatant: PropTypes.shape({
-    hasTalent: PropTypes.func.isRequired,
-  }).isRequired,
-  thresholds: PropTypes.object.isRequired,
 };
 
 export default ShadowPriestChecklist;

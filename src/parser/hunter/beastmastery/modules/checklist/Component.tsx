@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -20,8 +19,6 @@ const BeastMasteryChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
       {...props}
     />
   );
-
-
 
   return (
     <Checklist>
@@ -102,14 +99,6 @@ const BeastMasteryChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
-};
-
-BeastMasteryChecklist.propTypes = {
-  castEfficiency: PropTypes.object.isRequired,
-  combatant: PropTypes.shape({
-    hasTalent: PropTypes.func.isRequired,
-  }).isRequired,
-  thresholds: PropTypes.object.isRequired,
 };
 
 export default BeastMasteryChecklist;

@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
@@ -91,14 +91,6 @@ const ArmWarriorChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
-};
-
-ArmWarriorChecklist.propTypes = {
-  castEfficiency: PropTypes.object.isRequired,
-  combatant: PropTypes.shape({
-    hasTalent: PropTypes.func.isRequired,
-  }).isRequired,
-  thresholds: PropTypes.object.isRequired,
 };
 
 export default ArmWarriorChecklist;

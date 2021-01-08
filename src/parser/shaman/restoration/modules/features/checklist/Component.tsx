@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 import { t, Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
@@ -123,14 +123,6 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
-};
-
-RestoShamanChecklist.propTypes = {
-  castEfficiency: PropTypes.object.isRequired,
-  combatant: PropTypes.shape({
-    hasTalent: PropTypes.func.isRequired,
-  }).isRequired,
-  thresholds: PropTypes.object.isRequired,
 };
 
 export default RestoShamanChecklist;

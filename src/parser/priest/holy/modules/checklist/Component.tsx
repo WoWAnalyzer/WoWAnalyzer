@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 
 import SPELLS from 'common/SPELLS';
 // import ITEMS from 'common/ITEMS';
@@ -96,14 +96,6 @@ const HolyPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
-};
-
-HolyPriestChecklist.propTypes = {
-  castEfficiency: PropTypes.object.isRequired,
-  combatant: PropTypes.shape({
-    hasTalent: PropTypes.func.isRequired,
-  }).isRequired,
-  thresholds: PropTypes.object.isRequired,
 };
 
 export default HolyPriestChecklist;

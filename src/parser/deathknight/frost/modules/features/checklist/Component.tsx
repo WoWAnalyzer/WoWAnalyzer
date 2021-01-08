@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -17,7 +16,6 @@ const FrostDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
       {...props}
     />
   );
-
 
   return (
     <Checklist>
@@ -44,7 +42,7 @@ const FrostDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
         name="Try to avoid being inactive for a large portion of the fight"
         description={(
           <>
-            While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes.  In a worst case scenario, you can cast <SpellLink id={SPELLS.HOWLING_BLAST.id} /> to prevent Rune capping
+            While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes. In a worst case scenario, you can cast <SpellLink id={SPELLS.HOWLING_BLAST.id} /> to prevent Rune capping
           </>
         )}
       >
@@ -58,7 +56,7 @@ const FrostDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
       </Rule>
       <Rule
         name="Avoid capping Runic Power"
-        description={(<>Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities.  Cast <SpellLink id={SPELLS.FROST_STRIKE_CAST.id} /> when you have 73+ Runic Power to avoid overcapping.</>)}
+        description={(<>Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities. Cast <SpellLink id={SPELLS.FROST_STRIKE_CAST.id} /> when you have 73+ Runic Power to avoid overcapping.</>)}
       >
         <Requirement name="Runic Power Efficiency" thresholds={thresholds.runicPowerEfficiency} />
       </Rule>
@@ -66,13 +64,4 @@ const FrostDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
     </Checklist>
   );
 };
-
-FrostDeathKnightChecklist.propTypes = {
-  castEfficiency: PropTypes.object.isRequired,
-  combatant: PropTypes.shape({
-    hasTalent: PropTypes.func.isRequired,
-  }).isRequired,
-  thresholds: PropTypes.object.isRequired,
-};
-
 export default FrostDeathKnightChecklist;

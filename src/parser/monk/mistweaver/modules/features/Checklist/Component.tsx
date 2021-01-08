@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -21,7 +20,6 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
       {...props}
     />
   );
-
 
   return (
     <Checklist>
@@ -146,15 +144,6 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
-};
-
-MistweaverMonkChecklist.propTypes = {
-  castEfficiency: PropTypes.object.isRequired,
-  combatant: PropTypes.shape({
-    hasTalent: PropTypes.func.isRequired,
-    hasCovenant: PropTypes.func.isRequired,
-  }).isRequired,
-  thresholds: PropTypes.object.isRequired,
 };
 
 export default MistweaverMonkChecklist;

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -17,8 +16,6 @@ const MarksmanshipChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
       {...props}
     />
   );
-
-
 
   return (
     <Checklist>
@@ -103,14 +100,6 @@ const MarksmanshipChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
 
     </Checklist>
   );
-};
-
-MarksmanshipChecklist.propTypes = {
-  castEfficiency: PropTypes.object.isRequired,
-  combatant: PropTypes.shape({
-    hasTalent: PropTypes.func.isRequired,
-  }).isRequired,
-  thresholds: PropTypes.object.isRequired,
 };
 
 export default MarksmanshipChecklist;

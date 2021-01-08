@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -181,15 +181,6 @@ const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
-};
-
-WindwalkerMonkChecklist.propTypes = {
-  castEfficiency: PropTypes.object.isRequired,
-  combatant: PropTypes.shape({
-    hasTalent: PropTypes.func.isRequired,
-    hasLegendaryByBonusID: PropTypes.func.isRequired,
-  }).isRequired,
-  thresholds: PropTypes.object.isRequired,
 };
 
 export default WindwalkerMonkChecklist;

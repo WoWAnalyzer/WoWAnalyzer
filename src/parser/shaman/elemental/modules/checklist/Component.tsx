@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 import SPELLS from 'common/SPELLS';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
@@ -100,11 +100,4 @@ const ElementalShamanChecklist = ({ combatant, castEfficiency, thresholds }: Che
   );
 };
 
-ElementalShamanChecklist.propTypes = {
-  castEfficiency: PropTypes.object.isRequired,
-  combatant: PropTypes.shape({
-    hasTalent: PropTypes.func.isRequired,
-  }).isRequired,
-  thresholds: PropTypes.object.isRequired,
-};
 export default ElementalShamanChecklist;

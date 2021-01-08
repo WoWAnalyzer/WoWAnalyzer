@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 
 import Checklist from 'parser/shared/modules/features/Checklist';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
@@ -70,14 +70,6 @@ const EnhancementShamanChecklist = ({ castEfficiency, combatant, thresholds }: a
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
-};
-
-EnhancementShamanChecklist.propTypes = {
-  castEfficiency: PropTypes.object.isRequired,
-  combatant: PropTypes.shape({
-    hasTalent: PropTypes.func.isRequired,
-  }).isRequired,
-  thresholds: PropTypes.object.isRequired,
 };
 
 export default EnhancementShamanChecklist;
