@@ -52,7 +52,7 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
         average: 0.20,
         major: 0.30,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 

@@ -11,7 +11,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { CA_MODIFIER, CAREFUL_AIM_THRESHOLD } from 'parser/hunter/marksmanship/constants';
-import ExecuteHelper from 'parser/shared/ExecuteHelper';
+import ExecuteHelper from 'parser/shared/modules/helpers/ExecuteHelper';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { abbreviateBossNames } from 'common/abbreviateLongNames';
 
@@ -61,7 +61,7 @@ class CarefulAim extends ExecuteHelper {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CAREFUL_AIM_TALENT.id);
-    this.owner.report.enemies.forEach((enemy: { fights: any[]; type: string; id: number; }) => {
+    this.owner.report.enemies.forEach((enemy: { fights: [{ id: number, type: string }]; type: string; id: number; }) => {
       enemy.fights.forEach(fight => {
         if (fight.id === this.owner.fight.id && enemy.type === 'Boss') {
           this.bossIDs.push(enemy.id);

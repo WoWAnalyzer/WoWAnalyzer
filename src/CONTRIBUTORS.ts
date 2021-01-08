@@ -1172,3 +1172,17 @@ export const Akhtal: Contributor = {
     },
   ],
 };
+
+export const Barry: Contributor = {
+  nickname: 'Barry',
+  github: 'bcrabbe',
+  discord: 'Barry#5878',
+  avatar: require('./interface/images/avatars/barry-avatar.jpg'),
+  mains: [
+    {
+      name: 'Druulux',
+      spec: SPECS.RESTORATION_DRUID,
+      link: 'https://worldofwarcraft.com/en-gb/character/eu/silvermoon/druulux',
+    },
+  ],
+}

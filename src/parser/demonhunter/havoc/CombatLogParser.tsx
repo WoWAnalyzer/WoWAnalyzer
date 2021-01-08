@@ -45,6 +45,7 @@ import ChaosTheory from './modules/shadowlands/legendaries/ChaosTheory';
 //Covenants
 import SinfulBrand from "../shared/modules/spells/covenants/SinfulBrand"
 import TheHunt from '../shared/modules/spells/covenants/TheHunt';
+import ElysianDecree from "../shared/modules/spells/covenants/ElysianDecree";
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -99,6 +100,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Covenants
     sinfulBrand: SinfulBrand,
     theHunt: TheHunt,
+    elysianDecree: ElysianDecree,
   };
 }
 

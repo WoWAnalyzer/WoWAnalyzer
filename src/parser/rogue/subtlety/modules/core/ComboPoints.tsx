@@ -1,6 +1,6 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
-import { When } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS/index';
 import Spell from 'common/SPELLS/Spell';
 import SpellLink from 'common/SpellLink';
@@ -23,7 +23,7 @@ class ComboPoints extends Analyzer {
         average: 0.1,
         major: 0.15,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 

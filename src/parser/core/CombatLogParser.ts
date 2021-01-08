@@ -92,6 +92,7 @@ import DarkmoonDeckVoracity from '../shared/modules/items/shadowlands/crafted/Da
 //Dungeons
 import OverchargedAnimaBattery from '../shared/modules/items/shadowlands/dungeons/OverchargedAnimaBattery';
 // Castle Nathria
+import SoulInfusion from '../shared/modules/spells/SoulInfusion';
 
 // Legendaries
 
@@ -204,6 +205,11 @@ class CombatLogParser {
 
     // Crafted
     darkmoonDeckVoracity: DarkmoonDeckVoracity,
+
+    // Shadowlands 
+
+    // Castle Nathria
+    soulInfusion: SoulInfusion,
 
     // Dungeons
     overchargedAnimaBattery: OverchargedAnimaBattery,

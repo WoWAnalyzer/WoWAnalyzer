@@ -6,20 +6,13 @@ import ResourceLink from 'common/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
-import Requirement, { RequirementThresholds } from 'parser/shared/modules/features/Checklist/Requirement';
+import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
-import Combatant from 'parser/core/Combatant';
-import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import { AbilityRequirementProps, ChecklistProps } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 
-type Props = {
-  castEfficiency: CastEfficiency,
-  combatant: Combatant,
-  thresholds: { [name: string]: RequirementThresholds },
-};
-
-const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: Props) => {
-  const AbilityRequirement = (props: { spell: number }) => (
+const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
+  const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}

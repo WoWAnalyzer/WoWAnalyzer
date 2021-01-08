@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import SPECS from 'game/SPECS';
 import ROLES from 'game/ROLES';
 import ITEMS from 'common/ITEMS';
+import SPELLS from 'common/SPELLS';
 import fetchWcl from 'common/fetchWclApi';
 import Icon from 'common/Icon';
 import ItemLink from 'common/ItemLink';
@@ -14,11 +15,14 @@ import ActivityIndicator from 'interface/common/ActivityIndicator';
 import { makeItemApiUrl } from 'common/makeApiUrl';
 import { Trans } from '@lingui/macro';
 import Combatant from 'parser/core/Combatant';
+import { getCovenantById } from 'game/shadowlands/COVENANTS';
+import SOULBINDS from 'game/shadowlands/SOULBINDS';
 
 /**
  * Show statistics (talents and trinkets) for the current boss, specID and difficulty
  */
 
+  // TODO: Clean this file up and split it into multiple files to make it much more maintainable in the future
 const LEVEL_15_TALENT_ROW_INDEX = 0;
 
 class EncounterStats extends React.PureComponent {
@@ -43,12 +47,12 @@ class EncounterStats extends React.PureComponent {
       mostUsedTalents: [],
       mostUsedTrinkets: [],
       mostUsedLegendaries: [],
-      mostUsedCovenants: [],
-      mostUsedSoulbinds: [],
       mostUsedConduits: [],
+      mostUsedCovenants: [],
       similiarKillTimes: [],
       closestKillTimes: [],
       items: ITEMS,
+      spells: SPELLS,
       loaded: false,
       message: 'Loading statistics...',
     };
@@ -58,7 +62,7 @@ class EncounterStats extends React.PureComponent {
   }
 
   addItem(array, item) {
-    //add item to arry or increase amount by one if it exists
+    //add item to array or increase amount by one if it exists
     if (item.id === null || item.id === 0) {
       return array;
     }
@@ -69,6 +73,26 @@ class EncounterStats extends React.PureComponent {
         name: item.name.replace(/\\'/g, '\''),
         quality: item.quality,
         icon: item.icon,
+        amount: 1,
+      });
+    } else {
+      array[index].amount += 1;
+    }
+
+    return array;
+  }
+
+  addSpell(array, spell) {
+    //add spell to array or increase amount by one if it exists
+    if (spell.id === null || spell.id === 0) {
+      return array;
+    }
+    const index = array.findIndex(elem => elem.id === spell.id);
+    if (index === -1) {
+      array.push({
+        id: spell.id,
+        name: spell.name.replace(/\\'/g, '\''),
+        icon: spell.icon,
         amount: 1,
       });
     } else {
@@ -105,11 +129,15 @@ class EncounterStats extends React.PureComponent {
       const talentCounter = [[], [], [], [], [], [], []];
       const talents = [];
       let trinkets = [];
+      let legendaries = [];
+      let conduits = [];
+      const covenants = [];
       const similiarKillTimes = []; //These are the reports within the defined variance of the analyzed log
       const closestKillTimes = []; //These are the reports closest to the analyzed log regardless of it being within variance or not
       const combatantName = this.props.combatant._combatantInfo.name;
 
       stats.rankings.forEach(rank => {
+
         rank.talents.forEach((talent, index) => {
           if (talent.id !== null && talent.id !== 0) {
             talentCounter[index].push(talent.id);
@@ -121,7 +149,31 @@ class EncounterStats extends React.PureComponent {
             trinkets = this.addItem(trinkets, item);
           }
         });
-        
+
+        rank.legendaryEffects && rank.legendaryEffects.forEach(legendaryEffect => {
+          legendaries = this.addSpell(legendaries, legendaryEffect);
+        });
+
+        rank.conduitPowers && rank.conduitPowers.forEach(conduit => {
+          conduits = this.addSpell(conduits, conduit);
+        });
+
+        if (rank.covenantID) {
+          if (covenants[rank.covenantID]) {
+            covenants[rank.covenantID].amount += 1;
+          } else {
+            covenants[rank.covenantID] = { id: rank.covenantID, amount: 1, soulbinds: [] };
+          }
+        }
+
+        if (rank.soulbindID) {
+          if (covenants[rank.covenantID].soulbinds[rank.soulbindID]) {
+            covenants[rank.covenantID].soulbinds[rank.soulbindID].amount += 1;
+          } else {
+            covenants[rank.covenantID].soulbinds[rank.soulbindID] = { id: rank.soulbindID, amount: 1 };
+          }
+        }
+
         if (!rank.name.match(combatantName)) {
           if (this.props.duration > rank.duration * (1 - this.durationVariancePercentage) && this.props.duration < rank.duration * (1 + this.durationVariancePercentage)) {
             similiarKillTimes.push({ rank, variance: rank.duration - this.props.duration > 0 ? rank.duration - this.props.duration : this.props.duration - rank.duration });
@@ -140,12 +192,21 @@ class EncounterStats extends React.PureComponent {
 
       trinkets.sort((a, b) => (a.amount < b.amount) ? 1 : ((b.amount < a.amount) ? -1 : 0));
 
+      legendaries.sort((a, b) => (a.amount < b.amount) ? 1 : ((b.amount < a.amount) ? -1 : 0));
+
+      conduits.sort((a, b) => (a.amount < b.amount) ? 1 : ((b.amount < a.amount) ? -1 : 0));
+
+      covenants.sort((a, b) => (a.amount < b.amount) ? 1 : ((b.amount < a.amount) ? -1 : 0));
+
       similiarKillTimes.sort((a, b) => a.variance - b.variance);
 
       closestKillTimes.sort((a, b) => a.variance - b.variance);
 
       this.setState({
         mostUsedTrinkets: trinkets.slice(0, this.SHOW_TOP_ENTRYS),
+        mostUsedLegendaries: legendaries.slice(0, this.SHOW_TOP_ENTRYS),
+        mostUsedConduits: conduits.slice(0, this.SHOW_TOP_ENTRYS),
+        mostUsedCovenants: covenants,
         mostUsedTalents: talents,
         similiarKillTimes: similiarKillTimes.slice(0, this.SHOW_CLOSEST_KILL_TIME_LOGS),
         closestKillTimes: closestKillTimes.slice(0, this.SHOW_CLOSEST_KILL_TIME_LOGS),
@@ -197,10 +258,12 @@ class EncounterStats extends React.PureComponent {
             {formatPercentage(item.amount / this.amountOfParses, 0)}%
           </div>
           <div className="col-md-10">
-            <ItemLink id={item.id} className={item.quality} icon={false}>
+            <ItemLink id={item.id} className={item.quality} details={item} icon={false}>
               <Icon
                 icon={this.state.items[item.id] === undefined ? this.state.items[0].icon : this.state.items[item.id].icon}
                 className={item.quality}
+                details={item}
+
                 style={{ width: '2em', height: '2em', border: '1px solid', marginRight: 10 }}
               />
               {item.name}
@@ -211,9 +274,30 @@ class EncounterStats extends React.PureComponent {
     );
   }
 
+  singleSpell(spell) {
+    return (
+      <div key={spell.id} className="col-md-12 flex-main" style={{ textAlign: 'left', margin: '5px auto' }}>
+        <div className="row">
+          <div className="col-md-2" style={{ opacity: '.8', fontSize: '.9em', lineHeight: '2em', textAlign: 'right' }}>
+            {formatPercentage(spell.amount / this.amountOfParses, 0)}%
+          </div>
+          <div className="col-md-10">
+            <SpellLink id={spell.id} icon={false}>
+              <Icon
+                icon={this.state.spells[spell.id] === undefined ? this.state.spells[1].icon : this.state.spells[spell.id].icon}
+                style={{ width: '2em', height: '2em', border: '1px solid', marginRight: 10 }}
+              />
+              {spell.name}
+            </SpellLink>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   singleLog(log) {
     return (
-      <div key={`${log.reportID}-`} className="col-md-12 flex-main" style={{ textAlign: 'left', margin: '5px auto' }}>
+      <div key={`${log.reportID}-${log.name}`} className="col-md-12 flex-main" style={{ textAlign: 'left', margin: '5px auto' }}>
         <div className="row" style={{ opacity: '.8', fontSize: '.9em', lineHeight: '2em' }}>
           <div className="flex-column col-md-6">
             <a
@@ -237,18 +321,46 @@ class EncounterStats extends React.PureComponent {
     );
   }
 
-  similiarLogs() {
+  renderCovenant(covenantID, amount, soulbinds) {
+    const covenant = getCovenantById(covenantID);
+    soulbinds.sort((a, b) => (a.amount < b.amount) ? 1 : ((b.amount < a.amount) ? -1 : 0));
     return (
-      <div className="col-md-12 flex-main" style={{ textAlign: 'left', margin: '5px auto' }}>
+      <div key={`${covenant.id}-${covenant.name}`} className="col-md-12 flex-main" style={{ textAlign: 'left', margin: '5px auto' }}>
+        <div className="row">
+          <div className="col-md-2" style={{ opacity: '.8', fontSize: '.9em', lineHeight: '2em', textAlign: 'right' }}>
+            {formatPercentage(amount / this.amountOfParses, 0)}%
+          </div>
+          <SpellLink id={covenant.spellID} icon={false}>
+            <Icon
+              icon={this.state.spells[covenant.spellID] === undefined ? this.state.spells[1].icon : this.state.spells[covenant.spellID].icon}
+              style={{ width: '2em', height: '2em', border: '1px solid', marginRight: 10 }}
+            />
+            {covenant.name}
+          </SpellLink>
+        </div>
+        <div>
+          {soulbinds.map(soulbind => (
+            <div key={soulbind.id} style={{ textAlign: 'left', marginLeft: '4em' }}>
+              {`${SOULBINDS[soulbind.id].name}: ${formatPercentage(soulbind.amount / amount, 0)}%`}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  get similiarLogs() {
+    return (
+      <div className="col-md-12 flex-main" style={{ textAlign: 'left', margin: '5px auto' }} key='similiar-wcl-logs'>
         {this.state.similiarKillTimes.length > 1 ? 'These are' : 'This is'} {this.state.similiarKillTimes.length} of the top {this.amountOfParses} {this.state.similiarKillTimes.length > 1 ? 'logs' : 'log'} that {this.state.similiarKillTimes.length > 1 ? 'are' : 'is'} closest to your kill-time within {formatPercentage(this.durationVariancePercentage, 0)}% variance.
         {this.state.similiarKillTimes.map(log => this.singleLog(log.rank))}
       </div>
     );
   }
 
-  closestLogs() {
+  get closestLogs() {
     return (
-      <div className="col-md-12 flex-main" style={{ textAlign: 'left', margin: '5px auto' }}>
+      <div className="col-md-12 flex-main" style={{ textAlign: 'left', margin: '5px auto' }} key='closest-wcl-logs'>
         {this.state.closestKillTimes.length > 1 ? 'These are' : 'This is'} {this.state.closestKillTimes.length} of the top {this.amountOfParses} {this.state.closestKillTimes.length > 1 ? 'logs' : 'log'} that {this.state.closestKillTimes.length > 1 ? 'are' : 'is'} closest to your kill-time. Large differences won't be good for comparing.
         {this.state.closestKillTimes.map(log => this.singleLog(log.rank))}
       </div>
@@ -275,7 +387,7 @@ class EncounterStats extends React.PureComponent {
           <div className="col-md-12" style={{ padding: '0 30px' }}>
             <div className="row">
               <div className="col-md-4">
-                <div className="row" style={{ marginBottom: '2em' }}>
+                <div className="row" style={{ marginBottom: '1em' }}>
                   <div className="col-md-12">
                     <h2>Most used Trinkets</h2>
                   </div>
@@ -283,7 +395,7 @@ class EncounterStats extends React.PureComponent {
                 <div className="row" style={{ marginBottom: '2em' }}>
                   {this.state.mostUsedTrinkets.map(trinket => this.singleItem(trinket))}
                 </div>
-                <div className="row" style={{ marginBottom: '2em' }}>
+                <div className="row" style={{ marginBottom: '1em' }}>
                   <div className="col-md-12">
                     <h2>Most used Talents</h2>
                   </div>
@@ -303,14 +415,40 @@ class EncounterStats extends React.PureComponent {
                 ))}
               </div>
               <div className="col-md-4">
-                <div className="row" style={{ marginBottom: '2em' }}>
+                <div className="row" style={{ marginBottom: '1em' }}>
+                  <div className="col-md-12">
+                    <h2>Most used Legendaries</h2>
+                  </div>
+                </div>
+                <div className="row" style={{ marginBottom: '1em' }}>
+                  {this.state.mostUsedLegendaries.map(legendary => this.singleSpell(legendary))}
+                </div>
+                <div className="row" style={{ marginBottom: '1em' }}>
+                  <div className="col-md-12">
+                    <h2>Most used Conduits</h2>
+                  </div>
+                </div>
+                <div className="row" style={{ marginBottom: '1em' }}>
+                  {this.state.mostUsedConduits.map(conduit => this.singleSpell(conduit))}
+                </div>
+                <div className="row" style={{ marginBottom: '1em' }}>
+                  <div className="col-md-12">
+                    <h2>Most used Covenants</h2>
+                  </div>
+                </div>
+                <div className="row" style={{ marginBottom: '1em' }}>
+                  {this.state.mostUsedCovenants.map(covenant => this.renderCovenant(covenant.id, covenant.amount, covenant.soulbinds))}
+                </div>
+              </div>
+              <div className="col-md-4">
+                <div className="row" style={{ marginBottom: '1em' }}>
                   <div className="col-md-12">
                     <h2>{this.state.similiarKillTimes.length > 0 ? 'Similiar' : 'Closest'} kill times</h2>
                   </div>
                 </div>
                 <div className="row" style={{ marginBottom: '2em' }}>
-                  {this.state.similiarKillTimes.length > 0 ? this.similiarLogs() : ''}
-                  {this.state.similiarKillTimes.length === 0 && this.state.closestKillTimes.length > 0 ? this.closestLogs() : ''}
+                  {this.state.similiarKillTimes.length > 0 ? this.similiarLogs : ''}
+                  {this.state.similiarKillTimes.length === 0 && this.state.closestKillTimes.length > 0 ? this.closestLogs : ''}
                 </div>
               </div>
             </div>

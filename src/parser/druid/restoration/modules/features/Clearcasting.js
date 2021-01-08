@@ -91,6 +91,7 @@ class Clearcasting extends Analyzer {
     const effectiveHealing = event.amount + (event.absorbed || 0);
     const hitPointsBeforeHeal = event.hitPoints - effectiveHealing;
     const healthPercentage = hitPointsBeforeHeal / event.maxHitPoints;
+    //TODO: could we check if swiftmend &| nature's swiftness is on CD then suggest they were used instead of regrowth?
     if (healthPercentage < LOW_HEALTH_HEALING_THRESHOLD && !this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_BUFF.id, event.timestamp, MS_BUFFER)) {
       this.lowHealthRegrowthsNoCC += 1;
     }
@@ -106,7 +107,7 @@ class Clearcasting extends Analyzer {
   }
 
   get hadInvisibleRefresh() {
-    return this.usedProcs > this.totalProcs;
+    return this.totalProcs > this.usedProcs;
   }
 
   get clearcastingUtilSuggestionThresholds() {
@@ -121,8 +122,12 @@ class Clearcasting extends Analyzer {
     };
   }
 
+  get inneficientRegrowths() {
+    return this.nonCCRegrowths - (this.lowHealthRegrowthsNoCC + this.abundanceRegrowthsNoCC);
+  }
+
   get nonCCRegrowthsPerMinute() {
-    return (this.nonCCRegrowths - (this.lowHealthRegrowthsNoCC + this.abundanceRegrowthsNoCC)) / (this.owner.fightDuration / 60000);
+    return this.inneficientRegrowths / (this.owner.fightDuration / 60000);
   }
 
   get nonCCRegrowthsSuggestionThresholds() {
@@ -137,6 +142,14 @@ class Clearcasting extends Analyzer {
     };
   }
 
+  get regrowthInnefficiencyWarning() {
+    return (
+      <>
+        <SpellLink id={SPELLS.REGROWTH.id} /> is a very inefficient spell to cast without a <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> proc or {ABUNDANCE_EXCEPTION_STACKS} or more stacks of <SpellLink id={SPELLS.ABUNDANCE_TALENT.id} />. It should only be cast when your target is about to die and you do not have <SpellLink id={SPELLS.SWIFTMEND.id} /> or <SpellLink id={SPELLS.NATURES_SWIFTNESS.id}/> available.
+      </>
+    );
+  }
+
   suggestions(when) {
     when(this.clearcastingUtilSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> procs should be used quickly so they do not get overwritten or expire.</>)
@@ -147,7 +160,7 @@ class Clearcasting extends Analyzer {
     }))
           .recommended(`<${Math.round(formatPercentage(1 - recommended, 1))}% is recommended`));
     when(this.nonCCRegrowthsSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<><SpellLink id={SPELLS.REGROWTH.id} /> is a very inefficient spell to cast without a <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> proc. It should only be cast when your target is about to die and you do not have <SpellLink id={SPELLS.SWIFTMEND.id} /> available.</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(this.regrowthInnefficiencyWarning)
           .icon(SPELLS.REGROWTH.icon)
           .actual(t({
       id: "druid.restoration.suggestions.clearcasting.efficiency",
@@ -158,33 +171,58 @@ class Clearcasting extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        size="flexible"
-        position={STATISTIC_ORDER.CORE(20)}
-        tooltip={(
-          <>
-            Clearcasting procced <strong>{this.totalProcs} free Regrowths</strong>
-            <ul>
-              <li>Used: <strong>{this.usedProcs} {this.hadInvisibleRefresh ? '*' : ''}</strong></li>
-              {this.hadInvisibleRefresh && <li>Overwritten: <strong>{this.overwrittenProcs}</strong></li>}
-              <li>Expired: <strong>{this.expiredProcs}</strong></li>
-            </ul>
-            <strong>{this.nonCCRegrowths} of your Regrowths were cast without a Clearcasting proc.</strong>
-            <strong>{this.lowHealthRegrowthsNoCC}</strong> of these were cast on targets with low health and
-            <strong>{this.abundanceRegrowthsNoCC}</strong> of these were cast with more than {ABUNDANCE_EXCEPTION_STACKS} stacks of abundance, so they have been disregarded as bad Regrowth(s).
-            Using a clearcasting proc as soon as you get it should be one of your top priorities.
-            Even if it overheals you still get that extra mastery stack on a target and the minor HoT.
-            Spending your GCD on a free spell also helps with mana management in the long run.<br />
-            {this.hadInvisibleRefresh && <em>* Mark of Clarity can sometimes 'invisibly refresh', which can make your total procs show as lower than you actually got. Basically, you invisibly overwrote some number of procs, but we aren't able to see how many.</em>}
-          </>
-        )}
-      >
-        <BoringValue label={<><SpellIcon id={SPELLS.CLEARCASTING_BUFF.id} /> Clearcasting Util</>} >
-          <>
-            {formatPercentage(this.clearcastingUtilPercent, 1)} %
-          </>
-        </BoringValue>
-      </Statistic>
+      <>
+        <Statistic
+          size="flexible"
+          position={STATISTIC_ORDER.CORE(20)}
+          tooltip={(
+            <>
+              Clearcasting procced <strong>{this.totalProcs} free Regrowths</strong>
+              <ul>
+                <li>Used: <strong>{this.usedProcs} {this.hadInvisibleRefresh ? '*' : ''}</strong></li>
+                {this.hadInvisibleRefresh && <li>Overwritten: <strong>{this.overwrittenProcs}</strong></li>}
+                <li>Expired: <strong>{this.expiredProcs}</strong></li>
+              </ul>
+              Using a clearcasting proc as soon as you get it should be one of your top priorities.
+              Even if it overheals you still get that extra mastery stack on a target and the minor HoT.
+              Spending your GCD on a free spell also helps with mana management in the long run.<br />
+              {this.hadInvisibleRefresh && <em>* Mark of Clarity can sometimes 'invisibly refresh', which can make your total procs show as lower than you actually got. Basically, you invisibly overwrote some number of procs, but we aren't able to see how many.</em>}
+            </>
+          )}
+        >
+          <BoringValue label={<><SpellIcon id={SPELLS.CLEARCASTING_BUFF.id} /> Clearcasting Util</>} >
+            <>
+              {formatPercentage(this.clearcastingUtilPercent, 1)} %
+            </>
+          </BoringValue>
+        </Statistic>
+        <Statistic
+          size="flexible"
+          position={STATISTIC_ORDER.CORE(21)}
+          tooltip={(
+            <>
+              <strong>
+                {this.nonCCRegrowths} of your {this.totalRegrowths} Regrowths were cast without a <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> or <SpellLink id={SPELLS.INNERVATE.id} />.
+              </strong>
+              <br />
+              Of these {this.nonCCRegrowths},
+              <ul>
+                <li><strong>{this.lowHealthRegrowthsNoCC}</strong> were cast on targets with low health, making them necessary.</li>
+                <li><strong>{this.abundanceRegrowthsNoCC}</strong> were cast with more than {ABUNDANCE_EXCEPTION_STACKS} stacks of <SpellLink id={SPELLS.ABUNDANCE_TALENT.id} />, making them efficient.</li>
+              </ul>
+              this leaves {this.inneficientRegrowths} unfavorable <SpellLink id={SPELLS.REGROWTH.id} /> casts that you should aim to replace with <SpellLink id={SPELLS.REJUVENATION.id} />.
+              <br />
+              {this.regrowthInnefficiencyWarning}
+            </>
+          )}
+        >
+          <BoringValue label={<><SpellIcon id={SPELLS.REGROWTH.id} /> Inefficient Regrowths</>} >
+            <>
+              {this.inneficientRegrowths}
+            </>
+          </BoringValue>
+        </Statistic>
+      </>
     );
   }
 

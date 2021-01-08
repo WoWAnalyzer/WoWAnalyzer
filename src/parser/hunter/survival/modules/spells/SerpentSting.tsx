@@ -159,7 +159,7 @@ class SerpentSting extends Analyzer {
     if (targetInstance === undefined) {
       targetInstance = 1;
     }
-    const serpentStingTarget: any = encodeTargetString(event.targetID, targetInstance);
+    const serpentStingTarget = Number(encodeTargetString(event.targetID, targetInstance));
     this.serpentStingTargets[serpentStingTarget] = { timestamp: event.timestamp, serpentStingDuration: SERPENT_STING_SV_BASE_DURATION };
     if (this.vipersVenomBuffUp) {
       this.vipersVenomBuffUp = false;
@@ -171,7 +171,7 @@ class SerpentSting extends Analyzer {
     if (targetInstance === undefined) {
       targetInstance = 1;
     }
-    const serpentStingTarget: any = encodeTargetString(event.targetID, targetInstance);
+    const serpentStingTarget = Number(encodeTargetString(event.targetID, targetInstance));
     this.serpentStingTargets.splice(serpentStingTarget, 1);
   }
 
@@ -180,7 +180,7 @@ class SerpentSting extends Analyzer {
     if (targetInstance === undefined) {
       targetInstance = 1;
     }
-    const serpentStingTarget: any = encodeTargetString(event.targetID, targetInstance);
+    const serpentStingTarget = Number(encodeTargetString(event.targetID, targetInstance));
     this.timesRefreshed += 1;
 
     const timeRemaining = this.serpentStingTargets[serpentStingTarget].serpentStingDuration - (event.timestamp - this.serpentStingTargets[serpentStingTarget].timestamp);

@@ -4538,11 +4538,6 @@ exports[`Destruction Warlock integration test: example log ImmolateUptime matche
         >
           <div
             className="uptime-bar"
-            style={
-              Object {
-                "height": "100%",
-              }
-            }
           >
             <div
               style={

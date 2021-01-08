@@ -5,6 +5,7 @@ import SpellLink from 'common/SpellLink';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import { t } from '@lingui/macro';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 import ExecuteRange from './ExecuteRange';
 
@@ -17,7 +18,7 @@ class RendAnalyzer extends Analyzer {
         average: 0.05,
         major: 0.1,
       },
-      style: 'percent',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
