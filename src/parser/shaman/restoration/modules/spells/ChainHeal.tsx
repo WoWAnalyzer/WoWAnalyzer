@@ -13,7 +13,7 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 
 import Combatants from 'parser/shared/modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import { When } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 import { t } from '@lingui/macro';
 import { Trans } from '@lingui/macro';
@@ -135,7 +135,7 @@ class ChainHeal extends Analyzer {
         average: this.suggestedTargets - 1,//Missed 2-3 targets
         major: this.suggestedTargets - 2,//Missed more than 3 targets
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
