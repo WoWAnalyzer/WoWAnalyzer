@@ -671,9 +671,9 @@ export type PhaseEndEvent = BasePhaseEvent<EventType.PhaseEnd>
 
 export interface Item {
   id: number;
-  quality: number;
+  quality?: number;
   icon: string;
-  itemLevel: number;
+  itemLevel?: number;
   bonusIDs?: number | number[];
   permanentEnchant?: number;
   temporaryEnchant?: number;

@@ -22,7 +22,7 @@ export const getDotDurations = (combatant: Combatant): Record<number, number> =>
     ? Object.fromEntries(
         Object.entries(defaultDurations).map(([key, value]) => [
           key,
-          value * (affectedByCreepingDeath.includes(key) ? 0.85 : 1),
+          value * (affectedByCreepingDeath.includes(Number(key)) ? 0.85 : 1),
         ]),
       )
     : defaultDurations;

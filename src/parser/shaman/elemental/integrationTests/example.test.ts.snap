@@ -492,7 +492,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
               }
             >
               57
-              /61
+              /66
                
               casts
             </td>
@@ -511,7 +511,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "91.69827858093488%",
+                      "width": "85.82147912087726%",
                     }
                   }
                 />
@@ -526,7 +526,7 @@ exports[`Elemental Shaman integration test: example log CastEfficiency matches t
                 }
               }
             >
-              91.70%
+              85.82%
             </td>
             <td
               style={

@@ -11,7 +11,7 @@ import COVENANTS from 'game/shadowlands/COVENANTS';
 import SPECS from 'game/SPECS';
 import SpellLink from 'common/SpellLink';
 
-const SPELLS_WITH_TRAVEL_TIME = [
+const SPELLS_WITH_TRAVEL_TIME: number[] = [
   SPELLS.STARSURGE_AFFINITY.id,
   SPELLS.STARSURGE_MOONKIN.id,
   SPELLS.FULL_MOON.id,

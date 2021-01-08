@@ -37,7 +37,7 @@ class EarthShield extends Analyzer {
   constructor(options: Options) {
     super(options);
     const isRsham = this.selectedCombatant.specId === SPECS.RESTORATION_SHAMAN.id;
-    this.active = isRsham || this.selectedCombatant.hasTalent(SPELLS.EARTH_SHIELD_TALENT.id);
+    this.active = isRsham || this.selectedCombatant.hasTalent(SPELLS.EARTH_SHIELD_HEAL.id);
 
     if (isRsham) {
       this.category = STATISTIC_CATEGORY.GENERAL;
@@ -57,7 +57,7 @@ class EarthShield extends Analyzer {
   }
 
   get uptime() {
-    return Object.values((this.combatants.players)).reduce((uptime, player) => uptime + player.getBuffUptime(SPELLS.EARTH_SHIELD_TALENT.id, this.owner.playerId), 0);
+    return Object.values((this.combatants.players)).reduce((uptime, player) => uptime + player.getBuffUptime(SPELLS.EARTH_SHIELD_HEAL.id, this.owner.playerId), 0);
   }
 
   get uptimePercent() {
@@ -82,7 +82,7 @@ class EarthShield extends Analyzer {
 
   onEarthShieldAmpSpellHeal(event: HealEvent) {
     const combatant = this.combatants.getEntity(event);
-    if (combatant && combatant.hasBuff(SPELLS.EARTH_SHIELD_TALENT.id, event.timestamp)) {
+    if (combatant && combatant.hasBuff(SPELLS.EARTH_SHIELD_HEAL.id, event.timestamp)) {
       this.buffHealing += calculateEffectiveHealing(event, this.earthShieldHealingIncrease);
     }
   }
@@ -95,7 +95,7 @@ class EarthShield extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-        label={<SpellLink id={SPELLS.EARTH_SHIELD_TALENT.id} />}
+        label={<SpellLink id={SPELLS.EARTH_SHIELD_HEAL.id} />}
         category={this.category}
         position={STATISTIC_ORDER.OPTIONAL(45)}
         tooltip={<Trans id="shaman.shared.earthShield.statistic.tooltip">{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))}% from the HoT and {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.buffHealing))}% from the healing increase.</Trans>}

@@ -23,7 +23,7 @@ class Stormkeeper extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.STORMKEEPER_TALENT_ELEMENTAL.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.STORMKEEPER_TALENT.id);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(AFFECTED_ABILITIES),
       this.onSKDamage,
@@ -31,7 +31,7 @@ class Stormkeeper extends Analyzer {
   }
 
   onSKDamage(event: DamageEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.STORMKEEPER_TALENT_ELEMENTAL.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.STORMKEEPER_TALENT.id)) {
       return;
     }
 
@@ -44,7 +44,7 @@ class Stormkeeper extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
       >
-        <BoringSpellValueText spell={SPELLS.STORMKEEPER_TALENT_ELEMENTAL}>
+        <BoringSpellValueText spell={SPELLS.STORMKEEPER_TALENT}>
           <>
             <ItemDamageDone amount={this.damageDoneByBuffedCasts} />
           </>

@@ -485,6 +485,53 @@ exports[`Arcane Mage integration test: example log ArcanePower matches the stati
 </div>
 `;
 
+exports[`Arcane Mage integration test: example log ArcanePower matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_nature_lightning",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      You cast spells other than 
+      <ForwardRef
+        id={30451}
+      />
+      ,
+      <ForwardRef
+        id={5143}
+      />
+      , 
+      <ForwardRef
+        id={1449}
+      />
+      , and 
+      <ForwardRef
+        id={205025}
+      />
+       during 
+      <ForwardRef
+        id={12042}
+      />
+      . Arcane Power is a short duration, so you should ensure that you are getting the most use out of it. Buff spells like Rune of Power should be cast immediately before casting Arcane Power. Other spells such as Charged Up, Blink/Shimmer, etc are acceptable during Arcane Power, but should be avoided if possible.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <Trans
+        id="mage.arcane.suggestions.arcanePower.utilization"
+        message="{0}% Utilization"
+        values={
+          Object {
+            "0": "96.55",
+          }
+        }
+      />
+       (
+      100.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
 exports[`Arcane Mage integration test: example log ArcanePowerActiveTime matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -5359,7 +5406,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "88.46724137931037%",
+                  "width": "92.31149425287359%",
                 }
               }
             />

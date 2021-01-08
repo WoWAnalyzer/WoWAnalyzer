@@ -28,8 +28,8 @@ class Buffs extends CoreBuffs {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.STORMKEEPER_TALENT_ELEMENTAL.id,
-        triggeredBySpellId: SPELLS.STORMKEEPER_TALENT_ELEMENTAL.id,
+        spellId: SPELLS.STORMKEEPER_TALENT.id,
+        triggeredBySpellId: SPELLS.STORMKEEPER_TALENT.id,
         timelineHighlight: true,
       },
       {

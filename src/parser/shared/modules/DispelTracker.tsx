@@ -31,7 +31,7 @@ class DispelTracker extends Analyzer {
       // The spells need to be defined so the view doesn't crash
       SPELLS[dispelledId] = {
         id: dispelledId,
-        name: abilityDispelled.name,
+        name: abilityDispelled.name!,
         icon: abilityDispelled.abilityIcon.replace('.jpg', ''),
       };
     }

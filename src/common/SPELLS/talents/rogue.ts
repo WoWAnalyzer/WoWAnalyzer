@@ -1,7 +1,5 @@
 // Generated file, changes will be overwritten!
-import { SpellList } from '../Spell';
-
-const talents: SpellList = {
+const talents = {
 
   //Shared
   ELABORATE_PLANNING_TALENT: { id: 193640, name: 'Elaborate Planning', icon: 'inv_misc_map08' },

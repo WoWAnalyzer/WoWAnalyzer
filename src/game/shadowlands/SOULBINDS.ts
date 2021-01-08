@@ -74,4 +74,6 @@ const SOULBINDS = {
     garrisonTalentTreeId: 365,
   },
 };
-export default indexById(SOULBINDS);
+
+
+export default { ...SOULBINDS, ...indexById(SOULBINDS) };

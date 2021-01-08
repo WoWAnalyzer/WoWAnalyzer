@@ -15,7 +15,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RIPTIDE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT_SHARED.id) ? 2 : 1,
+        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 2 : 1,
         cooldown: 6,
         timelineSortIndex: 11,
         gcd: {
@@ -23,13 +23,13 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT_SHARED.id) ? 0.75 : 0.60,
+          recommendedEfficiency: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 0.75 : 0.60,
         },
       },
       {
         spell: SPELLS.HEALING_STREAM_TOTEM_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT_SHARED.id) ? 2 : 1,
+        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 2 : 1,
         timelineSortIndex: 18,
         enabled: !combatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id),
         gcd: {
@@ -99,7 +99,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CLOUDBURST_TOTEM_TALENT,
         buffSpellId: SPELLS.CLOUDBURST_TOTEM_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT_SHARED.id) ? 2 : 1,
+        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 2 : 1,
         cooldown: 30,
         timelineSortIndex: 16,
         gcd: {
@@ -350,7 +350,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.LAVA_BURST,
         buffSpellId: SPELLS.LAVA_SURGE.id,
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
-        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT_SHARED.id) ? 2 : 1,
+        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 2 : 1,
         timelineSortIndex: 60,
         cooldown: 8,
         gcd: {
@@ -468,7 +468,7 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
       },
       {
-        spell: SPELLS.EARTH_SHIELD_TALENT,
+        spell: SPELLS.EARTH_SHIELD_HEAL,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           base: 1500,

@@ -87,7 +87,7 @@ class PrimalStormElemental extends Analyzer {
   }
 
   suggestions(when: When) {
-    const unusedSpellsString = this.unusedSpells.map(x=>(SPELLS[x].name)).join(', ');
+    const unusedSpellsString = this.unusedSpells.map(x=>(SPELLS[Number(x)].name)).join(', ');
 
     when(this.unusedSpellsSuggestionTresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<span> Your Storm Elemental is not using all of it's spells. Check if Wind Gust and Call Lightning are set to autocast and you are using Eye Of The Storm.</span>)

@@ -16,6 +16,8 @@ const items = {
     id: 180116,
     name: 'Overcharged Anima Battery',
     icon: 'inv_battery_01',
+    itemLevel: undefined,
+    quality: undefined
   },
   //endregion
 

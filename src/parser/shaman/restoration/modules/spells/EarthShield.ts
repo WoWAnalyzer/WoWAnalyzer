@@ -18,7 +18,7 @@ class EarthShield extends EarthShieldCore {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.EARTH_SHIELD_TALENT), this.earthShieldPrepullCheck);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.EARTH_SHIELD_HEAL), this.earthShieldPrepullCheck);
   }
 
   earthShieldPrepullCheck(event: ApplyBuffEvent) {

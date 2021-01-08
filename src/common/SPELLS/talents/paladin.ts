@@ -1,7 +1,5 @@
 // Generated file, changes will be overwritten!
-import { SpellList } from '../Spell';
-
-const talents: SpellList = {
+const talents = {
 
   //Shared
   LIGHTS_HAMMER_TALENT: { id: 114158, name: 'Light\'s Hammer', icon: 'spell_paladin_lightshammer', manaCost: 9000 },
@@ -78,5 +76,5 @@ const talents: SpellList = {
   CRUSADE_TALENT: { id: 231895, name: 'Crusade', icon: 'ability_paladin_sanctifiedwrath' },
   FINAL_RECKONING_TALENT: { id: 343721, name: 'Final Reckoning', icon: 'spell_holy_blessedresillience' },
   SANCTIFIED_WRATH_TALENT_RETRIBUTION: { id: 317866, name: 'Sanctified Wrath', icon: 'ability_paladin_judgementsofthejust' },
-};
+} as const;
 export default talents;
