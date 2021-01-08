@@ -20,5 +20,5 @@ export default [
   change(date(2020, 10, 16), "Add Sanctified Wrath judgement tracker.", Hordehobbs),
   change(date(2020, 10, 14), <>Added suggestion for <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> hits.</>, Hordehobbs),
   change(date(2020, 10, 13), "Convert Consecration analyzer to Typescript.", Hordehobbs),
-  change(date(2020, 10, 12), "Initial changes for Shadowlands Prepatch.", [emallson]),
+  change(date(2020, 10, 12), "Initial changes for Shadowlands Prepatch.", emallson),
 ];
