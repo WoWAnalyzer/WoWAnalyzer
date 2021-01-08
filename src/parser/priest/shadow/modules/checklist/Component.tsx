@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -10,22 +9,15 @@ import PreparationRule from 'parser/shared/modules/features/Checklist/Preparatio
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 
 import COVENANTS from 'game/shadowlands/COVENANTS';
-import { AbilityRequirementProps, ChecklistProps } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
+import { AbilityRequirementProps, ChecklistProps, DotUptimeProps } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 
 const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
-  const DotUptime: any = (props: any) => (
+  const DotUptime = (props: DotUptimeProps) => (
     <Requirement
-      name={(
-        <React.Fragment>
-          <SpellLink id={props.id} icon /> uptime
-        </React.Fragment>
-      )}
+      name={(<><SpellLink id={props.id} icon /> uptime</>)}
       thresholds={props.thresholds}
     />
   );
-  DotUptime.propTypes = {
-    id: PropTypes.number.isRequired,
-  };
 
   const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement

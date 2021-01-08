@@ -13,3 +13,8 @@ export interface AbilityRequirementProps {
   name?: string | JSX.Element,
 }
 
+export interface DotUptimeProps {
+  id: number,
+  thresholds: RequirementThresholds
+}
+
