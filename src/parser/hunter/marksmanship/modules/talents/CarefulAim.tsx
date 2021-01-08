@@ -61,7 +61,7 @@ class CarefulAim extends ExecuteHelper {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CAREFUL_AIM_TALENT.id);
-    this.owner.report.enemies.forEach((enemy: { fights: [{ id: number, type: string }]; type: string; id: number; }) => {
+    this.owner.report.enemies.forEach((enemy: { fights: [{ id: number }]; type: string; id: number; }) => {
       enemy.fights.forEach(fight => {
         if (fight.id === this.owner.fight.id && enemy.type === 'Boss') {
           this.bossIDs.push(enemy.id);
