@@ -67,7 +67,7 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
         name="Offensive Cooldowns"
         description={(
           <>
-            Using <SpellLink id={SPELLS.AVATAR_TALENT.id} /> as often as possible is very important because it will increase your overall damage a lot and provides 20 <ResourceLink id={RESOURCE_TYPES.RAGE.id} />.<br /> If you are also using <SpellLink id={SPELLS.UNSTOPPABLE_FORCE_TALENT.id} /> remember that <SpellLink id={SPELLS.THUNDER_CLAP.id} /> will have a reduced cooldown so you can use it every other GCD.
+            Using <SpellLink id={SPELLS.AVATAR_TALENT.id} /> as often as possible is very important because it will increase your overall damage a lot and provides 30 <ResourceLink id={RESOURCE_TYPES.RAGE.id} />.<br /> If you are also using <SpellLink id={SPELLS.UNSTOPPABLE_FORCE_TALENT.id} /> remember that <SpellLink id={SPELLS.THUNDER_CLAP.id} /> will have a reduced cooldown so you can use it every other GCD.
 
           </>
         )}
