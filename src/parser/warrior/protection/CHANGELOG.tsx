@@ -4,6 +4,7 @@ import { Abelito75, Putro, Zeboot } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2021, 1, 8), 'Fixed block check because zeboot broke it.', Abelito75),
   change(date(2020, 12, 17), 'Fixed undefined spell error.', Abelito75),
   change(date(2020, 12, 17), 'Added some shadowlandisms.', Abelito75),
   change(date(2020, 12, 17), 'Removed all BFAisms.', Abelito75),
