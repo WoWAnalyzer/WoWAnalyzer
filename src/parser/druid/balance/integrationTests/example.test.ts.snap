@@ -5,7 +5,7 @@ Array [
   Object {
     "details": null,
     "icon": "spell_mage_altertime",
-    "importance": "minor",
+    "importance": "major",
     "issue": <Trans
       id="shared.suggestions.alwaysBeCasting.suggestion"
       message="Your downtime can be improved. Try to Always Be Casting (ABC), avoid delays between casting spells and cast instant spells when you have to move."
@@ -16,12 +16,12 @@ Array [
         message="{0}% downtime"
         values={
           Object {
-            "0": "28.39",
+            "0": "71.25",
           }
         }
       />
        (
-      &lt;20.00% is recommended
+      &lt;90.00% is recommended
       )
     </React.Fragment>,
   },
@@ -4161,7 +4161,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "11.995496915607172%",
+                  "width": "23.305018451190843%",
                 }
               }
             />
@@ -4238,7 +4238,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
               <div
                 className="flex-main"
               >
-                Downtime
+                Active Time
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -4259,7 +4259,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  28.39%
+                  71.25%
                    
                    
                 </div>
@@ -4281,7 +4281,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "7.038266558487069%",
+                        "width": "29.65730962965441%",
                       }
                     }
                   />
@@ -4918,7 +4918,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
           <div
             className="col-md-12"
           >
-            You should try to always avoid overcapping your Astral Power. Sometimes you can not avoid overcapping both of them. In that case, you should prioritize spending the Astral Power.
+            While you sometimes cannot avoid overcapping, you should try to always avoid overcapping your Astral Power.
           </div>
         </div>
         <div

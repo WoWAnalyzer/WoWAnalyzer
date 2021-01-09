@@ -1,6 +1,5 @@
 import MainCombatLogParser from 'parser/core/CombatLogParser';
 
-import Haste from './modules/core/Haste';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 
 //Features
@@ -27,7 +26,6 @@ import AstralPowerTracker from './modules/resourcetracker/AstralPowerTracker';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
-    haste: Haste,
     globalCooldown: GlobalCooldown,
 
     //Features

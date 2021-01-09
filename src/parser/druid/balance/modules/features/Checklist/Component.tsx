@@ -30,7 +30,7 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
           </>
         )}
       >
-        <Requirement name="Downtime" thresholds={thresholds.downtime} />
+        <Requirement name="Active Time" thresholds={thresholds.downtime} />
         <Requirement name="Cancelled Casts" thresholds={thresholds.cancelledCasts} />
       </Rule>
       <Rule
@@ -97,7 +97,7 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
       </Rule>
       <Rule
         name="Do not overcap your resources"
-        description="You should try to always avoid overcapping your Astral Power. Sometimes you can not avoid overcapping both of them. In that case, you should prioritize spending the Astral Power."
+        description="While you sometimes cannot avoid overcapping, you should try to always avoid overcapping your Astral Power."
       >
         <Requirement name="Astral Power efficiency" thresholds={thresholds.astralPowerEfficiency} />
       </Rule>

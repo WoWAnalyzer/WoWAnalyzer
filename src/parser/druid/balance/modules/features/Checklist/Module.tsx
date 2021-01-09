@@ -51,7 +51,7 @@ class Checklist extends BaseModule {
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
 
-          downtime: this.alwaysBeCasting.downtimeSuggestionThresholds,
+          downtime: this.alwaysBeCasting.suggestionThresholds,
           cancelledCasts: this.cancelledCasts.suggestionThresholds,
           moonfireUptime: this.moonfireUptime.suggestionThresholds,
           sunfireUptime: this.sunfireUptime.suggestionThresholds,
