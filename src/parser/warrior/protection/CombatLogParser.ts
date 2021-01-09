@@ -27,6 +27,9 @@ import Punish from './modules/talents/Punish';
 import DragonRoar from './modules/talents/DragonRoar';
 import SpellReflect from './modules/spells/SpellReflect';
 
+//covenants
+import Condemn from '../shared/modules/covenants/Condemn';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
@@ -59,8 +62,8 @@ class CombatLogParser extends CoreCombatLogParser {
     punish: Punish,
     dragonRoar: DragonRoar,
 
-    // Doesn't generate enough rage to be a valid cast
-    arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
+    //covenants
+    condemn: Condemn,
   };
 }
 
