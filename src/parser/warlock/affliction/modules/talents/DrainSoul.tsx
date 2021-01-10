@@ -4,6 +4,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Enemies from 'parser/shared/modules/Enemies';
 import Events, { EnergizeEvent, RemoveDebuffEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
@@ -17,7 +18,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import { t } from '@lingui/macro';
 
 import SoulShardTracker from '../soulshards/SoulShardTracker';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+
 // limit to filter out relevant removedebuffs (those what I'm interested in happen either at the same timestamp as energize, or about 20ms afterwards (tested on 2 logs, didn't surpass 30ms))
 // it's still possible that it can be a coincidence (mob dies and at the same time something falls off somewhere unrelated), but shouldn't happen too much
 const ENERGIZE_REMOVEDEBUFF_THRESHOLD = 100;
