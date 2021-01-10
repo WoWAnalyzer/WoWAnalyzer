@@ -5,6 +5,7 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2020, 1, 10), <> Adjusted <SpellLink id={SPELLS.WILD_SPIRITS.id}/> global cooldown to correctly be reduced by haste twice in the analyzer, to reflect behaviour in-game. </>, Putro),
   change(date(2020, 1, 8), <> Correct an issue where if <SpellLink id={SPELLS.HUNTERS_MARK.id} /> was applied before combat and never dropped, <SpellLink id={SPELLS.MARKMANS_ADVANTAGE_CONDUIT.id} /> would never be attributed any damage. </>, Putro),
   change(date(2020, 1, 3), <> Added support for <SpellLink id={SPELLS.MARKMANS_ADVANTAGE_CONDUIT.id} /> and <SpellLink id={SPELLS.RESILIENCE_OF_THE_HUNTER_CONDUIT.id} />. </>, Putro),
   change(date(2020, 12, 20), <> Added proper handling for registering prepull casts of <SpellLink id={SPELLS.DOUBLE_TAP_TALENT.id} />. </>, Putro),
