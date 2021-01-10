@@ -5,9 +5,8 @@ import InformationIcon from 'interface/icons/Information';
 import SPELLS from 'common/SPELLS/index';
 import Tooltip, { TooltipElement } from 'common/Tooltip';
 import { formatNumber } from 'common/format';
-import { calculatePrimaryStat, calculateSecondaryStatDefault } from 'common/stats';
-import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events, { EventType } from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Events, { AbsorbedEvent, DamageEvent, EventType, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 import HIT_TYPES from 'game/HIT_TYPES';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import DamageValue from 'parser/shared/modules/DamageValue';
@@ -28,11 +27,14 @@ const DEBUG = false;
  * @property {CritEffectBonus} critEffectBonus
  * @property {StatTracker} statTracker
  */
-class BaseHealerStatValues extends Analyzer {
+abstract class BaseHealerStatValues extends Analyzer {
   static dependencies = {
     critEffectBonus: CritEffectBonus,
     statTracker: StatTracker,
   };
+
+  protected critEffectBonus!: CritEffectBonus;
+  protected statTracker!: StatTracker;
 
   /**
    * QE Live Link Setter
@@ -44,7 +46,7 @@ class BaseHealerStatValues extends Analyzer {
   // region Spell info
 
   // We assume unlisted spells scale with vers only (this will mostly be trinkets)
-  fallbackSpellInfo = {
+  fallbackSpellInfo: HealerSpellInfo = {
     int: false,
     crit: true,
     hasteHpm: false,
@@ -53,12 +55,12 @@ class BaseHealerStatValues extends Analyzer {
     vers: true,
   };
   // This will contain shared settings for things like trinkets and Leech
-  sharedSpellInfo = CORE_SPELL_INFO;
+  sharedSpellInfo: {[key: string]: HealerSpellInfo} = CORE_SPELL_INFO;
   // This is for spec specific implementations to override. It gets priority over defaultSpellInfo.
-  spellInfo = {};
+  spellInfo: ListOfHealerSpellInfo = {};
 
-  mentioned = [];
-  _getSpellInfo(event) {
+  mentioned: number[] = [];
+  _getSpellInfo(event: HealerStatWeightEvents): HealerSpellInfo {
     const spellId = event.ability.guid;
 
     const specSpecific = this.spellInfo[spellId];
@@ -98,7 +100,7 @@ class BaseHealerStatValues extends Analyzer {
 
   scaleWeightsWithHealth = false;
 
-  constructor(options){
+  constructor(options: Options){
     super(options);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER_PET), this.onHeal);
@@ -111,23 +113,28 @@ class BaseHealerStatValues extends Analyzer {
     this.addEventListener(Events.fightend, this.onFightend);
   }
 
-  onHeal(event) {
+  onHeal(event: HealEvent) {
     const healVal = new HealingValue(event.amount, event.absorbed, event.overheal);
     this._handleHealEvent(event, healVal);
   }
-  onAbsorb(event) {
+  onAbsorb(event: AbsorbedEvent) {
     const healVal = new HealingValue(event.amount, 0, 0);
     this._handleHealEvent(event, healVal);
   }
-  onRemoveBuff(event) {
+  onRemoveBuff(event: RemoveBuffEvent) {
     if (event.absorb) {
       const healVal = new HealingValue(0, 0, event.absorb);
       this._handleHealEvent(event, healVal);
     }
   }
-  _handleHealEvent(event, healVal) {
+  _handleHealEvent(event: HealerStatWeightEvents, healVal: HealingValue) {
     const spellInfo = this._getSpellInfo(event);
-    const targetHealthPercentage = (event.hitPoints - healVal.effective) / event.maxHitPoints; // hitPoints contains HP *after* the heal
+    //an Absorbed event doesn't have hitPoints nor MaxHitPoints meaning this would go to NaN / NaN = NaN
+    let targetHealthPercentage = NaN;
+    if('hitPoints' in event){
+      targetHealthPercentage = (event.hitPoints - healVal.effective) / event.maxHitPoints;
+    }
+     // hitPoints contains HP *after* the heal
     this._handleHeal(spellInfo, event, healVal, targetHealthPercentage);
   }
   /**
@@ -138,7 +145,7 @@ class BaseHealerStatValues extends Analyzer {
    * @param targetHealthPercentage The percentage of health the target has remaining BEFORE the heal.
    * @private
    */
-  _handleHeal(spellInfo, eventForWeights, healVal, targetHealthPercentage) {
+  _handleHeal(spellInfo: HealerSpellInfo, eventForWeights: HealerStatWeightEvents, healVal: HealingValue, targetHealthPercentage: number) {
     // Most spells are counted in healing total, but some spells scale not on their own but 'second hand' from other spells
     // I adjust them out of total healing to preserve some accuracy in the "Rating per 1%" stat.
     // Good examples of multiplier spells are Leech and Velens.
@@ -176,7 +183,7 @@ class BaseHealerStatValues extends Analyzer {
       this.totalOneVers += this._adjustGain(this._versatility(eventForWeights, healVal), targetHealthPercentage);
     }
   }
-  _adjustGain(gain, targetHealthPercentage) {
+  _adjustGain(gain: number, targetHealthPercentage: number) {
     if (gain === 0) {
       return 0;
     }
@@ -185,7 +192,7 @@ class BaseHealerStatValues extends Analyzer {
     const mult = 1 - Math.max(0, (targetHealthPercentage - maxValueHealthPercentage) / (1 - maxValueHealthPercentage));
     return this.scaleWeightsWithHealth ? gain * mult : gain;
   }
-  _leech(event, healVal, spellInfo) {
+  _leech(event: HealerStatWeightEvents, healVal: HealingValue, spellInfo: HealerSpellInfo) {
     if (event.type !== EventType.Heal) {
       return 0; // leech doesn't proc from absorbs
     }
@@ -194,12 +201,12 @@ class BaseHealerStatValues extends Analyzer {
     // Leech is marked as a 'multplier' heal, so we have to check it before we do the early return below
     const hasLeech = this.statTracker.currentLeechPercentage > 0;
     if (hasLeech) {
-      return this._leechHasLeech(event, healVal, spellInfo);
+      return this._leechHasLeech(event, healVal);
     } else {
       return this._leechPrediction(event, healVal, spellInfo);
     }
   }
-  _leechHasLeech(event, healVal/*, spellInfo*/) {
+  _leechHasLeech(event: HealerStatWeightEvents, healVal: HealingValue) {
     // When the user has Leech we can use the actual Leech healing to accuractely calculate its HPS value without having to do any kind of predicting
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.LEECH.id) {
@@ -210,7 +217,7 @@ class BaseHealerStatValues extends Analyzer {
     }
     return 0;
   }
-  _leechPrediction(event, healVal, spellInfo) {
+  _leechPrediction(event: HealerStatWeightEvents, healVal: HealingValue, spellInfo: HealerSpellInfo) {
     // Without Leech we will have to make an estimation so we can still provide the user with a decent value
     if (this.owner.toPlayer(event)) {
       return 0; // Leech doesn't proc from self-healing
@@ -224,7 +231,7 @@ class BaseHealerStatValues extends Analyzer {
     }
     return 0;
   }
-  _intellect(event, healVal) {
+  _intellect(event: HealerStatWeightEvents, healVal: HealingValue) {
     if (healVal.overheal) {
       // If a spell overheals, it could not have healed for more. Seeing as Int only adds HP on top of the existing heal we can skip it as increasing the power of this heal would only be more overhealing.
       return 0;
@@ -232,17 +239,17 @@ class BaseHealerStatValues extends Analyzer {
     const healIncreaseFromOneInt = this.statTracker.statMultiplier.intellect / this.statTracker.currentIntellectRating;
     return healVal.effective * healIncreaseFromOneInt;
   }
-  _getCritChance(event) {
+  _getCritChance(event: HealerStatWeightEvents) {
     const rating = this.statTracker.currentCritRating;
     const baseCritChance = this.statTracker.baseCritPercentage;
     const ratingCritChance = rating / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentCritRating, this.statTracker.statBaselineRatingPerPercent[STAT.CRITICAL_STRIKE]);
 
     return { baseCritChance, ratingCritChance };
   }
-  _isCrit(event) {
-    return event.hitType === HIT_TYPES.CRIT;
+  _isCrit(event: HealerStatWeightEvents) {
+    return "hitType" in event ? event.hitType === HIT_TYPES.CRIT : false;
   }
-  _criticalStrike(event, healVal) {
+  _criticalStrike(event: HealerStatWeightEvents, healVal: HealingValue) {
     if (this._isCrit(event)) {
       // This collects the total effective healing contributed by the last 1 point of critical strike rating.
       // We don't make any predictions on normal hits based on crit chance since this would be guess work and we are a log analysis system so we prefer to only work with facts. Actual crit heals are undeniable facts, unlike speculating the chance a normal hit might have crit (and accounting for the potential overhealing of that).
@@ -266,21 +273,21 @@ class BaseHealerStatValues extends Analyzer {
     }
     return 0;
   }
-  _hasteHpct(event, healVal) {
+  _hasteHpct(event: HealerStatWeightEvents, healVal: HealingValue) {
     const currHastePerc = this.statTracker.currentHastePercentage;
     const healIncreaseFromOneHaste = this.statTracker.statMultiplier.haste / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentHasteRating, this.statTracker.statBaselineRatingPerPercent[STAT.HASTE]);
     const baseHeal = healVal.effective / (1 + currHastePerc);
     return baseHeal * healIncreaseFromOneHaste;
   }
-  _hasteHpm(event, healVal) {
+  _hasteHpm(event: HealerStatWeightEvents, healVal: HealingValue) {
     const healIncreaseFromOneHaste = this.statTracker.statMultiplier.haste / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentHasteRating, this.statTracker.statBaselineRatingPerPercent[STAT.HASTE]);
     const noHasteHealing = healVal.effective / (1 + this.statTracker.currentHastePercentage);
     return noHasteHealing * healIncreaseFromOneHaste;
   }
-  _mastery(event, healVal) {
+  _mastery(event: HealerStatWeightEvents, healVal: HealingValue): number {
     throw new Error('Missing custom Mastery implementation. This is different per spec.');
   }
-  _versatility(event, healVal) {
+  _versatility(event: HealerStatWeightEvents, healVal: HealingValue) {
     if (healVal.overheal) {
       // If a spell overheals, it could not have healed for more. Seeing as Versatility only adds HP on top of the existing heal we can skip it as increasing the power of this heal would only be more overhealing.
       return 0;
@@ -291,7 +298,7 @@ class BaseHealerStatValues extends Analyzer {
     return baseHeal * healIncreaseFromOneVers;
   }
 
-  onDamageTaken(event) {
+  onDamageTaken(event: DamageEvent) {
     this._updateMissingHealth(event);
 
     const damageVal = new DamageValue(event.amount, event.absorbed, event.blocked, event.overkill);
@@ -300,7 +307,7 @@ class BaseHealerStatValues extends Analyzer {
     // TODO: Figure out how to make this account for target health since damage event don't appear to have hitPoints info
     this.totalOneVersDr += this._versatilityDamageReduction(event, damageVal);
   }
-  _versatilityDamageReduction(event, damageVal) {
+  _versatilityDamageReduction(event: DamageEvent, damageVal: DamageValue) {
     const amount = damageVal.effective;
     const currentVersDamageReductionPercentage = this.statTracker.currentVersatilityPercentage / 2;
     const damageReductionIncreaseFromOneVers = this.statTracker.statMultiplier.versatility / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentVersatilityRating, this.statTracker.statBaselineRatingPerPercent[STAT.VERSATILITY], 1, false) / 2; // the DR part is only 50% of the Versa percentage
@@ -309,10 +316,10 @@ class BaseHealerStatValues extends Analyzer {
     return noVersDamage * damageReductionIncreaseFromOneVers;
   }
 
-  onHealTaken(event) {
+  onHealTaken(event: HealEvent) {
     this._updateMissingHealth(event);
   }
-  _updateMissingHealth(event) {
+  _updateMissingHealth(event: HealEvent | DamageEvent) {
     if (event.hitPoints && event.maxHitPoints) { // fields not always populated, don't know why
       // `maxHitPoints` is always the value *after* the effect applied
       this.playerHealthMissing = event.maxHitPoints - event.hitPoints;
@@ -360,37 +367,12 @@ class BaseHealerStatValues extends Analyzer {
     return this._getGain(STAT.LEECH) / this.owner.fightDuration * 1000;
   }
 
-  // region Item values
-  calculateItemStatsHps(baseStats, itemLevel) {
-    let hps = 0;
-    if (baseStats.primary) {
-      hps += calculatePrimaryStat(baseStats.itemLevel, baseStats.primary, itemLevel) * this.hpsPerIntellect;
-    }
-    if (baseStats.criticalStrike) {
-      hps += calculateSecondaryStatDefault(baseStats.itemLevel, baseStats.criticalStrike, itemLevel) * this.hpsPerCriticalStrike;
-    }
-    if (baseStats.haste) {
-      hps += calculateSecondaryStatDefault(baseStats.itemLevel, baseStats.haste, itemLevel) * this.hpsPerHaste;
-    }
-    if (baseStats.mastery) {
-      hps += calculateSecondaryStatDefault(baseStats.itemLevel, baseStats.mastery, itemLevel) * this.hpsPerMastery;
-    }
-    if (baseStats.versatility) {
-      hps += calculateSecondaryStatDefault(baseStats.itemLevel, baseStats.versatility, itemLevel) * this.hpsPerVersatility;
-    }
-    if (baseStats.leech) {
-      hps += calculateSecondaryStatDefault(baseStats.itemLevel, baseStats.leech, itemLevel) * this.hpsPerLeech;
-    }
-    return hps;
-  }
-  // endregion
-
   // region statistic
-  _ratingPerOnePercent(oneRatingHealing) {
+  _ratingPerOnePercent(oneRatingHealing: number) {
     const onePercentHealing = this.totalAdjustedHealing / 100;
     return onePercentHealing / oneRatingHealing;
   }
-  _getGain(stat) {
+  _getGain(stat: string) {
     switch (stat) {
       case STAT.INTELLECT:
         return this.totalOneInt;
@@ -412,7 +394,7 @@ class BaseHealerStatValues extends Analyzer {
         return 0;
     }
   }
-  _getTooltip(stat) {
+  _getTooltip(stat: string) {
     switch (stat) {
       case STAT.HASTE_HPCT:
         return <Trans id="shared.healerStatValues.stats.hpct">HPCT stands for "Healing per Cast Time". This is the value that Haste would be worth if you would cast everything you are already casting (and that scales with Haste) faster. Mana is not accounted for in any way and you should consider the Haste stat weight 0 if you run out of mana while doing everything else right.</Trans>;
@@ -424,10 +406,13 @@ class BaseHealerStatValues extends Analyzer {
         return null;
     }
   }
+
+  abstract _prepareResults(): Array<(string | StatMessage)>;
+
   static position = STATISTIC_ORDER.CORE(9);
   statistic() {
     const results = this._prepareResults();
-    const qeLink = results.reduce((urlParts, stat) => {
+    const qeLink = results.reduce((urlParts: string[], stat: StatMessage | string) => {
       if (stat === 'intellect' || stat === 'versatilitydr') {
         return urlParts;
       }
@@ -435,13 +420,14 @@ class BaseHealerStatValues extends Analyzer {
       const statValue = typeof stat === 'object' ? stat.stat : stat;
       const gain = this._getGain(statValue);
       const weight = gain / (this.totalOneInt || 1);
-      const statName = getName(statValue).replace(/[()\s+]/g, '');
+      const gottenName = getName(statValue);
+      const statName = gottenName === null ? "" : gottenName.replace(/[()\s+]/g, '') ;
 
       urlParts.push(statName + '=' + weight.toFixed(2));
       return urlParts;
     }, []).join('&');
     return (
-      <StatisticWrapper position={this.constructor.position}>
+      <StatisticWrapper position={BaseHealerStatValues.position}>
         <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
           <div className="panel items statistic">
             <div className="panel-body" style={{ padding: '10px 0 16px' }}>
@@ -488,20 +474,22 @@ class BaseHealerStatValues extends Analyzer {
 
                     const Icon = getIcon(stat);
 
+                    const className = getClassNameColor(stat);
+                    const classNameCorrected = className ? className : undefined;
+
                     const gainPerSecond = (gain / this.owner.fightDuration * 1000).toFixed(2);
                     const rating = gain !== null ? (ratingForOne === Infinity ? '∞' : formatNumber(ratingForOne)) : 'NYI';
                     const informationIconTooltip = <Trans id="shared.healerStatValues.statistic.stats.tooltip">{gainPerSecond} HPS per 1 rating / {rating} rating per 1% throughput</Trans>;
 
                     return (
                       <tr key={stat}>
-                        <td className={getClassNameColor(stat)}>
-                          <Icon
-                            style={{
+                        <td className={classNameCorrected}>
+                          {Icon ? <Icon style={{
                               height: '1.6em',
                               width: '1.6em',
                               marginRight: 10,
-                            }}
-                          />{' '}
+                            }}/> : ""}
+                          {' '}
                           {tooltip ? <TooltipElement content={tooltip}>{getNameTranslated(stat)}</TooltipElement> : getNameTranslated(stat)}
                         </td>
                         <td className="text-right">
@@ -529,3 +517,26 @@ class BaseHealerStatValues extends Analyzer {
 }
 
 export default BaseHealerStatValues;
+
+export type HealerStatWeightEvents = HealEvent | AbsorbedEvent | RemoveBuffEvent;
+
+export interface HealerSpellInfo {
+  int?: boolean;
+  crit?: boolean;
+  hasteHpm?: boolean;
+  hasteHpct?: boolean;
+  mastery?: boolean;
+  vers?: boolean;
+  ignored?: boolean;
+  multiplier?: boolean;
+  masteryStack?: boolean;
+};
+
+export interface ListOfHealerSpellInfo {
+  [key: string]: HealerSpellInfo;
+}
+
+export interface StatMessage {
+  stat: string;
+  tooltip: JSX.Element;
+}

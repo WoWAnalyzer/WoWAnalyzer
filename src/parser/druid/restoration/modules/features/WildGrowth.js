@@ -17,7 +17,6 @@ const RECOMMENDED_HIT_THRESHOLD = 5;
 const PRECAST_PERIOD = 3000;
 const PRECAST_THRESHOLD = 0.5;
 
-// TODO - dynamic suggestion threshold based on variables such as Autumn leaves
 class WildGrowth extends Analyzer {
   get averageEffectiveHits() {
     return (this.wgHistory.reduce((a, b) => a + b.wgBuffs.length, 0) / this.wgs) || 0;

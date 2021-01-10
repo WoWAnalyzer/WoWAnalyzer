@@ -7,9 +7,10 @@ import SpellIcon from 'common/SpellIcon';
 import BoringValue from 'interface/statistics/components/BoringValueText';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { t } from '@lingui/macro';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 const debug = false;
 const LOW_HEALTH_HEALING_THRESHOLD = 0.3;
@@ -18,7 +19,7 @@ const ABUNDANCE_EXCEPTION_STACKS = 4;
 
 class Clearcasting extends Analyzer {
 
-  procsPerCC;
+  procsPerCC = 1;
 
   totalProcs = 0;
   expiredProcs = 0;
@@ -32,9 +33,8 @@ class Clearcasting extends Analyzer {
   lowHealthRegrowthsNoCC = 0;
   abundanceRegrowthsNoCC = 0;
 
-  constructor(...args) {
-    super(...args);
-    this.procsPerCC = 1;
+  constructor(options: Options) {
+    super(options);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.CLEARCASTING_BUFF), this.onApplyBuff);
     this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.CLEARCASTING_BUFF), this.onRefreshBuff);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.CLEARCASTING_BUFF), this.onRemoveBuff);
@@ -42,20 +42,20 @@ class Clearcasting extends Analyzer {
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH), this.onHeal);
   }
 
-  onApplyBuff(event) {
+  onApplyBuff(event: ApplyBuffEvent) {
     debug && console.log(`Clearcasting applied @${this.owner.formatTimestamp(event.timestamp)} - ${this.procsPerCC} procs remaining`);
     this.totalProcs += this.procsPerCC;
     this.availableProcs = this.procsPerCC;
   }
 
-  onRefreshBuff(event) {
+  onRefreshBuff(event: RefreshBuffEvent) {
     debug && console.log(`Clearcasting refreshed @${this.owner.formatTimestamp(event.timestamp)} - overwriting ${this.availableProcs} procs - ${this.procsPerCC} procs remaining`);
     this.totalProcs += this.procsPerCC;
     this.overwrittenProcs += this.availableProcs;
     this.availableProcs = this.procsPerCC;
   }
 
-  onRemoveBuff(event) {
+  onRemoveBuff(event: RemoveBuffEvent) {
     debug && console.log(`Clearcasting expired @${this.owner.formatTimestamp(event.timestamp)} - ${this.availableProcs} procs expired`);
     if (this.availableProcs < 0) {
       this.availableProcs = 0;
@@ -64,7 +64,7 @@ class Clearcasting extends Analyzer {
     this.availableProcs = 0;
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     if (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
       return;
     }
@@ -79,12 +79,12 @@ class Clearcasting extends Analyzer {
       this.nonCCRegrowths += 1;
       const abundance = this.selectedCombatant.getBuff(SPELLS.ABUNDANCE_BUFF.id);
       if (abundance) {
-        this.abundanceRegrowthsNoCC += abundance.stacks >= ABUNDANCE_EXCEPTION_STACKS;
+        this.abundanceRegrowthsNoCC += abundance.stacks >= ABUNDANCE_EXCEPTION_STACKS ? 1 : 0;
       }
     }
   }
 
-  onHeal(event) {
+  onHeal(event: HealEvent) {
     if (event.tick) {
       return;
     }
@@ -118,7 +118,7 @@ class Clearcasting extends Analyzer {
         average: 0.50,
         major: 0.25,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -138,7 +138,7 @@ class Clearcasting extends Analyzer {
         average: 1,
         major: 3,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
@@ -150,7 +150,7 @@ class Clearcasting extends Analyzer {
     );
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.clearcastingUtilSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> procs should be used quickly so they do not get overwritten or expire.</>)
           .icon(SPELLS.CLEARCASTING_BUFF.icon)
@@ -158,7 +158,7 @@ class Clearcasting extends Analyzer {
       id: "druid.restoration.suggestions.clearcasting.wastedProcs",
       message: `You missed ${this.wastedProcs} out of ${this.totalProcs} (${formatPercentage(1 - this.clearcastingUtilPercent, 1)}%) of your free regrowth procs`
     }))
-          .recommended(`<${Math.round(formatPercentage(1 - recommended, 1))}% is recommended`));
+          .recommended(`<${formatPercentage(1 - recommended, 1)}% is recommended`));
     when(this.nonCCRegrowthsSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(this.regrowthInnefficiencyWarning)
           .icon(SPELLS.REGROWTH.icon)

@@ -145,7 +145,7 @@ exports[`Holy Paladin integration test: example log AlwaysBeCasting matches the 
                   Object {
                     "fill": "none",
                     "margin": 0,
-                    "transform": "rotate(36.97803999523816deg)",
+                    "transform": "rotate(34.29529743185137deg)",
                     "transformOrigin": "5px 27px",
                   }
                 }
@@ -175,7 +175,7 @@ exports[`Holy Paladin integration test: example log AlwaysBeCasting matches the 
                 }
               }
             >
-              63
+              62
               %
             </div>
           </div>
@@ -264,7 +264,7 @@ Array [
     "importance": "regular",
     "issue": "Your active time can be improved. Try to reduce your downtime, for example by reducing the delay between casting spells and when you're not healing try to contribute some damage.",
     "stat": <React.Fragment>
-      {"id":"shared.suggestions.alwaysBeCasting.activeTime","message":"{0}% active time","values":{"0":"63.21"}}
+      {"id":"shared.suggestions.alwaysBeCasting.activeTime","message":"{0}% active time","values":{"0":"62.25"}}
        (
       &gt;80.00% is recommended
       )
@@ -10704,7 +10704,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               style={
                 Object {
                   "backgroundColor": "#df7102",
-                  "width": "45.899604093906255%",
+                  "width": "45.65417737038763%",
                 }
               }
             />
@@ -10878,7 +10878,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  36.79%
+                  37.75%
                    
                    
                 </div>
@@ -10900,7 +10900,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                       Object {
                         "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "65.68114687824962%",
+                        "width": "65.19029343121237%",
                       }
                     }
                   />

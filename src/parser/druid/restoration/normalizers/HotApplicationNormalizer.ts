@@ -1,7 +1,7 @@
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 import SPELLS from 'common/SPELLS';
-import { EventType } from 'parser/core/Events';
+import { AnyEvent, EventType } from 'parser/core/Events';
 
 // so far I haven't seen any delay, so leaving this at zero so timestamp ordering is preserved,
 // and to avoid false positives if HoT falls and then quickly refreshed
@@ -20,8 +20,8 @@ class HotApplicationNormalizer extends EventsNormalizer {
     //TODO - blazyb
   ];
 
-  normalize(events) {
-    const fixedEvents = [];
+  normalize(events: AnyEvent[]): AnyEvent[] {
+    const fixedEvents: AnyEvent[] = [];
     events.forEach((event, eventIndex) => {
       fixedEvents.push(event);
 

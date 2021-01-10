@@ -7,8 +7,9 @@ import BoringValue from 'interface/statistics/components/BoringValueText';
 
 import SPELLS from 'common/SPELLS';
 import fetchWcl from 'common/fetchWclApi';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { EventType } from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, EventType } from 'parser/core/Events';
+import { WCLDamageTaken, WCLDamageTakenTableResponse } from 'common/WCL_TYPES';
 
 const IRONBARK_BASE_DR = 0.20;
 
@@ -20,13 +21,13 @@ class Ironbark extends Analyzer {
   ironbarkCount = 0;
   damageTakenDuringIronbark = 0;
 
-  constructor(options) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.IRONBARK), this.onCast);
     this.loadDamageTakenDuringIronbark();
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     this.ironbarkCount += 1;
   }
 
@@ -37,7 +38,8 @@ class Ironbark extends Analyzer {
       filter: `(IN RANGE FROM type='${EventType.ApplyBuff}' AND ability.id=${SPELLS.IRONBARK.id} AND source.name='${this.selectedCombatant.name}' TO type='${EventType.RemoveBuff}' AND ability.id=${SPELLS.IRONBARK.id} AND source.name='${this.selectedCombatant.name}' GROUP BY target ON target END)`,
     })
       .then((json) => {
-        this.damageTakenDuringIronbark = json.entries.reduce((damageTaken, entry) => damageTaken + entry.total, 0);
+        json = json as WCLDamageTakenTableResponse;
+        this.damageTakenDuringIronbark = (json.entries as WCLDamageTaken[]).reduce((damageTaken: number, entry) => damageTaken + entry.total, 0);
       })
       .catch(err => {
         throw err;

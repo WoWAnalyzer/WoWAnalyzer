@@ -10,11 +10,25 @@ import BoringValue from 'interface/statistics/components/BoringValueText';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import { t } from '@lingui/macro';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 class Lifebloom extends Analyzer {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
+  protected combatants!: Combatants;
+
+  hasDta = false;
+
+  constructor(options: Options) {
+    super(options);
+    this.hasDta = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.LIFEBLOOM_DTL_HOT_HEAL.bonusID);
+  }
+
   get uptime() {
     // Only either LIFEBLOOM_HOT_HEAL or LIFEBLOOM_DTL_HOT_HEAL can be up (with or without the DTL legendary), but
     // DTL Lifeblooms (LIFEBLOOM_DTL_HOT_HEAL) are on two targets so their BuffUptime need to behalved for a percentage
@@ -35,15 +49,11 @@ class Lifebloom extends Analyzer {
         average: 0.60,
         major: 0.40,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  static dependencies = {
-    combatants: Combatants,
-  };
-
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} /> uptime can be improved. {this.hasDta ? <>High uptime is particularly important for taking advantage of your equipped <ItemLink id={ITEMS.THE_DARK_TITANS_ADVICE.id} /></> : ''}</>)
         .icon(SPELLS.LIFEBLOOM_HOT_HEAL.icon)
@@ -51,7 +61,7 @@ class Lifebloom extends Analyzer {
           id: "druid.restoration.suggestions.lifebloom.uptime",
           message: `${formatPercentage(this.uptimePercent)}% uptime`
         }))
-        .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`));
+        .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
   statistic() {

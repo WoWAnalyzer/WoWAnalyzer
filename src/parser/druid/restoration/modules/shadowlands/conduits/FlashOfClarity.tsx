@@ -1,8 +1,8 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Events from 'parser/core/Events';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, HealEvent } from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 
@@ -14,30 +14,46 @@ import ItemHealingDone from 'interface/ItemHealingDone';
 
 class FlashOfClarity extends Analyzer {
 
+
   healingBoost = 0;
   healing = 0;
 
-  targetsWithClearCastingRegrowth = [];
+  targetsWithClearCastingRegrowth: number[] = [];
 
   /**
    * Flash of Clarity makes it so any regrowth casted with clearcasting is boosted by x% on hot healing and direct heal
    */
-  constructor(...args) {
-    super(...args);
-    this.active = false;
+  constructor(options: Options) {
+    super(options);
 
-    this.healingBoost = .20;//TODO Get from combat data when they EXPORT IT >:c
+    const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.JADE_BOND.id);
 
-    if (!this.active) {
+    if (!conduitRank) {
+      this.active = false;
       return;
     }
+
+    this.healingBoost = this.conduitScaling(.20, conduitRank);
+
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH), this.checkIfClearCasting);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH), this.normalizeBoost);
   }
 
-  checkIfClearCasting(event){
+  //this works for this one. I'm not certain it works for all resto druid conduits yet so for now its here
+  conduitScaling(rankOne: number, requiredRank: number) {
+    const scalingFactor = rankOne * .1;
+    const rankZero = rankOne - scalingFactor;
+    const rankRequested = rankZero + scalingFactor * requiredRank;
+    return rankRequested;
+  }
+
+  checkIfClearCasting(event: CastEvent){
     const targetID = event.targetID;
+    if(!targetID){
+      return;
+    }
+
     // Currently this is bugged so when you are innervated each
     // !this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)
     if(this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_BUFF.id)) {
@@ -47,7 +63,7 @@ class FlashOfClarity extends Analyzer {
     }
   }
 
-  normalizeBoost(event){
+  normalizeBoost(event: HealEvent){
     if(this.targetsWithClearCastingRegrowth[event.targetID]){
       this.healing += calculateEffectiveHealing(event, this.healingBoost);
     }

@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
@@ -24,7 +25,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
         average: 0.4,
         major: 0.8,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -36,7 +37,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
         average: 0.3,
         major: 0.5,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 }
