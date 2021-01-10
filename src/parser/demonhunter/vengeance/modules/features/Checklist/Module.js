@@ -16,6 +16,7 @@ import SoulBarrier from '../../talents/SoulBarrier';
 //Spells
 import SoulCleaveSoulsConsumed from '../../spells/SoulCleaveSoulsConsumed';
 import DemonSpikes from '../../spells/DemonSpikes';
+import ShearFracture from '../../spells/ShearFracture';
 
 // Resources
 import FuryDetails from '../../fury/FuryDetails';
@@ -43,6 +44,7 @@ class Checklist extends BaseModule {
     // Spells
     soulCleaveSoulsConsumed: SoulCleaveSoulsConsumed,
     demonSpikes: DemonSpikes,
+    shearFracture: ShearFracture,
 
     // Resources
     furyDetails: FuryDetails,
@@ -67,6 +69,7 @@ class Checklist extends BaseModule {
           demonSpikes: this.demonSpikes.suggestionThresholdsEfficiency,
           furyDetails: this.furyDetails.suggestionThresholds,
           soulsOvercap: this.soulsOvercap.suggestionThresholdsEfficiency,
+          shearFracture: this.shearFracture.wastedCasts,
         }}
       />
     );
