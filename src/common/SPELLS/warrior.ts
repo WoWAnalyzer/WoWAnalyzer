@@ -246,6 +246,11 @@ const spells = {
     name: 'Ravager',
     icon: 'warrior_talent_icon_ravager',
   },
+  RAVAGER_ENERGIZE: {
+    id: 334934,
+    name: 'Ravager',
+    icon: 'warrior_talent_icon_ravager',
+  },
 
   // Shared Talent buffs
   BOUNDING_STRIDE_BUFF: {

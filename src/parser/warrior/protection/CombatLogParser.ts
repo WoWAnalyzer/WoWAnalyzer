@@ -29,6 +29,11 @@ import SpellReflect from './modules/spells/SpellReflect';
 //covenants
 import Condemn from '../shared/modules/covenants/Condemn';
 
+//legendaries
+import TheWall from './modules/shadowlands/legendaries/TheWall';
+import Thunderlord from './modules/shadowlands/legendaries/Thunderlord';
+
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
@@ -63,6 +68,10 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //covenants
     condemn: Condemn,
+
+    //legos
+    theWall: TheWall,
+    thunderlord: Thunderlord,
   };
 }
 
