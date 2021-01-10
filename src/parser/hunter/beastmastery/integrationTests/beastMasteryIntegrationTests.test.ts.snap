@@ -34,7 +34,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target AlwaysBeCasting mat
         <div
           className="value"
         >
-          13.49 %
+          13.63 %
         </div>
         <div
           style={
@@ -53,7 +53,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target AlwaysBeCasting mat
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "86.51144785081783%",
+                  "width": "86.37476704189856%",
                 }
               }
             >
@@ -117,7 +117,7 @@ Array [
         message="{0}% downtime"
         values={
           Object {
-            "0": "13.49",
+            "0": "13.63",
           }
         }
       />
@@ -7421,7 +7421,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "69.43602679169553%",
+                  "width": "69.13259539589477%",
                 }
               }
             />
@@ -7529,7 +7529,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                   }
                 >
                    
-                  86.51%
+                  86.37%
                    
                    
                 </div>
@@ -7551,7 +7551,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                       Object {
                         "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "76.66624268644672%",
+                        "width": "75.75594849904441%",
                       }
                     }
                   />
@@ -8465,7 +8465,7 @@ exports[`Beast Mastery Hunter integration test: Single Target AlwaysBeCasting ma
         <div
           className="value"
         >
-          12.56 %
+          12.75 %
         </div>
         <div
           style={
@@ -8484,7 +8484,7 @@ exports[`Beast Mastery Hunter integration test: Single Target AlwaysBeCasting ma
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "87.43982443412966%",
+                  "width": "87.24969739128419%",
                 }
               }
             >
@@ -8548,7 +8548,7 @@ Array [
         message="{0}% downtime"
         values={
           Object {
-            "0": "12.56",
+            "0": "12.75",
           }
         }
       />
@@ -15604,7 +15604,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "94.28307691043453%",
+                  "width": "93.86099487531756%",
                 }
               }
             />
@@ -15712,7 +15712,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                   }
                 >
                    
-                  87.44%
+                  87.25%
                    
                    
                 </div>
@@ -15734,7 +15734,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                       Object {
                         "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "82.84923073130356%",
+                        "width": "81.58298462595269%",
                       }
                     }
                   />
