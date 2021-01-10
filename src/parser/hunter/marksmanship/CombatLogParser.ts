@@ -19,7 +19,7 @@ import Channeling from '../shared/modules/core/Channeling';
 import Checklist from './modules/checklist/Module';
 
 //Normalizer
-import AimedShotPrepullNormalizer from 'parser/hunter/marksmanship/normalizers/AimedShotPrepullNormalizer';
+import AimedShotPrepullNormalizer from './normalizers/AimedShotPrepullNormalizer';
 
 //Death Tracker
 import DeathTracker from '../shared/modules/core/DeathTracker';

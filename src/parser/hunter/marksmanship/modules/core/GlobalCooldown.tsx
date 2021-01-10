@@ -14,7 +14,6 @@ class GlobalCooldown extends CoreGlobalCooldown {
   protected haste!: Haste;
 
   aimedShotTimestamp: number | null = null;
-  casts = 0;
 
   /**
    * Barrage and Rapid FIre GCDs are triggered when fabricating channel events

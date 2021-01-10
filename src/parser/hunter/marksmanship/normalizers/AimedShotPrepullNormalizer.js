@@ -30,7 +30,7 @@ class AimedShotPrepullNormalizer extends EventsNormalizer {
               type: EventType.BeginCast,
               __fabricated: true,
             };
-            fixedEvents.unshift(fabricatedEvent);
+            fixedEvents.push(fabricatedEvent);
             debug && console.log('Real', event);
             debug && console.log('Fabricated', fabricatedEvent);
 
