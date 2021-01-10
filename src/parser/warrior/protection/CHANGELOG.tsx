@@ -4,6 +4,9 @@ import { Abelito75, Putro, Zeboot } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2021, 1, 10), 'Updated to 9.0.2.', Abelito75),
+  change(date(2021, 1, 10), 'Added Thunderlord statistic.', Abelito75),
+  change(date(2021, 1, 10), 'Added The Wall statistic.', Abelito75),
   change(date(2021, 1, 8), 'Fixed block check because zeboot broke it.', Abelito75),
   change(date(2020, 12, 17), 'Fixed undefined spell error.', Abelito75),
   change(date(2020, 12, 17), 'Added some shadowlandisms.', Abelito75),

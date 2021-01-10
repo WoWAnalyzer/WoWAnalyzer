@@ -68,6 +68,10 @@ const spells: number[] = [
   //region druid
   SPELLS.TRANQUILITY_HEAL.id,
   //endregion
+
+  //region trinket
+  SPELLS.ANIMA_FIELD_EMITTER_BUFF.id,
+  //endregion
 ];
 
 export default spells;

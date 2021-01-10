@@ -5,6 +5,12 @@ const covenants = {
     name: 'Spear of Bastion',
     icon: 'ability_bastion_warrior',
   },
+  SPEAR_OF_BASTION_ENERGIZE: {
+    id: 307871,
+    name: 'Spear of Bastion',
+    icon: 'ability_bastion_warrior',
+  },
+
   //endregion
 
   //region Necrolord
@@ -18,6 +24,11 @@ const covenants = {
   //region Night Fae
   ANCIENT_AFTERSHOCK: {
     id: 325886,
+    name: 'Ancient Aftershock',
+    icon: 'ability_ardenweald_warrior',
+  },
+  ANCIENT_AFTERSHOCK_ENERGIZE: {
+    id: 326076,
     name: 'Ancient Aftershock',
     icon: 'ability_ardenweald_warrior',
   },
