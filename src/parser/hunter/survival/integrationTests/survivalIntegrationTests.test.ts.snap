@@ -112,7 +112,7 @@ exports[`Survival Hunter integration test: Multi Target AlwaysBeCasting matches 
         <div
           className="value"
         >
-          7.34 %
+          7.52 %
         </div>
         <div
           style={
@@ -131,7 +131,7 @@ exports[`Survival Hunter integration test: Multi Target AlwaysBeCasting matches 
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "92.6622725161834%",
+                  "width": "92.47677423580612%",
                 }
               }
             >
@@ -5728,7 +5728,7 @@ exports[`Survival Hunter integration test: Multi Target matches the checklist sn
                   }
                 >
                    
-                  92.66%
+                  92.48%
                    
                    
                 </div>
@@ -6622,7 +6622,7 @@ exports[`Survival Hunter integration test: Single Target AlwaysBeCasting matches
         <div
           className="value"
         >
-          11.34 %
+          11.59 %
         </div>
         <div
           style={
@@ -6641,7 +6641,7 @@ exports[`Survival Hunter integration test: Single Target AlwaysBeCasting matches
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "88.65549900220537%",
+                  "width": "88.40948712030911%",
                 }
               }
             >
@@ -12715,7 +12715,7 @@ exports[`Survival Hunter integration test: Single Target matches the checklist s
                   }
                 >
                    
-                  88.66%
+                  88.41%
                    
                    
                 </div>
