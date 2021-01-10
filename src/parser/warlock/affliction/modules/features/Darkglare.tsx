@@ -258,7 +258,7 @@ class Darkglare extends Analyzer {
         }
       >
         <BoringSpellValueText spell={SPELLS.SUMMON_DARKGLARE}>
-          {formatDPS(this.bonusDotDamage)}
+          {formatDPS(this.bonusDotDamage)}{' '}
           <TooltipElement
             content={
               <>
@@ -273,7 +273,7 @@ class Darkglare extends Analyzer {
           <br />
           {averageExtendedDots.toFixed(1)} <small>average DoTs extended</small>
           <br />
-          {formatDPS(totalDamage)}
+          {formatDPS(totalDamage)}{' '}
           <TooltipElement content="including pet damage">
             <small>
               total damage <sup>*</sup>

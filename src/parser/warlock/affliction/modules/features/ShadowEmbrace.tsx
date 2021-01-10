@@ -202,7 +202,7 @@ class ShadowEmbrace extends Analyzer {
         tooltip={`${formatThousands(this.damage)} bonus damage`}
       >
         <BoringSpellValueText spell={SPELLS.SHADOW_EMBRACE}>
-          {formatPercentage(this.totalUptimePercentage)} %
+          {formatPercentage(this.totalUptimePercentage)} %{' '}
           <TooltipElement
             content={
               <>
@@ -217,7 +217,7 @@ class ShadowEmbrace extends Analyzer {
             </small>
           </TooltipElement>
           <br />
-          {formatNumber(this.dps)} DPS
+          {formatNumber(this.dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total
           </small>

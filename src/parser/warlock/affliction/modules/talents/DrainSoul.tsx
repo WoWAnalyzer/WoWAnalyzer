@@ -139,7 +139,7 @@ class DrainSoul extends Analyzer {
         tooltip={`${formatThousands(damage)} total damage`}
       >
         <BoringSpellValueText spell={SPELLS.DRAIN_SOUL_TALENT}>
-          {formatNumber(dps)} DPS
+          {formatNumber(dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total
           </small>
