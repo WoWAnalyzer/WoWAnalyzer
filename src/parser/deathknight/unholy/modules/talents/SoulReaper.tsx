@@ -9,7 +9,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import ExecuteHelper from 'parser/shared/ExecuteHelper';
+import ExecuteHelper from 'parser/shared/modules/helpers/ExecuteHelper';
 
 const SOUL_REAPER_EXECUTE_RANGE = .35
 
@@ -29,10 +29,11 @@ class SoulReaper extends ExecuteHelper {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SOUL_REAPER_TALENT.id); 
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SOUL_REAPER_TALENT.id);
     this.addEventListener(Events.fightend, this.adjustMaxCasts);
     const ctor = this.constructor as typeof ExecuteHelper;
     ctor.executeSpells.push(SPELLS.SOUL_REAPER_TALENT);
+    ctor.executeSpells.push(SPELLS.SOUL_REAPER_TALENT_SECOND_HIT);
 
     (options.abilities as Abilities).add({
       spell: SPELLS.SOUL_REAPER_TALENT,
@@ -45,6 +46,7 @@ class SoulReaper extends ExecuteHelper {
         suggestion: true,
         recommendedEfficiency: 0.85,
         maxCasts: () => this.maxCasts,
+        extraSuggestion: " (This module only starts tracking possible casts once you damage a target with 35% or less health)",
       },
     });
   }

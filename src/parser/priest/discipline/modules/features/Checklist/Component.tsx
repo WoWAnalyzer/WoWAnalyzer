@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 
 import SPELLS from 'common/SPELLS';
 // import ITEMS from 'common/ITEMS';
@@ -15,17 +15,16 @@ import PreparationRule from 'parser/shared/modules/features/Checklist/Preparatio
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import Combatant from 'parser/core/Combatant';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import { AbilityRequirementProps } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 
 const DisciplinePriestChecklist = ({ combatant, castEfficiency, thresholds }: { combatant: Combatant, castEfficiency: CastEfficiency, thresholds: any }) => {
-  const AbilityRequirement = (props: { spell: number }) => (
+  const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
     />
   );
-  AbilityRequirement.propTypes = {
-    spell: PropTypes.number.isRequired,
-  };
+
 
   return (
     <Checklist>
@@ -61,9 +60,6 @@ const DisciplinePriestChecklist = ({ combatant, castEfficiency, thresholds }: { 
         )}
       >
         {!combatant.hasTalent(SPELLS.SPIRIT_SHELL_TALENT.id) && <AbilityRequirement spell={SPELLS.RAPTURE.id} />}
-        {!combatant.hasTalent(SPELLS.LUMINOUS_BARRIER_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.POWER_WORD_BARRIER_CAST.id} />
-        )}
         {!combatant.hasTalent(SPELLS.MINDBENDER_TALENT_SHARED.id) && (
           <AbilityRequirement spell={SPELLS.SHADOWFIEND.id} />
         )}
@@ -72,9 +68,6 @@ const DisciplinePriestChecklist = ({ combatant, castEfficiency, thresholds }: { 
         )}
         {combatant.hasTalent(SPELLS.HALO_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.HALO_TALENT.id} />
-        )}
-        {combatant.hasTalent(SPELLS.LUMINOUS_BARRIER_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.LUMINOUS_BARRIER_TALENT.id} />
         )}
         {combatant.hasTalent(SPELLS.EVANGELISM_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.EVANGELISM_TALENT.id} />
@@ -115,14 +108,6 @@ const DisciplinePriestChecklist = ({ combatant, castEfficiency, thresholds }: { 
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
-};
-
-DisciplinePriestChecklist.propTypes = {
-  castEfficiency: PropTypes.object.isRequired,
-  combatant: PropTypes.shape({
-    hasTalent: PropTypes.func.isRequired,
-  }).isRequired,
-  thresholds: PropTypes.object.isRequired,
 };
 
 export default DisciplinePriestChecklist;

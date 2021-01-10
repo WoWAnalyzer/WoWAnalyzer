@@ -34,7 +34,7 @@ class Demonic extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.DEMONIC_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.DEMONIC_TALENT_HAVOC.id);
     if (!this.active) {
       return;
     }
@@ -72,8 +72,8 @@ class Demonic extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>Try to have <SpellLink id={SPELLS.BLADE_DANCE.id} /> almost off cooldown before casting <SpellLink id={SPELLS.EYE_BEAM.id} />. This will allow for two casts of <SpellLink id={SPELLS.DEATH_SWEEP.id} /> during the <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} /> buff you get from the <SpellLink id={SPELLS.DEMONIC_TALENT.id} /> talent.</>)
-        .icon(SPELLS.DEMONIC_TALENT.icon)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>Try to have <SpellLink id={SPELLS.BLADE_DANCE.id} /> almost off cooldown before casting <SpellLink id={SPELLS.EYE_BEAM.id} />. This will allow for two casts of <SpellLink id={SPELLS.DEATH_SWEEP.id} /> during the <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} /> buff you get from the <SpellLink id={SPELLS.DEMONIC_TALENT_HAVOC.id} /> talent.</>)
+        .icon(SPELLS.DEMONIC_TALENT_HAVOC.icon)
         .actual(<>{actual} time(s) during <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} /> <SpellLink id={SPELLS.DEATH_SWEEP.id} /> wasn't casted twice.</>)
         .recommended(`No bad casts is recommended.`));
   }
@@ -81,7 +81,7 @@ class Demonic extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
-        talent={SPELLS.DEMONIC_TALENT.id}
+        talent={SPELLS.DEMONIC_TALENT_HAVOC.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
         value={(
           <>

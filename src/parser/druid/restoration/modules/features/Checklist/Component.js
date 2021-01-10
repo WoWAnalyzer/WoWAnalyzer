@@ -107,6 +107,10 @@ const RestorationDruidChecklist = ({ combatant, castEfficiency, thresholds }) =>
           name={(<><SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} /> uptime</>)}
           thresholds={thresholds.efflorescenceUpTime}
         />
+        <Requirement
+          name={(<><SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} /> uptime</>)}
+          thresholds={thresholds.lifebloomUpTime}
+        />
       </Rule>
       <Rule
         name="Manage your mana"

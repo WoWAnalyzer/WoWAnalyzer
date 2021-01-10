@@ -41,6 +41,8 @@ const spells: number[] = [
   SPELLS.RUNE_1.id,
   SPELLS.RUNE_2.id,
   SPELLS.RUNE_3.id,
+  SPELLS.ABOMINATION_LIMB_HIDDEN_CAST.id,
+  SPELLS.ABOMINATION_LIMB_GRIP.id,
   //endregion
 
   //region Hunter
@@ -61,6 +63,10 @@ const spells: number[] = [
 
   //region Demon Hunter
   SPELLS.FELBLADE_DAMAGE.id, //The spell that generates fury when casting 
+  //endregion
+
+  //region druid
+  SPELLS.TRANQUILITY_HEAL.id,
   //endregion
 ];
 

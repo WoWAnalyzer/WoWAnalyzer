@@ -28,7 +28,7 @@ class ImbuedReflections extends Analyzer {
    */
   constructor(...args) {
     super(...args);
-    const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.FORTIFYING_INGREDIENTS.id);
+    const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.IMBUED_REFLECTIONS.id);
     if (!conduitRank) {
       this.active = false;
       return;

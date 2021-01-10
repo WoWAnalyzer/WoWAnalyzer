@@ -119,13 +119,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.RUSHING_JADE_WIND_TALENT_WINDWALKER,
+        spell: SPELLS.RUSHING_JADE_WIND_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: haste => 6 / (1 + haste),
         gcd: {
           static: 1000,
         },
-        enabled: combatant.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT_WINDWALKER.id),
+        enabled: combatant.hasTalent(SPELLS.RUSHING_JADE_WIND.id),
       },
       // cooldowns
       {

@@ -77,9 +77,6 @@ class TigerPalm extends Analyzer {
   }
 
   get bocEmpoweredThreshold() {
-    if (!this.selectedCombatant.hasTalent(SPELLS.BLACKOUT_COMBO_TALENT.id)) {
-      return null;
-    }
     return {
       actual: this.totalBocHits / this.totalCasts,
       isLessThan: {

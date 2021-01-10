@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -12,17 +11,15 @@ import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
+import { AbilityRequirementProps, ChecklistProps } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 
-const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
-  const AbilityRequirement = (props: any) => (
+const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
+  const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
     />
   );
-  AbilityRequirement.propTypes = {
-    spell: PropTypes.number.isRequired,
-  };
 
   return (
     <Checklist>
@@ -55,8 +52,8 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: any)
         {combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id) && <AbilityRequirement spell={SPELLS.CHI_BURST_TALENT.id} />}
         {combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id) && <AbilityRequirement spell={SPELLS.CHI_WAVE_TALENT.id} />}
         <AbilityRequirement spell={SPELLS.REVIVAL.id} />
-        {!combatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id) && <AbilityRequirement spell={SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id} />}
-        {combatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id) && <AbilityRequirement spell={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id} />}
+        {!combatant.hasTalent(SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id) && <AbilityRequirement spell={SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id} />}
+        {combatant.hasTalent(SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id) && <AbilityRequirement spell={SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id} />}
         <AbilityRequirement spell={SPELLS.TOUCH_OF_DEATH.id} />
         <Requirement name={(<><SpellLink id={SPELLS.ENVELOPING_BREATH.id} /> applied per <SpellLink id={SPELLS.ENVELOPING_MIST.id} /> cast</>)} thresholds={thresholds.envelopingBreath} />
         {/* We can't detect race, so disable this when it has never been cast. */}
@@ -147,15 +144,6 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: any)
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
-};
-
-MistweaverMonkChecklist.propTypes = {
-  castEfficiency: PropTypes.object.isRequired,
-  combatant: PropTypes.shape({
-    hasTalent: PropTypes.func.isRequired,
-    hasCovenant: PropTypes.func.isRequired,
-  }).isRequired,
-  thresholds: PropTypes.object.isRequired,
 };
 
 export default MistweaverMonkChecklist;

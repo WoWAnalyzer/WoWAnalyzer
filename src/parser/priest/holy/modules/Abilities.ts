@@ -378,6 +378,14 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.POWER_WORD_SHIELD,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        isDefensive: true,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: SPELLS.FLESHCRAFT,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,

@@ -4032,7 +4032,7 @@ exports[`Frost Death Knight integration test: example log GatheringStorm matches
             <img
               alt="Gathering Storm"
               className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_frost_iceshards.jpg"
+              src="//render-us.worldofwarcraft.com/icons/56/spell_frost_ice_shards.jpg"
             />
           </a>
            
@@ -5336,7 +5336,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
           <div
             className="col-md-12"
           >
-            While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes.  In a worst case scenario, you can cast 
+            While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes. In a worst case scenario, you can cast 
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=49184"
@@ -5657,7 +5657,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
           <div
             className="col-md-12"
           >
-            Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities.  Cast 
+            Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities. Cast 
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=49143"
