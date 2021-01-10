@@ -4748,7 +4748,7 @@ exports[`Affliction Warlock integration test: example log DrainSoul matches the 
           className="value"
         >
           277
-           DPS 
+           DPS
           <small>
             10.11
              % of total
