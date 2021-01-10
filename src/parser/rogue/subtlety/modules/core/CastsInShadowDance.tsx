@@ -15,6 +15,9 @@ import CastsInStealthBase from './CastsInStealthBase';
 import DanceDamageTracker from './DanceDamageTracker';
 
 class CastsInShadowDance extends CastsInStealthBase {
+  BASE_MAX_CASTS: number = 8;
+  BONUS_SUBTERFUGE_CASTS: number = 1;
+
   static dependencies = {
     damageTracker: DamageTracker,
     danceDamageTracker: DanceDamageTracker,
@@ -26,7 +29,7 @@ class CastsInShadowDance extends CastsInStealthBase {
   constructor(options: Options & { danceDamageTracker: DanceDamageTracker }) {
     super(options);
 
-    this.maxCastsPerStealth = 5 + (this.selectedCombatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id) ? 1 : 0);
+    this.maxCastsPerStealth = this.BASE_MAX_CASTS + (this.selectedCombatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id) ? this.BONUS_SUBTERFUGE_CASTS : 0);
 
     this.stealthCondition = 'Shadow Dance';
 
