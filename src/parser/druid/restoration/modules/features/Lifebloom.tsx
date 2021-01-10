@@ -4,7 +4,6 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import UptimeIcon from 'interface/icons/Uptime';
 import Statistic from 'interface/statistics/Statistic';
 import SpellLink from 'common/SpellLink';
-import ItemLink from 'common/ItemLink';
 import SpellIcon from 'common/SpellIcon';
 import BoringValue from 'interface/statistics/components/BoringValueText';
 
@@ -22,11 +21,11 @@ class Lifebloom extends Analyzer {
 
   protected combatants!: Combatants;
 
-  hasDta = false;
+  hasDTL = false;
 
   constructor(options: Options) {
     super(options);
-    this.hasDta = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.LIFEBLOOM_DTL_HOT_HEAL.bonusID);
+    this.hasDTL = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.LIFEBLOOM_DTL_HOT_HEAL.bonusID);
   }
 
   get uptime() {
@@ -55,7 +54,7 @@ class Lifebloom extends Analyzer {
 
   suggestions(when: When) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} /> uptime can be improved. {this.hasDta ? <>High uptime is particularly important for taking advantage of your equipped <ItemLink id={ITEMS.THE_DARK_TITANS_ADVICE.id} /></> : ''}</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} /> uptime can be improved. {this.hasDTL ? <>High uptime is particularly important for taking advantage of your equipped <SpellLink id={ITEMS.LIFEBLOOM_DTL_HOT_HEAL.id} /></> : ''}</>)
         .icon(SPELLS.LIFEBLOOM_HOT_HEAL.icon)
         .actual(t({
           id: "druid.restoration.suggestions.lifebloom.uptime",

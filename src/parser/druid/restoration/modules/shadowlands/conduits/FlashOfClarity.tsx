@@ -12,6 +12,8 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemHealingDone from 'interface/ItemHealingDone';
 
+import { RANK_ONE_FLASH_OF_CLARITY } from '../../../constants';
+
 class FlashOfClarity extends Analyzer {
 
 
@@ -26,14 +28,13 @@ class FlashOfClarity extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.JADE_BOND.id);
+    this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.FLASH_OF_CLARITY.id);
 
-    if (!conduitRank) {
-      this.active = false;
+    if (!this.active) {
       return;
     }
 
-    this.healingBoost = this.conduitScaling(.20, conduitRank);
+    this.healingBoost = this.conduitScaling(RANK_ONE_FLASH_OF_CLARITY, this.selectedCombatant.conduitRankBySpellID(SPELLS.FLASH_OF_CLARITY.id));
 
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH), this.checkIfClearCasting);

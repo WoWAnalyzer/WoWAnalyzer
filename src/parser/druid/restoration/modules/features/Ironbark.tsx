@@ -39,7 +39,7 @@ class Ironbark extends Analyzer {
     })
       .then((json) => {
         json = json as WCLDamageTakenTableResponse;
-        this.damageTakenDuringIronbark = (json.entries as WCLDamageTaken[]).reduce((damageTaken: number, entry) => damageTaken + entry.total, 0);
+        this.damageTakenDuringIronbark = (json.entries as WCLDamageTaken[]).reduce((damageTaken: number, entry: { total: number; }) => damageTaken + entry.total, 0);
       })
       .catch(err => {
         throw err;
