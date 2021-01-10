@@ -18,6 +18,9 @@ import Channeling from '../shared/modules/core/Channeling';
 //Checklist
 import Checklist from './modules/checklist/Module';
 
+//Normalizer
+import AimedShotPrepullNormalizer from 'parser/hunter/marksmanship/normalizers/AimedShotPrepullNormalizer';
+
 //Death Tracker
 import DeathTracker from '../shared/modules/core/DeathTracker';
 
@@ -107,6 +110,9 @@ class CombatLogParser extends CoreCombatLogParser {
     marksmanshipFocusCapTracker: MarksmanshipFocusCapTracker,
     focus: Focus,
     marksmanshipFocusUsage: MarksmanshipFocusUsage,
+
+    //Normalizers
+    aimedShotPrepullNormalizer: AimedShotPrepullNormalizer,
 
     //DeathTracker
     deathTracker: DeathTracker,
