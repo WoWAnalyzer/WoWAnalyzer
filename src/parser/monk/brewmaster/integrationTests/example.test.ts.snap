@@ -34,7 +34,7 @@ exports[`Brewmaster Monk integration test: example log AlwaysBeCasting matches t
         <div
           className="value"
         >
-          43.86 %
+          53.73 %
         </div>
         <div
           style={
@@ -53,7 +53,7 @@ exports[`Brewmaster Monk integration test: example log AlwaysBeCasting matches t
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "56.144957384474495%",
+                  "width": "46.265299220646966%",
                 }
               }
             >
@@ -106,7 +106,7 @@ Array [
     "importance": "major",
     "issue": "Your downtime can be improved. Try to Always Be Casting (ABC).",
     "stat": <React.Fragment>
-      {"id":"monk.brewmaster.suggestions.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"43.86"}}
+      {"id":"monk.brewmaster.suggestions.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"53.73"}}
        (
       &lt;20.00% is recommended
       )
@@ -170,7 +170,7 @@ exports[`Brewmaster Monk integration test: example log BrewCDR matches the stati
         <div
           className="value"
         >
-          27.33
+          26.30
            %
         </div>
       </div>
@@ -673,104 +673,6 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               
-            </td>
-            <td
-              style={
-                Object {
-                  "color": "orange",
-                  "width": "25%",
-                }
-              }
-            />
-          </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "35%",
-                }
-              }
-            >
-              <a
-                className="spell-link-text"
-                href="http://wowhead.com/spell=116847"
-                rel="noopener noreferrer"
-                style={
-                  Object {
-                    "color": "#fff",
-                  }
-                }
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/ability_monk_rushingjadewind.jpg"
-                  style={
-                    Object {
-                      "height": undefined,
-                      "marginTop": undefined,
-                    }
-                  }
-                />
-                 
-                Rushing Jade Wind
-              </a>
-            </td>
-            <td
-              className="text-center"
-              style={
-                Object {
-                  "minWidth": 80,
-                }
-              }
-            >
-              5.93
-            </td>
-            <td
-              className="text-right"
-              style={
-                Object {
-                  "minWidth": 110,
-                }
-              }
-            >
-              26
-              /58
-               
-              casts
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar"
-                  style={
-                    Object {
-                      "backgroundColor": "#70b570",
-                      "width": "44.84186847135089%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              className="text-left"
-              style={
-                Object {
-                  "minWidth": 50,
-                  "paddingRight": 5,
-                }
-              }
-            >
-              44.84%
             </td>
             <td
               style={
@@ -1381,7 +1283,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               22
-              /32
+              /36
                
               casts
             </td>
@@ -1400,7 +1302,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "66.28541987946811%",
+                      "width": "59.94014475498823%",
                     }
                   }
                 />
@@ -1415,7 +1317,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              66.29%
+              59.94%
             </td>
             <td
               style={
@@ -1484,7 +1386,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
               }
             >
               4
-              /7
+              /8
                
               casts
             </td>
@@ -1503,7 +1405,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "48.55737991465495%",
+                      "width": "40.990321734867976%",
                     }
                   }
                 />
@@ -1518,7 +1420,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              48.56%
+              40.99%
             </td>
             <td
               style={
@@ -3195,8 +3097,8 @@ Array [
         values={
           Object {
             "0": 22,
-            "1": 32,
-            "2": "66",
+            "1": 36,
+            "2": "60",
           }
         }
       />
@@ -3239,8 +3141,8 @@ Array [
         values={
           Object {
             "0": 4,
-            "1": 7,
-            "2": "49",
+            "1": 8,
+            "2": "41",
           }
         }
       />
@@ -3789,29 +3691,6 @@ exports[`Brewmaster Monk integration test: example log PurifyingBrew matches the
 </div>
 `;
 
-exports[`Brewmaster Monk integration test: example log RushingJadeWind matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "ability_monk_rushingjadewind",
-    "importance": "regular",
-    "issue": <React.Fragment>
-      You had low uptime on 
-      <ForwardRef
-        id={148187}
-      />
-      . Try to maintain 100% uptime by refreshing the buff before it drops.
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      {"id":"monk.brewmaster.suggestions.rushingJadeWind.uptime","message":"{0}% uptime","values":{"0":"65.78"}}
-       (
-      85% is recommended
-      )
-    </React.Fragment>,
-  },
-]
-`;
-
 exports[`Brewmaster Monk integration test: example log Stagger matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -4232,7 +4111,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               style={
                 Object {
                   "backgroundColor": "#ffc84a",
-                  "width": "60.7797383410534%",
+                  "width": "59.09985142514069%",
                 }
               }
             />
@@ -4368,7 +4247,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  48.56%
+                  40.99%
                    
                    
                 </div>
@@ -4390,7 +4269,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "21.5594766821068%",
+                        "width": "18.199702850281383%",
                       }
                     }
                   />
@@ -4547,8 +4426,8 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ffc84a",
-                  "width": "53.339686051939125%",
+                  "backgroundColor": "#df7102",
+                  "width": "49.93340268317666%",
                 }
               }
             />
@@ -4797,7 +4676,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  66.29%
+                  59.94%
                    
                    
                 </div>
@@ -4819,7 +4698,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "27.591306024828604%",
+                        "width": "24.950085254263854%",
                       }
                     }
                   />
@@ -4992,7 +4871,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  -1.96s
+                  0.15s
                    
                    
                 </div>
@@ -5052,7 +4931,7 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "22.41898862834102%",
+                  "width": "19.720080353636835%",
                 }
               }
             />
@@ -5518,80 +5397,6 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
                         "width": "9.99%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                <a
-                  className="spell-link-text"
-                  href="http://wowhead.com/spell=148187"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/ability_monk_rushingjadewind.jpg"
-                  />
-                   
-                  Rushing Jade Wind
-                </a>
-                 uptime
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  65.78%
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#df7102",
-                        "transition": "background-color 800ms",
-                        "width": "35.913530001861936%",
                       }
                     }
                   />

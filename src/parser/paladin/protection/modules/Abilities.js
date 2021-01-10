@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
 import CoreAbilities from 'parser/core/modules/Abilities';
-
 //import SpellLink from 'common/SpellLink';
 
 class Abilities extends CoreAbilities {
@@ -189,19 +188,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BLESSING_OF_SACRIFICE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 120,
-        // castEfficiency: {
-        //   suggestion: true,
-        //   recommendedEfficiency: 0.85,
-        // },
-      },
-      {
-        spell: SPELLS.AEGIS_OF_LIGHT_TALENT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 180,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(SPELLS.AEGIS_OF_LIGHT_TALENT.id),
       },
       {
         spell: SPELLS.CLEANSE_TOXINS,
@@ -256,10 +242,17 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.REPENTANCE_TALENT.id),
       },
       {
-        spell: SPELLS.BASTION_OF_LIGHT_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 120,
-        enabled: combatant.hasTalent(SPELLS.BASTION_OF_LIGHT_TALENT.id),
+        spell: SPELLS.FINAL_STAND_CAST,
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        cooldown: 300 * (combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 0.7 : 1),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.6,
+        },
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(SPELLS.FINAL_STAND_TALENT.id),
       },
     ];
   }

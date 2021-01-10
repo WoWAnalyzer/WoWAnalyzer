@@ -56,6 +56,11 @@ const covenants = {
     name: 'Wrathful Faerie',
     icon: 'spell_animaardenweald_orb',
   },
+  WRATHFUL_FAERIE_ENERGIZE: {
+    id: 327703,
+    name: 'Wrathful Faerie',
+    icon: 'spell_animaardenweald_orb',
+  },
   GUARDIAN_FAERIE: {
     id: 327694,
     name: 'Guardian Faerie',

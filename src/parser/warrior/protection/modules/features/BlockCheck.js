@@ -67,7 +67,7 @@ class BlockCheck extends Analyzer {
       this.thresholdsToUse = this.noHRorBlThresholds;
     }
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
-    this.addEventListener(Events.fightend.to(SELECTED_PLAYER), this.onFightend);
+    this.addEventListener(Events.fightend, this.onFightend);
   }
 
   onDamageTaken(event) {

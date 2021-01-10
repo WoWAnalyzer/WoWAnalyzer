@@ -6,20 +6,13 @@ import ResourceLink from 'common/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
-import Requirement, { RequirementThresholds } from 'parser/shared/modules/features/Checklist/Requirement';
+import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
-import Combatant from 'parser/core/Combatant';
-import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import { AbilityRequirementProps, ChecklistProps } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 
-type Props = {
-  castEfficiency: CastEfficiency,
-  combatant: Combatant,
-  thresholds: { [name: string]: RequirementThresholds },
-};
-
-const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: Props) => {
-  const AbilityRequirement = (props: { spell: number }) => (
+const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
+  const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
@@ -74,14 +67,14 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: P
         name="Offensive Cooldowns"
         description={(
           <>
-            Using <SpellLink id={SPELLS.AVATAR_TALENT.id} /> as often as possible is very important because it will increase your overall damage a lot and provides 20 <ResourceLink id={RESOURCE_TYPES.RAGE.id} />.<br /> If you are also using <SpellLink id={SPELLS.UNSTOPPABLE_FORCE_TALENT.id} /> remember that <SpellLink id={SPELLS.THUNDER_CLAP.id} /> will have a reduced cooldown so you can use it every other GCD.
+            Using <SpellLink id={SPELLS.AVATAR_TALENT.id} /> as often as possible is very important because it will increase your overall damage a lot and provides 30 <ResourceLink id={RESOURCE_TYPES.RAGE.id} />.<br /> If you are also using <SpellLink id={SPELLS.UNSTOPPABLE_FORCE_TALENT.id} /> remember that <SpellLink id={SPELLS.THUNDER_CLAP.id} /> will have a reduced cooldown so you can use it every other GCD.
 
           </>
         )}
       >
         <AbilityRequirement spell={SPELLS.AVATAR_TALENT.id} />
         <AbilityRequirement spell={SPELLS.DEMORALIZING_SHOUT.id} />
-        {combatant.hasTalent(SPELLS.RAVAGER_PROT_TALENT.id) && <AbilityRequirement spell={SPELLS.RAVAGER_PROT_TALENT.id} />}
+        {combatant.hasTalent(SPELLS.RAVAGER_TALENT_PROTECTION.id) && <AbilityRequirement spell={SPELLS.RAVAGER_TALENT_PROTECTION.id} />}
 
       </Rule>
 

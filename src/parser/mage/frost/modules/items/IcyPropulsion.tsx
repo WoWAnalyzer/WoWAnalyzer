@@ -6,7 +6,7 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Events, { DamageEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import UptimeIcon from 'interface/icons/Uptime';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
@@ -25,12 +25,9 @@ class IcyPropulsion extends Analyzer {
   conduitRank = 0;
   cooldownReduction = 0;
 
-  constructor(props: Options) {
-    super(props);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.ICY_PROPULSION.id);
-    if (!this.active) {
-      return;
-    }
     this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.ICY_PROPULSION.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
@@ -55,13 +52,13 @@ class IcyPropulsion extends Analyzer {
   statistic() {
     return (
       <Statistic
-        category={STATISTIC_CATEGORY.ITEMS}
+        category={STATISTIC_CATEGORY.COVENANTS}
         size="flexible"
         tooltip={<>Icy Propulsion reduced the cooldown on Icy Veins by a total of {this.reductionSeconds} ({this.reductionPerIcyVeins} Per Icy Veins on average).</>}
       >
-        <BoringSpellValueText spell={SPELLS.ICY_PROPULSION}>
+        <ConduitSpellText spell={SPELLS.ICY_PROPULSION} rank={this.conduitRank}>
           <UptimeIcon /> {`${formatNumber(this.reductionSeconds)}s`} <small>Icy Veins CDR</small>
-        </BoringSpellValueText>
+        </ConduitSpellText>
       </Statistic>
     );
   }

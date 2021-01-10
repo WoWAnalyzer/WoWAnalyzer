@@ -20,9 +20,9 @@ function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
 }
 
-//Generated from https://wow.tools/dbc/?dbc=soulbindconduititem&build=9.0.2.36949
+//Generated from https://wow.tools/dbc/?dbc=soulbindconduititem
 const conduitItemInfo = readJson('./data/soulbindconduititem.json');
-//Generated from https://wow.tools/dbc/?dbc=soulbindconduitrank&build=9.0.2.36949
+//Generated from https://wow.tools/dbc/?dbc=soulbindconduitrank
 const conduitRankInfo = readJson('./data/soulbindconduitrank.json');
 //Taken from https://www.raidbots.com/static/data/live/conduits.json
 const conduitRaidbots = readJson('./data/raidbotsConduitsInfo.json');

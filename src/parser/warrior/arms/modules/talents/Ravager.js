@@ -18,7 +18,7 @@ class Ravager extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.RAVAGER_ARMS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.RAVAGER_TALENT_ARMS.id);
   }
 
   subStatistic() {
@@ -26,7 +26,7 @@ class Ravager extends Analyzer {
     const total = ravager.damageEffective || 0;
     return (
       <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.RAVAGER_ARMS_TALENT.id} /> damage</>}
+        title={<><SpellLink id={SPELLS.RAVAGER_TALENT_ARMS.id} /> damage</>}
         value={formatThousands(total)}
       />
     );

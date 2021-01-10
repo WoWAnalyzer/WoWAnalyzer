@@ -32,6 +32,11 @@ const covenants = {
     name: 'Condemn',
     icon: 'ability_revendreth_warrior',
   },
+  CONDEMNED: {
+    id: 317491,
+    name: 'Condemned',
+    icon: 'ability_revendreth_warrior',
+  },
   //Arms/Prot and Massacre talent
   CONDEMN_MASSACRE: {
     id: 330334,

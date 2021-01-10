@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 
@@ -33,6 +34,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.EXECUTE,
+        enabled: !combatant.hasCovenant(COVENANTS.VENTHYR.id),
         gcd: {
           base: 1500,
         },
@@ -187,8 +189,8 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
       },
       {
-        spell: SPELLS.RAVAGER_PROT_TALENT,
-        enabled: combatant.hasTalent(SPELLS.RAVAGER_PROT_TALENT.id),
+        spell: SPELLS.RAVAGER_TALENT_PROTECTION,
+        enabled: combatant.hasTalent(SPELLS.RAVAGER_TALENT_PROTECTION.id),
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         gcd: {
           base: 1500,

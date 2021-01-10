@@ -4461,7 +4461,7 @@ exports[`Fire Mage integration test: example log InfernalCascade matches the sta
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    category="ITEMS"
+    category="COVENANT"
     className="panel statistic flexible "
   >
     <div
@@ -4492,6 +4492,8 @@ exports[`Fire Mage integration test: example log InfernalCascade matches the sta
           >
             Infernal Cascade
           </a>
+           - Rank 
+          4
         </label>
         <div
           className="value"

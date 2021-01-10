@@ -71,6 +71,8 @@ import DeadlyTandem from './modules/spells/conduits/DeadlyTandem';
 import FlameInfusion from './modules/spells/conduits/FlameInfusion';
 import StingingStrike from './modules/spells/conduits/StingingStrike';
 import StrengthOfThePack from './modules/spells/conduits/StrengthOfThePack';
+import MarkmansAdvantage from '../shared/modules/spells/conduits/MarkmansAdvantage';
+import ResilienceOfTheHunter from '../shared/modules/spells/conduits/ResilienceOfTheHunter';
 
 //Legendaries
 import NesingwarysTrappingApparatus from './modules/items/NesingwarysTrappingApparatus';
@@ -147,6 +149,8 @@ class CombatLogParser extends CoreCombatLogParser {
     flameInfusion: FlameInfusion,
     stingingStrike: StingingStrike,
     strengthOfThePack: StrengthOfThePack,
+    markmansAdvantage: MarkmansAdvantage,
+    resilienceOfTheHunter: ResilienceOfTheHunter,
 
     //Generic Legendaries
     nesingwarysTrappingApparatus: NesingwarysTrappingApparatus,

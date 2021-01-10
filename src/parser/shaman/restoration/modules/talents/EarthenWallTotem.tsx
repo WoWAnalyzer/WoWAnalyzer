@@ -3,9 +3,9 @@ import React from 'react';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
-import { formatNumber, formatPercentage, formatDuration, formatNth } from 'common/format';
+import { formatDuration, formatNth, formatNumber, formatPercentage } from 'common/format';
 
-import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { AbsorbedEvent, CastEvent, DamageEvent } from 'parser/core/Events';
 
 import Combatants from 'parser/shared/modules/Combatants';
@@ -13,7 +13,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
-import { When } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { Trans } from '@lingui/macro';
 
 const RECOMMENDED_EFFICIENCY = 0.8;
@@ -48,7 +48,7 @@ class EarthenWallTotem extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.EARTHEN_WALL_TOTEM_TALENT.id);
-    this.isMaghar = this.selectedCombatant.race && this.selectedCombatant.race.name === "Mag'har Orc";
+    this.isMaghar = this.selectedCombatant.race && this.selectedCombatant.race.name === 'Mag\'har Orc';
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EARTHEN_WALL_TOTEM_TALENT), this._onCast);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER_PET).spell(SPELLS.EARTHEN_WALL_TOTEM_SELF_DAMAGE), this._updateTotemHealth);
@@ -118,10 +118,10 @@ class EarthenWallTotem extends Analyzer {
   suggestions(when: When) {
     when(this.earthenWallEfficiency).isLessThan(RECOMMENDED_EFFICIENCY)
       .addSuggestion((suggest, actual, recommended) => suggest(<Trans id="shaman.restoration.ewt.suggestion.label">Try to cast <SpellLink id={SPELLS.EARTHEN_WALL_TOTEM_TALENT.id} /> at times - and positions where there will be as many people taking damage possible inside of it to maximize the amount it absorbs.</Trans>)
-          .icon(SPELLS.EARTHEN_WALL_TOTEM_TALENT.icon)
-          .actual(`${this.earthenWallEfficiency.toFixed(2)}%`)
-          .recommended(`${recommended}%`)
-          .regular(recommended - .15).major(recommended - .3));
+        .icon(SPELLS.EARTHEN_WALL_TOTEM_TALENT.icon)
+        .actual(`${this.earthenWallEfficiency.toFixed(2)}%`)
+        .recommended(`${recommended}%`)
+        .regular(recommended - .15).major(recommended - .3));
   }
 
   get suggestionThreshold() {
@@ -132,7 +132,7 @@ class EarthenWallTotem extends Analyzer {
         average: 0.6,
         major: 0.45,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 

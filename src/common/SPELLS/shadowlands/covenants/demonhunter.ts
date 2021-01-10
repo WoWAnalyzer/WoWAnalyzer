@@ -6,7 +6,7 @@ const covenants = {
     icon: 'ability_bastion_demonhunter',
   },
   ELYSIAN_DECREE_DAMAGE: {
-    id: 339894,
+    id: 307046,
     name: 'Elysian Decree',
     icon: 'ability_bastion_demonhunter',
   },
@@ -26,21 +26,27 @@ const covenants = {
     name: 'The Hunt',
     icon: 'ability_ardenweald_demonhunter',
   },
-  THE_HUNT_DAMAGE: {
+  THE_HUNT_CHARGE: {
+    id: 323802,
+    name: 'The Hunt',
+    icon: 'ability_ardenweald_demonhunter',
+  },
+  THE_HUNT_DOT: {
     id: 345335,
     name: 'The Hunt',
     icon: 'ability_ardenweald_demonhunter',
   },
+  THE_HUNT_HEAL: {
+    id: 345423,
+    name: 'The Hunt',
+    icon: 'ability_ardenweald_demonhunter',
+  },
+
   //endregion
 
   //region Venthyr
   SINFUL_BRAND: {
     id: 317009,
-    name: 'Sinful Brand',
-    icon: 'ability_revendreth_demonhunter',
-  },
-  SINFUL_BRAND_DAMAGE: {
-    id: 317075,
     name: 'Sinful Brand',
     icon: 'ability_revendreth_demonhunter',
   },
