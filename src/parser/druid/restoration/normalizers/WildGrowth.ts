@@ -11,7 +11,7 @@ class WildGrowth extends EventsNormalizer {
    * @param events
    * @returns {Array}
    */
-  normalize(events: AnyEvent[]): AnyEvent[] {
+  normalize(events: AnyEvent[]) {
     let _events: AnyEvent[] = [];
     let _newEvents: AnyEvent[] = [];
 

@@ -19,7 +19,7 @@ const MAX_DELAY = 200;
  */
 class TreeOfLifeNormalizer extends EventsNormalizer {
 
-  normalize(events: AnyEvent[]): AnyEvent[] {
+  normalize(events: AnyEvent[]) {
     const fixedEvents: AnyEvent[] = [];
     events.forEach((event, eventIndex) => {
       fixedEvents.push(event);

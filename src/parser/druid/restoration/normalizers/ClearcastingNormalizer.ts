@@ -9,7 +9,7 @@ const MAX_DELAY = 50;
 // This swaps the order so the buff always fades AFTER the regrowth cast event.
 class ClearcastingNormalizer extends EventsNormalizer {
 
-  normalize(events: AnyEvent[]): AnyEvent[] {
+  normalize(events: AnyEvent[]) {
     const fixedEvents: AnyEvent[] = [];
     events.forEach((event, eventIndex) => {
       fixedEvents.push(event);

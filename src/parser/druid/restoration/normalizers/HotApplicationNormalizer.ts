@@ -20,7 +20,7 @@ class HotApplicationNormalizer extends EventsNormalizer {
     //TODO - blazyb
   ];
 
-  normalize(events: AnyEvent[]): AnyEvent[] {
+  normalize(events: AnyEvent[]) {
     const fixedEvents: AnyEvent[] = [];
     events.forEach((event, eventIndex) => {
       fixedEvents.push(event);

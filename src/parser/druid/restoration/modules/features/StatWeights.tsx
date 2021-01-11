@@ -125,7 +125,11 @@ class StatWeights extends BaseHealerStatValues {
       return 0;
     }
     const critMult = this.critEffectBonus.getBonus(event);
-    const noCritHealing = ("hitType" in event ? event.hitType === HIT_TYPES.CRIT : false) ? healVal.effective / critMult : healVal.effective;
+
+    let noCritHealing = healVal.effective;
+    if("hitType" in event && event.hitType === HIT_TYPES.CRIT){
+      noCritHealing = healVal.effective / critMult;
+    }
     return noCritHealing * bonusFromOneCrit * (critMult - 1);
 
   }
