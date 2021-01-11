@@ -5,6 +5,12 @@ const covenants = {
     name: 'Spear of Bastion',
     icon: 'ability_bastion_warrior',
   },
+  SPEAR_OF_BASTION_ENERGIZE: {
+    id: 307871,
+    name: 'Spear of Bastion',
+    icon: 'ability_bastion_warrior',
+  },
+
   //endregion
 
   //region Necrolord
@@ -21,6 +27,11 @@ const covenants = {
     name: 'Ancient Aftershock',
     icon: 'ability_ardenweald_warrior',
   },
+  ANCIENT_AFTERSHOCK_ENERGIZE: {
+    id: 326076,
+    name: 'Ancient Aftershock',
+    icon: 'ability_ardenweald_warrior',
+  },
   //endregion
 
   //region Venthyr
@@ -30,6 +41,11 @@ const covenants = {
   CONDEMN: {
     id: 317349,
     name: 'Condemn',
+    icon: 'ability_revendreth_warrior',
+  },
+  CONDEMNED: {
+    id: 317491,
+    name: 'Condemned',
     icon: 'ability_revendreth_warrior',
   },
   //Arms/Prot and Massacre talent

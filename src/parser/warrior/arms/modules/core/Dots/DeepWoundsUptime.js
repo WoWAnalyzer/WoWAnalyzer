@@ -7,6 +7,7 @@ import SpellLink from 'common/SpellLink';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 import { t } from '@lingui/macro';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 class DeepWoundsUptime extends Analyzer {
   get uptime() {
@@ -21,7 +22,7 @@ class DeepWoundsUptime extends Analyzer {
         average: 0.7,
         major: 0.6,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 

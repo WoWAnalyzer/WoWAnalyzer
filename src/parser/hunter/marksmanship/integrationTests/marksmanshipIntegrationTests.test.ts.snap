@@ -7135,7 +7135,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                   }
                 >
                    
-                  112.16%
+                  112.05%
                    
                    
                 </div>
@@ -8239,7 +8239,7 @@ exports[`Marksmanship Hunter integration test: Single Target AlwaysBeCasting mat
         <div
           className="value"
         >
-          12.91 %
+          13.20 %
         </div>
         <div
           style={
@@ -8258,7 +8258,7 @@ exports[`Marksmanship Hunter integration test: Single Target AlwaysBeCasting mat
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "87.09249473517198%",
+                  "width": "86.8040964668255%",
                 }
               }
             >
@@ -8334,7 +8334,7 @@ Array [
         message="{0}% downtime"
         values={
           Object {
-            "0": "12.91",
+            "0": "13.20",
           }
         }
       />
@@ -8403,7 +8403,7 @@ exports[`Marksmanship Hunter integration test: Single Target CancelledCasts matc
             </g>
           </svg>
            
-          7.55
+          7.48
           % 
           <small>
             casts cancelled
@@ -8440,11 +8440,11 @@ Array [
     "importance": "regular",
     "issue": <React.Fragment>
       You cancelled 
-      7.55
+      7.48
       % of your spells. While it is expected that you will have to cancel a few casts to react to a boss mechanic or to move, you should try to ensure that you are cancelling as few casts as possible. This is generally done by planning ahead in terms of positioning, and moving while you're casting instant cast spells.
     </React.Fragment>,
     "stat": <React.Fragment>
-      {"id":"hunter.marksmanship.suggestions.castsCanceled.efficiency","message":"{0}% casts cancelled","values":{"0":"7.55"}}
+      {"id":"hunter.marksmanship.suggestions.castsCanceled.efficiency","message":"{0}% casts cancelled","values":{"0":"7.48"}}
        (
       &lt;2.50% is recommended
       )
@@ -14684,7 +14684,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
               style={
                 Object {
                   "backgroundColor": "#df7102",
-                  "width": "41.390382097908905%",
+                  "width": "41.570383237433695%",
                 }
               }
             />
@@ -14792,7 +14792,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                   }
                 >
                    
-                  87.09%
+                  86.80%
                    
                    
                 </div>
@@ -14814,7 +14814,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "33.14491513921402%",
+                        "width": "33.03515899823188%",
                       }
                     }
                   />
@@ -14852,7 +14852,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                   }
                 >
                    
-                  92.45%
+                  92.52%
                    
                    
                 </div>
@@ -14872,9 +14872,9 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#df7102",
+                        "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "49.635849056603796%",
+                        "width": "50.10560747663552%",
                       }
                     }
                   />

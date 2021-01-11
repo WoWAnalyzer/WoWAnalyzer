@@ -3,6 +3,9 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 //Overridden Racial
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
+//Overridden Core modules
+import GlobalCooldown from 'parser/hunter/survival/modules/core/GlobalCooldown';
+
 //Features
 import Abilities from './modules/Abilities';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
@@ -84,6 +87,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core statistics
     abilities: Abilities,
     checklist: Checklist,
+    globalCooldown: GlobalCooldown,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,

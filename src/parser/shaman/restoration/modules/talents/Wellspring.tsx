@@ -6,7 +6,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatDuration, formatNth } from 'common/format';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { When } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Events, { BeginCastEvent, CastEvent, HealEvent } from 'parser/core/Events';
 
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
@@ -138,7 +138,7 @@ class Wellspring extends Analyzer {
         average: 0.6,
         major: 0.5,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 

@@ -232,8 +232,8 @@ class Abilities extends CoreAbilities {
 	  
 	    // Covenant (move these if needed)
       {
-        spell: SPELLS.ELYSIAN_DECREE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        spell: [SPELLS.ELYSIAN_DECREE, SPELLS.ELYSIAN_DECREE_REPEAT_DECREE],
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 60 * (1 - (combatant.hasTalent(SPELLS.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
         gcd: {
           base: 1500,

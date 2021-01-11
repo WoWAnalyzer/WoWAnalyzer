@@ -6,10 +6,12 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
 import React from 'react';
-import Events, { DamageEvent } from 'parser/core/Events';
+import Events, { DamageEvent, RemoveDebuffEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import { notableEnemy } from 'parser/shared/modules/hit-tracking/utilities';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
+
+const debug = false;
 
 /**
  * Hunter's Mark decreases the damage the target deals to you by x%.
@@ -25,7 +27,10 @@ class MarkmansAdvantage extends Analyzer {
 
   conduitRank = 0;
   conduitDR = 0;
+  damageReductionObj: { [key: number]: { damageMitigated: number; } } = {};
   totalDamageReduction = 0;
+  hmApplied = false;
+  potentialDR: { [key: number]: { damageMitigated: number; } } = {};
 
   protected enemies!: Enemies;
 
@@ -40,6 +45,7 @@ class MarkmansAdvantage extends Analyzer {
     this.conduitDR = MARKMANS_ADVANTAGE_EFFECT_BY_RANK[this.conduitRank];
 
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.damageTaken);
+    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.HUNTERS_MARK), this.hmRemoval);
   }
 
   damageTaken(event: DamageEvent) {
@@ -49,12 +55,30 @@ class MarkmansAdvantage extends Analyzer {
     if (!event.unmitigatedAmount || !event.sourceID) {
       return;
     }
-    const enemy = this.enemies.getEntities()[event.sourceID];
-    if (!enemy.hasBuff(SPELLS.HUNTERS_MARK.id)) {
-      return;
+    if (!this.hmApplied) {
+      this.potentialDR[event.sourceID] = this.potentialDR[event.sourceID] || { damageMitigated: 0 };
+      this.potentialDR[event.sourceID].damageMitigated += event.unmitigatedAmount * this.conduitDR;
+    } else {
+      const enemy = this.enemies.getEntities()[event.sourceID];
+      if (!enemy.hasBuff(SPELLS.HUNTERS_MARK.id)) {
+        return;
+      }
+      this.damageReductionObj[event.sourceID] = this.damageReductionObj[event.sourceID] || { damageMitigated: 0 };
+      this.damageReductionObj[event.sourceID].damageMitigated += event.unmitigatedAmount * this.conduitDR;
+      this.totalDamageReduction += event.unmitigatedAmount * this.conduitDR;
     }
+  }
 
-    this.totalDamageReduction += event.unmitigatedAmount * this.conduitDR;
+  hmRemoval(event: RemoveDebuffEvent) {
+    if (!this.hmApplied) {
+      debug && console.log('No Hunters Mark application detected to be removed.');
+      if (this.potentialDR[event.targetID]) {
+        this.damageReductionObj[event.targetID] = this.damageReductionObj[event.targetID] || { damageMitigated: 0 };
+        this.damageReductionObj[event.targetID].damageMitigated += this.potentialDR[event.targetID].damageMitigated;
+        this.totalDamageReduction += this.potentialDR[event.targetID].damageMitigated;
+      }
+      this.hmApplied = true;
+    }
   }
 
   statistic() {
@@ -63,6 +87,34 @@ class MarkmansAdvantage extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
+        tooltip={(
+          <>
+            The conduit reduces damage done by the marked target by {formatPercentage(this.conduitDR, 2)}%.
+          </>
+        )}
+        dropdown={(
+          <>
+            <table className="table table-condensed">
+              <thead>
+                <tr>
+                  <th>Enemy</th>
+                  <th>Mitigated</th>
+                  <th>Uptime</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.entries(this.damageReductionObj).map((mob, index) => (
+                  <tr key={index}>
+                    <td>{this.enemies.getEntities()[Number(mob[0])]._baseInfo.name}</td>
+                    <td>{formatNumber(mob[1].damageMitigated)}</td>
+                    <td>{formatPercentage(this.enemies.getEntities()[Number(mob[0])].getBuffUptime(SPELLS.HUNTERS_MARK.id) / this.owner.fightDuration)}%</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+          </>
+        )}
       >
         <ConduitSpellText spell={SPELLS.MARKMANS_ADVANTAGE_CONDUIT} rank={this.conduitRank}>
           <>

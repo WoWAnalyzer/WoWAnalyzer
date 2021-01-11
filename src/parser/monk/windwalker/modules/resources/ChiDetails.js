@@ -11,6 +11,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import BoringResourceValue from 'interface/statistics/components/BoringResourceValue/index';
 import { formatPercentage } from 'common/format';
 import { t } from '@lingui/macro';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 class ChiDetails extends Analyzer {
   static dependencies = {
@@ -37,18 +38,18 @@ class ChiDetails extends Analyzer {
         average: 1,
         major: 2,
       },
-      style: 'decimal',
+      style: ThresholdStyle.DECIMAL,
     };
   }
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest('You are wasting Chi. Try to use it and not let it cap and go to waste')
-        .icon('creatureportrait_bubble')
-        .actual(t({
-      id: "monk.windwalker.suggestions.chi.wastedPerMinute",
-      message: `${this.chiWasted} Chi wasted (${(actual.toFixed(2))} per minute)`
-    }))
-        .recommended(`${recommended} Chi wasted is recommended`));
+      .icon('creatureportrait_bubble')
+      .actual(t({
+        id: 'monk.windwalker.suggestions.chi.wastedPerMinute',
+        message: `${this.chiWasted} Chi wasted (${(actual.toFixed(2))} per minute)`,
+      }))
+      .recommended(`${recommended} Chi wasted is recommended`));
   }
 
   statistic() {

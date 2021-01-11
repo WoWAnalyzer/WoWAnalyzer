@@ -76,7 +76,7 @@ class RapidFire extends Analyzer {
     this.lastReductionTimestamp = event.timestamp;
   }
 
-  reduceRapidFireCooldown(event: any, spellReductionSpeed: number) {
+  reduceRapidFireCooldown(event: AnyEvent, spellReductionSpeed: number) {
     const maxReductionMs: number = (event.timestamp - this.lastReductionTimestamp) * spellReductionSpeed;
     debug && console.log('Reducing Rapid Fire cooldown by up to: ', maxReductionMs / 1000 + ' seconds since last event');
     const effectiveReductionMs: number = this.spellUsable.reduceCooldown(SPELLS.RAPID_FIRE.id, maxReductionMs, event.timestamp);
