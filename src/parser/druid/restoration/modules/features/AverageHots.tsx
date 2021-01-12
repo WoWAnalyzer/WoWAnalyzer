@@ -14,6 +14,8 @@ class AverageHots extends Analyzer {
     mastery: Mastery,
   };
 
+  protected mastery!: Mastery;
+
   statistic() {
     const avgTotalHots = (this.mastery.getAverageTotalMasteryStacks()).toFixed(2);
     const avgDruidHots = (this.mastery.getAverageDruidSpellMasteryStacks()).toFixed(2);

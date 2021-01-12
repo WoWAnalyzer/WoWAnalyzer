@@ -8,31 +8,32 @@ import SpellIcon from 'common/SpellIcon';
 import BoringValue from 'interface/statistics/components/BoringValueText';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { t } from '@lingui/macro';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 const DURATION = 30000;
 
 class Efflorescence extends Analyzer {
   precastUptime = 0;
   castUptime = 0;
-  castTimestamps = []; // TODO this array not really used yet, but I plan to use it to catch early refreshes
+  castTimestamps: number[] = []; // TODO this array not really used yet, but I plan to use it to catch early refreshes
 
-  constructor(options) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EFFLORESCENCE_CAST), this.onCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EFFLORESCENCE_HEAL), this.onHeal);
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     if (this.lastCastTimestamp !== null) {
       this.castUptime += Math.min(DURATION, event.timestamp - this.lastCastTimestamp);
     }
     this.castTimestamps.push(event.timestamp);
   }
 
-  onHeal(event) {
+  onHeal(event: HealEvent) {
     // if efflo heals before the first cast, we assume it was from a precast
     if (this.castTimestamps.length === 0) {
       this.precastUptime = event.timestamp - this.owner.fight.start_time;
@@ -61,11 +62,11 @@ class Efflorescence extends Analyzer {
         average: 0.50,
         major: 0.25,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>Your <SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} /> uptime can be improved.</span>)
           .icon(SPELLS.EFFLORESCENCE_CAST.icon)
@@ -73,7 +74,7 @@ class Efflorescence extends Analyzer {
       id: "druid.restoration.efflorescence.uptime",
       message: `${formatPercentage(this.uptimePercent)}% uptime`
     }))
-          .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`));
+          .recommended(`>${formatPercentage(recommended)}% is recommended`));
 
     // TODO suggestion for early refreshes
   }

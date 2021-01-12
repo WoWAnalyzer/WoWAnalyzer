@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2021, 1, 9), <>Updated what spells are considered healing spells and removed mana tea from gcd. </>, Abelito75),
   change(date(2020, 12, 31), <>Fixed a bug where a Imbued Reflections would show up when it shouldn't. </>, Abelito75),
   change(date(2020, 12, 31), <>Fixed Stat weights if you have zero mastery on gear. </>, Abelito75),
   change(date(2020, 12, 30), <>Fixed some weirdness jss precast and % uptime. </>, Abelito75),

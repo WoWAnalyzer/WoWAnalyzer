@@ -6,7 +6,8 @@ import BoringValue from 'interface/statistics/components/BoringValueText';
 import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 import { t } from '@lingui/macro';
 
@@ -33,7 +34,7 @@ class SpringBlossoms extends Analyzer {
         average: 0.05,
         major: 0.03,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -41,10 +42,11 @@ class SpringBlossoms extends Analyzer {
     mastery: Mastery,
   };
 
-  constructor(...args) {
-    super(...args);
-    const hasSpringBlossoms = this.selectedCombatant.hasTalent(SPELLS.SPRING_BLOSSOMS_TALENT.id);
-    this.active = hasSpringBlossoms;
+  protected mastery!: Mastery;
+
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SPRING_BLOSSOMS_TALENT.id);
   }
 
   statistic() {
@@ -71,7 +73,7 @@ class SpringBlossoms extends Analyzer {
     );
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<span>Your healing from <SpellLink id={SPELLS.SPRING_BLOSSOMS.id} /> could be improved.
           Either your efflorescence uptime could be improved or the encounter doesn't fit this talent very well.</span>)
@@ -80,7 +82,7 @@ class SpringBlossoms extends Analyzer {
       id: "druid.restoration.suggestions.springBlossoms.efficiency",
       message: `${formatPercentage(this.totalPercent)}% healing`
     }))
-        .recommended(`>${Math.round(formatPercentage(recommended))}% is recommended`));
+        .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 }
 

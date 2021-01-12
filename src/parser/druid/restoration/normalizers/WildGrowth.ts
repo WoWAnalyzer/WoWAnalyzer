@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { EventType } from 'parser/core/Events';
+import { AnyEvent, EventType } from 'parser/core/Events';
 
 const MS_BUFFER=100;
 class WildGrowth extends EventsNormalizer {
@@ -11,9 +11,9 @@ class WildGrowth extends EventsNormalizer {
    * @param events
    * @returns {Array}
    */
-  normalize(events) {
-    let _events = [];
-    let _newEvents = [];
+  normalize(events: AnyEvent[]) {
+    let _events: AnyEvent[] = [];
+    let _newEvents: AnyEvent[] = [];
 
     events.forEach((event, idx) => {
       _events.push(event);

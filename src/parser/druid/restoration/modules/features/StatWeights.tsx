@@ -2,13 +2,13 @@ import SPELLS from 'common/SPELLS';
 import STAT from 'parser/shared/modules/features/STAT';
 import HIT_TYPES from 'game/HIT_TYPES';
 
-import BaseHealerStatValues from 'parser/shared/modules/features/BaseHealerStatValues';
+import BaseHealerStatValues, { HealerStatWeightEvents } from 'parser/shared/modules/features/BaseHealerStatValues';
 import Combatants from 'parser/shared/modules/Combatants';
 import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import HealingValue from 'parser/shared/modules/HealingValue';
 
 import Mastery from '../core/Mastery';
-
 import { DRUID_HEAL_INFO } from '../../SpellInfo';
 
 /*
@@ -96,11 +96,16 @@ class StatWeights extends BaseHealerStatValues {
     mastery: Mastery,
   };
 
+  protected combatants!: Combatants;
+  protected critEffectBonus!: CritEffectBonus;
+  protected statTracker!: StatTracker;
+  protected mastery!: Mastery; 
+
   spellInfo = DRUID_HEAL_INFO;
   qeLive = true;
   done = false;
 
-  _getCritChance(event) {
+  _getCritChance(event: HealerStatWeightEvents) {
     const spellId = event.ability.guid;
     const critChanceBreakdown = super._getCritChance(event);
 
@@ -113,23 +118,28 @@ class StatWeights extends BaseHealerStatValues {
     return critChanceBreakdown;
   }
 
-  _criticalStrike(event, healVal) {
+  _criticalStrike(event: HealerStatWeightEvents, healVal: HealingValue) {
     const bonusFromOneCrit = 1 / this.statTracker.ratingNeededForNextPercentage(this.statTracker.currentHasteRating, this.statTracker.statBaselineRatingPerPercent[STAT.CRITICAL_STRIKE]);
 
     if (healVal.overheal) {
       return 0;
     }
     const critMult = this.critEffectBonus.getBonus(event);
-    const noCritHealing = event.hitType === HIT_TYPES.CRIT ? healVal.effective / critMult : healVal.effective;
+
+    let noCritHealing = healVal.effective;
+    if("hitType" in event && event.hitType === HIT_TYPES.CRIT){
+      noCritHealing = healVal.effective / critMult;
+    }
     return noCritHealing * bonusFromOneCrit * (critMult - 1);
 
   }
 
-  _hasteHpm(event, healVal) {
+  _hasteHpm(event: HealerStatWeightEvents, healVal: HealingValue) {
     if (healVal.overheal) {
       return 0;
     }
-    if (event.ability.guid === SPELLS.REGROWTH.id && !event.tick) {
+    //tick is only included if its true
+    if (event.ability.guid === SPELLS.REGROWTH.id && ("tick" in event)) {
       return 0;
     }
     return super._hasteHpm(event, healVal);
@@ -139,7 +149,7 @@ class StatWeights extends BaseHealerStatValues {
   //   return super._hasteHpct(event, healVal) + this._hasteHpm(event, healVal);
   // }
 
-  _mastery(event, healVal) {
+  _mastery(event: HealerStatWeightEvents, healVal: HealingValue) {
     if (healVal.overheal) {
       return 0;
     }

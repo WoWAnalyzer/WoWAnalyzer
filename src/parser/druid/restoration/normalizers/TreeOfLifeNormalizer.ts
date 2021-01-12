@@ -1,7 +1,7 @@
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 import SPELLS from 'common/SPELLS';
-import { EventType } from 'parser/core/Events';
+import { AnyEvent, EventType } from 'parser/core/Events';
 
 const MAX_DELAY = 200;
 
@@ -19,8 +19,8 @@ const MAX_DELAY = 200;
  */
 class TreeOfLifeNormalizer extends EventsNormalizer {
 
-  normalize(events) {
-    const fixedEvents = [];
+  normalize(events: AnyEvent[]) {
+    const fixedEvents: AnyEvent[] = [];
     events.forEach((event, eventIndex) => {
       fixedEvents.push(event);
 
