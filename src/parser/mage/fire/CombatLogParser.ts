@@ -45,6 +45,7 @@ import Firestorm from './modules/items/Firestorm';
 
 //Covenants
 import ShiftingPower from '../shared/modules/features/ShiftingPower';
+import ShiftingPowerUsage from './modules/features/ShiftingPowerUsage';
 import MirrorsOfTorment from '../shared/modules/features/MirrorsOfTorment';
 
 //Conduits
@@ -106,6 +107,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Covenants
     shiftingPower: ShiftingPower,
+    shiftingPowerUsage: ShiftingPowerUsage,
     mirrorsOfTorment: MirrorsOfTorment,
 
     //Conduits
