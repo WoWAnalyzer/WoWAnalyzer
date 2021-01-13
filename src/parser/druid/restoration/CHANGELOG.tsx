@@ -2,6 +2,7 @@ import { Abelito75, Zeboot, LeoZhekov, Putro, Vexxra } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2021, 1, 12), '9.0.2 supported!!!', Abelito75),
   change(date(2021, 1, 9), 'Converting the majority to typescript!', Abelito75),
   change(date(2021, 1, 9), 'Added Memory of the Mother Tree legendary stat!', Abelito75),
   change(date(2021, 1, 7), 'Another bug fix for Vision of Unending Growth.', Abelito75),
