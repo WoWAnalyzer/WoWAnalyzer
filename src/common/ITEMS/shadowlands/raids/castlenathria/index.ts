@@ -30,6 +30,11 @@ const items: ItemList = {
   //endregion
 
   //region The Council of Blood
+  MACABRE_SHEET_MUSIC: {
+    id: 184024, 
+    name: 'Macabre Sheet Music',
+    icon: 'inv_scroll_16',
+  },
 
   //endregion
 

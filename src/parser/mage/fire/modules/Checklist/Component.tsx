@@ -22,14 +22,14 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
   return (
     <Checklist>
       <Rule
-        name="Always Be Casting (Downtime)"
+        name="Always Be Casting"
         description={(
           <>
             Any time you are not casting something, that is damage that is lost. Mage has many ways to decrease downtime, such as using <SpellLink id={SPELLS.BLINK.id} /> to get somewhere faster so you can continue casting or using <SpellLink id={SPELLS.SCORCH.id} /> while you are moving; even phases where the only target is taking 99% reduced damage is an opportunity to fish for procs or get cooldown reduction from crits if you are using <SpellLink id={SPELLS.KINDLING_TALENT.id} />. While some encounters have forced downtime, which WoWAnalyzer does not account for, anything you can do to minimize your downtime will help your damage. Additionally, to better contextualize your downtime, we recommend comparing your downtime to another Fire Mage that did better than you on the same encounter with roughly the same kill time. If you have less downtime than them, then maybe there is something you can do to improve.
           </>
         )}
       >
-        <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />
+        <Requirement name="Active Time" thresholds={thresholds.downtimeSuggestionThresholds} />
         <Requirement name="Cancelled Casts" thresholds={thresholds.cancelledCasts} />
       </Rule>
       <Rule

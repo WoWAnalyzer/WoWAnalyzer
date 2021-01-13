@@ -127,6 +127,10 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id,
       versatility: (_, item) => calculateSecondaryStatDefault(184, 568, item.itemLevel),
     },
+    [SPELLS.BLOOD_WALTZ_HASTE_BUFF.id]: {
+      itemId: ITEMS.MACABRE_SHEET_MUSIC.id,
+      haste: (_, item) => calculateSecondaryStatDefault(213, 95, item.itemLevel)
+    },
 
     //endregion
     //endregion

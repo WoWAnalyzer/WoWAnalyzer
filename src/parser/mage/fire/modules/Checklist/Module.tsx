@@ -85,7 +85,7 @@ class Checklist extends BaseChecklist {
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
 
-          downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
+          downtimeSuggestionThresholds: this.alwaysBeCasting.suggestionThresholds,
           phoenixFlamesCombustionCharges: this.combustionCharges.phoenixFlamesThresholds,
           fireBlastCombustionCharges: this.combustionCharges.fireBlastThresholds,
           firestarterCombustionUsage: this.combustionFirestarter.SuggestionThresholds,
