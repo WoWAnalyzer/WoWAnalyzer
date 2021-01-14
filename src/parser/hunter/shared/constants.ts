@@ -157,7 +157,7 @@ export const EMPOWERED_RELEASE_INCREASE_KS_DAMAGE = [0, 0.05, 0.06, 0.07, 0.085,
 //endregion
 
 //region Endurance
-export const HARMONY_OF_THE_TORTOLLAN_EFFECT_BY_RANK = [0, 10, 11.5, 13, 14.5, 16, 17.5, 19, 20.5, 23, 24.5, 26, 27.5, 29, 30.5, 32];
+export const HARMONY_OF_THE_TORTOLLAN_EFFECT_BY_RANK: number[] = [0, 10, 11.5, 13, 14.5, 16, 17.5, 19, 20.5, 23, 24.5, 26, 27.5, 29, 30.5, 32];
 export const MARKMANS_ADVANTAGE_EFFECT_BY_RANK = [0, 0.03, 0.035, 0.04, 0.045, 0.05, 0.055, 0.06, 0.065, 0.07, 0.075, 0.08, 0.085, 0.09, 0.095, 0.1];
 export const RESILIENCE_OF_THE_HUNTER_EFFECT_BY_RANK = [0, 0.03, 0.038, 0.046, 0.054, 0.062, 0.07, 0.078, 0.086, 0.094, 0.102, 0.11, 0.118, 0.126, 0.134, 0.142];
 //endregion
