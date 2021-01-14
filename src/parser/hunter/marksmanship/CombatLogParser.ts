@@ -80,6 +80,7 @@ import SharpshootersFocus from './modules/spells/conduits/SharpshootersFocus';
 import MarkmansAdvantage from '../shared/modules/spells/conduits/MarkmansAdvantage';
 import ResilienceOfTheHunter from '../shared/modules/spells/conduits/ResilienceOfTheHunter';
 import ReversalOfFortune from '../shared/modules/spells/conduits/ReversalOfFortune';
+import RejuvenatingWind from '../shared/modules/spells/conduits/RejuvenatingWind';
 
 //Legendaries
 import SerpentstalkersTrickery from './modules/items/SerpentstalkersTrickery';
@@ -166,6 +167,7 @@ class CombatLogParser extends CoreCombatLogParser {
     markmansAdvantage: MarkmansAdvantage,
     resilienceOfTheHunter: ResilienceOfTheHunter,
     reversalOfFortune: ReversalOfFortune,
+    rejuvenatingWind: RejuvenatingWind,
 
     //Generic Legendaries
     nesingwarysTrappingApparatus: NesingwarysTrappingApparatus,
