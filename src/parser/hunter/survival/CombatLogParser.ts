@@ -76,6 +76,7 @@ import StingingStrike from './modules/spells/conduits/StingingStrike';
 import StrengthOfThePack from './modules/spells/conduits/StrengthOfThePack';
 import MarkmansAdvantage from '../shared/modules/spells/conduits/MarkmansAdvantage';
 import ResilienceOfTheHunter from '../shared/modules/spells/conduits/ResilienceOfTheHunter';
+import ReversalOfFortune from '../shared/modules/spells/conduits/ReversalOfFortune';
 
 //Legendaries
 import NesingwarysTrappingApparatus from './modules/items/NesingwarysTrappingApparatus';
@@ -155,6 +156,7 @@ class CombatLogParser extends CoreCombatLogParser {
     strengthOfThePack: StrengthOfThePack,
     markmansAdvantage: MarkmansAdvantage,
     resilienceOfTheHunter: ResilienceOfTheHunter,
+    reversalOfFortune: ReversalOfFortune,
 
     //Generic Legendaries
     nesingwarysTrappingApparatus: NesingwarysTrappingApparatus,
