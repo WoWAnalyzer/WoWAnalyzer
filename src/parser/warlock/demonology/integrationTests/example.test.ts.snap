@@ -3395,7 +3395,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               0
-              /2
+              /1
                
               casts
             </td>
@@ -3493,7 +3493,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               0
-              /2
+              /1
                
               casts
             </td>
