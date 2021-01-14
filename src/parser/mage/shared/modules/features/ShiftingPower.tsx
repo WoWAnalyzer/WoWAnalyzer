@@ -1,6 +1,6 @@
 import React from 'react';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { CastEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { CastEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
@@ -28,11 +28,11 @@ class ShiftingPower extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIFTING_POWER_TICK), this.onShiftingPowerTick);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SHIFTING_POWER), this.onChannelStart);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIFTING_POWER), this.onChannelStart);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SHIFTING_POWER), this.onChannelEnd);
   }
 
-  onChannelStart(event: ApplyBuffEvent) {
+  onChannelStart(event: CastEvent) {
     this.channeling.beginChannel(event);
   }
 

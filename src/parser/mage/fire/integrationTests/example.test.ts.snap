@@ -53,7 +53,7 @@ exports[`Fire Mage integration test: example log AlwaysBeCasting matches the sta
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "63.49407673124681%",
+                  "width": "63.48952252141561%",
                 }
               }
             >
@@ -4333,7 +4333,7 @@ exports[`Fire Mage integration test: example log HotStreak matches the statistic
             Proc Utilization
           </small>
           <br />
-          40
+          56
           % 
           <small>
             Procs used alongside Fireball
@@ -4396,7 +4396,7 @@ Array [
         id={48108}
       />
        proc. You failed to do this 
-      15
+      8
        times. If you have a 
       <ForwardRef
         id={48108}
@@ -4417,7 +4417,7 @@ Array [
         message="{0}% Utilization"
         values={
           Object {
-            "0": "40.00",
+            "0": "55.56",
           }
         }
       />
@@ -5497,7 +5497,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#df7102",
-                  "width": "44.230128951264426%",
+                  "width": "44.229262350193686%",
                 }
               }
             />
@@ -5657,7 +5657,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "24.1640314874345%",
+                        "width": "24.16229828529303%",
                       }
                     }
                   />
@@ -6567,7 +6567,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "73.3086749042225%",
+                  "width": "75.30098259653019%",
                 }
               }
             />
@@ -7050,7 +7050,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  40.00%
+                  55.56%
                    
                    
                 </div>
@@ -7072,7 +7072,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "20.492307692307694%",
+                        "width": "28.461538461538467%",
                       }
                     }
                   />
