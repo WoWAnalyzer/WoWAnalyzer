@@ -5448,6 +5448,75 @@ exports[`Marksmanship Hunter integration test: Multi Target RapidFire matches th
 </div>
 `;
 
+exports[`Marksmanship Hunter integration test: Multi Target ReversalOfFortune matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="COVENANT"
+    className="panel statistic flexible "
+    position={1000}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=339495"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Reversal of Fortune"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/inv_trickshot.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=339495"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Reversal of Fortune
+          </a>
+           - Rank 
+          4
+        </label>
+        <div
+          className="value"
+        >
+          <img
+            alt="Focus"
+            className="icon game "
+            src="//render-us.worldofwarcraft.com/icons/56/ability_hunter_focusfire.jpg"
+          />
+           
+          0
+          /
+          0
+           
+          <small>
+            Focus gained
+          </small>
+          <br />
+          0
+           
+          <small>
+            interrupts
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Marksmanship Hunter integration test: Multi Target SerpentstalkersTrickery matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -13404,6 +13473,69 @@ exports[`Marksmanship Hunter integration test: Single Target ResonatingArrow mat
           d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
         />
       </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Marksmanship Hunter integration test: Single Target ReversalOfFortune matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="COVENANT"
+    className="panel statistic flexible "
+    position={1000}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=339399"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Rejuvenating Wind"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/ability_druid_galewinds.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=339399"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Rejuvenating Wind
+          </a>
+           - Rank 
+          3
+        </label>
+        <div
+          className="value"
+        >
+          <img
+            alt="Healing"
+            className="icon"
+            src="/img/healing.png"
+          />
+           
+          14
+           HPS
+           
+          <small>
+            8.33
+            % of total
+          </small>
+        </div>
+      </div>
     </div>
   </div>
 </div>
