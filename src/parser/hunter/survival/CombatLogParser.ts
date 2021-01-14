@@ -84,6 +84,7 @@ import HarmonyOfTheTortollan from '../shared/modules/spells/conduits/HarmonyOfTh
 import NesingwarysTrappingApparatus from './modules/items/NesingwarysTrappingApparatus';
 import SoulforgeEmbers from '../shared/modules/items/SoulforgeEmbers';
 import WildfireCluster from './modules/items/WildfireCluster';
+import LatentPoisonInjectors from './modules/items/LatentPoisonInjectors';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -168,6 +169,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Survival Legendaries
     wildfireCluster: WildfireCluster,
+    latentPoisonInjectors: LatentPoisonInjectors,
 
     // Survival's throughput benefit isn't as big as for other classes
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,
