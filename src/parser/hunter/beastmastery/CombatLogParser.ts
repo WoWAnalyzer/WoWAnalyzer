@@ -159,7 +159,7 @@ class CombatLogParser extends CoreCombatLogParser {
     resilienceOfTheHunter: ResilienceOfTheHunter,
     reversalOfFortune: ReversalOfFortune,
     rejuvenatingWind: RejuvenatingWind,
-    
+
     //Generic Legendaries
     nesingwarysTrappingApparatus: NesingwarysTrappingApparatus,
     soulforgeEmbers: SoulforgeEmbers,
