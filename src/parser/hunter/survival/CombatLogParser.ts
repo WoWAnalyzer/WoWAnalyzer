@@ -4,7 +4,8 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 //Overridden Core modules
-import GlobalCooldown from 'parser/hunter/survival/modules/core/GlobalCooldown';
+import SpellUsable from './modules/core/SpellUsable';
+import GlobalCooldown from './modules/core/GlobalCooldown';
 
 //Features
 import Abilities from './modules/Abilities';
@@ -85,6 +86,7 @@ import NesingwarysTrappingApparatus from './modules/items/NesingwarysTrappingApp
 import SoulforgeEmbers from '../shared/modules/items/SoulforgeEmbers';
 import WildfireCluster from './modules/items/WildfireCluster';
 import LatentPoisonInjectors from './modules/items/LatentPoisonInjectors';
+import RylakstalkersConfoundingStrikes from './modules/items/RylakstalkersConfoundingStrikes';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -92,6 +94,7 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     checklist: Checklist,
     globalCooldown: GlobalCooldown,
+    spellUsable: SpellUsable,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -170,6 +173,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Survival Legendaries
     wildfireCluster: WildfireCluster,
     latentPoisonInjectors: LatentPoisonInjectors,
+    rylakstalkersConfoundingStrikes: RylakstalkersConfoundingStrikes,
 
     // Survival's throughput benefit isn't as big as for other classes
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,
