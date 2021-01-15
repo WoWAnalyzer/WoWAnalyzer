@@ -1486,8 +1486,8 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#ff8000",
-                      "width": "81.32666811329803%",
+                      "backgroundColor": "#70b570",
+                      "width": "94.04175406731122%",
                     }
                   }
                 />
@@ -1502,7 +1502,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              81.33%
+              94.04%
             </td>
             <td
               style={
@@ -3470,50 +3470,6 @@ Array [
             "0": 45,
             "1": 53,
             "2": "89",
-          }
-        }
-      />
-       (
-      <Trans
-        id="shared.modules.castEfficiency.recommended"
-        message=">{0}% is recommended"
-        values={
-          Object {
-            "0": "90",
-          }
-        }
-      />
-      )
-    </React.Fragment>,
-  },
-  Object {
-    "details": null,
-    "icon": "spell_fire_sealoffire",
-    "importance": "regular",
-    "issue": <React.Fragment>
-      <Trans
-        components={
-          Object {
-            "0": <ForwardRef
-              id={190319}
-            />,
-          }
-        }
-        id="shared.modules.castEfficiency.suggest"
-        message="Try to cast <0/> more often."
-      />
-       
-      
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      <Trans
-        id="shared.modules.castEfficiency.actual"
-        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
-        values={
-          Object {
-            "0": 4,
-            "1": 6,
-            "2": "81",
           }
         }
       />
@@ -5749,8 +5705,8 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ffc84a",
-                  "width": "62.92717946814746%",
+                  "backgroundColor": "#a6c34c",
+                  "width": "76.07353041613764%",
                 }
               }
             />
@@ -5962,7 +5918,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  81.33%
+                  94.04%
                    
                    
                 </div>
@@ -5984,7 +5940,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "54.36780481728244%",
+                        "width": "100%",
                       }
                     }
                   />
