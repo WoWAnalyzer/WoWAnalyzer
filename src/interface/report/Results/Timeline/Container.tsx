@@ -20,7 +20,7 @@ interface Props {
 const Container = ({ parser }: Props) => {
   const premium = usePremium();
 
-  if (!premium || true) {
+  if (!premium) {
     return (
       <div className="container" style={{ fontSize: 20 }}>
         The timeline shows your casts, channel times, GCD, active buffs, and cooldowns for a quick
