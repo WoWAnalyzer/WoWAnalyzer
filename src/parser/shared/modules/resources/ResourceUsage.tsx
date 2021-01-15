@@ -124,7 +124,6 @@ class ResourceUsage extends Analyzer {
   get resourceUsageChart() {
     const items: Array<{ color: string, label: string, spellId: number, value: number, valueTooltip: string }> = [];
     let colourIndex = 0;
-    console.log(this.resourceSpenders, this.listOfSpellsUsed);
     this.resourceSpenders.forEach(spell => {
       if (this.listOfSpellsUsed[spell.id] && this.listOfSpellsUsed[spell.id].resourceUsed > 0) {
         items.push({
