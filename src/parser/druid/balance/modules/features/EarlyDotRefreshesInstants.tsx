@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
-import { CastEvent, AnyEvent } from 'parser/core/Events';
+import { CastEvent } from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import CoreEarlyDotRefreshesInstants from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesInstants';
 import suggest from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesInstantsSuggestion';
@@ -89,7 +89,7 @@ class EarlyDotRefreshesInstants extends CoreEarlyDotRefreshesInstants {
   static dots = DOTS;
 
   // Check for Stellar Drift on both the cast event and the next event, since it might have expired mid GCD.
-  couldCastWhileMoving(castEvent: CastEvent, endEvent: AnyEvent) {
+  couldCastWhileMoving(castEvent: CastEvent, endEvent: CastEvent) {
     if (this.selectedCombatant.hasBuff(SPELLS.STELLAR_DRIFT.id, castEvent.timestamp) && this.selectedCombatant.hasBuff(SPELLS.STELLAR_DRIFT.id, endEvent.timestamp)) {
       return SPELLS.STELLAR_DRIFT.name;
     }
