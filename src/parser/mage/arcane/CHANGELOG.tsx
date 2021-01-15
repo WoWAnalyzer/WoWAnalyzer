@@ -7,6 +7,7 @@ import { change, date } from 'common/changelog';
 
 // prettier-ignore
 export default [
+  change(date(2021, 1, 15), <>Fixed an issue that was not adding the proper amount of additional CDR from <SpellLink id={SPELLS.DISCIPLINE_OF_THE_GROVE.id} />.</>, Sharrq),
   change(date(2020, 12, 28), <>Updated conduit statistic boxes to use the new layout.</>, Sharrq),
   change(date(2020, 12, 24), <>Fixed an issue that was showing <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> as lasting the entire fight duration in the Cooldowns tab.</>, Sharrq),
   change(date(2020, 12, 19), <>Added module to check the active time during <SpellLink id={SPELLS.ARCANE_POWER.id} />.</>, Sharrq),
