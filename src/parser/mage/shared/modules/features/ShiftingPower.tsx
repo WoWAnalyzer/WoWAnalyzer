@@ -13,6 +13,7 @@ import { SHIFTING_POWER_MS_REDUCTION_PER_TICK, SHIFTING_POWER_REDUCTION_SPELLS }
 import { formatNumber } from 'common/format';
 
 const debug = false;
+const COOLDOWN_REDUCTION_MS = [0, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400]; 
 
 class ShiftingPower extends Analyzer {
   static dependencies = {
@@ -21,12 +22,14 @@ class ShiftingPower extends Analyzer {
   }
   protected spellUsable!: SpellUsable;
   protected channeling!: Channeling;
+  conduitRank: number;
 
   spellReductions: { [key: number]: number } =  {}
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id);
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.DISCIPLINE_OF_THE_GROVE.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIFTING_POWER_TICK), this.onShiftingPowerTick);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIFTING_POWER), this.onChannelStart);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SHIFTING_POWER), this.onChannelEnd);
@@ -41,7 +44,7 @@ class ShiftingPower extends Analyzer {
   }
 
   onShiftingPowerTick(event: CastEvent) {
-    const reductionPerTick = this.selectedCombatant.hasConduitBySpellID(SPELLS.DISCIPLINE_OF_THE_GROVE.id) ? SHIFTING_POWER_MS_REDUCTION_PER_TICK + 1000 : SHIFTING_POWER_MS_REDUCTION_PER_TICK;
+    const reductionPerTick = this.selectedCombatant.hasConduitBySpellID(SPELLS.DISCIPLINE_OF_THE_GROVE.id) ? SHIFTING_POWER_MS_REDUCTION_PER_TICK + COOLDOWN_REDUCTION_MS[this.conduitRank] : SHIFTING_POWER_MS_REDUCTION_PER_TICK;
     SHIFTING_POWER_REDUCTION_SPELLS.forEach(spell => {
       if (this.spellUsable.isOnCooldown(spell.id)) {
         debug && this.log('Reduced ' + spell.name + ' by ' + reductionPerTick);
