@@ -5,13 +5,11 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 
-import CancelledCasts from '../CancelledCasts';
 import AlwaysBeCasting from '../AlwaysBeCasting';
+import CancelledCasts from '../CancelledCasts';
 import MoonfireUptime from '../MoonfireUptime';
 import SunfireUptime from '../SunfireUptime';
 import StellarFlareUptime from '../../talents/StellarFlareUptime';
-import LunarEmpowerment from '../LunarEmpowerment';
-import SolarEmpowerment from '../SolarEmpowerment';
 import EarlyDotRefreshes from '../EarlyDotRefreshes';
 import EarlyDotRefreshesInstants from '../EarlyDotRefreshesInstants';
 
@@ -29,12 +27,21 @@ class Checklist extends BaseModule {
     moonfireUptime: MoonfireUptime,
     sunfireUptime: SunfireUptime,
     stellarFlareUptime: StellarFlareUptime,
-    lunarEmpowerment: LunarEmpowerment,
-    solarEmpowerment: SolarEmpowerment,
     earlyDotRefreshes: EarlyDotRefreshes,
     earlyDotRefreshesInstants: EarlyDotRefreshesInstants,
     astralPowerDetails: AstralPowerDetails,
   };
+  protected combatants!: Combatants;
+  protected castEfficiency!: CastEfficiency;
+  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
+  protected alwaysBeCasting!: AlwaysBeCasting;
+  protected cancelledCasts!: CancelledCasts;
+  protected moonfireUptime!: MoonfireUptime;
+  protected sunfireUptime!: SunfireUptime;
+  protected stellarFlareUptime!: StellarFlareUptime;
+  protected earlyDotRefreshes!: EarlyDotRefreshes;
+  protected earlyDotRefreshesInstants!: EarlyDotRefreshesInstants;
+  protected astralPowerDetails!: AstralPowerDetails;
 
   render() {
     return (
@@ -53,8 +60,6 @@ class Checklist extends BaseModule {
           sunfireRefresh: this.earlyDotRefreshesInstants.suggestionThresholdsSunfireEfficiency,
           stellarFlareRefresh: this.earlyDotRefreshes.suggestionThresholdsStellarFlareEfficiency,
           astralPowerEfficiency: this.astralPowerDetails.suggestionThresholds,
-          solarEmpowermentEfficiency: this.solarEmpowerment.suggestionThresholds,
-          lunarEmpowermentEfficiency: this.lunarEmpowerment.suggestionThresholds,
         }}
       />
     );

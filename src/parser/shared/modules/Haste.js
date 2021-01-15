@@ -33,6 +33,14 @@ class Haste extends Analyzer {
     [SPELLS.EMPOWER_RUNE_WEAPON.id]: 0.15, // Frost DK
     [SPELLS.EUPHORIA.id]: 0.2, //Buff from Thrill Seeker (Nadjia Soulbind Venthyr)
 
+    //region Druid Haste Buffs
+    [SPELLS.STARLORD.id]: {
+      hastePerStack: 0.04,
+    },
+    [SPELLS.CELESTIAL_ALIGNMENT.id]: 0.1,
+    [SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id]: 0.1,
+    //endregion
+
     //region Hunter Haste Buffs
     [SPELLS.DIRE_BEAST_BUFF.id]: DIRE_BEAST_HASTE_PERCENT,
     [SPELLS.STEADY_FOCUS_BUFF.id]: STEADY_FOCUS_HASTE_PERCENT,
