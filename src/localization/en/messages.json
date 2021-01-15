@@ -348,7 +348,7 @@
   "interface.report.encountersNotFoundWarning.noEncountersFoundDetails": "We were unable to find any encounters in this report. If Warcraft Logs shows a dungeon or boss encounter on this report, then try refreshing this page (Press F5) to re-pull the report from Warcraft Logs. Additionally, please note that due to the way combat logs work, we are unable to evaluate Target Dummy logs.",
   "interface.report.fightSelection.documentTitle": "{0} in {1}",
   "interface.report.fightSelection.fightSelection": "Fight selection",
-  "interface.report.fightSelection.fightSelectionDetails": "Select the fight you wish to analyze.",
+  "interface.report.fightSelection.fightSelectionDetails": "Select the fight you wish to analyze. If a boss or encounter is missing, or the list below is empty, press the Refresh button above to re-pull the log from Warcraft Logs. Additionally, please note that due to the way combat logs work, we are unable to evaluate Target Dummy logs.",
   "interface.report.fightSelection.killsOnly": "Kills only",
   "interface.report.fightSelection.refresh": "Refresh",
   "interface.report.fightSelection.tooltip.backToHome": "Back to home",
