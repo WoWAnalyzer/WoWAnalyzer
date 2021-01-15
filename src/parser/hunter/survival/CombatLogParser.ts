@@ -87,6 +87,7 @@ import SoulforgeEmbers from '../shared/modules/items/SoulforgeEmbers';
 import WildfireCluster from './modules/items/WildfireCluster';
 import LatentPoisonInjectors from './modules/items/LatentPoisonInjectors';
 import RylakstalkersConfoundingStrikes from './modules/items/RylakstalkersConfoundingStrikes';
+import ButchersBoneFragments from './modules/items/ButchersBoneFragments';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -174,6 +175,7 @@ class CombatLogParser extends CoreCombatLogParser {
     wildfireCluster: WildfireCluster,
     latentPoisonInjectors: LatentPoisonInjectors,
     rylakstalkersConfoundingStrikes: RylakstalkersConfoundingStrikes,
+    butchersBoneFragments: ButchersBoneFragments,
 
     // Survival's throughput benefit isn't as big as for other classes
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,

@@ -1,7 +1,7 @@
 import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import { RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
+import { LATENT_POISON_INJECOTRS_MAX_STACKS, RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
 import Events, { ApplyDebuffEvent, ApplyDebuffStackEvent, DamageEvent } from 'parser/core/Events';
@@ -16,8 +16,6 @@ import ItemDamageDone from 'interface/ItemDamageDone';
  * Example log:
  * https://www.warcraftlogs.com/reports/WM6dXqCmj7aHPK3f#fight=3&type=auras&translate=true&hostility=1&spells=debuffs&target=23
  */
-
-const MAX_STACKS = 10;
 
 class LatentPoisonInjectors extends Analyzer {
 
@@ -71,7 +69,7 @@ class LatentPoisonInjectors extends Analyzer {
         tooltip={(
           <>
             {this.wasted > 0 &&
-            <> You wasted {this.wasted} stacks by not casting {this.spellKnown} at the target with {MAX_STACKS} stacks on them, or if the mob died while it had stacks on it.</>}
+            <> You wasted {this.wasted} stacks by not casting {this.spellKnown} at the target with {LATENT_POISON_INJECOTRS_MAX_STACKS} stacks on them, or if the mob died while it had stacks on it.</>}
           </>
         )}
       >
