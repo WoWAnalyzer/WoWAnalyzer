@@ -14,7 +14,7 @@ import { getFightFromReport } from 'interface/selectors/fight';
 import DocumentTitle from 'interface/DocumentTitle';
 import ReportDurationWarning, { MAX_REPORT_DURATION } from 'interface/report/ReportDurationWarning';
 import ClassicLogWarning from 'interface/report/ClassicLogWarning';
-import EncountersNotFoundWarning from 'interface/report/EncountersNotFoundWarning';
+import MissingEncounterWarning from 'interface/report/MissingEncounterWarning';
 
 import FightSelectionPanel from './FightSelectionPanel';
 
@@ -112,7 +112,7 @@ class FightSelection extends React.PureComponent {
           <ReportDurationWarning duration={reportDuration} />
         )}
 
-        {!report.fights.find(fight => fight.boss > 0) && <EncountersNotFoundWarning />}
+        <MissingEncounterWarning />
 
         {report.gameVersion === 1 && (
           <FightSelectionPanel report={report} refreshReport={refreshReport} killsOnly={killsOnly} />
