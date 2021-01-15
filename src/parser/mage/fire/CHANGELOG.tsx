@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2021, 1, 15), <>Fixed an issue that was not adding the proper amount of additional CDR from <SpellLink id={SPELLS.DISCIPLINE_OF_THE_GROVE.id} />.</>, Sharrq),
   change(date(2021, 1, 14), <>Fixed an issue in <SpellLink id={SPELLS.KINDLING_TALENT.id} /> that was not counting crits from <SpellLink id={SPELLS.PHOENIX_FLAMES.id} /> when calculating cooldown reduction.</>, Sharrq),
   change(date(2021, 1, 14), <>Added a check to ignore pre-casts during <SpellLink id={SPELLS.FIRESTORM.id} />.</>, Sharrq),
   change(date(2021, 1, 12), <>Redesigned Checklist to group things better and explain things more clearly.</>, Sharrq),
