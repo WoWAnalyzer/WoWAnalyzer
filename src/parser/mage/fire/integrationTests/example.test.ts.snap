@@ -1468,7 +1468,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               4
-              /5
+              /6
                
               casts
             </td>
@@ -1487,7 +1487,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "84.53551078142205%",
+                      "width": "81.32666811329803%",
                     }
                   }
                 />
@@ -1502,7 +1502,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              84.54%
+              81.33%
             </td>
             <td
               style={
@@ -3517,8 +3517,8 @@ Array [
         values={
           Object {
             "0": 4,
-            "1": 5,
-            "2": "85",
+            "1": 6,
+            "2": "81",
           }
         }
       />
@@ -4636,7 +4636,7 @@ exports[`Fire Mage integration test: example log Kindling matches the statistic 
         <div
           className="value"
         >
-          183
+          200
           s 
           <small>
             Combustion Cooldown Reduction
@@ -5755,7 +5755,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#ffc84a",
-                  "width": "65.0532509021354%",
+                  "width": "62.92717946814746%",
                 }
               }
             />
@@ -5967,7 +5967,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  84.54%
+                  81.33%
                    
                    
                 </div>
@@ -5989,7 +5989,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "65.0532509021354%",
+                        "width": "54.36780481728244%",
                       }
                     }
                   />
