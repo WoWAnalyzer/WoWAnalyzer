@@ -3739,42 +3739,6 @@ Array [
   Object {
     "details": null,
     "icon": "spell_fire_sealoffire",
-    "importance": "minor",
-    "issue": <React.Fragment>
-      You cast 
-      <ForwardRef
-        id={190319}
-      />
-       
-      1
-       times with less than 2 charges of 
-      <ForwardRef
-        id={257541}
-      />
-      . Make sure you are saving at least 2 charges while Combustion is on cooldown so you can get as many 
-      <ForwardRef
-        id={48108}
-      />
-       procs as possible before Combustion ends.
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      <Trans
-        id="mage.fire.suggestions.combustionCharges.phoenixFlames.utilization"
-        message="{0}% Utilization"
-        values={
-          Object {
-            "0": "80.00",
-          }
-        }
-      />
-       (
-      100.00 is recommended
-      )
-    </React.Fragment>,
-  },
-  Object {
-    "details": null,
-    "icon": "spell_fire_sealoffire",
     "importance": "regular",
     "issue": <React.Fragment>
       You cast 
@@ -6183,7 +6147,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  80.00%
+                  100.00%
                    
                    
                 </div>
@@ -6203,9 +6167,9 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "80.87142857142857%",
+                        "width": "100%",
                       }
                     }
                   />
