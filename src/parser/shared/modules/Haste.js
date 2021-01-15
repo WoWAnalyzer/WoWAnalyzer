@@ -24,7 +24,6 @@ class Haste extends Analyzer {
 
     ...BLOODLUST_BUFFS,
     [SPELLS.BERSERKING.id]: 0.1,
-    [SPELLS.ICY_VEINS.id]: 0.3,
     [SPELLS.IN_FOR_THE_KILL_TALENT_BUFF.id]: 0.1,
     [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
     [SPELLS.METAMORPHOSIS_HAVOC_BUFF.id]: 0.25,
@@ -47,6 +46,11 @@ class Haste extends Analyzer {
 
     //region Priest
     [SPELLS.POWER_INFUSION.id]: 0.25,
+    //endregion
+
+    //region Mage
+    [SPELLS.ICY_VEINS.id]: 0.3,
+
     //endregion
 
     //region Monk
