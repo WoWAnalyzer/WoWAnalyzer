@@ -9,7 +9,7 @@ import { TooltipElement } from 'common/Tooltip';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
-import { When } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Events, { HealEvent } from 'parser/core/Events';
 
 import { t, Trans } from '@lingui/macro';
@@ -49,8 +49,8 @@ class HealingRain extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => suggest(<span>Try to always cast <SpellLink id={SPELLS.HEALING_RAIN_CAST.id} /> in areas where players stack. This allows the spell to consitantly hit all 6 possible targets.</span>)
         .icon(SPELLS.HEALING_RAIN_CAST.icon)
         .actual(t({
-          id: "shaman.restoration.suggestions.healingRain.averageTargets",
-          message: `${suggestionThreshold.actual.toFixed(2)} average targets healed`
+          id: 'shaman.restoration.suggestions.healingRain.averageTargets',
+          message: `${suggestionThreshold.actual.toFixed(2)} average targets healed`,
         }))
         .recommended(`${suggestionThreshold.isLessThan.minor} average targets healed`)
         .regular(suggestionThreshold.isLessThan.average).major(suggestionThreshold.isLessThan.average));
@@ -64,7 +64,7 @@ class HealingRain extends Analyzer {
         average: 3,
         major: 2,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 

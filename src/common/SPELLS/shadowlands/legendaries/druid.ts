@@ -25,6 +25,12 @@ const legendaries = {
     manaCost: 800,
     bonusID: 7097
   },
+  MEMORY_OF_THE_MOTHER_TREE: {
+    id: 189877,
+    name: 'Memory of the Mother Tree',
+    icon: 'spell_druid_rampantgrowth',
+    bonusID: 7096,
+  },
   //endregion
 
   //region Shared

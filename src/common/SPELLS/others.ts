@@ -453,6 +453,11 @@ const spells = {
     name: 'Annihilation',
     icon: 'spell_arcane_arcanetorrent',
   },
+  SOUL_INFUSION: {
+    id: 339232,
+    name: 'Soul Infusion',
+    icon: 'spell_animarevendreth_beam',
+  },
   //Toys
   BLOW_DARKMOON_WHISTLE: { //Blows the whistle making an annoying voice
     id: 132568,

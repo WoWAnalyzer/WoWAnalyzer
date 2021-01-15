@@ -1,154 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Marksmanship Hunter integration test: Multi Target AlwaysBeCasting matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad"
-      >
-        <label>
-          <img
-            alt="Downtime"
-            className="icon game "
-            src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
-          />
-           
-          <trans
-            id="shared.alwaysBeCasting.statistic.label"
-            message="Downtime"
-          />
-        </label>
-        <div
-          className="value"
-        >
-          21.35 %
-        </div>
-        <div
-          style={
-            Object {
-              "marginTop": "0.5em",
-            }
-          }
-        >
-          <div
-            className="statistic-box-bar"
-          >
-            <div
-              className="stat-health-bg"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={[Function]}
-              style={
-                Object {
-                  "width": "78.64528314405523%",
-                }
-              }
-            >
-              <img
-                alt="Active time"
-                src="/img/sword.png"
-              />
-            </div>
-            <div
-              className="remainder DeathKnight-bg"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={[Function]}
-            >
-              <img
-                alt="Downtime"
-                src="/img/afk.png"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Marksmanship Hunter integration test: Multi Target AlwaysBeCasting matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "spell_mage_altertime",
-    "importance": "major",
-    "issue": <React.Fragment>
-      Your downtime can be improved. Try to Always Be Casting (ABC), this means you should try to reduce the delay between casting spells. If you have to move, try casting something like 
-      <ForwardRef
-        id={56641}
-      />
-      , since it's castable while moving and doesn't cost any focus. Spells like 
-      <ForwardRef
-        id={257044}
-      />
-       and 
-      <ForwardRef
-        id={185358}
-      />
-       are also castable whilst moving and good for single target - for multiple targets 
-      <ForwardRef
-        id={257620}
-      />
-       might take their place. 
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      <Trans
-        id="hunter.marksmanship.suggestions.alwaysBeCasting.downtime"
-        message="{0}% downtime"
-        values={
-          Object {
-            "0": "21.35",
-          }
-        }
-      />
-       (
-      <Trans
-        id="hunter.marksmanship.suggestions.alwaysBeCasting.recommended"
-        message="<{0}% is recommended"
-        values={
-          Object {
-            "0": "5.00",
-          }
-        }
-      />
-      )
-    </React.Fragment>,
-  },
-]
-`;
-
 exports[`Marksmanship Hunter integration test: Multi Target BindingShot matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -7151,7 +7002,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
     </div>
   </li>
   <li
-    className="expandable expanded failed"
+    className="expandable  passed"
   >
     <div
       className="meta"
@@ -7175,8 +7026,8 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#df7102",
-                  "width": "41.546652825637224%",
+                  "backgroundColor": "#a6c34c",
+                  "width": "76.58157894736843%",
                 }
               }
             />
@@ -7284,7 +7135,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                   }
                 >
                    
-                  78.65%
+                  112.05%
                    
                    
                 </div>
@@ -7304,9 +7155,9 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "29.930147756537593%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -8388,7 +8239,7 @@ exports[`Marksmanship Hunter integration test: Single Target AlwaysBeCasting mat
         <div
           className="value"
         >
-          12.91 %
+          13.20 %
         </div>
         <div
           style={
@@ -8407,7 +8258,7 @@ exports[`Marksmanship Hunter integration test: Single Target AlwaysBeCasting mat
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "87.09249473517198%",
+                  "width": "86.8040964668255%",
                 }
               }
             >
@@ -8483,7 +8334,7 @@ Array [
         message="{0}% downtime"
         values={
           Object {
-            "0": "12.91",
+            "0": "13.20",
           }
         }
       />
@@ -8552,7 +8403,7 @@ exports[`Marksmanship Hunter integration test: Single Target CancelledCasts matc
             </g>
           </svg>
            
-          7.55
+          7.48
           % 
           <small>
             casts cancelled
@@ -8589,11 +8440,11 @@ Array [
     "importance": "regular",
     "issue": <React.Fragment>
       You cancelled 
-      7.55
+      7.48
       % of your spells. While it is expected that you will have to cancel a few casts to react to a boss mechanic or to move, you should try to ensure that you are cancelling as few casts as possible. This is generally done by planning ahead in terms of positioning, and moving while you're casting instant cast spells.
     </React.Fragment>,
     "stat": <React.Fragment>
-      {"id":"hunter.marksmanship.suggestions.castsCanceled.efficiency","message":"{0}% casts cancelled","values":{"0":"7.55"}}
+      {"id":"hunter.marksmanship.suggestions.castsCanceled.efficiency","message":"{0}% casts cancelled","values":{"0":"7.48"}}
        (
       &lt;2.50% is recommended
       )
@@ -14833,7 +14684,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
               style={
                 Object {
                   "backgroundColor": "#df7102",
-                  "width": "41.390382097908905%",
+                  "width": "41.570383237433695%",
                 }
               }
             />
@@ -14941,7 +14792,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                   }
                 >
                    
-                  87.09%
+                  86.80%
                    
                    
                 </div>
@@ -14963,7 +14814,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "33.14491513921402%",
+                        "width": "33.03515899823188%",
                       }
                     }
                   />
@@ -15001,7 +14852,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                   }
                 >
                    
-                  92.45%
+                  92.52%
                    
                    
                 </div>
@@ -15021,9 +14872,9 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#df7102",
+                        "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "49.635849056603796%",
+                        "width": "50.10560747663552%",
                       }
                     }
                   />

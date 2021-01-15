@@ -41,6 +41,11 @@ import FuryTracker from './modules/resourcetracker/FuryTracker';
 import CollectiveAnguish from './modules/shadowlands/legendaries/CollectiveAnguish';
 import ChaosTheory from './modules/shadowlands/legendaries/ChaosTheory';
 
+//Covenants
+import SinfulBrand from "../shared/modules/spells/covenants/SinfulBrand"
+import TheHunt from '../shared/modules/spells/covenants/TheHunt';
+import ElysianDecree from "../shared/modules/spells/covenants/ElysianDecree";
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core Statistics
@@ -89,6 +94,11 @@ class CombatLogParser extends CoreCombatLogParser {
     //Legendaries
     collectiveAnguish: CollectiveAnguish,
     chaosTheory: ChaosTheory,
+
+    //Covenants
+    sinfulBrand: SinfulBrand,
+    theHunt: TheHunt,
+    elysianDecree: ElysianDecree,
   };
 }
 

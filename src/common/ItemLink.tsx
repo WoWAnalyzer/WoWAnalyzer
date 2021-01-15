@@ -16,6 +16,7 @@ interface Props {
   quality?: number;
   icon?: boolean;
 }
+export const EPIC_ITEMS_ILVL = 184;
 
 const ItemLink = (props: Props) => {
 
@@ -35,7 +36,7 @@ const ItemLink = (props: Props) => {
   if (props.quality !== undefined && props.quality !== null) {
     quality = props.quality;
   } else if (props.details) {
-    quality = Math.max(props.details.itemLevel >= 370 ? 4 : 3, props.details.quality);
+    quality = Math.max(props.details.itemLevel >= EPIC_ITEMS_ILVL ? 4 : 3, props.details.quality);
   } else {
     quality = ITEMS[id] ? ITEMS[id].quality : 0;
   }
