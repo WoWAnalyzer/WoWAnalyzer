@@ -1468,7 +1468,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               4
-              /5
+              /6
                
               casts
             </td>
@@ -1487,7 +1487,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "84.53551078142205%",
+                      "width": "81.32666811329803%",
                     }
                   }
                 />
@@ -1502,7 +1502,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              84.54%
+              81.33%
             </td>
             <td
               style={
@@ -3517,8 +3517,8 @@ Array [
         values={
           Object {
             "0": 4,
-            "1": 5,
-            "2": "85",
+            "1": 6,
+            "2": "81",
           }
         }
       />
@@ -3736,6 +3736,42 @@ Array [
 
 exports[`Fire Mage integration test: example log CombustionCharges matches the suggestions snapshot 1`] = `
 Array [
+  Object {
+    "details": null,
+    "icon": "spell_fire_sealoffire",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      You cast 
+      <ForwardRef
+        id={190319}
+      />
+       
+      1
+       times with less than 2 charges of 
+      <ForwardRef
+        id={257541}
+      />
+      . Make sure you are saving at least 2 charges while Combustion is on cooldown so you can get as many 
+      <ForwardRef
+        id={48108}
+      />
+       procs as possible before Combustion ends.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <Trans
+        id="mage.fire.suggestions.combustionCharges.phoenixFlames.utilization"
+        message="{0}% Utilization"
+        values={
+          Object {
+            "0": "80.00",
+          }
+        }
+      />
+       (
+      100.00 is recommended
+      )
+    </React.Fragment>,
+  },
   Object {
     "details": null,
     "icon": "spell_fire_sealoffire",
@@ -4636,7 +4672,7 @@ exports[`Fire Mage integration test: example log Kindling matches the statistic 
         <div
           className="value"
         >
-          183
+          200
           s 
           <small>
             Combustion Cooldown Reduction
@@ -5755,7 +5791,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#ffc84a",
-                  "width": "65.0532509021354%",
+                  "width": "62.92717946814746%",
                 }
               }
             />
@@ -5967,7 +6003,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  84.54%
+                  81.33%
                    
                    
                 </div>
@@ -5989,7 +6025,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "65.0532509021354%",
+                        "width": "54.36780481728244%",
                       }
                     }
                   />
@@ -6147,7 +6183,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  100.00%
+                  80.00%
                    
                    
                 </div>
@@ -6167,9 +6203,9 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "80.87142857142857%",
                       }
                     }
                   />
