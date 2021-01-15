@@ -1035,7 +1035,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "91.75941709281727%",
+                      "width": "97.74780797040899%",
                     }
                   }
                 />
@@ -1050,7 +1050,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
                 }
               }
             >
-              91.76%
+              97.75%
             </td>
             <td
               style={
