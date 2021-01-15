@@ -1468,7 +1468,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               4
-              /5
+              /6
                
               casts
             </td>
@@ -1486,8 +1486,8 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#70b570",
-                      "width": "96.60882820181044%",
+                      "backgroundColor": "#ff8000",
+                      "width": "81.32666811329803%",
                     }
                   }
                 />
@@ -1502,7 +1502,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              96.61%
+              81.33%
             </td>
             <td
               style={
@@ -3488,6 +3488,50 @@ Array [
   },
   Object {
     "details": null,
+    "icon": "spell_fire_sealoffire",
+    "importance": "regular",
+    "issue": <React.Fragment>
+      <Trans
+        components={
+          Object {
+            "0": <ForwardRef
+              id={190319}
+            />,
+          }
+        }
+        id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
+      />
+       
+      
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <Trans
+        id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        values={
+          Object {
+            "0": 4,
+            "1": 6,
+            "2": "81",
+          }
+        }
+      />
+       (
+      <Trans
+        id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
+        values={
+          Object {
+            "0": "90",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
+  Object {
+    "details": null,
     "icon": "spell_mage_runeofpower",
     "importance": "major",
     "issue": <React.Fragment>
@@ -4587,7 +4631,7 @@ exports[`Fire Mage integration test: example log Kindling matches the statistic 
         <div
           className="value"
         >
-          183
+          200
           s 
           <small>
             Combustion Cooldown Reduction
@@ -5705,8 +5749,8 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "76.07353041613764%",
+                  "backgroundColor": "#ffc84a",
+                  "width": "62.92717946814746%",
                 }
               }
             />
@@ -5918,7 +5962,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  96.61%
+                  81.33%
                    
                    
                 </div>
@@ -5940,7 +5984,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "54.36780481728244%",
                       }
                     }
                   />

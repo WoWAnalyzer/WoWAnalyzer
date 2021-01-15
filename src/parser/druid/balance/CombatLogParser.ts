@@ -1,19 +1,12 @@
 import MainCombatLogParser from 'parser/core/CombatLogParser';
 
-import Haste from './modules/core/Haste';
 import GlobalCooldown from './modules/core/GlobalCooldown';
-
-//Normalizers
-import LunarEmpowermentNormalizer from './normalizers/LunarEmpowermentNormalizer';
-import SolarEmpowermentNormalizer from './normalizers/SolarEmpowermentNormalizer';
 
 //Features
 import Checklist from './modules/features/Checklist/Module';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CancelledCasts from './modules/features/CancelledCasts';
 import Abilities from './modules/Abilities';
-import LunarEmpowerment from './modules/features/LunarEmpowerment';
-import SolarEmpowerment from './modules/features/SolarEmpowerment';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import MoonfireUptime from './modules/features/MoonfireUptime';
 import SunfireUptime from './modules/features/SunfireUptime';
@@ -33,20 +26,13 @@ import AstralPowerTracker from './modules/resourcetracker/AstralPowerTracker';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
-    haste: Haste,
     globalCooldown: GlobalCooldown,
-
-    //Normalizers
-    lunarEmpowermentNormalizer: LunarEmpowermentNormalizer,
-    solarEmpowermentNormalizer: SolarEmpowermentNormalizer,
 
     //Features
     checklist: Checklist,
     alwaysBeCasting: AlwaysBeCasting,
     cancelledCasts: CancelledCasts,
     abilities: Abilities,
-    lunarEmpowerment: LunarEmpowerment,
-    solarEmpowerment: SolarEmpowerment,
     cooldownThroughputTracker: CooldownThroughputTracker,
     moonfireUptime: MoonfireUptime,
     sunfireUptime: SunfireUptime,
