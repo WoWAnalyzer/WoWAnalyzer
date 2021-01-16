@@ -33,9 +33,9 @@ class Potion extends Analyzer {
   static spells: Spell[];
   static recommendedEfficiency: number;
   static extraAbilityInfo: { name?: string, buffSpellId?: number[], isDefensive?: boolean, };
+  static cooldown = 300;
 
   maxCasts = 1;
-  lastDeathWithPotionReady?: number;
 
   get static() {
     return this.constructor as typeof Potion;
@@ -50,7 +50,7 @@ class Potion extends Analyzer {
     (options.abilities as Abilities).add({
       spell: this.static.spells,
       category: Abilities.SPELL_CATEGORIES.CONSUMABLE,
-      cooldown: 300,
+      cooldown: this.static.cooldown,
       castEfficiency: {
         suggestion: false,
         maxCasts: () => this.maxCasts,
