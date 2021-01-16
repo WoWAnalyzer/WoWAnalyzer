@@ -1141,7 +1141,7 @@ export const TurianSniper: Contributor = {
     name: "Nakofel",
     spec: SPECS.VENGEANCE_DEMON_HUNTER,
     link: "https://worldofwarcraft.com/en-us/character/us/bleeding-hollow/nakofel",
-  }],  
+  }],
 };
 
 export const Geeii: Contributor = {
@@ -1150,7 +1150,7 @@ export const Geeii: Contributor = {
   discord: 'Geei#8447',
   mains: [{
     name: "Geeii",
-    spec: SPECS.VENGEANCE_DEMON_HUNTER, 
+    spec: SPECS.VENGEANCE_DEMON_HUNTER,
     link: "https://worldofwarcraft.com/en-us/character/us/area52/geei",
   }],
 };
@@ -1186,3 +1186,8 @@ export const Barry: Contributor = {
     },
   ],
 }
+
+export const Tiboonn: Contributor = {
+  nickname: 'Tiboonn',
+  github: 'Tiboonn',
+};

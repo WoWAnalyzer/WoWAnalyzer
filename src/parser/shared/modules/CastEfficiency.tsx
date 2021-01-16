@@ -336,9 +336,13 @@ class CastEfficiency extends Analyzer {
           cdInfo.completedRechargeTime + cdInfo.endingRechargeTime;
         const lastCastTimestamp =
           cdInfo.castTimestamps[cdInfo.castTimestamps.length - 1];
+        // If CD reducing effects are involved, use the average cd instead of the full length
+        // This prevents issues where timeOffset is negative due to the configured cd being
+        // longer than the fight length
+        const offsetCd = averageCooldown ? averageCooldown : cooldown * 1000
         const timeOffset =
-          lastCastTimestamp + cooldown * 1000 > availableFightDuration
-            ? cooldown * 1000 - (availableFightDuration - lastCastTimestamp)
+          lastCastTimestamp + offsetCd > availableFightDuration
+            ? offsetCd - (availableFightDuration - lastCastTimestamp)
             : 0;
         const timeUnavailable =
           timeOnCd + timeSpentCasting + timeWaitingOnGCD - timeOffset;

@@ -500,7 +500,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "81.51426272582363%",
+                      "width": "81.80329122923857%",
                     }
                   }
                 />
@@ -515,7 +515,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
                 }
               }
             >
-              81.51%
+              81.80%
             </td>
             <td
               style={
@@ -868,7 +868,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "98.32923176893368%",
+                      "width": "99.83005365384645%",
                     }
                   }
                 />
@@ -883,7 +883,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
                 }
               }
             >
-              98.33%
+              99.83%
             </td>
             <td
               style={
@@ -5402,7 +5402,7 @@ exports[`Survival Hunter integration test: Multi Target matches the checklist sn
                   }
                 >
                    
-                  81.51%
+                  81.80%
                    
                    
                 </div>
@@ -5548,7 +5548,7 @@ exports[`Survival Hunter integration test: Multi Target matches the checklist sn
                   }
                 >
                    
-                  98.33%
+                  99.83%
                    
                    
                 </div>
@@ -6941,7 +6941,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "69.92223975021966%",
+                      "width": "70.32668487677108%",
                     }
                   }
                 />
@@ -6956,7 +6956,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
                 }
               }
             >
-              69.92%
+              70.33%
             </td>
             <td
               style={
@@ -7309,7 +7309,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "103.35865072159591%",
+                      "width": "103.88798904603671%",
                     }
                   }
                 />
@@ -7324,7 +7324,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
                 }
               }
             >
-              103.36%
+              103.89%
             </td>
             <td
               style={
@@ -7973,7 +7973,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "54.7461051647269%",
+                      "width": "65.09893633008834%",
                     }
                   }
                 />
@@ -7988,7 +7988,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
                 }
               }
             >
-              54.75%
+              65.10%
             </td>
             <td
               style={
@@ -12133,7 +12133,7 @@ exports[`Survival Hunter integration test: Single Target matches the checklist s
                   }
                 >
                    
-                  69.92%
+                  70.33%
                    
                    
                 </div>

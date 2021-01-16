@@ -621,7 +621,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "98.21686374260965%",
+                      "width": "104.60521792932764%",
                     }
                   }
                 />
@@ -636,7 +636,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              98.22%
+              104.61%
             </td>
             <td
               style={

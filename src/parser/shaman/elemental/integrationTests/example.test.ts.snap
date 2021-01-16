@@ -441,7 +441,7 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log CastEfficien
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "98.13533420385868%",
+                      "width": "100.01712617044984%",
                     }
                   }
                 />
@@ -456,7 +456,7 @@ exports[`Elemental Shaman integration test: Hungering Destroyer log CastEfficien
                 }
               }
             >
-              98.14%
+              100.02%
             </td>
             <td
               style={
@@ -6947,7 +6947,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log CastEfficiency 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "97.32431450259848%",
+                      "width": "99.08806095546905%",
                     }
                   }
                 />
@@ -6962,7 +6962,7 @@ exports[`Elemental Shaman integration test: Huntsman Altimor log CastEfficiency 
                 }
               }
             >
-              97.32%
+              99.09%
             </td>
             <td
               style={
