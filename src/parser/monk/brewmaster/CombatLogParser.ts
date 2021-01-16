@@ -38,6 +38,8 @@ import ExpelHarmNorm from './normalizers/ExpelHarm';
 
 // Covenants
 import FallenOrder from '../shared/modules/covenants/FallenOrder';
+import FaelineStomp from '../shared/modules/covenants/FaelineStomp';
+import WeaponsOfOrder from './modules/spells/shadowlands/WeaponsOfOrder';
 
 // Conduits
 import ScaldingBrew from './modules/shadowlands/conduits/ScaldingBrew';
@@ -87,6 +89,8 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Covenants
     fallenOrder: FallenOrder,
+    faelineStomp: FaelineStomp,
+    weaponsOfOrder: WeaponsOfOrder,
 
     // Conduits
     scaldingBrew: ScaldingBrew,
