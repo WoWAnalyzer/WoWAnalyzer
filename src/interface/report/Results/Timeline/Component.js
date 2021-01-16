@@ -1,4 +1,4 @@
-import { Trans, t } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -199,7 +199,7 @@ class Timeline extends React.PureComponent {
               abilities={abilities}
             />
           </div>
-          {premium && (
+          {!premium && (
             <div
               className="spell-timeline-premium-box"
               style={{
