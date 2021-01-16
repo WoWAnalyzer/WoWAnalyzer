@@ -7,6 +7,7 @@ const defaultDurations = {
   [SPELLS.SIPHON_LIFE_TALENT.id]: 15000,
   [SPELLS.UNSTABLE_AFFLICTION.id]: 16000,
   [SPELLS.PHANTOM_SINGULARITY_TALENT.id]: 16000,
+  [SPELLS.VILE_TAINT_TALENT.id]: 10000,
 } as const;
 
 const affectedByCreepingDeath = [
@@ -16,7 +17,7 @@ const affectedByCreepingDeath = [
   SPELLS.UNSTABLE_AFFLICTION.id,
 ] as const;
 
-// TODO Add VT & covenant dots
+// TODO Add covenant dots
 export const getDotDurations = (combatant: Combatant): Record<number, number> =>
   combatant.hasTalent(SPELLS.CREEPING_DEATH_TALENT.id)
     ? Object.fromEntries(

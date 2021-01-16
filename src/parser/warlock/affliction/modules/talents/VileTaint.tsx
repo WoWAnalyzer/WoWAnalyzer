@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import Events from 'parser/core/Events';
+import Events, { ApplyDebuffEvent, CastEvent } from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
 import { formatThousands, formatPercentage, formatNumber } from 'common/format';
@@ -20,20 +20,27 @@ class VileTaint extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
+  protected abilityTracker!: AbilityTracker;
 
-  _castTimestamp = null;
+  _castTimestamp: number | null = null;
   _currentCastCount = 0;
-  casts = [];
+  casts: number[] = [];
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.VILE_TAINT_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VILE_TAINT_TALENT), this.onVileTaintCast);
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.VILE_TAINT_TALENT), this.onVileTaintApplyDebuff);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VILE_TAINT_TALENT),
+      this.onVileTaintCast,
+    );
+    this.addEventListener(
+      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.VILE_TAINT_TALENT),
+      this.onVileTaintApplyDebuff,
+    );
     this.addEventListener(Events.fightend, this.onFinished);
   }
 
-  onVileTaintCast(event) {
+  onVileTaintCast(event: CastEvent) {
     if (this._castTimestamp !== null) {
       // we've casted VT at least once, so we should add the current (at this time the previous) cast first before resetting the counter
       this.casts.push(this._currentCastCount);
@@ -42,8 +49,8 @@ class VileTaint extends Analyzer {
     this._currentCastCount = 0;
   }
 
-  onVileTaintApplyDebuff(event) {
-    if (event.timestamp <= this._castTimestamp + BUFFER) {
+  onVileTaintApplyDebuff(event: ApplyDebuffEvent) {
+    if (event.timestamp <= (this._castTimestamp || 0) + BUFFER) {
       this._currentCastCount += 1;
     } else {
       debug && console.log('Vile Taint debuff applied outside of the 100ms buffer after cast');
@@ -58,21 +65,26 @@ class VileTaint extends Analyzer {
   statistic() {
     const spell = this.abilityTracker.getAbility(SPELLS.VILE_TAINT_TALENT.id);
     const damage = spell.damageEffective + spell.damageAbsorbed;
-    const averageTargetsHit = (this.casts.reduce((total, current) => total + current, 0) / spell.casts) || 0;
-    const dps = damage / this.owner.fightDuration * 1000;
+    const averageTargetsHit =
+      this.casts.reduce((total, current) => total + current, 0) / spell.casts || 0;
+    const dps = (damage / this.owner.fightDuration) * 1000;
     return (
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            {formatThousands(damage)} damage<br />
+            {formatThousands(damage)} damage
+            <br />
             Average targets hit: {averageTargetsHit.toFixed(2)}
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.VILE_TAINT_TALENT}>
-          {formatNumber(dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total</small>
+          {formatNumber(dps)} DPS{' '}
+          <small>
+            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total
+          </small>
         </BoringSpellValueText>
       </Statistic>
     );
