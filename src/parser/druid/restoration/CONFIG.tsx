@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { Abelito75 } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
 
 import CHANGELOG from './CHANGELOG';

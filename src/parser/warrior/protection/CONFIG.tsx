@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { Abelito75 } from 'CONTRIBUTORS';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import SPECS from 'game/SPECS';
