@@ -11,6 +11,7 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
 import { t } from '@lingui/macro';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 class MoonfireUptime extends Analyzer {
   get suggestionThresholds() {
@@ -22,16 +23,16 @@ class MoonfireUptime extends Analyzer {
         average: 0.9,
         major: 0.8,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
   static dependencies = {
     enemies: Enemies,
   };
-  statisticOrder = STATISTIC_ORDER.CORE(4);
+  protected enemies!: Enemies;
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.MOONFIRE_BEAR.id} /> uptime can be improved. Try to pay more attention to your Moonfire on the boss.</>)
       .icon(SPELLS.MOONFIRE_BEAR.icon)
       .actual(t({

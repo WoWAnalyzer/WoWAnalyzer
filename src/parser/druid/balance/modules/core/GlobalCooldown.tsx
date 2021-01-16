@@ -9,7 +9,7 @@ const NEW_MOON_MULTIPLIER = 2 / 3;
  * Since Solar Wrath cast time == GCD the GCD needs to be reduced.
  */
 class GlobalCooldown extends CoreGlobalCooldown {
-  getGlobalCooldownDuration(spellId) {
+  getGlobalCooldownDuration(spellId: number) {
     const gcd = super.getGlobalCooldownDuration(spellId);
     if ((spellId === SPELLS.SOLAR_WRATH_MOONKIN.id && this.selectedCombatant.hasBuff(SPELLS.SOLAR_EMP_BUFF.id))
       || (spellId === SPELLS.LUNAR_STRIKE.id && this.selectedCombatant.hasBuff(SPELLS.LUNAR_EMP_BUFF.id))) {

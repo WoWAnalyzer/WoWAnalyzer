@@ -5,7 +5,6 @@ import Checklist from './modules/checklist/Module';
 import Buffs from './modules/features/Buffs';
 
 //Normalizers
-import ShiftingPowerNormalizer from '../shared/normalizers/ShiftingPower';
 
 //Features
 import Abilities from './modules/features/Abilities';
@@ -56,7 +55,6 @@ class CombatLogParser extends CoreCombatLogParser {
     buffs: Buffs,
 
     //Normalizers
-    shiftingPowerNormalizer: ShiftingPowerNormalizer,
 
     // Features
     abilities: Abilities,

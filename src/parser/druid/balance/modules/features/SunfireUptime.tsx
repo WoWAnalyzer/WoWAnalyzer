@@ -6,6 +6,7 @@ import Enemies from 'parser/shared/modules/Enemies';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
@@ -22,16 +23,16 @@ class SunfireUptime extends Analyzer {
         average: 0.9,
         major: 0.8,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
   static dependencies = {
     enemies: Enemies,
   };
-  statisticOrder = STATISTIC_ORDER.CORE(7);
+  protected enemies!: Enemies;
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.SUNFIRE.id} /> uptime can be improved. Try to pay more attention to your Sunfire on the boss.</>)
       .icon(SPELLS.SUNFIRE.icon)
       .actual(t({

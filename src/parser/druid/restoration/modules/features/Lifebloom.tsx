@@ -8,7 +8,6 @@ import SpellIcon from 'common/SpellIcon';
 import BoringValue from 'interface/statistics/components/BoringValueText';
 
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import { t } from '@lingui/macro';
@@ -54,7 +53,7 @@ class Lifebloom extends Analyzer {
 
   suggestions(when: When) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} /> uptime can be improved. {this.hasDTL ? <>High uptime is particularly important for taking advantage of your equipped <SpellLink id={ITEMS.LIFEBLOOM_DTL_HOT_HEAL.id} /></> : ''}</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} /> uptime can be improved. {this.hasDTL ? <>High uptime is particularly important for taking advantage of your equipped <SpellLink id={SPELLS.THE_DARK_TITANS_LESSON.id} /></> : ''}</>)
         .icon(SPELLS.LIFEBLOOM_HOT_HEAL.icon)
         .actual(t({
           id: "druid.restoration.suggestions.lifebloom.uptime",

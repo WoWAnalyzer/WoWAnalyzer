@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2021, 1, 15), <>Fixed an issue that was not adding the proper amount of additional CDR from <SpellLink id={SPELLS.DISCIPLINE_OF_THE_GROVE.id} />.</>, Sharrq),
+  change(date(2021, 1, 14), <>Fixed an issue in <SpellLink id={SPELLS.KINDLING_TALENT.id} /> that was not counting crits from <SpellLink id={SPELLS.PHOENIX_FLAMES.id} /> when calculating cooldown reduction.</>, Sharrq),
+  change(date(2021, 1, 14), <>Added a check to ignore pre-casts during <SpellLink id={SPELLS.FIRESTORM.id} />.</>, Sharrq),
+  change(date(2021, 1, 12), <>Redesigned Checklist to group things better and explain things more clearly.</>, Sharrq),
+  change(date(2021, 1, 12), <>Added additional checks/functionality for <SpellLink id={SPELLS.INFERNAL_CASCADE.id} /> and <SpellLink id={SPELLS.SHIFTING_POWER.id} />.</>, Sharrq),
   change(date(2020, 12, 28), <>Updated conduit statistic boxes to use the new layout.</>, Sharrq),
   change(date(2020, 12, 24), <>Added module to check for capping on <SpellLink id={SPELLS.PHOENIX_FLAMES.id} /> charges and fixed an issue that was showing <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> as lasting the entire fight duration in the Cooldowns tab.</>, Sharrq),
   change(date(2020, 12, 19), <>Added module to check the active time during <SpellLink id={SPELLS.COMBUSTION.id} /> and fixed a typo in <SpellLink id={SPELLS.FIRESTORM.id} />.</>, Sharrq),

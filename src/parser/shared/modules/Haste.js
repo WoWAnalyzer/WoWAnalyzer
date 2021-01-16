@@ -24,7 +24,6 @@ class Haste extends Analyzer {
 
     ...BLOODLUST_BUFFS,
     [SPELLS.BERSERKING.id]: 0.1,
-    [SPELLS.ICY_VEINS.id]: 0.3,
     [SPELLS.IN_FOR_THE_KILL_TALENT_BUFF.id]: 0.1,
     [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
     [SPELLS.METAMORPHOSIS_HAVOC_BUFF.id]: 0.25,
@@ -33,6 +32,14 @@ class Haste extends Analyzer {
     [SPELLS.ENRAGE.id]: 0.25, // Fury Warrior
     [SPELLS.EMPOWER_RUNE_WEAPON.id]: 0.15, // Frost DK
     [SPELLS.EUPHORIA.id]: 0.2, //Buff from Thrill Seeker (Nadjia Soulbind Venthyr)
+
+    //region Druid Haste Buffs
+    [SPELLS.STARLORD.id]: {
+      hastePerStack: 0.04,
+    },
+    [SPELLS.CELESTIAL_ALIGNMENT.id]: 0.1,
+    [SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id]: 0.1,
+    //endregion
 
     //region Hunter Haste Buffs
     [SPELLS.DIRE_BEAST_BUFF.id]: DIRE_BEAST_HASTE_PERCENT,
@@ -47,6 +54,11 @@ class Haste extends Analyzer {
 
     //region Priest
     [SPELLS.POWER_INFUSION.id]: 0.25,
+    //endregion
+
+    //region Mage
+    [SPELLS.ICY_VEINS.id]: 0.3,
+
     //endregion
 
     //region Monk

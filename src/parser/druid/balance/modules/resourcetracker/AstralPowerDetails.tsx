@@ -6,6 +6,7 @@ import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/R
 import BoringResourceValue from 'interface/statistics/components/BoringResourceValue';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 import Analyzer from 'parser/core/Analyzer';
 import { formatPercentage } from 'common/format';
@@ -42,7 +43,7 @@ class AstralPowerDetails extends Analyzer {
         average: AVERAGE_THRESHOLD,
         major: MAJOR_THRESHOLD,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -54,15 +55,16 @@ class AstralPowerDetails extends Analyzer {
         average: 1 - AVERAGE_THRESHOLD,
         major: 1 - MAJOR_THRESHOLD,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
   static dependencies = {
     astralPowerTracker: AstralPowerTracker,
   };
+  protected astralPowerTracker!: AstralPowerTracker;
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholdsWasted)
       .addSuggestion((suggest, actual, recommended) => suggest(`You overcapped ${this.wasted} Astral Power. Always prioritize spending it over avoiding the overcap of any other ability.`)
         .icon('ability_druid_cresentburn')

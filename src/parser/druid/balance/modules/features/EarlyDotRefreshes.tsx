@@ -1,4 +1,6 @@
 import SPELLS from 'common/SPELLS';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { Options } from 'parser/core/Analyzer';
 
 import EarlyDotRefreshesCore from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshes';
 import suggest from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesSuggestionByCount';
@@ -27,7 +29,7 @@ class EarlyDotRefreshes extends EarlyDotRefreshesCore {
         average: 1 - AVERAGE_THRESHOLD,
         major: 1 - MAJOR_THRESHOLD,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -40,18 +42,18 @@ class EarlyDotRefreshes extends EarlyDotRefreshesCore {
         average: AVERAGE_THRESHOLD,
         major: MAJOR_THRESHOLD,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
   static dots = DOTS;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.STELLAR_FLARE_TALENT.id);
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     suggest(when, this.suggestionThresholdsStellarFlare);
   }
 }

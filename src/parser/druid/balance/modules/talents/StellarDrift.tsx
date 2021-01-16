@@ -3,13 +3,13 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatNumber } from 'common/format';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import Events from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 
 const STARFALL_BONUS_DAMAGE = 0.25;
 
@@ -25,13 +25,13 @@ class StellarDrift extends Analyzer {
   bonusDamage = 0;
   statisticOrder = STATISTIC_ORDER.OPTIONAL();
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.STELLAR_DRIFT_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.STARFALL), this.onDamage);
   }
 
-  onDamage(event) {
+  onDamage(event: DamageEvent) {
     this.bonusDamage += calculateEffectiveDamage(event, STARFALL_BONUS_DAMAGE);
   }
 

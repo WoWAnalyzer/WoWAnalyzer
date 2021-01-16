@@ -8,7 +8,8 @@ import { change, date } from 'common/changelog';
 
 // prettier-ignore
 export default [
-  change(date(2021, 1, 14), 'Address an issue where our potion modules thought that potions had infinite cooldown when used in combat.', Putro),
+  change(date(2021, 1, 16), 'Address an issue where our potion modules thought that potions had infinite cooldown when used in combat.', Putro),
+  change(date(2021, 1, 15), 'Made the timeline only available with WoWAnalyzer Premium. This is necessary to be able to continue to update WoWAnalyzer.', Zerotorescue),
   change(date(2021, 1, 13), 'Updated Mastery coefficients and baseline Critical Strike values for specs where it was necessary.', Putro),
   change(date(2021, 1, 3), 'Fixed a crash if you were trying to analyze an extremely short pull where players have cast basically 0 spells.', Putro),
   change(date(2021, 1, 2), <> Added Inneficient <SpellLink id={SPELLS.REGROWTH.id} /> to resto druid statistics and fixed bug in reporting of overwritten CC procs. </>, Barry),

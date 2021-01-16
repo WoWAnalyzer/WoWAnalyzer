@@ -1,7 +1,8 @@
-import { Abelito75, Zeboot, LeoZhekov, Putro, Vexxra } from 'CONTRIBUTORS';
+import { Yajinni, Abelito75, Zeboot, LeoZhekov, Putro, Vexxra } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 12, 24), 'Fixed a bug in the Lifebloom module where it was erroring out the module because it wasn\'t showing Dark Titan\'s Lesson properly', Yajinni),
   change(date(2021, 1, 12), '9.0.2 supported!!!', Abelito75),
   change(date(2021, 1, 9), 'Converting the majority to typescript!', Abelito75),
   change(date(2021, 1, 9), 'Added Memory of the Mother Tree legendary stat!', Abelito75),

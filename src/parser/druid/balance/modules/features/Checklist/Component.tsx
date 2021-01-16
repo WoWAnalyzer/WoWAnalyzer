@@ -9,8 +9,8 @@ import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 
-const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }) => {
-  const AbilityRequirement = props => (
+const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
+  const AbilityRequirement = (props: any) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
@@ -30,7 +30,7 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }) => {
           </>
         )}
       >
-        <Requirement name="Downtime" thresholds={thresholds.downtime} />
+        <Requirement name="Active Time" thresholds={thresholds.downtime} />
         <Requirement name="Cancelled Casts" thresholds={thresholds.cancelledCasts} />
       </Rule>
       <Rule
@@ -97,11 +97,9 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }) => {
       </Rule>
       <Rule
         name="Do not overcap your resources"
-        description="You should try to always avoid overcapping your Astral Power and your solar and lunar empowerments. Sometimes you can not avoid overcapping both of them. In that case, you should prioritize spending the Astral Power."
+        description="While you sometimes cannot avoid overcapping, you should try to always avoid overcapping your Astral Power."
       >
         <Requirement name="Astral Power efficiency" thresholds={thresholds.astralPowerEfficiency} />
-        <Requirement name="Solar Empowerment efficiency" thresholds={thresholds.solarEmpowermentEfficiency} />
-        <Requirement name="Lunar Empowerment efficiency" thresholds={thresholds.lunarEmpowermentEfficiency} />
       </Rule>
       <Rule
         name="Use your cooldowns"

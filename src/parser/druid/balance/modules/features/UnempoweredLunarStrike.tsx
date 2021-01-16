@@ -1,9 +1,10 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { t } from '@lingui/macro';
-import Events from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 
 const TARGETS_FOR_GOOD_CAST = 3;
 
@@ -20,16 +21,16 @@ class UnempoweredLunarStrike extends Analyzer {
         average: 1,
         major: 2,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
   badCasts = 0;
-  lastCast = null;
+  lastCast?: CastEvent;
   lastCastBuffed = false;
   hits = 0;
 
-  constructor(options) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LUNAR_STRIKE), this.onCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LUNAR_STRIKE), this.onDamage);
@@ -37,7 +38,7 @@ class UnempoweredLunarStrike extends Analyzer {
   }
 
   checkCast() {
-    if (this.lastCastBuffed || this.hits >= TARGETS_FOR_GOOD_CAST || this.lastCast === null) {
+    if (this.lastCastBuffed || this.hits >= TARGETS_FOR_GOOD_CAST || !this.lastCast) {
       return;
     }
     this.badCasts += 1;
@@ -46,7 +47,7 @@ class UnempoweredLunarStrike extends Analyzer {
     this.lastCast.meta.inefficientCastReason = `Lunar Strike was cast without Lunar Empowerment, Owlkin Frenzy and Warrior of Elune and hit less than ${TARGETS_FOR_GOOD_CAST} targets.`;
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     this.checkCast();
     this.lastCast = event;
     this.lastCastBuffed = this.selectedCombatant.hasBuff(SPELLS.LUNAR_EMP_BUFF.id)
@@ -55,7 +56,7 @@ class UnempoweredLunarStrike extends Analyzer {
     this.hits = 0;
   }
 
-  onDamage(event) {
+  onDamage(event: DamageEvent) {
     this.hits += 1;
   }
 
@@ -63,7 +64,7 @@ class UnempoweredLunarStrike extends Analyzer {
     this.checkCast();
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You cast {this.badCasts} unempowered and non instant cast <SpellLink id={SPELLS.LUNAR_STRIKE.id} /> that hit less than {TARGETS_FOR_GOOD_CAST} targets. Always prioritize <SpellLink id={SPELLS.SOLAR_WRATH.id} /> as a filler when none of those conditions are met.</>)
       .icon(SPELLS.LUNAR_STRIKE.icon)
       .actual(t({
