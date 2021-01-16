@@ -21,10 +21,11 @@ import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
  */
 class EmpoweredRelease extends Analyzer {
 
-  flayersMarkProcs: number = 0;
-  aggregatedContribution: number = 0;
-  conduitRank: number = 0;
-  addedDamage: number = 0;
+  flayersMarkProcs = 0;
+  aggregatedContribution = 0;
+  conduitRank = 0;
+  addedDamage = 0;
+  hadFlayersMarkActive = false;
 
   constructor(options: Options) {
     super(options);
@@ -38,6 +39,7 @@ class EmpoweredRelease extends Analyzer {
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FLAYERS_MARK), this.flayedShotProc);
     this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.FLAYERS_MARK), this.flayedShotProc);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.KILL_SHOT_SV, SPELLS.KILL_SHOT_MM_BM]), this.onKillShotDamage);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.KILL_SHOT_SV, SPELLS.KILL_SHOT_MM_BM]), this.onKillShotCast);
   }
 
   get averageContributionPercentage() {
@@ -53,10 +55,15 @@ class EmpoweredRelease extends Analyzer {
     this.flayersMarkProcs += 1;
   }
 
+  onKillShotCast() {
+    this.hadFlayersMarkActive = this.selectedCombatant.hasBuff(SPELLS.EMPOWERED_RELEASE_BUFF.id);
+  }
+
   onKillShotDamage(event: DamageEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.EMPOWERED_RELEASE_BUFF.id)) {
+    if (!this.hadFlayersMarkActive) {
       return;
     }
+    this.hadFlayersMarkActive = false;
     this.addedDamage += calculateEffectiveDamage(event, EMPOWERED_RELEASE_INCREASE_KS_DAMAGE[this.conduitRank]);
   }
 
