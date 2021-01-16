@@ -25,7 +25,8 @@ class WeaponsOfOrder extends Analyzer {
       spell: SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       cooldown: 120,
-      gcd: this.selectedCombatant.spec === SPECS.MISTWEAVER_MONK ? { base: 1500 } : { static: 1000 },
+      // WoO is hasted for WW/BrM for whatever fucking reason
+      gcd: this.selectedCombatant.spec === SPECS.MISTWEAVER_MONK ? { base: 1500 } : { base: 1000 },
       castEfficiency: {
         suggestion: true,
         recommendedEfficiency: 0.9,
