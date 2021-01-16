@@ -46,11 +46,6 @@ const spells = {
 	  name: "Fel Devastation",
 	  icon: "ability_demonhunter_feldevastation",
   },
-  FRACTURE: { //Fracture replaces shear when you take the fracture talent
-    id: 209795,
-    name: "Fracture",
-    icon: "ability_creature_felsunder",
-  },
   FRACTURE_MAIN_HAND: {
     id: 225919,
     name: "Fracture(Main Hand)",
