@@ -87,8 +87,13 @@ export class PremiumPage extends React.PureComponent {
                       <h2>GitHub</h2>
                       Improve the analysis of a spec or build a new feature to get 1 month of
                       Premium free
-                      <TooltipElement content="Only commits that are merged to the master branch are eligible. Your work will have to pass a pull request review before it can be merged.">
-                        <>*</>
+                      <TooltipElement
+                        content={t({
+                          id: 'interface.premiumPage.githubTooltip',
+                          message: `Only commits that are merged to the main branch are eligible. Your work will have to pass a pull request review before it can be merged.`,
+                        })}
+                      >
+                        *
                       </TooltipElement>
                       .
                     </Trans>
@@ -231,7 +236,9 @@ export class PremiumPage extends React.PureComponent {
                       user.github.premium &&
                       ` ${t({
                         id: 'interface.premiumPage.status.gitHub',
-                        message: `because of a recent GitHub contribution (active until ${this.props.dateToLocaleString(new Date(user.github.expires))})`,
+                        message: `because of a recent GitHub contribution (active until ${this.props.dateToLocaleString(
+                          new Date(user.github.expires),
+                        )})`,
                       })}`}
                     .{' '}
                     {user.premium
