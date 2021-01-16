@@ -1,12 +1,10 @@
 import Analyzer, { Options } from 'parser/core/Analyzer';
+import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
-import Abilities from 'parser/core/modules/Abilities';
 import SPECS from 'game/SPECS';
 
-const BASE_MASTERY_PERCENTAGE = 0.1;
-
-class WeaponsOfOrder extends Analyzer {
+export default class BonedustBrew extends Analyzer {
   static dependencies = {
     abilities: Abilities,
   };
@@ -15,16 +13,17 @@ class WeaponsOfOrder extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id);
+
+    this.active = this.selectedCombatant.hasCovenant(COVENANTS.NECROLORD.id);
 
     if (!this.active) {
       return;
     }
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL,
-      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-      cooldown: 120,
+      spell: SPELLS.BONEDUST_BREW_CAST,
+      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      cooldown: 60,
       gcd: this.selectedCombatant.spec === SPECS.MISTWEAVER_MONK ? { base: 1500 } : { static: 1000 },
       castEfficiency: {
         suggestion: true,
@@ -32,10 +31,4 @@ class WeaponsOfOrder extends Analyzer {
       },
     });
   }
-
-  get masteryBuffPercentage() {
-    return BASE_MASTERY_PERCENTAGE * this.selectedCombatant.spec.masteryCoefficient;
-  }
 }
-
-export default WeaponsOfOrder;
