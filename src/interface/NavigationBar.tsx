@@ -1,14 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import React, { HTMLAttributes, ReactNode } from 'react';
+import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Trans } from '@lingui/macro';
 
 import getFightName from 'common/getFightName';
 import Tooltip from 'common/Tooltip';
-import PatreonIcon from 'interface/icons/PatreonTiny';
 import DiscordIcon from 'interface/icons/DiscordTiny';
 import GitHubIcon from 'interface/icons/GitHubMarkSmall';
 import PremiumIcon from 'interface/icons/Premium';
@@ -21,17 +18,26 @@ import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 
 import './NavigationBar.scss';
 
-const NavigationBar = props => {
-  const { playerName, report, fight, user } = props;
+interface Props extends HTMLAttributes<HTMLDivElement> {
+  children?: ReactNode;
+}
+
+const NavigationBar = ({ children, ...others }: Props) => {
+  const { pathname } = useLocation();
+  const playerName = getPlayerName(pathname);
+  const report = useSelector((state) => getReportCode(pathname) && getReport(state));
+  const fight = useSelector((state) => getFightById(state, getFightId(pathname)));
+  const user = useSelector((state) => getUser(state));
 
   return (
-    <nav className="global">
+    <nav className="global" {...others}>
       <div className="container">
         <div className="menu-item logo required">
           <Link to={makeAnalyzerUrl()}>
             <Logo />
           </Link>
         </div>
+        {children && <div className="menu-item">{children}</div>}
         {report && (
           <div className="menu-item report-title">
             <Link to={makeAnalyzerUrl(report)}>{report.title}</Link>
@@ -40,21 +46,45 @@ const NavigationBar = props => {
         {report && (
           <div className="menu-item">
             <Link to={makeAnalyzerUrl(report)}>
-              {fight ? getFightName(report, fight) : <Trans id="interface.layout.navigationBar.fightSelection">Fight selection</Trans>}
+              {fight ? (
+                getFightName(report, fight)
+              ) : (
+                <Trans id="interface.layout.navigationBar.fightSelection">Fight selection</Trans>
+              )}
             </Link>
           </div>
         )}
         {report && (fight || playerName) && (
           <div className="menu-item">
             <Link to={makeAnalyzerUrl(report, fight ? fight.id : undefined)}>
-              {playerName || <Trans id="interface.layout.navigationBar.playerSelection">Player selection</Trans>}
+              {playerName || (
+                <Trans id="interface.layout.navigationBar.playerSelection">Player selection</Trans>
+              )}
             </Link>
           </div>
         )}
         <div className="spacer" />
+        <Tooltip content="Discord">
+          <div className="menu-item optional">
+            <a href="https://wowanalyzer.com/discord">
+              <DiscordIcon />
+            </a>
+          </div>
+        </Tooltip>
+        <Tooltip content="GitHub">
+          <div className="menu-item optional">
+            <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
+              <GitHubIcon />
+            </a>
+          </div>
+        </Tooltip>
         <div className="menu-item required">
           {user && user.premium ? (
-            <Tooltip content={<Trans id="interface.layout.navigationBar.premiumActive">Premium active</Trans>}>
+            <Tooltip
+              content={
+                <Trans id="interface.layout.navigationBar.premiumActive">Premium active</Trans>
+              }
+            >
               <Link to="/premium">
                 <PremiumIcon /> <span className="optional">{user.name}</span>
               </Link>
@@ -70,53 +100,9 @@ const NavigationBar = props => {
             </Tooltip>
           )}
         </div>
-        <Tooltip content="Discord">
-          <div className="menu-item optional">
-            <a href="https://wowanalyzer.com/discord">
-              <DiscordIcon />
-            </a>
-          </div>
-        </Tooltip>
-        <Tooltip content="GitHub">
-          <div className="menu-item optional">
-            <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
-              <GitHubIcon />
-            </a>
-          </div>
-        </Tooltip>
-        <Tooltip content="Patreon">
-          <div className="menu-item optional">
-            <a href="https://www.patreon.com/join/wowanalyzer">
-              <PatreonIcon />
-            </a>
-          </div>
-        </Tooltip>
       </div>
     </nav>
   );
 };
 
-NavigationBar.propTypes = {
-  playerName: PropTypes.string,
-  report: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-  }),
-  fight: PropTypes.object,
-  user: PropTypes.oneOfType([
-    PropTypes.shape({
-      name: PropTypes.string,
-      premium: PropTypes.bool,
-    }),
-    PropTypes.bool, // false; logged out
-  ]),
-};
-
-const mapStateToProps = (state, props) => ({
-  playerName: getPlayerName(props.location.pathname),
-
-  report: getReportCode(props.location.pathname) && getReport(state),
-  fight: getFightById(state, getFightId(props.location.pathname)),
-  user: getUser(state),
-});
-
-export default compose(withRouter, connect(mapStateToProps))(NavigationBar);
+export default NavigationBar;
