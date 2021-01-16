@@ -45,6 +45,7 @@ import BonedustBrew from '../shared/modules/covenants/BonedustBrew';
 // Conduits
 import ScaldingBrew from './modules/shadowlands/conduits/ScaldingBrew';
 import EvasiveStride from './modules/shadowlands/conduits/EvasiveStride';
+import WalkWithTheOx from './modules/shadowlands/conduits/WalkWithTheOx';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -97,6 +98,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Conduits
     scaldingBrew: ScaldingBrew,
     evasiveStride: EvasiveStride,
+    walkWithTheOx: WalkWithTheOx,
   };
 }
 
