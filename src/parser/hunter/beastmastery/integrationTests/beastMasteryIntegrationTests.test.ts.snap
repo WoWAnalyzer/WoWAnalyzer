@@ -5411,6 +5411,75 @@ Array [
 ]
 `;
 
+exports[`Beast Mastery Hunter integration test: Multi Target ReversalOfFortune matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="COVENANT"
+    className="panel statistic flexible "
+    position={1000}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=339495"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Reversal of Fortune"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/inv_trickshot.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=339495"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Reversal of Fortune
+          </a>
+           - Rank 
+          6
+        </label>
+        <div
+          className="value"
+        >
+          <img
+            alt="Focus"
+            className="icon game "
+            src="//render-us.worldofwarcraft.com/icons/56/ability_hunter_focusfire.jpg"
+          />
+           
+          10
+          /
+          10
+           
+          <small>
+            Focus gained
+          </small>
+          <br />
+          1
+           
+          <small>
+            interrupts
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Beast Mastery Hunter integration test: Multi Target ScentOfBlood matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
