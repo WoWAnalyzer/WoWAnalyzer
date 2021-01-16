@@ -74,8 +74,7 @@ export class PremiumPage extends React.PureComponent {
                   <div className="col-md-6" style={{ borderRight: '1px solid #aaa' }}>
                     <Trans id="interface.premiumPage.helpPatreon">
                       <h2>Patreon</h2>
-                      Help fund further development by becoming a patron on Patreon. Pledge whatever
-                      you want!
+                      Help fund further development by becoming a patron on Patreon.
                     </Trans>
                     <br />
                     <br />
@@ -104,6 +103,14 @@ export class PremiumPage extends React.PureComponent {
                   </div>
                 </div>
 
+                <div className="row" style={{ marginTop: 15 }}>
+                  <div className="col-md-12 text-center text-muted">
+                    <Trans id="interface.premiumPage.loginInstructions">
+                      After unlocking Premium, log in using the buttons to the left.
+                    </Trans>
+                  </div>
+                </div>
+
                 <div className="row" style={{ marginBottom: 5, marginTop: 60 }}>
                   <div className="col-md-12 text-center text-muted">
                     <Trans id="interface.premiumPage.unlocks">
@@ -120,10 +127,8 @@ export class PremiumPage extends React.PureComponent {
                       <Trans id="interface.premiumPage.unlocks.new">
                         <h2>New things</h2>
                         <strong>Nothing develops itself.</strong> Your contributions will help fund
-                        new things for the site, making it even better. We'll post bounties on the
-                        best ideas via{' '}
-                        <a href="https://www.bountysource.com/teams/wowanalyzer">Bountysource</a> as
-                        a motivation to get developers to build them.
+                        new things and improvements for the site, making it even better. You will
+                        also unlock additional features to help with your analysis.
                       </Trans>
                     </div>
                   </div>
@@ -181,22 +186,6 @@ export class PremiumPage extends React.PureComponent {
                         special Discord channels to discuss things privately in the sub-community.
                       </Trans>
                     </div>
-                  </div>
-                </div>
-
-                <div className="row" style={{ marginBottom: 5, marginTop: 60 }}>
-                  <div className="col-md-12 text-center text-muted">
-                    <Trans id="interface.premiumPage.howToLogin">
-                      How to login for WoWAnalyzer Premium:
-                    </Trans>
-                  </div>
-                </div>
-                <div className="row flex">
-                  <div className="col-md-12">
-                    <Trans id="interface.premiumPage.howToLoginDescription">
-                      Logging in is easy, just click one of the buttons on the panel to the left. If
-                      you have any more questions ask away <a href="/discord">at Discord</a>.
-                    </Trans>
                   </div>
                 </div>
               </div>
