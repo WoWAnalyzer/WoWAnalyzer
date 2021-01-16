@@ -841,7 +841,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "28.13726645058081%",
+                      "width": "37.61983835359297%",
                     }
                   }
                 />
@@ -856,7 +856,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
                 }
               }
             >
-              28.14%
+              37.62%
             </td>
             <td
               style={
@@ -3333,7 +3333,7 @@ Array [
           Object {
             "0": 3,
             "1": 8,
-            "2": "28",
+            "2": "38",
           }
         }
       />
