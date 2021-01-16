@@ -199,7 +199,7 @@ class Timeline extends React.PureComponent {
               abilities={abilities}
             />
           </div>
-          {premium && (
+          {!premium && (
             <div
               className="spell-timeline-premium-box"
               style={{
