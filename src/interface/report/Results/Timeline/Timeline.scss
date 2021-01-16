@@ -1,4 +1,5 @@
 .spell-timeline-container {
+  position: relative;
   width: 100%;
   overflow: auto;
   padding-bottom: 6px;
@@ -14,6 +15,23 @@
   &::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-color: #fab700;
+  }
+}
+.spell-timeline-premium-box {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  z-index: 10;
+  font-size: 20px;
+  padding: 15px;
+  background: linear-gradient(to right, transparent 0px, rgb(22, 21, 19) 100px);
+  padding-left: 115px;
+
+  > div {
+    min-width: 300px;
+    max-width: 550px;
+    position: sticky;
+    left: 15px;
   }
 }
 .spell-timeline > * {
