@@ -70,7 +70,7 @@ class TipOfTheSpear extends Analyzer {
         <BoringSpellValueText spell={SPELLS.TIP_OF_THE_SPEAR_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} /> <br />
-            <small>Used </small>{this.usedStacks}/{this.usedStacks + this.wastedStacks} <small>possible stacks</small>
+            <small>Used</small> {this.usedStacks}/{this.usedStacks + this.wastedStacks} <small>possible stacks</small>
           </>
         </BoringSpellValueText>
       </Statistic>

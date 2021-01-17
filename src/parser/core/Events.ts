@@ -377,6 +377,7 @@ export interface DamageEvent extends Event<EventType.Damage> {
 export interface BuffEvent<T extends string> extends Event<T> {
   ability: Ability;
   targetID: number;
+  targetInstance?: number;
   targetIsFriendly: boolean;
   sourceID?: number;
   sourceIsFriendly: boolean;
@@ -384,27 +385,23 @@ export interface BuffEvent<T extends string> extends Event<T> {
 
 export interface ApplyBuffEvent extends BuffEvent<EventType.ApplyBuff> {
   // confirmed that not all applybuff events contain a sourceID; e.g. wind rush from totem
-  targetInstance?: number;
   absorb?: number;
   __fromCombatantinfo?: boolean;
 }
 
 export interface ApplyDebuffEvent extends BuffEvent<EventType.ApplyDebuff> {
   source?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
-  targetInstance?: number;
   absorb?: number;
   __fromCombatantinfo?: boolean;
 }
 
 export interface RemoveBuffEvent extends BuffEvent<EventType.RemoveBuff> {
   sourceID: number;
-  targetInstance?: number;
   absorb?: number;
 }
 
 export interface RemoveDebuffEvent extends BuffEvent<EventType.RemoveDebuff> {
   source?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
-  targetInstance: number;
   absorb?: number;
 }
 
@@ -415,7 +412,6 @@ export interface ApplyBuffStackEvent extends BuffEvent<EventType.ApplyBuffStack>
 
 export interface ApplyDebuffStackEvent extends BuffEvent<EventType.ApplyDebuffStack> {
   sourceID: number;
-  targetInstance?: number;
   stack: number;
 }
 
@@ -459,7 +455,6 @@ export interface ChangeDebuffStackEvent extends Omit<ChangeBuffStackEvent, 'type
 
 export interface RemoveDebuffStackEvent extends BuffEvent<EventType.RemoveDebuffStack> {
   sourceID: number;
-  targetInstance?: number;
   stack: number;
 }
 
@@ -469,7 +464,6 @@ export interface RefreshBuffEvent extends BuffEvent<EventType.RefreshBuff> {
 
 export interface RefreshDebuffEvent extends BuffEvent<EventType.RefreshDebuff> {
   source?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
-  targetInstance: number;
 }
 
 export interface EnergizeEvent extends Event<EventType.Energize> {
@@ -704,6 +698,8 @@ export interface Covenant {
   name: string;
   description: string;
   id: number;
+  spellID: number;
+  icon: string;
 }
 
 export interface Soulbind {

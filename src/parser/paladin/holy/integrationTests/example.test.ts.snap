@@ -145,7 +145,7 @@ exports[`Holy Paladin integration test: example log AlwaysBeCasting matches the 
                   Object {
                     "fill": "none",
                     "margin": 0,
-                    "transform": "rotate(36.97803999523816deg)",
+                    "transform": "rotate(34.29529743185137deg)",
                     "transformOrigin": "5px 27px",
                   }
                 }
@@ -175,7 +175,7 @@ exports[`Holy Paladin integration test: example log AlwaysBeCasting matches the 
                 }
               }
             >
-              63
+              62
               %
             </div>
           </div>
@@ -264,7 +264,7 @@ Array [
     "importance": "regular",
     "issue": "Your active time can be improved. Try to reduce your downtime, for example by reducing the delay between casting spells and when you're not healing try to contribute some damage.",
     "stat": <React.Fragment>
-      {"id":"shared.suggestions.alwaysBeCasting.activeTime","message":"{0}% active time","values":{"0":"63.21"}}
+      {"id":"shared.suggestions.alwaysBeCasting.activeTime","message":"{0}% active time","values":{"0":"62.25"}}
        (
       &gt;80.00% is recommended
       )
@@ -522,7 +522,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
               }
             }
           >
-            33.97
+            33.31
              %
           </td>
           <td
@@ -561,7 +561,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
                 message="{0} HPS"
                 values={
                   Object {
-                    "0": "1,153",
+                    "0": "1,131",
                   }
                 }
               />
@@ -575,7 +575,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
               }
             }
           >
-            23.31
+            23.58
              %
           </td>
         </tr>
@@ -611,7 +611,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
               }
             }
           >
-            24.32
+            24.98
              %
           </td>
           <td
@@ -625,7 +625,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
               className="performance-bar"
               style={
                 Object {
-                  "width": "71.58866493884807%",
+                  "width": "75.00278599007531%",
                 }
               }
             />
@@ -650,7 +650,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
                 message="{0} HPS"
                 values={
                   Object {
-                    "0": "826",
+                    "0": "848",
                   }
                 }
               />
@@ -664,7 +664,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
               }
             }
           >
-            16.78
+            16.45
              %
           </td>
         </tr>
@@ -700,7 +700,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
               }
             }
           >
-            15.02
+            15.03
              %
           </td>
           <td
@@ -714,7 +714,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
               className="performance-bar"
               style={
                 Object {
-                  "width": "44.221731959646156%",
+                  "width": "45.112936389837586%",
                 }
               }
             />
@@ -803,7 +803,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
               className="performance-bar"
               style={
                 Object {
-                  "width": "29.610169854563367%",
+                  "width": "30.206906196260437%",
                 }
               }
             />
@@ -892,7 +892,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
               className="performance-bar"
               style={
                 Object {
-                  "width": "28.578619315869513%",
+                  "width": "29.154566729378757%",
                 }
               }
             />
@@ -981,7 +981,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
               className="performance-bar"
               style={
                 Object {
-                  "width": "11.444727654379165%",
+                  "width": "11.675374251333452%",
                 }
               }
             />
@@ -1070,7 +1070,7 @@ exports[`Holy Paladin integration test: example log BeaconHealingDone matches th
               className="performance-bar"
               style={
                 Object {
-                  "width": "8.92004198170797%",
+                  "width": "9.099808367584624%",
                 }
               }
             />
@@ -1965,7 +1965,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "47.44340127589211%",
+                      "width": "47.71438429787018%",
                     }
                   }
                 />
@@ -1980,7 +1980,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 }
               }
             >
-              47.44%
+              47.71%
             </td>
             <td
               style={
@@ -4392,7 +4392,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "43.415065692135855%",
+                      "width": "43.5504947626317%",
                     }
                   }
                 />
@@ -4407,7 +4407,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 }
               }
             >
-              43.42%
+              43.55%
             </td>
             <td
               style={
@@ -4863,7 +4863,7 @@ Array [
           Object {
             "0": 21,
             "1": 44,
-            "2": "47",
+            "2": "48",
           }
         }
       />
@@ -5244,7 +5244,7 @@ exports[`Holy Paladin integration test: example log DirectBeaconHealing matches 
               }
             }
           >
-            8
+            9
             %
           </div>
           <div
@@ -5301,7 +5301,7 @@ exports[`Holy Paladin integration test: example log DirectBeaconHealing matches 
                     }
                   }
                 >
-                  0
+                  13
                   %
                 </div>
               </div>
@@ -5705,7 +5705,7 @@ exports[`Holy Paladin integration test: example log FailedBeaconTransfers matche
               message="Up to {lostBeaconHealing}"
               values={
                 Object {
-                  "lostBeaconHealing": "0.72 % / 111 HPS",
+                  "lostBeaconHealing": "1.07 % / 164 HPS",
                 }
               }
             />
@@ -8271,7 +8271,7 @@ exports[`Holy Paladin integration test: example log StatValues matches the stati
             <td
               className="text-right"
             >
-              1.06
+              1.05
             </td>
             <td
               style={
@@ -8404,7 +8404,7 @@ exports[`Holy Paladin integration test: example log StatValues matches the stati
             <td
               className="text-right"
             >
-              1.40
+              1.39
             </td>
             <td
               style={
@@ -8997,7 +8997,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "14.202393654364275%",
+                  "width": "14.234621278049525%",
                 }
               }
             />
@@ -9287,7 +9287,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  47.44%
+                  47.71%
                    
                    
                 </div>
@@ -9309,7 +9309,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "22.569503749817247%",
+                        "width": "22.698414244558247%",
                       }
                     }
                   />
@@ -10461,7 +10461,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  8.33%
+                  9.46%
                    
                    
                 </div>
@@ -10704,7 +10704,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               style={
                 Object {
                   "backgroundColor": "#df7102",
-                  "width": "45.899604093906255%",
+                  "width": "45.65417737038763%",
                 }
               }
             />
@@ -10878,7 +10878,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  36.79%
+                  37.75%
                    
                    
                 </div>
@@ -10900,7 +10900,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                       Object {
                         "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "65.68114687824962%",
+                        "width": "65.19029343121237%",
                       }
                     }
                   />

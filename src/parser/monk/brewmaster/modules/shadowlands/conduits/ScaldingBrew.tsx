@@ -11,6 +11,8 @@ import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/ItemDamageDone'
 import STATISTIC_ORDER  from 'interface/others/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Combatants from 'parser/shared/modules/Combatants';
+import Entity from 'parser/core/Entity';
 
 const DAMAGE_AMP_PER_RANK = 0.0075;
 const BASE_DAMAGE_AMP = 0.075;
@@ -18,9 +20,11 @@ const BASE_DAMAGE_AMP = 0.075;
 export default class ScaldingBrew extends Analyzer {
   static dependencies = {
     enemies: Enemies,
+    combatants: Combatants,
   };
 
   protected enemies!: Enemies;
+  protected combatants!: Combatants;
 
   bonusDamage = 0;
   // hits that did not trigger scalding brew
@@ -52,10 +56,13 @@ export default class ScaldingBrew extends Analyzer {
   }
 
   private damage(event: DamageEvent) {
-    const enemy = this.enemies.enemies[event.targetID];
-    if(enemy && enemy.hasBuff(SPELLS.BREATH_OF_FIRE_DEBUFF.id)) {
+    const target: Entity = this.enemies.enemies[event.targetID] || this.combatants.players[event.targetID];
+    if (!target) {
+      return;
+    }
+    if(target.hasBuff(SPELLS.BREATH_OF_FIRE_DEBUFF.id)) {
       this.bonusDamage += calculateEffectiveDamage(event, this.mult);
-    } else if(enemy.hasBuff(SPELLS.KEG_SMASH.id, event.timestamp - 100)) {
+    } else if(target.hasBuff(SPELLS.KEG_SMASH.id, event.timestamp - 100)) {
       this.missedHits += 1;
 
       if(this.lastCast) {

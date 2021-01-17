@@ -31,9 +31,9 @@ class StatValues extends BaseHealerStatValues {
     }
 
     // assuming gust heal vs. mastery % are linear and start at 0 ( gust_heal = K * mast_pct )
-    // h2 / h1 = mast_pct(rat) / mast_pct(rat-1)
+    // h2 / h1 = mast_pct(rat + 1) / mast_pct(rat)
     // solving that for h2 - h1 brings...
-    return healVal.effective * (1 - (this.statTracker.masteryPercentage(this.statTracker.currentMasteryRating - 1, true) / this.statTracker.masteryPercentage(this.statTracker.currentMasteryRating, true)));
+    return healVal.effective * ((this.statTracker.masteryPercentage(this.statTracker.currentMasteryRating + 1, true) / this.statTracker.masteryPercentage(this.statTracker.currentMasteryRating, true)) - 1);
   }
 
   _prepareResults() {

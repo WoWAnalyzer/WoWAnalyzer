@@ -14,6 +14,16 @@ export default {
   //Sun King
 
   //Council of Blood
+  BLOOD_WALTZ_BUFF: {
+    id: 345432,
+    name: 'Blood Waltz',
+    icon: 'inv_scroll_16',
+  },
+  BLOOD_WALTZ_HASTE_BUFF: {
+    id: 345439,
+    name: 'Blood Waltz',
+    icon: 'inv_scroll_16',
+  },
 
   //Sludgefist
 

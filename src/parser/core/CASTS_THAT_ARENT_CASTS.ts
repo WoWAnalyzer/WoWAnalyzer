@@ -64,6 +64,14 @@ const spells: number[] = [
   //region Demon Hunter
   SPELLS.FELBLADE_DAMAGE.id, //The spell that generates fury when casting 
   //endregion
+
+  //region druid
+  SPELLS.TRANQUILITY_HEAL.id,
+  //endregion
+
+  //region trinket
+  SPELLS.ANIMA_FIELD_EMITTER_BUFF.id,
+  //endregion
 ];
 
 export default spells;

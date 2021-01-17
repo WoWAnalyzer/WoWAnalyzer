@@ -27,9 +27,9 @@ class DemonSpikes extends Analyzer {
     return {
       actual: this.hitsWithDSOffCDPercent,
       isGreaterThan: {
-        minor: 0.20,
-        average: 0.30,
-        major: 0.40,
+        minor: 0.2,
+        average: 0.3,
+        major: 0.4,
       },
       style: 'percentage',
     };

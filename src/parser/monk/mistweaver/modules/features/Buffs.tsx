@@ -26,7 +26,7 @@ class Buffs extends CoreBuffs {
       },
       {
         spellId: SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id,
-        enabled: combatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT),
+        enabled: combatant.hasTalent(SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT),
       },
       // Throughput Cooldown
       {

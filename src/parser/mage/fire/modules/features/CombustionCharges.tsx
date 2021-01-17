@@ -45,7 +45,7 @@ class CombustionCharges extends Analyzer {
       debug && this.log("Fire Blast Charges: " + fireBlastCharges + " Target: " + FIRE_BLAST_THRESHOLD);
     }
 
-    if (phoenixFlamesCharges < PHOENIX_FLAMES_MAX_CHARGES) {
+    if (phoenixFlamesCharges < PHOENIX_FLAMES_MAX_CHARGES - 1) {
       this.lowPhoenixFlamesCharges += 1;
       this.badCast = true;
       debug && this.log("Phoenix Flames Charges: " + phoenixFlamesCharges);

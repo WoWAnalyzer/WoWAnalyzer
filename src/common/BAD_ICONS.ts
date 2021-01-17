@@ -12,5 +12,6 @@ const BAD_ICONS = [
   'talentspec_druid_feral_cat',
   'talentspec_druid_feral_bear',
   'inv_misc_bone_skull_01',
+  'spell_animarevendreth_beam',
 ];
 export default BAD_ICONS;

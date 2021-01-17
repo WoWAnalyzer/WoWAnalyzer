@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -10,31 +9,22 @@ import PreparationRule from 'parser/shared/modules/features/Checklist/Preparatio
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 
 import COVENANTS from 'game/shadowlands/COVENANTS';
+import { AbilityRequirementProps, ChecklistProps, DotUptimeProps } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 
-const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
-  const DotUptime: any = (props: any) => (
+const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
+  const DotUptime = (props: DotUptimeProps) => (
     <Requirement
-      name={(
-        <React.Fragment>
-          <SpellLink id={props.id} icon /> uptime
-        </React.Fragment>
-      )}
+      name={(<><SpellLink id={props.id} icon /> uptime</>)}
       thresholds={props.thresholds}
     />
   );
-  DotUptime.propTypes = {
-    id: PropTypes.number.isRequired,
-  };
 
-  const AbilityRequirement = (props: any) => (
+  const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
     />
   );
-  AbilityRequirement.propTypes = {
-    spell: PropTypes.number.isRequired,
-  };
 
   return (
     <Checklist>
@@ -83,6 +73,10 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: any) =
           <AbilityRequirement spell={SPELLS.SHADOWFIEND.id} />
         }
 
+        {combatant.hasTalent(SPELLS.VOID_TORRENT_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.VOID_TORRENT_TALENT.id} />
+        )}
+
         {combatant.hasTalent(SPELLS.SHADOW_CRASH_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.SHADOW_CRASH_TALENT.id} />
         )}
@@ -118,14 +112,6 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: any) =
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
-};
-
-ShadowPriestChecklist.propTypes = {
-  castEfficiency: PropTypes.object.isRequired,
-  combatant: PropTypes.shape({
-    hasTalent: PropTypes.func.isRequired,
-  }).isRequired,
-  thresholds: PropTypes.object.isRequired,
 };
 
 export default ShadowPriestChecklist;

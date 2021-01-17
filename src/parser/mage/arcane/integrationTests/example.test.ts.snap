@@ -1372,7 +1372,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "75.83063845354741%",
+                      "width": "76.18439535180693%",
                     }
                   }
                 />
@@ -1387,7 +1387,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              75.83%
+              76.18%
             </td>
             <td
               style={
@@ -1689,7 +1689,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "42.59233055044574%",
+                      "width": "46.0436173627337%",
                     }
                   }
                 />
@@ -1704,7 +1704,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              42.59%
+              46.04%
             </td>
             <td
               style={
@@ -2977,7 +2977,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "64.37305649411384%",
+                      "width": "64.75653280659027%",
                     }
                   }
                 />
@@ -2992,7 +2992,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              64.37%
+              64.76%
             </td>
             <td
               style={
@@ -4655,6 +4655,259 @@ Array [
     </React.Fragment>,
   },
 ]
+`;
+
+exports[`Arcane Mage integration test: example log ShiftingPower matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="COVENANT"
+    className="panel statistic flexible "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=314791"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Shifting Power"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/ability_ardenweald_mage.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=314791"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Shifting Power
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          <small>
+            Cooldown Reduction by Spell
+          </small>
+          <br />
+          <table
+            className="table-condensed"
+          >
+            <tbody>
+              <tr
+                style={
+                  Object {
+                    "fontSize": 16,
+                  }
+                }
+              >
+                <td>
+                  <a
+                    className="spell-link-text"
+                    href="http://wowhead.com/spell=12042"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <img
+                      alt=""
+                      className="icon game "
+                      src="//render-us.worldofwarcraft.com/icons/56/spell_nature_lightning.jpg"
+                    />
+                     
+                    Arcane Power
+                  </a>
+                </td>
+                <td>
+                  20
+                  s
+                </td>
+              </tr>
+              <tr
+                style={
+                  Object {
+                    "fontSize": 16,
+                  }
+                }
+              >
+                <td>
+                  <a
+                    className="spell-link-text"
+                    href="http://wowhead.com/spell=12051"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <img
+                      alt=""
+                      className="icon game "
+                      src="//render-us.worldofwarcraft.com/icons/56/spell_nature_purge.jpg"
+                    />
+                     
+                    Evocation
+                  </a>
+                </td>
+                <td>
+                  20
+                  s
+                </td>
+              </tr>
+              <tr
+                style={
+                  Object {
+                    "fontSize": 16,
+                  }
+                }
+              >
+                <td>
+                  <a
+                    className="spell-link-text"
+                    href="http://wowhead.com/spell=80353"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <img
+                      alt=""
+                      className="icon game "
+                      src="//render-us.worldofwarcraft.com/icons/56/ability_mage_timewarp.jpg"
+                    />
+                     
+                    Time Warp
+                  </a>
+                </td>
+                <td>
+                  10
+                  s
+                </td>
+              </tr>
+              <tr
+                style={
+                  Object {
+                    "fontSize": 16,
+                  }
+                }
+              >
+                <td>
+                  <a
+                    className="spell-link-text"
+                    href="http://wowhead.com/spell=116011"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <img
+                      alt=""
+                      className="icon game "
+                      src="//render-us.worldofwarcraft.com/icons/56/spell_mage_runeofpower.jpg"
+                    />
+                     
+                    Rune of Power
+                  </a>
+                </td>
+                <td>
+                  20
+                  s
+                </td>
+              </tr>
+              <tr
+                style={
+                  Object {
+                    "fontSize": 16,
+                  }
+                }
+              >
+                <td>
+                  <a
+                    className="spell-link-text"
+                    href="http://wowhead.com/spell=205025"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <img
+                      alt=""
+                      className="icon game "
+                      src="//render-us.worldofwarcraft.com/icons/56/spell_nature_enchantarmor.jpg"
+                    />
+                     
+                    Presence of Mind
+                  </a>
+                </td>
+                <td>
+                  10
+                  s
+                </td>
+              </tr>
+              <tr
+                style={
+                  Object {
+                    "fontSize": 16,
+                  }
+                }
+              >
+                <td>
+                  <a
+                    className="spell-link-text"
+                    href="http://wowhead.com/spell=212653"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <img
+                      alt=""
+                      className="icon game "
+                      src="//render-us.worldofwarcraft.com/icons/56/spell_arcane_massdispel.jpg"
+                    />
+                     
+                    Shimmer
+                  </a>
+                </td>
+                <td>
+                  10
+                  s
+                </td>
+              </tr>
+              <tr
+                style={
+                  Object {
+                    "fontSize": 16,
+                  }
+                }
+              >
+                <td>
+                  <a
+                    className="spell-link-text"
+                    href="http://wowhead.com/spell=321507"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <img
+                      alt=""
+                      className="icon game "
+                      src="//render-us.worldofwarcraft.com/icons/56/spell_mage_icenova.jpg"
+                    />
+                     
+                    Touch of the Magi
+                  </a>
+                </td>
+                <td>
+                  10
+                  s
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 `;
 
 exports[`Arcane Mage integration test: example log ThroughputStatisticGroup matches the statistic snapshot 1`] = `

@@ -5,6 +5,11 @@ const covenants = {
     name: 'Summon Steward',
     icon: 'ability_kyrian_summonsteward',
   },
+  PURIFY_SOUL: {
+    id: 323436,
+    name: 'Purify Soul',
+    icon: 'inv_misc_flaskofvolatility',
+  },
   //endregion
 
   //region Necrolord

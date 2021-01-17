@@ -24,8 +24,8 @@ class ChimaeraShot extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.CHIMAERA_SHOT_BM_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHIMAERA_SHOT_BM_TALENT), () => {
+    this.active = this.selectedCombatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT_BEAST_MASTERY.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHIMAERA_SHOT_TALENT_BEAST_MASTERY), () => {
       this.casts += 1;
     });
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.CHIMAERA_SHOT_BM_FROST_DAMAGE, SPELLS.CHIMAERA_SHOT_BM_NATURE_DAMAGE]), this.onChimaeraDamage);
@@ -43,7 +43,7 @@ class ChimaeraShot extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={SPELLS.CHIMAERA_SHOT_BM_TALENT}>
+        <BoringSpellValueText spell={SPELLS.CHIMAERA_SHOT_TALENT_BEAST_MASTERY}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

@@ -147,7 +147,7 @@ const conduits = {
   DISCIPLINE_OF_THE_GROVE: {
     id: 336992,
     name: 'Discipline of the Grove',
-    icon: 'achievement_big_wineos',
+    icon: 'achievement_bg_wineos',
   },
 } as const;
 export default conduits;

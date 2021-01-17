@@ -57,7 +57,7 @@ class NecroticBarrage extends Analyzer {
           <>
             <ItemDamageDone amount={this.addedDamage} />
             <br />
-            {this.gainedFocus}/{this.gainedFocus + this.wastedFocus} <small>gained focus</small>
+            {this.gainedFocus}/{this.gainedFocus + this.wastedFocus} <small>Focus gained</small>
           </>
         </ConduitSpellText>
       </Statistic>
