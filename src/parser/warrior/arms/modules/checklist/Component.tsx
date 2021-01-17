@@ -55,17 +55,21 @@ const ArmWarriorChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         name={(<>Use <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> efficiently</>)}
         description={(
           <>
-            Mortal Strike shouldn't be used during the execution phase, you should cast it as much as possible when the target is above 20% (or 35% with <SpellLink id={SPELLS.MASSACRE_TALENT_ARMS.id} />) but avoid casting it when you reach the execution phase and use <SpellLink id={SPELLS.EXECUTE.id} /> instead since it is more rage efficient.
+            You should cast <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> as much as possible when the target is above 20% (or 35% with <SpellLink id={SPELLS.MASSACRE_TALENT_ARMS.id} />) . It should only be used during the execution phase to refresh <SpellLink id={SPELLS.MASTERY_DEEP_WOUNDS_DEBUFF.id} icon /> as <SpellLink id={SPELLS.EXECUTE.id} /> is more rage efficient than Mortal Strike.
           </>
         )}
       >
-        <Requirement
+		<Requirement
           name={(<><SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> outside execution phase</>)}
           thresholds={thresholds.goodMortalStrike}
         />
-        <Requirement
-          name={(<><SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> during execution phase</>)}
-          thresholds={thresholds.badMortalStrike}
+		<Requirement
+          name={(<><SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> which should have been <SpellLink id={SPELLS.EXECUTE.id} icon /></>)}
+          thresholds={thresholds.tooMuchMortalStrike}
+        />
+		<Requirement
+          name={(<><SpellLink id={SPELLS.MASTERY_DEEP_WOUNDS_DEBUFF.id} icon /> refreshed with <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> during execution phase</>)}
+          thresholds={thresholds.notEnoughMortalStrike}
         />
       </Rule>
       <Rule

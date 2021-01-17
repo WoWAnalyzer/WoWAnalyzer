@@ -8,6 +8,7 @@ import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import DeepWoundsUptime from '../core/Dots/DeepWoundsUptime';
 import RendUptime from '../core/Dots/RendUptime';
 import MortalStrike from '../core/Execute/MortalStrike';
+import EarlyDotRefresh from '../core/Execute/EarlyDotRefresh';
 import SweepingStrikes from '../core/SweepingStrikes';
 import Component from './Component';
 
@@ -43,7 +44,8 @@ class Checklist extends BaseChecklist {
           rend: this.rendUptime.suggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           goodMortalStrike: this.mortalStrike.goodMortalStrikeThresholds,
-          badMortalStrike: this.mortalStrike.badMortalStrikeThresholds,
+          notEnoughMortalStrike: this.mortalStrike.notEnoughMortalStrikeThresholds,
+          tooMuchMortalStrike: this.mortalStrike.tooMuchMortalStrikeThresholds,
           badSweepingStrikes: this.sweepingStrikes.suggestionThresholds,
         }}
       />
