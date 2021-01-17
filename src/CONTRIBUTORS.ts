@@ -1191,3 +1191,16 @@ export const Tiboonn: Contributor = {
   nickname: 'Tiboonn',
   github: 'Tiboonn',
 };
+
+export const Canotsa: Contributor = {
+  nickname: 'Canotsa',
+  github: 'CasperKjaerhus',
+  discord: 'Canotsa#3725',
+  mains: [
+    {
+      name: 'Stabdagger',
+      spec: SPECS.OUTLAW_ROGUE,
+      link: 'https://worldofwarcraft.com/en-gb/character/eu/draenor/stabdagger',
+    },
+  ],
+};
