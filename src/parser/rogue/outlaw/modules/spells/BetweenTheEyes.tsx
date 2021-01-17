@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import { t } from '@lingui/macro';
 
@@ -32,7 +32,7 @@ class BetweenTheEyes extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.UpdateSpellUsable.by(1).spell(SPELLS.BETWEEN_THE_EYES), this.onBetweenTheEyesUsable);
+    this.addEventListener(Events.UpdateSpellUsable.by(SELECTED_PLAYER).spell(SPELLS.BETWEEN_THE_EYES), this.onBetweenTheEyesUsable);
   }
 
   onBetweenTheEyesUsable(event: UpdateSpellUsableEvent) {
