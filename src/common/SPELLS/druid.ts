@@ -108,7 +108,7 @@ const spells = {
   // granted by Balance Affinity to non-Balance druids
   STARFIRE_AFFINITY: {
     id: 197628,
-    name: 'Starfir',
+    name: 'Starfire',
     icon: 'spell_arcane_starfire',
   },
   // granted by Balance Affinity to Guardian and Feral druids
@@ -647,11 +647,6 @@ const spells = {
     id: 202497,
     name: 'Shooting Stars',
     icon: 'spell_priest_divinestar_shadow2',
-  },
-  STELLAR_FLARE: {
-    id: 202347,
-    name: 'Stellar Flare',
-    icon: 'ability_druid_stellarflare',
   },
   ECLIPSE: {
     id: 79577,
