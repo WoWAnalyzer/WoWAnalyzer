@@ -32,8 +32,8 @@ class UnempoweredLunarStrike extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LUNAR_STRIKE), this.onCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LUNAR_STRIKE), this.onDamage);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STARFIRE), this.onCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.STARFIRE), this.onDamage);
     this.addEventListener(Events.fightend, this.onFightend);
   }
 
@@ -44,13 +44,13 @@ class UnempoweredLunarStrike extends Analyzer {
     this.badCasts += 1;
     this.lastCast.meta = this.lastCast.meta || {};
     this.lastCast.meta.isInefficientCast = true;
-    this.lastCast.meta.inefficientCastReason = `Lunar Strike was cast without Lunar Empowerment, Owlkin Frenzy and Warrior of Elune and hit less than ${TARGETS_FOR_GOOD_CAST} targets.`;
+    this.lastCast.meta.inefficientCastReason = `Starfire was cast without Lunar Eclipse, Owlkin Frenzy and Warrior of Elune and hit less than ${TARGETS_FOR_GOOD_CAST} targets.`;
   }
 
   onCast(event: CastEvent) {
     this.checkCast();
     this.lastCast = event;
-    this.lastCastBuffed = this.selectedCombatant.hasBuff(SPELLS.LUNAR_EMP_BUFF.id)
+    this.lastCastBuffed = this.selectedCombatant.hasBuff(SPELLS.ECLIPSE_LUNAR.id)
       || this.selectedCombatant.hasBuff(SPELLS.OWLKIN_FRENZY.id)
       || this.selectedCombatant.hasBuff(SPELLS.WARRIOR_OF_ELUNE_TALENT.id);
     this.hits = 0;
@@ -65,11 +65,11 @@ class UnempoweredLunarStrike extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You cast {this.badCasts} unempowered and non instant cast <SpellLink id={SPELLS.LUNAR_STRIKE.id} /> that hit less than {TARGETS_FOR_GOOD_CAST} targets. Always prioritize <SpellLink id={SPELLS.SOLAR_WRATH.id} /> as a filler when none of those conditions are met.</>)
-      .icon(SPELLS.LUNAR_STRIKE.icon)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You cast {this.badCasts} unempowered and non instant cast <SpellLink id={SPELLS.STARFIRE.id} /> that hit less than {TARGETS_FOR_GOOD_CAST} targets. Always prioritize <SpellLink id={SPELLS.WRATH.id} /> as a filler when none of those conditions are met.</>)
+      .icon(SPELLS.STARFIRE.icon)
       .actual(t({
-      id: "druid.balance.suggestions.lunarStrike.efficiency",
-      message: `${actual.toFixed(1)} Unempowered Lunar Strikes per minute`
+      id: "druid.balance.suggestions.starfire.efficiency",
+      message: `${actual.toFixed(1)} Unempowered Starfires per minute`
     }))
 
       .recommended(`${recommended} is recommended`));

@@ -445,7 +445,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.LUNAR_STRIKE_AFFINITY,
+        spell: SPELLS.STARFIRE_AFFINITY,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         enabled: combatant.hasTalent(SPELLS.BALANCE_AFFINITY_TALENT_SHARED.id),
         gcd: {
@@ -453,7 +453,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.SOLAR_WRATH_AFFINITY,
+        spell: SPELLS.WRATH,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         enabled: combatant.hasTalent(SPELLS.BALANCE_AFFINITY_TALENT_SHARED.id),
         gcd: {
