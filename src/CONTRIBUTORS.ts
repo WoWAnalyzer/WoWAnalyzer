@@ -225,7 +225,14 @@ export const Fyruna: Contributor = {
 export const Anomoly: Contributor = {
   nickname: 'Anomoly',
   github: 'anom0ly',
+  twitter: 'Anom_MW',
+  discord: 'Anomoly#0110',
   avatar: require('./interface/images/avatars/anomoly-avatar.jpg'),
+  mains: [{
+    name: 'Anom',
+    spec: SPECS.MISTWEAVER_MONK,
+    link: 'https://worldofwarcraft.com/en-us/character/us/malganis/anom',
+  }],
 };
 export const Juko8: Contributor = {
   nickname: 'Juko8',
