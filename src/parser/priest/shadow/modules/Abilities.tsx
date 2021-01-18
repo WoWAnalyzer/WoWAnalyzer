@@ -133,6 +133,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.75,
         },
         enabled: combatant.hasTalent(SPELLS.VOID_TORRENT_TALENT.id),
+        damageSpellIds: [SPELLS.VOID_TORRENT_TALENT.id],
       },
       {
         spell: SPELLS.MINDBENDER_TALENT_SHADOW,
