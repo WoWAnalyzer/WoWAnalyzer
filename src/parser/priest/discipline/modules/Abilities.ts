@@ -293,9 +293,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.POWER_INFUSION,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        gcd: {
-          base: 1500,
-        },
+        gcd: null,
       },
       {
         spell: SPELLS.SHADOW_WORD_DEATH,

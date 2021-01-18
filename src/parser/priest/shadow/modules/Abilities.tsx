@@ -165,9 +165,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.POWER_INFUSION,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
-        gcd: {
-          base: 1500,
-        },
+        gcd: null,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
