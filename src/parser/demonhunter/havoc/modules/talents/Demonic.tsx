@@ -1,10 +1,13 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import Events from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellLink from 'common/SpellLink';
+import { Options } from 'parser/core/EventSubscriber';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/23dHWCrT18qhaJbz/#fight=1&source=16
@@ -22,18 +25,18 @@ class Demonic extends Analyzer {
         average: 0,
         major: 1,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
-
+  talentsCheck = this.selectedCombatant.hasTalent(SPELLS.TRAIL_OF_RUIN_TALENT) || this.selectedCombatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT)
   eyeBeamCasts = 0;
   goodDeathSweep = 0;
-  eyeBeamTimeStamp = undefined;
-  deathsweepsInMetaCounter = undefined;
+  eyeBeamTimeStamp: number = 0;
+  deathsweepsInMetaCounter: number = 0;
   badCasts = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DEMONIC_TALENT_HAVOC.id);
     if (!this.active) {
       return;
@@ -42,12 +45,13 @@ class Demonic extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEATH_SWEEP), this.onDeathSweepCast);
   }
 
-  onEyeBeamCast(event) {
+  onEyeBeamCast(event: CastEvent) {
     const hasMetaBuff = this.selectedCombatant.hasBuff(SPELLS.METAMORPHOSIS_HAVOC_BUFF.id, event.timestamp - 1000);
 
-    if (hasMetaBuff) {
+    if (hasMetaBuff || !this.talentsCheck) {
       return;
     }
+
     this.eyeBeamCasts += 1;
     this.eyeBeamTimeStamp = event.timestamp;
 
@@ -63,14 +67,14 @@ class Demonic extends Analyzer {
     this.deathsweepsInMetaCounter = 0;
   }
 
-  onDeathSweepCast(event) {
-    if (this.eyeBeamTimeStamp !== undefined && (event.timestamp - this.eyeBeamTimeStamp) < META_BUFF_DURATION_EYEBEAM) {
+  onDeathSweepCast(event: CastEvent) {
+    if ((event.timestamp - this.eyeBeamTimeStamp) < META_BUFF_DURATION_EYEBEAM) {
       this.goodDeathSweep += 1;
       this.deathsweepsInMetaCounter += 1;
     }
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest(<>Try to have <SpellLink id={SPELLS.BLADE_DANCE.id} /> almost off cooldown before casting <SpellLink id={SPELLS.EYE_BEAM.id} />. This will allow for two casts of <SpellLink id={SPELLS.DEATH_SWEEP.id} /> during the <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} /> buff you get from the <SpellLink id={SPELLS.DEMONIC_TALENT_HAVOC.id} /> talent.</>)
         .icon(SPELLS.DEMONIC_TALENT_HAVOC.icon)
@@ -80,19 +84,17 @@ class Demonic extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.DEMONIC_TALENT_HAVOC.id}
-        position={STATISTIC_ORDER.OPTIONAL(6)}
-        value={(
-          <>
-            {this.badCasts} <small>Bad casts</small><br />
-          </>
-        )}
-        tooltip={`A bad cast is triggered when you don't do atleast 2 Death Sweep casts inside
-                  the Metamorphosis window you get from Eye Beam due to the Demonic talent.`}
-      />
+      <Statistic
+        category={STATISTIC_CATEGORY.GENERAL}
+        size="flexible"
+      >
+        <BoringSpellValueText spell={SPELLS.DEMONIC_TALENT_HAVOC}>
+          <>{this.badCasts} <small>Bad casts</small></>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
+
 }
 
 export default Demonic;
