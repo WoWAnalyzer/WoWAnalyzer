@@ -7,8 +7,18 @@ const covenants = {
   },
 
   //Venthyr
-  IMPENDING_CATASTROPHE: {
+  IMPENDING_CATASTROPHE_CAST: {
     id: 321792,
+    name: 'Impending Catastrophe',
+    icon: 'ability_revendreth_warlock',
+  },
+  IMPENDING_CATASTROPHE_HIT: {
+    id: 322167,
+    name: 'Impending Catastrophe',
+    icon: 'ability_revendreth_warlock',
+  },
+  IMPENDING_CATASTROPHE_DEBUFF: {
+    id: 322170,
     name: 'Impending Catastrophe',
     icon: 'ability_revendreth_warlock',
   },
@@ -17,7 +27,7 @@ const covenants = {
   DECIMATING_BOLT: {
     id: 325289,
     name: 'Decimating Bolt',
-    icon: 'ability_maldraxxus_warlock'
+    icon: 'ability_maldraxxus_warlock',
   },
 
   //Night Fae

@@ -1067,64 +1067,6 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
               }
             />
           </tr>
-        </tbody>
-        <tbody>
-          <tr>
-            <th>
-              <b>
-                {"id":"core.abilities.spellCategories.rotationalAoe","message":"Spell (AOE)"}
-              </b>
-            </th>
-            <th
-              className="text-center"
-            >
-              <dfn
-                className=""
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onTouchStart={[Function]}
-                style={Object {}}
-              >
-                <trans
-                  id="shared.castEfficiency.cpm"
-                  message="CPM"
-                />
-              </dfn>
-            </th>
-            <th
-              className="text-right"
-            >
-              <dfn
-                className=""
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onTouchStart={[Function]}
-                style={Object {}}
-              >
-                <trans
-                  id="shared.castEfficiency.casts"
-                  message="Casts"
-                />
-              </dfn>
-            </th>
-            <th
-              className="text-center"
-            >
-              <dfn
-                className=""
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onTouchStart={[Function]}
-                style={Object {}}
-              >
-                <trans
-                  id="shared.castEfficiency.timeOnCooldown"
-                  message="Time on Cooldown"
-                />
-              </dfn>
-            </th>
-            <th />
-          </tr>
           <tr>
             <td
               style={
@@ -1222,6 +1164,64 @@ exports[`Affliction Warlock integration test: example log CastEfficiency matches
                 }
               }
             />
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th>
+              <b>
+                {"id":"core.abilities.spellCategories.rotationalAoe","message":"Spell (AOE)"}
+              </b>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
+              </dfn>
+            </th>
+            <th
+              className="text-right"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
+              </dfn>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
+              </dfn>
+            </th>
+            <th />
           </tr>
           <tr>
             <td
