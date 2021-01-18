@@ -35,12 +35,12 @@ class ArmyOfTheDamned extends Analyzer {
 
   onCdrCast(event: CastEvent) {
     if (this.spellUsable.isOnCooldown(SPELLS.APOCALYPSE.id)) {
-      this.spellUsable.reduceCooldown(SPELLS.APOCALYPSE.id, AOTD_APOCALYPSE_REDUCTION_MS, event.timestamp)
+      this.spellUsable.reduceCooldown(SPELLS.APOCALYPSE.id, AOTD_APOCALYPSE_REDUCTION_MS, event.timestamp);
       this.totalApocalypseReductionMs += AOTD_APOCALYPSE_REDUCTION_MS;
     }
 
     if (this.spellUsable.isOnCooldown(SPELLS.ARMY_OF_THE_DEAD.id)) {
-      this.spellUsable.reduceCooldown(SPELLS.ARMY_OF_THE_DEAD.id, AOTD_ARMY_REDUCTION_MS, event.timestamp)
+      this.spellUsable.reduceCooldown(SPELLS.ARMY_OF_THE_DEAD.id, AOTD_ARMY_REDUCTION_MS, event.timestamp);
       this.totalArmyReductionMs += AOTD_ARMY_REDUCTION_MS;
     }
   }
@@ -63,9 +63,9 @@ class ArmyOfTheDamned extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.ARMY_OF_THE_DAMNED_TALENT}>
           <>
-            <CooldownIcon /> {this.totalApocalypseReductionMs / 1000} <small> seconds of Apocalypse CDR</small>
+            <CooldownIcon /> {this.totalApocalypseReductionMs / 1000}s <small>  of Apocalypse CDR</small>
             <br/>
-            <CooldownIcon /> {this.totalArmyReductionMs / 1000} <small> seconds of Army of the Dead CDR</small>
+            <CooldownIcon /> {this.totalArmyReductionMs / 1000}s <small>  of Army of the Dead CDR</small>
           </>
         </BoringSpellValueText>
       </Statistic>
