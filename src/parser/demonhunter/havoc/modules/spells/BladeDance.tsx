@@ -47,7 +47,7 @@ class BladeDance extends Analyzer {
     if (!this.lastCastEvent) {
       return;
     }
-    
+
     const hitTimeStamp = event.timestamp;
 
     if (hitTimeStamp > this.firstHitTimeStamp + this.strikeTime){
@@ -66,10 +66,17 @@ class BladeDance extends Analyzer {
     this.hitCount += 1;
   }
 
-  onFightEnd(event: FightEndEvent) {
+  onFightEnd(event: FightEndEvent) {,
+    if (!this.lastCastEvent) {
+      return;
+    }
+
     if (this.hitCount < 5){
       //Check last strike
       this.badCast += 1;
+      this.lastCastEvent.meta = this.lastCastEvent.meta || {};
+      this.lastCastEvent.meta.isInefficientCast = true;
+      this.lastCastEvent.meta.inefficientCastReason = 'Bad cast on single target';
     }
   }
 
