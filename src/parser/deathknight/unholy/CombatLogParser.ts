@@ -1,5 +1,6 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+import Channeling from 'parser/shared/modules/Channeling';
 
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -11,7 +12,6 @@ import Apocalypse from './modules/features/Apocalypse';
 import VirulentPlagueEfficiency from './modules/features/VirulentPlagueEfficiency';
 import WoundTracker from './modules/features/WoundTracker';
 import SpellUsable from './modules/core/SpellUsable'
-import CastEfficiency from './modules/core/CastEfficiency';
 
 import SoulReaper from './modules/talents/SoulReaper';
 import ArmyOfTheDamned from './modules/talents/ArmyOfTheDamned';
@@ -32,12 +32,16 @@ import Superstrain from '../shared/items/Superstrain';
 // Covenants
 import SwarmingMist from '../shared/covenants/SwarmingMist';
 
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
-    // Features
+    // Core
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
+    channeling: Channeling,
+
+    // Features
     festeringStrikeEfficiency: FesteringStrikeEfficiency,
     checklist: Checklist,
     scourgeStrikeEfficiency: ScourgeStrikeEfficiency,
@@ -45,7 +49,6 @@ class CombatLogParser extends CoreCombatLogParser {
     virulentPlagueEfficiency: VirulentPlagueEfficiency,
     woundTracker: WoundTracker,
     spellUsable: SpellUsable,
-    castEfficiency: CastEfficiency,
 
     // Talents
     soulReaper: SoulReaper,
