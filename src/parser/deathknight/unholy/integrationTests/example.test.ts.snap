@@ -1376,7 +1376,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               1
-              /2
+              /1
                
               casts
             </td>
@@ -1394,7 +1394,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#ff8000",
+                      "backgroundColor": "#70b570",
                       "width": "25.604686541818012%",
                     }
                   }
@@ -1419,12 +1419,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                   "width": "25%",
                 }
               }
-            >
-              <trans
-                id="shared.castEfficiency.canBeImproved"
-                message="Can be improved."
-              />
-            </td>
+            />
           </tr>
           <tr>
             <td
@@ -3661,50 +3656,6 @@ Array [
         values={
           Object {
             "0": "95",
-          }
-        }
-      />
-      )
-    </React.Fragment>,
-  },
-  Object {
-    "details": null,
-    "icon": "spell_deathknight_armyofthedead",
-    "importance": "major",
-    "issue": <React.Fragment>
-      <Trans
-        components={
-          Object {
-            "0": <ForwardRef
-              id={42650}
-            />,
-          }
-        }
-        id="shared.modules.castEfficiency.suggest"
-        message="Try to cast <0/> more often."
-      />
-       
-      
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      <Trans
-        id="shared.modules.castEfficiency.actual"
-        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
-        values={
-          Object {
-            "0": 1,
-            "1": 2,
-            "2": "26",
-          }
-        }
-      />
-       (
-      <Trans
-        id="shared.modules.castEfficiency.recommended"
-        message=">{0}% is recommended"
-        values={
-          Object {
-            "0": "90",
           }
         }
       />
