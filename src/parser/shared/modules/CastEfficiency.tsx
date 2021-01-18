@@ -302,7 +302,7 @@ class CastEfficiency extends Analyzer {
       rawMaxCasts =
         availableFightDuration /
         (averageCooldown + averageTimeSpentCasting + averageTimeWaitingOnGCD) +
-        (ability.charges || 1) - 1;
+        (ability.charges || 1) - 1;  
     } else if (!includeNoCooldownEfficiency) {
       rawMaxCasts = availableFightDuration / cooldownMs! + (ability.charges || 1) - 1;
     } else if (casts > 0) {
