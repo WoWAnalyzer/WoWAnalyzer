@@ -66,7 +66,7 @@ class BladeDance extends Analyzer {
     this.hitCount += 1;
   }
 
-  onFightEnd(event: FightEndEvent) {,
+  onFightEnd(event: FightEndEvent) {
     if (!this.lastCastEvent) {
       return;
     }
