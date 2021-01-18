@@ -1,7 +1,7 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent, FightEndEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, FightEndEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellLink from 'common/SpellLink';
 
@@ -24,6 +24,7 @@ class BladeDance extends Analyzer {
   hitCount = 0;
   firstHitTimeStamp: number = 0;
   strikeTime: number = 1000;
+  lastCastEvent?: CastEvent;
 
   constructor(options: Options) {
     super(options);
@@ -31,19 +32,33 @@ class BladeDance extends Analyzer {
     if (!this.active) {
       return;
     }
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.DEATH_SWEEP, SPELLS.BLADE_DANCE]), this.onCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.DEATH_SWEEP_DAMAGE, SPELLS.BLADE_DANCE_DAMAGE, SPELLS.BLADE_DANCE_DAMAGE_LAST_HIT, SPELLS.DEATH_SWEEP_DAMAGE_LAST_HIT]), this.onDamage);
     this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
+  onCast(event: CastEvent) {
+    this.lastCastEvent = event;
+  }
+
   onDamage(event: DamageEvent) {
     //Function both for Blade Dance and Death Sweep
-    //less than 5 hits = single target, bad cast.
+    //less than 5 hits = single target, bad cast (with specified talents)
+    if (!this.lastCastEvent) {
+      return;
+    }
+    
     const hitTimeStamp = event.timestamp;
+
     if (hitTimeStamp > this.firstHitTimeStamp + this.strikeTime){
       //New Strike
       if(this.hitCount < 5 && this.hitCount > 1) {
         //chech if last strike was bad
         this.badCast += 1;
+        this.lastCastEvent.meta = this.lastCastEvent.meta || {};
+        this.lastCastEvent.meta.isInefficientCast = true;
+        this.lastCastEvent.meta.inefficientCastReason = 'Bad cast on single target';
+  
       }
       this.firstHitTimeStamp = hitTimeStamp //Timestamp for first hit in strike
       this.hitCount = 0;
@@ -51,7 +66,7 @@ class BladeDance extends Analyzer {
     this.hitCount += 1;
   }
 
-  onFightEnd(event: FightEndEvent){
+  onFightEnd(event: FightEndEvent) {
     if (this.hitCount < 5){
       //Check last strike
       this.badCast += 1;
