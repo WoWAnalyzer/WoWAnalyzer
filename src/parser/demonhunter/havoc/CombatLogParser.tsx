@@ -15,6 +15,7 @@ import Checklist from './modules/features/Checklist/Module';
 // Spells
 import DemonBite from './modules/spells/DemonBite';
 import MetaBuffUptime from './modules/spells/MetaBuffUptime';
+import BladeDance from './modules/spells/BladeDance'
 
 // Talents
 import Momentum from './modules/talents/Momentum';
@@ -66,6 +67,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Spells
     demonBite: DemonBite,
     metaBuffUptime: MetaBuffUptime,
+    bladeDance: BladeDance,
 
     //Talents
     felblade: Felblade,

@@ -262,6 +262,16 @@ const spells = {
     name: 'Blade Dance',
     icon: 'ability_demonhunter_bladedance',
   },
+  BLADE_DANCE_DAMAGE: {
+    id: 199552,
+    name: 'Blade Dance',
+    icon: 'ability_demonhunter_bladedance',
+  },
+  BLADE_DANCE_DAMAGE_LAST_HIT: {
+    id: 200685,
+    name: 'Blade Dance',
+    icon: 'ability_demonhunter_bladedance',
+  },
   DEATH_SWEEP: {
     id: 210152,
     name: 'Death Sweep',
