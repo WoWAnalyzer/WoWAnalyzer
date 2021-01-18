@@ -35,14 +35,21 @@ class GlobalCooldown extends CoreGlobalCooldown {
    * Aspect of the wild reduces Global Cooldown for certain spells by 0.2 seconds before haste calculations
    */
   getGlobalCooldownDuration(spellId: number) {
-    const gcd = super.getGlobalCooldownDuration(spellId);
+    let gcd = super.getGlobalCooldownDuration(spellId);
     if (!gcd) {
       return 0;
     }
     if (AOTW_GCD_REDUCTION_AFFECTED_ABILITIES.includes(spellId) && this.selectedCombatant.hasBuff(SPELLS.ASPECT_OF_THE_WILD.id)) {
       const unhastedAspectGCD = MAX_GCD - ASPECT_GCD_REDUCTION;
       const hastepercent = 1 + this.haste.current;
-      return Math.max(MIN_GCD, unhastedAspectGCD / hastepercent);
+      gcd = unhastedAspectGCD / hastepercent;
+      if (spellId === SPELLS.WILD_SPIRITS.id) {
+        gcd = gcd / (1 + this.haste.current);
+      }
+      return Math.max(MIN_GCD, gcd);
+    }
+    if (spellId === SPELLS.WILD_SPIRITS.id) {
+      gcd = gcd / (1 + this.haste.current);
     }
     return Math.max(MIN_GCD, gcd);
   }

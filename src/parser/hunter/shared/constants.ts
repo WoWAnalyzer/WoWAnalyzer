@@ -55,7 +55,8 @@ export const BORN_TO_BE_WILD_AFFECTED_SPELLS = [
   SPELLS.ASPECT_OF_THE_TURTLE,
   SPELLS.ASPECT_OF_THE_EAGLE,
 ];
-
+//Born To Be Wild reduces the cooldown of affected spells by 20%
+export const BORN_TO_BE_WILD_CD_REDUCTION = 0.2;
 /** Natural Mending */
 //1 second per 20 focus spent
 export const MM_SV_CDR_PER_FOCUS = 1000 / 20;
@@ -85,6 +86,9 @@ export const LIST_OF_FOCUS_SPENDERS_SHARED = [
 //endregion
 
 //region Legendaries
+//Call of the Wild reduces the cooldown of affected spells by 35%
+export const CALL_OF_THE_WILD_CD_REDUCTION = 0.35;
+//Call of the Wild affects all Aspects as well as Trueshot and Coordinated Assault
 export const CALL_OF_THE_WILD_AFFECTED_SPELLS = [
   SPELLS.ASPECT_OF_THE_CHEETAH,
   SPELLS.ASPECT_OF_THE_TURTLE,
@@ -153,7 +157,7 @@ export const EMPOWERED_RELEASE_INCREASE_KS_DAMAGE = [0, 0.05, 0.06, 0.07, 0.085,
 //endregion
 
 //region Endurance
-export const HARMONY_OF_THE_TORTOLLAN_EFFECT_BY_RANK = [0, -10000, -11500, -13000, -14500, -16000, -17500, -19000, -20500, -23000, -24500, -26000, -27500, -29000, -30500, -32000];
+export const HARMONY_OF_THE_TORTOLLAN_EFFECT_BY_RANK: number[] = [0, 10, 11.5, 13, 14.5, 16, 17.5, 19, 20.5, 23, 24.5, 26, 27.5, 29, 30.5, 32];
 export const MARKMANS_ADVANTAGE_EFFECT_BY_RANK = [0, 0.03, 0.035, 0.04, 0.045, 0.05, 0.055, 0.06, 0.065, 0.07, 0.075, 0.08, 0.085, 0.09, 0.095, 0.1];
 export const RESILIENCE_OF_THE_HUNTER_EFFECT_BY_RANK = [0, 0.03, 0.038, 0.046, 0.054, 0.062, 0.07, 0.078, 0.086, 0.094, 0.102, 0.11, 0.118, 0.126, 0.134, 0.142];
 //endregion

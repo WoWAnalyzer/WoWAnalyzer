@@ -137,6 +137,7 @@ class CelestialBrew extends Analyzer {
         ],
       },
     };
+
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
@@ -151,8 +152,8 @@ class CelestialBrew extends Analyzer {
       >
         <BoringValue label={<><SpellIcon id={SPELLS.CELESTIAL_BREW.id} /> Avg. Absorb per Celestial Brew</>}>
           <>
-            {formatNumber(avgAbsorb)} % <br />
-            <FooterChart spec={spec} data={this._absorbs} />
+            {formatNumber(avgAbsorb)}<br />
+            <FooterChart spec={spec} data={this._absorbs.map(ev => ({ ...ev, cast: undefined }))} />
           </>
         </BoringValue>
       </Statistic>

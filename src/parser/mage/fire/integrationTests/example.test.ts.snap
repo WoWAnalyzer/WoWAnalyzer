@@ -53,7 +53,7 @@ exports[`Fire Mage integration test: example log AlwaysBeCasting matches the sta
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "63.49407673124681%",
+                  "width": "63.48952252141561%",
                 }
               }
             >
@@ -103,14 +103,14 @@ Array [
   Object {
     "details": null,
     "icon": "spell_mage_altertime",
-    "importance": "regular",
-    "issue": <span>
+    "importance": "major",
+    "issue": <React.Fragment>
       Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. If you have to move, try casting 
       <ForwardRef
         id={2948}
       />
-      .
-    </span>,
+       
+    </React.Fragment>,
     "stat": <React.Fragment>
       <Trans
         id="mage.fire.suggestions.alwaysBeCasting.downtime"
@@ -122,7 +122,15 @@ Array [
         }
       />
        (
-      &lt;20.00% is recommended
+      <Trans
+        id="mage.fire.suggestions.alwaysBeCasting.recommended"
+        message="<{0}% is recommended"
+        values={
+          Object {
+            "0": "5.00",
+          }
+        }
+      />
       )
     </React.Fragment>,
   },
@@ -892,7 +900,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "89.22656444084855%",
+                      "width": "89.4492352945904%",
                     }
                   }
                 />
@@ -907,7 +915,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              89.23%
+              89.45%
             </td>
             <td
               style={
@@ -1460,7 +1468,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               4
-              /5
+              /6
                
               casts
             </td>
@@ -1478,8 +1486,8 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#ff8000",
-                      "width": "84.53551078142205%",
+                      "backgroundColor": "#70b570",
+                      "width": "94.04175406731122%",
                     }
                   }
                 />
@@ -1494,7 +1502,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              84.54%
+              94.04%
             </td>
             <td
               style={
@@ -1503,12 +1511,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   "width": "25%",
                 }
               }
-            >
-              <trans
-                id="shared.castEfficiency.canBeImproved"
-                message="Can be improved."
-              />
-            </td>
+            />
           </tr>
           <tr>
             <td
@@ -3485,50 +3488,6 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_fire_sealoffire",
-    "importance": "regular",
-    "issue": <React.Fragment>
-      <Trans
-        components={
-          Object {
-            "0": <ForwardRef
-              id={190319}
-            />,
-          }
-        }
-        id="shared.modules.castEfficiency.suggest"
-        message="Try to cast <0/> more often."
-      />
-       
-      
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      <Trans
-        id="shared.modules.castEfficiency.actual"
-        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
-        values={
-          Object {
-            "0": 4,
-            "1": 5,
-            "2": "85",
-          }
-        }
-      />
-       (
-      <Trans
-        id="shared.modules.castEfficiency.recommended"
-        message=">{0}% is recommended"
-        values={
-          Object {
-            "0": "90",
-          }
-        }
-      />
-      )
-    </React.Fragment>,
-  },
-  Object {
-    "details": null,
     "icon": "spell_mage_runeofpower",
     "importance": "major",
     "issue": <React.Fragment>
@@ -4325,7 +4284,7 @@ exports[`Fire Mage integration test: example log HotStreak matches the statistic
             Proc Utilization
           </small>
           <br />
-          40
+          56
           % 
           <small>
             Procs used alongside Fireball
@@ -4388,7 +4347,7 @@ Array [
         id={48108}
       />
        proc. You failed to do this 
-      15
+      8
        times. If you have a 
       <ForwardRef
         id={48108}
@@ -4409,7 +4368,7 @@ Array [
         message="{0}% Utilization"
         values={
           Object {
-            "0": "40.00",
+            "0": "55.56",
           }
         }
       />
@@ -4512,16 +4471,80 @@ exports[`Fire Mage integration test: example log InfernalCascade matches the sta
              % of total
           </small>
           <br />
-          1.8
-           
+          44.38
+          % 
           <small>
-            Avg. stacks per Combustion
+            Uptime at Max Stacks
           </small>
+          <br />
         </div>
       </div>
     </div>
   </div>
 </div>
+`;
+
+exports[`Fire Mage integration test: example log InfernalCascade matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "ability_rhyolith_immolation",
+    "importance": "major",
+    "issue": <React.Fragment>
+      While 
+      <ForwardRef
+        id={190319}
+      />
+       was active, your 
+      <ForwardRef
+        id={336821}
+      />
+       buff was at 
+      2
+       stacks for 
+      5
+      s on average per Combustion (
+      44.38
+      % of your Combustion Uptime). Because so much of your damage comes from your Combustion, it is important that you adjust your rotation such that you can maintain 
+      2
+       stacks of 
+      <ForwardRef
+        id={336821}
+      />
+       for as much of your 
+      <ForwardRef
+        id={190319}
+      />
+       as possible. This can be done by alternating between using 
+      <ForwardRef
+        id={108853}
+      />
+       and 
+      <ForwardRef
+        id={257541}
+      />
+       to generate 
+      <ForwardRef
+        id={48108}
+      />
+       instead of using all the charges of one, and then all the charges of the other.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <Trans
+        id="mage.fire.suggestions.infernalCascade.maxStackPercent"
+        message="{0}% utilization"
+        values={
+          Object {
+            "0": "44.38",
+          }
+        }
+      />
+       (
+      &gt;80.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
 `;
 
 exports[`Fire Mage integration test: example log Kindling matches the statistic snapshot 1`] = `
@@ -4564,7 +4587,7 @@ exports[`Fire Mage integration test: example log Kindling matches the statistic 
         <div
           className="value"
         >
-          183
+          200
           s 
           <small>
             Combustion Cooldown Reduction
@@ -4830,6 +4853,282 @@ exports[`Fire Mage integration test: example log SearingTouch matches the statis
     </div>
   </div>
 </div>
+`;
+
+exports[`Fire Mage integration test: example log ShiftingPower matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="COVENANT"
+    className="panel statistic flexible "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=314791"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Shifting Power"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/ability_ardenweald_mage.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=314791"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Shifting Power
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          <small>
+            Cooldown Reduction by Spell
+          </small>
+          <br />
+          <table
+            className="table-condensed"
+          >
+            <tbody>
+              <tr
+                style={
+                  Object {
+                    "fontSize": 16,
+                  }
+                }
+              >
+                <td>
+                  <a
+                    className="spell-link-text"
+                    href="http://wowhead.com/spell=108853"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <img
+                      alt=""
+                      className="icon game "
+                      src="//render-us.worldofwarcraft.com/icons/56/spell_fire_fireball.jpg"
+                    />
+                     
+                    Fire Blast
+                  </a>
+                </td>
+                <td>
+                  37
+                  s
+                </td>
+              </tr>
+              <tr
+                style={
+                  Object {
+                    "fontSize": 16,
+                  }
+                }
+              >
+                <td>
+                  <a
+                    className="spell-link-text"
+                    href="http://wowhead.com/spell=116011"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <img
+                      alt=""
+                      className="icon game "
+                      src="//render-us.worldofwarcraft.com/icons/56/spell_mage_runeofpower.jpg"
+                    />
+                     
+                    Rune of Power
+                  </a>
+                </td>
+                <td>
+                  27
+                  s
+                </td>
+              </tr>
+              <tr
+                style={
+                  Object {
+                    "fontSize": 16,
+                  }
+                }
+              >
+                <td>
+                  <a
+                    className="spell-link-text"
+                    href="http://wowhead.com/spell=190319"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <img
+                      alt=""
+                      className="icon game "
+                      src="//render-us.worldofwarcraft.com/icons/56/spell_fire_sealoffire.jpg"
+                    />
+                     
+                    Combustion
+                  </a>
+                </td>
+                <td>
+                  38
+                  s
+                </td>
+              </tr>
+              <tr
+                style={
+                  Object {
+                    "fontSize": 16,
+                  }
+                }
+              >
+                <td>
+                  <a
+                    className="spell-link-text"
+                    href="http://wowhead.com/spell=212653"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <img
+                      alt=""
+                      className="icon game "
+                      src="//render-us.worldofwarcraft.com/icons/56/spell_arcane_massdispel.jpg"
+                    />
+                     
+                    Shimmer
+                  </a>
+                </td>
+                <td>
+                  8
+                  s
+                </td>
+              </tr>
+              <tr
+                style={
+                  Object {
+                    "fontSize": 16,
+                  }
+                }
+              >
+                <td>
+                  <a
+                    className="spell-link-text"
+                    href="http://wowhead.com/spell=235313"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <img
+                      alt=""
+                      className="icon game "
+                      src="//render-us.worldofwarcraft.com/icons/56/ability_mage_moltenarmor.jpg"
+                    />
+                     
+                    Blazing Barrier
+                  </a>
+                </td>
+                <td>
+                  10
+                  s
+                </td>
+              </tr>
+              <tr
+                style={
+                  Object {
+                    "fontSize": 16,
+                  }
+                }
+              >
+                <td>
+                  <a
+                    className="spell-link-text"
+                    href="http://wowhead.com/spell=257541"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <img
+                      alt=""
+                      className="icon game "
+                      src="//render-us.worldofwarcraft.com/icons/56/artifactability_firemage_phoenixbolt.jpg"
+                    />
+                     
+                    Phoenix Flames
+                  </a>
+                </td>
+                <td>
+                  38
+                  s
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Fire Mage integration test: example log ShiftingPowerUsage matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "ability_ardenweald_mage",
+    "importance": "major",
+    "issue": <React.Fragment>
+      You used 
+      <ForwardRef
+        id={314791}
+      />
+       while some critical abilities (
+      <ForwardRef
+        id={190319}
+      />
+       and 
+      <ForwardRef
+        id={116011}
+      />
+      ) were not on cooldown. Since 
+      <ForwardRef
+        id={314791}
+      />
+       will reduce the cooldown on these spells by a decent amount, you want to ensure that you do not cast it unless both 
+      <ForwardRef
+        id={190319}
+      />
+       and 
+      <ForwardRef
+        id={116011}
+      />
+       are on cooldown.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <Trans
+        id="mage.fire.suggestions.shiftingPowerUsage.usagePercent"
+        message="{0}% utilization"
+        values={
+          Object {
+            "0": "25.00",
+          }
+        }
+      />
+       (
+      &gt;100.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
 `;
 
 exports[`Fire Mage integration test: example log ThroughputStatisticGroup matches the statistic snapshot 1`] = `
@@ -5136,7 +5435,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
         <div
           className="flex-main name"
         >
-          Use your cooldowns
+          Always Be Casting
         </div>
         <div
           className="flex-sub perf"
@@ -5148,8 +5447,8 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ffc84a",
-                  "width": "52.53946772002862%",
+                  "backgroundColor": "#df7102",
+                  "width": "44.229262350193686%",
                 }
               }
             />
@@ -5206,7 +5505,370 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
           <div
             className="col-md-12"
           >
-            Using your cooldown abilities as often as possible can help raise your dps significantly. Some help more than others, but as a general rule of thumb you should be looking to use most of your damaging abilities and damage cooldowns as often as possible unless you need to save them for a priority burst phase that is coming up soon.
+            Any time you are not casting something, that is damage that is lost. Mage has many ways to decrease downtime, such as using 
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=1953"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_arcane_blink.jpg"
+              />
+               
+              Blink
+            </a>
+             to get somewhere faster so you can continue casting or using 
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=2948"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_fire_soulburn.jpg"
+              />
+               
+              Scorch
+            </a>
+             while you are moving; even phases where the only target is taking 99% reduced damage is an opportunity to fish for procs or get cooldown reduction from crits if you are using 
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=155148"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_mage_kindling.jpg"
+              />
+               
+              Kindling
+            </a>
+            . While some encounters have forced downtime, which WoWAnalyzer does not account for, anything you can do to minimize your downtime will help your damage. Additionally, to better contextualize your downtime, we recommend comparing your downtime to another Fire Mage that did better than you on the same encounter with roughly the same kill time. If you have less downtime than them, then maybe there is something you can do to improve.
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Active Time
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  63.49%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "24.16229828529303%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Cancelled Casts
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  10.69%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ffc84a",
+                        "transition": "background-color 800ms",
+                        "width": "64.29622641509435%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li
+    className="expandable  passed"
+  >
+    <div
+      className="meta"
+      onClick={[Function]}
+    >
+      <div
+        className="flex wrapable"
+      >
+        <div
+          className="flex-main name"
+        >
+          Combustion
+        </div>
+        <div
+          className="flex-sub perf"
+        >
+          <div
+            className="perf-container"
+          >
+            <div
+              className="perf-bar"
+              style={
+                Object {
+                  "backgroundColor": "#a6c34c",
+                  "width": "76.07353041613764%",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="flex-sub chevron"
+        >
+          <div>
+            <svg
+              className="icon"
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
+      style={
+        Object {
+          "height": 0,
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        style={Object {}}
+      >
+        <div
+          className="row text-muted description"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+            As a Fire Mage, the vast majority if your damage is going to come from 
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=190319"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_fire_sealoffire.jpg"
+              />
+               
+              Combustion
+            </a>
+            . Therefore it is critical that you do everything you can to get the most out of 
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=190319"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_fire_sealoffire.jpg"
+              />
+               
+              Combustion
+            </a>
+            , including getting the most out of abilities that empower 
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=190319"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_fire_sealoffire.jpg"
+              />
+               
+              Combustion
+            </a>
+            . This not only includes the abilities you use during 
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=190319"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_fire_sealoffire.jpg"
+              />
+               
+              Combustion
+            </a>
+            , but also pooling resources, like 
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=108853"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_fire_fireball.jpg"
+              />
+               
+              Fire Blast
+            </a>
+             and 
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=257541"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/artifactability_firemage_phoenixbolt.jpg"
+              />
+               
+              Phoenix Flames
+            </a>
+            , before 
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=190319"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_fire_sealoffire.jpg"
+              />
+               
+              Combustion
+            </a>
+            .
           </div>
         </div>
         <div
@@ -5235,6 +5897,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                    
                   Combustion
                 </a>
+                 Cast Efficiency
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -5255,7 +5918,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  84.54%
+                  94.04%
                    
                    
                 </div>
@@ -5275,9 +5938,9 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ffc84a",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "65.0532509021354%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -5294,334 +5957,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               <div
                 className="flex-main"
               >
-                <a
-                  className="spell-link-text"
-                  href="http://wowhead.com/spell=108853"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/spell_fire_fireball.jpg"
-                  />
-                   
-                  Fire Blast
-                </a>
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  89.23%
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#a6c34c",
-                        "transition": "background-color 800ms",
-                        "width": "94.74891917605137%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                <a
-                  className="spell-link-text"
-                  href="http://wowhead.com/spell=257541"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/artifactability_firemage_phoenixbolt.jpg"
-                  />
-                   
-                  Phoenix Flames
-                </a>
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  77.02%
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#df7102",
-                        "transition": "background-color 800ms",
-                        "width": "40.025684537921826%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                <a
-                  className="spell-link-text"
-                  href="http://wowhead.com/spell=116011"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/spell_mage_runeofpower.jpg"
-                  />
-                   
-                  Rune of Power
-                </a>
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  42.25%
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "18.75909247992799%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </li>
-  <li
-    className="expandable  passed"
-  >
-    <div
-      className="meta"
-      onClick={[Function]}
-    >
-      <div
-        className="flex wrapable"
-      >
-        <div
-          className="flex-main name"
-        >
-          Use Combustion effectively
-        </div>
-        <div
-          className="flex-sub perf"
-        >
-          <div
-            className="perf-container"
-          >
-            <div
-              className="perf-bar"
-              style={
-                Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "81.57643589362948%",
-                }
-              }
-            />
-          </div>
-        </div>
-        <div
-          className="flex-sub chevron"
-        >
-          <div>
-            <svg
-              className="icon"
-              viewBox="0 0 16 9"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-              />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      aria-hidden={true}
-      className="rah-static rah-static--height-zero details"
-      style={
-        Object {
-          "height": 0,
-          "overflow": "hidden",
-        }
-      }
-    >
-      <div
-        style={Object {}}
-      >
-        <div
-          className="row text-muted description"
-        >
-          <svg
-            className="icon"
-            viewBox="0 0 100 100"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-            />
-            <path
-              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-            />
-            <path
-              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-            />
-          </svg>
-          <div
-            className="col-md-12"
-          >
-            Using 
-            <a
-              className="spell-link-text"
-              href="http://wowhead.com/spell=190319"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/spell_fire_sealoffire.jpg"
-              />
-               
-              Combustion
-            </a>
-             properly is one of the most important aspects of playing Fire well. Therefore it is critical that you make the most of the time that you have while Combustion is active. This include things such as not wasting time or GCDs while Combustion is active and ensuring that you properly setup for your "Combustion Window".
-          </div>
-        </div>
-        <div
-          className="row"
-        >
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                Fire Blast Charges
+                Pooling Fire Blast Charges
               </div>
               <div
                 className="flex-sub"
@@ -5711,7 +6047,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               <div
                 className="flex-main"
               >
-                Phoenix Flames Charges
+                Pooling Phoenix Flames Charges
               </div>
               <div
                 className="flex-sub"
@@ -5801,7 +6137,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               <div
                 className="flex-main"
               >
-                Bad Scorch Uses
+                Scorch used with instants available
               </div>
               <div
                 className="flex-sub"
@@ -5891,7 +6227,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               <div
                 className="flex-main"
               >
-                Bad Fireball Uses
+                Fireball casts during Combustion
               </div>
               <div
                 className="flex-sub"
@@ -6062,6 +6398,96 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               </div>
             </div>
           </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Infernal Cascade uptime at max stacks
+              </div>
+              <div
+                className="flex-sub"
+                style={
+                  Object {
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  <svg
+                    className="icon"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                    />
+                    <path
+                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                    />
+                    <path
+                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  44.38%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "24.632533444816055%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -6079,7 +6505,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
         <div
           className="flex-main name"
         >
-          Use your procs effectively
+          Heating Up and Hot Streak
         </div>
         <div
           className="flex-sub perf"
@@ -6092,7 +6518,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "78.646939923378%",
+                  "width": "75.30098259653019%",
                 }
               }
             />
@@ -6149,7 +6575,187 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
           <div
             className="col-md-12"
           >
-            Fire Mage revolves almost entirely around utilizing your procs effectively. Therefore it is very important that you manage your procs correctly to ensure that you get the most out of them.
+            Fire Mage revolves almost entirely around the buffs 
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=48107"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_mage_hotstreak.jpg"
+              />
+               
+              Heating Up
+            </a>
+             and 
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=48108"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_mage_hotstreak.jpg"
+              />
+               
+              Hot Streak
+            </a>
+            , so it is very important that you understand how these procs work. Essentially, when you get a crit with a direct damage ability, like 
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=133"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_fire_flamebolt.jpg"
+              />
+               
+              Fireball
+            </a>
+             or 
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=11366"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_fire_fireball02.jpg"
+              />
+               
+              Pyroblast
+            </a>
+            , you will get a 
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=48107"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_mage_hotstreak.jpg"
+              />
+               
+              Heating Up
+            </a>
+             proc. If you get a second consecutive crit with a direct damage ability, you will get a 
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=48108"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_mage_hotstreak.jpg"
+              />
+               
+              Hot Streak
+            </a>
+             proc which makes your next 
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=11366"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_fire_fireball02.jpg"
+              />
+               
+              Pyroblast
+            </a>
+             or 
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=2120"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_fire_selfdestruct.jpg"
+              />
+               
+              Flamestrike
+            </a>
+             cast be instant cast. Additionally, you have spells like 
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=108853"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_fire_fireball.jpg"
+              />
+               
+              Fire Blast
+            </a>
+             which is always guaranteed to crit and spells like 
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=2948"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_fire_soulburn.jpg"
+              />
+               
+              Scorch
+            </a>
+             which are guaranteed to crit when the target is below 30% health (If you are using the 
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=269644"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_backdraft.jpg"
+              />
+               
+              Searing Touch
+            </a>
+             talent). These can be used to force 
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=48108"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_mage_hotstreak.jpg"
+              />
+               
+              Hot Streak
+            </a>
+             procs.
           </div>
         </div>
         <div
@@ -6164,7 +6770,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               <div
                 className="flex-main"
               >
-                Hot Streak Proc Utilization
+                Hot Streak procs used
               </div>
               <div
                 className="flex-sub"
@@ -6254,7 +6860,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               <div
                 className="flex-main"
               >
-                Wasted Crits Per Minute
+                Wasted crits during Hot Streak
               </div>
               <div
                 className="flex-sub"
@@ -6344,7 +6950,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               <div
                 className="flex-main"
               >
-                Hardcast into Hot Streak
+                Precasting before using Hot Streak
               </div>
               <div
                 className="flex-sub"
@@ -6395,7 +7001,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  40.00%
+                  55.56%
                    
                    
                 </div>
@@ -6417,97 +7023,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "20.492307692307694%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                Phoenix Flames Usage
-              </div>
-              <div
-                className="flex-sub"
-                style={
-                  Object {
-                    "marginLeft": 10,
-                  }
-                }
-              >
-                <div
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                  onTouchStart={[Function]}
-                >
-                  <svg
-                    className="icon"
-                    viewBox="0 0 100 100"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-                    />
-                    <path
-                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-                    />
-                    <path
-                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  100.00%
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#4ec04e",
-                        "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "28.461538461538467%",
                       }
                     }
                   />
@@ -6610,7 +7126,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
     </div>
   </li>
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -6622,7 +7138,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
         <div
           className="flex-main name"
         >
-          Use your talents effectively
+          Using your supporting spells and talents
         </div>
         <div
           className="flex-sub perf"
@@ -6634,8 +7150,8 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#4ec04e",
-                  "width": "100%",
+                  "backgroundColor": "#ffc84a",
+                  "width": "61.74622411007057%",
                 }
               }
             />
@@ -6692,7 +7208,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
           <div
             className="col-md-12"
           >
-            Regardless of which talents you select, you should ensure that you are utilizing them properly. If you are having trouble effectively using a particular talent, you should consider taking a different talent that you can utilize properly or focus on effectively using the talents that you have selected.
+            As with any spec, there are additional spells, talents, and items that provide rotational gameplay outside of the base rotation and need to be properly utilized to get the most out of them. Regardless of which items and talents you pick and whether they are considered the best or not, it is important that you use them properly. While not all of them will change your rotation, or might be as simple as "use this ability on cooldown", they are still important to your gameplay as a Fire Mage. Additonally, if you are intentionally holding a cooldown because that specific encounter or your raid team's strategy requires it, then you will need to take that into account when reviewing this information.
           </div>
         </div>
         <div
@@ -6707,7 +7223,303 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               <div
                 className="flex-main"
               >
-                Searing Touch Utilization
+                <a
+                  className="spell-link-text"
+                  href="http://wowhead.com/spell=108853"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_fire_fireball.jpg"
+                  />
+                   
+                  Fire Blast
+                </a>
+                 Cast Efficiency
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  89.45%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#a6c34c",
+                        "transition": "background-color 800ms",
+                        "width": "96.23190706197207%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  className="spell-link-text"
+                  href="http://wowhead.com/spell=257541"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/artifactability_firemage_phoenixbolt.jpg"
+                  />
+                   
+                  Phoenix Flames
+                </a>
+                 Cast Efficiency
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  77.02%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#df7102",
+                        "transition": "background-color 800ms",
+                        "width": "40.025684537921826%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  className="spell-link-text"
+                  href="http://wowhead.com/spell=116011"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_mage_runeofpower.jpg"
+                  />
+                   
+                  Rune of Power
+                </a>
+                 Cast Efficiency
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  42.25%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "18.75909247992799%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  className="spell-link-text"
+                  href="http://wowhead.com/spell=314791"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_ardenweald_mage.jpg"
+                  />
+                   
+                  Shifting Power
+                </a>
+                 Cast Efficiency
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  64.29%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "28.54685880074261%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Spell usage during Searing Touch
               </div>
               <div
                 className="flex-sub"
@@ -6797,7 +7609,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               <div
                 className="flex-main"
               >
-                Rune of Power Uptime
+                Average time spent inside Rune of Power
               </div>
               <div
                 className="flex-sub"
@@ -6878,99 +7690,6 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </li>
-  <li
-    className="expandable expanded failed"
-  >
-    <div
-      className="meta"
-      onClick={[Function]}
-    >
-      <div
-        className="flex wrapable"
-      >
-        <div
-          className="flex-main name"
-        >
-          Avoid downtime
-        </div>
-        <div
-          className="flex-sub perf"
-        >
-          <div
-            className="perf-container"
-          >
-            <div
-              className="perf-bar"
-              style={
-                Object {
-                  "backgroundColor": "#df7102",
-                  "width": "34.88465541919172%",
-                }
-              }
-            />
-          </div>
-        </div>
-        <div
-          className="flex-sub chevron"
-        >
-          <div>
-            <svg
-              className="icon"
-              viewBox="0 0 16 9"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-              />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      aria-hidden={true}
-      className="rah-static rah-static--height-zero details"
-      style={
-        Object {
-          "height": 0,
-          "overflow": "hidden",
-        }
-      }
-    >
-      <div
-        style={Object {}}
-      >
-        <div
-          className="row text-muted description"
-        >
-          <svg
-            className="icon"
-            viewBox="0 0 100 100"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-            />
-            <path
-              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-            />
-            <path
-              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-            />
-          </svg>
-          <div
-            className="col-md-12"
-          >
-            As a DPS, it is important to spend as much time casting as possible as if you are not casting then you are not doing damage. Therefore it is important to minimize your movements, stay within range of the target, and avoid cancelling casts if you can avoid it. While some fights will have an amount of time that is unavoidable downtime; the more you can minimize that downtime, the better.
-          </div>
-        </div>
-        <div
-          className="row"
-        >
           <div
             className="col-md-6"
           >
@@ -6980,7 +7699,37 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               <div
                 className="flex-main"
               >
-                Downtime
+                Rune of Power overlapped casts
+              </div>
+              <div
+                className="flex-sub"
+                style={
+                  Object {
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  <svg
+                    className="icon"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                    />
+                    <path
+                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                    />
+                    <path
+                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                    />
+                  </svg>
+                </div>
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -7001,7 +7750,97 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  36.51%
+                  0
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Shifting Power proper usage
+              </div>
+              <div
+                className="flex-sub"
+                style={
+                  Object {
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  <svg
+                    className="icon"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                    />
+                    <path
+                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                    />
+                    <path
+                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  25.00%
                    
                    
                 </div>
@@ -7023,67 +7862,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "5.4730844232890945%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                Cancelled Casts
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  10.69%
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ffc84a",
-                        "transition": "background-color 800ms",
-                        "width": "64.29622641509435%",
+                        "width": "10.40625%",
                       }
                     }
                   />

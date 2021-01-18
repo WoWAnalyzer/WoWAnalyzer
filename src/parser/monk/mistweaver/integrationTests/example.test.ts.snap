@@ -145,7 +145,7 @@ exports[`Mistweaver Monk integration test: example log AlwaysBeCasting matches t
                   Object {
                     "fill": "none",
                     "margin": 0,
-                    "transform": "rotate(28.17017856401162deg)",
+                    "transform": "rotate(27.234789354797613deg)",
                     "transformOrigin": "5px 27px",
                   }
                 }
@@ -253,6 +253,18 @@ Array [
     "issue": "Your non healing time can be improved. Try to reduce the delay between casting spells and try to continue healing when you have to move.",
     "stat": <React.Fragment>
       {"id":"monk.mistweaver.suggestions.alwaysBeCasting.nonHealing","message":"{0}% non healing time","values":{"0":"51.82"}}
+       (
+      &lt;40.00% is recommended
+      )
+    </React.Fragment>,
+  },
+  Object {
+    "details": null,
+    "icon": "spell_mage_altertime",
+    "importance": "minor",
+    "issue": "Your downtime can be improved. Try to Always Be Casting (ABC); try to reduce the delay between casting spells and when you're not healing try to contribute some damage.",
+    "stat": <React.Fragment>
+      {"id":"monk.mistweaver.suggestions.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"40.27"}}
        (
       &lt;40.00% is recommended
       )
@@ -430,7 +442,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "96.68664377265809%",
+                      "width": "96.68665569731097%",
                     }
                   }
                 />
@@ -10127,7 +10139,7 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                   }
                 >
                    
-                  39.94%
+                  40.27%
                    
                    
                 </div>
@@ -10147,9 +10159,9 @@ exports[`Mistweaver Monk integration test: example log matches the checklist sna
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "99.39329727416097%",
                       }
                     }
                   />

@@ -2,7 +2,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
-import Events, { DamageEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 const RAGE_GEN_FROM_MELEE_HIT_ICD = 1000; //ms
@@ -23,6 +23,17 @@ class RageTracker extends ResourceTracker {
     }
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MELEE), this.onDamage);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER).spell(SPELLS.MELEE), this.onDamageTaken);
+  }
+
+  getReducedCost(event: CastEvent){
+    if (event.resourceCost && event.resourceCost[this.resource.id] !== undefined) {
+      return event.resourceCost[this.resource.id];
+    }
+    const resource = super.getResource(event);
+    if(!resource){
+      return;
+    }
+    return resource.cost ? resource.cost/10 : 0;
   }
 
   onDamage(event: DamageEvent) {

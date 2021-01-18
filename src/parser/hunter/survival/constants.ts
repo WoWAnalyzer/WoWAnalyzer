@@ -12,6 +12,13 @@ export const COORDINATED_ASSAULT_BASELINE_DURATION = 20000;
 /** Wildfire Bomb */
 //People aren't robots, give them a bit of leeway in terms of when they cast WFB to avoid capping on charges
 export const WILDFIRE_BOMB_LEEWAY_BUFFER = 500;
+//Different types of Bombs
+export const SURVIVAL_BOMB_TYPES = [
+  SPELLS.WILDFIRE_BOMB.id,
+  SPELLS.VOLATILE_BOMB_WFI.id,
+  SPELLS.PHEROMONE_BOMB_WFI.id,
+  SPELLS.SHRAPNEL_BOMB_WFI.id,
+];
 /** Kill Command */
 //Kill Command for Survival regenerates 15 focus
 export const SV_KILL_COMMAND_FOCUS_GAIN = 15;
@@ -113,4 +120,19 @@ export const STINGING_STRIKE_RS_MB_DMG_INCREASE = [0, 0.14, 0.16, 0.17, 0.19, 0.
 /** Strength of the Pack */
 //Strength of the Pack increases all damage done by a % for its duration
 export const STRENGTH_OF_THE_PACK_DAMAGE_MODIFIER = [0, 0.03, 0.04, 0.04, 0.05, 0.05, 0.06, 0.06, 0.07, 0.07, 0.08, 0.08, 0.09, 0.09, 0.1, 0.1];
+//endregion
+
+//region Legendaries
+/** Rylakstalker's Confounding Strikes */
+//Rylakstalker's Confounding Strikes gives Mongoose Bite and Raptor Strike a 15% chance to reset the cooldown of Wildfire Bomb
+export const RYLAKSTALKERS_CONFOUNDING_STRIKES_RESET_CHANCE = 0.15;
+/** Latent Poison Injectors */
+//Latent Poison Injectors stacks up to 10 times
+export const LATENT_POISON_INJECOTRS_MAX_STACKS = 10;
+/** Butcher's Bone Fragments */
+//Butcher's Bone Fragments stacks up to 6 times
+export const BUTCHERS_BONE_FRAGMENTS_MAX_STACK = 6;
+//Butcher's Bone Fragments increases carve/butchery damage by 20% per stack
+export const BUTCHERS_BONE_FRAGMENTS_DMG_AMP = 0.2;
+//
 //endregion

@@ -18,6 +18,10 @@ class Buffs extends CoreBuffs {
         timelineHighlight: true,
       },
       {
+        spellId: SPELLS.INFERNAL_CASCADE_BUFF.id,
+        timelineHighlight: true,
+      },
+      {
         spellId: SPELLS.COMBUSTION.id,
         triggeredBySpellId: SPELLS.COMBUSTION.id,
         timelineHighlight: true,

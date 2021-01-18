@@ -294,7 +294,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "76.1514586945876%",
+                      "width": "76.61978220396688%",
                     }
                   }
                 />
@@ -309,7 +309,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
                 }
               }
             >
-              76.15%
+              76.62%
             </td>
             <td
               style={
@@ -655,7 +655,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "70.28181347972817%",
+                      "width": "70.34816815019713%",
                     }
                   }
                 />
@@ -670,7 +670,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
                 }
               }
             >
-              70.28%
+              70.35%
             </td>
             <td
               style={
@@ -1046,7 +1046,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "97.01082085921617%",
+                      "width": "102.05475126021443%",
                     }
                   }
                 />
@@ -1061,7 +1061,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
                 }
               }
             >
-              97.01%
+              102.05%
             </td>
             <td
               style={
@@ -3395,7 +3395,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               0
-              /2
+              /1
                
               casts
             </td>
@@ -3493,7 +3493,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               0
-              /2
+              /1
                
               casts
             </td>
@@ -3574,7 +3574,7 @@ Array [
           Object {
             "0": 8,
             "1": 11,
-            "2": "76",
+            "2": "77",
           }
         }
       />
@@ -5158,7 +5158,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
               style={
                 Object {
                   "backgroundColor": "#df7102",
-                  "width": "37.13435745297672%",
+                  "width": "38.69387473920971%",
                 }
               }
             />
@@ -5294,7 +5294,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  76.15%
+                  76.62%
                    
                    
                 </div>
@@ -5316,7 +5316,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                       Object {
                         "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "37.13435745297672%",
+                        "width": "38.69387473920971%",
                       }
                     }
                   />
@@ -5440,7 +5440,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  70.28%
+                  70.35%
                    
                    
                 </div>
@@ -5462,7 +5462,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "31.20512518499931%",
+                        "width": "31.234586658687526%",
                       }
                     }
                   />

@@ -9,6 +9,7 @@ import Events from 'parser/core/Events';
 
 import React from 'react';
 import { Trans } from '@lingui/macro';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 class ManaValues extends Analyzer {
   static propTypes = {
@@ -67,7 +68,7 @@ class ManaValues extends Analyzer {
         average: 0.2,
         major: 0.3,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
   suggestions(when) {

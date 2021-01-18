@@ -8,6 +8,12 @@ import { change, date } from 'common/changelog';
 
 // prettier-ignore
 export default [
+  change(date(2021, 1, 16), 'Clarify login buttons on the Premium page.', Zerotorescue),
+  change(date(2021, 1, 16), 'The first 10 seconds of the timeline are always visible so openers can be reviewed properly.', Zerotorescue),
+  change(date(2021, 1, 16), 'Address an issue where our potion modules thought that potions had infinite cooldown when used in combat.', Putro),
+  change(date(2021, 1, 15), 'Made the timeline only available with WoWAnalyzer Premium. This is necessary to be able to continue to update WoWAnalyzer.', Zerotorescue),
+  change(date(2021, 1, 14), 'Updated CastEfficiency to use the average cooldown for a spell instead of the configured static cooldown to improve cast efficiency stats for spells with effects that reduce the cooldown', Khazak),
+  change(date(2021, 1, 13), 'Updated Mastery coefficients and baseline Critical Strike values for specs where it was necessary.', Putro),
   change(date(2021, 1, 3), 'Fixed a crash if you were trying to analyze an extremely short pull where players have cast basically 0 spells.', Putro),
   change(date(2021, 1, 2), <> Added Inneficient <SpellLink id={SPELLS.REGROWTH.id} /> to resto druid statistics and fixed bug in reporting of overwritten CC procs. </>, Barry),
   change(date(2021, 1, 2), <> Added <SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} /> uptime to resto druid checklist. </>, Barry),

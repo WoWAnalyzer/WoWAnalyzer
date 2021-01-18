@@ -1,12 +1,22 @@
 const covenants = {
   //region Kyrian
   ELYSIAN_DECREE: {
+    id: 327839,
+    name: 'Elysian Decree',
+    icon: 'ability_bastion_demonhunter',
+  },
+  ELYSIAN_DECREE_REPEAT_DECREE: {
     id: 306830,
     name: 'Elysian Decree',
     icon: 'ability_bastion_demonhunter',
   },
-  ELYSIAN_DECREE_DAMAGE: {
+  ELYSIAN_DECREE_REPEAT_DECREE_DAMAGE: {
     id: 339894,
+    name: 'Elysian Decree',
+    icon: 'ability_bastion_demonhunter',
+  },
+  ELYSIAN_DECREE_DAMAGE: {
+    id: 307046,
     name: 'Elysian Decree',
     icon: 'ability_bastion_demonhunter',
   },

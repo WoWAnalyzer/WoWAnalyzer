@@ -1,9 +1,13 @@
+import { Trans } from '@lingui/macro';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { EventType } from 'parser/core/Events';
 
 import { formatDuration } from 'common/format';
+import makeWclUrl from 'common/makeWclUrl';
+import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
 import DragScroll from 'interface/common/DragScroll';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import Abilities from 'parser/core/modules/Abilities';
@@ -20,6 +24,7 @@ class Timeline extends React.PureComponent {
     abilities: PropTypes.instanceOf(Abilities).isRequired,
     buffs: PropTypes.instanceOf(BuffsModule).isRequired,
     parser: PropTypes.instanceOf(CombatLogParser).isRequired,
+    premium: PropTypes.bool.isRequired,
   };
   static defaultProps = {
     showCooldowns: true,
@@ -86,7 +91,7 @@ class Timeline extends React.PureComponent {
     if (!ability || !ability.cooldown) {
       return false;
     }
-    if(event.timestamp >= this.end){
+    if (event.timestamp >= this.end) {
       return false;
     }
     return true;
@@ -96,7 +101,7 @@ class Timeline extends React.PureComponent {
       // begincooldown is unnecessary since endcooldown includes the start time
       return false;
     }
-    if(event.trigger === EventType.RestoreCharge && event.timestamp < this.start){
+    if (event.trigger === EventType.RestoreCharge && event.timestamp < this.start) {
       //ignore restore charge events if they happen before the phase
       return false;
     }
@@ -112,7 +117,7 @@ class Timeline extends React.PureComponent {
    */
   getEventsBySpellId(events) {
     const eventsBySpellId = new Map();
-    events.forEach(event => {
+    events.forEach((event) => {
       if (!this.isApplicableEvent(event)) {
         return;
       }
@@ -126,7 +131,7 @@ class Timeline extends React.PureComponent {
     return eventsBySpellId;
   }
 
-  _getCanonicalId(spellId){
+  _getCanonicalId(spellId) {
     const ability = this.props.abilities.getAbility(spellId);
     if (!ability) {
       return spellId; // not a class ability
@@ -148,7 +153,7 @@ class Timeline extends React.PureComponent {
   }
 
   render() {
-    const { parser, abilities, buffs } = this.props;
+    const { parser, abilities, buffs, premium } = this.props;
 
     const skipInterval = Math.ceil(40 / this.secondWidth);
 
@@ -166,7 +171,7 @@ class Timeline extends React.PureComponent {
               paddingBottom: 0,
               paddingLeft: this.state.padding,
               paddingRight: this.state.padding, // we also want the user to have the satisfying feeling of being able to get the right side to line up
-              margin: "auto", //center horizontally if it's too small to take up the page
+              margin: 'auto', //center horizontally if it's too small to take up the page
             }}
           >
             <Buffs
@@ -176,19 +181,16 @@ class Timeline extends React.PureComponent {
               buffs={buffs}
             />
             <div className="time-line">
-              {this.seconds > 0 && [...Array(Math.ceil(this.seconds))].map((_, second) => (
-                <div
-                  key={second+this.offset/1000}
-                  style={{ width: this.secondWidth * skipInterval }}
-                  data-duration={formatDuration(second+this.offset/1000)}
-                />
-              ))}
+              {this.seconds > 0 &&
+                [...Array(Math.ceil(this.seconds))].map((_, second) => (
+                  <div
+                    key={second + this.offset / 1000}
+                    style={{ width: this.secondWidth * skipInterval }}
+                    data-duration={formatDuration(second + this.offset / 1000)}
+                  />
+                ))}
             </div>
-            <Casts
-              start={this.start}
-              secondWidth={this.secondWidth}
-              parser={parser}
-            />
+            <Casts start={this.start} secondWidth={this.secondWidth} parser={parser} />
             <Cooldowns
               start={this.start}
               end={this.end}
@@ -197,6 +199,53 @@ class Timeline extends React.PureComponent {
               abilities={abilities}
             />
           </div>
+          {!premium && (
+            <div
+              className="spell-timeline-premium-box"
+              style={{
+                left: this.state.padding + 10 * this.secondWidth,
+                width: this.totalWidth + this.state.padding - 10 * this.secondWidth,
+              }}
+            >
+              <div>
+                <Trans id="timeline.premium.description">
+                  The timeline shows your casts, channel times, GCD, active buffs, and cooldowns for
+                  a quick overview of what you did. It even incorporates some of our suggestions to
+                  give you specific examples of casts that you could improve. All in one easy to use
+                  overview.
+                </Trans>
+                <br />
+                <br />
+                <strong>
+                  <Trans id="timeline.premium.unlock">
+                    You need to unlock <Link to="/premium">WoWAnalyzer Premium</Link> to access the
+                    full WoWAnalyzer timeline.
+                  </Trans>
+                </strong>
+                <br />
+                <br />
+                <div style={{ fontSize: 14 }}>
+                  <Trans id="timeline.premium.wclTimeline">
+                    Not yet ready to join? The{' '}
+                    <a
+                      href={makeWclUrl(parser.report.code, {
+                        fight: parser.fight.id,
+                        source: parser ? parser.playerId : undefined,
+                        view: 'timeline',
+                        type: 'casts',
+                      })}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <WarcraftLogsIcon style={{ height: '1.2em', marginTop: '-0.1em' }} /> Warcraft
+                      Logs timeline
+                    </a>{' '}
+                    shows similar information but with less detail.
+                  </Trans>
+                </div>
+              </div>
+            </div>
+          )}
         </DragScroll>
       </>
     );

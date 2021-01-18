@@ -22,6 +22,7 @@ class HotStreakPreCasts extends Analyzer {
   hasPyroclasm: boolean;
   hasFirestarter: boolean;
   hasSearingTouch: boolean;
+  hasFirestorm: boolean;
   pyroclasmProcRemoved = 0;
   castedBeforeHotStreak = 0;
   noCastBeforeHotStreak = 0;
@@ -33,6 +34,7 @@ class HotStreakPreCasts extends Analyzer {
     this.hasPyroclasm = this.selectedCombatant.hasTalent(SPELLS.PYROCLASM_TALENT.id);
     this.hasFirestarter = this.selectedCombatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id);
     this.hasSearingTouch = this.selectedCombatant.hasTalent(SPELLS.SEARING_TOUCH_TALENT.id);
+    this.hasFirestorm = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.FIRESTORM.bonusID);
     if (this.hasFirestarter || this.hasSearingTouch) {this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(FIRE_DIRECT_DAMAGE_SPELLS), this.checkHealthPercent);}
     this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF), this.onPyroclasmRemoved);
     this.addEventListener(Events.removebuffstack.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF), this.onPyroclasmRemoved);
@@ -61,7 +63,11 @@ class HotStreakPreCasts extends Analyzer {
   //Compares timestamps to determine if an ability was hard casted immediately before using Hot Streak.
   //If Combustion is active or they are in the Firestarter or Searing Touch execute windows, then this check is ignored.
   checkForHotStreakPreCasts(event: RemoveBuffEvent) {
-    if (this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id) || event.timestamp < this.combustionEnded + COMBUSTION_END_BUFFER || (this.hasFirestarter && this.healthPercent > FIRESTARTER_THRESHOLD) || (this.hasSearingTouch && this.healthPercent < SEARING_TOUCH_THRESHOLD)) {
+    const combustionActive = this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id);
+    const firestarterActive = this.hasFirestarter && this.healthPercent > FIRESTARTER_THRESHOLD;
+    const searingTouchActive = this.hasSearingTouch && this.healthPercent < SEARING_TOUCH_THRESHOLD;
+    const firestormActive = this.hasFirestorm && this.selectedCombatant.hasBuff(SPELLS.FIRESTORM_BUFF.id);
+    if (combustionActive || firestarterActive || searingTouchActive || firestormActive || event.timestamp < this.combustionEnded + COMBUSTION_END_BUFFER) {
       debug && this.log('Pre Cast Ignored');
       return;
     }

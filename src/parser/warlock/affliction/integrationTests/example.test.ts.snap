@@ -4139,6 +4139,7 @@ exports[`Affliction Warlock integration test: example log Darkglare matches the 
           className="value"
         >
           89 DPS
+           
           <dfn
             className=""
             onMouseEnter={[Function]}
@@ -4161,6 +4162,7 @@ exports[`Affliction Warlock integration test: example log Darkglare matches the 
           </small>
           <br />
           214 DPS
+           
           <dfn
             className=""
             onMouseEnter={[Function]}
@@ -4748,7 +4750,8 @@ exports[`Affliction Warlock integration test: example log DrainSoul matches the 
           className="value"
         >
           277
-           DPS 
+           DPS
+           
           <small>
             10.11
              % of total
@@ -5142,6 +5145,7 @@ exports[`Affliction Warlock integration test: example log Haunt matches the stat
           <br />
           195
            DPS
+           
           <small>
             7.14
              % of total
@@ -5235,6 +5239,7 @@ exports[`Affliction Warlock integration test: example log PhantomSingularity mat
         >
           109
            DPS
+           
           <small>
             3.97
              % of total
@@ -5327,6 +5332,7 @@ exports[`Affliction Warlock integration test: example log ShadowEmbrace matches 
         >
           0.00
            %
+           
           <dfn
             className=""
             onMouseEnter={[Function]}
@@ -5344,6 +5350,7 @@ exports[`Affliction Warlock integration test: example log ShadowEmbrace matches 
           <br />
           0
            DPS
+           
           <small>
             0.00
              % of total
