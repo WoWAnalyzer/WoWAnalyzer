@@ -71,7 +71,7 @@ class BladeDance extends Analyzer {
       return;
     }
 
-    if (this.hitCount < 5){
+    if (this.hitCount < 5 && this.hitCount > 1){
       //Check last strike
       this.badCast += 1;
       this.lastCastEvent.meta = this.lastCastEvent.meta || {};
