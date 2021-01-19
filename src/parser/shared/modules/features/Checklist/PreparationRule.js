@@ -90,6 +90,17 @@ class PreparationRule extends React.PureComponent {
       </>
     );
   }
+  renderAugmentRuneRequirements() {
+    const { thresholds } = this.props;
+    return (
+      <>
+        <Requirement
+          name={<Trans id="shared.modules.features.checklist.augmentRune">Augment rune used</Trans>}
+          thresholds={thresholds.augmentRunePresent}
+        />
+      </>
+    );
+  }
 
   render() {
     const { children } = this.props;
@@ -104,6 +115,7 @@ class PreparationRule extends React.PureComponent {
         {this.renderPotionRequirements()}
         {this.renderFlaskRequirements()}
         {this.renderFoodRequirements()}
+        {this.renderAugmentRuneRequirements()}
         {children}
       </Rule>
     );

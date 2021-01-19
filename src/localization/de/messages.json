@@ -920,6 +920,7 @@
   "shared.modules.castEfficiency.actual": "{0} von {1} möglichen Casts. Du hast die Fähigkeit {2}% der Zeit auf Abklingzeit gehalten.",
   "shared.modules.castEfficiency.recommended": ">{0}% wird empfohlen",
   "shared.modules.castEfficiency.suggest": "Versuche öfter <0/> zu verwenden.",
+  "shared.modules.features.checklist.augmentRune": "",
   "shared.modules.features.checklist.combatPotionsUsed": "",
   "shared.modules.features.checklist.enchanted": "",
   "shared.modules.features.checklist.enchantedHigh": "",
