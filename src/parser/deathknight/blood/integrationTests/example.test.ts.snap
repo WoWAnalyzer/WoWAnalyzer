@@ -653,7 +653,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "78.65663570763341%",
+                      "width": "78.89093178763736%",
                     }
                   }
                 />
@@ -668,7 +668,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 }
               }
             >
-              78.66%
+              78.89%
             </td>
             <td
               style={
@@ -2239,7 +2239,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "97.37406485579233%",
+                      "width": "97.37442349211358%",
                     }
                   }
                 />
@@ -2833,7 +2833,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "69.53814814549159%",
+                      "width": "70.73097254997597%",
                     }
                   }
                 />
@@ -2848,7 +2848,7 @@ exports[`Blood Death Knight integration test: example log CastEfficiency matches
                 }
               }
             >
-              69.54%
+              70.73%
             </td>
             <td
               style={
@@ -5033,7 +5033,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
               style={
                 Object {
                   "backgroundColor": "#ffc84a",
-                  "width": "59.718287981029086%",
+                  "width": "60.10839095423564%",
                 }
               }
             />
@@ -5139,7 +5139,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  78.66%
+                  78.89%
                    
                    
                 </div>
@@ -5161,7 +5161,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
                       Object {
                         "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "62.12659690641931%",
+                        "width": "62.90680285283241%",
                       }
                     }
                   />

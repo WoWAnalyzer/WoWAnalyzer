@@ -225,7 +225,14 @@ export const Fyruna: Contributor = {
 export const Anomoly: Contributor = {
   nickname: 'Anomoly',
   github: 'anom0ly',
+  twitter: 'Anom_MW',
+  discord: 'Anomoly#0110',
   avatar: require('./interface/images/avatars/anomoly-avatar.jpg'),
+  mains: [{
+    name: 'Anom',
+    spec: SPECS.MISTWEAVER_MONK,
+    link: 'https://worldofwarcraft.com/en-us/character/us/malganis/anom',
+  }],
 };
 export const Juko8: Contributor = {
   nickname: 'Juko8',
@@ -1141,7 +1148,7 @@ export const TurianSniper: Contributor = {
     name: "Nakofel",
     spec: SPECS.VENGEANCE_DEMON_HUNTER,
     link: "https://worldofwarcraft.com/en-us/character/us/bleeding-hollow/nakofel",
-  }],  
+  }],
 };
 
 export const Geeii: Contributor = {
@@ -1150,7 +1157,7 @@ export const Geeii: Contributor = {
   discord: 'Geei#8447',
   mains: [{
     name: "Geeii",
-    spec: SPECS.VENGEANCE_DEMON_HUNTER, 
+    spec: SPECS.VENGEANCE_DEMON_HUNTER,
     link: "https://worldofwarcraft.com/en-us/character/us/area52/geei",
   }],
 };
@@ -1186,3 +1193,8 @@ export const Barry: Contributor = {
     },
   ],
 }
+
+export const Tiboonn: Contributor = {
+  nickname: 'Tiboonn',
+  github: 'Tiboonn',
+};

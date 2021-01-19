@@ -18,12 +18,15 @@ import SearingTouch from '../talents/SearingTouch';
 import Meteor from '../talents/Meteor';
 import MeteorRune from '../talents/MeteorRune';
 import MeteorCombustion from '../talents/MeteorCombustion';
+import InfernalCascade from '../items/InfernalCascade';
+import ShiftingPowerUsage from '../features/ShiftingPowerUsage';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import ArcaneIntellect from '../../../shared/modules/features/ArcaneIntellect';
 import CancelledCasts from '../../../shared/modules/features/CancelledCasts';
 import RuneOfPower from '../../../shared/modules/features/RuneOfPower';
 
 import Component from './Component';
+
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -41,6 +44,8 @@ class Checklist extends BaseChecklist {
     meteor: Meteor,
     meteorRune: MeteorRune,
     meteorCombustion: MeteorCombustion,
+    infernalCascade: InfernalCascade,
+    shiftingPowerUsage: ShiftingPowerUsage,
     castEfficiency: CastEfficiency,
     arcaneIntellect: ArcaneIntellect,
     cancelledCasts: CancelledCasts,
@@ -62,6 +67,8 @@ class Checklist extends BaseChecklist {
   protected meteor!: Meteor;
   protected meteorRune!: MeteorRune;
   protected meteorCombustion!: MeteorCombustion;
+  protected infernalCascade!: InfernalCascade;
+  protected shiftingPowerUsage!: ShiftingPowerUsage;
   protected castEfficiency!: CastEfficiency;
   protected arcaneIntellect!: ArcaneIntellect;
   protected cancelledCasts!: CancelledCasts;
@@ -78,7 +85,7 @@ class Checklist extends BaseChecklist {
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
 
-          downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
+          downtimeSuggestionThresholds: this.alwaysBeCasting.suggestionThresholds,
           phoenixFlamesCombustionCharges: this.combustionCharges.phoenixFlamesThresholds,
           fireBlastCombustionCharges: this.combustionCharges.fireBlastThresholds,
           firestarterCombustionUsage: this.combustionFirestarter.SuggestionThresholds,
@@ -94,10 +101,13 @@ class Checklist extends BaseChecklist {
           searingTouchUtilization: this.searingTouch.executeSuggestionThreshold,
           meteorEfficiency: this.meteor.meteorEfficiencySuggestionThresholds,
           meteorUtilization: this.meteorRune.meteorUtilSuggestionThresholds,
+          infernalCascadeMaxStacks: this.infernalCascade.maxStackUptimeThresholds,
+          shiftingPowerUsage: this.shiftingPowerUsage.shiftingPowerUsageThresholds,
           meteorCombustionUtilization: this.meteorCombustion.meteorCombustionSuggestionThresholds,
           arcaneIntellectUptime: this.arcaneIntellect.suggestionThresholds,
           cancelledCasts: this.cancelledCasts.suggestionThresholds,
           runeOfPowerBuffUptime: this.runeOfPower.roundedSecondsSuggestionThresholds,
+          runeOfPowerOverlaps: this.runeOfPower.overlappedRunesThresholds,
         }}
       />
     );

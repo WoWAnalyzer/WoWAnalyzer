@@ -58,7 +58,7 @@ import FlashOfClarity from './modules/shadowlands/conduits/FlashOfClarity';
 
 //legos
 import VisionOfUnendingGrowrth from './modules/shadowlands/legendaries/VisionOfUnendingGrowth';
-
+import MemoryoftheMotherTree from './modules/shadowlands/legendaries/MemoryoftheMotherTree';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
@@ -128,6 +128,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //legos
     visionOfUnendingGrowrth: VisionOfUnendingGrowrth,
+    memoryoftheMotherTree: MemoryoftheMotherTree,
   };
 }
 

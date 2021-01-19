@@ -8,7 +8,7 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events, { CastEvent } from 'parser/core/Events';
-import { BASELINE_TURTLE_CHEETAH_CD, BORN_TO_BE_WILD_AFFECTED_SPELLS } from 'parser/hunter/shared/constants';
+import { BASELINE_TURTLE_CHEETAH_CD, BORN_TO_BE_WILD_AFFECTED_SPELLS, CALL_OF_THE_WILD_CD_REDUCTION, HARMONY_OF_THE_TORTOLLAN_EFFECT_BY_RANK } from 'parser/hunter/shared/constants';
 import { BASELINE_AOTE_CD } from 'parser/hunter/survival/constants';
 
 /**
@@ -23,25 +23,32 @@ const debug = false;
 
 class BornToBeWild extends Analyzer {
 
+  hasEagle = false;
   _spells = {
     [SPELLS.ASPECT_OF_THE_CHEETAH.id]: {
       effectiveCDR: 0,
       lastCast: 0,
-      baseCD: BASELINE_TURTLE_CHEETAH_CD,
+      baseCD: BASELINE_TURTLE_CHEETAH_CD * this.callOfTheWildReduction,
     },
     [SPELLS.ASPECT_OF_THE_TURTLE.id]: {
       effectiveCDR: 0,
       lastCast: 0,
-      baseCD: BASELINE_TURTLE_CHEETAH_CD,
+      baseCD: (BASELINE_TURTLE_CHEETAH_CD - this.harmonyOfTheTortollanReduction) * this.callOfTheWildReduction,
     },
     [SPELLS.ASPECT_OF_THE_EAGLE.id]: {
       effectiveCDR: 0,
       lastCast: 0,
-      baseCD: BASELINE_AOTE_CD,
+      baseCD: BASELINE_AOTE_CD * this.callOfTheWildReduction,
     },
   };
 
-  hasEagle = false;
+  get callOfTheWildReduction() {
+    return (1 - (this.selectedCombatant.hasLegendaryByBonusID(SPELLS.CALL_OF_THE_WILD_EFFECT.id) ? CALL_OF_THE_WILD_CD_REDUCTION : 0));
+  }
+
+  get harmonyOfTheTortollanReduction() {
+    return this.selectedCombatant.hasConduitBySpellID(SPELLS.HARMONY_OF_THE_TORTOLLAN_CONDUIT.id) ? HARMONY_OF_THE_TORTOLLAN_EFFECT_BY_RANK[this.selectedCombatant.conduitRankBySpellID(SPELLS.HARMONY_OF_THE_TORTOLLAN_CONDUIT.id)] : 0;
+  }
 
   constructor(options: Options) {
     super(options);

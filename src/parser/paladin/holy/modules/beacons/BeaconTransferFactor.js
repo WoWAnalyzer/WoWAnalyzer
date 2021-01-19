@@ -10,7 +10,7 @@ class BeaconTransferFactor extends Analyzer {
   getFactor(healEvent, beaconHealEvent = null) {
     const spellId = healEvent.ability.guid;
     // base beacon transfer factor
-    let beaconFactor = 0.4;
+    let beaconFactor = 0.5;
     // Spell specific transfer factor
     const spellFactor = BEACON_TRANSFERING_ABILITIES[spellId];
     if (!spellFactor) {

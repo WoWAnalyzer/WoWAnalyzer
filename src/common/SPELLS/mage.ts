@@ -416,7 +416,7 @@ const spells = {
     name: 'Pyroclasm',
     icon: 'spell_shaman_lavasurge',
   },
-  PHOENIX_FLAMES_CLEAVE_DAMAGE: {
+  PHOENIX_FLAMES_DAMAGE: {
     id: 257542,
     name: 'Phoenix Flames',
     icon: 'artifactability_firemage_phoenixbolt',

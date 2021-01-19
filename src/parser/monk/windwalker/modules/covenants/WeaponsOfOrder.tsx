@@ -11,12 +11,14 @@ import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import ResourceIcon from 'common/ResourceIcon';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import Abilities from 'parser/core/modules/Abilities';
 
 import { ABILITIES_AFFECTED_BY_MASTERY, CHI_SPENDERS, BLACKOUT_KICK_COOLDOWN_REDUCTION_MS, DAMAGE_AFFECTED_BY_MASTERY } from '../../constants';
 import WeaponsOfOrder from '../../../shared/modules/covenants/WeaponsOfOrder';
 
 class WeaponsOfOrderWindwalker extends WeaponsOfOrder {
     static dependencies = {
+        abilities: Abilities,
         spellUsable: SpellUsable,
     };
     protected spellUsable!: SpellUsable;

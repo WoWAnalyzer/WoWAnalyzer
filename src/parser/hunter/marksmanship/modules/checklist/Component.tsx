@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -7,19 +6,16 @@ import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
+import { AbilityRequirementProps, ChecklistProps } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 
-const MarksmanshipChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
+const MarksmanshipChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
 
-  const AbilityRequirement = (props: any) => (
+  const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
     />
   );
-
-  AbilityRequirement.propTypes = {
-    spell: PropTypes.number.isRequired,
-  };
 
   return (
     <Checklist>
@@ -104,14 +100,6 @@ const MarksmanshipChecklist = ({ combatant, castEfficiency, thresholds }: any) =
 
     </Checklist>
   );
-};
-
-MarksmanshipChecklist.propTypes = {
-  castEfficiency: PropTypes.object.isRequired,
-  combatant: PropTypes.shape({
-    hasTalent: PropTypes.func.isRequired,
-  }).isRequired,
-  thresholds: PropTypes.object.isRequired,
 };
 
 export default MarksmanshipChecklist;

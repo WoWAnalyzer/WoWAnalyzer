@@ -101,7 +101,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         gcd: {
-          static: 1000,
+          base: 1000,
         },
       },
       {
@@ -121,7 +121,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: combatant.hasTalent(SPELLS.LIGHT_BREWING_TALENT) ? 48 : 60,
         gcd: {
-          static: 1000,
+          base: 1000,
         },
         castEfficiency: {
           suggestion: true,

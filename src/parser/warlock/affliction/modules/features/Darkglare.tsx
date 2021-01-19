@@ -50,6 +50,7 @@ const DOT_DEBUFFS = [
   SPELLS.SIPHON_LIFE_TALENT,
   SPELLS.UNSTABLE_AFFLICTION,
   SPELLS.PHANTOM_SINGULARITY_TALENT,
+  SPELLS.VILE_TAINT_TALENT,
 ];
 const debug = false;
 
@@ -251,13 +252,13 @@ class Darkglare extends Analyzer {
             Combined damage: {formatThousands(totalDamage)} (
             {this.owner.formatItemDamageDone(totalDamage)})<br />
             <br />
-            <sup>*</sup> This only counts the damage that happened after the dot
+            <sup>*</sup> This only counts the damage that happened after the dot{' '}
             <u>should have fallen off</u> (but instead was extended with Darkglare).
           </>
         }
       >
         <BoringSpellValueText spell={SPELLS.SUMMON_DARKGLARE}>
-          {formatDPS(this.bonusDotDamage)}
+          {formatDPS(this.bonusDotDamage)}{' '}
           <TooltipElement
             content={
               <>
@@ -272,7 +273,7 @@ class Darkglare extends Analyzer {
           <br />
           {averageExtendedDots.toFixed(1)} <small>average DoTs extended</small>
           <br />
-          {formatDPS(totalDamage)}
+          {formatDPS(totalDamage)}{' '}
           <TooltipElement content="including pet damage">
             <small>
               total damage <sup>*</sup>

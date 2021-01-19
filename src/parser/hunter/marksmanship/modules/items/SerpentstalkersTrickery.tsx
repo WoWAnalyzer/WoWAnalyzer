@@ -26,7 +26,7 @@ class SerpentstalkersTrickery extends Analyzer {
     }
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_TALENT), this.onSerpentStingDamage);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT), this.onAimedShotCast);
-    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT), this.onStingRemoval);
+    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_TALENT), this.onStingRemoval);
   }
 
   onSerpentStingDamage(event: DamageEvent) {

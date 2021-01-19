@@ -72,6 +72,11 @@ const conduits = {
     name: 'Reversal of Fortune',
     icon: 'inv_trickshot',
   },
+  REVERSAL_OF_FORTUNE_ENERGIZE: {
+    id: 339498,
+    name: 'Reversal of Fortune',
+    icon: 'inv_trickshot',
+  },
   //endregion
 
   //region Beast Mastery
