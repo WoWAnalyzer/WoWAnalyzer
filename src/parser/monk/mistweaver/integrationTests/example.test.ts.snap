@@ -442,7 +442,7 @@ exports[`Mistweaver Monk integration test: example log CastEfficiency matches th
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "96.68664377265809%",
+                      "width": "96.68665569731097%",
                     }
                   }
                 />

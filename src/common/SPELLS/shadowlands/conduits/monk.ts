@@ -32,7 +32,7 @@ const conduits = {
     id: 337264,
     name: 'Walk with the Ox',
     icon: 'monk_stance_drunkenox',
-  },
+ },
 
   //mistweaver
   JADE_BOND: {

@@ -334,7 +334,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "81.34459352666038%",
+                      "width": "81.51660051787574%",
                     }
                   }
                 />
@@ -349,7 +349,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
                 }
               }
             >
-              81.34%
+              81.52%
             </td>
             <td
               style={
@@ -437,7 +437,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "73.27773616986822%",
+                      "width": "75.35039136520827%",
                     }
                   }
                 />
@@ -452,7 +452,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
                 }
               }
             >
-              73.28%
+              75.35%
             </td>
             <td
               style={
@@ -815,7 +815,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "94.72461186567618%",
+                      "width": "94.81873570430946%",
                     }
                   }
                 />
@@ -830,7 +830,7 @@ exports[`Marksmanship Hunter integration test: Multi Target CastEfficiency match
                 }
               }
             >
-              94.72%
+              94.82%
             </td>
             <td
               style={
@@ -4039,7 +4039,7 @@ Array [
           Object {
             "0": 26,
             "1": 33,
-            "2": "81",
+            "2": "82",
           }
         }
       />
@@ -4059,7 +4059,7 @@ Array [
   Object {
     "details": null,
     "icon": "ability_hunter_efficiency",
-    "importance": "major",
+    "importance": "regular",
     "issue": <React.Fragment>
       <Trans
         components={
@@ -4083,7 +4083,7 @@ Array [
           Object {
             "0": 13,
             "1": 17,
-            "2": "73",
+            "2": "75",
           }
         }
       />
@@ -5448,6 +5448,75 @@ exports[`Marksmanship Hunter integration test: Multi Target RapidFire matches th
 </div>
 `;
 
+exports[`Marksmanship Hunter integration test: Multi Target ReversalOfFortune matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="COVENANT"
+    className="panel statistic flexible "
+    position={1000}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=339495"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Reversal of Fortune"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/inv_trickshot.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=339495"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Reversal of Fortune
+          </a>
+           - Rank 
+          4
+        </label>
+        <div
+          className="value"
+        >
+          <img
+            alt="Focus"
+            className="icon game "
+            src="//render-us.worldofwarcraft.com/icons/56/ability_hunter_focusfire.jpg"
+          />
+           
+          0
+          /
+          0
+           
+          <small>
+            Focus gained
+          </small>
+          <br />
+          0
+           
+          <small>
+            interrupts
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Marksmanship Hunter integration test: Multi Target SerpentstalkersTrickery matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -6362,7 +6431,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                   }
                 >
                    
-                  81.34%
+                  81.52%
                    
                    
                 </div>
@@ -6384,7 +6453,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                       Object {
                         "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "54.427496443779035%",
+                        "width": "55.000279724526244%",
                       }
                     }
                   />
@@ -6435,7 +6504,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                   }
                 >
                    
-                  73.28%
+                  75.35%
                    
                    
                 </div>
@@ -6455,9 +6524,9 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "32.53531485942149%",
+                        "width": "34.46680324614354%",
                       }
                     }
                   />
@@ -6654,7 +6723,7 @@ exports[`Marksmanship Hunter integration test: Multi Target matches the checklis
                   }
                 >
                    
-                  94.72%
+                  94.82%
                    
                    
                 </div>
@@ -8719,7 +8788,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "87.3214488625463%",
+                      "width": "88.40988558131666%",
                     }
                   }
                 />
@@ -8734,7 +8803,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
                 }
               }
             >
-              87.32%
+              88.41%
             </td>
             <td
               style={
@@ -8822,7 +8891,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "85.02659579186849%",
+                      "width": "86.12064258205619%",
                     }
                   }
                 />
@@ -8837,7 +8906,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
                 }
               }
             >
-              85.03%
+              86.12%
             </td>
             <td
               style={
@@ -9097,7 +9166,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "89.98357408897031%",
+                      "width": "90.1494555114677%",
                     }
                   }
                 />
@@ -9112,7 +9181,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
                 }
               }
             >
-              89.98%
+              90.15%
             </td>
             <td
               style={
@@ -9764,7 +9833,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "13.720029472004974%",
+                      "width": "26.70055496596524%",
                     }
                   }
                 />
@@ -9779,7 +9848,7 @@ exports[`Marksmanship Hunter integration test: Single Target CastEfficiency matc
                 }
               }
             >
-              13.72%
+              26.70%
             </td>
             <td
               style={
@@ -11964,7 +12033,7 @@ Array [
           Object {
             "0": 37,
             "1": 43,
-            "2": "87",
+            "2": "88",
           }
         }
       />
@@ -12008,7 +12077,7 @@ Array [
           Object {
             "0": 16,
             "1": 19,
-            "2": "85",
+            "2": "86",
           }
         }
       />
@@ -13409,6 +13478,69 @@ exports[`Marksmanship Hunter integration test: Single Target ResonatingArrow mat
 </div>
 `;
 
+exports[`Marksmanship Hunter integration test: Single Target ReversalOfFortune matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="COVENANT"
+    className="panel statistic flexible "
+    position={1000}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=339399"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Rejuvenating Wind"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/ability_druid_galewinds.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=339399"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Rejuvenating Wind
+          </a>
+           - Rank 
+          3
+        </label>
+        <div
+          className="value"
+        >
+          <img
+            alt="Healing"
+            className="icon"
+            src="/img/healing.png"
+          />
+           
+          14
+           HPS
+           
+          <small>
+            8.33
+            % of total
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Marksmanship Hunter integration test: Single Target SerpentstalkersTrickery matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -13977,7 +14109,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
               style={
                 Object {
                   "backgroundColor": "#ffc84a",
-                  "width": "63.44372439652639%",
+                  "width": "66.35079243045853%",
                 }
               }
             />
@@ -14091,7 +14223,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                   }
                 >
                    
-                  87.32%
+                  88.41%
                    
                    
                 </div>
@@ -14113,7 +14245,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                       Object {
                         "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "82.06084942455838%",
+                        "width": "89.30983797156897%",
                       }
                     }
                   />
@@ -14164,7 +14296,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                   }
                 >
                    
-                  85.03%
+                  86.12%
                    
                    
                 </div>
@@ -14186,7 +14318,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                       Object {
                         "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "66.77712797384415%",
+                        "width": "74.06347959649428%",
                       }
                     }
                   />
@@ -14383,7 +14515,7 @@ exports[`Marksmanship Hunter integration test: Single Target matches the checkli
                   }
                 >
                    
-                  89.98%
+                  90.15%
                    
                    
                 </div>

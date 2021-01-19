@@ -98,6 +98,11 @@ const legendaries = {
     name: 'Latent Poison Injectors',
     icon: 'ability_poisonarrow',
   },
+  LATENT_POISON_INJECTORS_DAMAGE: {
+    id: 336904,
+    name: 'Latent Poison Injectors',
+    icon: 'ability_poisonarrow',
+  },
   BUTCHERS_BONE_FRAGMENTS_EFFECT: {
     id: 336907,
     name: 'Butcher\'s Bone Fragments',

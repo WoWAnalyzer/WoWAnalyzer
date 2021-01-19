@@ -1965,7 +1965,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "47.44340127589211%",
+                      "width": "47.71438429787018%",
                     }
                   }
                 />
@@ -1980,7 +1980,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 }
               }
             >
-              47.44%
+              47.71%
             </td>
             <td
               style={
@@ -4392,7 +4392,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "43.415065692135855%",
+                      "width": "43.5504947626317%",
                     }
                   }
                 />
@@ -4407,7 +4407,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 }
               }
             >
-              43.42%
+              43.55%
             </td>
             <td
               style={
@@ -4863,7 +4863,7 @@ Array [
           Object {
             "0": 21,
             "1": 44,
-            "2": "47",
+            "2": "48",
           }
         }
       />
@@ -8997,7 +8997,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "14.202393654364275%",
+                  "width": "14.234621278049525%",
                 }
               }
             />
@@ -9287,7 +9287,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  47.44%
+                  47.71%
                    
                    
                 </div>
@@ -9309,7 +9309,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "22.569503749817247%",
+                        "width": "22.698414244558247%",
                       }
                     }
                   />

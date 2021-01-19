@@ -29,7 +29,7 @@ class ResourceUsage extends Analyzer {
    * Example format
    * [SPELLS.RAPTOR_STRIKE_AOTE.id]: SPELLS.RAPTOR_STRIKE,
    */
-  static spellsThatShouldShowAsOtherSpells: { [spellID: number]: { guid: number, name: string, abilityIcon: string, type: number } } = {};
+  static spellsThatShouldShowAsOtherSpells: { [spellID: number]: { id: number, name: string, abilityIcon: string, type: number } } = {};
   //endregion
 
   //region Optional IMPLEMENTME statics
@@ -92,8 +92,7 @@ class ResourceUsage extends Analyzer {
     }
     let spellID = event.ability.guid;
     if (this.spellsThatShouldShowAsOtherSpells[spellID]) {
-      event.ability = this.spellsThatShouldShowAsOtherSpells[spellID];
-      spellID = event.ability.guid;
+      spellID = this.spellsThatShouldShowAsOtherSpells[spellID].id;
     }
 
     const resource = event.classResources?.find(resource => resource.type === this.resourceTypeID);
@@ -112,16 +111,6 @@ class ResourceUsage extends Analyzer {
     this.listOfSpellsUsed[spellID].resourceUsed += resource.cost || 0;
   }
 
-  makeResourceUsageTooltip(spell: { casts: number; resourceUsed: number }) {
-    return (
-      <>
-        {spell.casts} casts
-        <br />
-        {formatNumber(spell.resourceUsed)} {this.resourceTypeName} spent
-      </>
-    );
-  }
-
   sortResourceUsage(a: { value: number; }, b: { value: number; }) {
     let comparison = 0;
     if (a.value > b.value) {
@@ -133,7 +122,7 @@ class ResourceUsage extends Analyzer {
   }
 
   get resourceUsageChart() {
-    const items: Array<{ color: string, label: string, spellId: number, value: number, valueTooltip: JSX.Element }> = [];
+    const items: Array<{ color: string, label: string, spellId: number, value: number, valueTooltip: string }> = [];
     let colourIndex = 0;
     this.resourceSpenders.forEach(spell => {
       if (this.listOfSpellsUsed[spell.id] && this.listOfSpellsUsed[spell.id].resourceUsed > 0) {
@@ -142,12 +131,11 @@ class ResourceUsage extends Analyzer {
           label: spell.name,
           spellId: spell.id,
           value: Math.round(this.listOfSpellsUsed[spell.id].resourceUsed),
-          valueTooltip: this.makeResourceUsageTooltip(this.listOfSpellsUsed[spell.id]),
+          valueTooltip: `${this.listOfSpellsUsed[spell.id].casts} casts and ${formatNumber(this.listOfSpellsUsed[spell.id].resourceUsed)} ${this.resourceTypeName} spent`,
         });
         colourIndex += 1;
       }
     });
-
     items.sort(this.sortResourceUsage);
 
     return (

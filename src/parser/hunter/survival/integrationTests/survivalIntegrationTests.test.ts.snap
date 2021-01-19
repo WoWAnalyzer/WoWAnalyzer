@@ -112,7 +112,7 @@ exports[`Survival Hunter integration test: Multi Target AlwaysBeCasting matches 
         <div
           className="value"
         >
-          7.52 %
+          5.37 %
         </div>
         <div
           style={
@@ -131,7 +131,7 @@ exports[`Survival Hunter integration test: Multi Target AlwaysBeCasting matches 
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "92.47677423580612%",
+                  "width": "94.62786270493181%",
                 }
               }
             >
@@ -500,7 +500,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "81.51426272582363%",
+                      "width": "81.80329122923857%",
                     }
                   }
                 />
@@ -515,7 +515,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
                 }
               }
             >
-              81.51%
+              81.80%
             </td>
             <td
               style={
@@ -568,7 +568,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
                 }
               }
             >
-              9.99
+              11.07
             </td>
             <td
               className="text-right"
@@ -578,7 +578,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
                 }
               }
             >
-              37
+              41
               
                
               casts
@@ -868,7 +868,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "98.32923176893368%",
+                      "width": "99.83005365384645%",
                     }
                   }
                 />
@@ -883,7 +883,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
                 }
               }
             >
-              98.33%
+              99.83%
             </td>
             <td
               style={
@@ -4493,7 +4493,7 @@ exports[`Survival Hunter integration test: Multi Target SurvivalFocusUsage match
                   onTouchStart={[Function]}
                   style={Object {}}
                 >
-                  47
+                  50
                   %
                 </dfn>
               </div>
@@ -4541,7 +4541,7 @@ exports[`Survival Hunter integration test: Multi Target SurvivalFocusUsage match
                   onTouchStart={[Function]}
                   style={Object {}}
                 >
-                  33
+                  31
                   %
                 </dfn>
               </div>
@@ -4589,7 +4589,7 @@ exports[`Survival Hunter integration test: Multi Target SurvivalFocusUsage match
                   onTouchStart={[Function]}
                   style={Object {}}
                 >
-                  20
+                  19
                   %
                 </dfn>
               </div>
@@ -4951,8 +4951,9 @@ exports[`Survival Hunter integration test: Multi Target TipOfTheSpear matches th
            
           <br />
           <small>
-            Used 
+            Used
           </small>
+           
           58
           /
           67
@@ -5401,7 +5402,7 @@ exports[`Survival Hunter integration test: Multi Target matches the checklist sn
                   }
                 >
                    
-                  81.51%
+                  81.80%
                    
                    
                 </div>
@@ -5547,7 +5548,7 @@ exports[`Survival Hunter integration test: Multi Target matches the checklist sn
                   }
                 >
                    
-                  98.33%
+                  99.83%
                    
                    
                 </div>
@@ -5728,7 +5729,7 @@ exports[`Survival Hunter integration test: Multi Target matches the checklist sn
                   }
                 >
                    
-                  92.48%
+                  94.63%
                    
                    
                 </div>
@@ -6622,7 +6623,7 @@ exports[`Survival Hunter integration test: Single Target AlwaysBeCasting matches
         <div
           className="value"
         >
-          11.59 %
+          9.55 %
         </div>
         <div
           style={
@@ -6641,7 +6642,7 @@ exports[`Survival Hunter integration test: Single Target AlwaysBeCasting matches
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "88.40948712030911%",
+                  "width": "90.4498749058273%",
                 }
               }
             >
@@ -6940,7 +6941,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "69.92223975021966%",
+                      "width": "70.32668487677108%",
                     }
                   }
                 />
@@ -6955,7 +6956,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
                 }
               }
             >
-              69.92%
+              70.33%
             </td>
             <td
               style={
@@ -7192,7 +7193,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
                 }
               }
             >
-              16.43
+              17.43
             </td>
             <td
               className="text-right"
@@ -7202,7 +7203,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
                 }
               }
             >
-              82
+              87
               
                
               casts
@@ -7308,7 +7309,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "103.35865072159591%",
+                      "width": "103.88798904603671%",
                     }
                   }
                 />
@@ -7323,7 +7324,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
                 }
               }
             >
-              103.36%
+              103.89%
             </td>
             <td
               style={
@@ -7972,7 +7973,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "54.7461051647269%",
+                      "width": "65.09893633008834%",
                     }
                   }
                 />
@@ -7987,7 +7988,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
                 }
               }
             >
-              54.75%
+              65.10%
             </td>
             <td
               style={
@@ -10999,6 +11000,64 @@ exports[`Survival Hunter integration test: Single Target PheromoneBomb matches t
 </div>
 `;
 
+exports[`Survival Hunter integration test: Single Target RylakstalkersConfoundingStrikes matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="ITEMS"
+    className="panel statistic flexible "
+    position={0}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=336901"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Rylakstalker's Confounding Strikes"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/ability_searingarrow.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=336901"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Rylakstalker's Confounding Strikes
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          <div
+            style={
+              Object {
+                "overflow": "visible",
+                "width": 0,
+              }
+            }
+          >
+            <div />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Survival Hunter integration test: Single Target SerpentSting matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -12074,7 +12133,7 @@ exports[`Survival Hunter integration test: Single Target matches the checklist s
                   }
                 >
                    
-                  69.92%
+                  70.33%
                    
                    
                 </div>
@@ -12445,7 +12504,7 @@ exports[`Survival Hunter integration test: Single Target matches the checklist s
                   }
                 >
                    
-                  73
+                  75
                    
                    
                 </div>
@@ -12715,7 +12774,7 @@ exports[`Survival Hunter integration test: Single Target matches the checklist s
                   }
                 >
                    
-                  88.41%
+                  90.45%
                    
                    
                 </div>

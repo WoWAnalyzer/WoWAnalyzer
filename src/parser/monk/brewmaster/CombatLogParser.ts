@@ -38,10 +38,14 @@ import ExpelHarmNorm from './normalizers/ExpelHarm';
 
 // Covenants
 import FallenOrder from '../shared/modules/covenants/FallenOrder';
+import FaelineStomp from '../shared/modules/covenants/FaelineStomp';
+import WeaponsOfOrder from './modules/spells/shadowlands/WeaponsOfOrder';
+import BonedustBrew from '../shared/modules/covenants/BonedustBrew';
 
 // Conduits
 import ScaldingBrew from './modules/shadowlands/conduits/ScaldingBrew';
 import EvasiveStride from './modules/shadowlands/conduits/EvasiveStride';
+import WalkWithTheOx from './modules/shadowlands/conduits/WalkWithTheOx';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -87,10 +91,14 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Covenants
     fallenOrder: FallenOrder,
+    faelineStomp: FaelineStomp,
+    weaponsOfOrder: WeaponsOfOrder,
+    bonedustBrew: BonedustBrew,
 
     // Conduits
     scaldingBrew: ScaldingBrew,
     evasiveStride: EvasiveStride,
+    walkWithTheOx: WalkWithTheOx,
   };
 }
 

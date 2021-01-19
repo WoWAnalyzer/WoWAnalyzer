@@ -4,6 +4,7 @@ import { Abelito75, Putro, Zeboot } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [  
+  change(date(2021, 1, 16), 'Due to the paywalling of the timeline feature, and fundamental differences of opinion - I will no longer be updating this module beyond todays date. All the modules should be accurate for Castle Nathria, but will not be accurate going forward.', Abelito75),
   change(date(2021, 1, 9), <>Removed Avenging Wrath, Avenging Crusader, and Holy Avenger from the gcd.</>, Abelito75),
   change(date(2021, 1, 7), <>Update direct beacon healing to include Holy Shock.</>, Abelito75),
   change(date(2021, 1, 5), <>Update direct beacon healing to include WoG.</>, Abelito75),

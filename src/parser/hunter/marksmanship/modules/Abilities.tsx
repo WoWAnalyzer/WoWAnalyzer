@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
+import { BORN_TO_BE_WILD_CD_REDUCTION, CALL_OF_THE_WILD_CD_REDUCTION, HARMONY_OF_THE_TORTOLLAN_EFFECT_BY_RANK } from 'parser/hunter/shared/constants';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -68,7 +69,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.TRUESHOT,
         buffSpellId: SPELLS.TRUESHOT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 120,
+        cooldown: 120 * (1 - (combatant.hasLegendaryByBonusID(SPELLS.CALL_OF_THE_WILD_EFFECT.id) ? CALL_OF_THE_WILD_CD_REDUCTION : 0)),
         gcd: {
           static: 0,
         },
@@ -94,7 +95,10 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         isDefensive: true,
-        cooldown: 180 * (1 - (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0)),
+        cooldown: (180
+          - (combatant.hasConduitBySpellID(SPELLS.HARMONY_OF_THE_TORTOLLAN_CONDUIT.id) ? HARMONY_OF_THE_TORTOLLAN_EFFECT_BY_RANK[combatant.conduitRankBySpellID(SPELLS.HARMONY_OF_THE_TORTOLLAN_CONDUIT.id)] : 0))
+          * (1 - (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? BORN_TO_BE_WILD_CD_REDUCTION : 0))
+          * (1 - (combatant.hasLegendaryByBonusID(SPELLS.CALL_OF_THE_WILD_EFFECT.id) ? CALL_OF_THE_WILD_CD_REDUCTION : 0)),
         gcd: {
           static: 0,
         },
@@ -154,7 +158,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 180 * (1 - (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0)),
+        cooldown: 180
+          * (1 - (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? BORN_TO_BE_WILD_CD_REDUCTION : 0))
+          * (1 - (combatant.hasLegendaryByBonusID(SPELLS.CALL_OF_THE_WILD_EFFECT.id) ? CALL_OF_THE_WILD_CD_REDUCTION : 0)),
         gcd: {
           static: 0,
         },

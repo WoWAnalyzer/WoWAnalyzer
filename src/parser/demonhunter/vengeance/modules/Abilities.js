@@ -123,7 +123,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
-          extraSuggestion: <>This is a great Pain generator spell. </>,
+          extraSuggestion: <>This is a great Fury generator spell. </>,
         },
       },
       {
@@ -136,7 +136,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.80,
-          extraSuggestion: <>This is a great healing and AoE damage burst spell. The only moment you can delay it's cast is if your <SpellLink id={SPELLS.FIERY_BRAND.id} /> (with the <SpellLink id={SPELLS.CHARRED_FLESH_TALENT.id} /> talent) is almost available. </>,
+          extraSuggestion: <>This is a great healing and AoE damage burst spell.</>,
         },
         isDefensive: true,
       },
@@ -238,7 +238,11 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-		    enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.90,
+        },
       },
       {
         spell: SPELLS.SINFUL_BRAND,
