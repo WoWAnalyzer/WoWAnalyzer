@@ -29,7 +29,7 @@ class AugmentRuneChecker extends Analyzer {
   }
   suggestions(when: When) {
     when(this.augmentRuneSuggestionThresholds)
-      .addSuggestion((suggest) => suggest('You did not have an augment rune up before combat. Having an augment rune combat increases your primary stat.')
+      .addSuggestion((suggest) => suggest('You did not have an augment rune up before combat. Having an augment rune increases your primary stat.')
           .icon(SPELLS.VEILED_AUGMENT_RUNE.icon)
           .staticImportance(SUGGESTION_IMPORTANCE.MINOR));
   }
