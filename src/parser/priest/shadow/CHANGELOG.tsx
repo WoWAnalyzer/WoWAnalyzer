@@ -6,7 +6,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
-  change(date(2020, 1, 19), <>Added suggestion threshold for <SpellLink id={SPELLS.DEATH_AND_MADNESS_TALENT} /> talent module.</>, Adoraci),
+  change(date(2021, 1, 19), <>Added suggestion threshold for <SpellLink id={SPELLS.DEATH_AND_MADNESS_TALENT} /> talent module.</>, Adoraci),
   change(date(2021, 1, 18), <>Fixed an issue with <SpellLink id={SPELLS.VOID_TORRENT_TALENT.id} /> module crashing.</>, Adoraci),
   change(date(2020, 12, 28), <>Adding support for <SpellLink id={SPELLS.MINDGAMES.id} /></>, Khadaj),
   change(date(2020, 12, 28), <>Adding support for <SpellLink id={SPELLS.FAE_GUARDIANS.id} /></>, Khadaj),
