@@ -87,7 +87,7 @@ class VoidTorrent extends Analyzer {
     }
   }
 
-  onCast(event: CastEvent) {
+  onCast(event: CastEvent|DamageEvent) {
     this._voidTorrents[event.timestamp] = {
       start: event.timestamp,
     };
@@ -110,6 +110,9 @@ class VoidTorrent extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
+    if (this.voidTorrents.length === 0) {
+      this.onCast(event);
+    }
     this.damage += event.amount + (event.absorbed || 0);
   }
 
