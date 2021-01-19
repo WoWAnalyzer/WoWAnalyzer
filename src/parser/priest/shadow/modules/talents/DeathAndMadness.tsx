@@ -20,22 +20,10 @@ class DeathAndMadness extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DEATH_AND_MADNESS_TALENT.id);
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_WORD_DEATH),
-      this.onCast,
-    );
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DEATH_AND_MADNESS_BUFF),
-      this.onBuff,
-    );
-    this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.DEATH_AND_MADNESS_BUFF),
-      this.onBuff,
-    );
-    this.addEventListener(
-      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DEATH_AND_MADNESS_BUFF),
-      this.onEnergize,
-    );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_WORD_DEATH), this.onCast);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DEATH_AND_MADNESS_BUFF), this.onBuff);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.DEATH_AND_MADNESS_BUFF), this.onBuff);
+    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DEATH_AND_MADNESS_BUFF), this.onEnergize);
   }
 
   // Since the actual buff only applies/refreshes as a reward for getting a kill within 7s of using SW: Death, don't have to do much to check
