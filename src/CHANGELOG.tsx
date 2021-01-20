@@ -8,7 +8,8 @@ import { change, date } from 'common/changelog';
 
 // prettier-ignore
 export default [
-  change(date(2021, 1, 19), 'Added raid preparation analysis for Veiled Augment Runes.', Maldark),
+  change(date(2021, 1, 20), 'Updated the Missing Encounters warning to show always and prompt users to click Refresh if encounters are missing.', Sharrq),
+  change(date(2021, 1, 20), 'Added raid preparation analysis for Veiled Augment Runes.', Maldark),
   change(date(2021, 1, 16), 'Clarify login buttons on the Premium page.', Zerotorescue),
   change(date(2021, 1, 16), 'The first 10 seconds of the timeline are always visible so openers can be reviewed properly.', Zerotorescue),
   change(date(2021, 1, 16), 'Address an issue where our potion modules thought that potions had infinite cooldown when used in combat.', Putro),
