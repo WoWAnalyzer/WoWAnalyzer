@@ -921,6 +921,7 @@
   "shared.modules.castEfficiency.actual": "{0} out of {1} possible casts. You kept it on cooldown {2}% of the time.",
   "shared.modules.castEfficiency.recommended": ">{0}% is recommended",
   "shared.modules.castEfficiency.suggest": "Try to cast <0/> more often.",
+  "shared.modules.features.checklist.augmentRune": "Augment rune used",
   "shared.modules.features.checklist.combatPotionsUsed": "Combat potions used",
   "shared.modules.features.checklist.enchanted": "All items enchanted",
   "shared.modules.features.checklist.enchantedHigh": "Using high quality enchants",
