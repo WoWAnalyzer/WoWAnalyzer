@@ -58,7 +58,20 @@ const TALENT_TIERS = {
   6: 50,
 };
 
-const baseMaxMana = 50000;
+const baseMaxMana = {
+  6: 10000,
+  12: 10000,
+  11: 10000,
+  3: 10000,
+  4: 10000,
+  8: 50000,
+  10: 50000,
+  2: 10000,
+  5: 50000,
+  7: 10000,
+  9: 50000,
+  1: 10000,
+};
 
 /** GET THESE FILES IF YOU NEED TO RUN THE SCRIPT */
 //Retrieved from https://www.raidbots.com/static/data/live/talents.json
@@ -90,9 +103,9 @@ function findResource(spellPowerObj) {
   return resourceName;
 }
 
-function findResourceCost(spellPowerObj, className, resourceName) {
+function findResourceCost(spellPowerObj, classId, resourceName) {
   if (spellPowerObj.PowerCostPct > 0) {
-    return Math.round(spellPowerObj.PowerCostPct / 100 * baseMaxMana);
+    return Math.round(spellPowerObj.PowerCostPct / 100 * baseMaxMana[classId]);
   } else {
     if (['Runic Power', 'Rage', 'Soul Shards', 'Pain'].includes(resourceName)) {
       return spellPowerObj.ManaCost / 10;
@@ -245,7 +258,7 @@ Object.keys(talents).forEach(classId => {
         const resourceName = findResource(spellpower[spellPowerID]);
         if (resourceName) {
           const resourceNameCamelCase = toCamelCase(resourceName) + 'Cost';
-          const cost = findResourceCost(spellpower[spellPowerID], className, resourceName);
+          const cost = findResourceCost(spellpower[spellPowerID], classId, resourceName);
           talentSpellObject[resourceNameCamelCase] = cost;
         }
       }
