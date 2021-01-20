@@ -337,6 +337,14 @@ export const strel: Contributor = {
 export const Maldark: Contributor = {
   nickname: 'Maldark',
   github: 'Maldark',
+  discord: 'Maldark#1478',
+  mains: [
+    {
+      name: 'Maldark',
+      spec: SPECS.ARMS_WARRIOR,
+      link: 'https://worldofwarcraft.com/en-gb/character/eu/stormscale/Maldark',
+    },
+  ],
 };
 export const hatra344: Contributor = {
   nickname: 'hatra344',

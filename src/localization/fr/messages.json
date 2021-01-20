@@ -921,6 +921,7 @@
   "shared.modules.castEfficiency.actual": "{0} sur {1} utilisation possible. Vous l'avez gardé en recharge {2}% du temps.",
   "shared.modules.castEfficiency.recommended": "{0}% est recommandé",
   "shared.modules.castEfficiency.suggest": "Essayez d'utiliser <0/> plus souvent.",
+  "shared.modules.features.checklist.augmentRune": "",
   "shared.modules.features.checklist.combatPotionsUsed": "",
   "shared.modules.features.checklist.enchanted": "",
   "shared.modules.features.checklist.enchantedHigh": "",
