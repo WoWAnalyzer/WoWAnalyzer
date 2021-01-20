@@ -34,7 +34,7 @@ exports[`Unholy Death Knight integration test: example log AlwaysBeCasting match
         <div
           className="value"
         >
-          15.85 %
+          25.23 %
         </div>
         <div
           style={
@@ -53,7 +53,7 @@ exports[`Unholy Death Knight integration test: example log AlwaysBeCasting match
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "84.14624395428774%",
+                  "width": "74.7727569446349%",
                 }
               }
             >
@@ -103,7 +103,7 @@ Array [
   Object {
     "details": null,
     "icon": "spell_mage_altertime",
-    "importance": "regular",
+    "importance": "major",
     "issue": <span>
       Your downtime can be improved. Try to Always Be Casting (ABC), reducing time away from the boss unless due to mechanics.  If you do have to move, try casting filler spells, such as 
       <ForwardRef
@@ -116,7 +116,7 @@ Array [
       .
     </span>,
     "stat": <React.Fragment>
-      {"id":"deathknight.unholy.suggestions.alwaysBeCasting","message":"{0}% downtime","values":{"0":"15.85"}}
+      {"id":"deathknight.unholy.suggestions.alwaysBeCasting","message":"{0}% downtime","values":{"0":"25.23"}}
        (
       &lt;10.00% is recommended
       )
@@ -192,6 +192,102 @@ exports[`Unholy Death Knight integration test: example log Apocalypse matches th
     </div>
   </div>
 </div>
+`;
+
+exports[`Unholy Death Knight integration test: example log ArmyOfTheDamned matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="TALENTS"
+    className="panel statistic flexible "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=276837"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Army of the Damned"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/artifactability_unholydeathknight_deathsembrace.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=276837"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Army of the Damned
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          <svg
+            className="stroke icon"
+            viewBox="0 0 64 64"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M32,0C14.355,0,0,14.355,0,32c0,17.6445,14.355,32,32,32c17.6445,0,32-14.3555,32-32C64,14.355,49.6445,0,32,0z M32,62   C15.458,62,2,48.542,2,32S15.458,2,32,2s30,13.458,30,30S48.542,62,32,62z"
+            />
+            <path
+              d="M46.2412,26.3555H36.292l4.1357-15.9072c0.1182-0.4541-0.0957-0.9297-0.5146-1.1426   c-0.415-0.2134-0.9277-0.1069-1.2266,0.2568L16.9858,36.0098c-0.2456,0.2998-0.2964,0.7129-0.1309,1.0625   c0.165,0.3496,0.5171,0.5723,0.9038,0.5723h9.9492l-4.1353,15.9062c-0.1182,0.4551,0.0957,0.9307,0.5142,1.1436   c0.1445,0.0732,0.2993,0.1084,0.4531,0.1084c0.292,0,0.5786-0.1279,0.7734-0.3652l21.7012-26.4478   c0.2451-0.2988,0.2959-0.7124,0.1309-1.062C46.9795,26.5781,46.6279,26.3555,46.2412,26.3555z M26.6528,49.6523l3.3159-12.7559   c0.0781-0.2998,0.0127-0.6191-0.1768-0.8633c-0.1895-0.2451-0.4814-0.3887-0.791-0.3887H19.873l17.4746-21.2969L34.0312,27.104   c-0.0781,0.2993-0.0127,0.6182,0.1768,0.8633c0.1895,0.2446,0.4814,0.3882,0.791,0.3882h9.1279L26.6528,49.6523z"
+            />
+          </svg>
+           
+          59
+          s 
+          <small>
+              of Apocalypse CDR
+          </small>
+          <br />
+          <svg
+            className="stroke icon"
+            viewBox="0 0 64 64"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M32,0C14.355,0,0,14.355,0,32c0,17.6445,14.355,32,32,32c17.6445,0,32-14.3555,32-32C64,14.355,49.6445,0,32,0z M32,62   C15.458,62,2,48.542,2,32S15.458,2,32,2s30,13.458,30,30S48.542,62,32,62z"
+            />
+            <path
+              d="M46.2412,26.3555H36.292l4.1357-15.9072c0.1182-0.4541-0.0957-0.9297-0.5146-1.1426   c-0.415-0.2134-0.9277-0.1069-1.2266,0.2568L16.9858,36.0098c-0.2456,0.2998-0.2964,0.7129-0.1309,1.0625   c0.165,0.3496,0.5171,0.5723,0.9038,0.5723h9.9492l-4.1353,15.9062c-0.1182,0.4551,0.0957,0.9307,0.5142,1.1436   c0.1445,0.0732,0.2993,0.1084,0.4531,0.1084c0.292,0,0.5786-0.1279,0.7734-0.3652l21.7012-26.4478   c0.2451-0.2988,0.2959-0.7124,0.1309-1.062C46.9795,26.5781,46.6279,26.3555,46.2412,26.3555z M26.6528,49.6523l3.3159-12.7559   c0.0781-0.2998,0.0127-0.6191-0.1768-0.8633c-0.1895-0.2451-0.4814-0.3887-0.791-0.3887H19.873l17.4746-21.2969L34.0312,27.104   c-0.0781,0.2993-0.0127,0.6182,0.1768,0.8633c0.1895,0.2446,0.4814,0.3882,0.791,0.3882h9.1279L26.6528,49.6523z"
+            />
+          </svg>
+           
+          80
+          s 
+          <small>
+              of Army of the Dead CDR
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Unholy Death Knight integration test: example log AugmentRuneChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_misc_gem_azuredraenite_01",
+    "importance": "minor",
+    "issue": "You did not have an augment rune up before combat. Having an augment rune increases your primary stat.",
+    "stat": null,
+  },
+]
 `;
 
 exports[`Unholy Death Knight integration test: example log CastEfficiency matches the statistic snapshot 1`] = `
@@ -333,7 +429,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              10.83
+              5.84
             </td>
             <td
               className="text-right"
@@ -343,7 +439,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              21
+              33
               
                
               casts
@@ -419,7 +515,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              24.75
+              12.38
             </td>
             <td
               className="text-right"
@@ -429,7 +525,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              48
+              70
               
                
               casts
@@ -505,7 +601,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              19.59
+              10.97
             </td>
             <td
               className="text-right"
@@ -515,7 +611,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              38
+              62
               
                
               casts
@@ -539,104 +635,6 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               
-            </td>
-            <td
-              style={
-                Object {
-                  "color": "orange",
-                  "width": "25%",
-                }
-              }
-            />
-          </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "35%",
-                }
-              }
-            >
-              <a
-                className="spell-link-text"
-                href="http://wowhead.com/spell=63560"
-                rel="noopener noreferrer"
-                style={
-                  Object {
-                    "color": "#fff",
-                  }
-                }
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/achievement_boss_festergutrotface.jpg"
-                  style={
-                    Object {
-                      "height": undefined,
-                      "marginTop": undefined,
-                    }
-                  }
-                />
-                 
-                Dark Transformation
-              </a>
-            </td>
-            <td
-              className="text-center"
-              style={
-                Object {
-                  "minWidth": 80,
-                }
-              }
-            >
-              1.55
-            </td>
-            <td
-              className="text-right"
-              style={
-                Object {
-                  "minWidth": 110,
-                }
-              }
-            >
-              3
-              /3
-               
-              casts
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar"
-                  style={
-                    Object {
-                      "backgroundColor": "#70b570",
-                      "width": "98.21686374260965%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              className="text-left"
-              style={
-                Object {
-                  "minWidth": 50,
-                  "paddingRight": 5,
-                }
-              }
-            >
-              98.22%
             </td>
             <td
               style={
@@ -689,7 +687,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              3.61
+              0.88
             </td>
             <td
               className="text-right"
@@ -699,7 +697,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              7
+              5
               
                
               casts
@@ -775,7 +773,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              0.00
+              1.24
             </td>
             <td
               className="text-right"
@@ -785,8 +783,8 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              0
-              /0
+              7
+              /25
                
               casts
             </td>
@@ -804,8 +802,8 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#70b570",
-                      "width": "0%",
+                      "backgroundColor": "#ff8000",
+                      "width": "28.000000000000004%",
                     }
                   }
                 />
@@ -820,7 +818,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              0.00%
+              28.00%
             </td>
             <td
               style={
@@ -829,7 +827,12 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                   "width": "25%",
                 }
               }
-            />
+            >
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
+            </td>
           </tr>
         </tbody>
         <tbody>
@@ -1028,7 +1031,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               0
-              /4
+              /12
                
               casts
             </td>
@@ -1141,6 +1144,104 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
+                href="http://wowhead.com/spell=63560"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/achievement_boss_festergutrotface.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Dark Transformation
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              1.24
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              7
+              /7
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "92.0473047630076%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              92.05%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=275699"
                 rel="noopener noreferrer"
                 style={
@@ -1173,7 +1274,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              1.03
+              0.88
             </td>
             <td
               className="text-right"
@@ -1183,8 +1284,8 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              2
-              /2
+              5
+              /6
                
               casts
             </td>
@@ -1202,8 +1303,8 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#70b570",
-                      "width": "82.58799670012374%",
+                      "backgroundColor": "#ff8000",
+                      "width": "88.5454502570876%",
                     }
                   }
                 />
@@ -1218,7 +1319,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              82.59%
+              88.55%
             </td>
             <td
               style={
@@ -1227,105 +1328,12 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                   "width": "25%",
                 }
               }
-            />
-          </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "35%",
-                }
-              }
             >
-              <a
-                className="spell-link-text"
-                href="http://wowhead.com/spell=207349"
-                rel="noopener noreferrer"
-                style={
-                  Object {
-                    "color": "#fff",
-                  }
-                }
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/achievement_boss_svalasorrowgrave.jpg"
-                  style={
-                    Object {
-                      "height": undefined,
-                      "marginTop": undefined,
-                    }
-                  }
-                />
-                 
-                Dark Arbiter
-              </a>
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
             </td>
-            <td
-              className="text-center"
-              style={
-                Object {
-                  "minWidth": 80,
-                }
-              }
-            >
-              0.52
-            </td>
-            <td
-              className="text-right"
-              style={
-                Object {
-                  "minWidth": 110,
-                }
-              }
-            >
-              1
-              /1
-               
-              casts
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar"
-                  style={
-                    Object {
-                      "backgroundColor": "#70b570",
-                      "width": "94.31544754571703%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              className="text-left"
-              style={
-                Object {
-                  "minWidth": 50,
-                  "paddingRight": 5,
-                }
-              }
-            >
-              94.32%
-            </td>
-            <td
-              style={
-                Object {
-                  "color": "orange",
-                  "width": "25%",
-                }
-              }
-            />
           </tr>
           <tr>
             <td
@@ -1369,7 +1377,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              0.00
+              0.18
             </td>
             <td
               className="text-right"
@@ -1379,7 +1387,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              0
+              1
               /1
                
               casts
@@ -1398,8 +1406,8 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#ff8000",
-                      "width": "0%",
+                      "backgroundColor": "#70b570",
+                      "width": "25.604686541818012%",
                     }
                   }
                 />
@@ -1414,7 +1422,208 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              0.00%
+              25.60%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=115989"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_contagion.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Unholy Blight
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              1.24
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              7
+              /8
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#ff8000",
+                      "width": "82.50978819755649%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              82.51%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            >
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
+            </td>
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=311648"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_revendreth_deathknight.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Swarming Mist
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.88
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              5
+              /6
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#ff8000",
+                      "width": "83.25599084862493%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              83.26%
             </td>
             <td
               style={
@@ -1541,7 +1750,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               0
-              /1
+              /3
                
               casts
             </td>
@@ -1628,104 +1837,6 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              0.52
-            </td>
-            <td
-              className="text-right"
-              style={
-                Object {
-                  "minWidth": 110,
-                }
-              }
-            >
-              1
-              /1
-               
-              casts
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              <div
-                className="flex performance-bar-container"
-              >
-                <div
-                  className="flex-sub performance-bar"
-                  style={
-                    Object {
-                      "backgroundColor": "#70b570",
-                      "width": "38.76581190705349%",
-                    }
-                  }
-                />
-              </div>
-            </td>
-            <td
-              className="text-left"
-              style={
-                Object {
-                  "minWidth": 50,
-                  "paddingRight": 5,
-                }
-              }
-            >
-              38.77%
-            </td>
-            <td
-              style={
-                Object {
-                  "color": "orange",
-                  "width": "25%",
-                }
-              }
-            />
-          </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "35%",
-                }
-              }
-            >
-              <a
-                className="spell-link-text"
-                href="http://wowhead.com/spell=51052"
-                rel="noopener noreferrer"
-                style={
-                  Object {
-                    "color": "#fff",
-                  }
-                }
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_antimagiczone.jpg"
-                  style={
-                    Object {
-                      "height": undefined,
-                      "marginTop": undefined,
-                    }
-                  }
-                />
-                 
-                Anti-Magic Zone
-              </a>
-            </td>
-            <td
-              className="text-center"
-              style={
-                Object {
-                  "minWidth": 80,
-                }
-              }
-            >
               0.00
             </td>
             <td
@@ -1737,7 +1848,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               0
-              /1
+              /2
                
               casts
             </td>
@@ -1792,6 +1903,104 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
+                href="http://wowhead.com/spell=51052"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_antimagiczone.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Anti-Magic Zone
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.18
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              1
+              /3
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "27.469750931647717%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              27.47%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=48707"
                 rel="noopener noreferrer"
                 style={
@@ -1824,7 +2033,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              0.52
+              0.18
             </td>
             <td
               className="text-right"
@@ -1835,7 +2044,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               1
-              /2
+              /6
                
               casts
             </td>
@@ -1854,7 +2063,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "51.56056647875704%",
+                      "width": "16.221578848058872%",
                     }
                   }
                 />
@@ -1869,7 +2078,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              51.56%
+              16.22%
             </td>
             <td
               style={
@@ -1933,7 +2142,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               0
-              /1
+              /3
                
               casts
             </td>
@@ -1988,6 +2197,104 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
+                href="http://wowhead.com/spell=48743"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_deathpact.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Death Pact
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.18
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              1
+              /3
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "7.997134298787678%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              8.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
                 href="http://wowhead.com/spell=49998"
                 rel="noopener noreferrer"
                 style={
@@ -2020,7 +2327,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              0.52
+              0.00
             </td>
             <td
               className="text-right"
@@ -2030,7 +2337,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              1
+              0
               
                
               casts
@@ -2175,7 +2482,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               0
-              /3
+              /9
                
               casts
             </td>
@@ -2273,7 +2580,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               0
-              /3
+              /8
                
               casts
             </td>
@@ -2328,92 +2635,6 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=212552"
-                rel="noopener noreferrer"
-                style={
-                  Object {
-                    "color": "#fff",
-                  }
-                }
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_helm_plate_raiddeathknight_p_01.jpg"
-                  style={
-                    Object {
-                      "height": undefined,
-                      "marginTop": undefined,
-                    }
-                  }
-                />
-                 
-                Wraith Walk
-              </a>
-            </td>
-            <td
-              className="text-center"
-              style={
-                Object {
-                  "minWidth": 80,
-                }
-              }
-            >
-              0.00
-            </td>
-            <td
-              className="text-right"
-              style={
-                Object {
-                  "minWidth": 110,
-                }
-              }
-            >
-              0
-              
-               
-              casts
-            </td>
-            <td
-              style={
-                Object {
-                  "width": "20%",
-                }
-              }
-            >
-              
-            </td>
-            <td
-              className="text-left"
-              style={
-                Object {
-                  "minWidth": 50,
-                  "paddingRight": 5,
-                }
-              }
-            >
-              
-            </td>
-            <td
-              style={
-                Object {
-                  "color": "orange",
-                  "width": "25%",
-                }
-              }
-            />
-          </tr>
-          <tr>
-            <td
-              style={
-                Object {
-                  "width": "35%",
-                }
-              }
-            >
-              <a
-                className="spell-link-text"
                 href="http://wowhead.com/spell=48265"
                 rel="noopener noreferrer"
                 style={
@@ -2446,7 +2667,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              1.03
+              0.53
             </td>
             <td
               className="text-right"
@@ -2456,7 +2677,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
                 }
               }
             >
-              2
+              3
               
                
               casts
@@ -2543,7 +2764,7 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               0
-              /4
+              /12
                
               casts
             </td>
@@ -2997,7 +3218,105 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
               }
             >
               0
-              /15
+              /43
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=300728"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_venthyr_doorofshadows.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Door of Shadows
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /6
                
               casts
             </td>
@@ -3307,14 +3626,64 @@ exports[`Unholy Death Knight integration test: example log CastEfficiency matche
 Array [
   Object {
     "details": null,
-    "icon": "spell_deathknight_armyofthedead",
-    "importance": "major",
+    "icon": "artifactability_unholydeathknight_deathsembrace",
+    "importance": "regular",
     "issue": <React.Fragment>
       <Trans
         components={
           Object {
             "0": <ForwardRef
-              id={42650}
+              id={275699}
+            />,
+          }
+        }
+        id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
+      />
+       
+      <span>
+        Making sure to use 
+        <ForwardRef
+          id={275699}
+        />
+         immediately after it's cooldown is up is important, try to plan for it's use as it is coming off cooldown.
+      </span>
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <Trans
+        id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        values={
+          Object {
+            "0": 5,
+            "1": 6,
+            "2": "89",
+          }
+        }
+      />
+       (
+      <Trans
+        id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
+        values={
+          Object {
+            "0": "95",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
+  Object {
+    "details": null,
+    "icon": "spell_shadow_contagion",
+    "importance": "regular",
+    "issue": <React.Fragment>
+      <Trans
+        components={
+          Object {
+            "0": <ForwardRef
+              id={115989}
             />,
           }
         }
@@ -3330,9 +3699,9 @@ Array [
         message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
         values={
           Object {
-            "0": 0,
-            "1": 1,
-            "2": "0",
+            "0": 7,
+            "1": 8,
+            "2": "83",
           }
         }
       />
@@ -3345,6 +3714,134 @@ Array [
             "0": "90",
           }
         }
+      />
+      )
+    </React.Fragment>,
+  },
+  Object {
+    "details": null,
+    "icon": "ability_revendreth_deathknight",
+    "importance": "regular",
+    "issue": <React.Fragment>
+      <Trans
+        components={
+          Object {
+            "0": <ForwardRef
+              id={311648}
+            />,
+          }
+        }
+        id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
+      />
+       
+      
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <Trans
+        id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        values={
+          Object {
+            "0": 5,
+            "1": 6,
+            "2": "83",
+          }
+        }
+      />
+       (
+      <Trans
+        id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
+        values={
+          Object {
+            "0": "90",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
+  Object {
+    "details": null,
+    "icon": "ability_deathknight_soulreaper",
+    "importance": "major",
+    "issue": <React.Fragment>
+      <Trans
+        components={
+          Object {
+            "0": <ForwardRef
+              id={343294}
+            />,
+          }
+        }
+        id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
+      />
+       
+       (This module only starts tracking possible casts once you damage a target with 35% or less health)
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <Trans
+        id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        values={
+          Object {
+            "0": 7,
+            "1": 25,
+            "2": "28",
+          }
+        }
+      />
+       (
+      <Trans
+        id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
+        values={
+          Object {
+            "0": "85",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`Unholy Death Knight integration test: example log DeathTracker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "ability_fiegndead",
+    "importance": "major",
+    "issue": <React.Fragment>
+      You died during this fight and were dead for 
+      8.45
+      % of the fight duration (
+      29
+       seconds). Dying has a significant performance cost. View the 
+      <Link
+        to="/report/GHC3ZkAbV1xRqJFK/2-%7B%22id%22:%22common.getFightName.fightname%22,%22message%22:%22%7BbossName%7D+-+%7BfightResult%7D+(%7Bduration%7D)%22,%22values%22:%7B%22bossName%22:%22%5C%22%7B0%7D+%7B1%7D%5C%22%22,%22fightResult%22:%22%7B%5C%22id%5C%22:%5C%22common.getFightName.wipe%5C%22,%5C%22message%5C%22:%5C%22Wipe+%7Bwipes%7D%5C%22,%5C%22values%5C%22:%7B%5C%22wipes%5C%22:1%7D%7D%22,%22duration%22:%226:07%22%7D%7D/Khaalidaa/standard/death-recap"
+      >
+        Death Recap
+      </Link>
+       to see the damage taken and what defensives and potions were still available.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <Trans
+        id="shared.suggestions.deathTracker.deathTime"
+        message="You were dead for {0}% of the fight"
+        values={
+          Object {
+            "0": "8.45",
+          }
+        }
+      />
+       (
+      <Trans
+        id="shared.suggestions.deathTracker.recommended"
+        message="0% is recommended"
       />
       )
     </React.Fragment>,
@@ -3376,7 +3873,7 @@ exports[`Unholy Death Knight integration test: example log DistanceMoved matches
           className="value"
         >
           ≈ 
-          370
+          977
            yards
           <small
             style={
@@ -3386,7 +3883,7 @@ exports[`Unholy Death Knight integration test: example log DistanceMoved matches
             }
           >
             ≈ 
-            84.37
+            64.19
             %
           </small>
         </div>
@@ -3447,8 +3944,8 @@ exports[`Unholy Death Knight integration test: example log EnchantChecker matche
 Array [
   Object {
     "details": null,
-    "icon": "inv_chest_plate_nzothraid_d_01.jpg",
-    "importance": "major",
+    "icon": "inv_plate_revendrethraid_d_01_chest.jpg",
+    "importance": "minor",
     "issue": <Trans
       components={
         Object {
@@ -3456,25 +3953,26 @@ Array [
             details={
               Object {
                 "bonusIDs": Array [
-                  4824,
-                  1517,
-                  4786,
-                  6510,
+                  7189,
+                  6652,
+                  1472,
+                  6646,
                 ],
-                "icon": "inv_chest_plate_nzothraid_d_01.jpg",
-                "id": 174164,
-                "itemLevel": 480,
+                "icon": "inv_plate_revendrethraid_d_01_chest.jpg",
+                "id": 182999,
+                "itemLevel": 200,
+                "permanentEnchant": 6216,
                 "quality": 4,
               }
             }
             icon={false}
-            id={174164}
+            id={182999}
             quality={4}
           />,
         }
       }
-      id="shared.enchantChecker.suggestions.noEnchant.label"
-      message="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      id="shared.enchantChecker.suggestions.weakEnchant.label"
+      message="Your <0>{slotName}</0> has a cheap enchant. Apply a strong enchant to very easily increase your throughput slightly."
       values={
         Object {
           "slotName": <Trans
@@ -3488,7 +3986,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "inv_glove_plate_nzothraid_d_01.jpg",
+    "icon": "inv_plate_oribosdungeon_c_01_glove.jpg",
     "importance": "major",
     "issue": <Trans
       components={
@@ -3497,24 +3995,20 @@ Array [
             details={
               Object {
                 "bonusIDs": Array [
-                  6412,
-                  4803,
-                  6515,
-                  6578,
-                  6579,
-                  6474,
-                  6455,
-                  1507,
-                  4786,
+                  7207,
+                  6652,
+                  1501,
+                  5858,
+                  6646,
                 ],
-                "icon": "inv_glove_plate_nzothraid_d_01.jpg",
-                "id": 173456,
-                "itemLevel": 450,
+                "icon": "inv_plate_oribosdungeon_c_01_glove.jpg",
+                "id": 180104,
+                "itemLevel": 200,
                 "quality": 3,
               }
             }
             icon={false}
-            id={173456}
+            id={180104}
             quality={3}
           />,
         }
@@ -3534,7 +4028,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "inv_ring_80_05b.jpg",
+    "icon": "inv_argus_ring02.jpg",
     "importance": "minor",
     "issue": <Trans
       components={
@@ -3543,23 +4037,22 @@ Array [
             details={
               Object {
                 "bonusIDs": Array [
-                  6536,
-                  6578,
-                  6579,
-                  6559,
-                  6513,
-                  1647,
-                  4786,
+                  7205,
+                  6652,
+                  7194,
+                  1501,
+                  5855,
+                  6646,
                 ],
-                "icon": "inv_ring_80_05b.jpg",
-                "id": 159461,
-                "itemLevel": 475,
-                "permanentEnchant": 6109,
+                "icon": "inv_argus_ring02.jpg",
+                "id": 178736,
+                "itemLevel": 197,
+                "permanentEnchant": 6167,
                 "quality": 3,
               }
             }
             icon={false}
-            id={159461}
+            id={178736}
             quality={3}
           />,
         }
@@ -3579,7 +4072,7 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "inv_70_raid_ring8d.jpg",
+    "icon": "inv_ring_revendrethraid_01_gold.jpg",
     "importance": "minor",
     "issue": <Trans
       components={
@@ -3588,24 +4081,23 @@ Array [
             details={
               Object {
                 "bonusIDs": Array [
-                  4824,
-                  6578,
-                  6579,
-                  6560,
-                  6513,
-                  1517,
-                  4786,
+                  7207,
+                  6652,
+                  7193,
+                  1501,
+                  5874,
+                  6646,
                 ],
-                "icon": "inv_70_raid_ring8d.jpg",
-                "id": 174530,
-                "itemLevel": 475,
-                "permanentEnchant": 6109,
-                "quality": 4,
+                "icon": "inv_ring_revendrethraid_01_gold.jpg",
+                "id": 178824,
+                "itemLevel": 216,
+                "permanentEnchant": 6167,
+                "quality": 3,
               }
             }
             icon={false}
-            id={174530}
-            quality={4}
+            id={178824}
+            quality={3}
           />,
         }
       }
@@ -3616,45 +4108,6 @@ Array [
           "slotName": <Trans
             id="common.slots.ring"
             message="Ring"
-          />,
-        }
-      }
-    />,
-    "stat": null,
-  },
-  Object {
-    "details": null,
-    "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
-    "importance": "major",
-    "issue": <Trans
-      components={
-        Object {
-          "0": <ItemLink
-            details={
-              Object {
-                "bonusIDs": Array [
-                  6590,
-                  1472,
-                ],
-                "icon": "inv_misc_cape_deathwingraid_d_03.jpg",
-                "id": 169223,
-                "itemLevel": 500,
-                "quality": 5,
-              }
-            }
-            icon={false}
-            id={169223}
-            quality={5}
-          />,
-        }
-      }
-      id="shared.enchantChecker.suggestions.noEnchant.label"
-      message="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
-      values={
-        Object {
-          "slotName": <Trans
-            id="common.slots.cloak"
-            message="Cloak"
           />,
         }
       }
@@ -3734,30 +4187,6 @@ exports[`Unholy Death Knight integration test: example log FesteringStrikeEffici
 </div>
 `;
 
-exports[`Unholy Death Knight integration test: example log FlaskChecker matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "inv_alchemy_90_flask_green",
-    "importance": "minor",
-    "issue": "You did not have the best flask active when starting the fight. Using the best flask available is an easy way to improve performance.",
-    "stat": null,
-  },
-]
-`;
-
-exports[`Unholy Death Knight integration test: example log FoodChecker matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "inv_tradeskill_cooking_shadowlandsfeast_large01",
-    "importance": "minor",
-    "issue": "You did not have the best food active when starting the fight. Using the best food available is an easy way to improve performance.",
-    "stat": null,
-  },
-]
-`;
-
 exports[`Unholy Death Knight integration test: example log PotionChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
@@ -3771,7 +4200,7 @@ Array [
         Object {
           "0": 0,
           "1": "potions",
-          "2": 1,
+          "2": 2,
         }
       }
     />,
@@ -3820,7 +4249,7 @@ exports[`Unholy Death Knight integration test: example log RuneOfTheFallenCrusad
         <div
           className="value"
         >
-          14.53
+          10.01
            % 
           <small>
             average Strength
@@ -3888,7 +4317,7 @@ exports[`Unholy Death Knight integration test: example log RuneTracker matches t
           className="flex-main value"
         >
           <div>
-            -0.75 %
+            5.34 %
           </div>
           <small>
             Runes overcapped
@@ -3970,7 +4399,7 @@ exports[`Unholy Death Knight integration test: example log RunicPowerDetails mat
           className="flex-main value"
         >
           <div>
-            0.00 %
+            1.28 %
           </div>
           <small>
             Runic Power wasted
@@ -4040,7 +4469,7 @@ exports[`Unholy Death Knight integration test: example log ScourgeStrikeEfficien
         <div
           className="value"
         >
-          87.50
+          87.14
           % 
           <small>
             efficiency
@@ -4067,6 +4496,165 @@ exports[`Unholy Death Knight integration test: example log ScourgeStrikeEfficien
     </div>
   </div>
 </div>
+`;
+
+exports[`Unholy Death Knight integration test: example log SoulReaper matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="TALENTS"
+    className="panel statistic flexible "
+    position={1030}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=343294"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Soul Reaper"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/ability_deathknight_soulreaper.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=343294"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Soul Reaper
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          <img
+            alt="Damage"
+            className="icon"
+            src="/img/sword.png"
+          />
+           
+          117
+           DPS
+           
+          <small>
+            3.03
+             % of total
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Unholy Death Knight integration test: example log SwarmingMist matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="COVENANT"
+    className="panel statistic flexible "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=311648"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Swarming Mist"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/ability_revendreth_deathknight.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=311648"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Swarming Mist
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          <img
+            alt="Damage"
+            className="icon"
+            src="/img/sword.png"
+          />
+           
+          131
+           DPS
+           
+          <small>
+            3.39
+             % of total
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Unholy Death Knight integration test: example log SwarmingMist matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "ability_revendreth_deathknight",
+    "importance": "minor",
+    "issue": <span>
+      Avoid being Runic Power capped at all times, you wasted 
+      21
+       RP by being RP capped.
+    </span>,
+    "stat": <React.Fragment>
+      {"id":"deathknight.suggestions.swarmingmist.efficiency","message":"You wasted {0}% of RP from {1} by being RP capped.","values":{"0":"15.33","1":"Swarming Mist"}}
+       (
+      0.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
 `;
 
 exports[`Unholy Death Knight integration test: example log ThroughputStatisticGroup matches the statistic snapshot 1`] = `
@@ -4118,7 +4706,7 @@ exports[`Unholy Death Knight integration test: example log ThroughputStatisticGr
               }
             }
           >
-            101,611
+            3,856
              DPS
           </div>
           <div
@@ -4135,7 +4723,7 @@ exports[`Unholy Death Knight integration test: example log ThroughputStatisticGr
             className="flex-main chart"
           >
             <a
-              href="https://www.warcraftlogs.com/reports/L2Cvb8HcDB3Ayf6K/#fight=44&source=137&type=damage-done"
+              href="https://www.warcraftlogs.com/reports/GHC3ZkAbV1xRqJFK/#fight=2&source=17&type=damage-done"
             >
               <div
                 style={
@@ -4207,7 +4795,7 @@ exports[`Unholy Death Knight integration test: example log ThroughputStatisticGr
               }
             }
           >
-            14,129
+            177
              HPS
           </div>
           <div
@@ -4229,7 +4817,7 @@ exports[`Unholy Death Knight integration test: example log ThroughputStatisticGr
             }
           >
             <a
-              href="https://www.warcraftlogs.com/reports/L2Cvb8HcDB3Ayf6K/#fight=44&source=137&type=healing"
+              href="https://www.warcraftlogs.com/reports/GHC3ZkAbV1xRqJFK/#fight=2&source=17&type=healing"
             >
               <div
                 style={
@@ -4301,7 +4889,7 @@ exports[`Unholy Death Knight integration test: example log ThroughputStatisticGr
               }
             }
           >
-            20,399
+            919
              DTPS
           </div>
           <div
@@ -4319,7 +4907,7 @@ exports[`Unholy Death Knight integration test: example log ThroughputStatisticGr
             className="flex-main chart"
           >
             <a
-              href="https://www.warcraftlogs.com/reports/L2Cvb8HcDB3Ayf6K/#fight=44&source=137&type=damage-taken"
+              href="https://www.warcraftlogs.com/reports/GHC3ZkAbV1xRqJFK/#fight=2&source=17&type=damage-taken"
             >
               <div
                 style={
@@ -4406,7 +4994,7 @@ exports[`Unholy Death Knight integration test: example log VirulentPlagueEfficie
             />
           </svg>
            
-          94.38
+          101.70
           % 
           <small>
             uptime
@@ -4418,62 +5006,12 @@ exports[`Unholy Death Knight integration test: example log VirulentPlagueEfficie
 </div>
 `;
 
-exports[`Unholy Death Knight integration test: example log WeaponEnhancementChecker matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "inv_axe_2h_nzothraid_d_01.jpg",
-    "importance": "regular",
-    "issue": <Trans
-      components={
-        Object {
-          "0": <ItemLink
-            details={
-              Object {
-                "bonusIDs": Array [
-                  4824,
-                  42,
-                  6578,
-                  6515,
-                  1517,
-                  4786,
-                  6516,
-                ],
-                "icon": "inv_axe_2h_nzothraid_d_01.jpg",
-                "id": 172200,
-                "itemLevel": 475,
-                "permanentEnchant": 3368,
-                "quality": 4,
-              }
-            }
-            icon={false}
-            id={172200}
-            quality={4}
-          />,
-        }
-      }
-      id="shared.weaponEnhancementChecker.suggestions.noWeaponEnhancement.label"
-      message="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone) . Apply an enhancement to very easily increase your throughput slightly."
-      values={
-        Object {
-          "slotName": <Trans
-            id="common.slots.weapon"
-            message="Weapon"
-          />,
-        }
-      }
-    />,
-    "stat": null,
-  },
-]
-`;
-
 exports[`Unholy Death Knight integration test: example log matches the checklist snapshot 1`] = `
 <ul
   className="checklist"
 >
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -4497,8 +5035,8 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#4ec04e",
-                  "width": "100%",
+                  "backgroundColor": "#ffc84a",
+                  "width": "58.34598601349121%",
                 }
               }
             />
@@ -4611,7 +5149,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  100.00%
+                  88.55%
                    
                    
                 </div>
@@ -4631,9 +5169,9 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "61.75634935610174%",
                       }
                     }
                   />
@@ -4725,17 +5263,17 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=49206"
+                  href="http://wowhead.com/spell=343294"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
                   <img
                     alt=""
                     className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/ability_deathknight_summongargoyle.jpg"
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_deathknight_soulreaper.jpg"
                   />
                    
-                  Summon Gargoyle
+                  Soul Reaper
                 </a>
               </div>
               <div
@@ -4757,7 +5295,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  100.00%
+                  28.00%
                    
                    
                 </div>
@@ -4777,9 +5315,82 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "13.320000000000004%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  className="spell-link-text"
+                  href="http://wowhead.com/spell=115989"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_contagion.jpg"
+                  />
+                   
+                  Unholy Blight
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  82.51%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ffc84a",
+                        "transition": "background-color 800ms",
+                        "width": "58.30759469786312%",
                       }
                     }
                   />
@@ -4816,8 +5427,8 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ffc84a",
-                  "width": "60.913984735556326%",
+                  "backgroundColor": "#ac1f39",
+                  "width": "26.4000310512869%",
                 }
               }
             />
@@ -4910,7 +5521,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  15.85%
+                  25.23%
                    
                    
                 </div>
@@ -4930,9 +5541,9 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ffc84a",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "60.913984735556326%",
+                        "width": "26.4000310512869%",
                       }
                     }
                   />
@@ -5063,7 +5674,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  100.75%
+                  94.66%
                    
                    
                 </div>
@@ -5231,7 +5842,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  100.00%
+                  98.72%
                    
                    
                 </div>
@@ -5293,8 +5904,8 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ac1f39",
-                  "width": "0%",
+                  "backgroundColor": "#ffc84a",
+                  "width": "65.15151515151516%",
                 }
               }
             />
@@ -5393,7 +6004,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  3
+                  5
                    
                   / 6
                    
@@ -5414,9 +6025,9 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#df7102",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "50%",
+                        "width": "83.33333333333334%",
                       }
                     }
                   />
@@ -5457,7 +6068,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  1
+                  2
                    
                   / 6
                    
@@ -5478,9 +6089,9 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "16.666666666666664%",
+                        "width": "33.33333333333333%",
                       }
                     }
                   />
@@ -5520,7 +6131,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  0
+                  1
                    
                   / 1
                    
@@ -5541,9 +6152,9 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "0%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -5583,7 +6194,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                   }
                 >
                    
-                  0
+                  1
                    
                   / 1
                    
@@ -5604,9 +6215,9 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "0%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -5649,7 +6260,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                    
                   0
                    
-                  / 1
+                  / 2
                    
                 </div>
               </div>
@@ -5713,7 +6324,7 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                    
                   0
                    
-                  / 1
+                  / 2
                    
                 </div>
               </div>
@@ -5776,8 +6387,8 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                 >
                    
                   <trans
-                    id="common.no"
-                    message="No"
+                    id="common.yes"
+                    message="Yes"
                   />
                    
                    
@@ -5798,9 +6409,9 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "0%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -5908,8 +6519,8 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                 >
                    
                   <trans
-                    id="common.no"
-                    message="No"
+                    id="common.yes"
+                    message="Yes"
                   />
                    
                    
@@ -5930,9 +6541,9 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "0%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -5999,6 +6610,72 @@ exports[`Unholy Death Knight integration test: example log matches the checklist
                         "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
                         "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <trans
+                  id="shared.modules.features.checklist.augmentRune"
+                  message="Augment rune used"
+                />
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  <trans
+                    id="common.no"
+                    message="No"
+                  />
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
                       }
                     }
                   />

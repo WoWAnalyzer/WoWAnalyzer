@@ -46,11 +46,6 @@ const spells = {
 	  name: "Fel Devastation",
 	  icon: "ability_demonhunter_feldevastation",
   },
-  FRACTURE: { //Fracture replaces shear when you take the fracture talent
-    id: 209795,
-    name: "Fracture",
-    icon: "ability_creature_felsunder",
-  },
   FRACTURE_MAIN_HAND: {
     id: 225919,
     name: "Fracture(Main Hand)",
@@ -264,6 +259,16 @@ const spells = {
   },
   BLADE_DANCE: {
     id: 188499,
+    name: 'Blade Dance',
+    icon: 'ability_demonhunter_bladedance',
+  },
+  BLADE_DANCE_DAMAGE: {
+    id: 199552,
+    name: 'Blade Dance',
+    icon: 'ability_demonhunter_bladedance',
+  },
+  BLADE_DANCE_DAMAGE_LAST_HIT: {
+    id: 200685,
     name: 'Blade Dance',
     icon: 'ability_demonhunter_bladedance',
   },

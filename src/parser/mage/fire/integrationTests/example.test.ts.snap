@@ -169,6 +169,18 @@ Array [
 ]
 `;
 
+exports[`Fire Mage integration test: example log AugmentRuneChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_misc_gem_azuredraenite_01",
+    "importance": "minor",
+    "issue": "You did not have an augment rune up before combat. Having an augment rune increases your primary stat.",
+    "stat": null,
+  },
+]
+`;
+
 exports[`Fire Mage integration test: example log CancelledCasts matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -900,7 +912,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "89.22656444084855%",
+                      "width": "89.4492352945904%",
                     }
                   }
                 />
@@ -915,7 +927,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              89.23%
+              89.45%
             </td>
             <td
               style={
@@ -1486,8 +1498,8 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#ff8000",
-                      "width": "81.32666811329803%",
+                      "backgroundColor": "#70b570",
+                      "width": "94.04175406731122%",
                     }
                   }
                 />
@@ -1502,7 +1514,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              81.33%
+              94.04%
             </td>
             <td
               style={
@@ -1511,12 +1523,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   "width": "25%",
                 }
               }
-            >
-              <trans
-                id="shared.castEfficiency.canBeImproved"
-                message="Can be improved."
-              />
-            </td>
+            />
           </tr>
           <tr>
             <td
@@ -3475,50 +3482,6 @@ Array [
             "0": 45,
             "1": 53,
             "2": "89",
-          }
-        }
-      />
-       (
-      <Trans
-        id="shared.modules.castEfficiency.recommended"
-        message=">{0}% is recommended"
-        values={
-          Object {
-            "0": "90",
-          }
-        }
-      />
-      )
-    </React.Fragment>,
-  },
-  Object {
-    "details": null,
-    "icon": "spell_fire_sealoffire",
-    "importance": "regular",
-    "issue": <React.Fragment>
-      <Trans
-        components={
-          Object {
-            "0": <ForwardRef
-              id={190319}
-            />,
-          }
-        }
-        id="shared.modules.castEfficiency.suggest"
-        message="Try to cast <0/> more often."
-      />
-       
-      
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      <Trans
-        id="shared.modules.castEfficiency.actual"
-        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
-        values={
-          Object {
-            "0": 4,
-            "1": 6,
-            "2": "81",
           }
         }
       />
@@ -5730,7 +5693,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
     </div>
   </li>
   <li
-    className="expandable expanded failed"
+    className="expandable  passed"
   >
     <div
       className="meta"
@@ -5754,8 +5717,8 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ffc84a",
-                  "width": "62.92717946814746%",
+                  "backgroundColor": "#a6c34c",
+                  "width": "76.07353041613764%",
                 }
               }
             />
@@ -5967,7 +5930,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  81.33%
+                  94.04%
                    
                    
                 </div>
@@ -5987,9 +5950,9 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ffc84a",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "54.36780481728244%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -7200,7 +7163,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#ffc84a",
-                  "width": "61.560850624330484%",
+                  "width": "61.74622411007057%",
                 }
               }
             />
@@ -7307,7 +7270,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  89.23%
+                  89.45%
                    
                    
                 </div>
@@ -7329,7 +7292,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "94.74891917605137%",
+                        "width": "96.23190706197207%",
                       }
                     }
                   />
@@ -7952,7 +7915,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "98.47381119902117%",
+                  "width": "90.2676602657694%",
                 }
               }
             />
@@ -8657,6 +8620,72 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                         "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
                         "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <trans
+                  id="shared.modules.features.checklist.augmentRune"
+                  message="Augment rune used"
+                />
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  <trans
+                    id="common.no"
+                    message="No"
+                  />
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
                       }
                     }
                   />

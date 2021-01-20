@@ -57,7 +57,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DARK_TRANSFORMATION,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
         gcd: {
           base: 1500,
