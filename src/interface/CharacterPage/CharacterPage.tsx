@@ -1,7 +1,7 @@
 import React from 'react';
 
 import DocumentTitle from 'interface/DocumentTitle';
-import NavigationBar from 'interface/layout/NavigationBar';
+import NavigationBar from 'interface/NavigationBar';
 
 import CharacterParses from '../CharacterParses';
 
