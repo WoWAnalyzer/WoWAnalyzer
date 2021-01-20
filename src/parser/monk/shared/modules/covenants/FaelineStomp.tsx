@@ -41,9 +41,7 @@ class FaelineStomp extends Analyzer {
       spell: SPELLS.FAELINE_STOMP_CAST,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       cooldown: 30,
-      gcd: {
-        base: this.selectedCombatant.spec === SPECS.MISTWEAVER_MONK ? 1500 : 1000,
-      },
+      gcd: this.selectedCombatant.spec === SPECS.MISTWEAVER_MONK ? { base: 1500 } : { static: 1000 },
       castEfficiency: {
         suggestion: true,
         recommendedEfficiency: 0.8,

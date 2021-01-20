@@ -35,6 +35,9 @@ import MomentOfGlory from './modules/talents/MomentOfGlory';
 import HolyPowerTracker from '../shared/holypower/HolyPowerTracker';
 import HolyPowerDetails from '../shared/holypower/HolyPowerDetails';
 
+// Covenant Abilities
+import DivineToll from '../shared/shadowlands/covenants/DivineToll';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
@@ -76,6 +79,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // HolyPower
     holyPowerTracker: HolyPowerTracker,
     holyPowerDetails: HolyPowerDetails,
+
+    // Covenant Abilities 
+    devineToll: DivineToll,
   };
 }
 

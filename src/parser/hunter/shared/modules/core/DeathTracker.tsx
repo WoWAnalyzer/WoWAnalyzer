@@ -1,5 +1,6 @@
 import CoreDeathTracker from 'parser/shared/modules/DeathTracker';
 import { TIME_SPENT_DEAD_THRESHOLD } from 'parser/hunter/shared/constants';
+import { ResurrectEvent } from 'parser/core/Events';
 
 /**
  * Due to combatlog restrictions it is not possible to know whether the hunter cast Feign Death or the hunter actually died.
@@ -14,7 +15,7 @@ class DeathTracker extends CoreDeathTracker {
     return (ressTimestamp - deathTimestamp) / this.owner.fightDuration;
   }
 
-  resurrect(event: any) {
+  resurrect(event: ResurrectEvent) {
     this.lastResurrectionTimestamp = this.owner.currentTimestamp;
     const percentSpentDead = this.deathPercentageOfEncounter(this.lastDeathTimestamp, this.lastResurrectionTimestamp);
     if (percentSpentDead > TIME_SPENT_DEAD_THRESHOLD) {

@@ -70,7 +70,7 @@ class DeathChakrams extends Analyzer {
           <>
             <ItemDamageDone amount={this.damage} />
             <br />
-            <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /> {this.focusGained}/{this.focusWasted + this.focusGained}<small> gained Focus</small>
+            <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /> {this.focusGained}/{this.focusWasted + this.focusGained} <small>Focus gained</small>
           </>
         </BoringSpellValueText>
       </Statistic>

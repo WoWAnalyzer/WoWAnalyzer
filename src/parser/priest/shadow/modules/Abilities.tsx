@@ -133,6 +133,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.75,
         },
         enabled: combatant.hasTalent(SPELLS.VOID_TORRENT_TALENT.id),
+        damageSpellIds: [SPELLS.VOID_TORRENT_TALENT.id],
       },
       {
         spell: SPELLS.MINDBENDER_TALENT_SHADOW,
@@ -164,9 +165,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.POWER_INFUSION,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
-        gcd: {
-          base: 1500,
-        },
+        gcd: null,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
@@ -380,36 +379,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
         enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          averageIssueEfficiency: 0.8,
-          majorIssueEfficiency: 0.7,
-        },
-      },
-      {
-        spell: SPELLS.MINDGAMES,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 45,
-        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-          averageIssueEfficiency: 0.85,
-          majorIssueEfficiency: 0.75,
-        },
-      },
-      {
-        spell: SPELLS.FAE_GUARDIANS,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 90,
-        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
         gcd: {
           base: 1500,
         },

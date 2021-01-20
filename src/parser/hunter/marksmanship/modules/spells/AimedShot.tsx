@@ -70,7 +70,7 @@ class AimedShot extends Analyzer {
     this.lastReductionTimestamp = event.timestamp;
   }
 
-  reduceAimedShotCooldown(event: any, spellReductionSpeed: number) {
+  reduceAimedShotCooldown(event: AnyEvent, spellReductionSpeed: number) {
     const maxReductionMs: number = (event.timestamp - this.lastReductionTimestamp) * spellReductionSpeed;
     debug && console.log('Reducing Aimed Shot cooldown by up to: ', maxReductionMs / 1000 + ' seconds since last event');
     const effectiveReductionMs: number = this.spellUsable.reduceCooldown(SPELLS.AIMED_SHOT.id, maxReductionMs, event.timestamp);

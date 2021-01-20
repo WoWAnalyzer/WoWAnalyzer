@@ -58,7 +58,7 @@ class CastsInStealthBase extends Analyzer {
         average: 0,
         major: 0,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
@@ -67,9 +67,9 @@ class CastsInStealthBase extends Analyzer {
       .addSuggestion((suggest: SuggestionFactory, actual: number | boolean, recommended: number | boolean) => suggest(<>Use <SpellLink id={SPELLS.SHADOWSTRIKE.id} /> instead of <SpellLink id={spell.id} /> during {this.stealthCondition}. </>)
         .icon(spell.icon)
         .actual(t({
-      id: "rogue.subtlety.suggestions.castsInStealth.casts",
-      message: `${actual} ${spell.name} casts`
-    }))
+          id: 'rogue.subtlety.suggestions.castsInStealth.casts',
+          message: `${actual} ${spell.name} casts`,
+        }))
         .recommended(`${recommended} is recommended`));
   }
 
@@ -78,9 +78,9 @@ class CastsInStealthBase extends Analyzer {
       .addSuggestion((suggest: SuggestionFactory) => suggest(<>Try to cast {this.maxCastsPerStealth} spells during {this.stealthCondition}</>)
         .icon(spell.icon)
         .actual(t({
-      id: "rogue.subtlety.suggestions.castsInStealth.efficiency",
-      message: `${this.stealthActualCasts} casts out of ${this.stealthMaxCasts} possible.`
-    }))
+          id: 'rogue.subtlety.suggestions.castsInStealth.efficiency',
+          message: `${this.stealthActualCasts} casts out of ${this.stealthMaxCasts} possible.`,
+        }))
         .recommended(`${this.maxCastsPerStealth} in each ${this.stealthCondition} window`));
   }
 }

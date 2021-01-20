@@ -5,7 +5,6 @@ import FlamestrikeNormalizer from './normalizers/Flamestrike';
 import CombustionNormalizer from './normalizers/Combustion';
 import ScorchNormalizer from './normalizers/Scorch';
 import PyroclasmBuffNormalizer from './normalizers/PyroclasmBuff';
-import ShiftingPowerNormalizer from '../shared/normalizers/ShiftingPower'
 import RuneOfPowerNormalizer from '../shared/normalizers/RuneOfPower';
 
 import Checklist from './modules/Checklist/Module';
@@ -45,6 +44,7 @@ import Firestorm from './modules/items/Firestorm';
 
 //Covenants
 import ShiftingPower from '../shared/modules/features/ShiftingPower';
+import ShiftingPowerUsage from './modules/features/ShiftingPowerUsage';
 import MirrorsOfTorment from '../shared/modules/features/MirrorsOfTorment';
 
 //Conduits
@@ -61,11 +61,10 @@ import FromTheAshes from './modules/talents/FromTheAshes';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Normalizers
-    FlameStrikeNormalizer: FlamestrikeNormalizer,
+    flameStrikeNormalizer: FlamestrikeNormalizer,
     scorchNormalizer: ScorchNormalizer,
     pyroclasmBuffNormalizer: PyroclasmBuffNormalizer,
     combustionNormalizer: CombustionNormalizer,
-    shiftingPowerNormalizer: ShiftingPowerNormalizer,
     runeOfPowerNormalizer: RuneOfPowerNormalizer,
 
     //Checklist
@@ -106,6 +105,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Covenants
     shiftingPower: ShiftingPower,
+    shiftingPowerUsage: ShiftingPowerUsage,
     mirrorsOfTorment: MirrorsOfTorment,
 
     //Conduits

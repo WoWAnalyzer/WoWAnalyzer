@@ -103,7 +103,7 @@ exports[`PremiumPage matches snapshot when logged in with GitHub 1`] = `
                   }
                 }
                 id="interface.premiumPage.helpPatreon"
-                message="<0>Patreon</0>Help fund further development by becoming a patron on Patreon. Pledge whatever you want!"
+                message="<0>Patreon</0>Help fund further development by becoming a patron on Patreon."
               />
               <br />
               <br />
@@ -118,7 +118,7 @@ exports[`PremiumPage matches snapshot when logged in with GitHub 1`] = `
                     "0": <h2 />,
                     "1": <TooltipElement
                       className=""
-                      content="Only commits that are merged to the master branch are eligible. Your work will have to pass a pull request review before it can be merged."
+                      content="{\\"id\\":\\"interface.premiumPage.githubTooltip\\",\\"message\\":\\"Only commits that are merged to the main branch are eligible. Your work will have to pass a pull request review before it can be merged.\\"}"
                       direction="down"
                       hoverable={false}
                       style={Object {}}
@@ -127,11 +127,28 @@ exports[`PremiumPage matches snapshot when logged in with GitHub 1`] = `
                   }
                 }
                 id="interface.premiumPage.helpGitHub"
-                message="<0>GitHub</0>Improve the analysis of a spec or build a new feature to get 1 month of Premium free<1>undefined</1>."
+                message="<0>GitHub</0>Improve the analysis of a spec or build a new feature to get 1 month of Premium free<1>*</1>."
               />
               <br />
               <br />
               <GithubButton />
+            </div>
+          </div>
+          <div
+            className="row"
+            style={
+              Object {
+                "marginTop": 15,
+              }
+            }
+          >
+            <div
+              className="col-md-12 text-center text-muted"
+            >
+              <Trans
+                id="interface.premiumPage.loginInstructions"
+                message="After unlocking Premium, log in using the buttons to the left."
+              />
             </div>
           </div>
           <div
@@ -169,13 +186,10 @@ exports[`PremiumPage matches snapshot when logged in with GitHub 1`] = `
                     Object {
                       "0": <h2 />,
                       "1": <strong />,
-                      "2": <a
-                        href="https://www.bountysource.com/teams/wowanalyzer"
-                      />,
                     }
                   }
                   id="interface.premiumPage.unlocks.new"
-                  message="<0>New things</0><1>Nothing develops itself.</1> Your contributions will help fund new things for the site, making it even better. We'll post bounties on the best ideas via <2>Bountysource</2> as a motivation to get developers to build them."
+                  message="<0>New things</0><1>Nothing develops itself.</1> Your contributions will help fund new things and improvements for the site, making it even better. You will also unlock additional features to help with your analysis."
                 />
               </div>
             </div>
@@ -276,43 +290,6 @@ exports[`PremiumPage matches snapshot when logged in with GitHub 1`] = `
                   message="<0>Access to secret channels on Discord</0><1>You don't know what you're missing out on.</1> Get access to special Discord channels to discuss things privately in the sub-community."
                 />
               </div>
-            </div>
-          </div>
-          <div
-            className="row"
-            style={
-              Object {
-                "marginBottom": 5,
-                "marginTop": 60,
-              }
-            }
-          >
-            <div
-              className="col-md-12 text-center text-muted"
-            >
-              <Trans
-                id="interface.premiumPage.howToLogin"
-                message="How to login for WoWAnalyzer Premium:"
-              />
-            </div>
-          </div>
-          <div
-            className="row flex"
-          >
-            <div
-              className="col-md-12"
-            >
-              <Trans
-                components={
-                  Object {
-                    "0": <a
-                      href="/discord"
-                    />,
-                  }
-                }
-                id="interface.premiumPage.howToLoginDescription"
-                message="Logging in is easy, just click one of the buttons on the panel to the left. If you have any more questions ask away <0>at Discord</0>."
-              />
             </div>
           </div>
         </div>
@@ -460,7 +437,7 @@ exports[`PremiumPage matches snapshot when logged in with Patreon 1`] = `
                   }
                 }
                 id="interface.premiumPage.helpPatreon"
-                message="<0>Patreon</0>Help fund further development by becoming a patron on Patreon. Pledge whatever you want!"
+                message="<0>Patreon</0>Help fund further development by becoming a patron on Patreon."
               />
               <br />
               <br />
@@ -475,7 +452,7 @@ exports[`PremiumPage matches snapshot when logged in with Patreon 1`] = `
                     "0": <h2 />,
                     "1": <TooltipElement
                       className=""
-                      content="Only commits that are merged to the master branch are eligible. Your work will have to pass a pull request review before it can be merged."
+                      content="{\\"id\\":\\"interface.premiumPage.githubTooltip\\",\\"message\\":\\"Only commits that are merged to the main branch are eligible. Your work will have to pass a pull request review before it can be merged.\\"}"
                       direction="down"
                       hoverable={false}
                       style={Object {}}
@@ -484,11 +461,28 @@ exports[`PremiumPage matches snapshot when logged in with Patreon 1`] = `
                   }
                 }
                 id="interface.premiumPage.helpGitHub"
-                message="<0>GitHub</0>Improve the analysis of a spec or build a new feature to get 1 month of Premium free<1>undefined</1>."
+                message="<0>GitHub</0>Improve the analysis of a spec or build a new feature to get 1 month of Premium free<1>*</1>."
               />
               <br />
               <br />
               <GithubButton />
+            </div>
+          </div>
+          <div
+            className="row"
+            style={
+              Object {
+                "marginTop": 15,
+              }
+            }
+          >
+            <div
+              className="col-md-12 text-center text-muted"
+            >
+              <Trans
+                id="interface.premiumPage.loginInstructions"
+                message="After unlocking Premium, log in using the buttons to the left."
+              />
             </div>
           </div>
           <div
@@ -526,13 +520,10 @@ exports[`PremiumPage matches snapshot when logged in with Patreon 1`] = `
                     Object {
                       "0": <h2 />,
                       "1": <strong />,
-                      "2": <a
-                        href="https://www.bountysource.com/teams/wowanalyzer"
-                      />,
                     }
                   }
                   id="interface.premiumPage.unlocks.new"
-                  message="<0>New things</0><1>Nothing develops itself.</1> Your contributions will help fund new things for the site, making it even better. We'll post bounties on the best ideas via <2>Bountysource</2> as a motivation to get developers to build them."
+                  message="<0>New things</0><1>Nothing develops itself.</1> Your contributions will help fund new things and improvements for the site, making it even better. You will also unlock additional features to help with your analysis."
                 />
               </div>
             </div>
@@ -633,43 +624,6 @@ exports[`PremiumPage matches snapshot when logged in with Patreon 1`] = `
                   message="<0>Access to secret channels on Discord</0><1>You don't know what you're missing out on.</1> Get access to special Discord channels to discuss things privately in the sub-community."
                 />
               </div>
-            </div>
-          </div>
-          <div
-            className="row"
-            style={
-              Object {
-                "marginBottom": 5,
-                "marginTop": 60,
-              }
-            }
-          >
-            <div
-              className="col-md-12 text-center text-muted"
-            >
-              <Trans
-                id="interface.premiumPage.howToLogin"
-                message="How to login for WoWAnalyzer Premium:"
-              />
-            </div>
-          </div>
-          <div
-            className="row flex"
-          >
-            <div
-              className="col-md-12"
-            >
-              <Trans
-                components={
-                  Object {
-                    "0": <a
-                      href="/discord"
-                    />,
-                  }
-                }
-                id="interface.premiumPage.howToLoginDescription"
-                message="Logging in is easy, just click one of the buttons on the panel to the left. If you have any more questions ask away <0>at Discord</0>."
-              />
             </div>
           </div>
         </div>
@@ -817,7 +771,7 @@ exports[`PremiumPage matches snapshot when logged out 1`] = `
                   }
                 }
                 id="interface.premiumPage.helpPatreon"
-                message="<0>Patreon</0>Help fund further development by becoming a patron on Patreon. Pledge whatever you want!"
+                message="<0>Patreon</0>Help fund further development by becoming a patron on Patreon."
               />
               <br />
               <br />
@@ -832,7 +786,7 @@ exports[`PremiumPage matches snapshot when logged out 1`] = `
                     "0": <h2 />,
                     "1": <TooltipElement
                       className=""
-                      content="Only commits that are merged to the master branch are eligible. Your work will have to pass a pull request review before it can be merged."
+                      content="{\\"id\\":\\"interface.premiumPage.githubTooltip\\",\\"message\\":\\"Only commits that are merged to the main branch are eligible. Your work will have to pass a pull request review before it can be merged.\\"}"
                       direction="down"
                       hoverable={false}
                       style={Object {}}
@@ -841,11 +795,28 @@ exports[`PremiumPage matches snapshot when logged out 1`] = `
                   }
                 }
                 id="interface.premiumPage.helpGitHub"
-                message="<0>GitHub</0>Improve the analysis of a spec or build a new feature to get 1 month of Premium free<1>undefined</1>."
+                message="<0>GitHub</0>Improve the analysis of a spec or build a new feature to get 1 month of Premium free<1>*</1>."
               />
               <br />
               <br />
               <GithubButton />
+            </div>
+          </div>
+          <div
+            className="row"
+            style={
+              Object {
+                "marginTop": 15,
+              }
+            }
+          >
+            <div
+              className="col-md-12 text-center text-muted"
+            >
+              <Trans
+                id="interface.premiumPage.loginInstructions"
+                message="After unlocking Premium, log in using the buttons to the left."
+              />
             </div>
           </div>
           <div
@@ -883,13 +854,10 @@ exports[`PremiumPage matches snapshot when logged out 1`] = `
                     Object {
                       "0": <h2 />,
                       "1": <strong />,
-                      "2": <a
-                        href="https://www.bountysource.com/teams/wowanalyzer"
-                      />,
                     }
                   }
                   id="interface.premiumPage.unlocks.new"
-                  message="<0>New things</0><1>Nothing develops itself.</1> Your contributions will help fund new things for the site, making it even better. We'll post bounties on the best ideas via <2>Bountysource</2> as a motivation to get developers to build them."
+                  message="<0>New things</0><1>Nothing develops itself.</1> Your contributions will help fund new things and improvements for the site, making it even better. You will also unlock additional features to help with your analysis."
                 />
               </div>
             </div>
@@ -990,43 +958,6 @@ exports[`PremiumPage matches snapshot when logged out 1`] = `
                   message="<0>Access to secret channels on Discord</0><1>You don't know what you're missing out on.</1> Get access to special Discord channels to discuss things privately in the sub-community."
                 />
               </div>
-            </div>
-          </div>
-          <div
-            className="row"
-            style={
-              Object {
-                "marginBottom": 5,
-                "marginTop": 60,
-              }
-            }
-          >
-            <div
-              className="col-md-12 text-center text-muted"
-            >
-              <Trans
-                id="interface.premiumPage.howToLogin"
-                message="How to login for WoWAnalyzer Premium:"
-              />
-            </div>
-          </div>
-          <div
-            className="row flex"
-          >
-            <div
-              className="col-md-12"
-            >
-              <Trans
-                components={
-                  Object {
-                    "0": <a
-                      href="/discord"
-                    />,
-                  }
-                }
-                id="interface.premiumPage.howToLoginDescription"
-                message="Logging in is easy, just click one of the buttons on the panel to the left. If you have any more questions ask away <0>at Discord</0>."
-              />
             </div>
           </div>
         </div>
