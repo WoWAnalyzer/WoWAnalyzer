@@ -16,7 +16,7 @@ export type Build = {
    */
   visible: boolean;
   active?: boolean;
-}
+};
 export type Builds = { [name: string]: Build };
 
 interface Config {
@@ -29,11 +29,10 @@ interface Config {
    */
   contributors: Contributor[];
   /**
-   * The WoW client patch this spec was last updated to be fully compatible
-   * with.
+   * The WoW client patch this spec is compatible with.
    */
   patchCompatibility:
-    | '7.3'
+    | null
     | '8.0.1'
     | '8.1'
     | '8.1.5'
@@ -43,9 +42,12 @@ interface Config {
     | '9.0.2'
     | string;
   /**
-   * If set to `false`, the spec will show up as unsupported.
+   * Whether support for the spec is only partial and some important elements
+   * are still missing. Note: you do not need to support every possible
+   * statistic to stop marking it as partial. Only the important issues need to
+   * be covered with decent accuracy.
    */
-  isSupported: boolean;
+  isPartial: boolean;
   /**
    * Explain the status of this spec's analysis here. Try to mention how
    * complete it is, and perhaps show links to places users can learn more.
