@@ -30,6 +30,11 @@ import SigilOfFlame from './modules/spells/SigilOfFlame';
 import SoulCleaveSoulsConsumed from './modules/spells/SoulCleaveSoulsConsumed';
 import InfernalStrike from './modules/spells/InfernalStrike';
 
+//Covenants
+import SinfulBrand from "../shared/modules/spells/covenants/SinfulBrand"
+import TheHunt from '../shared/modules/spells/covenants/TheHunt';
+import ElysianDecree from "../shared/modules/spells/covenants/ElysianDecree";
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core Statistics
@@ -67,6 +72,11 @@ class CombatLogParser extends CoreCombatLogParser {
     // Stats
     soulsOvercap: SoulsOvercap,
     soulFragmentsConsume: SoulFragmentsConsume,
+
+    // Covenants
+    sinfulBrand: SinfulBrand,
+    theHunt: TheHunt,
+    elysianDecree: ElysianDecree,
   };
 }
 

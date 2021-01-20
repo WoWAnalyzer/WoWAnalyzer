@@ -1198,3 +1198,14 @@ export const Tiboonn: Contributor = {
   nickname: 'Tiboonn',
   github: 'Tiboonn',
 };
+
+export const Makhai: Contributor = {
+  nickname: 'Makhai',
+  github: 'Tikers',
+  discord: 'Makhai#3086#6099',
+  mains: [{
+    name: 'Mákhai#3086',
+    spec: SPECS.VENGEANCE_DEMON_HUNTER,
+    link: 'https://worldofwarcraft.com/en-gb/character/eu/defias-brotherhood/m%C3%A1khai',
+  }],
+};
