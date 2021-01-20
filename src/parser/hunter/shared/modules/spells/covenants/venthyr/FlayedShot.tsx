@@ -11,7 +11,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { binomialCDF, expectedProcCount, plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
 import SpellLink from 'common/SpellLink';
-import { FLAYED_SHOT_RESET_CHANCE } from 'parser/hunter/shared/constants';
+import { EMPOWERED_RELEASE_INCREASED_FLAYED_PROC_CHANCE, FLAYED_SHOT_RESET_CHANCE } from 'parser/hunter/shared/constants';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPECS from 'game/SPECS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
@@ -22,12 +22,13 @@ class FlayedShot extends Analyzer {
     abilities: Abilities,
   };
 
-  damage: number = 0;
-  damageTicks: number = 0;
-  totalProcs: number = 0;
-  resets: number = 0;
-  offCDProcs: number = 0;
+  damage = 0;
+  damageTicks = 0;
+  totalProcs = 0;
+  resets = 0;
+  offCDProcs = 0;
   activeKillShotSpell = this.selectedCombatant.spec === SPECS.SURVIVAL_HUNTER ? SPELLS.KILL_SHOT_SV : SPELLS.KILL_SHOT_MM_BM;
+  resetChance = FLAYED_SHOT_RESET_CHANCE + (this.selectedCombatant.hasConduitBySpellID(SPELLS.EMPOWERED_RELEASE_CONDUIT.id) ? EMPOWERED_RELEASE_INCREASED_FLAYED_PROC_CHANCE : 0);
 
   protected spellUsable!: SpellUsable;
   protected abilities!: Abilities;
@@ -60,7 +61,7 @@ class FlayedShot extends Analyzer {
   }
 
   get expectedProcs() {
-    return expectedProcCount(FLAYED_SHOT_RESET_CHANCE, this.damageTicks);
+    return expectedProcCount(this.resetChance, this.damageTicks);
   }
 
   onDamage(event: DamageEvent) {
@@ -90,14 +91,14 @@ class FlayedShot extends Analyzer {
             You had {formatPercentage(this.totalProcs / this.expectedProcs, 1)}% procs of what you could expect to get over the encounter. <br />
             You had a total of {this.totalProcs} procs, and your expected amount of procs was {formatNumber(this.expectedProcs)}. <br />
             <ul>
-              <li>You have a ≈{formatPercentage(binomialCDF(this.totalProcs, this.damageTicks, FLAYED_SHOT_RESET_CHANCE))}% chance of getting this amount of procs or fewer in the future with this amount of auto attacks.</li>
+              <li>You have a ≈{formatPercentage(binomialCDF(this.totalProcs, this.damageTicks, this.resetChance))}% chance of getting this amount of procs or fewer in the future with this amount of auto attacks.</li>
             </ul>
           </>
         )}
         dropdown={(
           <>
             <div style={{ padding: '8px' }}>
-              {plotOneVariableBinomChart(this.totalProcs, this.damageTicks, FLAYED_SHOT_RESET_CHANCE)}
+              {plotOneVariableBinomChart(this.totalProcs, this.damageTicks, this.resetChance)}
               <p>Likelihood of getting <em>exactly</em> as many procs as estimated on a fight given your number of <SpellLink id={SPELLS.FLAYED_SHOT.id} /> ticks.</p>
             </div>
           </>
@@ -105,7 +106,9 @@ class FlayedShot extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.FLAYED_SHOT}>
           <>
-            {this.resets} / {this.totalProcs} ({formatPercentage(this.resets / (this.totalProcs))}%) <small>Kill Shot resets</small>
+            {this.resets} / {this.totalProcs} <small>Kill Shot resets</small>
+            <br />
+            {formatPercentage(this.resets / (this.totalProcs))}% <small>effective procs</small>
             <br />
             <ItemDamageDone amount={this.damage} />
           </>

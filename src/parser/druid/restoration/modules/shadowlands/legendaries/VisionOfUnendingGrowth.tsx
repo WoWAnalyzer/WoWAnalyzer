@@ -11,8 +11,8 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemHealingDone from 'interface/ItemHealingDone';
 
 /**
- * Whenever you cast a vivify or enveloping mist during soothing mist's channel you gain a stack of clouded focus which increases their healing by 15% and descreases their
- * mana cost by 15% as well. You can have up to 3 stack but you lose all the stacks when you stop channeling soothing mist.
+ * Rejuv has 2.5% chance per heal to randomly make another rejuv
+ * 
  */
 class VisionOfUnendingGrowth extends Analyzer {
 
@@ -44,19 +44,19 @@ class VisionOfUnendingGrowth extends Analyzer {
   }
 
   rejuvHeal(event: HealEvent) {
-    if(this.rejuvsToTrack[event.targetID]){
+    if(this.rejuvsToTrack.find(e => e === event.targetID)) {
       this.healing += (event.amount || 0) + (event.absorbed || 0);
       this.overhealing += event.overheal || 0;
     }
   }
 
   rejuvBuffApplied(event: ApplyBuffEvent) {
-    this.handleApplication(event.targetID);
+    this.handleApplication(event.targetID, event.timestamp);
   }
 
   rejuvBuffRefreshed(event: RefreshBuffEvent) {
     this.handleRemove(event.targetID);
-    this.handleApplication(event.targetID);
+    this.handleApplication(event.targetID, event.timestamp);
   }
 
   rejuvBuffRemoved(event: RemoveBuffEvent) {
@@ -64,7 +64,16 @@ class VisionOfUnendingGrowth extends Analyzer {
 
   }
 
-  handleApplication(targetID: number) {
+  handleApplication(targetID: number, timestamp: number) {
+    if(this.selectedCombatant.hasBuff(SPELLS.CONVOKE_SPIRITS.id)){
+      return;
+    }
+
+    //precast? remove
+    if(this.owner.fight.start_time >= timestamp){
+      return;
+    }
+
     if(this.lastTarget !== targetID){
       this.extraRejuvs += 1;
       this.rejuvsToTrack.push(targetID);
@@ -72,8 +81,8 @@ class VisionOfUnendingGrowth extends Analyzer {
   }
 
   handleRemove(targetID: number){
-    const toRemove = this.rejuvsToTrack.find(e => e === targetID);
-    if(toRemove !== undefined){
+    const toRemove = this.rejuvsToTrack.indexOf(targetID);
+    if(toRemove !== -1){
       delete this.rejuvsToTrack[toRemove];
     }
   }

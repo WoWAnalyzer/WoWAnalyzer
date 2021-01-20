@@ -47,9 +47,6 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
-        gcd: {
-          base: 1500,
-        },
         timelineSortIndex: 15,
       },
       {

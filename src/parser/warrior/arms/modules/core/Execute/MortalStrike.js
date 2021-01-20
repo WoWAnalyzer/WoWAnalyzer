@@ -7,6 +7,7 @@ import Abilities from 'parser/core/modules/Abilities';
 import calculateMaxCasts from 'parser/core/calculateMaxCasts';
 import Events from 'parser/core/Events';
 import { t } from '@lingui/macro';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 import ExecuteRange from './ExecuteRange';
 
@@ -23,7 +24,7 @@ class MortalStrikeAnalyzer extends Analyzer {
         average: 0.8,
         major: 0.7,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -39,7 +40,7 @@ class MortalStrikeAnalyzer extends Analyzer {
         average: 0.05,
         major: 0.1,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -71,16 +72,16 @@ class MortalStrikeAnalyzer extends Analyzer {
     when(this.badMortalStrikeThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Try to avoid using <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> on a target in <SpellLink id={SPELLS.EXECUTE.id} icon /> range, as <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> is less rage efficient than <SpellLink id={SPELLS.EXECUTE.id} />.</>)
       .icon(SPELLS.MORTAL_STRIKE.icon)
       .actual(t({
-      id: "warrior.arms.suggestions.mortalStrike.efficiency",
-      message: `Mortal Strike was cast ${this.mortalStrikesInExecuteRange} times accounting for ${formatPercentage(actual)}% of the total possible casts of Mortal Strike during a time a target was in execute range.`
-    }))
+        id: 'warrior.arms.suggestions.mortalStrike.efficiency',
+        message: `Mortal Strike was cast ${this.mortalStrikesInExecuteRange} times accounting for ${formatPercentage(actual)}% of the total possible casts of Mortal Strike during a time a target was in execute range.`,
+      }))
       .recommended(`${formatPercentage(recommended)}% is recommended`));
     when(this.goodMortalStrikeThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Try to cast <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> more often when the target is outside execute range.</>)
       .icon(SPELLS.MORTAL_STRIKE.icon)
       .actual(t({
-      id: "warrior.arms.suggestions.motalStrike.outsideExecute",
-      message: `Mortal Strike was used ${formatPercentage(actual)}% of the time on a target outside execute range.`
-    }))
+        id: 'warrior.arms.suggestions.motalStrike.outsideExecute',
+        message: `Mortal Strike was used ${formatPercentage(actual)}% of the time on a target outside execute range.`,
+      }))
       .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 }

@@ -29,7 +29,11 @@ class SoulReaper extends ExecuteHelper {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SOUL_REAPER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SOUL_REAPER_TALENT.id); 
+    if (!this.active) {
+      return;
+    }
+    
     this.addEventListener(Events.fightend, this.adjustMaxCasts);
     const ctor = this.constructor as typeof ExecuteHelper;
     ctor.executeSpells.push(SPELLS.SOUL_REAPER_TALENT);

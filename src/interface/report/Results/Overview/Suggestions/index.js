@@ -28,7 +28,7 @@ class Suggestions extends React.PureComponent {
     return (
       <Panel
         title={<Trans id="interface.report.results.overview.suggestions.suggestions">Suggestions</Trans>}
-        explanation={<Trans id="interface.report.results.overview.suggestions.explanation">"Based on what you did here are some things we think you might be able to improve."</Trans>}
+        explanation={<Trans id="interface.report.results.overview.suggestions.explanation">Based on what you did in this fight, here are some things we think you might be able to improve.</Trans>}
         actions={(
           <div className="pull-right toggle-control">
             <Toggle

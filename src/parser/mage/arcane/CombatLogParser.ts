@@ -3,7 +3,6 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 //Normalizers
 import ArcaneChargesNormalizer from './normalizers/ArcaneCharges';
 import ArcanePowerNormalizer from './normalizers/ArcanePower';
-import ShiftingPowerNormalizer from '../shared/normalizers/ShiftingPower';
 
 //Features
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -54,7 +53,6 @@ class CombatLogParser extends CoreCombatLogParser {
     //Normalizers
     arcaneChargesNormalizer: ArcaneChargesNormalizer,
     arcanePowerNormalizer: ArcanePowerNormalizer,
-    shiftingPowerNormalizer: ShiftingPowerNormalizer,
 
     // Features
     checklist: Checklist,

@@ -37,7 +37,7 @@ const SPECS: {
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 190740,
-    masteryCoefficient: 1.2, // might be 0.6, Wowhead is unclear
+    masteryCoefficient: 1.2, //Max mana and mana regen is 1.2. Arcane Charge damage increase on Arcane Blast is 0.6, and on Arcane Barrage it is 0.3. Coefficient of 1 on all other arcane damage.
     ranking: {
       class: 4,
       spec: 1,
@@ -77,7 +77,7 @@ const SPECS: {
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 76613,
-    masteryCoefficient: 1.9, // this is the coefficient for Frozen orb only, the icicle coeff. is 0.0165
+    masteryCoefficient: 1, //This is the value shown on the character sheet. The coefficient for frozen orb is 1.9, and for icicles it is 0.019.
     ranking: {
       class: 4,
       spec: 3,
@@ -157,7 +157,7 @@ const SPECS: {
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.STRENGTH,
     masterySpellId: 76838,
-    masteryCoefficient: 1.6,
+    masteryCoefficient: 1.1,
     ranking: {
       class: 11,
       spec: 1,
@@ -197,7 +197,7 @@ const SPECS: {
     role: ROLES.TANK,
     primaryStat: PRIMARY_STATS.STRENGTH,
     masterySpellId: 76857,
-    masteryCoefficient: 1.5,
+    masteryCoefficient: 1.5, //0.5 for increase block chance, 1.5 for chance to critically block and 1 for increased attack power.
     ranking: {
       class: 11,
       spec: 3,
@@ -217,7 +217,7 @@ const SPECS: {
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77492,
-    masteryCoefficient: 1.4, // or 0.7 for starsurge & solar empowerment
+    masteryCoefficient: 1.1,
     ranking: {
       class: 2,
       spec: 1,
@@ -257,7 +257,7 @@ const SPECS: {
     role: ROLES.TANK,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 155783,
-    masteryCoefficient: 0.5,
+    masteryCoefficient: 0.5, //1 is the coef for increased attack power
     ranking: {
       class: 2,
       spec: 3,
@@ -277,7 +277,7 @@ const SPECS: {
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77495,
-    masteryCoefficient: 0.546,
+    masteryCoefficient: 0.5,
     ranking: {
       class: 2,
       spec: 4,
@@ -337,7 +337,7 @@ const SPECS: {
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.STRENGTH,
     masterySpellId: 77515,
-    masteryCoefficient: 2.25,
+    masteryCoefficient: 1.8,
     ranking: {
       class: 1,
       spec: 3,
@@ -397,7 +397,7 @@ const SPECS: {
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 191334,
-    masteryCoefficient: 0.5,
+    masteryCoefficient: 1.65, //And a 0.1 coef for % max hp per 5 seconds
     ranking: {
       class: 3,
       spec: 3,
@@ -417,7 +417,7 @@ const SPECS: {
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 271534,
-    masteryCoefficient: 1.2,
+    masteryCoefficient: 1.35,
     ranking: {
       class: 7,
       spec: 1,
@@ -457,7 +457,7 @@ const SPECS: {
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77486,
-    masteryCoefficient: 1.2,
+    masteryCoefficient: 0.5,
     ranking: {
       class: 7,
       spec: 3,
@@ -497,7 +497,7 @@ const SPECS: {
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 76806,
-    masteryCoefficient: 0.026, // this is only the damage part, the proc chance coef is 1.3
+    masteryCoefficient: 1.45,
     ranking: {
       class: 8,
       spec: 4,
@@ -717,7 +717,7 @@ const SPECS: {
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 185164,
-    masteryCoefficient: 1.5, // or 0.6 for run speed coef. part
+    masteryCoefficient: 1.8, //0.6 coefficient for movement speed
     ranking: {
       class: 12,
       spec: 1,
@@ -737,7 +737,7 @@ const SPECS: {
     role: ROLES.TANK,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 203747,
-    masteryCoefficient: 2.5,
+    masteryCoefficient: 3, //1 for increased atk power
     ranking: {
       class: 12,
       spec: 2,

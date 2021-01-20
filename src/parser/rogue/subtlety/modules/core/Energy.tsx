@@ -1,6 +1,6 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
-import { When } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 import resourceSuggest from 'parser/shared/modules/resources/resourcetracker/ResourceSuggest';
@@ -25,7 +25,7 @@ class Energy extends Analyzer {
         average: 0.066,
         major: 0.1,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 

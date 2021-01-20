@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -10,19 +9,16 @@ import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Che
 import ResourceIcon from 'common/ResourceIcon';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SpellIcon from 'common/SpellIcon';
+import { AbilityRequirementProps, ChecklistProps } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 
-const BeastMasteryChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
+const BeastMasteryChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
 
-  const AbilityRequirement = (props: any) => (
+  const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
     />
   );
-
-  AbilityRequirement.propTypes = {
-    spell: PropTypes.number.isRequired,
-  };
 
   return (
     <Checklist>
@@ -103,14 +99,6 @@ const BeastMasteryChecklist = ({ combatant, castEfficiency, thresholds }: any) =
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
-};
-
-BeastMasteryChecklist.propTypes = {
-  castEfficiency: PropTypes.object.isRequired,
-  combatant: PropTypes.shape({
-    hasTalent: PropTypes.func.isRequired,
-  }).isRequired,
-  thresholds: PropTypes.object.isRequired,
 };
 
 export default BeastMasteryChecklist;

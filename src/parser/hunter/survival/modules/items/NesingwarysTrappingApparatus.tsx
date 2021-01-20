@@ -58,9 +58,9 @@ class NesingwarysTrappingApparatus extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
       >
         <BoringSpellValueText spell={SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT}>
-          <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /> {this.focusGained}/{this.focusWasted + this.focusGained} <small>gained Focus immediately</small>
+          <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /> {this.focusGained}/{this.focusWasted + this.focusGained} <small>Focus gained immediately</small>
           <br />
-          <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /> {this.effectiveFocus}/{this.possibleFocus} <small>gained Focus from generators</small>
+          <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /> {this.effectiveFocus}/{this.possibleFocus} <small>Focus gained from generators</small>
         </BoringSpellValueText>
       </Statistic>
     );

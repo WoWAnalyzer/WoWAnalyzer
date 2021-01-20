@@ -15,6 +15,7 @@ import Checklist from './modules/features/Checklist/Module';
 // Spells
 import DemonBite from './modules/spells/DemonBite';
 import MetaBuffUptime from './modules/spells/MetaBuffUptime';
+import BladeDance from './modules/spells/BladeDance'
 
 // Talents
 import Momentum from './modules/talents/Momentum';
@@ -44,6 +45,7 @@ import ChaosTheory from './modules/shadowlands/legendaries/ChaosTheory';
 //Covenants
 import SinfulBrand from "../shared/modules/spells/covenants/SinfulBrand"
 import TheHunt from '../shared/modules/spells/covenants/TheHunt';
+import ElysianDecree from "../shared/modules/spells/covenants/ElysianDecree";
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -65,6 +67,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Spells
     demonBite: DemonBite,
     metaBuffUptime: MetaBuffUptime,
+    bladeDance: BladeDance,
 
     //Talents
     felblade: Felblade,
@@ -97,6 +100,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Covenants
     sinfulBrand: SinfulBrand,
     theHunt: TheHunt,
+    elysianDecree: ElysianDecree,
   };
 }
 
