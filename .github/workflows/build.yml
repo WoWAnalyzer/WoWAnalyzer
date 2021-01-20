@@ -268,6 +268,7 @@ jobs:
           git config --local user.name "GitHub Action"
           git commit -m "Update i18n messages" -a
       - name: Push changes
+        if: steps.has-changes.outputs.changed == 'true'
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GH_TOKEN_BOT }}
