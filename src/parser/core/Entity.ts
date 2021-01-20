@@ -80,6 +80,18 @@ class Entity {
 
   /**
    * @param {number} spellId - buff ID to check for
+   * @param {number} forTimestamp Timestamp (in ms) to be considered, or the current timestamp if null. Won't work right for timestamps after the currentTimestamp.
+   * @param {number} bufferTime Time (in ms) after buff's expiration where it will still be included. There's a bug in the combat log where if a spell consumes a buff that buff may disappear a short time before the heal or damage event it's buffing is logged. This can sometimes go up to hundreds of milliseconds.
+   * @param {number} minimalActiveTime - Time (in ms) the buff must have been active before timestamp for it to be included.
+   * @param {number} sourceID - source ID the buff must have come from, or any source if null.
+   * @returns {number} - The number of stacks of the buff or 0 if there are no stacks.
+   */
+  getBuffStacks(spellId: number, forTimestamp: number | null = null, bufferTime = 0, minimalActiveTime = 0, sourceID: number | null = null) {
+    return this.getBuff(spellId, forTimestamp, bufferTime, minimalActiveTime, sourceID)?.stacks || 0;
+  }
+
+  /**
+   * @param {number} spellId - buff ID to check for
    * @param {number} sourceID - source ID the buff must have come from, or any source if null.
    * @returns {array} The buff activations.
    */
