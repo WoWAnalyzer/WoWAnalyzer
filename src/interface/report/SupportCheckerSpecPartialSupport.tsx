@@ -19,7 +19,7 @@ const SupportCheckerSpecPartialSupport = ({ config, ...others }: Props) => (
   <SupportCheckerIssue
     title={
       <Trans id="interface.report.supportChecker.specPartialSupport">
-        Sorry, this spec only has partial support
+        Partial support
       </Trans>
     }
     config={config}
