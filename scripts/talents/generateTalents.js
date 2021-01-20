@@ -73,8 +73,6 @@ const baseMaxMana = {
   1: 10000,
 };
 
-//const baseMaxMana = 50000;
-
 /** GET THESE FILES IF YOU NEED TO RUN THE SCRIPT */
 //Retrieved from https://www.raidbots.com/static/data/live/talents.json
 const talents = readJson('./talents.json');
