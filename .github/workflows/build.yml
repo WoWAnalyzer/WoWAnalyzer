@@ -199,7 +199,7 @@ jobs:
     needs: [typecheck, linting, test-interface, test-parser, test-integration, build]
     name: 'Publish Docker image'
     runs-on: ubuntu-latest
-    if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer'
+    if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer' && !contains(github.event.head_commit.message, '[skip ci]')
     steps:
       - uses: actions/checkout@v2
       - uses: actions/download-artifact@v1
@@ -240,7 +240,7 @@ jobs:
     needs: [prepare]
     name: 'Extract messages'
     runs-on: ubuntu-latest
-    if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer'
+    if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer' && !contains(github.event.head_commit.message, '[skip ci]')
     steps:
       - uses: actions/checkout@v2
         with:
@@ -266,7 +266,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git commit -m "Update i18n messages" -a
+          git commit -m "[skip ci] Update i18n messages" -a
       - name: Push changes
         if: steps.has-changes.outputs.changed == 'true'
         uses: ad-m/github-push-action@master
