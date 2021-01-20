@@ -275,6 +275,18 @@ exports[`Beast Mastery Hunter integration test: Multi Target AspectOfTheWild mat
 </div>
 `;
 
+exports[`Beast Mastery Hunter integration test: Multi Target AugmentRuneChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_misc_gem_azuredraenite_01",
+    "importance": "minor",
+    "issue": "You did not have an augment rune up before combat. Having an augment rune increases your primary stat.",
+    "stat": null,
+  },
+]
+`;
+
 exports[`Beast Mastery Hunter integration test: Multi Target BarbedShot matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -7781,7 +7793,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "80%",
+                  "width": "72.72727272727273%",
                 }
               }
             />
@@ -8493,6 +8505,72 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
               </div>
             </div>
           </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <trans
+                  id="shared.modules.features.checklist.augmentRune"
+                  message="Augment rune used"
+                />
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  <trans
+                    id="common.no"
+                    message="No"
+                  />
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -8773,6 +8851,18 @@ exports[`Beast Mastery Hunter integration test: Single Target AspectOfTheWild ma
     </div>
   </div>
 </div>
+`;
+
+exports[`Beast Mastery Hunter integration test: Single Target AugmentRuneChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_misc_gem_azuredraenite_01",
+    "importance": "minor",
+    "issue": "You did not have an augment rune up before combat. Having an augment rune increases your primary stat.",
+    "stat": null,
+  },
+]
 `;
 
 exports[`Beast Mastery Hunter integration test: Single Target BarbedShot matches the statistic snapshot 1`] = `
@@ -15964,7 +16054,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "83.33333333333333%",
+                  "width": "75.75757575757575%",
                 }
               }
             />
@@ -16669,6 +16759,72 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                         "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
                         "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <trans
+                  id="shared.modules.features.checklist.augmentRune"
+                  message="Augment rune used"
+                />
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  <trans
+                    id="common.no"
+                    message="No"
+                  />
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
                       }
                     }
                   />

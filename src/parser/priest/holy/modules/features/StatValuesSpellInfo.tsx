@@ -178,4 +178,28 @@ export default {
     mastery: false,
     vers: true,
   },
+  [SPELLS.ASCENDED_ERUPTION_HEAL.id]: {
+    int: true,
+    crit: true,
+    hasteHpm: false,
+    hasteHpct: true,
+    mastery: false,
+    vers: true,
+  },
+  [SPELLS.ASCENDED_BLAST_HEAL.id]: {
+    int: true,
+    crit: true,
+    hasteHpm: false,
+    hasteHpct: true,
+    mastery: false,
+    vers: true,
+  },
+  [SPELLS.ASCENDED_NOVA_HEAL.id]: {
+    int: true,
+    crit: true,
+    hasteHpm: false,
+    hasteHpct: true,
+    mastery: false,
+    vers: true,
+  }
 };

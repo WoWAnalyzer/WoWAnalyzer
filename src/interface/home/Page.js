@@ -14,23 +14,63 @@ import HelpWantedIcon from 'interface/icons/Information';
 import { hasPremium } from 'interface/selectors/user';
 import ErrorBoundary from 'interface/common/ErrorBoundary';
 import Ad from 'interface/common/Ad';
-import PatreonButton from 'interface/common/thirdpartybuttons/Patreon';
-import GithubButton from 'interface/common/thirdpartybuttons/GitHub';
-import DiscordButton from 'interface/common/thirdpartybuttons/Discord';
+import NavigationBar from 'interface/NavigationBar';
 
 import './Home.scss';
 import ReportSelectionHeader from './ReportSelectionHeader';
 import NotFound from './NotFound';
 import LanguageSwitcher from '../LanguageSwitcher';
 
-const News = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'News' */ 'interface/news').then(exports => exports.default)));
-const NewsPage = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'News' */ 'interface/news/Page').then(exports => exports.default)));
-const SpecList = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'SpecList' */ 'interface/SpecList').then(exports => exports.default)));
-const Premium = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'PremiumPage' */ 'interface/PremiumPage').then(exports => exports.default)));
-const AboutPage = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'AboutPage' */ 'interface/AboutPage').then(exports => exports.default)));
-const HelpWanted = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'HelpWantedPage' */ 'interface/HelpWantedPage').then(exports => exports.default)));
-const ContributorPage = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'ContributorPage' */ 'interface/ContributorPage').then(exports => exports.default)));
-const Search = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'Search' */ 'interface/Search').then(exports => exports.default)));
+const News = lazyLoadComponent(() =>
+  retryingPromise(() =>
+    import(/* webpackChunkName: 'News' */ 'interface/news').then((exports) => exports.default),
+  ),
+);
+const NewsPage = lazyLoadComponent(() =>
+  retryingPromise(() =>
+    import(/* webpackChunkName: 'News' */ 'interface/news/Page').then((exports) => exports.default),
+  ),
+);
+const SpecList = lazyLoadComponent(() =>
+  retryingPromise(() =>
+    import(/* webpackChunkName: 'SpecList' */ 'interface/SpecList').then(
+      (exports) => exports.default,
+    ),
+  ),
+);
+const Premium = lazyLoadComponent(() =>
+  retryingPromise(() =>
+    import(/* webpackChunkName: 'PremiumPage' */ 'interface/PremiumPage').then(
+      (exports) => exports.default,
+    ),
+  ),
+);
+const AboutPage = lazyLoadComponent(() =>
+  retryingPromise(() =>
+    import(/* webpackChunkName: 'AboutPage' */ 'interface/AboutPage').then(
+      (exports) => exports.default,
+    ),
+  ),
+);
+const HelpWanted = lazyLoadComponent(() =>
+  retryingPromise(() =>
+    import(/* webpackChunkName: 'HelpWantedPage' */ 'interface/HelpWantedPage').then(
+      (exports) => exports.default,
+    ),
+  ),
+);
+const ContributorPage = lazyLoadComponent(() =>
+  retryingPromise(() =>
+    import(/* webpackChunkName: 'ContributorPage' */ 'interface/ContributorPage').then(
+      (exports) => exports.default,
+    ),
+  ),
+);
+const Search = lazyLoadComponent(() =>
+  retryingPromise(() =>
+    import(/* webpackChunkName: 'Search' */ 'interface/Search').then((exports) => exports.default),
+  ),
+);
 
 class Home extends React.PureComponent {
   static propTypes = {
@@ -81,28 +121,16 @@ class Home extends React.PureComponent {
 
     return (
       <div className="home-page">
-        <div className="container" style={{ fontSize: 10, marginTop: 10 }}>
-          <div className="row">
-            <div className="col-xs-12 col-sm-6">
-              {!premium && <PatreonButton style={{ marginRight: 10 }} />}
-              <DiscordButton style={{ marginRight: 10 }} />
-              <LanguageSwitcher />
-            </div>
-            <div className="col-xs-12 col-sm-6 text-right">
-              <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/actions?query=workflow%3ABuild">
-                <img src="https://github.com/WoWAnalyzer/WoWAnalyzer/workflows/Build/badge.svg" alt="Build status" style={{ height: '2.8em' }} />
-              </a>
-              <GithubButton style={{ marginLeft: 10 }} />
-            </div>
-          </div>
-        </div>
+        <NavigationBar style={{ margin: 0, position: 'static' }}>
+          <LanguageSwitcher />
+        </NavigationBar>
 
         <ReportSelectionHeader />
 
         <main className="container">
           <nav>
             <ul>
-              {this.pages.map(page => {
+              {this.pages.map((page) => {
                 const Icon = page.icon;
                 const isRelativeLink = !page.url.includes('://');
                 const content = (
@@ -127,52 +155,32 @@ class Home extends React.PureComponent {
 
           <ErrorBoundary>
             <Switch>
-              <Route
-                path="/"
-                exact
-                component={News}
-              />
-              <Route
-                path="/news"
-                component={News}
-              />
+              <Route path="/" exact component={News} />
+              <Route path="/news" component={News} />
               <Route
                 path="/news/:articleId"
                 render={({ match }) => (
-                  <NewsPage
-                    articleId={decodeURI(match.params.articleId.replace(/\+/g, ' '))}
-                  />
+                  <NewsPage articleId={decodeURI(match.params.articleId.replace(/\+/g, ' '))} />
                 )}
               />
-              <Route
-                path="/specs"
-                component={SpecList}
-              />
-              <Route
-                path="/premium"
-                component={Premium}
-              />
-              <Route
-                path="/about"
-                component={AboutPage}
-              />
-              <Route
-                path="/help-wanted"
-                component={HelpWanted}
-              />
+              <Route path="/specs" component={SpecList} />
+              <Route path="/premium" component={Premium} />
+              <Route path="/about" component={AboutPage} />
+              <Route path="/help-wanted" component={HelpWanted} />
               <Route
                 path="/contributor/:id"
                 render={({ match }) => (
-                  <ContributorPage
-                    contributorId={decodeURI(match.params.id.replace(/\+/g, ' '))}
-                  />
+                  <ContributorPage contributorId={decodeURI(match.params.id.replace(/\+/g, ' '))} />
                 )}
               />
               <Route
                 path="/search/:searchTerm?"
                 render={({ location }) => (
                   <Search
-                    query={decodeURIComponent(location.pathname.replace("/search/", "")) + decodeURIComponent(location.hash)}
+                    query={
+                      decodeURIComponent(location.pathname.replace('/search/', '')) +
+                      decodeURIComponent(location.hash)
+                    }
                   />
                 )}
               />
@@ -191,10 +199,8 @@ class Home extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   premium: hasPremium(state),
 });
 
-export default connect(
-  mapStateToProps,
-)(Home);
+export default connect(mapStateToProps)(Home);

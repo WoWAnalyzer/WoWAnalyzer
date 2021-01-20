@@ -921,6 +921,7 @@
   "shared.modules.castEfficiency.actual": "{0} de {1} possíveis conjurações. Você manteve em cooldown {2}% do tempo.",
   "shared.modules.castEfficiency.recommended": ">{0}% é o recomendado",
   "shared.modules.castEfficiency.suggest": "Tente conjurar <0/> com mais frequência.",
+  "shared.modules.features.checklist.augmentRune": "",
   "shared.modules.features.checklist.combatPotionsUsed": "",
   "shared.modules.features.checklist.enchanted": "",
   "shared.modules.features.checklist.enchantedHigh": "",
