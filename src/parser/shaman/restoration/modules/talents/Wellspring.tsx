@@ -121,13 +121,13 @@ class Wellspring extends Analyzer {
     const suggestionThreshold = this.suggestionThreshold;
     when(suggestionThreshold.actual).isLessThan(suggestionThreshold.isLessThan.minor)
       .addSuggestion((suggest, _actual, _recommended) => suggest(<Trans id="shaman.restoration.suggestions.wellSpring.label">You're not making full use of the potential of <SpellLink id={SPELLS.WELLSPRING_TALENT.id} />. Try to aim it towards stacks of injured players with 6 people or more.</Trans>)
-          .icon(SPELLS.WELLSPRING_TALENT.icon)
-          .actual(`${formatPercentage(suggestionThreshold.actual)}% ${t({
-      id: "shared.suggestions.efficiency",
-      message: `efficiency`
-    })}`)
-          .recommended(`>${formatPercentage(suggestionThreshold.isLessThan.minor)}% efficiency is recommended`)
-          .regular(suggestionThreshold.isLessThan.average).major(suggestionThreshold.isLessThan.average));
+        .icon(SPELLS.WELLSPRING_TALENT.icon)
+        .actual(`${formatPercentage(suggestionThreshold.actual)}% ${t({
+          id: "shared.suggestions.efficiency",
+          message: `efficiency`
+        })}`)
+        .recommended(`>${formatPercentage(suggestionThreshold.isLessThan.minor)}% efficiency is recommended`)
+        .regular(suggestionThreshold.isLessThan.average).major(suggestionThreshold.isLessThan.average));
   }
 
   get suggestionThreshold() {
