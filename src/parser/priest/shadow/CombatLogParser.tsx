@@ -3,7 +3,6 @@ import MainCombatLogParser from 'parser/core/CombatLogParser';
 // core
 import AbilityTracker from './modules/core/AbilityTracker';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import Insanity from './modules/core/Insanity';
 import Channeling from './modules/core/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 // features
@@ -43,7 +42,6 @@ class CombatLogParser extends MainCombatLogParser {
     // core
     abilityTracker: AbilityTracker,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    insanity: Insanity,
     channeling: Channeling,
     globalCooldown: GlobalCooldown,
 
