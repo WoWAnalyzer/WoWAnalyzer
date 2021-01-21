@@ -5,6 +5,9 @@ import AbilityTracker from './modules/core/AbilityTracker';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Channeling from './modules/core/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
+// resources
+import InsanityTracker from './modules/resources/InsanityTracker';
+import InsanityUsage from './modules/resources/InsanityUsage';
 // features
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -44,6 +47,10 @@ class CombatLogParser extends MainCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     channeling: Channeling,
     globalCooldown: GlobalCooldown,
+
+    // resources:
+    insanityTracker: InsanityTracker,
+    insanityUsage: InsanityUsage,
 
     // features:
     abilities: Abilities,
