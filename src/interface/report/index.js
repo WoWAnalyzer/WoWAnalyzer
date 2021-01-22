@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
-import NavigationBar from 'interface/layout/NavigationBar';
+import NavigationBar from 'interface/NavigationBar';
 import ErrorBoundary from 'interface/common/ErrorBoundary';
 
 import ReportLoader from './ReportLoader';

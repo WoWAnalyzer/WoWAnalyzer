@@ -3,25 +3,23 @@ import React from 'react';
 import { t } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
+import Spell from 'common/SPELLS/Spell';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
-
-import Statistic from 'interface/statistics/Statistic';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Statistic from 'interface/statistics/Statistic';
 
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
-import WoundTracker from './WoundTracker';
+import WoundTracker from '../features/WoundTracker';
 
-const SAFE_WOUND_COUNT = 3;
-
-class FesteringStrikeEfficiency extends Analyzer {
+class ScourgeStrikeEfficiency extends Analyzer {
   static dependencies = {
     woundTracker: WoundTracker,
   };
@@ -30,27 +28,31 @@ class FesteringStrikeEfficiency extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.activeSpell = this.selectedCombatant.hasTalent(SPELLS.CLAWING_SHADOWS_TALENT.id) ? SPELLS.CLAWING_SHADOWS_TALENT : SPELLS.SCOURGE_STRIKE;
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FESTERING_STRIKE), this.onCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.activeSpell), this.onCast);
   }
 
-  totalFesteringStrikeCasts = 0;
-  festeringStrikeCastsOverSafeCount = 0;
+  activeSpell: Spell;
+  totalCasts = 0;
+  zeroWoundCasts = 0;
 
   onCast(event: CastEvent) {
-    this.totalFesteringStrikeCasts += 1;
+    this.totalCasts += 1;
     const targetString = encodeTargetString(event.targetID, event.targetInstance);
 
     if (this.woundTracker.targets[targetString]) {
       const currentTargetWounds = this.woundTracker.targets[targetString];
-      if (currentTargetWounds > SAFE_WOUND_COUNT) {
-        this.festeringStrikeCastsOverSafeCount += 1;
+      if (currentTargetWounds < 1) {
+        this.zeroWoundCasts += 1;
       }
+    } else {
+      this.zeroWoundCasts += 1;
     }
   }
 
-  get strikeEfficiency(): number {
-    return 1 - (this.festeringStrikeCastsOverSafeCount / this.totalFesteringStrikeCasts);
+  get strikeEfficiency() {
+    return 1 - (this.zeroWoundCasts / this.totalCasts);
   }
 
   get suggestionThresholds() {
@@ -67,11 +69,11 @@ class FesteringStrikeEfficiency extends Analyzer {
 
   suggestions(when: When) {
     when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>You are casting <SpellLink id={SPELLS.FESTERING_STRIKE.id} /> too often. When spending runes remember to cast <SpellLink id={SPELLS.SCOURGE_STRIKE.id} /> instead on targets with more than three stacks of <SpellLink id={SPELLS.FESTERING_WOUND.id} /></>)
-        .icon(SPELLS.FESTERING_STRIKE.icon)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>You are casting <SpellLink id={this.activeSpell.id} /> too often. When spending runes remember to cast <SpellLink id={this.activeSpell.id} /> instead on targets with no stacks of <SpellLink id={this.activeSpell.id} /></>)
+        .icon(this.activeSpell.icon)
         .actual(t({
-      id: "deathknight.unholy.suggestions.festeringStrikes.efficiency",
-      message: `${formatPercentage(actual)}% of Festering Strikes did not risk overcapping Festering Wounds`
+      id: "deathknight.unholy.suggestions.scourgeStrike.efficiency",
+      message: `${formatPercentage(actual)}% of ${this.activeSpell.name} were used with Wounds on the target`
     }))
         .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
@@ -79,12 +81,12 @@ class FesteringStrikeEfficiency extends Analyzer {
   statistic() {
     return (
       <Statistic
-        tooltip={`${this.festeringStrikeCastsOverSafeCount} of out ${this.totalFesteringStrikeCasts} Festering Strikes were cast on a target with more than three stacks of Festering Wounds.`}
-        position={STATISTIC_ORDER.CORE(4)}
+        tooltip={`${this.zeroWoundCasts} out of ${this.totalCasts} ${this.activeSpell.name} were used with no Festering Wounds on the target.`}
+        position={STATISTIC_ORDER.CORE(3)}
         category={STATISTIC_CATEGORY.GENERAL}
         size="flexible"
       >
-        <BoringSpellValueText spell={SPELLS.FESTERING_STRIKE}>
+        <BoringSpellValueText spell={SPELLS.SCOURGE_STRIKE}>
           <>
             {formatPercentage(this.strikeEfficiency)}% <small>efficiency</small>
           </>
@@ -94,4 +96,4 @@ class FesteringStrikeEfficiency extends Analyzer {
   }
 }
 
-export default FesteringStrikeEfficiency;
+export default ScourgeStrikeEfficiency;

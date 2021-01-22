@@ -80,7 +80,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BETWEEN_THE_EYES,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 30,
+        cooldown: 45,
         gcd: {
           static: standardGcd,
         },

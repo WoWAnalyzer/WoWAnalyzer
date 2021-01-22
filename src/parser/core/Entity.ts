@@ -15,6 +15,7 @@ class Entity {
     this.owner = owner;
   }
 
+
   /**
    * This also tracks debuffs in the exact same array. There are no parameters to filter results by debuffs. I don't think this should be necessary as debuffs and buffs usually have different spell IDs.
    */
@@ -75,6 +76,18 @@ class Entity {
     const isActive = this.activeAtTimestampFilter(currentTimestamp, bufferTime, minimalActiveTime);
     const isCorrectSource = this.sourceIdFilter(sourceID);
     return this.buffs.find(buff => isCorrectSpell(buff) && isActive(buff) && isCorrectSource(buff));
+  }
+
+  /**
+   * @param {number} spellId - buff ID to check for
+   * @param {number} forTimestamp Timestamp (in ms) to be considered, or the current timestamp if null. Won't work right for timestamps after the currentTimestamp.
+   * @param {number} bufferTime Time (in ms) after buff's expiration where it will still be included. There's a bug in the combat log where if a spell consumes a buff that buff may disappear a short time before the heal or damage event it's buffing is logged. This can sometimes go up to hundreds of milliseconds.
+   * @param {number} minimalActiveTime - Time (in ms) the buff must have been active before timestamp for it to be included.
+   * @param {number} sourceID - source ID the buff must have come from, or any source if null.
+   * @returns {number} - The number of stacks of the buff or 0 if there are no stacks.
+   */
+  getBuffStacks(spellId: number, forTimestamp: number | null = null, bufferTime = 0, minimalActiveTime = 0, sourceID: number | null = null) {
+    return this.getBuff(spellId, forTimestamp, bufferTime, minimalActiveTime, sourceID)?.stacks || 0;
   }
 
   /**
@@ -145,6 +158,67 @@ class Entity {
   getStackWeightedBuffUptime(spellId: number, sourceID: number | null = null) {
     const stackBuffUptimes = this.getStackBuffUptimes(spellId, sourceID);
     return Object.keys(stackBuffUptimes).map(stack => stackBuffUptimes[Number(stack)] * Number(stack)).reduce((total, cur) => total + cur, 0);
+  }
+
+  /**
+   * Determine the non-inclusive remaining time of a given debuff/buff at each application/re-application of the buff.
+   * @param {number} spellId - buff ID to check for
+   * @param {number} baseBuffLength - the base number of ms added to the buff timer by a single application
+   * @param {number} maxBuffLength - the maximum number of ms a buff can have.
+   * @param {number | null} sourceId - source ID the buff must have come from, or any source if null.
+   */
+  getRemaingBuffTimeAtApplication(spellId: number, baseBuffLength: number, maxBuffLength: number, sourceId: number | null = null): Map<number, number> {
+    const buffTimesAtApplication: Map<number, number> = new Map<number, number>();
+    const sortedApplicationTimestamps: number[] = this.getBuffHistory(spellId, sourceId)
+      .map((buffEvent) => buffEvent.timestamp)
+      .sort((a, b) => a - b);
+    if (sortedApplicationTimestamps.length === 0) {
+      return buffTimesAtApplication;
+    }
+    let lastApplicationTimestamp: number = sortedApplicationTimestamps[0];
+    let buffTimeAtLastApplication: number = baseBuffLength;
+    buffTimesAtApplication.set(lastApplicationTimestamp, 0);
+    for (let i: number = 1; i < sortedApplicationTimestamps.length; i++) {
+      const timeDiffBetweenApplications = sortedApplicationTimestamps[i] - lastApplicationTimestamp;
+      const buffAmountAtCurrentApplication = Math.max(0, buffTimeAtLastApplication - timeDiffBetweenApplications);
+      buffTimesAtApplication.set(sortedApplicationTimestamps[i], buffAmountAtCurrentApplication);
+      lastApplicationTimestamp = sortedApplicationTimestamps[i];
+      buffTimeAtLastApplication = Math.min(buffAmountAtCurrentApplication + baseBuffLength, maxBuffLength);
+    }
+    return buffTimesAtApplication;
+  }
+
+  /**
+   * Determine the remaining time of a given debuff/buff at a given timestamp. If a
+   * buff is applied at the given timestamp, the returned value is non-inclusive.
+   * @param {number} spellId - buff ID to check for
+   * @param {number} baseBuffLength - the base number of ms added to the buff timer by a single application
+   * @param {number} maxBuffLength - the maximum number of ms a buff can have.
+   * @param {number} timestamp - the timestamp to determine the remaining time of a buff/debuff.
+   * @param {number | null} sourceId - source ID the buff must have come from, or any source if null.
+   * @return The remaining buff time at the provided timestamp.
+   */
+  getRemainingBuffTimeAtTimestamp(spellId: number, baseBuffLength: number, maxBuffLength: number, timestamp: number, sourceId: number | null = null): number {
+    const buffApplicationTimes: Map<number, number> = this.getRemaingBuffTimeAtApplication(spellId, baseBuffLength, maxBuffLength, sourceId);
+    const keys: number[] = Array.from(buffApplicationTimes.keys()).sort((a, b) => a - b);
+    if (keys.length === 0) {
+      return 0;
+    }
+    let closestKey: number = keys[0];
+    for (const key of keys) {
+      if (Math.abs(timestamp - key) < closestKey) {
+        closestKey = key;
+      }
+    }
+    const buffTimeAtClosestKey: number = buffApplicationTimes.get(closestKey) as number;
+    const timeDiff: number = Math.abs(closestKey - timestamp);
+    if (closestKey > timestamp) {
+      return Math.min(buffTimeAtClosestKey + timeDiff, maxBuffLength);
+    } else if (closestKey < timestamp) {
+      return Math.max(buffTimeAtClosestKey - timeDiff, 0);
+    } else {
+      return buffTimeAtClosestKey;
+    }
   }
 
   applyBuff(buff: BuffEvent<any> & { start: number }) {

@@ -21,7 +21,7 @@ import ReadableListing from 'interface/ReadableListing';
 import Contributor from 'interface/ContributorButton';
 import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
 import WipefestIcon from 'interface/icons/Wipefest';
-import LoadingBar from 'interface/layout/NavigationBar/LoadingBar';
+import LoadingBar from 'interface/LoadingBar';
 import Panel from 'interface/others/Panel';
 import ErrorBoundary from 'interface/common/ErrorBoundary';
 import Checklist from 'parser/shared/modules/features/Checklist/Module';
@@ -47,7 +47,7 @@ const TimelineTab = lazyLoadComponent(
   () =>
     retryingPromise(() =>
       import(/* webpackChunkName: 'TimelineTab' */ './Timeline/Container').then(
-        exports => exports.default,
+        (exports) => exports.default,
       ),
     ),
   0,
@@ -55,7 +55,7 @@ const TimelineTab = lazyLoadComponent(
 const EventsTab = lazyLoadComponent(() =>
   retryingPromise(() =>
     import(/* webpackChunkName: 'EventsTab' */ 'interface/others/EventsTab').then(
-      exports => exports.default,
+      (exports) => exports.default,
     ),
   ),
 );
@@ -267,7 +267,7 @@ class Results extends React.PureComponent {
           return this.renderLoadingIndicator();
         }
 
-        const tab = results.tabs.find(tab => tab.url === selectedTab);
+        const tab = results.tabs.find((tab) => tab.url === selectedTab);
 
         return (
           <div className="container">
@@ -388,7 +388,7 @@ class Results extends React.PureComponent {
     const contributorinfo = (
       <ReadableListing>
         {config.contributors.length !== 0
-          ? config.contributors.map(contributor => (
+          ? config.contributors.map((contributor) => (
               <Contributor key={contributor.nickname} {...contributor} />
             ))
           : 'CURRENTLY UNMAINTAINED'}
@@ -450,7 +450,8 @@ class Results extends React.PureComponent {
               <Trans id="interface.report.results.warning.build">
                 These results are analyzed under build different from the standard build. While this
                 will make some modules more accurate, some may also not provide the information you
-                expect them to. <br /> Please report any issues you may find on our GitHub or Discord.
+                expect them to. <br /> Please report any issues you may find on our GitHub or
+                Discord.
               </Trans>
             </Warning>
           </div>
@@ -460,7 +461,9 @@ class Results extends React.PureComponent {
         <div className="container" style={{ marginTop: 40 }}>
           <div className="row">
             <div className="col-md-8">
-              <small><Trans id="interface.report.results.providedBy">Provided by</Trans></small>
+              <small>
+                <Trans id="interface.report.results.providedBy">Provided by</Trans>
+              </small>
               <div style={{ fontSize: 16 }}>
                 <Trans id="interface.report.results.providedByDetails">
                   {config.spec.specName} {config.spec.className} analysis has been provided by{' '}
@@ -470,12 +473,16 @@ class Results extends React.PureComponent {
               </div>
             </div>
             <div className="col-md-3">
-              <small><Trans id="interface.report.results.viewOn">View on</Trans></small>
+              <small>
+                <Trans id="interface.report.results.viewOn">View on</Trans>
+              </small>
               <br />
-              <Tooltip content={t({
-                id: "interface.report.results.tooltip.newTab.originalReport",
-                message: `Opens in a new tab. View the original report.`
-              })}>
+              <Tooltip
+                content={t({
+                  id: 'interface.report.results.tooltip.newTab.originalReport',
+                  message: `Opens in a new tab. View the original report.`,
+                })}
+              >
                 <a
                   href={makeWclUrl(report.code, {
                     fight: fight.id,
@@ -493,8 +500,8 @@ class Results extends React.PureComponent {
               <br />
               <Tooltip
                 content={t({
-                  id: "interface.report.results.tooltip.newTab.insightsAndTimelines",
-                  message: `Opens in a new tab. View insights and timelines for raid encounters.`
+                  id: 'interface.report.results.tooltip.newTab.insightsAndTimelines',
+                  message: `Opens in a new tab. View insights and timelines for raid encounters.`,
                 })}
               >
                 <a
@@ -509,7 +516,13 @@ class Results extends React.PureComponent {
               </Tooltip>
             </div>
             <div className="col-md-1">
-              <Tooltip content={<Trans id="interface.report.results.tooltip.backToTop">Scroll back to the top.</Trans>}>
+              <Tooltip
+                content={
+                  <Trans id="interface.report.results.tooltip.backToTop">
+                    Scroll back to the top.
+                  </Trans>
+                }
+              >
                 <ScrollToTop />
               </Tooltip>
             </div>

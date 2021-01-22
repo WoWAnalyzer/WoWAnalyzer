@@ -337,6 +337,14 @@ export const strel: Contributor = {
 export const Maldark: Contributor = {
   nickname: 'Maldark',
   github: 'Maldark',
+  discord: 'Maldark#1478',
+  mains: [
+    {
+      name: 'Maldark',
+      spec: SPECS.ARMS_WARRIOR,
+      link: 'https://worldofwarcraft.com/en-gb/character/eu/stormscale/Maldark',
+    },
+  ],
 };
 export const hatra344: Contributor = {
   nickname: 'hatra344',
@@ -1197,4 +1205,17 @@ export const Barry: Contributor = {
 export const Tiboonn: Contributor = {
   nickname: 'Tiboonn',
   github: 'Tiboonn',
+};
+
+export const Canotsa: Contributor = {
+  nickname: 'Canotsa',
+  github: 'CasperKjaerhus',
+  discord: 'Canotsa#3725',
+  mains: [
+    {
+      name: 'Stabdagger',
+      spec: SPECS.OUTLAW_ROGUE,
+      link: 'https://worldofwarcraft.com/en-gb/character/eu/draenor/stabdagger',
+    },
+  ],
 };
