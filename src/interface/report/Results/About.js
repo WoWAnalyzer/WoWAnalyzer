@@ -81,6 +81,7 @@ About.propTypes = {
       }),
     ).isRequired,
     patchCompatibility: PropTypes.string.isRequired,
+    isPartial: PropTypes.bool.isRequired,
   }).isRequired,
 };
 

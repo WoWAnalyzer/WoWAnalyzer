@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import Contributor from 'interface/ContributorButton';
 import Config from 'parser/Config';

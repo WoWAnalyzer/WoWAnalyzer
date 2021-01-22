@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 
 import { ignoreSpecNotSupportedWarning } from 'interface/actions/specNotSupported';
 import { getSpecsIgnoredNotSupportedWarning } from 'interface/selectors/skipSpecNotSupported';
+import SupportCheckerSpecPartialSupport from 'interface/report/SupportCheckerSpecPartialSupport';
 import isLatestPatch from 'game/isLatestPatch';
 
 import SupportCheckerSpecOutOfDate from './SupportCheckerSpecOutOfDate';
-import SupportCheckerSpecPartialSupport from 'interface/report/SupportCheckerSpecPartialSupport';
 
 class SupportChecker extends React.PureComponent {
   static propTypes = {
