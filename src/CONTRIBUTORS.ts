@@ -1210,7 +1210,7 @@ export const Tiboonn: Contributor = {
 export const Makhai: Contributor = {
   nickname: 'Makhai',
   github: 'Tikers',
-  discord: 'Makhai#3086#6099',
+  discord: 'Makhai#3086',
   mains: [{
     name: 'Mákhai#3086',
     spec: SPECS.VENGEANCE_DEMON_HUNTER,
