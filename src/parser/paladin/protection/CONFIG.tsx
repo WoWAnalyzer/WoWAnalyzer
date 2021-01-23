@@ -4,7 +4,7 @@ import { emallson, Hordehobbs } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 import { AlertWarning } from 'interface';
 
 import CHANGELOG from './CHANGELOG';

@@ -2,7 +2,7 @@ import React from 'react';
 import { formatNumber, formatPercentage, formatDuration } from 'common/format';
 import Toggle from 'react-toggle';
 import { SpellLink } from 'interface';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 import HolyPriestHealingEfficiencyTracker from 'parser/priest/holy/modules/features/HolyPriestHealingEfficiencyTracker';
 import { Trans } from '@lingui/macro';
 import PerformanceBar from 'parser/ui/PerformanceBar';

@@ -6,7 +6,7 @@ import { getLanguage } from 'interface/selectors/language';
 import { setLanguage } from 'interface/actions/language';
 import ReadableListing from 'interface/ReadableListing';
 import languages from 'common/languages';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface/Tooltip';
 
 type Props = {
   language: string;

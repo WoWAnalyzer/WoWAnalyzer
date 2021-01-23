@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Trans } from '@lingui/macro';
 
 import getFightName from 'common/getFightName';
-import Tooltip from 'common/Tooltip';
+import Tooltip from 'interface/Tooltip';
 import DiscordIcon from 'interface/icons/DiscordTiny';
 import GitHubIcon from 'interface/icons/GitHubMarkSmall';
 import PremiumIcon from 'interface/icons/Premium';

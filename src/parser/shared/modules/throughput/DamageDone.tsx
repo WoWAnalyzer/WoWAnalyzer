@@ -8,7 +8,7 @@ import StatisticBar from 'parser/ui/StatisticBar';
 import ThroughputPerformance, { UNAVAILABLE } from 'parser/ui/ThroughputPerformance';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Tooltip from 'common/Tooltip';
+import { Tooltip } from 'interface';
 import FlushLineChart from 'parser/ui/FlushLineChart';
 import Events, { DamageEvent } from 'parser/core/Events';
 

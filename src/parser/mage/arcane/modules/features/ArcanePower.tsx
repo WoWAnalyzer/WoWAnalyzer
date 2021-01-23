@@ -8,7 +8,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import DeathTracker from 'parser/shared/modules/DeathTracker';

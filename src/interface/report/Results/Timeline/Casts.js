@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Trans } from '@lingui/macro';
 
-import Tooltip from 'common/Tooltip';
+import Tooltip from 'interface/Tooltip';
 import { formatDuration } from 'common/format';
 import Icon from 'interface/Icon';
 import SpellLink from 'interface/SpellLink';

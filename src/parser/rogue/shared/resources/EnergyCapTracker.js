@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatDuration, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import Tooltip from 'common/Tooltip';
+import { Tooltip } from 'interface';
 import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetracker/RegenResourceCapTracker';
 import { t } from '@lingui/macro';
 

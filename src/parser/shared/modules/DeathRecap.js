@@ -6,7 +6,7 @@ import 'rc-slider/assets/index.css';
 import { Icon, SpellIcon, SpellLink } from 'interface';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
-import Tooltip, { TooltipElement } from 'common/Tooltip';
+import { Tooltip, TooltipElement } from 'interface';
 import { EventType } from 'parser/core/Events';
 
 const SHOW_SECONDS_BEFORE_DEATH = 10;

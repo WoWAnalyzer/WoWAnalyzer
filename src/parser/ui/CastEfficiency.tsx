@@ -2,7 +2,7 @@ import { Trans } from '@lingui/macro';
 import React from 'react';
 
 import { SpellLink } from 'interface';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 
 import Abilities from 'parser/core/modules/Abilities';
 import { AbilityCastEfficiency } from 'parser/shared/modules/CastEfficiency';

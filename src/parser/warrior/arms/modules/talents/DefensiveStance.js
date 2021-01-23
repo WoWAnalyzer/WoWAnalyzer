@@ -7,7 +7,7 @@ import { formatNumber, formatThousands } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import Events from 'parser/core/Events';
-import Tooltip from 'common/Tooltip';
+import { Tooltip } from 'interface';
 import { t } from '@lingui/macro';
 
 /**

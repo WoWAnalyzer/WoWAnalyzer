@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import SPELLS from 'common/SPELLS';
 import { Icon, SpellLink } from 'interface';
 import { formatThousands, formatNumber, formatPercentage, formatDuration } from 'common/format';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 import { EventType } from 'parser/core/Events';

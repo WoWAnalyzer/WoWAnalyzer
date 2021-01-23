@@ -5,7 +5,7 @@ import { Trans } from '@lingui/macro';
 import SPECS from 'game/SPECS';
 import { SpecIcon } from 'interface';
 import { formatNumber } from 'common/format';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 import indexByProperty from 'common/indexByProperty';
 import Toggle from 'react-toggle';
 import { SpellLink } from 'interface';

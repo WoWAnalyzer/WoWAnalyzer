@@ -5,7 +5,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatDuration, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetracker/RegenResourceCapTracker';
-import Tooltip from 'common/Tooltip';
+import { Tooltip } from 'interface';
 
 const BASE_ENERGY_REGEN = 10;
 const ASCENSION_REGEN_MULTIPLIER = 1.1;

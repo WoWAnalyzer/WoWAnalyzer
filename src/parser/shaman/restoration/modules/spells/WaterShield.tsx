@@ -14,7 +14,7 @@ import BoringValue from 'parser/ui/BoringValueText';
 import ManaIcon from 'interface/icons/Mana';
 // just gonna steal my mtt formatting
 import './ManaTideTotem.scss'
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 

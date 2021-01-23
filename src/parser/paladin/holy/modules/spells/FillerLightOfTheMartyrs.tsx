@@ -3,7 +3,7 @@ import { t, Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';

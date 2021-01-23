@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';

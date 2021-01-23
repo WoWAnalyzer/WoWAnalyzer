@@ -5,7 +5,7 @@ import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 

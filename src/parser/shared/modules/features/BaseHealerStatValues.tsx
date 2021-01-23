@@ -2,8 +2,8 @@ import React from 'react';
 
 import InformationIcon from 'interface/icons/Information';
 
-import SPELLS from 'common/SPELLS/index';
-import Tooltip, { TooltipElement } from 'common/Tooltip';
+import SPELLS from 'common/SPELLS';
+import { Tooltip, TooltipElement } from 'interface';
 import { formatNumber } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { AbsorbedEvent, DamageEvent, EventType, HealEvent, RemoveBuffEvent } from 'parser/core/Events';

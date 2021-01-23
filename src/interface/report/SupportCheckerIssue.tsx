@@ -2,7 +2,7 @@ import { t, Trans } from '@lingui/macro';
 import React, { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
-import Tooltip from 'common/Tooltip';
+import Tooltip from 'interface/Tooltip';
 import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import Panel from 'interface/Panel';
 import GitHubButton from 'interface/GitHubButton';

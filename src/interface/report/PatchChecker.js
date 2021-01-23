@@ -6,7 +6,7 @@ import { Trans } from '@lingui/macro';
 
 import PATCHES from 'common/PATCHES';
 import Icon from 'interface/Icon';
-import Tooltip from 'common/Tooltip';
+import Tooltip from 'interface/Tooltip';
 import DiscordButton from 'interface/DiscordButton';
 import GitHubButton from 'interface/GitHubButton';
 import { ignorePreviousPatchWarning } from 'interface/actions/previousPatch';

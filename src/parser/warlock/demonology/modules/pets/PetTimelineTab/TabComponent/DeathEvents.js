@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Tooltip from 'common/Tooltip';
+import { Tooltip } from 'interface';
 import { formatDuration } from 'common/format';
 
 const DeathEvents = (props) => {

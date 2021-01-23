@@ -4,7 +4,7 @@ import BaseChart from 'parser/ui/BaseChart';
 
 import { formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 
 import 'parser/ui/DonutChart.scss';
 

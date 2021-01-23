@@ -2,7 +2,7 @@ import React from 'react';
 
 import { SpellIcon, SpellLink, SpecIcon } from 'interface';
 import SPELLS from 'common/SPELLS';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 import SPECS, { Spec } from 'game/SPECS';
 import { formatNth, formatDuration } from 'common/format';
 

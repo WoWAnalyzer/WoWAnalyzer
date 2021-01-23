@@ -9,7 +9,7 @@ import WebBannerIcon from 'interface/icons/WebBanner';
 import DiscordIcon from 'interface/icons/DiscordTiny';
 import PatreonButton from 'interface/PatreonButton';
 import GitHubButton from 'interface/GitHubButton';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface/Tooltip';
 import { logout } from 'interface/actions/user';
 import { getUser } from 'interface/selectors/user';
 import DocumentTitle from 'interface/DocumentTitle';

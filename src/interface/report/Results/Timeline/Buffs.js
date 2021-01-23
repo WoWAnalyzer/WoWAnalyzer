@@ -7,7 +7,7 @@ import Icon from 'interface/Icon';
 import SpellLink from 'interface/SpellLink';
 import BuffsModule from 'parser/core/modules/Buffs';
 import { EventType } from 'parser/core/Events';
-import Tooltip from 'common/Tooltip';
+import Tooltip from 'interface/Tooltip';
 
 import './Buffs.scss';
 

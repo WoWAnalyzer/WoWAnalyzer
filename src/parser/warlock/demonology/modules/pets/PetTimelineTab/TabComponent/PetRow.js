@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import { Icon } from 'interface';
-import Tooltip from 'common/Tooltip';
+import { Tooltip } from 'interface';
 
 const PetRow = props => {
   const { className, pets, start, totalWidth, secondWidth } = props;

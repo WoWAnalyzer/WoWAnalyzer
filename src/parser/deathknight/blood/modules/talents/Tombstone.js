@@ -6,7 +6,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 import { t } from '@lingui/macro';
 import Events from 'parser/core/Events';
 

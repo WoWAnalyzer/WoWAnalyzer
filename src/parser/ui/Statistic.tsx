@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Tooltip from 'common/Tooltip';
+import { Tooltip } from 'interface';
 import InfoIcon from 'interface/icons/Info';
 import DrilldownIcon from 'interface/icons/Link';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';

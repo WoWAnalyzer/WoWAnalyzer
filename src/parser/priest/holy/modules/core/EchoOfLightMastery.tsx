@@ -10,7 +10,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { formatNumber, formatPercentage } from 'common/format';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';

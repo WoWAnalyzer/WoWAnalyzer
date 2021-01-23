@@ -11,5 +11,6 @@ export { default as AlertDanger } from './AlertDanger';
 export { default as AlertInfo } from './AlertInfo';
 export { default as AlertWarning } from './AlertWarning';
 export { default as ErrorBoundary } from './ErrorBoundary';
+export { default as Tooltip, TooltipElement } from './Tooltip';
 export { default as makeAnalyzerUrl } from './makeAnalyzerUrl';
 export { Expandable, ControlledExpandable } from './Expandable';

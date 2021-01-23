@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'interface/SpellIcon';
-import Tooltip from 'common/Tooltip';
+import Tooltip from 'interface/Tooltip';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import STAT, { getClassNameColor, getIcon, getNameTranslated } from 'parser/shared/modules/features/STAT';
 import { Trans } from '@lingui/macro';

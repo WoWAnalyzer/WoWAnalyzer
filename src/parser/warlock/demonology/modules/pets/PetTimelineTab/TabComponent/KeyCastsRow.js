@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { SpellIcon } from 'interface';
-import Tooltip from 'common/Tooltip';
+import { Tooltip } from 'interface';
 import { EventType } from 'parser/core/Events';
 
 const KeyCastsRow = props => {

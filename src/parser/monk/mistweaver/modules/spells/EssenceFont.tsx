@@ -9,7 +9,7 @@ import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent } from '
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { SpellIcon } from 'interface';
 import { formatNumber } from 'common/format';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 import { t } from '@lingui/macro';

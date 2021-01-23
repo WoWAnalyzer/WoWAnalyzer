@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import SPELLS from 'common/SPELLS';
 
 import { Icon, SpellLink } from 'interface';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 // import Toggle from 'react-toggle';
 
 function formatThousands(number) {

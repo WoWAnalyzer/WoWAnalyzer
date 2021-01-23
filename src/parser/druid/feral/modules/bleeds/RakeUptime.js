@@ -8,7 +8,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
 import Statistic from 'parser/ui/Statistic';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 import { t } from '@lingui/macro';
 
 class RakeUptime extends Analyzer {

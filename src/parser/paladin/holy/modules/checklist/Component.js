@@ -4,7 +4,7 @@ import { t, Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Tooltip, { TooltipElement } from 'common/Tooltip';
+import Tooltip, { TooltipElement } from 'interface/Tooltip';
 import DiscordLogo from 'interface/icons/DiscordTiny';
 import GithubLogo from 'interface/icons/GitHubMarkSmall';
 import PatreonIcon from 'interface/icons/PatreonTiny';

@@ -12,7 +12,7 @@ import Statistic from 'parser/ui/Statistic';
 import Events from 'parser/core/Events';
 
 import { SpellLink } from 'interface';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 import { t } from '@lingui/macro';
 import UptimeIcon from 'interface/icons/Uptime';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';

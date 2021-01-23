@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 import { t } from '@lingui/macro';
 
 import Snapshot from '../core/Snapshot';

@@ -6,7 +6,7 @@ import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { EndChannelEvent, EventType, GlobalCooldownEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import Tooltip from 'common/Tooltip';
+import { Tooltip } from 'interface';
 import { Trans } from '@lingui/macro';
 
 import Haste from 'parser/shared/modules/Haste';

@@ -9,7 +9,7 @@ import { formatPercentage } from 'common/format';
 import Statistic from 'parser/ui/Statistic';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { SHATTER_DEBUFFS } from 'parser/mage/shared/constants';

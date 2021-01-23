@@ -12,7 +12,7 @@ import Icon from 'interface/Icon';
 import SpellLink from 'interface/SpellLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import HIT_TYPES from 'game/HIT_TYPES';
-import Tooltip, { TooltipElement } from 'common/Tooltip';
+import Tooltip, { TooltipElement } from 'interface/Tooltip';
 import { EventType } from 'parser/core/Events';
 
 import 'react-virtualized/styles.css';

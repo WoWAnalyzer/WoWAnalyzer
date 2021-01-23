@@ -3,7 +3,7 @@ import React from 'react';
 import { SpellIcon } from 'interface';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import Panel from 'parser/ui/Panel';
 import PlayerBreakdown from 'parser/ui/PlayerBreakdown';

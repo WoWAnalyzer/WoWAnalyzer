@@ -5,7 +5,7 @@ import { Icon } from 'interface';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { formatNumber, formatPercentage } from 'common/format';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 import AtonementHealingDone from 'parser/priest/discipline/modules/features/AtonementHealingDone';
 import CombatLogParser from 'parser/core/CombatLogParser';
 

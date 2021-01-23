@@ -3,7 +3,7 @@ import { Trans, t } from '@lingui/macro';
 import { useHistory } from 'react-router-dom';
 
 import REGION_CODES from 'common/REGION_CODES';
-import Tooltip from 'common/Tooltip';
+import Tooltip from 'interface/Tooltip';
 
 import './ReportSelecter.css';
 

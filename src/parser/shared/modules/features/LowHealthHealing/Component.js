@@ -9,7 +9,7 @@ import { Icon } from 'interface';
 
 import { formatNumber, formatPercentage, formatDuration } from 'common/format';
 import { SpecIcon } from 'interface';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 import { Trans } from '@lingui/macro';
 
 class LowHealthHealing extends React.Component {

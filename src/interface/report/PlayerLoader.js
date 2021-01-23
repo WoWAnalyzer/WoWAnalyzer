@@ -9,7 +9,7 @@ import DocumentTitle from 'interface/DocumentTitle';
 import { setCombatants } from 'interface/actions/combatants';
 import { getPlayerId, getPlayerName } from 'interface/selectors/url/report';
 import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
-import Tooltip from 'common/Tooltip';
+import Tooltip from 'interface/Tooltip';
 import PlayerSelection from 'interface/report/PlayerSelection';
 import RaidCompositionDetails from 'interface/report/RaidCompositionDetails';
 import ReportDurationWarning, { MAX_REPORT_DURATION } from 'interface/report/ReportDurationWarning';

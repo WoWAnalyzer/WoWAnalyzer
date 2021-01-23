@@ -4,7 +4,7 @@ import { AutoSizer } from 'react-virtualized';
 import { formatThousands, formatPercentage } from 'common/format';
 import rankingColor from 'common/getRankingColor';
 import makeWclUrl from 'common/makeWclUrl';
-import Tooltip from 'common/Tooltip';
+import { Tooltip } from 'interface';
 import StatisticBar from 'parser/ui/StatisticBar';
 import ThroughputPerformance, { UNAVAILABLE } from 'parser/ui/ThroughputPerformance';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import SpellLink from 'interface/SpellLink';
 import Icon from 'interface/Icon';
 import { formatNumber } from 'common/format';
-import Tooltip, { TooltipElement } from 'common/Tooltip';
+import Tooltip, { TooltipElement } from 'interface/Tooltip';
 
 export const MITIGATED_NONE = 0;
 export const MITIGATED_MAGICAL = 1;

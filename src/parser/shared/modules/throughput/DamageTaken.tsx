@@ -9,7 +9,7 @@ import rankingColor from 'common/getRankingColor';
 import StatisticBar from 'parser/ui/StatisticBar';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Tooltip from 'common/Tooltip';
+import { Tooltip } from 'interface';
 import FlushLineChart from 'parser/ui/FlushLineChart';
 import Events, { AbsorbedEvent, DamageEvent } from 'parser/core/Events';
 

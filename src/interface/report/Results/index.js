@@ -9,7 +9,7 @@ import { findByBossId } from 'raids';
 import lazyLoadComponent from 'common/lazyLoadComponent';
 import retryingPromise from 'common/retryingPromise';
 import makeWclUrl from 'common/makeWclUrl';
-import Tooltip from 'common/Tooltip';
+import Tooltip from 'interface/Tooltip';
 import getFightName from 'common/getFightName';
 import REPORT_HISTORY_TYPES from 'interface/REPORT_HISTORY_TYPES';
 import { appendReportHistory } from 'interface/actions/reportHistory';

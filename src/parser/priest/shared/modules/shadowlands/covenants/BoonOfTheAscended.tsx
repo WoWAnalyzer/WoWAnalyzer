@@ -17,7 +17,7 @@ import AtonementDamageSource from 'parser/priest/discipline/modules/features/Ato
 import SPECS from 'game/SPECS';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { SpellIcon } from 'interface';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 import Abilities from 'parser/core/modules/Abilities';
 
 const DAMAGING_SPELL_IDS = [

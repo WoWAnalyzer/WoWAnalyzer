@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import RACES from 'game/RACES';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';

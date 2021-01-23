@@ -7,7 +7,7 @@ import Toggle from 'react-toggle';
 import { compose } from 'redux';
 
 import getFightName from 'common/getFightName';
-import Tooltip from 'common/Tooltip';
+import Tooltip from 'interface/Tooltip';
 import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import { getFightId } from 'interface/selectors/url/report';
 import { getFightFromReport } from 'interface/selectors/fight';
