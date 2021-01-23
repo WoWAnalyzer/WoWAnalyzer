@@ -1,5 +1,5 @@
-import SPELLS from 'common/SPELLS/index';
-import ITEMS from 'common/ITEMS/index';
+import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import { calculateSecondaryStatDefault } from 'common/stats';
 import { formatMilliseconds } from 'common/format';
 import SPECS from 'game/SPECS';

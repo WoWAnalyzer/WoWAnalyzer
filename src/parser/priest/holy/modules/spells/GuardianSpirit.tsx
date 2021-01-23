@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import fetchWcl from 'common/fetchWclApi';
 import { WCLHealing, WCLHealingTableResponse } from 'common/WCL_TYPES';
 import { SpellIcon } from 'interface';

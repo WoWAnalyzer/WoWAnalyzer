@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 
 import Abilities from './Abilities';

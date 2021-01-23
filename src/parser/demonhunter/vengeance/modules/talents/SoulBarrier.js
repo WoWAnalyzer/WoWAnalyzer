@@ -4,7 +4,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { formatPercentage, formatNumber } from 'common/format';
 import TalentStatisticBox from 'parser/ui/TalentStatisticBox';

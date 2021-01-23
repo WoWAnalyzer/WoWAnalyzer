@@ -3,7 +3,7 @@ import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import DamageDone from 'parser/shared/modules/throughput/DamageDone';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import HealingEfficiencyTracker, { SpellInfoDetails } from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 
 import RegrowthAttributor from 'parser/druid/restoration/modules/core/hottracking/RegrowthAttributor';
@@ -35,7 +35,7 @@ class RestoDruidHealingEfficiencyTracker extends HealingEfficiencyTracker {
   protected healingDone!: HealingDone;
   protected damageDone!: DamageDone;
   protected castEfficiency!: CastEfficiency;
-  
+
    // Custom dependencies
   protected abilities!: Abilities;
   protected regrowthAttributor!: RegrowthAttributor;

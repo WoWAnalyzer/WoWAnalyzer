@@ -3,7 +3,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { SpellIcon } from 'interface';
 import { formatNumber, formatPercentage } from 'common/format';
 
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 
 // dependencies

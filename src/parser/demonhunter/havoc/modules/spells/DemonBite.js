@@ -1,5 +1,5 @@
 import React from 'react';
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Events from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';

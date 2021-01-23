@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Statistic from 'parser/ui/Statistic';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';

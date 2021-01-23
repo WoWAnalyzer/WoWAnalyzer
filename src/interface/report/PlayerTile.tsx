@@ -13,7 +13,7 @@ import { fetchCharacter, SUPPORTED_REGIONS } from 'interface/actions/characters'
 
 import { getCovenantById } from 'game/shadowlands/COVENANTS';
 
-import { Player } from './index';
+import { Player } from './PlayerSelection';
 
 interface Props {
   player: Player;

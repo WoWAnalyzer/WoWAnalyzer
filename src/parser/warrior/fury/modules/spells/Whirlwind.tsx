@@ -2,7 +2,7 @@ import React from 'react';
 
 import Analyzer, { Options } from 'parser/core/Analyzer';
 
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';

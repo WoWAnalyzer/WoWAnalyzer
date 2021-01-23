@@ -1,5 +1,5 @@
 import React from 'react';
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import COVENANTS from 'game/shadowlands/COVENANTS';

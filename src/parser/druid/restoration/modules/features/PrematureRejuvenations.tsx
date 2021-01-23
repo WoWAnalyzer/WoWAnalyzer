@@ -1,5 +1,5 @@
 import React from 'react';
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';

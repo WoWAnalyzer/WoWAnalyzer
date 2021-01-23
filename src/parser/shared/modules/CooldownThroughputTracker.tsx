@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import { Panel } from 'interface';
 import CooldownIcon from 'interface/icons/Cooldown';
 import CooldownOverview from 'parser/ui/CooldownOverview';
