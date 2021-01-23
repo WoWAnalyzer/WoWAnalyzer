@@ -6,8 +6,10 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  change(date(2021, 1, 23), <>Updated checklist to include <SpellLink id={SPELLS.POWER_INFUSION.id} />.</>, Adoraci),
+  change(date(2021, 1, 23), <>Added support for <SpellLink id={SPELLS.SHADOW_WORD_DEATH.id} />.</>, Adoraci),
   change(date(2021, 1, 20), <>Adding support for <SpellLink id={SPELLS.BOON_OF_THE_ASCENDED.id} /></>, Khadaj),
-  change(date(2020, 12, 28), <>Fixed an issue with <SpellLink id={SPELLS.VOID_TORRENT_TALENT.id} /> module crashing.</>, Adoraci),
+  change(date(2021, 1, 18), <>Fixed an issue with <SpellLink id={SPELLS.VOID_TORRENT_TALENT.id} /> module crashing.</>, Adoraci),
   change(date(2020, 12, 28), <>Adding support for <SpellLink id={SPELLS.MINDGAMES.id} /></>, Khadaj),
   change(date(2020, 12, 28), <>Adding support for <SpellLink id={SPELLS.FAE_GUARDIANS.id} /></>, Khadaj),
   change(date(2020, 12, 28), <>Added <SpellLink id={SPELLS.DISSONANT_ECHOES.id} /> conduit module.</>, Adoraci),
