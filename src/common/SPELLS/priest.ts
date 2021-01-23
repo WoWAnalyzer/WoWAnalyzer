@@ -133,7 +133,7 @@ const spells = {
   },
   LIGHTS_WRATH: {
     id: 207946,
-    name: 'Light\'s Wrath',
+    name: "Light's Wrath",
     icon: 'inv_staff_2h_artifacttome_d_01',
   },
   MIND_CONTROL: {
@@ -293,7 +293,7 @@ const spells = {
   },
   KAM_XIRAFF_BUFF: {
     id: 233997,
-    name: 'Kam Xi\'raff',
+    name: "Kam Xi'raff",
     icon: 'ability_priest_savinggrace',
   },
   TWIST_OF_FATE_BUFF: {
@@ -308,7 +308,7 @@ const spells = {
   },
   ESTEL_DEJAHNAS_INSPIRATION_BUFF: {
     id: 214637,
-    name: 'Dejahna\'s Inspiration',
+    name: "Dejahna's Inspiration",
     icon: 'spell_holy_heal',
   },
   PRAYER_CIRCLE_BUFF: {
@@ -541,6 +541,12 @@ const spells = {
 
   VOID_BOLT: {
     id: 205448,
+    name: 'Void Bolt',
+    icon: 'ability_ironmaidens_convulsiveshadows',
+  },
+
+  VOID_BOLT_DISSONANT_ECHOES: {
+    id: 343355,
     name: 'Void Bolt',
     icon: 'ability_ironmaidens_convulsiveshadows',
   },
