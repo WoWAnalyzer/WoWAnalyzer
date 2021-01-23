@@ -1,4 +1,5 @@
 export default function parseVersionString(string: string) {
+  string = string || '0.0.0';
   const [major, minor, patch] = string.split('.');
 
   return {
