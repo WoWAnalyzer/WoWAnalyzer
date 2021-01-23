@@ -705,6 +705,7 @@
   "priest.shadow.conduits.dissonantEchoes.tooltip": "You used {0} out of the {1} procs gained.",
   "priest.shadow.suggestions.alwaysBeCasting.downtime": "{0}% downtime",
   "priest.shadow.suggestions.darkThoughts.efficiency": "You wasted {0} out of {1} Dark Thought procs.",
+  "priest.shadow.suggestions.deathAndMadness.efficiency": "Reset {0}% of Shadow Word: Death casts. If you're not getting enough resets from Death and Madness, you'll likely benefit more from using a different talent.",
   "priest.shadow.suggestions.dispersion.uptime": "{0}% Dispersion uptime",
   "priest.shadow.suggestions.shadowWordPain.uptime": "{0}% Shadow Word: Pain uptime",
   "priest.shadow.suggestions.unfurlingDarkness.efficiency": "Wasted {0}% of Unfurling Darkness procs. If you're not getting enough uses from Unfurling Darkness, you'll likely benefit more from using a different talent.",
