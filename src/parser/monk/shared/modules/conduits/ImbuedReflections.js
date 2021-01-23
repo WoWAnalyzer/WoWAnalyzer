@@ -6,12 +6,12 @@ import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Anal
 
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import ItemHealingDone from 'interface/ItemHealingDone';
-import ItemDamageDone from 'interface/ItemDamageDone';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 
 import { conduitScaling } from '../../../mistweaver/constants';
 

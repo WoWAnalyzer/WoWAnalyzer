@@ -2,14 +2,14 @@ import React from 'react';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Events, { DamageEvent } from 'parser/core/Events';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { AIMED_SHOT_BASELINE_CAST_TIME, STREAMLINE_AIMED_SHOT_CAST_SPEED_UP, STREAMLINE_RAPID_FIRE_DAMAGE_INCREASE, TRUESHOT_AIMED_SHOT_CAST_TIME_SPEED_UP } from 'parser/hunter/marksmanship/constants';
-import ItemDamageDone from 'interface/ItemDamageDone';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Haste from 'parser/shared/modules/Haste';
 import { formatNumber } from 'common/format';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { formatPercentage } from 'common/format';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';

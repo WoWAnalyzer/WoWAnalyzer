@@ -3,8 +3,8 @@ import React from 'react';
 import { Abelito75, AdamKelly, Adoraci, Amani, Barry, Barter, ChagriAli, ChristopherKiss, Dambroda, emallson, flurreN, Guyius, Haelrail, HolySchmidt, Jafowler, jos3p, joshinator, Juko8, Keraldi, Khazak, Kruzershtern, Mae, Maldark, Moonrabbit, niseko, Putro, Sharrq, Ssabbar, Zeboot, Zerotorescue } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import SpellLink from 'common/SpellLink';
-import ItemLink from 'common/ItemLink';
+import SpellLink from 'interface/SpellLink';
+import { ItemLink } from 'interface';
 import { change, date } from 'common/changelog';
 
 // prettier-ignore

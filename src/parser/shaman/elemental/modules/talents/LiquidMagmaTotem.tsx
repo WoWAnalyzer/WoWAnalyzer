@@ -4,11 +4,11 @@ import SPELLS from 'common/SPELLS';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import Events, { DamageEvent } from 'parser/core/Events';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import ItemDamageDone from 'interface/ItemDamageDone';
-import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
 
 class LiquidMagmaTotem extends Analyzer {
   damageGained = 0;

@@ -5,12 +5,12 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events from 'parser/core/Events';
 
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import ItemManaGained from 'interface/ItemManaGained';
-import ItemHealingDone from 'interface/ItemHealingDone';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import ItemManaGained from 'parser/ui/ItemManaGained';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 
 import { conduitScaling } from '../../../mistweaver/constants';
 
@@ -28,7 +28,7 @@ class GroundingBreath extends Analyzer {
     super(...args);
 
     const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.GROUNDING_BREATH.id);
-    
+
     if (!conduitRank) {
       this.active = false;
       return;

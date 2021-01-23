@@ -5,8 +5,8 @@ import 'gemini-scrollbar/gemini-scrollbar.css';
 
 import { formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
-import Icon from 'common/Icon';
+import { SpellLink } from 'interface';
+import { Icon } from 'interface';
 import { EventType } from 'parser/core/Events';
 
 import './SpellTimeline.css';

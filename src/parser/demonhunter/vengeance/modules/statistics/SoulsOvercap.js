@@ -3,13 +3,13 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
-import SPELLS from 'common/SPELLS/index';
-import SpellLink from 'common/SpellLink';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 
 import { formatNumber, formatPercentage } from 'common/format';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { t } from '@lingui/macro';
 
 import SoulFragmentsTracker from '../features/SoulFragmentsTracker';

@@ -4,7 +4,7 @@ import { RuneForgeChecker } from 'parser/deathknight/shared/runeforges/RuneForge
 
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 
 class BloodRuneForgeChecker extends RuneForgeChecker {
 

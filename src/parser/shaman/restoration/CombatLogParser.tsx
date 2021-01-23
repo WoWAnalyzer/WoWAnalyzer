@@ -1,7 +1,6 @@
 import React from 'react';
 
-import Panel from 'interface/others/Panel';
-import Feeding from 'interface/others/Feeding';
+import { Panel } from 'interface';
 
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
@@ -77,6 +76,7 @@ import CloudburstNormalizer from './normalizers/CloudburstNormalizer';
 import RiptideNormalizer from './normalizers/RiptideNormalizer';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
+import Feeding from './Feeding';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;

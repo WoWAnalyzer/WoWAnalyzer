@@ -1,15 +1,15 @@
 import React from 'react';
 
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
-import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import Statistic from 'interface/statistics/Statistic';
-import DonutChart from 'interface/statistics/components/DonutChart';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import DonutChart from 'parser/ui/DonutChart';
 import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
 import { Trans } from '@lingui/macro';
 import { RESTORATION_COLORS } from 'parser/shaman/restoration/constants';

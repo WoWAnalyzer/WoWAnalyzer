@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { EventType } from 'parser/core/Events';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Vonn } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
-import Warning from 'interface/Alert/Warning';
+import { AlertWarning } from 'interface';
 
 import Config from 'parser/Config';
 
@@ -14,10 +14,10 @@ const config: Config = {
   isPartial: true,
   description: (
     <>
-      <Warning>
+      <AlertWarning>
         Right now the Enhancement Analyzer is a work-in-progress, and only holds very basic
         functionality.
-      </Warning>
+      </AlertWarning>
       <br />
       Hey there! Thanks for checking out the Enhancement Analyzer. If you have any feedback or
       suggestions, feel free to reach out to Vonn via Discord (vønn#2776) or drop an issue in the

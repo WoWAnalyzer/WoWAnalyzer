@@ -5,9 +5,9 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import SPELLS from 'common/SPELLS';
 import { formatThousands, formatNumber, formatPercentage } from 'common/format';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 class PhantomSingularity extends Analyzer {
   static dependencies = {

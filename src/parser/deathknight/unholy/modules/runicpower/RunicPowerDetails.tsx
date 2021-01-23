@@ -5,14 +5,14 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
-import Panel from 'interface/others/Panel';
+import { Panel } from 'interface';
 
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
 
 import { t } from '@lingui/macro';
 
-import BoringResourceValue from 'interface/statistics/components/BoringResourceValue';
+import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 import RunicPowerTracker from './RunicPowerTracker';

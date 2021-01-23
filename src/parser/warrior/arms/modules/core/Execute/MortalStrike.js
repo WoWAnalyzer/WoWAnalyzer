@@ -2,7 +2,7 @@ import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import Abilities from 'parser/core/modules/Abilities';
 import calculateMaxCasts from 'parser/core/calculateMaxCasts';
 import Events from 'parser/core/Events';

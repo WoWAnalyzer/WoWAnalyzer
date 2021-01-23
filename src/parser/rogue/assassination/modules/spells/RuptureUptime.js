@@ -1,14 +1,14 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
+import { SpellLink } from 'interface';
+import { SpellIcon } from 'interface';
 import { formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
-import StatisticBox from 'interface/others/StatisticBox';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import StatisticBox from 'parser/ui/StatisticBox';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { t } from '@lingui/macro';
 
 class RuptureUptime extends Analyzer {

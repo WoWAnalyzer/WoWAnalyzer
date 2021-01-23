@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 
 import COVENANTS from 'game/shadowlands/COVENANTS';
@@ -49,6 +49,7 @@ const AfflictionWarlockChecklist = ({ combatant, castEfficiency, thresholds, sha
         <DotUptime id={SPELLS.SHADOW_EMBRACE.id} thresholds={thresholds.shadowEmbrace} />
         {combatant.hasTalent(SPELLS.SIPHON_LIFE_TALENT.id) && <DotUptime id={SPELLS.SIPHON_LIFE_TALENT.id} thresholds={thresholds.siphonLife} />}
         {combatant.hasTalent(SPELLS.HAUNT_TALENT.id) && <DotUptime id={SPELLS.HAUNT_TALENT.id} thresholds={thresholds.haunt} />}
+        {combatant.hasCovenant(COVENANTS.KYRIAN.id) && <DotUptime id={SPELLS.SCOURING_TITHE.id} thresholds={thresholds.scouringTithe} />}
       </Rule>
       <Rule
         name="Don't cap your Soul Shards"
@@ -69,6 +70,8 @@ const AfflictionWarlockChecklist = ({ combatant, castEfficiency, thresholds, sha
         {combatant.hasTalent(SPELLS.VILE_TAINT_TALENT.id) && <AbilityRequirement spell={SPELLS.VILE_TAINT_TALENT.id} />}
         {combatant.hasTalent(SPELLS.PHANTOM_SINGULARITY_TALENT.id) && <AbilityRequirement spell={SPELLS.PHANTOM_SINGULARITY_TALENT.id} />}
         {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && <AbilityRequirement spell={SPELLS.SOUL_ROT.id} />}
+        {combatant.hasCovenant(COVENANTS.NECROLORD.id) && <AbilityRequirement spell={SPELLS.DECIMATING_BOLT.id} />}
+        {combatant.hasCovenant(COVENANTS.VENTHYR.id) && <AbilityRequirement spell={SPELLS.IMPENDING_CATASTROPHE_CAST.id} />}
       </Rule>
       <Rule
         name="Use your utility and defensive spells"

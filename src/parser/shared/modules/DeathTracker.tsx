@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { formatNumber, formatPercentage } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
+import { makeAnalyzerUrl } from 'interface';
 import { Trans } from '@lingui/macro';
 
 import Events, { BeginCastEvent, CastEvent, DamageEvent, DeathEvent, HealEvent, ResurrectEvent } from '../../core/Events';

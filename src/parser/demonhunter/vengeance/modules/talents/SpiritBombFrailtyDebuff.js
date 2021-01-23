@@ -4,14 +4,14 @@ import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Enemies from 'parser/shared/modules/Enemies';
 
-import SPELLS from 'common/SPELLS/index';
-import SpellLink from 'common/SpellLink';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 import { formatPercentage, formatThousands, formatDuration } from 'common/format';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import UptimeIcon from 'interface/icons/Uptime';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 import { t } from '@lingui/macro';
 

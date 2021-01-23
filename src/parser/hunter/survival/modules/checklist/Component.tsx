@@ -1,12 +1,12 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
-import ResourceIcon from 'common/ResourceIcon';
+import { ResourceIcon } from 'interface';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { AbilityRequirementProps, ChecklistProps } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 

@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { formatNumber } from 'common/format';
-import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
+import { SpellIcon } from 'interface';
+import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -10,10 +10,10 @@ import Events, { CastEvent, EventType, RemoveDebuffEvent } from 'parser/core/Eve
 import EventFilter from 'parser/core/EventFilter';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import Statistic from 'interface/statistics/Statistic';
-import BoringValue from 'interface/statistics/components/BoringValueText';
-import FooterChart, { formatTime } from 'interface/others/FooterChart';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
+import BoringValue from 'parser/ui/BoringValueText';
+import FooterChart, { formatTime } from 'parser/ui/FooterChart';
 import { t } from '@lingui/macro';
 
 import SharedBrews from '../core/SharedBrews';

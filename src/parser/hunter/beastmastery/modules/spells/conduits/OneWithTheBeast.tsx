@@ -3,12 +3,12 @@ import Events, { DamageEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { ONE_WITH_THE_BEAST_DAMAGE_INCREASE } from 'parser/hunter/beastmastery/constants';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import ItemDamageDone from 'interface/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import React from 'react';
-import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
+import ConduitSpellText from 'parser/ui/ConduitSpellText';
 
 /**
  * Bestial Wrath increases all damage you and your pet deal by X%.

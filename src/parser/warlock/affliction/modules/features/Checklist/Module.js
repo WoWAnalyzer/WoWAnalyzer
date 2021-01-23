@@ -12,6 +12,7 @@ import UnstableAfflictionUptime from '../DotUptimes/UnstableAfflictionUptime';
 import SiphonLifeUptime from '../../talents/SiphonLifeUptime';
 import Haunt from '../../talents/Haunt';
 import ShadowEmbrace from '../../features/ShadowEmbrace';
+import ScouringTitheUptime from '../../covenants/ScouringTithe';
 import SoulShardDetails from '../../soulshards/SoulShardDetails';
 import SoulShardTracker from '../../soulshards/SoulShardTracker';
 
@@ -30,6 +31,7 @@ class Checklist extends BaseChecklist {
     unstableAfflictionUptime: UnstableAfflictionUptime,
     haunt: Haunt,
     shadowEmbrace: ShadowEmbrace,
+    scouringTithe: ScouringTitheUptime,
     soulShardDetails: SoulShardDetails,
     soulShardTracker: SoulShardTracker,
   };
@@ -47,6 +49,7 @@ class Checklist extends BaseChecklist {
           unstableAffliction: this.unstableAfflictionUptime.suggestionThresholds,
           siphonLife: this.siphonLifeUptime.suggestionThresholds,
           haunt: this.haunt.suggestionThresholds,
+          scouringTithe: this.scouringTithe.suggestionThresholds,
           shadowEmbrace: this.shadowEmbrace.suggestionThresholds,
           soulShards: this.soulShardDetails.suggestionThresholds,
           downtime: this.alwaysBeCasting.suggestionThresholds,

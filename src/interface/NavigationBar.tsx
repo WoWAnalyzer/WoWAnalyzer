@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Trans } from '@lingui/macro';
 
 import getFightName from 'common/getFightName';
-import Tooltip from 'common/Tooltip';
+import Tooltip from 'interface/Tooltip';
 import DiscordIcon from 'interface/icons/DiscordTiny';
 import GitHubIcon from 'interface/icons/GitHubMarkSmall';
 import PremiumIcon from 'interface/icons/Premium';
@@ -14,7 +14,7 @@ import { getFightId, getPlayerName, getReportCode } from 'interface/selectors/ur
 import { getReport } from 'interface/selectors/report';
 import { getFightById } from 'interface/selectors/fight';
 import { getUser } from 'interface/selectors/user';
-import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
+import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 
 import './NavigationBar.scss';
 

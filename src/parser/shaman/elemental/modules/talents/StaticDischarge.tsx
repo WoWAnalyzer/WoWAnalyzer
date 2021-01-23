@@ -4,13 +4,13 @@ import SPELLS from 'common/SPELLS';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import ItemDamageDone from 'interface/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 
 class StaticDischarge extends Analyzer {

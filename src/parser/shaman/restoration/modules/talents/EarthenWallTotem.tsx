@@ -1,7 +1,7 @@
 import React from 'react';
 
-import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
+import { SpellIcon } from 'interface';
+import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 import { formatDuration, formatNth, formatNumber, formatPercentage } from 'common/format';
 
@@ -10,9 +10,9 @@ import Events, { AbsorbedEvent, CastEvent, DamageEvent } from 'parser/core/Event
 
 import Combatants from 'parser/shared/modules/Combatants';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { Trans } from '@lingui/macro';
 

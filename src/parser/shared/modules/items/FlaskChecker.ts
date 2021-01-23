@@ -1,6 +1,6 @@
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
 

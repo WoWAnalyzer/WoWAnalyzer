@@ -2,12 +2,12 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import { formatDuration, formatNumber } from 'common/format';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import ItemDamageDone from 'interface/ItemDamageDone';
-import ItemHealingDone from 'interface/ItemHealingDone';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, DamageEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
@@ -60,7 +60,7 @@ class DivinePurpose extends Analyzer {
 
   totalChances: number = 0;
   procProbabilities: number[] = [];
-  
+
   constructor(args: Options) {
     super(args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT.id);

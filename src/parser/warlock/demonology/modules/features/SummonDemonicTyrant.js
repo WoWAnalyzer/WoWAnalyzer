@@ -4,10 +4,10 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Events from 'parser/core/Events';
 
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import SpellLink from 'common/SpellLink';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import { SpellLink } from 'interface';
 
 import DemoPets from '../pets/DemoPets';
 import { isWildImp } from '../pets/helpers';

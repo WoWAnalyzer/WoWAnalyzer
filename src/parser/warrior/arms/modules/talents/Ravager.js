@@ -3,8 +3,8 @@ import SPELLS from 'common/SPELLS';
 import { formatThousands } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import SpellLink from 'common/SpellLink';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import { SpellLink } from 'interface';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 /**
  * Throws a whirling weapon at the target location that inflicts [ 309.6% of Attack Power ] damage

@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import PETS from 'common/PETS';
 import { Options } from 'parser/core/Analyzer';
+import PETS from 'parser/core/PETS';
 
 import Pet from '../core/Pet';
 

@@ -3,12 +3,12 @@ import SPELLS from 'common/SPELLS';
 import Events from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatPercentage, formatThousands } from 'common/format';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import { t } from '@lingui/macro';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import ItemDamageDone from 'interface/ItemDamageDone';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 
 
 /**

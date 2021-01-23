@@ -2,11 +2,11 @@ import React from 'react';
 
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-import SPELLS from 'common/SPELLS/index';
-import SpellLink from 'common/SpellLink';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import { t } from '@lingui/macro';
 import EventHistory from 'parser/shared/modules/EventHistory';

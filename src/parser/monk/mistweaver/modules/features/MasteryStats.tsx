@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import { formatThousands } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
@@ -12,9 +12,9 @@ import SoothingMist from 'parser/monk/mistweaver/modules/spells/SoothingMist';
 import RenewingMist from 'parser/monk/mistweaver/modules/spells/RenewingMist';
 import Vivify from 'parser/monk/mistweaver/modules/spells/Vivify';
 
-import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
-import DonutChart from 'interface/statistics/components/DonutChart';
-import Statistic from 'interface/statistics/Statistic';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
+import DonutChart from 'parser/ui/DonutChart';
+import Statistic from 'parser/ui/Statistic';
 import ExpelHarm from 'parser/monk/mistweaver/modules/spells/ExpelHarm';
 
 class MasteryStats extends Analyzer {

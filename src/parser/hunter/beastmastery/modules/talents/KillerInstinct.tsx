@@ -1,13 +1,13 @@
 import React from 'react';
-import ItemDamageDone from 'interface/ItemDamageDone';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 
 import SPELLS from 'common/SPELLS';
 import { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { formatNumber } from 'common/format';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ExecuteHelper from 'parser/shared/modules/helpers/ExecuteHelper';
 
 import { KILLER_INSTINCT_MULTIPLIER, KILLER_INSTINCT_THRESHOLD } from '../../constants';

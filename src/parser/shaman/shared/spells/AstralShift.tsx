@@ -1,15 +1,15 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+import { SpellIcon } from 'interface';
 import { formatThousands, formatNumber } from 'common/format';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { Trans } from '@lingui/macro';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 
 const ASTRAL_SHIFT_DR = 0.4;
 
@@ -44,7 +44,7 @@ class AstralShift extends Analyzer {
         tooltip={(
           <Trans id="shaman.shared.damageReduced.tooltip">
             The total estimated damage reduced was {formatThousands(this.damageReduced)}.<br /><br />
-            
+
             This is the lowest possible value. This value is pretty accurate for this log if you are looking at the actual gain over not having <SpellLink id={SPELLS.ASTRAL_SHIFT.id} /> bonus at all, but the gain may end up higher when taking interactions with other damage reductions into account.
           </Trans>
         )}

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
@@ -51,6 +51,15 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
       >
         <AbilityRequirement spell={SPELLS.VOID_BOLT.id} />
         <AbilityRequirement spell={SPELLS.MIND_BLAST.id} />
+        <AbilityRequirement spell={SPELLS.SHADOW_WORD_DEATH.id} />
+
+        {combatant.hasTalent(SPELLS.VOID_TORRENT_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.VOID_TORRENT_TALENT.id} />
+        )}
+
+        {combatant.hasTalent(SPELLS.SHADOW_CRASH_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.SHADOW_CRASH_TALENT.id} />
+        )}
 
       </Rule>
 
@@ -63,6 +72,7 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
         )}
       >
         <AbilityRequirement spell={SPELLS.VOID_ERUPTION.id} />
+        <AbilityRequirement spell={SPELLS.POWER_INFUSION.id} />
 
         {combatant.hasTalent(SPELLS.SURRENDER_TO_MADNESS_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.SURRENDER_TO_MADNESS_TALENT.id} />
@@ -72,14 +82,6 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           <AbilityRequirement spell={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> :
           <AbilityRequirement spell={SPELLS.SHADOWFIEND.id} />
         }
-
-        {combatant.hasTalent(SPELLS.VOID_TORRENT_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.VOID_TORRENT_TALENT.id} />
-        )}
-
-        {combatant.hasTalent(SPELLS.SHADOW_CRASH_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.SHADOW_CRASH_TALENT.id} />
-        )}
 
         {combatant.hasCovenant(COVENANTS.NECROLORD.id) && (
           <AbilityRequirement spell={SPELLS.UNHOLY_NOVA.id} />
@@ -96,6 +98,16 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
         {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
           <AbilityRequirement spell={SPELLS.FAE_GUARDIANS.id} />
         )}
+      </Rule>
+
+      <Rule
+        name="Insanity generation"
+        description={(
+          <>
+            Insanity generation and management is crucial to maximizing your damage. You should always try to stay below maximum insanity for room to generate more with your abilities. You should juggle using <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} /> to not overcap while also maximizing DOT uptime for the increased mastery benefit from <SpellLink id={SPELLS.MASTERY_SHADOW_WEAVING.id} />.
+          </>
+        )}>
+          <Requirement name="Insanity Overcapping" thresholds={thresholds.insanityUsage} />
       </Rule>
 
       <Rule

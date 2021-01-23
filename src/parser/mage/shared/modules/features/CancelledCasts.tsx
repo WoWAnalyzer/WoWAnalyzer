@@ -3,7 +3,7 @@ import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import CoreCancelledCasts from 'parser/shared/modules/CancelledCasts';
 import SPELLS from 'common/SPELLS';
 import SPECS from 'game/SPECS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 import { Options } from 'parser/core/Analyzer';
 import { Trans } from '@lingui/macro';

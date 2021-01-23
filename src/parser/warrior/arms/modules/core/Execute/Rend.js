@@ -1,7 +1,7 @@
 import React from 'react';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import { t } from '@lingui/macro';

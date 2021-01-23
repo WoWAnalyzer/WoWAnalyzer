@@ -2,14 +2,14 @@ import React from 'react';
 
 import fetchWcl from 'common/fetchWclApi';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
-import Icon from 'common/Icon';
+import { SpellIcon } from 'interface';
+import { SpellLink } from 'interface';
+import { Icon } from 'interface';
 import { formatDuration } from 'common/format';
 import SPECS from 'game/SPECS';
 
-import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'interface/others/LazyLoadStatisticBox';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'parser/ui/LazyLoadStatisticBox';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';

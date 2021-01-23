@@ -3,9 +3,11 @@ import MainCombatLogParser from 'parser/core/CombatLogParser';
 // core
 import AbilityTracker from './modules/core/AbilityTracker';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import Insanity from './modules/core/Insanity';
 import Channeling from './modules/core/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
+// resources
+import InsanityTracker from './modules/resources/InsanityTracker';
+import InsanityUsage from './modules/resources/InsanityUsage';
 // features
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -15,6 +17,7 @@ import DarkThoughts from './modules/features/DarkThoughts';
 // spells:
 import Shadowfiend from './modules/spells/Shadowfiend';
 import VampiricTouch from './modules/spells/VampiricTouch';
+import ShadowWordDeath from './modules/spells/ShadowWordDeath';
 import ShadowWordPain from './modules/spells/ShadowWordPain';
 import DevouringPlague from './modules/spells/DevouringPlague';
 import Dispersion from './modules/spells/Dispersion';
@@ -44,9 +47,12 @@ class CombatLogParser extends MainCombatLogParser {
     // core
     abilityTracker: AbilityTracker,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    insanity: Insanity,
     channeling: Channeling,
     globalCooldown: GlobalCooldown,
+
+    // resources:
+    insanityTracker: InsanityTracker,
+    insanityUsage: InsanityUsage,
 
     // features:
     abilities: Abilities,
@@ -59,6 +65,7 @@ class CombatLogParser extends MainCombatLogParser {
     // spells:
     shadowfiend: Shadowfiend,
     vampiricTouch: VampiricTouch,
+    shadowWordDeath: ShadowWordDeath,
     shadowWordPain: ShadowWordPain,
     devouringPlague: DevouringPlague,
     dispersion: Dispersion,

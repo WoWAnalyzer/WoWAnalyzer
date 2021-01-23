@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Dambroda } from 'CONTRIBUTORS';
-import RegularArticle from 'interface/news/RegularArticle';
+import NewsRegularArticle from 'interface/NewsRegularArticle';
 
 import ShadowlandsBackground from './sl-bg-wide.jpg';
 
 export default (
-  <RegularArticle title="Welcome to the Shadowlands prepatch"
+  <NewsRegularArticle title="Welcome to the Shadowlands prepatch"
     publishedAt="2020-10-15"
     publishedBy={Dambroda}>
     <img src={ShadowlandsBackground} alt="Shadowlands Wallpaper" /><br /><br />
@@ -41,5 +41,5 @@ export default (
     <br/><br/>Please consider showing your support via <Link to="premium">premium</Link> if you
     appreciate this fan-made project. Treat yourself to no ads, discord roles, and the knowledge
     you're helping keep WoWAnalyzer moving forward!
-  </RegularArticle>
+  </NewsRegularArticle>
 );

@@ -1,16 +1,16 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Events, { ApplyBuffEvent, GlobalCooldownEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { t } from '@lingui/macro';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
 
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 const LAG_BUFFER_MS = 100;
 const BUFF_DURATION_MS = 10000;

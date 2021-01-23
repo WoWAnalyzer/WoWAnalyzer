@@ -2,13 +2,13 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import Panel from 'interface/others/Panel';
-import Statistic from 'interface/statistics/Statistic';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { Panel } from 'interface';
+import Statistic from 'parser/ui/Statistic';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import ChiTracker from 'parser/monk/windwalker/modules/resources/ChiTracker';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import BoringResourceValue from 'interface/statistics/components/BoringResourceValue/index';
+import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import { formatPercentage } from 'common/format';
 import { t } from '@lingui/macro';
 import { ThresholdStyle } from 'parser/core/ParseResults';

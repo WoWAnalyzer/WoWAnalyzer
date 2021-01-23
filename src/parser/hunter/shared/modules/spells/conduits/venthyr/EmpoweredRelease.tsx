@@ -1,16 +1,16 @@
 import React from 'react';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { EMPOWERED_RELEASE_INCREASE_KS_DAMAGE, EMPOWERED_RELEASE_INCREASED_FLAYED_PROC_CHANCE, FLAYED_SHOT_RESET_CHANCE } from 'parser/hunter/shared/constants';
 import Events, { DamageEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
-import ItemDamageDone from 'interface/ItemDamageDone';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import COVENANTS from 'game/shadowlands/COVENANTS';
-import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
+import ConduitSpellText from 'parser/ui/ConduitSpellText';
 
 /**
  * Flayed Shot has an additional 5% chance to pro Flayer's Mark

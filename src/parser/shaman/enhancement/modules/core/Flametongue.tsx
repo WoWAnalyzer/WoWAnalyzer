@@ -5,9 +5,9 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import BoringSpellValue from 'parser/ui/BoringSpellValue';
 
 /**
  * Scorches your target, dealing (14.742% of Attack power) Fire damage,

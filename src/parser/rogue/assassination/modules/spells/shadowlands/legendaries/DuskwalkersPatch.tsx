@@ -5,10 +5,10 @@ import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Events, { CastEvent } from 'parser/core/Events';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { ASS_VEN_CDR_PER_ENERGY } from 'parser/rogue/shared/constants';
 
 class DuskwalkersPatch extends Analyzer {

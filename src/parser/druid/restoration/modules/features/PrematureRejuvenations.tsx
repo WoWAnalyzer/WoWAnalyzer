@@ -1,12 +1,12 @@
 import React from 'react';
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringValue from 'interface/statistics/components/BoringValueText';
-import SpellIcon from 'common/SpellIcon';
-import Statistic from 'interface/statistics/Statistic';
-import SpellLink from 'common/SpellLink';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import BoringValue from 'parser/ui/BoringValueText';
+import { SpellIcon } from 'interface';
+import Statistic from 'parser/ui/Statistic';
+import { SpellLink } from 'interface';
 import Combatants from 'parser/shared/modules/Combatants';
 import Events, { CastEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { t } from '@lingui/macro';

@@ -2,7 +2,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Enemies from 'parser/shared/modules/Enemies';
 
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import Events from 'parser/core/Events';
 
 /*  When considering Infernal Strike, it is worth tracking how much time is spent overcapped on charges.

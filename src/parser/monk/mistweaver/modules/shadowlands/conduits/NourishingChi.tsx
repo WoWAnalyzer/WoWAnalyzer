@@ -5,13 +5,13 @@ import Events, { HealEvent } from 'parser/core/Events';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 
-import ItemHealingDone from 'interface/ItemHealingDone';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 import { conduitScaling, LIFE_COCOON_HEALING_BOOST, NOURISHING_CHI_RANK_ONE } from '../../../constants';
 

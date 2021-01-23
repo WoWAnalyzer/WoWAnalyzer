@@ -6,9 +6,9 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import DamageTaken from 'parser/shared/modules/throughput/DamageTaken';
 
-import StatisticBox from 'interface/others/StatisticBox';
-import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
+import StatisticBox from 'parser/ui/StatisticBox';
+import { SpellIcon } from 'interface';
+import { SpellLink } from 'interface';
 import { t } from '@lingui/macro';
 
 import { formatNumber, formatPercentage } from 'common/format';

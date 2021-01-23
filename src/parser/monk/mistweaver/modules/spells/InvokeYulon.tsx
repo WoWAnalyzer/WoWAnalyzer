@@ -2,11 +2,11 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { formatNumber } from 'common/format';
-import ItemHealingDone from 'interface/ItemHealingDone';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class InvokeYulon extends Analyzer {
   soothHealing: number = 0;

@@ -2,13 +2,13 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
-import Statistic from 'interface/statistics/Statistic';
-import { TooltipElement } from 'common/Tooltip';
+import Statistic from 'parser/ui/Statistic';
+import { TooltipElement } from 'interface';
 import { t } from '@lingui/macro';
 
 class RakeUptime extends Analyzer {

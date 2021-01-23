@@ -1,11 +1,11 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { SpellIcon } from 'interface';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Events, { CastEvent } from 'parser/core/Events';
 import { t } from '@lingui/macro';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -43,7 +43,7 @@ class BlackoutKick extends Analyzer {
 
   onCast(event: CastEvent) {
     const hasImportantCastsAvailable = this.IMPORTANT_SPELLS.some(spellId => this.spellUsable.isAvailable(spellId));
-    /** 
+    /**
      * Weapons of Order increases this reduction, but i'm opting to handle it in its own module and leave the extra CDR untracked here.
      * We probably wouldn't care too much about wasting the extra CDR anyway
      */

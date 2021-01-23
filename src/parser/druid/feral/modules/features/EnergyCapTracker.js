@@ -2,10 +2,10 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatPercentage } from 'common/format';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
 import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetracker/RegenResourceCapTracker';
-import BoringResourceValue from 'interface/statistics/components/BoringResourceValue';
+import BoringResourceValue from 'parser/ui/BoringResourceValue';
 
 import { t } from '@lingui/macro';
 

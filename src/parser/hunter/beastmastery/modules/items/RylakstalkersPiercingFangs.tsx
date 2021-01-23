@@ -1,15 +1,15 @@
 import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import React from 'react';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import SPELLS from 'common/SPELLS';
 import Events, { DamageEvent } from 'parser/core/Events';
 import HIT_TYPES from 'game/HIT_TYPES';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { RYLAKSTALKERS_PIERCING_FANGS_CRIT_DMG_INCREASE } from 'parser/hunter/beastmastery/constants';
-import ItemDamageDone from 'interface/ItemDamageDone';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 
 /**
  * While Bestial Wrath is active, your pet's critical damage dealt is increased by 20%.

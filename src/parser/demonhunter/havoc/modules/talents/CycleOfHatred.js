@@ -1,12 +1,12 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Events from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatNumber } from 'common/format';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import SpellIcon from 'common/SpellIcon';
+import { SpellIcon } from 'interface';
 
 /*
   example report: https://www.warcraftlogs.com/reports/QxHJ9MTtmVYNXPLd/#fight=1&source=2

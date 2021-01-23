@@ -4,8 +4,8 @@ import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import { When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import SpellLink from 'common/SpellLink';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { SpellLink } from 'interface';
 import { Trans } from '@lingui/macro';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {

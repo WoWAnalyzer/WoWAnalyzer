@@ -6,14 +6,14 @@ import Events from 'parser/core/Events';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 import { t } from '@lingui/macro';
 

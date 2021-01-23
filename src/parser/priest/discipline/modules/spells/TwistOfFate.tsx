@@ -1,13 +1,13 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
+import { SpellIcon } from 'interface';
+import { SpellLink } from 'interface';
 import { formatNumber, formatPercentage } from 'common/format';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import Events, { AbsorbedEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import { SuggestionFactory, When } from 'parser/core/ParseResults';
 import { Options } from 'parser/core/Module';

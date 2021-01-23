@@ -1,15 +1,15 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { AbsorbedEvent, ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, RemoveBuffEvent } from 'parser/core/Events';
-import SpellIcon from 'common/SpellIcon';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import Statistic from 'interface/statistics/Statistic';
-import BoringValue from 'interface/statistics/components/BoringValueText';
+import { SpellIcon } from 'interface';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
+import BoringValue from 'parser/ui/BoringValueText';
 import { formatNumber, formatPercentage } from 'common/format';
-import FooterChart, { formatTime } from 'interface/others/FooterChart';
+import FooterChart, { formatTime } from 'parser/ui/FooterChart';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 const PURIFIED_CHI_PCT = 0.2;

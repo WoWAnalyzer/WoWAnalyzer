@@ -6,11 +6,11 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
 import { formatThousands, formatNumber, formatPercentage } from 'common/format';
-import Tooltip from 'common/Tooltip';
+import { Tooltip } from 'interface';
 
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 const DAMAGE_BONUS = 0.25;
 const MAX_STACKS = 4;

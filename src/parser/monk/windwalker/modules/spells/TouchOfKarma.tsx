@@ -1,12 +1,12 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
-import Statistic from 'interface/statistics/Statistic';
+import Statistic from 'parser/ui/Statistic';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Events, { CastEvent } from 'parser/core/Events';
 import { t } from '@lingui/macro';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';

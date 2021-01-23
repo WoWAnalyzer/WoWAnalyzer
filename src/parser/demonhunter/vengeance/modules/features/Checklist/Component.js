@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
@@ -64,7 +64,7 @@ const VengeanceDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }
           <Requirement
             name={(
               <>
-                <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> casted at 4+ souls 
+                <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> casted at 4+ souls
               </>
             )}
             thresholds={thresholds.spiritBombSoulsConsume}
@@ -152,7 +152,7 @@ const VengeanceDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }
           />
         )}
 
-        
+
 {!combatant.hasTalent(SPELLS.FRACTURE_TALENT.id) &&
         <Requirement
           name={(

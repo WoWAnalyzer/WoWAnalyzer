@@ -6,13 +6,13 @@ import { formatNumber, formatPercentage } from 'common/format';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 import Abilities from 'parser/shaman/elemental/modules/Abilities';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import Enemies from 'parser/shared/modules/Enemies';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 class Ascendance extends Analyzer {

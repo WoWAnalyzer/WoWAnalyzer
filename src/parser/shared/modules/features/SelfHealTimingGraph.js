@@ -2,11 +2,11 @@ import React from 'react';
 import { AutoSizer } from 'react-virtualized';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Panel from 'interface/others/Panel';
+import { Panel } from 'interface';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 
-import BaseChart, { formatTime } from 'interface/others/BaseChart';
+import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import Events from 'parser/core/Events';
 
 const DEATH_BUFFER = 200;

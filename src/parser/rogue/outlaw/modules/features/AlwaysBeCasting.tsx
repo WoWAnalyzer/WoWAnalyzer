@@ -3,7 +3,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import { formatPercentage } from 'common/format';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   get suggestionThresholds() {

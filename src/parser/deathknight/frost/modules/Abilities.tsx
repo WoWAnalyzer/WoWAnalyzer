@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
@@ -323,7 +323,7 @@ class Abilities extends CoreAbilities {
       // covenants
       {
         spell: SPELLS.SWARMING_MIST,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,     
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
         gcd: {
           base: 1500,
@@ -336,7 +336,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DOOR_OF_SHADOWS,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,     
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 60,
         gcd: {
           base: 1500,
@@ -345,7 +345,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ABOMINATION_LIMB,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,     
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
         gcd: {
           base: 1500,
@@ -358,13 +358,13 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FLESHCRAFT,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,     
+        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
         enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },
       {
         spell: SPELLS.SHACKLE_THE_UNWORTHY,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,     
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60,
         gcd: {
           base: 1500,
@@ -377,7 +377,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DEATHS_DUE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,     
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 30,
         gcd: {
           base: 1500,
@@ -390,7 +390,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SOULSHAPE,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,     
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
         gcd: {
           base: 1500,

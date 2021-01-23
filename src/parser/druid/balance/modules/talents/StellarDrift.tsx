@@ -6,9 +6,9 @@ import { formatPercentage, formatNumber } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Events, { DamageEvent } from 'parser/core/Events';
 
 const STARFALL_BONUS_DAMAGE = 0.25;

@@ -7,11 +7,11 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import HealingValue from 'parser/shared/modules/HealingValue';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import Statistic from 'interface/statistics/Statistic';
-import Panel from 'interface/statistics/Panel';
-import Radar from 'interface/statistics/components/DistanceRadar';
-import PlayerBreakdown from 'interface/others/PlayerBreakdown';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import Statistic from 'parser/ui/Statistic';
+import Panel from 'parser/ui/Panel';
+import Radar from 'parser/ui/DistanceRadar';
+import PlayerBreakdown from 'parser/ui/PlayerBreakdown';
 
 import Events from 'parser/core/Events';
 
@@ -111,7 +111,7 @@ class MasteryEffectiveness extends Analyzer {
     this.processForMasteryEffectiveness(event);
   }
 
-  onAbsorbedByPlayer(event) { 
+  onAbsorbedByPlayer(event) {
     this.processForMasteryEffectiveness(event);
   }
 

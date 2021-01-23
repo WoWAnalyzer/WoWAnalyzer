@@ -1,15 +1,15 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import SpellIcon from 'common/SpellIcon';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { SpellIcon } from 'interface';
 import { formatNumber } from 'common/format';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 import { t } from '@lingui/macro';

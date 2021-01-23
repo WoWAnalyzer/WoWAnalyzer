@@ -1,12 +1,12 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+import { SpellIcon } from 'interface';
 
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 /* Add in Statistic box to show Vivfy to Enveloping Mist Cast ratio.
  * TODO:

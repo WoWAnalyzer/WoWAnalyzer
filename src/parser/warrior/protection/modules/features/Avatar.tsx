@@ -1,9 +1,9 @@
 import React from 'react';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+import { SpellIcon } from 'interface';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { formatNumber, formatPercentage } from 'common/format';
 import { DamageEvent, EventType } from 'parser/core/Events';

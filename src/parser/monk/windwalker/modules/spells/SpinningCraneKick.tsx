@@ -4,9 +4,9 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import Events, { ApplyDebuffEvent, CastEvent, RefreshDebuffEvent } from 'parser/core/Events';
 
 interface MarkOfTheCrane {

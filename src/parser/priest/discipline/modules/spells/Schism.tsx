@@ -1,10 +1,10 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
+import { SpellIcon } from 'interface';
+import { SpellLink } from 'interface';
 import { formatNumber, formatPercentage } from 'common/format';
-import DualStatisticBox, { STATISTIC_ORDER } from 'interface/others/DualStatisticBox';
+import DualStatisticBox, { STATISTIC_ORDER } from 'parser/ui/DualStatisticBox';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Enemies from 'parser/shared/modules/Enemies';

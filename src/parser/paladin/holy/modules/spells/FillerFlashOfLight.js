@@ -2,8 +2,8 @@ import React from 'react';
 import { t, Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
-import { TooltipElement } from 'common/Tooltip';
+import { SpellLink } from 'interface';
+import { TooltipElement } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 

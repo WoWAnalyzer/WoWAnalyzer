@@ -3,11 +3,11 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Events, { CastEvent, DamageEvent, EnergizeEvent } from 'parser/core/Events';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import { t } from '@lingui/macro';
 
 // Example log: /reports/tBFv8P9R3kdDgHKJ#fight=1&type=damage-done&source=19

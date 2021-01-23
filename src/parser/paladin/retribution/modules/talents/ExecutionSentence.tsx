@@ -6,10 +6,10 @@ import SPELLS from 'common/SPELLS';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Enemies from 'parser/shared/modules/Enemies';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import Statistic from 'interface/statistics/Statistic';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
-import ItemDamageDone from 'interface/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { formatNumber } from 'common/format';
 
 import { ABILITIES_AFFECTED_BY_HOLY_DAMAGE_INCREASES } from '../../constants';

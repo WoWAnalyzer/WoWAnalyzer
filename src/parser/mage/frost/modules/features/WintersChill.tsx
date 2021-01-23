@@ -7,12 +7,12 @@ import EventHistory from 'parser/shared/modules/EventHistory';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
-import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
+import { SpellIcon } from 'interface';
+import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { MS_BUFFER_1000 } from 'parser/mage/shared/constants';
 import { Trans } from '@lingui/macro';
 
@@ -101,7 +101,7 @@ class WintersChill extends Analyzer {
     if (preCast) {
       this.preCastID = preCast.ability.guid;
       this.preCastTimestamp = preCast.timestamp;
-    }    
+    }
   }
 
   onWintersChillPreCast(event: DamageEvent) {

@@ -2,10 +2,10 @@ import React from 'react';
 import { Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+import { SpellIcon } from 'interface';
 import { formatPercentage } from 'common/format';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import UpArrowIcon from 'interface/icons/UpArrow';
 import PlusIcon from 'interface/icons/Plus';
 import Analyzer from 'parser/core/Analyzer';

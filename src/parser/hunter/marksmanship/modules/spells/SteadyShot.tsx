@@ -1,10 +1,10 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { EnergizeEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { STEADY_SHOT_FOCUS_REGEN, TRUESHOT_FOCUS_INCREASE } from 'parser/hunter/marksmanship/constants';
 import { NESINGWARY_FOCUS_GAIN_MULTIPLIER } from 'parser/hunter/shared/constants';
 

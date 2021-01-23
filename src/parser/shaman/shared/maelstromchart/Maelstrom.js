@@ -4,7 +4,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { AutoSizer } from 'react-virtualized';
-import BaseChart, { formatTime } from 'interface/others/BaseChart';
+import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 
 const COLORS = {
   MAELSTROM_FILL: 'rgba(0, 139, 215, 0.2)',

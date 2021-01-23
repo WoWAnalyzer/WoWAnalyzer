@@ -3,12 +3,12 @@ import SPELLS from 'common/SPELLS';
 import Events, { DamageEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import React from 'react';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { formatNumber } from 'common/format';
-import SpellLink from 'common/SpellLink';
-import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
+import { SpellLink } from 'interface';
+import BoringSpellValue from 'parser/ui/BoringSpellValue';
 
 class BlessedHammerDamageReduction extends Analyzer {
   static dependencies = {

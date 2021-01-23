@@ -1,6 +1,6 @@
 import CoreCancelledCasts from 'parser/shared/modules/CancelledCasts';
 import { formatPercentage } from 'common/format';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { t } from '@lingui/macro';
 

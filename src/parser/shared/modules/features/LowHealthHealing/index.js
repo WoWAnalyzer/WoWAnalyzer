@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Panel from 'interface/others/Panel';
+import { Panel } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { EventType } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';

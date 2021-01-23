@@ -1,10 +1,10 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import SpellLink from 'common/SpellLink';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import { SpellLink } from 'interface';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 import { t } from '@lingui/macro';
 import { ThresholdStyle } from 'parser/core/ParseResults';

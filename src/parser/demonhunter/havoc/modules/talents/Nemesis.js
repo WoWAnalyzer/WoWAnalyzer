@@ -4,11 +4,11 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
-import SPELLS from 'common/SPELLS/index';
-import SpellIcon from 'common/SpellIcon';
+import SPELLS from 'common/SPELLS';
+import { SpellIcon } from 'interface';
 import { formatNumber, formatPercentage } from 'common/format';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import Events from 'parser/core/Events';
 
 const NEMESIS_BUFF_IDS = [

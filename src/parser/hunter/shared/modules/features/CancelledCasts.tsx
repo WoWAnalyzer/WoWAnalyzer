@@ -4,9 +4,9 @@ import CoreCancelledCasts from 'parser/shared/modules/CancelledCasts';
 
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { formatPercentage } from 'common/format';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import Statistic from 'interface/statistics/Statistic';
-import BoringValueText from 'interface/statistics/components/BoringValueText';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import Statistic from 'parser/ui/Statistic';
+import BoringValueText from 'parser/ui/BoringValueText';
 import CrossIcon from 'interface/icons/Cross';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import { Options } from 'parser/core/Analyzer';

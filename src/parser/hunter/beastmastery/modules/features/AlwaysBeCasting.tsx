@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { Trans } from '@lingui/macro';

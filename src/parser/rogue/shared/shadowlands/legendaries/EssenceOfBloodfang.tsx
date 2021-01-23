@@ -2,11 +2,11 @@ import React from 'react';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import ItemDamageDone from 'interface/ItemDamageDone';
-import ItemHealingDone from 'interface/ItemHealingDone';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 class EssenceOfBloodfang extends Analyzer {
   bloodfangDamage: number = 0;

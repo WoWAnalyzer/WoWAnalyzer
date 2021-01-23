@@ -2,12 +2,12 @@ import React from 'react';
 
 import { Zerotorescue } from 'CONTRIBUTORS';
 import DiscordLogo from 'interface/images/Discord-Logo+Wordmark-White.svg';
-import RegularArticle from 'interface/news/RegularArticle';
+import NewsRegularArticle from 'interface/NewsRegularArticle';
 
 import DiscordBotGif from './discord-bot.gif';
 
 export default (
-  <RegularArticle
+  <NewsRegularArticle
     title="The WoWAnalyzer Discord bot"
     publishedAt="2017-12-24"
     publishedBy={Zerotorescue}
@@ -44,5 +44,5 @@ export default (
         <img src={DiscordBotGif} alt="Bot example gif" style={{ height: 300 }} />
       </div>
     </div>
-  </RegularArticle>
+  </NewsRegularArticle>
 );

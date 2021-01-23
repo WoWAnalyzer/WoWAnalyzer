@@ -4,12 +4,12 @@ import { AutoSizer } from 'react-virtualized';
 import { formatThousands, formatPercentage } from 'common/format';
 import rankingColor from 'common/getRankingColor';
 import makeWclUrl from 'common/makeWclUrl';
-import StatisticBar from 'interface/statistics/StatisticBar';
-import ThroughputPerformance, { UNAVAILABLE } from 'interface/report/Results/ThroughputPerformance';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import StatisticBar from 'parser/ui/StatisticBar';
+import ThroughputPerformance, { UNAVAILABLE } from 'parser/ui/ThroughputPerformance';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Tooltip from 'common/Tooltip';
-import FlushLineChart from 'interface/others/FlushLineChart';
+import { Tooltip } from 'interface';
+import FlushLineChart from 'parser/ui/FlushLineChart';
 import Events, { DamageEvent } from 'parser/core/Events';
 
 import DamageValue from '../DamageValue';
