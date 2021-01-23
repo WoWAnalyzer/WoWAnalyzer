@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { Item } from 'parser/core/Events';
-import enchantIdMap from 'common/enchantIdMap';
+
+import enchantIdMap from './enchantIdMap';
 
 interface Props {
   gear: Item[];
