@@ -86,7 +86,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.PHANTOM_SINGULARITY_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 45,
         enabled: combatant.hasTalent(SPELLS.PHANTOM_SINGULARITY_TALENT.id),
         gcd: {
@@ -106,7 +106,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.VILE_TAINT_TALENT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
         },
@@ -117,20 +117,6 @@ class Abilities extends CoreAbilities {
         },
         buffSpellId: SPELLS.VILE_TAINT_TALENT.id,
       },
-      {
-        spell: SPELLS.SOUL_ROT,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        gcd: {
-          base: 1500,
-        },
-        cooldown: 60,
-        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
-        castEfficiency: {
-          suggestion: false,
-        },
-        buffSpellId: SPELLS.SOUL_ROT.id,
-      },
-
       // Cooldowns
       {
         spell: SPELLS.SUMMON_DARKGLARE,
@@ -261,16 +247,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.SOULSHAPE,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 90,
-        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
-        gcd: {
-          base: 1500,
-        },
-        buffSpellId: SPELLS.SOULSHAPE.id,
-      },
-      {
         spell: SPELLS.BANISH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
@@ -386,6 +362,74 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+      },
+
+      // Covenants
+      {
+        spell: SPELLS.SCOURING_TITHE,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 45,
+        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: false,
+        },
+      },
+      {
+        spell: SPELLS.DECIMATING_BOLT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 45,
+        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+        buffSpellId: SPELLS.DECIMATING_BOLT.id,
+      },
+      {
+        spell: SPELLS.SOULSHAPE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 90,
+        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        gcd: {
+          base: 1500,
+        },
+        buffSpellId: SPELLS.SOULSHAPE.id,
+      },
+      {
+        spell: SPELLS.SOUL_ROT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 60,
+        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+      },
+      {
+        spell: SPELLS.IMPENDING_CATASTROPHE_CAST,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 60,
+        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+        damageSpellIds: [
+          SPELLS.IMPENDING_CATASTROPHE_HIT.id,
+          SPELLS.IMPENDING_CATASTROPHE_DEBUFF.id,
+        ],
       },
     ];
   }
