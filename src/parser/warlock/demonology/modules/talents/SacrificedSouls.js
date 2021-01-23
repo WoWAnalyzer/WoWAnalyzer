@@ -6,9 +6,9 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
 import { formatThousands } from 'common/format';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 
 import DemoPets from '../pets/DemoPets';

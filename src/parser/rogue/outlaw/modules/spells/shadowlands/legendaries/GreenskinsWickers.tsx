@@ -4,7 +4,7 @@ import Abilities from 'parser/core/modules/Abilities';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import SpellIcon from 'common/SpellIcon';
 
 class GreenskinsWickers extends Analyzer {

@@ -4,7 +4,7 @@ import { formatNumber, formatThousands } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellLink from 'common/SpellLink';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import StatisticListBoxItem from 'interface/StatisticListBoxItem';
 import Events from 'parser/core/Events';
 
 /**

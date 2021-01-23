@@ -6,8 +6,8 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import { TooltipElement } from 'common/Tooltip';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -180,7 +180,7 @@ class ArcanePower extends Analyzer {
   get castUtilization() {
     return 1 - (this.badCastsDuringAP / this.totalCastsDuringAP);
   }
-  
+
   get totalArcanePowerCasts() {
     return this.abilityTracker.getAbility(SPELLS.ARCANE_POWER.id).casts;
   }

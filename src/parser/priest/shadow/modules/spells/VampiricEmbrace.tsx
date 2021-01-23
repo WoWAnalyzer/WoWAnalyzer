@@ -4,8 +4,8 @@ import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 import { formatNumber } from 'common/format';

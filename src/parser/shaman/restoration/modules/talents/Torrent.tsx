@@ -6,7 +6,7 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import StatisticListBoxItem from 'interface/StatisticListBoxItem';
 import Events, { HealEvent } from 'parser/core/Events';
 
 const TORRENT_HEALING_INCREASE = 0.2;

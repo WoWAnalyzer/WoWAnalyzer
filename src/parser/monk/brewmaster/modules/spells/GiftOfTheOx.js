@@ -6,9 +6,9 @@ import { formatNumber } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
-import BoringValue from 'interface/statistics/components/BoringValueText';
+import BoringValue from 'interface/statistics/BoringValueText';
 import { calculatePrimaryStat } from 'common/stats';
 
 import { BASE_AGI, GIFT_OF_THE_OX_SPELLS } from '../../constants';

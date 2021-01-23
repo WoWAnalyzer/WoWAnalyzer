@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Panel from 'interface/others/Panel';
-import Feeding from 'interface/others/Feeding';
+import Panel from 'interface/Panel';
+import Feeding from 'interface/Feeding';
 
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';

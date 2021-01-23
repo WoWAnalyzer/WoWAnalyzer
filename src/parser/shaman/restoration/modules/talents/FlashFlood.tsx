@@ -6,10 +6,10 @@ import { TooltipElement } from 'common/Tooltip';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
-import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import { STATISTIC_ORDER } from 'interface/StatisticsListBox';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 import Statistic from 'interface/statistics/Statistic';
-import DonutChart from 'interface/statistics/components/DonutChart';
+import DonutChart from 'interface/statistics/DonutChart';
 import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
 import { Trans } from '@lingui/macro';
 import { RESTORATION_COLORS } from 'parser/shaman/restoration/constants';

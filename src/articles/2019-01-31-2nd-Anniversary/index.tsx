@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { Zerotorescue } from 'CONTRIBUTORS';
-import RegularArticle from 'interface/news/RegularArticle';
-import makeNewsUrl from 'interface/news/makeUrl';
+import NewsRegularArticle from 'interface/NewsRegularArticle';
+import makeNewsUrl from 'interface/makeNewsUrl';
 
 import Report from './report.jpg';
 import Statistics from './statistics.jpg';
@@ -12,7 +12,7 @@ import PlayerSelection from './playerselection.jpg';
 import Logo from './logo.png';
 
 export default (
-  <RegularArticle title="WoWAnalyzer's second anniversary" publishedAt="2019-01-31" publishedBy={Zerotorescue}>
+  <NewsRegularArticle title="WoWAnalyzer's second anniversary" publishedAt="2019-01-31" publishedBy={Zerotorescue}>
     Yay! WoWAnalyzer just turned two years old! We're not going to do a <Link to={makeNewsUrl('WoWAnalyzer\'s first anniversary')}>year recap</Link> this year. That took way too much time to make last time. Instead we spent an exorbitant amount of time on a complete redesign of the site. There's still a lot left to do before it's finished, but here are some of the things that are close to final.<br /><br />
 
     We're changing our color scheme from red to yellow. Yellow is a much easier color. We couldn't leave the logo as-is when changing the primary color, so we designed a new one:<br /><br />
@@ -51,5 +51,5 @@ export default (
     </div>
 
     These changes are coming as soon as they're ready. The release is currently planned for Q1 of 2019 and more changes will be coming later in the year. Please consider <Link to="premium">premium</Link> if you want to support development and keep the project moving forward a bit longer.
-  </RegularArticle>
+  </NewsRegularArticle>
 );

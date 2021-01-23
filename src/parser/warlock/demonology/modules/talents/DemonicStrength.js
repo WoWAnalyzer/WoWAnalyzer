@@ -7,9 +7,9 @@ import Pets from 'parser/shared/modules/Pets';
 import SPELLS from 'common/SPELLS';
 import { formatThousands } from 'common/format';
 
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 
 import PETS from '../pets/PETS';

@@ -2,11 +2,11 @@ import React from 'react';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatDuration, formatPercentage } from 'common/format';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'interface/StatisticBox';
 import UnlimitedPowerTimesByStacks from 'parser/shaman/elemental/modules/talents/UnlimitedPowerTimesByStacks';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 
 const HASTE_PER_STACK = 0.02;
 

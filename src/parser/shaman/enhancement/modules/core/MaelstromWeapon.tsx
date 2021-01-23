@@ -6,8 +6,8 @@ import SPELLS from 'common/SPELLS/index';
 import UptimeIcon from 'interface/icons/Uptime';
 import Spell from 'common/SPELLS/Spell';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import { formatPercentage } from 'common/format';
 
 import { Intervals } from './Intervals';

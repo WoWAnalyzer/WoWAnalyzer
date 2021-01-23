@@ -3,11 +3,11 @@ import SPELLS from 'common/SPELLS';
 import Events, { DamageEvent } from 'parser/core/Events';
 import React from 'react';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import { formatNumber } from 'common/format';
 import SpellLink from 'common/SpellLink';
-import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValue from 'interface/statistics/BoringSpellValue';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 
 const DAMAGE_MODIFIER = 0.2;
 

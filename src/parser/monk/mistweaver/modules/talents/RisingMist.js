@@ -7,9 +7,9 @@ import Events from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Statistic from 'interface/statistics/Statistic';
-import BoringValueText from 'interface/statistics/components/BoringValueText';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringValueText from 'interface/statistics/BoringValueText';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import SpellIcon from 'common/SpellIcon';
 
 import HotTrackerMW from '../core/HotTrackerMW';

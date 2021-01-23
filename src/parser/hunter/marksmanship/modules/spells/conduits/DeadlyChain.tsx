@@ -1,7 +1,7 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import React from 'react';
 import SPELLS from 'common/SPELLS';
@@ -9,7 +9,7 @@ import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { ONE_SECOND_IN_MS } from 'parser/hunter/shared/constants';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { DEADLY_CHAIN_TRICKSHOTS_DAMAGE_INCREASE, TRICK_SHOTS_BASELINE_DAMAGE } from 'parser/hunter/marksmanship/constants';
-import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
+import ConduitSpellText from 'interface/statistics/ConduitSpellText';
 
 /**
  * Trick Shots secondary damage is increased by 10.0%.

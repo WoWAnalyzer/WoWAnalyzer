@@ -9,10 +9,10 @@ import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import { formatNumber } from 'common/format';
 import Spell from 'common/SPELLS/Spell';

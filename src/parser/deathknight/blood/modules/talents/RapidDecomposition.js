@@ -2,8 +2,8 @@ import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import TalentStatisticBox from 'interface/TalentStatisticBox';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import Events from 'parser/core/Events';
 
 class RapidDecomposition extends Analyzer {

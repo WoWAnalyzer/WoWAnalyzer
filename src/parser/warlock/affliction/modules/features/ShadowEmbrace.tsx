@@ -12,10 +12,10 @@ import SpellIcon from 'common/SpellIcon';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
 
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import UptimeBar from 'interface/statistics/components/UptimeBar';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
+import UptimeBar from 'interface/statistics/UptimeBar';
 
 import { t } from '@lingui/macro';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';

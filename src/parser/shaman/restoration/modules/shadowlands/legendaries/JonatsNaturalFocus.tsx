@@ -6,9 +6,9 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 import ItemHealingDone from 'interface/ItemHealingDone';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 
 const HEAL_INCREASE_PER_STACK = 0.1
 

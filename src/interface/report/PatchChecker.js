@@ -7,11 +7,11 @@ import { Trans } from '@lingui/macro';
 import PATCHES from 'common/PATCHES';
 import Icon from 'common/Icon';
 import Tooltip from 'common/Tooltip';
-import DiscordButton from 'interface/common/thirdpartybuttons/Discord';
-import GitHubButton from 'interface/common/thirdpartybuttons/GitHub';
+import DiscordButton from 'interface/DiscordButton';
+import GitHubButton from 'interface/GitHubButton';
 import { ignorePreviousPatchWarning } from 'interface/actions/previousPatch';
 import { getReportCodesIgnoredPreviousPatchWarning } from 'interface/selectors/skipPreviousPatchWarning';
-import Panel from 'interface/others/Panel';
+import Panel from 'interface/Panel';
 
 import Background from './images/weirdnelf.png';
 

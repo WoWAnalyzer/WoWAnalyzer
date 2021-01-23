@@ -7,9 +7,9 @@ import SpellLink from 'common/SpellLink';
 
 import { formatPercentage, formatDuration } from 'common/format';
 
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import UptimeIcon from 'interface/icons/Uptime';
 
 import { t } from '@lingui/macro';

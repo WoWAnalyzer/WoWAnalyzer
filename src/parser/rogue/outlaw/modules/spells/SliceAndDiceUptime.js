@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import { formatPercentage } from 'common/format';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import SpellLink from 'common/SpellLink';
 
 class SliceAndDiceUptime extends Analyzer {

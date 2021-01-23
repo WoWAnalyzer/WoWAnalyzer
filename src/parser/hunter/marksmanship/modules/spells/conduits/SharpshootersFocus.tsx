@@ -1,12 +1,12 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 import React from 'react';
 import Events, { ApplyBuffEvent, FightEndEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import { SHARPSHOOTERS_FOCUS_INCREASE_TRUESHOT_DURATION, TRUESHOT_DURATION_BASELINE } from 'parser/hunter/marksmanship/constants';
-import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
+import ConduitSpellText from 'interface/statistics/ConduitSpellText';
 
 /**
  * Trueshot lasts 20.0% longer.

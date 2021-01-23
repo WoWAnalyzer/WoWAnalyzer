@@ -7,9 +7,9 @@ import { formatPercentage } from 'common/format';
 import Events, { CastEvent } from 'parser/core/Events';
 
 import Statistic from 'interface/statistics/Statistic';
-import BoringValueText from 'interface/statistics/components/BoringValueText';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringValueText from 'interface/statistics/BoringValueText';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import SpellLink from 'common/SpellLink';
 
 import { t } from '@lingui/macro';

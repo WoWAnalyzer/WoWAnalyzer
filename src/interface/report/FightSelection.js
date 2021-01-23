@@ -8,7 +8,7 @@ import { compose } from 'redux';
 
 import getFightName from 'common/getFightName';
 import Tooltip from 'common/Tooltip';
-import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
+import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import { getFightId } from 'interface/selectors/url/report';
 import { getFightFromReport } from 'interface/selectors/fight';
 import DocumentTitle from 'interface/DocumentTitle';

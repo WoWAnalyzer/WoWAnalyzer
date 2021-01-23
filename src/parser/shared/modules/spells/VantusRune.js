@@ -3,8 +3,8 @@ import React from 'react';
 import { formatNumber } from 'common/format';
 
 import Statistic from 'interface/statistics/Statistic';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
+import { STATISTIC_ORDER } from 'interface/StatisticBox';
+import BoringItemValueText from 'interface/statistics/BoringItemValueText';
 
 import ITEMS from 'common/ITEMS/index';
 

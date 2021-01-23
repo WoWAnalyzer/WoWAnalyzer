@@ -1,7 +1,7 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
-import Panel from 'interface/others/Panel';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Panel from 'interface/Panel';
+import StatisticBox, { STATISTIC_ORDER } from 'interface/StatisticBox';
 import { formatPercentage } from 'common/format';
 import Icon from 'common/Icon';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';

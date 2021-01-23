@@ -11,8 +11,8 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import { MS_BUFFER_1000 } from 'parser/mage/shared/constants';
 import { Trans } from '@lingui/macro';
 
@@ -101,7 +101,7 @@ class WintersChill extends Analyzer {
     if (preCast) {
       this.preCastID = preCast.ability.guid;
       this.preCastTimestamp = preCast.timestamp;
-    }    
+    }
   }
 
   onWintersChillPreCast(event: DamageEvent) {

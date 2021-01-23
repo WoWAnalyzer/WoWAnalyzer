@@ -3,9 +3,9 @@ import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
 import React from 'react';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import Events, { DamageEvent } from 'parser/core/Events';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 
 /**
  * Wildfire Bomb drops an additional cluster of bombs around the target, each exploding for (33% of Attack power) Fire damage.

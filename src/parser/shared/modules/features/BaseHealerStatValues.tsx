@@ -12,8 +12,8 @@ import HealingValue from 'parser/shared/modules/HealingValue';
 import DamageValue from 'parser/shared/modules/DamageValue';
 import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import StatisticWrapper from 'interface/others/StatisticWrapper';
+import { STATISTIC_ORDER } from 'interface/StatisticBox';
+import StatisticWrapper from 'interface/StatisticWrapper';
 import { Trans } from '@lingui/macro';
 
 import CORE_SPELL_INFO from './SpellInfo';

@@ -8,8 +8,8 @@ import SPELLS from 'common/SPELLS';
 import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 
 import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 
 class Havoc extends Analyzer {
   get dps() {

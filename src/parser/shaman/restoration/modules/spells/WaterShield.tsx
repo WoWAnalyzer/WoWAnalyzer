@@ -10,12 +10,12 @@ import { formatNumber } from 'common/format';
 import { Trans } from '@lingui/macro';
 
 import Statistic from 'interface/statistics/Statistic';
-import BoringValue from 'interface/statistics/components/BoringValueText';
+import BoringValue from 'interface/statistics/BoringValueText';
 import ManaIcon from 'interface/icons/Mana';
 // just gonna steal my mtt formatting
 import './ManaTideTotem.scss'
 import { TooltipElement } from 'common/Tooltip';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 
 const WATER_SHIELD_MANA_REGEN_PER_SECOND = 50 / 5;

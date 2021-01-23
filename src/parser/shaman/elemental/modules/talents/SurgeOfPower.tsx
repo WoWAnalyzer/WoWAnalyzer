@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'interface/StatisticBox';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';

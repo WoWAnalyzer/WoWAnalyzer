@@ -7,8 +7,8 @@ import { formatNumber } from 'common/format';
 import { formatPercentage } from 'common/format';
 
 import SPELLS from 'common/SPELLS';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/TraitStatisticBox';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Events from 'parser/core/Events';
@@ -241,7 +241,7 @@ class GlimmerOfLight extends Analyzer {
         )
         .recommended(`< ${this.suggestEarlyRefresh.isGreaterThan.minor * 100}% is recommended`));
     }
-  
+
 }
 
 export default GlimmerOfLight;

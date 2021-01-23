@@ -12,10 +12,10 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
 import Statistic from 'interface/statistics/Statistic';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import { STATISTIC_ORDER } from 'interface/StatisticBox';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 
 import WoundTracker from '../features/WoundTracker';
 

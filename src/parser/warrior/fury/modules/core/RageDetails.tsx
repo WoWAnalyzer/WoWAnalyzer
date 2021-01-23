@@ -2,12 +2,12 @@ import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import Panel from 'interface/others/Panel';
+import Panel from 'interface/Panel';
 import Statistic from 'interface/statistics/Statistic';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'interface/StatisticBox';
 import { formatPercentage } from 'common/format';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
-import BoringResourceValue from 'interface/statistics/components/BoringResourceValue';
+import BoringResourceValue from 'interface/statistics/BoringResourceValue';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { t } from '@lingui/macro';
 

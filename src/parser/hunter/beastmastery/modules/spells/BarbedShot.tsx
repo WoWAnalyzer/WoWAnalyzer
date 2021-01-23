@@ -4,10 +4,10 @@ import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import { formatDuration, formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
 import Events, { ApplyBuffEvent, ApplyBuffStackEvent, EnergizeEvent, EventType, FightEndEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';

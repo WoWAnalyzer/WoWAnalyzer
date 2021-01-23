@@ -1,11 +1,11 @@
 import React from 'react';
 import { formatPercentage } from 'common/format';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import UptimeIcon from 'interface/icons/Uptime';
 import Statistic from 'interface/statistics/Statistic';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import BoringValue from 'interface/statistics/components/BoringValueText';
+import BoringValue from 'interface/statistics/BoringValueText';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';

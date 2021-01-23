@@ -2,13 +2,13 @@ import React from 'react';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import Statistic from 'interface/statistics/Statistic';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { formatPercentage, formatThousands } from 'common/format';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 
 class CircleOfHealing extends Analyzer {
   circleOfHealingCasts = 0;

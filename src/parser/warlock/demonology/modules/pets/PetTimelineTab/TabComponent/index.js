@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Panel from 'interface/others/Panel';
+import Panel from 'interface/Panel';
 
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';

@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellLink from 'common/SpellLink';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import StatisticListBoxItem from 'interface/StatisticListBoxItem';
 import Events from 'parser/core/Events';
 
 /**

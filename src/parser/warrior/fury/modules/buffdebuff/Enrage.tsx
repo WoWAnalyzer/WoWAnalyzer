@@ -10,7 +10,7 @@ import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import UptimeIcon from 'interface/icons/Uptime';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { t } from '@lingui/macro';
 

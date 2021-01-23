@@ -6,9 +6,9 @@ import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { EventType } from 'parser/core/Events';
 import EventFilter from 'parser/core/EventFilter';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
-import BoringValue from 'interface/statistics/components/BoringValueText';
+import BoringValue from 'interface/statistics/BoringValueText';
 
 import StaggerFabricator, { AddStaggerEvent, RemoveStaggerEvent } from './StaggerFabricator';
 

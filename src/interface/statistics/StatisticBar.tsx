@@ -1,6 +1,6 @@
 import React from 'react';
 
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 
 import './Statistic.scss';
 import './StatisticBar.scss';

@@ -3,8 +3,8 @@ import SPELLS from 'common/SPELLS';
 import Events, { DamageEvent } from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { formatThousands } from 'common/format';
 

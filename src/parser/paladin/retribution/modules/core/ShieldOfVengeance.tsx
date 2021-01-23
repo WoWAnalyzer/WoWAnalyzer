@@ -5,7 +5,7 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'interface/StatisticBox';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Events, {CastEvent} from 'parser/core/Events';
 import { t } from '@lingui/macro';

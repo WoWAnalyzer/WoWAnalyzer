@@ -1,5 +1,5 @@
 import React from 'react';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'interface/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 
 import SPELLS from 'common/SPELLS';
@@ -8,7 +8,7 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import Combatants from 'parser/shared/modules/Combatants';
 import ItemHealingDone from 'interface/ItemHealingDone';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import { formatNumber, formatPercentage } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
 import HIT_TYPES from 'game/HIT_TYPES';

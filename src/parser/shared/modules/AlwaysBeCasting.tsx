@@ -5,7 +5,7 @@ import { formatPercentage } from 'common/format';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { EndChannelEvent, EventType, GlobalCooldownEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'interface/StatisticBox';
 import Tooltip from 'common/Tooltip';
 import { Trans } from '@lingui/macro';
 

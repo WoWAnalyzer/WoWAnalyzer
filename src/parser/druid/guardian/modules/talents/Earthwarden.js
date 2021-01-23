@@ -6,7 +6,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import DamageTaken from 'parser/shared/modules/throughput/DamageTaken';
 
-import StatisticBox from 'interface/others/StatisticBox';
+import StatisticBox from 'interface/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { t } from '@lingui/macro';

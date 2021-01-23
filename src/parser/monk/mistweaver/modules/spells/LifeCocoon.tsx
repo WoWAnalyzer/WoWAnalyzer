@@ -7,9 +7,9 @@ import Events, { HealEvent } from 'parser/core/Events';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Combatants from 'parser/shared/modules/Combatants';
 
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import ItemHealingDone from 'interface/ItemHealingDone';
 
 import { LIFE_COCOON_HEALING_BOOST } from '../../constants';

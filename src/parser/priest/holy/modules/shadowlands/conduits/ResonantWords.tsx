@@ -7,9 +7,9 @@ import Events, { HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
+import ConduitSpellText from 'interface/statistics/ConduitSpellText';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import { RESONANT_WORDS_RANKS } from 'parser/priest/holy/constants';
 

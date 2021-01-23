@@ -7,10 +7,10 @@ import makeWclUrl from 'common/makeWclUrl';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import rankingColor from 'common/getRankingColor';
 import StatisticBar from 'interface/statistics/StatisticBar';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Tooltip from 'common/Tooltip';
-import FlushLineChart from 'interface/others/FlushLineChart';
+import FlushLineChart from 'interface/FlushLineChart';
 import Events, { AbsorbedEvent, DamageEvent } from 'parser/core/Events';
 
 import DamageValue from '../DamageValue';

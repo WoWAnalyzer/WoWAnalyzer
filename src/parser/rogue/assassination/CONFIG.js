@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Tyndi } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
-import Warning from 'interface/Alert/Warning';
+import AlertWarning from 'interface/AlertWarning';
 
 import CHANGELOG from './CHANGELOG';
 
@@ -17,9 +17,9 @@ export default {
   description: (
     <>
       Hey Assassination Rogues! <br /> <br />
-      <Warning>
+      <AlertWarning>
         The Assassination module is still being worked on, but it should cover most of the basics and also some of the more in depth things like bleed snapshotting. <br /> <br />
-      </Warning>
+      </AlertWarning>
       If you want to learn more about Assassination, head over to <a href="http://www.ravenholdt.net//" target="_blank" rel="noopener noreferrer">Ravenholt</a>, or join its <a href="https://discordapp.com/invite/mnwuJ7e" target="_blank" rel="noopener noreferrer">Discord Channel</a>.
     </>
   ),

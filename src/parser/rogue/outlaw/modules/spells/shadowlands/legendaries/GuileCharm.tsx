@@ -4,7 +4,7 @@ import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
 import { formatPercentage } from 'common/format';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import SpellIcon from 'common/SpellIcon';
 
 class GuileCharm extends Analyzer {

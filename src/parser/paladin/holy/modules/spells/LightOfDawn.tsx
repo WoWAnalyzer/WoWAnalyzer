@@ -2,10 +2,10 @@ import React from 'react';
 import { Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'interface/StatisticBox';
 import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
-import PlayerHits from 'interface/statistics/components/PlayerHits';
+import BoringSpellValue from 'interface/statistics/BoringSpellValue';
+import PlayerHits from 'interface/statistics/PlayerHits';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 

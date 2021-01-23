@@ -8,8 +8,8 @@ import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import Gauge from 'interface/statistics/components/Gauge';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
+import Gauge from 'interface/statistics/Gauge';
 
 import { t } from '@lingui/macro';
 

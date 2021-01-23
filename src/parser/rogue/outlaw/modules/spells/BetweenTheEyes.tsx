@@ -12,8 +12,8 @@ import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults'
 import Events, { EventType, UpdateSpellUsableEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 
@@ -40,14 +40,14 @@ class BetweenTheEyes extends Analyzer {
 
       case EventType.BeginCooldown: {
 
-        if (!this.isFirstCast) { 
+        if (!this.isFirstCast) {
           this.totalTimeOffCD += event.timestamp - this.timestampFromCD;
         } else {
           this.isFirstCast = false;
         }
         break;
       }
-        
+
       case EventType.EndCooldown: {
         this.timestampFromCD = event.timestamp;
         break;

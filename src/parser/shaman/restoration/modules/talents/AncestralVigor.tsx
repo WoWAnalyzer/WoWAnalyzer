@@ -8,9 +8,9 @@ import Icon from 'common/Icon';
 import { formatDuration, formatPercentage } from 'common/format';
 import SPECS from 'game/SPECS';
 
-import StatisticBox from 'interface/others/StatisticBox';
-import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'interface/others/LazyLoadStatisticBox';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import StatisticBox from 'interface/StatisticBox';
+import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'interface/LazyLoadStatisticBox';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';

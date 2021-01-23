@@ -1,8 +1,8 @@
 import React from 'react';
 import { formatPercentage } from 'common/format';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
-import BoringValue from 'interface/statistics/components/BoringValueText';
+import BoringValue from 'interface/statistics/BoringValueText';
 import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';

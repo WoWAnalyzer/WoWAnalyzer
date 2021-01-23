@@ -3,11 +3,11 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/hunter/beastmastery/modules/core/SpellUsable';
 import Events, { EnergizeEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import UptimeIcon from 'interface/icons/Uptime';
 import { formatPercentage } from 'common/format';
 import React from 'react';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import { ASPECT_OF_THE_WILD_FOCUS } from 'parser/hunter/beastmastery/constants';
 import { NESINGWARY_FOCUS_GAIN_MULTIPLIER } from 'parser/hunter/shared/constants';
 

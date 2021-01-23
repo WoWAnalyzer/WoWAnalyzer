@@ -7,7 +7,7 @@ import { formatPercentage } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, EventType, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import StatisticListBoxItem from 'interface/StatisticListBoxItem';
 
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
 

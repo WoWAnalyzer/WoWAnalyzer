@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import { makeCharacterUrl, makeArmoryUrl } from 'interface/common/makeAnalyzerUrl';
+import { makeCharacterUrl, makeArmoryUrl } from 'interface/makeAnalyzerUrl';
 import WoWAnalyzerIcon from 'interface/icons/WoWAnalyzer';
 import ArmoryIcon from 'interface/icons/Armory';
 import Combatant from 'parser/core/Combatant';

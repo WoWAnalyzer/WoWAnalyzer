@@ -1,6 +1,6 @@
 import React from 'react';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import TalentStatisticBox from 'interface/TalentStatisticBox';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import Enemies from 'parser/shared/modules/Enemies';
 
 import SPELLS from 'common/SPELLS';

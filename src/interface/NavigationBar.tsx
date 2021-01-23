@@ -14,7 +14,7 @@ import { getFightId, getPlayerName, getReportCode } from 'interface/selectors/ur
 import { getReport } from 'interface/selectors/report';
 import { getFightById } from 'interface/selectors/fight';
 import { getUser } from 'interface/selectors/user';
-import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
+import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 
 import './NavigationBar.scss';
 

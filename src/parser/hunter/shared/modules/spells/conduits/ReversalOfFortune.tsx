@@ -1,9 +1,9 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
+import ConduitSpellText from 'interface/statistics/ConduitSpellText';
 import React from 'react';
 import ResourceIcon from 'common/ResourceIcon';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';

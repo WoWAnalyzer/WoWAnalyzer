@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import TooltipProvider from 'interface/common/TooltipProvider';
+import TooltipProvider from 'interface/TooltipProvider';
 
 import ITEMS from './ITEMS';
 import getItemQualityLabel from './getItemQualityLabel';

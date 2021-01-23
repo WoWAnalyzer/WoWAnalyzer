@@ -4,8 +4,8 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
-import DonutChart from 'interface/statistics/components/DonutChart';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import DonutChart from 'interface/statistics/DonutChart';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 
 import RollTheBonesCastTracker from '../features/RollTheBonesCastTracker';
 

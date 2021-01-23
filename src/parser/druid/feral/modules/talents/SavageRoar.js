@@ -5,8 +5,8 @@ import Enemies from 'parser/shared/modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
 
 import Events from 'parser/core/Events';

@@ -6,8 +6,8 @@ import SPELLS from 'common/SPELLS';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import Events, { ApplyBuffEvent, DamageEvent } from 'parser/core/Events';
 import { LONE_WOLF_AFFECTED_SPELLS, LONE_WOLF_INCREASE_PER_RAMP, LONE_WOLF_RAMP_INTERVAL_MS, MAX_LONE_WOLF_MODIFIER, START_LONE_WOLF_MODIFIER } from 'parser/hunter/marksmanship/constants';
 

@@ -9,7 +9,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events, { HealEvent, BeginCastEvent } from 'parser/core/Events';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import StatisticListBoxItem from 'interface/StatisticListBoxItem';
 
 import HealingRainLocation from '../core/HealingRainLocation';
 

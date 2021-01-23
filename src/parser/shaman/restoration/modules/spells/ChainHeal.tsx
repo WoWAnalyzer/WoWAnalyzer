@@ -12,7 +12,7 @@ import Events, { CastEvent, EventType, HealEvent } from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 
 import Combatants from 'parser/shared/modules/Combatants';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'interface/StatisticBox';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 import { t } from '@lingui/macro';

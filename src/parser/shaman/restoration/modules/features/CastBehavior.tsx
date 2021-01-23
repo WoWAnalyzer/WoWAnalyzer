@@ -7,8 +7,8 @@ import Analyzer from 'parser/core/Analyzer';
 
 import StatisticGroup from 'interface/statistics/StatisticGroup';
 import Statistic from 'interface/statistics/Statistic';
-import DonutChart from 'interface/statistics/components/DonutChart';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import DonutChart from 'interface/statistics/DonutChart';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 import { Trans } from '@lingui/macro';
 
 import { RESTORATION_COLORS } from 'parser/shaman/restoration/constants';

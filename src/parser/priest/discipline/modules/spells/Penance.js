@@ -3,9 +3,9 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
+import BoringSpellValue from 'interface/statistics/BoringSpellValue';
 import EventGrouper from 'parser/core/EventGrouper';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import SpellLink from 'common/SpellLink';
 import Events from 'parser/core/Events';
 

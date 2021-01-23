@@ -3,9 +3,9 @@ import SPELLS from 'common/SPELLS';
 import { RESILIENCE_OF_THE_HUNTER_EFFECT_BY_RANK } from 'parser/hunter/shared/constants';
 import Events, { DamageEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
+import ConduitSpellText from 'interface/statistics/ConduitSpellText';
 import { formatNumber } from 'common/format';
 import React from 'react';
 

@@ -3,9 +3,9 @@ import SPELLS from 'common/SPELLS';
 import React from 'react';
 import Events, { ApplyBuffEvent, CastEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 
 // Example Log: /report/PNYB4zgrnR86h7Lc/6-Normal+Zek'voz,+Herald+of+N'zoth/Khadaj
 class AngelicFeather extends Analyzer {

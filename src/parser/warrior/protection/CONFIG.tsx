@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import SPECS from 'game/SPECS';
 import Config from 'parser/Config';
 import { TooltipElement } from 'common/Tooltip';
-import Warning from 'interface/Alert/Warning';
+import AlertWarning from 'interface/AlertWarning';
 
 import CHANGELOG from './CHANGELOG';
 
@@ -22,9 +22,9 @@ const CONFIG: Config = {
       Hello all! Thanks so much for taking the time use this tool as a way to improve your play. The goal is to provide targeted suggestions to improve your overall Protection Warrior play. The suggestions are based on the current theorycrafting and practical knowledge from some of the best Protection Warrior playing this game. (And even some former Protection Warrior who still like to help us dreamers out.) <br /> <br />
 
       The tool is not perfect so I am always looking to improve it. If you have any suggestions or comments, don't hesitated to swing by the GitHub Issue linked below, or the <a href="https://discord.gg/0pYY7932lTH4FHW6" target="_blank" rel="noopener noreferrer">Skyhold</a> discord server. You can also contact me directly on Discord (Abelito75#0001). Thanks and I hope you continue to enjoy the tool!
-      <Warning>
+      <AlertWarning>
         Because resets of <SpellLink id={SPELLS.SHIELD_SLAM.id} /> <TooltipElement content="The combatlog does not contain any events for random cooldown resets.">can't be tracked</TooltipElement> properly, any cooldown information of <SpellLink id={SPELLS.SHIELD_SLAM.id} /> should be treated as <TooltipElement content="Whenever Shield Slams would be cast before its cooldown would have expired normally, the cooldown expiry will be set back to the last possible trigger of Revenge, Devastate, Devastator or Thunder Clap. This may lead to higher times on cooldown than you actually experienced in-game.">educated guesses</TooltipElement>.
-      </Warning>
+      </AlertWarning>
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.

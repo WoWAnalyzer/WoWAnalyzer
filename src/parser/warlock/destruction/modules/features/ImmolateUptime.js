@@ -9,8 +9,8 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
 import StatisticBar from 'interface/statistics/StatisticBar';
-import UptimeBar from 'interface/statistics/components/UptimeBar';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import UptimeBar from 'interface/statistics/UptimeBar';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 
 import { t } from '@lingui/macro';
 

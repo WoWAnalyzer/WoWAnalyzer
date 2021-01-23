@@ -8,8 +8,8 @@ import { formatThousands } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import EssenceFontMastery from 'parser/monk/mistweaver/modules/features/EssenceFontMastery';
 
-import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
-import DonutChart from 'interface/statistics/components/DonutChart';
+import { STATISTIC_ORDER } from 'interface/StatisticsListBox';
+import DonutChart from 'interface/statistics/DonutChart';
 import Statistic from 'interface/statistics/Statistic';
 
 import EssenceFont from '../spells/EssenceFont';

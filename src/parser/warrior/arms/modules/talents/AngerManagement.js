@@ -5,7 +5,7 @@ import SpellLink from 'common/SpellLink';
 import { formatDuration } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import StatisticListBoxItem from 'interface/StatisticListBoxItem';
 import Events from 'parser/core/Events';
 
 /**

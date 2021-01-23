@@ -2,8 +2,8 @@ import React from 'react';
 
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 import { ENFEEBLED_MARK_DAMAGE_INCREASE } from 'parser/hunter/shared/constants';
 import Events, { DamageEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
@@ -11,7 +11,7 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Enemies from 'parser/shared/modules/Enemies';
 import COVENANTS from 'game/shadowlands/COVENANTS';
-import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
+import ConduitSpellText from 'interface/statistics/ConduitSpellText';
 
 /**
  * Your attacks and abilities deal 5.0% increased damage to enemies inside Resonating Arrow.

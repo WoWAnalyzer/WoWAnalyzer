@@ -4,7 +4,7 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SPELLS from 'common/SPELLS';
 import { formatThousands } from 'common/format';
 import SpellLink from 'common/SpellLink';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import StatisticListBoxItem from 'interface/StatisticListBoxItem';
 
 /**
  * Strikes all enemies in front of you with a sweeping attack for [ 45% of Attack Power ] Physical damage.

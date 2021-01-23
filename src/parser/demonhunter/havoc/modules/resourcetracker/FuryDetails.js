@@ -1,11 +1,11 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import Panel from 'interface/others/Panel';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Panel from 'interface/Panel';
+import { STATISTIC_ORDER } from 'interface/StatisticBox';
 import { formatPercentage, formatNumber } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import BoringResourceValue from 'interface/statistics/components/BoringResourceValue/index';
+import BoringResourceValue from 'interface/statistics/BoringResourceValue';
 import Statistic from 'interface/statistics/Statistic';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import { t } from '@lingui/macro';

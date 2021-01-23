@@ -5,9 +5,9 @@ import HolyWordSanctify from 'parser/priest/holy/modules/spells/holyword/HolyWor
 import HolyWordChastise from 'parser/priest/holy/modules/spells/holyword/HolyWordChastise';
 import HolyWordSerenity from 'parser/priest/holy/modules/spells/holyword/HolyWordSerenity';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 
 // Example Log: /report/Gvxt7CgLya2W1TYj/5-Normal+Zek'voz+-+Kill+(3:57)/13-弥砂丶
 class LightOfTheNaaru extends Analyzer {

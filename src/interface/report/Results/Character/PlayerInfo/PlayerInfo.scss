@@ -1,4 +1,4 @@
-@import 'interface/layout/Theme.scss';
+@import 'interface/Theme.scss';
 
 .player-info {
   display: block;
@@ -28,7 +28,7 @@
       align-items: center;
       text-shadow: text-stroke(1, #000);
       text-align: center;
-      
+
       .player-name {
         font-size: 22px;
         font-weight: bold;

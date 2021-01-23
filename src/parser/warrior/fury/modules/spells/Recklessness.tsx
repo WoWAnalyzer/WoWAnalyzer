@@ -8,7 +8,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatPercentage, formatThousands } from 'common/format';
 import UptimeIcon from 'interface/icons/Uptime';
 import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 
 class Recklessness extends Analyzer {
   reckRageGen: number = 0;

@@ -5,11 +5,11 @@ import HolyWordChastise from 'parser/priest/holy/modules/spells/holyword/HolyWor
 import HolyWordSalvation from 'parser/priest/holy/modules/spells/holyword/HolyWordSalvation';
 import HolyWordSerenity from 'parser/priest/holy/modules/spells/holyword/HolyWordSerenity';
 import SPELLS from 'common/SPELLS';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'interface/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 
 class HolyWordsReductionBySpell extends Analyzer {
   static dependencies = {

@@ -3,8 +3,8 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, FightEndEvent } from 'parser/core/Events';
@@ -64,7 +64,7 @@ class ArcaneOrb extends Analyzer {
 
 	suggestions(when: When) {
 		when(this.missedOrbsThresholds)
-			.addSuggestion((suggest, actual, recommended) => 
+			.addSuggestion((suggest, actual, recommended) =>
 				suggest(<>You cast <SpellLink id={SPELLS.ARCANE_ORB_TALENT.id} /> {this.badCasts} times without hitting anything. While it is acceptable to use this ability on Single Target encounters, you need to ensure you are aiming the ability so that it will at least hit one target.</>)
 					.icon(SPELLS.ARCANE_ORB_TALENT.icon)
 					.actual(<Trans id="mage.arcane.suggestions.arcaneOrb.badCasts">{formatNumber(this.badCasts)} Missed Orbs</Trans>)

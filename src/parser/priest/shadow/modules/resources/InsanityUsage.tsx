@@ -7,7 +7,7 @@ import Statistic from 'interface/statistics/Statistic';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import BoringResourceValue from 'interface/statistics/components/BoringResourceValue';
+import BoringResourceValue from 'interface/statistics/BoringResourceValue';
 import ResourceLink from 'common/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 

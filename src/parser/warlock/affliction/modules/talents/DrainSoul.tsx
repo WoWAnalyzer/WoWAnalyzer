@@ -11,9 +11,9 @@ import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
 import CriticalStrikeIcon from 'interface/icons/CriticalStrike';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 
 import { t } from '@lingui/macro';
 

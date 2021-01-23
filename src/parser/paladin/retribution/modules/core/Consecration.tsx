@@ -4,7 +4,7 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Events, {DamageEvent, } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'interface/StatisticBox';
 
 class Consecration extends Analyzer {
   static dependencies = {

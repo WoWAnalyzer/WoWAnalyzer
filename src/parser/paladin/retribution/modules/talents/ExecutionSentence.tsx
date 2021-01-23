@@ -7,8 +7,8 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Enemies from 'parser/shared/modules/Enemies';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Statistic from 'interface/statistics/Statistic';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
+import { STATISTIC_ORDER } from 'interface/StatisticBox';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { formatNumber } from 'common/format';
 

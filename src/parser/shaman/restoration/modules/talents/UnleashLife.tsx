@@ -4,11 +4,11 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
-import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import { STATISTIC_ORDER } from 'interface/StatisticsListBox';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
+import StatisticListBoxItem from 'interface/StatisticListBoxItem';
 import Statistic from 'interface/statistics/Statistic';
-import DonutChart from 'interface/statistics/components/DonutChart';
+import DonutChart from 'interface/statistics/DonutChart';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';

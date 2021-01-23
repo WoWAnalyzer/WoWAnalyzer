@@ -5,11 +5,11 @@ import SPELLS from 'common/SPELLS';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 
 import Statistic from 'interface/statistics/Statistic';
-import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
+import ConduitSpellText from 'interface/statistics/ConduitSpellText';
 import ItemHealingDone from 'interface/ItemHealingDone'
-import STATISTIC_ORDER  from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import BaseChart from 'interface/others/BaseChart';
+import STATISTIC_ORDER  from 'interface/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
+import BaseChart from 'interface/BaseChart';
 import { AutoSizer } from 'react-virtualized';
 import { binomialPMF, setMinMaxProbabilities } from 'parser/shared/modules/helpers/Probability';
 import { VisualizationSpec } from 'react-vega';

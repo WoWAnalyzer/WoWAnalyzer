@@ -4,15 +4,15 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 import { formatPercentage } from 'common/format';
 import UptimeIcon from 'interface/icons/Uptime';
 import CriticalStrikeIcon from 'interface/icons/CriticalStrike';
 import VersatilityIcon from 'interface/icons/Versatility';
 import HasteIcon from 'interface/icons/Haste';
 import MasteryIcon from 'interface/icons/Mastery';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import Haste from 'parser/paladin/protection/modules/core/Haste';
 
 const STAT_MODIFIER = 0.08;

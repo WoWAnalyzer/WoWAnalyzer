@@ -4,12 +4,12 @@ import { AFFECTED_BY_GUERRILLA_TACTICS, FLAME_INFUSION_WFB_DAMAGE_INCREASE } fro
 import SPELLS from 'common/SPELLS';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import React from 'react';
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
-import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
+import ConduitSpellText from 'interface/statistics/ConduitSpellText';
 
 /**
  * Carve/Butchery increases the damage of your next Wildfire Bomb explosion by 10.0%, stacks up to 2 times.

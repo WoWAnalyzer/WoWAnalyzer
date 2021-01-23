@@ -9,7 +9,7 @@ import SpellLink from 'common/SpellLink';
 import Enemies from 'parser/shared/modules/Enemies';
 
 import { findByBossId } from 'raids';
-import StatisticBox from 'interface/others/StatisticBox';
+import StatisticBox from 'interface/StatisticBox';
 import HIT_TYPES from 'game/HIT_TYPES';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import Events from 'parser/core/Events';

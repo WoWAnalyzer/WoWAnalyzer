@@ -5,7 +5,7 @@ import SPECS from 'game/SPECS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { TooltipElement } from 'common/Tooltip';
-import Warning from 'interface/Alert/Warning';
+import AlertWarning from 'interface/AlertWarning';
 
 import CHANGELOG from './CHANGELOG';
 
@@ -38,7 +38,7 @@ export default {
       theorycrafting questions or want to contribute, feel free to ask in <code>#protection</code>.
       <br />
       <br />
-      <Warning>
+      <AlertWarning>
         Because <SpellLink id={SPELLS.GRAND_CRUSADER.id} />{' '}
         <TooltipElement content="The combatlog does not contain any events for random cooldown resets.">
           can't be tracked
@@ -49,7 +49,7 @@ export default {
           educated guesses
         </TooltipElement>
         .
-      </Warning>
+      </AlertWarning>
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.

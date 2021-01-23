@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Boss, findByBossId } from 'raids';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
-import DeathRecapTracker from 'interface/others/DeathRecapTracker';
+import DeathRecapTracker from 'interface/DeathRecapTracker';
 import ModuleError from 'parser/core/ModuleError';
 import {
   AnyEvent,
@@ -208,7 +208,7 @@ class CombatLogParser {
     // Crafted
     darkmoonDeckVoracity: DarkmoonDeckVoracity,
 
-    // Shadowlands 
+    // Shadowlands
 
     // Castle Nathria
     soulInfusion: SoulInfusion,

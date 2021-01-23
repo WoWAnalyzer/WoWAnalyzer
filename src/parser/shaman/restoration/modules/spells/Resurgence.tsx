@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'interface/StatisticBox';
 
 import HIT_TYPES from 'game/HIT_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -14,7 +14,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import { Trans } from '@lingui/macro';
 
 import Statistic from 'interface/statistics/Statistic';
-import BoringValue from 'interface/statistics/components/BoringValueText';
+import BoringValue from 'interface/statistics/BoringValueText';
 import ManaIcon from 'interface/icons/Mana';
 
 import './ManaTideTotem.scss'

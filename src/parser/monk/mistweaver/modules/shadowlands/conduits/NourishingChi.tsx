@@ -8,10 +8,10 @@ import Combatants from 'parser/shared/modules/Combatants';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 
 import { conduitScaling, LIFE_COCOON_HEALING_BOOST, NOURISHING_CHI_RANK_ONE } from '../../../constants';
 

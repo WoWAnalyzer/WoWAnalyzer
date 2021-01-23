@@ -6,8 +6,8 @@ import Events, { ApplyBuffEvent, ApplyBuffStackEvent, RemoveBuffEvent, DamageEve
 import Statistic from 'interface/statistics/Statistic';
 import SpellLink from 'common/SpellLink';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import ConduitSpellText from 'interface/statistics/ConduitSpellText';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import { formatNumber, formatPercentage } from 'common/format';
@@ -22,7 +22,7 @@ class InfernalCascade extends Analyzer {
     abilityTracker: AbilityTracker,
   }
   protected abilityTracker!: AbilityTracker;
-  
+
   conduitRank = 0;
   bonusDamage = 0;
   buffStack = 0;

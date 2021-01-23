@@ -6,7 +6,7 @@ import { Trans } from '@lingui/macro';
 import getFightName from 'common/getFightName';
 import getWipeCount from 'common/getWipeCount';
 import { formatDuration } from 'common/format';
-import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
+import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import SkullIcon from 'interface/icons/Skull';
 import CancelIcon from 'interface/icons/Cancel';
 import InformationIcon from 'interface/icons/Information';

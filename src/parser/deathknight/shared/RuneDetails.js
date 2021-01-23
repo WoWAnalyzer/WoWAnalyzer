@@ -2,8 +2,8 @@ import React from 'react';
 import { AutoSizer } from 'react-virtualized';
 
 import Analyzer from 'parser/core/Analyzer';
-import Panel from 'interface/others/Panel';
-import BaseChart, { formatTime } from 'interface/others/BaseChart';
+import Panel from 'interface/Panel';
+import BaseChart, { formatTime } from 'interface/BaseChart';
 
 import RuneBreakdown from './RuneBreakdown';
 import RuneTracker from './RuneTracker';

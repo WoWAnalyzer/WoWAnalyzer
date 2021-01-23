@@ -11,7 +11,7 @@ import ItemLink from 'common/ItemLink';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatDuration, formatPercentage, formatThousands } from 'common/format';
-import ActivityIndicator from 'interface/common/ActivityIndicator';
+import ActivityIndicator from 'interface/ActivityIndicator';
 import { makeItemApiUrl } from 'common/makeApiUrl';
 import { Trans } from '@lingui/macro';
 import Combatant from 'parser/core/Combatant';

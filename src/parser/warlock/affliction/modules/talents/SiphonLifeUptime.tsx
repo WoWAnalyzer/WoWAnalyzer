@@ -9,7 +9,7 @@ import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 
-import UptimeBar from 'interface/statistics/components/UptimeBar';
+import UptimeBar from 'interface/statistics/UptimeBar';
 
 import { t } from '@lingui/macro';
 

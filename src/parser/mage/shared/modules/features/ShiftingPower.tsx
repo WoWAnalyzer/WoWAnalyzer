@@ -2,8 +2,8 @@ import React from 'react';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Channeling from 'parser/shared/modules/Channeling';
 import SPELLS from 'common/SPELLS';
@@ -13,7 +13,7 @@ import { SHIFTING_POWER_MS_REDUCTION_PER_TICK, SHIFTING_POWER_REDUCTION_SPELLS }
 import { formatNumber } from 'common/format';
 
 const debug = false;
-const COOLDOWN_REDUCTION_MS = [0, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400]; 
+const COOLDOWN_REDUCTION_MS = [0, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400];
 
 class ShiftingPower extends Analyzer {
   static dependencies = {
@@ -56,7 +56,7 @@ class ShiftingPower extends Analyzer {
 
   statistic() {
     return (
-      <Statistic 
+      <Statistic
         category={STATISTIC_CATEGORY.COVENANTS}
         size="flexible"
       >

@@ -1,5 +1,5 @@
 import React from 'react';
-import Panel from 'interface/others/Panel';
+import Panel from 'interface/Panel';
 import Analyzer from 'parser/core/Analyzer';
 
 import MaelstromChart from './Maelstrom';

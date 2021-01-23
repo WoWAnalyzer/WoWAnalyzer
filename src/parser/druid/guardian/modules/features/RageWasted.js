@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import StatisticBox from 'interface/others/StatisticBox';
+import StatisticBox from 'interface/StatisticBox';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import { t } from '@lingui/macro';

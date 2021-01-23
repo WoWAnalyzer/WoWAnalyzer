@@ -9,8 +9,8 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import CrossIcon from 'interface/icons/Cross';
 import Statistic from 'interface/statistics/Statistic';
-import BoringValueText from 'interface/statistics/components/BoringValueText';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringValueText from 'interface/statistics/BoringValueText';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import CASTABLE_WHILE_CASTING_SPELLS from 'parser/core/CASTABLE_WHILE_CASTING_SPELLS';
 

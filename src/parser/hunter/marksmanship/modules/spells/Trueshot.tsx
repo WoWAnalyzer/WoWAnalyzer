@@ -1,9 +1,9 @@
 import React from 'react';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import Events, { CastEvent, EnergizeEvent } from 'parser/core/Events';
 import RapidFire from 'parser/hunter/marksmanship/modules/spells/RapidFire';
 import SteadyShot from 'parser/hunter/marksmanship/modules/spells/SteadyShot';

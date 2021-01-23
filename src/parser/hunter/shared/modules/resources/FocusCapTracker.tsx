@@ -2,13 +2,13 @@ import React from 'react';
 
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatPercentage, formatThousands } from 'common/format';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'interface/StatisticBox';
 import Tooltip from 'common/Tooltip';
 import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetracker/RegenResourceCapTracker';
 import StatisticBar from 'interface/statistics/StatisticBar';
 
 import { AutoSizer } from 'react-virtualized';
-import FlushLineChart from 'interface/others/FlushLineChart';
+import FlushLineChart from 'interface/FlushLineChart';
 import Events, { CastEvent, DamageEvent, EnergizeEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { HUNTER_BASE_FOCUS_MAX, HUNTER_BASE_FOCUS_REGEN } from 'parser/hunter/shared/constants';

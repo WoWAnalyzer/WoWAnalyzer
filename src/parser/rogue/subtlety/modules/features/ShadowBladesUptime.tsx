@@ -4,12 +4,12 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 
-import BoringValueText from 'interface/statistics/components/BoringValueText';
+import BoringValueText from 'interface/statistics/BoringValueText';
 
 class ShadowBladesUptime extends Analyzer {
   static dependencies = {

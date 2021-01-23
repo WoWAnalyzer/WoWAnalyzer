@@ -11,10 +11,10 @@ import { t, Trans } from '@lingui/macro';
 
 import Statistic from 'interface/statistics/Statistic';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
+import ConduitSpellText from 'interface/statistics/ConduitSpellText';
 
 import { DISSONANT_ECHOES_DAMAGE_INCREASE } from 'parser/priest/shadow/constants';
 

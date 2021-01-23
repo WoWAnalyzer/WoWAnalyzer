@@ -6,7 +6,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 import Statistic from 'interface/statistics/Statistic';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import ResourceIcon from 'common/ResourceIcon';
@@ -78,7 +78,7 @@ class WeaponsOfOrderWindwalker extends WeaponsOfOrder {
         if (!this.selectedCombatant.hasBuff(SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id)) {
             return;
         }
-        // there might be some very rare cases where mastery affected damage is happening after the cast of another mastery spell, but should be negligible even if it happens 
+        // there might be some very rare cases where mastery affected damage is happening after the cast of another mastery spell, but should be negligible even if it happens
         if (!this.mastery) {
             return;
         }

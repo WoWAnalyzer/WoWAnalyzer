@@ -4,8 +4,8 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatThousands, formatNumber } from 'common/format';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import StatisticBox, { STATISTIC_ORDER } from 'interface/StatisticBox';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -51,7 +51,7 @@ class SpiritWolf extends Analyzer {
         tooltip={(
           <Trans id="shaman.shared.damageReduced.tooltip">
             The total estimated damage reduced was {formatThousands(this.damageReduced)}.<br /><br />
-            
+
             This is the lowest possible value. This value is pretty accurate for this log if you are looking at the actual gain over not having <SpellLink id={SPELLS.SPIRIT_WOLF_TALENT.id} /> bonus at all, but the gain may end up higher when taking interactions with other damage reductions into account.
           </Trans>
         )}

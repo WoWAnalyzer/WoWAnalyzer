@@ -6,7 +6,7 @@ import { WCLHealing, WCLHealingTableResponse } from 'common/WCL_TYPES';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 
-import LazyLoadStatisticBox from 'interface/others/LazyLoadStatisticBox';
+import LazyLoadStatisticBox from 'interface/LazyLoadStatisticBox';
 
 import Analyzer from 'parser/core/Analyzer';
 import ItemHealingDone from 'interface/ItemHealingDone';

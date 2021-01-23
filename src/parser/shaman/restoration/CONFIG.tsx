@@ -2,7 +2,7 @@ import React from 'react';
 
 import { niseko } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
-import Warning from 'interface/Alert/Warning';
+import AlertWarning from 'interface/AlertWarning';
 import Config from 'parser/Config';
 import { Trans } from '@lingui/macro';
 
@@ -22,9 +22,9 @@ const CONFIG: Config = {
 
       If you want to learn more about Resto Shaman, join the Resto Shaman community at the <a href="https://discord.gg/AcTek6e" target="_blank" rel="noopener noreferrer">Ancestral Guidance</a> discord server and make sure to visit the guides on <a href="https://www.wowhead.com/restoration-shaman-guide">Wowhead</a> and <a href="https://www.icy-veins.com/wow/restoration-shaman-pve-healing-guide">Icy Veins</a>.<br /><br />
 
-      <Warning>
+      <AlertWarning>
         If there is something missing, incorrect, or inaccurate, please report it on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact us on <a href="https://discord.gg/AxphPxU">Discord</a>.
-      </Warning>
+      </AlertWarning>
     </Trans>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.

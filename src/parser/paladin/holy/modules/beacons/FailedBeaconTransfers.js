@@ -4,7 +4,7 @@ import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'interface/StatisticBox';
 
 import BeaconTransferFactor from './BeaconTransferFactor';
 import BeaconHealSource from './BeaconHealSource';

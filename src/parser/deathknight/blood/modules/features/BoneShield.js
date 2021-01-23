@@ -2,10 +2,10 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatDuration, formatPercentage } from 'common/format';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import { t } from '@lingui/macro';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
 import Statistic from 'interface/statistics/Statistic';
 

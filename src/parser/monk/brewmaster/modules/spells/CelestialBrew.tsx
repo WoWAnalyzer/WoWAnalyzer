@@ -5,11 +5,11 @@ import SpellLink from 'common/SpellLink';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { AbsorbedEvent, ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, RemoveBuffEvent } from 'parser/core/Events';
 import SpellIcon from 'common/SpellIcon';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
-import BoringValue from 'interface/statistics/components/BoringValueText';
+import BoringValue from 'interface/statistics/BoringValueText';
 import { formatNumber, formatPercentage } from 'common/format';
-import FooterChart, { formatTime } from 'interface/others/FooterChart';
+import FooterChart, { formatTime } from 'interface/FooterChart';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 const PURIFIED_CHI_PCT = 0.2;

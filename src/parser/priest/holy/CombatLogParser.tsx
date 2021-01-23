@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Panel from 'interface/others/Panel';
-import HolyPriestSpreadsheet from 'interface/others/HolyPriestSpreadsheet';
+import Panel from 'interface/Panel';
+import HolyPriestSpreadsheet from 'interface/HolyPriestSpreadsheet';
 
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';

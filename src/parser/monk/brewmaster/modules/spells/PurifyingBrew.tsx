@@ -10,10 +10,10 @@ import Events, { CastEvent, EventType, RemoveDebuffEvent } from 'parser/core/Eve
 import EventFilter from 'parser/core/EventFilter';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
-import BoringValue from 'interface/statistics/components/BoringValueText';
-import FooterChart, { formatTime } from 'interface/others/FooterChart';
+import BoringValue from 'interface/statistics/BoringValueText';
+import FooterChart, { formatTime } from 'interface/FooterChart';
 import { t } from '@lingui/macro';
 
 import SharedBrews from '../core/SharedBrews';

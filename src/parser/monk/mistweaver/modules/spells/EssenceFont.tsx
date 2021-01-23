@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'interface/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';

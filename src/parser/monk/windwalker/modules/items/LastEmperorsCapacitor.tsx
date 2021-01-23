@@ -4,10 +4,10 @@ import { Trans, t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Statistic from 'interface/statistics/Statistic';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import { STATISTIC_ORDER } from 'interface/StatisticBox';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Events, { DamageEvent } from 'parser/core/Events';
 

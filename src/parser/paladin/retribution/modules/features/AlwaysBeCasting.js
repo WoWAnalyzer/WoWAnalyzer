@@ -6,7 +6,7 @@ import { formatPercentage } from 'common/format';
 
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'interface/StatisticBox';
 
 import { t } from '@lingui/macro';
 

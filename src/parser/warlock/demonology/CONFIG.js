@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPECS from 'game/SPECS';
-import Warning from 'interface/Alert/Warning';
+import AlertWarning from 'interface/AlertWarning';
 
 import CHANGELOG from './CHANGELOG';
 
@@ -15,7 +15,7 @@ export default {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      <Warning>This spec needs maintenance for Shadowlands. Please considering contributing!</Warning><br /> <br />
+      <AlertWarning>This spec needs maintenance for Shadowlands. Please considering contributing!</AlertWarning><br /> <br />
 
       If you have any questions about Warlocks, feel free to pay a visit to <a href="https://discord.gg/BlackHarvest" target="_blank" rel="noopener noreferrer">Council of the Black Harvest Discord</a> or <a href="https://lockonestopshop.com" target="_blank" rel="noopener noreferrer">Lock One Stop Shop</a>, if you'd like to discuss anything about this analyzer, message me at @Chizu#2873 on WoWAnalyzer Discord.<br /><br />
     </>

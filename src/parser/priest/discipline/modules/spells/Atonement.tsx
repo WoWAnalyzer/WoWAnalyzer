@@ -6,7 +6,7 @@ import SpellIcon from 'common/SpellIcon';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'interface/StatisticBox';
 import { formatPercentage } from 'common/format';
 import Events, { ApplyBuffEvent, EventType, HealEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';

@@ -1,8 +1,8 @@
 import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
@@ -10,7 +10,7 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import { t } from '@lingui/macro';
 import Events from 'parser/core/Events';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 
 const MS_BUFFER = 100;
 

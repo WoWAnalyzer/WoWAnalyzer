@@ -7,7 +7,7 @@ import SpellLink from 'common/SpellLink';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import StatisticBox from 'interface/others/StatisticBox';
+import StatisticBox from 'interface/StatisticBox';
 import { t } from '@lingui/macro';
 
 import Events from 'parser/core/Events';

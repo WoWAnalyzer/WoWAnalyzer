@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { Zerotorescue } from 'CONTRIBUTORS';
-import RegularArticle from 'interface/news/RegularArticle';
+import NewsRegularArticle from 'interface/NewsRegularArticle';
 
 import Hacktoberfest from './hacktoberfest.png';
 
 // prettier-ignore
 export default (
-  <RegularArticle title="Hacktoberfest" publishedAt="2020-10-02" publishedBy={Zerotorescue}>
+  <NewsRegularArticle title="Hacktoberfest" publishedAt="2020-10-02" publishedBy={Zerotorescue}>
     <img src={Hacktoberfest} alt="Hacktoberfest" /><br /><br />
 
     Hacktoberfest is open to everyone once again! Join the event by contributing to WoWAnalyzer with four pull requests (PRs) and pick a limited edition T-shirt or plant a tree. Other open source projects count as well. Everyone is welcome, whether you’re a developer, student learning to code, event host, or company of any size.<br /><br />
@@ -23,5 +23,5 @@ export default (
     Read more about the event here: <a href="https://hacktoberfest.digitalocean.com/">https://hacktoberfest.digitalocean.com/</a><br /><br />
 
     To find out how to make contribute something to this project, please read the readme here: <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/README.md">https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/README.md</a>
-  </RegularArticle>
+  </NewsRegularArticle>
 );

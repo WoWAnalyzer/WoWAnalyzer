@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import UpArrowIcon from 'interface/icons/UpArrow';
 import PlusIcon from 'interface/icons/Plus';
 import Analyzer from 'parser/core/Analyzer';

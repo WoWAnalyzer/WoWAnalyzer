@@ -7,7 +7,7 @@ import { formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import StatisticListBoxItem from 'interface/StatisticListBoxItem';
 
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
 

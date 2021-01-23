@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'interface/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import PRIEST_SPELLS from 'common/SPELLS/priest';

@@ -5,7 +5,7 @@ import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellLink from 'common/SpellLink';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import StatisticBox from 'interface/others/StatisticBox';
+import StatisticBox from 'interface/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import ItemDamageDone from 'interface/ItemDamageDone';

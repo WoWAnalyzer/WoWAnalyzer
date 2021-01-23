@@ -2,7 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
+import { STATISTIC_ORDER } from 'interface/StatisticsListBox';
 import { TooltipElement } from 'common/Tooltip';
 import { t } from '@lingui/macro';
 

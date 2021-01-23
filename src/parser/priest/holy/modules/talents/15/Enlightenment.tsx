@@ -4,9 +4,9 @@ import React from 'react';
 import SpiritOfRedemption from 'parser/priest/holy/modules/spells/SpiritOfRedemption';
 import ItemManaGained from 'interface/ItemManaGained';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 
 const MAX_MANA = 100000;
 const BASE_MANA_REGEN = .04;

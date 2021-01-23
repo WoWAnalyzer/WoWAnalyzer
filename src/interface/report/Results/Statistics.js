@@ -5,7 +5,7 @@ import Toggle from 'react-toggle';
 import { t, Trans } from '@lingui/macro';
 
 import { TooltipElement } from 'common/Tooltip';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 
 import StatisticsSectionTitle from './StatisticsSectionTitle';
 

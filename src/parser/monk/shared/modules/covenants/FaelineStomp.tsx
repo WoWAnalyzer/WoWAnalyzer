@@ -3,10 +3,10 @@ import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
 import Events, { ApplyBuffEvent, CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 import React from 'react';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import SPECS from 'game/SPECS';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -71,7 +71,7 @@ class FaelineStomp extends Analyzer {
   }
 
   heal(event: HealEvent) {
-    this.targetsHealed += 1; 
+    this.targetsHealed += 1;
   }
 
   statistic() {

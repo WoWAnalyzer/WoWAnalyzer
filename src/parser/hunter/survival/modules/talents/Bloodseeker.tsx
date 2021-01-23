@@ -6,9 +6,9 @@ import { BLOODSEEKER_ATTACK_SPEED_GAIN } from 'parser/hunter/survival/constants'
 import { formatPercentage } from 'common/format';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { MS_BUFFER } from 'parser/hunter/shared/constants';
 

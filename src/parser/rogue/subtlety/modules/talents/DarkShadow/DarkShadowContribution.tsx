@@ -1,9 +1,9 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 import Statistic from 'interface/statistics/Statistic';
 import ItemDamageDone from 'interface/ItemDamageDone';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 
 import DarkShadow from './DarkShadow';
 import DanceDamageTracker from '../../core/DanceDamageTracker';

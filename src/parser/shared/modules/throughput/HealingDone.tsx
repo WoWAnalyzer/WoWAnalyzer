@@ -7,9 +7,9 @@ import makeWclUrl from 'common/makeWclUrl';
 import Tooltip from 'common/Tooltip';
 import StatisticBar from 'interface/statistics/StatisticBar';
 import ThroughputPerformance, { UNAVAILABLE } from 'interface/report/Results/ThroughputPerformance';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import FlushLineChart from 'interface/others/FlushLineChart';
+import FlushLineChart from 'interface/FlushLineChart';
 import Events, { AbsorbedEvent, DamageEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 
 import HealingValue from '../HealingValue';

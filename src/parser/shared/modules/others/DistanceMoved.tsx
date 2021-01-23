@@ -2,10 +2,10 @@ import React from 'react';
 
 import { formatPercentage, formatThousands } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, EnergizeEvent, HealEvent } from 'parser/core/Events';
-import FlushLineChart from 'interface/others/FlushLineChart';
+import FlushLineChart from 'interface/FlushLineChart';
 import { Trans } from '@lingui/macro';
 
 const debug = false;

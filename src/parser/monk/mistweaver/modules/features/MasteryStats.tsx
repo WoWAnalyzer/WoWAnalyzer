@@ -12,8 +12,8 @@ import SoothingMist from 'parser/monk/mistweaver/modules/spells/SoothingMist';
 import RenewingMist from 'parser/monk/mistweaver/modules/spells/RenewingMist';
 import Vivify from 'parser/monk/mistweaver/modules/spells/Vivify';
 
-import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
-import DonutChart from 'interface/statistics/components/DonutChart';
+import { STATISTIC_ORDER } from 'interface/StatisticsListBox';
+import DonutChart from 'interface/statistics/DonutChart';
 import Statistic from 'interface/statistics/Statistic';
 import ExpelHarm from 'parser/monk/mistweaver/modules/spells/ExpelHarm';
 

@@ -6,9 +6,9 @@ import SpellLink from 'common/SpellLink';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 
-import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
+import { STATISTIC_ORDER } from 'interface/StatisticsListBox';
 import Statistic from 'interface/statistics/Statistic';
-import DonutChart from 'interface/statistics/components/DonutChart';
+import DonutChart from 'interface/statistics/DonutChart';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 

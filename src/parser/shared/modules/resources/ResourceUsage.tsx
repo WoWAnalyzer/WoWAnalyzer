@@ -1,7 +1,7 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import DonutChart from 'interface/statistics/components/DonutChart';
+import DonutChart from 'interface/statistics/DonutChart';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import Events, { CastEvent } from 'parser/core/Events';
 import ResourceLink from 'common/ResourceLink';
 import { formatNumber } from 'common/format';

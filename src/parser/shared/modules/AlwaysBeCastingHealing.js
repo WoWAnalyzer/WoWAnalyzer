@@ -2,9 +2,9 @@ import React from 'react';
 
 import { formatPercentage } from 'common/format';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'interface/StatisticBox';
 import Statistic from 'interface/statistics/Statistic';
-import Gauge from 'interface/statistics/components/Gauge';
+import Gauge from 'interface/statistics/Gauge';
 import { t, Trans } from '@lingui/macro';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 

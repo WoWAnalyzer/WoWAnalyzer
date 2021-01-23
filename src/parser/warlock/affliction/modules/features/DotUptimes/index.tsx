@@ -2,7 +2,7 @@ import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
 
-import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
+import { STATISTIC_ORDER } from 'interface/StatisticsListBox';
 import StatisticBar from 'interface/statistics/StatisticBar';
 
 import AgonyUptime from './AgonyUptime';

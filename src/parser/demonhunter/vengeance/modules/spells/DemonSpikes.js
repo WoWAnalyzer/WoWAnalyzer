@@ -7,9 +7,9 @@ import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import SCHOOLS from 'game/MAGIC_SCHOOLS';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 
 import { t } from '@lingui/macro';
 import Events from 'parser/core/Events';

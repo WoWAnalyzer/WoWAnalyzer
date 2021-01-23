@@ -6,7 +6,7 @@ import RACES from 'game/RACES';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import HIT_TYPES from 'game/HIT_TYPES';
 import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
-import StatisticBox from 'interface/others/StatisticBox';
+import StatisticBox from 'interface/StatisticBox';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import ItemHealingDone from 'interface/ItemHealingDone';
 import ROLES from 'game/ROLES';
