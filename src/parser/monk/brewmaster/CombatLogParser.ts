@@ -32,6 +32,8 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import StaggerPoolGraph from './modules/features/StaggerPoolGraph';
 
 // Items
+import StormtoutsLastKeg from './modules/shadowlands/legendaries/StormstoutsLastKeg';
+
 // normalizers
 import GiftOfTheOx from './normalizers/GiftOfTheOx';
 import ExpelHarmNorm from './normalizers/ExpelHarm';
@@ -84,6 +86,7 @@ class CombatLogParser extends CoreCombatLogParser {
     touchOfDeath: TouchOfDeath,
 
     // Items
+    stormstoutsLastKeg: StormtoutsLastKeg,
 
     // normalizers
     gotoxNorm: GiftOfTheOx,

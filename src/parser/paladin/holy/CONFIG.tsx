@@ -10,19 +10,12 @@ import CHANGELOG from './CHANGELOG';
 const config: Config = {
   contributors: [],
   patchCompatibility: '9.0.2',
-  isSupported: false,
+  isPartial: false,
   description: (
     <>
-      Hey! The Holy Paladin analyzer is one of the most maintained specs on the site. It gets
-      updated quickly with new things, and has most things implemented that can be analyzed
-      automatically with good enough accuracy. If you think anything is off or wrong, please contact
-      me  so we can discuss it. I don't mind double or triple checking something if
-      there's any doubt.
-      <br />
-      <br />
-      I hope the suggestions will help you improve your performance. Remember: focus on improving
-      only one or two important things at a time. Improving isn't easy and will need your full focus
-      until it becomes second nature to you.
+      Hey! I hope the suggestions will help you improve your performance. Remember: focus on
+      improving only one or two important things at a time. Improving isn't easy and will need your
+      full focus until it becomes second nature to you.
       <br />
       <br />
       You might have noticed the suggestions focus mostly on improving your cast efficiencies. This
@@ -55,7 +48,7 @@ const config: Config = {
   changelog: CHANGELOG,
   parser: () =>
     import('./CombatLogParser' /* webpackChunkName: "HolyPaladin" */).then(
-      exports => exports.default,
+      (exports) => exports.default,
     ),
   path: __dirname,
 };
