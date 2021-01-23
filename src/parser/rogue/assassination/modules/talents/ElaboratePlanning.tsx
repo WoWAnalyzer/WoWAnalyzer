@@ -1,13 +1,13 @@
 import React from 'react';
-
-import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Events, { DamageEvent } from 'parser/core/Events';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from '../../constants';
 
@@ -21,8 +21,8 @@ class ElaboratePlanning extends Analyzer {
 
   bonusDmg = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ELABORATE_PLANNING_TALENT.id);
     if (!this.active) {
       return;
@@ -30,8 +30,8 @@ class ElaboratePlanning extends Analyzer {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_DAMAGE_INCREASES), this.addBonusDamageIfBuffed);
   }
 
-  addBonusDamageIfBuffed(event) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.ELABORATE_PLANNING_BUFF.id) && !this.selectedCombatant.hasBuff(SPELLS.VANISH_BUFF.id)) {
+  addBonusDamageIfBuffed(event: DamageEvent) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.ELABORATE_PLANNING_BUFF.id) &&!this.selectedCombatant.hasBuff(SPELLS.VANISH_BUFF.id)) {
       return;
     }
     this.bonusDmg += calculateEffectiveDamage(event, DAMAGE_BONUS);
@@ -39,12 +39,15 @@ class ElaboratePlanning extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.ELABORATE_PLANNING_TALENT.id}
-        position={STATISTIC_ORDER.OPTIONAL(1)}
-        value={<ItemDamageDone amount={this.bonusDmg} />}
+      <Statistic
+        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={`${formatPercentage(this.percentUptime)} % uptime.`}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.ELABORATE_PLANNING_TALENT}>
+          <ItemDamageDone amount={this.bonusDmg} />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 
