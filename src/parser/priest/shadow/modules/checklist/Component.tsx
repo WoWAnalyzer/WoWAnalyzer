@@ -99,6 +99,16 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
       </Rule>
 
       <Rule
+        name="Insanity generation"
+        description={(
+          <>
+            Insanity generation and management is crucial to maximizing your damage. You should always try to stay below maximum insanity for room to generate more with your abilities. You should juggle using <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} /> to not overcap while also maximizing DOT uptime for the increased mastery benefit from <SpellLink id={SPELLS.MASTERY_SHADOW_WEAVING.id} />.
+          </>
+        )}>
+          <Requirement name="Insanity Overcapping" thresholds={thresholds.insanityUsage} />
+      </Rule>
+
+      <Rule
         name="Minimize casting downtime"
         description={(
           <React.Fragment>

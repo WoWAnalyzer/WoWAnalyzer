@@ -517,6 +517,11 @@ const spells = {
     name: 'Void Eruption',
     icon: 'spell_priest_void-blast',
   },
+  MASTERY_SHADOW_WEAVING: {
+    id: 343690,
+    name: 'Mastery: Shadow Weaving',
+    icon: 'spell_shadow_shadetruesight',
+  },
 
   // From shadow word pain/vampiric touch:
   VOID_ERUPTION_DAMAGE_1: {
