@@ -129,7 +129,7 @@ export default function fetchWcl<T extends WCLResponseJSON>(endpoint: string, qu
     let timedOut = false;
     const timeoutTimer = setTimeout(() => {
       timedOut = true;
-      reject(new Error('Request timed out. This usually happens because the Warcraft Logs API did not respond in a timely fashion. Try again.'));
+      reject(new Error('Request timed out, probably due to an issue on our side. Try again.'));
     }, options!.timeout);
 
     rawFetchWcl(endpoint, queryParams)

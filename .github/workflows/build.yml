@@ -199,7 +199,7 @@ jobs:
     needs: [typecheck, linting, test-interface, test-parser, test-integration, build]
     name: 'Publish Docker image'
     runs-on: ubuntu-latest
-    if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer'
+    if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer' && !contains(github.event.head_commit.message, '[skip ci]')
     steps:
       - uses: actions/checkout@v2
       - uses: actions/download-artifact@v1
@@ -240,11 +240,12 @@ jobs:
     needs: [prepare]
     name: 'Extract messages'
     runs-on: ubuntu-latest
-    if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer'
+    if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer' && !contains(github.event.head_commit.message, '[skip ci]')
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
+          persist-credentials: false
       - uses: actions/setup-node@v1
         with:
           node-version: '14.x'
@@ -265,15 +266,13 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git commit -m "Update i18n messages" -a
-      - name: Create Pull Request
+          git commit -m "[skip ci] Update i18n messages" -a
+      - name: Push changes
         if: steps.has-changes.outputs.changed == 'true'
-        uses: peter-evans/create-pull-request@v3
+        uses: ad-m/github-push-action@master
         with:
-          commit-message: Extract new i18n messages
-          title: Extract new i18n messages
-          body: New i18n messages need to be added to the messages files so translators can translate them.
-          branch: update-messages
+          github_token: ${{ secrets.GH_TOKEN_BOT }}
+          branch: ${{ github.ref }}
 
   require-changelog-entry:
     name: 'Has new changelog entry'

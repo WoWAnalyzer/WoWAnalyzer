@@ -296,6 +296,18 @@ class Abilities extends CoreAbilities {
         gcd: null,
       },
       {
+        spell: SPELLS.SPIRIT_SHELL_TALENT,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(SPELLS.SPIRIT_SHELL_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+        },
+      },
+      {
         spell: SPELLS.SHADOW_WORD_DEATH,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
@@ -308,12 +320,7 @@ class Abilities extends CoreAbilities {
         cooldown: 120,
         enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },
-      {
-        spell: SPELLS.UNHOLY_NOVA,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 60,
-        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
-      },
+
     ];
   }
 }

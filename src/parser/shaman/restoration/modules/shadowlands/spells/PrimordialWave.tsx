@@ -98,6 +98,7 @@ class PrimordialWave extends Analyzer {
     return (
       <Statistic
         size="flexible"
+        wide
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={<>
           {this.healing} healing via Primordial Wave, {formatPercentage(this.overHealing / (this.healing + this.overHealing))}% Overheal<br />
@@ -105,21 +106,30 @@ class PrimordialWave extends Analyzer {
           {this.waveHealing} healing via Healing Wave cleave, {formatPercentage(this.waveOverHealing / (this.waveHealing + this.waveOverHealing))}% Overheal
         </>}
       >
-        <div className="panel-heading value">Total Healing</div>
-        <BoringSpellValueText spell={SPELLS.PRIMORDIAL_WAVE_CAST}>
-          <ItemHealingDone amount={totalHealing} />
-        </BoringSpellValueText>
-        <hr />
-        <div className="panel-heading value">Breakdown</div>
-        <BoringSpellValueText spell={SPELLS.PRIMORDIAL_WAVE_CAST}>
-          <ItemHealingDone amount={this.healing} />
-        </BoringSpellValueText>
-        <BoringSpellValueText spell={SPELLS.RIPTIDE}>
-          <ItemHealingDone amount={this.waveHealing} />
-        </BoringSpellValueText>
-        <BoringSpellValueText spell={SPELLS.HEALING_WAVE}>
-          <ItemHealingDone amount={this.riptideHealing} />
-        </BoringSpellValueText>
+        <table className="table table-condensed">
+          <tbody>
+            <th>
+              <div className="panel-heading value">Total Healing</div><BoringSpellValueText spell={SPELLS.PRIMORDIAL_WAVE_CAST}>
+                <ItemHealingDone amount={totalHealing} />
+              </BoringSpellValueText>
+            </th>
+            <th>
+              <div className="panel-heading value">Breakdown</div>
+              <BoringSpellValueText spell={SPELLS.PRIMORDIAL_WAVE_CAST}>
+                <ItemHealingDone amount={this.healing} /><br />
+                <img src="/img/healing.png" alt="Overhealing" className="icon" />{' '}{formatPercentage(this.overHealing / (this.healing + this.overHealing))} % <small>Overhealing</small>
+              </BoringSpellValueText>
+              <BoringSpellValueText spell={SPELLS.RIPTIDE}>
+                <ItemHealingDone amount={this.riptideHealing} /><br />
+                <img src="/img/healing.png" alt="Overhealing" className="icon" />{' '}{formatPercentage(this.riptideOverHealing / (this.riptideHealing + this.riptideOverHealing))} % <small>Overhealing</small>
+              </BoringSpellValueText>
+              <BoringSpellValueText spell={SPELLS.HEALING_WAVE}>
+                <ItemHealingDone amount={this.waveHealing} /><br />
+                <img src="/img/healing.png" alt="Overhealing" className="icon" />{' '}{formatPercentage(this.waveOverHealing / (this.waveHealing + this.waveOverHealing))} % <small>Overhealing</small>
+              </BoringSpellValueText>
+            </th>
+          </tbody>
+        </table>
       </Statistic>
     );
   }
