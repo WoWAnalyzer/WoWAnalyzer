@@ -21,7 +21,23 @@ const legendaries: SpellList<LegendarySpell> = {
     bonusID: 6973,
   },
   //endregion
-
+  // https://www.warcraftlogs.com/reports/NKcbdPzMXRJ1Drk6#fight=9&type=damage-done&source=11
+  ETERNAL_CALL_TO_THE_VOID: {
+    id: 336214,
+    name: 'Eternall Call to the Void',
+    icon: 'achievement_boss_yoggsaron_01',
+    bonusID: 6983,
+  },
+  ETERNAL_CALL_TO_THE_VOID_MIND_FLAY_DAMAGE: {
+    id: 193473,
+    name: 'Mind Flay',
+    icon: 'spell_shadow_siphonmana',
+  },
+  ETERNAL_CALL_TO_THE_VOID_MIND_SEAR_DAMAGE: {
+    id: 344752,
+    name: 'Mind Sear',
+    icon: 'spell_shadow_siphonmana',
+  },
   //region Shadow
 
   //endregion
