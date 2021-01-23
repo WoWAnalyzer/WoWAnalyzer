@@ -1,7 +1,7 @@
 import React from 'react';
 
-import StatisticsListBox, { STATISTIC_ORDER } from 'interface/StatisticsListBox';
-import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
+import StatisticsListBox, { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'parser/core/Analyzer';

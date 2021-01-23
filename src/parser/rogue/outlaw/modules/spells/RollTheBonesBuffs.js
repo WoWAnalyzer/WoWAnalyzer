@@ -6,8 +6,8 @@ import { formatPercentage } from 'common/format';
 import SpellLink from 'interface/SpellLink';
 import Analyzer from 'parser/core/Analyzer';
 import UptimeIcon from 'interface/icons/Uptime';
-import StatisticBox from 'interface/StatisticBox';
-import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
+import StatisticBox from 'parser/ui/StatisticBox';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { t } from '@lingui/macro';
 
 import { ROLL_THE_BONES_BUFFS } from '../../constants';

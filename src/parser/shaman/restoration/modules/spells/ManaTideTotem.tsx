@@ -11,15 +11,15 @@ import { formatNumber } from 'common/format';
 import { Trans } from '@lingui/macro';
 import ROLES from 'game/ROLES';
 
-import Statistic from 'interface/statistics/Statistic';
-import BoringValue from 'interface/statistics/BoringValueText';
+import Statistic from 'parser/ui/Statistic';
+import BoringValue from 'parser/ui/BoringValueText';
 import ManaIcon from 'interface/icons/Mana';
 
 import './ManaTideTotem.scss'
 import Combatant from 'parser/core/Combatant';
 import SPECS from 'game/SPECS';
 import SpecIcon from 'interface/SpecIcon';
-import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 export const MANA_REGEN_PER_SECOND = 2000 / 5;
 

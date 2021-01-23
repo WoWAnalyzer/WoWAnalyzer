@@ -1,9 +1,9 @@
 import React from 'react';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, RemoveBuffEvent } from 'parser/core/Events';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Channeling from 'parser/shared/modules/Channeling';
 import SPELLS from 'common/SPELLS';

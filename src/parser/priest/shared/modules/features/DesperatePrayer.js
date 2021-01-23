@@ -1,5 +1,5 @@
 import React from 'react';
-import StatisticBox from 'interface/StatisticBox';
+import StatisticBox from 'parser/ui/StatisticBox';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'interface/SpellIcon';

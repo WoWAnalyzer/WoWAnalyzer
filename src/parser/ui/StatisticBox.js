@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Statistic from 'interface/statistics/Statistic';
+import Statistic from 'parser/ui/Statistic';
 
 import STATISTIC_CATEGORY from './STATISTIC_CATEGORY';
 import './StatisticBox.css';
@@ -9,7 +9,7 @@ import './StatisticBox.css';
 export { default as STATISTIC_ORDER } from './STATISTIC_ORDER';
 
 /**
- * @deprecated Use `interface/statistic/Statistic` instead.
+ * @deprecated Use `parser/ui/Statistic` instead.
  */
 class StatisticBox extends React.PureComponent {
   static propTypes = {

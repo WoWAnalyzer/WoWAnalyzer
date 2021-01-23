@@ -4,9 +4,9 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'interface/SpellLink';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/StatisticBox';
-import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
-import ItemHealingDone from 'interface/ItemHealingDone';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import UptimeIcon from 'interface/icons/Uptime';
 import SPECS from 'game/SPECS';
 

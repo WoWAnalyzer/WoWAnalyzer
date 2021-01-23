@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Tooltip from 'common/Tooltip';
 import InfoIcon from 'interface/icons/Info';
 import DrilldownIcon from 'interface/icons/Link';
-import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 import './Statistic.scss';
 

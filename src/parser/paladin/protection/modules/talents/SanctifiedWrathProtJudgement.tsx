@@ -1,11 +1,11 @@
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Events, { CastEvent, EnergizeEvent } from 'parser/core/Events';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import React from 'react';
-import BoringSpellValue from 'interface/statistics/BoringSpellValue';
+import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import { formatNumber } from 'common/format';
 
 /**

@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Statistic from 'interface/statistics/Statistic';
+import Statistic from 'parser/ui/Statistic';
 
 import STATISTIC_CATEGORY from './STATISTIC_CATEGORY';
 
 export { default as STATISTIC_ORDER } from './STATISTIC_ORDER';
 
 /**
- * @deprecated Use `interface/statistics/*` instead (add a component to display dual spell values and use that instead).
+ * @deprecated Use `parser/ui/*` instead (add a component to display dual spell values and use that instead).
  */
 const DualStatisticBox = ({
   icon,

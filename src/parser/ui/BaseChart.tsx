@@ -20,37 +20,29 @@ export const defaultConfig = {
 };
 
 export interface Props {
-  spec: VisualizationSpec,
-  data: any,
-  config?: Config,
-  width?: number,
-  height?: number,
-  renderer?: "canvas" | "svg",
+  spec: VisualizationSpec;
+  data: any;
+  config?: Config;
+  width?: number;
+  height?: number;
+  renderer?: 'canvas' | 'svg';
 }
 
 export function formatTime(field: string = 'datum.timestamp') {
   return `if(${field} / 1000 >= 60, toString(floor(${field} / 60000)) + 'm ', '') + toString(floor(${field} / 1000) % 60) + 's'`;
 }
 
-
 export default function BaseChart(props: Props) {
   const prp = {
     config: defaultConfig,
-    renderer: "canvas" as const,
+    renderer: 'canvas' as const,
     ...props,
     spec: {
       ...props.spec,
       datasets: props.data,
     },
-    data: undefined
+    data: undefined,
   };
 
-  return (
-    <VegaLite
-      theme="dark"
-      tooltip={{theme: 'dark'}}
-      actions={false}
-      {...prp}
-    />
-  );
+  return <VegaLite theme="dark" tooltip={{ theme: 'dark' }} actions={false} {...prp} />;
 }

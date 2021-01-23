@@ -3,12 +3,12 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 
-import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
-import ItemHealingDone from 'interface/ItemHealingDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 
 class FortifyingIngredients extends Analyzer {
   static dependencies = {

@@ -9,7 +9,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'interface/SpellLink';
 import SpellIcon from 'interface/SpellIcon';
 
-import UptimeBar from 'interface/statistics/UptimeBar';
+import UptimeBar from 'parser/ui/UptimeBar';
 
 import { t } from '@lingui/macro';
 

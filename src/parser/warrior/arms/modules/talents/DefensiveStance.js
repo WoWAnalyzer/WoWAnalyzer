@@ -5,7 +5,7 @@ import SpellIcon from 'interface/SpellIcon';
 import SpellLink from 'interface/SpellLink';
 import { formatNumber, formatThousands } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import Events from 'parser/core/Events';
 import Tooltip from 'common/Tooltip';
 import { t } from '@lingui/macro';

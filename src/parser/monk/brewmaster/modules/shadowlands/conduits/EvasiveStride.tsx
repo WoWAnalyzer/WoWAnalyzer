@@ -4,12 +4,12 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 
-import Statistic from 'interface/statistics/Statistic';
-import ConduitSpellText from 'interface/statistics/ConduitSpellText';
-import ItemHealingDone from 'interface/ItemHealingDone'
-import STATISTIC_ORDER  from 'interface/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
-import BaseChart from 'interface/BaseChart';
+import Statistic from 'parser/ui/Statistic';
+import ConduitSpellText from 'parser/ui/ConduitSpellText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone'
+import STATISTIC_ORDER  from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import BaseChart from 'parser/ui/BaseChart';
 import { AutoSizer } from 'react-virtualized';
 import { binomialPMF, setMinMaxProbabilities } from 'parser/shared/modules/helpers/Probability';
 import { VisualizationSpec } from 'react-vega';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { formatNumber } from 'common/format';
 import SpellIcon from 'interface/SpellIcon';
 import { TooltipElement } from 'common/Tooltip';

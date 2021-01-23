@@ -4,7 +4,7 @@ import { formatThousands } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellLink from 'interface/SpellLink';
-import StatisticListBoxItem from 'interface/StatisticListBoxItem';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 /**
  * Bash an enemy's skull, dealing [ 84% of Attack Power ] Physical damage.

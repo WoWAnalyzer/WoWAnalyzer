@@ -1,26 +1,35 @@
 import React from 'react';
 import { AutoSizer } from 'react-virtualized';
 import PropTypes from 'prop-types';
-import BaseChart, { formatTime } from 'interface/BaseChart';
+
+import BaseChart, { formatTime } from './BaseChart';
 
 class ManaLevelGraph extends React.PureComponent {
   static propTypes = {
-    mana: PropTypes.arrayOf(PropTypes.shape({
-      x: PropTypes.number.isRequired,
-      y: PropTypes.number.isRequired,
-    })).isRequired,
-    deaths: PropTypes.arrayOf(PropTypes.shape({
-      x: PropTypes.number.isRequired,
-    })),
-    bossData: PropTypes.arrayOf(PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      borderColor: PropTypes.string,
-      backgroundColor: PropTypes.string,
-      data: PropTypes.arrayOf(PropTypes.shape({
+    mana: PropTypes.arrayOf(
+      PropTypes.shape({
         x: PropTypes.number.isRequired,
         y: PropTypes.number.isRequired,
-      })).isRequired,
-    })).isRequired,
+      }),
+    ).isRequired,
+    deaths: PropTypes.arrayOf(
+      PropTypes.shape({
+        x: PropTypes.number.isRequired,
+      }),
+    ),
+    bossData: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        borderColor: PropTypes.string,
+        backgroundColor: PropTypes.string,
+        data: PropTypes.arrayOf(
+          PropTypes.shape({
+            x: PropTypes.number.isRequired,
+            y: PropTypes.number.isRequired,
+          }),
+        ).isRequired,
+      }),
+    ).isRequired,
   };
 
   static defaultProps = {
@@ -39,25 +48,25 @@ class ManaLevelGraph extends React.PureComponent {
     const { mana, deaths, bossData } = this.props;
 
     const baseEncoding = {
-            x: {
-              field: 'x',
-              type: 'quantitative',
-              axis: {
-                labelExpr: formatTime('datum.value'),
-                grid: false,
-              },
-              title: null,
-              scale: { zero: true, nice: false },
-            },
-            y: {
-              field: 'y',
-              type: 'quantitative',
-              axis: {
-                tickCount: 4,
-              },
-              title: null,
-            },
-          };
+      x: {
+        field: 'x',
+        type: 'quantitative',
+        axis: {
+          labelExpr: formatTime('datum.value'),
+          grid: false,
+        },
+        title: null,
+        scale: { zero: true, nice: false },
+      },
+      y: {
+        field: 'y',
+        type: 'quantitative',
+        axis: {
+          tickCount: 4,
+        },
+        title: null,
+      },
+    };
 
     const spec = {
       layer: [
@@ -88,7 +97,7 @@ class ManaLevelGraph extends React.PureComponent {
                 orient: 'top',
               },
               scale: {
-                scheme: "accent",
+                scheme: 'accent',
               },
             },
           },
@@ -129,20 +138,14 @@ class ManaLevelGraph extends React.PureComponent {
     };
 
     const data = {
-      mana, deaths,
+      mana,
+      deaths,
       bosses: bossData,
     };
 
     return (
       <AutoSizer disableHeight>
-        {({ width }) => (
-          <BaseChart
-            height={400}
-            width={width}
-            spec={spec}
-            data={data}
-          />
-        )}
+        {({ width }) => <BaseChart height={400} width={width} spec={spec} data={data} />}
       </AutoSizer>
     );
   }

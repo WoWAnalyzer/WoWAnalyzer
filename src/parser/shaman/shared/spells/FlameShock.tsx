@@ -9,15 +9,15 @@ import Enemies from 'parser/shared/modules/Enemies';
 import EarlyDotRefreshesAnalyzer from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshes';
 import badRefreshSuggestion from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesSuggestionByCount';
 
-import { STATISTIC_ORDER } from 'interface/StatisticBox';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { DamageEvent } from 'parser/core/Events';
-import Statistic from 'interface/statistics/Statistic';
+import Statistic from 'parser/ui/Statistic';
 import Events from 'parser/core/Events';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import { t } from '@lingui/macro';
-import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 class FlameShock extends EarlyDotRefreshesAnalyzer {
   static dependencies = {

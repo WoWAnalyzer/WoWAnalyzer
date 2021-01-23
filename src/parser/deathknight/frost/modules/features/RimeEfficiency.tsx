@@ -8,10 +8,10 @@ import { formatPercentage } from 'common/format';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { t } from '@lingui/macro';
 
-import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
-import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
 
-import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 const LAG_BUFFER_MS = 100;
 const BUFF_DURATION_SEC = 15;

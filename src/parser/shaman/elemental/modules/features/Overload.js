@@ -6,7 +6,7 @@ import SpellIcon from 'interface/SpellIcon';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import Events from 'parser/core/Events';
 
 class Overload extends Analyzer {

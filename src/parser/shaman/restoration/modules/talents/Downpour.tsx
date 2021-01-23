@@ -6,9 +6,9 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/StatisticBox';
-import StatisticListBoxItem from 'interface/StatisticListBoxItem';
-import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';

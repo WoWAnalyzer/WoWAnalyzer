@@ -5,9 +5,9 @@ import { formatPercentage } from 'common/format';
 import Events, { ChangeHasteEvent, EventType } from 'parser/core/Events';
 import EventFilter from 'parser/core/EventFilter';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
-import Statistic from 'interface/statistics/Statistic';
-import BoringValue from 'interface/statistics/BoringValueText';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
+import BoringValue from 'parser/ui/BoringValueText';
 
 import Abilities from '../Abilities';
 import KegSmash from '../spells/KegSmash';

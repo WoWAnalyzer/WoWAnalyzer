@@ -6,9 +6,9 @@ import Events from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'interface/SpellLink';
 
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
-import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { t } from '@lingui/macro';
 

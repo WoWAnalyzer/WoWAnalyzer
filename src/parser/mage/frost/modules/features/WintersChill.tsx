@@ -10,9 +10,9 @@ import COVENANTS from 'game/shadowlands/COVENANTS';
 import SpellIcon from 'interface/SpellIcon';
 import SpellLink from 'interface/SpellLink';
 import { formatPercentage } from 'common/format';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
-import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { MS_BUFFER_1000 } from 'parser/mage/shared/constants';
 import { Trans } from '@lingui/macro';
 

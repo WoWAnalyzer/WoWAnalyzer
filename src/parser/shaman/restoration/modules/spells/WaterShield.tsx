@@ -9,13 +9,13 @@ import { formatNumber } from 'common/format';
 
 import { Trans } from '@lingui/macro';
 
-import Statistic from 'interface/statistics/Statistic';
-import BoringValue from 'interface/statistics/BoringValueText';
+import Statistic from 'parser/ui/Statistic';
+import BoringValue from 'parser/ui/BoringValueText';
 import ManaIcon from 'interface/icons/Mana';
 // just gonna steal my mtt formatting
 import './ManaTideTotem.scss'
 import { TooltipElement } from 'common/Tooltip';
-import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 
 const WATER_SHIELD_MANA_REGEN_PER_SECOND = 50 / 5;

@@ -8,9 +8,9 @@ import SPELLS from 'common/SPELLS';
 import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 import Tooltip from 'common/Tooltip';
 
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
-import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 const DAMAGE_BONUS = 0.25;
 const MAX_STACKS = 4;

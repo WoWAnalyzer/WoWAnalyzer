@@ -5,7 +5,7 @@ import fetchWcl from 'common/fetchWclApi';
 import SpellIcon from 'interface/SpellIcon';
 import { formatNumber, formatThousands } from 'common/format';
 
-import LazyLoadStatisticBox from 'interface/LazyLoadStatisticBox';
+import LazyLoadStatisticBox from 'parser/ui/LazyLoadStatisticBox';
 
 import Analyzer from 'parser/core/Analyzer';
 import { EventType } from 'parser/core/Events';

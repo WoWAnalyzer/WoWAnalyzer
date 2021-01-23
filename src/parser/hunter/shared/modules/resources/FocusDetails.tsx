@@ -3,11 +3,11 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import Panel from 'interface/Panel';
-import { STATISTIC_ORDER } from 'interface/StatisticBox';
-import Statistic from 'interface/statistics/Statistic';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import Statistic from 'parser/ui/Statistic';
 import { formatPercentage } from 'common/format';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
-import BoringResourceValue from 'interface/statistics/BoringResourceValue';
+import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { RESOURCES_HUNTER_AVERAGE_THRESHOLD, RESOURCES_HUNTER_MAJOR_THRESHOLD, RESOURCES_HUNTER_MINOR_THRESHOLD } from 'parser/hunter/shared/constants';
 

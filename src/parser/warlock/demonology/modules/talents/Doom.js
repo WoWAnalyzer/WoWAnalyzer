@@ -8,10 +8,10 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'interface/SpellLink';
 import { formatPercentage, formatThousands } from 'common/format';
 
-import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
-import ItemDamageDone from 'interface/ItemDamageDone';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import UptimeIcon from 'interface/icons/Uptime';
 import { t } from '@lingui/macro';
 

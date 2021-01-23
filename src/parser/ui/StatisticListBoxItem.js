@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { TooltipElement } from 'common/Tooltip';
 
 /**
- * @deprecated Use `interface/statistic/Statistic` instead.
+ * @deprecated Use `parser/ui/Statistic` instead.
  */
 const StatisticListBoxItem = ({ title, value, titleTooltip, valueTooltip}) => (
     <div className="flex">

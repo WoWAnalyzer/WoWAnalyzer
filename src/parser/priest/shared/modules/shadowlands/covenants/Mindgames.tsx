@@ -1,9 +1,9 @@
 import React from 'react';
 
-import ItemHealingDone from 'interface/ItemHealingDone';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
@@ -18,8 +18,8 @@ import isAtonement from 'parser/priest/discipline/modules/core/isAtonement';
 import SPECS from 'game/SPECS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ItemInsanityGained from 'parser/priest/shadow/interface/ItemInsanityGained';
-import ItemDamageDone from 'interface/ItemDamageDone';
-import ItemManaGained from 'interface/ItemManaGained';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import ItemManaGained from 'parser/ui/ItemManaGained';
 import Abilities from 'parser/core/modules/Abilities';
 
 // Shadow: https://www.warcraftlogs.com/reports/Bx7h3bzGKm9CHqF6#fight=1&type=damage-done&source=10

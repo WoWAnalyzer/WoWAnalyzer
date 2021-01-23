@@ -14,9 +14,9 @@ import Events, {
 import SPELLS from 'common/SPELLS';
 import { formatThousands, formatNumber } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
-import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 import { getDotDurations } from '../../constants';
 

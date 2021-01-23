@@ -6,7 +6,7 @@ import SpellLink from 'interface/SpellLink';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, DeathEvent, EventType, HealEvent } from 'parser/core/Events';
 import Panel from 'interface/Panel';
-import BaseChart, { formatTime } from 'interface/BaseChart';
+import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 
 import StaggerFabricator, { AddStaggerEvent, RemoveStaggerEvent } from '../core/StaggerFabricator';
 

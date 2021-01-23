@@ -2,11 +2,11 @@ import { formatPercentage } from 'common/format';
 import SpellLink from 'interface/SpellLink';
 
 import SPELLS from 'common/SPELLS';
-import ItemDamageDone from 'interface/ItemDamageDone';
-import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
-import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
-import Statistic from 'interface/statistics/Statistic';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Events, { ApplyDebuffEvent, DamageEvent, RefreshDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';

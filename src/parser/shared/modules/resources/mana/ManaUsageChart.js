@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Panel from 'interface/statistics/Panel';
+import Panel from 'parser/ui/Panel';
 import Analyzer from 'parser/core/Analyzer';
 import ManaValues from 'parser/shared/modules/ManaValues';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';

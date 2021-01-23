@@ -1,4 +1,4 @@
-import OneVariableBinomialChart from 'interface/OneVariableBinomialChart';
+import OneVariableBinomialChart from 'parser/ui/OneVariableBinomialChart';
 import React from 'react';
 
 /**

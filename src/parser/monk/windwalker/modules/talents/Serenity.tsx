@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Statistic from 'interface/statistics/Statistic';
-import { STATISTIC_ORDER } from 'interface/StatisticBox';
+import Statistic from 'parser/ui/Statistic';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import SpellIcon from 'interface/SpellIcon';
-import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import SPELLS from 'common/SPELLS';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';

@@ -7,8 +7,8 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
-import StatisticBox from 'interface/StatisticBox';
-import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
+import StatisticBox from 'parser/ui/StatisticBox';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { t } from '@lingui/macro';
 
 class GarroteUptime extends Analyzer {

@@ -2,8 +2,8 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import TalentStatisticBox from 'interface/TalentStatisticBox';
-import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
+import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class Voracious extends Analyzer {
 

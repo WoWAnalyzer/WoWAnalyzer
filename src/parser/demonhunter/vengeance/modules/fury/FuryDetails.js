@@ -5,10 +5,10 @@ import Panel from 'interface/Panel';
 import { formatPercentage } from 'common/format';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import { t } from '@lingui/macro';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import BoringResourceValue from 'interface/statistics/BoringResourceValue';
+import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 import FuryTracker from './FuryTracker';

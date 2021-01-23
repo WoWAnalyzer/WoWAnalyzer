@@ -6,9 +6,9 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'interface/SpellLink';
 
-import Statistic from 'interface/statistics/Statistic';
-import Gauge from 'interface/statistics/Gauge';
-import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
+import Gauge from 'parser/ui/Gauge';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { t } from '@lingui/macro';
 

@@ -6,9 +6,9 @@ import Events, { CastEvent, DamageEvent, FightEndEvent } from 'parser/core/Event
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'interface/SpellLink';
 import { formatPercentage } from 'common/format';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
-import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { TooltipElement } from 'common/Tooltip';
 import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';

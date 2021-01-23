@@ -3,7 +3,7 @@ import { AutoSizer } from 'react-virtualized';
 
 import Analyzer from 'parser/core/Analyzer';
 import Panel from 'interface/Panel';
-import BaseChart, { formatTime } from 'interface/BaseChart';
+import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 
 import RuneBreakdown from './RuneBreakdown';
 import RuneTracker from './RuneTracker';

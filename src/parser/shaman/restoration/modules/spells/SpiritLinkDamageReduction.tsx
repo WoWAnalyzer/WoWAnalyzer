@@ -6,7 +6,7 @@ import fetchWcl from 'common/fetchWclApi';
 import SpellIcon from 'interface/SpellIcon';
 import { formatThousands, formatNumber } from 'common/format';
 
-import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'interface/LazyLoadStatisticBox';
+import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'parser/ui/LazyLoadStatisticBox';
 
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';

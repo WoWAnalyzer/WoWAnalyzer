@@ -5,10 +5,10 @@ import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellLink from 'interface/SpellLink';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import StatisticBox from 'interface/StatisticBox';
+import StatisticBox from 'parser/ui/StatisticBox';
 import SpellIcon from 'interface/SpellIcon';
-import ItemHealingDone from 'interface/ItemHealingDone';
-import ItemDamageDone from 'interface/ItemDamageDone';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { formatNumber, formatPercentage } from 'common/format';
 
 class HolyNova extends Analyzer {

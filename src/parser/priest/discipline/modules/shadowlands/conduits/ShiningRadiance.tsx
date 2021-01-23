@@ -8,11 +8,11 @@ import Events, { HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import { SHINING_RADIANCE_INCREASE } from 'parser/priest/discipline/constants';
 
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
-import ConduitSpellText from 'interface/statistics/ConduitSpellText';
-import ItemHealingDone from 'interface/ItemHealingDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import ConduitSpellText from 'parser/ui/ConduitSpellText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 
 class ShiningRadiance extends Analyzer {
 

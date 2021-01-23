@@ -3,7 +3,7 @@ import { Trans } from '@lingui/macro';
 
 import SpellLink from 'interface/SpellLink';
 import { formatPercentage } from 'common/format';
-import Panel from 'interface/statistics/Panel';
+import Panel from 'parser/ui/Panel';
 import CastEfficiencyComponent from 'interface/CastEfficiency';
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';

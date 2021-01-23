@@ -1,8 +1,8 @@
 import React from 'react';
 
-import TalentStatisticBox from 'interface/TalentStatisticBox';
-import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
-import ItemDamageDone from 'interface/ItemDamageDone';
+import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';

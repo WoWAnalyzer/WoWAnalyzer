@@ -9,7 +9,7 @@ import Events, { HealEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { t, Trans } from '@lingui/macro';
 
-import StatisticListBoxItem from 'interface/StatisticListBoxItem';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 import RestorationAbilityTracker from '../core/RestorationAbilityTracker';
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';

@@ -1,11 +1,11 @@
 import React from 'react';
 
 import Panel from 'interface/Panel';
-import Statistic from 'interface/statistics/Statistic';
+import Statistic from 'parser/ui/Statistic';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
-import BoringResourceValue from 'interface/statistics/BoringResourceValue';
+import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 import Analyzer from 'parser/core/Analyzer';

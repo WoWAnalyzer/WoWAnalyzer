@@ -4,7 +4,7 @@ import Enemies from 'parser/shared/modules/Enemies';
 import SPELLS from 'common/SPELLS/index';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'interface/SpellLink';
-import StatisticListBoxItem from 'interface/StatisticListBoxItem';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import { t } from '@lingui/macro';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 

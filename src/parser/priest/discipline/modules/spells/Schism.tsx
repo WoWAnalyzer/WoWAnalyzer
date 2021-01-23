@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'interface/SpellIcon';
 import SpellLink from 'interface/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
-import DualStatisticBox, { STATISTIC_ORDER } from 'interface/DualStatisticBox';
+import DualStatisticBox, { STATISTIC_ORDER } from 'parser/ui/DualStatisticBox';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Enemies from 'parser/shared/modules/Enemies';

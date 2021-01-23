@@ -10,9 +10,9 @@ import Events, { AbsorbedEvent, CastEvent, DamageEvent } from 'parser/core/Event
 
 import Combatants from 'parser/shared/modules/Combatants';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/StatisticBox';
-import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
-import StatisticListBoxItem from 'interface/StatisticListBoxItem';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { Trans } from '@lingui/macro';
 

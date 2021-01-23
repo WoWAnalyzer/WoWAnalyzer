@@ -4,13 +4,13 @@ import SPELLS from 'common/SPELLS';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import SpellLink from 'interface/SpellLink';
 
-import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { formatThousands } from 'common/format';
-import DonutChart from 'interface/statistics/DonutChart';
+import DonutChart from 'parser/ui/DonutChart';
 
 class AncientTeachingsoftheMonastery extends Analyzer {
 

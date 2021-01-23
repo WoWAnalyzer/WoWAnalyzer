@@ -4,11 +4,11 @@ import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
 import Events, { DamageEvent, EnergizeEvent } from 'parser/core/Events';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import COVENANTS from 'game/shadowlands/COVENANTS';
-import ItemDamageDone from 'interface/ItemDamageDone';
-import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ResourceIcon from 'interface/ResourceIcon';
 
 class EchoingReprimand extends Analyzer {

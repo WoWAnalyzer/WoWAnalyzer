@@ -6,10 +6,10 @@ import { WCLHealing, WCLHealingTableResponse } from 'common/WCL_TYPES';
 import SpellIcon from 'interface/SpellIcon';
 import { formatNumber } from 'common/format';
 
-import LazyLoadStatisticBox from 'interface/LazyLoadStatisticBox';
+import LazyLoadStatisticBox from 'parser/ui/LazyLoadStatisticBox';
 
 import Analyzer from 'parser/core/Analyzer';
-import ItemHealingDone from 'interface/ItemHealingDone';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { EventType } from 'parser/core/Events';
 

@@ -4,14 +4,14 @@ import SPELLS from 'common/SPELLS';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import Events, { ApplyBuffEvent, DamageEvent, EnergizeEvent, RemoveBuffEvent } from 'parser/core/Events';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Combatants from 'parser/shared/modules/Combatants';
-import ItemManaGained from 'interface/ItemManaGained';
+import ItemManaGained from 'parser/ui/ItemManaGained';
 import ItemInsanityGained from 'parser/priest/shadow/interface/ItemInsanityGained';
 import { formatNumber } from 'common/format';
 import Abilities from 'parser/core/modules/Abilities';

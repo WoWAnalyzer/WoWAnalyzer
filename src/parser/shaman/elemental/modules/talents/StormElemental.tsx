@@ -10,7 +10,7 @@ import Abilities from 'parser/shaman/elemental/modules/Abilities';
 import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
-import Statistic from 'interface/statistics/Statistic';
+import Statistic from 'parser/ui/Statistic';
 import SpellLink from 'interface/SpellLink';
 
 import { t } from '@lingui/macro';

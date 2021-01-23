@@ -2,7 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'interface/SpellLink';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
-import { STATISTIC_ORDER } from 'interface/StatisticsListBox';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import { TooltipElement } from 'common/Tooltip';
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';

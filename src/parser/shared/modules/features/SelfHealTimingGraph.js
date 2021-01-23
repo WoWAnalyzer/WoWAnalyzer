@@ -6,7 +6,7 @@ import Panel from 'interface/Panel';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'interface/SpellLink';
 
-import BaseChart, { formatTime } from 'interface/BaseChart';
+import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import Events from 'parser/core/Events';
 
 const DEATH_BUFFER = 200;

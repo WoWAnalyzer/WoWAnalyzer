@@ -4,7 +4,7 @@ import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import { When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import { STATISTIC_ORDER } from 'interface/StatisticBox';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import SpellLink from 'interface/SpellLink';
 import { Trans } from '@lingui/macro';
 

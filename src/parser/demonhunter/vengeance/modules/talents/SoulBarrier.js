@@ -7,8 +7,8 @@ import DamageTracker from 'parser/shared/modules/AbilityTracker';
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'interface/SpellLink';
 import { formatPercentage, formatNumber } from 'common/format';
-import TalentStatisticBox from 'interface/TalentStatisticBox';
-import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
+import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { t } from '@lingui/macro';
 import Events from 'parser/core/Events';
 

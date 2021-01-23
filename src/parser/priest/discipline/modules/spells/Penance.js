@@ -2,10 +2,10 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValue from 'interface/statistics/BoringSpellValue';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import EventGrouper from 'parser/core/EventGrouper';
-import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import SpellLink from 'interface/SpellLink';
 import Events from 'parser/core/Events';
 

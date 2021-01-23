@@ -1,5 +1,5 @@
 import React from 'react';
-import { STATISTIC_ORDER } from 'interface/StatisticBox';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import SpellIcon from 'interface/SpellIcon';
 
 import SPELLS from 'common/SPELLS';
@@ -7,13 +7,13 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import Combatants from 'parser/shared/modules/Combatants';
-import ItemHealingDone from 'interface/ItemHealingDone';
-import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { formatNumber, formatPercentage } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
-import Statistic from 'interface/statistics/Statistic';
+import Statistic from 'parser/ui/Statistic';
 
 import { ABILITIES_THAT_TRIGGER_MASTERY } from '../../constants';
 

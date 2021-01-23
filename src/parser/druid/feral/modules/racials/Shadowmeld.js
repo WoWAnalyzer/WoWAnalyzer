@@ -1,8 +1,8 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
-import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
-import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
 import SpellLink from 'interface/SpellLink';
 import { formatPercentage } from 'common/format';
 import RACES from 'game/RACES';

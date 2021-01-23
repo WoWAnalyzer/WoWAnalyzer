@@ -7,10 +7,10 @@ import { formatNumber } from 'common/format';
 import { formatPercentage } from 'common/format';
 
 import SPELLS from 'common/SPELLS';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/TraitStatisticBox';
-import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
-import ItemHealingDone from 'interface/ItemHealingDone';
-import ItemDamageDone from 'interface/ItemDamageDone';
+import TraitStatisticBox, { STATISTIC_ORDER } from 'parser/ui/TraitStatisticBox';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Events from 'parser/core/Events';
 
 import BeaconHealSource from '../beacons/BeaconHealSource.js';

@@ -6,11 +6,11 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import Enemies from 'parser/shared/modules/Enemies';
 import Events, { DamageEvent } from 'parser/core/Events';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
-import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
-import ItemDamageDone from 'interface/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 
 const EARTHEN_SPIKE = {
   INCREASE: 0.2,

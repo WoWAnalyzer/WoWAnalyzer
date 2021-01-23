@@ -9,12 +9,12 @@ import EventHistory from 'parser/shared/modules/EventHistory';
 import { Options } from 'parser/core/Module';
 import { t, Trans } from '@lingui/macro';
 
-import Statistic from 'interface/statistics/Statistic';
-import ItemDamageDone from 'interface/ItemDamageDone';
-import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import ConduitSpellText from 'interface/statistics/ConduitSpellText';
+import ConduitSpellText from 'parser/ui/ConduitSpellText';
 
 import { DISSONANT_ECHOES_DAMAGE_INCREASE } from 'parser/priest/shadow/constants';
 

@@ -13,7 +13,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 import { t } from '@lingui/macro';

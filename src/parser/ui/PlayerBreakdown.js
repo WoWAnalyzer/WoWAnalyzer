@@ -9,7 +9,8 @@ import { TooltipElement } from 'common/Tooltip';
 import indexByProperty from 'common/indexByProperty';
 import Toggle from 'react-toggle';
 import SpellLink from 'interface/SpellLink';
-import PerformanceBar from 'interface/PerformanceBar';
+
+import PerformanceBar from './PerformanceBar';
 
 class PlayerBreakdown extends React.Component {
   static propTypes = {

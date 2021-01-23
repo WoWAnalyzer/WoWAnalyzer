@@ -7,11 +7,11 @@ import { formatPercentage, formatThousands } from 'common/format';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
-import { STATISTIC_ORDER } from 'interface/StatisticBox';
-import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
-import ItemDamageDone from 'interface/ItemDamageDone';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellLink from 'interface/SpellLink';
 

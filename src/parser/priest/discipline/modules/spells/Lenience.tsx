@@ -6,7 +6,7 @@ import SpellIcon from 'interface/SpellIcon';
 import { formatNumber, formatThousands } from 'common/format';
 import { Options } from 'parser/core/Module';
 
-import LazyLoadStatisticBox from 'interface/LazyLoadStatisticBox';
+import LazyLoadStatisticBox from 'parser/ui/LazyLoadStatisticBox';
 
 import Analyzer from 'parser/core/Analyzer';
 import { EventType } from 'parser/core/Events';

@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import BaseChart from 'interface/BaseChart';
+import BaseChart from 'parser/ui/BaseChart';
 
 import { formatPercentage } from 'common/format';
 import SpellLink from 'interface/SpellLink';
 import { TooltipElement } from 'common/Tooltip';
 
-import 'interface/statistics/DonutChart.scss';
+import 'parser/ui/DonutChart.scss';
 
 class DonutChart extends React.PureComponent {
   static propTypes = {

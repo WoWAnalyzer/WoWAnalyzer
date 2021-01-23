@@ -8,9 +8,9 @@ import { formatThousands } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import EssenceFontMastery from 'parser/monk/mistweaver/modules/features/EssenceFontMastery';
 
-import { STATISTIC_ORDER } from 'interface/StatisticsListBox';
-import DonutChart from 'interface/statistics/DonutChart';
-import Statistic from 'interface/statistics/Statistic';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
+import DonutChart from 'parser/ui/DonutChart';
+import Statistic from 'parser/ui/Statistic';
 
 import EssenceFont from '../spells/EssenceFont';
 

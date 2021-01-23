@@ -8,7 +8,7 @@ import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'interface/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import Events from 'parser/core/Events';
 
 const NEMESIS_BUFF_IDS = [

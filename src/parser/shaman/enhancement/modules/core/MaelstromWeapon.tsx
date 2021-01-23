@@ -5,9 +5,9 @@ import Events, { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, RemoveBuffEvent
 import SPELLS from 'common/SPELLS/index';
 import UptimeIcon from 'interface/icons/Uptime';
 import Spell from 'common/SPELLS/Spell';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
-import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { formatPercentage } from 'common/format';
 
 import { Intervals } from './Intervals';

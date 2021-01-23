@@ -1,6 +1,6 @@
 import React from 'react';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 import SpellIcon from 'interface/SpellIcon';
 import SpellLink from 'interface/SpellLink';

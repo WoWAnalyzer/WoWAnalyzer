@@ -4,7 +4,7 @@ import calculateMaxCasts from 'parser/core/calculateMaxCasts';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellLink from 'interface/SpellLink';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';

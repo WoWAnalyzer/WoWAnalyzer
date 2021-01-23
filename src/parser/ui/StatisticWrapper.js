@@ -1,5 +1,5 @@
 /**
- * @deprecated Use `interface/statistic/StatisticGroup` instead.
+ * @deprecated Use `parser/ui/StatisticGroup` instead.
  */
 const StatisticWrapper = props => props.children;
 

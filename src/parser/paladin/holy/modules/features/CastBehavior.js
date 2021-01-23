@@ -5,10 +5,10 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'interface/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
-import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
-import StatisticGroup from 'interface/statistics/StatisticGroup';
-import Statistic from 'interface/statistics/Statistic';
-import DonutChart from 'interface/statistics/DonutChart';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import StatisticGroup from 'parser/ui/StatisticGroup';
+import Statistic from 'parser/ui/Statistic';
+import DonutChart from 'parser/ui/DonutChart';
 
 import PaladinAbilityTracker from '../core/PaladinAbilityTracker';
 

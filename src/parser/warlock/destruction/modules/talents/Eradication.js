@@ -10,10 +10,10 @@ import SpellLink from 'interface/SpellLink';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
 
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
-import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 import { t } from '@lingui/macro';
 

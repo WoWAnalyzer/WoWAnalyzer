@@ -9,10 +9,10 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Events, { BeginCastEvent, CastEvent, HealEvent } from 'parser/core/Events';
 
-import StatisticListBoxItem from 'interface/StatisticListBoxItem';
-import { STATISTIC_ORDER } from 'interface/StatisticBox';
-import StatisticBox from 'interface/StatisticBox';
-import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import StatisticBox from 'parser/ui/StatisticBox';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 import Combatants from 'parser/shared/modules/Combatants';
 

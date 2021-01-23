@@ -1,9 +1,9 @@
 import React from 'react';
 import SpellIcon from 'interface/SpellIcon';
-import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
-import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
 import HasteIcon from 'interface/icons/Haste';
-import BoringValue from 'interface/statistics/BoringValueText';
+import BoringValue from 'parser/ui/BoringValueText';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatThousands } from 'common/format';
 

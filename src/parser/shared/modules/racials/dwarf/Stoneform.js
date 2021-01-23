@@ -7,7 +7,7 @@ import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import RACES from 'game/RACES';
 import SpellIcon from 'interface/SpellIcon';
 import SPELLS from 'common/SPELLS/index';
-import StatisticBox from 'interface/StatisticBox';
+import StatisticBox from 'parser/ui/StatisticBox';
 import Events from 'parser/core/Events';
 
 /**

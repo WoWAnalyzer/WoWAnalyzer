@@ -3,7 +3,7 @@ import React from 'react';
 import { formatPercentage } from 'common/format';
 import SpellIcon from 'interface/SpellIcon';
 import SpellLink from 'interface/SpellLink';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELLS from 'common/SPELLS';

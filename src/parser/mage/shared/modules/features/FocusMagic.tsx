@@ -7,9 +7,9 @@ import SPELLS from 'common/SPELLS';
 import UptimeIcon from 'interface/icons/Uptime';
 import SpellLink from 'interface/SpellLink';
 import { formatPercentage } from 'common/format';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
-import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { Trans } from '@lingui/macro';
 
 class FocusMagic extends Analyzer {

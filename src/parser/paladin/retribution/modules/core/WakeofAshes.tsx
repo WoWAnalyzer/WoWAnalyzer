@@ -6,7 +6,7 @@ import Events, {DamageEvent, CastEvent, EnergizeEvent, FightEndEvent} from 'pars
 import SpellLink from 'interface/SpellLink';
 import SpellIcon from 'interface/SpellIcon';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { t } from '@lingui/macro';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 

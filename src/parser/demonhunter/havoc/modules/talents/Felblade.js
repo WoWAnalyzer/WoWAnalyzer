@@ -5,10 +5,10 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatPercentage, formatThousands } from 'common/format';
 import SpellLink from 'interface/SpellLink';
 import { t } from '@lingui/macro';
-import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
-import ItemDamageDone from 'interface/ItemDamageDone';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 
 
 /**

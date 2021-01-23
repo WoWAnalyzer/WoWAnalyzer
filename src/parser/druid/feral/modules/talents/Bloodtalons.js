@@ -1,11 +1,11 @@
 import React from 'react';
-import { STATISTIC_ORDER } from 'interface/StatisticsListBox';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'interface/SpellLink';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import HIT_TYPES from 'game/HIT_TYPES';
-import Statistic from 'interface/statistics/Statistic';
-import DonutChart from 'interface/statistics/DonutChart';
+import Statistic from 'parser/ui/Statistic';
+import DonutChart from 'parser/ui/DonutChart';
 import { t } from '@lingui/macro';
 import Events from 'parser/core/Events';
 

@@ -1,9 +1,9 @@
 import React from 'react';
 
-import ItemHealingDone from 'interface/ItemHealingDone';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
@@ -15,7 +15,7 @@ import { Options } from 'parser/core/Module';
 
 import AtonementDamageSource from 'parser/priest/discipline/modules/features/AtonementDamageSource';
 import SPECS from 'game/SPECS';
-import ItemDamageDone from 'interface/ItemDamageDone';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import SpellIcon from 'interface/SpellIcon';
 import { TooltipElement } from 'common/Tooltip';
 import Abilities from 'parser/core/modules/Abilities';

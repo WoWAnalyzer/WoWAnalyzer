@@ -5,11 +5,11 @@ import { formatThousands, formatPercentage } from 'common/format';
 import rankingColor from 'common/getRankingColor';
 import makeWclUrl from 'common/makeWclUrl';
 import Tooltip from 'common/Tooltip';
-import StatisticBar from 'interface/statistics/StatisticBar';
-import ThroughputPerformance, { UNAVAILABLE } from 'interface/report/Results/ThroughputPerformance';
-import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
+import StatisticBar from 'parser/ui/StatisticBar';
+import ThroughputPerformance, { UNAVAILABLE } from 'parser/ui/ThroughputPerformance';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import FlushLineChart from 'interface/FlushLineChart';
+import FlushLineChart from 'parser/ui/FlushLineChart';
 import Events, { AbsorbedEvent, DamageEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 
 import HealingValue from '../HealingValue';

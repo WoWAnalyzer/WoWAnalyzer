@@ -2,9 +2,9 @@ import React from 'react';
 
 import { formatNumber } from 'common/format';
 
-import Statistic from 'interface/statistics/Statistic';
-import { STATISTIC_ORDER } from 'interface/StatisticBox';
-import BoringItemValueText from 'interface/statistics/BoringItemValueText';
+import Statistic from 'parser/ui/Statistic';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import BoringItemValueText from 'parser/ui/BoringItemValueText';
 
 import ITEMS from 'common/ITEMS/index';
 

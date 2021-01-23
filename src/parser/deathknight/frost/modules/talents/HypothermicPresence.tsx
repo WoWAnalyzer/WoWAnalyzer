@@ -3,9 +3,9 @@ import React from "react";
 import Analyzer, { Options } from "parser/core/Analyzer";
 import SPELLS from "common/SPELLS";
 
-import Statistic from "interface/statistics/Statistic";
-import { STATISTIC_ORDER } from "interface/StatisticBox";
-import BoringSpellValue from "interface/statistics/BoringSpellValue";
+import Statistic from "parser/ui/Statistic";
+import { STATISTIC_ORDER } from "parser/ui/StatisticBox";
+import BoringSpellValue from "parser/ui/BoringSpellValue";
 
 import RunicPowerTracker from "../runicpower/RunicPowerTracker";
 

@@ -1,12 +1,12 @@
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Events, { EnergizeEvent } from 'parser/core/Events';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import SpellIcon from 'interface/SpellIcon';
 import React from 'react';
-import BoringValueText from 'interface/statistics/BoringValueText';
+import BoringValueText from 'parser/ui/BoringValueText';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 class HolyAvenger extends Analyzer {

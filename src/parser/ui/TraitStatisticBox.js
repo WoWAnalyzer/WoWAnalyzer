@@ -10,7 +10,7 @@ import StatisticBox from './StatisticBox';
 export { default as STATISTIC_ORDER } from './STATISTIC_ORDER';
 
 /**
- * @deprecated Use `interface/statistic/Statistic` instead.
+ * @deprecated Use `parser/ui/Statistic` instead.
  */
 const TraitStatisticBox = ({ trait, icon, label, ...others }) => (
   <StatisticBox

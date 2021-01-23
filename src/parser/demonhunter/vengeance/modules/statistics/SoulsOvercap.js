@@ -7,9 +7,9 @@ import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'interface/SpellLink';
 
 import { formatNumber, formatPercentage } from 'common/format';
-import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { t } from '@lingui/macro';
 
 import SoulFragmentsTracker from '../features/SoulFragmentsTracker';
