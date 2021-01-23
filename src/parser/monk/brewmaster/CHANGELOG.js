@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2021, 1, 23), <>Add wasted cooldown avoided to <SpellLink id={SPELLS.STORMSTOUTS_LAST_KEG.id} /> statistic tooltip.</>, emallson),
   change(date(2021, 1, 18), <>Add support for <SpellLink id={SPELLS.STORMSTOUTS_LAST_KEG.id} />.</>, Matardarix),
   change(date(2021, 1, 16), <>Added <SpellLink id={SPELLS.WALK_WITH_THE_OX.id} /> cooldown reduction.</>, emallson),
   change(date(2021, 1, 16), <>Added <SpellLink id={SPELLS.WEAPONS_OF_ORDER_CAST.id} />, <SpellLink id={SPELLS.BONEDUST_BREW_CAST.id} /> and <SpellLink id={SPELLS.FAELINE_STOMP_CAST.id} /> to Brewmaster ability list.</>, emallson),

@@ -33,7 +33,7 @@ class ShiftingPowerUsage extends Analyzer {
   }
 
   get percentUsage() {
-    return this.badUses / this.abilityTracker.getAbility(SPELLS.SHIFTING_POWER.id).casts;
+    return 1 - (this.badUses / this.abilityTracker.getAbility(SPELLS.SHIFTING_POWER.id).casts);
   }
 
   get shiftingPowerUsageThresholds() {
