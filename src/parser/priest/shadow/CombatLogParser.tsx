@@ -15,6 +15,7 @@ import DarkThoughts from './modules/features/DarkThoughts';
 // spells:
 import Shadowfiend from './modules/spells/Shadowfiend';
 import VampiricTouch from './modules/spells/VampiricTouch';
+import ShadowWordDeath from './modules/spells/ShadowWordDeath';
 import ShadowWordPain from './modules/spells/ShadowWordPain';
 import DevouringPlague from './modules/spells/DevouringPlague';
 import Dispersion from './modules/spells/Dispersion';
@@ -58,6 +59,7 @@ class CombatLogParser extends MainCombatLogParser {
     // spells:
     shadowfiend: Shadowfiend,
     vampiricTouch: VampiricTouch,
+    shadowWordDeath: ShadowWordDeath,
     shadowWordPain: ShadowWordPain,
     devouringPlague: DevouringPlague,
     dispersion: Dispersion,

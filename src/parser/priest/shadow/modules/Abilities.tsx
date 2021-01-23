@@ -57,14 +57,6 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.SEARING_NIGHTMARE_TALENT.id),
       },
       {
-        spell: SPELLS.SHADOW_WORD_DEATH,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste: number) => 20 / (1 + haste),
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: SPELLS.SHADOW_CRASH_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: (haste: number) => 30 / (1 + haste),
