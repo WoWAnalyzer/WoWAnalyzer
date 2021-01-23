@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { Khadaj, Ogofo, Oratio, Reglitch, VMakaev, Zeboot } from 'CONTRIBUTORS';
+import { Adoraci, Khadaj, Ogofo, Oratio, Reglitch, VMakaev, Zeboot } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2021, 1, 23), <>Added <SpellLink id={SPELLS.TWINS_OF_THE_SUN_PRIESTESS.id} /> legendary.</>, Adoraci),
   change(date(2020, 12, 28), <>Fixing <SpellLink id={SPELLS.BOON_OF_THE_ASCENDED.id} /></>, Khadaj),
   change(date(2020, 12, 28), <>Adding support for <SpellLink id={SPELLS.FAE_GUARDIANS.id} /></>, Khadaj),
   change(date(2020, 12, 28), <>Adding support for <SpellLink id={SPELLS.UNHOLY_NOVA.id} /></>, Khadaj),
