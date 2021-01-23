@@ -6,10 +6,9 @@ import Enemies from 'parser/shared/modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
+import { SpellLink, SpellIcon } from 'interface';
 
-import UptimeBar from 'interface/statistics/components/UptimeBar';
+import UptimeBar from 'parser/ui/UptimeBar';
 
 import { t } from '@lingui/macro';
 import COVENANTS from 'game/shadowlands/COVENANTS';

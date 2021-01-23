@@ -49,7 +49,7 @@ const AfflictionWarlockChecklist = ({ combatant, castEfficiency, thresholds, sha
         <DotUptime id={SPELLS.SHADOW_EMBRACE.id} thresholds={thresholds.shadowEmbrace} />
         {combatant.hasTalent(SPELLS.SIPHON_LIFE_TALENT.id) && <DotUptime id={SPELLS.SIPHON_LIFE_TALENT.id} thresholds={thresholds.siphonLife} />}
         {combatant.hasTalent(SPELLS.HAUNT_TALENT.id) && <DotUptime id={SPELLS.HAUNT_TALENT.id} thresholds={thresholds.haunt} />}
-        {combatant.hasCovenant(COVENANTS.KYRIAN.id) && <DotUptime spell={SPELLS.SCOURING_TITHE.id} thresholds={thresholds.scouringTithe} />}
+        {combatant.hasCovenant(COVENANTS.KYRIAN.id) && <DotUptime id={SPELLS.SCOURING_TITHE.id} thresholds={thresholds.scouringTithe} />}
       </Rule>
       <Rule
         name="Don't cap your Soul Shards"
