@@ -46,6 +46,22 @@ class StormstoutsLastKeg extends Analyzer {
     this.damage += calculateEffectiveDamage(event, STORMSTOUTS_LK_MODIFIER);
   }
 
+  // The idea here is that we can look at the remaining cooldown after a cast
+  // to determine how much time the spell would have spent off cooldown without
+  // the legendary. For example: if you cast Keg Smash 400ms after the first
+  // charge comes off cooldown, then after the cast (when this event fires)
+  // `expectedDuration - remaining = 400`, which is the amount of time it would
+  // have wasted if not for this legendary.
+  //
+  // There is a special case for getting an entire extra cast off, because in
+  // that scenario the remaining CD is equal to the expected total CD of the
+  // cast.
+  //
+  // TODO: There is a pathological case that I havent figured out how to solve
+  // yet: if the player casts Keg Smash exactly at the 2nd charge every time,
+  // then they waste exactly 1 cast. The current implementation will report
+  // them "preventing" n wasted casts. As long as players are trying to keep it
+  // at 0 charges, this doesn't occur.
   trackExtraCD(_event: CastEvent) {
     const { expectedDuration, chargesOnCooldown } = this.spellUsable._currentCooldowns[SPELLS.KEG_SMASH.id];
     const remaining = this.spellUsable.cooldownRemaining(SPELLS.KEG_SMASH.id);
