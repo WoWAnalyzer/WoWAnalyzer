@@ -9,6 +9,8 @@ import ResourceLink from 'common/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 export default [
+  change(date(2021, 1, 23), <>Updated checklist to include <SpellLink id={SPELLS.POWER_INFUSION.id} />.</>, Adoraci),
+  change(date(2021, 1, 23), <>Added support for <SpellLink id={SPELLS.SHADOW_WORD_DEATH.id} />.</>, Adoraci),
   change(date(2021, 1, 23), <>Added <ResourceLink id={RESOURCE_TYPES.INSANITY.id} /> tracker and suggestions.</>, Adoraci),
   change(date(2021, 1, 23), <>Added suggestion threshold for <SpellLink id={SPELLS.DEATH_AND_MADNESS_TALENT} /> talent module.</>, Adoraci),
   change(date(2021, 1, 18), <>Fixed an issue with <SpellLink id={SPELLS.VOID_TORRENT_TALENT.id} /> module crashing.</>, Adoraci),
