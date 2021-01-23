@@ -51,6 +51,15 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
       >
         <AbilityRequirement spell={SPELLS.VOID_BOLT.id} />
         <AbilityRequirement spell={SPELLS.MIND_BLAST.id} />
+        <AbilityRequirement spell={SPELLS.SHADOW_WORD_DEATH.id} />
+
+        {combatant.hasTalent(SPELLS.VOID_TORRENT_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.VOID_TORRENT_TALENT.id} />
+        )}
+
+        {combatant.hasTalent(SPELLS.SHADOW_CRASH_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.SHADOW_CRASH_TALENT.id} />
+        )}
 
       </Rule>
 
@@ -63,6 +72,7 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
         )}
       >
         <AbilityRequirement spell={SPELLS.VOID_ERUPTION.id} />
+        <AbilityRequirement spell={SPELLS.POWER_INFUSION.id} />
 
         {combatant.hasTalent(SPELLS.SURRENDER_TO_MADNESS_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.SURRENDER_TO_MADNESS_TALENT.id} />
@@ -72,14 +82,6 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           <AbilityRequirement spell={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> :
           <AbilityRequirement spell={SPELLS.SHADOWFIEND.id} />
         }
-
-        {combatant.hasTalent(SPELLS.VOID_TORRENT_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.VOID_TORRENT_TALENT.id} />
-        )}
-
-        {combatant.hasTalent(SPELLS.SHADOW_CRASH_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.SHADOW_CRASH_TALENT.id} />
-        )}
 
         {combatant.hasCovenant(COVENANTS.NECROLORD.id) && (
           <AbilityRequirement spell={SPELLS.UNHOLY_NOVA.id} />
