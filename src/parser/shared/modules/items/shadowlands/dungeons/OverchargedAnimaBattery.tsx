@@ -3,7 +3,7 @@ import Abilities from 'parser/core/modules/Abilities';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Buffs from 'parser/core/modules/Buffs';
 import ITEMS from 'common/ITEMS';
-import { calculateSecondaryStatDefault } from 'common/stats';
+import { calculateSecondaryStatDefault } from 'parser/core/stats';
 import SPELLS from 'common/SPELLS';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';

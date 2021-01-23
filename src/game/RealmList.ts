@@ -1,4 +1,4 @@
-import GENERATED_REALMS from 'common/REALMS';
+import GENERATED_REALMS from './REALMS';
 
 interface RealmList {
   [region: string]: Realm[]

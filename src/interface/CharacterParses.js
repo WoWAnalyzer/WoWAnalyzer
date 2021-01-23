@@ -24,7 +24,7 @@ import './CharacterParses.scss';
 import ParsesList from './CharacterParsesList';
 
 const loadRealms = () =>
-  retryingPromise(() => import('common/REALMS').then((exports) => exports.default));
+  retryingPromise(() => import('game/REALMS').then((exports) => exports.default));
 
 //rendering 400+ parses takes quite some time
 const RENDER_LIMIT = 100;

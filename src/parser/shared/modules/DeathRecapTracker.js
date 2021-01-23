@@ -1,7 +1,6 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import DEFENSIVE_BUFFS from 'common/DEFENSIVE_BUFFS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import Abilities from 'parser/core/modules/Abilities';
@@ -13,6 +12,7 @@ import { Panel } from 'interface';
 import Events from 'parser/core/Events';
 
 import DeathRecap from './DeathRecap';
+import DEFENSIVE_BUFFS from './DEFENSIVE_BUFFS';
 
 class DeathRecapTracker extends Analyzer {
   deaths = [];

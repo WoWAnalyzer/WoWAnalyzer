@@ -1,6 +1,6 @@
 import React from 'react';
 
-import BAD_ICONS from 'common/BAD_ICONS';
+import BAD_ICONS from './BAD_ICONS';
 
 interface Props extends React.HTMLAttributes<HTMLImageElement> {
   icon?: string

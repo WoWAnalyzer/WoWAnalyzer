@@ -9,7 +9,7 @@ interface Props {
   gear: Item[];
 }
 
-const Gear = (props: Props) => {
+const PlayerInfoGear = (props: Props) => {
   const { gear } = props;
 
   return (
@@ -44,4 +44,4 @@ const Gear = (props: Props) => {
   );
 };
 
-export default Gear;
+export default PlayerInfoGear;

@@ -10,8 +10,8 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 
 import './CharacterTab.css';
 import PlayerInfo from './PlayerInfo';
-import Stats from './Stats';
-import Race from './Race';
+import CharacterStats from './CharacterStats';
+import CharacterRace from './CharacterRace';
 
 const CharacterTab = props => {
   const { statTracker, combatant } = props;
@@ -23,9 +23,9 @@ const CharacterTab = props => {
           <PlayerInfo combatant={combatant} />
         </div>
         <div className="col-sm-6">
-          <Stats statTracker={statTracker} />
+          <CharacterStats statTracker={statTracker} />
 
-          <Race race={combatant.race} />
+          <CharacterRace race={combatant.race} />
 
           <div className="row">
             <div className="col-md-12">

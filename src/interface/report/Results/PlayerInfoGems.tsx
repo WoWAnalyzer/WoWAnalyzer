@@ -7,7 +7,7 @@ interface Props {
   gear: Item[];
 }
 
-const Gems = (props: Props) => {
+const PlayerInfoGems = (props: Props) => {
   const { gear } = props;
   const itemsWithGems = gear.filter((item) => item.id !== 0 && item.gems);
   return (
@@ -26,4 +26,4 @@ const Gems = (props: Props) => {
   );
 };
 
-export default Gems;
+export default PlayerInfoGems;

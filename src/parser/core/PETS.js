@@ -1,4 +1,4 @@
-import indexById from './indexById';
+import indexById from 'common/indexById';
 
 // TODO: Refactor this away: you should make a spec specific PETS file in your spec folder
 const PETS = {

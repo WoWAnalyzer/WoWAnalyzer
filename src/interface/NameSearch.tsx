@@ -4,10 +4,10 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 // @ts-ignore react-select-search has a broken import so we need to manually do it. See https://github.com/tbleckert/react-select-search/issues/120
 import SelectSearch from 'react-select-search/dist/cjs';
 import { Trans, t } from '@lingui/macro';
-import REALMS from 'common/RealmList';
 import { makeGuildApiUrl, makeCharacterApiUrl } from 'common/makeApiUrl';
 import makeGuildPageUrl from 'common/makeGuildPageUrl';
 import makeCharacterPageUrl from 'common/makeCharacterPageUrl';
+import REALMS from 'game/RealmList';
 
 export enum SearchType {
   CHARACTER = 'Character',

@@ -2,9 +2,8 @@ import React, { FormEvent, useCallback, useEffect, useRef, useState } from 'reac
 import { Trans, t } from '@lingui/macro';
 import { useHistory } from 'react-router-dom';
 
-import REGION_CODES from 'common/REGION_CODES';
-import Tooltip from 'interface/Tooltip';
-
+import Tooltip from './Tooltip';
+import REGION_CODES from './REGION_CODES';
 import './ReportSelecter.css';
 
 export function getReportCode(input: string) {

@@ -9,7 +9,7 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import STAT, { getClassNameColor, getIcon, getNameTranslated } from 'parser/shared/modules/features/STAT';
 import { Trans } from '@lingui/macro';
 
-class Stats extends React.PureComponent {
+class CharacterStats extends React.PureComponent {
   static propTypes = {
     statTracker: PropTypes.instanceOf(StatTracker).isRequired,
   };
@@ -148,4 +148,4 @@ class Stats extends React.PureComponent {
   }
 }
 
-export default Stats;
+export default CharacterStats;

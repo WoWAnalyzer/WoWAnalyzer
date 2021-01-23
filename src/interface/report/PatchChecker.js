@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Trans } from '@lingui/macro';
 
-import PATCHES from 'common/PATCHES';
 import Icon from 'interface/Icon';
 import Tooltip from 'interface/Tooltip';
 import DiscordButton from 'interface/DiscordButton';
@@ -14,6 +13,7 @@ import { getReportCodesIgnoredPreviousPatchWarning } from 'interface/selectors/s
 import Panel from 'interface/Panel';
 
 import Background from './images/weirdnelf.png';
+import PATCHES from './PATCHES';
 
 class PatchChecker extends React.PureComponent {
   static propTypes = {

@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import { calculateSecondaryStatDefault } from 'common/stats';
+import { calculateSecondaryStatDefault } from 'parser/core/stats';
 import { formatMilliseconds } from 'common/format';
 import SPECS from 'game/SPECS';
 import RACES from 'game/RACES';

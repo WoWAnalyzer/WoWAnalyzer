@@ -33,7 +33,7 @@ import Header from './Header';
 import About from './About';
 import Overview from './Overview';
 import Statistics from './Statistics';
-import Character from './Character';
+import Character from './CharacterTab';
 import EncounterStats from './EncounterStats';
 import DegradedExperience from './DegradedExperience';
 import ItemWarning from './ItemWarning';

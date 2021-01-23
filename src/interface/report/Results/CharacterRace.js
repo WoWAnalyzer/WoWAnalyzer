@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Trans } from '@lingui/macro';
 
-const Race = (
+const CharacterRace = (
   {
     race,
   },
@@ -23,8 +23,8 @@ const Race = (
     </>
   );
 
-Race.propTypes = {
+CharacterRace.propTypes = {
   race: PropTypes.any.isRequired,
 };
 
-export default Race;
+export default CharacterRace;

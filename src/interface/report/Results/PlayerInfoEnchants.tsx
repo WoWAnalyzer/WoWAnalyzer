@@ -7,7 +7,7 @@ interface Props {
   gear: Item[];
 }
 
-const Enchants = (props: Props) => {
+const PlayerInfoEnchants = (props: Props) => {
   const { gear } = props;
   return (
     <>
@@ -26,4 +26,4 @@ const Enchants = (props: Props) => {
   );
 };
 
-export default Enchants;
+export default PlayerInfoEnchants;

@@ -5,11 +5,11 @@ import Combatant from 'parser/core/Combatant';
 import { Item } from 'parser/core/Events';
 
 import './PlayerInfo.scss';
-import Enchants from './Enchants';
-import Gear from './Gear';
-import Gems from './Gems';
+import PlayerInfoEnchants from './PlayerInfoEnchants';
+import PlayerInfoGear from './PlayerInfoGear';
+import PlayerInfoGems from './PlayerInfoGems';
 import PlayerGearHeader from './PlayerGearHeader';
-import Talents from './Talents';
+import PlayerInfoTalents from './PlayerInfoTalents';
 
 function _parseTalents(talents: TalentsType[]): number[] {
   return talents.reduce((talentsByRow: number[], talent: TalentsType) => talentsByRow.concat(talent.id), []);
@@ -41,14 +41,14 @@ const PlayerInfo = ({ combatant }: Props) => {
       <div className="player-background" style={{ backgroundImage: `url(${background})` }}>
         <div className="player-gear">
           <PlayerGearHeader player={combatant} averageIlvl={averageIlvl} />
-          <Gear gear={gear} />
-          <Gems gear={gear} />
-          <Enchants gear={gear} />
+          <PlayerInfoGear gear={gear} />
+          <PlayerInfoGems gear={gear} />
+          <PlayerInfoEnchants gear={gear} />
         </div>
       </div>
       <div className="player-details">
         <div className="player-details-talents">
-          <Talents talents={talents} />
+          <PlayerInfoTalents talents={talents} />
         </div>
       </div>
     </div>

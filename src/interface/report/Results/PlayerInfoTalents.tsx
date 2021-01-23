@@ -12,7 +12,7 @@ interface Props {
   talents: number[];
 }
 
-const Talents = ({talents}: Props) => {
+const PlayerInfoTalents = ({talents}: Props) => {
   const rows = [15, 25, 30, 35, 40, 45, 50];
 
   return (
@@ -54,4 +54,4 @@ const Talents = ({talents}: Props) => {
   );
 };
 
-export default Talents;
+export default PlayerInfoTalents;

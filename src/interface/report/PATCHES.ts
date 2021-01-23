@@ -5,7 +5,12 @@
   Timestamps are for the NA Region to match WCL
 */
 
-import Patch from './Patch';
+interface Patch {
+  name: string;
+  timestamp: number;
+  urlPrefix: string;
+  isCurrent: boolean;
+}
 
 const PATCHES: Patch[] = [
   {
