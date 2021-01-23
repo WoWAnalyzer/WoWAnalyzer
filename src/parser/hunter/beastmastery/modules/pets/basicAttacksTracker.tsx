@@ -1,14 +1,14 @@
 import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import ItemDamageDone from 'interface/ItemDamageDone';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { formatNumber } from 'common/format';
 import Events, { DamageEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 
 import Spell from 'common/SPELLS/Spell';
 

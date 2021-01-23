@@ -1,11 +1,11 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Events from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatThousands } from 'common/format';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/Mz8cTFgNkxXaJt3j/#fight=4&source=18

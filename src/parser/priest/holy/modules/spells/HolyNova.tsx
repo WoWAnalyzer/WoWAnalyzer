@@ -3,12 +3,12 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import StatisticBox from 'interface/others/StatisticBox';
-import SpellIcon from 'common/SpellIcon';
-import ItemHealingDone from 'interface/ItemHealingDone';
-import ItemDamageDone from 'interface/ItemDamageDone';
+import StatisticBox from 'parser/ui/StatisticBox';
+import { SpellIcon } from 'interface';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { formatNumber, formatPercentage } from 'common/format';
 
 class HolyNova extends Analyzer {

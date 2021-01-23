@@ -1,14 +1,14 @@
 import React from 'react';
 
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import { formatPercentage } from 'common/format';
 import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import Statistic from 'interface/statistics/Statistic';
+import Statistic from 'parser/ui/Statistic';
 import { t } from '@lingui/macro';
 
 const SURGE_OF_POWER = {

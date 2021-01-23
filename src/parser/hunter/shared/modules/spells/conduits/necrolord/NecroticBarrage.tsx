@@ -1,15 +1,15 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, EnergizeEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import ItemDamageDone from 'interface/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import React from 'react';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { NECROTIC_BARRAGE_DAMAGE_INCREASE } from 'parser/hunter/shared/constants';
 import COVENANTS from 'game/shadowlands/COVENANTS';
-import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
+import ConduitSpellText from 'parser/ui/ConduitSpellText';
 
 /**
  * Death Chakram generates an additional 2 Focus and the damage is increased by 5.0%.

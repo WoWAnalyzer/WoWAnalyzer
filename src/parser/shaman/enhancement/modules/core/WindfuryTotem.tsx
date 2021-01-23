@@ -2,11 +2,11 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import UptimeIcon from 'interface/icons/Uptime';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import Statistic from 'interface/statistics/Statistic';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { formatPercentage } from 'common/format';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 class WindfuryTotem extends Analyzer {

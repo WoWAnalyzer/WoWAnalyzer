@@ -1,14 +1,14 @@
 import React from 'react';
 
-import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
+import { SpellLink } from 'interface';
+import { SpellIcon } from 'interface';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';

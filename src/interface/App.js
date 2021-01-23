@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
-import TooltipProvider from 'interface/common/TooltipProvider/index';
+import TooltipProvider from 'interface/TooltipProvider';
 import retryingPromise from 'common/retryingPromise';
 import {
   API_DOWN,
@@ -18,17 +18,17 @@ import { fetchUser } from 'interface/actions/user';
 import { getError } from 'interface/selectors/error';
 import { getOpenModals } from 'interface/selectors/openModals';
 import { t } from '@lingui/macro';
-import ApiDownBackground from 'interface/common/images/api-down-background.gif';
+import ApiDownBackground from 'interface/images/api-down-background.gif';
 import FullscreenError from 'interface/FullscreenError';
-import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
-import Footer from 'interface/layout/Footer/index';
-import HomePage from 'interface/home/Page';
+import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
+import Footer from 'interface/Footer';
+import HomePage from 'interface/Home';
 import ThunderSoundEffect from 'interface/audio/Thunder Sound effect.mp3';
 import ReportPage from 'interface/report';
 import PortalTarget from 'interface/PortalTarget';
 
 import 'react-toggle/style.css';
-import './layout/App.scss';
+import './App.scss';
 import Hotkeys from './Hotkeys';
 
 const CharacterPage = lazyLoadComponent(() =>

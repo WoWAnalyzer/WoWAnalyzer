@@ -1,7 +1,7 @@
 import React from 'react';
-import Warning from 'interface/Alert/Warning';
+import AlertWarning from 'interface/AlertWarning';
 import PropTypes from 'prop-types';
-import ItemLink from 'common/ItemLink';
+import { ItemLink } from 'interface';
 
 const WARNING_ITEMS = [];
 
@@ -29,12 +29,12 @@ class ItemWarning extends React.Component {
     }
     return (
       <div className="container">
-        <Warning style={{ marginBottom: 30 }}>
+        <AlertWarning style={{ marginBottom: 30 }}>
           This module can have some inaccuracies caused by effects from items that cannot be tracked in WoWAnalyzer, this may cause not all statistics to be accurate for this player. This is due to the following items: <br />
           {this.badItems.map(item => (
             <ItemLink key={item} id={item} />
           ))}
-        </Warning>
+        </AlertWarning>
       </div>);
   }
 

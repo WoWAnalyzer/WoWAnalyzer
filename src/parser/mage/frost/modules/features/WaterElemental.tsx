@@ -1,12 +1,12 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import CooldownIcon from 'interface/icons/Cooldown';
 import { formatPercentage, formatNumber, formatThousands, formatDuration } from 'common/format';
-import Statistic from 'interface/statistics/Statistic';
-import BoringValueText from 'interface/statistics/components/BoringValueText';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
+import BoringValueText from 'parser/ui/BoringValueText';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { BeginCastEvent, CastEvent, DamageEvent } from 'parser/core/Events';

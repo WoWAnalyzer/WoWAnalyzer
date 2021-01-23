@@ -1,5 +1,5 @@
 import CoreSpellManaCost from 'parser/shared/modules/SpellManaCost';
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 
 const MS_BUFFER = 200;
 const ABUNDANCE_MANA_REDUCTION = 0.06;

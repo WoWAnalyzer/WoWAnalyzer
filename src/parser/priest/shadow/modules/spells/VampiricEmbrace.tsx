@@ -3,10 +3,10 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import ItemHealingDone from 'interface/ItemHealingDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 import { formatNumber } from 'common/format';
 

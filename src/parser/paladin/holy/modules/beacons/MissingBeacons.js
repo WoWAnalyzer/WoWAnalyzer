@@ -1,10 +1,10 @@
 import React from 'react';
 import { Trans } from '@lingui/macro';
 
-import SpellIcon from 'common/SpellIcon';
+import { SpellIcon } from 'interface';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 import Events from 'parser/core/Events';
 

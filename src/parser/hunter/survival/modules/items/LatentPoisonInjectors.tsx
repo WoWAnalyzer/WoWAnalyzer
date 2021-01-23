@@ -2,12 +2,12 @@ import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { LATENT_POISON_INJECOTRS_MAX_STACKS, RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
 import Events, { ApplyDebuffEvent, ApplyDebuffStackEvent, DamageEvent } from 'parser/core/Events';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
-import ItemDamageDone from 'interface/ItemDamageDone';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 
 /**
  * Serpent Sting's damage applies Latent Poison to the target, stacking up to 10 times.

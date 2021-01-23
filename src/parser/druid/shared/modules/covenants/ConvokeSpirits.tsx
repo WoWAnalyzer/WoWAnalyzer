@@ -2,14 +2,14 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
 import Events, { ApplyBuffEvent, ApplyBuffStackEvent, ApplyDebuffEvent, ApplyDebuffStackEvent, CastEvent, DamageEvent, HealEvent, RefreshBuffEvent, RefreshDebuffEvent, RemoveBuffEvent } from 'parser/core/Events';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import React from 'react';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import SPECS from 'game/SPECS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 
 const SPELLS_WITH_TRAVEL_TIME = [
   SPELLS.STARSURGE_AFFINITY.id,
@@ -32,11 +32,11 @@ class ConvokeSpirits extends Analyzer {
   cast = 0;
 
   flexTimeStampForMultiApplySpells = 0;
-  
+
   extraRejuvsFromOtherSources = 0;
 
   whatHappendIneachConvoke: ConvokeCast[] = [];
-  
+
   travelTimeSpellsCastToDamageRatio: number[] = [];
 
   constructor(options: Options) {
@@ -87,10 +87,10 @@ class ConvokeSpirits extends Analyzer {
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell([SPELLS.MOONFIRE, SPELLS.MOONFIRE_BEAR, SPELLS.MOONFIRE_FERAL]), this.newMoonfire);
     this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell([SPELLS.MOONFIRE, SPELLS.MOONFIRE_BEAR, SPELLS.MOONFIRE_FERAL]), this.newMoonfire);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.SOLAR_WRATH, SPELLS.SOLAR_WRATH_AFFINITY, SPELLS.SOLAR_WRATH_MOONKIN]), this.newWrath);
-    
+
     //Balance stuff deal with it. idk which one it will be (it should be solar wrath moonkin but like edge cases)
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.STARSURGE_AFFINITY, SPELLS.STARSURGE_MOONKIN]), this.newStarSurge);
-    
+
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.STARFALL_CAST), this.newStarFall);
     this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.STARFALL_CAST), this.newStarFall);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FULL_MOON), this.newFullMoon);
@@ -226,7 +226,7 @@ class ConvokeSpirits extends Analyzer {
   newFlourish(event: ApplyBuffEvent | RefreshBuffEvent) {
     this.addemUp(event.ability.guid, event.timestamp);
   }
-  
+
   stopTracking(event: RemoveBuffEvent) {
     this.tracking = false;
     this.houseKeeping();
@@ -320,9 +320,9 @@ class ConvokeSpirits extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={<>
-        Normally when a cast of an ability happens in wow there is a CastEvent with it. 
-        During convoke there isn't. 
-        This means we have to track damage events, heal events, and buff/debuff events meaning if you thrash and hit nothing you don't create any events meaning we can't track it. 
+        Normally when a cast of an ability happens in wow there is a CastEvent with it.
+        During convoke there isn't.
+        This means we have to track damage events, heal events, and buff/debuff events meaning if you thrash and hit nothing you don't create any events meaning we can't track it.
         This means if your number don't add up to the expected amount then that is the cause of it.
         </>}
         dropdown={

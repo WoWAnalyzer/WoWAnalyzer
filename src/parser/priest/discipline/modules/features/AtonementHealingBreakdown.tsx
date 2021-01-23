@@ -1,11 +1,11 @@
 import React, { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import Toggle from 'react-toggle';
 
-import Icon from 'common/Icon';
+import { Icon } from 'interface';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import { formatNumber, formatPercentage } from 'common/format';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 import AtonementHealingDone from 'parser/priest/discipline/modules/features/AtonementHealingDone';
 import CombatLogParser from 'parser/core/CombatLogParser';
 

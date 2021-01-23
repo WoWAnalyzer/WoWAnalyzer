@@ -3,14 +3,14 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import ItemDamageDone from 'interface/ItemDamageDone';
-import ItemHealingDone from 'interface/ItemHealingDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Events from 'parser/core/Events';
 
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 import { conduitScaling } from '../../../mistweaver/constants';
 
@@ -29,7 +29,7 @@ class HarmDenial extends Analyzer {
     super(...args);
 
     const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.HARM_DENIAL.id);
-    
+
     if (!conduitRank) {
       this.active = false;
       return;

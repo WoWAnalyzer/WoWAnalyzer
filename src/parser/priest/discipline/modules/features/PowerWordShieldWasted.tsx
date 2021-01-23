@@ -1,9 +1,9 @@
 import React from 'react';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { formatNumber } from 'common/format';
-import SpellIcon from 'common/SpellIcon';
-import { TooltipElement } from 'common/Tooltip';
+import { SpellIcon } from 'interface';
+import { TooltipElement } from 'interface';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';

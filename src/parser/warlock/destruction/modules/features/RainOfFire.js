@@ -7,9 +7,9 @@ import Haste from 'parser/shared/modules/Haste';
 
 import SPELLS from 'common/SPELLS';
 
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 const BUFFER = 100;
 const BASE_ROF_DURATION = 8000;

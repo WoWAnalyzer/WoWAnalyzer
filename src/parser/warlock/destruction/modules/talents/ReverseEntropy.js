@@ -5,10 +5,10 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 class ReverseEntropy extends Analyzer {
   get uptime() {

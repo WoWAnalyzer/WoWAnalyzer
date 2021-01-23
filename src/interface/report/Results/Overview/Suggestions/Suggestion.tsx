@@ -2,7 +2,7 @@ import React from 'react';
 import UpArrow from 'interface/icons/UpArrow';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { Issue } from 'parser/core/ParseResults';
-import Icon from 'common/Icon';
+import Icon from 'interface/Icon';
 import { Trans } from '@lingui/macro';
 
 function getIssueImportance(importance: ISSUE_IMPORTANCE) {

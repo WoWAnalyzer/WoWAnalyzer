@@ -1,9 +1,9 @@
 // Based on Clearcasting Implementation done by @Blazyb
 import React from 'react';
 import { formatPercentage } from 'common/format';
-import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { SpellIcon } from 'interface';
+import { SpellLink } from 'interface';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELLS from 'common/SPELLS';

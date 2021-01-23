@@ -8,12 +8,12 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 
 import CriticalStrikeIcon from 'interface/icons/CriticalStrike';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 import { t } from '@lingui/macro';
 

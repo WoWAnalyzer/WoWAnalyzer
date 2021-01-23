@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 
 import Combatants from 'parser/shared/modules/Combatants';
 import Events, { Class, DeathEvent } from 'parser/core/Events';

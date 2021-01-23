@@ -2,15 +2,15 @@ import React from 'react';
 
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { EnergizeEvent } from 'parser/core/Events';
-import SPELLS from 'common/SPELLS/index';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import SPELLS from 'common/SPELLS';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { formatNumber, formatPercentage } from 'common/format';
 import { t } from '@lingui/macro';
 import Insanity from 'interface/icons/Insanity';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 
 class DeathAndMadness extends Analyzer {
   casts = 0;

@@ -2,15 +2,15 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import { formatThousands } from 'common/format';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { Options } from 'parser/core/Module';
 
-import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
-import DonutChart from 'interface/statistics/components/DonutChart';
-import Statistic from 'interface/statistics/Statistic';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
+import DonutChart from 'parser/ui/DonutChart';
+import Statistic from 'parser/ui/Statistic';
 import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import { POWER_WORD_RADIANCE_ATONEMENT_DUR, POWER_WORD_SHIELD_ATONEMENT_DUR, SHADOW_MEND_ATONEMENT_DUR } from 'parser/priest/discipline/constants';
 

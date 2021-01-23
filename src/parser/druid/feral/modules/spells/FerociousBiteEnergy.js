@@ -2,7 +2,7 @@ import React from 'react';
 
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';

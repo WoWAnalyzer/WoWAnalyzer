@@ -1,10 +1,10 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
-import ResourceLink from 'common/ResourceLink';
+import { SpellLink } from 'interface';
+import { ResourceLink } from 'interface';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';

@@ -3,12 +3,12 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { ApplyBuffEvent, ApplyBuffStackEvent, RemoveBuffEvent, DamageEvent } from 'parser/core/Events';
-import Statistic from 'interface/statistics/Statistic';
-import SpellLink from 'common/SpellLink';
+import Statistic from 'parser/ui/Statistic';
+import { SpellLink } from 'interface';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import ItemDamageDone from 'interface/ItemDamageDone';
+import ConduitSpellText from 'parser/ui/ConduitSpellText';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import { formatNumber, formatPercentage } from 'common/format';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
@@ -22,7 +22,7 @@ class InfernalCascade extends Analyzer {
     abilityTracker: AbilityTracker,
   }
   protected abilityTracker!: AbilityTracker;
-  
+
   conduitRank = 0;
   bonusDamage = 0;
   buffStack = 0;

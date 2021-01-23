@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Danger from 'interface/Alert/Danger';
+import AlertDanger from 'interface/AlertDanger';
 import ModuleError from 'parser/core/ModuleError';
 
 const toTitleCase = s => s.substr(0, 1).toUpperCase() + s.substr(1);
@@ -65,7 +65,7 @@ class DegradedExperience extends React.Component {
 
     return (
       <div className="container">
-        <Danger style={{ marginBottom: 30 }}>
+        <AlertDanger style={{ marginBottom: 30 }}>
           <h2>Degraded experience</h2>
           <span style={{ color: 'white' }}>{toTitleCase(this.firstError)}</span> {this.disabledModuleCount > 1 && <>and {this.disabledModuleCount - 1} other module{this.disabledModuleCount > 2 && 's'} </>}encountered an error and had to be disabled. {this.disabledDependencyCount > 1 && <>As a consequence <span style={{ color: 'white' }}>{this.disabledDependencyCount}</span> other modules had to be disabled as they depend on these modules.</>} Results may be incomplete. Please report this issue to us on <a href="https://wowanalyzer.com/discord">Discord</a> so we can fix it!{' '}
           <a href="javascript:" onClick={this.toggleDetails}>
@@ -94,7 +94,7 @@ class DegradedExperience extends React.Component {
               ))}
             </>
           )}
-        </Danger>
+        </AlertDanger>
       </div>
     );
   }

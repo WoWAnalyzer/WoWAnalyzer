@@ -6,11 +6,11 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import ItemHealingDone from 'interface/ItemHealingDone';
-import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import { HEAVY_RAINFALL_RANKS } from 'parser/shaman/restoration/constants';
 
 /**

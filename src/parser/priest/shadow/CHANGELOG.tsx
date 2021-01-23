@@ -3,8 +3,8 @@ import React from 'react';
 import { Abelito75, Adoraci, Khadaj, Sharrq, Zeboot } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
-import ResourceLink from 'common/ResourceLink';
+import { SpellLink } from 'interface';
+import { ResourceLink } from 'interface';
 
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 

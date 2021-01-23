@@ -2,8 +2,8 @@ import React from 'react';
 
 import InformationIcon from 'interface/icons/Information';
 
-import SPELLS from 'common/SPELLS/index';
-import Tooltip, { TooltipElement } from 'common/Tooltip';
+import SPELLS from 'common/SPELLS';
+import { Tooltip, TooltipElement } from 'interface';
 import { formatNumber } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { AbsorbedEvent, DamageEvent, EventType, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
@@ -12,8 +12,8 @@ import HealingValue from 'parser/shared/modules/HealingValue';
 import DamageValue from 'parser/shared/modules/DamageValue';
 import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import StatisticWrapper from 'interface/others/StatisticWrapper';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import StatisticWrapper from 'parser/ui/StatisticWrapper';
 import { Trans } from '@lingui/macro';
 
 import CORE_SPELL_INFO from './SpellInfo';

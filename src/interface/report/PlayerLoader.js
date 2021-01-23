@@ -4,20 +4,19 @@ import getAverageItemLevel from 'game/getAverageItemLevel';
 import getFightName from 'common/getFightName';
 import { fetchCombatants, LogNotFoundError } from 'common/fetchWclApi';
 import { captureException } from 'common/errorLogger';
-import ActivityIndicator from 'interface/common/ActivityIndicator';
+import ActivityIndicator from 'interface/ActivityIndicator';
 import DocumentTitle from 'interface/DocumentTitle';
 import { setCombatants } from 'interface/actions/combatants';
 import { getPlayerId, getPlayerName } from 'interface/selectors/url/report';
-import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
-import Tooltip from 'common/Tooltip';
-import PlayerSelection from 'interface/report/PlayerSelection';
+import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
+import Tooltip from 'interface/Tooltip';
 import RaidCompositionDetails from 'interface/report/RaidCompositionDetails';
 import ReportDurationWarning, { MAX_REPORT_DURATION } from 'interface/report/ReportDurationWarning';
 import AdvancedLoggingWarning from 'interface/report/AdvancedLoggingWarning';
 import ReportRaidBuffList from 'interface/ReportRaidBuffList';
 import { fetchCharacter } from 'interface/actions/characters';
 import { generateFakeCombatantInfo } from 'interface/report/CombatantInfoFaker';
-import Panel from 'interface/others/Panel';
+import Panel from 'interface/Panel';
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -26,6 +25,7 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { Trans, t } from '@lingui/macro';
 
+import PlayerSelection from './PlayerSelection';
 import handleApiError from './handleApiError';
 
 const defaultState = {
@@ -109,7 +109,7 @@ class PlayerLoader extends React.PureComponent {
       return;
     }
     try {
-      const combatants = await fetchCombatants(report.code, fight.start_time, fight.end_time); 
+      const combatants = await fetchCombatants(report.code, fight.start_time, fight.end_time);
       combatants.forEach(player => {
         if (process.env.NODE_ENV === 'development' && FAKE_PLAYER_IF_DEV_ENV) {
           console.error('This player (sourceID: ' + player.sourceID + ') has an error. Because you\'re in development environment, we have faked the missing information, see CombatantInfoFaker.ts for more information.');

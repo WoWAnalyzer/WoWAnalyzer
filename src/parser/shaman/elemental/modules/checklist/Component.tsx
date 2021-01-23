@@ -6,7 +6,7 @@ import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import { AbilityRequirementProps, ChecklistProps } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 
 const ElementalShamanChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {

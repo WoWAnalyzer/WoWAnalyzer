@@ -2,17 +2,17 @@ import { t, Trans } from '@lingui/macro';
 import React, { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
-import Tooltip from 'common/Tooltip';
-import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
-import Panel from 'interface/others/Panel';
-import GitHubButton from 'interface/common/thirdpartybuttons/GitHub';
-import DiscordButton from 'interface/common/thirdpartybuttons/Discord';
-import Icon from 'common/Icon';
+import Tooltip from 'interface/Tooltip';
+import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
+import Panel from 'interface/Panel';
+import GitHubButton from 'interface/GitHubButton';
+import DiscordButton from 'interface/DiscordButton';
+import Icon from 'interface/Icon';
 import Background from 'interface/report/images/weirdnelf.png';
 import Fight from 'parser/core/Fight';
 import { Player } from 'parser/core/CombatLogParser';
 import ReadableListing from 'interface/ReadableListing';
-import Contributor from 'interface/ContributorButton/ContributorButton';
+import Contributor from 'interface/ContributorButton';
 import Config from 'parser/Config';
 import Changelog from 'interface/Changelog';
 

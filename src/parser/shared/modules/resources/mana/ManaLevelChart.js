@@ -1,7 +1,7 @@
 import React from 'react';
 import { Trans } from '@lingui/macro';
 
-import Panel from 'interface/statistics/Panel';
+import Panel from 'parser/ui/Panel';
 import Analyzer from 'parser/core/Analyzer';
 import ManaValues from 'parser/shared/modules/ManaValues';
 import Combatants from 'parser/shared/modules/Combatants';

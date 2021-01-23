@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import { Juko8, Skeletor, Zeboot, Hordehobbs } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 

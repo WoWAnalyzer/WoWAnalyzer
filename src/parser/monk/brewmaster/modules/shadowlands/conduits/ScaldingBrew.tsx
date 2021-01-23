@@ -5,12 +5,12 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import SPELLS from 'common/SPELLS';
 import Events, { DamageEvent, CastEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
-import Statistic from 'interface/statistics/Statistic';
-import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
-import SpellLink from 'common/SpellLink';
-import ItemDamageDone from 'interface/ItemDamageDone'
-import STATISTIC_ORDER  from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import ConduitSpellText from 'parser/ui/ConduitSpellText';
+import { SpellLink } from 'interface';
+import ItemDamageDone from 'parser/ui/ItemDamageDone'
+import STATISTIC_ORDER  from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import Combatants from 'parser/shared/modules/Combatants';
 import Entity from 'parser/core/Entity';
 

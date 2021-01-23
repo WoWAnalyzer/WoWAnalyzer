@@ -4,13 +4,13 @@ import SPELLS from 'common/SPELLS';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import Events, { DamageEvent, EnergizeEvent } from 'parser/core/Events';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SPECS from 'game/SPECS';
-import ItemDamageDone from 'interface/ItemDamageDone';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { formatNumber } from 'common/format';
 
 const DEATH_STRIKE_RP = 40;

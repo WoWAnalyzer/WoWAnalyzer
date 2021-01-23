@@ -1,9 +1,9 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import Statistic from 'interface/statistics/Statistic';
+import Statistic from 'parser/ui/Statistic';
 import UptimeIcon from 'interface/icons/Uptime';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/EventFilter';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';

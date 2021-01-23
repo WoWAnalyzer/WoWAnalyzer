@@ -1,18 +1,16 @@
 import React from 'react';
 
-import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
+import { SpellIcon, SpellLink, SpecIcon } from 'interface';
 import SPELLS from 'common/SPELLS';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 import SPECS, { Spec } from 'game/SPECS';
-import SpecIcon from 'common/SpecIcon';
 import { formatNth, formatDuration } from 'common/format';
 
 import Events, { CastEvent, EventType, HealEvent } from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 
 import Combatants from 'parser/shared/modules/Combatants';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 import { t } from '@lingui/macro';

@@ -4,15 +4,15 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 
 import HIT_TYPES from 'game/HIT_TYPES';
 
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 const debug = false;
 

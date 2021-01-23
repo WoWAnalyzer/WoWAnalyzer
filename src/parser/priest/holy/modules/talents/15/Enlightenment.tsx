@@ -2,11 +2,11 @@ import Analyzer, { Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import React from 'react';
 import SpiritOfRedemption from 'parser/priest/holy/modules/spells/SpiritOfRedemption';
-import ItemManaGained from 'interface/ItemManaGained';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import ItemManaGained from 'parser/ui/ItemManaGained';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 const MAX_MANA = 100000;
 const BASE_MANA_REGEN = .04;

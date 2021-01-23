@@ -1,20 +1,20 @@
 import React from 'react';
 
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 import HIT_TYPES from 'game/HIT_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { EnergizeEvent, HealEvent } from 'parser/core/Events';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+import { SpellIcon } from 'interface';
 import { formatNumber, formatPercentage } from 'common/format';
 import { Trans } from '@lingui/macro';
 
-import Statistic from 'interface/statistics/Statistic';
-import BoringValue from 'interface/statistics/components/BoringValueText';
+import Statistic from 'parser/ui/Statistic';
+import BoringValue from 'parser/ui/BoringValueText';
 import ManaIcon from 'interface/icons/Mana';
 
 import './ManaTideTotem.scss'

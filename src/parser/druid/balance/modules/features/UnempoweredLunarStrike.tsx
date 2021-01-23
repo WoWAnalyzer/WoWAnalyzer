@@ -2,7 +2,7 @@ import React from 'react';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import { t } from '@lingui/macro';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 

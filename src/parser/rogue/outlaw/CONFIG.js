@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tyndi } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
-import Warning from 'interface/Alert/Warning';
+import { AlertWarning } from 'interface';
 
 import CHANGELOG from './CHANGELOG';
 
@@ -16,10 +16,10 @@ export default {
   description: (
     <>
       Hey Outlaw Rogues! <br /> <br />
-      <Warning>
+      <AlertWarning>
         The Outlaw Rogue module is still being worked on.
         Currently, it gives a good analysis of the single target rotation, and highlights major mistakes.
-      </Warning>
+      </AlertWarning>
       <br /> <br />
       If there is something missing, incorrect, or inaccurate, please report it on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact <kbd>@Tyndi</kbd> on <a href="https://discord.gg/AxphPxU">Discord</a>.<br /><br />
     </>

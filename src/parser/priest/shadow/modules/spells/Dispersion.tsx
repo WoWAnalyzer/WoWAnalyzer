@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 
 import { formatPercentage } from 'common/format';
 import calculateMaxCasts from 'parser/core/calculateMaxCasts';

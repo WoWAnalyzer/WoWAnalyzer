@@ -13,10 +13,10 @@ import Events, {
 
 import SPELLS from 'common/SPELLS';
 import { formatThousands, formatNumber } from 'common/format';
-import { TooltipElement } from 'common/Tooltip';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { TooltipElement } from 'interface';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 import { getDotDurations } from '../../constants';
 

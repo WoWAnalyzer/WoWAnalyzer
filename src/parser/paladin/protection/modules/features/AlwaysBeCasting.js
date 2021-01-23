@@ -1,10 +1,10 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { t } from '@lingui/macro';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {

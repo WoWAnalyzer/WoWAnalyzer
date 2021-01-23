@@ -1,16 +1,16 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import React from 'react';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import SPELLS from 'common/SPELLS';
 import Events, { DamageEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/hunter/marksmanship/modules/core/SpellUsable';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
-import SpellLink from 'common/SpellLink';
-import ItemDamageDone from 'interface/ItemDamageDone';
+import { SpellLink } from 'interface';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { SURGING_SHOTS_DAMAGE_INCREASE, SURGING_SHOTS_RESET_CHANCE } from 'parser/hunter/marksmanship/constants';
 
 /**

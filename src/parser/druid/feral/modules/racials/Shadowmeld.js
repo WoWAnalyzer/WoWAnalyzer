@@ -1,9 +1,9 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import Statistic from 'interface/statistics/Statistic';
-import SpellLink from 'common/SpellLink';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 import RACES from 'game/RACES';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';

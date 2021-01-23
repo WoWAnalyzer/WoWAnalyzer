@@ -1,9 +1,9 @@
 import React from 'react';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Events, { CastEvent, EnergizeEvent } from 'parser/core/Events';
 import RapidFire from 'parser/hunter/marksmanship/modules/spells/RapidFire';
 import SteadyShot from 'parser/hunter/marksmanship/modules/spells/SteadyShot';
@@ -12,8 +12,8 @@ import { HUNTER_BASE_FOCUS_MAX, MS_BUFFER } from 'parser/hunter/shared/constants
 import { TRUESHOT_FOCUS_INCREASE } from 'parser/hunter/marksmanship/constants';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatNumber } from 'common/format';
-import ResourceIcon from 'common/ResourceIcon';
-import SpellIcon from 'common/SpellIcon';
+import { ResourceIcon } from 'interface';
+import { SpellIcon } from 'interface';
 
 /**
  * Reduces the cooldown of your Aimed Shot and Rapid Fire by 60%, and causes Aimed Shot to cast 50% faster for 15 sec.

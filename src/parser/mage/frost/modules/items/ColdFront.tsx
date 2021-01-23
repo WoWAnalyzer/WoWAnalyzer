@@ -3,10 +3,10 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import EventHistory from 'parser/shared/modules/EventHistory';
-import Statistic from 'interface/statistics/Statistic';
-import SpellIcon from 'common/SpellIcon';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import { SpellIcon } from 'interface';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import { formatNumber } from 'common/format';
 

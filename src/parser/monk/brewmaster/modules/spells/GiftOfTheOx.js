@@ -1,15 +1,15 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+import { SpellIcon } from 'interface';
 
 import { formatNumber } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import Statistic from 'interface/statistics/Statistic';
-import BoringValue from 'interface/statistics/components/BoringValueText';
-import { calculatePrimaryStat } from 'common/stats';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
+import BoringValue from 'parser/ui/BoringValueText';
+import { calculatePrimaryStat } from 'parser/core/stats';
 
 import { BASE_AGI, GIFT_OF_THE_OX_SPELLS } from '../../constants';
 import { GOTOX_GENERATED_EVENT } from '../../normalizers/GiftOfTheOx';

@@ -4,13 +4,13 @@ import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
+import { SpellIcon } from 'interface';
+import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 
-import StatisticBar from 'interface/statistics/StatisticBar';
-import UptimeBar from 'interface/statistics/components/UptimeBar';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import StatisticBar from 'parser/ui/StatisticBar';
+import UptimeBar from 'parser/ui/UptimeBar';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { t } from '@lingui/macro';
 

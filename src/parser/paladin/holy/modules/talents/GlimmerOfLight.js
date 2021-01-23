@@ -1,16 +1,16 @@
 import React from 'react';
 import { Trans } from '@lingui/macro';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 
 import { formatNumber } from 'common/format';
 import { formatPercentage } from 'common/format';
 
 import SPELLS from 'common/SPELLS';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import ItemHealingDone from 'interface/ItemHealingDone';
-import ItemDamageDone from 'interface/ItemDamageDone';
+import TraitStatisticBox, { STATISTIC_ORDER } from 'parser/ui/TraitStatisticBox';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Events from 'parser/core/Events';
 
 import BeaconHealSource from '../beacons/BeaconHealSource.js';
@@ -241,7 +241,7 @@ class GlimmerOfLight extends Analyzer {
         )
         .recommended(`< ${this.suggestEarlyRefresh.isGreaterThan.minor * 100}% is recommended`));
     }
-  
+
 }
 
 export default GlimmerOfLight;

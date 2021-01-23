@@ -6,7 +6,7 @@ import PreparationRule from 'parser/shared/modules/features/Checklist/Preparatio
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import { AbilityRequirementProps } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 

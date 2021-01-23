@@ -4,9 +4,9 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Events, { CastEvent, FightEndEvent } from 'parser/core/Events';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import CooldownIcon from 'interface/icons/Cooldown'
 
 const AOTD_APOCALYPSE_REDUCTION_MS = 1000;
@@ -52,7 +52,7 @@ class ArmyOfTheDamned extends Analyzer {
 
     if (this.spellUsable.isOnCooldown(SPELLS.APOCALYPSE.id)) {
       this.spellUsable.endCooldown(SPELLS.APOCALYPSE.id);
-    }    
+    }
   }
 
   statistic() {

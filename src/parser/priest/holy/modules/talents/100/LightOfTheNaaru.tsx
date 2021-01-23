@@ -4,10 +4,10 @@ import React from 'react';
 import HolyWordSanctify from 'parser/priest/holy/modules/spells/holyword/HolyWordSanctify';
 import HolyWordChastise from 'parser/priest/holy/modules/spells/holyword/HolyWordChastise';
 import HolyWordSerenity from 'parser/priest/holy/modules/spells/holyword/HolyWordSerenity';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 // Example Log: /report/Gvxt7CgLya2W1TYj/5-Normal+Zek'voz+-+Kill+(3:57)/13-弥砂丶
 class LightOfTheNaaru extends Analyzer {

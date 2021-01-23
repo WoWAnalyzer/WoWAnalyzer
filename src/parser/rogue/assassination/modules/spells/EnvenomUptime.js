@@ -3,10 +3,10 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'parser/core/Analyzer';
-import StatisticBox from 'interface/others/StatisticBox';
-import SpellIcon from 'common/SpellIcon';
+import StatisticBox from 'parser/ui/StatisticBox';
+import { SpellIcon } from 'interface';
 import { formatPercentage } from 'common/format';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class EnvenomUptime extends Analyzer {
 

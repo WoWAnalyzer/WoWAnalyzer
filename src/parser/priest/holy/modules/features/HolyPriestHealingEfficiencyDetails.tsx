@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import Panel from 'interface/others/Panel';
+import { Panel } from 'interface';
 
 import HealingEfficiencyTracker from './HolyPriestHealingEfficiencyTracker';
 import HealingEfficiencyBreakdown from './HolyPriestHealingEfficiencyBreakdown';

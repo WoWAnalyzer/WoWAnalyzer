@@ -1,12 +1,12 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, EventType, HealEvent } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
 

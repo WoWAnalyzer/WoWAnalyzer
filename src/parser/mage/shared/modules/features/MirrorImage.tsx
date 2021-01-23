@@ -2,9 +2,9 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Events, { DamageEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
@@ -15,7 +15,7 @@ class MirrorImage extends Analyzer {
     abilityTracker: AbilityTracker,
   }
   protected abilityTracker!: AbilityTracker;
-  
+
   damageDuringMirrorImages = 0;
 
   constructor(options: Options) {

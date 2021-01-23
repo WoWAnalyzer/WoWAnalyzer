@@ -5,7 +5,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import DistanceMoved from 'parser/shared/modules/others/DistanceMoved';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import Events, { ApplyBuffEvent, CastEvent, GlobalCooldownEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 
 const MS_BUFFER = 100;

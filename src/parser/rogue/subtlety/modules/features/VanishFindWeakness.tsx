@@ -4,12 +4,12 @@ import SPELLS from 'common/SPELLS';
 import React from 'react';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import { t } from '@lingui/macro';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import SpellLink from 'common/SpellLink';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { SpellLink } from 'interface';
 import { formatMilliseconds, formatNumber } from 'common/format';
-import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
+import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Enemies from 'parser/shared/modules/Enemies';
 import Enemy from 'parser/core/Enemy';
 

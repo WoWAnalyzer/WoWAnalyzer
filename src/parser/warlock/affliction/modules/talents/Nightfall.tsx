@@ -5,9 +5,9 @@ import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parse
 
 import SPELLS from 'common/SPELLS';
 
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 const BUFF_DURATION = 12000;
 const BUFFER = 100;

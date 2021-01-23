@@ -3,11 +3,11 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { AbsorbedEvent, DamageEvent} from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { formatNumber, formatPercentage } from 'common/format';
-import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import BoringSpellValue from 'parser/ui/BoringSpellValue';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import HIT_TYPES from 'game/HIT_TYPES';
 
 const PHYSICAL_DAMAGE = MAGIC_SCHOOLS.ids.PHYSICAL;

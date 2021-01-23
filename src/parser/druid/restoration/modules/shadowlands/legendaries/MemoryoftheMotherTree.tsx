@@ -4,11 +4,11 @@ import SPELLS from 'common/SPELLS';
 import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import ItemHealingDone from 'interface/ItemHealingDone';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 
 import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
 
@@ -34,7 +34,7 @@ class MemoryoftheMotherTree extends Analyzer {
 
   lastTarget = -1;
 
-  //SPELLS.REJUV == rejuv 
+  //SPELLS.REJUV == rejuv
   //SPELLS.REGROWTH == regrowth
   spellToListenFor = 0;
   castWithBuffTime = 0;
@@ -42,7 +42,7 @@ class MemoryoftheMotherTree extends Analyzer {
   totalChances = 0;
   procProbabilities: number[] = [];
   procsGained = 0;
-  
+
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.MEMORY_OF_THE_MOTHER_TREE.bonusID);
@@ -56,7 +56,7 @@ class MemoryoftheMotherTree extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.REJUVENATION, SPELLS.REGROWTH]), this.whatToTrack);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.REJUVENATION, SPELLS.REGROWTH]), this.handleApplication);
     this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell([SPELLS.REJUVENATION, SPELLS.REGROWTH]), this.handleApplication);
-    
+
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.REJUVENATION, SPELLS.REGROWTH]), this.handleHeal);
 
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell([SPELLS.REJUVENATION, SPELLS.REGROWTH]), this.handleRemove);
@@ -118,7 +118,7 @@ class MemoryoftheMotherTree extends Analyzer {
   }
 
   handleHeal(event: HealEvent) {
-    
+
     if(event.ability.guid === SPELLS.REJUVENATION.id && this.rejuvsToTrack.find(e => e === event.targetID)) {
       this.rejuvHealing += (event.amount || 0) + (event.absorbed || 0);
       this.rejuvOverhealing += event.overheal || 0;

@@ -3,9 +3,9 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import SpellIcon from 'common/SpellIcon';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import { SpellIcon } from 'interface';
 
 class GreenskinsWickers extends Analyzer {
   static dependencies = {

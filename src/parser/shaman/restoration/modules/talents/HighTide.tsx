@@ -2,7 +2,7 @@ import React from 'react';
 
 import HIT_TYPES from 'game/HIT_TYPES';
 
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
@@ -11,7 +11,7 @@ import Events, { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, HealEvent, Remo
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import { Trans } from '@lingui/macro';
 import { CHAIN_HEAL_COEFFICIENT, HIGH_TIDE_COEFFICIENT } from 'parser/shaman/restoration/constants';
 

@@ -1,8 +1,8 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS/index';
-import SpellLink from 'common/SpellLink';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 import { t } from '@lingui/macro';
 
@@ -11,7 +11,7 @@ import SoulFragmentsTracker from '../features/SoulFragmentsTracker';
 
 class SoulCleaveSoulsConsumed extends Analyzer {
   get suggestionThresholdsEfficiency() {
-    
+
     const totalAvailable = this.soulFragmentsTracker.soulsGenerated - this.soulFragmentsTracker.overcap;
     const fractionOnSoulCleave = (totalAvailable === 0) ? 0 : (this.soulFragmentsConsume.soulCleaveSouls() / totalAvailable);
 

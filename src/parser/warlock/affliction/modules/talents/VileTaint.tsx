@@ -7,9 +7,9 @@ import Events, { ApplyDebuffEvent, CastEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import { formatThousands, formatPercentage, formatNumber } from 'common/format';
 
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 // the application of the debuff (and first tick of damage) is instant after the cast, but seems to have a little bit of leeway across multiple enemies
 // this example log: /report/mvK3PYrbcwfj9qTG/15-LFR+Zul+-+Kill+(3:49)/16-Residentevil shows around +15ms, so setting 100ms buffer to account for lags

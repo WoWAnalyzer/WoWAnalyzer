@@ -2,8 +2,8 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import SpellLink from 'common/SpellLink';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import { SpellLink } from 'interface';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 /**
  * Your auto attacks generate 10% more Rage.

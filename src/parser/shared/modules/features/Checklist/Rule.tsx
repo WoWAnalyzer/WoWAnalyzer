@@ -2,7 +2,7 @@ import React, {useCallback, useState} from 'react';
 
 import DropdownIcon from 'interface/icons/Dropdown';
 import InformationIcon from 'interface/icons/Information';
-import { ControlledExpandable } from 'interface/common/Expandable';
+import { ControlledExpandable } from 'interface';
 import colorForPerformance from 'common/colorForPerformance';
 
 import calculateMedian from './helpers/calculateMedian';
@@ -63,7 +63,7 @@ const Rule = (props: Props) => {
     }
   }, [])
 
- 
+
 
   const checkEmptyRule = (child: React.ReactNode) => {
     if (React.isValidElement(child) && child?.props) {

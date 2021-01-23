@@ -2,7 +2,7 @@ import React from 'react';
 
 import { emallson, Hordehobbs, Zeboot, HolySchmidt } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import { change, date } from 'common/changelog';
 
 export default [

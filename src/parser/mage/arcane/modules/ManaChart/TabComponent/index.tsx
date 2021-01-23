@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ManaValues from 'parser/shared/modules/ManaValues';
-import Panel from 'interface/others/Panel';
+import { Panel } from 'interface';
 
 import ManaLevelGraph from './ManaLevelGraph';
 

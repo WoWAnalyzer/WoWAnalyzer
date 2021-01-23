@@ -3,7 +3,7 @@ import { Trans, t } from '@lingui/macro';
 
 import { ApiDownError, CorruptResponseError, JsonParseError, LogNotFoundError } from 'common/fetchWclApi';
 import FullscreenError from 'interface/FullscreenError';
-import ApiDownBackground from 'interface/common/images/api-down-background.gif';
+import ApiDownBackground from 'interface/images/api-down-background.gif';
 import ThunderSoundEffect from 'interface/audio/Thunder Sound effect.mp3';
 import { EventsParseError } from 'interface/report/EventParser';
 

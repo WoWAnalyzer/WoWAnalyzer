@@ -1,14 +1,14 @@
 import React from 'react';
 
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
-import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
-import Statistic from 'interface/statistics/Statistic';
-import DonutChart from 'interface/statistics/components/DonutChart';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import Statistic from 'parser/ui/Statistic';
+import DonutChart from 'parser/ui/DonutChart';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';

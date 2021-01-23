@@ -2,13 +2,13 @@ import React from 'react';
 import { Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import StatisticBar from 'interface/statistics/StatisticBar';
-import UptimeBar from 'interface/statistics/components/UptimeBar';
-import SpellIcon from 'common/SpellIcon';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import StatisticBar from 'parser/ui/StatisticBar';
+import UptimeBar from 'parser/ui/UptimeBar';
+import { SpellIcon } from 'interface';
 
 class RuleOfLaw extends Analyzer {
   constructor(...args) {

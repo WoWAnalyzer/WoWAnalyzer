@@ -1,15 +1,15 @@
 import React from 'react';
 
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import SPELLS from 'common/SPELLS';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import ItemDamageDone from 'interface/ItemDamageDone';
-import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
 
 const MASTER_OF_THE_ELEMENTS = {
   INCREASE: 0.2,

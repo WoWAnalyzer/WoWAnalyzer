@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 
 import isLatestPatch from 'game/isLatestPatch';
 import ReadableListing from 'interface/ReadableListing';
-import Warning from 'interface/Alert/Warning';
+import AlertWarning from 'interface/AlertWarning';
 import Contributor from 'interface/ContributorButton';
-import Panel from 'interface/others/Panel';
+import Panel from 'interface/Panel';
 
 const About = ({ config }) => {
   const { spec, description, contributors, patchCompatibility, isPartial } = config;
@@ -49,20 +49,20 @@ const About = ({ config }) => {
         <div className="col-lg-8">{patchCompatibility}</div>
       </div>
       {!isLatestPatch(patchCompatibility) && (
-        <Warning style={{ marginTop: '1em' }}>
+        <AlertWarning style={{ marginTop: '1em' }}>
           <Trans id="interface.report.results.about.outdated">
             The analysis for this spec is outdated. It may be inaccurate for spells that were
             changed since patch {patchCompatibility}.
           </Trans>
-        </Warning>
+        </AlertWarning>
       )}
       {isPartial && (
-        <Warning style={{ marginTop: '1em' }}>
+        <AlertWarning style={{ marginTop: '1em' }}>
           <Trans id="interface.report.results.about.isPartial">
             The analysis for this spec is incomplete. Important elements may be missing or some
             features lack sufficient accuracy.
           </Trans>
-        </Warning>
+        </AlertWarning>
       )}
     </Panel>
   );

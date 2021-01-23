@@ -6,13 +6,13 @@ import SPECS from 'game/SPECS';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import EnemyInstance from 'parser/core/EnemyInstance';
 import React from 'react';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import { formatNumber, formatPercentage } from 'common/format';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import { t } from '@lingui/macro';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 
 /**
  * Analyzer to track the extra damage caused by Holy Power abilities after

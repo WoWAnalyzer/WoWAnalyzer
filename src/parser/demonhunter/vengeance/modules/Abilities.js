@@ -1,6 +1,6 @@
 import React from 'react';
-import SPELLS from 'common/SPELLS/index';
-import SpellLink from 'common/SpellLink';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 
@@ -229,7 +229,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.HIDDEN,
         gcd: null,
       },
-	  
+
 	    // Covenant (move these if needed)
       {
         spell: [SPELLS.ELYSIAN_DECREE, SPELLS.ELYSIAN_DECREE_REPEAT_DECREE],
@@ -261,7 +261,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
 		    enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
-      },	  
+      },
       {
         spell: SPELLS.THE_HUNT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
@@ -270,7 +270,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
 		    enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
-      },		  
+      },
     ];
   }
 }

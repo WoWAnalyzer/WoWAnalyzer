@@ -1,9 +1,9 @@
 import React from 'react';
 
-import ItemHealingDone from 'interface/ItemHealingDone';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
@@ -15,9 +15,9 @@ import { Options } from 'parser/core/Module';
 
 import AtonementDamageSource from 'parser/priest/discipline/modules/features/AtonementDamageSource';
 import SPECS from 'game/SPECS';
-import ItemDamageDone from 'interface/ItemDamageDone';
-import SpellIcon from 'common/SpellIcon';
-import { TooltipElement } from 'common/Tooltip';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import { SpellIcon } from 'interface';
+import { TooltipElement } from 'interface';
 import Abilities from 'parser/core/modules/Abilities';
 
 const DAMAGING_SPELL_IDS = [

@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 
 const BLOODLUST_BUFFS: {
   [key: number]: number;

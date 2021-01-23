@@ -4,7 +4,7 @@ import React from 'react';
 import { joshinator, Khazak, LeoZhekov } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS'
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 
 export default [
   change(date(2020, 1, 20), <>Add cooldown reduction tracking for <SpellLink id={SPELLS.CONVOCATION_OF_THE_DEAD.id} /></>, Khazak),

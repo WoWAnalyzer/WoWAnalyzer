@@ -3,9 +3,9 @@ import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, EnergizeEvent } from 'parser/core/Events';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 const BASE_RECKLESSNESS_DURATION = 10 * 1000; // 10 seconds;
 

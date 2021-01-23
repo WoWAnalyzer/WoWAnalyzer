@@ -3,7 +3,7 @@ import React from 'react';
 import { Abelito75, Carrottopp } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 
 export default [
   change(date(2021, 1, 10),  <>Update execute range tracker for <SpellLink id={SPELLS.CONDEMN.id} /> on targets above 80% health</>, Carrottopp),

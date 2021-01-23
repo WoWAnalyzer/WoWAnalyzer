@@ -1,6 +1,6 @@
 import React from 'react';
 import { formatPercentage, formatDuration } from 'common/format';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import { t } from '@lingui/macro';
 
 function suggest(when, suggestion) {
