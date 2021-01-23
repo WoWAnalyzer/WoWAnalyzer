@@ -8,7 +8,6 @@ import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import DeepWoundsUptime from '../core/Dots/DeepWoundsUptime';
 import RendUptime from '../core/Dots/RendUptime';
 import MortalStrike from '../core/Execute/MortalStrike';
-import EarlyDotRefresh from '../core/Execute/EarlyDotRefresh';
 import SweepingStrikes from '../core/SweepingStrikes';
 import Component from './Component';
 

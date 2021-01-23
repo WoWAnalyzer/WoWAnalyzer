@@ -1,15 +1,10 @@
 import SPELLS from 'common/SPELLS';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-
-import EarlyDotRefreshesCore from './EarlyDotRefreshes';
-import suggest from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesSuggestion';
-import Events from 'parser/core/Events';
-import { SELECTED_PLAYER } from 'parser/core/Analyzer';
-
 import React from 'react';
 import SpellLink from 'common/SpellLink';
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
+
+import EarlyDotRefreshesCore from './EarlyDotRefreshes';
 
 const MINOR_THRESHOLD = 0.9
 const AVERAGE_THRESHOLD = 0.8
@@ -33,7 +28,7 @@ class EarlyDotRefresh extends EarlyDotRefreshesCore {
   getLastBadCastText(event, dot) {
     return super.getLastBadCastText(event, dot);
   }
-  
+
   suggestions(when) {
     when(this.suggestionThresholdsDeepwoundsEfficiency).addSuggestion((suggest, actual, recommended) => suggest(<>You refreshed <SpellLink id={SPELLS.MASTERY_DEEP_WOUNDS_DEBUFF.id} icon /> early {this.suggestionThresholdsDeepwoundsEfficiency.count} times on a target in <SpellLink id={SPELLS.EXECUTE.id} icon /> range. Try to prioritize <SpellLink id={SPELLS.EXECUTE.id} icon /> as it deals more damage than <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon />.</>)
 	  .icon(SPELLS.MASTERY_DEEP_WOUNDS_DEBUFF.icon)
@@ -43,7 +38,7 @@ class EarlyDotRefresh extends EarlyDotRefreshesCore {
 	  }))
       .recommended(`<${formatPercentage(recommended)}% is recommended`));
   }
-  
+
 }
 
 export default EarlyDotRefresh;
