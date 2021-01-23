@@ -38,6 +38,13 @@ const legendaries: SpellList<LegendarySpell> = {
     name: 'Mind Sear',
     icon: 'spell_shadow_siphonmana',
   },
+  // https://www.warcraftlogs.com/reports/NKcbdPzMXRJ1Drk6#fight=9&type=damage-done&source=6
+  TALBADARS_STRATAGEM: {
+    id: 342415,
+    name: "Talbadar's Stratagem",
+    icon: 'spell_fire_twilightcano',
+    bonusID: 7162,
+  },
   //region Shadow
 
   //endregion

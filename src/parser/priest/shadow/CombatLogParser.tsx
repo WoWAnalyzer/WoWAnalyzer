@@ -45,6 +45,7 @@ import DissonantEchoes from './modules/shadowlands/conduits/DissonantEchoes';
 
 // legendaries
 import EternalCallToTheVoid from './modules/shadowlands/legendaries/EternalCallToTheVoid';
+import TalbadarsStratagem from './modules/shadowlands/legendaries/TalbadarsStratagem';
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // core
@@ -97,6 +98,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     // legendaries:
     eternalCallToTheVoid: EternalCallToTheVoid,
+    talbadarsStratagem: TalbadarsStratagem,
   };
 }
 
