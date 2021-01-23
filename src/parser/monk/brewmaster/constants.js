@@ -27,3 +27,5 @@ export const SPELLS_WHICH_REMOVE_BOC = [
 ];
 
 export const BASE_AGI = 1468;
+
+export const STORMSTOUTS_LK_MODIFIER = 0.3;

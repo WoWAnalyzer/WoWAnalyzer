@@ -21,6 +21,12 @@ const conduits = {
     name: 'Spirit Drain',
     icon: 'spell_deathknight_mindfreeze',
   },
+
+  CONVOCATION_OF_THE_DEAD: {
+    id: 338553,
+    name: 'Convocation of the Dead',
+    icon: 'ability_deathknight_deathsiphon2',
+  },
   //endregion
 } as const;
 export default conduits;

@@ -361,36 +361,6 @@ class Abilities extends CoreAbilities {
         cooldown: 120,
         enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },
-      {
-        spell: SPELLS.BOON_OF_THE_ASCENDED,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180,
-        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          averageIssueEfficiency: 0.8,
-          majorIssueEfficiency: 0.7,
-        },
-      },
-      {
-        spell: SPELLS.UNHOLY_NOVA,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 60,
-        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          averageIssueEfficiency: 0.8,
-          majorIssueEfficiency: 0.7,
-        },
-      },
     ];
   }
 }
