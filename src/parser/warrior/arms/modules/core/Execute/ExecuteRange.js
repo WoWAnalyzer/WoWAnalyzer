@@ -2,11 +2,13 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import SPELLS from 'common/SPELLS';
 import Events from 'parser/core/Events';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 
 const debug = false;
 
 const EXECUTE_RANGE = 0.2;
 const EXECUTE_RANGE_MASSACRE = 0.35;
+const EXECUTE_RANGE_VENTHYR = 0.8;
 
 /**
  * Tracks whether enemies are in Execute range through damage events so that it can be accessed in cast events by other modules.
@@ -15,13 +17,15 @@ const EXECUTE_RANGE_MASSACRE = 0.35;
  */
 class ExecuteRangeTracker extends Analyzer {
 
-  execRange = (this.selectedCombatant.hasTalent(SPELLS.MASSACRE_TALENT_ARMS.id) ? EXECUTE_RANGE_MASSACRE : EXECUTE_RANGE);
   enemyMap = {};
 
   isExecPhase = false;
   execPhaseStart = 0;
   execPhaseDuration = 0;
   lastHitInExecPhase = 0;
+
+  lowerThreshold = (this.selectedCombatant.hasTalent(SPELLS.MASSACRE_TALENT_ARMS.id) ? EXECUTE_RANGE_MASSACRE : EXECUTE_RANGE);
+  upperThreshold = (this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id) ? EXECUTE_RANGE_VENTHYR : 100)
 
   constructor(...args) {
     super(...args);
@@ -34,7 +38,8 @@ class ExecuteRangeTracker extends Analyzer {
       return;
     }
     const targetString = encodeTargetString(event.targetID, event.targetInstance);
-    this.enemyMap[targetString] = event.hitPoints / event.maxHitPoints <= this.execRange;
+    this.enemyMap[targetString] = ((event.hitPoints / event.maxHitPoints <= this.lowerThreshold) 
+                                  || (event.hitPoints / event.maxHitPoints >= this.upperThreshold)); 
 
     if (this.isTargetInExecuteRange(event)) {
       this.lastHitInExecPhase = event.timestamp;

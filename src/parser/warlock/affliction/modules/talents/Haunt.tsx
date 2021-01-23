@@ -104,7 +104,7 @@ class Haunt extends Analyzer {
         <BoringSpellValueText spell={SPELLS.HAUNT_TALENT}>
           {formatPercentage(this.uptime)} % <small>uptime</small>
           <br />
-          {formatNumber(this.dps)} DPS
+          {formatNumber(this.dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total
           </small>

@@ -179,9 +179,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HOLY_AVENGER_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
-        gcd: {
-          base: 1500,
-        },
         castEfficiency: {
           suggestion: true,
         },
@@ -192,9 +189,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.AVENGING_WRATH,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
-        gcd: {
-          base: 1500,
-        },
         castEfficiency: {
           suggestion: true,
         },
@@ -205,9 +199,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.AVENGING_CRUSADER_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
-        gcd: {
-          base: 1500,
-        },
         castEfficiency: {
           suggestion: true,
         },

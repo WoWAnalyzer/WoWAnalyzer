@@ -10,13 +10,28 @@ const covenants = {
     name: 'Ascended Blast',
     icon: 'spell_animabastion_missile',
   },
+  ASCENDED_BLAST_HEAL: {
+    id: 325315,
+    name: 'Ascended Blast',
+    icon: 'spell_animabastion_missile',
+  },
   ASCENDED_NOVA: {
     id: 325020,
     name: 'Ascended Nova',
     icon: 'spell_animabastion_nova',
   },
+  ASCENDED_NOVA_HEAL: {
+    id: 325041,
+    name: 'Ascended Nova',
+    icon: 'spell_animabastion_nova',
+  },
   ASCENDED_ERUPTION: {
     id: 325326,
+    name: 'Ascended Eruption',
+    icon: 'ability_bastion_priest',
+  },
+  ASCENDED_ERUPTION_HEAL: {
+    id: 347625,
     name: 'Ascended Eruption',
     icon: 'ability_bastion_priest',
   },

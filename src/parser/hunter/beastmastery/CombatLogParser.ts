@@ -73,6 +73,9 @@ import FerociousAppetite from './modules/spells/conduits/FerociousAppetite';
 import OneWithTheBeast from './modules/spells/conduits/OneWithTheBeast';
 import MarkmansAdvantage from '../shared/modules/spells/conduits/MarkmansAdvantage';
 import ResilienceOfTheHunter from '../shared/modules/spells/conduits/ResilienceOfTheHunter';
+import ReversalOfFortune from '../shared/modules/spells/conduits/ReversalOfFortune';
+import RejuvenatingWind from '../shared/modules/spells/conduits/RejuvenatingWind';
+import HarmonyOfTheTortollan from '../shared/modules/spells/conduits/HarmonyOfTheTortollan';
 
 //Legendaries
 import DireCommand from './modules/items/DireCommand';
@@ -155,6 +158,9 @@ class CombatLogParser extends CoreCombatLogParser {
     oneWithTheBeast: OneWithTheBeast,
     markmansAdvantage: MarkmansAdvantage,
     resilienceOfTheHunter: ResilienceOfTheHunter,
+    reversalOfFortune: ReversalOfFortune,
+    rejuvenatingWind: RejuvenatingWind,
+    harmonyOfTheTortollan: HarmonyOfTheTortollan,
 
     //Generic Legendaries
     nesingwarysTrappingApparatus: NesingwarysTrappingApparatus,

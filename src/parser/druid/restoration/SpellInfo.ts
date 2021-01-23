@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { ListOfHealerSpellInfo } from 'parser/shared/modules/features/BaseHealerStatValues';
 
 /*
  * Fields:
@@ -23,7 +24,7 @@ const DEFAULT_INFO = { // we assume unlisted spells scale with vers only (this w
   vers: true,
 };
 
-export const DRUID_HEAL_INFO = {
+export const DRUID_HEAL_INFO: ListOfHealerSpellInfo = {
   [SPELLS.REJUVENATION.id]: {
     int: true,
     crit: true,

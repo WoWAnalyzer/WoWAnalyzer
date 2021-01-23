@@ -22,6 +22,7 @@ import FeedTheDemon from './modules/talents/FeedTheDemon';
 import BurningAlive from './modules/talents/BurningAlive';
 import FeastOfSouls from './modules/talents/FeastOfSouls';
 import AgonizingFlames from './modules/talents/AgonizingFlames';
+import ShearFracture from './modules/spells/ShearFracture';
 
 import ImmolationAura from './modules/spells/ImmolationAura';
 import DemonSpikes from './modules/spells/DemonSpikes';
@@ -53,6 +54,7 @@ class CombatLogParser extends CoreCombatLogParser {
     burningAlive: BurningAlive,
     feastOfSouls: FeastOfSouls,
     agonizingFlames: AgonizingFlames,
+    shearFracture: ShearFracture,
 
     // Spell
     immolationAura: ImmolationAura,

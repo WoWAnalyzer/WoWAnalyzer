@@ -127,6 +127,10 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id,
       versatility: (_, item) => calculateSecondaryStatDefault(184, 568, item.itemLevel),
     },
+    [SPELLS.BLOOD_WALTZ_HASTE_BUFF.id]: {
+      itemId: ITEMS.MACABRE_SHEET_MUSIC.id,
+      haste: (_, item) => calculateSecondaryStatDefault(213, 95, item.itemLevel)
+    },
 
     //endregion
     //endregion
@@ -447,22 +451,18 @@ class StatTracker extends Analyzer {
     switch (this.selectedCombatant.spec) {
       case SPECS.FIRE_MAGE:
         return critChance + 0.15; // an additional 15% is gained from the passive Critical Mass
-      case SPECS.BEAST_MASTERY_HUNTER:
-        return critChance + 0.05; //baseline +5%
-      case SPECS.MARKSMANSHIP_HUNTER:
-        return critChance + 0.05; //baseline +5%
-      case SPECS.SURVIVAL_HUNTER:
-        return critChance + 0.06; //baseline +6%
-      case SPECS.BREWMASTER_MONK:
-        return critChance + 0.05; //baseline +5%
-      case SPECS.WINDWALKER_MONK:
-        return critChance + 0.05; //baseline +5%
       case SPECS.HAVOC_DEMON_HUNTER:
-        return critChance + 0.06; //baseline +6%
+      case SPECS.VENGEANCE_DEMON_HUNTER:
+      case SPECS.GUARDIAN_DRUID:
+      case SPECS.FERAL_DRUID:
+      case SPECS.SURVIVAL_HUNTER:
+      case SPECS.BEAST_MASTERY_HUNTER:
+      case SPECS.MARKSMANSHIP_HUNTER:
+      case SPECS.BREWMASTER_MONK:
+      case SPECS.WINDWALKER_MONK:
+      case SPECS.ENHANCEMENT_SHAMAN:
       case SPECS.SUBTLETY_ROGUE:
-        return critChance + 0.05; //baseline +5%
       case SPECS.ASSASSINATION_ROGUE:
-        return critChance + 0.05; //baseline +5%
       case SPECS.OUTLAW_ROGUE:
         return critChance + 0.05; //baseline +5%
       default:

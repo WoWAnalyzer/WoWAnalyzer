@@ -14,6 +14,7 @@ export type WCLGuildReportsResponse = WCLGuildReport[];
 
 
 export interface WCLFightsResponse {
+  title: string
   fights: WCLFight[];
 }
 

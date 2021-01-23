@@ -3,6 +3,10 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 //Overridden Racial
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
+//Overridden Core modules
+import SpellUsable from './modules/core/SpellUsable';
+import GlobalCooldown from './modules/core/GlobalCooldown';
+
 //Features
 import Abilities from './modules/Abilities';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
@@ -73,17 +77,25 @@ import StingingStrike from './modules/spells/conduits/StingingStrike';
 import StrengthOfThePack from './modules/spells/conduits/StrengthOfThePack';
 import MarkmansAdvantage from '../shared/modules/spells/conduits/MarkmansAdvantage';
 import ResilienceOfTheHunter from '../shared/modules/spells/conduits/ResilienceOfTheHunter';
+import ReversalOfFortune from '../shared/modules/spells/conduits/ReversalOfFortune';
+import RejuvenatingWind from '../shared/modules/spells/conduits/RejuvenatingWind';
+import HarmonyOfTheTortollan from '../shared/modules/spells/conduits/HarmonyOfTheTortollan';
 
 //Legendaries
 import NesingwarysTrappingApparatus from './modules/items/NesingwarysTrappingApparatus';
 import SoulforgeEmbers from '../shared/modules/items/SoulforgeEmbers';
 import WildfireCluster from './modules/items/WildfireCluster';
+import LatentPoisonInjectors from './modules/items/LatentPoisonInjectors';
+import RylakstalkersConfoundingStrikes from './modules/items/RylakstalkersConfoundingStrikes';
+import ButchersBoneFragments from './modules/items/ButchersBoneFragments';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core statistics
     abilities: Abilities,
     checklist: Checklist,
+    globalCooldown: GlobalCooldown,
+    spellUsable: SpellUsable,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -151,6 +163,9 @@ class CombatLogParser extends CoreCombatLogParser {
     strengthOfThePack: StrengthOfThePack,
     markmansAdvantage: MarkmansAdvantage,
     resilienceOfTheHunter: ResilienceOfTheHunter,
+    reversalOfFortune: ReversalOfFortune,
+    rejuvenatingWind: RejuvenatingWind,
+    harmonyOfTheTortollan: HarmonyOfTheTortollan,
 
     //Generic Legendaries
     nesingwarysTrappingApparatus: NesingwarysTrappingApparatus,
@@ -158,6 +173,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Survival Legendaries
     wildfireCluster: WildfireCluster,
+    latentPoisonInjectors: LatentPoisonInjectors,
+    rylakstalkersConfoundingStrikes: RylakstalkersConfoundingStrikes,
+    butchersBoneFragments: ButchersBoneFragments,
 
     // Survival's throughput benefit isn't as big as for other classes
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,

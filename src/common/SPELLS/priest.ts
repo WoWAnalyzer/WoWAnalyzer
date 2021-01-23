@@ -81,7 +81,7 @@ const spells = {
     id: 585,
     name: 'Smite',
     icon: 'spell_holy_holysmite',
-    manaCost: 100,
+    manaCost: 200,
   },
   POWER_WORD_RADIANCE: {
     id: 194509,
@@ -323,7 +323,7 @@ const spells = {
     id: 204197,
     name: 'Purge the Wicked',
     icon: 'ability_mage_firestarter',
-    manaCost: 22000,
+    manaCost: 900,
   },
   PURGE_THE_WICKED_BUFF: {
     id: 204213,
@@ -334,7 +334,7 @@ const spells = {
     id: 120517,
     name: 'Halo',
     icon: 'ability_priest_halo',
-    manaCost: 2700,
+    manaCost: 1350,
   },
 
   // Holy Priest Spells
@@ -662,6 +662,13 @@ const spells = {
     id: 205386,
     name: 'Shadow Crash',
     icon: 'spell_shadow_shadowfury',
+  },
+
+  // Disc
+  SPIRIT_SHELL_TALENT_BUFF: {
+    id: 114908,
+    name: "Spirit Shell",
+    icon: "ability_shaman_astralshift.jpg"
   },
 } as const;
 

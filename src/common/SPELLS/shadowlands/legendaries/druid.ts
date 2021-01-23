@@ -18,6 +18,11 @@ const legendaries = {
     icon: 'achievement_dungeon_everbloom',
     bonusID: 7099,
   },
+  THE_DARK_TITANS_LESSON: {
+    id: 338831,
+    name: 'The Dark Titan\'s Lesson',
+    icon: 'spell_druid_germination_rejuvenation',
+  },
   LIFEBLOOM_DTL_HOT_HEAL: {
     id: 188550,
     name: 'Lifebloom',

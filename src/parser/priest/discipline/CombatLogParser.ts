@@ -41,7 +41,7 @@ import SinsOfTheMany from './modules/spells/SinsOfTheMany';
 // Covenants
 import UnholyNova from '../shared/modules/shadowlands/covenants/UnholyNova';
 import Mindgames from '../shared/modules/shadowlands/covenants/Mindgames';
-import BoonOfTheAscended from './modules/shadowlands/covenants/BoonOfTheAscended';
+import BoonOfTheAscended from '../shared/modules/shadowlands/covenants/BoonOfTheAscended';
 import FaeGuardians from '../shared/modules/shadowlands/covenants/FaeGuardians';
 
 import ShiningRadiance from './modules/shadowlands/conduits/ShiningRadiance';
