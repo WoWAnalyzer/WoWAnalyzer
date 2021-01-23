@@ -1012,6 +1012,7 @@
   "warlock.affliction.suggestions.corruption.uptime": "{0}% Corruption uptime",
   "warlock.affliction.suggestions.drainSoul.mobsSniped": "{0} % of mobs sniped.",
   "warlock.affliction.suggestions.haunt.uptime": "{0}% Haunt uptime.",
+  "warlock.affliction.suggestions.scouring_tithe.uptime": "{0}% Scouring Tithe uptime",
   "warlock.affliction.suggestions.shadowembrace.uptime": "{0}% Shadow Embrace uptime",
   "warlock.affliction.suggestions.siphonLife.uptime": "{0}% Siphon Life uptime",
   "warlock.affliction.suggestions.soulShards.wastedPerMinute": "{shardsWasted} Soul Shards wasted ({0} per minute)",
