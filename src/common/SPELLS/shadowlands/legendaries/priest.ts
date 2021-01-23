@@ -50,7 +50,12 @@ const legendaries: SpellList<LegendarySpell> = {
   //endregion
 
   //region Shared
-
+  TWINS_OF_THE_SUN_PRIESTESS: {
+    id: 336897,
+    name: 'Twins of the Sun Priestess',
+    icon: 'spell_fire_felflamering_red',
+    bonusID: 7002,
+  },
   //endregion
 } as const;
 export default legendaries;

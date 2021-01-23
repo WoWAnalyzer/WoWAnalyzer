@@ -51,6 +51,8 @@ import ManaTracker from '../../core/healingEfficiency/ManaTracker';
 // Items
 import HarmoniousApparatus from './modules/shadowlands/items/HarmoniousApparatus';
 import DivineImage from './modules/shadowlands/items/DivineImage';
+import TwinsOfTheSunPriestess from '../shared/modules/shadowlands/legendaries/TwinsOfTheSunPriestess';
+
 
 // Conduits
 import ResonantWords from './modules/shadowlands/conduits/ResonantWords';
@@ -143,6 +145,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Items
     harmoniousApparatus: HarmoniousApparatus,
     divineImage: DivineImage,
+    twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
 
     // Conduits
     resonantWords: ResonantWords,

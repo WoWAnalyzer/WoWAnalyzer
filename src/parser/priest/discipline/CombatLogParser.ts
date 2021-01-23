@@ -46,6 +46,8 @@ import FaeGuardians from '../shared/modules/shadowlands/covenants/FaeGuardians';
 
 import ShiningRadiance from './modules/shadowlands/conduits/ShiningRadiance';
 
+import TwinsOfTheSunPriestess from '../shared/modules/shadowlands/legendaries/TwinsOfTheSunPriestess';
+
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -105,6 +107,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Conduits
     shiningRadiance: ShiningRadiance,
+
+    // Legendaries
+    twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
   };
 }
 
