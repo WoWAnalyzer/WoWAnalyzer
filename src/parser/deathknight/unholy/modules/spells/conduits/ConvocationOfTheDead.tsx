@@ -39,7 +39,6 @@ class ConvocationOfTheDead extends Analyzer {
     if(this.spellUsable.isOnCooldown(SPELLS.APOCALYPSE.id)) {
       this.cooldownReduction += CONVOCATION_OF_THE_DEAD_EFFECT_BY_RANK[this.conduitRank] / 10;
       this.spellUsable.reduceCooldown(SPELLS.APOCALYPSE.id, CONVOCATION_OF_THE_DEAD_EFFECT_BY_RANK[this.conduitRank] / 10, event.timestamp);
-      console.log("cdr")
     }
     else {
       this.wastedCooldownReduction += CONVOCATION_OF_THE_DEAD_EFFECT_BY_RANK[this.conduitRank] / 10;
@@ -55,9 +54,9 @@ class ConvocationOfTheDead extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
       >
         <ConduitSpellText spell={SPELLS.CONVOCATION_OF_THE_DEAD} rank={this.conduitRank}>
-          <CooldownIcon /> {this.cooldownReduction.toFixed(1)}s <small>  of Apocalypse CDR</small>
+          <CooldownIcon /> {this.cooldownReduction.toFixed(1)}s <small> of Apocalypse CDR</small>
           <br/>
-          <CooldownIcon /> {this.wastedCooldownReduction.toFixed(1)}s <small>  of wasted Apocalypse CDR</small>
+          <CooldownIcon /> {this.wastedCooldownReduction.toFixed(1)}s <small> of wasted Apocalypse CDR</small>
         </ConduitSpellText>  
       </Statistic>
     )
