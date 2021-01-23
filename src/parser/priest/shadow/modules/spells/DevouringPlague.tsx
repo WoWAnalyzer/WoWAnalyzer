@@ -4,9 +4,8 @@ import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import { SpellIcon } from 'interface';
+import UptimeBar from 'parser/ui/UptimeBar';
 
 class DevouringPlague extends Analyzer {
   static dependencies = {
@@ -18,18 +17,24 @@ class DevouringPlague extends Analyzer {
     return this.enemies.getBuffUptime(SPELLS.DEVOURING_PLAGUE.id) / this.owner.fightDuration;
   }
 
-  statistic() {
+  subStatistic() {
+    const history = this.enemies.getDebuffHistory(SPELLS.DEVOURING_PLAGUE.id);
     return (
-      <Statistic
-        position={STATISTIC_ORDER.CORE(4)}
-        size="flexible"
-      >
-        <BoringSpellValueText spell={SPELLS.DEVOURING_PLAGUE}>
-          <>
-            {formatPercentage(this.uptime)}% <small>Uptime</small>
-          </>
-        </BoringSpellValueText>
-      </Statistic>
+      <div className="flex">
+        <div className="flex-sub icon">
+          <SpellIcon id={SPELLS.DEVOURING_PLAGUE.id} />
+        </div>
+        <div className="flex-sub value" style={{ width: 140 }}>
+          {formatPercentage(this.uptime, 0)}% <small>uptime</small>
+        </div>
+        <div className="flex-main chart" style={{ padding: 15 }}>
+          <UptimeBar
+            uptimeHistory={history}
+            start={this.owner.fight.start_time}
+            end={this.owner.fight.end_time}
+          />
+        </div>
+      </div>
     );
   }
 }

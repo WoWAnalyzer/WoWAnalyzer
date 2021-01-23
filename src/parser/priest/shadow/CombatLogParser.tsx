@@ -12,6 +12,7 @@ import InsanityUsage from './modules/resources/InsanityUsage';
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/checklist/Module';
+import DotUptimes from './modules/features/DotUptimes';
 import SkippableCasts from './modules/features/SkippableCasts';
 import DarkThoughts from './modules/features/DarkThoughts';
 // spells:
@@ -59,6 +60,7 @@ class CombatLogParser extends MainCombatLogParser {
     buffs: Buffs,
     alwaysBeCasting: AlwaysBeCasting,
     checklist: Checklist,
+    dotUptimes: DotUptimes,
     skippableCasts: SkippableCasts,
     darkThoughts: DarkThoughts,
 
