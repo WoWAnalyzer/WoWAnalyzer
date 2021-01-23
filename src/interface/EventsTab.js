@@ -8,8 +8,8 @@ import 'react-toggle/style.css';
 import InformationIcon from 'interface/icons/Information';
 
 import { formatDuration, formatThousands } from 'common/format';
-import Icon from 'common/Icon';
-import SpellLink from 'common/SpellLink';
+import Icon from 'interface/Icon';
+import SpellLink from 'interface/SpellLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Tooltip, { TooltipElement } from 'common/Tooltip';

@@ -4,7 +4,7 @@ import Analyzer, { Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import { t } from '@lingui/macro';

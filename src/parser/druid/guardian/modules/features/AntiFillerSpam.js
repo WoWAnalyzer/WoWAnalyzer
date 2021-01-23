@@ -2,8 +2,8 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatDuration } from 'common/format';
-import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
+import SpellIcon from 'interface/SpellIcon';
+import SpellLink from 'interface/SpellLink';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import SpellUsable from 'parser/shared/modules/SpellUsable';

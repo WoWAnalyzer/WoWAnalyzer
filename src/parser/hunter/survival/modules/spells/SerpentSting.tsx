@@ -5,7 +5,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import Enemies from 'parser/shared/modules/Enemies';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import { SERPENT_STING_SV_BASE_DURATION, SERPENT_STING_SV_PANDEMIC } from 'parser/hunter/survival/constants';

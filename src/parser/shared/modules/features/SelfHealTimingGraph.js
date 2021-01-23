@@ -4,7 +4,7 @@ import { AutoSizer } from 'react-virtualized';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Panel from 'interface/Panel';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 
 import BaseChart, { formatTime } from 'interface/BaseChart';
 import Events from 'parser/core/Events';

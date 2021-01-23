@@ -2,8 +2,8 @@ import React from 'react';
 import { formatPercentage } from 'common/format';
 import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
-import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'interface/SpellLink';
+import SpellIcon from 'interface/SpellIcon';
 import BoringValue from 'interface/statistics/BoringValueText';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 

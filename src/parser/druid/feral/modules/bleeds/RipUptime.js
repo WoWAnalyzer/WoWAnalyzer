@@ -2,7 +2,7 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import { formatPercentage } from 'common/format';
 import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';

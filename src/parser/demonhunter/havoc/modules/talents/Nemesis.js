@@ -5,7 +5,7 @@ import Enemies from 'parser/shared/modules/Enemies';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS/index';
-import SpellIcon from 'common/SpellIcon';
+import SpellIcon from 'interface/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/StatisticBox';

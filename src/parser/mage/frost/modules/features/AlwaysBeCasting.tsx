@@ -7,7 +7,7 @@ import { formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import Gauge from 'interface/statistics/Gauge';
 import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import { t, Trans } from '@lingui/macro';
 

@@ -2,7 +2,7 @@ import React from 'react';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { Trans, t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import Statistic from 'interface/statistics/Statistic';
 import { STATISTIC_ORDER } from 'interface/StatisticBox';
 import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';

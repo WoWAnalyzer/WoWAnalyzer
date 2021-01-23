@@ -6,8 +6,8 @@ import Enemies from 'parser/shared/modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'interface/SpellLink';
+import SpellIcon from 'interface/SpellIcon';
 
 import UptimeBar from 'interface/statistics/UptimeBar';
 

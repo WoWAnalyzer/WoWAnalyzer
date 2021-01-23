@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Trans } from '@lingui/macro';
 
 import PATCHES from 'common/PATCHES';
-import Icon from 'common/Icon';
+import Icon from 'interface/Icon';
 import Tooltip from 'common/Tooltip';
 import DiscordButton from 'interface/DiscordButton';
 import GitHubButton from 'interface/GitHubButton';

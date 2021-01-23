@@ -1,9 +1,9 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Icon from 'common/Icon';
-import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
+import Icon from 'interface/Icon';
+import SpellIcon from 'interface/SpellIcon';
+import SpellLink from 'interface/SpellLink';
 import { Trans } from '@lingui/macro';
 
 const FALLBACK_ICON = 'inv_misc_questionmark';

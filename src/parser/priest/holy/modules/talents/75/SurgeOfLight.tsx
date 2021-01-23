@@ -2,7 +2,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import React from 'react';
 import ItemManaGained from 'interface/ItemManaGained';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import Events, { CastEvent, ChangeBuffStackEvent, HealEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';

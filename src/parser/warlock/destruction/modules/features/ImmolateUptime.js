@@ -4,8 +4,8 @@ import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
+import SpellIcon from 'interface/SpellIcon';
+import SpellLink from 'interface/SpellLink';
 import { formatPercentage } from 'common/format';
 
 import StatisticBar from 'interface/statistics/StatisticBar';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { STATISTIC_ORDER } from 'interface/StatisticsListBox';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Statistic from 'interface/statistics/Statistic';

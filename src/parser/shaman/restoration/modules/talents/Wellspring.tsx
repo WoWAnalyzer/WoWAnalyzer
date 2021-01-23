@@ -1,8 +1,8 @@
 import React from 'react';
 
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+import SpellIcon from 'interface/SpellIcon';
 import { formatPercentage, formatDuration, formatNth } from 'common/format';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';

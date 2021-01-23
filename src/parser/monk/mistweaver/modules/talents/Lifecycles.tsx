@@ -8,7 +8,7 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringValueText from 'interface/statistics/BoringValueText';
 import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import { t } from '@lingui/macro';
 import { LIFECYCLES_MANA_PERC_REDUCTION } from 'parser/monk/mistweaver/constants';
 

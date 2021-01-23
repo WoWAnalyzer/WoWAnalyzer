@@ -6,7 +6,7 @@ import Enemies from 'parser/shared/modules/Enemies';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import { formatPercentage } from 'common/format';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import { t } from '@lingui/macro';
 
 class VoidReaverDebuff extends Analyzer {

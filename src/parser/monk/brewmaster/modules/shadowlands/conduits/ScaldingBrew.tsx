@@ -7,7 +7,7 @@ import Events, { DamageEvent, CastEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import Statistic from 'interface/statistics/Statistic';
 import ConduitSpellText from 'interface/statistics/ConduitSpellText';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import ItemDamageDone from 'interface/ItemDamageDone'
 import STATISTIC_ORDER  from 'interface/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';

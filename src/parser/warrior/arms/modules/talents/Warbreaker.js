@@ -4,7 +4,7 @@ import Enemies from 'parser/shared/modules/Enemies';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatThousands } from 'common/format';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import StatisticListBoxItem from 'interface/StatisticListBoxItem';
 import Events from 'parser/core/Events';
 

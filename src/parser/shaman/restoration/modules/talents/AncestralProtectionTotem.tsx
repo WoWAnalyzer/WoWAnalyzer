@@ -2,9 +2,9 @@ import React from 'react';
 
 import fetchWcl from 'common/fetchWclApi';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
-import Icon from 'common/Icon';
+import SpellIcon from 'interface/SpellIcon';
+import SpellLink from 'interface/SpellLink';
+import Icon from 'interface/Icon';
 import { formatDuration } from 'common/format';
 import SPECS from 'game/SPECS';
 

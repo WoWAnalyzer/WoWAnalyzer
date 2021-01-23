@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 
 import { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
 import { formatNumber, formatPercentage } from 'common/format';
-import SpellIcon from 'common/SpellIcon';
-import ItemLink from 'common/ItemLink';
-import Icon from 'common/Icon';
+import SpellIcon from 'interface/SpellIcon';
+import ItemLink from 'interface/ItemLink';
+import Icon from 'interface/Icon';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import rankingColor from 'common/getRankingColor';
 import { makePlainUrl } from 'interface/makeAnalyzerUrl';

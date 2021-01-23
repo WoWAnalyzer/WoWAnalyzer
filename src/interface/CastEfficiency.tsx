@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import { TooltipElement } from 'common/Tooltip';
 
 import Abilities from 'parser/core/modules/Abilities';

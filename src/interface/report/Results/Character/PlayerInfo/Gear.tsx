@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Icon from 'common/Icon';
-import ItemLink, { EPIC_ITEMS_ILVL } from 'common/ItemLink';
+import Icon from 'interface/Icon';
+import ItemLink, { EPIC_ITEMS_ILVL } from 'interface/ItemLink';
 import { ITEM_QUALITIES } from 'game/ITEM_QUALITIES';
 import { Item } from 'parser/core/Events';
 

@@ -3,7 +3,7 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';

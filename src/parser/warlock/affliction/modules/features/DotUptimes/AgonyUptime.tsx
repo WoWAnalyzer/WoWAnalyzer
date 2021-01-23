@@ -2,8 +2,8 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
 import { formatPercentage } from 'common/format';
-import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'interface/SpellLink';
+import SpellIcon from 'interface/SpellIcon';
 
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';

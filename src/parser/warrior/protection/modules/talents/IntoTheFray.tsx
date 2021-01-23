@@ -9,7 +9,7 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringValueText from 'interface/statistics/BoringValueText';
 import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 
 const MAX_STACKS = 5;
 const HASTE_PER_STACK = 2;

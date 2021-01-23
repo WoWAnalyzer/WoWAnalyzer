@@ -2,7 +2,7 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import StatisticListBoxItem from 'interface/StatisticListBoxItem';
 
 /**

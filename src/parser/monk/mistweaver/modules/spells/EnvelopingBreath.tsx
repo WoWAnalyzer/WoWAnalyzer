@@ -5,7 +5,7 @@ import { formatNumber } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, DeathEvent, HealEvent } from 'parser/core/Events';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';

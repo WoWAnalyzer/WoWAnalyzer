@@ -6,7 +6,7 @@ import Statistic from 'interface/statistics/Statistic';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import SpellIcon from 'common/SpellIcon';
+import SpellIcon from 'interface/SpellIcon';
 import BoringValue from 'interface/statistics/BoringValueText';
 
 const MS_BUFFER = 200;

@@ -1,8 +1,8 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SpellIcon from 'common/SpellIcon';
+import SpellIcon from 'interface/SpellIcon';
 import calculateMaxCasts from 'parser/core/calculateMaxCasts';
 import Abilities from 'parser/core/modules/Abilities';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';

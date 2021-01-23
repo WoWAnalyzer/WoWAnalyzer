@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+import SpellIcon from 'interface/SpellIcon';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { TooltipElement } from 'common/Tooltip';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/StatisticBox';

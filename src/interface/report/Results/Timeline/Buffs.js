@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Trans } from '@lingui/macro';
 
 import { formatDuration } from 'common/format';
-import Icon from 'common/Icon';
-import SpellLink from 'common/SpellLink';
+import Icon from 'interface/Icon';
+import SpellLink from 'interface/SpellLink';
 import BuffsModule from 'parser/core/modules/Buffs';
 import { EventType } from 'parser/core/Events';
 import Tooltip from 'common/Tooltip';

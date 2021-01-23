@@ -6,7 +6,7 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import Enemies from 'parser/shared/modules/Enemies';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';

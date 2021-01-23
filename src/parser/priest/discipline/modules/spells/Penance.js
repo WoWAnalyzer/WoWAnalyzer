@@ -6,7 +6,7 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValue from 'interface/statistics/BoringSpellValue';
 import EventGrouper from 'parser/core/EventGrouper';
 import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import Events from 'parser/core/Events';
 
 const PENANCE_MINIMUM_RECAST_TIME = 3500; // Minimum duration from one Penance to Another

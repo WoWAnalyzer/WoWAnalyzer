@@ -3,7 +3,7 @@ import { Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
 import fetchWcl from 'common/fetchWclApi';
-import SpellIcon from 'common/SpellIcon';
+import SpellIcon from 'interface/SpellIcon';
 import { formatThousands, formatNumber } from 'common/format';
 
 import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'interface/LazyLoadStatisticBox';
@@ -11,7 +11,7 @@ import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'interface/LazyLoadStatist
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import makeWclUrl from 'common/makeWclUrl';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import Events, { EventType } from 'parser/core/Events';
 
 // Source: https://github.com/MartijnHols/HolyPaladin/blob/master/Spells/Talents/60/DevotionAura.md#about-the-passive-effect

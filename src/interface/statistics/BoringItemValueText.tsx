@@ -4,8 +4,8 @@
  */
 import React from 'react';
 
-import ItemIcon from 'common/ItemIcon';
-import ItemLink from 'common/ItemLink';
+import ItemIcon from 'interface/ItemIcon';
+import ItemLink from 'interface/ItemLink';
 import { Item } from 'parser/core/Events';
 
 

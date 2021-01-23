@@ -5,7 +5,7 @@ import Enemies from 'parser/shared/modules/Enemies';
 import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import { formatPercentage, formatThousands } from 'common/format';
 
 import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';

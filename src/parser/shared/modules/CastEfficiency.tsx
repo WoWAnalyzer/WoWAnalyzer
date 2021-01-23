@@ -1,7 +1,7 @@
 import React from 'react';
 import { Trans } from '@lingui/macro';
 
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import { formatPercentage } from 'common/format';
 import Panel from 'interface/statistics/Panel';
 import CastEfficiencyComponent from 'interface/CastEfficiency';
@@ -302,7 +302,7 @@ class CastEfficiency extends Analyzer {
       rawMaxCasts =
         availableFightDuration /
         (averageCooldown + averageTimeSpentCasting + averageTimeWaitingOnGCD) +
-        (ability.charges || 1) - 1;  
+        (ability.charges || 1) - 1;
     } else if (!includeNoCooldownEfficiency) {
       rawMaxCasts = availableFightDuration / cooldownMs! + (ability.charges || 1) - 1;
     } else if (casts > 0) {

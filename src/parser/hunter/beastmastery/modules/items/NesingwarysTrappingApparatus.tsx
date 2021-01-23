@@ -6,7 +6,7 @@ import React from 'react';
 import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import SPELLS from 'common/SPELLS';
 import Events, { EnergizeEvent } from 'parser/core/Events';
-import ResourceIcon from 'common/ResourceIcon';
+import ResourceIcon from 'interface/ResourceIcon';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatNumber } from 'common/format';
 import AspectOfTheWild from 'parser/hunter/beastmastery/modules/spells/AspectOfTheWild';

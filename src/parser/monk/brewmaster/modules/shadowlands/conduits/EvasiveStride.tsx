@@ -14,7 +14,7 @@ import { AutoSizer } from 'react-virtualized';
 import { binomialPMF, setMinMaxProbabilities } from 'parser/shared/modules/helpers/Probability';
 import { VisualizationSpec } from 'react-vega';
 import { formatNumber } from 'common/format';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 
 import StaggerFabricator from '../../core/StaggerFabricator';
 

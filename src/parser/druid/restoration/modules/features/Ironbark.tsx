@@ -2,7 +2,7 @@ import React from 'react';
 import { formatNumber, formatPercentage } from 'common/format';
 import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
-import SpellIcon from 'common/SpellIcon';
+import SpellIcon from 'interface/SpellIcon';
 import BoringValue from 'interface/statistics/BoringValueText';
 
 import SPELLS from 'common/SPELLS';

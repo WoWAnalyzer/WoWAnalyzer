@@ -7,7 +7,7 @@ import Events from 'parser/core/Events';
 import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 
 import DemoPets from '../pets/DemoPets';
 import { isWildImp } from '../pets/helpers';

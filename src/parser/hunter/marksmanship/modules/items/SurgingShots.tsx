@@ -9,7 +9,7 @@ import Events, { DamageEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/hunter/marksmanship/modules/core/SpellUsable';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import { SURGING_SHOTS_DAMAGE_INCREASE, SURGING_SHOTS_RESET_CHANCE } from 'parser/hunter/marksmanship/constants';
 

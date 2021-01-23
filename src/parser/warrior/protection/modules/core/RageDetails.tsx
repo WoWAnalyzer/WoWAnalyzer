@@ -5,7 +5,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Panel from 'interface/Panel';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/StatisticBox';
 import { formatPercentage } from 'common/format';
-import Icon from 'common/Icon';
+import Icon from 'interface/Icon';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import { t } from '@lingui/macro';
 

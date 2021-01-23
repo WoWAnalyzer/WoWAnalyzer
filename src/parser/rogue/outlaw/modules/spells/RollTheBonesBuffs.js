@@ -1,9 +1,9 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+import SpellIcon from 'interface/SpellIcon';
 import { formatPercentage } from 'common/format';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import Analyzer from 'parser/core/Analyzer';
 import UptimeIcon from 'interface/icons/Uptime';
 import StatisticBox from 'interface/StatisticBox';

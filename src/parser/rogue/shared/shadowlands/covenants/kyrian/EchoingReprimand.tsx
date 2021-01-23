@@ -9,7 +9,7 @@ import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
-import ResourceIcon from 'common/ResourceIcon';
+import ResourceIcon from 'interface/ResourceIcon';
 
 class EchoingReprimand extends Analyzer {
   static dependencies = {

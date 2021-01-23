@@ -1,7 +1,7 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'interface/SpellLink';
+import SpellIcon from 'interface/SpellIcon';
 import { formatNumber } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';

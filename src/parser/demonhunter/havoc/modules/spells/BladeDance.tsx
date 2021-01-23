@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, FightEndEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 
 //Example data for bad cast https://wowanalyzer.com/report/g4Pja6pLHnmQtbvk/32-Normal+Sun+King's+Salvation+-+Kill+(10:14)/Zyg/standard
 //For Blade dance and Death Sweep
@@ -58,7 +58,7 @@ class BladeDance extends Analyzer {
         this.lastCastEvent.meta = this.lastCastEvent.meta || {};
         this.lastCastEvent.meta.isInefficientCast = true;
         this.lastCastEvent.meta.inefficientCastReason = 'Bad cast on single target';
-  
+
       }
       this.firstHitTimeStamp = hitTimeStamp //Timestamp for first hit in strike
       this.hitCount = 0;

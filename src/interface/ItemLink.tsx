@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 
 import TooltipProvider from 'interface/TooltipProvider';
+import ITEMS from 'common/ITEMS';
+import getItemQualityLabel from 'common/getItemQualityLabel';
 
-import ITEMS from './ITEMS';
-import getItemQualityLabel from './getItemQualityLabel';
 import ItemIcon from './ItemIcon';
 
 interface Props {

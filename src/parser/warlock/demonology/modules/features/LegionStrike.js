@@ -4,7 +4,7 @@ import Analyzer, { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import { formatThousands } from 'common/format';
 
 import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';

@@ -4,7 +4,7 @@ import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import Statistic from 'interface/statistics/Statistic';
-import SpellIcon from 'common/SpellIcon';
+import SpellIcon from 'interface/SpellIcon';
 import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';

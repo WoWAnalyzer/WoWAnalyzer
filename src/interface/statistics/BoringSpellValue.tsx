@@ -5,7 +5,7 @@
  */
 import React from 'react';
 
-import SpellIcon from 'common/SpellIcon';
+import SpellIcon from 'interface/SpellIcon';
 
 import './BoringValue.scss';
 import Spell from 'common/SPELLS/Spell';

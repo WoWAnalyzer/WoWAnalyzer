@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Panel from 'interface/Panel';
 
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import SPELLS from 'common/SPELLS';
 
 import PetTimeline from './PetTimeline';

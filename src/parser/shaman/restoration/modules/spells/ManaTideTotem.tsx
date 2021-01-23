@@ -4,7 +4,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import Events, { SummonEvent } from 'parser/core/Events';
 
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 
@@ -18,7 +18,7 @@ import ManaIcon from 'interface/icons/Mana';
 import './ManaTideTotem.scss'
 import Combatant from 'parser/core/Combatant';
 import SPECS from 'game/SPECS';
-import SpecIcon from 'common/SpecIcon';
+import SpecIcon from 'interface/SpecIcon';
 import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 
 export const MANA_REGEN_PER_SECOND = 2000 / 5;

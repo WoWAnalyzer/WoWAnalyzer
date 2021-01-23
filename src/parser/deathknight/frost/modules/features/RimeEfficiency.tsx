@@ -3,7 +3,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Events, { ApplyBuffEvent, GlobalCooldownEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import { formatPercentage } from 'common/format';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { t } from '@lingui/macro';

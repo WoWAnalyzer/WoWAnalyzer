@@ -13,7 +13,7 @@ import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 
 const LASHING_FLAMES_BONUS = 1;
 

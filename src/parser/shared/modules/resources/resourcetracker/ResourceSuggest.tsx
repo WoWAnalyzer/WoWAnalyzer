@@ -1,6 +1,6 @@
 import React from 'react';
 import { formatPercentage } from 'common/format';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import { Trans } from '@lingui/macro';
 
 import Spell from 'common/SPELLS/Spell';

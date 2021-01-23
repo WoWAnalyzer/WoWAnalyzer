@@ -6,7 +6,7 @@ import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import AverageTargetsHit from 'interface/AverageTargetsHit';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';

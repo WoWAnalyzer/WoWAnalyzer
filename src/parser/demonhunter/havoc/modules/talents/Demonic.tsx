@@ -2,7 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Events, { CastEvent } from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import { Options } from 'parser/core/EventSubscriber';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Statistic from 'interface/statistics/Statistic';

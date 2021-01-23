@@ -10,7 +10,7 @@ import React from 'react';
 import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { binomialCDF, expectedProcCount, plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import { EMPOWERED_RELEASE_INCREASED_FLAYED_PROC_CHANCE, FLAYED_SHOT_RESET_CHANCE } from 'parser/hunter/shared/constants';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPECS from 'game/SPECS';

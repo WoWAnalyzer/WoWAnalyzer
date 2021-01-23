@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import articles from 'articles';
 import mergeAllChangelogs from 'mergeAllChangelogs';
-import SpecIcon from 'common/SpecIcon';
+import SpecIcon from 'interface/SpecIcon';
 import ReadableListing from 'interface/ReadableListing';
 import Contributor from 'interface/ContributorButton';
 import { ReactComponent as Logo } from 'interface/images/logo.svg';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Icon from 'common/Icon';
+import Icon from 'interface/Icon';
 
 const icon = props => (
   <Icon icon="spell_shadow_lifedrain02" {...props} />

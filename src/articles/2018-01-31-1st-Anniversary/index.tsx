@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
 import * as CONTRIBUTORS from 'CONTRIBUTORS';
-import SpellLink from 'common/SpellLink';
-import ItemLink from 'common/ItemLink';
-import Icon from 'common/Icon';
+import SpellLink from 'interface/SpellLink';
+import ItemLink from 'interface/ItemLink';
+import Icon from 'interface/Icon';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SPECS, { Spec } from 'game/SPECS';

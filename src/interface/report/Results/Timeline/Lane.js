@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Trans } from '@lingui/macro';
 
 import Tooltip from 'common/Tooltip';
-import SpellLink from 'common/SpellLink';
-import Icon from 'common/Icon';
+import SpellLink from 'interface/SpellLink';
+import Icon from 'interface/Icon';
 
 import { EventType } from 'parser/core/Events';
 

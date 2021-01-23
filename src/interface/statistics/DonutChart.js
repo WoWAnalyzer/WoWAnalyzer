@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import BaseChart from 'interface/BaseChart';
 
 import { formatPercentage } from 'common/format';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import { TooltipElement } from 'common/Tooltip';
 
 import 'interface/statistics/DonutChart.scss';

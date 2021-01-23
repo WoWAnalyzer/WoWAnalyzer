@@ -7,9 +7,9 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Statistic from 'interface/statistics/Statistic';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
-import SpellIcon from 'common/SpellIcon';
+import SpellIcon from 'interface/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
-import ResourceIcon from 'common/ResourceIcon';
+import ResourceIcon from 'interface/ResourceIcon';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Abilities from 'parser/core/modules/Abilities';
 

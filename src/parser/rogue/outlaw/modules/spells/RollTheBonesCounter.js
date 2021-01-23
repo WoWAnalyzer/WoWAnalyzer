@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import Analyzer from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import DonutChart from 'interface/statistics/DonutChart';

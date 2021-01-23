@@ -11,7 +11,7 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringValueText from 'interface/statistics/BoringValueText';
 import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
-import SpellIcon from 'common/SpellIcon';
+import SpellIcon from 'interface/SpellIcon';
 
 const BASE_HOT_TIME = 8000;//ef's hot base time
 const BASE_BOLTS = 17;//18 base but we start counting at 0 so 18th on bolt count = 19th bolt

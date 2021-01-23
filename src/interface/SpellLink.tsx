@@ -1,8 +1,8 @@
 import React from 'react';
 
 import TooltipProvider from 'interface/TooltipProvider';
+import SPELLS from 'common/SPELLS';
 
-import SPELLS from './SPELLS';
 import SpellIcon from './SpellIcon';
 
 interface Props extends Omit<React.HTMLAttributes<HTMLAnchorElement>, 'id'> {

@@ -1,8 +1,8 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
-import ResourceLink from 'common/ResourceLink';
+import SpellLink from 'interface/SpellLink';
+import ResourceLink from 'interface/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { TooltipElement } from 'common/Tooltip';
 import COVENANTS from 'game/shadowlands/COVENANTS';

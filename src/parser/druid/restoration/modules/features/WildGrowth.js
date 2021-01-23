@@ -2,9 +2,9 @@ import React from 'react';
 import { formatPercentage } from 'common/format';
 import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import SpellIcon from 'common/SpellIcon';
+import SpellIcon from 'interface/SpellIcon';
 import BoringValue from 'interface/statistics/BoringValueText';
 
 import SPELLS from 'common/SPELLS';

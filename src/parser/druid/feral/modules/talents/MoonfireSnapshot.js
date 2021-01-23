@@ -1,6 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'interface/StatisticsListBox';
 import { TooltipElement } from 'common/Tooltip';

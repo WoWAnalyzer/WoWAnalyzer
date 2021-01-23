@@ -4,7 +4,7 @@ import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import SpellIcon from 'common/SpellIcon';
+import SpellIcon from 'interface/SpellIcon';
 import BoringValue from 'interface/statistics/BoringValueText';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';

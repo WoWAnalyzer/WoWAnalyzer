@@ -6,7 +6,7 @@ import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
 import { STATISTIC_ORDER } from 'interface/StatisticBox';
 import { formatPercentage } from 'common/format';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 class WindfuryTotem extends Analyzer {

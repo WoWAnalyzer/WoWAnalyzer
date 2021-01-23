@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { t, Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import { TooltipElement } from 'common/Tooltip';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import Checklist from 'parser/shared/modules/features/Checklist';

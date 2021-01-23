@@ -1,6 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import UptimeIcon from 'interface/icons/Uptime';
 import { STATISTIC_ORDER } from 'interface/StatisticBox';
 import Events, { DamageEvent } from 'parser/core/Events';

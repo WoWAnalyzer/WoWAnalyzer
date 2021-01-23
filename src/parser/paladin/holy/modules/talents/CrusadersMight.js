@@ -2,8 +2,8 @@ import React from 'react';
 import { t, Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
+import SpellIcon from 'interface/SpellIcon';
+import SpellLink from 'interface/SpellLink';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';

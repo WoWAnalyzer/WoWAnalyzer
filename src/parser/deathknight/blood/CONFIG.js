@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Yajinni, joshinator } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import SPELLS from 'common/SPELLS';
 
 import CHANGELOG from './CHANGELOG';

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import SPELLS from './SPELLS';
+import SPELLS from 'common/SPELLS';
+
 import SpellLink from './SpellLink';
 import Icon from './Icon';
 

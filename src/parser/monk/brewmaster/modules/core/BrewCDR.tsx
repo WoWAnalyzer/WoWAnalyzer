@@ -1,6 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+import SpellIcon from 'interface/SpellIcon';
 import { formatPercentage } from 'common/format';
 import Events, { ChangeHasteEvent, EventType } from 'parser/core/Events';
 import EventFilter from 'parser/core/EventFilter';

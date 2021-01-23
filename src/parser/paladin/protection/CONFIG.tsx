@@ -3,7 +3,7 @@ import React from 'react';
 import { emallson, Hordehobbs } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import { TooltipElement } from 'common/Tooltip';
 import AlertWarning from 'interface/AlertWarning';
 

@@ -14,8 +14,8 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringValueText from 'interface/statistics/BoringValueText';
 import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
-import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
+import SpellIcon from 'interface/SpellIcon';
+import SpellLink from 'interface/SpellLink';
 
 import { t } from '@lingui/macro';
 import { LIFECYCLES_MANA_PERC_REDUCTION, SPIRIT_OF_THE_CRANE_MANA_RETURN, LIFECYCLES_MANA_REDUCTION_PERCENT, MANA_TEA_DURATION } from 'parser/monk/mistweaver/constants';

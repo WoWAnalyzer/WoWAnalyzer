@@ -1,8 +1,8 @@
 import React from 'react';
 import { formatPercentage } from 'common/format';
 import SCHOOLS from 'game/MAGIC_SCHOOLS';
-import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
+import SpellIcon from 'interface/SpellIcon';
+import SpellLink from 'interface/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/StatisticBox';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';

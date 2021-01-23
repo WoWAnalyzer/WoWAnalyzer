@@ -3,7 +3,7 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import Panel from 'interface/Panel';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/StatisticBox';
-import Icon from 'common/Icon';
+import Icon from 'interface/Icon';
 import { formatPercentage } from 'common/format';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 

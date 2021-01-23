@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import fetchWcl from 'common/fetchWclApi';
-import SpellIcon from 'common/SpellIcon';
+import SpellIcon from 'interface/SpellIcon';
 import { formatNumber, formatThousands } from 'common/format';
 import { Options } from 'parser/core/Module';
 

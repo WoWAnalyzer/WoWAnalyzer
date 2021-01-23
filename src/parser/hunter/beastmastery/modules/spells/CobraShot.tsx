@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 import GlobalCooldown from 'parser/hunter/beastmastery/modules/core/GlobalCooldown';
 import Statistic from 'interface/statistics/Statistic';

@@ -8,7 +8,7 @@ import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import { formatNumber } from 'common/format';
-import SpellIcon from 'common/SpellIcon';
+import SpellIcon from 'interface/SpellIcon';
 
 export const REDUCTION_TIME = 1000; // ms
 const SECOND = 1000;

@@ -4,7 +4,7 @@ import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
 import Statistic from 'interface/statistics/Statistic';
 import { formatPercentage } from 'common/format';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 
 class DeeperDaggers extends Analyzer {
   static dependencies = {

@@ -4,7 +4,7 @@ import TalentStatisticBox from 'interface/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import { formatPercentage } from 'common/format';
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';

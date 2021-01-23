@@ -1,7 +1,7 @@
 import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import { formatPercentage, formatNumber } from 'common/format';
 import TalentStatisticBox from 'interface/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';

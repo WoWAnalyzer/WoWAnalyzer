@@ -4,7 +4,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 import SPELLS from 'common/SPELLS/index';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import { formatPercentage } from 'common/format';
 import SCHOOLS from 'game/MAGIC_SCHOOLS';
 import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';

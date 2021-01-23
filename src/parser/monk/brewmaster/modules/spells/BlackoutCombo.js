@@ -2,8 +2,8 @@ import React from 'react';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'interface/SpellLink';
+import SpellIcon from 'interface/SpellIcon';
 import { formatPercentage } from 'common/format';
 import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';

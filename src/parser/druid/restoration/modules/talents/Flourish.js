@@ -3,8 +3,8 @@ import { formatPercentage, formatNumber } from 'common/format';
 import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'interface/SpellLink';
+import SpellIcon from 'interface/SpellIcon';
 import BoringValue from 'interface/statistics/BoringValueText';
 
 import { t } from '@lingui/macro';

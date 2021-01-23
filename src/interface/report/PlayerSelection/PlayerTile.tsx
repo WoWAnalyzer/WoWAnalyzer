@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import SpecIcon from 'common/SpecIcon';
-import Icon from 'common/Icon';
+import SpecIcon from 'interface/SpecIcon';
+import Icon from 'interface/Icon';
 import { Character } from 'common/character';
 import { getClassName } from 'game/ROLES';
 import getAverageItemLevel from 'game/getAverageItemLevel';

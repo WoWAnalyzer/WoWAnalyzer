@@ -1,5 +1,5 @@
 import React from 'react';
-import SpellIcon from 'common/SpellIcon';
+import SpellIcon from 'interface/SpellIcon';
 import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
 import HasteIcon from 'interface/icons/Haste';

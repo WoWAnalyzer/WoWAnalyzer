@@ -1,7 +1,7 @@
 import React from 'react';
 
-import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
+import SpellIcon from 'interface/SpellIcon';
+import SpellLink from 'interface/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { formatDuration, formatNth, formatNumber, formatPercentage } from 'common/format';
 

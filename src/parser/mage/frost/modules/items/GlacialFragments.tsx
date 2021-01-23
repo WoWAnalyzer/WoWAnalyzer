@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 import ItemDamageDone from 'interface/ItemDamageDone';

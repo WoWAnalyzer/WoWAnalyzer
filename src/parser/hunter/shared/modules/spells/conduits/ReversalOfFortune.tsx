@@ -5,7 +5,7 @@ import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 import ConduitSpellText from 'interface/statistics/ConduitSpellText';
 import React from 'react';
-import ResourceIcon from 'common/ResourceIcon';
+import ResourceIcon from 'interface/ResourceIcon';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Events, { EnergizeEvent, InterruptEvent } from 'parser/core/Events';
 

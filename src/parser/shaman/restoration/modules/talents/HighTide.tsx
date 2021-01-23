@@ -2,7 +2,7 @@ import React from 'react';
 
 import HIT_TYPES from 'game/HIT_TYPES';
 
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 

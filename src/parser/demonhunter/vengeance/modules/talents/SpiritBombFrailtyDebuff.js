@@ -5,7 +5,7 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Enemies from 'parser/shared/modules/Enemies';
 
 import SPELLS from 'common/SPELLS/index';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import { formatPercentage, formatThousands, formatDuration } from 'common/format';
 import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';

@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { Trans } from '@lingui/macro';
 
 import SPECS from 'game/SPECS';
-import SpecIcon from 'common/SpecIcon';
+import SpecIcon from 'interface/SpecIcon';
 import { formatNumber } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
 import indexByProperty from 'common/indexByProperty';
 import Toggle from 'react-toggle';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import PerformanceBar from 'interface/PerformanceBar';
 
 class PlayerBreakdown extends React.Component {

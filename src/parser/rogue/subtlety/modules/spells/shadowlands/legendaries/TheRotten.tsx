@@ -7,7 +7,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import ResourceIcon from 'common/ResourceIcon';
+import ResourceIcon from 'interface/ResourceIcon';
 
 class TheRotten extends Analyzer {
   static dependencies = {

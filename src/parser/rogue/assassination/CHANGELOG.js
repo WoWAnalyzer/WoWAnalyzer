@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Tyndi, Zeboot, Putro } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [

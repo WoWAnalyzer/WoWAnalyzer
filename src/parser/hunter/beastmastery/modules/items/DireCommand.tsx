@@ -7,7 +7,7 @@ import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import SPELLS from 'common/SPELLS';
 import Events, { DamageEvent, SummonEvent } from 'parser/core/Events';
 import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import { DIRE_COMMAND_PROC_CHANCE } from 'parser/hunter/beastmastery/constants';
 import ItemDamageDone from 'interface/ItemDamageDone';
 import Haste from 'interface/icons/Haste';

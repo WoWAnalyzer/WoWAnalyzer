@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+import SpellIcon from 'interface/SpellIcon';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { EventType } from 'parser/core/Events';

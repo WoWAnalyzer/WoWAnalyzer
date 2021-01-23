@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 
 import CoreChangelog from 'CHANGELOG';
 import SPECS from 'game/SPECS';
-import SpecIcon from 'common/SpecIcon';
+import SpecIcon from 'interface/SpecIcon';
 import DropdownIcon from 'interface/icons/Dropdown';
 import Panel from 'interface/Panel';
 import { Expandable } from 'interface/Expandable';

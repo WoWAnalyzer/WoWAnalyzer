@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { Item } from 'parser/core/Events';
+import ITEMS from 'common/ITEMS';
 
-import ITEMS from './ITEMS';
 import ItemLink from './ItemLink';
 import Icon from './Icon';
 

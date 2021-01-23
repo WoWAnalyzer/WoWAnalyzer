@@ -4,11 +4,11 @@ import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
 import SPECS from 'game/SPECS';
-import SpellLink from 'common/SpellLink';
-import Icon from 'common/Icon';
+import SpellLink from 'interface/SpellLink';
+import Icon from 'interface/Icon';
 
 import { formatNumber, formatPercentage, formatDuration } from 'common/format';
-import SpecIcon from 'common/SpecIcon';
+import SpecIcon from 'interface/SpecIcon';
 import { TooltipElement } from 'common/Tooltip';
 import { Trans } from '@lingui/macro';
 

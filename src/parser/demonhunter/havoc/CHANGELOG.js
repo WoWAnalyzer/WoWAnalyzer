@@ -2,7 +2,7 @@ import React from 'react';
 import { LeoZhekov, flurreN } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 
 export default [
   change(date(2021, 1, 18), <>Suggestions for <SpellLink id={SPELLS.DEMONIC_TALENT_HAVOC.id} />, <SpellLink id={SPELLS.BLADE_DANCE.id} /> and <SpellLink id={SPELLS.DEATH_SWEEP.id} /> have been updated</>, flurreN),

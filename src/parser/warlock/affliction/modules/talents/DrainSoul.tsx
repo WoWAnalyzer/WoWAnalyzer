@@ -8,7 +8,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 
 import CriticalStrikeIcon from 'interface/icons/CriticalStrike';
 import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';

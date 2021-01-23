@@ -1,9 +1,9 @@
 import React, { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import Toggle from 'react-toggle';
 
-import Icon from 'common/Icon';
+import Icon from 'interface/Icon';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
 import AtonementHealingDone from 'parser/priest/discipline/modules/features/AtonementHealingDone';

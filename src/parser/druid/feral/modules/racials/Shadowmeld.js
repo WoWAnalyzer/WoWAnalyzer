@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import { formatPercentage } from 'common/format';
 import RACES from 'game/RACES';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';

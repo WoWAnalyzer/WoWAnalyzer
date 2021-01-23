@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SpellIcon from 'common/SpellIcon';
+import SpellIcon from 'interface/SpellIcon';
 
 interface Props {
   spellId: number;

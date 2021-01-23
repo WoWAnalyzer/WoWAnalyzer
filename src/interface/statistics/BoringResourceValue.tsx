@@ -3,7 +3,7 @@
  */
 import React from 'react';
 
-import ResourceIcon from 'common/ResourceIcon';
+import ResourceIcon from 'interface/ResourceIcon';
 
 import './BoringValue.scss';
 

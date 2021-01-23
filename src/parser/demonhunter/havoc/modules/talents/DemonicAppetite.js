@@ -5,7 +5,7 @@ import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import Events from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatPercentage } from 'common/format';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import { t } from '@lingui/macro';
 
 /**

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Zerotorescue } from 'CONTRIBUTORS';
 import NewsRegularArticle from 'interface/NewsRegularArticle';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import SPELLS from 'common/SPELLS';
 import AlertWarning from 'interface/AlertWarning';
 

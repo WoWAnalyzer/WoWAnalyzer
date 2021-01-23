@@ -4,8 +4,8 @@ import { Trans } from '@lingui/macro';
 
 import Tooltip from 'common/Tooltip';
 import { formatDuration } from 'common/format';
-import Icon from 'common/Icon';
-import SpellLink from 'common/SpellLink';
+import Icon from 'interface/Icon';
+import SpellLink from 'interface/SpellLink';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import { EventType } from 'parser/core/Events';
 

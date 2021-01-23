@@ -3,7 +3,7 @@ import { Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
 import fetchWcl from 'common/fetchWclApi';
-import SpellIcon from 'common/SpellIcon';
+import SpellIcon from 'interface/SpellIcon';
 import { formatThousands, formatNumber } from 'common/format';
 
 import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'interface/LazyLoadStatisticBox';

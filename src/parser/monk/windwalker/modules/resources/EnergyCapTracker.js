@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from 'common/Icon';
+import Icon from 'interface/Icon';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatDuration, formatPercentage } from 'common/format';

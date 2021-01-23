@@ -2,8 +2,8 @@ import React from 'react';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/StatisticBox';
 
-import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
+import SpellIcon from 'interface/SpellIcon';
+import SpellLink from 'interface/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { TooltipElement } from 'common/Tooltip';
 

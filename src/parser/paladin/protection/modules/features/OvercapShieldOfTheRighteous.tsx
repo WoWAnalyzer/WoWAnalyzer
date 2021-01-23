@@ -7,7 +7,7 @@ import STATISTIC_ORDER from 'interface/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'interface/STATISTIC_CATEGORY';
 import BoringSpellValue from 'interface/statistics/BoringSpellValue';
 import { formatMilliseconds, formatNumber } from 'common/format';
-import SpellLink from 'common/SpellLink';
+import SpellLink from 'interface/SpellLink';
 import SpellUsable from 'parser/paladin/protection/modules/features/SpellUsable';
 
 const ACTIVE_MITIGATION_CAP = 13.5 * 1000; // Active mitigation buffs cap out at 13.5 seconds.
