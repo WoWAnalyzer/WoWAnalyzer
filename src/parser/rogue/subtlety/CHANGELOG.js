@@ -6,6 +6,10 @@ import { SpellLink } from 'interface';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2021, 1, 23), "Add GeneratorFollowingVanish analyzer.", Hordehobbs),
+  change(date(2021, 1, 23), "Update CastsInShadowDance analyzer for proper value of max possible casts.", Hordehobbs),
+  change(date(2021, 1, 23), <>Remove <SpellLink id={SPELLS.VANISH.id} /> as an offensive CD from checklist. </>, Hordehobbs),
+  change(date(2021, 1, 23), "Update DeepeningShadows analyzer for new CDR values.", Hordehobbs),
   change(date(2020, 12, 27), <>Added analyzer for tracking <SpellLink id={SPELLS.VANISH.id} /> usage in conjunction with refreshing <SpellLink id={SPELLS.FIND_WEAKNESS.id} />. </>, Hordehobbs),
   change(date(2020, 12, 21), 'Minor update to suggestions', Tyndi),
   change(date(2020, 12, 18), <> Fixed an issue where the analyzer couldn't reduce the cooldown of <SpellLink id={SPELLS.SERRATED_BONE_SPIKE.id} />. </>, Putro),

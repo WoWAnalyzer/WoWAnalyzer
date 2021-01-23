@@ -3,13 +3,13 @@ import SPELLS from 'common/SPELLS';
 import Events, { CastEvent } from 'parser/core/Events';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import React from 'react';
-import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import SpellLink from 'interface/SpellLink';
+import SpellIcon from 'interface/SpellIcon';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { formatNumber } from 'common/format';
-import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
+import BoringSpellValue from 'parser/ui/BoringSpellValue';
 
 class GeneratorFollowingVanish extends Analyzer {
   generatorSpells = [
