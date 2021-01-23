@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Boss, findByBossId } from 'raids';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
-import DeathRecapTracker from 'interface/DeathRecapTracker';
 import ModuleError from 'parser/core/ModuleError';
 import {
   AnyEvent,
@@ -14,6 +13,7 @@ import {
 } from 'parser/core/Events';
 
 import Haste from 'parser/shared/modules/Haste';
+import DeathRecapTracker from 'parser/shared/modules/DeathRecapTracker';
 
 import Module, { Options } from './Module';
 import Fight from './Fight';

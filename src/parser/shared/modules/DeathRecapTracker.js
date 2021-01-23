@@ -11,8 +11,7 @@ import Enemies from 'parser/shared/modules/Enemies';
 import Healthstone from 'parser/shared/modules/items/Healthstone';
 import Panel from 'interface/Panel';
 import Events from 'parser/core/Events';
-
-import DeathRecap from './DeathRecap';
+import DeathRecap from 'interface/DeathRecap';
 
 class DeathRecapTracker extends Analyzer {
   deaths = [];
