@@ -4,6 +4,7 @@ import EnchantChecker from 'parser/shared/modules/items/EnchantChecker';
 import WeaponEnhancementChecker from 'parser/shared/modules/items/WeaponEnhancementChecker';
 import FlaskChecker from 'parser/shared/modules/items/FlaskChecker';
 import FoodChecker from 'parser/shared/modules/items/FoodChecker';
+import AugmentRuneChecker from 'parser/shared/modules/items/AugmentRuneChecker';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 
 class PreparationRuleAnalyzer extends Analyzer {
@@ -13,6 +14,7 @@ class PreparationRuleAnalyzer extends Analyzer {
     weaponEnhancementChecker: WeaponEnhancementChecker,
     flaskChecker: FlaskChecker,
     foodChecker: FoodChecker,
+    augmentRuneChecker: AugmentRuneChecker,
   };
 
   get thresholds() {
@@ -58,6 +60,7 @@ class PreparationRuleAnalyzer extends Analyzer {
       flaskPresent: this.flaskChecker.flaskSuggestionThresholds,
       higherFoodPresent: this.foodChecker.higherFoodSuggestionThresholds,
       foodPresent: this.foodChecker.isPresentFoodSuggestionThresholds,
+      augmentRunePresent: this.augmentRuneChecker.augmentRuneSuggestionThresholds,
 
     };
   }

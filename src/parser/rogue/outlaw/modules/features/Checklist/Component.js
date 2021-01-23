@@ -44,24 +44,17 @@ const OutlawRogueChecklist = ({ combatant, castEfficiency, thresholds }) => {
       </Rule>
       <Rule
         name="Use your finishers efficiently"
-        description={<>Your two damaging finishers should typically be used at maximum combo points. If you have <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> active you should prioritize <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> as your damaging finisher.</>}
+        description={<>Finishers should typically be used at maximum combo points.</>}
       >
         <Requirement name="Finisher combo point inefficiency" thresholds={thresholds.finishers} />
         <Requirement
           name={(
             <>
-              Inefficient <SpellLink id={SPELLS.DISPATCH.id} /> casts
-            </>
-          )}
-          thresholds={thresholds.dispatch}
-        />
-        <Requirement
-          name={(
-            <>
-              Inefficient <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> casts
+              Time <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> spent on CD
             </>
           )}
           thresholds={thresholds.betweenTheEyes}
+          tooltip={<>This is the percentage of how much of the fight <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> was on cooldown. Generally <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> has to be used as soon as it comes off of cooldown. Cast should therefore only be delayed for a minimum amount of time in order to maximise debuff uptime </>}
         />
 
       </Rule>
