@@ -115,7 +115,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.VOID_TORRENT_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 30,
         gcd: {
           base: 1500,
