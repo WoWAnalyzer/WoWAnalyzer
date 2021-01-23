@@ -6,7 +6,7 @@ import Events from 'parser/core/Events';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
 

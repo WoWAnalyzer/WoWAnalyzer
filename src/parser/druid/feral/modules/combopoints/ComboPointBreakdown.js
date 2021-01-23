@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
 

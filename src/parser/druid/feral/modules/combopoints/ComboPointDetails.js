@@ -1,6 +1,6 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
-import Panel from 'interface/Panel';
+import { Panel } from 'interface';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Statistic from 'parser/ui/Statistic';
 import BoringResourceValue from 'parser/ui/BoringResourceValue';

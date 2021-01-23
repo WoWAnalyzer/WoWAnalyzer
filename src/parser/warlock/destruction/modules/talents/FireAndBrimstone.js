@@ -4,7 +4,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 

@@ -7,7 +7,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ResourceIcon from 'interface/ResourceIcon';
+import { ResourceIcon } from 'interface';
 
 class DashingScoundrel extends Analyzer {
   static dependencies = {

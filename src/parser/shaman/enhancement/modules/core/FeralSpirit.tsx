@@ -7,7 +7,7 @@ import Events, { CastEvent } from 'parser/core/Events';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import Statistic from 'parser/ui/Statistic';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ResourceGenerated from 'interface/ResourceGenerated';
+import ResourceGenerated from 'parser/ui/ResourceGenerated';
 
 const FERAL_SPIRIT = {
   INITIAL_MAELSTROM_WEAPON_GAIN: 1,

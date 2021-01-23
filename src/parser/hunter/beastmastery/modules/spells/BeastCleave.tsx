@@ -2,7 +2,7 @@ import React from 'react';
 import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';

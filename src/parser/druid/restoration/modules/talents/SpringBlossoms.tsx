@@ -3,9 +3,9 @@ import { formatPercentage } from 'common/format';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Statistic from 'parser/ui/Statistic';
 import BoringValue from 'parser/ui/BoringValueText';
-import SpellIcon from 'interface/SpellIcon';
+import { SpellIcon } from 'interface';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 

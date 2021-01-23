@@ -10,7 +10,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import ResourceIcon from 'interface/ResourceIcon';
+import { ResourceIcon } from 'interface';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 
 class DeathChakrams extends Analyzer {

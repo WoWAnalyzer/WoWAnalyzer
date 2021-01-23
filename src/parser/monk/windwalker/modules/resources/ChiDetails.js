@@ -2,7 +2,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import Panel from 'interface/Panel';
+import { Panel } from 'interface';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';

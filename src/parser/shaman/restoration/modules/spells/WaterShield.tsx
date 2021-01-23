@@ -3,7 +3,7 @@ import React from 'react';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, EnergizeEvent } from 'parser/core/Events';
 
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 

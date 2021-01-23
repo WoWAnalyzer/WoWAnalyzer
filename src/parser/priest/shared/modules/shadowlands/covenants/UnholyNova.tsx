@@ -13,7 +13,7 @@ import Events, { ApplyDebuffEvent, CastEvent, DamageEvent, HealEvent } from 'par
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { formatNumber, formatPercentage } from 'common/format';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import SPECS from 'game/SPECS';
 import Abilities from 'parser/core/modules/Abilities';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import SpellIcon from 'interface/SpellIcon';
+import { SpellIcon } from 'interface';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';

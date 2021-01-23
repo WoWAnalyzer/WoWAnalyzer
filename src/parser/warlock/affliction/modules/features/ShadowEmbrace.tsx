@@ -7,8 +7,8 @@ import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import Events, { ChangeDebuffStackEvent, DamageEvent } from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'interface/SpellLink';
-import SpellIcon from 'interface/SpellIcon';
+import { SpellLink } from 'interface';
+import { SpellIcon } from 'interface';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
 

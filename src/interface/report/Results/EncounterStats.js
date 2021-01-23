@@ -7,7 +7,7 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import fetchWcl from 'common/fetchWclApi';
 import Icon from 'interface/Icon';
-import ItemLink from 'interface/ItemLink';
+import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 import SpellIcon from 'interface/SpellIcon';
 import { formatDuration, formatPercentage, formatThousands } from 'common/format';

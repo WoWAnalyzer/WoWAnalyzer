@@ -1,7 +1,7 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'interface/SpellIcon';
-import SpellLink from 'interface/SpellLink';
+import { SpellIcon } from 'interface';
+import { SpellLink } from 'interface';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { formatDuration, formatNumber } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';

@@ -9,7 +9,7 @@ import React from 'react';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import SPECS from 'game/SPECS';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 
 const SPELLS_WITH_TRAVEL_TIME = [
   SPELLS.STARSURGE_AFFINITY.id,

@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { formatNumber } from 'common/format';
-import SpellIcon from 'interface/SpellIcon';
-import SpellLink from 'interface/SpellLink';
+import { SpellIcon } from 'interface';
+import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';

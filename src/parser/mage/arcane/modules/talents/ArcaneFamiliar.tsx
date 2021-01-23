@@ -1,6 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';

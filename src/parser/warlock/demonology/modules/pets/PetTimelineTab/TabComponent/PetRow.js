@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'interface/SpellIcon';
-import Icon from 'interface/Icon';
+import { SpellIcon } from 'interface';
+import { Icon } from 'interface';
 import Tooltip from 'common/Tooltip';
 
 const PetRow = props => {

@@ -5,7 +5,7 @@ import React from 'react';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { formatNumber } from 'common/format';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 

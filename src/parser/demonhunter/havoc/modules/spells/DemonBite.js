@@ -1,6 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS/index';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import Events from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatThousands, formatPercentage } from 'common/format';

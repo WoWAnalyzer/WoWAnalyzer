@@ -12,7 +12,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { CTS_CDR_MS } from 'parser/hunter/marksmanship/constants';
 import { MS_BUFFER } from 'parser/hunter/shared/constants';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import { t } from '@lingui/macro';
 
 /**

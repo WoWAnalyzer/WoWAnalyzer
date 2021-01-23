@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Vonn } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
-import AlertWarning from 'interface/AlertWarning';
+import { AlertWarning } from 'interface';
 
 import Config from 'parser/Config';
 

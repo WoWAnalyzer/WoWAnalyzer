@@ -4,7 +4,7 @@ import { t } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';

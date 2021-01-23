@@ -8,7 +8,7 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { formatNumber } from 'common/format';
 import Events, { DamageEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 
 import Spell from 'common/SPELLS/Spell';
 

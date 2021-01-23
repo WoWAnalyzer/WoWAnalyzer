@@ -7,7 +7,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Events, { CastEvent, DamageEvent, EnergizeEvent } from 'parser/core/Events';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import { t } from '@lingui/macro';
 
 // Example log: /reports/P3FbCaGB4DMyNQxA#fight=47&type=damage-done

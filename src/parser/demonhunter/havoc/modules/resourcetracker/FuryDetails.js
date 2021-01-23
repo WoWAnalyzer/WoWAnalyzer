@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import Panel from 'interface/Panel';
+import { Panel } from 'interface';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { formatPercentage, formatNumber } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';

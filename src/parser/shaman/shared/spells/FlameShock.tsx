@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import UptimeIcon from 'interface/icons/Uptime';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import { formatNumber, formatPercentage } from 'common/format';
 
 import Enemies from 'parser/shared/modules/Enemies';

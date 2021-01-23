@@ -16,7 +16,7 @@ import { Options } from 'parser/core/Module';
 import AtonementDamageSource from 'parser/priest/discipline/modules/features/AtonementDamageSource';
 import SPECS from 'game/SPECS';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import SpellIcon from 'interface/SpellIcon';
+import { SpellIcon } from 'interface';
 import { TooltipElement } from 'common/Tooltip';
 import Abilities from 'parser/core/modules/Abilities';
 

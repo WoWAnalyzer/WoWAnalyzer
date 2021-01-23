@@ -11,7 +11,7 @@ import Statistic from 'parser/ui/Statistic';
 
 import Events from 'parser/core/Events';
 
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import { TooltipElement } from 'common/Tooltip';
 import { t } from '@lingui/macro';
 import UptimeIcon from 'interface/icons/Uptime';

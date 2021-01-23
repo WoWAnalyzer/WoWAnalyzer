@@ -4,7 +4,7 @@ import Analyzer, { Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { ApplyBuffEvent, ApplyBuffStackEvent, RemoveBuffEvent, DamageEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';

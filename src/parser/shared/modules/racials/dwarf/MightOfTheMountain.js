@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
-import SpellIcon from 'interface/SpellIcon';
+import { SpellIcon } from 'interface';
 import RACES from 'game/RACES';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import HIT_TYPES from 'game/HIT_TYPES';

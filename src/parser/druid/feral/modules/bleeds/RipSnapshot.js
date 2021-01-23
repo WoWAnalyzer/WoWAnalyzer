@@ -1,6 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import { TooltipElement } from 'common/Tooltip';

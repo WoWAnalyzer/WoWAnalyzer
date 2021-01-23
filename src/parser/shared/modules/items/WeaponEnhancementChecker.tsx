@@ -1,5 +1,5 @@
 
-import ItemLink from 'interface/ItemLink';
+import { ItemLink } from 'interface';
 import ITEMS from 'common/ITEMS';
 
 import Analyzer from 'parser/core/Analyzer';

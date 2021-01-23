@@ -4,8 +4,8 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Statistic from 'parser/ui/Statistic';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'interface/SpellLink';
-import SpellIcon from 'interface/SpellIcon';
+import { SpellLink } from 'interface';
+import { SpellIcon } from 'interface';
 import BoringValue from 'parser/ui/BoringValueText';
 
 import { t } from '@lingui/macro';

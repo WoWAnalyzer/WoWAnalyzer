@@ -4,7 +4,7 @@ import Events, { EnergizeEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import SpellIcon from 'interface/SpellIcon';
+import { SpellIcon } from 'interface';
 import React from 'react';
 import BoringValueText from 'parser/ui/BoringValueText';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';

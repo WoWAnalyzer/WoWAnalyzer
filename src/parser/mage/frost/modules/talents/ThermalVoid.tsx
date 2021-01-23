@@ -5,7 +5,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import SpellIcon from 'interface/SpellIcon';
+import { SpellIcon } from 'interface';
 
 const BASE_DURATION = 20;
 

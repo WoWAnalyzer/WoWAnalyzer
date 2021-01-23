@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS/index';
 import Events, { CastEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { t } from '@lingui/macro';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 
 
 /*WCL: https://www.warcraftlogs.com/reports/Y7BWyCx3mHVZzPrk#fight=last&type=summary&view=events&pins=2%24Off%24%23244F4B%24casts%7Cauras%24-1%240.0.0.Any%240.0.0.Any%24true%240.0.0.Any%24true%24258920%7C204255%7C203981%7C263642

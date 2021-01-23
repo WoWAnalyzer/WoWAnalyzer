@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SpellIcon from 'interface/SpellIcon';
+import { SpellIcon } from 'interface';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';

@@ -12,7 +12,7 @@ import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import { formatNumber, formatPercentage } from 'common/format';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import { t } from '@lingui/macro';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 
 /**
  * Analyzer to track the extra damage caused by Holy Power abilities after

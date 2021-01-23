@@ -6,7 +6,7 @@ import HolyWordSalvation from 'parser/priest/holy/modules/spells/holyword/HolyWo
 import HolyWordSerenity from 'parser/priest/holy/modules/spells/holyword/HolyWordSerenity';
 import SPELLS from 'common/SPELLS';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import SpellIcon from 'interface/SpellIcon';
+import { SpellIcon } from 'interface';
 import { formatPercentage } from 'common/format';
 import Statistic from 'parser/ui/Statistic';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';

@@ -9,9 +9,10 @@ import Buffs from 'parser/core/modules/Buffs';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Enemies from 'parser/shared/modules/Enemies';
 import Healthstone from 'parser/shared/modules/items/Healthstone';
-import Panel from 'interface/Panel';
+import { Panel } from 'interface';
 import Events from 'parser/core/Events';
-import DeathRecap from 'interface/DeathRecap';
+
+import DeathRecap from './DeathRecap';
 
 class DeathRecapTracker extends Analyzer {
   deaths = [];

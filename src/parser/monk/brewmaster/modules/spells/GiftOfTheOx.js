@@ -1,6 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'interface/SpellIcon';
+import { SpellIcon } from 'interface';
 
 import { formatNumber } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';

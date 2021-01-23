@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import Panel from 'parser/ui/Panel';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import HealingValue from 'parser/shared/modules/HealingValue';

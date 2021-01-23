@@ -1,11 +1,9 @@
 import React from 'react';
 
-import SpellIcon from 'interface/SpellIcon';
-import SpellLink from 'interface/SpellLink';
+import { SpellIcon, SpellLink, SpecIcon } from 'interface';
 import SPELLS from 'common/SPELLS';
 import { TooltipElement } from 'common/Tooltip';
 import SPECS, { Spec } from 'game/SPECS';
-import SpecIcon from 'interface/SpecIcon';
 import { formatNth, formatDuration } from 'common/format';
 
 import Events, { CastEvent, EventType, HealEvent } from 'parser/core/Events';

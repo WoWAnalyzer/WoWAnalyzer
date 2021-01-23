@@ -5,7 +5,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import { formatNumber } from 'common/format';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import RACES from 'game/RACES';
-import SpellIcon from 'interface/SpellIcon';
+import { SpellIcon } from 'interface';
 import SPELLS from 'common/SPELLS/index';
 import StatisticBox from 'parser/ui/StatisticBox';
 import Events from 'parser/core/Events';

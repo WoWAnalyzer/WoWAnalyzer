@@ -3,7 +3,7 @@ import React from 'react';
 import { t } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';

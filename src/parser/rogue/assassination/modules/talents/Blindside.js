@@ -3,7 +3,7 @@ import React from 'react';
 import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';

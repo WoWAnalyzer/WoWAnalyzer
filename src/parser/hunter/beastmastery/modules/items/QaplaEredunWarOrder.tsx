@@ -10,7 +10,7 @@ import { QAPLA_KILL_COMMAND_REDUCTION_MS } from 'parser/hunter/beastmastery/cons
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { formatNumber, formatPercentage } from 'common/format';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import { Trans } from '@lingui/macro';
 
 /**

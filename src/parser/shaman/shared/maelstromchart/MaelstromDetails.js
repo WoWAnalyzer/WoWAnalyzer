@@ -5,7 +5,7 @@ import Panel from 'parser/ui/Panel';
 import Analyzer from 'parser/core/Analyzer';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import { formatPercentage } from 'common/format';
-import Icon from 'interface/Icon';
+import { Icon } from 'interface';
 import { t } from '@lingui/macro';
 
 import MaelstromTracker from './MaelstromTracker.js';

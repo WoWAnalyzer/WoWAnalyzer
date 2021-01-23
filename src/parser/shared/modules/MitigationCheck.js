@@ -2,10 +2,10 @@ import React from 'react';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
-import SpellIcon from 'interface/SpellIcon';
+import { SpellIcon } from 'interface';
 import { formatNumber, formatPercentage } from 'common/format';
 
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import Enemies from 'parser/shared/modules/Enemies';
 
 import { findByBossId } from 'raids';

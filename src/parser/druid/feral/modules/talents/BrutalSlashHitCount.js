@@ -1,6 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { t } from '@lingui/macro';
 

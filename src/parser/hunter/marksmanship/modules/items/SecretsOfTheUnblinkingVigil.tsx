@@ -10,7 +10,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { AIMED_SHOT_FOCUS_COST, SECRETS_UNBLINKING_PROC_CHANCE } from 'parser/hunter/marksmanship/constants';
 import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 
 /**
  * When you gain the Trick Shots effect, you have a 50% chance for it to not be consumed by your next Aimed Shot or Rapid Fire.

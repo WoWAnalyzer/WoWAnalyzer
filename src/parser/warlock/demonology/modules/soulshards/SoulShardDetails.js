@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 
-import Panel from 'interface/Panel';
+import { Panel } from 'interface';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Statistic from 'parser/ui/Statistic';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';

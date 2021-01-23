@@ -5,7 +5,7 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';

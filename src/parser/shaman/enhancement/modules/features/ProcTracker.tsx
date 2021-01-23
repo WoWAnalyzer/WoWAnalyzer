@@ -1,8 +1,8 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Panel from 'interface/Panel';
-import CooldownOverview from 'interface/CooldownOverview';
+import { Panel } from 'interface';
+import CooldownOverview from 'parser/ui/CooldownOverview';
 import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'parser/shared/modules/CooldownThroughputTracker';
 
 class ProcTracker extends CoreCooldownThroughputTracker {

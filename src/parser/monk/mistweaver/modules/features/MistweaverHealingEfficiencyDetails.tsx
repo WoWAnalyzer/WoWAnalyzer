@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import Panel from 'parser/ui/Panel';
 import HealingEfficiencyDetails from 'parser/core/healingEfficiency/HealingEfficiencyDetails';
 import HealingEfficiencyTracker from 'parser/core/healingEfficiency/HealingEfficiencyTracker';

@@ -3,8 +3,8 @@ import { formatPercentage } from 'common/format';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import UptimeIcon from 'interface/icons/Uptime';
 import Statistic from 'parser/ui/Statistic';
-import SpellLink from 'interface/SpellLink';
-import SpellIcon from 'interface/SpellIcon';
+import { SpellLink } from 'interface';
+import { SpellIcon } from 'interface';
 import BoringValue from 'parser/ui/BoringValueText';
 
 import SPELLS from 'common/SPELLS';

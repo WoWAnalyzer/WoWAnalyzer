@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'interface/SpellIcon';
+import { SpellIcon } from 'interface';
 import { formatThousands, formatNumber } from 'common/format';
 
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
@@ -9,7 +9,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { Trans } from '@lingui/macro';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 
 const ASTRAL_SHIFT_DR = 0.4;
 

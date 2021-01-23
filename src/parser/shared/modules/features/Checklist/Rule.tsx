@@ -2,7 +2,7 @@ import React, {useCallback, useState} from 'react';
 
 import DropdownIcon from 'interface/icons/Dropdown';
 import InformationIcon from 'interface/icons/Information';
-import { ControlledExpandable } from 'interface/Expandable';
+import { ControlledExpandable } from 'interface';
 import colorForPerformance from 'common/colorForPerformance';
 
 import calculateMedian from './helpers/calculateMedian';

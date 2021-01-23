@@ -1,6 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import CooldownIcon from 'interface/icons/Cooldown';
 import { formatPercentage, formatNumber, formatThousands, formatDuration } from 'common/format';

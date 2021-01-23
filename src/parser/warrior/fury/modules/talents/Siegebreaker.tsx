@@ -9,7 +9,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import { t } from '@lingui/macro';
 
 const SIEGEBREAKER_DAMAGE_MODIFIER = 0.15;

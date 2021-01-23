@@ -2,8 +2,8 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'interface/SpellLink';
-import SpellIcon from 'interface/SpellIcon';
+import { SpellLink } from 'interface';
+import { SpellIcon } from 'interface';
 import { formatNumber } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
 

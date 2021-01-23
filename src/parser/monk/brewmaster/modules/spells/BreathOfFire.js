@@ -1,5 +1,5 @@
 import React from 'react';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 

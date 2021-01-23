@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { RemoveBuffEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { formatNumber, formatPercentage } from 'common/format';

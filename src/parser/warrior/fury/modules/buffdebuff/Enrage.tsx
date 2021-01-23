@@ -6,7 +6,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Events, { DamageEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import Statistic from 'parser/ui/Statistic';
 import UptimeIcon from 'interface/icons/Uptime';

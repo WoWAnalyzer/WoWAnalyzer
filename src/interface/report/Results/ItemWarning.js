@@ -1,7 +1,7 @@
 import React from 'react';
 import AlertWarning from 'interface/AlertWarning';
 import PropTypes from 'prop-types';
-import ItemLink from 'interface/ItemLink';
+import { ItemLink } from 'interface';
 
 const WARNING_ITEMS = [];
 

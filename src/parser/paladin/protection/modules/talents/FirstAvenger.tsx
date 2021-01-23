@@ -6,7 +6,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { formatNumber } from 'common/format';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
 
 // One second bounce buffer for AS to bounce around and hit targets.

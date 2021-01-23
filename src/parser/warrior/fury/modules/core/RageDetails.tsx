@@ -2,7 +2,7 @@ import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import Panel from 'interface/Panel';
+import { Panel } from 'interface';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { formatPercentage } from 'common/format';

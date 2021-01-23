@@ -6,7 +6,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 

@@ -9,7 +9,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import HasteIcon from 'interface/icons/Haste';
 import { formatPercentage } from 'common/format';
 import { STEADY_FOCUS_HASTE_PERCENT } from 'parser/hunter/marksmanship/constants';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import { Trans } from '@lingui/macro';
 
 /**

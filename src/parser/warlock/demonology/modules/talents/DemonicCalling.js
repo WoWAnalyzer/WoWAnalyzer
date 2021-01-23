@@ -5,7 +5,7 @@ import Events from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import Statistic from 'parser/ui/Statistic';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ItemIcon from 'interface/ItemIcon';
+import { ItemIcon } from 'interface';
 import { Item } from 'parser/core/Events';
 
 interface Props {

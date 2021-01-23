@@ -3,8 +3,8 @@ import React from 'react';
 import { t, Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'interface/SpellLink';
-import ResourceLink from 'interface/ResourceLink';
+import { SpellLink } from 'interface';
+import { ResourceLink } from 'interface';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { TooltipElement } from 'common/Tooltip';
 import Checklist from 'parser/shared/modules/features/Checklist';

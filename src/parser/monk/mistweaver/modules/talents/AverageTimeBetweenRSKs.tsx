@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'interface/SpellIcon';
+import { SpellIcon } from 'interface';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 

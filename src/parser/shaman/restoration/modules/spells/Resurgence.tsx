@@ -7,9 +7,9 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { EnergizeEvent, HealEvent } from 'parser/core/Events';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'interface/SpellIcon';
+import { SpellIcon } from 'interface';
 import { formatNumber, formatPercentage } from 'common/format';
 import { Trans } from '@lingui/macro';
 

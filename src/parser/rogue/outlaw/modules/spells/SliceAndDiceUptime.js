@@ -4,7 +4,7 @@ import Analyzer from 'parser/core/Analyzer';
 import Statistic from 'parser/ui/Statistic';
 import { formatPercentage } from 'common/format';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 
 class SliceAndDiceUptime extends Analyzer {
   get percentUptime() {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { formatPercentage, formatThousands } from 'common/format';
-import SpellIcon from 'interface/SpellIcon';
-import SpellLink from 'interface/SpellLink';
+import { SpellIcon } from 'interface';
+import { SpellLink } from 'interface';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';

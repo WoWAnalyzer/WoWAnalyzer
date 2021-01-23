@@ -7,8 +7,8 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import DamageTaken from 'parser/shared/modules/throughput/DamageTaken';
 
 import StatisticBox from 'parser/ui/StatisticBox';
-import SpellIcon from 'interface/SpellIcon';
-import SpellLink from 'interface/SpellLink';
+import { SpellIcon } from 'interface';
+import { SpellLink } from 'interface';
 import { t } from '@lingui/macro';
 
 import { formatNumber, formatPercentage } from 'common/format';

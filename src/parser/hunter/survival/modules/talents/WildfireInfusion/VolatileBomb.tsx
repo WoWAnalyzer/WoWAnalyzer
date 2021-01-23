@@ -8,7 +8,7 @@ import Enemies from 'parser/shared/modules/Enemies';
 import { SERPENT_STING_SV_BASE_DURATION, SV_SERPENT_STING_COST } from 'parser/hunter/survival/constants';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { formatDuration } from 'common/format';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';

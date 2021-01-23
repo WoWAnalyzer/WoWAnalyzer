@@ -12,7 +12,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
 import { binomialCDF, expectedProcCount, plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import { LNL_PROC_CHANCE } from 'parser/hunter/marksmanship/constants';
 
 /**

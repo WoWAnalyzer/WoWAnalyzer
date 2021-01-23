@@ -5,7 +5,7 @@ import Events, { ApplyBuffEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import Statistic from 'parser/ui/Statistic';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import SpellIcon from 'interface/SpellIcon';
+import { SpellIcon } from 'interface';
 
 class GreenskinsWickers extends Analyzer {
   static dependencies = {

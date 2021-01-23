@@ -1,7 +1,7 @@
 import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';

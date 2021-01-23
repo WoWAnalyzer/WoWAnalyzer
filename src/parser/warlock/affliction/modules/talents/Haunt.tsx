@@ -6,8 +6,8 @@ import Enemies from 'parser/shared/modules/Enemies';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'interface/SpellIcon';
-import SpellLink from 'interface/SpellLink';
+import { SpellIcon } from 'interface';
+import { SpellLink } from 'interface';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';

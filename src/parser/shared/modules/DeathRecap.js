@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
-import SpellIcon from 'interface/SpellIcon';
-import SpellLink from 'interface/SpellLink';
-import Icon from 'interface/Icon';
+import { Icon, SpellIcon, SpellLink } from 'interface';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
 import Tooltip, { TooltipElement } from 'common/Tooltip';

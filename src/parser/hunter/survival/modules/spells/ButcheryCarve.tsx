@@ -4,7 +4,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import React from 'react';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import AverageTargetsHit from 'parser/ui/AverageTargetsHit';

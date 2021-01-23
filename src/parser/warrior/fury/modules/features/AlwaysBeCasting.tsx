@@ -3,7 +3,7 @@ import React from 'react';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';

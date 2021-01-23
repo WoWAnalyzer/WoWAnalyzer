@@ -4,7 +4,7 @@ import { Abelito75, AdamKelly, Adoraci, Amani, Barry, Barter, ChagriAli, Christo
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'interface/SpellLink';
-import ItemLink from 'interface/ItemLink';
+import { ItemLink } from 'interface';
 import { change, date } from 'common/changelog';
 
 // prettier-ignore

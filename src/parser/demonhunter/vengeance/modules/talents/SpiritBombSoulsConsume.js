@@ -5,7 +5,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import SPELLS from 'common/SPELLS/index';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 
 import { formatPercentage } from 'common/format';
 import { t } from '@lingui/macro';

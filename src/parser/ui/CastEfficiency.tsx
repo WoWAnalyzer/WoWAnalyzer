@@ -1,11 +1,11 @@
+import { Trans } from '@lingui/macro';
 import React from 'react';
 
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import { TooltipElement } from 'common/Tooltip';
 
 import Abilities from 'parser/core/modules/Abilities';
 import { AbilityCastEfficiency } from 'parser/shared/modules/CastEfficiency';
-import { Trans } from '@lingui/macro';
 
 interface Props {
   abilities: AbilityCastEfficiency[];

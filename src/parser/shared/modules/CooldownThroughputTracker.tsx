@@ -1,9 +1,9 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
-import Panel from 'interface/Panel';
+import { Panel } from 'interface';
 import CooldownIcon from 'interface/icons/Cooldown';
-import CooldownOverview from 'interface/CooldownOverview';
+import CooldownOverview from 'parser/ui/CooldownOverview';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import EventHistory from 'parser/shared/modules/EventHistory';

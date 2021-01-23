@@ -1,5 +1,5 @@
 import React from 'react';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Statistic from 'parser/ui/Statistic';

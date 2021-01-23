@@ -1,15 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import InterfacePanel from 'interface/Panel';
+import { Panel as InterfacePanel, ErrorBoundary } from 'interface';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import ErrorBoundary from 'interface/ErrorBoundary';
 
 const Panel = ({ category = STATISTIC_CATEGORY.PANELS, position, ...others }) => (
   <ErrorBoundary>
-    <InterfacePanel
-      {...others}
-    />
+    <InterfacePanel {...others} />
   </ErrorBoundary>
 );
 Panel.propTypes = {

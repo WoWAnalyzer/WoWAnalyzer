@@ -10,7 +10,7 @@ import Statistic from 'parser/ui/Statistic';
 import BoringValueText from 'parser/ui/BoringValueText';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import SpellIcon from 'interface/SpellIcon';
+import { SpellIcon } from 'interface';
 
 import HotTrackerMW from '../core/HotTrackerMW';
 

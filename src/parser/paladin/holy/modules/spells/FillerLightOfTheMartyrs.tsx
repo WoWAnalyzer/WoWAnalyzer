@@ -2,7 +2,7 @@ import React from 'react';
 import { t, Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import { TooltipElement } from 'common/Tooltip';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';

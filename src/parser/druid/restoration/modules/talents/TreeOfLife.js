@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { formatNumber, formatPercentage } from 'common/format';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
@@ -9,7 +9,7 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Statistic from 'parser/ui/Statistic';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-import SpellIcon from 'interface/SpellIcon';
+import { SpellIcon } from 'interface';
 import BoringValue from 'parser/ui/BoringValueText';
 
 import { t } from '@lingui/macro';

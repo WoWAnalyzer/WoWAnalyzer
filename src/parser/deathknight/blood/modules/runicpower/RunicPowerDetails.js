@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import Panel from 'interface/Panel';
+import { Panel } from 'interface';
 import { formatPercentage } from 'common/format';
 import { t } from '@lingui/macro';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';

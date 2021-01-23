@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import { formatThousands } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 /**

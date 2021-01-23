@@ -2,7 +2,7 @@ import React from 'react';
 import { Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'interface/SpellIcon';
+import { SpellIcon } from 'interface';
 import { formatPercentage } from 'common/format';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';

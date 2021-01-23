@@ -1,9 +1,9 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
-import Panel from 'interface/Panel';
+import { Panel } from 'interface';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { formatPercentage } from 'common/format';
-import Icon from 'interface/Icon';
+import { Icon } from 'interface';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import { t } from '@lingui/macro';
 

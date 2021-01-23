@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'interface/SpellIcon';
+import { SpellIcon } from 'interface';
 import { formatThousands, formatNumber } from 'common/format';
 
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
@@ -10,7 +10,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { Trans } from '@lingui/macro';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 
 const SPIRIT_WOLF_DAMAGE_REDUCTION_PER_STACK = 0.05;
 

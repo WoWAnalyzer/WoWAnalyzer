@@ -10,7 +10,7 @@ import Statistic from 'parser/ui/Statistic';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 
 class StaticDischarge extends Analyzer {

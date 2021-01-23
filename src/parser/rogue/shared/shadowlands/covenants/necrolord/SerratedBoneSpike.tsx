@@ -10,7 +10,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ResourceIcon from 'interface/ResourceIcon';
+import { ResourceIcon } from 'interface';
 
 class SerratedBoneSpike extends Analyzer {
   static dependencies = {

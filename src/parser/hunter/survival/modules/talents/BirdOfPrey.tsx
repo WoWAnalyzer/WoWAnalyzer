@@ -5,7 +5,7 @@ import { formatPercentage } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';

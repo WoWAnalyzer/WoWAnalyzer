@@ -3,7 +3,7 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS/index';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 
 import { formatPercentage, formatDuration } from 'common/format';
 

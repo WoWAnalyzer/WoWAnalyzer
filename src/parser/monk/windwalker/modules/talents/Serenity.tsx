@@ -2,7 +2,7 @@ import React from 'react';
 
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import SpellIcon from 'interface/SpellIcon';
+import { SpellIcon } from 'interface';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import SPELLS from 'common/SPELLS';
 import SpellUsable from 'parser/shared/modules/SpellUsable';

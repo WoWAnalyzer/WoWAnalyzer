@@ -4,10 +4,9 @@
  */
 import React from 'react';
 
-import ItemIcon from 'interface/ItemIcon';
-import ItemLink from 'interface/ItemLink';
+import { ItemIcon } from 'interface';
+import { ItemLink } from 'interface';
 import { Item } from 'parser/core/Events';
-
 
 type Props = {
   item: Item;
@@ -20,9 +19,7 @@ const BoringItemValueText = ({ item, children, className }: Props) => (
     <label>
       <ItemIcon id={item.id} /> <ItemLink id={item.id} icon={false} />
     </label>
-    <div className="value">
-      {children}
-    </div>
+    <div className="value">{children}</div>
   </div>
 );
 

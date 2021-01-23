@@ -1,7 +1,7 @@
 import React from 'react';
 
-import SpellIcon from 'interface/SpellIcon';
-import SpellLink from 'interface/SpellLink';
+import { SpellIcon } from 'interface';
+import { SpellLink } from 'interface';
 import Spell from 'common/SPELLS/Spell';
 
 type Props = {

@@ -10,7 +10,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import { t } from '@lingui/macro';
 import Insanity from 'interface/icons/Insanity';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 
 class DeathAndMadness extends Analyzer {
   casts = 0;

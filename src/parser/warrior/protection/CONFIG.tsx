@@ -1,11 +1,11 @@
 import React from 'react';
 
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 import SPECS from 'game/SPECS';
 import Config from 'parser/Config';
 import { TooltipElement } from 'common/Tooltip';
-import AlertWarning from 'interface/AlertWarning';
+import { AlertWarning } from 'interface';
 
 import CHANGELOG from './CHANGELOG';
 

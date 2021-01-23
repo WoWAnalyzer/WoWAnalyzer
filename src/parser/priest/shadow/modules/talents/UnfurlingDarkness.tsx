@@ -3,7 +3,7 @@ import React from 'react';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import SPELLS from 'common/SPELLS/index';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';

@@ -7,7 +7,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Channeling from 'parser/shared/modules/Channeling';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SHIFTING_POWER_MS_REDUCTION_PER_TICK, SHIFTING_POWER_REDUCTION_SPELLS } from 'parser/mage/shared/constants';
 import { formatNumber } from 'common/format';

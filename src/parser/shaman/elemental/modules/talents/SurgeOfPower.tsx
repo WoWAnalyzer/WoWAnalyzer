@@ -3,7 +3,7 @@ import React from 'react';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import { formatPercentage } from 'common/format';
 import Events, { CastEvent } from 'parser/core/Events';

@@ -2,7 +2,7 @@ import React from 'react';
 
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { formatNumber } from 'common/format';
-import SpellIcon from 'interface/SpellIcon';
+import { SpellIcon } from 'interface';
 import { TooltipElement } from 'common/Tooltip';
 
 import SPELLS from 'common/SPELLS';

@@ -2,9 +2,9 @@ import React from 'react';
 import { AutoSizer } from 'react-virtualized';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Panel from 'interface/Panel';
+import { Panel } from 'interface';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import Events from 'parser/core/Events';

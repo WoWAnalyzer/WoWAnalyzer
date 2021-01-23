@@ -1,6 +1,6 @@
 import React from 'react';
 import { formatPercentage } from 'common/format';
-import SpellIcon from 'interface/SpellIcon';
+import { SpellIcon } from 'interface';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';

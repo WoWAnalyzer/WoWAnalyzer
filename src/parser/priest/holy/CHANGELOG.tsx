@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Khadaj, niseko, Zeboot } from 'CONTRIBUTORS';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 import { change, date } from 'common/changelog';
 

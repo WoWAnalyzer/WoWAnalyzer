@@ -3,9 +3,9 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 // import ITEMS from 'common/ITEMS';
-import SpellLink from 'interface/SpellLink';
-// import ItemLink from 'interface/ItemLink';
-import ResourceLink from 'interface/ResourceLink';
+import { SpellLink } from 'interface';
+// import { ItemLink } from 'interface';
+import { ResourceLink } from 'interface';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { TooltipElement } from 'common/Tooltip';
 import Checklist from 'parser/shared/modules/features/Checklist';

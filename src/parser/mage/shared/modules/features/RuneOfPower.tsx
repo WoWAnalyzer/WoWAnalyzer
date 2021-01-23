@@ -1,7 +1,7 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SPECS from 'game/SPECS';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import { formatNumber, formatPercentage } from 'common/format';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';

@@ -5,7 +5,7 @@ import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import UptimeIcon from 'interface/icons/Uptime';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 import Statistic from 'parser/ui/Statistic';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';

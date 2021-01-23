@@ -9,7 +9,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { STORMSTRIKE_DAMAGE_SPELLS } from 'parser/shaman/enhancement/constants';
-import ResourceGenerated from 'interface/ResourceGenerated';
+import ResourceGenerated from 'parser/ui/ResourceGenerated';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 const ELEMENTAL_ASSAULT = {

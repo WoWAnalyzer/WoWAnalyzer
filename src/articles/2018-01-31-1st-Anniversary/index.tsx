@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import * as CONTRIBUTORS from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
-import ItemLink from 'interface/ItemLink';
+import { ItemLink } from 'interface';
 import Icon from 'interface/Icon';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';

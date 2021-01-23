@@ -4,7 +4,7 @@ import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Events from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 

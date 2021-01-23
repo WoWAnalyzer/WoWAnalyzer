@@ -2,7 +2,7 @@ import React from 'react';
 
 import { joshinator, Khazak, LeoZhekov, Putro } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import { change, date } from 'common/changelog';
 
 export default [

@@ -2,7 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import Events from 'parser/core/Events';
 

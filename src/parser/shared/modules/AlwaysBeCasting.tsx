@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Icon from 'interface/Icon';
+import { Icon } from 'interface';
 import { formatPercentage } from 'common/format';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { EndChannelEvent, EventType, GlobalCooldownEvent } from 'parser/core/Events';

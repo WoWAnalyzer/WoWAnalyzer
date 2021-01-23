@@ -8,7 +8,7 @@ import SPELLS from 'common/SPELLS';
 import Events from 'parser/core/Events';
 import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
 import { FLAMEWAKERS_PROC_CHANCE, KILL_COMMAND_BM_FOCUS_COST } from 'parser/hunter/beastmastery/constants';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 
 /**
  * Cobra Shot has a 25% chance to make your next Kill Command consume no Focus.

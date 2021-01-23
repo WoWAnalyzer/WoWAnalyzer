@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { Trans } from '@lingui/macro';
 
 import SPECS from 'game/SPECS';
-import SpecIcon from 'interface/SpecIcon';
+import { SpecIcon } from 'interface';
 import { formatNumber } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
 import indexByProperty from 'common/indexByProperty';
 import Toggle from 'react-toggle';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 
 import PerformanceBar from './PerformanceBar';
 

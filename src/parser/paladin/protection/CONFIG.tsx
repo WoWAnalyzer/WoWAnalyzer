@@ -3,9 +3,9 @@ import React from 'react';
 import { emallson, Hordehobbs } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import { TooltipElement } from 'common/Tooltip';
-import AlertWarning from 'interface/AlertWarning';
+import { AlertWarning } from 'interface';
 
 import CHANGELOG from './CHANGELOG';
 

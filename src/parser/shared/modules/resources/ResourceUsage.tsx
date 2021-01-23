@@ -3,7 +3,7 @@ import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Events, { CastEvent } from 'parser/core/Events';
-import ResourceLink from 'interface/ResourceLink';
+import { ResourceLink } from 'interface';
 import { formatNumber } from 'common/format';
 
 import Spell from 'common/SPELLS/Spell';

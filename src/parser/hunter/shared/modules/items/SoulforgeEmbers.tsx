@@ -7,7 +7,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import SPELLS from 'common/SPELLS';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import SpellIcon from 'interface/SpellIcon';
+import { SpellIcon } from 'interface';
 
 /**
  * Launching a Flare into your Tar Trap causes all enemies inside of the Tar Trap to burn for (150% of Attack power) Fire damage over 12 sec.

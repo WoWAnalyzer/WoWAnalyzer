@@ -1,5 +1,5 @@
 import { formatPercentage } from 'common/format';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 
 import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';

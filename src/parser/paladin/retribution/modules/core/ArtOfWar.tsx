@@ -1,8 +1,8 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'interface/SpellLink';
-import SpellIcon from 'interface/SpellIcon';
+import { SpellLink } from 'interface';
+import { SpellIcon } from 'interface';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import Combatants from 'parser/shared/modules/Combatants';

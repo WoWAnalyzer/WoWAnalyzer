@@ -9,7 +9,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 
 /**
  * Blackout Kick, Totm BoKs, Rising Sun Kick and Spinning Crane Kick generate stacks of Invoke Chi-Ji, the Red Crane, which reduce the cast time and mana

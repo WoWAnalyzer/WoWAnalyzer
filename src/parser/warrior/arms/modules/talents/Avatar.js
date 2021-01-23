@@ -3,7 +3,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatThousands } from 'common/format';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import Events from 'parser/core/Events';
 

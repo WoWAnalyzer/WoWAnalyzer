@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tyndi } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
-import AlertWarning from 'interface/AlertWarning';
+import { AlertWarning } from 'interface';
 
 import CHANGELOG from './CHANGELOG';
 

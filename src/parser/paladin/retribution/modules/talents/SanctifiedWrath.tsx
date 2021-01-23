@@ -8,7 +8,7 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import SpellIcon from 'interface/SpellIcon';
+import { SpellIcon } from 'interface';
 
 
 const AW_BASE_DURATION = 20;

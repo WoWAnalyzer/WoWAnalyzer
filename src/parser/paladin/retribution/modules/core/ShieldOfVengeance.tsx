@@ -1,7 +1,7 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'interface/SpellIcon';
-import SpellLink from 'interface/SpellLink';
+import { SpellIcon } from 'interface';
+import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';

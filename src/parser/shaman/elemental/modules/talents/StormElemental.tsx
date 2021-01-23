@@ -11,7 +11,7 @@ import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import Statistic from 'parser/ui/Statistic';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 
 import { t } from '@lingui/macro';
 

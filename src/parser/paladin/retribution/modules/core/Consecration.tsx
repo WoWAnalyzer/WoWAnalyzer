@@ -3,7 +3,7 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Events, {DamageEvent, } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'interface/SpellIcon';
+import { SpellIcon } from 'interface';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 class Consecration extends Analyzer {

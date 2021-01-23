@@ -2,7 +2,7 @@ import React from 'react';
 
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import { TooltipElement } from 'common/Tooltip';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';

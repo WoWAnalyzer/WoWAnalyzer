@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'parser/core/Analyzer';
 import StatisticBox from 'parser/ui/StatisticBox';
-import SpellIcon from 'interface/SpellIcon';
+import { SpellIcon } from 'interface';
 import { formatPercentage } from 'common/format';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 

@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import Toggle from 'react-toggle';
 import { Trans } from '@lingui/macro';
 
-import Icon from 'interface/Icon';
-import SpellLink from 'interface/SpellLink';
+import { Icon } from 'interface';
+import { SpellLink } from 'interface';
 import { formatNumber, formatPercentage } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
 import HealingValue from 'parser/shared/modules/HealingValue';

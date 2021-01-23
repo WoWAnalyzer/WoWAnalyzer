@@ -1,10 +1,10 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { AbsorbedEvent, ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, RemoveBuffEvent } from 'parser/core/Events';
-import SpellIcon from 'interface/SpellIcon';
+import { SpellIcon } from 'interface';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Statistic from 'parser/ui/Statistic';
 import BoringValue from 'parser/ui/BoringValueText';

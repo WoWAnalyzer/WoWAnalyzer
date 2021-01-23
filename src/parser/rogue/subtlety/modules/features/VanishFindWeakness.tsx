@@ -7,7 +7,7 @@ import { t } from '@lingui/macro';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import { formatMilliseconds, formatNumber } from 'common/format';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Enemies from 'parser/shared/modules/Enemies';

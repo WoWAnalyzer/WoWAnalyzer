@@ -2,7 +2,7 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS/index';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import resourceSuggest from 'parser/shared/modules/resources/resourcetracker/ResourceSuggest';
 
 import EnergyTracker from '../../../shared/resources/EnergyTracker';
