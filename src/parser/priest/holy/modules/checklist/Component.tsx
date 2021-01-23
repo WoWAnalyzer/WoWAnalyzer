@@ -1,29 +1,28 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 
 import SPELLS from 'common/SPELLS';
 // import ITEMS from 'common/ITEMS';
-import SpellLink from 'common/SpellLink';
-// import ItemLink from 'common/ItemLink';
-import ResourceLink from 'common/ResourceLink';
+import { SpellLink } from 'interface';
+// import { ItemLink } from 'interface';
+import { ResourceLink } from 'interface';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
+import { AbilityRequirementProps, ChecklistProps } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 
-const HolyPriestChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
-  const AbilityRequirement = (props: any) => (
+const HolyPriestChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
+  const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
     />
   );
-  AbilityRequirement.propTypes = {
-    spell: PropTypes.number.isRequired,
-  };
+
 
   return (
     <Checklist>
@@ -97,14 +96,6 @@ const HolyPriestChecklist = ({ combatant, castEfficiency, thresholds }: any) => 
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
-};
-
-HolyPriestChecklist.propTypes = {
-  castEfficiency: PropTypes.object.isRequired,
-  combatant: PropTypes.shape({
-    hasTalent: PropTypes.func.isRequired,
-  }).isRequired,
-  thresholds: PropTypes.object.isRequired,
 };
 
 export default HolyPriestChecklist;

@@ -4,14 +4,14 @@ import Analyzer, { Options } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { SPIRIT_ATTUNEMENT_DAMAGE_INCREASE, WILD_MARK_DAMAGE_AMP, WILD_SPIRITS_BASELINE_DURATION } from 'parser/hunter/shared/constants';
 import SPELLS from 'common/SPELLS';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import ItemDamageDone from 'interface/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import React from 'react';
 import { formatNumber, formatThousands } from 'common/format';
 import COVENANTS from 'game/shadowlands/COVENANTS';
-import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
+import ConduitSpellText from 'parser/ui/ConduitSpellText';
 
 /**
  * Wild Spirits duration is increased by 3 sec and the damage dealt is increased by 10.0%.

@@ -1,13 +1,14 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import Events from 'parser/core/Events';
 import { t } from '@lingui/macro';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 const debug = false;
 
@@ -24,7 +25,7 @@ class ChiBurst extends Analyzer {
         average: this.raidSize * 0.25,
         major: this.raidSize * 0.2,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
@@ -67,12 +68,12 @@ class ChiBurst extends Analyzer {
     )
       .icon(SPELLS.CHI_BURST_TALENT.icon)
       .actual(`${this.avgTargetsHitPerCB.toFixed(2)} ${t({
-      id: "monk.mistweaver.suggestions.chiBurst.targetsHit",
-      message: `targets hit per Chi Burst cast - `
-    })}${formatPercentage(this.avgTargetsHitPerCB / this.raidSize)}${t({
-      id: "monk.mistweaver.suggestions.chiBurst.targetsHitPartTwo",
-      message: `% of raid hit`
-    })}`)
+        id: 'monk.mistweaver.suggestions.chiBurst.targetsHit',
+        message: `targets hit per Chi Burst cast - `,
+      })}${formatPercentage(this.avgTargetsHitPerCB / this.raidSize)}${t({
+        id: 'monk.mistweaver.suggestions.chiBurst.targetsHitPartTwo',
+        message: `% of raid hit`,
+      })}`)
       .recommended('30% of the raid hit is recommended'));
   }
 

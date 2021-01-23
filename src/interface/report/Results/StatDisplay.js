@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { formatPercentage } from 'common/format';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import RadarChart, { maxDataValue } from 'interface/statistics/components/RadarChart/RadarChart';
+import RadarChart, { maxDataValue } from 'parser/ui/RadarChart';
 
 const StatDisplay = props => {
   const { statTracker, ...others } = props;

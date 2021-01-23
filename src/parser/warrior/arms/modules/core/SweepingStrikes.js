@@ -1,12 +1,13 @@
 import React from 'react';
 import { formatPercentage } from 'common/format';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import Events from 'parser/core/Events';
 
 import { t } from '@lingui/macro';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 import SpellUsable from '../features/SpellUsable';
 
@@ -23,7 +24,7 @@ class SweepingStrikes extends Analyzer {
         average: 0.2,
         major: 0.5,
       },
-      style: 'percent',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -60,9 +61,9 @@ class SweepingStrikes extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Try to cast <SpellLink id={SPELLS.SWEEPING_STRIKES.id} icon /> before <SpellLink id={SPELLS.COLOSSUS_SMASH.id} /> (or <SpellLink id={SPELLS.WARBREAKER_TALENT.id} /> if talented).</>)
       .icon(SPELLS.SWEEPING_STRIKES.icon)
       .actual(t({
-      id: "warrior.arms.suggestions.sweepingStrikes.efficiency",
-      message: `Sweeping Strikes was used ${formatPercentage(actual)}% of the time shortly after Colossus Smash/Warbreaker.`
-    }))
+        id: 'warrior.arms.suggestions.sweepingStrikes.efficiency',
+        message: `Sweeping Strikes was used ${formatPercentage(actual)}% of the time shortly after Colossus Smash/Warbreaker.`,
+      }))
       .recommended(`${formatPercentage(recommended)}% is recommended`));
   }
 

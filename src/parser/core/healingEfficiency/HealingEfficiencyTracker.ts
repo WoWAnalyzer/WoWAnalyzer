@@ -4,7 +4,7 @@ import DamageDone from 'parser/shared/modules/throughput/DamageDone';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import Analyzer from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 
 import ManaTracker from './ManaTracker';

@@ -7,15 +7,15 @@ import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import Events, { ChangeDebuffStackEvent, DamageEvent } from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
+import { SpellLink } from 'interface';
+import { SpellIcon } from 'interface';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import UptimeBar from 'interface/statistics/components/UptimeBar';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import UptimeBar from 'parser/ui/UptimeBar';
 
 import { t } from '@lingui/macro';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -202,7 +202,7 @@ class ShadowEmbrace extends Analyzer {
         tooltip={`${formatThousands(this.damage)} bonus damage`}
       >
         <BoringSpellValueText spell={SPELLS.SHADOW_EMBRACE}>
-          {formatPercentage(this.totalUptimePercentage)} %
+          {formatPercentage(this.totalUptimePercentage)} %{' '}
           <TooltipElement
             content={
               <>
@@ -217,7 +217,7 @@ class ShadowEmbrace extends Analyzer {
             </small>
           </TooltipElement>
           <br />
-          {formatNumber(this.dps)} DPS
+          {formatNumber(this.dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total
           </small>

@@ -1,11 +1,11 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SPECS from 'game/SPECS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import { formatNumber, formatPercentage } from 'common/format';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events, { CastEvent, SummonEvent, DamageEvent } from 'parser/core/Events';

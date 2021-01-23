@@ -1,13 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 
 import SPELLS from 'common/SPELLS';
 // import ITEMS from 'common/ITEMS';
-import SpellLink from 'common/SpellLink';
-// import ItemLink from 'common/ItemLink';
-import ResourceLink from 'common/ResourceLink';
+import { SpellLink } from 'interface';
+// import { ItemLink } from 'interface';
+import { ResourceLink } from 'interface';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
@@ -15,17 +15,16 @@ import PreparationRule from 'parser/shared/modules/features/Checklist/Preparatio
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import Combatant from 'parser/core/Combatant';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import { AbilityRequirementProps } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 
 const DisciplinePriestChecklist = ({ combatant, castEfficiency, thresholds }: { combatant: Combatant, castEfficiency: CastEfficiency, thresholds: any }) => {
-  const AbilityRequirement = (props: { spell: number }) => (
+  const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
     />
   );
-  AbilityRequirement.propTypes = {
-    spell: PropTypes.number.isRequired,
-  };
+
 
   return (
     <Checklist>
@@ -109,14 +108,6 @@ const DisciplinePriestChecklist = ({ combatant, castEfficiency, thresholds }: { 
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
-};
-
-DisciplinePriestChecklist.propTypes = {
-  castEfficiency: PropTypes.object.isRequired,
-  combatant: PropTypes.shape({
-    hasTalent: PropTypes.func.isRequired,
-  }).isRequired,
-  thresholds: PropTypes.object.isRequired,
 };
 
 export default DisciplinePriestChecklist;

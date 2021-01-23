@@ -5,10 +5,10 @@ import Events, { HealEvent } from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import ItemHealingDone from 'interface/ItemHealingDone';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 const HEAL_INCREASE = 1.5;
 const TRIGGER_HEALTH_PERCENTAGE = .75;

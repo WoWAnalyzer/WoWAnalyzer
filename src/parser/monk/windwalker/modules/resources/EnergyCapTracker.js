@@ -1,11 +1,11 @@
 import React from 'react';
-import Icon from 'common/Icon';
+import { Icon } from 'interface';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatDuration, formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetracker/RegenResourceCapTracker';
-import Tooltip from 'common/Tooltip';
+import { Tooltip } from 'interface';
 
 const BASE_ENERGY_REGEN = 10;
 const ASCENSION_REGEN_MULTIPLIER = 1.1;

@@ -1,12 +1,12 @@
 import { formatPercentage } from 'common/format';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 
 import SPELLS from 'common/SPELLS';
-import ItemDamageDone from 'interface/ItemDamageDone';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import Statistic from 'interface/statistics/Statistic';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Events, { ApplyDebuffEvent, DamageEvent, RefreshDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
@@ -88,7 +88,7 @@ class SerpentSting extends Analyzer {
     if (targetInstance === undefined) {
       targetInstance = 1;
     }
-    const serpentStingTarget: any = encodeTargetString(event.targetID, targetInstance);
+    const serpentStingTarget = Number(encodeTargetString(event.targetID, targetInstance));
     this.serpentStingTargets[serpentStingTarget] = { timestamp: event.timestamp, serpentStingDuration: SERPENT_STING_MM_BASE_DURATION };
 
   }
@@ -98,7 +98,7 @@ class SerpentSting extends Analyzer {
     if (targetInstance === undefined) {
       targetInstance = 1;
     }
-    const serpentStingTarget: any = encodeTargetString(event.targetID, targetInstance);
+    const serpentStingTarget = Number(encodeTargetString(event.targetID, targetInstance));
     this.serpentStingTargets.splice(serpentStingTarget, 1);
   }
 
@@ -107,7 +107,7 @@ class SerpentSting extends Analyzer {
     if (targetInstance === undefined) {
       targetInstance = 1;
     }
-    const serpentStingTarget: any = encodeTargetString(event.targetID, targetInstance);
+    const serpentStingTarget = Number(encodeTargetString(event.targetID, targetInstance));
     this.timesRefreshed += 1;
 
     const timeRemaining = this.serpentStingTargets[serpentStingTarget].serpentStingDuration - (event.timestamp - this.serpentStingTargets[serpentStingTarget].timestamp);

@@ -1,12 +1,12 @@
 import React from 'react';
 
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import Events, { HealEvent } from 'parser/core/Events';
 
 const TORRENT_HEALING_INCREASE = 0.2;

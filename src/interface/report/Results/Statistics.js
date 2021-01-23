@@ -4,8 +4,8 @@ import Masonry from 'react-masonry-component';
 import Toggle from 'react-toggle';
 import { t, Trans } from '@lingui/macro';
 
-import { TooltipElement } from 'common/Tooltip';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import { TooltipElement } from 'interface/Tooltip';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 import StatisticsSectionTitle from './StatisticsSectionTitle';
 

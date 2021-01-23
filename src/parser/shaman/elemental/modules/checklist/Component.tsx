@@ -1,16 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 import SPELLS from 'common/SPELLS';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
+import { AbilityRequirementProps, ChecklistProps } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 
-const ElementalShamanChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
+const ElementalShamanChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
 
-  const AbilityRequirement = (props: { spell: number }) => (
+  const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
@@ -99,11 +100,4 @@ const ElementalShamanChecklist = ({ combatant, castEfficiency, thresholds }: any
   );
 };
 
-ElementalShamanChecklist.propTypes = {
-  castEfficiency: PropTypes.object.isRequired,
-  combatant: PropTypes.shape({
-    hasTalent: PropTypes.func.isRequired,
-  }).isRequired,
-  thresholds: PropTypes.object.isRequired,
-};
 export default ElementalShamanChecklist;

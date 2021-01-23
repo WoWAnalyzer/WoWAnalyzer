@@ -4,7 +4,7 @@ import { t } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';

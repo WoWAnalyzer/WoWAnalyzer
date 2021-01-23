@@ -1,7 +1,7 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { SpellLink } from 'interface';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { t } from '@lingui/macro';
 
 import HitCountAoE from '../core/HitCountAoE';

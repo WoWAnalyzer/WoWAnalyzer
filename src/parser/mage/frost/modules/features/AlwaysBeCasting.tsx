@@ -4,10 +4,10 @@ import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import Statistic from 'interface/statistics/Statistic';
-import Gauge from 'interface/statistics/components/Gauge';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import SpellLink from 'common/SpellLink';
+import Statistic from 'parser/ui/Statistic';
+import Gauge from 'parser/ui/Gauge';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { SpellLink } from 'interface';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import { t, Trans } from '@lingui/macro';
 

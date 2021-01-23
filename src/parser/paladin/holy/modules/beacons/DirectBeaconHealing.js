@@ -2,10 +2,10 @@ import React from 'react';
 import { Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+import { SpellIcon } from 'interface';
 import { formatPercentage } from 'common/format';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import UpArrowIcon from 'interface/icons/UpArrow';
 import PlusIcon from 'interface/icons/Plus';
 import Analyzer from 'parser/core/Analyzer';
@@ -21,9 +21,25 @@ class DirectBeaconHealing extends Analyzer {
   };
 
   get beaconTransferingAbilities() {
-    return this.abilities.activeAbilities.filter(
-      ability => BEACON_TRANSFERING_ABILITIES[ability.spell.id] !== undefined,
-    );
+    const listOfSpells = [];
+
+    //This might seem like a way but ability.spell can be an array
+    //meaning we can miss a few spells *cough* holy shock. We don't want that so yeah
+    this.abilities.activeAbilities.forEach(ability => {
+      if(Array.isArray(ability.spell)){
+        ability.spell.forEach(oneSpell => {
+          if(BEACON_TRANSFERING_ABILITIES[oneSpell.id]){
+            listOfSpells.push(oneSpell.id);
+          }
+        });
+      }else{
+        if( BEACON_TRANSFERING_ABILITIES[ability.spell.id]){
+          listOfSpells.push(ability.spell.id);
+        }
+      }
+    });
+
+    return listOfSpells;
   }
   get totalFoLHLOnBeaconPercentage() {
     const abilityTracker = this.abilityTracker;
@@ -34,10 +50,10 @@ class DirectBeaconHealing extends Analyzer {
 
     this.beaconTransferingAbilities
       .filter(ability =>
-        [SPELLS.FLASH_OF_LIGHT.id, SPELLS.HOLY_LIGHT.id].includes(ability.spell.id),
+        [SPELLS.FLASH_OF_LIGHT.id, SPELLS.HOLY_LIGHT.id].includes(ability),
       )
       .forEach(ability => {
-        const castCount = getCastCount(ability.spell.id);
+        const castCount = getCastCount(ability);
         casts += castCount.healingHits || 0;
         castsOnBeacon += castCount.healingBeaconHits || 0;
       });
@@ -53,10 +69,10 @@ class DirectBeaconHealing extends Analyzer {
 
     this.beaconTransferingAbilities
       .filter(
-        ability => ![SPELLS.FLASH_OF_LIGHT.id, SPELLS.HOLY_LIGHT.id].includes(ability.spell.id),
+        ability => ![SPELLS.FLASH_OF_LIGHT.id, SPELLS.HOLY_LIGHT.id].includes(ability),
       )
       .forEach(ability => {
-        const castCount = getCastCount(ability.spell.id);
+        const castCount = getCastCount(ability);
         casts += castCount.healingHits || 0;
         castsOnBeacon += castCount.healingBeaconHits || 0;
       });
@@ -71,7 +87,7 @@ class DirectBeaconHealing extends Analyzer {
     let castsOnBeacon = 0;
 
     this.beaconTransferingAbilities.forEach(ability => {
-      const castCount = getCastCount(ability.spell.id);
+      const castCount = getCastCount(ability);
       casts += castCount.healingHits || 0;
       castsOnBeacon += castCount.healingBeaconHits || 0;
     });

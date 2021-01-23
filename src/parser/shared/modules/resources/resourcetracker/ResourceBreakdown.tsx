@@ -1,8 +1,8 @@
 import React from 'react';
 
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 
 import ResourceTracker, { BuilderObj, SpenderObj } from './ResourceTracker';
 

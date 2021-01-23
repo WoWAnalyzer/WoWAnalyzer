@@ -2,12 +2,12 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Events, { DamageEvent } from 'parser/core/Events';
 import React from 'react';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { formatNumber } from 'common/format';
-import SpellLink from 'common/SpellLink';
-import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import { SpellLink } from 'interface';
+import BoringSpellValue from 'parser/ui/BoringSpellValue';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 const DAMAGE_MODIFIER = 0.2;
 

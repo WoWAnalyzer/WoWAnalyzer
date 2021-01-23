@@ -391,18 +391,6 @@ class Abilities extends CoreAbilities {
         cooldown: 120,
         enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },
-      {
-        spell: SPELLS.UNHOLY_NOVA,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 60,
-        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-          averageIssueEfficiency: 0.6,
-          majorIssueEfficiency: 0.4,
-        },
-      },
     ];
   }
 }

@@ -1,9 +1,9 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
-import Panel from 'interface/others/Panel';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import Statistic from 'interface/statistics/Statistic';
-import BoringResourceValue from 'interface/statistics/components/BoringResourceValue';
+import { Panel } from 'interface';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
+import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 import { t } from '@lingui/macro';

@@ -1,13 +1,13 @@
 import React from 'react';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { formatPercentage } from 'common/format';
 import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValue from 'parser/ui/BoringSpellValue';
 
 import Abilities from '../Abilities';
 import SpellUsable from '../features/SpellUsable';

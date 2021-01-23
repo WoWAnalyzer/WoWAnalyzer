@@ -1,5 +1,6 @@
+import REALMS from 'game/REALMS';
+
 import makeUrl from './makeUrl';
-import REALMS from './REALMS';
 
 export interface QueryParams {
   [key: string]: string | number | boolean | undefined;

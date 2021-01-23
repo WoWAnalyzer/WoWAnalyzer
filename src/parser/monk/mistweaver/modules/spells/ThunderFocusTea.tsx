@@ -1,14 +1,14 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 
-import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
-import Statistic from 'interface/statistics/Statistic';
-import DonutChart from 'interface/statistics/components/DonutChart';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
+import Statistic from 'parser/ui/Statistic';
+import DonutChart from 'parser/ui/DonutChart';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 

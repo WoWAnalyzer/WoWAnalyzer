@@ -4,19 +4,21 @@ import SPELLS from 'common/SPELLS';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
-import Statistic from 'interface/statistics/Statistic';
+import Statistic from 'parser/ui/Statistic';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import SpellIcon from 'common/SpellIcon';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import { SpellIcon } from 'interface';
 import { formatNumber, formatPercentage } from 'common/format';
-import ResourceIcon from 'common/ResourceIcon';
+import { ResourceIcon } from 'interface';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import Abilities from 'parser/core/modules/Abilities';
 
 import { ABILITIES_AFFECTED_BY_MASTERY, CHI_SPENDERS, BLACKOUT_KICK_COOLDOWN_REDUCTION_MS, DAMAGE_AFFECTED_BY_MASTERY } from '../../constants';
 import WeaponsOfOrder from '../../../shared/modules/covenants/WeaponsOfOrder';
 
 class WeaponsOfOrderWindwalker extends WeaponsOfOrder {
     static dependencies = {
+        abilities: Abilities,
         spellUsable: SpellUsable,
     };
     protected spellUsable!: SpellUsable;
@@ -76,7 +78,7 @@ class WeaponsOfOrderWindwalker extends WeaponsOfOrder {
         if (!this.selectedCombatant.hasBuff(SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id)) {
             return;
         }
-        // there might be some very rare cases where mastery affected damage is happening after the cast of another mastery spell, but should be negligible even if it happens 
+        // there might be some very rare cases where mastery affected damage is happening after the cast of another mastery spell, but should be negligible even if it happens
         if (!this.mastery) {
             return;
         }

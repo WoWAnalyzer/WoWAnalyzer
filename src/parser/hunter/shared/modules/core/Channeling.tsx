@@ -1,7 +1,8 @@
 import SPELLS from 'common/SPELLS';
 import CoreChanneling from 'parser/shared/modules/Channeling';
-import Events, { CastEvent, RemoveBuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
+import Events, { AnyEvent, CastEvent, RemoveBuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Ability from 'parser/core/modules/Ability';
 
 const debug = false;
 
@@ -22,7 +23,7 @@ class Channeling extends CoreChanneling {
     super.onCast(event);
   }
 
-  cancelChannel(event: any, ability: any) {
+  cancelChannel(event: AnyEvent, ability: Ability) {
     if (this.isChannelingSpell(SPELLS.BARRAGE_TALENT.id) || this.isChannelingSpell(SPELLS.RAPID_FIRE.id)) {
       // If a channeling spell is "canceled" it was actually just ended, so if it looks canceled then instead just mark it as ended
       debug && this.log('Marking', this._currentChannel.ability.name, 'as ended since we started casting something else');

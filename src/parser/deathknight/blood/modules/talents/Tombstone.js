@@ -1,12 +1,12 @@
 import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS/index';
-import SpellLink from 'common/SpellLink';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 import { formatNumber, formatPercentage } from 'common/format';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import { TooltipElement } from 'common/Tooltip';
+import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { TooltipElement } from 'interface';
 import { t } from '@lingui/macro';
 import Events from 'parser/core/Events';
 

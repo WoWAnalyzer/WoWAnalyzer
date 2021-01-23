@@ -1,6 +1,7 @@
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import { formatPercentage } from 'common/format';
 import { t } from '@lingui/macro';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
 
@@ -12,7 +13,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         average: 0.20,
         major: 0.25,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 

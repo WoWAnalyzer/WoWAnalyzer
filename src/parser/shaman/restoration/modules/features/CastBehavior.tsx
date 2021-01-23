@@ -1,14 +1,14 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 
 import Analyzer from 'parser/core/Analyzer';
 
-import StatisticGroup from 'interface/statistics/StatisticGroup';
-import Statistic from 'interface/statistics/Statistic';
-import DonutChart from 'interface/statistics/components/DonutChart';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import StatisticGroup from 'parser/ui/StatisticGroup';
+import Statistic from 'parser/ui/Statistic';
+import DonutChart from 'parser/ui/DonutChart';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { Trans } from '@lingui/macro';
 
 import { RESTORATION_COLORS } from 'parser/shaman/restoration/constants';

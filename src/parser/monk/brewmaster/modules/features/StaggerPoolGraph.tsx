@@ -2,11 +2,11 @@ import React from 'react';
 import { AutoSizer } from 'react-virtualized';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, DeathEvent, EventType, HealEvent } from 'parser/core/Events';
-import Panel from 'interface/others/Panel';
-import BaseChart, { formatTime } from 'interface/others/BaseChart';
+import { Panel } from 'interface';
+import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 
 import StaggerFabricator, { AddStaggerEvent, RemoveStaggerEvent } from '../core/StaggerFabricator';
 

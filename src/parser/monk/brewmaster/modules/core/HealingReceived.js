@@ -1,9 +1,9 @@
 import React from 'react';
 import { formatThousands, formatNumber } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import Statistic from 'interface/statistics/Statistic';
-import BoringValue from 'interface/statistics/components/BoringValueText';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
+import BoringValue from 'parser/ui/BoringValueText';
 import Events from 'parser/core/Events';
 
 class HealingReceived extends Analyzer {

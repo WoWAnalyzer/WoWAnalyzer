@@ -18,8 +18,10 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
-          maxCasts: (cooldown: number) => calculateMaxCasts(cooldown, combatant.getBuffUptime(SPELLS.VOIDFORM_BUFF.id)),
+          maxCasts: (cooldown: number) =>
+            calculateMaxCasts(cooldown, combatant.getBuffUptime(SPELLS.VOIDFORM_BUFF.id)),
         },
+        damageSpellIds: [SPELLS.VOID_BOLT.id, SPELLS.VOID_BOLT_DISSONANT_ECHOES.id],
       },
       {
         spell: SPELLS.MIND_BLAST,
@@ -55,14 +57,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(SPELLS.SEARING_NIGHTMARE_TALENT.id),
-      },
-      {
-        spell: SPELLS.SHADOW_WORD_DEATH,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste: number) => 20 / (1 + haste),
-        gcd: {
-          base: 1500,
-        },
       },
       {
         spell: SPELLS.SHADOW_CRASH_TALENT,
@@ -123,7 +117,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.VOID_TORRENT_TALENT,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 30,
         gcd: {
           base: 1500,
@@ -133,6 +127,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.75,
         },
         enabled: combatant.hasTalent(SPELLS.VOID_TORRENT_TALENT.id),
+        damageSpellIds: [SPELLS.VOID_TORRENT_TALENT.id],
       },
       {
         spell: SPELLS.MINDBENDER_TALENT_SHADOW,
@@ -164,9 +159,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.POWER_INFUSION,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
-        gcd: {
-          base: 1500,
-        },
+        gcd: null,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
@@ -359,36 +352,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
         enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
-      },
-      {
-        spell: SPELLS.BOON_OF_THE_ASCENDED,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180,
-        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          averageIssueEfficiency: 0.8,
-          majorIssueEfficiency: 0.7,
-        },
-      },
-      {
-        spell: SPELLS.UNHOLY_NOVA,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 60,
-        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          averageIssueEfficiency: 0.8,
-          majorIssueEfficiency: 0.7,
-        },
       },
     ];
   }

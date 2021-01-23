@@ -4,9 +4,9 @@ import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import { When, NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import { t, Trans } from '@lingui/macro';
 
 /**

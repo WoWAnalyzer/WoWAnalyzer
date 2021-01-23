@@ -2,15 +2,16 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import Panel from 'interface/others/Panel';
-import Statistic from 'interface/statistics/Statistic';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { Panel } from 'interface';
+import Statistic from 'parser/ui/Statistic';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import ChiTracker from 'parser/monk/windwalker/modules/resources/ChiTracker';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import BoringResourceValue from 'interface/statistics/components/BoringResourceValue/index';
+import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import { formatPercentage } from 'common/format';
 import { t } from '@lingui/macro';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 class ChiDetails extends Analyzer {
   static dependencies = {
@@ -37,18 +38,18 @@ class ChiDetails extends Analyzer {
         average: 1,
         major: 2,
       },
-      style: 'decimal',
+      style: ThresholdStyle.DECIMAL,
     };
   }
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest('You are wasting Chi. Try to use it and not let it cap and go to waste')
-        .icon('creatureportrait_bubble')
-        .actual(t({
-      id: "monk.windwalker.suggestions.chi.wastedPerMinute",
-      message: `${this.chiWasted} Chi wasted (${(actual.toFixed(2))} per minute)`
-    }))
-        .recommended(`${recommended} Chi wasted is recommended`));
+      .icon('creatureportrait_bubble')
+      .actual(t({
+        id: 'monk.windwalker.suggestions.chi.wastedPerMinute',
+        message: `${this.chiWasted} Chi wasted (${(actual.toFixed(2))} per minute)`,
+      }))
+      .recommended(`${recommended} Chi wasted is recommended`));
   }
 
   statistic() {

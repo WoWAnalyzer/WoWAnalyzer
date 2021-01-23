@@ -4,12 +4,12 @@ import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/
 
 import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import ItemDamageDone from 'interface/ItemDamageDone';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { COORDINATED_ASSAULT_DMG_MOD } from 'parser/hunter/survival/constants';

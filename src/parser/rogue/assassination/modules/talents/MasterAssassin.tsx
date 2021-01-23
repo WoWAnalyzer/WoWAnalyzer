@@ -1,17 +1,17 @@
 import React from 'react';
 import { t } from '@lingui/macro';
-import ItemDamageDone from 'interface/ItemDamageDone';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 import { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { SuggestionFactory, ThresholdStyle, When } from 'parser/core/ParseResults';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 import StealthCasts from './StealthCasts';
 import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from '../../constants';

@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import { EventType } from 'parser/core/Events';
 
 const thisPlayer = 1;

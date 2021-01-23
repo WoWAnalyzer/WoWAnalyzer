@@ -1,9 +1,9 @@
 import React from 'react';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import SpellIcon from 'common/SpellIcon';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { SpellIcon } from 'interface';
 import { formatNumber, formatPercentage } from 'common/format';
 
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 
 // dependencies

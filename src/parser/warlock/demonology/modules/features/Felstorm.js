@@ -4,7 +4,7 @@ import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Anal
 import calculateMaxCasts from 'parser/core/calculateMaxCasts';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 import Events from 'parser/core/Events';
 

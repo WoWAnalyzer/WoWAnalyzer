@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import SPECS from 'game/SPECS';
 import ITEMS from 'common/ITEMS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import ItemLink from 'common/ItemLink';
+import { ItemLink } from 'interface';
 import Events, { ApplyBuffEvent, CastEvent, FilterCooldownInfoEvent } from 'parser/core/Events';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';

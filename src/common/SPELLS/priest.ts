@@ -81,7 +81,7 @@ const spells = {
     id: 585,
     name: 'Smite',
     icon: 'spell_holy_holysmite',
-    manaCost: 100,
+    manaCost: 200,
   },
   POWER_WORD_RADIANCE: {
     id: 194509,
@@ -133,7 +133,7 @@ const spells = {
   },
   LIGHTS_WRATH: {
     id: 207946,
-    name: 'Light\'s Wrath',
+    name: "Light's Wrath",
     icon: 'inv_staff_2h_artifacttome_d_01',
   },
   MIND_CONTROL: {
@@ -293,7 +293,7 @@ const spells = {
   },
   KAM_XIRAFF_BUFF: {
     id: 233997,
-    name: 'Kam Xi\'raff',
+    name: "Kam Xi'raff",
     icon: 'ability_priest_savinggrace',
   },
   TWIST_OF_FATE_BUFF: {
@@ -308,7 +308,7 @@ const spells = {
   },
   ESTEL_DEJAHNAS_INSPIRATION_BUFF: {
     id: 214637,
-    name: 'Dejahna\'s Inspiration',
+    name: "Dejahna's Inspiration",
     icon: 'spell_holy_heal',
   },
   PRAYER_CIRCLE_BUFF: {
@@ -323,7 +323,7 @@ const spells = {
     id: 204197,
     name: 'Purge the Wicked',
     icon: 'ability_mage_firestarter',
-    manaCost: 22000,
+    manaCost: 900,
   },
   PURGE_THE_WICKED_BUFF: {
     id: 204213,
@@ -334,7 +334,7 @@ const spells = {
     id: 120517,
     name: 'Halo',
     icon: 'ability_priest_halo',
-    manaCost: 2700,
+    manaCost: 1350,
   },
 
   // Holy Priest Spells
@@ -517,6 +517,11 @@ const spells = {
     name: 'Void Eruption',
     icon: 'spell_priest_void-blast',
   },
+  MASTERY_SHADOW_WEAVING: {
+    id: 343690,
+    name: 'Mastery: Shadow Weaving',
+    icon: 'spell_shadow_shadetruesight',
+  },
 
   // From shadow word pain/vampiric touch:
   VOID_ERUPTION_DAMAGE_1: {
@@ -541,6 +546,12 @@ const spells = {
 
   VOID_BOLT: {
     id: 205448,
+    name: 'Void Bolt',
+    icon: 'ability_ironmaidens_convulsiveshadows',
+  },
+
+  VOID_BOLT_DISSONANT_ECHOES: {
+    id: 343355,
     name: 'Void Bolt',
     icon: 'ability_ironmaidens_convulsiveshadows',
   },
@@ -662,6 +673,13 @@ const spells = {
     id: 205386,
     name: 'Shadow Crash',
     icon: 'spell_shadow_shadowfury',
+  },
+
+  // Disc
+  SPIRIT_SHELL_TALENT_BUFF: {
+    id: 114908,
+    name: "Spirit Shell",
+    icon: "ability_shaman_astralshift.jpg"
   },
 } as const;
 

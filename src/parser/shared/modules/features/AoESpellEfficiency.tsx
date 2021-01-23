@@ -1,10 +1,10 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SpellIcon from 'common/SpellIcon';
+import { SpellIcon } from 'interface';
 import calculateMaxCasts from 'parser/core/calculateMaxCasts';
 import Abilities from 'parser/core/modules/Abilities';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';

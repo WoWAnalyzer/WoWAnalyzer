@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 
@@ -33,6 +34,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.EXECUTE,
+        enabled: !combatant.hasCovenant(COVENANTS.VENTHYR.id),
         gcd: {
           base: 1500,
         },

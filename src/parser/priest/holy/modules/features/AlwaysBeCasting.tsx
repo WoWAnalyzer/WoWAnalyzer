@@ -1,4 +1,4 @@
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { formatPercentage } from 'common/format';
 
 import SPELLS from 'common/SPELLS';

@@ -1,11 +1,11 @@
 import React from 'react';
 import { formatPercentage } from 'common/format';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import Statistic from 'interface/statistics/Statistic';
-import SpellLink from 'common/SpellLink';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
+import { SpellLink } from 'interface';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import SpellIcon from 'common/SpellIcon';
-import BoringValue from 'interface/statistics/components/BoringValueText';
+import { SpellIcon } from 'interface';
+import BoringValue from 'parser/ui/BoringValueText';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -17,7 +17,6 @@ const RECOMMENDED_HIT_THRESHOLD = 5;
 const PRECAST_PERIOD = 3000;
 const PRECAST_THRESHOLD = 0.5;
 
-// TODO - dynamic suggestion threshold based on variables such as Autumn leaves
 class WildGrowth extends Analyzer {
   get averageEffectiveHits() {
     return (this.wgHistory.reduce((a, b) => a + b.wgBuffs.length, 0) / this.wgs) || 0;

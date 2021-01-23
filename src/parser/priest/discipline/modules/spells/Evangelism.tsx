@@ -1,9 +1,9 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
-import { TooltipElement } from 'common/Tooltip';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { SpellIcon } from 'interface';
+import { TooltipElement } from 'interface';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { formatNumber, formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';

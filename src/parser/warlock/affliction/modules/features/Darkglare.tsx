@@ -13,10 +13,10 @@ import Events, {
 
 import SPELLS from 'common/SPELLS';
 import { formatThousands, formatNumber } from 'common/format';
-import { TooltipElement } from 'common/Tooltip';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { TooltipElement } from 'interface';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 import { getDotDurations } from '../../constants';
 
@@ -50,6 +50,10 @@ const DOT_DEBUFFS = [
   SPELLS.SIPHON_LIFE_TALENT,
   SPELLS.UNSTABLE_AFFLICTION,
   SPELLS.PHANTOM_SINGULARITY_TALENT,
+  SPELLS.VILE_TAINT_TALENT,
+  SPELLS.SCOURING_TITHE,
+  SPELLS.SOUL_ROT,
+  SPELLS.IMPENDING_CATASTROPHE_DEBUFF,
 ];
 const debug = false;
 
@@ -251,13 +255,13 @@ class Darkglare extends Analyzer {
             Combined damage: {formatThousands(totalDamage)} (
             {this.owner.formatItemDamageDone(totalDamage)})<br />
             <br />
-            <sup>*</sup> This only counts the damage that happened after the dot
+            <sup>*</sup> This only counts the damage that happened after the dot{' '}
             <u>should have fallen off</u> (but instead was extended with Darkglare).
           </>
         }
       >
         <BoringSpellValueText spell={SPELLS.SUMMON_DARKGLARE}>
-          {formatDPS(this.bonusDotDamage)}
+          {formatDPS(this.bonusDotDamage)}{' '}
           <TooltipElement
             content={
               <>
@@ -272,7 +276,7 @@ class Darkglare extends Analyzer {
           <br />
           {averageExtendedDots.toFixed(1)} <small>average DoTs extended</small>
           <br />
-          {formatDPS(totalDamage)}
+          {formatDPS(totalDamage)}{' '}
           <TooltipElement content="including pet damage">
             <small>
               total damage <sup>*</sup>

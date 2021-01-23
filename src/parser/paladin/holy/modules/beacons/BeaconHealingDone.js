@@ -1,7 +1,7 @@
 import React from 'react';
 import { Trans } from '@lingui/macro';
 
-import Panel from 'interface/statistics/Panel';
+import Panel from 'parser/ui/Panel';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';

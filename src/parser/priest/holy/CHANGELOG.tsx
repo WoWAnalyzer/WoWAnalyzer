@@ -1,11 +1,12 @@
 import React from 'react';
 
 import { Khadaj, niseko, Zeboot } from 'CONTRIBUTORS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 12, 28), <>Adding support for <SpellLink id={SPELLS.BOON_OF_THE_ASCENDED.id} /></>, Khadaj),
   change(date(2020, 12, 28), <>Adding support for <SpellLink id={SPELLS.MINDGAMES.id} /></>, Khadaj),
   change(date(2020, 12, 28), <>Adding support for <SpellLink id={SPELLS.FAE_GUARDIANS.id} /></>, Khadaj),
   change(date(2020, 12, 28), <>Adding support for <SpellLink id={SPELLS.UNHOLY_NOVA.id} /></>, Khadaj),
@@ -20,7 +21,7 @@ export default [
   change(date(2020, 10, 1), `Making CoH baseline and adding Prayer Circle Talent.`, Khadaj),
   change(date(2020, 10, 1), `Removing Enduring Renewal and adding Renewed Faith.`, Khadaj),
   change(date(2020, 5, 1), `Fixed an issue with the stat weights module that caused Versatility to be undervalued.`, niseko),
-  change(date(2019, 10, 25), <>Fixing Holy Nova bug.</>, [Khadaj]),
-  change(date(2019, 10, 22), <>Adding holy priest stat weights module.</>, [Khadaj]),
-  change(date(2019, 10, 20), <>Fixing echo of light crash.</>, [Khadaj]),
+  change(date(2019, 10, 25), <>Fixing Holy Nova bug.</>, Khadaj),
+  change(date(2019, 10, 22), <>Adding holy priest stat weights module.</>, Khadaj),
+  change(date(2019, 10, 20), <>Fixing echo of light crash.</>, Khadaj),
 ];

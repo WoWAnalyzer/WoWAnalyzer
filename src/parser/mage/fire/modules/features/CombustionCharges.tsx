@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
@@ -45,7 +45,7 @@ class CombustionCharges extends Analyzer {
       debug && this.log("Fire Blast Charges: " + fireBlastCharges + " Target: " + FIRE_BLAST_THRESHOLD);
     }
 
-    if (phoenixFlamesCharges < PHOENIX_FLAMES_MAX_CHARGES) {
+    if (phoenixFlamesCharges < PHOENIX_FLAMES_MAX_CHARGES - 1) {
       this.lowPhoenixFlamesCharges += 1;
       this.badCast = true;
       debug && this.log("Phoenix Flames Charges: " + phoenixFlamesCharges);

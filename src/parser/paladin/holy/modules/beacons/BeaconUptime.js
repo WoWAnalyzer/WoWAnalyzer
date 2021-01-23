@@ -3,10 +3,10 @@ import { Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import Events from 'parser/core/Events';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValue from 'parser/ui/BoringSpellValue';
 
 /* ---------------------------- Log URLs for testing --------------------------
 

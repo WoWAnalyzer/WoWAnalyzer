@@ -1,6 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Combatant from 'parser/core/Combatant';
@@ -77,9 +77,6 @@ class TigerPalm extends Analyzer {
   }
 
   get bocEmpoweredThreshold() {
-    if (!this.selectedCombatant.hasTalent(SPELLS.BLACKOUT_COMBO_TALENT.id)) {
-      return null;
-    }
     return {
       actual: this.totalBocHits / this.totalCasts,
       isLessThan: {

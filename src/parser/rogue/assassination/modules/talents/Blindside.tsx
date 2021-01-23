@@ -1,17 +1,15 @@
 import React from 'react';
 import { t } from '@lingui/macro';
-import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink, SpellIcon } from 'interface';
 import { formatPercentage } from 'common/format';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { SuggestionFactory, ThresholdStyle, When } from 'parser/core/ParseResults';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import Statistic from 'interface/statistics/Statistic';
-import BoringValueText from 'interface/statistics/components/BoringValueText';
-
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import BoringValueText from 'parser/ui/BoringValueText';
 
 const BLINDSIDE_EXECUTE = 0.3;
 const MS_BUFFER = 100;

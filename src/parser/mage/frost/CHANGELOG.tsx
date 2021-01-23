@@ -2,10 +2,11 @@ import React from 'react';
 
 import { Sharrq } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2021, 1, 15), <>Fixed an issue that was not adding the proper amount of additional CDR from <SpellLink id={SPELLS.DISCIPLINE_OF_THE_GROVE.id} />.</>, Sharrq),
   change(date(2020, 12, 28), <>Updated conduit statistic boxes to use the new layout.</>, Sharrq),
   change(date(2020, 12, 24), <>Fixed an error in <SpellLink id={SPELLS.GLACIAL_FRAGMENTS.id} /> that was not properly counting absorbed damage.</>, Sharrq),
   change(date(2020, 12, 24), <>Fixed an issue that was showing <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> as lasting the entire fight duration in the Cooldowns tab.</>, Sharrq),

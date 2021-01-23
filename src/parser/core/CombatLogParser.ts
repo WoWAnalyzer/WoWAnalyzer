@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Boss, findByBossId } from 'raids';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
-import DeathRecapTracker from 'interface/others/DeathRecapTracker';
 import ModuleError from 'parser/core/ModuleError';
 import {
   AnyEvent,
@@ -14,6 +13,7 @@ import {
 } from 'parser/core/Events';
 
 import Haste from 'parser/shared/modules/Haste';
+import DeathRecapTracker from 'parser/shared/modules/DeathRecapTracker';
 
 import Module, { Options } from './Module';
 import Fight from './Fight';
@@ -73,6 +73,7 @@ import Healthstone from '../shared/modules/items/Healthstone';
 import HealthPotion from '../shared/modules/items/HealthPotion';
 import CombatPotion from '../shared/modules/items/CombatPotion';
 import WeaponEnhancementChecker from '../shared/modules/items/WeaponEnhancementChecker';
+import AugmentRuneChecker from '../shared/modules/items/AugmentRuneChecker';
 import PreparationRuleAnalyzer from '../shared/modules/features/Checklist/PreparationRuleAnalyzer';
 // Racials
 import ArcaneTorrent from '../shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -185,6 +186,7 @@ class CombatLogParser {
     enchantChecker: EnchantChecker,
     flaskChecker: FlaskChecker,
     foodChecker: FoodChecker,
+    augmentRuneChecker: AugmentRuneChecker,
     healthstone: Healthstone,
     healthPotion: HealthPotion,
     combatPotion: CombatPotion,
@@ -206,7 +208,7 @@ class CombatLogParser {
     // Crafted
     darkmoonDeckVoracity: DarkmoonDeckVoracity,
 
-    // Shadowlands 
+    // Shadowlands
 
     // Castle Nathria
     soulInfusion: SoulInfusion,

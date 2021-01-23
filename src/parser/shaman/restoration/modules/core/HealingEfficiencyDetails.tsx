@@ -1,8 +1,8 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
-import Panel from 'interface/statistics/Panel';
+import { SpellLink } from 'interface';
+import Panel from 'parser/ui/Panel';
 import CoreHealingEfficiencyDetails from 'parser/core/healingEfficiency/HealingEfficiencyDetails';
 import HealingEfficiencyTracker from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
 import HealingEfficiencyBreakdown from 'parser/core/healingEfficiency/HealingEfficiencyBreakdown';
@@ -25,10 +25,11 @@ class HealingEfficiencyDetails extends CoreHealingEfficiencyDetails {
               <SpellLink id={SPELLS.RESURGENCE.id} /> mana gained is removed from the spell, meaning the mana spent of that spell will be lower.<br />
             Healing that is caused by the <SpellLink id={SPELLS.UNLEASH_LIFE_TALENT.id} /> buff, is added to <SpellLink id={SPELLS.UNLEASH_LIFE_TALENT.id} /> instead of the spell that was buffed.<br />
               <SpellLink id={SPELLS.EARTH_SHIELD_TALENT.id} /> is given the healing from its healing buff and is removed from the spells that were buffed.
-          </Trans>
+            </Trans>
+            <br />
             <Trans id="shaman.restoration.healingEfficiencyDetails2">
               <SpellLink id={SPELLS.PRIMORDIAL_WAVE_CAST.id} /> is given the healing from its created <SpellLink id={SPELLS.RIPTIDE.id} /> & <SpellLink id={SPELLS.HEALING_WAVE.id} /> and is removed from those spells.
-          </Trans>
+            </Trans>
           </>
         )}
         pad={false}

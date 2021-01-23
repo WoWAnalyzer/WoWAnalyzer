@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
-import EarlyDotRefreshesCore from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshes';
+import EarlyDotRefreshesCore, { Dot } from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshes';
 import suggest from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesSuggestion';
 import Events, { CastEvent, SpendResourceEvent } from 'parser/core/Events';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -47,11 +47,14 @@ class EarlyDotRefresh extends EarlyDotRefreshesCore {
     }
 
     //Update duration.
-    this.getDot(SPELLS.RUPTURE.id).duration = (comboPointsSpent * 4 + 4) * 1000;
+    const dot = this.getDot(SPELLS.RUPTURE.id)
+    if (dot) {
+      dot.duration = (comboPointsSpent * 4 + 4) * 1000;
+    }
   }
 
   // Checks the status of the last cast and marks it accordingly.
-  getLastBadCastText(event: CastEvent, dot: {castId: number}) {    
+  getLastBadCastText(event: CastEvent, dot: Dot) {
     if (dot.castId === SPELLS.RUPTURE.id) {
       return super.getLastBadCastText(event, dot) + ' *Based on the amount of CPs spent.';
     }

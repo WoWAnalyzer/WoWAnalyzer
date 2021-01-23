@@ -7,6 +7,7 @@ import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/Pr
 
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import Component from './Component';
+import InsanityUsage from '../resources/InsanityUsage';
 import ShadowWordPain from '../spells/ShadowWordPain';
 import VampiricTouch from '../spells/VampiricTouch';
 
@@ -16,6 +17,7 @@ class Checklist extends BaseChecklist {
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
+    insanityUsage: InsanityUsage,
     shadowWordPain: ShadowWordPain,
     vampiricTouch: VampiricTouch,
   };
@@ -23,6 +25,7 @@ class Checklist extends BaseChecklist {
   protected castEfficiency!: CastEfficiency;
   protected alwaysBeCasting!: AlwaysBeCasting;
   protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
+  protected insanityUsage!: InsanityUsage;
   protected shadowWordPain!: ShadowWordPain;
   protected vampiricTouch!: VampiricTouch;
 
@@ -35,6 +38,7 @@ class Checklist extends BaseChecklist {
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
 
+          insanityUsage: this.insanityUsage.suggestionThresholds,
           shadowWordPain: this.shadowWordPain.suggestionThresholds,
           vampiricTouch: this.vampiricTouch.suggestionThresholds,
           downtime: this.alwaysBeCasting.suggestionThresholds,

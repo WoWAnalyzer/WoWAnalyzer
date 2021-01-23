@@ -2,7 +2,7 @@ import React from 'react';
 
 import { niseko } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
-import Warning from 'interface/Alert/Warning';
+import { AlertWarning } from 'interface';
 import Config from 'parser/Config';
 import { Trans } from '@lingui/macro';
 
@@ -11,10 +11,9 @@ import CHANGELOG from './CHANGELOG';
 const CONFIG: Config = {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
   contributors: [niseko],
-  // The WoW client patch this spec was last updated to be fully compatible with.
+  // The WoW client patch this spec was last updated.
   patchCompatibility: '9.0.2',
-  // If set to  false`, the spec will show up as unsupported.
-  isSupported: true,
+  isPartial: false,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
@@ -23,9 +22,9 @@ const CONFIG: Config = {
 
       If you want to learn more about Resto Shaman, join the Resto Shaman community at the <a href="https://discord.gg/AcTek6e" target="_blank" rel="noopener noreferrer">Ancestral Guidance</a> discord server and make sure to visit the guides on <a href="https://www.wowhead.com/restoration-shaman-guide">Wowhead</a> and <a href="https://www.icy-veins.com/wow/restoration-shaman-pve-healing-guide">Icy Veins</a>.<br /><br />
 
-      <Warning>
+      <AlertWarning>
         If there is something missing, incorrect, or inaccurate, please report it on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact us on <a href="https://discord.gg/AxphPxU">Discord</a>.
-      </Warning>
+      </AlertWarning>
     </Trans>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.

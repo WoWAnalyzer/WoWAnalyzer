@@ -2,10 +2,10 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
-import Statistic from 'interface/statistics/Statistic';
-import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import ItemDamageDone from 'interface/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import ConduitSpellText from 'parser/ui/ConduitSpellText';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
@@ -30,7 +30,7 @@ class ControlledDestruction extends Analyzer {
   statistic() {
     return (
       <Statistic
-        category={STATISTIC_CATEGORY.ITEMS}
+        category={STATISTIC_CATEGORY.COVENANTS}
         size="flexible"
       >
         <ConduitSpellText spell={SPELLS.CONTROLLED_DESTRUCTION} rank={this.conduitRank}>

@@ -30,6 +30,8 @@ import WarlockMissingDotApplyDebuffPrePull from '../shared/modules/normalizers/W
 import GrimoireOfSacrifice from '../shared/modules/talents/GrimoireOfSacrifice';
 import SoulConduit from './modules/talents/SoulConduit';
 
+import ScouringTitheUptime from './modules/covenants/ScouringTithe';
+
 import Checklist from './modules/features/Checklist/Module';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -68,6 +70,9 @@ class CombatLogParser extends CoreCombatLogParser {
     haunt: Haunt,
     grimoireOfSacrifice: GrimoireOfSacrifice,
     soulConduit: SoulConduit,
+
+    // Covenants
+    scouringTithe: ScouringTitheUptime,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

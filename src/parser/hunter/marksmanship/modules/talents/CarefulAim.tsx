@@ -5,14 +5,14 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { formatDuration, formatNumber } from 'common/format';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Enemies from 'parser/shared/modules/Enemies';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { CA_MODIFIER, CAREFUL_AIM_THRESHOLD } from 'parser/hunter/marksmanship/constants';
 import ExecuteHelper from 'parser/shared/modules/helpers/ExecuteHelper';
-import ItemDamageDone from 'interface/ItemDamageDone';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { abbreviateBossNames } from 'common/abbreviateLongNames';
 
 /**
@@ -61,7 +61,7 @@ class CarefulAim extends ExecuteHelper {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CAREFUL_AIM_TALENT.id);
-    this.owner.report.enemies.forEach((enemy: { fights: any[]; type: string; id: number; }) => {
+    this.owner.report.enemies.forEach((enemy: { fights: [{ id: number }]; type: string; id: number; }) => {
       enemy.fights.forEach(fight => {
         if (fight.id === this.owner.fight.id && enemy.type === 'Boss') {
           this.bossIDs.push(enemy.id);

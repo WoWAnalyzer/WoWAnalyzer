@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
@@ -64,7 +64,7 @@ const VengeanceDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }
           <Requirement
             name={(
               <>
-                <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> 4+ souls casts
+                <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> casted at 4+ souls
               </>
             )}
             thresholds={thresholds.spiritBombSoulsConsume}
@@ -74,7 +74,7 @@ const VengeanceDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }
           <Requirement
             name={(
               <>
-                <SpellLink id={SPELLS.SOUL_CLEAVE.id} /> souls consumed
+                <SpellLink id={SPELLS.SOUL_CLEAVE.id} /> minimizing souls consumed
               </>
             )}
             thresholds={thresholds.soulCleaveSoulsConsumed}
@@ -130,10 +130,10 @@ const VengeanceDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }
       )}
 
       <Rule
-        name="Manage your Fury properly"
+        name="Manage your resources properly"
         description={(
           <>
-            You should always avoid capping your Fury and spend it regularly.
+            You should always avoid capping your Fury/Souls and spend them regularly.
           </>
         )}
       >
@@ -151,6 +151,27 @@ const VengeanceDemonHunterChecklist = ({ combatant, castEfficiency, thresholds }
             thresholds={thresholds.immolationAuraEfficiency}
           />
         )}
+
+
+{!combatant.hasTalent(SPELLS.FRACTURE_TALENT.id) &&
+        <Requirement
+          name={(
+            <>
+                <SpellLink id={SPELLS.SHEAR.id} /> bad casts
+            </>
+          )}
+          thresholds={thresholds.shearFracture}
+        />}
+
+        {combatant.hasTalent(SPELLS.FRACTURE_TALENT.id) &&
+        <Requirement
+          name={(
+            <>
+                <SpellLink id={SPELLS.FRACTURE_TALENT.id}/> bad casts
+            </>
+          )}
+          thresholds={thresholds.shearFracture}
+        />}
       </Rule>
 
       <PreparationRule thresholds={thresholds} />

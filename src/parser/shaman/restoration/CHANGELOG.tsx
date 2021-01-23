@@ -2,10 +2,11 @@ import React from 'react';
 
 import { niseko, Abelito75 } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 12, 15), <>Fixed mana costs of a few spells being vastly off.</>, niseko),
   change(date(2020, 12, 15), <>Added support for <SpellLink id={SPELLS.PRIMORDIAL_WAVE_CAST.id} /> and <SpellLink id={SPELLS.CHAIN_HARVEST.id} />.</>, niseko),
   change(date(2020, 12, 9), <>Fixing loading errors due to hanging spellIds.</>, Abelito75),
   change(date(2020, 11, 8), <>Fixed <SpellLink id={SPELLS.PRIMAL_TIDE_CORE.id} /> module not catching the <SpellLink id={SPELLS.RIPTIDE.id} /> initial heal.</>, niseko),

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import COVENANTS from 'game/shadowlands/COVENANTS';
@@ -80,7 +80,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BETWEEN_THE_EYES,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 30,
+        cooldown: 45,
         gcd: {
           static: standardGcd,
         },

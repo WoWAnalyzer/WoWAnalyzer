@@ -2,12 +2,12 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import React from 'react';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import { formatMilliseconds, formatNumber } from 'common/format';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import SpellUsable from 'parser/paladin/protection/modules/features/SpellUsable';
 
 const ACTIVE_MITIGATION_CAP = 13.5 * 1000; // Active mitigation buffs cap out at 13.5 seconds.

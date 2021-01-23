@@ -1,14 +1,14 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS/index';
-import SpellLink from 'common/SpellLink';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Events, { CastEvent, DamageEvent, RemoveBuffEvent, EnergizeEvent } from 'parser/core/Events';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import ItemDamageDone from 'interface/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { t } from '@lingui/macro';
 import Insanity from 'interface/icons/Insanity'
 import { formatNumber } from 'common/format';
@@ -87,7 +87,7 @@ class VoidTorrent extends Analyzer {
     }
   }
 
-  onCast(event: CastEvent) {
+  onCast(event: CastEvent|DamageEvent) {
     this._voidTorrents[event.timestamp] = {
       start: event.timestamp,
     };
@@ -110,6 +110,9 @@ class VoidTorrent extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
+    if (this.voidTorrents.length === 0) {
+      this.onCast(event);
+    }
     this.damage += event.amount + (event.absorbed || 0);
   }
 
@@ -126,15 +129,6 @@ class VoidTorrent extends Analyzer {
           message: `Lost ${formatSeconds(this.timeWasted)} seconds of Void Torrent.`
         }))
     .recommended('No time wasted is recommended.'));
-
-    when(this.overcapThreshold)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>You lost a total of {formatNumber(this.insanityOvercapped)} insanity by channeling <SpellLink id={SPELLS.VOID_TORRENT_TALENT.id} /> at full insanity. Make sure that you are below 40 insanity before channeling to maximize insanity gain. If you are between 40 and 50 insanity, you should get above 50 and use <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} /> before channeling.</>)
-      .icon(SPELLS.VOID_TORRENT_TALENT.icon)
-      .actual(t({
-        id: "priest.shadow.suggestions.voidTorrent.insanityOvercapped",
-        message: `Wasted ${formatNumber(this.insanityOvercapped)} insanity from overcapping.`
-      }))
-    .recommended('No insanity wasted is recommended.'));
   }
 
   statistic() {

@@ -1,11 +1,11 @@
 import React from 'react';
 import { formatNumber, formatPercentage, formatDuration } from 'common/format';
 import Toggle from 'react-toggle';
-import PerformanceBar from 'interface/PerformanceBar';
-import SpellLink from 'common/SpellLink';
-import { TooltipElement } from 'common/Tooltip';
+import { SpellLink } from 'interface';
+import { TooltipElement } from 'interface';
 import HolyPriestHealingEfficiencyTracker from 'parser/priest/holy/modules/features/HolyPriestHealingEfficiencyTracker';
 import { Trans } from '@lingui/macro';
+import PerformanceBar from 'parser/ui/PerformanceBar';
 
 import HealingEfficiencyTracker, { SpellInfoDetails } from './HealingEfficiencyTracker';
 

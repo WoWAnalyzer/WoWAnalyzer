@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import Toggle from 'react-toggle';
 import { Trans } from '@lingui/macro';
 
-import Icon from 'common/Icon';
+import Icon from 'interface/Icon';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import Panel from 'interface/others/Panel';
+import Panel from 'interface/Panel';
 
 import Suggestion from './Suggestion';
 import './Suggestions.scss';
@@ -28,7 +28,7 @@ class Suggestions extends React.PureComponent {
     return (
       <Panel
         title={<Trans id="interface.report.results.overview.suggestions.suggestions">Suggestions</Trans>}
-        explanation={<Trans id="interface.report.results.overview.suggestions.explanation">"Based on what you did here are some things we think you might be able to improve."</Trans>}
+        explanation={<Trans id="interface.report.results.overview.suggestions.explanation">Based on what you did in this fight, here are some things we think you might be able to improve.</Trans>}
         actions={(
           <div className="pull-right toggle-control">
             <Toggle

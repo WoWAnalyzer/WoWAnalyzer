@@ -1,5 +1,4 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 import Haste from './modules/core/Haste';
 import Abilities from './modules/Abilities';
@@ -26,6 +25,14 @@ import WarMachine from './modules/talents/WarMachine';
 import Punish from './modules/talents/Punish';
 import DragonRoar from './modules/talents/DragonRoar';
 import SpellReflect from './modules/spells/SpellReflect';
+
+//covenants
+import Condemn from '../shared/modules/covenants/Condemn';
+
+//legendaries
+import TheWall from './modules/shadowlands/legendaries/TheWall';
+import Thunderlord from './modules/shadowlands/legendaries/Thunderlord';
+
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -59,8 +66,12 @@ class CombatLogParser extends CoreCombatLogParser {
     punish: Punish,
     dragonRoar: DragonRoar,
 
-    // Doesn't generate enough rage to be a valid cast
-    arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
+    //covenants
+    condemn: Condemn,
+
+    //legos
+    theWall: TheWall,
+    thunderlord: Thunderlord,
   };
 }
 

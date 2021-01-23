@@ -5,9 +5,9 @@ import Events, { AnyEvent, ApplyBuffEvent, EnergizeEvent, EventType, RefreshBuff
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Abilities from 'parser/core/modules/Abilities';
 import { RAPID_FIRE_FOCUS_PER_TICK, TRUESHOT_RAPID_FIRE_RECHARGE_INCREASE } from 'parser/hunter/marksmanship/constants';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { MS_BUFFER, NESINGWARY_FOCUS_GAIN_MULTIPLIER } from 'parser/hunter/shared/constants';
 
 /**
@@ -76,7 +76,7 @@ class RapidFire extends Analyzer {
     this.lastReductionTimestamp = event.timestamp;
   }
 
-  reduceRapidFireCooldown(event: any, spellReductionSpeed: number) {
+  reduceRapidFireCooldown(event: AnyEvent, spellReductionSpeed: number) {
     const maxReductionMs: number = (event.timestamp - this.lastReductionTimestamp) * spellReductionSpeed;
     debug && console.log('Reducing Rapid Fire cooldown by up to: ', maxReductionMs / 1000 + ' seconds since last event');
     const effectiveReductionMs: number = this.spellUsable.reduceCooldown(SPELLS.RAPID_FIRE.id, maxReductionMs, event.timestamp);

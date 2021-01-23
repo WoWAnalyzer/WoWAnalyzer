@@ -9,21 +9,21 @@ import { findByBossId } from 'raids';
 import lazyLoadComponent from 'common/lazyLoadComponent';
 import retryingPromise from 'common/retryingPromise';
 import makeWclUrl from 'common/makeWclUrl';
-import Tooltip from 'common/Tooltip';
+import Tooltip from 'interface/Tooltip';
 import getFightName from 'common/getFightName';
-import REPORT_HISTORY_TYPES from 'interface/home/ReportHistory/REPORT_HISTORY_TYPES';
+import REPORT_HISTORY_TYPES from 'interface/REPORT_HISTORY_TYPES';
 import { appendReportHistory } from 'interface/actions/reportHistory';
 import { getResultTab } from 'interface/selectors/url/report';
 import { hasPremium } from 'interface/selectors/user';
-import Warning from 'interface/Alert/Warning';
-import Ad from 'interface/common/Ad';
+import AlertWarning from 'interface/AlertWarning';
+import Ad from 'interface/Ad';
 import ReadableListing from 'interface/ReadableListing';
 import Contributor from 'interface/ContributorButton';
 import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
 import WipefestIcon from 'interface/icons/Wipefest';
-import LoadingBar from 'interface/layout/NavigationBar/LoadingBar';
-import Panel from 'interface/others/Panel';
-import ErrorBoundary from 'interface/common/ErrorBoundary';
+import LoadingBar from 'interface/LoadingBar';
+import Panel from 'interface/Panel';
+import ErrorBoundary from 'interface/ErrorBoundary';
 import Checklist from 'parser/shared/modules/features/Checklist/Module';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import ResultsChangelogTab from 'interface/ResultsChangelogTab';
@@ -33,7 +33,7 @@ import Header from './Header';
 import About from './About';
 import Overview from './Overview';
 import Statistics from './Statistics';
-import Character from './Character';
+import Character from './CharacterTab';
 import EncounterStats from './EncounterStats';
 import DegradedExperience from './DegradedExperience';
 import ItemWarning from './ItemWarning';
@@ -47,15 +47,15 @@ const TimelineTab = lazyLoadComponent(
   () =>
     retryingPromise(() =>
       import(/* webpackChunkName: 'TimelineTab' */ './Timeline/Container').then(
-        exports => exports.default,
+        (exports) => exports.default,
       ),
     ),
   0,
 );
 const EventsTab = lazyLoadComponent(() =>
   retryingPromise(() =>
-    import(/* webpackChunkName: 'EventsTab' */ 'interface/others/EventsTab').then(
-      exports => exports.default,
+    import(/* webpackChunkName: 'EventsTab' */ 'interface/EventsTab').then(
+      (exports) => exports.default,
     ),
   ),
 );
@@ -267,7 +267,7 @@ class Results extends React.PureComponent {
           return this.renderLoadingIndicator();
         }
 
-        const tab = results.tabs.find(tab => tab.url === selectedTab);
+        const tab = results.tabs.find((tab) => tab.url === selectedTab);
 
         return (
           <div className="container">
@@ -388,7 +388,7 @@ class Results extends React.PureComponent {
     const contributorinfo = (
       <ReadableListing>
         {config.contributors.length !== 0
-          ? config.contributors.map(contributor => (
+          ? config.contributors.map((contributor) => (
               <Contributor key={contributor.nickname} {...contributor} />
             ))
           : 'CURRENTLY UNMAINTAINED'}
@@ -427,7 +427,7 @@ class Results extends React.PureComponent {
         )}
         {boss && boss.fight.resultsWarning && (
           <div className="container">
-            <Warning style={{ marginBottom: 30 }}>{boss.fight.resultsWarning}</Warning>
+            <AlertWarning style={{ marginBottom: 30 }}>{boss.fight.resultsWarning}</AlertWarning>
           </div>
         )}
         {parser && parser.selectedCombatant.gear && (
@@ -435,24 +435,25 @@ class Results extends React.PureComponent {
         )}
         {timeFilter && (
           <div className="container">
-            <Warning style={{ marginBottom: 30 }}>
+            <AlertWarning style={{ marginBottom: 30 }}>
               <Trans id="interface.report.results.warning.timeFilter">
                 These results are filtered to the selected time period. Time filtered results are
                 under development and may not be entirely accurate. <br /> Please report any issues
                 you may find on our GitHub or Discord.
               </Trans>
-            </Warning>
+            </AlertWarning>
           </div>
         )}
         {build && (
           <div className="container">
-            <Warning style={{ marginBottom: 30 }}>
+            <AlertWarning style={{ marginBottom: 30 }}>
               <Trans id="interface.report.results.warning.build">
                 These results are analyzed under build different from the standard build. While this
                 will make some modules more accurate, some may also not provide the information you
-                expect them to. <br /> Please report any issues you may find on our GitHub or Discord.
+                expect them to. <br /> Please report any issues you may find on our GitHub or
+                Discord.
               </Trans>
-            </Warning>
+            </AlertWarning>
           </div>
         )}
         {this.renderContent(selectedTab, results)}
@@ -460,7 +461,9 @@ class Results extends React.PureComponent {
         <div className="container" style={{ marginTop: 40 }}>
           <div className="row">
             <div className="col-md-8">
-              <small><Trans id="interface.report.results.providedBy">Provided by</Trans></small>
+              <small>
+                <Trans id="interface.report.results.providedBy">Provided by</Trans>
+              </small>
               <div style={{ fontSize: 16 }}>
                 <Trans id="interface.report.results.providedByDetails">
                   {config.spec.specName} {config.spec.className} analysis has been provided by{' '}
@@ -470,12 +473,16 @@ class Results extends React.PureComponent {
               </div>
             </div>
             <div className="col-md-3">
-              <small><Trans id="interface.report.results.viewOn">View on</Trans></small>
+              <small>
+                <Trans id="interface.report.results.viewOn">View on</Trans>
+              </small>
               <br />
-              <Tooltip content={t({
-                id: "interface.report.results.tooltip.newTab.originalReport",
-                message: `Opens in a new tab. View the original report.`
-              })}>
+              <Tooltip
+                content={t({
+                  id: 'interface.report.results.tooltip.newTab.originalReport',
+                  message: `Opens in a new tab. View the original report.`,
+                })}
+              >
                 <a
                   href={makeWclUrl(report.code, {
                     fight: fight.id,
@@ -493,8 +500,8 @@ class Results extends React.PureComponent {
               <br />
               <Tooltip
                 content={t({
-                  id: "interface.report.results.tooltip.newTab.insightsAndTimelines",
-                  message: `Opens in a new tab. View insights and timelines for raid encounters.`
+                  id: 'interface.report.results.tooltip.newTab.insightsAndTimelines',
+                  message: `Opens in a new tab. View insights and timelines for raid encounters.`,
                 })}
               >
                 <a
@@ -509,7 +516,13 @@ class Results extends React.PureComponent {
               </Tooltip>
             </div>
             <div className="col-md-1">
-              <Tooltip content={<Trans id="interface.report.results.tooltip.backToTop">Scroll back to the top.</Trans>}>
+              <Tooltip
+                content={
+                  <Trans id="interface.report.results.tooltip.backToTop">
+                    Scroll back to the top.
+                  </Trans>
+                }
+              >
                 <ScrollToTop />
               </Tooltip>
             </div>

@@ -5,11 +5,11 @@ import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/R
 
 import SPELLS from 'common/SPELLS';
 
-import Panel from 'interface/others/Panel';
-import Warning from 'interface/Alert/Warning';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import { Panel } from 'interface';
+import { AlertWarning } from 'interface';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 import { t } from '@lingui/macro';
 
@@ -70,10 +70,10 @@ class SoulShardDetails extends Analyzer {
       url: 'soul-shards',
       render: () => (
         <Panel>
-          <Warning style={{ marginLeft: 0, marginRight: 0 }}>
+          <AlertWarning style={{ marginLeft: 0, marginRight: 0 }}>
             Due to the technical limitations and randomness of Immolate{(this.selectedCombatant.hasTalent(SPELLS.INFERNO_TALENT.id)) ? ' and Rain of Fire with Inferno talent' : ''}, we can't accurately determine the amount of generated Soul Shard Fragments, but we tried to estimate the amount of random fragments and count them in. <br />
             Summon Infernal also has a very inconsistent shard generation which might mess up the tracking as well. Take this tab with a grain of salt.
-          </Warning>
+          </AlertWarning>
           <ResourceBreakdown
             tracker={this.soulShardTracker}
             showSpenders

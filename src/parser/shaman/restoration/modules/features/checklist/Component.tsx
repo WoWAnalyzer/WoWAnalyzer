@@ -1,29 +1,27 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 import { t, Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
-import ResourceLink from 'common/ResourceLink';
+import { SpellLink } from 'interface';
+import { ResourceLink } from 'interface';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import COVENANTS from 'game/shadowlands/COVENANTS';
+import { AbilityRequirementProps, ChecklistProps } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 
-const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
-  const AbilityRequirement = (props: any) => (
+const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
+  const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
     />
   );
-  AbilityRequirement.propTypes = {
-    spell: PropTypes.number.isRequired,
-  };
 
   return (
     <Checklist>
@@ -91,23 +89,25 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: any) =>
         name={<Trans id="shaman.restoration.checklist.buffUptime">Keep your buffs up</Trans>}
         description={<Trans id="shaman.restoration.checklist.buffUptime.description">Water Shield and Earth Shield should be applied prior to the fight starting and maintained.<br />It is currently not possible to detect if you applied Water Shield before the pull or how good its uptime was, so just keep that in mind.</Trans>}
       >
-          <Requirement
-            name={<Trans id="shaman.restoration.checklist.appliedPrepull"><SpellLink id={SPELLS.EARTH_SHIELD_TALENT.id} /> applied prepull</Trans>}
-            thresholds={thresholds.earthShieldPrepull}
-          />
-          <Requirement
-            name={<Trans id="shaman.restoration.checklist.uptime"><SpellLink id={SPELLS.EARTH_SHIELD_TALENT.id} /> Uptime</Trans>}
-            thresholds={thresholds.earthShieldUptime}
-          />
+        <Requirement
+          name={<Trans id="shaman.restoration.checklist.appliedPrepull"><SpellLink id={SPELLS.EARTH_SHIELD_TALENT.id} /> applied prepull</Trans>}
+          thresholds={thresholds.earthShieldPrepull}
+        />
+        <Requirement
+          name={<Trans id="shaman.restoration.checklist.uptime"><SpellLink id={SPELLS.EARTH_SHIELD_TALENT.id} /> Uptime</Trans>}
+          thresholds={thresholds.earthShieldUptime}
+        />
       </Rule>
       <Rule
         name={<Trans id="shaman.restoration.checklist.inactivity">Try to avoid being inactive for a large portion of the fight</Trans>}
         description={(
           <Trans id="shaman.restoration.checklist.inactivity.description">
-            While it's suboptimal to always be casting as a healer you should still try to always be doing something during the entire fight and high downtime is inexcusable. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and <TooltipElement wrapperStyles={{ display: 'inline' }} content={t({
+            While it's suboptimal to always be casting as a healer you should still try to always be doing something during the entire fight and high downtime is inexcusable. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and <TooltipElement
+            wrapperStyles={{ display: 'inline' }} content={t({
             id: 'shaman.restoration.checklist.inactivity.description.tooltip',
-            message: `While helping with damage would be optimal, it's much less important as a healer than any of the other suggestions on this checklist. You should ignore this suggestion while you are having difficulties with anything else.`
-          })}>when you're not healing try to contribute some damage*</TooltipElement>.
+            message: `While helping with damage would be optimal, it's much less important as a healer than any of the other suggestions on this checklist. You should ignore this suggestion while you are having difficulties with anything else.`,
+          })}
+          >when you're not healing try to contribute some damage*</TooltipElement>.
           </Trans>
         )}
       >
@@ -123,14 +123,6 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: any) =>
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
-};
-
-RestoShamanChecklist.propTypes = {
-  castEfficiency: PropTypes.object.isRequired,
-  combatant: PropTypes.shape({
-    hasTalent: PropTypes.func.isRequired,
-  }).isRequired,
-  thresholds: PropTypes.object.isRequired,
 };
 
 export default RestoShamanChecklist;

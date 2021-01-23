@@ -1,14 +1,14 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+import { SpellIcon } from 'interface';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { EventType } from 'parser/core/Events';
 import EventFilter from 'parser/core/EventFilter';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import Statistic from 'interface/statistics/Statistic';
-import BoringValue from 'interface/statistics/components/BoringValueText';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
+import BoringValue from 'parser/ui/BoringValueText';
 
 import StaggerFabricator, { AddStaggerEvent, RemoveStaggerEvent } from './StaggerFabricator';
 

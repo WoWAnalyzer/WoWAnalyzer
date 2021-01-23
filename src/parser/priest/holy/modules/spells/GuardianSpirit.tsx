@@ -1,15 +1,15 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import fetchWcl from 'common/fetchWclApi';
 import { WCLHealing, WCLHealingTableResponse } from 'common/WCL_TYPES';
-import SpellIcon from 'common/SpellIcon';
+import { SpellIcon } from 'interface';
 import { formatNumber } from 'common/format';
 
-import LazyLoadStatisticBox from 'interface/others/LazyLoadStatisticBox';
+import LazyLoadStatisticBox from 'parser/ui/LazyLoadStatisticBox';
 
 import Analyzer from 'parser/core/Analyzer';
-import ItemHealingDone from 'interface/ItemHealingDone';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { EventType } from 'parser/core/Events';
 

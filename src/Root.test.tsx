@@ -13,7 +13,4 @@ describe('Root', () => {
     // At least the code input field should be visible
     expect(tree.find('input[name="code"]').exists()).toBe(true);
   });
-  it('matches snapshot', () => {
-    expect(tree).toMatchSnapshot();
-  });
 });

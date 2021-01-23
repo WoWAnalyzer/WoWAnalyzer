@@ -6,11 +6,11 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
-import ItemHealingDone from 'interface/ItemHealingDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import ConduitSpellText from 'parser/ui/ConduitSpellText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { RESONANT_WORDS_RANKS } from 'parser/priest/holy/constants';
 
 // Example Log: /report/da4AL7QPr36btCmV/8-Heroic+Huntsman+Altimor+-+Kill+(5:13)/Daemonlight/standard/statistics

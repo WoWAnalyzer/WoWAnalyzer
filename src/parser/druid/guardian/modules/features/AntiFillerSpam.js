@@ -2,12 +2,12 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatDuration } from 'common/format';
-import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
+import { SpellIcon } from 'interface';
+import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import StatisticBox from 'interface/others/StatisticBox';
+import StatisticBox from 'parser/ui/StatisticBox';
 import { t } from '@lingui/macro';
 
 import Events from 'parser/core/Events';

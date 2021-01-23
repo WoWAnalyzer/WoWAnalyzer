@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -9,12 +9,12 @@ import EventHistory from 'parser/shared/modules/EventHistory';
 import { Options } from 'parser/core/Module';
 import { t, Trans } from '@lingui/macro';
 
-import Statistic from 'interface/statistics/Statistic';
-import ItemDamageDone from 'interface/ItemDamageDone';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import ConduitSpellText from 'interface/statistics/components/ConduitSpellText';
+import ConduitSpellText from 'parser/ui/ConduitSpellText';
 
 import { DISSONANT_ECHOES_DAMAGE_INCREASE } from 'parser/priest/shadow/constants';
 

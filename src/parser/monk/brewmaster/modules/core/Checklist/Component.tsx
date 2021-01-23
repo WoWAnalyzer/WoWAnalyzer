@@ -1,24 +1,20 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import Rule, { PERFORMANCE_METHOD } from 'parser/shared/modules/features/Checklist/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
+import { AbilityRequirementProps, ChecklistProps } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 
-const Component = ({ combatant, castEfficiency, thresholds }: any) => {
-  const AbilityRequirement = (props: any) => (
+const Component = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
+  const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
     />
   );
-  AbilityRequirement.propTypes = {
-    spell: PropTypes.number.isRequired,
-    name: PropTypes.any,
-  };
 
   return (
     <Checklist>
@@ -104,7 +100,7 @@ const Component = ({ combatant, castEfficiency, thresholds }: any) => {
           <AbilityRequirement spell={SPELLS.CHI_WAVE_TALENT.id} />
         )}
       </Rule>
-      <PreparationRule thresholds={thresholds}></PreparationRule>
+      <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
 };

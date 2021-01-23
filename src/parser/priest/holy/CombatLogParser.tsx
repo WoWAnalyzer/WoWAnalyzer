@@ -1,7 +1,6 @@
 import React from 'react';
 
-import Panel from 'interface/others/Panel';
-import HolyPriestSpreadsheet from 'interface/others/HolyPriestSpreadsheet';
+import { Panel } from 'interface';
 
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
@@ -58,8 +57,11 @@ import ResonantWords from './modules/shadowlands/conduits/ResonantWords';
 
 // Covenants
 import UnholyNova from '../shared/modules/shadowlands/covenants/UnholyNova';
-import FaeGuardians from '../shared/modules/shadowlands/covenants/FaeGuardians';
 import Mindgames from '../shared/modules/shadowlands/covenants/Mindgames';
+import BoonOfTheAscended from '../shared/modules/shadowlands/covenants/BoonOfTheAscended';
+import FaeGuardians from '../shared/modules/shadowlands/covenants/FaeGuardians';
+
+import HolyPriestSpreadsheet from './HolyPriestSpreadsheet';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
@@ -147,8 +149,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Covenants
     unholyNova: UnholyNova,
+    mindgames: Mindgames,
+    boonOfTheAscended: BoonOfTheAscended,
     faeGuardians: FaeGuardians,
-    mindGames: Mindgames
   };
 
   generateResults(adjustForDowntime: boolean) {

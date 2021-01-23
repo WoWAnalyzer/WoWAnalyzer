@@ -1,6 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 
@@ -42,9 +42,9 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id),
+          suggestion: combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id) || combatant.hasTalent(SPELLS.TRAIL_OF_RUIN_TALENT.id),
           recommendedEfficiency: 0.95,
-          extraSuggestion: <>This should be part of your single target rotation due to the <SpellLink id={SPELLS.FIRST_BLOOD_TALENT.id} /> talent. This includes the <SpellLink id={SPELLS.DEATH_SWEEP.id} /> casts since they are the same ability and share their cooldowns.</>,
+          extraSuggestion: <>This should be part of your single target rotation due to using <SpellLink id={SPELLS.FIRST_BLOOD_TALENT.id} /> or <SpellLink id={SPELLS.TRAIL_OF_RUIN_TALENT.id} />. This includes the <SpellLink id={SPELLS.DEATH_SWEEP.id} /> casts since they are the same ability and share their cooldowns.</>,
         },
       },
       {

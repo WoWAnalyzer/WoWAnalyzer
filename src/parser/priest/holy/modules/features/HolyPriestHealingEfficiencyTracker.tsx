@@ -3,7 +3,7 @@ import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import DamageDone from 'parser/shared/modules/throughput/DamageDone';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import HealingEfficiencyTracker from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 
 import Abilities from 'parser/priest/holy/modules/Abilities';

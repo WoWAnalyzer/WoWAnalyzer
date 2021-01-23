@@ -1,11 +1,11 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
+import { SpellLink } from 'interface';
+import { SpellIcon } from 'interface';
 import { formatNumber } from 'common/format';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, ApplyDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
@@ -33,7 +33,7 @@ class ArcaneEcho extends Analyzer {
 		 this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.TOUCH_OF_THE_MAGI_DEBUFF), this.onDebuffApplied);
 		 this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.TOUCH_OF_THE_MAGI_DEBUFF), this.onDebuffRemoved);
 	}
-	
+
 	onMissilesCast(event: CastEvent) {
 		if (!this.touchOfTheMagiApplied) {
 			return;
@@ -80,7 +80,7 @@ class ArcaneEcho extends Analyzer {
 
 	suggestions(when: When) {
 		when(this.badTouchUsageThreshold)
-			.addSuggestion((suggest, actual, recommended) => 
+			.addSuggestion((suggest, actual, recommended) =>
 				suggest(<>You failed to cast enough <SpellLink id={SPELLS.ARCANE_MISSILES.id} /> into <SpellLink id={SPELLS.TOUCH_OF_THE_MAGI.id} /> {this.badTouchUses} times. When using <SpellLink id={SPELLS.ARCANE_ECHO_TALENT.id} /> you should be casting <SpellLink id={SPELLS.ARCANE_MISSILES.id} /> non-stop (Whether you have <SpellLink id={SPELLS.CLEARCASTING_ARCANE.id} /> procs or not) until the <SpellLink id={SPELLS.TOUCH_OF_THE_MAGI.id} /> debuff is removed from the target.</>)
 					.icon(SPELLS.ARCANE_MISSILES.icon)
 					.actual(<Trans id="mage.arcane.suggestions.arcaneEcho.badTouchUses">{formatNumber(this.badTouchUses)} Bad Touch of the Magi Uses`</Trans>)

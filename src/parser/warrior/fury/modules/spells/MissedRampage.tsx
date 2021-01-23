@@ -8,7 +8,7 @@ import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { t } from '@lingui/macro';
 
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 
 /*  Example log:
  *  https://www.warcraftlogs.com/reports/KhynM7v96cZkTBdg#fight=6&type=damage-done&source=78

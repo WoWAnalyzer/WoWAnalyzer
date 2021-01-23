@@ -1,12 +1,12 @@
 import React from 'react';
 
-import ItemHealingDone from 'interface/ItemHealingDone';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 import SPELLS from 'common/SPELLS';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -18,8 +18,8 @@ import isAtonement from 'parser/priest/discipline/modules/core/isAtonement';
 import SPECS from 'game/SPECS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ItemInsanityGained from 'parser/priest/shadow/interface/ItemInsanityGained';
-import ItemDamageDone from 'interface/ItemDamageDone';
-import ItemManaGained from 'interface/ItemManaGained';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import ItemManaGained from 'parser/ui/ItemManaGained';
 import Abilities from 'parser/core/modules/Abilities';
 
 // Shadow: https://www.warcraftlogs.com/reports/Bx7h3bzGKm9CHqF6#fight=1&type=damage-done&source=10
@@ -27,11 +27,12 @@ import Abilities from 'parser/core/modules/Abilities';
 // Disc: https://www.warcraftlogs.com/reports/NWctPky1vKapJVM8#fight=10&type=healing&graphperf=1&source=183
 class Mindgames extends Analyzer {
   static dependencies = {
-    abilities: Abilities
+    abilities: Abilities,
   };
   protected abilities!: Abilities;
 
   directHealing = 0;
+  directOverHealing = 0;
   preventedDamage = 0;
   totalDamage = 0;
   manaGenerated = 0;
@@ -39,12 +40,14 @@ class Mindgames extends Analyzer {
   // Disc Specific
   atonementDamageSource: AtonementDamageSource | null = null;
   atonementHealing = 0;
+  atonementOverHealing = 0;
 
   // Shadow Specific
   insanityGenerated = 0;
 
   constructor(options: Options) {
     super(options);
+
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id);
     if (!this.active) {
       return;
@@ -90,12 +93,14 @@ class Mindgames extends Analyzer {
       }
 
       this.atonementHealing += event.amount + (event.absorbed || 0);
+      this.atonementOverHealing += event.overheal || 0;
       return;
     }
 
     const spellId = event.ability.guid;
     if (spellId === SPELLS.MINDGAMES_HEAL.id) {
       this.directHealing += event.amount + (event.absorbed || 0);
+      this.directOverHealing += event.overheal || 0;
       return;
     }
   }
@@ -125,8 +130,8 @@ class Mindgames extends Analyzer {
           <>
             Healing Breakdown:
             <ul>
-              {this.atonementHealing > 0 && <li>{formatNumber(this.atonementHealing)} Atonement Healing</li>}
-              <li>{formatNumber(this.directHealing)} Direct Healing</li>
+              {this.atonementHealing > 0 && <li>{formatNumber(this.atonementHealing)} Atonement Healing ({formatPercentage(this.atonementOverHealing / (this.atonementOverHealing + this.atonementHealing))} %OH)</li>}
+              <li>{formatNumber(this.directHealing)} Direct Healing ({formatPercentage(this.directOverHealing / (this.directHealing + this.directOverHealing))} %OH)</li>
               <li>{formatNumber(this.preventedDamage)} Prevented Damage</li>
             </ul>
           </>

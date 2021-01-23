@@ -1,12 +1,12 @@
 import React from 'react';
 
-import SpellIcon from 'common/SpellIcon';
+import { SpellIcon } from 'interface';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import { TooltipElement } from 'common/Tooltip';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import Panel from 'interface/statistics/Panel';
-import PlayerBreakdown from 'interface/others/PlayerBreakdown';
+import { TooltipElement } from 'interface';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import Panel from 'parser/ui/Panel';
+import PlayerBreakdown from 'parser/ui/PlayerBreakdown';
 import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';

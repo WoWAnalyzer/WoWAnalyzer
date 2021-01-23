@@ -2,8 +2,8 @@ import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
 
-import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
-import StatisticBar from 'interface/statistics/StatisticBar';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
+import StatisticBar from 'parser/ui/StatisticBar';
 
 import AgonyUptime from './AgonyUptime';
 import CorruptionUptime from './CorruptionUptime';

@@ -3,8 +3,8 @@ import React from 'react';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SPELLS from 'common/SPELLS';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
 
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
@@ -14,7 +14,7 @@ import Events, { EventType } from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import { t } from '@lingui/macro';
-import BoringResourceValue from 'interface/statistics/components/BoringResourceValue';
+import BoringResourceValue from 'parser/ui/BoringResourceValue';
 
 const MAX_RUNES = 6;
 const RUNIC_CORRUPTION_INCREASE = 1; //Runic Corruption

@@ -5,12 +5,12 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import Enemies from 'parser/shared/modules/Enemies';
-import SpellLink from 'common/SpellLink';
-import ItemDamageDone from 'interface/ItemDamageDone';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import { SpellLink } from 'interface';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SERPENT_STING_SV_BASE_DURATION, SERPENT_STING_SV_PANDEMIC } from 'parser/hunter/survival/constants';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
 import Events, { ApplyDebuffEvent, CastEvent, DamageEvent, RefreshDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
@@ -159,7 +159,7 @@ class SerpentSting extends Analyzer {
     if (targetInstance === undefined) {
       targetInstance = 1;
     }
-    const serpentStingTarget: any = encodeTargetString(event.targetID, targetInstance);
+    const serpentStingTarget = Number(encodeTargetString(event.targetID, targetInstance));
     this.serpentStingTargets[serpentStingTarget] = { timestamp: event.timestamp, serpentStingDuration: SERPENT_STING_SV_BASE_DURATION };
     if (this.vipersVenomBuffUp) {
       this.vipersVenomBuffUp = false;
@@ -171,7 +171,7 @@ class SerpentSting extends Analyzer {
     if (targetInstance === undefined) {
       targetInstance = 1;
     }
-    const serpentStingTarget: any = encodeTargetString(event.targetID, targetInstance);
+    const serpentStingTarget = Number(encodeTargetString(event.targetID, targetInstance));
     this.serpentStingTargets.splice(serpentStingTarget, 1);
   }
 
@@ -180,7 +180,7 @@ class SerpentSting extends Analyzer {
     if (targetInstance === undefined) {
       targetInstance = 1;
     }
-    const serpentStingTarget: any = encodeTargetString(event.targetID, targetInstance);
+    const serpentStingTarget = Number(encodeTargetString(event.targetID, targetInstance));
     this.timesRefreshed += 1;
 
     const timeRemaining = this.serpentStingTargets[serpentStingTarget].serpentStingDuration - (event.timestamp - this.serpentStingTargets[serpentStingTarget].timestamp);
