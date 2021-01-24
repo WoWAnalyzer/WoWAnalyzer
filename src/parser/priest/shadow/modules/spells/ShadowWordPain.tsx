@@ -4,12 +4,10 @@ import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
+import { SpellIcon, SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { t } from '@lingui/macro';
+import UptimeBar from 'parser/ui/UptimeBar';
 
 /*
   Shadow word pain can be created by:
@@ -62,18 +60,25 @@ class ShadowWordPain extends Analyzer {
         .recommended(`>${formatPercentage(recommended)}% is recommended`));
   }
 
-  statistic() {
+
+  subStatistic() {
+    const history = this.enemies.getDebuffHistory(SPELLS.SHADOW_WORD_PAIN.id);
     return (
-      <Statistic
-        position={STATISTIC_ORDER.CORE(4)}
-        size="flexible"
-      >
-        <BoringSpellValueText spell={SPELLS.SHADOW_WORD_PAIN}>
-          <>
-            {formatPercentage(this.uptime)}% <small>Uptime</small>
-          </>
-        </BoringSpellValueText>
-      </Statistic>
+      <div className="flex">
+        <div className="flex-sub icon">
+          <SpellIcon id={SPELLS.SHADOW_WORD_PAIN.id} />
+        </div>
+        <div className="flex-sub value" style={{ width: 140 }}>
+          {formatPercentage(this.uptime, 0)}% <small>uptime</small>
+        </div>
+        <div className="flex-main chart" style={{ padding: 15 }}>
+          <UptimeBar
+            uptimeHistory={history}
+            start={this.owner.fight.start_time}
+            end={this.owner.fight.end_time}
+          />
+        </div>
+      </div>
     );
   }
 }

@@ -4156,58 +4156,6 @@ exports[`Shadow Priest integration test: example log DarkThoughts matches the st
 </div>
 `;
 
-exports[`Shadow Priest integration test: example log DevouringPlague matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    className="panel statistic flexible "
-    position={4}
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad boring-text "
-      >
-        <label>
-          <a
-            className="spell-link-text"
-            href="http://wowhead.com/spell=335467"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Devouring Plague"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_devouringplague.jpg"
-            />
-          </a>
-           
-          <a
-            className="spell-link-text"
-            href="http://wowhead.com/spell=335467"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Devouring Plague
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          70.82
-          % 
-          <small>
-            Uptime
-          </small>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`Shadow Priest integration test: example log DissonantEchoes matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -4376,6 +4324,363 @@ exports[`Shadow Priest integration test: example log DistanceMoved matches the s
           d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
         />
       </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Shadow Priest integration test: example log DotUptimeStatisticBox matches the statistic snapshot 1`] = `
+<div
+  className="col-md-6 col-sm-12 col-xs-12"
+>
+  <div
+    className="panel statistic bar"
+    position={1}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub icon"
+        >
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=34914"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Vampiric Touch"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_holy_stoicism.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-sub value"
+          style={
+            Object {
+              "width": 140,
+            }
+          }
+        >
+          91
+          % 
+          <small>
+            uptime
+          </small>
+        </div>
+        <div
+          className="flex-main chart"
+          style={
+            Object {
+              "padding": 15,
+            }
+          }
+        >
+          <div
+            className="uptime-bar"
+          >
+            <div
+              style={
+                Object {
+                  "left": "0.6558279506752789%",
+                  "width": "82.60789782736347%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "86.82765707574868%",
+                  "width": "7.711758661186143%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "99.15186435701703%",
+                  "width": "0.8481356429829713%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub icon"
+        >
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=589"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Shadow Word: Pain"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_shadowwordpain.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-sub value"
+          style={
+            Object {
+              "width": 140,
+            }
+          }
+        >
+          99
+          % 
+          <small>
+            uptime
+          </small>
+        </div>
+        <div
+          className="flex-main chart"
+          style={
+            Object {
+              "padding": 15,
+            }
+          }
+        >
+          <div
+            className="uptime-bar"
+          >
+            <div
+              style={
+                Object {
+                  "left": "0.6558279506752789%",
+                  "width": "27.08308866705813%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "27.7737815619495%",
+                  "width": "72.22621843805051%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub icon"
+        >
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=335467"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Devouring Plague"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_devouringplague.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-sub value"
+          style={
+            Object {
+              "width": 140,
+            }
+          }
+        >
+          71
+          % 
+          <small>
+            uptime
+          </small>
+        </div>
+        <div
+          className="flex-main chart"
+          style={
+            Object {
+              "padding": 15,
+            }
+          }
+        >
+          <div
+            className="uptime-bar"
+          >
+            <div
+              style={
+                Object {
+                  "left": "2.6879036993540812%",
+                  "width": "2.1997944803288316%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "5.154873752201997%",
+                  "width": "14.422342924251321%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "19.588593658250147%",
+                  "width": "2.1975924838520258%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "21.973722842043454%",
+                  "width": "5.970713446858485%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "28.721741045214326%",
+                  "width": "4.1015854374633%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "33.58264826776277%",
+                  "width": "2.2104374633000585%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "36.90325895478567%",
+                  "width": "2.197225484439225%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "41.30468291250734%",
+                  "width": "2.1994274809160306%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "45.338006459189664%",
+                  "width": "3.1514239577216676%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "50.326629477392835%",
+                  "width": "2.202363476218438%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "53.808719906048154%",
+                  "width": "2.203831473869642%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "56.20889606576629%",
+                  "width": "3.7173370522607163%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "61.725264239577214%",
+                  "width": "2.197225484439225%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "66.47937463300059%",
+                  "width": "5.967410452143277%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "75.92483852025836%",
+                  "width": "2.1876834997064005%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "79.71190546095126%",
+                  "width": "2.2284204345273046%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "82.06070170287727%",
+                  "width": "2.203464474456841%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "84.93430710510863%",
+                  "width": "4.089474456840869%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "90.20955666470934%",
+                  "width": "2.203831473869642%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "96.77921315325897%",
+                  "width": "2.9638872577803874%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -4717,58 +5022,6 @@ exports[`Shadow Priest integration test: example log ShadowCrash matches the sta
           d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
         />
       </svg>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Shadow Priest integration test: example log ShadowWordPain matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    className="panel statistic flexible "
-    position={4}
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad boring-text "
-      >
-        <label>
-          <a
-            className="spell-link-text"
-            href="http://wowhead.com/spell=589"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Shadow Word: Pain"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_shadowwordpain.jpg"
-            />
-          </a>
-           
-          <a
-            className="spell-link-text"
-            href="http://wowhead.com/spell=589"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Shadow Word: Pain
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          99.31
-          % 
-          <small>
-            Uptime
-          </small>
-        </div>
-      </div>
     </div>
   </div>
 </div>
@@ -5301,58 +5554,6 @@ exports[`Shadow Priest integration test: example log VampiricEmbrace matches the
           d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
         />
       </svg>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Shadow Priest integration test: example log VampiricTouch matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    className="panel statistic flexible "
-    position={3}
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad boring-text "
-      >
-        <label>
-          <a
-            className="spell-link-text"
-            href="http://wowhead.com/spell=34914"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Vampiric Touch"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_holy_stoicism.jpg"
-            />
-          </a>
-           
-          <a
-            className="spell-link-text"
-            href="http://wowhead.com/spell=34914"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Vampiric Touch
-          </a>
-        </label>
-        <div
-          className="value"
-        >
-          91.17
-          % 
-          <small>
-            Uptime
-          </small>
-        </div>
-      </div>
     </div>
   </div>
 </div>
