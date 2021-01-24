@@ -43,7 +43,8 @@ class Checklist extends BaseChecklist {
           rend: this.rendUptime.suggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           goodMortalStrike: this.mortalStrike.goodMortalStrikeThresholds,
-          badMortalStrike: this.mortalStrike.badMortalStrikeThresholds,
+          notEnoughMortalStrike: this.mortalStrike.notEnoughMortalStrikeThresholds,
+          tooMuchMortalStrike: this.mortalStrike.tooMuchMortalStrikeThresholds,
           badSweepingStrikes: this.sweepingStrikes.suggestionThresholds,
         }}
       />

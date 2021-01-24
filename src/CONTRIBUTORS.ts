@@ -1200,7 +1200,25 @@ export const Barry: Contributor = {
       link: 'https://worldofwarcraft.com/en-gb/character/eu/silvermoon/druulux',
     },
   ],
-}
+};
+
+export const Otthopsy: Contributor = {
+  nickname: "Otthopsy",
+  github: "Otthopsy",
+  discord: "Ottopsy#5666",
+  mains: [
+    {
+      name: "Otthopsy",
+      spec: SPECS.ARMS_WARRIOR,
+      link: "https://worldofwarcraft.com/fr-fr/character/eu/ysondre/otthopsy",
+    },
+  	{
+      name: 'Rayhløren',
+      spec: SPECS.RESTORATION_DRUID,
+      link: "https://worldofwarcraft.com/fr-fr/character/eu/ysondre/rayhl%C3%B8ren",
+    }
+  ],
+};
 
 export const Tiboonn: Contributor = {
   nickname: 'Tiboonn',
