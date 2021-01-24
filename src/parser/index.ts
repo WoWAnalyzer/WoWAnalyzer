@@ -1,3 +1,4 @@
+/* eslint-disable import/order */
 import BloodDeathKnight from './deathknight/blood/CONFIG';
 import UnholyDeathKnight from './deathknight/unholy/CONFIG';
 import FrostDeathKnight from './deathknight/frost/CONFIG';
