@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Trans, Plural } from '@lingui/macro';
 import { Link } from 'react-router-dom';
 
@@ -8,10 +7,15 @@ import ReadableListing from 'interface/ReadableListing';
 import AlertWarning from 'interface/AlertWarning';
 import Contributor from 'interface/ContributorButton';
 import Panel from 'interface/Panel';
+import Config from 'parser/Config';
 
-const About = ({ config }) => {
-  const { spec, description, contributors, patchCompatibility, isPartial } = config;
+interface Props {
+  config: Config;
+}
 
+const About = ({
+  config: { spec, description, contributors, patchCompatibility, isPartial },
+}: Props) => {
   const contributorinfo =
     contributors.length !== 0 ? (
       contributors.map((contributor) => <Contributor key={contributor.nickname} {...contributor} />)
@@ -48,14 +52,15 @@ const About = ({ config }) => {
         </div>
         <div className="col-lg-8">{patchCompatibility}</div>
       </div>
-      {!isLatestPatch(patchCompatibility) && (
-        <AlertWarning style={{ marginTop: '1em' }}>
-          <Trans id="interface.report.results.about.outdated">
-            The analysis for this spec is outdated. It may be inaccurate for spells that were
-            changed since patch {patchCompatibility}.
-          </Trans>
-        </AlertWarning>
-      )}
+      {!patchCompatibility ||
+        (!isLatestPatch(patchCompatibility) && (
+          <AlertWarning style={{ marginTop: '1em' }}>
+            <Trans id="interface.report.results.about.outdated">
+              The analysis for this spec is outdated. It may be inaccurate for spells that were
+              changed since patch {patchCompatibility}.
+            </Trans>
+          </AlertWarning>
+        ))}
       {isPartial && (
         <AlertWarning style={{ marginTop: '1em' }}>
           <Trans id="interface.report.results.about.isPartial">
@@ -66,23 +71,6 @@ const About = ({ config }) => {
       )}
     </Panel>
   );
-};
-
-About.propTypes = {
-  config: PropTypes.shape({
-    spec: PropTypes.shape({
-      specName: PropTypes.string.isRequired,
-      className: PropTypes.string.isRequired,
-    }).isRequired,
-    description: PropTypes.node.isRequired,
-    contributors: PropTypes.arrayOf(
-      PropTypes.shape({
-        nickname: PropTypes.string.isRequired,
-      }),
-    ).isRequired,
-    patchCompatibility: PropTypes.string.isRequired,
-    isPartial: PropTypes.bool.isRequired,
-  }).isRequired,
 };
 
 export default About;

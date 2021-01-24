@@ -1,15 +1,12 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
-interface ReadableListingProps {
-  children: React.ReactNode[];
+interface Props {
+  children: ReactNode | ReactNode[];
   groupType?: 'and' | 'or';
 }
 
-const ReadableListing = ({
-  children,
-  groupType = 'and',
-}: ReadableListingProps) => {
-  const numItems = children.length;
+const ReadableListing = ({ children, groupType = 'and' }: Props) => {
+  const numItems = React.Children.count(children);
   const results: React.ReactNode[] = [];
   React.Children.forEach(children, (child, index) => {
     const isFirst = index === 0;
