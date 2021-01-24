@@ -712,6 +712,7 @@
   "priest.shadow.suggestions.voidTorrent.secondsLost": "Lost {0} seconds of Void Torrent.",
   "priest.shared.legendaries.twinsOfTheSunPriestess.efficiency": "You had {0} {castsPlural} of Power Infusion on yourself.",
   "priest.shared.suggestions.DesperatePrayer.efficiency": "You died {0} time(s) with Desperate Prayer available.",
+  "report.statistics.details": "Details",
   "rogue.assassination.suggestions.blindside.efficiency": "You used Mutilate {0} times when Blindside was available",
   "rogue.assassination.suggestions.garrote.uptime": "{0}% Garrote uptime",
   "rogue.assassination.suggestions.masterAssassin.efficiency": "{0}% good casts during Master Assassin",
