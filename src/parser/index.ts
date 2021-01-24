@@ -27,9 +27,9 @@ import HolyPaladin from '@wowanalyzer/paladin-holy';
 import RetributionPaladin from '@wowanalyzer/paladin-retribution';
 import ProtectionPaladin from '@wowanalyzer/paladin-protection';
 
-import DisciplinePriest from './priest/discipline/CONFIG';
-import HolyPriest from './priest/holy/CONFIG';
-import ShadowPriest from './priest/shadow/CONFIG';
+import DisciplinePriest from '@wowanalyzer/priest-discipline';
+import HolyPriest from '@wowanalyzer/priest-holy';
+import ShadowPriest from '@wowanalyzer/priest-shadow';
 
 import SubtletyRogue from './rogue/subtlety/CONFIG';
 import AssassinationRogue from './rogue/assassination/CONFIG';
