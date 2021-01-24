@@ -9,7 +9,7 @@ import { formatPercentage } from 'common/format';
 import React from 'react';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { ASPECT_OF_THE_WILD_FOCUS } from 'parser/hunter/beastmastery/constants';
-import { NESINGWARY_FOCUS_GAIN_MULTIPLIER } from 'parser/hunter/shared/constants';
+import { NESINGWARY_FOCUS_GAIN_MULTIPLIER } from '@wowanalyzer/hunter';
 
 /**
  * Grants you and your pet 5 Focus per sec and 10% increased critical strike

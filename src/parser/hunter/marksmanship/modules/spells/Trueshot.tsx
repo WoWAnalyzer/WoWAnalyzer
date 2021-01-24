@@ -8,7 +8,7 @@ import Events, { CastEvent, EnergizeEvent } from 'parser/core/Events';
 import RapidFire from 'parser/hunter/marksmanship/modules/spells/RapidFire';
 import SteadyShot from 'parser/hunter/marksmanship/modules/spells/SteadyShot';
 import MarksmanshipFocusCapTracker from 'parser/hunter/marksmanship/modules/resources/MarksmanshipFocusCapTracker';
-import { HUNTER_BASE_FOCUS_MAX, MS_BUFFER } from 'parser/hunter/shared/constants';
+import { HUNTER_BASE_FOCUS_MAX, MS_BUFFER } from '@wowanalyzer/hunter';
 import { TRUESHOT_FOCUS_INCREASE } from 'parser/hunter/marksmanship/constants';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatNumber } from 'common/format';

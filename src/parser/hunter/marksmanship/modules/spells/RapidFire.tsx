@@ -8,7 +8,7 @@ import { RAPID_FIRE_FOCUS_PER_TICK, TRUESHOT_RAPID_FIRE_RECHARGE_INCREASE } from
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import { MS_BUFFER, NESINGWARY_FOCUS_GAIN_MULTIPLIER } from 'parser/hunter/shared/constants';
+import { MS_BUFFER, NESINGWARY_FOCUS_GAIN_MULTIPLIER } from '@wowanalyzer/hunter';
 
 /**
  * Shoot a stream of 7 shots at your target over 2 sec, dealing a total of 242% attack power Physical damage.

@@ -6,7 +6,7 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import { ONE_SECOND_IN_MS } from 'parser/hunter/shared/constants';
+import { ONE_SECOND_IN_MS } from '@wowanalyzer/hunter';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { DEADLY_CHAIN_TRICKSHOTS_DAMAGE_INCREASE, TRICK_SHOTS_BASELINE_DAMAGE } from 'parser/hunter/marksmanship/constants';
 import ConduitSpellText from 'parser/ui/ConduitSpellText';

@@ -1,7 +1,7 @@
 import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import SPELLS from 'common/SPELLS';
 import Haste from 'parser/shared/modules/Haste';
-import { MAX_GCD, MIN_GCD } from 'parser/hunter/shared/constants';
+import { MAX_GCD, MIN_GCD } from '@wowanalyzer/hunter';
 import { CastEvent } from 'parser/core/Events';
 
 import { AOTW_GCD_REDUCTION_AFFECTED_ABILITIES } from '../../constants';

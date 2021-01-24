@@ -7,7 +7,7 @@ import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import EventFilter, { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { EventType } from 'parser/core/Events';
 import { STEADY_FOCUS_HASTE_PERCENT } from 'parser/hunter/marksmanship/constants';
-import { DIRE_BEAST_HASTE_PERCENT } from 'parser/hunter/shared/constants';
+import { DIRE_BEAST_HASTE_PERCENT } from '@wowanalyzer/hunter';
 import { INVOKERS_DELIGHT_HASTE_BUFF } from '@wowanalyzer/monk';
 
 const debug = false;
@@ -19,7 +19,6 @@ class Haste extends Analyzer {
   };
 
   static HASTE_BUFFS = {
-
     // HASTE RATING BUFFS ARE HANDLED BY THE STATTRACKER MODULE
 
     ...BLOODLUST_BUFFS,
@@ -110,22 +109,33 @@ class Haste extends Analyzer {
     this._removeActiveBuff(event);
   }
 
-  onChangeStats(event) { // fabbed event from StatTracker
+  onChangeStats(event) {
+    // fabbed event from StatTracker
     if (!event.delta.haste) {
       return;
     }
 
     // Calculating the Haste percentage difference form a rating change is hard because all rating (from gear + buffs) is additive while Haste percentage buffs are both multiplicative and additive (see the applyHaste function).
     // 1. Calculate the total Haste percentage without any rating (since the total percentage from the total rating multiplies like any other Haste buff)
-    const remainingHasteBuffs = this.constructor.removeHaste(this.current, this.statTracker.hastePercentage(event.before.haste, true));
+    const remainingHasteBuffs = this.constructor.removeHaste(
+      this.current,
+      this.statTracker.hastePercentage(event.before.haste, true),
+    );
     // 2. Calculate the new total Haste percentage with the new rating and the old total buff percentage
-    const newHastePercentage = this.constructor.addHaste(this.statTracker.hastePercentage(event.after.haste, true), remainingHasteBuffs);
+    const newHastePercentage = this.constructor.addHaste(
+      this.statTracker.hastePercentage(event.after.haste, true),
+      remainingHasteBuffs,
+    );
 
     this._setHaste(event, newHastePercentage);
 
     if (debug) {
       const spellName = event.trigger.ability ? event.trigger.ability.name : 'unknown';
-      console.log(`Haste: Current haste: ${formatPercentage(this.current)}% (haste RATING changed by ${event.delta.haste} from ${spellName})`);
+      console.log(
+        `Haste: Current haste: ${formatPercentage(this.current)}% (haste RATING changed by ${
+          event.delta.haste
+        } from ${spellName})`,
+      );
     }
   }
 
@@ -136,9 +146,21 @@ class Haste extends Analyzer {
     if (hasteGain) {
       this._applyHasteGain(event, hasteGain);
 
-      debug && console.log(formatMilliseconds(this.owner.fightDuration), 'Haste:', 'Current haste:', `${formatPercentage(this.current)}%`, `(gained ${formatPercentage(hasteGain)}% from ${event.ability.name})`);
+      debug &&
+        console.log(
+          formatMilliseconds(this.owner.fightDuration),
+          'Haste:',
+          'Current haste:',
+          `${formatPercentage(this.current)}%`,
+          `(gained ${formatPercentage(hasteGain)}% from ${event.ability.name})`,
+        );
     } else {
-      debug && console.warn(formatMilliseconds(this.owner.fightDuration), 'Haste: Applied not recognized buff:', event.ability.name);
+      debug &&
+        console.warn(
+          formatMilliseconds(this.owner.fightDuration),
+          'Haste: Applied not recognized buff:',
+          event.ability.name,
+        );
     }
   }
 
@@ -149,9 +171,19 @@ class Haste extends Analyzer {
     if (haste) {
       this._applyHasteLoss(event, haste);
 
-      debug && console.log(`Haste: Current haste: ${formatPercentage(this.current)}% (lost ${formatPercentage(haste)}% from ${SPELLS[spellId] ? SPELLS[spellId].name : spellId})`);
+      debug &&
+        console.log(
+          `Haste: Current haste: ${formatPercentage(this.current)}% (lost ${formatPercentage(
+            haste,
+          )}% from ${SPELLS[spellId] ? SPELLS[spellId].name : spellId})`,
+        );
     } else {
-      debug && console.warn(formatMilliseconds(this.owner.fightDuration), 'Haste: Removed not recognized buff:', event.ability.name);
+      debug &&
+        console.warn(
+          formatMilliseconds(this.owner.fightDuration),
+          'Haste: Removed not recognized buff:',
+          event.ability.name,
+        );
     }
   }
 
@@ -186,7 +218,12 @@ class Haste extends Analyzer {
 
       this._setHaste(event, newHastePercentage);
 
-      debug && console.log(`Haste: Current haste: ${formatPercentage(this.current)}% (gained ${formatPercentage(haste * event.stacksGained)}% from ${SPELLS[spellId] ? SPELLS[spellId].name : spellId})`);
+      debug &&
+        console.log(
+          `Haste: Current haste: ${formatPercentage(this.current)}% (gained ${formatPercentage(
+            haste * event.stacksGained,
+          )}% from ${SPELLS[spellId] ? SPELLS[spellId].name : spellId})`,
+        );
     }
   }
 

@@ -10,7 +10,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Events, { ApplyBuffEvent, DamageEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { formatPercentage } from 'common/format';
 import UptimeIcon from 'interface/icons/Uptime';
-import { MS_BUFFER } from 'parser/hunter/shared/constants';
+import { MS_BUFFER } from '@wowanalyzer/hunter';
 import { Trans } from '@lingui/macro';
 
 /**

@@ -12,7 +12,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { BOP_CA_EXTENSION_PER_CAST, RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Events, { DamageEvent } from 'parser/core/Events';
-import { MS_BUFFER } from 'parser/hunter/shared/constants';
+import { MS_BUFFER } from '@wowanalyzer/hunter';
 import { t } from '@lingui/macro';
 
 /** Bird of Prey

@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
-import { BORN_TO_BE_WILD_CD_REDUCTION, CALL_OF_THE_WILD_CD_REDUCTION, HARMONY_OF_THE_TORTOLLAN_EFFECT_BY_RANK, hastedCooldown } from 'parser/hunter/shared/constants';
+import { BORN_TO_BE_WILD_CD_REDUCTION, CALL_OF_THE_WILD_CD_REDUCTION, HARMONY_OF_THE_TORTOLLAN_EFFECT_BY_RANK, hastedCooldown } from '@wowanalyzer/hunter';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {

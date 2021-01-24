@@ -1,7 +1,7 @@
 import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import SPELLS from 'common/SPELLS';
 import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
-import { MIN_GCD } from 'parser/hunter/shared/constants';
+import { MIN_GCD } from '@wowanalyzer/hunter';
 import Haste from 'parser/shared/modules/Haste';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 

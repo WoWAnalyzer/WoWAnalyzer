@@ -1,8 +1,7 @@
-import FocusDetails from 'parser/hunter/shared/modules/resources/FocusDetails';
+import { FocusDetails } from '@wowanalyzer/hunter';
 
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
-
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 import React from 'react';

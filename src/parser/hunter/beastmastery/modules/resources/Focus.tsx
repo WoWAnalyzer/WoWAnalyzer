@@ -1,11 +1,12 @@
 import React from 'react';
 
+import { FocusTracker } from '@wowanalyzer/hunter';
+
 import Analyzer from 'parser/core/Analyzer';
 import { When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import resourceSuggest from 'parser/shared/modules/resources/resourcetracker/ResourceSuggest';
-import FocusTracker from 'parser/hunter/shared/modules/resources/FocusTracker';
 
 import { BARBED_SHOT_FOCUS_REGEN_BUFFS, FOCUS_THRESHOLD_AVG, FOCUS_THRESHOLD_MAJOR, FOCUS_THRESHOLD_MINOR } from '../../constants';
 

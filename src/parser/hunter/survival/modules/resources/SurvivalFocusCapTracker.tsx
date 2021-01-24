@@ -1,4 +1,4 @@
-import FocusCapTracker from 'parser/hunter/shared/modules/resources/FocusCapTracker';
+import { FocusCapTracker } from '@wowanalyzer/hunter';
 import { BASE_FOCUS_REGEN_SV, BASE_MAX_FOCUS_SV } from 'parser/hunter/survival/constants';
 
 class SurvivalFocusCapTracker extends FocusCapTracker {

@@ -10,7 +10,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Haste from 'interface/icons/Haste';
 import Events, { DamageEvent, SummonEvent } from 'parser/core/Events';
-import { DIRE_BEAST_HASTE_PERCENT } from 'parser/hunter/shared/constants';
+import { DIRE_BEAST_HASTE_PERCENT } from '@wowanalyzer/hunter';
 
 /**
  * Summons a powerful wild beast that attacks the target and roars, increasing your Haste by 5% for 8 sec.

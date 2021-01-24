@@ -5,7 +5,7 @@ import { When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import resourceSuggest from 'parser/shared/modules/resources/resourcetracker/ResourceSuggest';
-import FocusTracker from 'parser/hunter/shared/modules/resources/FocusTracker';
+import { FocusTracker } from '@wowanalyzer/hunter';
 
 class Focus extends Analyzer {
   static dependencies = {

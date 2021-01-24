@@ -13,7 +13,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import { MS_BUFFER } from 'parser/hunter/shared/constants';
+import { MS_BUFFER } from '@wowanalyzer/hunter';
 import { WILDFIRE_BOMB_LEEWAY_BUFFER } from 'parser/hunter/survival/constants';
 import { t } from '@lingui/macro';
 

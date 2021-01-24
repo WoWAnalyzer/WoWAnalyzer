@@ -13,7 +13,7 @@ import Events, { ApplyBuffEvent, ApplyBuffStackEvent, EnergizeEvent, EventType, 
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 import { Trans } from '@lingui/macro';
 
-import { NESINGWARY_FOCUS_GAIN_MULTIPLIER } from 'parser/hunter/shared/constants';
+import { NESINGWARY_FOCUS_GAIN_MULTIPLIER } from '@wowanalyzer/hunter';
 
 import { BARBED_SHOT_FOCUS_REGEN_BUFFS, BARBED_SHOT_REGEN, MAX_FRENZY_STACKS } from '../../constants';
 

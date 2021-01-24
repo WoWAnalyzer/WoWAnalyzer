@@ -10,7 +10,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import { MS_BUFFER } from 'parser/hunter/shared/constants';
+import { MS_BUFFER } from '@wowanalyzer/hunter';
 
 /**
  * Kill Command causes the target to bleed for X damage over 8 sec.

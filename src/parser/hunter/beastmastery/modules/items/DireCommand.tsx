@@ -12,7 +12,7 @@ import { DIRE_COMMAND_PROC_CHANCE } from 'parser/hunter/beastmastery/constants';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Haste from 'interface/icons/Haste';
 import { formatPercentage } from 'common/format';
-import { DIRE_BEAST_HASTE_PERCENT } from 'parser/hunter/shared/constants';
+import { DIRE_BEAST_HASTE_PERCENT } from '@wowanalyzer/hunter';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
 /**

@@ -9,7 +9,7 @@ import Statistic from 'parser/ui/Statistic';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import Events, { ApplyBuffEvent, EnergizeEvent } from 'parser/core/Events';
-import { NESINGWARY_FOCUS_GAIN_MULTIPLIER } from 'parser/hunter/shared/constants';
+import { NESINGWARY_FOCUS_GAIN_MULTIPLIER } from '@wowanalyzer/hunter';
 import { SV_KILL_COMMAND_FOCUS_GAIN } from 'parser/hunter/survival/constants';
 
 /**

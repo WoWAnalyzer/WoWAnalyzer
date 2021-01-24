@@ -12,7 +12,7 @@ import Statistic from 'parser/ui/Statistic';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { BUTCHERY_CARVE_MAX_TARGETS_HIT } from 'parser/hunter/survival/constants';
-import { ONE_SECOND_IN_MS } from 'parser/hunter/shared/constants';
+import { ONE_SECOND_IN_MS } from '@wowanalyzer/hunter';
 import { t } from '@lingui/macro';
 
 /**

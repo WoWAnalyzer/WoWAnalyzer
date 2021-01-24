@@ -10,7 +10,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { SV_KILL_COMMAND_FOCUS_GAIN } from 'parser/hunter/survival/constants';
-import { MS_BUFFER } from 'parser/hunter/shared/constants';
+import { MS_BUFFER } from '@wowanalyzer/hunter';
 
 /**
  * Lace your Wildfire Bomb with extra reagents, randomly giving it one of the following enhancements each time you throw it:

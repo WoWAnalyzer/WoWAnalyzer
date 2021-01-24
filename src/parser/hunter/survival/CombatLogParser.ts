@@ -1,3 +1,30 @@
+import {
+  DeathTracker,
+  NaturalMending,
+  Trailblazer,
+  AMurderOfCrows,
+  BornToBeWild,
+  BindingShot,
+  KillShot,
+  FocusTracker,
+  FocusDetails,
+  SpellFocusCost,
+  ResonatingArrow,
+  DeathChakrams,
+  WildSpirits,
+  FlayedShot,
+  EmpoweredRelease,
+  NecroticBarrage,
+  SpiritAttunement,
+  ResilienceOfTheHunter,
+  ReversalOfFortune,
+  RejuvenatingWind,
+  HarmonyOfTheTortollan,
+  SoulforgeEmbers,
+  EnfeebledMark,
+  MarkmansAdvantage,
+} from '@wowanalyzer/hunter';
+
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 //Overridden Racial
@@ -19,9 +46,6 @@ import Checklist from './modules/checklist/Module';
 //Normalizer
 import TipOfTheSpearNormalizer from './normalizers/TipOfTheSpear';
 
-//Death Tracker
-import DeathTracker from '../shared/modules/core/DeathTracker';
-
 //Spells
 import KillCommand from './modules/spells/KillCommand';
 import ButcheryCarve from './modules/spells/ButcheryCarve';
@@ -29,28 +53,19 @@ import SerpentSting from './modules/spells/SerpentSting';
 import CoordinatedAssault from './modules/spells/CoordinatedAssault';
 import WildfireBomb from './modules/spells/WildfireBomb';
 import RaptorStrike from './modules/spells/RaptorStrike';
-import KillShot from '../shared/modules/spells/KillShot';
 
 //Focus
-import FocusTracker from '../shared/modules/resources/FocusTracker';
-import FocusDetails from '../shared/modules/resources/FocusDetails';
-import SpellFocusCost from '../shared/modules/resources/SpellFocusCost';
 import SurvivalFocusCapTracker from './modules/resources/SurvivalFocusCapTracker';
 import Focus from './modules/resources/Focus';
 import SurvivalFocusUsage from './modules/resources/SurvivalFocusUsage';
 
 //Talents
-import Trailblazer from '../shared/modules/talents/Trailblazer';
-import NaturalMending from '../shared/modules/talents/NaturalMending';
-import AMurderOfCrows from '../shared/modules/talents/AMurderOfCrows';
 import VipersVenom from './modules/talents/VipersVenom';
 import MongooseBite from './modules/talents/MongooseBite';
 import GuerrillaTactics from './modules/talents/GuerrillaTactics';
 import SteelTrap from './modules/talents/SteelTrap';
 import Chakrams from './modules/talents/Chakrams';
 import BirdOfPrey from './modules/talents/BirdOfPrey';
-import BornToBeWild from '../shared/modules/talents/BornToBeWild';
-import BindingShot from '../shared/modules/talents/BindingShot';
 import PheromoneBomb from './modules/talents/WildfireInfusion/PheromoneBomb';
 import ShrapnelBomb from './modules/talents/WildfireInfusion/ShrapnelBomb';
 import VolatileBomb from './modules/talents/WildfireInfusion/VolatileBomb';
@@ -60,30 +75,14 @@ import HydrasBite from './modules/talents/HydrasBite';
 import FlankingStrike from './modules/talents/FlankingStrike';
 import TipOfTheSpear from './modules/talents/TipOfTheSpear';
 
-//Covenants
-import ResonatingArrow from '../shared/modules/spells/covenants/kyrian/ResonatingArrow';
-import DeathChakrams from '../shared/modules/spells/covenants/necrolord/DeathChakrams';
-import WildSpirits from '../shared/modules/spells/covenants/nightfae/WildSpirits';
-import FlayedShot from '../shared/modules/spells/covenants/venthyr/FlayedShot';
-
 //Conduits
-import EnfeebledMark from '../shared/modules/spells/conduits/kyrian/EnfeebledMark';
-import EmpoweredRelease from '../shared/modules/spells/conduits/venthyr/EmpoweredRelease';
-import NecroticBarrage from '../shared/modules/spells/conduits/necrolord/NecroticBarrage';
-import SpiritAttunement from '../shared/modules/spells/conduits/nightfae/SpiritAttunement';
 import DeadlyTandem from './modules/spells/conduits/DeadlyTandem';
 import FlameInfusion from './modules/spells/conduits/FlameInfusion';
 import StingingStrike from './modules/spells/conduits/StingingStrike';
 import StrengthOfThePack from './modules/spells/conduits/StrengthOfThePack';
-import MarkmansAdvantage from '../shared/modules/spells/conduits/MarkmansAdvantage';
-import ResilienceOfTheHunter from '../shared/modules/spells/conduits/ResilienceOfTheHunter';
-import ReversalOfFortune from '../shared/modules/spells/conduits/ReversalOfFortune';
-import RejuvenatingWind from '../shared/modules/spells/conduits/RejuvenatingWind';
-import HarmonyOfTheTortollan from '../shared/modules/spells/conduits/HarmonyOfTheTortollan';
 
 //Legendaries
 import NesingwarysTrappingApparatus from './modules/items/NesingwarysTrappingApparatus';
-import SoulforgeEmbers from '../shared/modules/items/SoulforgeEmbers';
 import WildfireCluster from './modules/items/WildfireCluster';
 import LatentPoisonInjectors from './modules/items/LatentPoisonInjectors';
 import RylakstalkersConfoundingStrikes from './modules/items/RylakstalkersConfoundingStrikes';

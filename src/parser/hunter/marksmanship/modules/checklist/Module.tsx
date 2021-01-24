@@ -4,15 +4,13 @@ import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
-import FocusDetails from 'parser/hunter/shared/modules/resources/FocusDetails';
-import FocusCapTracker from 'parser/hunter/shared/modules/resources/FocusCapTracker';
+import { FocusDetails, FocusCapTracker, CancelledCasts } from '@wowanalyzer/hunter';
 import SteadyFocus from 'parser/hunter/marksmanship/modules/talents/SteadyFocus';
 import LethalShots from 'parser/hunter/marksmanship/modules/talents/LethalShots';
 import SerpentSting from 'parser/hunter/marksmanship/modules/talents/SerpentSting';
 import CallingTheShots from 'parser/hunter/marksmanship/modules/talents/CallingTheShots';
 import DeadEye from 'parser/hunter/marksmanship/modules/talents/DeadEye';
 import PreciseShots from 'parser/hunter/marksmanship/modules/spells/PreciseShots';
-import CancelledCasts from 'parser/hunter/shared/modules/features/CancelledCasts';
 
 import Component from './Component';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
