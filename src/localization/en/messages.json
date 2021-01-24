@@ -953,7 +953,7 @@
   "shared.suggestions.aoeSpells.efficiency": "{0} total hits",
   "shared.suggestions.deathTracker.deathTime": "You were dead for {0}% of the fight",
   "shared.suggestions.deathTracker.recommended": "0% is recommended",
-  "shared.suggestions.dots.badRefreshes": "{0}% bad dot refreshes.",
+  "shared.suggestions.dots.badRefreshes": "{0}% bad dot refreshes",
   "shared.suggestions.dots.countEarlyRefreshes": "{0}% effective duration",
   "shared.suggestions.dots.earlyRefreshes": "{0}% effective refresh duration",
   "shared.suggestions.efficiency": "efficiency",
