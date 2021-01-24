@@ -5,7 +5,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { Trans, t } from '@lingui/macro';
 import { compose } from 'redux';
 
-import { findByBossId } from 'raids';
+import { findByBossId } from 'game/raids';
 import lazyLoadComponent from 'common/lazyLoadComponent';
 import retryingPromise from 'common/retryingPromise';
 import makeWclUrl from 'common/makeWclUrl';

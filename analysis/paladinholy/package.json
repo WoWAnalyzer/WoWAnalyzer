@@ -12,7 +12,6 @@
     "game": "link:../../src/game",
     "interface": "link:../../src/interface",
     "parser": "link:../../src/parser",
-    "raids": "link:../../src/raids",
     "react": "^16.13.1"
   }
 }

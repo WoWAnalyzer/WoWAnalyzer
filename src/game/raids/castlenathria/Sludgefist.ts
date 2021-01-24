@@ -1,4 +1,4 @@
-import { Boss } from "raids/index";
+import { Boss } from "game/raids";
 
 import Background from './images/backgrounds/Sludgefist.jpg';
 import Headshot from './images/headshots/Sludgefist.jpg';

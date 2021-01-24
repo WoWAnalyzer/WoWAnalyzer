@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Boss, findByBossId } from 'raids';
+import { Boss, findByBossId } from 'game/raids';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import ModuleError from 'parser/core/ModuleError';
 import {
@@ -94,8 +94,6 @@ import DarkmoonDeckVoracity from '../shared/modules/items/shadowlands/crafted/Da
 import OverchargedAnimaBattery from '../shared/modules/items/shadowlands/dungeons/OverchargedAnimaBattery';
 // Castle Nathria
 import SoulInfusion from '../shared/modules/spells/SoulInfusion';
-
-// Legendaries
 
 import ParseResults from './ParseResults';
 import EventsNormalizer from './EventsNormalizer';

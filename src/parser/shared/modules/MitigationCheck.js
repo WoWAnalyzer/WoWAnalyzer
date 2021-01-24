@@ -8,7 +8,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
 import Enemies from 'parser/shared/modules/Enemies';
 
-import { findByBossId } from 'raids';
+import { findByBossId } from 'game/raids';
 import StatisticBox from 'parser/ui/StatisticBox';
 import HIT_TYPES from 'game/HIT_TYPES';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';

@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import DIFFICULTIES from 'game/DIFFICULTIES';
 import { EventType } from 'parser/core/Events';
-import { Boss } from "raids/index";
+import { Boss } from "game/raids";
 
 import Background from './images/backgrounds/StoneLegionGenerals.jpg';
 import Headshot from './images/headshots/StoneLegionGenerals.jpg';

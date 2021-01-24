@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 
 import { EventType, PhaseEvent } from 'parser/core/Events';
-import { findByBossId, Phase } from 'raids';
+import { findByBossId, Phase } from 'game/raids';
 import Fight from 'parser/core/Fight';
 
 export const SELECTION_ALL_PHASES = "ALL";

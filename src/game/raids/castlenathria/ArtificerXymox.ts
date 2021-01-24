@@ -1,4 +1,4 @@
-import { Boss } from "raids/index";
+import { Boss } from "game/raids";
 import DIFFICULTIES from 'game/DIFFICULTIES';
 import { EventType } from 'parser/core/Events';
 
