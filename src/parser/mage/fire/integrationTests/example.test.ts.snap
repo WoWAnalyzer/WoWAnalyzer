@@ -5131,7 +5131,7 @@ Array [
         message="{0}% utilization"
         values={
           Object {
-            "0": "25.00",
+            "0": "75.00",
           }
         }
       />
@@ -7163,7 +7163,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#ffc84a",
-                  "width": "61.74622411007057%",
+                  "width": "64.34778661007057%",
                 }
               }
             />
@@ -7852,7 +7852,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  25.00%
+                  75.00%
                    
                    
                 </div>
@@ -7874,7 +7874,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "10.40625%",
+                        "width": "31.21875%",
                       }
                     }
                   />

@@ -34,14 +34,20 @@ import AuspiciousSpirits from './modules/talents/AuspiciousSpirits';
 // normalizers
 import ShadowfiendNormalizer from '../shared/normalizers/ShadowfiendNormalizer';
 import Buffs from './modules/features/Buffs';
-// conduits
-import DissonantEchoes from './modules/shadowlands/conduits/DissonantEchoes';
 
 // Covenants
 import UnholyNova from '../shared/modules/shadowlands/covenants/UnholyNova';
 import Mindgames from '../shared/modules/shadowlands/covenants/Mindgames';
 import BoonOfTheAscended from '../shared/modules/shadowlands/covenants/BoonOfTheAscended';
 import FaeGuardians from '../shared/modules/shadowlands/covenants/FaeGuardians';
+
+// conduits
+import DissonantEchoes from './modules/shadowlands/conduits/DissonantEchoes';
+
+// legendaries
+import EternalCallToTheVoid from './modules/shadowlands/legendaries/EternalCallToTheVoid';
+import TalbadarsStratagem from './modules/shadowlands/legendaries/TalbadarsStratagem';
+import TwinsOfTheSunPriestess from '../shared/modules/shadowlands/legendaries/TwinsOfTheSunPriestess';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -93,6 +99,11 @@ class CombatLogParser extends MainCombatLogParser {
 
     // conduits:
     dissonantEchoes: DissonantEchoes,
+
+    // legendaries:
+    eternalCallToTheVoid: EternalCallToTheVoid,
+    talbadarsStratagem: TalbadarsStratagem,
+    twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
   };
 }
 

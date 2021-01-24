@@ -10,6 +10,9 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 export default [
   change(date(2021, 1, 23), <>Changed DOT uptime tracker into better looking StatisticBar.</>, Adoraci),
+  change(date(2021, 1, 23), <>Added <SpellLink id={SPELLS.ETERNAL_CALL_TO_THE_VOID.id} /> legendary.</>, Adoraci),
+  change(date(2021, 1, 23), <>Added <SpellLink id={SPELLS.TALBADARS_STRATAGEM.id} /> legendary.</>, Adoraci),
+  change(date(2021, 1, 23), <>Added <SpellLink id={SPELLS.TWINS_OF_THE_SUN_PRIESTESS.id} /> legendary.</>, Adoraci),
   change(date(2021, 1, 23), <>Updated checklist to include <SpellLink id={SPELLS.POWER_INFUSION.id} />.</>, Adoraci),
   change(date(2021, 1, 23), <>Added support for <SpellLink id={SPELLS.SHADOW_WORD_DEATH.id} />.</>, Adoraci),
   change(date(2021, 1, 23), <>Added <ResourceLink id={RESOURCE_TYPES.INSANITY.id} /> tracker and suggestions.</>, Adoraci),

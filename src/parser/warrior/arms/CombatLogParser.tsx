@@ -2,6 +2,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 // Normalizers
 import OverpowerStacks from './normalizers/OverpowerStacks';
+
 // Features
 import Checklist from './modules/checklist/Module';
 import Abilities from './modules/Abilities';
@@ -9,22 +10,28 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import SpellUsable from './modules/features/SpellUsable';
 import Channeling from './modules/features/Channeling';
+
 // Resource
 import RageTracker from './modules/features/RageTracker';
 import RageDetail from './modules/features/RageDetails';
+
 // Core
 import TacticianProc from './modules/core/TacticianProc';
 import Overpower from './modules/core/Overpower';
 import Slam from './modules/core/Slam';
 import SweepingStrikes from './modules/core/SweepingStrikes';
+
 // Execute Range
 import Rend from './modules/core/Execute/Rend';
 import MortalStrike from './modules/core/Execute/MortalStrike';
 import ExecuteRange from './modules/core/Execute/ExecuteRange';
+
 // Dots
 import DeepWoundsUptime from './modules/core/Dots/DeepWoundsUptime';
 import RendUptime from './modules/core/Dots/RendUptime';
 import DotUptimes from './modules/core/Dots';
+import EarlyDotRefresh from './modules/core/Execute/EarlyDotRefresh';
+
 // Talents
 import Talents from './modules/talents';
 import AngerManagement from './modules/talents/AngerManagement';
@@ -75,6 +82,7 @@ class CombatLogParser extends CoreCombatLogParser {
     deepWoundsUptime: DeepWoundsUptime,
     rendUptime: RendUptime,
     dotUptimes: DotUptimes,
+	earlyDotRefresh: EarlyDotRefresh,
 
     // Talents
     talents: Talents,
