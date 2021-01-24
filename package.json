@@ -111,5 +111,9 @@
     "moduleNameMapper": {
       "^@lingui/loader!.*$": "<rootDir>/linguiMessageMock.js"
     }
-  }
+  },
+  "workspaces": [
+    "packages/*",
+    "parser/*"
+  ]
 }
