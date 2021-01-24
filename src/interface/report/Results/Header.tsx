@@ -2,7 +2,7 @@
 import React, { ComponentType, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Phase } from 'raids';
+import { Phase } from 'game/raids';
 import Fight from 'parser/core/Fight';
 import DEFAULT_BUILD from 'parser/DEFAULT_BUILD';
 import Config, { Build } from 'parser/Config';

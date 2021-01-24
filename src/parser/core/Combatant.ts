@@ -4,7 +4,7 @@ import TALENT_ROWS from 'game/TALENT_ROWS';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import { Enchant } from 'common/ITEMS/Item';
 import SPELLS from 'common/SPELLS';
-import { findByBossId } from 'raids';
+import { findByBossId } from 'game/raids';
 import CombatLogParser, { Player } from 'parser/core/CombatLogParser';
 import { Buff, CombatantInfoEvent, Conduit, EventType, Item, SoulbindTrait } from 'parser/core/Events';
 
