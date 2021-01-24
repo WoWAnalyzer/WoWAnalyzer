@@ -1,3 +1,13 @@
+import {
+  HammerOfWrath,
+  HolyAvenger,
+  DivinePurpose,
+  HolyPowerTracker,
+  HolyPowerDetails,
+  AshenHallow,
+  DivineToll,
+} from '@wowanalyzer/paladin';
+
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 
@@ -12,7 +22,6 @@ import MissingBeacons from './modules/beacons/MissingBeacons';
 import FailedBeaconTransfers from './modules/beacons/FailedBeaconTransfers';
 import DirectBeaconHealing from './modules/beacons/DirectBeaconHealing';
 import BeaconUptime from './modules/beacons/BeaconUptime';
-import HammerOfWrath from '../shared/spells/HammerOfWrath';
 
 import PaladinAbilityTracker from './modules/core/PaladinAbilityTracker';
 import CastBehavior from './modules/features/CastBehavior';
@@ -35,23 +44,14 @@ import MightOfTheMountain from './modules/racials/MightOfTheMountain';
 
 import RuleOfLaw from './modules/talents/RuleOfLaw';
 import DevotionAuraDamageReduction from './modules/spells/DevotionAuraDamageReduction';
-import HolyAvenger from '../shared/talents/HolyAvenger';
-import DivinePurpose from '../shared/talents/DivinePurpose';
+
+import ShockBarrier from './modules/shadowlands/legendaries/ShockBarrier';
+
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 import CrusadersMight from './modules/talents/CrusadersMight';
 import AvengingCrusader from './modules/talents/AvengingCrusader';
 import JudgmentOfLight from './modules/talents/JudgmentOfLight';
 import GlimmerOfLight from './modules/talents/GlimmerOfLight';
-
-import HolyPowerTracker from '../shared/holypower/HolyPowerTracker';
-import HolyPowerDetails from '../shared/holypower/HolyPowerDetails';
-
-import ShockBarrier from './modules/shadowlands/legendaries/ShockBarrier';
-
-import AshenHallow from '../shared/shadowlands/covenants/AshenHallow';
-import DivineToll from '../shared/shadowlands/covenants/DivineToll';
-
-
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
@@ -82,7 +82,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lightOfDawn: LightOfDawn,
     lightOfDawnIndexer: LightOfDawnIndexer,
     hammerOfWrath: HammerOfWrath,
-    
+
     // Features
     checklist: Checklist,
     abilities: Abilities,

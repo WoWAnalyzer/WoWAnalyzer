@@ -10,7 +10,6 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { SpellIcon } from 'interface';
 
-
 const AW_BASE_DURATION = 20;
 
 class SanctifiedWrath extends Analyzer {

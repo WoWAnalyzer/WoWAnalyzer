@@ -1,4 +1,7 @@
+import { t } from '@lingui/macro';
 import React from 'react';
+
+import { HolyPowerTracker } from '@wowanalyzer/paladin'
 
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -7,8 +10,6 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, {CastEvent, ApplyBuffStackEvent} from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
-import HolyPowerTracker from 'parser/paladin/shared/holypower/HolyPowerTracker';
-import { t } from '@lingui/macro';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 const CAST_BUFFER = 500;

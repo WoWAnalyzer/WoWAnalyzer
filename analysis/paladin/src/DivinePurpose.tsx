@@ -15,7 +15,7 @@ import Spell from 'common/SPELLS/Spell';
 
 import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
 
-import { DIVINE_PURPOSE_CHANCE } from '../constants';
+import { DIVINE_PURPOSE_CHANCE } from './constants';
 
 const HEALING_HOLY_POWER_SPELLS: Spell[] = [
   SPELLS.WORD_OF_GLORY,

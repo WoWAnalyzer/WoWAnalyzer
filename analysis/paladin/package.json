@@ -1,0 +1,14 @@
+{
+	"name": "@wowanalyzer/paladin",
+	"version": "1.0.0",
+	"main": "src/index.ts",
+	"typings": "src/index.ts",
+	"files": [
+		"src"
+	],
+	"dependencies": {
+		"common": "link:../../src/common",
+		"interface": "link:../../src/interface",
+		"parser": "link:../../src/parser"
+	}
+}

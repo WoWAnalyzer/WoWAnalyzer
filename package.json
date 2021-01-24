@@ -3,6 +3,7 @@
   "description": "The WoWAnalyzer client-side app.",
   "repository": "https://github.com/WoWAnalyzer/WoWAnalyzer",
   "license": "AGPL-3.0-or-later",
+  "private": true,
   "dependencies": {
     "@lingui/core": "^3.3.0",
     "@lingui/macro": "^3.3.0",
@@ -111,5 +112,8 @@
     "moduleNameMapper": {
       "^@lingui/loader!.*$": "<rootDir>/linguiMessageMock.js"
     }
-  }
+  },
+  "workspaces": [
+    "analysis/*"
+  ]
 }

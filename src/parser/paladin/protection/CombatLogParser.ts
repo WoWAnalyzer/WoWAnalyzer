@@ -1,6 +1,7 @@
+import { Judgment, HolyPowerTracker, HolyPowerDetails, DivineToll } from '@wowanalyzer/paladin';
+
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
-import Judgment from 'parser/paladin/shared/spells/Judgment';
 
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -32,11 +33,6 @@ import FirstAvenger from './modules/talents/FirstAvenger';
 import MomentOfGlory from './modules/talents/MomentOfGlory';
 
 //import CooldownTracker from './Modules/Features/CooldownTracker';
-import HolyPowerTracker from '../shared/holypower/HolyPowerTracker';
-import HolyPowerDetails from '../shared/holypower/HolyPowerDetails';
-
-// Covenant Abilities
-import DivineToll from '../shared/shadowlands/covenants/DivineToll';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -80,7 +76,7 @@ class CombatLogParser extends CoreCombatLogParser {
     holyPowerTracker: HolyPowerTracker,
     holyPowerDetails: HolyPowerDetails,
 
-    // Covenant Abilities 
+    // Covenant Abilities
     devineToll: DivineToll,
   };
 }

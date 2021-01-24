@@ -1,13 +1,13 @@
 import React from 'react';
 
+import { Judgment, HolyPowerDetails } from '@wowanalyzer/paladin'
+
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
-import Judgment from 'parser/paladin/shared/spells/Judgment';
 
 import AlwaysBeCasting from '../AlwaysBeCasting';
-import HolyPowerDetails from '../../../../shared/holypower/HolyPowerDetails';
 import ArtOfWar from '../../core/ArtOfWar';
 import Crusade from '../../talents/Crusade';
 import RighteousVerdict from '../../talents/RighteousVerdict';

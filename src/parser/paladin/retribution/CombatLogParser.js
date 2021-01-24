@@ -1,5 +1,12 @@
+import {
+  DivinePurpose,
+  HolyAvenger,
+  HolyPowerTracker,
+  HolyPowerDetails,
+  Judgment,
+} from '@wowanalyzer/paladin';
+
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import Judgment from 'parser/paladin/shared/spells/Judgment';
 
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -8,8 +15,6 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import Checklist from './modules/features/Checklist/Module';
 import ShieldOfVengeance from './modules/core/ShieldOfVengeance';
 
-import DivinePurpose from '../shared/talents/DivinePurpose';
-import HolyAvenger from '../shared/talents/HolyAvenger';
 import ArtOfWar from './modules/core/ArtOfWar';
 import BladeofJustice from './modules/core/BladeofJustice';
 import CrusaderStrike from './modules/core/CrusaderStrike';
@@ -21,8 +26,6 @@ import RighteousVerdict from './modules/talents/RighteousVerdict';
 import ExecutionSentence from './modules/talents/ExecutionSentence';
 import EmpyreanPower from './modules/talents/EmpyreanPower';
 
-import HolyPowerTracker from '../shared/holypower/HolyPowerTracker';
-import HolyPowerDetails from '../shared/holypower/HolyPowerDetails';
 import SanctifiedWrath from './modules/talents/SanctifiedWrath';
 
 class CombatLogParser extends CoreCombatLogParser {
