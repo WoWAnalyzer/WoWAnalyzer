@@ -436,7 +436,7 @@ class Results extends React.PureComponent {
             <AlertWarning style={{ marginBottom: 30 }}>
               <Trans id="interface.report.results.warning.filteredByWclogs">
                 This fight has results that are filtered in WarcraftLogs which are not filtered here.
-                Bonus damage or boss healing may result in WoWAnalyzer displaying higher numbers than
+                Bonus damage or bosses full-healing may result in WoWAnalyzer displaying higher numbers than
                 what you see on WarcraftLogs. To see exactly what is being filtered out, check the table
                 on the WarcraftLogs site.
               </Trans>
