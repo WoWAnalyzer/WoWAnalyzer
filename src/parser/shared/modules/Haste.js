@@ -6,8 +6,6 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import EventFilter, { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { EventType } from 'parser/core/Events';
-import { STEADY_FOCUS_HASTE_PERCENT } from '@wowanalyzer/hunter-marksmanship/src/constants';
-import { INVOKERS_DELIGHT_HASTE_BUFF } from '@wowanalyzer/monk';
 
 const debug = false;
 
@@ -41,7 +39,7 @@ class Haste extends Analyzer {
 
     //region Hunter Haste Buffs
     [SPELLS.DIRE_BEAST_BUFF.id]: 0.05,
-    [SPELLS.STEADY_FOCUS_BUFF.id]: STEADY_FOCUS_HASTE_PERCENT,
+    [SPELLS.STEADY_FOCUS_BUFF.id]: 0.07,
     //endregion
 
     //region Paladin
@@ -60,7 +58,7 @@ class Haste extends Analyzer {
     //endregion
 
     //region Monk
-    [SPELLS.INVOKERS_DELIGHT_BUFF.id]: INVOKERS_DELIGHT_HASTE_BUFF,
+    [SPELLS.INVOKERS_DELIGHT_BUFF.id]: 0.33,
     //region end
   };
 
