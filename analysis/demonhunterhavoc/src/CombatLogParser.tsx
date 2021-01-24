@@ -1,3 +1,5 @@
+import { ElysianDecree, SinfulBrand, TheHunt } from '@wowanalyzer/demonhunter'
+
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
@@ -41,11 +43,6 @@ import FuryTracker from './modules/resourcetracker/FuryTracker';
 //Legendaries
 import CollectiveAnguish from './modules/shadowlands/legendaries/CollectiveAnguish';
 import ChaosTheory from './modules/shadowlands/legendaries/ChaosTheory';
-
-//Covenants
-import SinfulBrand from "../shared/modules/spells/covenants/SinfulBrand"
-import TheHunt from '../shared/modules/spells/covenants/TheHunt';
-import ElysianDecree from "../shared/modules/spells/covenants/ElysianDecree";
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -92,7 +89,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
-    
+
     //Legendaries
     collectiveAnguish: CollectiveAnguish,
     chaosTheory: ChaosTheory,

@@ -3,8 +3,8 @@ import BloodDeathKnight from '@wowanalyzer/deathknight-blood';
 import UnholyDeathKnight from '@wowanalyzer/deathknight-unholy';
 import FrostDeathKnight from '@wowanalyzer/deathknight-frost';
 
-import HavocDemonHunter from './demonhunter/havoc/CONFIG';
-import VengeanceDemonHunter from './demonhunter/vengeance/CONFIG';
+import HavocDemonHunter from '@wowanalyzer/demonhunter-havoc';
+import VengeanceDemonHunter from '@wowanalyzer/demonhunter-vengeance';
 
 import BalanceDruid from '@wowanalyzer/druid-balance';
 import FeralDruid from '@wowanalyzer/druid-feral';
