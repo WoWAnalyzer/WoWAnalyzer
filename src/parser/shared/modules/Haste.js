@@ -7,7 +7,6 @@ import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import EventFilter, { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { EventType } from 'parser/core/Events';
 import { STEADY_FOCUS_HASTE_PERCENT } from 'parser/hunter/marksmanship/constants';
-import { DIRE_BEAST_HASTE_PERCENT } from '@wowanalyzer/hunter';
 import { INVOKERS_DELIGHT_HASTE_BUFF } from '@wowanalyzer/monk';
 
 const debug = false;
@@ -41,7 +40,7 @@ class Haste extends Analyzer {
     //endregion
 
     //region Hunter Haste Buffs
-    [SPELLS.DIRE_BEAST_BUFF.id]: DIRE_BEAST_HASTE_PERCENT,
+    [SPELLS.DIRE_BEAST_BUFF.id]: 0.05,
     [SPELLS.STEADY_FOCUS_BUFF.id]: STEADY_FOCUS_HASTE_PERCENT,
     //endregion
 
