@@ -143,6 +143,14 @@
     ]
   },
   "jest": {
+    "roots": [
+      "<rootDir>/src",
+      "<rootDir>/analysis"
+    ],
+    "testMatch": [
+      "<rootDir>/src/**/*.{spec,test}.{ts,tsx}",
+      "<rootDir>/analysis/**/*.{spec,test}.{ts,tsx}"
+    ],
     "snapshotResolver": "./snapshotResolver.js",
     "moduleNameMapper": {
       "^@lingui/loader!.*$": "<rootDir>/linguiMessageMock.js"
