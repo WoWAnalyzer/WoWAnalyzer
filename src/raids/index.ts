@@ -20,6 +20,7 @@ type EncounterConfig = {
     magical: [],
   },
   resultsWarning?: string;
+  filteredResults?: boolean;
   phases?: { [key: string]: PhaseConfig },
   raceTranslation?: (race: Race, spec: Spec) => Race,
   disableDeathSuggestion?: boolean,

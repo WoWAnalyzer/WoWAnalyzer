@@ -14,6 +14,7 @@ const HuntsmanAltimor: Boss = {
   icon: 'achievement_raid_revendrethraid_altimor',
   fight: {
     vantusRuneBuffId: 334132,
+    filteredResults: true,
     softMitigationChecks: {
       physical: [],
       magical: [],

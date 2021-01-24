@@ -66,6 +66,7 @@ class Results extends React.PureComponent {
       boss: PropTypes.shape({
         fight: PropTypes.shape({
           resultsWarning: PropTypes.any,
+          filteredResults: PropTypes.bool,
         }),
       }),
       getOptionalModule: PropTypes.func.isRequired,
@@ -428,6 +429,18 @@ class Results extends React.PureComponent {
         {boss && boss.fight.resultsWarning && (
           <div className="container">
             <AlertWarning style={{ marginBottom: 30 }}>{boss.fight.resultsWarning}</AlertWarning>
+          </div>
+        )}
+        {boss && boss.fight.filteredResults && (
+          <div className="container">
+            <AlertWarning style={{ marginBottom: 30 }}>
+              <Trans id="interface.report.results.warning.filteredByWclogs">
+                This fight has results that are filtered in WarcraftLogs which are not filtered here.
+                Bonus damage or boss healing may result in WoWAnalyzer displaying higher numbers than
+                what you see on WarcraftLogs. To see exactly what is being filtered out, check the table
+                on the WarcraftLogs site.
+              </Trans>
+            </AlertWarning>
           </div>
         )}
         {parser && parser.selectedCombatant.gear && (

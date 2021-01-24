@@ -14,6 +14,7 @@ const TheCouncilOfBlood: Boss = {
   icon: 'achievement_raid_revendrethraid_nobilitycouncil',
   fight: {
     vantusRuneBuffId: 311450,
+    filteredResults: true,
     softMitigationChecks: {
       physical: [],
       magical: [],

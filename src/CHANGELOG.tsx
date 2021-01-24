@@ -9,6 +9,7 @@ import { change, date } from 'common/changelog';
 
 // prettier-ignore
 export default [
+  change(date(2021, 1, 21), 'Added a warning on fights where damage is filtered on WarcraftLogs but not WoWAnalyzer.', Adoraci),
   change(date(2021, 1, 20), 'Rework spec support: automatically mark specs as unsupported when patch does not match the game and added a toggle to mark a spec with partial support.', Zerotorescue),
   change(date(2021, 1, 20), 'Change homepage header to be consistent with report page.', Zerotorescue),
   change(date(2021, 1, 20), 'Updated the Missing Encounters warning to show always and prompt users to click Refresh if encounters are missing.', Sharrq),
