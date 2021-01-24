@@ -1,0 +1,18 @@
+{
+  "name": "@wowanalyzer/paladin-holy",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "typings": "src/index.ts",
+  "files": [
+    "src"
+  ],
+  "dependencies": {
+    "@wowanalyzer/paladin": "*",
+    "common": "link:../../src/common",
+    "game": "link:../../src/game",
+    "interface": "link:../../src/interface",
+    "parser": "link:../../src/parser",
+    "raids": "link:../../src/raids",
+    "react": "^16.13.1"
+  }
+}

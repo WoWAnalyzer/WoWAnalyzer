@@ -9,6 +9,7 @@
     "@lingui/macro": "^3.3.0",
     "@lingui/react": "^3.3.0",
     "@types/react-toggle": "^4.0.2",
+    "@wowanalyzer/paladin-holy": "*",
     "@wowanalyzer/react-tooltip-lite": "3.1.1",
     "d3-dsv": "^1.1.1",
     "d3-scale": "^2.2.2",

@@ -22,7 +22,7 @@ import BrewmasterMonk from './monk/brewmaster/CONFIG';
 import WindwalkerMonk from './monk/windwalker/CONFIG';
 import MistweaverMonk from './monk/mistweaver/CONFIG';
 
-import HolyPaladin from './paladin/holy/CONFIG';
+import HolyPaladin from '@wowanalyzer/paladin-holy';
 import RetributionPaladin from './paladin/retribution/CONFIG';
 import ProtectionPaladin from './paladin/protection/CONFIG';
 

@@ -22,7 +22,7 @@ module.exports = override(
     path.resolve('./src'),
     new RegExp(`^${process.cwd()}/.*/?node_modules/@wowanalyzer/[^/]+/src/`),
     // Temporary directories until these are migrated to workspaces
-    new RegExp(`^${process.cwd()}/.*/?node_modules/(interface|parser|common)/`),
+    new RegExp(`^${process.cwd()}/.*/?node_modules/(interface|parser|common|game|raids)/`),
   ]),
   (config) => {
     // Disabling symlink resolving allows us to link @wowanalyzer packages from any random
