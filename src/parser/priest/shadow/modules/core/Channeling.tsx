@@ -54,6 +54,11 @@ class Channeling extends CoreChanneling {
         return;
       }
 
+      if (event.ability.guid === SPELLS.SEARING_NIGHTMARE_TALENT.id && this.isChannelingSpell(SPELLS.MIND_SEAR.id)) {
+        // Searing nightmare used during mind sear
+        return;
+      }
+
       // If a channeling spell is "canceled" it was actually just ended, so if it looks canceled then instead just mark it as ended
       this.endChannel(event);
     } else {
