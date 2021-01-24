@@ -8,7 +8,6 @@
   ],
   "dependencies": {
     "@lingui/macro": "^3.3.0",
-    "@wowanalyzer/paladin": "*",
     "common": "link:../../src/common",
     "game": "link:../../src/game",
     "interface": "link:../../src/interface",

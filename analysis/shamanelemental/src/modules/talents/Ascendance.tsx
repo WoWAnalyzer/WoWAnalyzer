@@ -8,15 +8,15 @@ import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
-import Abilities from '../Abilities';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
-class Ascendance extends Analyzer {
+import Abilities from '../Abilities';
 
+class Ascendance extends Analyzer {
   static dependencies = {
     abilities: Abilities,
     enemies: EnemyInstances,

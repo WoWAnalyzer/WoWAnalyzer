@@ -1,4 +1,12 @@
-import { AnkhNormalizer, AstralShift, EarthShield, ElementalBlast, FlameShock, Maelstrom, MaelstromDetails, MaelstromTab, MaelstromTracker, SpiritWolf, StaticCharge } from '@wowanalyzer/shaman';
+import {
+  AnkhNormalizer,
+  AstralShift,
+  EarthShield,
+  ElementalBlast,
+  FlameShock,
+  SpiritWolf,
+  StaticCharge,
+} from '@wowanalyzer/shaman';
 
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
