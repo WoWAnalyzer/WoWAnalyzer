@@ -8,7 +8,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Events, { CastEvent } from 'parser/core/Events';
-import { BASELINE_AOTE_CD } from 'parser/hunter/survival/constants';
+import { BASELINE_AOTE_CD } from '@wowanalyzer/hunter-survival/src/constants';
 
 import { BASELINE_TURTLE_CHEETAH_CD, BORN_TO_BE_WILD_AFFECTED_SPELLS, CALL_OF_THE_WILD_CD_REDUCTION, HARMONY_OF_THE_TORTOLLAN_EFFECT_BY_RANK } from './constants';
 

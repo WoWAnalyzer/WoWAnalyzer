@@ -3,8 +3,8 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SpellResourceCost from 'parser/shared/modules/SpellResourceCost';
 import SPELLS from 'common/SPELLS';
 import { CastEvent } from 'parser/core/Events';
-import { LNL_COST_MULTIPLIER } from 'parser/hunter/marksmanship/constants';
-import { VIPERS_VENOM_COST_MULTIPLIER } from 'parser/hunter/survival/constants';
+import { LNL_COST_MULTIPLIER } from '@wowanalyzer/hunter-marksmanship/src/constants';
+import { VIPERS_VENOM_COST_MULTIPLIER } from '@wowanalyzer/hunter-survival/src/constants';
 import { Options } from 'parser/core/Analyzer';
 
 class SpellFocusCost extends SpellResourceCost {

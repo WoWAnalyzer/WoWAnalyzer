@@ -6,7 +6,7 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import EventFilter, { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { EventType } from 'parser/core/Events';
-import { STEADY_FOCUS_HASTE_PERCENT } from 'parser/hunter/marksmanship/constants';
+import { STEADY_FOCUS_HASTE_PERCENT } from '@wowanalyzer/hunter-marksmanship/src/constants';
 import { INVOKERS_DELIGHT_HASTE_BUFF } from '@wowanalyzer/monk';
 
 const debug = false;

@@ -11,9 +11,9 @@ import FeralDruid from '@wowanalyzer/druid-feral';
 import GuardianDruid from '@wowanalyzer/druid-guardian';
 import RestoDruid from '@wowanalyzer/druid-restoration';
 
-import BeastMasteryHunter from './hunter/beastmastery/CONFIG';
-import MarksmanshipHunter from './hunter/marksmanship/CONFIG';
-import SurvivalHunter from './hunter/survival/CONFIG';
+import BeastMasteryHunter from '@wowanalyzer/hunter-beastmastery';
+import MarksmanshipHunter from '@wowanalyzer/hunter-marksmanship';
+import SurvivalHunter from '@wowanalyzer/hunter-survival';
 
 import FrostMage from './mage/frost/CONFIG';
 import FireMage from './mage/fire/CONFIG';
