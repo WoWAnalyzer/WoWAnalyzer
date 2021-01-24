@@ -19,9 +19,9 @@ import FrostMage from './mage/frost/CONFIG';
 import FireMage from './mage/fire/CONFIG';
 import ArcaneMage from './mage/arcane/CONFIG';
 
-import BrewmasterMonk from './monk/brewmaster/CONFIG';
-import WindwalkerMonk from './monk/windwalker/CONFIG';
-import MistweaverMonk from './monk/mistweaver/CONFIG';
+import BrewmasterMonk from '@wowanalyzer/monk-brewmaster';
+import WindwalkerMonk from '@wowanalyzer/monk-windwalker';
+import MistweaverMonk from '@wowanalyzer/monk-mistweaver';
 
 import HolyPaladin from '@wowanalyzer/paladin-holy';
 import RetributionPaladin from '@wowanalyzer/paladin-retribution';
