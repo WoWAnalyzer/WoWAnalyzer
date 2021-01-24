@@ -4381,6 +4381,66 @@ exports[`Shadow Priest integration test: example log DistanceMoved matches the s
 </div>
 `;
 
+exports[`Shadow Priest integration test: example log EternalCallToTheVoid matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="ITEMS"
+    className="panel statistic flexible "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=336214"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Eternall Call to the Void"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/achievement_boss_yoggsaron_01.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=336214"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Eternall Call to the Void
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          <img
+            alt="Damage"
+            className="icon"
+            src="/img/sword.png"
+          />
+           
+          86
+           DPS
+           
+          <small>
+            1.93
+             % of total
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Shadow Priest integration test: example log FortressOfTheMind matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"

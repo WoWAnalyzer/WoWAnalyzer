@@ -61,6 +61,13 @@ class CooldownThroughputTracker extends Analyzer {
         BUILT_IN_SUMMARY_TYPES.MANA,
       ],
     },
+    {
+      spell: SPELLS.POWER_INFUSION,
+      summary: [
+        BUILT_IN_SUMMARY_TYPES.DAMAGE,
+        BUILT_IN_SUMMARY_TYPES.HEALING,
+      ],
+    }
   ];
 
   static ignoredSpells: number[] = [
