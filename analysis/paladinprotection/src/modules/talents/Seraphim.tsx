@@ -13,7 +13,8 @@ import VersatilityIcon from 'interface/icons/Versatility';
 import HasteIcon from 'interface/icons/Haste';
 import MasteryIcon from 'interface/icons/Mastery';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Haste from 'parser/paladin/protection/modules/core/Haste';
+
+import Haste from '../core/Haste';
 
 const STAT_MODIFIER = 0.08;
 const debug = false;

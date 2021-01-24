@@ -1,7 +1,11 @@
+import { ConvokeSpirits } from '@wowanalyzer/druid';
+
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
+import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
+import HealingEfficiencyDetails from 'parser/core/healingEfficiency/HealingEfficiencyDetails';
 
 import WildGrowthNormalizer from './normalizers/WildGrowth';
 import ClearcastingNormalizer from './normalizers/ClearcastingNormalizer';
@@ -42,14 +46,9 @@ import Abundance from './modules/talents/Abundance';
 import StatWeights from './modules/features/StatWeights';
 
 // Mana Tracker
-import ManaTracker from '../../core/healingEfficiency/ManaTracker';
-import HealingEfficiencyDetails from '../../core/healingEfficiency/HealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/RestoDruidHealingEfficiencyTracker';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
-
-// Covenants
-import ConvokeSpirits from '../shared/modules/covenants/ConvokeSpirits';
 
 // Conduits
 

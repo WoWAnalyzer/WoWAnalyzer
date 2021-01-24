@@ -8,7 +8,8 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import { formatMilliseconds, formatNumber } from 'common/format';
 import { SpellLink } from 'interface';
-import SpellUsable from 'parser/paladin/protection/modules/features/SpellUsable';
+
+import SpellUsable from './SpellUsable';
 
 const ACTIVE_MITIGATION_CAP = 13.5 * 1000; // Active mitigation buffs cap out at 13.5 seconds.
 const SOTR_BUFF_LENGTH = 4.5 * 1000; // SOTR grants a 4.5s buff.

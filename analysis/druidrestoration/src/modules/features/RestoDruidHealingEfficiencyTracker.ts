@@ -6,9 +6,9 @@ import HealingEfficiencyTracker, { SpellInfoDetails } from 'parser/core/healingE
 import SPELLS from 'common/SPELLS';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 
-import RegrowthAttributor from 'parser/druid/restoration/modules/core/hottracking/RegrowthAttributor';
-import Abilities from 'parser/druid/restoration/modules/Abilities';
-import Clearcasting from 'parser/druid/restoration/modules/features/Clearcasting';
+import RegrowthAttributor from '../core/hottracking/RegrowthAttributor';
+import Abilities from '../Abilities';
+import Clearcasting from '../features/Clearcasting';
 
 /*
     TODO:

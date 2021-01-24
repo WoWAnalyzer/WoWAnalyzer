@@ -10,7 +10,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 
 import { t } from '@lingui/macro';
 
-import { REDUCTION_TIME as RP_REDUCTION_TIME } from 'parser/paladin/protection/modules/talents/RighteousProtector';
+import { REDUCTION_TIME as RP_REDUCTION_TIME } from '../talents/RighteousProtector';
 
 const HEAL_DELAY_THRESHOLD = 2000;
 

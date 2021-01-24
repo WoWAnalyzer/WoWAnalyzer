@@ -6,10 +6,10 @@ import FrostDeathKnight from './deathknight/frost/CONFIG';
 import HavocDemonHunter from './demonhunter/havoc/CONFIG';
 import VengeanceDemonHunter from './demonhunter/vengeance/CONFIG';
 
-import BalanceDruid from './druid/balance/CONFIG';
-import FeralDruid from './druid/feral/CONFIG';
-import GuardianDruid from './druid/guardian/CONFIG';
-import RestoDruid from './druid/restoration/CONFIG';
+import BalanceDruid from '@wowanalyzer/druid-balance';
+import FeralDruid from '@wowanalyzer/druid-feral';
+import GuardianDruid from '@wowanalyzer/druid-guardian';
+import RestoDruid from '@wowanalyzer/druid-restoration';
 
 import BeastMasteryHunter from './hunter/beastmastery/CONFIG';
 import MarksmanshipHunter from './hunter/marksmanship/CONFIG';
@@ -24,8 +24,8 @@ import WindwalkerMonk from './monk/windwalker/CONFIG';
 import MistweaverMonk from './monk/mistweaver/CONFIG';
 
 import HolyPaladin from '@wowanalyzer/paladin-holy';
-import RetributionPaladin from './paladin/retribution/CONFIG';
-import ProtectionPaladin from './paladin/protection/CONFIG';
+import RetributionPaladin from '@wowanalyzer/paladin-retribution';
+import ProtectionPaladin from '@wowanalyzer/paladin-protection';
 
 import DisciplinePriest from './priest/discipline/CONFIG';
 import HolyPriest from './priest/holy/CONFIG';
