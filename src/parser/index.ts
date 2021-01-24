@@ -31,9 +31,9 @@ import DisciplinePriest from '@wowanalyzer/priest-discipline';
 import HolyPriest from '@wowanalyzer/priest-holy';
 import ShadowPriest from '@wowanalyzer/priest-shadow';
 
-import SubtletyRogue from './rogue/subtlety/CONFIG';
-import AssassinationRogue from './rogue/assassination/CONFIG';
-import OutlawRogue from './rogue/outlaw/CONFIG';
+import AssassinationRogue from '@wowanalyzer/rogue-assassination';
+import OutlawRogue from '@wowanalyzer/rogue-outlaw';
+import SubtletyRogue from '@wowanalyzer/rogue-subtlety';
 
 import ElementalShaman from './shaman/elemental/CONFIG';
 import EnhancementShaman from './shaman/enhancement/CONFIG';
