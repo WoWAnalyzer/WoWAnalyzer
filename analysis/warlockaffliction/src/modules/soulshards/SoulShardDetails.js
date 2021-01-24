@@ -6,30 +6,27 @@ import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/R
 import SPELLS from 'common/SPELLS';
 
 import { Panel } from 'interface';
-import { AlertWarning } from 'interface';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Statistic from 'parser/ui/Statistic';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 import { t } from '@lingui/macro';
 
-import 'parser/warlock/shared/modules/soulshards/SoulShardDetails.css';
+import '@wowanalyzer/warlock/src/SoulShardDetails.css';
 import SoulShardTracker from './SoulShardTracker';
 
 class SoulShardDetails extends Analyzer {
   get suggestionThresholds() {
-    const fragmentsWasted = this.soulShardTracker.wasted;
-    const fragmentsWastedPerMinute = (fragmentsWasted / this.owner.fightDuration) * 1000 * 60;
-
-    // Shards wasted for Destro are much more strict because the shard generation in Destro is much more reliable and less random, so there should be almost no wasted shards (if so, it's your own fault, not RNG)
+    const shardsWasted = this.soulShardTracker.wasted;
+    const shardsWastedPerMinute = (shardsWasted / this.owner.fightDuration) * 1000 * 60;
     return {
-      actual: fragmentsWastedPerMinute,
+      actual: shardsWastedPerMinute,
       isGreaterThan: {
-        minor: 1, // 1 fragment per minute (1 shard in 10 minutes)
-        average: 3, // 3 fragments per minute (3 shards in 10 minutes)
-        major: 5, // 5 fragments per minute (5 shards in 10 minutes)
+        minor: 5 / 10, // 5 shards in 10 minute fight
+        average: 5 / 3, // 5 shards in 3 minute fight
+        major: 10 / 3, // 10 shards in 3 minute fight
       },
-      style: 'number',
+      style: 'decimal',
     };
   }
 
@@ -38,15 +35,15 @@ class SoulShardDetails extends Analyzer {
   };
 
   suggestions(when) {
-    const fragmentsWasted = this.soulShardTracker.wasted;
+    const shardsWasted = this.soulShardTracker.wasted;
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => suggest('You are wasting Soul Shards. Try to use them and not let them cap and go to waste unless you\'re preparing for bursting adds etc.')
         .icon(SPELLS.SOUL_SHARDS.icon)
         .actual(t({
-      id: "warlock.destruction.suggestions.soulShard.wastedPerMinute",
-      message: `${fragmentsWasted} Soul Shard Fragments wasted (${actual.toFixed(2)} per minute)`
+      id: "warlock.affliction.suggestions.soulShards.wastedPerMinute",
+      message: `${shardsWasted} Soul Shards wasted (${actual.toFixed(2)} per minute)`
     }))
-        .recommended(`< ${recommended} Soul Shard Fragments per minute wasted are recommended`));
+        .recommended(`< ${recommended.toFixed(2)} Soul Shards per minute wasted are recommended`));
   }
 
   statistic() {
@@ -70,10 +67,6 @@ class SoulShardDetails extends Analyzer {
       url: 'soul-shards',
       render: () => (
         <Panel>
-          <AlertWarning style={{ marginLeft: 0, marginRight: 0 }}>
-            Due to the technical limitations and randomness of Immolate{(this.selectedCombatant.hasTalent(SPELLS.INFERNO_TALENT.id)) ? ' and Rain of Fire with Inferno talent' : ''}, we can't accurately determine the amount of generated Soul Shard Fragments, but we tried to estimate the amount of random fragments and count them in. <br />
-            Summon Infernal also has a very inconsistent shard generation which might mess up the tracking as well. Take this tab with a grain of salt.
-          </AlertWarning>
           <ResourceBreakdown
             tracker={this.soulShardTracker}
             showSpenders

@@ -39,9 +39,9 @@ import ElementalShaman from '@wowanalyzer/shaman-elemental';
 import EnhancementShaman from '@wowanalyzer/shaman-enhancement';
 import RestorationShaman from '@wowanalyzer/shaman-restoration';
 
-import AfflictionWarlock from './warlock/affliction/CONFIG';
-import DemonologyWarlock from './warlock/demonology/CONFIG';
-import DestructionWarlock from './warlock/destruction/CONFIG';
+import AfflictionWarlock from '@wowanalyzer/warlock-affliction';
+import DemonologyWarlock from '@wowanalyzer/warlock-demonology';
+import DestructionWarlock from '@wowanalyzer/warlock-destruction';
 
 import ProtectionWarrior from './warrior/protection/CONFIG';
 import ArmsWarrior from './warrior/arms/CONFIG';

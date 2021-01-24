@@ -1,7 +1,11 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
-import GrimoireOfSacrificeNormalizer from '../shared/modules/talents/normalizers/GrimoireOfSacrificeNormalizer';
+import {
+  GrimoireOfSacrificeNormalizer,
+  WarlockMissingDotApplyDebuffPrePull,
+  GrimoireOfSacrifice,
+} from '@wowanalyzer/warlock';
 
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -26,8 +30,6 @@ import SiphonLifeUptime from './modules/talents/SiphonLifeUptime';
 import PhantomSingularity from './modules/talents/PhantomSingularity';
 import VileTaint from './modules/talents/VileTaint';
 import Haunt from './modules/talents/Haunt';
-import WarlockMissingDotApplyDebuffPrePull from '../shared/modules/normalizers/WarlockMissingDotApplyDebuffPrePull';
-import GrimoireOfSacrifice from '../shared/modules/talents/GrimoireOfSacrifice';
 import SoulConduit from './modules/talents/SoulConduit';
 
 import ScouringTitheUptime from './modules/covenants/ScouringTithe';

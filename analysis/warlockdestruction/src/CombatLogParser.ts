@@ -1,3 +1,5 @@
+import { GrimoireOfSacrificeNormalizer, GrimoireOfSacrifice } from '@wowanalyzer/warlock';
+
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
@@ -15,8 +17,6 @@ import Backdraft from './modules/features/Backdraft';
 import SoulShardTracker from './modules/soulshards/SoulShardTracker';
 import SoulShardDetails from './modules/soulshards/SoulShardDetails';
 
-import GrimoireOfSacrificeNormalizer from '../shared/modules/talents/normalizers/GrimoireOfSacrificeNormalizer';
-
 import Flashover from './modules/talents/Flashover';
 import Eradication from './modules/talents/Eradication';
 import SoulFire from './modules/talents/SoulFire';
@@ -27,7 +27,6 @@ import Inferno from './modules/talents/Inferno';
 import FireAndBrimstone from './modules/talents/FireAndBrimstone';
 import Cataclysm from './modules/talents/Cataclysm';
 import RoaringBlaze from './modules/talents/RoaringBlaze';
-import GrimoireOfSacrifice from '../shared/modules/talents/GrimoireOfSacrifice';
 import SoulConduit from './modules/talents/SoulConduit';
 import ChannelDemonfire from './modules/talents/ChannelDemonfire';
 
