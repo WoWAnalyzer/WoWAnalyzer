@@ -31,6 +31,7 @@ import TwistOfFate from './modules/talents/TwistOfFate';
 import VoidTorrent from './modules/talents/VoidTorrent';
 import ShadowCrash from './modules/talents/ShadowCrash';
 import AuspiciousSpirits from './modules/talents/AuspiciousSpirits';
+import SearingNightmare from './modules/talents/SearingNightmare';
 // normalizers
 import ShadowfiendNormalizer from '../shared/normalizers/ShadowfiendNormalizer';
 import Buffs from './modules/features/Buffs';
@@ -87,6 +88,7 @@ class CombatLogParser extends MainCombatLogParser {
     voidTorrent: VoidTorrent,
     shadowCrash: ShadowCrash,
     auspiciousSpirits: AuspiciousSpirits,
+    searingNightmare: SearingNightmare,
 
     // normalizers:
     shadowfiendNormalizer: ShadowfiendNormalizer,
