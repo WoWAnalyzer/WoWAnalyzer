@@ -1,3 +1,5 @@
+import { Condemn } from '@wowanalyzer/warrior';
+
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 import Haste from './modules/core/Haste';
@@ -25,9 +27,6 @@ import WarMachine from './modules/talents/WarMachine';
 import Punish from './modules/talents/Punish';
 import DragonRoar from './modules/talents/DragonRoar';
 import SpellReflect from './modules/spells/SpellReflect';
-
-//covenants
-import Condemn from '../shared/modules/covenants/Condemn';
 
 //legendaries
 import TheWall from './modules/shadowlands/legendaries/TheWall';

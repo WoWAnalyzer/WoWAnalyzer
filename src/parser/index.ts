@@ -1,4 +1,3 @@
-/* eslint-disable import/order */
 import BloodDeathKnight from '@wowanalyzer/deathknight-blood';
 import UnholyDeathKnight from '@wowanalyzer/deathknight-unholy';
 import FrostDeathKnight from '@wowanalyzer/deathknight-frost';
@@ -43,9 +42,9 @@ import AfflictionWarlock from '@wowanalyzer/warlock-affliction';
 import DemonologyWarlock from '@wowanalyzer/warlock-demonology';
 import DestructionWarlock from '@wowanalyzer/warlock-destruction';
 
-import ProtectionWarrior from './warrior/protection/CONFIG';
-import ArmsWarrior from './warrior/arms/CONFIG';
-import FuryWarrior from './warrior/fury/CONFIG';
+import ArmsWarrior from '@wowanalyzer/warrior-arms';
+import FuryWarrior from '@wowanalyzer/warrior-fury';
+import ProtectionWarrior from '@wowanalyzer/warrior-protection';
 
 import Config from './Config';
 
