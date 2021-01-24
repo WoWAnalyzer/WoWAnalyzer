@@ -35,9 +35,9 @@ import AssassinationRogue from '@wowanalyzer/rogue-assassination';
 import OutlawRogue from '@wowanalyzer/rogue-outlaw';
 import SubtletyRogue from '@wowanalyzer/rogue-subtlety';
 
-import ElementalShaman from './shaman/elemental/CONFIG';
-import EnhancementShaman from './shaman/enhancement/CONFIG';
-import RestorationShaman from './shaman/restoration/CONFIG';
+import ElementalShaman from '@wowanalyzer/shaman-elemental';
+import EnhancementShaman from '@wowanalyzer/shaman-enhancement';
+import RestorationShaman from '@wowanalyzer/shaman-restoration';
 
 import AfflictionWarlock from './warlock/affliction/CONFIG';
 import DemonologyWarlock from './warlock/demonology/CONFIG';
