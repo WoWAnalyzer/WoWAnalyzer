@@ -54,7 +54,7 @@ class SearingNightmare extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You hit an average of {formatNumber(actual)} targets with <SpellLink id={SPELLS.SEARING_NIGHTMARE_TALENT.id} />. Using <SpellLink id={SPELLS.SEARING_NIGHTMARE_TALENT.id} /> below {formatNumber(recommended)} targets is not worth it and you will get more damage value from your insanity with <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} />.
+          You hit an average of {formatNumber(actual)} targets with <SpellLink id={SPELLS.SEARING_NIGHTMARE_TALENT.id} />. Using <SpellLink id={SPELLS.SEARING_NIGHTMARE_TALENT.id} /> below {formatNumber(recommended)} targets is not worth it and you will get more damage value from your insanity with <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} />. If you are not getting enough hits or casts from this talent, you will likely benefit more from a different one.
         </>
       )
         .icon(SPELLS.SEARING_NIGHTMARE_TALENT.icon)
