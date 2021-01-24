@@ -1,7 +1,7 @@
 /* eslint-disable import/order */
-import BloodDeathKnight from './deathknight/blood/CONFIG';
-import UnholyDeathKnight from './deathknight/unholy/CONFIG';
-import FrostDeathKnight from './deathknight/frost/CONFIG';
+import BloodDeathKnight from '@wowanalyzer/deathknight-blood';
+import UnholyDeathKnight from '@wowanalyzer/deathknight-unholy';
+import FrostDeathKnight from '@wowanalyzer/deathknight-frost';
 
 import HavocDemonHunter from './demonhunter/havoc/CONFIG';
 import VengeanceDemonHunter from './demonhunter/vengeance/CONFIG';
