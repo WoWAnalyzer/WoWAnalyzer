@@ -15,9 +15,9 @@ import BeastMasteryHunter from '@wowanalyzer/hunter-beastmastery';
 import MarksmanshipHunter from '@wowanalyzer/hunter-marksmanship';
 import SurvivalHunter from '@wowanalyzer/hunter-survival';
 
-import FrostMage from './mage/frost/CONFIG';
-import FireMage from './mage/fire/CONFIG';
-import ArcaneMage from './mage/arcane/CONFIG';
+import ArcaneMage from '@wowanalyzer/mage-arcane';
+import FireMage from '@wowanalyzer/mage-fire';
+import FrostMage from '@wowanalyzer/mage-frost';
 
 import BrewmasterMonk from '@wowanalyzer/monk-brewmaster';
 import WindwalkerMonk from '@wowanalyzer/monk-windwalker';

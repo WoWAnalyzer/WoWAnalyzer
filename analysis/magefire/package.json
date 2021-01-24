@@ -1,5 +1,5 @@
 {
-  "name": "@wowanalyzer/monk-windwalker",
+  "name": "@wowanalyzer/mage-fire",
   "version": "1.0.0",
   "main": "src/index.ts",
   "typings": "src/index.ts",
@@ -8,7 +8,7 @@
   ],
   "dependencies": {
     "@lingui/macro": "^3.3.0",
-    "@wowanalyzer/monk": "*",
+    "@wowanalyzer/paladin": "*",
     "common": "link:../../src/common",
     "game": "link:../../src/game",
     "interface": "link:../../src/interface",
