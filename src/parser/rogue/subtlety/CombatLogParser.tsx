@@ -2,6 +2,8 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
+import GeneratorFollowingVanish from 'parser/rogue/subtlety/modules/core/GeneratorFollowingVanish';
+
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/checklist/Module';
@@ -78,6 +80,7 @@ class CombatLogParser extends CoreCombatLogParser {
     castsInShadowDance: CastsInShadowDance,
     castsInStealth: CastsInStealth,
     vanishFindWeakness: VanishFindWeakness,
+    generatorFollowingVanish: GeneratorFollowingVanish,
 
     //Talents
     darkShadowContribution: DarkShadowContribution,
