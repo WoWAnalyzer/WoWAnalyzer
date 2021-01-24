@@ -2,13 +2,14 @@ import React, { FormEvent, useCallback, useEffect, useRef, useState } from 'reac
 import { Trans, t } from '@lingui/macro';
 import { useHistory } from 'react-router-dom';
 
-import REGION_CODES from 'common/REGION_CODES';
-import Tooltip from 'common/Tooltip';
-
+import Tooltip from './Tooltip';
+import REGION_CODES from './REGION_CODES';
 import './ReportSelecter.css';
 
 export function getReportCode(input: string) {
-  const match = input.trim().match(/^(.*reports\/)?((?:[a:]{2})([a-zA-Z0-9]{16})|([a-zA-Z0-9]{16}))\/?(#.*)?$/);
+  const match = input
+    .trim()
+    .match(/^(.*reports\/)?((?:[a:]{2})([a-zA-Z0-9]{16})|([a-zA-Z0-9]{16}))\/?(#.*)?$/);
   return match && match[2];
 }
 
@@ -140,21 +141,23 @@ const ReportSelecter = () => {
               className="form-control"
               style={{ width: '100%', height: '100%' }}
               ref={reportCodeRef}
-              onChange={e => setReportCode(e.target.value)}
+              onChange={(e) => setReportCode(e.target.value)}
               value={reportCode}
               placeholder={t({
-                id: "interface.reportSelecter.reportSelecter.placeholder",
-                message: `https://www.warcraftlogs.com/reports/<report code>`
+                id: 'interface.reportSelecter.reportSelecter.placeholder',
+                message: `https://www.warcraftlogs.com/reports/<report code>`,
               })}
               autoCorrect="off"
               autoCapitalize="off"
               spellCheck="false"
+              aria-labelledby="reportSelectionHeader.improveYourPerformance"
             />
           </div>
         </Tooltip>
 
         <button type="submit" className="btn btn-primary analyze">
-          <Trans id="interface.reportSelecter.reportSelecter.button">Analyze</Trans> <span className="glyphicon glyphicon-chevron-right" aria-hidden />
+          <Trans id="interface.reportSelecter.reportSelecter.button">Analyze</Trans>{' '}
+          <span className="glyphicon glyphicon-chevron-right" aria-hidden />
         </button>
       </div>
     </form>

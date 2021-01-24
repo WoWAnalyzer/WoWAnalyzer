@@ -8,7 +8,7 @@ import { EventType } from 'parser/core/Events';
 import { formatDuration } from 'common/format';
 import makeWclUrl from 'common/makeWclUrl';
 import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
-import DragScroll from 'interface/common/DragScroll';
+import DragScroll from 'interface/DragScroll';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import Abilities from 'parser/core/modules/Abilities';
 import BuffsModule from 'parser/core/modules/Buffs';

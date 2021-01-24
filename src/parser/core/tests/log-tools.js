@@ -1,7 +1,7 @@
 import decompress from 'decompress';
 
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import ConfigLoader from 'interface/report/ConfigLoader';
+import getConfig from 'parser/getConfig';
 
 const _CACHE = {};
 
@@ -45,7 +45,7 @@ export function suppressLogging(log, warn, error, cb) {
 
   const res = cb();
 
-  Object.keys(_console).forEach(key => {
+  Object.keys(_console).forEach((key) => {
     console[key] = _console[key];
   });
   return res;
@@ -58,19 +58,16 @@ export function parseLog(
   suppressLog = true,
   suppressWarn = true,
 ) {
-  const friendlies = log.report.friendlies.find(
-    ({ id }) => id === log.meta.player.id,
-  );
+  const friendlies = log.report.friendlies.find(({ id }) => id === log.meta.player.id);
   const fight = {
     ...log.report.fights.find(({ id }) => id === log.meta.fight.id),
     // eslint-disable-next-line @typescript-eslint/camelcase
     offset_time: 0,
   };
-  const builds = ConfigLoader.getConfig(log.meta.player.specID).builds;
-  const buildKey =
-    builds && Object.keys(builds).find(b => builds[b].url === build);
+  const builds = getConfig(log.meta.player.specID).builds;
+  const buildKey = builds && Object.keys(builds).find((b) => builds[b].url === build);
   builds &&
-    Object.keys(builds).forEach(key => {
+    Object.keys(builds).forEach((key) => {
       builds[key].active = key === buildKey;
     });
   const parser = new parserClass(
@@ -88,7 +85,7 @@ export function parseLog(
   return suppressLogging(suppressLog, suppressWarn, false, () => {
     parser
       .normalize(JSON.parse(JSON.stringify(log.events)))
-      .forEach(event => parser.getModule(EventEmitter).triggerEvent(event));
+      .forEach((event) => parser.getModule(EventEmitter).triggerEvent(event));
     parser.finish();
     return parser;
   });

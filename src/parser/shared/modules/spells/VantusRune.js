@@ -2,11 +2,11 @@ import React from 'react';
 
 import { formatNumber } from 'common/format';
 
-import Statistic from 'interface/statistics/Statistic';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
+import Statistic from 'parser/ui/Statistic';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import BoringItemValueText from 'parser/ui/BoringItemValueText';
 
-import ITEMS from 'common/ITEMS/index';
+import ITEMS from 'common/ITEMS';
 
 import Analyzer from 'parser/core/Analyzer';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';

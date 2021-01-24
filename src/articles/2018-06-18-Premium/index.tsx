@@ -6,10 +6,10 @@ import PatreonIcon from 'interface/icons/Patreon';
 import GitHubIcon from 'interface/icons/GitHub';
 
 import { Zerotorescue } from 'CONTRIBUTORS';
-import RegularArticle from 'interface/news/RegularArticle';
+import NewsRegularArticle from 'interface/NewsRegularArticle';
 
 export default (
-  <RegularArticle title="WoWAnalyzer Premium" publishedAt="2018-06-21" publishedBy={Zerotorescue}>
+  <NewsRegularArticle title="WoWAnalyzer Premium" publishedAt="2018-06-21" publishedBy={Zerotorescue}>
     Today we're launching <Link to="/premium"><b>WoWAnalyzer Premium</b></Link>! WoWAnalyzer Premium will be our new model to encourage further development of the site. Unlock Premium by helping development and get cool new perks.<br />
 
     <div className="flex" style={{ maxWidth: 500, margin: '1em auto' }}>
@@ -45,5 +45,5 @@ export default (
         <img src="/img/patreon6.jpg" alt="WoWAnalyzer Premium" />
       </Link>
     </figure>
-  </RegularArticle>
+  </NewsRegularArticle>
 );

@@ -7,14 +7,13 @@ import Toggle from 'react-toggle';
 import { compose } from 'redux';
 
 import getFightName from 'common/getFightName';
-import Tooltip from 'common/Tooltip';
-import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
+import Tooltip from 'interface/Tooltip';
+import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import { getFightId } from 'interface/selectors/url/report';
 import { getFightFromReport } from 'interface/selectors/fight';
 import DocumentTitle from 'interface/DocumentTitle';
 import ReportDurationWarning, { MAX_REPORT_DURATION } from 'interface/report/ReportDurationWarning';
 import ClassicLogWarning from 'interface/report/ClassicLogWarning';
-import EncountersNotFoundWarning from 'interface/report/EncountersNotFoundWarning';
 
 import FightSelectionPanel from './FightSelectionPanel';
 
@@ -71,7 +70,7 @@ class FightSelection extends React.PureComponent {
               <Trans id="interface.report.fightSelection.fightSelection">Fight selection</Trans>
             </h1>
             <small style={{ marginTop: -5 }}>
-              <Trans id="interface.report.fightSelection.fightSelectionDetails">Select the fight you wish to analyze.</Trans>
+              <Trans id="interface.report.fightSelection.fightSelectionDetails">Select the fight you wish to analyze. If a boss or encounter is missing, or the list below is empty, press the Refresh button above to re-pull the log from Warcraft Logs. Additionally, please note that due to the way combat logs work, we are unable to evaluate Target Dummy logs.</Trans>
             </small>
           </div>
           <div className="flex-sub">
@@ -111,8 +110,6 @@ class FightSelection extends React.PureComponent {
         {reportDuration > MAX_REPORT_DURATION && (
           <ReportDurationWarning duration={reportDuration} />
         )}
-
-        {!report.fights.find(fight => fight.boss > 0) && <EncountersNotFoundWarning />}
 
         {report.gameVersion === 1 && (
           <FightSelectionPanel report={report} refreshReport={refreshReport} killsOnly={killsOnly} />

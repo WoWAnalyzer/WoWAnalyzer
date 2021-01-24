@@ -30,4 +30,4 @@
    
 3. Run `node reformatRealms.js`
 4. A file `output.js` will be generated with the data we need
-5. Paste the content of `output.js` into `/src/common/REALMS.js`
+5. Paste the content of `output.js` into `/src/game/REALMS.js`

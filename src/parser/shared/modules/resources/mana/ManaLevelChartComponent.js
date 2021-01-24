@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import fetchWcl from 'common/fetchWclApi';
 
-import ManaLevelGraph from 'interface/others/charts/ManaLevelGraph';
+import ManaLevelGraph from 'parser/ui/ManaLevelGraph';
 
 class ManaLevelChartComponent extends React.PureComponent {
   static propTypes = {

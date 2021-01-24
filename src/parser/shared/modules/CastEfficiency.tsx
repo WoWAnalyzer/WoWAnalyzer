@@ -1,10 +1,10 @@
 import React from 'react';
 import { Trans } from '@lingui/macro';
 
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
-import Panel from 'interface/statistics/Panel';
-import CastEfficiencyComponent from 'interface/CastEfficiency';
+import Panel from 'parser/ui/Panel';
+import CastEfficiencyComponent from 'parser/ui/CastEfficiency';
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellHistory from 'parser/shared/modules/SpellHistory';

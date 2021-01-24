@@ -227,6 +227,10 @@ class ExecuteHelper extends Analyzer {
     return this.castsWithExecute;
   }
 
+  get totalNonExecuteCasts() {
+    return this.casts - this.castsWithExecute;
+  }
+
   //endregion
 
   //region Event Listener functions

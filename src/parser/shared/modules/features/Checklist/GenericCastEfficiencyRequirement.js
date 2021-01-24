@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import SpellLink from 'common/SpellLink';
+import { SpellLink } from 'interface';
 import { captureException } from 'common/errorLogger';
 
 import Requirement from './Requirement';

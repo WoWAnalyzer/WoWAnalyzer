@@ -1,0 +1,6569 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Frost Death Knight integration test: example log AlwaysBeCasting matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad"
+      >
+        <label>
+          <img
+            alt="Downtime"
+            className="icon game "
+            src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
+          />
+           
+          <trans
+            id="shared.alwaysBeCasting.statistic.label"
+            message="Downtime"
+          />
+        </label>
+        <div
+          className="value"
+        >
+          38.18 %
+        </div>
+        <div
+          style={
+            Object {
+              "marginTop": "0.5em",
+            }
+          }
+        >
+          <div
+            className="statistic-box-bar"
+          >
+            <div
+              className="stat-health-bg"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={[Function]}
+              style={
+                Object {
+                  "width": "61.8228414537681%",
+                }
+              }
+            >
+              <img
+                alt="Active time"
+                src="/img/sword.png"
+              />
+            </div>
+            <div
+              className="remainder DeathKnight-bg"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={[Function]}
+            >
+              <img
+                alt="Downtime"
+                src="/img/afk.png"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Frost Death Knight integration test: example log AlwaysBeCasting matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_mage_altertime",
+    "importance": "regular",
+    "issue": <React.Fragment>
+      Your downtime can be improved. Try to Always Be Casting (ABC), reducing time away from the boss unless due to mechanics.  If you do have to move, try casting filler spells, such as 
+      <ForwardRef
+        id={49184}
+      />
+       or 
+      <ForwardRef
+        id={196770}
+      />
+      .
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      {"id":"deathknight.frost.suggestions.alwaysBeCasting","message":"{0}% downtime","values":{"0":"38.18"}}
+       (
+      &lt;30.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`Frost Death Knight integration test: example log AugmentRuneChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_misc_gem_azuredraenite_01",
+    "importance": "minor",
+    "issue": "You did not have an augment rune up before combat. Having an augment rune increases your primary stat.",
+    "stat": null,
+  },
+]
+`;
+
+exports[`Frost Death Knight integration test: example log BreathOfSindragosa matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic flexible "
+    position={60}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=152279"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Breath of Sindragosa"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_breathofsindragosa.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=152279"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Breath of Sindragosa
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          14.1
+          s  
+          <small>
+            average duration
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Frost Death Knight integration test: example log BreathOfSindragosa matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_deathknight_breathofsindragosa",
+    "importance": "major",
+    "issue": <React.Fragment>
+       You are not getting good uptime from your 
+      <ForwardRef
+        id={152279}
+      />
+       casts. A good cast is one that lasts 25 seconds or more.  To ensure a good duration, make sure you have 70+ Runic Power pooled and have less than 4 Runes available before you start the cast.  Also make sure to use 
+      <ForwardRef
+        id={47568}
+      />
+       within a few seconds of casting Breath of Sindragosa. Pay close attention to your Runic Power and make sure you are not overcapping. 
+      
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      {"id":"deathknight.frost.suggestions.breathOfSindragosa.uptime","message":"You averaged {0} seconds of uptime per cast","values":{"0":"14.1"}}
+       (
+      &gt;25 seconds is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`Frost Death Knight integration test: example log CastEfficiency matches the statistic snapshot 1`] = `
+<div
+  className="panel "
+>
+  <div
+    className="panel-heading"
+  >
+    <h1
+      style={
+        Object {
+          "position": "relative",
+        }
+      }
+    >
+      <trans
+        id="common.abilities"
+        message="Abilities"
+      />
+    </h1>
+  </div>
+  <div
+    className="panel-body "
+  >
+    <div
+      style={
+        Object {
+          "marginBottom": -10,
+          "marginTop": -10,
+        }
+      }
+    >
+      <table
+        className="data-table"
+        style={
+          Object {
+            "marginBottom": 10,
+            "marginTop": 10,
+          }
+        }
+      >
+        <tbody>
+          <tr>
+            <th>
+              <b>
+                {"id":"core.abilities.spellCategories.rotational","message":"Rotational Spell"}
+              </b>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
+              </dfn>
+            </th>
+            <th
+              className="text-right"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
+              </dfn>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
+              </dfn>
+            </th>
+            <th />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=49020"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_classicon.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Obliterate
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              14.54
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              29
+              
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=196770"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_deathknight_remorselesswinters2.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Remorseless Winter
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              1.50
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              3
+              /6
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "50.1353654868144%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              50.14%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=49184"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_frost_arcticwinds.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Howling Blast
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              7.52
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              15
+              
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=49143"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_empowerruneblade2.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Frost Strike
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              12.03
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              24
+              
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=45524"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_frost_chainsofice.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Chains of Ice
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              1.50
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              3
+              
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th>
+              <b>
+                {"id":"core.abilities.spellCategories.rotationalAoe","message":"Spell (AOE)"}
+              </b>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
+              </dfn>
+            </th>
+            <th
+              className="text-right"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
+              </dfn>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
+              </dfn>
+            </th>
+            <th />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=207230"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_misc_2h_farmscythe_a_01.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Frostscythe
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th>
+              <b>
+                {"id":"core.abilities.spellCategories.cooldowns","message":"Cooldown"}
+              </b>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
+              </dfn>
+            </th>
+            <th
+              className="text-right"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
+              </dfn>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
+              </dfn>
+            </th>
+            <th />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=51271"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_deathknight_pillaroffrost.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Pillar of Frost
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              1.50
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              3
+              /3
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "97.74780797040899%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              97.75%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=47568"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_sword_62.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Empower Rune Weapon
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.50
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              1
+              /1
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "91.07172699622313%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              91.07%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=152279"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_breathofsindragosa.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Breath of Sindragosa
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.50
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              1
+              /1
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "91.88391991710952%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              91.88%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=279302"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/achievement_boss_sindragosa.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Frostwyrm's Fury
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /1
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#ff8000",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            >
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
+            </td>
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=46585"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_pet_ghoul.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Raise Dead
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /1
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=327574"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_corpseexplode.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Sacrificial Pact
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /1
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th>
+              <b>
+                {"id":"core.abilities.spellCategories.defensive","message":"Defensive Cooldown"}
+              </b>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
+              </dfn>
+            </th>
+            <th
+              className="text-right"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
+              </dfn>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
+              </dfn>
+            </th>
+            <th />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=48707"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_antimagicshell.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Anti-Magic Shell
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              1.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              2
+              /2
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "75.18466526287644%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              75.18%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=48792"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_iceboundfortitude.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Icebound Fortitude
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /1
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=49998"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="/img/Icons/spell_deathknight_butcher2.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Death Strike
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=51052"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_antimagiczone.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Anti-Magic Zone
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /1
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=49039"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_raisedead.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Lichborne
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /1
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th>
+              <b>
+                {"id":"core.abilities.spellCategories.utility","message":"Utility"}
+              </b>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
+              </dfn>
+            </th>
+            <th
+              className="text-right"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
+              </dfn>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
+              </dfn>
+            </th>
+            <th />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=49576"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_strangulate.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Death Grip
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /5
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=48265"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_demonicempathy.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Death's Advance
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /3
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=56222"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_nature_shamanrage.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Dark Command
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /15
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=61999"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_deadofnight.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Raise Ally
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /1
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=47528"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_mindfreeze.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Mind Freeze
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /8
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=3714"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_pathoffrost.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Path of Frost
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=108194"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_deathknight_asphixiate.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Asphyxiate
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /3
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=111673"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="/img/Icons/inv_misc_bone_skull_01.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Control Undead
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=212552"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_helm_plate_raiddeathknight_p_01.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Wraith Walk
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.50
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              1
+              /2
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "50.1353654868144%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              50.14%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=43265"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_deathanddecay.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Death and Decay
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /4
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=47541"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_deathcoil.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Death Coil
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th>
+              <b>
+                {"id":"core.abilities.spellCategories.consumable","message":"Consumable"}
+              </b>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.cpm"
+                  message="CPM"
+                />
+              </dfn>
+            </th>
+            <th
+              className="text-right"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.casts"
+                  message="Casts"
+                />
+              </dfn>
+            </th>
+            <th
+              className="text-center"
+            >
+              <dfn
+                className=""
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={[Function]}
+                style={Object {}}
+              >
+                <trans
+                  id="shared.castEfficiency.timeOnCooldown"
+                  message="Time on Cooldown"
+                />
+              </dfn>
+            </th>
+            <th />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=307192"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_resource_red.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Spiritual Healing Potion
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /1
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=307162"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_alchemy_90_combat2_purple.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Combat Potion
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              /1
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              0.00%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Frost Death Knight integration test: example log CastEfficiency matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "achievement_boss_sindragosa",
+    "importance": "major",
+    "issue": <React.Fragment>
+      <Trans
+        components={
+          Object {
+            "0": <ForwardRef
+              id={279302}
+            />,
+          }
+        }
+        id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
+      />
+       
+      <React.Fragment>
+        Although you normally want to use this off CD, you can save it to line it up with 
+        <ForwardRef
+          icon={true}
+          id={51271}
+        />
+        .  You can also hold it if you know there will be an opportunity to hit more than one enemy in the next 30 seconds.
+      </React.Fragment>
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <Trans
+        id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        values={
+          Object {
+            "0": 0,
+            "1": 1,
+            "2": "0",
+          }
+        }
+      />
+       (
+      <Trans
+        id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
+        values={
+          Object {
+            "0": "90",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`Frost Death Knight integration test: example log DeathTracker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "ability_fiegndead",
+    "importance": "major",
+    "issue": <React.Fragment>
+      You died during this fight and were dead for 
+      18.74
+      % of the fight duration (
+      22
+       seconds). Dying has a significant performance cost. View the 
+      <Link
+        to="/report/TcCmAWp2RGzvkK69/1-%7B%22id%22:%22common.getFightName.fightname%22,%22message%22:%22%7BbossName%7D+-+%7BfightResult%7D+(%7Bduration%7D)%22,%22values%22:%7B%22bossName%22:%22%5C%22%7B0%7D+%7B1%7D%5C%22%22,%22fightResult%22:%22%7B%5C%22id%5C%22:%5C%22common.getFightName.kill%5C%22,%5C%22message%5C%22:%5C%22Kill%5C%22%7D%22,%22duration%22:%222:22%22%7D%7D/Khazakk/standard/death-recap"
+      >
+        Death Recap
+      </Link>
+       to see the damage taken and what defensives and potions were still available.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <Trans
+        id="shared.suggestions.deathTracker.deathTime"
+        message="You were dead for {0}% of the fight"
+        values={
+          Object {
+            "0": "18.74",
+          }
+        }
+      />
+       (
+      <Trans
+        id="shared.suggestions.deathTracker.recommended"
+        message="0% is recommended"
+      />
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`Frost Death Knight integration test: example log DistanceMoved matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic standard "
+    position={10000}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad"
+      >
+        <label>
+          <trans
+            id="shared.distanceMoved.statistic.label"
+            message="Distance moved"
+          />
+        </label>
+        <div
+          className="value"
+        >
+          ≈ 
+          294
+           yards
+          <small
+            style={
+              Object {
+                "marginLeft": 15,
+              }
+            }
+          >
+            ≈ 
+            54.98
+            %
+          </small>
+        </div>
+        <div
+          style={
+            Object {
+              "bottom": 0,
+              "height": "45%",
+              "left": 0,
+              "position": "absolute",
+              "right": 0,
+              "width": "100%",
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "height": 75,
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "overflow": "visible",
+                  "width": 0,
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Frost Death Knight integration test: example log EnchantChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_chest_plate_warfrontsalliance_c_01.jpg",
+    "importance": "major",
+    "issue": <Trans
+      components={
+        Object {
+          "0": <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  1607,
+                  4786,
+                  6263,
+                ],
+                "icon": "inv_chest_plate_warfrontsalliance_c_01.jpg",
+                "id": 163418,
+                "itemLevel": 420,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={163418}
+            quality={3}
+          />,
+        }
+      }
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      message="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      values={
+        Object {
+          "slotName": <Trans
+            id="common.slots.chest"
+            message="Chest"
+          />,
+        }
+      }
+    />,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_glove_plate_warfrontsalliance_c_01.jpg",
+    "importance": "major",
+    "issue": <Trans
+      components={
+        Object {
+          "0": <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  1607,
+                  4786,
+                ],
+                "icon": "inv_glove_plate_warfrontsalliance_c_01.jpg",
+                "id": 163414,
+                "itemLevel": 415,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={163414}
+            quality={3}
+          />,
+        }
+      }
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      message="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      values={
+        Object {
+          "slotName": <Trans
+            id="common.slots.gloves"
+            message="Gloves"
+          />,
+        }
+      }
+    />,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_argus_ring01.jpg",
+    "importance": "major",
+    "issue": <Trans
+      components={
+        Object {
+          "0": <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4798,
+                  42,
+                  1487,
+                  5870,
+                  4784,
+                ],
+                "icon": "inv_argus_ring01.jpg",
+                "id": 168889,
+                "itemLevel": 440,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={168889}
+            quality={4}
+          />,
+        }
+      }
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      message="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      values={
+        Object {
+          "slotName": <Trans
+            id="common.slots.ring"
+            message="Ring"
+          />,
+        }
+      }
+    />,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_ring_80_02e.jpg",
+    "importance": "major",
+    "issue": <Trans
+      components={
+        Object {
+          "0": <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  1507,
+                  5850,
+                  4781,
+                ],
+                "icon": "inv_ring_80_02e.jpg",
+                "id": 167523,
+                "itemLevel": 400,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={167523}
+            quality={4}
+          />,
+        }
+      }
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      message="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      values={
+        Object {
+          "slotName": <Trans
+            id="common.slots.ring"
+            message="Ring"
+          />,
+        }
+      }
+    />,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_cape_cloth_nazjatar_c_01.jpg",
+    "importance": "major",
+    "issue": <Trans
+      components={
+        Object {
+          "0": <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  1507,
+                  5860,
+                  4782,
+                ],
+                "icon": "inv_cape_cloth_nazjatar_c_01.jpg",
+                "id": 167533,
+                "itemLevel": 410,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={167533}
+            quality={4}
+          />,
+        }
+      }
+      id="shared.enchantChecker.suggestions.noEnchant.label"
+      message="Your <0>{slotName}</0> is missing an enchant. Apply a strong enchant to very easily increase your throughput slightly."
+      values={
+        Object {
+          "slotName": <Trans
+            id="common.slots.cloak"
+            message="Cloak"
+          />,
+        }
+      }
+    />,
+    "stat": null,
+  },
+]
+`;
+
+exports[`Frost Death Knight integration test: example log FlaskChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_alchemy_90_flask_green",
+    "importance": "minor",
+    "issue": "You did not have a flask up before combat. Having a flask during combat increases your primary stat significantly.",
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_alchemy_90_flask_green",
+    "importance": "minor",
+    "issue": "You did not have the best flask active when starting the fight. Using the best flask available is an easy way to improve performance.",
+    "stat": null,
+  },
+]
+`;
+
+exports[`Frost Death Knight integration test: example log FoodChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_tradeskill_cooking_shadowlandsfeast_large01",
+    "importance": "major",
+    "issue": "You did not have any food active when starting the fight. Having the right food buff during combat is an easy way to improve performance.",
+    "stat": null,
+  },
+]
+`;
+
+exports[`Frost Death Knight integration test: example log FrostFeverUptime matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic flexible "
+    position={20}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=55095"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Frost Fever"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_frostfever.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=55095"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Frost Fever
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          <svg
+            className="icon"
+            viewBox="10 10 80 80"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M50,86.4865c17.4361,0,31.6216-14.1855,31.6216-31.6216c0-16.6168-12.8865-30.2714-29.1892-31.5189v-4.9677h7.2973v-4.8649  H40.2703v4.8649h7.2973v4.9677c-16.3027,1.2475-29.1892,14.902-29.1892,31.5189C18.3784,72.3009,32.5639,86.4865,50,86.4865z M52.4324,28.2236c3.1101,0.2817,6.0664,1.0982,8.7798,2.356l-8.7798,15.2073V28.2236z M47.5676,28.2236v26.6412 c0,1.1008,0.7393,2.0647,1.8029,2.3497c0.209,0.0561,0.4205,0.0827,0.6295,0.0827c0.8533,0,1.6642-0.4504,2.1065-1.2162 l13.3146-23.0616c6.8507,4.8503,11.3357,12.8315,11.3357,21.8454c0,14.7537-12.0031,26.7567-26.7568,26.7567 s-26.7568-12.003-26.7568-26.7567C23.2432,40.9315,33.9501,29.4573,47.5676,28.2236z"
+            />
+          </svg>
+           
+          107.99
+          % 
+          <small>
+            uptime
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Frost Death Knight integration test: example log Frostscythe matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic flexible "
+    position={1000}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=207230"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Frostscythe"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/inv_misc_2h_farmscythe_a_01.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=207230"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Frostscythe
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          0.00
+           % 
+          <small>
+            efficiency
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Frost Death Knight integration test: example log GatheringStorm matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic flexible "
+    position={1000}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=194912"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Gathering Storm"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_frost_ice_shards.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=194912"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Gathering Storm
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          <img
+            alt="Damage"
+            className="icon"
+            src="/img/sword.png"
+          />
+           
+          181
+           DPS
+           
+          <small>
+            0.83
+             % of total
+          </small>
+           
+          <br />
+          <svg
+            className="icon"
+            viewBox="10 10 80 80"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M50,86.4865c17.4361,0,31.6216-14.1855,31.6216-31.6216c0-16.6168-12.8865-30.2714-29.1892-31.5189v-4.9677h7.2973v-4.8649  H40.2703v4.8649h7.2973v4.9677c-16.3027,1.2475-29.1892,14.902-29.1892,31.5189C18.3784,72.3009,32.5639,86.4865,50,86.4865z M52.4324,28.2236c3.1101,0.2817,6.0664,1.0982,8.7798,2.356l-8.7798,15.2073V28.2236z M47.5676,28.2236v26.6412 c0,1.1008,0.7393,2.0647,1.8029,2.3497c0.209,0.0561,0.4205,0.0827,0.6295,0.0827c0.8533,0,1.6642-0.4504,2.1065-1.2162 l13.3146-23.0616c6.8507,4.8503,11.3357,12.8315,11.3357,21.8454c0,14.7537-12.0031,26.7567-26.7568,26.7567 s-26.7568-12.003-26.7568-26.7567C23.2432,40.9315,33.9501,29.4573,47.5676,28.2236z"
+            />
+          </svg>
+           
+          3.7
+           
+          <small>
+            average seconds extended 
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Frost Death Knight integration test: example log HardHowlingBlastCasts matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic flexible "
+    position={50}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=49184"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Howling Blast"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_frost_arcticwinds.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=49184"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Howling Blast
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          2
+           
+          <small>
+            casts without Rime proc
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Frost Death Knight integration test: example log KillingMachineEfficiency matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic flexible "
+    position={5}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=51124"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Killing Machine"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/inv_sword_122.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=51124"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Killing Machine
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          100.00
+           % 
+          <small>
+            efficiency
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Frost Death Knight integration test: example log PotionChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_alchemy_90_combat2_yellow",
+    "importance": "regular",
+    "issue": <Trans
+      id="shared.modules.items.potionChecker.suggestions.potionsUsed"
+      message="You used {0} combat {1} during this encounter, but you could have used {2}. Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter."
+      values={
+        Object {
+          "0": 0,
+          "1": "potions",
+          "2": 1,
+        }
+      }
+    />,
+    "stat": null,
+  },
+]
+`;
+
+exports[`Frost Death Knight integration test: example log RimeEfficiency matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic flexible "
+    position={5}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=59052"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Rime"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_frost_arcticwinds.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=59052"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Rime
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          100.00
+           % 
+          <small>
+            efficiency
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Frost Death Knight integration test: example log RuneOfTheFallenCrusader matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic flexible "
+    position={1002}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=53344"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Rune of the Fallen Crusader"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_holy_retributionaura.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="http://wowhead.com/spell=53344"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Rune of the Fallen Crusader
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          10.33
+           % 
+          <small>
+            average Strength
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Frost Death Knight integration test: example log RuneTracker matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic flexible "
+    position={10}
+    style={
+      Object {
+        "zIndex": 1,
+      }
+    }
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex boring-value "
+      >
+        <div
+          className="flex-sub icon"
+        >
+          <a
+            href="http://wowhead.com/runes"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt="Runes"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_frozenruneweapon.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main value"
+        >
+          <div>
+            21.10 %
+          </div>
+          <small>
+            Runes overcapped
+          </small>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-xs-12"
+        />
+      </div>
+      <div
+        className="statistic-expansion-button-holster"
+      >
+        <button
+          className="btn btn-primary"
+          onClick={[Function]}
+        >
+          <span
+            className="glyphicon glyphicon-chevron-down"
+          />
+        </button>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Frost Death Knight integration test: example log RuneTracker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_deathknight_frozenruneweapon",
+    "importance": "regular",
+    "issue": <React.Fragment>
+      You overcapped 
+      21.10
+      % of your runes. Try to always have at least 3 runes on cooldown.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      {"id":"deathknight.shared.suggestions.runes.overcapped","message":"{0}% runes overcapped","values":{"0":"21.10"}}
+       (
+      &lt;10.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`Frost Death Knight integration test: example log RunicPowerDetails matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic small "
+    position={11}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex boring-value "
+      >
+        <div
+          className="flex-sub icon"
+        >
+          <a
+            href="http://wowhead.com/runic-power"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt="Runic Power"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/inv_sword_62.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main value"
+        >
+          <div>
+            4.29 %
+          </div>
+          <small>
+            Runic Power wasted
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Frost Death Knight integration test: example log ThroughputStatisticGroup matches the statistic snapshot 1`] = `
+<div
+  className="col-md-6 col-sm-12 col-xs-12"
+  position={0}
+  style={
+    Object {
+      "marginBottom": 30,
+      "padding": 0,
+    }
+  }
+>
+  <div
+    className="col-md-12"
+  >
+    <div
+      className="panel statistic bar"
+      position={1}
+      style={
+        Object {
+          "marginBottom": 20,
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        className="panel-body"
+      >
+        <div
+          className="flex"
+        >
+          <div
+            className="flex-sub icon"
+          >
+            <img
+              alt="Damage"
+              src="/img/sword.png"
+            />
+          </div>
+          <div
+            className="flex-sub value"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={[Function]}
+            style={
+              Object {
+                "width": 190,
+              }
+            }
+          >
+            21,815
+             DPS
+          </div>
+          <div
+            className="flex-sub"
+            style={
+              Object {
+                "padding": "10px 5px",
+                "textAlign": "center",
+                "width": 110,
+              }
+            }
+          />
+          <div
+            className="flex-main chart"
+          >
+            <a
+              href="https://www.warcraftlogs.com/reports/TcCmAWp2RGzvkK69/#fight=1&source=10&type=damage-done"
+            >
+              <div
+                style={
+                  Object {
+                    "height": 0,
+                    "overflow": "visible",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 75,
+                      "width": "100%",
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "overflow": "visible",
+                        "width": 0,
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="col-md-12"
+  >
+    <div
+      className="panel statistic bar"
+      position={2}
+      style={
+        Object {
+          "marginBottom": 19,
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        className="panel-body"
+      >
+        <div
+          className="flex"
+        >
+          <div
+            className="flex-sub icon"
+          >
+            <img
+              alt="Healing"
+              src="/img/healing.png"
+            />
+          </div>
+          <div
+            className="flex-sub value"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={[Function]}
+            style={
+              Object {
+                "width": 190,
+              }
+            }
+          >
+            4,102
+             HPS
+          </div>
+          <div
+            className="flex-sub"
+            style={
+              Object {
+                "padding": "10px 5px",
+                "textAlign": "center",
+                "width": 110,
+              }
+            }
+          />
+          <div
+            className="flex-main chart"
+            style={
+              Object {
+                "padding": 0,
+              }
+            }
+          >
+            <a
+              href="https://www.warcraftlogs.com/reports/TcCmAWp2RGzvkK69/#fight=1&source=10&type=healing"
+            >
+              <div
+                style={
+                  Object {
+                    "height": 0,
+                    "overflow": "visible",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 75,
+                      "width": "100%",
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "overflow": "visible",
+                        "width": 0,
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="col-md-12"
+  >
+    <div
+      className="panel statistic bar"
+      position={3}
+      style={
+        Object {
+          "marginBottom": 0,
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        className="panel-body"
+      >
+        <div
+          className="flex"
+        >
+          <div
+            className="flex-sub icon"
+          >
+            <img
+              alt="Damage taken"
+              src="/img/shield.png"
+            />
+          </div>
+          <div
+            className="flex-sub value"
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={[Function]}
+            style={
+              Object {
+                "width": 190,
+              }
+            }
+          >
+            17,442
+             DTPS
+          </div>
+          <div
+            className="flex-sub parse-grey"
+            style={
+              Object {
+                "textAlign": "center",
+                "width": 110,
+              }
+            }
+          >
+            -
+          </div>
+          <div
+            className="flex-main chart"
+          >
+            <a
+              href="https://www.warcraftlogs.com/reports/TcCmAWp2RGzvkK69/#fight=1&source=10&type=damage-taken"
+            >
+              <div
+                style={
+                  Object {
+                    "height": 0,
+                    "overflow": "visible",
+                  }
+                }
+              >
+                <div
+                  style={
+                    Object {
+                      "height": 75,
+                      "width": "100%",
+                    }
+                  }
+                >
+                  <div
+                    style={
+                      Object {
+                        "overflow": "visible",
+                        "width": 0,
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Frost Death Knight integration test: example log WeaponEnhancementChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_sword_1h_nazjatarraid_d_01.jpg",
+    "importance": "regular",
+    "issue": <Trans
+      components={
+        Object {
+          "0": <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  6348,
+                  1522,
+                  4786,
+                  5843,
+                ],
+                "icon": "inv_sword_1h_nazjatarraid_d_01.jpg",
+                "id": 169713,
+                "itemLevel": 410,
+                "permanentEnchant": 3370,
+                "quality": 4,
+              }
+            }
+            icon={false}
+            id={169713}
+            quality={4}
+          />,
+        }
+      }
+      id="shared.weaponEnhancementChecker.suggestions.noWeaponEnhancement.label"
+      message="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone) . Apply an enhancement to very easily increase your throughput slightly."
+      values={
+        Object {
+          "slotName": <Trans
+            id="common.slots.weapon"
+            message="Weapon"
+          />,
+        }
+      }
+    />,
+    "stat": null,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_mace_1h_kultirasquest_b_01.jpg",
+    "importance": "regular",
+    "issue": <Trans
+      components={
+        Object {
+          "0": <ItemLink
+            details={
+              Object {
+                "bonusIDs": Array [
+                  4803,
+                  1592,
+                  4786,
+                ],
+                "icon": "inv_mace_1h_kultirasquest_b_01.jpg",
+                "id": 158092,
+                "itemLevel": 400,
+                "permanentEnchant": 3368,
+                "quality": 3,
+              }
+            }
+            icon={false}
+            id={158092}
+            quality={3}
+          />,
+        }
+      }
+      id="shared.weaponEnhancementChecker.suggestions.noWeaponEnhancement.label"
+      message="Your <0>{slotName}</0> is missing a weapon enhancement (weapon oil/sharpening stone/weightstone) . Apply an enhancement to very easily increase your throughput slightly."
+      values={
+        Object {
+          "slotName": <Trans
+            id="common.slots.offhand"
+            message="OffHand"
+          />,
+        }
+      }
+    />,
+    "stat": null,
+  },
+]
+`;
+
+exports[`Frost Death Knight integration test: example log matches the checklist snapshot 1`] = `
+<ul
+  className="checklist"
+>
+  <li
+    className="expandable  passed"
+  >
+    <div
+      className="meta"
+      onClick={[Function]}
+    >
+      <div
+        className="flex wrapable"
+      >
+        <div
+          className="flex-main name"
+        >
+          Use cooldowns as often as possible
+        </div>
+        <div
+          className="flex-sub perf"
+        >
+          <div
+            className="perf-container"
+          >
+            <div
+              className="perf-bar"
+              style={
+                Object {
+                  "backgroundColor": "#4ec04e",
+                  "width": "100%",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="flex-sub chevron"
+        >
+          <div>
+            <svg
+              className="icon"
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
+      style={
+        Object {
+          "height": 0,
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        style={Object {}}
+      >
+        <div
+          className="row text-muted description"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+            You should aim to use your cooldowns as often as you can to maximize your damage output.
+             
+            <a
+              href="https://www.wowhead.com/frost-death-knight-rotation-guide#cooldown-usage"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              More info.
+            </a>
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  className="spell-link-text"
+                  href="http://wowhead.com/spell=51271"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_deathknight_pillaroffrost.jpg"
+                  />
+                   
+                  Pillar of Frost
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  100.00%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  className="spell-link-text"
+                  href="http://wowhead.com/spell=152279"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_breathofsindragosa.jpg"
+                  />
+                   
+                  Breath of Sindragosa
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  100.00%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  className="spell-link-text"
+                  href="http://wowhead.com/spell=47568"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/inv_sword_62.jpg"
+                  />
+                   
+                  Empower Rune Weapon
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  100.00%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li
+    className="expandable expanded failed"
+  >
+    <div
+      className="meta"
+      onClick={[Function]}
+    >
+      <div
+        className="flex wrapable"
+      >
+        <div
+          className="flex-main name"
+        >
+          Try to avoid being inactive for a large portion of the fight
+        </div>
+        <div
+          className="flex-sub perf"
+        >
+          <div
+            className="perf-container"
+          >
+            <div
+              className="perf-bar"
+              style={
+                Object {
+                  "backgroundColor": "#ffc84a",
+                  "width": "56.02006204104776%",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="flex-sub chevron"
+        >
+          <div>
+            <svg
+              className="icon"
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
+      style={
+        Object {
+          "height": 0,
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        style={Object {}}
+      >
+        <div
+          className="row text-muted description"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+            While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes. In a worst case scenario, you can cast 
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=49184"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_frost_arcticwinds.jpg"
+              />
+               
+              Howling Blast
+            </a>
+             to prevent Rune capping
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Downtime
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  38.18%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ffc84a",
+                        "transition": "background-color 800ms",
+                        "width": "56.02006204104776%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li
+    className="expandable expanded failed"
+  >
+    <div
+      className="meta"
+      onClick={[Function]}
+    >
+      <div
+        className="flex wrapable"
+      >
+        <div
+          className="flex-main name"
+        >
+          Avoid capping Runes
+        </div>
+        <div
+          className="flex-sub perf"
+        >
+          <div
+            className="perf-container"
+          >
+            <div
+              className="perf-bar"
+              style={
+                Object {
+                  "backgroundColor": "#ffc84a",
+                  "width": "62.9304221397774%",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="flex-sub chevron"
+        >
+          <div>
+            <svg
+              className="icon"
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
+      style={
+        Object {
+          "height": 0,
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        style={Object {}}
+      >
+        <div
+          className="row text-muted description"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+            Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities.  You can have up to three runes recharging at once.  You want to dump runes whenever you have 4 or more runes to make sure none are wasted
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Rune Efficiency
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  78.90%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ffc84a",
+                        "transition": "background-color 800ms",
+                        "width": "62.9304221397774%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li
+    className="expandable  passed"
+  >
+    <div
+      className="meta"
+      onClick={[Function]}
+    >
+      <div
+        className="flex wrapable"
+      >
+        <div
+          className="flex-main name"
+        >
+          Avoid capping Runic Power
+        </div>
+        <div
+          className="flex-sub perf"
+        >
+          <div
+            className="perf-container"
+          >
+            <div
+              className="perf-bar"
+              style={
+                Object {
+                  "backgroundColor": "#4ec04e",
+                  "width": "100%",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="flex-sub chevron"
+        >
+          <div>
+            <svg
+              className="icon"
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
+      style={
+        Object {
+          "height": 0,
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        style={Object {}}
+      >
+        <div
+          className="row text-muted description"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+            Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities. Cast 
+            <a
+              className="spell-link-text"
+              href="http://wowhead.com/spell=49143"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_empowerruneblade2.jpg"
+              />
+               
+              Frost Strike
+            </a>
+             when you have 73+ Runic Power to avoid overcapping.
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Runic Power Efficiency
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  95.71%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li
+    className="expandable expanded failed"
+  >
+    <div
+      className="meta"
+      onClick={[Function]}
+    >
+      <div
+        className="flex wrapable"
+      >
+        <div
+          className="flex-main name"
+        >
+          <trans
+            id="shared.modules.features.checklist.wellPrepared"
+            message="Be well prepared"
+          />
+        </div>
+        <div
+          className="flex-sub perf"
+        >
+          <div
+            className="perf-container"
+          >
+            <div
+              className="perf-bar"
+              style={
+                Object {
+                  "backgroundColor": "#ac1f39",
+                  "width": "0%",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="flex-sub chevron"
+        >
+          <div>
+            <svg
+              className="icon"
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
+      style={
+        Object {
+          "height": 0,
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        style={Object {}}
+      >
+        <div
+          className="row text-muted description"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+            <trans
+              id="shared.modules.features.checklist.wellPreparedDetails"
+              message="Being well prepared with food, flasks, potions and enchants is an easy way to improve your performance."
+            />
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <trans
+                  id="shared.modules.features.checklist.enchanted"
+                  message="All items enchanted"
+                />
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  2
+                   
+                  / 7
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "28.57142857142857%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <trans
+                  id="shared.modules.features.checklist.enchantedHigh"
+                  message="Using high quality enchants"
+                />
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  2
+                   
+                  / 7
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "28.57142857142857%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <trans
+                  id="All weapons enhanced (oils/stones)"
+                />
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 2
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <trans
+                  id="Using high quality weapon enhancements"
+                />
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 2
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <trans
+                  id="shared.modules.features.checklist.combatPotionsUsed"
+                  message="Combat potions used"
+                />
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <trans
+                  id="shared.modules.features.checklist.highQualityCombatPotionsUsed"
+                  message="High quality combat potions used"
+                />
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0
+                   
+                  / 1
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <trans
+                  id="shared.modules.features.checklist.flaskHigh"
+                  message="High quality flask used"
+                />
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  <trans
+                    id="common.no"
+                    message="No"
+                  />
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <trans
+                  id="shared.modules.features.checklist.flask"
+                  message="Flask used"
+                />
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  <trans
+                    id="common.no"
+                    message="No"
+                  />
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <trans
+                  id="shared.modules.features.checklist.foodHigh"
+                  message="High quality food used"
+                />
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  <trans
+                    id="common.no"
+                    message="No"
+                  />
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <trans
+                  id="shared.modules.features.checklist.food"
+                  message="Food used"
+                />
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  <trans
+                    id="common.no"
+                    message="No"
+                  />
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <trans
+                  id="shared.modules.features.checklist.augmentRune"
+                  message="Augment rune used"
+                />
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  <trans
+                    id="common.no"
+                    message="No"
+                  />
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+</ul>
+`;

@@ -1,13 +1,18 @@
 import React from 'react';
-import { Abelito75, AdamKelly, Adoraci, Amani, Barry, Barter, ChagriAli, ChristopherKiss, Dambroda, emallson, flurreN, Guyius, Haelrail, HolySchmidt, Jafowler, jos3p, joshinator, Juko8, Keraldi, Khazak, Kruzershtern, Mae, Moonrabbit, niseko, Putro, Sharrq, Ssabbar, Zeboot, Zerotorescue } from 'CONTRIBUTORS';
+// prettier-ignore
+import { Abelito75, AdamKelly, Adoraci, Amani, Barry, Barter, ChagriAli, ChristopherKiss, Dambroda, emallson, flurreN, Guyius, Haelrail, HolySchmidt, Jafowler, jos3p, joshinator, Juko8, Keraldi, Khazak, Kruzershtern, Mae, Maldark, Moonrabbit, niseko, Putro, Sharrq, Ssabbar, Zeboot, Zerotorescue } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import SpellLink from 'common/SpellLink';
-import ItemLink from 'common/ItemLink';
+import SpellLink from 'interface/SpellLink';
+import { ItemLink } from 'interface';
 import { change, date } from 'common/changelog';
 
 // prettier-ignore
 export default [
+  change(date(2021, 1, 20), 'Rework spec support: automatically mark specs as unsupported when patch does not match the game and added a toggle to mark a spec with partial support.', Zerotorescue),
+  change(date(2021, 1, 20), 'Change homepage header to be consistent with report page.', Zerotorescue),
+  change(date(2021, 1, 20), 'Updated the Missing Encounters warning to show always and prompt users to click Refresh if encounters are missing.', Sharrq),
+  change(date(2021, 1, 20), 'Added raid preparation analysis for Veiled Augment Runes.', Maldark),
   change(date(2021, 1, 16), 'Clarify login buttons on the Premium page.', Zerotorescue),
   change(date(2021, 1, 16), 'The first 10 seconds of the timeline are always visible so openers can be reviewed properly.', Zerotorescue),
   change(date(2021, 1, 16), 'Address an issue where our potion modules thought that potions had infinite cooldown when used in combat.', Putro),

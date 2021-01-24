@@ -2,12 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { Zerotorescue } from 'CONTRIBUTORS';
-import RegularArticle from 'interface/news/RegularArticle';
+import NewsRegularArticle from 'interface/NewsRegularArticle';
 
 import RandomImageToMakeThisArticleLessBland from './weirdnelfandherfriend.png';
 
 export default (
-  <RegularArticle title={<>What are <i>YOUR</i> suggestions?</>} publishedAt="2018-09-30" publishedBy={Zerotorescue}>
+  <NewsRegularArticle title={<>What are <i>YOUR</i> suggestions?</>} publishedAt="2018-09-30" publishedBy={Zerotorescue}>
     <img
       src={RandomImageToMakeThisArticleLessBland}
       alt=""
@@ -20,5 +20,5 @@ export default (
     />
 
     We'd love to hear your suggestions. What can we do better? Do you have a grand idea? Is there a spec we should prioritize? Let us know on the new <a href="https://suggestions.wowanalyzer.com/">suggestions board</a>! There you can share your suggestions or give a vote to other people's amazing suggestions. And we'll even put a bounty on the best suggestions using the funds raised with <Link to="/premium">Premium</Link>!
-  </RegularArticle>
+  </NewsRegularArticle>
 );

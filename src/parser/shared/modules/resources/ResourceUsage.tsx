@@ -1,9 +1,9 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import DonutChart from 'interface/statistics/components/DonutChart';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import DonutChart from 'parser/ui/DonutChart';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Events, { CastEvent } from 'parser/core/Events';
-import ResourceLink from 'common/ResourceLink';
+import { ResourceLink } from 'interface';
 import { formatNumber } from 'common/format';
 
 import Spell from 'common/SPELLS/Spell';

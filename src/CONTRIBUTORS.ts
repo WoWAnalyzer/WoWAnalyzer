@@ -225,7 +225,14 @@ export const Fyruna: Contributor = {
 export const Anomoly: Contributor = {
   nickname: 'Anomoly',
   github: 'anom0ly',
+  twitter: 'Anom_MW',
+  discord: 'Anomoly#0110',
   avatar: require('./interface/images/avatars/anomoly-avatar.jpg'),
+  mains: [{
+    name: 'Anom',
+    spec: SPECS.MISTWEAVER_MONK,
+    link: 'https://worldofwarcraft.com/en-us/character/us/malganis/anom',
+  }],
 };
 export const Juko8: Contributor = {
   nickname: 'Juko8',
@@ -330,6 +337,14 @@ export const strel: Contributor = {
 export const Maldark: Contributor = {
   nickname: 'Maldark',
   github: 'Maldark',
+  discord: 'Maldark#1478',
+  mains: [
+    {
+      name: 'Maldark',
+      spec: SPECS.ARMS_WARRIOR,
+      link: 'https://worldofwarcraft.com/en-gb/character/eu/stormscale/Maldark',
+    },
+  ],
 };
 export const hatra344: Contributor = {
   nickname: 'hatra344',
@@ -1185,9 +1200,51 @@ export const Barry: Contributor = {
       link: 'https://worldofwarcraft.com/en-gb/character/eu/silvermoon/druulux',
     },
   ],
-}
+};
+
+export const Otthopsy: Contributor = {
+  nickname: "Otthopsy",
+  github: "Otthopsy",
+  discord: "Ottopsy#5666",
+  mains: [
+    {
+      name: "Otthopsy",
+      spec: SPECS.ARMS_WARRIOR,
+      link: "https://worldofwarcraft.com/fr-fr/character/eu/ysondre/otthopsy",
+    },
+  	{
+      name: 'Rayhløren',
+      spec: SPECS.RESTORATION_DRUID,
+      link: "https://worldofwarcraft.com/fr-fr/character/eu/ysondre/rayhl%C3%B8ren",
+    }
+  ],
+};
 
 export const Tiboonn: Contributor = {
   nickname: 'Tiboonn',
   github: 'Tiboonn',
+};
+
+export const Makhai: Contributor = {
+  nickname: 'Makhai',
+  github: 'Tikers',
+  discord: 'Makhai#3086',
+  mains: [{
+    name: 'Mákhai#3086',
+    spec: SPECS.VENGEANCE_DEMON_HUNTER,
+    link: 'https://worldofwarcraft.com/en-gb/character/eu/defias-brotherhood/m%C3%A1khai',
+  }],
+};
+
+export const Canotsa: Contributor = {
+  nickname: 'Canotsa',
+  github: 'CasperKjaerhus',
+  discord: 'Canotsa#3725',
+  mains: [
+    {
+      name: 'Stabdagger',
+      spec: SPECS.OUTLAW_ROGUE,
+      link: 'https://worldofwarcraft.com/en-gb/character/eu/draenor/stabdagger',
+    },
+  ],
 };

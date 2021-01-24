@@ -2,14 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { Zerotorescue } from 'CONTRIBUTORS';
-import RegularArticle from 'interface/news/RegularArticle';
+import NewsRegularArticle from 'interface/NewsRegularArticle';
 
 import FightDowntimeToggle from './FightDowntimeToggle.png';
 import ArgusBalance from './ArgusBalance.png';
 import ImonarTransition from './imonar-transition.gif';
 
 export default (
-  <RegularArticle title="Fight downtime" publishedAt="2018-07-06" publishedBy={Zerotorescue}>
+  <NewsRegularArticle title="Fight downtime" publishedAt="2018-07-06" publishedBy={Zerotorescue}>
     Fight downtime is a new feature we're working on to improve the accuracy for fights with unavoidable downtime.<br /><br />
 
     Fights such as Antorus's Argus and Imonar have a high amount of unavoidable downtime caused by mechanics. Argus kills the entire raid during which nobody can do anything, and Imonar moves between platforms, making it impossible for DPS to deal any damage (but healers still have to heal).<br /><br />
@@ -46,5 +46,5 @@ export default (
         The fight downtime toggle on the results page.
       </figcaption>
     </figure>
-  </RegularArticle>
+  </NewsRegularArticle>
 );

@@ -1,9 +1,9 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS/index';
-import Panel from 'interface/others/Panel';
+import SPELLS from 'common/SPELLS';
+import { Panel } from 'interface';
 import CooldownIcon from 'interface/icons/Cooldown';
-import CooldownOverview from 'interface/others/CooldownOverview';
+import CooldownOverview from 'parser/ui/CooldownOverview';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import EventHistory from 'parser/shared/modules/EventHistory';
@@ -61,6 +61,13 @@ class CooldownThroughputTracker extends Analyzer {
         BUILT_IN_SUMMARY_TYPES.MANA,
       ],
     },
+    {
+      spell: SPELLS.POWER_INFUSION,
+      summary: [
+        BUILT_IN_SUMMARY_TYPES.DAMAGE,
+        BUILT_IN_SUMMARY_TYPES.HEALING,
+      ],
+    }
   ];
 
   static ignoredSpells: number[] = [
@@ -151,7 +158,7 @@ class CooldownThroughputTracker extends Analyzer {
     this.activeCooldowns.splice(index, 1);
     debug && console.log(`%cCooldown ended: ${cooldown.spell.name}`, 'color: red', cooldown);
   }
-  
+
   onFightend() {
     this.activeCooldowns.forEach((cooldown) => {
       cooldown.end = this.owner.fight.end_time;

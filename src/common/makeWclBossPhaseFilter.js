@@ -1,4 +1,4 @@
-import { findByBossId } from 'raids';
+import { findByBossId } from 'game/raids';
 import { abilityFilter } from 'common/fabricateBossPhaseEvents';
 
 function createDecimalFilter(target){

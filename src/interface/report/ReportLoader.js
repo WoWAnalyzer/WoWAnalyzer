@@ -9,8 +9,8 @@ import { fetchFights, LogNotFoundError } from 'common/fetchWclApi';
 import { captureException } from 'common/errorLogger';
 import { setReport } from 'interface/actions/report';
 import { getReportCode } from 'interface/selectors/url/report';
-import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
-import ActivityIndicator from 'interface/common/ActivityIndicator';
+import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
+import ActivityIndicator from 'interface/ActivityIndicator';
 import DocumentTitle from 'interface/DocumentTitle';
 
 import handleApiError from './handleApiError';
