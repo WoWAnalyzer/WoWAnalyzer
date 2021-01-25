@@ -48,6 +48,9 @@ import BonedustBrew from '../shared/modules/covenants/BonedustBrew';
 import ScaldingBrew from './modules/shadowlands/conduits/ScaldingBrew';
 import EvasiveStride from './modules/shadowlands/conduits/EvasiveStride';
 import WalkWithTheOx from './modules/shadowlands/conduits/WalkWithTheOx';
+import HarmDenial from '../shared/modules/conduits/HarmDenial';
+import FortifyingIngredients from '../shared/modules/conduits/FortifyingIngredients';
+import GroundingBreath from '../shared/modules/conduits/GroundingBreath';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -99,9 +102,15 @@ class CombatLogParser extends CoreCombatLogParser {
     bonedustBrew: BonedustBrew,
 
     // Conduits
-    scaldingBrew: ScaldingBrew,
+    /// Endurance
+    harmDenial: HarmDenial,
+    fortifyingIngredients: FortifyingIngredients,
+    groundingBreath: GroundingBreath,
     evasiveStride: EvasiveStride,
+    /// Potency
+    scaldingBrew: ScaldingBrew,
     walkWithTheOx: WalkWithTheOx,
+    /// Finesse
   };
 }
 

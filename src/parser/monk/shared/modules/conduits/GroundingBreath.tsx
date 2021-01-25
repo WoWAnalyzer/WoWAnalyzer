@@ -1,9 +1,9 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-import Events from 'parser/core/Events';
+import Events, { CastEvent, EnergizeEvent, HealEvent } from 'parser/core/Events';
 
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -24,8 +24,8 @@ class GroundingBreath extends Analyzer {
   /**
    * Increase vivify healing on yourself by x% and has a 30% chance to refund any vivify.
    */
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
 
     const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.GROUNDING_BREATH.id);
 
@@ -40,14 +40,14 @@ class GroundingBreath extends Analyzer {
     this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell([SPELLS.GROUNDING_BREATH_MANA_RETURN, SPELLS.GROUNDING_BREATH_ENERGY_RETURN]), this.onResourceRefund);
   }
 
-  vivifyBoost(event) {
+  vivifyBoost(event: HealEvent) {
     if (event.targetID !== event.sourceID) {
       return;
     }
     this.healing += (calculateEffectiveHealing(event, this.healingBoost) || 0);
   }
 
-  onResourceRefund(event) {
+  onResourceRefund(event: EnergizeEvent) {
     this.resourceReturned += event.resourceChange;
   }
 
