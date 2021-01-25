@@ -1,3 +1,6 @@
+//Covenants
+import { ElysianDecree, SinfulBrand, TheHunt } from '@wowanalyzer/demonhunter';
+
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
@@ -41,9 +44,6 @@ import FuryTracker from './modules/resourcetracker/FuryTracker';
 //Legendaries
 import CollectiveAnguish from './modules/shadowlands/legendaries/CollectiveAnguish';
 import ChaosTheory from './modules/shadowlands/legendaries/ChaosTheory';
-
-//Covenants
-import { ElysianDecree, SinfulBrand, TheHunt } from '@wowanalyzer/demonhunter';
 
 //Conduits
 import GrowingInferno from './modules/shadowlands/conduits/GrowingInferno';
