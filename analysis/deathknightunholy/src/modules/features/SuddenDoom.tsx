@@ -21,12 +21,7 @@ class SuddenDoom extends Analyzer {
     super(options);
 
     this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.SUDDEN_DOOM_BUFF), this.onRefreshBuff);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SUDDEN_DOOM_BUFF), this.onApplyBuff);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SUDDEN_DOOM_BUFF), this.onRemoveBuff);
-  }
-
-  onApplyBuff(event: ApplyBuffEvent) {
-    this.lastProcTime = event.timestamp;
   }
 
   onRemoveBuff(event: RemoveBuffEvent) {
