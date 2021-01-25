@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SpellResourceCost from 'parser/shared/modules/SpellResourceCost';
 import Events from 'parser/core/Events';

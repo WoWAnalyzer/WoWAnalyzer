@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { AutoSizer } from 'react-virtualized';
-import BaseChart, { formatTime } from 'interface/others/BaseChart';
+import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import { t } from '@lingui/macro';
 
 const DEATH_COLOR = 'rgba(255, 0, 0, 0.8)';

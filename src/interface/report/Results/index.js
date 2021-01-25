@@ -5,25 +5,25 @@ import { Link, withRouter } from 'react-router-dom';
 import { Trans, t } from '@lingui/macro';
 import { compose } from 'redux';
 
-import { findByBossId } from 'raids';
+import { findByBossId } from 'game/raids';
 import lazyLoadComponent from 'common/lazyLoadComponent';
 import retryingPromise from 'common/retryingPromise';
 import makeWclUrl from 'common/makeWclUrl';
-import Tooltip from 'common/Tooltip';
+import Tooltip from 'interface/Tooltip';
 import getFightName from 'common/getFightName';
-import REPORT_HISTORY_TYPES from 'interface/home/ReportHistory/REPORT_HISTORY_TYPES';
+import REPORT_HISTORY_TYPES from 'interface/REPORT_HISTORY_TYPES';
 import { appendReportHistory } from 'interface/actions/reportHistory';
 import { getResultTab } from 'interface/selectors/url/report';
 import { hasPremium } from 'interface/selectors/user';
-import Warning from 'interface/Alert/Warning';
-import Ad from 'interface/common/Ad';
+import AlertWarning from 'interface/AlertWarning';
+import Ad from 'interface/Ad';
 import ReadableListing from 'interface/ReadableListing';
 import Contributor from 'interface/ContributorButton';
 import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
 import WipefestIcon from 'interface/icons/Wipefest';
 import LoadingBar from 'interface/LoadingBar';
-import Panel from 'interface/others/Panel';
-import ErrorBoundary from 'interface/common/ErrorBoundary';
+import Panel from 'interface/Panel';
+import ErrorBoundary from 'interface/ErrorBoundary';
 import Checklist from 'parser/shared/modules/features/Checklist/Module';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import ResultsChangelogTab from 'interface/ResultsChangelogTab';
@@ -33,7 +33,7 @@ import Header from './Header';
 import About from './About';
 import Overview from './Overview';
 import Statistics from './Statistics';
-import Character from './Character';
+import Character from './CharacterTab';
 import EncounterStats from './EncounterStats';
 import DegradedExperience from './DegradedExperience';
 import ItemWarning from './ItemWarning';
@@ -54,7 +54,7 @@ const TimelineTab = lazyLoadComponent(
 );
 const EventsTab = lazyLoadComponent(() =>
   retryingPromise(() =>
-    import(/* webpackChunkName: 'EventsTab' */ 'interface/others/EventsTab').then(
+    import(/* webpackChunkName: 'EventsTab' */ 'interface/EventsTab').then(
       (exports) => exports.default,
     ),
   ),
@@ -427,7 +427,7 @@ class Results extends React.PureComponent {
         )}
         {boss && boss.fight.resultsWarning && (
           <div className="container">
-            <Warning style={{ marginBottom: 30 }}>{boss.fight.resultsWarning}</Warning>
+            <AlertWarning style={{ marginBottom: 30 }}>{boss.fight.resultsWarning}</AlertWarning>
           </div>
         )}
         {parser && parser.selectedCombatant.gear && (
@@ -435,25 +435,25 @@ class Results extends React.PureComponent {
         )}
         {timeFilter && (
           <div className="container">
-            <Warning style={{ marginBottom: 30 }}>
+            <AlertWarning style={{ marginBottom: 30 }}>
               <Trans id="interface.report.results.warning.timeFilter">
                 These results are filtered to the selected time period. Time filtered results are
                 under development and may not be entirely accurate. <br /> Please report any issues
                 you may find on our GitHub or Discord.
               </Trans>
-            </Warning>
+            </AlertWarning>
           </div>
         )}
         {build && (
           <div className="container">
-            <Warning style={{ marginBottom: 30 }}>
+            <AlertWarning style={{ marginBottom: 30 }}>
               <Trans id="interface.report.results.warning.build">
                 These results are analyzed under build different from the standard build. While this
                 will make some modules more accurate, some may also not provide the information you
                 expect them to. <br /> Please report any issues you may find on our GitHub or
                 Discord.
               </Trans>
-            </Warning>
+            </AlertWarning>
           </div>
         )}
         {this.renderContent(selectedTab, results)}

@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { Zerotorescue } from 'CONTRIBUTORS';
-import RegularArticle from 'interface/news/RegularArticle';
+import NewsRegularArticle from 'interface/NewsRegularArticle';
 
 export const title = "A note about unlisted logs";
 
 export default (
-  <RegularArticle
+  <NewsRegularArticle
     title={title}
     publishedAt="2017-01-31"
     publishedBy={Zerotorescue}
@@ -16,5 +16,5 @@ export default (
     Do note that due to a restrictive API request limit we have to aggressively cache all API requests we send to Warcraft Logs. This means that once you run a log through the analyzer, the (secret) link for that log will continue to be accessible even if you change the original log (back) to the private privacy option on Warcraft Logs. Only the fights that you accessed will remain cached indefinitely.<br /><br />
 
     We will never share links to unlisted or private (analyzed) logs, nor include them recognizably in any public lists.
-  </RegularArticle>
+  </NewsRegularArticle>
 );

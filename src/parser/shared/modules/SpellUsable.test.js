@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import { EventType } from 'parser/core/Events';
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 import EventEmitter from 'parser/core/modules/EventEmitter';

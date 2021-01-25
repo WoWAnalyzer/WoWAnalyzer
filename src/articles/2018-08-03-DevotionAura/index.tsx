@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { Zerotorescue } from 'CONTRIBUTORS';
-import RegularArticle from 'interface/news/RegularArticle';
-import SpellLink from 'common/SpellLink';
+import NewsRegularArticle from 'interface/NewsRegularArticle';
+import SpellLink from 'interface/SpellLink';
 import SPELLS from 'common/SPELLS';
-import Warning from 'interface/Alert/Warning';
+import AlertWarning from 'interface/AlertWarning';
 
 import EqualShare from './EqualShare.png';
 import FairShare from './FairShare.png';
@@ -14,12 +14,12 @@ import DevotionAuraPassiveDR from './DevotionAuraPassiveDR.png';
 import DevotionAuraPassiveDRTotal from './DevotionAuraPassiveDRTotal.png';
 
 export default (
-  <RegularArticle title="Analyzing Devotion Aura's DRPS" publishedAt="2018-08-03" publishedBy={Zerotorescue}>
+  <NewsRegularArticle title="Analyzing Devotion Aura's DRPS" publishedAt="2018-08-03" publishedBy={Zerotorescue}>
     There are multiple methods to analyzing the value of damage reductions effects in World of Warcraft. In this article we take a close look at how the damage reduced by Devotion Aura is analyzed. The first part of this article is a general explanation of how different damage reductions can be analyzed. The second part will be specifically about how the DRPS value for Devotion Aura is established.<br /><br />
 
-    <Warning>
+    <AlertWarning>
       This article is part of the <i>theorycrafting</i> series and gets very technical. You do <b>not</b> need to understand any of this in order to play well.
-    </Warning><br />
+    </AlertWarning><br />
 
     <h1>How we analyze damage reductions</h1>
 
@@ -99,5 +99,5 @@ export default (
 
     More info on Devotion Aura: <a className="overflow-link" href="https://github.com/MartijnHols/HolyPaladin/blob/master/Spells/Talents/60/DevotionAura.md">https://github.com/MartijnHols/HolyPaladin/blob/master/Spells/Talents/60/DevotionAura.md</a><br />
     More info on all auras: <a className="overflow-link" href="https://sacredshielding.wordpress.com/2018/07/23/reading-the-color-of-your-aura-in-battle-for-azeroth/">https://sacredshielding.wordpress.com/2018/07/23/reading-the-color-of-your-aura-in-battle-for-azeroth/</a>
-  </RegularArticle>
+  </NewsRegularArticle>
 );

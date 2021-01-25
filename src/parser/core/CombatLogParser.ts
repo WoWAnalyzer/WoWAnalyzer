@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { Boss, findByBossId } from 'raids';
+import { Boss, findByBossId } from 'game/raids';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
-import DeathRecapTracker from 'interface/others/DeathRecapTracker';
 import ModuleError from 'parser/core/ModuleError';
 import {
   AnyEvent,
@@ -14,6 +13,7 @@ import {
 } from 'parser/core/Events';
 
 import Haste from 'parser/shared/modules/Haste';
+import DeathRecapTracker from 'parser/shared/modules/DeathRecapTracker';
 
 import Module, { Options } from './Module';
 import Fight from './Fight';
@@ -94,8 +94,6 @@ import DarkmoonDeckVoracity from '../shared/modules/items/shadowlands/crafted/Da
 import OverchargedAnimaBattery from '../shared/modules/items/shadowlands/dungeons/OverchargedAnimaBattery';
 // Castle Nathria
 import SoulInfusion from '../shared/modules/spells/SoulInfusion';
-
-// Legendaries
 
 import ParseResults from './ParseResults';
 import EventsNormalizer from './EventsNormalizer';
@@ -208,7 +206,7 @@ class CombatLogParser {
     // Crafted
     darkmoonDeckVoracity: DarkmoonDeckVoracity,
 
-    // Shadowlands 
+    // Shadowlands
 
     // Castle Nathria
     soulInfusion: SoulInfusion,

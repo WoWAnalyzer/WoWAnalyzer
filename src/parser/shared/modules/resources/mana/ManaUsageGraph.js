@@ -1,7 +1,7 @@
 import React from 'react';
 import { AutoSizer } from 'react-virtualized';
 import PropTypes from 'prop-types';
-import BaseChart, { formatTime } from 'interface/others/BaseChart';
+import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 
 const COLORS = {
   MANA: {

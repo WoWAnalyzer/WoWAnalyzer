@@ -2,11 +2,11 @@
 import React, { ComponentType, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Phase } from 'raids';
+import { Phase } from 'game/raids';
 import Fight from 'parser/core/Fight';
 import DEFAULT_BUILD from 'parser/DEFAULT_BUILD';
 import Config, { Build } from 'parser/Config';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement } from 'interface/Tooltip';
 import { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
 import getBossName from 'common/getBossName';
 

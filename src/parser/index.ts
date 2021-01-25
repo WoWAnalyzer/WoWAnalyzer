@@ -1,50 +1,50 @@
-import BloodDeathKnight from './deathknight/blood/CONFIG';
-import UnholyDeathKnight from './deathknight/unholy/CONFIG';
-import FrostDeathKnight from './deathknight/frost/CONFIG';
+import BloodDeathKnight from '@wowanalyzer/deathknight-blood';
+import UnholyDeathKnight from '@wowanalyzer/deathknight-unholy';
+import FrostDeathKnight from '@wowanalyzer/deathknight-frost';
 
-import HavocDemonHunter from './demonhunter/havoc/CONFIG';
-import VengeanceDemonHunter from './demonhunter/vengeance/CONFIG';
+import HavocDemonHunter from '@wowanalyzer/demonhunter-havoc';
+import VengeanceDemonHunter from '@wowanalyzer/demonhunter-vengeance';
 
-import BalanceDruid from './druid/balance/CONFIG';
-import FeralDruid from './druid/feral/CONFIG';
-import GuardianDruid from './druid/guardian/CONFIG';
-import RestoDruid from './druid/restoration/CONFIG';
+import BalanceDruid from '@wowanalyzer/druid-balance';
+import FeralDruid from '@wowanalyzer/druid-feral';
+import GuardianDruid from '@wowanalyzer/druid-guardian';
+import RestoDruid from '@wowanalyzer/druid-restoration';
 
-import BeastMasteryHunter from './hunter/beastmastery/CONFIG';
-import MarksmanshipHunter from './hunter/marksmanship/CONFIG';
-import SurvivalHunter from './hunter/survival/CONFIG';
+import BeastMasteryHunter from '@wowanalyzer/hunter-beastmastery';
+import MarksmanshipHunter from '@wowanalyzer/hunter-marksmanship';
+import SurvivalHunter from '@wowanalyzer/hunter-survival';
 
-import FrostMage from './mage/frost/CONFIG';
-import FireMage from './mage/fire/CONFIG';
-import ArcaneMage from './mage/arcane/CONFIG';
+import ArcaneMage from '@wowanalyzer/mage-arcane';
+import FireMage from '@wowanalyzer/mage-fire';
+import FrostMage from '@wowanalyzer/mage-frost';
 
-import BrewmasterMonk from './monk/brewmaster/CONFIG';
-import WindwalkerMonk from './monk/windwalker/CONFIG';
-import MistweaverMonk from './monk/mistweaver/CONFIG';
+import BrewmasterMonk from '@wowanalyzer/monk-brewmaster';
+import WindwalkerMonk from '@wowanalyzer/monk-windwalker';
+import MistweaverMonk from '@wowanalyzer/monk-mistweaver';
 
-import HolyPaladin from './paladin/holy/CONFIG';
-import RetributionPaladin from './paladin/retribution/CONFIG';
-import ProtectionPaladin from './paladin/protection/CONFIG';
+import HolyPaladin from '@wowanalyzer/paladin-holy';
+import RetributionPaladin from '@wowanalyzer/paladin-retribution';
+import ProtectionPaladin from '@wowanalyzer/paladin-protection';
 
-import DisciplinePriest from './priest/discipline/CONFIG';
-import HolyPriest from './priest/holy/CONFIG';
-import ShadowPriest from './priest/shadow/CONFIG';
+import DisciplinePriest from '@wowanalyzer/priest-discipline';
+import HolyPriest from '@wowanalyzer/priest-holy';
+import ShadowPriest from '@wowanalyzer/priest-shadow';
 
-import SubtletyRogue from './rogue/subtlety/CONFIG';
-import AssassinationRogue from './rogue/assassination/CONFIG';
-import OutlawRogue from './rogue/outlaw/CONFIG';
+import AssassinationRogue from '@wowanalyzer/rogue-assassination';
+import OutlawRogue from '@wowanalyzer/rogue-outlaw';
+import SubtletyRogue from '@wowanalyzer/rogue-subtlety';
 
-import ElementalShaman from './shaman/elemental/CONFIG';
-import EnhancementShaman from './shaman/enhancement/CONFIG';
-import RestorationShaman from './shaman/restoration/CONFIG';
+import ElementalShaman from '@wowanalyzer/shaman-elemental';
+import EnhancementShaman from '@wowanalyzer/shaman-enhancement';
+import RestorationShaman from '@wowanalyzer/shaman-restoration';
 
-import AfflictionWarlock from './warlock/affliction/CONFIG';
-import DemonologyWarlock from './warlock/demonology/CONFIG';
-import DestructionWarlock from './warlock/destruction/CONFIG';
+import AfflictionWarlock from '@wowanalyzer/warlock-affliction';
+import DemonologyWarlock from '@wowanalyzer/warlock-demonology';
+import DestructionWarlock from '@wowanalyzer/warlock-destruction';
 
-import ProtectionWarrior from './warrior/protection/CONFIG';
-import ArmsWarrior from './warrior/arms/CONFIG';
-import FuryWarrior from './warrior/fury/CONFIG';
+import ArmsWarrior from '@wowanalyzer/warrior-arms';
+import FuryWarrior from '@wowanalyzer/warrior-fury';
+import ProtectionWarrior from '@wowanalyzer/warrior-protection';
 
 import Config from './Config';
 
