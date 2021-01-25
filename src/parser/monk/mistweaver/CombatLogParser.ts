@@ -65,9 +65,9 @@ import FaelineStomp from '../shared/modules/covenants/FaelineStomp';
 
 // Conduits
 // Endurance
-import GroundingBreath from 'parser/monk/shared/modules/conduits/GroundingBreath';
-import HarmDenial from 'parser/monk/shared/modules/conduits/HarmDenial';
-import FortifyingIngredients from 'parser/monk/shared/modules/conduits/FortifyingIngredients';
+import GroundingBreath from '../shared/modules/conduits/GroundingBreath';
+import HarmDenial from '../shared/modules/conduits/HarmDenial';
+import FortifyingIngredients from '../shared/modules/conduits/FortifyingIngredients';
 
 // Potency
 import JadeBond from './modules/shadowlands/conduits/JadeBond';
