@@ -21,6 +21,8 @@ module.exports = override(
   babelInclude([
     path.resolve('./src'),
     new RegExp(`^${process.cwd()}/analysis/[^/]+/src/`),
+    // Hello Windows
+    new RegExp(`^${process.cwd().replace(/\\/g, '\\\\')}\\\\analysis\\\\[^\\\\]+\\\\src`),
   ]),
   // TODO: Support linking packages. The below was disabled since it will make CRA show paths to
   //  node_modules for errors which make them harder to fix. It also likely makes Babel parse files
