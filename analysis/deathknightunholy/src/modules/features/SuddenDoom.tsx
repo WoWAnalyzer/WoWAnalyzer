@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer, { Options, SELECTED_PLAYER } from "parser/core/Analyzer";
-import Events, { RefreshBuffEvent, RemoveBuffEvent, ApplyBuffEvent } from "parser/core/Events";
+import Events, { RefreshBuffEvent, RemoveBuffEvent } from "parser/core/Events";
 import { ThresholdStyle, When } from "parser/core/ParseResults";
 import { SpellLink } from 'interface';
 import SPELLS from "common/SPELLS";
