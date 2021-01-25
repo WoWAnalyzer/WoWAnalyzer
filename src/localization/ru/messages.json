@@ -91,6 +91,7 @@
   "deathknight.unholy.suggestions.festeringStrikes.efficiency": "{0}% of Festering Strikes did not risk overcapping Festering Wounds",
   "deathknight.unholy.suggestions.runicPower.wasted": "{0}% wasted",
   "deathknight.unholy.suggestions.scourgeStrike.efficiency": "{0}% of {1} were used with Wounds on the target",
+  "deathknight.unholy.suggestions.suddendoom.wastedProcs": "",
   "deathknight.unholy.suggestions.virulentPlague.uptime": "{0}% Virulent Plague uptime",
   "demonhunter.havoc.suggestions.alwaysBeCasting.downtime": "{0}% downtime",
   "demonhunter.havoc.suggestions.demonBlades.furyWasted": "{0}% Fury wasted",
