@@ -11,8 +11,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemManaGained from 'parser/ui/ItemManaGained';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-
-import { conduitScaling } from '../../../mistweaver/constants';
+import conduitScaling from 'parser/core/conduitScaling';
 
 class GroundingBreath extends Analyzer {
 
