@@ -1,4 +1,4 @@
-import { findByBossId } from 'raids';
+import { findByBossId } from 'game/raids';
 import { EventType } from 'parser/core/Events';
 
 export const abilityFilter = { //filter used for abilities that don't use the default "ability" filter

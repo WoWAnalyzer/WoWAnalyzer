@@ -1,4 +1,4 @@
-import { PhaseConfig } from 'raids';
+import { PhaseConfig } from 'game/raids';
 
 import Spell from 'common/SPELLS/Spell';
 

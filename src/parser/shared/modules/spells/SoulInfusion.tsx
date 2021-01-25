@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import CoreChanneling from 'parser/shared/modules/Channeling';
 import Events, { RemoveBuffEvent, CastEvent } from 'parser/core/Events';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import bosses from 'raids/castlenathria';
+import bosses from 'game/raids/castlenathria';
 
 /* Soul Infusion for Sun king's Salvation */
 /* Example Data: https://Wowanalyzer.com/report/g4Pja6pLHnmQtbvk/32-Normal+Sun+King's+Salvation+-+Kill+(10:14)/Pjurbo/standard/timeline */

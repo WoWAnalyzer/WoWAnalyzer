@@ -11,7 +11,7 @@ import SkullIcon from 'interface/icons/Skull';
 import CancelIcon from 'interface/icons/Cancel';
 import InformationIcon from 'interface/icons/Information';
 
-import { findByBossId } from 'raids';
+import { findByBossId } from 'game/raids';
 
 import ProgressBar from './ProgressBar';
 
