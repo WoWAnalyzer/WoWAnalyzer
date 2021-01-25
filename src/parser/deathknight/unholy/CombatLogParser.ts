@@ -32,6 +32,7 @@ import Superstrain from '../shared/items/Superstrain';
 // Covenants
 import SwarmingMist from '../shared/covenants/SwarmingMist';
 import ConvocationOfTheDead from './modules/spells/conduits/ConvocationOfTheDead';
+import SuddenDoom from './modules/spells/SuddenDoom';
 
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -50,6 +51,7 @@ class CombatLogParser extends CoreCombatLogParser {
     virulentPlagueEfficiency: VirulentPlagueEfficiency,
     woundTracker: WoundTracker,
     spellUsable: SpellUsable,
+    suddenDoom: SuddenDoom,
 
     // Talents
     soulReaper: SoulReaper,

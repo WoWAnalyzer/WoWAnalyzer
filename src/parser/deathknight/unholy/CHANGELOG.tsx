@@ -7,6 +7,7 @@ import SPELLS from 'common/SPELLS'
 import SpellLink from 'common/SpellLink';
 
 export default [
+  change(date(2020, 1, 24), <>Add module for <SpellLink id={SPELLS.SUDDEN_DOOM_BUFF.id} /></>, Khazak),
   change(date(2020, 1, 20), <>Add cooldown reduction tracking for <SpellLink id={SPELLS.CONVOCATION_OF_THE_DEAD.id} /></>, Khazak),
   change(date(2020, 1, 17), 'Updated Unholy with new example log and flagged for 9.0.2 support', Khazak),
   change(date(2020, 1, 17), <>Add cooldown reduction tracking for <SpellLink id={SPELLS.ARMY_OF_THE_DAMNED_TALENT.id} /></>, Khazak),
