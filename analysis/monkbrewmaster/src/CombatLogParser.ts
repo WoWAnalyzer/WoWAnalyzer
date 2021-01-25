@@ -1,4 +1,4 @@
-import { BonedustBrew, FaelineStomp, FallenOrder, TouchOfDeath } from '@wowanalyzer/monk';
+import { BonedustBrew, FaelineStomp, FallenOrder, FortifyingIngredients, GroundingBreath, HarmDenial, TouchOfDeath } from '@wowanalyzer/monk';
 
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -46,9 +46,6 @@ import WeaponsOfOrder from './modules/spells/shadowlands/WeaponsOfOrder';
 import ScaldingBrew from './modules/shadowlands/conduits/ScaldingBrew';
 import EvasiveStride from './modules/shadowlands/conduits/EvasiveStride';
 import WalkWithTheOx from './modules/shadowlands/conduits/WalkWithTheOx';
-import HarmDenial from '../shared/modules/conduits/HarmDenial';
-import FortifyingIngredients from '../shared/modules/conduits/FortifyingIngredients';
-import GroundingBreath from '../shared/modules/conduits/GroundingBreath';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

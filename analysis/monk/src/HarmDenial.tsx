@@ -11,13 +11,11 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Events, { HealEvent } from 'parser/core/Events';
 
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-
-import { conduitScaling } from '../../../mistweaver/constants';
+import conduitScaling from 'parser/core/conduitScaling';
 
 class HarmDenial extends Analyzer {
 
   healingIncrease = 0;
-
   healingBoost = 0;
   bonusDamage = 0;
 
