@@ -26,12 +26,10 @@ class GrowingInferno extends Analyzer {
     }
 
     this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.GROWING_INFERNO.id);
-
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.IMMOLATION_AURA_INITIAL_HIT_DAMAGE, SPELLS.IMMOLATION_AURA_BUFF_DAMAGE]), this.onDamage);
   }
 
   onDamage(event: DamageEvent) {
-    console.log("test")
     this.ImmolationDamage += event.amount + (event.absorbed || 0);
     this.addedDamage += calculateEffectiveDamage(event, GROWING_INFERNO_DAMAGE_INCREASE[this.conduitRank]);
   }
