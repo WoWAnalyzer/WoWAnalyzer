@@ -411,6 +411,12 @@ const spells = {
     icon: 'ability_deathknight_soulreaper',
   },
 
+  SUDDEN_DOOM_BUFF: {
+    id: 81340,
+    name: 'Sudden Doom',
+    icon: 'spell_shadow_painspike'
+  },
+
   // Shared:
   RUNEFORGING: {
     id: 53428,
