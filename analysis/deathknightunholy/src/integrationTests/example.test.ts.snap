@@ -4599,7 +4599,7 @@ exports[`Unholy Death Knight integration test: example log SuddenDoom matches th
         <div
           className="value"
         >
-          1
+          2
            
           <small>
             wasted procs
@@ -4661,7 +4661,7 @@ Array [
       .
     </React.Fragment>,
     "stat": <React.Fragment>
-      {"id":"deathknight.unholy.suggestions.suddendoom.wastedProcs","message":"{0} procs were refreshed or expired without being used","values":{"0":1}}
+      {"id":"deathknight.unholy.suggestions.suddendoom.wastedProcs","message":"{0} procs were refreshed or expired without being used","values":{"0":2}}
        (
       &lt;0 is recommended
       )
