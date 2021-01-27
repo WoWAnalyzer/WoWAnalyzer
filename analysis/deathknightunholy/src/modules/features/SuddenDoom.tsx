@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer, { Options, SELECTED_PLAYER } from "parser/core/Analyzer";
-import Events, { RefreshBuffEvent, RemoveBuffEvent } from "parser/core/Events";
+import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from "parser/core/Events";
 import { ThresholdStyle, When } from "parser/core/ParseResults";
 import { SpellLink } from 'interface';
 import SPELLS from "common/SPELLS";
@@ -21,12 +21,17 @@ class SuddenDoom extends Analyzer {
     super(options);
 
     this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.SUDDEN_DOOM_BUFF), this.onRefreshBuff);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SUDDEN_DOOM_BUFF), this.onBuff);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SUDDEN_DOOM_BUFF), this.onRemoveBuff);
+  }
+
+  onBuff(event: ApplyBuffEvent) {
+    this.lastProcTime = event.timestamp;
   }
 
   onRemoveBuff(event: RemoveBuffEvent) {
     const durationHeld = event.timestamp - this.lastProcTime;
-    if (durationHeld > (BUFF_DURATION_MS * 1000)) {
+    if (durationHeld > (BUFF_DURATION_MS)) {
       this.wastedProcs += 1;
     }
   }
