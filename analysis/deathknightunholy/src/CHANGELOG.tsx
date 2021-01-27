@@ -7,6 +7,7 @@ import SPELLS from 'common/SPELLS'
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2021, 1, 26), <>Fix issue causing <SpellLink id={SPELLS.SUDDEN_DOOM_BUFF.id} /> procs to be counted as wasted when they should not</>, Khazak),
   change(date(2021, 1, 24), <>Add module for <SpellLink id={SPELLS.SUDDEN_DOOM_BUFF.id} /></>, Khazak),
   change(date(2021, 1, 20), <>Add cooldown reduction tracking for <SpellLink id={SPELLS.CONVOCATION_OF_THE_DEAD.id} /></>, Khazak),
   change(date(2021, 1, 17), 'Updated Unholy with new example log and flagged for 9.0.2 support', Khazak),
