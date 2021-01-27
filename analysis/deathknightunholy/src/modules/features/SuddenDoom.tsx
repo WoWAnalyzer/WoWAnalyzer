@@ -31,7 +31,6 @@ class SuddenDoom extends Analyzer {
 
   onRemoveBuff(event: RemoveBuffEvent) {
     const durationHeld = event.timestamp - this.lastProcTime;
-    console.log(durationHeld)
     if (durationHeld > (BUFF_DURATION_MS)) {
       this.wastedProcs += 1;
     }
