@@ -1,4 +1,4 @@
-import { BonedustBrew, FaelineStomp, FallenOrder, TouchOfDeath } from '@wowanalyzer/monk';
+import { BonedustBrew, FaelineStomp, FallenOrder, FortifyingIngredients, GroundingBreath, HarmDenial, TouchOfDeath } from '@wowanalyzer/monk';
 
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -97,9 +97,15 @@ class CombatLogParser extends CoreCombatLogParser {
     bonedustBrew: BonedustBrew,
 
     // Conduits
-    scaldingBrew: ScaldingBrew,
+    /// Endurance
+    harmDenial: HarmDenial,
+    fortifyingIngredients: FortifyingIngredients,
+    groundingBreath: GroundingBreath,
     evasiveStride: EvasiveStride,
+    /// Potency
+    scaldingBrew: ScaldingBrew,
     walkWithTheOx: WalkWithTheOx,
+    /// Finesse
   };
 }
 

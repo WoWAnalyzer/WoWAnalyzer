@@ -626,9 +626,9 @@ export const Matardarix: Contributor = {
   discord: 'Matardarix#9847',
   avatar: require('./interface/images/avatars/matardarix-avatar.jpg'),
   mains: [{
-    name: 'Mâtârdarix',
-    spec: SPECS.ARMS_WARRIOR,
-    link: 'https://worldofwarcraft.com/en-gb/character/hyjal/M%C3%A2t%C3%A2rdarix',
+    name: 'Matärdarix',
+    spec: SPECS.BREWMASTER_MONK,
+    link: 'https://worldofwarcraft.com/en-gb/character/eu/hyjal/Mat%C3%A4rdarix',
   }],
 };
 export const mtblanton: Contributor = {
