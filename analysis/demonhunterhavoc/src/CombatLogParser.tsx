@@ -1,4 +1,5 @@
-import { ElysianDecree, SinfulBrand, TheHunt } from '@wowanalyzer/demonhunter'
+//Covenants
+import { ElysianDecree, SinfulBrand, TheHunt } from '@wowanalyzer/demonhunter';
 
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -43,6 +44,10 @@ import FuryTracker from './modules/resourcetracker/FuryTracker';
 //Legendaries
 import CollectiveAnguish from './modules/shadowlands/legendaries/CollectiveAnguish';
 import ChaosTheory from './modules/shadowlands/legendaries/ChaosTheory';
+
+//Conduits
+import GrowingInferno from './modules/shadowlands/conduits/GrowingInferno';
+
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -98,6 +103,9 @@ class CombatLogParser extends CoreCombatLogParser {
     sinfulBrand: SinfulBrand,
     theHunt: TheHunt,
     elysianDecree: ElysianDecree,
+
+    //Conduits
+    growingInferno: GrowingInferno,
   };
 }
 
