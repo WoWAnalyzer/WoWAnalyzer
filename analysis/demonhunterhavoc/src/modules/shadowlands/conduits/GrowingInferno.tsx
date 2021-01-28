@@ -11,6 +11,11 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { GROWING_INFERNO_DAMAGE_INCREASE } from '@wowanalyzer/demonhunter';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 
+/**
+ * Example logs
+ * Rank 5: https://www.warcraftlogs.com/reports/aW8GMv69NBY2CxbK#fight=1&type=damage-done&source=13
+ * Rank 4: https://www.warcraftlogs.com/reports/nwRNF864JYTCkW3P#fight=80&type=damage-done&source=175
+ */
 
 class GrowingInferno extends Analyzer {
 

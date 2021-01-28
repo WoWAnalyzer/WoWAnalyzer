@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 
 export default [
-  change(date(2021, 1, 26), <>Added <SpellLink id={SPELLS.GROWING_INFERNO.id} /> to Statistics</>, flurreN),
+  change(date(2021, 1, 28), <>Added <SpellLink id={SPELLS.GROWING_INFERNO.id} /> to Statistics</>, flurreN),
   change(date(2021, 1, 18), <>Suggestions for <SpellLink id={SPELLS.DEMONIC_TALENT_HAVOC.id} />, <SpellLink id={SPELLS.BLADE_DANCE.id} /> and <SpellLink id={SPELLS.DEATH_SWEEP.id} /> have been updated</>, flurreN),
   change(date(2021, 1, 6), <>Added <SpellLink id={SPELLS.ELYSIAN_DECREE.id} /> to Statistics</>, flurreN),
   change(date(2020, 12, 30), <>Added <SpellLink id={SPELLS.SINFUL_BRAND.id} /> and <SpellLink id={SPELLS.THE_HUNT.id}/> to Statistics</>, flurreN),
