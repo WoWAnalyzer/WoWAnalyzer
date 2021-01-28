@@ -49,7 +49,7 @@ export default class WalkWithTheOx extends Analyzer {
     this.addEventListener(Events.cast.spell(SPELLS.SPINNING_CRANE_KICK_BRM).by(SELECTED_PLAYER), this.startSCK);
     this.addEventListener(Events.damage.spell(SPELLS.SPINNING_CRANE_KICK_DAMAGE).by(SELECTED_PLAYER), this.reduceCooldownSCK);
     // Calculating additional damages on Niuzao
-    this.addEventListener(Events.damage.spell(SPELLS.STOMP_DAMAGE).by(SELECTED_PLAYER_PET), this.onPetStompDamage);
+    this.addEventListener(Events.damage.spell(SPELLS.NIUZAO_STOMP_DAMAGE).by(SELECTED_PLAYER_PET), this.onPetStompDamage);
   }
 
   private reduceCooldown() {

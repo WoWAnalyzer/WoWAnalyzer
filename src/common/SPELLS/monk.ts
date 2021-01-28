@@ -250,7 +250,7 @@ const spells = {
     name: 'Invoke Niuzao, the Black Ox',
     icon: 'spell_monk_brewmaster_spec',
   },
-  STOMP_DAMAGE: {
+  NIUZAO_STOMP_DAMAGE: {
     id: 227291,
     name: 'Stomp',
     icon: 'ability_warstomp',
