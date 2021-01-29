@@ -15,7 +15,7 @@ export type SpenderObj = {
   casts: number,
 }
 
-type ResourceUpdate = {
+export type ResourceUpdate = {
   timestamp: number | undefined,
   current: number,
   waste: number,

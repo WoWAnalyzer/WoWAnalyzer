@@ -5,6 +5,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { AutoSizer } from 'react-virtualized';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
+import { VisualizationSpec } from 'react-vega';
+import { ResourceUpdate } from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 
 const COLORS = {
   MAELSTROM_FILL: 'rgba(0, 139, 215, 0.2)',
@@ -13,7 +15,7 @@ const COLORS = {
   WASTED_MAELSTROM_BORDER: 'rgba(255, 90, 160, 1)',
 };
 
-const Maelstrom = props => {
+const Maelstrom = (props: any) => {
   if (!props.tracker) {
     return (
       <div>
@@ -24,10 +26,11 @@ const Maelstrom = props => {
 
   const { start } = props;
 
-  const rawData = [];
+  //BaseChart data is of type 'any'
+  const rawData: any = [];
 
-  props.tracker.resourceUpdates.forEach((item) => {
-    const secIntoFight = Math.floor((item.timestamp - start) / 1000);
+  props.tracker.resourceUpdates.forEach((item: ResourceUpdate) => {
+    const secIntoFight = Math.floor((item.timestamp ?? start - start) / 1000);
     rawData.push({kind: 'Maelstrom', x: secIntoFight, y:item.current});
     rawData.push({kind: 'Wasted', x: secIntoFight, y:item.waste});
   });
@@ -36,7 +39,7 @@ const Maelstrom = props => {
     data: rawData,
   };
 
-  const spec = {
+  const spec: VisualizationSpec = {
     mark: {
       type: 'area',
       line: {
@@ -110,6 +113,7 @@ const Maelstrom = props => {
 
 Maelstrom.propTypes = {
   start: PropTypes.number.isRequired,
+  end: PropTypes.number,
   tracker: PropTypes.object,
 };
 

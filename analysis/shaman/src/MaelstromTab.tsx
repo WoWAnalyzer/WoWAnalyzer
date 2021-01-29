@@ -10,6 +10,8 @@ class MaelstromTab extends Analyzer {
     maelstromTracker: MaelstromTracker,
   };
 
+  protected maelstromTracker!: MaelstromTracker
+
   tab() {
     return {
       title: 'Maelstrom Chart',

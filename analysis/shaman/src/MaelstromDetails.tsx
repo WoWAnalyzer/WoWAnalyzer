@@ -1,14 +1,20 @@
 import React from 'react';
 
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import Statistic from 'parser/ui/Statistic';
 import Panel from 'parser/ui/Panel';
 import Analyzer from 'parser/core/Analyzer';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import { formatPercentage } from 'common/format';
-import { Icon } from 'interface';
 import { t } from '@lingui/macro';
+import BoringResourceValue from 'parser/ui/BoringResourceValue';
 
-import MaelstromTracker from './MaelstromTracker.js';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+
+import MaelstromTracker from './MaelstromTracker';
+
 
 const MINOR_THRESHOLD = 0;
 const AVERAGE_THRESHOLD = 0.02;
@@ -18,6 +24,8 @@ class MaelstromDetails extends Analyzer {
   static dependencies = {
     maelstromTracker: MaelstromTracker,
   };
+
+  protected maelstromTracker!: MaelstromTracker;
 
   get wasted() {
     return this.maelstromTracker.wasted || 0;
@@ -43,7 +51,7 @@ class MaelstromDetails extends Analyzer {
         average: AVERAGE_THRESHOLD,
         major: MAJOR_THRESHOLD,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -59,7 +67,7 @@ class MaelstromDetails extends Analyzer {
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholdsWasted)
       .addSuggestion((suggest, actual, recommended) => suggest(`You overcapped ${this.wasted} Maelstrom. Always prioritize spending it over avoiding the overcap of any other ability.`)
           .icon('spell_shadow_mindflay')
@@ -73,14 +81,16 @@ class MaelstromDetails extends Analyzer {
   statistic() {
     return [
       (
-        <StatisticBox
+        <Statistic
           key="StatisticBox"
           position={STATISTIC_ORDER.CORE(1)}
-          icon={<Icon icon="spell_shadow_mindflay" />}
-          value={`${formatPercentage(this.wastedPercent)} %`}
-          label="Overcapped Maelstrom"
-          tooltip={`${this.wasted} out of ${this.total} Maelstrom wasted.`}
-        />
+          tooltip={`${this.wasted} out of ${this.total} Maelstrom wasted.`}>
+            <BoringResourceValue
+              resource={RESOURCE_TYPES.MAELSTROM}
+              value={`${formatPercentage(this.wastedPercent)} %`}
+              label="Overcapped Maelstrom"
+            />
+          </Statistic>
       ),
       (
         <Panel
