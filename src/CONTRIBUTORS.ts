@@ -1248,3 +1248,14 @@ export const Canotsa: Contributor = {
     },
   ],
 };
+
+export const TrellinXp: Contributor = {
+  nickname: 'TrellinXp',
+  github: 'TrellinXp',
+  discord: 'Trellin#2428',
+  mains: [{
+    name: 'Turinus',
+    spec: SPECS.BEAST_MASTERY_HUNTER,
+    link: 'https://worldofwarcraft.com/de-de/character/eu/blackmoore/turinus',
+  }],
+};
