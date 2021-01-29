@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { joshinator, Yajinni, Zeboot, LeoZhekov } from 'CONTRIBUTORS';
+import { joshinator, Yajinni, Zeboot, LeoZhekov, TrellinXp } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2020, 1, 29), <>Fixed Grammar can't and you're</>, TrellinXp),
   change(date(2020, 12, 20), <>Added module for <SpellLink id={SPELLS.SWARMING_MIST.id} /> and added RP gained from <SpellLink id={SPELLS.SUPERSTRAIN.id} /> to statistic damage</>, joshinator),
   change(date(2020, 12, 12), <>Added <SpellLink id={SPELLS.BRYNDAORS_MIGHT.id} /> and <SpellLink id={SPELLS.SUPERSTRAIN.id} /> modules</>, joshinator),
   change(date(2020, 11, 6), 'Runeforge-suggestions', joshinator),
