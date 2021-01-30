@@ -46,6 +46,7 @@ import Buffs from './modules/features/Buffs';
 
 // conduits
 import DissonantEchoes from './modules/shadowlands/conduits/DissonantEchoes';
+import HauntingApparitions from './modules/shadowlands/conduits/HauntingApparitions';
 
 // legendaries
 import EternalCallToTheVoid from './modules/shadowlands/legendaries/EternalCallToTheVoid';
@@ -102,6 +103,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     // conduits:
     dissonantEchoes: DissonantEchoes,
+    hauntingApparitions: HauntingApparitions,
 
     // legendaries:
     eternalCallToTheVoid: EternalCallToTheVoid,

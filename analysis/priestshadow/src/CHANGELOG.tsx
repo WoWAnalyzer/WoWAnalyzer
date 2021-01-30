@@ -9,6 +9,7 @@ import { ResourceLink } from 'interface';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 export default [
+  change(date(2021, 1, 29), <>Added <SpellLink id={SPELLS.HAUNTING_APPARITIONS.id} /> conduit module.</>, Adoraci),
   change(date(2021, 1, 23), <>Added <SpellLink id={SPELLS.SEARING_NIGHTMARE_TALENT.id} /> talent module.</>, Adoraci),
   change(date(2021, 1, 23), <>Changed DOT uptime tracker into better looking StatisticBar.</>, Adoraci),
   change(date(2021, 1, 23), <>Added <SpellLink id={SPELLS.ETERNAL_CALL_TO_THE_VOID.id} /> legendary.</>, Adoraci),
