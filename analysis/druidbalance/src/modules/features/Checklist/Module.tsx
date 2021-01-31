@@ -10,6 +10,7 @@ import CancelledCasts from '../CancelledCasts';
 import MoonfireUptime from '../MoonfireUptime';
 import SunfireUptime from '../SunfireUptime';
 import StellarFlareUptime from '../../talents/StellarFlareUptime';
+import StellarFlare from '../../talents/StellarFlare';
 import EarlyDotRefreshes from '../EarlyDotRefreshes';
 import EarlyDotRefreshesInstants from '../EarlyDotRefreshesInstants';
 
@@ -27,6 +28,7 @@ class Checklist extends BaseModule {
     moonfireUptime: MoonfireUptime,
     sunfireUptime: SunfireUptime,
     stellarFlareUptime: StellarFlareUptime,
+    stellarFlare: StellarFlare,
     earlyDotRefreshes: EarlyDotRefreshes,
     earlyDotRefreshesInstants: EarlyDotRefreshesInstants,
     astralPowerDetails: AstralPowerDetails,
@@ -39,6 +41,7 @@ class Checklist extends BaseModule {
   protected moonfireUptime!: MoonfireUptime;
   protected sunfireUptime!: SunfireUptime;
   protected stellarFlareUptime!: StellarFlareUptime;
+  protected stellarFlare!: StellarFlare;
   protected earlyDotRefreshes!: EarlyDotRefreshes;
   protected earlyDotRefreshesInstants!: EarlyDotRefreshesInstants;
   protected astralPowerDetails!: AstralPowerDetails;
@@ -56,6 +59,7 @@ class Checklist extends BaseModule {
           moonfireUptime: this.moonfireUptime.suggestionThresholds,
           sunfireUptime: this.sunfireUptime.suggestionThresholds,
           stellarFlareUptime: this.stellarFlareUptime.suggestionThresholds,
+          stellarFlare: this.stellarFlare.showSuggestion,
           moonfireRefresh: this.earlyDotRefreshesInstants.suggestionThresholdsMoonfireEfficiency,
           sunfireRefresh: this.earlyDotRefreshesInstants.suggestionThresholdsSunfireEfficiency,
           stellarFlareRefresh: this.earlyDotRefreshes.suggestionThresholdsStellarFlareEfficiency,

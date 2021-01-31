@@ -19,6 +19,7 @@ import StellarFlareUptime from './modules/talents/StellarFlareUptime';
 import TwinMoons from './modules/talents/TwinMoons';
 import StellarDrift from './modules/talents/StellarDrift';
 import Starlord from './modules/talents/Starlord';
+import StellarFlare from './modules/talents/StellarFlare';
 
 //Resources
 import AstralPowerDetails from './modules/resourcetracker/AstralPowerDetails';
@@ -42,6 +43,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     //Talents
     stellarFlareUptime: StellarFlareUptime,
+    stellarFlare: StellarFlare,
     twinMoons: TwinMoons,
     stellarDrift: StellarDrift,
     starlord: Starlord,
