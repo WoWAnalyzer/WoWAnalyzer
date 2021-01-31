@@ -15,9 +15,8 @@ const SPELLS_WITH_TRAVEL_TIME = [
   SPELLS.STARSURGE_AFFINITY.id,
   SPELLS.STARSURGE_MOONKIN.id,
   SPELLS.FULL_MOON.id,
-  SPELLS.SOLAR_WRATH.id,
-  SPELLS.SOLAR_WRATH_AFFINITY.id,
-  SPELLS.SOLAR_WRATH_MOONKIN.id,
+  SPELLS.WRATH.id,
+  SPELLS.WRATH_MOONKIN.id,
 ];
 
 class ConvokeSpirits extends Analyzer {
@@ -86,7 +85,7 @@ class ConvokeSpirits extends Analyzer {
     //half the reason is because its random on which spells get fired and the fact its based on form so zzz
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell([SPELLS.MOONFIRE, SPELLS.MOONFIRE_BEAR, SPELLS.MOONFIRE_FERAL]), this.newMoonfire);
     this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell([SPELLS.MOONFIRE, SPELLS.MOONFIRE_BEAR, SPELLS.MOONFIRE_FERAL]), this.newMoonfire);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.SOLAR_WRATH, SPELLS.SOLAR_WRATH_AFFINITY, SPELLS.SOLAR_WRATH_MOONKIN]), this.newWrath);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.WRATH, SPELLS.WRATH_MOONKIN]), this.newWrath);
 
     //Balance stuff deal with it. idk which one it will be (it should be solar wrath moonkin but like edge cases)
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.STARSURGE_AFFINITY, SPELLS.STARSURGE_MOONKIN]), this.newStarSurge);
@@ -137,7 +136,7 @@ class ConvokeSpirits extends Analyzer {
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.CONVOKE_SPIRITS), this.stopTracking);
 
     //for travel time bs
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.SOLAR_WRATH, SPELLS.SOLAR_WRATH_AFFINITY, SPELLS.SOLAR_WRATH_MOONKIN]), this.wrathCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.WRATH, SPELLS.WRATH_MOONKIN]), this.wrathCast);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.STARSURGE_AFFINITY, SPELLS.STARSURGE_MOONKIN]), this.starsurgeCast);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FULL_MOON), this.fullMoonCast);
   }

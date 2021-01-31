@@ -113,7 +113,7 @@
   "demonhunter.vengence.suggestions.shearfracture.wastedCasts": "{actual} bad casts",
   "druid.balance.suggestions.astralPower.overcapped": "{0}% overcapped Astral Power",
   "druid.balance.suggestions.castsCancelled": "{0}% casts cancelled",
-  "druid.balance.suggestions.lunarStrike.efficiency": "{0} Unempowered Lunar Strikes per minute",
+  "druid.balance.suggestions.starfire.efficiency": "{0} Unempowered Starfires per minute",
   "druid.balance.suggestions.moonfire.uptime": "{0}% Moonfire uptime",
   "druid.balance.suggestions.stellarFlare.uptime": "{0}% Stellar Flare uptime",
   "druid.balance.suggestions.sunfire.uptime": "{0}% Sunfire uptime",
