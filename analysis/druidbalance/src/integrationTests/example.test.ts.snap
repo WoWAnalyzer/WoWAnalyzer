@@ -114,7 +114,7 @@ Array [
         message="{0}% downtime"
         values={
           Object {
-            "0": "71.25",
+            "0": "69.15",
           }
         }
       />
@@ -613,7 +613,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
                   }
                 />
                  
-                Solar Wrath
+                Wrath
               </a>
             </td>
             <td
@@ -699,7 +699,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
                   }
                 />
                  
-                Lunar Strike
+                Starfire
               </a>
             </td>
             <td
@@ -1911,7 +1911,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
               }
             >
               1
-              /2
+              /3
                
               casts
             </td>
@@ -1930,7 +1930,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "58.70764895435154%",
+                      "width": "39.13843263623436%",
                     }
                   }
                 />
@@ -1945,7 +1945,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              58.71%
+              39.14%
             </td>
             <td
               style={
@@ -2009,7 +2009,7 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
               }
             >
               0
-              /7
+              /6
                
               casts
             </td>
@@ -4218,7 +4218,7 @@ Array [
     "importance": "major",
     "issue": <React.Fragment>
       You cast 
-      45
+      17
        unempowered and non instant cast 
       <ForwardRef
         id={194153}
@@ -4232,7 +4232,7 @@ Array [
        as a filler when none of those conditions are met.
     </React.Fragment>,
     "stat": <React.Fragment>
-      {"id":"druid.balance.suggestions.lunarStrike.efficiency","message":"{0} Unempowered Lunar Strikes per minute","values":{"0":"8.8"}}
+      {"id":"druid.balance.suggestions.starfire.efficiency","message":"{0} Unempowered Starfires per minute","values":{"0":"3.3"}}
        (
       0 is recommended
       )
@@ -4271,7 +4271,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "23.305018451190843%",
+                  "width": "22.868130506296076%",
                 }
               }
             />
@@ -4369,7 +4369,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  71.25%
+                  69.15%
                    
                    
                 </div>
@@ -4391,7 +4391,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "29.65730962965441%",
+                        "width": "28.783533739864875%",
                       }
                     }
                   />
