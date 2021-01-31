@@ -1249,6 +1249,18 @@ export const Canotsa: Contributor = {
   ],
 };
 
+export const Maximaw: Contributor = {
+  nickname: 'Maximaw',
+  github: 'defunes43',
+  discord: 'Maximaw#7408',
+  mains: [
+    {
+      name: 'Maximaw',
+      spec: SPECS.ELEMENTAL_SHAMAN,
+      link: 'https://worldofwarcraft.com/fr-fr/character/eu/ysondre/maximaw',
+    },
+  ],
+};
 export const TrellinXp: Contributor = {
   nickname: 'TrellinXp',
   github: 'TrellinXp',

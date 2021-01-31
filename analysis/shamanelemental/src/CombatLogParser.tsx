@@ -17,6 +17,7 @@ import Buffs from './modules/Buffs';
 import Abilities from './modules/Abilities';
 
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import SubOptimalChainLightning from './modules/features/SubOptimalChainLightning';
 
 import Aftershock from './modules/talents/Aftershock';
 import Ascendance from './modules/talents/Ascendance';
@@ -47,6 +48,7 @@ class CombatLogParser extends CoreCombatLogParser {
     buffs: Buffs,
     cancelledCasts: CancelledCasts,
     alwaysBeCasting: AlwaysBeCasting,
+    subOptimalChainLightning: SubOptimalChainLightning,
 
     // Talents
     earthenRage: EarthenRage,
