@@ -1271,3 +1271,17 @@ export const TrellinXp: Contributor = {
     link: 'https://worldofwarcraft.com/de-de/character/eu/blackmoore/turinus',
   }],
 };
+
+export const jasper: Contributor = {
+  nickname: 'jasper',
+  github: 'jasper-priest',
+  discord: 'jasper#6666',
+  avatar: require('./interface/images/avatars/jasper-avatar.png'),
+  mains: [
+    {
+      name: 'Jasper',
+      spec: SPECS.DISCIPLINE_PRIEST,
+      link: 'https://worldofwarcraft.com/en-us/character/us/dreadmaul/Jasper',
+    },
+  ],
+};
