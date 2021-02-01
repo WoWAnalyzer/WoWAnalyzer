@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import COVENANTS from 'game/shadowlands/COVENANTS';
-
+import { FEL_DEFENDER_COOLDOWN_REDUCTION } from '@wowanalyzer/demonhunter'
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -320,7 +320,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BLUR,
         buffSpellId: SPELLS.BLUR.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: 60,
+        cooldown: combatant.hasConduitBySpellID(SPELLS.FEL_DEFENDER.id) ? 60 - FEL_DEFENDER_COOLDOWN_REDUCTION[combatant.conduitRankBySpellID(SPELLS.FEL_DEFENDER.id)] : 60,
       },
       {
         spell: SPELLS.DARKNESS,

@@ -1,5 +1,5 @@
 //Covenants
-import { ElysianDecree, SinfulBrand, TheHunt } from '@wowanalyzer/demonhunter';
+import { ElysianDecree, SinfulBrand, TheHunt, FelDefender } from '@wowanalyzer/demonhunter';
 
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -106,6 +106,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Conduits
     growingInferno: GrowingInferno,
+    felDefender: FelDefender,
   };
 }
 
