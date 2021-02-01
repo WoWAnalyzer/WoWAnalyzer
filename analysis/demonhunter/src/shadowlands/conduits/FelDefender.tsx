@@ -5,7 +5,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import SPELLS from 'common/SPELLS';
 import React from 'react';
-import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 import { FEL_DEFENDER_COOLDOWN_REDUCTION } from '@wowanalyzer/demonhunter'
 import { SpellLink } from 'interface';
 
