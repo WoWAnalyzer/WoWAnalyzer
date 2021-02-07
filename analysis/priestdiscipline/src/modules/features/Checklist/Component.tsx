@@ -76,6 +76,7 @@ const DisciplinePriestChecklist = ({ combatant, castEfficiency, thresholds }: { 
         {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_MANA1.id) && (
           <AbilityRequirement spell={SPELLS.ARCANE_TORRENT_MANA1.id} />
         )}
+		<AbilityRequirement spell={SPELLS.POWER_INFUSION.id} />
       </Rule>
 
       <Rule

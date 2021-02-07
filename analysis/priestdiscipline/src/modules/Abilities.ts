@@ -293,7 +293,12 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.POWER_INFUSION,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+		cooldown: 120,
         gcd: null,
+		castEfficiency: {
+			suggestion: true,
+			recommendedEfficiency: 0.8,
+		},
       },
       {
         spell: SPELLS.SPIRIT_SHELL_TALENT,

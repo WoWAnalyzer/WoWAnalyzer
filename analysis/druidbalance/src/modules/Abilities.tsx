@@ -27,7 +27,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 3,
       },
       {
-        spell: SPELLS.SOLAR_WRATH_MOONKIN,
+        spell: SPELLS.WRATH_MOONKIN,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -35,7 +35,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 4,
       },
       {
-        spell: SPELLS.LUNAR_STRIKE,
+        spell: SPELLS.STARFIRE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -106,7 +106,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.WARRIOR_OF_ELUNE_TALENT,
         buffSpellId: SPELLS.WARRIOR_OF_ELUNE_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 48,
+        cooldown: 45,
         enabled: combatant.hasTalent(SPELLS.WARRIOR_OF_ELUNE_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -222,7 +222,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MIGHTY_BASH_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 50,
+        cooldown: 60,
         enabled: combatant.hasTalent(SPELLS.MIGHTY_BASH_TALENT.id),
         gcd: {
           base: 1500,
@@ -257,7 +257,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.DASH.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: !combatant.hasTalent(SPELLS.TIGER_DASH_TALENT.id),
-        cooldown: 180,
+        cooldown: 120,
         gcd: {
           base: 1500,
         },
@@ -265,7 +265,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SOLAR_BEAM,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 45,
+        cooldown: 60,
       },
       {
         spell: SPELLS.REMOVE_CORRUPTION,

@@ -1248,3 +1248,40 @@ export const Canotsa: Contributor = {
     },
   ],
 };
+
+export const Maximaw: Contributor = {
+  nickname: 'Maximaw',
+  github: 'defunes43',
+  discord: 'Maximaw#7408',
+  mains: [
+    {
+      name: 'Maximaw',
+      spec: SPECS.ELEMENTAL_SHAMAN,
+      link: 'https://worldofwarcraft.com/fr-fr/character/eu/ysondre/maximaw',
+    },
+  ],
+};
+export const TrellinXp: Contributor = {
+  nickname: 'TrellinXp',
+  github: 'TrellinXp',
+  discord: 'Trellin#2428',
+  mains: [{
+    name: 'Turinus',
+    spec: SPECS.BEAST_MASTERY_HUNTER,
+    link: 'https://worldofwarcraft.com/de-de/character/eu/blackmoore/turinus',
+  }],
+};
+
+export const jasper: Contributor = {
+  nickname: 'jasper',
+  github: 'jasper-priest',
+  discord: 'jasper#6666',
+  avatar: require('./interface/images/avatars/jasper-avatar.png'),
+  mains: [
+    {
+      name: 'Jasper',
+      spec: SPECS.DISCIPLINE_PRIEST,
+      link: 'https://worldofwarcraft.com/en-us/character/us/dreadmaul/Jasper',
+    },
+  ],
+};

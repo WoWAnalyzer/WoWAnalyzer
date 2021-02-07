@@ -6,9 +6,10 @@ import { SpellLink } from 'interface';
 import { t } from '@lingui/macro';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 
+// https://stormearthandlava.com/guide/general/priority_list.html
 const TARGETS_FOR_GOOD_CAST = 3;
 
-class UnempoweredLunarStrike extends Analyzer {
+class SubOptimalChainLightning extends Analyzer {
   get badCastsPerMinute() {
     return ((this.badCasts) / (this.owner.fightDuration / 1000)) * 60;
   }
@@ -32,27 +33,24 @@ class UnempoweredLunarStrike extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STARFIRE), this.onCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.STARFIRE), this.onDamage);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_LIGHTNING), this.onCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_LIGHTNING), this.onDamage);
     this.addEventListener(Events.fightend, this.onFightend);
   }
 
   checkCast() {
-    if (this.lastCastBuffed || this.hits >= TARGETS_FOR_GOOD_CAST || !this.lastCast) {
+    if (this.hits >= TARGETS_FOR_GOOD_CAST || !this.lastCast ) {
       return;
     }
     this.badCasts += 1;
     this.lastCast.meta = this.lastCast.meta || {};
     this.lastCast.meta.isInefficientCast = true;
-    this.lastCast.meta.inefficientCastReason = `Starfire was cast without Lunar Eclipse, Owlkin Frenzy and Warrior of Elune and hit less than ${TARGETS_FOR_GOOD_CAST} targets.`;
+    this.lastCast.meta.inefficientCastReason = `Chain Lightning hit less than ${TARGETS_FOR_GOOD_CAST} targets.`;
   }
 
   onCast(event: CastEvent) {
     this.checkCast();
     this.lastCast = event;
-    this.lastCastBuffed = this.selectedCombatant.hasBuff(SPELLS.ECLIPSE_LUNAR.id)
-      || this.selectedCombatant.hasBuff(SPELLS.OWLKIN_FRENZY.id)
-      || this.selectedCombatant.hasBuff(SPELLS.WARRIOR_OF_ELUNE_TALENT.id);
     this.hits = 0;
   }
 
@@ -65,15 +63,15 @@ class UnempoweredLunarStrike extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You cast {this.badCasts} unempowered and non instant cast <SpellLink id={SPELLS.STARFIRE.id} /> that hit less than {TARGETS_FOR_GOOD_CAST} targets. Always prioritize <SpellLink id={SPELLS.WRATH.id} /> as a filler when none of those conditions are met.</>)
-      .icon(SPELLS.STARFIRE.icon)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You cast {this.badCasts} <SpellLink id={SPELLS.CHAIN_LIGHTNING.id} /> that hit less than {TARGETS_FOR_GOOD_CAST} targets. Always prioritize <SpellLink id={SPELLS.LIGHTNING_BOLT.id} /> as a filler when there are less than {TARGETS_FOR_GOOD_CAST} targets.</>)
+      .icon(SPELLS.CHAIN_LIGHTNING.icon)
       .actual(t({
-      id: "druid.balance.suggestions.starfire.efficiency",
-      message: `${actual.toFixed(1)} Unempowered Starfires per minute`
+      id: "shaman.elemental.suggestions.chainLightning.efficiency",
+      message: `${actual.toFixed(1)} bad Chain Lightning per minute`
     }))
 
       .recommended(`${recommended} is recommended`));
   }
 }
 
-export default UnempoweredLunarStrike;
+export default SubOptimalChainLightning;

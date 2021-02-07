@@ -106,16 +106,10 @@ const spells = {
     icon: 'spell_arcane_arcane03',
   },
   // granted by Balance Affinity to non-Balance druids
-  LUNAR_STRIKE_AFFINITY: {
+  STARFIRE_AFFINITY: {
     id: 197628,
-    name: 'Lunar Strike',
+    name: 'Starfire',
     icon: 'spell_arcane_starfire',
-  },
-  // granted by Balance Affinity to Guardian and Feral druids
-  SOLAR_WRATH_AFFINITY: {
-    id: 197629,
-    name: 'Solar Wrath',
-    icon: 'spell_nature_wrathv2',
   },
   // granted by Balance Affinity to Guardian and Feral druids
   SUNFIRE_AFFINITY: {
@@ -275,9 +269,9 @@ const spells = {
     name: 'Shred',
     icon: 'spell_shadow_vampiricaura',
   },
-  SOLAR_WRATH: {
+  WRATH: {
     id: 5176,
-    name: 'Solar Wrath',
+    name: 'Wrath',
     icon: 'spell_nature_wrathv2',
   },
   URSOLS_VORTEX: {
@@ -582,14 +576,14 @@ const spells = {
     name: 'Starsurge',
     icon: 'spell_arcane_arcane03',
   },
-  LUNAR_STRIKE: {
+  STARFIRE: {
     id: 194153,
-    name: 'Lunar Strike',
+    name: 'Starfire',
     icon: 'spell_arcane_starfire',
   },
-  SOLAR_WRATH_MOONKIN: {
+  WRATH_MOONKIN: {
     id: 190984,
-    name: 'Solar Wrath',
+    name: 'Wrath',
     icon: 'spell_nature_wrathv2',
   },
   SUNFIRE: {
@@ -639,16 +633,6 @@ const spells = {
     name: 'Celestial Alignment',
     icon: 'spell_nature_natureguardian',
   },
-  LUNAR_EMP_BUFF: {
-    id: 164547,
-    name: 'Lunar Empowement',
-    icon: 'spell_arcane_starfire',
-  },
-  SOLAR_EMP_BUFF: {
-    id: 164545,
-    name: 'Celestial Alignment',
-    icon: 'spell_nature_wrathv2',
-  },
   OWLKIN_FRENZY: {
     id: 157228,
     name: 'Owlkin Frenzy',
@@ -663,6 +647,31 @@ const spells = {
     id: 202497,
     name: 'Shooting Stars',
     icon: 'spell_priest_divinestar_shadow2',
+  },
+  ECLIPSE: {
+    id: 79577,
+    name: 'Eclipse',
+    icon: 'ability_druid_eclipseorange',
+  },
+  ECLIPSE_SOLAR: {
+    id: 48517,
+    name: 'Eclipse (Solar)',
+    icon: 'ability_druid_eclipseorange',
+  },
+  ECLIPSE_LUNAR: {
+    id: 48518,
+    name: 'Eclipse (Lunar)',
+    icon: 'ability_druid_eclipse',
+  },
+  MASTERY_TOTAL_ECLIPSE: {
+    id: 326085,
+    name: 'Mastery: Total Eclipse',
+    icon: 'ability_druid_eclipse',
+  },
+  CYCLONE: {
+    id: 33786,
+    name: 'Cyclone',
+    icon: 'spell_nature_earthbind',
   },
 
   // FERAL //

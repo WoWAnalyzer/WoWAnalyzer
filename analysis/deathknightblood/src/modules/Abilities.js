@@ -85,7 +85,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
-          extraSuggestion: 'Mostly used as a dps CD. Should be almost casted on CD. Good to use when your running to the boss or cant melee them.',
+          extraSuggestion: 'Mostly used as a dps CD. Should be almost casted on CD. Good to use when you\'re running to the boss or can\'t melee them.',
         },
         timelineSortIndex: 6,
       },
