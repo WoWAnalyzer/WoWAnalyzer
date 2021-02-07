@@ -3,6 +3,7 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -165,6 +166,22 @@ class Abilities extends CoreAbilities {
         },
         timelineSortIndex: 11,
       },
+      {
+        spell: SPELLS.CONVOKE_SPIRITS,
+        buffSpellId: SPELLS.CONVOKE_SPIRITS.id,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 120,
+        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.85,
+          majorIssueEfficiency: 0.80
+        },
+        timelineSortIndex: 12,
+      },
 
       //Utility
       {
@@ -177,7 +194,7 @@ class Abilities extends CoreAbilities {
           averageIssueEfficiency: 0.50,
           majorIssueEfficiency: 0.30,
         },
-        timelineSortIndex: 12,
+        timelineSortIndex: 13,
       },
       {
         spell: SPELLS.BARKSKIN,
@@ -191,14 +208,14 @@ class Abilities extends CoreAbilities {
           majorIssueEfficiency: 0.25,
           importance: ISSUE_IMPORTANCE.MINOR,
         },
-        timelineSortIndex: 13,
+        timelineSortIndex: 14,
       },
       {
         spell: SPELLS.RENEWAL_TALENT,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 90,
         enabled: combatant.hasTalent(SPELLS.RENEWAL_TALENT.id),
-        timelineSortIndex: 14,
+        timelineSortIndex: 15,
       },
       {
         spell: SPELLS.TIGER_DASH_TALENT,
@@ -209,7 +226,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        timelineSortIndex: 14,
+        timelineSortIndex: 15,
       },
       {
         spell: [SPELLS.WILD_CHARGE_TALENT, SPELLS.WILD_CHARGE_MOONKIN, SPELLS.WILD_CHARGE_CAT, SPELLS.WILD_CHARGE_BEAR, SPELLS.WILD_CHARGE_TRAVEL],
@@ -217,7 +234,7 @@ class Abilities extends CoreAbilities {
         cooldown: 15,
         gcd: null,
         enabled: combatant.hasTalent(SPELLS.WILD_CHARGE_TALENT.id),
-        timelineSortIndex: 14,
+        timelineSortIndex: 15,
       },
       {
         spell: SPELLS.MIGHTY_BASH_TALENT,

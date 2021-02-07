@@ -23,6 +23,7 @@ import Starlord from './modules/talents/Starlord';
 //Resources
 import AstralPowerDetails from './modules/resourcetracker/AstralPowerDetails';
 import AstralPowerTracker from './modules/resourcetracker/AstralPowerTracker';
+import Channeling from './modules/core/Channeling';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -32,6 +33,7 @@ class CombatLogParser extends MainCombatLogParser {
     checklist: Checklist,
     alwaysBeCasting: AlwaysBeCasting,
     cancelledCasts: CancelledCasts,
+    channeling: Channeling,
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
     moonfireUptime: MoonfireUptime,
