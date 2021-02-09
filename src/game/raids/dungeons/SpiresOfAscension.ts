@@ -1,7 +1,8 @@
 import Background from './backgrounds/SpiresOfAscension.jpg';
 import Headshot from './headshots/SpiresOfAscension.jpg';
+import { Dungeon } from 'game/raids';
 
-export default {
+const SpiresOfAscension: Dungeon = {
   id: 12285,
   name: 'Spires of Ascension',
   background: Background,
@@ -11,3 +12,5 @@ export default {
     // TODO: Add vantusRuneBuffId: 250144,
   },
 };
+
+export default SpiresOfAscension;

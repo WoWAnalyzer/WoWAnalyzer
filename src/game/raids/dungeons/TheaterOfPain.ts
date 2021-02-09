@@ -1,7 +1,8 @@
 import Background from './backgrounds/TheaterOfPain.jpg';
 import Headshot from './headshots/TheaterOfPain.jpg';
+import { Dungeon } from 'game/raids';
 
-export default {
+const TheaterOfPain: Dungeon = {
   id: 12293,
   name: 'Theater of Pain',
   background: Background,
@@ -12,3 +13,5 @@ export default {
     // TODO: Add vantusRuneBuffId: 250144,
   },
 };
+
+export default TheaterOfPain;

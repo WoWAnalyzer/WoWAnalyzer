@@ -1,7 +1,8 @@
 import Background from './backgrounds/DeOtherSide.jpg';
 import Headshot from './headshots/DeOtherSide.jpg';
+import { Dungeon } from 'game/raids';
 
-export default {
+const DeOtherSide: Dungeon = {
   id: 12291,
   name: 'De Other Side',
   background: Background,
@@ -11,3 +12,5 @@ export default {
     // TODO: Add vantusRuneBuffId: 250144,
   },
 };
+
+export default DeOtherSide;

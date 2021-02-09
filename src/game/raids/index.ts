@@ -38,6 +38,15 @@ export interface Phase extends PhaseConfig {
   start: number[];
   end: number[];
 }
+export interface Dungeon {
+  id: number;
+  name: string;
+  background?: string;
+  backgroundPosition?: string;
+  headshot?: string;
+  icon?: string;
+  fight: unknown;
+};
 
 const raids = {
   // Battle for Azeroth

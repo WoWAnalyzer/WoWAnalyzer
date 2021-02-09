@@ -1,7 +1,8 @@
 import Background from './backgrounds/TheNecroticWake.jpg';
 import Headshot from './headshots/TheNecroticWake.jpg';
+import { Dungeon } from 'game/raids';
 
-export default {
+const TheNecroticWake: Dungeon = {
   id: 12286,
   name: 'The Necrotic Wake',
   background: Background,
@@ -11,3 +12,5 @@ export default {
     // TODO: Add vantusRuneBuffId: 250144,
   },
 };
+
+export default TheNecroticWake;

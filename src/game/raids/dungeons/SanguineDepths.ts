@@ -1,7 +1,8 @@
 import Background from './backgrounds/SanguineDepths.jpg';
 import Headshot from './headshots/SanguineDepths.jpg';
+import { Dungeon } from 'game/raids';
 
-export default {
+const SanguineDepths: Dungeon = {
   id: 12284,
   name: 'Sanguine Depths',
   background: Background,
@@ -11,3 +12,5 @@ export default {
     // TODO: Add vantusRuneBuffId: 250144,
   },
 };
+
+export default SanguineDepths;

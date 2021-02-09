@@ -1,7 +1,8 @@
 import Background from './backgrounds/MistsOfTirnaScithe.jpg';
 import Headshot from './headshots/MistsOfTirnaScithe.jpg';
+import { Dungeon } from 'game/raids';
 
-export default {
+const MistsOfTirnaScithe: Dungeon = {
   id: 12290,
   name: 'Mists of Tirna Scithe',
   background: Background,
@@ -11,3 +12,5 @@ export default {
     // TODO: Add vantusRuneBuffId: 250144,
   },
 };
+
+export default MistsOfTirnaScithe;
