@@ -1,6 +1,8 @@
+import { Dungeon } from 'game/raids';
+
 import Background from './backgrounds/Plaguefall.jpg';
 import Headshot from './headshots/Plaguefall.jpg';
-import { Dungeon } from 'game/raids';
+
 
 const Plaguefall: Dungeon = {
   id: 12289,

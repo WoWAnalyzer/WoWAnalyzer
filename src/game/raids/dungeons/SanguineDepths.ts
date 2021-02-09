@@ -1,6 +1,7 @@
+import { Dungeon } from 'game/raids';
+
 import Background from './backgrounds/SanguineDepths.jpg';
 import Headshot from './headshots/SanguineDepths.jpg';
-import { Dungeon } from 'game/raids';
 
 const SanguineDepths: Dungeon = {
   id: 12284,

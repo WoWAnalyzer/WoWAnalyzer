@@ -1,6 +1,7 @@
+import { Dungeon } from 'game/raids';
+
 import Background from './backgrounds/SpiresOfAscension.jpg';
 import Headshot from './headshots/SpiresOfAscension.jpg';
-import { Dungeon } from 'game/raids';
 
 const SpiresOfAscension: Dungeon = {
   id: 12285,

@@ -1,6 +1,8 @@
+import { Dungeon } from 'game/raids';
+
 import Background from './backgrounds/MistsOfTirnaScithe.jpg';
 import Headshot from './headshots/MistsOfTirnaScithe.jpg';
-import { Dungeon } from 'game/raids';
+
 
 const MistsOfTirnaScithe: Dungeon = {
   id: 12290,

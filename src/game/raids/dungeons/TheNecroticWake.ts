@@ -1,6 +1,8 @@
+import { Dungeon } from 'game/raids';
+
 import Background from './backgrounds/TheNecroticWake.jpg';
 import Headshot from './headshots/TheNecroticWake.jpg';
-import { Dungeon } from 'game/raids';
+
 
 const TheNecroticWake: Dungeon = {
   id: 12286,

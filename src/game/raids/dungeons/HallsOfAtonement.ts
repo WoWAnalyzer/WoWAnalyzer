@@ -1,6 +1,7 @@
+import { Dungeon } from 'game/raids';
+
 import Background from './backgrounds/HallsOfAtonement.jpg';
 import Headshot from './headshots/HallsOfAtonement.jpg';
-import { Dungeon } from 'game/raids';
 
 const HallsOfAtonement: Dungeon = {
   id: 12287,

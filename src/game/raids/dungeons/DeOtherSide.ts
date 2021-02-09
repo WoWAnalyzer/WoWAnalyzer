@@ -1,6 +1,7 @@
+import { Dungeon } from 'game/raids';
+
 import Background from './backgrounds/DeOtherSide.jpg';
 import Headshot from './headshots/DeOtherSide.jpg';
-import { Dungeon } from 'game/raids';
 
 const DeOtherSide: Dungeon = {
   id: 12291,
