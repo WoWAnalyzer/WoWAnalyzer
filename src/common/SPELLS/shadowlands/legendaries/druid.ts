@@ -4,6 +4,7 @@ const legendaries = {
     id: 339946,
     name: 'Balance of All Things',
     icon: 'ability_druid_balanceofpower',
+    bonusID: 7107,
   },
   //endregion
 

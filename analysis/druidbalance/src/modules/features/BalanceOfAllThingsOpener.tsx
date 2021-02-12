@@ -15,6 +15,11 @@ class BalanceOfAllThingsOpener extends Analyzer {
 
   constructor(options: Options) {
     super(options)
+    const active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.BALANCE_OF_ALL_THINGS.bonusID)
+    if(!active) {
+      return
+    }
+
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BALANCE_OF_ALL_THINGS), this.onApplyBuff)
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BALANCE_OF_ALL_THINGS), this.onRemoveBuff)
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast)
