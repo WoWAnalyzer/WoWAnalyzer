@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 import { t } from '@lingui/macro';
 import Events, { ApplyBuffEvent, CastEvent, RemoveBuffEvent } from 'parser/core/Events';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
+import { ti } from 'make-plural';
 
 const TARGETS_FOR_GOOD_CAST = 3;
 
@@ -26,32 +27,36 @@ class BalanceOfAllThingsOpener extends Analyzer {
   currentBoatCycle = false // are we currently in a boat cycle?
   failedStarsurgeCount = 0 // How many starsurges have been cast in the current BOAT-window
   failedBoatWindowOpenings = 0 // number of boat windows which did not start with three consecutive starsurges
+  isConvokeBoat = false // was Convoke the Spirits used this Boat Window?
   spellCount = 0 // amount of casts that have already been done in the current BOAT-window -> used to determine wether we are in the first three casts
-  boatCount = 0
   lastCast?: CastEvent
 
   onApplyBuff(event: ApplyBuffEvent) {
     this.currentBoatCycle = true
-    this.boatCount++
   }
 
   onRemoveBuff(event: RemoveBuffEvent) {
-    this.currentBoatCycle = false;
-
-    if (this.failedStarsurgeCount > 0) {
+    if (this.failedStarsurgeCount > 0 && !this.isConvokeBoat) { // if Convoke the Spirits was used during this BOAT Window, we do not care, a seperate module should evaluate if Convoke was used properly
       this.failedBoatWindowOpenings++
     }
+
+    this.currentBoatCycle = false;
     this.failedStarsurgeCount = 0
     this.spellCount = 0
+    this.isConvokeBoat = false;
   }
 
   onCast(event: CastEvent) {
     this.lastCast = event;
-    if (!this.lastCast || !this.currentBoatCycle) { // if BOAT is not active, we do not need to evaluate anything
+    if (!this.lastCast
+      || !this.currentBoatCycle // if BOAT is not active, we do not need to evaluate anything;
+      || this.isConvokeBoat // if Convoke the Spirits was used during this BOAT Window, we do not care, a seperate module should evaluate if Convoke was used properly
+      || (this.globalCooldown.getGlobalCooldownDuration(event.ability.guid) === 0)) {  // if the spell does not have a GCD we do not care as it does not affect BOAT performance
       return;
     }
 
-    if(this.globalCooldown.getGlobalCooldownDuration(event.ability.guid) === 0) { // if the spell does not have a GCD we do not care as it does not affect BOAT performance
+    if (this.lastCast.ability.guid === SPELLS.CONVOKE_SPIRITS.id) {
+      this.isConvokeBoat = true;
       return;
     }
 
@@ -60,7 +65,7 @@ class BalanceOfAllThingsOpener extends Analyzer {
       this.lastCast.meta = this.lastCast.meta || {}
       this.lastCast.meta.isInefficientCast = true
       this.lastCast.meta.inefficientCastReason = `Your first three casts in a BOAT-window should be Starsurges.`
-      this.failedStarsurgeCount++ 
+      this.failedStarsurgeCount++
     }
 
     this.spellCount++;
@@ -70,16 +75,15 @@ class BalanceOfAllThingsOpener extends Analyzer {
     return {
       actual: this.failedBoatWindowOpenings,
       isGreaterThan: {
-        minor: 0,
-        average: 1,
-        major: 2,
+        average: 0,
+        major: 1,
       },
       style: ThresholdStyle.NUMBER,
     };
   }
 
   suggestions(when: When) {
-  when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<> {this.failedBoatWindowOpenings / this.boatCount} You failed to cast three consecutive <SpellLink id={SPELLS.STARSURGE_MOONKIN.id} /> while <SpellLink id={SPELLS.BALANCE_OF_ALL_THINGS.id} /> was active for {this.failedBoatWindowOpenings} times. Always make sure to pool atleast 90 Astral Power before entering an eclipse.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>  You did not cast three consecutive <SpellLink id={SPELLS.STARSURGE_MOONKIN.id} /> after getting the <SpellLink id={SPELLS.BALANCE_OF_ALL_THINGS.id} /> buff for {actual} times. Always make sure to pool atleast 90 Astral Power before entering an eclipse.</>)
       .icon(SPELLS.BALANCE_OF_ALL_THINGS.icon)
       .actual(t({
         id: "druid.balance.suggestions.boat.efficiency",
