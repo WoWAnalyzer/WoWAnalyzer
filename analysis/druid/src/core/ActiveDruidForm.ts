@@ -4,46 +4,71 @@ import Events from 'parser/core/Events';
 
 export default class ActiveDruidForm extends Analyzer {
 
-    private currentForm: DruidForm;
+    private currentForm: DruidForm = "No Form";
 
     constructor(options: Options) {
         super(options);
         this.active = true
         
-        this.currentForm = "noform"
         //Balance
         this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.MOONKIN_FORM_AFFINITY, SPELLS.MOONKIN_FORM]), this.moonkinActivated)
-        this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell([SPELLS.MOONKIN_FORM_AFFINITY, SPELLS.MOONKIN_FORM]), this.noform)
-    
+        this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell([SPELLS.MOONKIN_FORM_AFFINITY, SPELLS.MOONKIN_FORM]), this.noformActivated)
+        this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT]), this.incarnMoonkinActivated)
+        this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell([SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT]), this.noformActivated)
+
         //Feral
         this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.CAT_FORM]), this.catActivated)
-        this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell([SPELLS.CAT_FORM]), this.noform)
-        
+        this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell([SPELLS.CAT_FORM]), this.noformActivated)
+        this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT]), this.incarnCatActivated)
+        this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell([SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT]), this.noformActivated)
+
         //Guardian
         this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.BEAR_FORM]), this.bearActivated)
-        this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell([SPELLS.BEAR_FORM]), this.noform)
+        this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell([SPELLS.BEAR_FORM]), this.noformActivated)
+        this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT]), this.incarnBearActivated)
+        this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell([SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT]), this.noformActivated)
     
+        //Resto
+        this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.INCARNATION_TREE_OF_LIFE_TALENT]), this.incarnTOLActivated)
+        this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell([SPELLS.INCARNATION_TREE_OF_LIFE_TALENT]), this.noformActivated)
+
     }
 
     get form() {
         return this.currentForm;
     }
 
+    incarnTOLActivated() {
+        this.currentForm = "Tree of Life"
+    }
+
+    incarnBearActivated() {
+        this.currentForm = "Incarnation: Bear"
+    }
+
+    incarnCatActivated() {
+        this.currentForm = "Incarnation: Cat"
+    }
+
+    incarnMoonkinActivated() {
+        this.currentForm = "Incarnation: Moonkin"
+    }
+
     moonkinActivated() {
-        this.currentForm = "moonkin"
+        this.currentForm = "Moonkin"
     }
 
     bearActivated() {
-        this.currentForm = "bear"
+        this.currentForm = "Bear"
     }
 
     catActivated() {
-        this.currentForm = "cat"
+        this.currentForm = "Cat"
     }
 
-    noform() {
-        this.currentForm = "noform"
+    noformActivated() {
+        this.currentForm = "No Form"
     }
 }
 
-export type DruidForm = "cat" | "moonkin" | "bear" | "noform"
+export type DruidForm = "Cat" | "Moonkin" | "Bear" | "No Form" | "Tree of Life" | "Incarnation: Cat" | "Incarnation: Bear" | "Incarnation: Moonkin"
