@@ -1,6 +1,10 @@
 const legendaries = {
   //region Balance
-
+  BALANCE_OF_ALL_THINGS: {
+    id: 339946,
+    name: 'Balance of All Things',
+    icon: 'ability_druid_balanceofpower',
+  },
   //endregion
 
   //region Feral

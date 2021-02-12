@@ -13,7 +13,8 @@ import SunfireUptime from './modules/features/SunfireUptime';
 import UnempoweredLunarStrike from './modules/features/UnempoweredLunarStrike';
 import EarlyDotRefreshes from './modules/features/EarlyDotRefreshes';
 import EarlyDotRefreshesInstants from './modules/features/EarlyDotRefreshesInstants';
-
+import BalanceOfAllThingsOpener from './modules/features/BalanceOfAllThingsOpener'
+import Buffs from './modules/features/Buffs';
 //Talents
 import StellarFlareUptime from './modules/talents/StellarFlareUptime';
 import TwinMoons from './modules/talents/TwinMoons';
@@ -39,7 +40,8 @@ class CombatLogParser extends MainCombatLogParser {
     unempoweredLunarStrike: UnempoweredLunarStrike,
     earlyDotRefreshes: EarlyDotRefreshes,
     earlyDotRefreshesInstants: EarlyDotRefreshesInstants,
-
+    balanceOfAllThingsOpener: BalanceOfAllThingsOpener,
+    buffs: Buffs,
     //Talents
     stellarFlareUptime: StellarFlareUptime,
     twinMoons: TwinMoons,
