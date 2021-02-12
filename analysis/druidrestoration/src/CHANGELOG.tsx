@@ -1,7 +1,8 @@
-import { Yajinni, Abelito75, Zeboot, LeoZhekov, Putro, Vexxra, Tiboonn } from 'CONTRIBUTORS';
+import { Yajinni, Abelito75, Zeboot, LeoZhekov, Putro, Vexxra, Tiboonn, ciuffi } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2021, 2, 12), 'Added form tracking to the convoke module', ciuffi),
   change(date(2021, 1, 16), 'Added spell information for conduits', Tiboonn),
   change(date(2021, 1, 16), 'Due to the paywalling of the timeline feature, and fundamental differences of opinion - I will no longer be updating this module beyond todays date. All the modules should be accurate for Castle Nathria, but will not be accurate going forward.', Abelito75),
   change(date(2020, 12, 24), 'Fixed a bug in the Lifebloom module where it was erroring out the module because it wasn\'t showing Dark Titan\'s Lesson properly', Yajinni),

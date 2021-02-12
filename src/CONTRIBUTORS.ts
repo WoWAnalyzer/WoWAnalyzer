@@ -1285,3 +1285,9 @@ export const jasper: Contributor = {
     },
   ],
 };
+
+export const ciuffi: Contributor = {
+  nickname: "ciuffi",
+  github: "ciuffi",
+  discord: "ciuffi#6794",
+}
