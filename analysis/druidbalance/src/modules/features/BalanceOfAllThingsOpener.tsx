@@ -1,28 +1,26 @@
-import React from 'react';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
-import { t } from '@lingui/macro';
-import Events, { ApplyBuffEvent, CastEvent, RemoveBuffEvent } from 'parser/core/Events';
-import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
-import { ti } from 'make-plural';
+import React from 'react'
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer'
+import { ThresholdStyle, When } from 'parser/core/ParseResults'
+import SPELLS from 'common/SPELLS'
+import { SpellLink } from 'interface'
+import { t } from '@lingui/macro'
+import Events, { ApplyBuffEvent, CastEvent, RemoveBuffEvent } from 'parser/core/Events'
+import GlobalCooldown from 'parser/shared/modules/GlobalCooldown'
 
-const TARGETS_FOR_GOOD_CAST = 3;
 
 class BalanceOfAllThingsOpener extends Analyzer {
   static dependencies = {
     globalCooldown: GlobalCooldown,
-  };
-
-  constructor(options: Options) {
-    super(options);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BALANCE_OF_ALL_THINGS), this.onApplyBuff);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BALANCE_OF_ALL_THINGS), this.onRemoveBuff);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
 
-  protected globalCooldown!: GlobalCooldown;
+  constructor(options: Options) {
+    super(options)
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BALANCE_OF_ALL_THINGS), this.onApplyBuff)
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BALANCE_OF_ALL_THINGS), this.onRemoveBuff)
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast)
+  }
+
+  protected globalCooldown!: GlobalCooldown
 
   currentBoatCycle = false // are we currently in a boat cycle?
   failedStarsurgeCount = 0 // How many starsurges have been cast in the current BOAT-window
@@ -40,10 +38,10 @@ class BalanceOfAllThingsOpener extends Analyzer {
       this.failedBoatWindowOpenings++
     }
 
-    this.currentBoatCycle = false;
+    this.currentBoatCycle = false
     this.failedStarsurgeCount = 0
     this.spellCount = 0
-    this.isConvokeBoat = false;
+    this.isConvokeBoat = false
   }
 
   onCast(event: CastEvent) {
@@ -52,12 +50,12 @@ class BalanceOfAllThingsOpener extends Analyzer {
       || !this.currentBoatCycle // if BOAT is not active, we do not need to evaluate anything;
       || this.isConvokeBoat // if Convoke the Spirits was used during this BOAT Window, we do not care, a seperate module should evaluate if Convoke was used properly
       || (this.globalCooldown.getGlobalCooldownDuration(event.ability.guid) === 0)) {  // if the spell does not have a GCD we do not care as it does not affect BOAT performance
-      return;
+      return
     }
 
     if (this.lastCast.ability.guid === SPELLS.CONVOKE_SPIRITS.id) {
-      this.isConvokeBoat = true;
-      return;
+      this.isConvokeBoat = true
+      return
     }
 
     // Section for Checking first 3 Casts
@@ -68,7 +66,7 @@ class BalanceOfAllThingsOpener extends Analyzer {
       this.failedStarsurgeCount++
     }
 
-    this.spellCount++;
+    this.spellCount++
   }
 
   get suggestionThresholds() {
@@ -79,7 +77,7 @@ class BalanceOfAllThingsOpener extends Analyzer {
         major: 1,
       },
       style: ThresholdStyle.NUMBER,
-    };
+    }
   }
 
   suggestions(when: When) {
@@ -90,8 +88,8 @@ class BalanceOfAllThingsOpener extends Analyzer {
         message: `${this.suggestionThresholds.actual} of your Balance of All Things openers were wrong`
       }))
 
-      .recommended(`${recommended} is recommended`));
+      .recommended(`${recommended} is recommended`))
   }
 }
 
-export default BalanceOfAllThingsOpener;
+export default BalanceOfAllThingsOpener
