@@ -1286,8 +1286,15 @@ export const jasper: Contributor = {
   ],
 };
 
-export const ciuffi: Contributor = {
-  nickname: "ciuffi",
-  github: "ciuffi",
+export const Ciuffi: Contributor = {
+  nickname: "Ciuffi",
+  github: "Ciuffi",
   discord: "ciuffi#6794",
+  mains: [
+    {
+      name: "Ciuffi",
+      spec: SPECS.RESTORATION_DRUID,
+      link: 'https://worldofwarcraft.com/en-us/character/us/illidan/ciuffi'
+    }
+  ]
 }
