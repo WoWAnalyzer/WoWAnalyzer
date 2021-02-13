@@ -115,7 +115,7 @@ class BalanceOfAllThingsOpener extends Analyzer {
       // if we are in the first three casts of this window and no starsurge was cast
       this.lastCast.meta = this.lastCast.meta || {};
       this.lastCast.meta.isInefficientCast = true;
-      this.lastCast.meta.inefficientCastReason = `Your first three casts in a BOAT-window should be Starsurges while fighting a single target.`;
+      this.lastCast.meta.inefficientCastReason = `Your first three casts after obtaining the Balance of All Things buff (which you get after entering an eclipse) should be Starsurges while fighting a single target.`;
       this.failedStarsurgeCount++;
     }
 
