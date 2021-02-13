@@ -34,7 +34,7 @@ exports[`Balance Druid integration test: example log AlwaysBeCasting matches the
         <div
           className="value"
         >
-          30.85 %
+          26.10 %
         </div>
         <div
           style={
@@ -53,7 +53,7 @@ exports[`Balance Druid integration test: example log AlwaysBeCasting matches the
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "69.14963060628199%",
+                  "width": "73.9026149543354%",
                 }
               }
             >
@@ -114,7 +114,7 @@ Array [
         message="{0}% downtime"
         values={
           Object {
-            "0": "69.15",
+            "0": "73.90",
           }
         }
       />
@@ -214,6 +214,36 @@ Array [
     "importance": "minor",
     "issue": "You did not have an augment rune up before combat. Having an augment rune increases your primary stat.",
     "stat": null,
+  },
+]
+`;
+
+exports[`Balance Druid integration test: example log BalanceOfAllThingsOpener matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "ability_druid_balanceofpower",
+    "importance": "major",
+    "issue": <React.Fragment>
+       
+      You did not cast three consecutive 
+      <ForwardRef
+        id={78674}
+      />
+       after getting the 
+      <ForwardRef
+        id={339946}
+      />
+       buff for 
+      2
+       times. Always make sure to pool for atleast 90 Astral Power before entering an eclipse. It is expected to overcap some Astral Power to achieve this.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      {"id":"druid.balance.suggestions.boat.efficiency","message":"{0} of your Balance of All Things openers were wrong","values":{"0":2}}
+       (
+      0 is recommended
+      )
+    </React.Fragment>,
   },
 ]
 `;
@@ -1072,6 +1102,104 @@ exports[`Balance Druid integration test: example log CastEfficiency matches the 
               }
             >
               66.67%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=323764"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_ardenweald_druid.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Convoke the Spirits
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.59
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              3
+              /3
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              <div
+                className="flex performance-bar-container"
+              >
+                <div
+                  className="flex-sub performance-bar"
+                  style={
+                    Object {
+                      "backgroundColor": "#70b570",
+                      "width": "85.96104421338273%",
+                    }
+                  }
+                />
+              </div>
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              85.96%
             </td>
             <td
               style={
@@ -4271,7 +4399,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "22.868130506296076%",
+                  "width": "23.85734537373469%",
                 }
               }
             />
@@ -4369,7 +4497,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  69.15%
+                  73.90%
                    
                    
                 </div>
@@ -4391,7 +4519,7 @@ exports[`Balance Druid integration test: example log matches the checklist snaps
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "28.783533739864875%",
+                        "width": "30.76196347474211%",
                       }
                     }
                   />
