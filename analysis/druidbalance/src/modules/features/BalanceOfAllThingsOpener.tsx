@@ -140,7 +140,8 @@ class BalanceOfAllThingsOpener extends Analyzer {
           {' '}
           You did not cast three consecutive <SpellLink id={SPELLS.STARSURGE_MOONKIN.id} /> after
           getting the <SpellLink id={SPELLS.BALANCE_OF_ALL_THINGS.id} /> buff for {actual} times.
-          Always make sure to pool atleast 90 Astral Power before entering an eclipse.
+          Always make sure to pool for atleast 90 Astral Power before entering an eclipse. It is
+          expected to overcap some Astral Power to achieve this.
         </>,
       )
         .icon(SPELLS.BALANCE_OF_ALL_THINGS.icon)
