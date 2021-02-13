@@ -1285,3 +1285,16 @@ export const jasper: Contributor = {
     },
   ],
 };
+
+export const Kartarn: Contributor = {
+  nickname: 'Kartarn',
+  github: 'sLaiN1',
+  discord: 'sLaiN#7095',
+  mains: [
+    {
+      name: 'Kartarn',
+      spec: SPECS.BALANCE_DRUID,
+      link: 'https://worldofwarcraft.com/de-de/character/eu/eredar/kartarn',
+    },
+  ],
+};
