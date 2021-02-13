@@ -79,9 +79,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         enabled: combatant.hasTalent(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id),
-        gcd: {
-          base: 1500,
-        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
@@ -94,9 +91,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         enabled: !combatant.hasTalent(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id),
-        gcd: {
-          base: 1500,
-        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
