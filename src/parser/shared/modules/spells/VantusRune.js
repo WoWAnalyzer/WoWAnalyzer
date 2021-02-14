@@ -15,7 +15,7 @@ import DamageTaken from 'parser/shared/modules/throughput/DamageTaken';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
 // https://www.wowhead.com/uncategorized-spells/name:Vantus+Rune:?filter=29:21;42:2;0:80100
-const VANTUS_RUNE_VERSATILITY = 40;
+const VANTUS_RUNE_VERSATILITY = 100;
 const VERSATILITY_PER_PERCENT_THROUGHPUT = 40 * 100;
 const VERSATILITY_PER_PERCENT_DAMAGE_REDUCTION = VERSATILITY_PER_PERCENT_THROUGHPUT * 2;
 const VANTUS_RUNE_PERCENTAGE_THROUGHPUT =
