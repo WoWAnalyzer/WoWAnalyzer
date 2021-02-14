@@ -25,6 +25,7 @@ import Starlord from './modules/talents/Starlord';
 import AstralPowerDetails from './modules/resourcetracker/AstralPowerDetails';
 import AstralPowerTracker from './modules/resourcetracker/AstralPowerTracker';
 import Channeling from './modules/core/Channeling';
+import { ConvokeSpirits } from '@wowanalyzer/druid';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -49,6 +50,9 @@ class CombatLogParser extends MainCombatLogParser {
     twinMoons: TwinMoons,
     stellarDrift: StellarDrift,
     starlord: Starlord,
+
+    //Covenant
+    convokeSpirits: ConvokeSpirits,
 
     //Resources
     astralPowerTracker: AstralPowerTracker,
