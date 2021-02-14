@@ -71,13 +71,13 @@ class BalanceOfAllThingsOpener extends Analyzer {
 
   onApplyBuff(event: ApplyBuffEvent) {
     this.currentBoatCycle = true;
-    this.boatWindowCount++;
+    this.boatWindowCount += 1;
   }
 
   onRemoveBuff(event: RemoveBuffEvent) {
     if (this.failedStarsurgeCount > 0 && !this.isConvokeBoat) {
       // if Convoke the Spirits was used during this BOAT Window, we do not care, a seperate module should evaluate if Convoke was used properly
-      this.failedBoatWindowOpenings++;
+      this.failedBoatWindowOpenings += 1;
     }
 
     this.currentBoatCycle = false;
@@ -116,10 +116,10 @@ class BalanceOfAllThingsOpener extends Analyzer {
       this.lastCast.meta = this.lastCast.meta || {};
       this.lastCast.meta.isInefficientCast = true;
       this.lastCast.meta.inefficientCastReason = `Your first three casts after obtaining the Balance of All Things buff (which you get after entering an eclipse) should be Starsurges while fighting a single target.`;
-      this.failedStarsurgeCount++;
+      this.failedStarsurgeCount += 1;
     }
 
-    this.spellCount++;
+    this.spellCount += 1;
   }
 
   get suggestionThresholds() {
