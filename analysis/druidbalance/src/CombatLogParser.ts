@@ -1,5 +1,7 @@
 import MainCombatLogParser from 'parser/core/CombatLogParser';
 
+import { ConvokeSpirits } from '@wowanalyzer/druid';
+
 import GlobalCooldown from './modules/core/GlobalCooldown';
 
 //Features
@@ -13,7 +15,7 @@ import SunfireUptime from './modules/features/SunfireUptime';
 import UnempoweredLunarStrike from './modules/features/UnempoweredLunarStrike';
 import EarlyDotRefreshes from './modules/features/EarlyDotRefreshes';
 import EarlyDotRefreshesInstants from './modules/features/EarlyDotRefreshesInstants';
-import BalanceOfAllThingsOpener from './modules/features/BalanceOfAllThingsOpener'
+import BalanceOfAllThingsOpener from './modules/features/BalanceOfAllThingsOpener';
 import Buffs from './modules/features/Buffs';
 //Talents
 import StellarFlareUptime from './modules/talents/StellarFlareUptime';
@@ -25,7 +27,6 @@ import Starlord from './modules/talents/Starlord';
 import AstralPowerDetails from './modules/resourcetracker/AstralPowerDetails';
 import AstralPowerTracker from './modules/resourcetracker/AstralPowerTracker';
 import Channeling from './modules/core/Channeling';
-import { ConvokeSpirits } from '@wowanalyzer/druid';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
