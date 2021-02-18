@@ -21,7 +21,7 @@ class DeathsCaress extends Analyzer {
   DD_ABILITY = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id) ? SPELLS.DEATHS_DUE: SPELLS.DEATH_AND_DECAY;
   
   spellsThatShouldBeUsedFirst = [
-    this.DD_ABILITY.id
+    this.DD_ABILITY.id,
   ];
 
   constructor(...args) {
