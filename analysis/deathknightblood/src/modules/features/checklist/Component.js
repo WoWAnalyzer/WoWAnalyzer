@@ -8,6 +8,7 @@ import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 
 const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }) => {
   const AbilityRequirement = props => (
@@ -27,7 +28,8 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }) =>
         description="These should generally always be recharging to maximize efficiency."
       >
         <AbilityRequirement spell={SPELLS.BLOOD_BOIL.id} />
-        {combatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id) && <AbilityRequirement spell={SPELLS.DEATH_AND_DECAY.id} />}
+        {combatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id) && !combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && <AbilityRequirement spell={SPELLS.DEATH_AND_DECAY.id} />}
+        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && <AbilityRequirement spell={SPELLS.DEATHS_DUE.id} />}
         {combatant.hasTalent(SPELLS.BLOODDRINKER_TALENT.id) && <AbilityRequirement spell={SPELLS.BLOODDRINKER_TALENT.id} />}
         {combatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id) && (
           <Requirement

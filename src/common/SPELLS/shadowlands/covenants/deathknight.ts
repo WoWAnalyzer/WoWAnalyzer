@@ -38,6 +38,18 @@ const covenants = {
     icon: 'ability_ardenweald_deathknight',
   },
 
+  DEATHS_DUE_DAMAGE_TICK: {
+    id: 341340,
+    name: 'Death\'s Due',
+    icon: 'ability_ardenweald_deathknight',
+  },
+
+  DEATHS_DUE_BUFF: {
+    id: 324165,
+    name: 'Death\'s Due',
+    icon: 'ability_ardenweald_deathknight',
+  },
+
   //endregion
 
   //region Venthyr

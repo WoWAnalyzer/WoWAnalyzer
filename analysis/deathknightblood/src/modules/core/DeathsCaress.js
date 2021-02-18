@@ -6,6 +6,7 @@ import { formatPercentage } from 'common/format';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { t } from '@lingui/macro';
 import Events from 'parser/core/Events';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 
 const RANGE_WHERE_YOU_SHOULDNT_DC = 12; // yrd
 
@@ -17,8 +18,10 @@ class DeathsCaress extends Analyzer {
   dcCasts = 0;
   cast = [];
 
+  DD_ABILITY = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id) ? SPELLS.DEATHS_DUE: SPELLS.DEATH_AND_DECAY;
+  
   spellsThatShouldBeUsedFirst = [
-    SPELLS.DEATH_AND_DECAY.id,
+    this.DD_ABILITY.id
   ];
 
   constructor(...args) {
@@ -95,7 +98,7 @@ class DeathsCaress extends Analyzer {
 
   suggestions(when) {
     when(this.averageCastSuggestionThresholds)
-        .addSuggestion((suggest, actual, recommended) => suggest(<>Avoid casting <SpellLink id={SPELLS.DEATHS_CARESS.id} /> unless you're out of melee range and about to cap your runes while <SpellLink id={SPELLS.DEATH_AND_DECAY.id} /> and <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id} /> are on cooldown. Dump runes primarily with <SpellLink id={SPELLS.HEART_STRIKE.id} />.</>)
+        .addSuggestion((suggest, actual, recommended) => suggest(<>Avoid casting <SpellLink id={SPELLS.DEATHS_CARESS.id} /> unless you're out of melee range and about to cap your runes while <SpellLink id={this.DD_ABILITY.id} /> and <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id} /> are on cooldown. Dump runes primarily with <SpellLink id={SPELLS.HEART_STRIKE.id} />.</>)
             .icon(SPELLS.DEATHS_CARESS.icon)
             .actual(t({
       id: "deathknight.blood.suggestions.deathCaress.badCasts",
