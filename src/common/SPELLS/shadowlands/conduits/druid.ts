@@ -64,7 +64,6 @@ const conduits = {
     name: 'Layered Mane',
     icon: 'ability_druid_ironfur',
   },
-
   //Restoration
   UNSTOPPABLE_GROWTH: {
     id: 340549,
