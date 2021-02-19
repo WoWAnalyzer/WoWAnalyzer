@@ -1,5 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Protection Paladin integration test: example log AlwaysBeCasting matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_mage_altertime",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      Your downtime can be improved. Try to cast more, for example by reducing the delay between casting spells. Even if you have to move, try to cast something instant with range like 
+      <ForwardRef
+        icon={true}
+        id={20271}
+      />
+       or 
+      <ForwardRef
+        icon={true}
+        id={31935}
+      />
+      .
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      {"id":"paladin.protection.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"26.71"}}
+       (
+      &lt;20.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
 exports[`Protection Paladin integration test: example log AugmentRuneChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {

@@ -1298,3 +1298,15 @@ export const Kartarn: Contributor = {
     },
   ],
 };
+
+export const Pendragon: Contributor = {
+  nickname: 'Pendragon',
+  github: 'Pendragon64',
+  discord: 'Pendragon#7845',
+  avatar: require('./interface/images/avatars/pendragon-avatar.jpg'),
+  mains: [{
+    name: 'Larison',
+    spec: SPECS.FROST_DEATH_KNIGHT,
+    link: 'https://worldofwarcraft.com/en-us/character/us/stormrage/larison',
+  }],
+};
