@@ -120,9 +120,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.AVENGING_WRATH,
         buffSpellId: SPELLS.AVENGING_WRATH.id,
         category: Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE,
-        gcd: {
-          base: 1500,
-        },
         cooldown: 120,
         // castEfficiency: {
         //   suggestion: true,
