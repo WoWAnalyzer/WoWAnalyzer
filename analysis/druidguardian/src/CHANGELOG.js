@@ -1,4 +1,4 @@
-import { Kettlepaw, Zeboot, g3neral, Tiboonn } from 'CONTRIBUTORS';
+import { Kettlepaw, Zeboot, g3neral, Tiboonn, Buudha } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [
