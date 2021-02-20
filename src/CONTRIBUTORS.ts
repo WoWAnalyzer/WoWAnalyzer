@@ -1225,6 +1225,17 @@ export const Tiboonn: Contributor = {
   github: 'Tiboonn',
 };
 
+export const Buudha: Contributor = {
+  nickname: 'Buudha',
+  github: 'Phatso1973',
+  discord: 'Shifty#8510',
+  mains: [{
+    name: 'Buudha',
+    spec: SPECS.GUARDIAN_DRUID,
+    link: 'https://worldofwarcraft.com/en-us/character/us/dalaran/buudha',
+  }],
+};
+
 export const Makhai: Contributor = {
   nickname: 'Makhai',
   github: 'Tikers',
