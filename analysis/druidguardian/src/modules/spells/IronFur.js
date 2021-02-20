@@ -3,7 +3,8 @@ import { formatPercentage } from 'common/format';
 import SCHOOLS from 'game/MAGIC_SCHOOLS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Events from 'parser/core/Events';
@@ -102,7 +103,7 @@ class IronFur extends Analyzer {
     ), null);
 
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(10)}
         icon={<SpellIcon id={SPELLS.IRONFUR.id} />}
         value={`${formatPercentage(this.percentOfHitsMitigated)}% / ${this.overallIronfurUptime.toFixed(2)}`}

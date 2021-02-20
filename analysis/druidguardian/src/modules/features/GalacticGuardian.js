@@ -2,7 +2,8 @@ import React from 'react';
 import { formatPercentage } from 'common/format';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Events from 'parser/core/Events';
@@ -75,7 +76,7 @@ class GalacticGuardian extends Analyzer {
     const unusedGGProcs = 1 - (this.consumedGGProc / this.GGProcsTotal);
 
     return (
-      <StatisticBox
+      <Statistic
         icon={<SpellIcon id={SPELLS.GALACTIC_GUARDIAN.id} />}
         value={`${formatPercentage(unusedGGProcs)}%`}
         label="Unused Galactic Guardian"

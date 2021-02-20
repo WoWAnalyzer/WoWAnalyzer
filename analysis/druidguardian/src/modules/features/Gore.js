@@ -3,7 +3,8 @@ import React from 'react';
 import { formatPercentage } from 'common/format';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELLS from 'common/SPELLS';
@@ -87,7 +88,7 @@ class Gore extends Analyzer {
     const unusedGoreProcs = 1 - (this.consumedGoreProc / this.totalProcs);
 
     return (
-      <StatisticBox
+      <Statistic
         icon={<SpellIcon id={SPELLS.GORE_BEAR.id} />}
         value={`${formatPercentage(unusedGoreProcs)}%`}
         label="Unused Gore Procs"

@@ -7,7 +7,7 @@ import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import StatisticBox from 'parser/ui/Statistic';
+import Statistic from 'parser/ui/Statistic';
 import { t } from '@lingui/macro';
 
 import Events from 'parser/core/Events';
@@ -124,7 +124,7 @@ class AntiFillerSpam extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <Statistic
         icon={<SpellIcon id={SPELLS.SWIPE_BEAR.id} />}
         value={`${formatPercentage(this.fillerSpamPercentage)}%`}
         label="Unnecessary Fillers"

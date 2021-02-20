@@ -1,7 +1,8 @@
 import React from 'react';
 import { formatPercentage } from 'common/format';
 import { SpellIcon } from 'interface';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 
@@ -25,7 +26,7 @@ class FrenziedRegenGoEProcs extends Analyzer {
       return null;
     }
     return (
-      <StatisticBox
+      <Statistic
         icon={<SpellIcon id={SPELLS.FRENZIED_REGENERATION.id} />}
         value={`${formatPercentage(nonGoEFRegen / (nonGoEFRegen + GoEFRegen))}%`}
         label="Unbuffed Frenzied Regen"
