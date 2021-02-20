@@ -240,7 +240,8 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.REPENTANCE_TALENT.id),
       },
       {
-        spell: SPELLS.FINAL_STAND_CAST,
+        spell: SPELLS.DIVINE_SHIELD,
+        buffSpellId: SPELLS.DIVINE_SHIELD.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 300 * (combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 0.7 : 1),
         castEfficiency: {
