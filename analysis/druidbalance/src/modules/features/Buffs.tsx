@@ -16,7 +16,11 @@ class Buffs extends CoreBuffs {
         timelineHighlight: false,
       },
       {
-        spellId: SPELLS.BALANCE_OF_ALL_THINGS.id,
+        spellId: SPELLS.BALANCE_OF_ALL_THINGS_SOLAR.id,
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.BALANCE_OF_ALL_THINGS_LUNAR.id,
         timelineHighlight: true,
       },
       {

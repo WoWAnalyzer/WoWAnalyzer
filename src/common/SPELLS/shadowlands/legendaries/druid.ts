@@ -1,7 +1,16 @@
 const legendaries = {
   //region Balance
-  BALANCE_OF_ALL_THINGS: {
+
+  
+  BALANCE_OF_ALL_THINGS_LUNAR: {
     id: 339946,
+    name: 'Balance of All Things',
+    icon: 'ability_druid_balanceofpower',
+    bonusID: 7107,
+  },
+
+  BALANCE_OF_ALL_THINGS_SOLAR: {
+    id: 339943,
     name: 'Balance of All Things',
     icon: 'ability_druid_balanceofpower',
     bonusID: 7107,

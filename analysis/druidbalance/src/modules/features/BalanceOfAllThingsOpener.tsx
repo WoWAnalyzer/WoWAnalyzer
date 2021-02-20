@@ -28,18 +28,26 @@ class BalanceOfAllThingsOpener extends Analyzer {
     super(options);
 
     const active = this.selectedCombatant.hasLegendaryByBonusID(
-      SPELLS.BALANCE_OF_ALL_THINGS.bonusID,
+      SPELLS.BALANCE_OF_ALL_THINGS_SOLAR.bonusID,
     );
     if (!active) {
       return;
     }
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BALANCE_OF_ALL_THINGS),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BALANCE_OF_ALL_THINGS_SOLAR),
       this.onApplyBuff,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BALANCE_OF_ALL_THINGS),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BALANCE_OF_ALL_THINGS_LUNAR),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BALANCE_OF_ALL_THINGS_SOLAR),
+      this.onRemoveBuff,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BALANCE_OF_ALL_THINGS_LUNAR),
       this.onRemoveBuff,
     );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
@@ -144,12 +152,12 @@ class BalanceOfAllThingsOpener extends Analyzer {
         <>
           {' '}
           You did not cast three consecutive <SpellLink id={SPELLS.STARSURGE_MOONKIN.id} /> after
-          getting the <SpellLink id={SPELLS.BALANCE_OF_ALL_THINGS.id} /> buff for {actual} times.
+          getting the <SpellLink id={SPELLS.BALANCE_OF_ALL_THINGS_SOLAR.id} /> buff for {actual} times.
           Always make sure to pool for atleast 90 Astral Power before entering an eclipse. It is
           expected to overcap some Astral Power to achieve this.
         </>,
       )
-        .icon(SPELLS.BALANCE_OF_ALL_THINGS.icon)
+        .icon(SPELLS.BALANCE_OF_ALL_THINGS_SOLAR.icon)
         .actual(
           t({
             id: 'druid.balance.suggestions.boat.efficiency',
