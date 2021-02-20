@@ -19,8 +19,6 @@ class BalanceOfAllThingsOpener extends Analyzer {
     1. When currently in a multitarget situation one might not want to spend his AP on starsurges, in order to keep up starfall
     2. When at the start of the fight you do not have enough AP to open up with 3 starsurges
     3. When using Convoke the Spirits you do not open with starsurges
-    As I found no proper way to find all targets that are currently active, I check if the player has used starfall and hit more than 1 target with it.
-    In that case this Analyzer is deactivated for the rest of the fight. This is not very clean and might need improvement.
     */
   static dependencies = {
     globalCooldown: GlobalCooldown,
@@ -28,6 +26,7 @@ class BalanceOfAllThingsOpener extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+
     const active = this.selectedCombatant.hasLegendaryByBonusID(
       SPELLS.BALANCE_OF_ALL_THINGS.bonusID,
     );
@@ -44,28 +43,22 @@ class BalanceOfAllThingsOpener extends Analyzer {
       this.onRemoveBuff,
     );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.STARFALL), this.onDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
   protected globalCooldown!: GlobalCooldown;
 
   currentBoatCycle = false; // are we currently in a boat cycle?
   failedStarsurgeCount = 0; // How many starsurges have been cast in the current BOAT-window
-  failedBoatWindowOpenings = 0; // number of boat windows which did not start with three consecutive starsurges
-  boatWindowCount = 0; // sum of boat windows in the fight, used to see if
-  isConvokeBoat = false; // was Convoke the Spirits used this Boat Window?
-  spellCount = 0; // amount of casts that have already been done in the current BOAT-window -> used to determine wether we are in the first three casts
-  isStarfallCast = false;
-  isMultitargetFight = false;
-  starfallTarget: number[] = [];
+  failedBoatWindowOpenings = 0; // number of BOAT windows which did not start with three consecutive starsurges
+  boatWindowCount = 0; // sum of BOAT windows in the fight, used to see if
   lastCast?: CastEvent;
+  targetsHit: number[] = []; // list of unique targetIDs which were hit inside BOAT window
+  castedSpells: CastEvent[] = []; // array of casted spell inside current BOAT window
 
   onDamage(event: DamageEvent) {
-    if (this.starfallTarget.indexOf(event.targetID) === -1) {
-      this.starfallTarget.push(event.targetID);
-    }
-    if (this.starfallTarget.length > 1 && this.isStarfallCast === true) {
-      this.isMultitargetFight = true;
+    if (!this.targetsHit.includes(event.targetID) && !event.targetIsFriendly) {
+      this.targetsHit.push(event.targetID);
     }
   }
 
@@ -75,51 +68,63 @@ class BalanceOfAllThingsOpener extends Analyzer {
   }
 
   onRemoveBuff(event: RemoveBuffEvent) {
-    if (this.failedStarsurgeCount > 0 && !this.isConvokeBoat) {
-      // if Convoke the Spirits was used during this BOAT Window, we do not care, a seperate module should evaluate if Convoke was used properly
+    /*
+     After each BOAT window we analyze the spells in retrospective, this is done to see if there were multiple targets available during the boat window,
+     in which case we do not evaluate the opener performance.
+     */
+    if (this.targetsHit.length <= 1 && this.boatWindowCount !== 1) {
+      // only analyze if it was a single target situation
+      this.analyzeCasts();
+    }
+
+    if (this.failedStarsurgeCount > 0) {
       this.failedBoatWindowOpenings += 1;
     }
 
+    // Reset Variables after current BOAT cycle has ended
     this.currentBoatCycle = false;
     this.failedStarsurgeCount = 0;
-    this.spellCount = 0;
-    this.isConvokeBoat = false;
+    this.targetsHit = [];
+    this.castedSpells = [];
   }
 
   onCast(event: CastEvent) {
     this.lastCast = event;
 
-    if (event.ability.guid === SPELLS.STARFALL_CAST.id) {
-      this.isStarfallCast = true;
-    }
-
     if (
       !this.lastCast ||
-      !this.currentBoatCycle || // if BOAT is not active, we do not need to evaluate anything;
-      this.isConvokeBoat || // if Convoke the Spirits was used during this BOAT Window, we do not care, a seperate module should evaluate if Convoke was used properly
-      this.globalCooldown.getGlobalCooldownDuration(event.ability.guid) === 0 || // if the spell does not have a GCD we do not care as it does not affect BOAT performance
-      this.isMultitargetFight === true || // if this is a multitarget fight, ignore the BOAT Opener analysis
-      this.boatWindowCount === 1
+      !this.currentBoatCycle || // if BOAT is not active, we do not need to track spell casts
+      this.globalCooldown.getGlobalCooldownDuration(event.ability.guid) === 0
     ) {
-      // if this is the first BOAT window in the fight, ignore the analysis, as you dont have full AP and might set up dots first
+      //spells which don't invoke a GCD don't affect BOAT performance
       return;
     }
+    this.castedSpells.push(this.lastCast);
+  }
 
-    if (this.lastCast.ability.guid === SPELLS.CONVOKE_SPIRITS.id) {
-      this.isConvokeBoat = true;
-      return;
+  analyzeCasts() {
+    let isConvokeBoat = false;
+    //iterate through all Casts and check if Convoke the Spirits was casted
+    this.castedSpells.forEach((cast) => {
+      if (cast.ability.guid === SPELLS.CONVOKE_SPIRITS.id) {
+        isConvokeBoat = true;
+      }
+    });
+
+    let currentCast: CastEvent;
+    // analyze the first three casts, if Convoke was not casted
+    if (!isConvokeBoat) {
+      for (let i = 0; i <= 2; i++) {
+        currentCast = this.castedSpells[i];
+
+        if (currentCast && currentCast.ability.guid !== SPELLS.STARSURGE_MOONKIN.id) {
+          currentCast.meta = currentCast.meta || {};
+          currentCast.meta.isInefficientCast = true;
+          currentCast.meta.inefficientCastReason = `Your first three casts after obtaining the Balance of All Things buff (which you get after entering an eclipse) should be Starsurges while fighting a single target.`;
+          this.failedStarsurgeCount += 1;
+        }
+      }
     }
-
-    // Section for Checking first 3 Casts
-    if (event.ability.guid !== SPELLS.STARSURGE_MOONKIN.id && this.spellCount <= 2) {
-      // if we are in the first three casts of this window and no starsurge was cast
-      this.lastCast.meta = this.lastCast.meta || {};
-      this.lastCast.meta.isInefficientCast = true;
-      this.lastCast.meta.inefficientCastReason = `Your first three casts after obtaining the Balance of All Things buff (which you get after entering an eclipse) should be Starsurges while fighting a single target.`;
-      this.failedStarsurgeCount += 1;
-    }
-
-    this.spellCount += 1;
   }
 
   get suggestionThresholds() {
