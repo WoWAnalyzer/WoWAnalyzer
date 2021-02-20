@@ -232,14 +232,14 @@ Array [
       />
        after getting the 
       <ForwardRef
-        id={339946}
+        id={339943}
       />
        buff for 
-      2
+      5
        times. Always make sure to pool for atleast 90 Astral Power before entering an eclipse. It is expected to overcap some Astral Power to achieve this.
     </React.Fragment>,
     "stat": <React.Fragment>
-      {"id":"druid.balance.suggestions.boat.efficiency","message":"{0} of your Balance of All Things openers were wrong","values":{"0":2}}
+      {"id":"druid.balance.suggestions.boat.efficiency","message":"{0} of your Balance of All Things openers were wrong","values":{"0":5}}
        (
       0 is recommended
       )
