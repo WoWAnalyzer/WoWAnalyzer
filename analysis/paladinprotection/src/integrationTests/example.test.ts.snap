@@ -1304,7 +1304,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
             >
               <a
                 className="spell-link-text"
-                href="http://wowhead.com/spell=204079"
+                href="http://wowhead.com/spell=642"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -1316,7 +1316,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_holy_crusade.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_holy_divineshield.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -1325,7 +1325,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   }
                 />
                  
-                Final Stand
+                Divine Shield
               </a>
             </td>
             <td
@@ -2980,14 +2980,14 @@ Array [
   },
   Object {
     "details": null,
-    "icon": "spell_holy_crusade",
+    "icon": "spell_holy_divineshield",
     "importance": "major",
     "issue": <React.Fragment>
       <Trans
         components={
           Object {
             "0": <ForwardRef
-              id={204079}
+              id={642}
             />,
           }
         }
