@@ -20,7 +20,7 @@ Array [
       .
     </React.Fragment>,
     "stat": <React.Fragment>
-      {"id":"paladin.protection.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"26.71"}}
+      {"id":"paladin.protection.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"27.52"}}
        (
       &lt;20.00% is recommended
       )
