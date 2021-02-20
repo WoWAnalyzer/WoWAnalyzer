@@ -1,7 +1,8 @@
 import React from 'react';
 import { formatPercentage } from 'common/format';
 import { SpellIcon } from 'interface';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 
@@ -22,7 +23,7 @@ class IronFurGoEProcs extends Analyzer {
     const nonGoEIronFur = this.guardianOfElune.nonGoEIronFur;
     const GoEIronFur = this.guardianOfElune.GoEIronFur;
     return (
-      <StatisticBox
+      <Statistic
         icon={<SpellIcon id={SPELLS.IRONFUR.id} />}
         value={`${formatPercentage(nonGoEIronFur / (nonGoEIronFur + GoEIronFur))}%`}
         label="Unbuffed Ironfur"

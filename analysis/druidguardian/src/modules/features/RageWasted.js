@@ -4,7 +4,8 @@ import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
-import StatisticBox from 'parser/ui/StatisticBox';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import { t } from '@lingui/macro';
@@ -125,7 +126,7 @@ class RageWasted extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <Statistic
         icon={<SpellIcon id={SPELLS.BRISTLING_FUR.id} />}
         label="Wasted Rage"
         value={`${formatPercentage(this.wastedRageRatio)}%`}

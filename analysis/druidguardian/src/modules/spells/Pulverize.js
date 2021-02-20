@@ -2,7 +2,8 @@ import React from 'react';
 import { formatPercentage } from 'common/format';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { t } from '@lingui/macro';
@@ -35,7 +36,7 @@ class Pulverize extends Analyzer {
     const pulverizeUptimePercentage = this.selectedCombatant.getBuffUptime(SPELLS.PULVERIZE_BUFF.id) / this.owner.fightDuration;
 
     return (
-      <StatisticBox
+      <Statistic
         icon={<SpellIcon id={SPELLS.PULVERIZE_TALENT.id} />}
         value={`${formatPercentage(pulverizeUptimePercentage)}%`}
         label="Pulverize uptime"

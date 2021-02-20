@@ -6,7 +6,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import DamageTaken from 'parser/shared/modules/throughput/DamageTaken';
 
-import StatisticBox from 'parser/ui/Statistic';
+import Statistic from 'parser/ui/Statistic';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import { t } from '@lingui/macro';
@@ -73,7 +73,7 @@ class Earthwarden extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <Statistic
         icon={<SpellIcon id={SPELLS.EARTHWARDEN_BUFF.id} />}
         label="Hits mitigated by Earthwarden"
         value={`${formatPercentage(this.percentOfSwingsMitigated)}%`}
