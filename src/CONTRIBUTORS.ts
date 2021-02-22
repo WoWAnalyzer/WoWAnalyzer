@@ -131,7 +131,6 @@ export const Bonebasher: Contributor = {
 export const Sharrq: Contributor = {
   nickname: 'Sharrq',
   github: 'Sharrq',
-  discord: 'Sharrq#7530',
   avatar: require('./interface/images/avatars/Sharrq_avatar.jpg'),
   mains: [
     {
@@ -140,17 +139,13 @@ export const Sharrq: Contributor = {
       link: 'https://worldofwarcraft.com/en-us/character/us/bleeding-hollow/sharrq',
     }],
     alts: [{
-      name: 'Maniaq',
-      spec: SPECS.SHADOW_PRIEST,
-      link: 'https://worldofwarcraft.com/en-us/character/us/bleeding-hollow/maniaq',
-    }, {
-      name: 'Requva',
-      spec: SPECS.MISTWEAVER_MONK,
-      link: 'https://worldofwarcraft.com/en-us/character/us/bleeding-hollow/requva',
-    }, {
       name: 'Fraqture',
       spec: SPECS.PROTECTION_PALADIN,
       link: 'https://worldofwarcraft.com/en-us/character/us/bleeding-hollow/fraqture',
+    }, {
+      name: 'Sparrq',
+      spec: SPECS.ELEMENTAL_SHAMAN,
+      link: 'https://worldofwarcraft.com/en-us/character/us/bleeding-hollow/sparrq',
     }],
 };
 export const Khazak: Contributor = {
