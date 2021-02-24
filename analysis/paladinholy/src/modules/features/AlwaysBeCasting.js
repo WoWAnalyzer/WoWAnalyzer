@@ -3,6 +3,8 @@ import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHea
 
 const debug = false;
 
+const AVENGING_CRUSADER_SPELLS = [SPELLS.CRUSADER_STRIKE.id, SPELLS.JUDGMENT_CAST_HOLY.id];
+
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   static HEALING_ABILITIES_ON_GCD = [
     SPELLS.FLASH_OF_LIGHT.id,
@@ -15,11 +17,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.LIGHTS_HAMMER_TALENT.id,
     SPELLS.WORD_OF_GLORY.id,
     SPELLS.HAMMER_OF_WRATH.id,
-  ];
-
-  static AVENGING_CRUSADER_SPELLS = [
-    SPELLS.CRUSADER_STRIKE.id,
-    SPELLS.JUDGMENT_CAST_HOLY.id,
   ];
 
   constructor(...args) {
@@ -47,7 +44,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
 
     if (this.selectedCombatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT.id) &&
         this.selectedCombatant.hasBuff(SPELLS.AVENGING_CRUSADER_TALENT.id, event.timestamp) &&
-        this.AVENGING_CRUSADER_SPELLS.includes(spellId)) {
+        AVENGING_CRUSADER_SPELLS.includes(spellId)) {
       return true;
     }
 
