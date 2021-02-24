@@ -1305,3 +1305,14 @@ export const Pendragon: Contributor = {
     link: 'https://worldofwarcraft.com/en-us/character/us/stormrage/larison',
   }],
 };
+
+export const acornellier: Contributor = {
+  nickname: 'acornellier',
+  github: 'acornellier',
+  discord: 'Ortemis#3934',
+  mains: [{
+    name: 'Ortemis',
+    spec: SPECS.HOLY_PALADIN,
+    link: 'https://worldofwarcraft.com/en-us/character/us/sargeras/ortemis',
+  }],
+};
