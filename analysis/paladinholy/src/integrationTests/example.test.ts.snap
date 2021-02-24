@@ -252,7 +252,7 @@ Array [
     "importance": "major",
     "issue": "Your time spent healing can be improved. Try to reduce the amount of time you're not healing, for example by reducing the delay between casting spells, moving during the GCD and if you have to move try to continue healing with instant spells.",
     "stat": <React.Fragment>
-      {"id":"shared.suggestions.alwaysBeCastingHealing.timeSpentHealing","message":"{0}% time spent healing","values":{"0":-56.37}}
+      {"id":"shared.suggestions.alwaysBeCastingHealing.timeSpentHealing","message":"{0}% time spent healing","values":{"0":-49.89}}
        (
       &gt;70.00% is recommended
       )
@@ -4518,6 +4518,92 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               0.96%
+            </td>
+            <td
+              style={
+                Object {
+                  "color": "orange",
+                  "width": "25%",
+                }
+              }
+            />
+          </tr>
+          <tr>
+            <td
+              style={
+                Object {
+                  "width": "35%",
+                }
+              }
+            >
+              <a
+                className="spell-link-text"
+                href="http://wowhead.com/spell=53600"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "color": "#fff",
+                  }
+                }
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_shieldofvengeance.jpg"
+                  style={
+                    Object {
+                      "height": undefined,
+                      "marginTop": undefined,
+                    }
+                  }
+                />
+                 
+                Shield of the Righteous
+              </a>
+            </td>
+            <td
+              className="text-center"
+              style={
+                Object {
+                  "minWidth": 80,
+                }
+              }
+            >
+              0.00
+            </td>
+            <td
+              className="text-right"
+              style={
+                Object {
+                  "minWidth": 110,
+                }
+              }
+            >
+              0
+              
+               
+              casts
+            </td>
+            <td
+              style={
+                Object {
+                  "width": "20%",
+                }
+              }
+            >
+              
+            </td>
+            <td
+              className="text-left"
+              style={
+                Object {
+                  "minWidth": 50,
+                  "paddingRight": 5,
+                }
+              }
+            >
+              
             </td>
             <td
               style={
@@ -9095,7 +9181,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                     id={223306}
                   />,
                   "1": <ForwardRef
-                    id={20271}
+                    id={275773}
                   />,
                   "2": "when using",
                   "3": <ForwardRef
@@ -9267,7 +9353,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               >
                 <a
                   className="spell-link-text"
-                  href="http://wowhead.com/spell=20271"
+                  href="http://wowhead.com/spell=275773"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -10716,7 +10802,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
               style={
                 Object {
                   "backgroundColor": "#df7102",
-                  "width": "45.65417737038763%",
+                  "width": "47.318559162323645%",
                 }
               }
             />
@@ -10827,7 +10913,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  57.37%
+                  50.89%
                    
                    
                 </div>
@@ -10849,7 +10935,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "26.118061309562883%",
+                        "width": "29.44682489343492%",
                       }
                     }
                   />
