@@ -1,20 +1,51 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import articles from 'articles';
 import DocumentTitle from 'interface/DocumentTitle';
+import NotFound from 'interface/NotFound';
 
 import NewsArticleLoader from './NewsArticleLoader';
+import makeNewsUrl from './makeNewsUrl';
 import 'interface/NewsPage.scss';
 
-class NewsPage extends React.PureComponent {
-  static propTypes = {
-    articleId: PropTypes.string.isRequired,
-  };
+interface Props {
+  articleId: string
+}
 
-  renderBreadcrumbs(breadcrumbs) {
-    return breadcrumbs.map((item, index) => (
+const NewsPage = ({ articleId }: Props) => {
+  const fileName = articles[articleId];
+
+  if (!fileName) {
+    return <NotFound/>;
+  }
+
+  return (
+    <div className="container news">
+      <NewsArticleLoader
+        key={fileName}
+        fileName={fileName}
+        loader={<>
+          <Breadcrumbs />
+          <br /><br />
+          <div className="spinner" style={{ fontSize: 5 }} />
+          <DocumentTitle title="News" />
+        </>}
+        render={NewsArticle}
+      />
+    </div>
+  );
+};
+
+const BASE_BREADCRUMBS = [
+  <Link key="Home" to="/">Home</Link>,
+  <Link key="News" to={makeNewsUrl('')}>News</Link>,
+];
+
+const Breadcrumbs = ({ title }: { title?: string }) => {
+  const breadcrumbs = [...BASE_BREADCRUMBS, title].filter(Boolean)
+  return (<>
+    {breadcrumbs.map((item, index) => (
       <React.Fragment key={index}>
         {item}
         {index !== (breadcrumbs.length - 1) && (
@@ -23,51 +54,16 @@ class NewsPage extends React.PureComponent {
           </>
         )}
       </React.Fragment>
-    ));
-  }
+    ))}
+  </>);
+};
 
-  render() {
-    const fileName = articles[this.props.articleId];
-
-    const breadcrumbs = [
-      <Link key="Home" to="/">
-        Home
-      </Link>,
-      <Link key="Announcements" to="/#Announcements">
-        Announcements
-      </Link>,
-    ];
-
-    return (
-      <div className="container news">
-        <NewsArticleLoader
-          key={fileName}
-          fileName={fileName}
-        >
-          {({ article, showLoader }) => showLoader ? (
-            <>
-              {this.renderBreadcrumbs(breadcrumbs)}<br /><br />
-
-              <div className="spinner" style={{ fontSize: 5 }} />
-
-              <DocumentTitle title="News" />
-            </>
-          ) : (
-            <>
-              {this.renderBreadcrumbs([
-                ...breadcrumbs,
-                article.props.title,
-              ])}<br /><br />
-
-              {article}
-
-              <DocumentTitle title={article.props.title} />
-            </>
-          )}
-        </NewsArticleLoader>
-      </div>
-    );
-  }
-}
+const NewsArticle = ({ article }: { article: any }) => (
+  <>
+    <Breadcrumbs title={article.props.title} />
+    {article}
+    <DocumentTitle title={article.props.title} />
+  </>
+);
 
 export default NewsPage;

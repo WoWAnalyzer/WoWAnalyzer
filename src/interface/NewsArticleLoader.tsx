@@ -1,45 +1,33 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {useState, useEffect} from 'react';
 
 import retryingPromise from 'common/retryingPromise';
 
-class NewsArticleLoader extends React.PureComponent {
-  static propTypes = {
-    fileName: PropTypes.string.isRequired,
-    children: PropTypes.func.isRequired,
-  };
-  state = {
-    article: null,
-    showLoader: true,
-  };
+interface Props {
+  fileName: string
+  loader: React.ReactNode
+  render?: (article: any) => any
+}
 
-  constructor(props) {
-    super(props);
-    this.load(props.fileName);
-    setTimeout(() => {
-      this.setState(state => ({
-        showLoader: !state.article,
-      }));
-    }, 1000);
-  }
+const NewsArticleLoader = ({ fileName, loader, render }: Props) => {
+  const [article, setArticle] = useState(null);
+  const [showLoader, setShowLoader] = useState(true);
 
-  load(fileName) {
-    return retryingPromise(() => import(/* webpackChunkName: "articles/[request]" */ `articles/${fileName}/index.tsx`)
+  useEffect(() => {
+    setShowLoader(!article)
+  }, [article]);
+
+  useEffect(() => {
+    retryingPromise(() => import(/* webpackChunkName: "articles/[request]" */ `articles/${fileName}/index.tsx`)
       .then(exports => exports.default)
-      .then(article => {
-        this.setState({
-          article,
-          showLoader: false,
-        });
-      }));
+      .then(article => setArticle(article))
+    );
+  }, [fileName]);
+
+  if (showLoader) {
+    return loader;
   }
 
-  render() {
-    return this.props.children({
-      article: this.state.article,
-      showLoader: this.state.showLoader,
-    });
-  }
+  return render ? render({ article }) : article;
 }
 
 export default NewsArticleLoader;

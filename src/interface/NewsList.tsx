@@ -1,8 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useCallback } from 'react';
 
 import articles from 'articles';
-import mergeAllChangelogs from 'mergeAllChangelogs';
+import mergeAllChangelogs, { ChangeLogItem } from 'mergeAllChangelogs';
 import SpecIcon from 'interface/SpecIcon';
 import ReadableListing from 'interface/ReadableListing';
 import Contributor from 'interface/ContributorButton';
@@ -11,140 +10,120 @@ import { ReactComponent as Logo } from 'interface/images/logo.svg';
 import NewsArticleLoader from 'interface/NewsArticleLoader';
 import 'interface/NewsPage.scss';
 
-class News extends React.PureComponent {
-  static propTypes = {
-    topAnchor: PropTypes.string.isRequired,
-  };
+type ArticleItem = { article: string, date: Date }
 
-  state = {
-    page: 0,
-  };
+interface Props {
+  topAnchor: string
+}
 
-  get numArticles() {
-    return Object.keys(articles).length;
-  }
-  get changelogEntries() {
-    return mergeAllChangelogs();
-  }
-  get articlesPerPage() {
-    return 50;
-  }
-  get pages() {
-    return Math.ceil((this.numArticles + this.changelogEntries.length) / this.articlesPerPage);
-  }
-  get hasOlder() {
-    return this.state.page < (this.pages - 1);
-  }
-  get hasNewer() {
-    return this.state.page > 0;
-  }
+const CHANGE_LOG_ENTRIES = mergeAllChangelogs();
 
-  constructor() {
-    super();
-    this.handleOlderClick = this.handleOlderClick.bind(this);
-    this.handleNewerClick = this.handleNewerClick.bind(this);
-  }
+const ARTICLE_ITEMS: ArticleItem[] = Object.values(articles)
+  .sort((a, b) => b.localeCompare(a))
+  .map(articleName => {
+    const uglyDateExtracter = articleName.split('-');
+    return {
+      article: articleName,
+      date: new Date(
+        Number(uglyDateExtracter[0]),
+        Number(uglyDateExtracter[1]) - 1,
+        Number(uglyDateExtracter[2]),
+      ),
+    };
+  });
 
-  handleOlderClick() {
-    this.setState(state => ({
-      page: Math.min(this.pages - 1, state.page + 1),
-    }));
-    this.scrollToTop();
-  }
-  handleNewerClick() {
-    this.setState(state => ({
-      page: Math.max(0, state.page - 1),
-    }));
-    this.scrollToTop();
-  }
-  scrollToTop() {
-    const elem = document.getElementById(this.props.topAnchor);
+const ENTRIES_PER_PAGE = 50;
+const NUM_PAGES =
+  Math.ceil((Object.keys(articles).length + CHANGE_LOG_ENTRIES.length) / ENTRIES_PER_PAGE);
+const ALL_ENTRIES: Array<ArticleItem | ChangeLogItem> =
+  [...CHANGE_LOG_ENTRIES, ...ARTICLE_ITEMS].sort((a, b) => Number(b.date) - Number(a.date));
+
+const hasOlder = (page: number) => page < (NUM_PAGES - 1);
+const hasNewer = (page: number) => page > 0;
+
+const NewsList = ({ topAnchor }: Props) => {
+  const [page, setPage] = useState(0);
+
+  const scrollToTop = useCallback(() => {
+    const elem = document.getElementById(topAnchor);
     if (!elem) {
-      console.error('Missing anchor element to scroll to:', this.props.topAnchor);
+      console.error('Missing anchor element to scroll to:', topAnchor);
       return;
     }
     window.scrollTo(0, window.scrollY + elem.getBoundingClientRect().top);
-  }
+  }, [topAnchor]);
 
-  render() {
-    const indexStart = this.state.page * this.articlesPerPage;
-    const indexEnd = indexStart + this.articlesPerPage;
+  const handleOlderClick = useCallback(() => {
+    setPage(Math.min(NUM_PAGES - 1, page + 1));
+    scrollToTop();
+  }, [page, scrollToTop]);
 
-    const pageArticles = Object.values(articles)
-      .sort((a, b) => b.localeCompare(a))
-      .map(articleName => {
-        const uglyDateExtracter = articleName.split('-');
-        const date = new Date(uglyDateExtracter[0], uglyDateExtracter[1] - 1, uglyDateExtracter[2]);
+  const handleNewerClick = useCallback(() => {
+    setPage(page - 1);
+    scrollToTop();
+  }, [page, scrollToTop]);
 
-        return {
-          date,
-          article: articleName,
-        };
-      });
+  const indexStart = page * ENTRIES_PER_PAGE;
+  const indexEnd = indexStart + ENTRIES_PER_PAGE;
+  const entries = ALL_ENTRIES.filter((_, index) => index >= indexStart && index < indexEnd);
 
-    const entries = [...pageArticles, ...this.changelogEntries]
-      .sort((a, b) => b.date - a.date)
-      .filter((_, index) => index >= indexStart && index < indexEnd);
+  return (
+    <div className="news">
+      {entries.map((item, index) => {
+        if (Object.prototype.hasOwnProperty.call(item, 'article')) {
+          item = item as ArticleItem;
+          return (
+            <NewsArticleLoader
+              key={item.article}
+              fileName={item.article}
+              loader={<div className="spinner" style={{ fontSize: 5 }} />}
+            />
+          );
+        } else {
+          item = item as ChangeLogItem;
+          return (
+            <div key={index} className="panel changelog-entry">
+              <div className="panel-heading">
+                <small>
+                  {!item.spec ? (
+                    <>
+                      <Logo /> WoWAnalyzer
+                    </>
+                  ) : (
+                    <>
+                      <SpecIcon id={item.spec.id} /> {item.spec.specName} {item.spec.className}
+                    </>
+                  )} updated at {item.date.toLocaleDateString()} by <ReadableListing>
+                  {item.contributors.map(contributor => <Contributor key={contributor.nickname} {...contributor} />)}
+                </ReadableListing>
+                </small>
+              </div>
+              <div className="panel-body pad">
+                {item.changes}
+              </div>
+            </div>
+          );
+        }
+      })}
 
-
-    return (
-      <div className="news">
-        {entries
-          .map((item, index) => {
-            if (item.article) {
-              return (
-                <NewsArticleLoader
-                  key={item.article}
-                  fileName={item.article}
-                >
-                  {({ article, showLoader }) => showLoader ? <div className="spinner" style={{ fontSize: 5 }} /> : article}
-                </NewsArticleLoader>
-              );
-            } else {
-              return (
-                <div key={`${item.category}-${index}`} className="panel changelog-entry">
-                  <div className="panel-heading">
-                    <small>
-                      {!item.spec ? (
-                        <>
-                          <Logo /> WoWAnalyzer
-                        </>
-                      ) : (
-                        <>
-                          <SpecIcon id={item.spec.id} /> {item.spec.specName} {item.spec.className}
-                        </>
-                      )} updated at {item.date.toLocaleDateString()} by <ReadableListing>
-                        {item.contributors.map(contributor => <Contributor key={contributor.nickname} {...contributor} />)}
-                      </ReadableListing>
-                    </small>
-                  </div>
-                  <div className="panel-body pad">
-                    {item.changes}
-                  </div>
-                </div>
-              );
-            }
-          })}
-
-        <div className="row">
-          <div className="col-xs-6">
-            {this.hasOlder && (
-              <a role="button" onClick={this.handleOlderClick} style={{ fontSize: '1.3em' }}>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
-                &lt; Older
-              </a>
-            )}
-          </div>
-          <div className="col-xs-6 text-right">
-            {this.hasNewer && (
-              <a role="button" onClick={this.handleNewerClick} style={{ fontSize: '1.3em' }}>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
-                Newer &gt;
-              </a>
-            )}
-          </div>
+      <div className="row">
+        <div className="col-xs-6">
+          {hasOlder(page) && (
+            <a role="button" onClick={handleOlderClick} style={{ fontSize: '1.3em' }}>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+              &lt; Older
+            </a>
+          )}
+        </div>
+        <div className="col-xs-6 text-right">
+          {hasNewer(page) && (
+            <a role="button" onClick={handleNewerClick} style={{ fontSize: '1.3em' }}>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+              Newer &gt;
+            </a>
+          )}
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
-export default News;
+export default NewsList;
