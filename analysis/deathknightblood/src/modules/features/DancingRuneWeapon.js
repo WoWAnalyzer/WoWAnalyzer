@@ -7,6 +7,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Abilities from 'parser/core/modules/Abilities';
 import { t } from '@lingui/macro';
 import Events from 'parser/core/Events';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 
 const ALLOWED_CASTS_DURING_DRW = [
   SPELLS.DEATH_STRIKE.id,
@@ -23,6 +24,8 @@ class DancingRuneWeapon extends Analyzer {
   };
 
   castsDuringDRW = [];
+
+  DD_ABILITY = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id) ? SPELLS.DEATHS_DUE: SPELLS.DEATH_AND_DECAY;
 
   constructor(options){
     super(options);
@@ -79,7 +82,7 @@ class DancingRuneWeapon extends Analyzer {
 
   suggestions(when) {
     when(this.SuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>Avoid casting spells during <SpellLink id={SPELLS.DANCING_RUNE_WEAPON.id} /> that don't benefit from the coppies such as <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id} /> and <SpellLink id={SPELLS.DEATH_AND_DECAY.id} />. Check the cooldown-tab below for more detailed breakdown.{this.goodDRWSpells}</>)
+      .addSuggestion((suggest, actual, recommended) => suggest(<>Avoid casting spells during <SpellLink id={SPELLS.DANCING_RUNE_WEAPON.id} /> that don't benefit from the copies such as <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id} /> and <SpellLink id={this.DD_ABILITY.id} />. Check the cooldown-tab below for more detailed breakdown.{this.goodDRWSpells}</>)
           .icon(SPELLS.DANCING_RUNE_WEAPON.icon)
           .actual(t({
       id: "deathknight.blood.suggestions.dancingRuneWeapon.numberCasts",

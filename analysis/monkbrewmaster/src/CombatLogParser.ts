@@ -46,6 +46,7 @@ import WeaponsOfOrder from './modules/spells/shadowlands/WeaponsOfOrder';
 import ScaldingBrew from './modules/shadowlands/conduits/ScaldingBrew';
 import EvasiveStride from './modules/shadowlands/conduits/EvasiveStride';
 import WalkWithTheOx from './modules/shadowlands/conduits/WalkWithTheOx';
+import CelestialEffervescence from './modules/shadowlands/conduits/CelestialEffervescence';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -102,6 +103,7 @@ class CombatLogParser extends CoreCombatLogParser {
     fortifyingIngredients: FortifyingIngredients,
     groundingBreath: GroundingBreath,
     evasiveStride: EvasiveStride,
+    celestialEffervescence: CelestialEffervescence,
     /// Potency
     scaldingBrew: ScaldingBrew,
     walkWithTheOx: WalkWithTheOx,

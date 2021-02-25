@@ -1,5 +1,7 @@
 import MainCombatLogParser from 'parser/core/CombatLogParser';
 
+import { ConvokeSpirits } from '@wowanalyzer/druid';
+
 import GlobalCooldown from './modules/core/GlobalCooldown';
 
 //Features
@@ -14,7 +16,8 @@ import UnempoweredStarfire from './modules/features/UnempoweredStarfire';
 import UnempoweredWrath from './modules/features/UnempoweredWrath';
 import EarlyDotRefreshes from './modules/features/EarlyDotRefreshes';
 import EarlyDotRefreshesInstants from './modules/features/EarlyDotRefreshesInstants';
-
+import BalanceOfAllThingsOpener from './modules/features/BalanceOfAllThingsOpener';
+import Buffs from './modules/features/Buffs';
 //Talents
 import StellarFlareUptime from './modules/talents/StellarFlareUptime';
 import TwinMoons from './modules/talents/TwinMoons';
@@ -24,6 +27,7 @@ import Starlord from './modules/talents/Starlord';
 //Resources
 import AstralPowerDetails from './modules/resourcetracker/AstralPowerDetails';
 import AstralPowerTracker from './modules/resourcetracker/AstralPowerTracker';
+import Channeling from './modules/core/Channeling';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -33,6 +37,7 @@ class CombatLogParser extends MainCombatLogParser {
     checklist: Checklist,
     alwaysBeCasting: AlwaysBeCasting,
     cancelledCasts: CancelledCasts,
+    channeling: Channeling,
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
     moonfireUptime: MoonfireUptime,
@@ -41,12 +46,16 @@ class CombatLogParser extends MainCombatLogParser {
     unempoweredWrath: UnempoweredWrath,
     earlyDotRefreshes: EarlyDotRefreshes,
     earlyDotRefreshesInstants: EarlyDotRefreshesInstants,
-
+    balanceOfAllThingsOpener: BalanceOfAllThingsOpener,
+    buffs: Buffs,
     //Talents
     stellarFlareUptime: StellarFlareUptime,
     twinMoons: TwinMoons,
     stellarDrift: StellarDrift,
     starlord: Starlord,
+
+    //Covenant
+    convokeSpirits: ConvokeSpirits,
 
     //Resources
     astralPowerTracker: AstralPowerTracker,
