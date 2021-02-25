@@ -156,13 +156,13 @@ class Home extends React.PureComponent {
           <ErrorBoundary>
             <Switch>
               <Route path="/" exact component={News} />
-              <Route path="/news" component={News} />
               <Route
                 path="/news/:articleId"
                 render={({ match }) => (
                   <NewsPage articleId={decodeURI(match.params.articleId.replace(/\+/g, ' '))} />
                 )}
               />
+              <Route path="/news" component={News} />
               <Route path="/specs" component={SpecList} />
               <Route path="/premium" component={Premium} />
               <Route path="/about" component={AboutPage} />
