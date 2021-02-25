@@ -72,7 +72,6 @@ class News extends React.PureComponent {
 
     const pageArticles = Object.values(articles)
       .sort((a, b) => b.localeCompare(a))
-      .filter((_, index) => index >= indexStart && index < indexEnd)
       .map(articleName => {
         const uglyDateExtracter = articleName.split('-');
         const date = new Date(uglyDateExtracter[0], uglyDateExtracter[1] - 1, uglyDateExtracter[2]);
