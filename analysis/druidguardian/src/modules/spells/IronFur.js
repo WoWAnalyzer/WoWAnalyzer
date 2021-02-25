@@ -1,8 +1,9 @@
 import React from 'react';
 import { formatPercentage } from 'common/format';
 import SCHOOLS from 'game/MAGIC_SCHOOLS';
-import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
+import { SpellIcon } from 'interface';
+import BoringValueText from 'parser/ui/BoringValueText';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Statistic from 'parser/ui/Statistic';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -105,9 +106,7 @@ class IronFur extends Analyzer {
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(10)}
-        icon={<SpellIcon id={SPELLS.IRONFUR.id} />}
-        value={`${formatPercentage(this.percentOfHitsMitigated)}% / ${this.overallIronfurUptime.toFixed(2)}`}
-        label="Hits mitigated with Ironfur / Average Stacks"
+        size="flexible"
         tooltip={(
           <>
             Ironfur usage breakdown:
@@ -122,7 +121,11 @@ class IronFur extends Analyzer {
             <strong>{formatPercentage(this.percentOfHitsMitigated)}%</strong> of physical attacks were mitigated with Ironfur, and your overall uptime was <strong>{formatPercentage(totalIronFurTime / this.owner.fightDuration)}%</strong>.
           </>
         )}
-      />
+      > 
+        <BoringValueText label={<><SpellIcon id={SPELLS.IRONFUR.id} /> Hits mitigated with Ironfur / Average Stacks </>} >           
+              {`${formatPercentage(this.percentOfHitsMitigated)}%`}          
+        </BoringValueText>
+      </Statistic>      
     );
   }
 }

@@ -1,8 +1,8 @@
 import React from 'react';
 import { formatPercentage } from 'common/format';
-import { SpellIcon } from 'interface';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Statistic from 'parser/ui/Statistic';
+import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 
@@ -24,11 +24,16 @@ class IronFurGoEProcs extends Analyzer {
     const GoEIronFur = this.guardianOfElune.GoEIronFur;
     return (
       <Statistic
-        icon={<SpellIcon id={SPELLS.IRONFUR.id} />}
-        value={`${formatPercentage(nonGoEIronFur / (nonGoEIronFur + GoEIronFur))}%`}
-        label="Unbuffed Ironfur"
+        position={STATISTIC_ORDER.CORE(10)}
+        size="flexible"
         tooltip={<>You cast <strong>{nonGoEIronFur + GoEIronFur}</strong> total {SPELLS.IRONFUR.name} and <strong>{GoEIronFur}</strong> were buffed by 2s.</>}
-      />
+      > 
+        <BoringSpellValue 
+          spell={SPELLS.IRONFUR}          
+          value={`${formatPercentage(nonGoEIronFur / (nonGoEIronFur + GoEIronFur))}%`}
+          label="Unbuffed Ironfur"
+        />
+      </Statistic>       
     );
   }
 }

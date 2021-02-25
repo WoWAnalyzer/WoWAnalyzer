@@ -2,12 +2,13 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatDuration } from 'common/format';
-import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
+import { SpellIcon } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Statistic from 'parser/ui/Statistic';
+import BoringValueText from 'parser/ui/BoringValueText';
 import { t } from '@lingui/macro';
 
 import Events from 'parser/core/Events';
@@ -125,11 +126,13 @@ class AntiFillerSpam extends Analyzer {
   statistic() {
     return (
       <Statistic
-        icon={<SpellIcon id={SPELLS.SWIPE_BEAR.id} />}
-        value={`${formatPercentage(this.fillerSpamPercentage)}%`}
-        label="Unnecessary Fillers"
+        size="flexible"
         tooltip={<>You cast <strong>{this._unnecessaryFillerSpells}</strong> unnecessary filler spells out of <strong>{this._totalGCDSpells}</strong> total GCDs. Filler spells (Swipe, Moonfire without a GG proc, or Moonfire outside of pandemic if talented into Incarnation) do far less damage than your main rotational spells, and should be minimized whenever possible.</>}
-      />
+      > 
+        <BoringValueText label={<><SpellIcon id={SPELLS.SWIPE_BEAR.id} /> Unnecessary Fillers </>} >           
+              {`${formatPercentage(this.fillerSpamPercentage)}%`}          
+        </BoringValueText>
+      </Statistic>
     );
   }
 

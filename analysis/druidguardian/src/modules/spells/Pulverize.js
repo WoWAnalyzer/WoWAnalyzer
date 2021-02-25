@@ -1,16 +1,15 @@
 import React from 'react';
 import { formatPercentage } from 'common/format';
-import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Statistic from 'parser/ui/Statistic';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { t } from '@lingui/macro';
 
 class Pulverize extends Analyzer {
-
-  statisticOrder = STATISTIC_ORDER.CORE(13);
 
   constructor(...args) {
     super(...args);
@@ -37,10 +36,16 @@ class Pulverize extends Analyzer {
 
     return (
       <Statistic
-        icon={<SpellIcon id={SPELLS.PULVERIZE_TALENT.id} />}
-        value={`${formatPercentage(pulverizeUptimePercentage)}%`}
-        label="Pulverize uptime"
-      />
+        position={STATISTIC_ORDER.CORE(13)}
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
+      >
+        <BoringSpellValue 
+          spell={SPELLS.PULVERIZE_TALENT}          
+          value={`${formatPercentage(pulverizeUptimePercentage)}%`}
+          label="Pulverize uptime"
+        />
+      </Statistic>
     );
   }
 }
