@@ -6,10 +6,6 @@ import {
   UnholyNova,
 } from '@wowanalyzer/priest';
 
-import React from 'react';
-
-import { Panel } from 'interface';
-
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
