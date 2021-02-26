@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2021, 1, 23), <>Updating base mana value for <SpellLink id={SPELLS.ENLIGHTENMENT_TALENT.id} />.</>, Adoraci),
   change(date(2021, 1, 23), <>Added <SpellLink id={SPELLS.TWINS_OF_THE_SUN_PRIESTESS.id} /> legendary.</>, Adoraci),
   change(date(2020, 12, 28), <>Adding support for <SpellLink id={SPELLS.BOON_OF_THE_ASCENDED.id} /></>, Khadaj),
   change(date(2020, 12, 28), <>Adding support for <SpellLink id={SPELLS.MINDGAMES.id} /></>, Khadaj),
