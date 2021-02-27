@@ -11,7 +11,7 @@ import COVENANTS from 'game/shadowlands/COVENANTS';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
 
-import ActiveDruidForm, { DruidForm } from './core/ActiveDruidForm'
+import ActiveDruidForm, { DruidForm } from './core/ActiveDruidForm';
 
 const SPELLS_WITH_TRAVEL_TIME = [
   SPELLS.STARSURGE_AFFINITY.id,

@@ -11,26 +11,26 @@ export default class ActiveDruidForm extends Analyzer {
         this.active = true
         
         //Balance
-        this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.MOONKIN_FORM_AFFINITY, SPELLS.MOONKIN_FORM]), this.moonkinActivated)
-        this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell([SPELLS.MOONKIN_FORM_AFFINITY, SPELLS.MOONKIN_FORM]), this.noformActivated)
-        this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT]), this.incarnMoonkinActivated)
-        this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell([SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT]), this.noformActivated)
+        this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.MOONKIN_FORM_AFFINITY, SPELLS.MOONKIN_FORM]), this.moonkinActivated);
+        this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell([SPELLS.MOONKIN_FORM_AFFINITY, SPELLS.MOONKIN_FORM]), this.noformActivated);
+        this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT]), this.incarnMoonkinActivated);
+        this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell([SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT]), this.noformActivated);
 
         //Feral
-        this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.CAT_FORM]), this.catActivated)
-        this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell([SPELLS.CAT_FORM]), this.noformActivated)
-        this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT]), this.incarnCatActivated)
-        this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell([SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT]), this.noformActivated)
+        this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.CAT_FORM]), this.catActivated);
+        this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell([SPELLS.CAT_FORM]), this.noformActivated);
+        this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT]), this.incarnCatActivated);
+        this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell([SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT]), this.noformActivated);
 
         //Guardian
-        this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.BEAR_FORM]), this.bearActivated)
-        this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell([SPELLS.BEAR_FORM]), this.noformActivated)
-        this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT]), this.incarnBearActivated)
-        this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell([SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT]), this.noformActivated)
+        this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.BEAR_FORM]), this.bearActivated);
+        this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell([SPELLS.BEAR_FORM]), this.noformActivated);
+        this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT]), this.incarnBearActivated);
+        this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell([SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT]), this.noformActivated);
     
         //Resto
-        this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.INCARNATION_TREE_OF_LIFE_TALENT]), this.incarnTOLActivated)
-        this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell([SPELLS.INCARNATION_TREE_OF_LIFE_TALENT]), this.noformActivated)
+        this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.INCARNATION_TREE_OF_LIFE_TALENT]), this.incarnTOLActivated);
+        this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell([SPELLS.INCARNATION_TREE_OF_LIFE_TALENT]), this.noformActivated);
 
     }
 
@@ -39,36 +39,36 @@ export default class ActiveDruidForm extends Analyzer {
     }
 
     incarnTOLActivated() {
-        this.currentForm = "Tree of Life"
+        this.currentForm = "Tree of Life";
     }
 
     incarnBearActivated() {
-        this.currentForm = "Incarnation: Bear"
+        this.currentForm = "Incarnation: Bear";
     }
 
     incarnCatActivated() {
-        this.currentForm = "Incarnation: Cat"
+        this.currentForm = "Incarnation: Cat";
     }
 
     incarnMoonkinActivated() {
-        this.currentForm = "Incarnation: Moonkin"
+        this.currentForm = "Incarnation: Moonkin";
     }
 
     moonkinActivated() {
-        this.currentForm = "Moonkin"
+        this.currentForm = "Moonkin";
     }
 
     bearActivated() {
-        this.currentForm = "Bear"
+        this.currentForm = "Bear";
     }
 
     catActivated() {
-        this.currentForm = "Cat"
+        this.currentForm = "Cat";
     }
 
     noformActivated() {
-        this.currentForm = "No Form"
+        this.currentForm = "No Form";
     }
 }
 
-export type DruidForm = "Cat" | "Moonkin" | "Bear" | "No Form" | "Tree of Life" | "Incarnation: Cat" | "Incarnation: Bear" | "Incarnation: Moonkin"
+export type DruidForm = "Cat" | "Moonkin" | "Bear" | "No Form" | "Tree of Life" | "Incarnation: Cat" | "Incarnation: Bear" | "Incarnation: Moonkin";
