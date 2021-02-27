@@ -1,3 +1,5 @@
+import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
+
 import MainCombatLogParser from 'parser/core/CombatLogParser';
 
 import { ConvokeSpirits } from '@wowanalyzer/druid';
@@ -32,6 +34,9 @@ class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     globalCooldown: GlobalCooldown,
 
+    //Core
+    activeDruidForm: ActiveDruidForm,
+
     //Features
     checklist: Checklist,
     alwaysBeCasting: AlwaysBeCasting,
@@ -52,7 +57,7 @@ class CombatLogParser extends MainCombatLogParser {
     stellarDrift: StellarDrift,
     starlord: Starlord,
 
-    //Covenant
+    //Covenants
     convokeSpirits: ConvokeSpirits,
 
     //Resources
