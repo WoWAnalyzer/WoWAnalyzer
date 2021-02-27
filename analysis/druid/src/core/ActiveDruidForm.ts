@@ -8,7 +8,6 @@ export default class ActiveDruidForm extends Analyzer {
 
     constructor(options: Options) {
         super(options);
-        this.active = true
         
         //Balance
         this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.MOONKIN_FORM_AFFINITY, SPELLS.MOONKIN_FORM]), this.moonkinActivated);
