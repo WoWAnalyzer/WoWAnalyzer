@@ -1,4 +1,5 @@
 import { ConvokeSpirits } from '@wowanalyzer/druid';
+import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
 
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
@@ -73,6 +74,7 @@ class CombatLogParser extends CoreCombatLogParser {
     rejuvenation: Rejuvenation,
     mastery: Mastery,
     spellManaCost: SpellManaCost,
+    activeDruidForm: ActiveDruidForm,
 
     // Generic healer things
     manaLevelChart: ManaLevelChart,

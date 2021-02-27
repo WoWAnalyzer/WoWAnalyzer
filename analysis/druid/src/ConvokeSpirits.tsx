@@ -11,6 +11,8 @@ import COVENANTS from 'game/shadowlands/COVENANTS';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
 
+import ActiveDruidForm, { DruidForm } from './core/ActiveDruidForm';
+
 const SPELLS_WITH_TRAVEL_TIME = [
   SPELLS.STARSURGE_AFFINITY.id,
   SPELLS.STARSURGE_MOONKIN.id,
@@ -22,9 +24,11 @@ const SPELLS_WITH_TRAVEL_TIME = [
 class ConvokeSpirits extends Analyzer {
   static dependencies = {
     abilities: Abilities,
+    activeDruidForm: ActiveDruidForm
   };
 
   protected abilities!: Abilities;
+  protected activeDruidForm!: ActiveDruidForm;
 
   tracking = false;
   spellsToTrack = 16;
@@ -229,6 +233,7 @@ class ConvokeSpirits extends Analyzer {
 
   stopTracking(event: RemoveBuffEvent) {
     this.tracking = false;
+    this.whatHappendIneachConvoke[this.cast].form = this.activeDruidForm.form;
     this.houseKeeping();
   }
 
@@ -326,6 +331,7 @@ class ConvokeSpirits extends Analyzer {
               <thead>
                 <tr>
                   <th>Cast #</th>
+                  <th>Form</th>
                   <th>Spells In Cast</th>
                 </tr>
               </thead>
@@ -334,6 +340,7 @@ class ConvokeSpirits extends Analyzer {
                   this.whatHappendIneachConvoke.map((spellIdToCasts, index) => (
                     <tr key={index}>
                       <th scope="row">{index}</th>
+                      <td>{spellIdToCasts.form}</td>
                       <td>
                         {spellIdToCasts.spellIdToCasts.map((casts, spellId) => (
                           <>
@@ -361,4 +368,5 @@ export default ConvokeSpirits;
 
 export interface ConvokeCast {
   spellIdToCasts: number[];
+  form?: DruidForm;
 }
