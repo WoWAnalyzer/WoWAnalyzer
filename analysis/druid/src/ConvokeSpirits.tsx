@@ -251,6 +251,10 @@ class ConvokeSpirits extends Analyzer {
 
   //just adds to spell to a tracker... yeah i know i could feed them all down to addemUp my default but i don't want something like (event: DamageEvent | ApplyBuffEvent | RefreshBuffEvent... ) deal with it
   addemUp(spellId: number, timestamp: number) {
+    // if Convoke hasn't been casted in this fight, there is nothing to analyzere here. This also fixes crashes resulting from precasting spells, as they don't have a cast Event associated with them
+    if(this.cast === 0) {
+      return;
+    }
 
     let fromConvokeButWeNoticeAfterwards = false;
     //since travel time is the stupidiest thing in the world we have a weird af check
