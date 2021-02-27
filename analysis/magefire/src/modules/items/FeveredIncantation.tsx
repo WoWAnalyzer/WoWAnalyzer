@@ -12,7 +12,7 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { formatPercentage } from 'common/format';
 import HIT_TYPES from 'game/HIT_TYPES';
 
-const DAMAGE_BONUS_PER_STACK = 0.02;
+const DAMAGE_BONUS_PER_STACK = 0.03;
 
 class FeveredIncantation extends Analyzer {
 
