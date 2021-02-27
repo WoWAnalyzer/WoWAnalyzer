@@ -334,7 +334,8 @@ class ConvokeSpirits extends Analyzer {
           <table className="table table-condensed">
               <thead>
                 <tr>
-                  <th>Cast #/form</th>
+                  <th>Cast #</th>
+                  <th>Form</th>
                   <th>Spells In Cast</th>
                 </tr>
               </thead>
@@ -342,7 +343,8 @@ class ConvokeSpirits extends Analyzer {
                 {
                   this.whatHappendIneachConvoke.map((spellIdToCasts, index) => (
                     <tr key={index}>
-                      <th scope="row">{index}/{spellIdToCasts.form}</th>
+                      <th scope="row">{index}</th>
+                      <td>{spellIdToCasts.form}</td>
                       <td>
                         {spellIdToCasts.spellIdToCasts.map((casts, spellId) => (
                           <>
