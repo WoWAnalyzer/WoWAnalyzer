@@ -36,9 +36,9 @@ class InstantPoison extends Analyzer {
     return {
       actual: this.procPercentage,
       isLessThan: {
-        minor: 0.27,
-        average: 0.25,
-        major: 0.2,
+        minor: 0.2,
+        average: 0.15,
+        major: 0.1,
       },
       style: ThresholdStyle.PERCENTAGE,
     }
@@ -65,7 +65,7 @@ class InstantPoison extends Analyzer {
         </>)
         .icon(SPELLS.INSTANT_POISON.icon)
         .actual(<>You procced <SpellLink id={SPELLS.INSTANT_POISON.id} /> on {formatPercentage(this.procPercentage)} % of your melee hits.</>)
-        .recommended(`Unless unlucky, you should have around a 30% proc chance over the fight.`)
+        .recommended(`If your poisons are applied, you should have around a 30% proc chance over the fight.`)
       );
   }
 
