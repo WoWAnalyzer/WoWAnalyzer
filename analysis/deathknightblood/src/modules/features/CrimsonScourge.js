@@ -10,6 +10,7 @@ import Events from 'parser/core/Events';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Statistic from 'parser/ui/Statistic';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 
 const DURATION_WORTH_CASTING_MS = 8000;
 
@@ -22,10 +23,12 @@ class CrimsonScourge extends Analyzer {
   crimsonScourgeProcsCounter = 0;
   freeDeathAndDecayCounter = 0;
   endOfCombatCast = false;
+  
+  DD_ABILITY = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id) ? SPELLS.DEATHS_DUE: SPELLS.DEATH_AND_DECAY;
 
   constructor(options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEATH_AND_DECAY), this.onCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.DD_ABILITY), this.onCast);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.CRIMSON_SCOURGE), this.onApplyBuff);
   }
 
@@ -40,8 +43,8 @@ class CrimsonScourge extends Analyzer {
 
   onApplyBuff(event) {
     this.crimsonScourgeProcsCounter += 1;
-    if (this.spellUsable.isOnCooldown(SPELLS.DEATH_AND_DECAY.id)) {
-      this.spellUsable.endCooldown(SPELLS.DEATH_AND_DECAY.id);
+    if (this.spellUsable.isOnCooldown(this.DD_ABILITY.id)) {
+      this.spellUsable.endCooldown(this.DD_ABILITY.id);
     }
     if (event.timestamp + DURATION_WORTH_CASTING_MS > this.owner.fight.end_time) {
       this.endOfCombatCast = true;

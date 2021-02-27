@@ -148,6 +148,7 @@ class ConvokeSpirits extends Analyzer {
   startTracking(event: ApplyBuffEvent) {
     this.tracking = true;
     this.cast += 1;
+    this.whatHappendIneachConvoke[this.cast] = {spellIdToCasts: []};
   }
 
   newRejuv(event: ApplyBuffEvent | RefreshBuffEvent) {
@@ -273,11 +274,6 @@ class ConvokeSpirits extends Analyzer {
       return;
     }
 
-    //make sure we got this object if not make a new one (cry a little too)
-    if(!this.whatHappendIneachConvoke[this.cast]) {
-      this.whatHappendIneachConvoke[this.cast] = {spellIdToCasts: []};
-    }
-
     //we know it exists
     const oneCast = this.whatHappendIneachConvoke[this.cast];
     if(!oneCast.spellIdToCasts[spellId]) {
@@ -304,7 +300,7 @@ class ConvokeSpirits extends Analyzer {
       return;
     }
 
-    const howManyDidWeCount = this.whatHappendIneachConvoke[this.cast].spellIdToCasts.reduce((previousValue: number, currentValue: number) => previousValue + currentValue);
+    const howManyDidWeCount = this.whatHappendIneachConvoke[this.cast].spellIdToCasts.reduce((previousValue: number, currentValue: number) => previousValue + currentValue, 0);
 
     //this can happen due to a resto druid lego that just randomly adds rejuvs (with no cast event)
     //so lets remove those if possible. if not then ??? sorry fam

@@ -112,6 +112,7 @@
   "demonhunter.vengeance.suggestions.voidReaver.uptime": "{0}% Void Reaver uptime",
   "demonhunter.vengence.suggestions.shearfracture.wastedCasts": "",
   "druid.balance.suggestions.astralPower.overcapped": "{0}% overcapped Astral Power",
+  "druid.balance.suggestions.boat.efficiency": "",
   "druid.balance.suggestions.castsCancelled": "{0}% casts cancelled",
   "druid.balance.suggestions.moonfire.uptime": "{0}% Moonfire uptime",
   "druid.balance.suggestions.starfire.efficiency": "{0} Unempowered Starfires per minute",

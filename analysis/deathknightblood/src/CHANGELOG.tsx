@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { joshinator, Yajinni, Zeboot, LeoZhekov, TrellinXp } from 'CONTRIBUTORS';
+import { joshinator, Yajinni, Zeboot, LeoZhekov, TrellinXp, Pendragon } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2021, 2, 17), <>Fixed issues in modules where <SpellLink id={SPELLS.DEATHS_DUE.id}/> did not correctly replace <SpellLink id={SPELLS.DEATH_AND_DECAY.id} /> </>, Pendragon),
   change(date(2020, 1, 29), <>Fixed Grammar can't and you're</>, TrellinXp),
   change(date(2020, 12, 20), <>Added module for <SpellLink id={SPELLS.SWARMING_MIST.id} /> and added RP gained from <SpellLink id={SPELLS.SUPERSTRAIN.id} /> to statistic damage</>, joshinator),
   change(date(2020, 12, 12), <>Added <SpellLink id={SPELLS.BRYNDAORS_MIGHT.id} /> and <SpellLink id={SPELLS.SUPERSTRAIN.id} /> modules</>, joshinator),

@@ -50,9 +50,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.SHIELD_OF_THE_RIGHTEOUS_BUFF.id,
         isDefensive: true,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        gcd: {
-          static: 1000,
-        },
+        gcd: null,
       },
       { // T15: Holy Shield
         spell: SPELLS.HAMMER_OF_THE_RIGHTEOUS,
@@ -122,9 +120,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.AVENGING_WRATH,
         buffSpellId: SPELLS.AVENGING_WRATH.id,
         category: Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE,
-        gcd: {
-          base: 1500,
-        },
         cooldown: 120,
         // castEfficiency: {
         //   suggestion: true,
@@ -242,7 +237,8 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.REPENTANCE_TALENT.id),
       },
       {
-        spell: SPELLS.FINAL_STAND_CAST,
+        spell: SPELLS.DIVINE_SHIELD,
+        buffSpellId: SPELLS.DIVINE_SHIELD.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 300 * (combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 0.7 : 1),
         castEfficiency: {
