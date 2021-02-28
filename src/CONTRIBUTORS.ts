@@ -131,7 +131,6 @@ export const Bonebasher: Contributor = {
 export const Sharrq: Contributor = {
   nickname: 'Sharrq',
   github: 'Sharrq',
-  discord: 'Sharrq#7530',
   avatar: require('./interface/images/avatars/Sharrq_avatar.jpg'),
   mains: [
     {
@@ -140,17 +139,13 @@ export const Sharrq: Contributor = {
       link: 'https://worldofwarcraft.com/en-us/character/us/bleeding-hollow/sharrq',
     }],
     alts: [{
-      name: 'Maniaq',
-      spec: SPECS.SHADOW_PRIEST,
-      link: 'https://worldofwarcraft.com/en-us/character/us/bleeding-hollow/maniaq',
-    }, {
-      name: 'Requva',
-      spec: SPECS.MISTWEAVER_MONK,
-      link: 'https://worldofwarcraft.com/en-us/character/us/bleeding-hollow/requva',
-    }, {
       name: 'Fraqture',
       spec: SPECS.PROTECTION_PALADIN,
       link: 'https://worldofwarcraft.com/en-us/character/us/bleeding-hollow/fraqture',
+    }, {
+      name: 'Sparrq',
+      spec: SPECS.ELEMENTAL_SHAMAN,
+      link: 'https://worldofwarcraft.com/en-us/character/us/bleeding-hollow/sparrq',
     }],
 };
 export const Khazak: Contributor = {
@@ -626,9 +621,9 @@ export const Matardarix: Contributor = {
   discord: 'Matardarix#9847',
   avatar: require('./interface/images/avatars/matardarix-avatar.jpg'),
   mains: [{
-    name: 'Mâtârdarix',
-    spec: SPECS.ARMS_WARRIOR,
-    link: 'https://worldofwarcraft.com/en-gb/character/hyjal/M%C3%A2t%C3%A2rdarix',
+    name: 'Matärdarix',
+    spec: SPECS.BREWMASTER_MONK,
+    link: 'https://worldofwarcraft.com/en-gb/character/eu/hyjal/Mat%C3%A4rdarix',
   }],
 };
 export const mtblanton: Contributor = {
@@ -1247,4 +1242,90 @@ export const Canotsa: Contributor = {
       link: 'https://worldofwarcraft.com/en-gb/character/eu/draenor/stabdagger',
     },
   ],
+};
+
+export const Maximaw: Contributor = {
+  nickname: 'Maximaw',
+  github: 'defunes43',
+  discord: 'Maximaw#7408',
+  mains: [
+    {
+      name: 'Maximaw',
+      spec: SPECS.ELEMENTAL_SHAMAN,
+      link: 'https://worldofwarcraft.com/fr-fr/character/eu/ysondre/maximaw',
+    },
+  ],
+};
+export const TrellinXp: Contributor = {
+  nickname: 'TrellinXp',
+  github: 'TrellinXp',
+  discord: 'Trellin#2428',
+  mains: [{
+    name: 'Turinus',
+    spec: SPECS.BEAST_MASTERY_HUNTER,
+    link: 'https://worldofwarcraft.com/de-de/character/eu/blackmoore/turinus',
+  }],
+};
+
+export const jasper: Contributor = {
+  nickname: 'jasper',
+  github: 'jasper-priest',
+  discord: 'jasper#6666',
+  avatar: require('./interface/images/avatars/jasper-avatar.png'),
+  mains: [
+    {
+      name: 'Jasper',
+      spec: SPECS.DISCIPLINE_PRIEST,
+      link: 'https://worldofwarcraft.com/en-us/character/us/dreadmaul/Jasper',
+    },
+  ],
+};
+
+export const Ciuffi: Contributor = {
+  nickname: "Ciuffi",
+  github: "Ciuffi",
+  discord: "ciuffi#6794",
+  mains: [
+    {
+      name: "Ciuffi",
+      spec: SPECS.RESTORATION_DRUID,
+      link: 'https://worldofwarcraft.com/en-us/character/us/illidan/ciuffi'
+    }
+  ]
+};
+
+export const Kartarn: Contributor = {
+  nickname: 'Kartarn',
+  github: 'sLaiN1',
+  discord: 'sLaiN#7095',
+  mains: [
+    {
+      name: 'Kartarn',
+      spec: SPECS.BALANCE_DRUID,
+      link: 'https://worldofwarcraft.com/de-de/character/eu/eredar/kartarn',
+    },
+  ],
+};
+
+export const Pendragon: Contributor = {
+  nickname: 'Pendragon',
+  github: 'Pendragon64',
+  discord: 'Pendragon#7845',
+  avatar: require('./interface/images/avatars/pendragon-avatar.jpg'),
+  mains: [{
+    name: 'Larison',
+    spec: SPECS.FROST_DEATH_KNIGHT,
+    link: 'https://worldofwarcraft.com/en-us/character/us/stormrage/larison',
+  }],
+};
+
+export const acornellier: Contributor = {
+  nickname: 'acornellier',
+  github: 'acornellier',
+  discord: 'Ortemis#3934',
+  mains: [{
+    name: 'Ortemis',
+    spec: SPECS.HOLY_PALADIN,
+    link: 'https://worldofwarcraft.com/en-us/character/us/sargeras/ortemis',
+  }],
 };

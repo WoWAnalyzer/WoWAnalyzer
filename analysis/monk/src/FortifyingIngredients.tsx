@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
@@ -15,11 +15,13 @@ class FortifyingIngredients extends Analyzer {
     healingDone: HealingDone,
   };
 
+  protected healingDone!: HealingDone;
+
   /**
    * Whenever you cast fort brew you gain a shield for x% of your hp
    */
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
 
     const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.FORTIFYING_INGREDIENTS.id);
     if (!conduitRank) {

@@ -2,28 +2,28 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import Events from 'parser/core/Events';
-import conduitScaling from 'parser/core/conduitScaling';
+import Events, { HealEvent } from 'parser/core/Events';
 
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import conduitScaling from 'parser/core/conduitScaling';
 
 class HarmDenial extends Analyzer {
-  healingIncrease = 0;
 
+  healingIncrease = 0;
   healingBoost = 0;
   bonusDamage = 0;
 
   /**
    * Expel harm healing is boosted by x%
    */
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
 
     const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.HARM_DENIAL.id);
 
@@ -37,7 +37,7 @@ class HarmDenial extends Analyzer {
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell([SPELLS.EXPEL_HARM, SPELLS.EXPEL_HARM_TARGET_HEAL]), this.extraHealing);
   }
 
-  extraHealing(event) {
+  extraHealing(event: HealEvent) {
     const bonusHealing = calculateEffectiveHealing(event, this.healingBoost) || 0;
     this.healingIncrease += bonusHealing;
     this.bonusDamage += bonusHealing * .1;

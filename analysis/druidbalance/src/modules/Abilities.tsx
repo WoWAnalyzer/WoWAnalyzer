@@ -27,7 +27,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 3,
       },
       {
-        spell: SPELLS.SOLAR_WRATH_MOONKIN,
+        spell: SPELLS.WRATH_MOONKIN,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -35,7 +35,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 4,
       },
       {
-        spell: SPELLS.LUNAR_STRIKE,
+        spell: SPELLS.STARFIRE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -78,9 +78,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         enabled: combatant.hasTalent(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id),
-        gcd: {
-          base: 1500,
-        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
@@ -93,9 +90,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         enabled: !combatant.hasTalent(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id),
-        gcd: {
-          base: 1500,
-        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
@@ -106,7 +100,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.WARRIOR_OF_ELUNE_TALENT,
         buffSpellId: SPELLS.WARRIOR_OF_ELUNE_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 48,
+        cooldown: 45,
         enabled: combatant.hasTalent(SPELLS.WARRIOR_OF_ELUNE_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -144,7 +138,10 @@ class Abilities extends CoreAbilities {
           majorIssueEfficiency: 0.85,
           extraSuggestion: (
             <>
-              Your <SpellLink id={SPELLS.NEW_MOON_TALENT.id} />, <SpellLink id={SPELLS.HALF_MOON.id} /> and <SpellLink id={SPELLS.FULL_MOON.id} /> cast efficiency can be improved, try keeping yourself at low Moon charges at all times; you should (almost) never be at max (3) charges.
+              Your <SpellLink id={SPELLS.NEW_MOON_TALENT.id} />,{' '}
+              <SpellLink id={SPELLS.HALF_MOON.id} /> and <SpellLink id={SPELLS.FULL_MOON.id} /> cast
+              efficiency can be improved, try keeping yourself at low Moon charges at all times; you
+              should (almost) never be at max (3) charges.
             </>
           ),
         },
@@ -173,9 +170,9 @@ class Abilities extends CoreAbilities {
         cooldown: 180,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.70,
-          averageIssueEfficiency: 0.50,
-          majorIssueEfficiency: 0.30,
+          recommendedEfficiency: 0.7,
+          averageIssueEfficiency: 0.5,
+          majorIssueEfficiency: 0.3,
         },
         timelineSortIndex: 12,
       },
@@ -186,7 +183,7 @@ class Abilities extends CoreAbilities {
         cooldown: 60,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.50,
+          recommendedEfficiency: 0.5,
           averageIssueEfficiency: 0.35,
           majorIssueEfficiency: 0.25,
           importance: ISSUE_IMPORTANCE.MINOR,
@@ -212,7 +209,13 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 14,
       },
       {
-        spell: [SPELLS.WILD_CHARGE_TALENT, SPELLS.WILD_CHARGE_MOONKIN, SPELLS.WILD_CHARGE_CAT, SPELLS.WILD_CHARGE_BEAR, SPELLS.WILD_CHARGE_TRAVEL],
+        spell: [
+          SPELLS.WILD_CHARGE_TALENT,
+          SPELLS.WILD_CHARGE_MOONKIN,
+          SPELLS.WILD_CHARGE_CAT,
+          SPELLS.WILD_CHARGE_BEAR,
+          SPELLS.WILD_CHARGE_TRAVEL,
+        ],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 15,
         gcd: null,
@@ -222,7 +225,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MIGHTY_BASH_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 50,
+        cooldown: 60,
         enabled: combatant.hasTalent(SPELLS.MIGHTY_BASH_TALENT.id),
         gcd: {
           base: 1500,
@@ -257,7 +260,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.DASH.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: !combatant.hasTalent(SPELLS.TIGER_DASH_TALENT.id),
-        cooldown: 180,
+        cooldown: 120,
         gcd: {
           base: 1500,
         },
@@ -265,7 +268,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SOLAR_BEAM,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 45,
+        cooldown: 60,
       },
       {
         spell: SPELLS.REMOVE_CORRUPTION,

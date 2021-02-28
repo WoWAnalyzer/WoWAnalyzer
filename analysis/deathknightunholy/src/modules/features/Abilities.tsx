@@ -84,7 +84,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DEATH_AND_DECAY,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        enabled: !combatant.hasTalent(SPELLS.DEFILE_TALENT.id),
+        enabled: !combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && !combatant.hasTalent(SPELLS.DEFILE_TALENT.id),
         cooldown: 30,
         gcd: {
           base: 1500,
@@ -383,7 +383,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.90,
         },
-        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id)  && !combatant.hasTalent(SPELLS.DEFILE_TALENT.id),
       },
       {
         spell: SPELLS.SOULSHAPE,

@@ -1,15 +1,18 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
 
-import { joshinator, Khazak, LeoZhekov } from 'CONTRIBUTORS';
+import { joshinator, Khazak, LeoZhekov, Pendragon } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS'
 import { SpellLink } from 'interface';
 
 export default [
-  change(date(2020, 1, 20), <>Add cooldown reduction tracking for <SpellLink id={SPELLS.CONVOCATION_OF_THE_DEAD.id} /></>, Khazak),
-  change(date(2020, 1, 17), 'Updated Unholy with new example log and flagged for 9.0.2 support', Khazak),
-  change(date(2020, 1, 17), <>Add cooldown reduction tracking for <SpellLink id={SPELLS.ARMY_OF_THE_DAMNED_TALENT.id} /></>, Khazak),
+  change(date(2021, 2, 17), <>Removed <SpellLink id={SPELLS.DEATH_AND_DECAY.id} /> cooldown tracker for Night Fae players</>, Pendragon),
+  change(date(2021, 1, 26), <>Fix issue causing <SpellLink id={SPELLS.SUDDEN_DOOM_BUFF.id} /> procs to be counted as wasted when they should not</>, Khazak),
+  change(date(2021, 1, 24), <>Add module for <SpellLink id={SPELLS.SUDDEN_DOOM_BUFF.id} /></>, Khazak),
+  change(date(2021, 1, 20), <>Add cooldown reduction tracking for <SpellLink id={SPELLS.CONVOCATION_OF_THE_DEAD.id} /></>, Khazak),
+  change(date(2021, 1, 17), 'Updated Unholy with new example log and flagged for 9.0.2 support', Khazak),
+  change(date(2021, 1, 17), <>Add cooldown reduction tracking for <SpellLink id={SPELLS.ARMY_OF_THE_DAMNED_TALENT.id} /></>, Khazak),
   change(date(2020, 12, 29), <>Add <SpellLink id={SPELLS.EPIDEMIC.id} /> to <SpellLink id={SPELLS.SWARMING_MIST.id} /> module and clarifying note to <SpellLink id={SPELLS.SOUL_REAPER_TALENT.id} />.  Also tweaked downtime thresholds slightly to be more generous.</>, Khazak),
   change(date(2020, 12, 20), <>Added module for <SpellLink id={SPELLS.SWARMING_MIST.id} /> and added RP gained from <SpellLink id={SPELLS.SUPERSTRAIN.id} /> to statistic damage</>, joshinator),
   change(date(2020, 12, 17), <>Fix <SpellLink id={SPELLS.SOUL_REAPER_TALENT.id} /> module from showing when it shouldn't and lower suggestion threshold for <SpellLink id={SPELLS.VIRULENT_PLAGUE.id} /></>, Khazak),

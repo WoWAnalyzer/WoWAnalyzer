@@ -1,4 +1,7 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
 
@@ -85,7 +88,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.90,
-          extraSuggestion: 'Mostly used as a dps CD. Should be almost casted on CD. Good to use when your running to the boss or cant melee them.',
+          extraSuggestion: 'Mostly used as a dps CD. Should be almost casted on CD. Good to use when you\'re running to the boss or can\'t melee them.',
         },
         timelineSortIndex: 6,
       },
@@ -111,7 +114,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id),
+        enabled: !combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && combatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id),
         cooldown: 15,
         castEfficiency: {
           suggestion: true,
@@ -126,7 +129,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: !combatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id),
+        enabled: !combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && !combatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id),
         cooldown: 15,
         timelineSortIndex: 5,
       },
@@ -386,7 +389,8 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.80,
+          extraSuggestion: <span>Should be hard-cast without a <SpellLink id={SPELLS.CRIMSON_SCOURGE.id} /> proc in order to maintain the <SpellLink id={SPELLS.DEATHS_DUE_BUFF.id} /> buff</span>
         },
         enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
       },

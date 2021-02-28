@@ -16,7 +16,7 @@ class AstralPowerTracker extends ResourceTracker {
   // Split Warrior of Elune Astral Power bonus into it's own entry.
   onEnergize(event: EnergizeEvent) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.LUNAR_STRIKE.id || !this.selectedCombatant.hasBuff(SPELLS.WARRIOR_OF_ELUNE_TALENT.id)) {
+    if (spellId !== SPELLS.STARFIRE.id || !this.selectedCombatant.hasBuff(SPELLS.WARRIOR_OF_ELUNE_TALENT.id)) {
       super.onEnergize(event);
       return;
     }

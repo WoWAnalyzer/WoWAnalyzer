@@ -11,21 +11,24 @@ import COVENANTS from 'game/shadowlands/COVENANTS';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
 
+import ActiveDruidForm, { DruidForm } from './core/ActiveDruidForm';
+
 const SPELLS_WITH_TRAVEL_TIME = [
   SPELLS.STARSURGE_AFFINITY.id,
   SPELLS.STARSURGE_MOONKIN.id,
   SPELLS.FULL_MOON.id,
-  SPELLS.SOLAR_WRATH.id,
-  SPELLS.SOLAR_WRATH_AFFINITY.id,
-  SPELLS.SOLAR_WRATH_MOONKIN.id,
+  SPELLS.WRATH.id,
+  SPELLS.WRATH_MOONKIN.id,
 ];
 
 class ConvokeSpirits extends Analyzer {
   static dependencies = {
     abilities: Abilities,
+    activeDruidForm: ActiveDruidForm
   };
 
   protected abilities!: Abilities;
+  protected activeDruidForm!: ActiveDruidForm;
 
   tracking = false;
   spellsToTrack = 16;
@@ -86,7 +89,7 @@ class ConvokeSpirits extends Analyzer {
     //half the reason is because its random on which spells get fired and the fact its based on form so zzz
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell([SPELLS.MOONFIRE, SPELLS.MOONFIRE_BEAR, SPELLS.MOONFIRE_FERAL]), this.newMoonfire);
     this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell([SPELLS.MOONFIRE, SPELLS.MOONFIRE_BEAR, SPELLS.MOONFIRE_FERAL]), this.newMoonfire);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.SOLAR_WRATH, SPELLS.SOLAR_WRATH_AFFINITY, SPELLS.SOLAR_WRATH_MOONKIN]), this.newWrath);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.WRATH, SPELLS.WRATH_MOONKIN]), this.newWrath);
 
     //Balance stuff deal with it. idk which one it will be (it should be solar wrath moonkin but like edge cases)
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.STARSURGE_AFFINITY, SPELLS.STARSURGE_MOONKIN]), this.newStarSurge);
@@ -137,7 +140,7 @@ class ConvokeSpirits extends Analyzer {
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.CONVOKE_SPIRITS), this.stopTracking);
 
     //for travel time bs
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.SOLAR_WRATH, SPELLS.SOLAR_WRATH_AFFINITY, SPELLS.SOLAR_WRATH_MOONKIN]), this.wrathCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.WRATH, SPELLS.WRATH_MOONKIN]), this.wrathCast);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.STARSURGE_AFFINITY, SPELLS.STARSURGE_MOONKIN]), this.starsurgeCast);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FULL_MOON), this.fullMoonCast);
   }
@@ -145,6 +148,7 @@ class ConvokeSpirits extends Analyzer {
   startTracking(event: ApplyBuffEvent) {
     this.tracking = true;
     this.cast += 1;
+    this.whatHappendIneachConvoke[this.cast] = {spellIdToCasts: []};
   }
 
   newRejuv(event: ApplyBuffEvent | RefreshBuffEvent) {
@@ -229,6 +233,7 @@ class ConvokeSpirits extends Analyzer {
 
   stopTracking(event: RemoveBuffEvent) {
     this.tracking = false;
+    this.whatHappendIneachConvoke[this.cast].form = this.activeDruidForm.form;
     this.houseKeeping();
   }
 
@@ -269,11 +274,6 @@ class ConvokeSpirits extends Analyzer {
       return;
     }
 
-    //make sure we got this object if not make a new one (cry a little too)
-    if(!this.whatHappendIneachConvoke[this.cast]) {
-      this.whatHappendIneachConvoke[this.cast] = {spellIdToCasts: []};
-    }
-
     //we know it exists
     const oneCast = this.whatHappendIneachConvoke[this.cast];
     if(!oneCast.spellIdToCasts[spellId]) {
@@ -300,7 +300,7 @@ class ConvokeSpirits extends Analyzer {
       return;
     }
 
-    const howManyDidWeCount = this.whatHappendIneachConvoke[this.cast].spellIdToCasts.reduce((previousValue: number, currentValue: number) => previousValue + currentValue);
+    const howManyDidWeCount = this.whatHappendIneachConvoke[this.cast].spellIdToCasts.reduce((previousValue: number, currentValue: number) => previousValue + currentValue, 0);
 
     //this can happen due to a resto druid lego that just randomly adds rejuvs (with no cast event)
     //so lets remove those if possible. if not then ??? sorry fam
@@ -331,6 +331,7 @@ class ConvokeSpirits extends Analyzer {
               <thead>
                 <tr>
                   <th>Cast #</th>
+                  <th>Form</th>
                   <th>Spells In Cast</th>
                 </tr>
               </thead>
@@ -339,6 +340,7 @@ class ConvokeSpirits extends Analyzer {
                   this.whatHappendIneachConvoke.map((spellIdToCasts, index) => (
                     <tr key={index}>
                       <th scope="row">{index}</th>
+                      <td>{spellIdToCasts.form}</td>
                       <td>
                         {spellIdToCasts.spellIdToCasts.map((casts, spellId) => (
                           <>
@@ -366,4 +368,5 @@ export default ConvokeSpirits;
 
 export interface ConvokeCast {
   spellIdToCasts: number[];
+  form?: DruidForm;
 }

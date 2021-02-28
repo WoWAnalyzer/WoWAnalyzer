@@ -291,6 +291,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 30,
+        enabled: !combatant.hasCovenant(COVENANTS.NIGHT_FAE.id)
       },
       {
         spell: SPELLS.DEATH_COIL,

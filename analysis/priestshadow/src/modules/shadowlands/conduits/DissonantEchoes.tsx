@@ -17,6 +17,8 @@ import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import ConduitSpellText from 'parser/ui/ConduitSpellText';
 
 import { DISSONANT_ECHOES_DAMAGE_INCREASE } from '@wowanalyzer/priest-shadow/src/constants';
+import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import { formatNumber } from 'common/format';
 
 class DissonantEchoes extends Analyzer {
   static dependencies = {
@@ -52,8 +54,7 @@ class DissonantEchoes extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    const raw = event.amount + (event.absorbed || 0);
-    this.damage += raw - (raw / DISSONANT_ECHOES_DAMAGE_INCREASE);
+    this.damage += calculateEffectiveDamage(event, DISSONANT_ECHOES_DAMAGE_INCREASE);
   }
 
   onBuffApplied() {
@@ -101,7 +102,10 @@ class DissonantEchoes extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={(
           <>
-            <Trans id="priest.shadow.conduits.dissonantEchoes.tooltip">You used {this.procsUsed} out of the {this.procsGained} procs gained.</Trans>
+            <Trans id="priest.shadow.conduits.dissonantEchoes.tooltip">
+              You used {this.procsUsed} out of the {this.procsGained} procs gained.<br/><br/>
+              Total damage: {formatNumber(this.damage)}
+            </Trans>
           </>
         )}
       >
