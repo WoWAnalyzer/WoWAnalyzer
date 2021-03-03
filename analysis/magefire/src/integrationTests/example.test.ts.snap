@@ -34,7 +34,7 @@ exports[`Fire Mage integration test: example log AlwaysBeCasting matches the sta
         <div
           className="value"
         >
-          36.51 %
+          38.03 %
         </div>
         <div
           style={
@@ -53,7 +53,7 @@ exports[`Fire Mage integration test: example log AlwaysBeCasting matches the sta
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "63.48952252141561%",
+                  "width": "61.97193795418815%",
                 }
               }
             >
@@ -117,7 +117,7 @@ Array [
         message="{0}% downtime"
         values={
           Object {
-            "0": "36.51",
+            "0": "38.03",
           }
         }
       />
@@ -148,7 +148,7 @@ Array [
         id={1459}
       />
        was up for 
-      99.99
+      97.60
       % of the fight. Ensure you are casting this before the pull and recasting it every time you are ressurected.
     </React.Fragment>,
     "stat": <React.Fragment>
@@ -157,7 +157,7 @@ Array [
         message="{0}% Uptime"
         values={
           Object {
-            "0": "99.99",
+            "0": "97.60",
           }
         }
       />
@@ -435,7 +435,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              4.34
+              4.24
             </td>
             <td
               className="text-right"
@@ -607,7 +607,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              13.50
+              13.18
             </td>
             <td
               className="text-right"
@@ -693,7 +693,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              4.50
+              4.39
             </td>
             <td
               className="text-right"
@@ -779,7 +779,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              2.09
+              2.04
             </td>
             <td
               className="text-right"
@@ -790,7 +790,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               13
-              /19
+              /20
                
               casts
             </td>
@@ -809,7 +809,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "77.01972508646301%",
+                      "width": "75.178729257208%",
                     }
                   }
                 />
@@ -824,7 +824,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              77.02%
+              75.18%
             </td>
             <td
               style={
@@ -882,7 +882,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              7.23
+              7.06
             </td>
             <td
               className="text-right"
@@ -893,7 +893,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               45
-              /53
+              /54
                
               casts
             </td>
@@ -912,7 +912,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "89.4492352945904%",
+                      "width": "87.31113795754428%",
                     }
                   }
                 />
@@ -927,7 +927,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              89.45%
+              87.31%
             </td>
             <td
               style={
@@ -1140,7 +1140,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               0
-              /21
+              /22
                
               casts
             </td>
@@ -1469,7 +1469,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              0.64
+              0.63
             </td>
             <td
               className="text-right"
@@ -1499,7 +1499,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "94.04175406731122%",
+                      "width": "94.1841735046624%",
                     }
                   }
                 />
@@ -1514,7 +1514,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              94.04%
+              94.18%
             </td>
             <td
               style={
@@ -1567,7 +1567,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              0.64
+              0.63
             </td>
             <td
               className="text-right"
@@ -1597,7 +1597,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "42.2502082881261%",
+                      "width": "41.24030521256623%",
                     }
                   }
                 />
@@ -1612,7 +1612,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              42.25%
+              41.24%
             </td>
             <td
               style={
@@ -1670,7 +1670,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              0.64
+              0.63
             </td>
             <td
               className="text-right"
@@ -1700,7 +1700,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "64.29472702869955%",
+                      "width": "62.75789572775625%",
                     }
                   }
                 />
@@ -1715,7 +1715,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              64.29%
+              62.76%
             </td>
             <td
               style={
@@ -1831,7 +1831,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              1.13
+              1.10
             </td>
             <td
               className="text-right"
@@ -1842,7 +1842,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               7
-              /16
+              /17
                
               casts
             </td>
@@ -1861,7 +1861,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "44.202624832230946%",
+                      "width": "43.14605331283242%",
                     }
                   }
                 />
@@ -1876,7 +1876,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              44.20%
+              43.15%
             </td>
             <td
               style={
@@ -1959,7 +1959,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "7.654823042158589%",
+                      "width": "9.862141822384697%",
                     }
                   }
                 />
@@ -1974,7 +1974,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              7.65%
+              9.86%
             </td>
             <td
               style={
@@ -2057,7 +2057,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "5.680439132985606%",
+                      "width": "7.934951441078181%",
                     }
                   }
                 />
@@ -2072,7 +2072,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              5.68%
+              7.93%
             </td>
             <td
               style={
@@ -2367,7 +2367,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              1.45
+              1.41
             </td>
             <td
               className="text-right"
@@ -2378,7 +2378,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               9
-              /18
+              /19
                
               casts
             </td>
@@ -2397,7 +2397,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "53.444991842606505%",
+                      "width": "52.167500823697374%",
                     }
                   }
                 />
@@ -2412,7 +2412,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              53.44%
+              52.17%
             </td>
             <td
               style={
@@ -2574,7 +2574,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               0
-              /47
+              /48
                
               casts
             </td>
@@ -3436,8 +3436,8 @@ Array [
         values={
           Object {
             "0": 13,
-            "1": 19,
-            "2": "77",
+            "1": 20,
+            "2": "75",
           }
         }
       />
@@ -3480,8 +3480,8 @@ Array [
         values={
           Object {
             "0": 45,
-            "1": 53,
-            "2": "89",
+            "1": 54,
+            "2": "87",
           }
         }
       />
@@ -3525,7 +3525,7 @@ Array [
           Object {
             "0": 4,
             "1": 10,
-            "2": "42",
+            "2": "41",
           }
         }
       />
@@ -3569,7 +3569,7 @@ Array [
           Object {
             "0": 4,
             "1": 7,
-            "2": "64",
+            "2": "63",
           }
         }
       />
@@ -3795,7 +3795,7 @@ Array [
     "importance": "major",
     "issue": <React.Fragment>
       You died during this fight and were dead for 
-      2.45
+      2.39
       % of the fight duration (
       9
        seconds). Dying has a significant performance cost. View the 
@@ -3812,7 +3812,7 @@ Array [
         message="You were dead for {0}% of the fight"
         values={
           Object {
-            "0": "2.45",
+            "0": "2.39",
           }
         }
       />
@@ -3861,7 +3861,7 @@ exports[`Fire Mage integration test: example log DistanceMoved matches the stati
             }
           >
             ≈ 
-            59.73
+            58.30
             %
           </small>
         </div>
@@ -4475,7 +4475,7 @@ exports[`Fire Mage integration test: example log InfernalCascade matches the sta
             src="/img/sword.png"
           />
            
-          152
+          148
            DPS
            
           <small>
@@ -4685,12 +4685,12 @@ Array [
   Object {
     "details": null,
     "icon": "artifactability_firemage_phoenixbolt",
-    "importance": "major",
+    "importance": "regular",
     "issue": <React.Fragment>
       You spent 
       75
       s (
-      20.10
+      19.62
       % of the fight) capped on 
       <ForwardRef
         id={257541}
@@ -4711,7 +4711,7 @@ Array [
         message="{0}% of fight capped on charges"
         values={
           Object {
-            "0": "20.10",
+            "0": "19.62",
           }
         }
       />
@@ -5192,7 +5192,7 @@ exports[`Fire Mage integration test: example log ThroughputStatisticGroup matche
               }
             }
           >
-            2,553
+            2,492
              DPS
           </div>
           <div
@@ -5281,7 +5281,7 @@ exports[`Fire Mage integration test: example log ThroughputStatisticGroup matche
               }
             }
           >
-            197
+            192
              HPS
           </div>
           <div
@@ -5375,7 +5375,7 @@ exports[`Fire Mage integration test: example log ThroughputStatisticGroup matche
               }
             }
           >
-            838
+            817
              DTPS
           </div>
           <div
@@ -5460,7 +5460,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#df7102",
-                  "width": "44.229262350193686%",
+                  "width": "43.94048768682983%",
                 }
               }
             />
@@ -5598,7 +5598,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  63.49%
+                  61.97%
                    
                    
                 </div>
@@ -5620,7 +5620,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "24.16229828529303%",
+                        "width": "23.58474895856532%",
                       }
                     }
                   />
@@ -5930,7 +5930,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  94.04%
+                  94.18%
                    
                    
                 </div>
@@ -6530,7 +6530,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "75.30098259653019%",
+                  "width": "75.39693850088284%",
                 }
               }
             />
@@ -6945,7 +6945,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "83.94239192458228%",
+                        "width": "84.32621554199288%",
                       }
                     }
                   />
@@ -7163,7 +7163,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#ffc84a",
-                  "width": "64.34778661007057%",
+                  "width": "57.943673611873805%",
                 }
               }
             />
@@ -7270,7 +7270,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  89.45%
+                  87.31%
                    
                    
                 </div>
@@ -7292,7 +7292,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "96.23190706197207%",
+                        "width": "81.99217879724493%",
                       }
                     }
                   />
@@ -7344,7 +7344,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  77.02%
+                  75.18%
                    
                    
                 </div>
@@ -7366,7 +7366,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "40.025684537921826%",
+                        "width": "33.89516842650268%",
                       }
                     }
                   />
@@ -7418,7 +7418,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  42.25%
+                  41.24%
                    
                    
                 </div>
@@ -7440,7 +7440,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "18.75909247992799%",
+                        "width": "18.310695514379404%",
                       }
                     }
                   />
@@ -7492,7 +7492,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  64.29%
+                  62.76%
                    
                    
                 </div>
@@ -7514,7 +7514,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "28.54685880074261%",
+                        "width": "27.864505703123776%",
                       }
                     }
                   />
@@ -7915,7 +7915,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "90.2676602657694%",
+                  "width": "89.60439706223319%",
                 }
               }
             />
@@ -8723,7 +8723,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  99.99%
+                  97.60%
                    
                    
                 </div>
@@ -8745,7 +8745,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                       Object {
                         "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "99.87858985589943%",
+                        "width": "91.91943141346472%",
                       }
                     }
                   />

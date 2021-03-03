@@ -244,7 +244,7 @@ class CombatLogParser {
   //Disabled Modules
   disabledModules!: { [state in ModuleError]: any[] };
 
-  adjustForDowntime = true;
+  adjustForDowntime = false;
   get hasDowntime() {
     return this.getModule(TotalDowntime).totalBaseDowntime > 0;
   }

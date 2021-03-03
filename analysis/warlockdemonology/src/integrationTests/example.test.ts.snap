@@ -34,7 +34,7 @@ exports[`Demonology Warlock integration test: example log AlwaysBeCasting matche
         <div
           className="value"
         >
-          25.41 %
+          49.86 %
         </div>
         <div
           style={
@@ -53,7 +53,7 @@ exports[`Demonology Warlock integration test: example log AlwaysBeCasting matche
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "74.5907170921509%",
+                  "width": "50.13804849917523%",
                 }
               }
             >
@@ -103,7 +103,7 @@ Array [
   Object {
     "details": null,
     "icon": "spell_mage_altertime",
-    "importance": "regular",
+    "importance": "major",
     "issue": <React.Fragment>
       Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. Even if you have to move, try casting something instant. Make good use of your 
       <ForwardRef
@@ -116,7 +116,7 @@ Array [
        when you can.
     </React.Fragment>,
     "stat": <React.Fragment>
-      {"id":"warlock.demonology.suggestions.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"25.41"}}
+      {"id":"warlock.demonology.suggestions.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"49.86"}}
        (
       &lt;10.00% is recommended
       )
@@ -276,7 +276,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
                 }
               }
             >
-              2.46
+              1.65
             </td>
             <td
               className="text-right"
@@ -287,7 +287,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               8
-              /11
+              /16
                
               casts
             </td>
@@ -306,7 +306,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "76.61978220396688%",
+                      "width": "53.294153961538896%",
                     }
                   }
                 />
@@ -321,7 +321,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
                 }
               }
             >
-              76.62%
+              53.29%
             </td>
             <td
               style={
@@ -379,7 +379,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
                 }
               }
             >
-              15.36
+              10.33
             </td>
             <td
               className="text-right"
@@ -465,7 +465,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
                 }
               }
             >
-              9.53
+              6.40
             </td>
             <td
               className="text-right"
@@ -637,7 +637,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
                 }
               }
             >
-              4.30
+              2.89
             </td>
             <td
               className="text-right"
@@ -648,7 +648,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               14
-              /20
+              /30
                
               casts
             </td>
@@ -667,7 +667,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "70.34816815019713%",
+                      "width": "47.567348006581625%",
                     }
                   }
                 />
@@ -682,7 +682,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
                 }
               }
             >
-              70.35%
+              47.57%
             </td>
             <td
               style={
@@ -740,7 +740,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
                 }
               }
             >
-              10.45
+              7.02
             </td>
             <td
               className="text-right"
@@ -1028,7 +1028,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
                 }
               }
             >
-              0.92
+              0.62
             </td>
             <td
               className="text-right"
@@ -1039,7 +1039,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               3
-              /3
+              /4
                
               casts
             </td>
@@ -1057,8 +1057,8 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#70b570",
-                      "width": "102.05475126021443%",
+                      "backgroundColor": "#ff8000",
+                      "width": "83.96212126427682%",
                     }
                   }
                 />
@@ -1073,7 +1073,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
                 }
               }
             >
-              102.05%
+              83.96%
             </td>
             <td
               style={
@@ -1082,7 +1082,12 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
                   "width": "25%",
                 }
               }
-            />
+            >
+              <trans
+                id="shared.castEfficiency.canBeImproved"
+                message="Can be improved."
+              />
+            </td>
           </tr>
           <tr>
             <td
@@ -1126,7 +1131,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
                 }
               }
             >
-              0.92
+              0.62
             </td>
             <td
               className="text-right"
@@ -1137,7 +1142,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               3
-              /4
+              /5
                
               casts
             </td>
@@ -1156,7 +1161,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "75.21854243589678%",
+                      "width": "61.960854509029076%",
                     }
                   }
                 />
@@ -1171,7 +1176,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
                 }
               }
             >
-              75.22%
+              61.96%
             </td>
             <td
               style={
@@ -1534,7 +1539,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
                 }
               }
             >
-              1.54
+              1.03
             </td>
             <td
               className="text-right"
@@ -1620,7 +1625,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
                 }
               }
             >
-              0.61
+              0.41
             </td>
             <td
               className="text-right"
@@ -1631,7 +1636,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               2
-              /5
+              /7
                
               casts
             </td>
@@ -1650,7 +1655,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "25.73705260893835%",
+                      "width": "30.980427254514538%",
                     }
                   }
                 />
@@ -1665,7 +1670,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
                 }
               }
             >
-              25.74%
+              30.98%
             </td>
             <td
               style={
@@ -1729,7 +1734,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               0
-              /20
+              /30
                
               casts
             </td>
@@ -1827,7 +1832,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               0
-              /7
+              /10
                
               casts
             </td>
@@ -2011,7 +2016,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               0
-              /20
+              /30
                
               casts
             </td>
@@ -2281,7 +2286,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               0
-              /2
+              /3
                
               casts
             </td>
@@ -3067,7 +3072,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
               }
             >
               0
-              /4
+              /5
                
               casts
             </td>
@@ -3562,7 +3567,7 @@ Array [
   Object {
     "details": null,
     "icon": "spell_warlock_calldreadstalkers",
-    "importance": "regular",
+    "importance": "major",
     "issue": <React.Fragment>
       <Trans
         components={
@@ -3585,8 +3590,8 @@ Array [
         values={
           Object {
             "0": 8,
-            "1": 11,
-            "2": "77",
+            "1": 16,
+            "2": "53",
           }
         }
       />
@@ -3629,8 +3634,52 @@ Array [
         values={
           Object {
             "0": 14,
-            "1": 20,
-            "2": "70",
+            "1": 30,
+            "2": "48",
+          }
+        }
+      />
+       (
+      <Trans
+        id="shared.modules.castEfficiency.recommended"
+        message=">{0}% is recommended"
+        values={
+          Object {
+            "0": "90",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
+  Object {
+    "details": null,
+    "icon": "inv_summondemonictyrant",
+    "importance": "regular",
+    "issue": <React.Fragment>
+      <Trans
+        components={
+          Object {
+            "0": <ForwardRef
+              id={265187}
+            />,
+          }
+        }
+        id="shared.modules.castEfficiency.suggest"
+        message="Try to cast <0/> more often."
+      />
+       
+      
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      <Trans
+        id="shared.modules.castEfficiency.actual"
+        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
+        values={
+          Object {
+            "0": 3,
+            "1": 4,
+            "2": "84",
           }
         }
       />
@@ -3650,7 +3699,7 @@ Array [
   Object {
     "details": null,
     "icon": "ability_warlock_demonicempowerment",
-    "importance": "regular",
+    "importance": "major",
     "issue": <React.Fragment>
       <Trans
         components={
@@ -3673,8 +3722,8 @@ Array [
         values={
           Object {
             "0": 3,
-            "1": 4,
-            "2": "75",
+            "1": 5,
+            "2": "62",
           }
         }
       />
@@ -3746,7 +3795,7 @@ Array [
     "importance": "major",
     "issue": <React.Fragment>
       You died during this fight and were dead for 
-      48.77
+      32.78
       % of the fight duration (
       95
        seconds). Dying has a significant performance cost. View the 
@@ -3763,7 +3812,7 @@ Array [
         message="You were dead for {0}% of the fight"
         values={
           Object {
-            "0": "48.77",
+            "0": "32.78",
           }
         }
       />
@@ -3876,7 +3925,7 @@ exports[`Demonology Warlock integration test: example log DemonicConsumption mat
             src="/img/sword.png"
           />
            
-          5,091
+          3,422
            DPS
            
           <small>
@@ -3953,7 +4002,7 @@ exports[`Demonology Warlock integration test: example log DemonicStrength matche
             src="/img/sword.png"
           />
            
-          2,353
+          1,582
            DPS
            
           <small>
@@ -4018,7 +4067,7 @@ exports[`Demonology Warlock integration test: example log DistanceMoved matches 
             }
           >
             ≈ 
-            31.90
+            21.44
             %
           </small>
         </div>
@@ -4342,6 +4391,29 @@ Array [
 ]
 `;
 
+exports[`Demonology Warlock integration test: example log Felstorm matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "ability_warrior_bladestorm",
+    "importance": "regular",
+    "issue": <React.Fragment>
+      You should use your Felguard's 
+      <ForwardRef
+        id={89751}
+      />
+       more often, preferably on cooldown.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      {"id":"warlock.demonology.suggestions.felstorm.casts","message":"{0} out of {1} ({2} %) Felstorm casts.","values":{"0":7,"1":10,"2":"70.00"}}
+       (
+      &gt; 90.00 % is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
 exports[`Demonology Warlock integration test: example log FlaskChecker matches the suggestions snapshot 1`] = `
 Array [
   Object {
@@ -4412,7 +4484,7 @@ exports[`Demonology Warlock integration test: example log LegionStrike matches t
             src="/img/sword.png"
           />
            
-          3,694
+          2,483
            DPS
            
           <small>
@@ -4608,10 +4680,10 @@ Array [
   Object {
     "details": null,
     "icon": "inv_misc_gem_amethyst_02",
-    "importance": "regular",
+    "importance": "minor",
     "issue": "You are wasting Soul Shards. Try to use them and not let them cap and go to waste unless you're preparing for bursting adds etc.",
     "stat": <React.Fragment>
-      {"id":"warlock.demonology.suggestions.soulShards.wastedPerMinutes","message":"{shardsWasted} Soul Shards wasted ({0} per minute)","values":{"0":"2.46","shardsWasted":8}}
+      {"id":"warlock.demonology.suggestions.soulShards.wastedPerMinutes","message":"{shardsWasted} Soul Shards wasted ({0} per minute)","values":{"0":"1.65","shardsWasted":8}}
        (
       &lt; 0.50 Soul Shards per minute wasted are recommended
       )
@@ -4666,7 +4738,7 @@ exports[`Demonology Warlock integration test: example log SoulStrike matches the
             src="/img/sword.png"
           />
            
-          1,620
+          1,089
            DPS
            
           <small>
@@ -4846,7 +4918,7 @@ exports[`Demonology Warlock integration test: example log ThroughputStatisticGro
               }
             }
           >
-            68,400
+            45,977
              DPS
           </div>
           <div
@@ -4935,7 +5007,7 @@ exports[`Demonology Warlock integration test: example log ThroughputStatisticGro
               }
             }
           >
-            14,220
+            9,558
              HPS
           </div>
           <div
@@ -5029,7 +5101,7 @@ exports[`Demonology Warlock integration test: example log ThroughputStatisticGro
               }
             }
           >
-            42,396
+            28,498
              DTPS
           </div>
           <div
@@ -5169,8 +5241,8 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#df7102",
-                  "width": "38.69387473920971%",
+                  "backgroundColor": "#ac1f39",
+                  "width": "23.66260435892327%",
                 }
               }
             />
@@ -5306,7 +5378,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  76.62%
+                  53.29%
                    
                    
                 </div>
@@ -5326,9 +5398,9 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#df7102",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "38.69387473920971%",
+                        "width": "23.66260435892327%",
                       }
                     }
                   />
@@ -5379,7 +5451,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  100.00%
+                  70.00%
                    
                    
                 </div>
@@ -5399,9 +5471,9 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "33.300000000000004%",
                       }
                     }
                   />
@@ -5452,7 +5524,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  70.35%
+                  47.57%
                    
                    
                 </div>
@@ -5474,7 +5546,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "31.234586658687526%",
+                        "width": "21.119902514922238%",
                       }
                     }
                   />
@@ -5487,7 +5559,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
     </div>
   </li>
   <li
-    className="expandable expanded failed"
+    className="expandable  passed"
   >
     <div
       className="meta"
@@ -5511,8 +5583,8 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ffc84a",
-                  "width": "50.786716409502695%",
+                  "backgroundColor": "#a6c34c",
+                  "width": "67.11036673941331%",
                 }
               }
             />
@@ -5633,9 +5705,9 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ffc84a",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "50.786716409502695%",
+                        "width": "67.11036673941331%",
                       }
                     }
                   />
@@ -5648,7 +5720,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
     </div>
   </li>
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -5672,8 +5744,8 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "67.01387315576814%",
+                  "backgroundColor": "#df7102",
+                  "width": "45.32724160602536%",
                 }
               }
             />
@@ -5779,7 +5851,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  100.00%
+                  83.96%
                    
                    
                 </div>
@@ -5799,9 +5871,9 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "63.1438638100418%",
                       }
                     }
                   />
@@ -5852,7 +5924,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  75.22%
+                  61.96%
                    
                    
                 </div>
@@ -5872,9 +5944,9 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#df7102",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "34.0277463115363%",
+                        "width": "27.510619402008913%",
                       }
                     }
                   />
@@ -6227,8 +6299,8 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#df7102",
-                  "width": "48.58708791686248%",
+                  "backgroundColor": "#ac1f39",
+                  "width": "20.03531690859463%",
                 }
               }
             />
@@ -6381,7 +6453,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  25.41%
+                  49.86%
                    
                    
                 </div>
@@ -6401,9 +6473,9 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#df7102",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "48.58708791686248%",
+                        "width": "20.03531690859463%",
                       }
                     }
                   />

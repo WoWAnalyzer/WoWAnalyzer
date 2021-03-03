@@ -5,7 +5,7 @@ Array [
   Object {
     "details": null,
     "icon": "spell_mage_altertime",
-    "importance": "minor",
+    "importance": "major",
     "issue": <span>
       Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. If a fight requires movement, try saving 
       <ForwardRef
@@ -23,7 +23,7 @@ Array [
         message="{0}% downtime"
         values={
           Object {
-            "0": "34.93",
+            "0": "45.08",
           }
         }
       />
@@ -194,13 +194,13 @@ Array [
   Object {
     "details": null,
     "icon": "spell_holy_magicalsentry",
-    "importance": "minor",
+    "importance": "regular",
     "issue": <React.Fragment>
       <ForwardRef
         id={1459}
       />
        was up for 
-      99.99
+      84.39
       % of the fight. Ensure you are casting this before the pull and recasting it every time you are ressurected.
     </React.Fragment>,
     "stat": <React.Fragment>
@@ -209,7 +209,7 @@ Array [
         message="{0}% Uptime"
         values={
           Object {
-            "0": "99.99",
+            "0": "84.39",
           }
         }
       />
@@ -826,7 +826,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              13.46
+              11.36
             </td>
             <td
               className="text-right"
@@ -1009,7 +1009,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               0
-              /26
+              /31
                
               casts
             </td>
@@ -1096,7 +1096,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              3.93
+              3.32
             </td>
             <td
               className="text-right"
@@ -1182,7 +1182,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              1.24
+              1.05
             </td>
             <td
               className="text-right"
@@ -1354,7 +1354,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              1.04
+              0.87
             </td>
             <td
               className="text-right"
@@ -1365,7 +1365,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               5
-              /7
+              /8
                
               casts
             </td>
@@ -1384,7 +1384,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "76.18439535180693%",
+                      "width": "64.29984182976455%",
                     }
                   }
                 />
@@ -1399,7 +1399,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              76.18%
+              64.30%
             </td>
             <td
               style={
@@ -1510,7 +1510,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              0.83
+              0.70
             </td>
             <td
               className="text-right"
@@ -1521,7 +1521,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               4
-              /15
+              /18
                
               casts
             </td>
@@ -1540,7 +1540,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "27.610294498303695%",
+                      "width": "23.303165443735963%",
                     }
                   }
                 />
@@ -1555,7 +1555,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              27.61%
+              23.30%
             </td>
             <td
               style={
@@ -1671,7 +1671,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              0.21
+              0.17
             </td>
             <td
               className="text-right"
@@ -1682,7 +1682,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               1
-              /1
+              /2
                
               casts
             </td>
@@ -1701,7 +1701,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "46.0436173627337%",
+                      "width": "54.46066280028313%",
                     }
                   }
                 />
@@ -1716,7 +1716,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              46.04%
+              54.46%
             </td>
             <td
               style={
@@ -1769,7 +1769,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              0.41
+              0.35
             </td>
             <td
               className="text-right"
@@ -1780,7 +1780,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               2
-              /3
+              /4
                
               casts
             </td>
@@ -1799,7 +1799,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "75.92830987033516%",
+                      "width": "64.0837049702739%",
                     }
                   }
                 />
@@ -1814,7 +1814,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              75.93%
+              64.08%
             </td>
             <td
               style={
@@ -1872,7 +1872,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              0.41
+              0.35
             </td>
             <td
               className="text-right"
@@ -1883,7 +1883,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               2
-              /4
+              /5
                
               casts
             </td>
@@ -1902,7 +1902,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "55.22058899660739%",
+                      "width": "46.60633088747193%",
                     }
                   }
                 />
@@ -1917,7 +1917,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              55.22%
+              46.61%
             </td>
             <td
               style={
@@ -1975,7 +1975,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              0.62
+              0.52
             </td>
             <td
               className="text-right"
@@ -1986,7 +1986,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               3
-              /6
+              /7
                
               casts
             </td>
@@ -2005,7 +2005,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "58.671875808895344%",
+                      "width": "49.51922656793892%",
                     }
                   }
                 />
@@ -2020,7 +2020,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              58.67%
+              49.52%
             </td>
             <td
               style={
@@ -2073,7 +2073,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              0.41
+              0.35
             </td>
             <td
               className="text-right"
@@ -2084,7 +2084,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               2
-              /9
+              /10
                
               casts
             </td>
@@ -2103,7 +2103,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "24.926228744387345%",
+                      "width": "21.03780647303678%",
                     }
                   }
                 />
@@ -2118,7 +2118,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              24.93%
+              21.04%
             </td>
             <td
               style={
@@ -2176,7 +2176,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              0.41
+              0.35
             </td>
             <td
               className="text-right"
@@ -2187,7 +2187,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               2
-              /5
+              /6
                
               casts
             </td>
@@ -2206,7 +2206,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "41.41544174745554%",
+                      "width": "34.954748165603945%",
                     }
                   }
                 />
@@ -2221,7 +2221,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              41.42%
+              34.95%
             </td>
             <td
               style={
@@ -2337,7 +2337,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              0.83
+              0.70
             </td>
             <td
               className="text-right"
@@ -2348,7 +2348,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               4
-              /12
+              /14
                
               casts
             </td>
@@ -2367,7 +2367,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "43.14108515359952%",
+                      "width": "36.41119600583744%",
                     }
                   }
                 />
@@ -2382,7 +2382,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              43.14%
+              36.41%
             </td>
             <td
               style={
@@ -2435,7 +2435,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              0.21
+              0.17
             </td>
             <td
               className="text-right"
@@ -2465,7 +2465,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "3.557586446106431%",
+                      "width": "18.602334394598326%",
                     }
                   }
                 />
@@ -2480,7 +2480,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              3.56%
+              18.60%
             </td>
             <td
               style={
@@ -2786,7 +2786,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               0
-              /10
+              /12
                
               casts
             </td>
@@ -2959,7 +2959,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              1.86
+              1.57
             </td>
             <td
               className="text-right"
@@ -2970,7 +2970,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               9
-              /15
+              /18
                
               casts
             </td>
@@ -2989,7 +2989,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "64.75653280659027%",
+                      "width": "55.81108123774763%",
                     }
                   }
                 />
@@ -3004,7 +3004,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              64.76%
+              55.81%
             </td>
             <td
               style={
@@ -3068,7 +3068,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               0
-              /13
+              /15
                
               casts
             </td>
@@ -3166,7 +3166,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
               }
             >
               0
-              /37
+              /43
                
               casts
             </td>
@@ -3511,7 +3511,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                 }
               }
             >
-              0.21
+              0.17
             </td>
             <td
               className="text-right"
@@ -4028,8 +4028,8 @@ Array [
         values={
           Object {
             "0": 4,
-            "1": 15,
-            "2": "28",
+            "1": 18,
+            "2": "23",
           }
         }
       />
@@ -4049,7 +4049,7 @@ Array [
   Object {
     "details": null,
     "icon": "spell_nature_lightning",
-    "importance": "regular",
+    "importance": "major",
     "issue": <React.Fragment>
       <Trans
         components={
@@ -4072,8 +4072,8 @@ Array [
         values={
           Object {
             "0": 2,
-            "1": 3,
-            "2": "76",
+            "1": 4,
+            "2": "64",
           }
         }
       />
@@ -4116,8 +4116,8 @@ Array [
         values={
           Object {
             "0": 2,
-            "1": 4,
-            "2": "55",
+            "1": 5,
+            "2": "47",
           }
         }
       />
@@ -4160,8 +4160,8 @@ Array [
         values={
           Object {
             "0": 2,
-            "1": 9,
-            "2": "25",
+            "1": 10,
+            "2": "21",
           }
         }
       />
@@ -4204,8 +4204,8 @@ Array [
         values={
           Object {
             "0": 2,
-            "1": 5,
-            "2": "41",
+            "1": 6,
+            "2": "35",
           }
         }
       />
@@ -4233,7 +4233,7 @@ Array [
     "importance": "major",
     "issue": <React.Fragment>
       You died during this fight and were dead for 
-      18.48
+      15.60
       % of the fight duration (
       54
        seconds). Dying has a significant performance cost. View the 
@@ -4250,7 +4250,7 @@ Array [
         message="You were dead for {0}% of the fight"
         values={
           Object {
-            "0": "18.48",
+            "0": "15.60",
           }
         }
       />
@@ -4299,7 +4299,7 @@ exports[`Arcane Mage integration test: example log DistanceMoved matches the sta
             }
           >
             ≈ 
-            43.17
+            36.44
             %
           </small>
         </div>
@@ -4561,6 +4561,28 @@ exports[`Arcane Mage integration test: example log MirrorImage matches the stati
     </div>
   </div>
 </div>
+`;
+
+exports[`Arcane Mage integration test: example log PotionChecker matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_alchemy_90_combat2_purple",
+    "importance": "regular",
+    "issue": <Trans
+      id="shared.modules.items.potionChecker.suggestions.potionsUsed"
+      message="You used {0} combat {1} during this encounter, but you could have used {2}. Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter."
+      values={
+        Object {
+          "0": 1,
+          "1": "potion",
+          "2": 2,
+        }
+      }
+    />,
+    "stat": null,
+  },
+]
 `;
 
 exports[`Arcane Mage integration test: example log RuneOfPower matches the statistic snapshot 1`] = `
@@ -4971,7 +4993,7 @@ exports[`Arcane Mage integration test: example log ThroughputStatisticGroup matc
               }
             }
           >
-            2,038
+            1,720
              DPS
           </div>
           <div
@@ -5060,7 +5082,7 @@ exports[`Arcane Mage integration test: example log ThroughputStatisticGroup matc
               }
             }
           >
-            95
+            81
              HPS
           </div>
           <div
@@ -5154,7 +5176,7 @@ exports[`Arcane Mage integration test: example log ThroughputStatisticGroup matc
               }
             }
           >
-            885
+            747
              DTPS
           </div>
           <div
@@ -5239,7 +5261,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "18.388456135870264%",
+                  "width": "15.519908185528152%",
                 }
               }
             />
@@ -5345,7 +5367,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  75.93%
+                  64.08%
                    
                    
                 </div>
@@ -5365,9 +5387,9 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#df7102",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "36.391271868216066%",
+                        "width": "28.453165006801612%",
                       }
                     }
                   />
@@ -5418,7 +5440,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  55.22%
+                  46.61%
                    
                    
                 </div>
@@ -5440,7 +5462,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "24.517941514493682%",
+                        "width": "20.69321091403754%",
                       }
                     }
                   />
@@ -5491,7 +5513,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  27.61%
+                  23.30%
                    
                    
                 </div>
@@ -5513,7 +5535,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "12.258970757246841%",
+                        "width": "10.34660545701877%",
                       }
                     }
                   />
@@ -5564,7 +5586,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  24.93%
+                  21.04%
                    
                    
                 </div>
@@ -5586,7 +5608,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "11.067245562507981%",
+                        "width": "9.34078607402833%",
                       }
                     }
                   />
@@ -6365,7 +6387,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               style={
                 Object {
                   "backgroundColor": "#df7102",
-                  "width": "43.562194391944715%",
+                  "width": "42.91809398958169%",
                 }
               }
             />
@@ -6458,7 +6480,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  34.93%
+                  45.08%
                    
                    
                 </div>
@@ -6480,7 +6502,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "5.72049267999332%",
+                        "width": "4.432291875267269%",
                       }
                     }
                   />
@@ -6553,7 +6575,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
     </div>
   </li>
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -6577,8 +6599,8 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "99.87241731579618%",
+                  "backgroundColor": "#df7102",
+                  "width": "47.92964745223577%",
                 }
               }
             />
@@ -6701,7 +6723,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                   }
                 >
                    
-                  99.99%
+                  84.39%
                    
                    
                 </div>
@@ -6721,9 +6743,9 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "99.87241731579618%",
+                        "width": "47.92964745223577%",
                       }
                     }
                   />
@@ -7052,7 +7074,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "78.7878787878788%",
+                  "width": "69.6969696969697%",
                 }
               }
             />
@@ -7407,7 +7429,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                    
                   1
                    
-                  / 1
+                  / 2
                    
                 </div>
               </div>
@@ -7426,9 +7448,9 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "50%",
                       }
                     }
                   />
@@ -7471,7 +7493,7 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                    
                   1
                    
-                  / 1
+                  / 2
                    
                 </div>
               </div>
@@ -7490,9 +7512,9 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "50%",
                       }
                     }
                   />

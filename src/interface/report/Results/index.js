@@ -32,7 +32,7 @@ import './Results.scss';
 import Header from './Header';
 import About from './About';
 import Overview from './Overview';
-import Statistics from './Statistics';
+import ReportStatistics from './ReportStatistics';
 import Character from './CharacterTab';
 import EncounterStats from './EncounterStats';
 import DegradedExperience from './DegradedExperience';
@@ -212,7 +212,15 @@ class Results extends React.PureComponent {
         if (this.isLoading) {
           return this.renderLoadingIndicator();
         }
-        return <Statistics parser={parser}>{results.statistics}</Statistics>;
+        return (
+          <ReportStatistics
+            parser={parser}
+            adjustForDowntime={this.state.adjustForDowntime}
+            onChangeAdjustForDowntime={(newValue) => this.setState({ adjustForDowntime: newValue })}
+          >
+            {results.statistics}
+          </ReportStatistics>
+        );
       case TABS.TIMELINE:
         if (this.isLoading) {
           return this.renderLoadingIndicator();
