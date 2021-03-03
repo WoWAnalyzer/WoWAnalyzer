@@ -1,4 +1,4 @@
-export default {
+const articles: { [key: string]: string } = {
   'Shadowlands Prepatch': '2020-11-17-SL-Prepatch',
   'Hacktoberfest': '2020-10-02-Hacktoberfest',
   'Time Filtering': '2019-07-20-Time-Filtering',
@@ -16,3 +16,5 @@ export default {
   'A note about unlisted logs': '2017-01-31-UnlistedLogs',
   'About WoWAnalyzer the World of Warcraft analyzer': '2017-01-31-About',
 };
+
+export default articles;

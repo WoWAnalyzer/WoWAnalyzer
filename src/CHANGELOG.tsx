@@ -9,6 +9,7 @@ import { change, date } from 'common/changelog';
 
 // prettier-ignore
 export default [
+  change(date(2021, 3, 3), 'Converted various components to functional components in TypeScript.', acornellier),
   change(date(2021, 2, 27), 'Fixed a crash resulting from precasting spells on druid specs.', Kartarn),
   change(date(2021, 2, 24), <>Fixed a crash triggered by <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> casting 0 spells</>, acornellier),
   change(date(2021, 2, 14), <>Update <ItemLink id={ITEMS.VANTUS_RUNE_CASTLE_NATHRIA.id} /> versatility value.</>, Adoraci),
