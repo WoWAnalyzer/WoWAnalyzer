@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2021, 2, 21), <>Resolved an issue where <SpellLink id={SPELLS.FEVERED_INCANTATION.id} /> was using the wrong damage modifier value to determine it's damage contribution.</>, Sharrq),
   change(date(2021, 1, 23), <>Fixed a bug that was causing the suggestions and statistics to show the % of good <SpellLink id={SPELLS.SHIFTING_POWER.id} /> uses as opposed to the % of bad uses.</>, Sharrq),
   change(date(2021, 1, 15), <>Fixed an issue that was not adding the proper amount of additional CDR from <SpellLink id={SPELLS.DISCIPLINE_OF_THE_GROVE.id} />.</>, Sharrq),
   change(date(2021, 1, 14), <>Fixed an issue in <SpellLink id={SPELLS.KINDLING_TALENT.id} /> that was not counting crits from <SpellLink id={SPELLS.PHOENIX_FLAMES.id} /> when calculating cooldown reduction.</>, Sharrq),

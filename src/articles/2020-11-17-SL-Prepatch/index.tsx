@@ -6,7 +6,7 @@ import NewsRegularArticle from 'interface/NewsRegularArticle';
 import ShadowlandsBackground from './sl-bg-wide.jpg';
 
 export default (
-  <NewsRegularArticle title="Welcome to the Shadowlands prepatch"
+  <NewsRegularArticle title="Shadowlands Prepatch"
     publishedAt="2020-10-15"
     publishedBy={Dambroda}>
     <img src={ShadowlandsBackground} alt="Shadowlands Wallpaper" /><br /><br />
@@ -38,7 +38,7 @@ export default (
 
     <br/>- The WoWAnalyzer Team
 
-    <br/><br/>Please consider showing your support via <Link to="premium">premium</Link> if you
+    <br/><br/>Please consider showing your support via <Link to="/premium">premium</Link> if you
     appreciate this fan-made project. Treat yourself to no ads, discord roles, and the knowledge
     you're helping keep WoWAnalyzer moving forward!
   </NewsRegularArticle>

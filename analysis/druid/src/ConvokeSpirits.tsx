@@ -11,6 +11,8 @@ import COVENANTS from 'game/shadowlands/COVENANTS';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
 
+import ActiveDruidForm, { DruidForm } from './core/ActiveDruidForm';
+
 const SPELLS_WITH_TRAVEL_TIME = [
   SPELLS.STARSURGE_AFFINITY.id,
   SPELLS.STARSURGE_MOONKIN.id,
@@ -22,9 +24,11 @@ const SPELLS_WITH_TRAVEL_TIME = [
 class ConvokeSpirits extends Analyzer {
   static dependencies = {
     abilities: Abilities,
+    activeDruidForm: ActiveDruidForm
   };
 
   protected abilities!: Abilities;
+  protected activeDruidForm!: ActiveDruidForm;
 
   tracking = false;
   spellsToTrack = 16;
@@ -144,6 +148,7 @@ class ConvokeSpirits extends Analyzer {
   startTracking(event: ApplyBuffEvent) {
     this.tracking = true;
     this.cast += 1;
+    this.whatHappendIneachConvoke[this.cast] = {spellIdToCasts: []};
   }
 
   newRejuv(event: ApplyBuffEvent | RefreshBuffEvent) {
@@ -228,6 +233,7 @@ class ConvokeSpirits extends Analyzer {
 
   stopTracking(event: RemoveBuffEvent) {
     this.tracking = false;
+    this.whatHappendIneachConvoke[this.cast].form = this.activeDruidForm.form;
     this.houseKeeping();
   }
 
@@ -245,6 +251,10 @@ class ConvokeSpirits extends Analyzer {
 
   //just adds to spell to a tracker... yeah i know i could feed them all down to addemUp my default but i don't want something like (event: DamageEvent | ApplyBuffEvent | RefreshBuffEvent... ) deal with it
   addemUp(spellId: number, timestamp: number) {
+    // if Convoke hasn't been casted in this fight, there is nothing to analyzere here. This also fixes crashes resulting from precasting spells, as they don't have a cast Event associated with them
+    if(this.cast === 0) {
+      return;
+    }
 
     let fromConvokeButWeNoticeAfterwards = false;
     //since travel time is the stupidiest thing in the world we have a weird af check
@@ -266,11 +276,6 @@ class ConvokeSpirits extends Analyzer {
     //check for weird multiapplication spells
     if(this.flexTimeStampForMultiApplySpells + 100 > timestamp) {
       return;
-    }
-
-    //make sure we got this object if not make a new one (cry a little too)
-    if(!this.whatHappendIneachConvoke[this.cast]) {
-      this.whatHappendIneachConvoke[this.cast] = {spellIdToCasts: []};
     }
 
     //we know it exists
@@ -299,7 +304,7 @@ class ConvokeSpirits extends Analyzer {
       return;
     }
 
-    const howManyDidWeCount = this.whatHappendIneachConvoke[this.cast].spellIdToCasts.reduce((previousValue: number, currentValue: number) => previousValue + currentValue);
+    const howManyDidWeCount = this.whatHappendIneachConvoke[this.cast].spellIdToCasts.reduce((previousValue: number, currentValue: number) => previousValue + currentValue, 0);
 
     //this can happen due to a resto druid lego that just randomly adds rejuvs (with no cast event)
     //so lets remove those if possible. if not then ??? sorry fam
@@ -330,6 +335,7 @@ class ConvokeSpirits extends Analyzer {
               <thead>
                 <tr>
                   <th>Cast #</th>
+                  <th>Form</th>
                   <th>Spells In Cast</th>
                 </tr>
               </thead>
@@ -338,6 +344,7 @@ class ConvokeSpirits extends Analyzer {
                   this.whatHappendIneachConvoke.map((spellIdToCasts, index) => (
                     <tr key={index}>
                       <th scope="row">{index}</th>
+                      <td>{spellIdToCasts.form}</td>
                       <td>
                         {spellIdToCasts.spellIdToCasts.map((casts, spellId) => (
                           <>
@@ -365,4 +372,5 @@ export default ConvokeSpirits;
 
 export interface ConvokeCast {
   spellIdToCasts: number[];
+  form?: DruidForm;
 }

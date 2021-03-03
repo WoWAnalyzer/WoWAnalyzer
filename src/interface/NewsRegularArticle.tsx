@@ -7,7 +7,7 @@ import makeNewsUrl from './makeNewsUrl';
 import Contributor, { ContributorType } from './ContributorButton';
 
 interface Props {
-  title: ReactNode;
+  title: string;
   bodyStyle?: CSSProperties;
   children: ReactNode,
   publishedAt: string,

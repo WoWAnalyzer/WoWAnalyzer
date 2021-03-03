@@ -6,10 +6,6 @@ import {
   UnholyNova,
 } from '@wowanalyzer/priest';
 
-import React from 'react';
-
-import { Panel } from 'interface';
-
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
@@ -62,8 +58,6 @@ import DivineImage from './modules/shadowlands/items/DivineImage';
 
 // Conduits
 import ResonantWords from './modules/shadowlands/conduits/ResonantWords';
-
-import HolyPriestSpreadsheet from './HolyPriestSpreadsheet';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
@@ -156,24 +150,6 @@ class CombatLogParser extends CoreCombatLogParser {
     boonOfTheAscended: BoonOfTheAscended,
     faeGuardians: FaeGuardians,
   };
-
-  generateResults(adjustForDowntime: boolean) {
-    const results = super.generateResults(adjustForDowntime);
-
-    results.tabs = [
-      ...results.tabs,
-      {
-        title: 'Player Log Data',
-        url: 'player-log-data',
-        render: () => (
-          <Panel style={{ padding: '15px 22px 15px 15px' }}>
-            <HolyPriestSpreadsheet parser={this} />
-          </Panel>
-        ),
-      },
-    ];
-    return results;
-  }
 }
 
 export default CombatLogParser;
