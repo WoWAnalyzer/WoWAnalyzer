@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { acornellier } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -8,7 +9,7 @@ import Config from 'parser/Config';
 import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
-  contributors: [],
+  contributors: [acornellier],
   patchCompatibility: '9.0.2',
   isPartial: false,
   description: (
