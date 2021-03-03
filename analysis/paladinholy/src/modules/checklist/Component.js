@@ -40,7 +40,7 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
               ''
             )}{' '}
             {combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT) ? (
-              <SpellLink id={SPELLS.JUDGMENT_CAST.id} />
+              <SpellLink id={SPELLS.JUDGMENT_CAST_HOLY.id} />
             ) : (
               ''
             )}{' '}
@@ -80,7 +80,7 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
         <AbilityRequirement spell={SPELLS.HOLY_SHOCK_CAST.id} />
         <AbilityRequirement spell={SPELLS.HAMMER_OF_WRATH.id} />
         {combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.JUDGMENT_CAST.id} />
+          <AbilityRequirement spell={SPELLS.JUDGMENT_CAST_HOLY.id} />
         )}
         {combatant.hasTalent(SPELLS.BESTOW_FAITH_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.BESTOW_FAITH_TALENT.id} />
