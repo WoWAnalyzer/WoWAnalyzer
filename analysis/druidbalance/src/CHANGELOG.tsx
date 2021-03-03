@@ -2,6 +2,7 @@ import { Zeboot, LeoZhekov, Sharrq, Tiboonn, Kartarn, Ciuffi } from 'CONTRIBUTOR
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2021, 2, 21), 'Add modules for Starfire and Wrath to track unempowered casts', Tiboonn),
   change(date(2021, 2, 12), 'Added convoke tracking to the statistics page', Ciuffi),
   change(date(2021, 2, 13), 'Added Analyzer for utilizing Balance of All things legendary.', Kartarn),
   change(date(2021, 1, 17), 'Update balance druid spells, Change all occurences of Solar Wrath to Wrath and Lunar Strike to Starfire', Tiboonn),
