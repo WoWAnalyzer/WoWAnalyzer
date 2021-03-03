@@ -10,6 +10,7 @@ import {
   SerratedBoneSpike,
   SpellEnergyCost,
   SpellUsable,
+  InstantPoison,
 } from '@wowanalyzer/rogue';
 
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
@@ -65,6 +66,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Core
     restlessBlades: RestlessBlades,
     rollTheBonesCastTracker: RollTheBonesCastTracker,
+    instantPoison: InstantPoison,
 
     //Items
     guileCharm: GuileCharm,
