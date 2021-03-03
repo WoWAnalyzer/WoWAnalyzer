@@ -1,6 +1,6 @@
 import React from 'react';
 // prettier-ignore
-import { Abelito75, acornellier, AdamKelly, Adoraci, Amani, Barry, Barter, ChagriAli, ChristopherKiss, Dambroda, emallson, flurreN, Guyius, Haelrail, HolySchmidt, Jafowler, jos3p, joshinator, Juko8, Keraldi, Khazak, Kruzershtern, Mae, Maldark, Moonrabbit, niseko, Procyon, Putro, Sharrq, Ssabbar, Zeboot, Zerotorescue } from 'CONTRIBUTORS';
+import { Abelito75, acornellier, AdamKelly, Adoraci, Amani, Barry, Barter, ChagriAli, ChristopherKiss, Dambroda, emallson, flurreN, Guyius, Haelrail, HolySchmidt, Jafowler, jos3p, joshinator, Juko8, Kartarn, Keraldi, Khazak, Kruzershtern, Mae, Maldark, Moonrabbit, niseko, Procyon, Putro, Sharrq, Ssabbar, Zeboot, Zerotorescue } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'interface/SpellLink';
