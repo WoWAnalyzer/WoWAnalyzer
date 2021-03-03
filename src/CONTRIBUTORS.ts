@@ -1281,6 +1281,19 @@ export const jasper: Contributor = {
   ],
 };
 
+export const Procyon: Contributor = {
+  nickname: 'Procyon',
+  github: 'procy-dev',
+  discord: 'procy-dev#3837',
+  mains: [
+    {
+      name: 'Xígbar',
+      spec: SPECS.SHADOW_PRIEST,
+      link: 'https://worldofwarcraft.com/en-us/character/us/bleeding-hollow/X%C3%ADgbar',
+    },
+  ],
+};
+
 export const Ciuffi: Contributor = {
   nickname: "Ciuffi",
   github: "Ciuffi",
