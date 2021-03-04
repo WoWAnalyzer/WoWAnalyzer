@@ -1,3 +1,5 @@
+import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
+
 import MainCombatLogParser from 'parser/core/CombatLogParser';
 
 import { ConvokeSpirits } from '@wowanalyzer/druid';
@@ -12,7 +14,8 @@ import Abilities from './modules/Abilities';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import MoonfireUptime from './modules/features/MoonfireUptime';
 import SunfireUptime from './modules/features/SunfireUptime';
-import UnempoweredLunarStrike from './modules/features/UnempoweredLunarStrike';
+import UnempoweredStarfire from './modules/features/UnempoweredStarfire';
+import UnempoweredWrath from './modules/features/UnempoweredWrath';
 import EarlyDotRefreshes from './modules/features/EarlyDotRefreshes';
 import EarlyDotRefreshesInstants from './modules/features/EarlyDotRefreshesInstants';
 import BalanceOfAllThingsOpener from './modules/features/BalanceOfAllThingsOpener';
@@ -32,6 +35,9 @@ class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     globalCooldown: GlobalCooldown,
 
+    //Core
+    activeDruidForm: ActiveDruidForm,
+
     //Features
     checklist: Checklist,
     alwaysBeCasting: AlwaysBeCasting,
@@ -41,7 +47,8 @@ class CombatLogParser extends MainCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     moonfireUptime: MoonfireUptime,
     sunfireUptime: SunfireUptime,
-    unempoweredLunarStrike: UnempoweredLunarStrike,
+    unempoweredStarfire: UnempoweredStarfire,
+    unempoweredWrath: UnempoweredWrath,
     earlyDotRefreshes: EarlyDotRefreshes,
     earlyDotRefreshesInstants: EarlyDotRefreshesInstants,
     balanceOfAllThingsOpener: BalanceOfAllThingsOpener,
@@ -52,7 +59,7 @@ class CombatLogParser extends MainCombatLogParser {
     stellarDrift: StellarDrift,
     starlord: Starlord,
 
-    //Covenant
+    //Covenants
     convokeSpirits: ConvokeSpirits,
 
     //Resources

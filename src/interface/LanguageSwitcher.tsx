@@ -1,5 +1,5 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { t } from '@lingui/macro';
 
 import { getLanguage } from 'interface/selectors/language';
@@ -9,70 +9,39 @@ import { TooltipElement } from 'interface/Tooltip';
 
 import languages from './languages';
 
-type Props = {
-  language: string;
-  setLanguage: Function;
-}
-type State = {
-  expanded: boolean;
-}
+const LanguageSwitcher = () => {
+  const [expanded, setExpanded] = useState(false)
 
-class LanguageSwitcher extends React.PureComponent<Props, State> {
-  state: State = {
-    expanded: false,
-  };
+  const language = useSelector(getLanguage)
+  const dispatch = useDispatch()
 
-  constructor(props: Props) {
-    super(props);
-    this.handleClickExpand = this.handleClickExpand.bind(this);
+  const selectLanguage = (code: string) => {
+    setExpanded(false)
+    dispatch(setLanguage(code));
   }
 
-  handleClickExpand() {
-    this.setState({
-      expanded: true,
-    });
-  }
-
-  selectLanguage(code: string) {
-    this.setState({
-      expanded: false,
-    });
-    this.props.setLanguage(code);
-  }
-  renderExpanded() {
+  if (expanded) {
     return (
       <ReadableListing groupType="or">
         {Object.keys(languages).map(code => (
-          <a key={code} onClick={() => this.selectLanguage(code)}>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+          <a key={code} onClick={() => selectLanguage(code)}>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
             {languages[code].localName}
           </a>
         ))}
       </ReadableListing>
     );
   }
-  render() {
-    const { language } = this.props;
 
-    if (this.state.expanded) {
-      return this.renderExpanded();
-    }
-
-    return (
-      <a onClick={this.handleClickExpand}>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
-        <TooltipElement content={t({
-          id: "interface.languageSwitcher.clickToSwitch",
-          message: `Click to switch languages. We've only just started localizing the app, it will take some time until everything is localized.`
-        })}>
-          {languages[language].localName}
-        </TooltipElement>
-      </a>
-    );
-  }
+  return (
+    <a onClick={() => setExpanded(true)}>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
+      <TooltipElement content={t({
+        id: "interface.languageSwitcher.clickToSwitch",
+        message: `Click to switch languages. We've only just started localizing the app, it will take some time until everything is localized.`
+      })}>
+        {languages[language].localName}
+      </TooltipElement>
+    </a>
+  );
 }
 
-const mapStateToProps = (state: State) => ({
-  language: getLanguage(state),
-});
-export default connect(mapStateToProps, {
-  setLanguage,
-})(LanguageSwitcher);
+export default LanguageSwitcher

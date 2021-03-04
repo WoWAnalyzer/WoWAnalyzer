@@ -1,7 +1,10 @@
+import { Dungeon } from 'game/raids';
+
 import Background from './backgrounds/Plaguefall.jpg';
 import Headshot from './headshots/Plaguefall.jpg';
 
-export default {
+
+const Plaguefall: Dungeon = {
   id: 12289,
   name: 'Plaguefall',
   background: Background,
@@ -11,3 +14,5 @@ export default {
     // TODO: Add vantusRuneBuffId: 250144,
   },
 };
+
+export default Plaguefall;

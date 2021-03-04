@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2021,2,27), <>Add analyzer and suggestion for <SpellLink id={SPELLS.INSTANT_POISON.id} /> application.</>, Hordehobbs),
   change(date(2021, 1, 23), "Add GeneratorFollowingVanish analyzer.", Hordehobbs),
   change(date(2021, 1, 23), "Update CastsInShadowDance analyzer for proper value of max possible casts.", Hordehobbs),
   change(date(2021, 1, 23), <>Remove <SpellLink id={SPELLS.VANISH.id} /> as an offensive CD from checklist. </>, Hordehobbs),

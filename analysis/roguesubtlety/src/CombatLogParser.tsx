@@ -14,6 +14,7 @@ import {
   SpellEnergyCost,
   SpellUsable,
   StealthDamageTracker,
+  InstantPoison,
 } from '@wowanalyzer/rogue';
 
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
@@ -82,6 +83,7 @@ class CombatLogParser extends CoreCombatLogParser {
     castsInStealth: CastsInStealth,
     vanishFindWeakness: VanishFindWeakness,
     generatorFollowingVanish: GeneratorFollowingVanish,
+    instantPoison: InstantPoison,
 
     //Talents
     darkShadowContribution: DarkShadowContribution,

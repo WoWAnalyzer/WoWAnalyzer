@@ -7,7 +7,7 @@ import NewsRegularArticle from 'interface/NewsRegularArticle';
 import RandomImageToMakeThisArticleLessBland from './weirdnelfandherfriend.png';
 
 export default (
-  <NewsRegularArticle title={<>What are <i>YOUR</i> suggestions?</>} publishedAt="2018-09-30" publishedBy={Zerotorescue}>
+  <NewsRegularArticle title="What are YOUR suggestions?" publishedAt="2018-09-30" publishedBy={Zerotorescue}>
     <img
       src={RandomImageToMakeThisArticleLessBland}
       alt=""
