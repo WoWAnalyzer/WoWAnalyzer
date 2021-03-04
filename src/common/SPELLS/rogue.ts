@@ -281,6 +281,11 @@ const spells = {
     name: 'Crippling Poison',
     icon: 'ability_poisonsting',
   },
+  INSTANT_POISON: {
+    id: 315585,
+    name: "Instant Poison",
+    icon: "ability_creature_poison_03",
+  },
 
   //Builders
   MUTILATE: {

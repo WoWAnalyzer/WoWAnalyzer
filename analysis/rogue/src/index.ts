@@ -8,6 +8,7 @@ export { default as EssenceOfBloodfang } from './EssenceOfBloodfang';
 export { default as FilteredDamageTracker } from './FilteredDamageTracker';
 export { default as FinisherTracker } from './FinisherTracker';
 export { default as InvigoratingShadowdust } from './InvigoratingShadowdust';
+export { default as InstantPoison } from './InstantPoison';
 export * from './IsStealth';
 export { default as SpellEnergyCost } from './SpellEnergyCost';
 export { default as SpellUsable } from './SpellUsable';

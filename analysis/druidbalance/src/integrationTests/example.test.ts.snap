@@ -4426,29 +4426,30 @@ exports[`Balance Druid integration test: example log ThroughputStatisticGroup ma
 </div>
 `;
 
-exports[`Balance Druid integration test: example log UnempoweredLunarStrike matches the suggestions snapshot 1`] = `
+exports[`Balance Druid integration test: example log UnempoweredStarfire matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
     "icon": "spell_arcane_starfire",
-    "importance": "major",
+    "importance": "minor",
     "issue": <React.Fragment>
-      You cast 
+      You casted 
       17
        unempowered and non instant cast 
       <ForwardRef
         id={194153}
       />
        that hit less than 
-      3
-       targets. Always prioritize 
+      5
+       targets, outside the 
+      2
+       needed to get to 
       <ForwardRef
-        id={5176}
+        id={48518}
       />
-       as a filler when none of those conditions are met.
     </React.Fragment>,
     "stat": <React.Fragment>
-      {"id":"druid.balance.suggestions.starfire.efficiency","message":"{0} Unempowered Starfires per minute","values":{"0":"3.3"}}
+      {"id":"druid.balance.suggestions.starfire.efficiency","message":"{0} Unempowered Starfires per minute","values":{"0":"0.2"}}
        (
       0 is recommended
       )

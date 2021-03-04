@@ -8,7 +8,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-const MAX_MANA = 100000;
+const MAX_MANA = 50000;
 const BASE_MANA_REGEN = .04;
 
 // Example Log: /report/PNYB4zgrnR86h7Lc/6-Normal+Zek'voz,+Herald+of+N'zoth/Khadaj

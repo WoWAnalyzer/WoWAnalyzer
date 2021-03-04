@@ -387,6 +387,14 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.SHIELD_OF_THE_RIGHTEOUS,
+        category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+        timelineSortIndex: 52,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: SPELLS.BLINDING_LIGHT_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 90,

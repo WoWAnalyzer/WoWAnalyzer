@@ -1,7 +1,9 @@
+import { Dungeon } from 'game/raids';
+
 import Background from './backgrounds/HallsOfAtonement.jpg';
 import Headshot from './headshots/HallsOfAtonement.jpg';
 
-export default {
+const HallsOfAtonement: Dungeon = {
   id: 12287,
   name: 'Halls of Atonement',
   background: Background,
@@ -11,3 +13,5 @@ export default {
     // TODO: Add vantusRuneBuffId: 250144,
   },
 };
+
+export default HallsOfAtonement;
