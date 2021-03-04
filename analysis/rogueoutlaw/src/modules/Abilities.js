@@ -114,6 +114,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.9,
           extraSuggestion: `Using Dreadblades on cooldown is very important and should only be delayed when you know you won't be able to attack for the majority of it's duration.`,
         },
+        enabled: combatant.hasTalent(SPELLS.DREADBLADES_TALENT.id),
       },
       {
         spell: SPELLS.ADRENALINE_RUSH,

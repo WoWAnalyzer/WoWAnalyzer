@@ -1342,3 +1342,9 @@ export const acornellier: Contributor = {
     link: 'https://worldofwarcraft.com/en-us/character/us/sargeras/ortemis',
   }],
 };
+
+export const Akai: Contributor = {
+  nickname: 'Akai',
+  github: 'akaiwow21',
+  discord: 'supbro123#2933',
+};
