@@ -1,12 +1,13 @@
 import React from 'react';
 
-import { Putro, Tyndi, Zeboot, Canotsa, Hordehobbs } from 'CONTRIBUTORS';
+import { Putro, Tyndi, Zeboot, Canotsa, Hordehobbs, Akai } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { change, date } from 'common/changelog';
 
 export default [
-  change(date(2021,2,27), <>Add analyzer and suggestion for <SpellLink id={SPELLS.INSTANT_POISON.id} /> application.</>, Hordehobbs),
+  change(date(2021, 3, 4), <>Fixed error where <SpellLink id={SPELLS.DREADBLADES_TALENT.id} /> was being suggested even when not talented</>, Akai),
+  change(date(2021, 2, 27), <>Add analyzer and suggestion for <SpellLink id={SPELLS.INSTANT_POISON.id} /> application.</>, Hordehobbs),
   change(date(2021, 1, 17), <>Suggestion added to cast <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> more often</>, Canotsa),
   change(date(2020, 12, 21), 'Minor update to suggestions', Tyndi),
   change(date(2020, 12, 18), <> Fixed an issue where the analyzer couldn't reduce the cooldown of <SpellLink id={SPELLS.SERRATED_BONE_SPIKE.id} />. </>, Putro),
