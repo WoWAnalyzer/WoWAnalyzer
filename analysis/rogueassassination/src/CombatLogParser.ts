@@ -90,7 +90,6 @@ class CombatLogParser extends CoreCombatLogParser {
     garroteSnapshot: GarroteSnapshot,
     ruptureSnapshot: RuptureSnapshot,
     crimsonTempestSnapshot: CrimsonTempestSnapshot,
-    instantPoison: InstantPoison,
 
     //Casts
 
