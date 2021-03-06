@@ -12,7 +12,7 @@ import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 import HasteIcon from 'interface/icons/Haste';
 
 const MAX_STACKS = 3;
-const HASTE_PER_STACK = 3;
+const HASTE_PER_STACK = 4;
 
 class Starlord extends Analyzer {
 

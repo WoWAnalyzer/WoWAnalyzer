@@ -3977,7 +3977,7 @@ exports[`Balance Druid integration test: example log Starlord matches the statis
             />
           </svg>
            
-          4.78
+          6.37
            % 
           <small>
             average haste gained
@@ -4048,10 +4048,16 @@ exports[`Balance Druid integration test: example log StellarDrift matches the st
         <div
           className="value"
         >
-          0.76
+          0.50
            % 
           <small>
             of total damage
+          </small>
+          <br />
+          2
+           
+          <small>
+            seconds uptime gained
           </small>
         </div>
       </div>
