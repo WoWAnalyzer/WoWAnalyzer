@@ -105,8 +105,10 @@
     "dotenv": "^6.2.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
+    "husky": "^4.3.0",
     "jest-canvas-mock": "^2.3.0",
     "jest-enzyme": "^7.1.2",
+    "lint-staged": "^10.5.2",
     "node-sass": "^4.14.0",
     "patch-package": "^6.2.2",
     "postinstall-postinstall": "^2.1.0",
@@ -125,10 +127,30 @@
     "test:parser": "yarn test --testPathIgnorePatterns integrationTests ./src/parser",
     "test:integration": "yarn test integrationTests",
     "typecheck": "tsc",
-    "lint": "eslint . --ext .js,.ts,.tsx",
+    "lint": "yarn --silent lint:code && yarn --silent lint:rest",
+    "lint:code": "yarn --silent lint:code:specific '**/*.{js,jsx,ts,tsx}'",
+    "lint:code:specific": "CODE_STYLE=true eslint --format stylish --max-warnings 0",
+    "lint:code:specific:fix": "yarn lint:code:specific --fix",
+    "lint:rest": "yarn --silent lint:rest:specific '**/*.{json,md,css,graphql,yml}'",
+    "lint:rest:specific": "prettier --check",
+    "lint:rest:specific:fix": "prettier --write",
+    "lint:fix": "yarn --silent lint:code --fix && prettier --write '**/*.{json,md,css,graphql,yml}'",
     "extract": "lingui extract --overwrite --clean",
     "script": "set NODE_ENV=development&&babel-node",
     "postinstall": "patch-package"
+  },
+  "lint-staged": {
+    "!(*\\.generated)\\.{ts,tsx,js,jsx}": [
+      "yarn --silent lint:code:specific:fix"
+    ],
+    "*.{json,md,css,scss,graphql,yml}": [
+      "yarn --silent lint:rest:specific:fix"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint-staged"
+    }
   },
   "browserslist": {
     "production": [
