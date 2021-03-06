@@ -1,10 +1,11 @@
-import { Putro } from 'CONTRIBUTORS';
+import { Putro, Kartarn } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 import React from 'react';
 
 export default [
+  change(date(2021, 3, 6), 'Fixed suggestion for wasted regenerated focus.', Kartarn),
   change(date(2021, 1, 16), 'Due to the paywalling of the timeline feature, and fundamental differences of opinion - I will no longer be updating this module beyond todays date. All the modules should be accurate for Castle Nathria, but will not be accurate going forward.', Putro),
   change(date(2021, 1, 16), <> Added support for <SpellLink id={SPELLS.REVERSAL_OF_FORTUNE_CONDUIT.id} />, <SpellLink id={SPELLS.REJUVENATING_WIND_CONDUIT.id} /> and <SpellLink id={SPELLS.HARMONY_OF_THE_TORTOLLAN_CONDUIT.id} />. </>, Putro),
   change(date(2021, 1, 10), <> Adjusted <SpellLink id={SPELLS.WILD_SPIRITS.id}/> global cooldown to correctly be reduced by haste twice in the analyzer, to reflect behaviour in-game. </>, Putro),
