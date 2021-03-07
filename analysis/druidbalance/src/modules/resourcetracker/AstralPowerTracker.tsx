@@ -5,7 +5,6 @@ import { Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 
 const WARRIOR_OF_ELUNE_MULTIPLIER = 0.4;
-const SOUL_OF_THE_FOREST_REDUCTION = 10;
 
 class AstralPowerTracker extends ResourceTracker {
   constructor(options: Options) {
