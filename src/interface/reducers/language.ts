@@ -1,6 +1,7 @@
 import Cookies from 'universal-cookie';
 
 import { SET_LANGUAGE } from 'interface/actions/language';
+import { AnyAction } from 'redux';
 
 const cookies = new Cookies();
 const COOKIE_NAME = 'LANGUAGE';
@@ -10,7 +11,10 @@ const cookieOptions = {
 };
 const defaultState = cookies.get(COOKIE_NAME) || 'en';
 
-export default function language(state = defaultState, action) {
+export type LanguageState = string;
+
+
+export default function language(state: LanguageState = defaultState, action: AnyAction) {
   switch (action.type) {
     case SET_LANGUAGE:
       cookies.set(COOKIE_NAME, action.payload, cookieOptions);

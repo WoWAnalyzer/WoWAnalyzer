@@ -2,18 +2,23 @@ import { combineReducers } from 'redux';
 
 import { ReportState } from 'interface/reducers/report';
 import { CharactersByIdState } from 'interface/reducers/charactersById';
+import { SpecsIgnoredNotSupportedWarningState } from 'interface/reducers/specsIgnoredNotSupportedWarning';
+import { CombatantsState } from 'interface/reducers/combatants';
+import { ReportCodesIgnoredPreviousPatchWarning } from 'interface/reducers/reportCodesIgnoredPreviousPatchWarning';
+import { LanguageState } from 'interface/reducers/language';
+import { ModalState } from 'interface/reducers/openModals';
 
 export interface RootState {
   error: any;
   user: any;
   report: ReportState;
-  combatants: any;
+  combatants: CombatantsState;
   reportHistory: any;
-  language: any;
-  specsIgnoredNotSupportedWarning: any;
-  openModals: any;
+  language: LanguageState;
+  specsIgnoredNotSupportedWarning: SpecsIgnoredNotSupportedWarningState;
+  openModals: ModalState;
   charactersById: CharactersByIdState;
-  reportCodesIgnoredPreviousPatchWarning: any;
+  reportCodesIgnoredPreviousPatchWarning: ReportCodesIgnoredPreviousPatchWarning;
 }
 
 const createReducers = () => combineReducers({

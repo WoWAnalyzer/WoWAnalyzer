@@ -1,6 +1,12 @@
 import { IGNORE_SPEC_NOT_SUPPORTED_WARNING } from 'interface/actions/specNotSupported';
+import { AnyAction } from 'redux';
 
-export default function specsIgnoredNotSupportedWarning(state = [], action) {
+export type SpecsIgnoredNotSupportedWarningState = number[];
+
+export default function specsIgnoredNotSupportedWarning(
+  state: SpecsIgnoredNotSupportedWarningState = [],
+  action: AnyAction,
+) {
   switch (action.type) {
     case IGNORE_SPEC_NOT_SUPPORTED_WARNING:
       return [
