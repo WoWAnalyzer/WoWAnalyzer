@@ -16,7 +16,7 @@ const covenants = {
   //region Necrolord
   CONQUERORS_BANNER: {
     id: 324143,
-    name: 'Conqueror\'s Banner',
+    name: "Conqueror's Banner",
     icon: 'ability_maldraxxus_warriorplantbanner',
   },
   //endregion

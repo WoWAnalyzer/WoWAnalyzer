@@ -1,16 +1,14 @@
-import React from 'react';
-
-import SPELLS from 'common/SPELLS';
+import { t } from '@lingui/macro';
 import { formatPercentage, formatDuration } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatisticBox from 'parser/ui/StatisticBox';
-import { t } from '@lingui/macro';
-
-import Events from 'parser/core/Events';
+import React from 'react';
 
 import Abilities from '../Abilities';
 import ActiveTargets from './ActiveTargets';
@@ -54,7 +52,10 @@ class AntiFillerSpam extends Analyzer {
     }
 
     this._totalGCDSpells += 1;
-    const targets = this.activeTargets.getActiveTargets(event.timestamp).map(enemyID => this.enemyInstances.enemies[enemyID]).filter(enemy => Boolean(enemy));
+    const targets = this.activeTargets
+      .getActiveTargets(event.timestamp)
+      .map((enemyID) => this.enemyInstances.enemies[enemyID])
+      .filter((enemy) => Boolean(enemy));
     const combatant = this.selectedCombatant;
 
     let isFiller = false;
@@ -70,14 +71,19 @@ class AntiFillerSpam extends Analyzer {
       return;
     }
 
-    debug && console.group(`[FILLER SPELL] - ${spellId} ${SPELLS[spellId].name} - ${formatDuration((event.timestamp - this.owner.fight.start_time) / 1000)}`);
+    debug &&
+      console.group(
+        `[FILLER SPELL] - ${spellId} ${SPELLS[spellId].name} - ${formatDuration(
+          (event.timestamp - this.owner.fight.start_time) / 1000,
+        )}`,
+      );
 
     this._totalFillerSpells += 1;
     const availableSpells = [];
 
     this.abilities.abilities
-      .filter(ability => ability.antiFillerSpam)
-      .forEach(gcdSpell => {
+      .filter((ability) => ability.antiFillerSpam)
+      .forEach((gcdSpell) => {
         const gcdSpellId = gcdSpell.primarySpell.id;
         if (ability.primarySpell.id === gcdSpellId) {
           return;
@@ -85,13 +91,17 @@ class AntiFillerSpam extends Analyzer {
 
         const isOffCooldown = this.spellUsable.isAvailable(gcdSpellId);
         const args = [event, combatant, targets];
-        const isHighPriority = (gcdSpell.antiFillerSpam.isHighPriority !== undefined) ? resolveValue(gcdSpell.antiFillerSpam.isHighPriority, ...args) : false;
+        const isHighPriority =
+          gcdSpell.antiFillerSpam.isHighPriority !== undefined
+            ? resolveValue(gcdSpell.antiFillerSpam.isHighPriority, ...args)
+            : false;
 
         if (!isOffCooldown || !isHighPriority) {
           return;
         }
 
-        debug && console.warn(`
+        debug &&
+          console.warn(`
           [Available non-filler]
           - ${gcdSpellId} ${SPELLS[gcdSpellId].name}
           - offCD: ${isOffCooldown}
@@ -128,25 +138,41 @@ class AntiFillerSpam extends Analyzer {
         icon={<SpellIcon id={SPELLS.SWIPE_BEAR.id} />}
         value={`${formatPercentage(this.fillerSpamPercentage)}%`}
         label="Unnecessary Fillers"
-        tooltip={<>You cast <strong>{this._unnecessaryFillerSpells}</strong> unnecessary filler spells out of <strong>{this._totalGCDSpells}</strong> total GCDs. Filler spells (Swipe, Moonfire without a GG proc, or Moonfire outside of pandemic if talented into Incarnation) do far less damage than your main rotational spells, and should be minimized whenever possible.</>}
+        tooltip={
+          <>
+            You cast <strong>{this._unnecessaryFillerSpells}</strong> unnecessary filler spells out
+            of <strong>{this._totalGCDSpells}</strong> total GCDs. Filler spells (Swipe, Moonfire
+            without a GG proc, or Moonfire outside of pandemic if talented into Incarnation) do far
+            less damage than your main rotational spells, and should be minimized whenever possible.
+          </>
+        }
       />
     );
   }
 
   suggestions(when) {
-    when(this.fillerSpamPercentage).isGreaterThan(0.1)
-      .addSuggestion((suggest, actual, recommended) => suggest(
-        <>
-          You are casting too many unnecessary filler spells. Try to plan your casts two or three GCDs ahead of time to anticipate your main rotational spells coming off cooldown, and to give yourself time to react to <SpellLink id={SPELLS.GORE_BEAR.id} /> and <SpellLink id={SPELLS.GALACTIC_GUARDIAN_TALENT.id} /> procs.
-        </>,
-      )
-        .icon(SPELLS.SWIPE_BEAR.icon)
-        .actual(t({
-      id: "druid.guardian.suggestions.fillerSpells.efficiency",
-      message: `${formatPercentage(actual)}% unnecessary filler spells cast`
-    }))
-        .recommended(`${formatPercentage(recommended, 0)}% or less is recommended`)
-        .regular(recommended + 0.05).major(recommended + 0.1));
+    when(this.fillerSpamPercentage)
+      .isGreaterThan(0.1)
+      .addSuggestion((suggest, actual, recommended) =>
+        suggest(
+          <>
+            You are casting too many unnecessary filler spells. Try to plan your casts two or three
+            GCDs ahead of time to anticipate your main rotational spells coming off cooldown, and to
+            give yourself time to react to <SpellLink id={SPELLS.GORE_BEAR.id} /> and{' '}
+            <SpellLink id={SPELLS.GALACTIC_GUARDIAN_TALENT.id} /> procs.
+          </>,
+        )
+          .icon(SPELLS.SWIPE_BEAR.icon)
+          .actual(
+            t({
+              id: 'druid.guardian.suggestions.fillerSpells.efficiency',
+              message: `${formatPercentage(actual)}% unnecessary filler spells cast`,
+            }),
+          )
+          .recommended(`${formatPercentage(recommended, 0)}% or less is recommended`)
+          .regular(recommended + 0.05)
+          .major(recommended + 0.1),
+      );
   }
 }
 

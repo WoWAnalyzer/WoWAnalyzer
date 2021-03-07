@@ -1,14 +1,14 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import React from 'react';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import COVENANTS from 'game/shadowlands/COVENANTS';
-import { formatThousands } from 'common/format';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 /**
  * Kyrian - Elysian Decree
@@ -25,7 +25,11 @@ class ElysianDecree extends Analyzer {
       return;
     }
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.ELYSIAN_DECREE_DAMAGE, SPELLS.ELYSIAN_DECREE_REPEAT_DECREE_DAMAGE]),this.onDamage,
+    this.addEventListener(
+      Events.damage
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.ELYSIAN_DECREE_DAMAGE, SPELLS.ELYSIAN_DECREE_REPEAT_DECREE_DAMAGE]),
+      this.onDamage,
     );
   }
 

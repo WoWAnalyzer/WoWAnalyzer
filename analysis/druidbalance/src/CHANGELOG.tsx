@@ -1,5 +1,5 @@
-import { Zeboot, LeoZhekov, Sharrq, Tiboonn, Kartarn, Ciuffi } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
+import { Zeboot, LeoZhekov, Sharrq, Tiboonn, Kartarn, Ciuffi } from 'CONTRIBUTORS';
 
 export default [
   change(date(2021, 2, 21), 'Add modules for Starfire and Wrath to track unempowered casts', Tiboonn),

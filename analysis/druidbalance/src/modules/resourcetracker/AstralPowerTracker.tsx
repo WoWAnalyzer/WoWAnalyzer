@@ -1,8 +1,8 @@
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
-import { CastEvent, EnergizeEvent } from 'parser/core/Events';
-import { Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { Options } from 'parser/core/Analyzer';
+import { CastEvent, EnergizeEvent } from 'parser/core/Events';
+import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 
 const WARRIOR_OF_ELUNE_MULTIPLIER = 0.4;
 const SOUL_OF_THE_FOREST_REDUCTION = 10;
@@ -16,7 +16,10 @@ class AstralPowerTracker extends ResourceTracker {
   // Split Warrior of Elune Astral Power bonus into it's own entry.
   onEnergize(event: EnergizeEvent) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.STARFIRE.id || !this.selectedCombatant.hasBuff(SPELLS.WARRIOR_OF_ELUNE_TALENT.id)) {
+    if (
+      spellId !== SPELLS.STARFIRE.id ||
+      !this.selectedCombatant.hasBuff(SPELLS.WARRIOR_OF_ELUNE_TALENT.id)
+    ) {
       super.onEnergize(event);
       return;
     }
@@ -30,7 +33,12 @@ class AstralPowerTracker extends ResourceTracker {
     const baseGain = gain - eluneRaw - baseWaste;
     const eluneGain = eluneRaw - eluneWaste;
     this._applyBuilder(spellId, baseGain, baseWaste, this.getResource(event));
-    this._applyBuilder(SPELLS.WARRIOR_OF_ELUNE_TALENT.id, eluneGain, eluneWaste, this.getResource(event));
+    this._applyBuilder(
+      SPELLS.WARRIOR_OF_ELUNE_TALENT.id,
+      eluneGain,
+      eluneWaste,
+      this.getResource(event),
+    );
   }
 
   getReducedCost(event: CastEvent) {
@@ -40,7 +48,10 @@ class AstralPowerTracker extends ResourceTracker {
     }
     let cost = resource.cost / 10;
     const abilityId = event.ability.guid;
-    if (abilityId === SPELLS.STARFALL_CAST.id && this.selectedCombatant.hasTalent(SPELLS.SOUL_OF_THE_FOREST_TALENT_BALANCE.id)) {
+    if (
+      abilityId === SPELLS.STARFALL_CAST.id &&
+      this.selectedCombatant.hasTalent(SPELLS.SOUL_OF_THE_FOREST_TALENT_BALANCE.id)
+    ) {
       cost = cost - SOUL_OF_THE_FOREST_REDUCTION;
     }
     return cost;

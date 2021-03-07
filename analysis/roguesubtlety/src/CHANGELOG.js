@@ -1,9 +1,9 @@
+import { change, date } from 'common/changelog';
+import SPELLS from 'common/SPELLS';
+import { Tyndi, Zeboot, Putro, Hordehobbs } from 'CONTRIBUTORS';
+import { SpellLink } from 'interface';
 import React from 'react';
 
-import { Tyndi, Zeboot, Putro, Hordehobbs } from 'CONTRIBUTORS';
-import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
-import { change, date } from 'common/changelog';
 
 export default [
   change(date(2021,2,27), <>Add analyzer and suggestion for <SpellLink id={SPELLS.INSTANT_POISON.id} /> application.</>, Hordehobbs),

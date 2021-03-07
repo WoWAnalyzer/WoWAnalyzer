@@ -1,1 +1,1 @@
-export const DIVINE_PURPOSE_CHANCE = .15;
+export const DIVINE_PURPOSE_CHANCE = 0.15;

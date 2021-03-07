@@ -1,15 +1,14 @@
+import SPELLS from 'common/SPELLS';
 import React from 'react';
 
-import SPELLS from 'common/SPELLS';
-
-import SpellLink from './SpellLink';
 import Icon from './Icon';
+import SpellLink from './SpellLink';
 
 interface Props extends Omit<React.ComponentProps<typeof Icon>, 'id' | 'icon'> {
-  id: number
-  noLink?: boolean
-  alt?: string
-  ilvl?: number
+  id: number;
+  noLink?: boolean;
+  alt?: string;
+  ilvl?: number;
 }
 
 const SpellIcon = ({ id, noLink, alt, ilvl, ...others }: Props) => {
@@ -22,13 +21,7 @@ const SpellIcon = ({ id, noLink, alt, ilvl, ...others }: Props) => {
     icon: 'inv_misc_questionmark',
   };
 
-  const icon = (
-    <Icon
-      icon={spell.icon}
-      alt={alt !== '' ? spell.name : ''}
-      {...others}
-    />
-  );
+  const icon = <Icon icon={spell.icon} alt={alt !== '' ? spell.name : ''} {...others} />;
 
   if (noLink) {
     return icon;

@@ -1,17 +1,15 @@
+import { Character } from 'common/character';
+import getAverageItemLevel from 'game/getAverageItemLevel';
+import { getClassName } from 'game/ROLES';
+import { getCovenantById } from 'game/shadowlands/COVENANTS';
+import SPECS from 'game/SPECS';
+import { fetchCharacter, SUPPORTED_REGIONS } from 'interface/actions/characters';
+import Icon from 'interface/Icon';
+import { getCharacterById } from 'interface/selectors/characters';
+import SpecIcon from 'interface/SpecIcon';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
-import SpecIcon from 'interface/SpecIcon';
-import Icon from 'interface/Icon';
-import { Character } from 'common/character';
-import { getClassName } from 'game/ROLES';
-import getAverageItemLevel from 'game/getAverageItemLevel';
-import SPECS from 'game/SPECS';
-import { getCharacterById } from 'interface/selectors/characters';
-import { fetchCharacter, SUPPORTED_REGIONS } from 'interface/actions/characters';
-
-import { getCovenantById } from 'game/shadowlands/COVENANTS';
 
 import { Player } from './PlayerSelection';
 
@@ -48,8 +46,8 @@ const PlayerTile = (props: Props) => {
 
   const avatar = characterInfo?.thumbnail
     ? `https://render-${
-      characterInfo.region
-    }.worldofwarcraft.com/character/${characterInfo.thumbnail.replace('avatar', 'inset')}`
+        characterInfo.region
+      }.worldofwarcraft.com/character/${characterInfo.thumbnail.replace('avatar', 'inset')}`
     : '/img/fallback-character.jpg';
   const spec = SPECS[player.combatant.specID];
   const analysisUrl = makeUrl(player.id);

@@ -1,9 +1,9 @@
+import { change, date } from 'common/changelog';
+import SPELLS from 'common/SPELLS';
+import { Putro, Sharrq } from 'CONTRIBUTORS';
+import { SpellLink } from 'interface';
 import React from 'react';
 
-import { Putro, Sharrq } from 'CONTRIBUTORS';
-import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
-import { change, date } from 'common/changelog';
 
 // prettier-ignore
 export default [

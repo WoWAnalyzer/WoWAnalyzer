@@ -1,16 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Checklist from 'parser/shared/modules/features/Checklist';
-import Rule from 'parser/shared/modules/features/Checklist/Rule';
-import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
-import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
+import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
+import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
+import Rule from 'parser/shared/modules/features/Checklist/Rule';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 const AssassinationRogueChecklist = ({ combatant, castEfficiency, thresholds }) => {
-  const AbilityRequirement = props => (
+  const AbilityRequirement = (props) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
@@ -27,35 +26,35 @@ const AssassinationRogueChecklist = ({ combatant, castEfficiency, thresholds }) 
         description="DoTs are a big part of your damage. You should try to keep as high uptime on them as possible, but do not refresh them too early"
       >
         <Requirement
-          name={(
+          name={
             <>
               <SpellLink id={SPELLS.GARROTE.id} /> uptime
             </>
-          )}
+          }
           thresholds={thresholds.garroteUptime}
         />
         <Requirement
-          name={(
+          name={
             <>
               <SpellLink id={SPELLS.RUPTURE.id} /> uptime
             </>
-          )}
+          }
           thresholds={thresholds.ruptureUptime}
         />
         <Requirement
-          name={(
+          name={
             <>
               <SpellLink id={SPELLS.GARROTE.id} /> effective refresh duration
             </>
-          )}
+          }
           thresholds={thresholds.garroteEfficiency}
         />
         <Requirement
-          name={(
+          name={
             <>
               <SpellLink id={SPELLS.RUPTURE.id} /> effective refresh duration
             </>
-          )}
+          }
           thresholds={thresholds.ruptureEfficiency}
         />
       </Rule>
@@ -65,14 +64,17 @@ const AssassinationRogueChecklist = ({ combatant, castEfficiency, thresholds }) 
       >
         <Requirement name="Energy generator efficiency" thresholds={thresholds.energyEfficiency} />
         <Requirement name="Combo Point efficiency" thresholds={thresholds.comboPointEfficiency} />
-        <Requirement name="Energy regeneration efficiency" thresholds={thresholds.energyCapEfficiency} />
+        <Requirement
+          name="Energy regeneration efficiency"
+          thresholds={thresholds.energyCapEfficiency}
+        />
         {combatant.hasTalent(SPELLS.BLINDSIDE_TALENT.id) && (
           <Requirement
-            name={(
+            name={
               <>
                 <SpellLink id={SPELLS.BLINDSIDE_TALENT.id} /> efficiency
               </>
-            )}
+            }
             thresholds={thresholds.blindsideEfficiency}
           />
         )}
@@ -96,61 +98,65 @@ const AssassinationRogueChecklist = ({ combatant, castEfficiency, thresholds }) 
         <AbilityRequirement spell={SPELLS.VANISH.id} />
         {combatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id) && (
           <Requirement
-            name={(
+            name={
               <>
-                <SpellLink id={SPELLS.SUBTERFUGE_BUFF.id} />s with atleast one <SpellLink id={SPELLS.GARROTE.id} /> cast
+                <SpellLink id={SPELLS.SUBTERFUGE_BUFF.id} />s with atleast one{' '}
+                <SpellLink id={SPELLS.GARROTE.id} /> cast
               </>
-            )}
+            }
             thresholds={thresholds.subterfugeEfficiency}
           />
         )}
         {combatant.hasTalent(SPELLS.MASTER_ASSASSIN_TALENT.id) && (
           <Requirement
-            name={(
+            name={
               <>
                 Good casts during <SpellLink id={SPELLS.MASTER_ASSASSIN_TALENT.id} />
               </>
-            )}
+            }
             thresholds={thresholds.masterAssassinEfficiency}
           />
         )}
         {combatant.hasTalent(SPELLS.NIGHTSTALKER_TALENT.id) && (
           <Requirement
-            name={(
+            name={
               <>
-                <SpellLink id={SPELLS.VANISH.id} />es spent on snapshotting <SpellLink id={SPELLS.RUPTURE.id} />
+                <SpellLink id={SPELLS.VANISH.id} />
+                es spent on snapshotting <SpellLink id={SPELLS.RUPTURE.id} />
               </>
-            )}
+            }
             thresholds={thresholds.nightstalkerEfficiency}
           />
         )}
         {combatant.hasTalent(SPELLS.NIGHTSTALKER_TALENT.id) && (
           <Requirement
-            name={(
+            name={
               <>
-                On pull opener spent on snapshotting <SpellLink id={SPELLS.RUPTURE.id} /> or <SpellLink id={SPELLS.GARROTE.id} />
+                On pull opener spent on snapshotting <SpellLink id={SPELLS.RUPTURE.id} /> or{' '}
+                <SpellLink id={SPELLS.GARROTE.id} />
               </>
-            )}
+            }
             thresholds={thresholds.nightstalkerOpenerEfficiency}
           />
         )}
-        {(combatant.hasTalent(SPELLS.NIGHTSTALKER_TALENT.id)) && (
+        {combatant.hasTalent(SPELLS.NIGHTSTALKER_TALENT.id) && (
           <Requirement
-            name={(
+            name={
               <>
                 Lost snapshotted <SpellLink id={SPELLS.RUPTURE.id} /> due to early refreshes
               </>
-            )}
+            }
             thresholds={thresholds.garroteSnapshotEfficiency}
           />
         )}
-        {(combatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id) || combatant.hasTalent(SPELLS.NIGHTSTALKER_TALENT.id)) && (
+        {(combatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id) ||
+          combatant.hasTalent(SPELLS.NIGHTSTALKER_TALENT.id)) && (
           <Requirement
-            name={(
+            name={
               <>
                 Lost snapshotted <SpellLink id={SPELLS.GARROTE.id} /> due to early refreshes
               </>
-            )}
+            }
             thresholds={thresholds.garroteSnapshotEfficiency}
           />
         )}

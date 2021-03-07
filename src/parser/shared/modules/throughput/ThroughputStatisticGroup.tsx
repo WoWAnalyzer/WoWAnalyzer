@@ -1,11 +1,10 @@
+import Analyzer from 'parser/core/Analyzer';
+import StatisticGroup from 'parser/ui/StatisticGroup';
 import React from 'react';
 
-import StatisticGroup from 'parser/ui/StatisticGroup';
-import Analyzer from 'parser/core/Analyzer';
-
 import DamageDone from './DamageDone';
-import HealingDone from './HealingDone';
 import DamageTaken from './DamageTaken';
+import HealingDone from './HealingDone';
 
 /**
  * @property {DamageDone} damageDone
@@ -25,12 +24,7 @@ class ThroughputStatisticGroup extends Analyzer {
 
   statistic() {
     return (
-      <StatisticGroup
-        position={0}
-        wide
-        large={false}
-        style={{ marginBottom: 30 }}
-      >
+      <StatisticGroup position={0} wide large={false} style={{ marginBottom: 30 }}>
         {this.damageDone.subStatistic()}
         {this.healingDone.subStatistic()}
         {this.damageTaken.subStatistic()}

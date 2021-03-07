@@ -60,7 +60,7 @@ const spells = {
   },
   NATURES_GUARDIAN_HEAL: {
     id: 31616,
-    name: 'Nature\'s Guardian',
+    name: "Nature's Guardian",
     icon: 'spell_nature_natureguardian',
   },
   TREMOR_TOTEM: {
@@ -732,7 +732,8 @@ const spells = {
     name: 'Spirit Link Totem',
     icon: 'spell_shaman_spiritlink',
   },
-  SPIRIT_LINK_TOTEM_BUFF: { // casted by totem
+  SPIRIT_LINK_TOTEM_BUFF: {
+    // casted by totem
     id: 325174,
     name: 'Spirit Link Totem',
     icon: 'spell_shaman_spiritlink',
@@ -769,7 +770,7 @@ const spells = {
   },
   SPIRITWALKERS_GRACE: {
     id: 79206,
-    name: 'Spiritwalker\'s Grace',
+    name: "Spiritwalker's Grace",
     icon: 'spell_shaman_spiritwalkersgrace',
     manaCost: 1410,
   },

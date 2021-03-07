@@ -1,5 +1,5 @@
-const path = require('path');
 const { override, disableEsLint, babelInclude } = require('customize-cra');
+const path = require('path');
 // eslint-disable-next-line import/no-extraneous-dependencies
 // const EslintPlugin = require('eslint-webpack-plugin');
 // eslint-disable-next-line import/no-extraneous-dependencies

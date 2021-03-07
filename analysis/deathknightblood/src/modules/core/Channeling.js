@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
-import CoreChanneling from 'parser/shared/modules/Channeling';
-import Events from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+import CoreChanneling from 'parser/shared/modules/Channeling';
 
 class Channeling extends CoreChanneling {
   constructor(options) {

@@ -1,17 +1,15 @@
-import React from 'react';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Enemies from 'parser/shared/modules/Enemies';
-import SPELLS from 'common/SPELLS';
-
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { formatNumber, formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events, { DamageEvent } from 'parser/core/Events';
-
-import Statistic from 'parser/ui/Statistic';
+import Enemies from 'parser/shared/modules/Enemies';
 import BoringValueText from 'parser/ui/BoringValueText';
+import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { SpellLink } from 'interface';
+import React from 'react';
 
 const PUNISH_DAMAGE_INCREASE = 0.2;
 
@@ -26,7 +24,10 @@ class Punish extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.PUNISH_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_SLAM), this.onSlamDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_SLAM),
+      this.onSlamDamage,
+    );
   }
 
   get uptime() {
@@ -43,16 +44,23 @@ class Punish extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={(
+        tooltip={
           <>
-            Punish added a total of {formatNumber(this.bonusDmg)} damage to your Shield Slams ({formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%). <br />
+            Punish added a total of {formatNumber(this.bonusDmg)} damage to your Shield Slams (
+            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%). <br />
             {formatPercentage(this.uptime)}% debuff uptime.
           </>
-        )}
+        }
       >
-        <BoringValueText label={<><SpellLink id={SPELLS.PUNISH_TALENT.id} /> Damage contributed</>}>
+        <BoringValueText
+          label={
+            <>
+              <SpellLink id={SPELLS.PUNISH_TALENT.id} /> Damage contributed
+            </>
+          }
+        >
           <>
-            {formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} <small>DPS</small>
+            {formatNumber((this.bonusDmg / this.owner.fightDuration) * 1000)} <small>DPS</small>
           </>
         </BoringValueText>
       </Statistic>

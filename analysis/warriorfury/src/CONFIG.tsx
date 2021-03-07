@@ -1,6 +1,5 @@
-import React from 'react';
-
 import SPECS from 'game/SPECS';
+import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
 
@@ -14,9 +13,16 @@ export default {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      While most features for Fury have been implemented, there are a few that are still to come. If you find any issues or if there is something missing that you would like to see added, please open an Issue on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or send a message to Abelito75 on Discord (Abelito75#0001). <br /> <br />
-
-      Make sure to check out the <a href="https://discordapp.com/invite/Skyhold">Warrior Class Discord</a> if you need more specific advice or a more detailed guide than the ones available on <a href="https://www.icy-veins.com/wow/fury-warrior-pve-dps-guide">Icy-Veins</a> and <a href="https://www.wowhead.com/fury-warrior-guide">Wowhead</a>.<br /><br />
+      While most features for Fury have been implemented, there are a few that are still to come. If
+      you find any issues or if there is something missing that you would like to see added, please
+      open an Issue on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or
+      send a message to Abelito75 on Discord (Abelito75#0001). <br /> <br />
+      Make sure to check out the{' '}
+      <a href="https://discordapp.com/invite/Skyhold">Warrior Class Discord</a> if you need more
+      specific advice or a more detailed guide than the ones available on{' '}
+      <a href="https://www.icy-veins.com/wow/fury-warrior-pve-dps-guide">Icy-Veins</a> and{' '}
+      <a href="https://www.wowhead.com/fury-warrior-guide">Wowhead</a>.<br />
+      <br />
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
@@ -28,7 +34,10 @@ export default {
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () => import('./CombatLogParser' /* webpackChunkName: "FuryWarrior" */).then(exports => exports.default),
+  parser: () =>
+    import('./CombatLogParser' /* webpackChunkName: "FuryWarrior" */).then(
+      (exports) => exports.default,
+    ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };

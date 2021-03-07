@@ -1,10 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
+import { captureException } from 'common/errorLogger';
+import { fabricateBossPhaseEvents } from 'common/fabricateBossPhaseEvents';
 import { fetchEvents } from 'common/fetchWclApi';
 import { makeWclBossPhaseFilter } from 'common/makeWclBossPhaseFilter';
-import { fabricateBossPhaseEvents } from 'common/fabricateBossPhaseEvents';
-import { captureException } from 'common/errorLogger';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import BOSS_PHASES_STATE from './BOSS_PHASES_STATE';
 
@@ -64,7 +63,13 @@ class BossPhaseEventsLoader extends React.PureComponent {
     const filter = makeWclBossPhaseFilter(fight);
 
     if (filter) {
-      const events = await fetchEvents(report.code, fight.start_time, fight.end_time, undefined, makeWclBossPhaseFilter(fight));
+      const events = await fetchEvents(
+        report.code,
+        fight.start_time,
+        fight.end_time,
+        undefined,
+        makeWclBossPhaseFilter(fight),
+      );
       return fabricateBossPhaseEvents(events, report, fight);
     } else {
       return null;

@@ -1,18 +1,16 @@
 import { Trans } from '@lingui/macro';
-import React from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-
-import { EventType } from 'parser/core/Events';
-
 import { formatDuration } from 'common/format';
 import makeWclUrl from 'common/makeWclUrl';
-import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
 import DragScroll from 'interface/DragScroll';
+import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
+import CombatLogParser from 'parser/core/CombatLogParser';
+import { EventType } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import BuffsModule from 'parser/core/modules/Buffs';
-import CombatLogParser from 'parser/core/CombatLogParser';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './Timeline.scss';
 import Buffs from './Buffs';

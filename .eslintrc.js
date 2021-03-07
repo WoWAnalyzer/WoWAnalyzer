@@ -3,6 +3,7 @@ const CHECK_CODESTYLE = process.env.CODE_STYLE === 'true';
 module.exports = {
   extends: '@emico/eslint-config',
   rules: {
+    'no-use-before-define': 'off',
     'import/order': [
       // This is an annoying code style rule that can be fixed automatically.
       // Only check it during the precommit fix script, and in CI.

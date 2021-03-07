@@ -1,24 +1,23 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { i18n } from '@lingui/core';
 import { Trans, defineMessage } from '@lingui/macro';
-
-import ZONES from 'game/ZONES';
-import SPECS from 'game/SPECS';
-import DIFFICULTIES, { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
-import fetchWcl, { CharacterNotFoundError, UnknownApiError, WclApiError } from 'common/fetchWclApi';
-import { makeCharacterApiUrl, makeItemApiUrl } from 'common/makeApiUrl';
-import ITEMS from 'common/ITEMS';
 import { captureException } from 'common/errorLogger';
+import fetchWcl, { CharacterNotFoundError, UnknownApiError, WclApiError } from 'common/fetchWclApi';
+import ITEMS from 'common/ITEMS';
+import { makeCharacterApiUrl, makeItemApiUrl } from 'common/makeApiUrl';
 import retryingPromise from 'common/retryingPromise';
+import DIFFICULTIES, { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
+import SPECS from 'game/SPECS';
+import ZONES from 'game/ZONES';
 import { appendReportHistory } from 'interface/actions/reportHistory';
 import ActivityIndicator from 'interface/ActivityIndicator';
 import ArmoryIcon from 'interface/icons/Armory';
 import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
 import WipefestIcon from 'interface/icons/Wipefest';
 import REPORT_HISTORY_TYPES from 'interface/REPORT_HISTORY_TYPES';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import './CharacterParses.scss';
 import ParsesList from './CharacterParsesList';

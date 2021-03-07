@@ -1,5 +1,5 @@
+import { Character } from 'common/contributor';
 import { makeCharacterApiUrl } from 'common/makeApiUrl';
-import { Character } from "common/contributor";
 
 export const SUPPORTED_REGIONS = ['EU', 'US', 'TW', 'KR'];
 export const STORE_CHARACTER = 'STORE_CHARACTER';
@@ -21,10 +21,12 @@ export function fetchCharacter(guid: string, region: string, realm: string, name
     }
     const data = await response.json();
 
-    dispatch(storeCharacter({
-      guid,
-      ...data,
-    }));
+    dispatch(
+      storeCharacter({
+        guid,
+        ...data,
+      }),
+    );
     return data;
   };
 }

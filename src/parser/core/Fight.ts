@@ -1,15 +1,15 @@
-// WCL properties 
+// WCL properties
 export interface WCLFight {
-  id: number,
+  id: number;
   // eslint-disable-next-line camelcase
-  start_time: number,
+  start_time: number;
   // eslint-disable-next-line camelcase
-  end_time: number,
-  boss: number,
-  name: string,
-  size?: number,
-  difficulty?: number,
-  kill?: boolean,
+  end_time: number;
+  boss: number;
+  name: string;
+  size?: number;
+  difficulty?: number;
+  kill?: boolean;
 }
 
 //generated or applied properties

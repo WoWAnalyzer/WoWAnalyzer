@@ -1,19 +1,18 @@
 /* eslint-disable react/prop-types */
+import getBossName from 'common/getBossName';
+import { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
+import { Phase } from 'game/raids';
+import { TooltipElement } from 'interface/Tooltip';
+import Config, { Build } from 'parser/Config';
+import Fight from 'parser/core/Fight';
+import DEFAULT_BUILD from 'parser/DEFAULT_BUILD';
 import React, { ComponentType, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Phase } from 'game/raids';
-import Fight from 'parser/core/Fight';
-import DEFAULT_BUILD from 'parser/DEFAULT_BUILD';
-import Config, { Build } from 'parser/Config';
-import { TooltipElement } from 'interface/Tooltip';
-import { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
-import getBossName from 'common/getBossName';
-
-import PhaseSelector from './PhaseSelector';
-import TimeFilter from './TimeFilter';
 import HeaderBackground from './HeaderBackground';
 import NavigationBar from './NavigationBar';
+import PhaseSelector from './PhaseSelector';
+import TimeFilter from './TimeFilter';
 
 import './Header.scss';
 

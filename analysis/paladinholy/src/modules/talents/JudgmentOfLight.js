@@ -1,12 +1,10 @@
-import React from 'react';
-
+import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import { formatNumber } from 'common/format';
+import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
+import React from 'react';
 
 const JUDGEMENT_HEALS = 25;
 

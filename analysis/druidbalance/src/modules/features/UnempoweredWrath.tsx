@@ -1,16 +1,20 @@
-import React from 'react';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import { t } from '@lingui/macro';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, ApplyBuffEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import React from 'react';
 
 const UNEMPOWERED_CASTS_NEEDED_FOR_EMPOWERMENT = 2;
 
 class UnempoweredWrath extends Analyzer {
   get badCastsPerMinute() {
-    return ((this.badCasts - (this.eclipseCount * UNEMPOWERED_CASTS_NEEDED_FOR_EMPOWERMENT)) / (this.owner.fightDuration / 1000)) * 60;
+    return (
+      ((this.badCasts - this.eclipseCount * UNEMPOWERED_CASTS_NEEDED_FOR_EMPOWERMENT) /
+        (this.owner.fightDuration / 1000)) *
+      60
+    );
   }
 
   get suggestionThresholds() {
@@ -34,8 +38,14 @@ class UnempoweredWrath extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WRATH_MOONKIN), this.onCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.WRATH_MOONKIN), this.onDamage);
-    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.ECLIPSE_SOLAR), this.onApplyBuff);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.WRATH_MOONKIN),
+      this.onDamage,
+    );
+    this.addEventListener(
+      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.ECLIPSE_SOLAR),
+      this.onApplyBuff,
+    );
     this.addEventListener(Events.fightend, this.onFightend);
   }
 
@@ -69,14 +79,24 @@ class UnempoweredWrath extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You casted {this.badCasts} unempowered <SpellLink id={SPELLS.WRATH_MOONKIN.id} /> outside the {UNEMPOWERED_CASTS_NEEDED_FOR_EMPOWERMENT} needed to get to <SpellLink id={SPELLS.ECLIPSE_SOLAR.id} /></>)
-      .icon(SPELLS.WRATH_MOONKIN.icon)
-      .actual(t({
-        id: "druid.balance.suggestions.wrath.efficiency",
-        message: `${actual.toFixed(1)} Unempowered Wraths per minute`
-      }))
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You casted {this.badCasts} unempowered <SpellLink id={SPELLS.WRATH_MOONKIN.id} /> outside
+          the {UNEMPOWERED_CASTS_NEEDED_FOR_EMPOWERMENT} needed to get to{' '}
+          <SpellLink id={SPELLS.ECLIPSE_SOLAR.id} />
+        </>,
+      )
+        .icon(SPELLS.WRATH_MOONKIN.icon)
+        .actual(
+          t({
+            id: 'druid.balance.suggestions.wrath.efficiency',
+            message: `${actual.toFixed(1)} Unempowered Wraths per minute`,
+          }),
+        )
 
-      .recommended(`${recommended} is recommended`));
+        .recommended(`${recommended} is recommended`),
+    );
   }
 }
 

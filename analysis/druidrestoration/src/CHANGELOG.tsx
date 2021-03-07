@@ -1,5 +1,5 @@
-import { Yajinni, Abelito75, Zeboot, LeoZhekov, Putro, Vexxra, Tiboonn, Ciuffi } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
+import { Yajinni, Abelito75, Zeboot, LeoZhekov, Putro, Vexxra, Tiboonn, Ciuffi } from 'CONTRIBUTORS';
 
 export default [
   change(date(2021, 2, 12), 'Added form tracking to the convoke module', Ciuffi),

@@ -1,1 +1,2 @@
-export const getReportCodesIgnoredPreviousPatchWarning = state => state.reportCodesIgnoredPreviousPatchWarning;
+export const getReportCodesIgnoredPreviousPatchWarning = (state) =>
+  state.reportCodesIgnoredPreviousPatchWarning;

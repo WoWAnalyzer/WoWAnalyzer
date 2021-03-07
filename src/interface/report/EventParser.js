@@ -1,22 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { captureException } from 'common/errorLogger';
+import sleep from 'common/sleep';
 import ExtendableError from 'es6-error';
-import { compose } from 'redux';
+import { getBuild } from 'interface/selectors/url/report';
+import { EventType } from 'parser/core/Events';
+import EventEmitter from 'parser/core/modules/EventEmitter';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-
-import { getBuild } from 'interface/selectors/url/report';
-import sleep from 'common/sleep';
-import { captureException } from 'common/errorLogger';
-import EventEmitter from 'parser/core/modules/EventEmitter';
-import { EventType } from 'parser/core/Events';
+import { compose } from 'redux';
 
 const BENCHMARK = false;
 // Picking a correct batch duration is hard. I tried various durations to get the batch sizes to 1 frame, but that results in a lot of wasted time waiting for the next frame. 30ms (33 fps) as well causes a lot of wasted time. 60ms (16fps) seem to have really low wasted time while not blocking the UI anymore than a user might expect.
 const MAX_BATCH_DURATION = 66.67; // ms
 const TIME_AVAILABLE = console.time && console.timeEnd;
-const bench = id => TIME_AVAILABLE && console.time(id);
-const benchEnd = id => TIME_AVAILABLE && console.timeEnd(id);
+const bench = (id) => TIME_AVAILABLE && console.time(id);
+const benchEnd = (id) => TIME_AVAILABLE && console.timeEnd(id);
 
 export class EventsParseError extends ExtendableError {
   reason = null;
@@ -112,9 +111,9 @@ class EventParser extends React.PureComponent {
       builds,
       parserClass,
     } = this.props;
-    const buildKey = builds && Object.keys(builds).find(b => builds[b].url === build);
+    const buildKey = builds && Object.keys(builds).find((b) => builds[b].url === build);
     builds &&
-      Object.keys(builds).forEach(key => {
+      Object.keys(builds).forEach((key) => {
         builds[key].active = key === buildKey;
       });
     //set current build to undefined if default build or non-existing build selected
@@ -138,7 +137,7 @@ class EventParser extends React.PureComponent {
   makeEvents(parser) {
     let { events } = this.props;
     // The events we fetched will be all events related to the selected player. This includes the `combatantinfo` for the selected player. However we have already parsed this event when we loaded the combatants in the `initializeAnalyzers` of the CombatLogParser. Loading the selected player again could lead to bugs since it would reinitialize and overwrite the existing entity (the selected player) in the Combatants module.
-    events = events.filter(event => event.type !== EventType.CombatantInfo);
+    events = events.filter((event) => event.type !== EventType.CombatantInfo);
     //sort now normalized events to avoid new fabricated events like "prepull" casts etc being in incorrect order with casts "kept" from before the filter
     events = parser.normalize(events).sort((a, b) => a.timestamp - b.timestamp);
     return events;

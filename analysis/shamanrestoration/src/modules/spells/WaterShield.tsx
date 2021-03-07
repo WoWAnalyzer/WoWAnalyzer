@@ -1,22 +1,18 @@
 import React from 'react';
-
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, EnergizeEvent } from 'parser/core/Events';
-
-import { SpellLink } from 'interface';
-import SPELLS from 'common/SPELLS';
-import { formatNumber } from 'common/format';
-
 import { Trans } from '@lingui/macro';
-
-import Statistic from 'parser/ui/Statistic';
-import BoringValue from 'parser/ui/BoringValueText';
+import { formatNumber } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 import ManaIcon from 'interface/icons/Mana';
 // just gonna steal my mtt formatting
-import './ManaTideTotem.scss'
+import './ManaTideTotem.scss';
 import { TooltipElement } from 'interface';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import Events, { ApplyBuffEvent, EnergizeEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
+import BoringValue from 'parser/ui/BoringValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 const WATER_SHIELD_MANA_REGEN_PER_SECOND = 50 / 5;
 
@@ -29,8 +25,14 @@ class WaterShield extends Analyzer {
     // Disable Water Shield because its just fucking broken
     this.active = false;
 
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.WATER_SHIELD_ENERGIZE), this.waterShield);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.WATER_SHIELD), this.waterShieldPrepullCheck);
+    this.addEventListener(
+      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.WATER_SHIELD_ENERGIZE),
+      this.waterShield,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.WATER_SHIELD),
+      this.waterShieldPrepullCheck,
+    );
   }
 
   waterShield(event: EnergizeEvent) {
@@ -44,13 +46,14 @@ class WaterShield extends Analyzer {
   }
 
   get regenOnPlayer() {
-    let uptime = this.selectedCombatant.getBuffUptime(SPELLS.WATER_SHIELD.id) / this.owner.fightDuration;
+    let uptime =
+      this.selectedCombatant.getBuffUptime(SPELLS.WATER_SHIELD.id) / this.owner.fightDuration;
     if (uptime === 0) {
       uptime = 1; // quick fix for water shield not being in logs
     }
 
     return (this.owner.fightDuration / 1000) * WATER_SHIELD_MANA_REGEN_PER_SECOND * uptime;
-  };
+  }
 
   get uptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.WATER_SHIELD.id);
@@ -65,7 +68,7 @@ class WaterShield extends Analyzer {
       actual: this.uptimePercent,
       isLessThan: {
         minor: 0.95,
-        average: 0.90,
+        average: 0.9,
         major: 0.85,
       },
       style: ThresholdStyle.PERCENTAGE,
@@ -82,10 +85,7 @@ class WaterShield extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        size='flexible'
-        position={STATISTIC_ORDER.UNIMPORTANT(88)}
-      >
+      <Statistic size="flexible" position={STATISTIC_ORDER.UNIMPORTANT(88)}>
         <BoringValue label={<SpellLink id={SPELLS.WATER_SHIELD.id} />}>
           <div className="flex mtt-value">
             <div className="flex-sub icon">
@@ -95,8 +95,17 @@ class WaterShield extends Analyzer {
               {formatNumber(this.regenOnPlayer + this.manaGain)}
               <br />
               <small>
-                <TooltipElement content={<Trans id="shaman.restoration.waterShield.statistic.tooltip">{formatNumber(this.regenOnPlayer)} mana from the passive regen and {this.manaGain} from getting hit</Trans>}>
-                  <Trans id="shaman.restoration.manaTideTotem.statistic.manaRestored">Mana restored</Trans>
+                <TooltipElement
+                  content={
+                    <Trans id="shaman.restoration.waterShield.statistic.tooltip">
+                      {formatNumber(this.regenOnPlayer)} mana from the passive regen and{' '}
+                      {this.manaGain} from getting hit
+                    </Trans>
+                  }
+                >
+                  <Trans id="shaman.restoration.manaTideTotem.statistic.manaRestored">
+                    Mana restored
+                  </Trans>
                 </TooltipElement>
               </small>
             </div>

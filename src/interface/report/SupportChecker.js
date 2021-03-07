@@ -1,11 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-
-import { ignoreSpecNotSupportedWarning } from 'interface/actions/specNotSupported';
-import { getSpecsIgnoredNotSupportedWarning } from 'interface/selectors/skipSpecNotSupported';
-import SupportCheckerSpecPartialSupport from 'interface/report/SupportCheckerSpecPartialSupport';
 import isLatestPatch from 'game/isLatestPatch';
+import { ignoreSpecNotSupportedWarning } from 'interface/actions/specNotSupported';
+import SupportCheckerSpecPartialSupport from 'interface/report/SupportCheckerSpecPartialSupport';
+import { getSpecsIgnoredNotSupportedWarning } from 'interface/selectors/skipSpecNotSupported';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { connect } from 'react-redux';
 
 import SupportCheckerSpecOutOfDate from './SupportCheckerSpecOutOfDate';
 

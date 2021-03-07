@@ -1,14 +1,13 @@
-import React from 'react';
-
+import { t } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
-import { formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
-import Analyzer from 'parser/core/Analyzer';
 import UptimeIcon from 'interface/icons/Uptime';
-import StatisticBox from 'parser/ui/StatisticBox';
+import Analyzer from 'parser/core/Analyzer';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { t } from '@lingui/macro';
+import StatisticBox from 'parser/ui/StatisticBox';
+import React from 'react';
 
 import { ROLL_THE_BONES_BUFFS } from '../../constants';
 
@@ -38,13 +37,22 @@ class RollTheBonesBuffs extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> uptime can be improved. Try to always have <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> active, even with a lower value roll.</>)
-      .icon(SPELLS.ROLL_THE_BONES.icon)
-      .actual(t({
-      id: "rogue.outlaw.suggestions.rollTheBones.uptime",
-      message: `${formatPercentage(actual)}% Roll the Bones uptime`
-    }))
-      .recommended(`>${formatPercentage(recommended)}% is recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> uptime can be improved. Try to always
+          have <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> active, even with a lower value roll.
+        </>,
+      )
+        .icon(SPELLS.ROLL_THE_BONES.icon)
+        .actual(
+          t({
+            id: 'rogue.outlaw.suggestions.rollTheBones.uptime',
+            message: `${formatPercentage(actual)}% Roll the Bones uptime`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
@@ -52,11 +60,12 @@ class RollTheBonesBuffs extends Analyzer {
       <StatisticBox
         position={STATISTIC_ORDER.CORE(2)}
         icon={<SpellIcon id={SPELLS.ROLL_THE_BONES.id} />}
-        value={(
+        value={
           <>
-            <UptimeIcon /> {formatPercentage(this.totalPercentUptime)}% <small>uptime</small><br />
+            <UptimeIcon /> {formatPercentage(this.totalPercentUptime)}% <small>uptime</small>
+            <br />
           </>
-        )}
+        }
         label={<SpellLink id={SPELLS.ROLL_THE_BONES.id} icon={false} />}
       >
         <table className="table table-condensed">
@@ -69,7 +78,9 @@ class RollTheBonesBuffs extends Analyzer {
           <tbody>
             {ROLL_THE_BONES_BUFFS.map((e) => (
               <tr key={e.id}>
-                <th><SpellLink id={e.id} /></th>
+                <th>
+                  <SpellLink id={e.id} />
+                </th>
                 <td>{`${formatPercentage(this.percentUptime(e.id))} %`}</td>
               </tr>
             ))}

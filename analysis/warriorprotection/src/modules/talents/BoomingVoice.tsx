@@ -1,20 +1,17 @@
-import React from 'react';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import SPELLS from 'common/SPELLS';
-
-import Enemies from 'parser/shared/modules/Enemies';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import { t } from '@lingui/macro';
 import { formatNumber } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events, { CastEvent, DamageEvent, EnergizeEvent } from 'parser/core/Events';
-
-import Statistic from 'parser/ui/Statistic';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import Enemies from 'parser/shared/modules/Enemies';
 import BoringValueText from 'parser/ui/BoringValueText';
+import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { SpellLink } from 'interface';
-
-import { t } from '@lingui/macro';
+import React from 'react';
 
 const BOOMING_VOICE_DAMAGE_INCREASE = 0.2;
 const BOOMING_VOICE_RAGE_GENERATION = 40;
@@ -34,8 +31,14 @@ class BoomingVoice extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEMORALIZING_SHOUT), this.onShoutCast);
-    this.addEventListener(Events.energize.to(SELECTED_PLAYER).spell(SPELLS.DEMORALIZING_SHOUT), this.onShoutEnergize);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEMORALIZING_SHOUT),
+      this.onShoutCast,
+    );
+    this.addEventListener(
+      Events.energize.to(SELECTED_PLAYER).spell(SPELLS.DEMORALIZING_SHOUT),
+      this.onShoutEnergize,
+    );
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
@@ -81,14 +84,22 @@ class BoomingVoice extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.uptimeSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>You wasted Rage by casting <SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> with more than {this.maxRage - BOOMING_VOICE_RAGE_GENERATION} Rage.</>)
+    when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You wasted Rage by casting <SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> with more than{' '}
+          {this.maxRage - BOOMING_VOICE_RAGE_GENERATION} Rage.
+        </>,
+      )
         .icon(SPELLS.BOOMING_VOICE_TALENT.icon)
-        .actual(t({
-      id: "warrior.protection.suggestions.boominVoice.rage.wasted",
-      message: `${actual} Rage wasted`
-    }))
-        .recommended(`<${recommended} wasted Rage is recommended`));
+        .actual(
+          t({
+            id: 'warrior.protection.suggestions.boominVoice.rage.wasted',
+            message: `${actual} Rage wasted`,
+          }),
+        )
+        .recommended(`<${recommended} wasted Rage is recommended`),
+    );
   }
 
   statistic() {
@@ -97,14 +108,21 @@ class BoomingVoice extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={(
+        tooltip={
           <>
-            {formatNumber(this.bonusDmg)} damage contributed<br />
+            {formatNumber(this.bonusDmg)} damage contributed
+            <br />
             {this.rageWasted} Rage wasted
           </>
-        )}
+        }
       >
-        <BoringValueText label={<><SpellLink id={SPELLS.BOOMING_VOICE_TALENT.id} /> Rage generated</>}>
+        <BoringValueText
+          label={
+            <>
+              <SpellLink id={SPELLS.BOOMING_VOICE_TALENT.id} /> Rage generated
+            </>
+          }
+        >
           <>
             {this.rageGenerated} <small>rage</small>
           </>

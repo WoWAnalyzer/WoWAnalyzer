@@ -1,7 +1,6 @@
-import React from 'react';
-
 import { Sharrq } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
+import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
 
@@ -15,15 +14,48 @@ export default {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      Hello Everyone! We are always looking to improve the Arcane Mage Analyzers and Modules; so if you find any issues or if there is something missing that you would like to see added, please{' '}
-      <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new?labels=Mage" target="_blank" rel="noopener noreferrer">open an issue</a>{' '}
-      on GitHub or send us a message on the{' '}<a href="https://wowanalyzer.com/discord" target="_blank" rel="noopener noreferrer">WoWAnalyzer Discord</a>.<br /><br />
-      If you need additional assistance in improving your gameplay as an Arcane Mage or interpretting the information provided, please refer to the following resources:<br />
-      <a href="https://discord.gg/0gLMHikX2aZ23VdA" target="_blank" rel="noopener noreferrer">Mage Class Discord</a>{' '}<br />
-      <a href="https://discord.gg/UrczP9U" target="_blank" rel="noopener noreferrer">Arcane Spec Discord</a>{' '}<br />
-      <a href="https://www.altered-time.com/forum/" target="_blank" rel="noopener noreferrer">Altered Time (Mage Forums/Guides)</a>{' '}<br />
-      <a href="https://www.wowhead.com/arcane-mage-guide" target="_blank" rel="noopener noreferrer">Wowhead (Arcane Mage Guide)</a>{' '}<br />
-      <a href="https://www.icy-veins.com/wow/arcane-mage-pve-dps-guide" target="_blank" rel="noopener noreferrer">Icy Veins (Arcane Mage Guide)</a>{' '}<br />
+      Hello Everyone! We are always looking to improve the Arcane Mage Analyzers and Modules; so if
+      you find any issues or if there is something missing that you would like to see added, please{' '}
+      <a
+        href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new?labels=Mage"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        open an issue
+      </a>{' '}
+      on GitHub or send us a message on the{' '}
+      <a href="https://wowanalyzer.com/discord" target="_blank" rel="noopener noreferrer">
+        WoWAnalyzer Discord
+      </a>
+      .<br />
+      <br />
+      If you need additional assistance in improving your gameplay as an Arcane Mage or
+      interpretting the information provided, please refer to the following resources:
+      <br />
+      <a href="https://discord.gg/0gLMHikX2aZ23VdA" target="_blank" rel="noopener noreferrer">
+        Mage Class Discord
+      </a>{' '}
+      <br />
+      <a href="https://discord.gg/UrczP9U" target="_blank" rel="noopener noreferrer">
+        Arcane Spec Discord
+      </a>{' '}
+      <br />
+      <a href="https://www.altered-time.com/forum/" target="_blank" rel="noopener noreferrer">
+        Altered Time (Mage Forums/Guides)
+      </a>{' '}
+      <br />
+      <a href="https://www.wowhead.com/arcane-mage-guide" target="_blank" rel="noopener noreferrer">
+        Wowhead (Arcane Mage Guide)
+      </a>{' '}
+      <br />
+      <a
+        href="https://www.icy-veins.com/wow/arcane-mage-pve-dps-guide"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Icy Veins (Arcane Mage Guide)
+      </a>{' '}
+      <br />
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.

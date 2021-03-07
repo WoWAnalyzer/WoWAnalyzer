@@ -1,17 +1,13 @@
-import React from 'react';
-
+import { t } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
+import { SpellIcon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
-
-import SPELLS from 'common/SPELLS';
-import { formatPercentage } from 'common/format';
-import { SpellLink } from 'interface';
-import { SpellIcon } from 'interface';
-
 import UptimeBar from 'parser/ui/UptimeBar';
-
-import { t } from '@lingui/macro';
+import React from 'react';
 
 class CorruptionUptime extends Analyzer {
   static dependencies = {

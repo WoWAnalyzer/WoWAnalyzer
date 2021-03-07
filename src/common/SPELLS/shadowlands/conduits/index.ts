@@ -24,5 +24,5 @@ const conduits = {
   ...SHAMAN,
   ...WARLOCK,
   ...WARRIOR,
-} as const
+} as const;
 export default conduits;

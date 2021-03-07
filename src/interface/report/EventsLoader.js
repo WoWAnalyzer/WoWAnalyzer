@@ -1,7 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
 import { fetchEvents } from 'common/fetchWclApi';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 class EventsLoader extends React.PureComponent {
   static propTypes = {
@@ -35,7 +34,11 @@ class EventsLoader extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps, prevState, prevContext) {
-    if (prevProps.report !== this.props.report || prevProps.fight !== this.props.fight || prevProps.player !== this.props.player) {
+    if (
+      prevProps.report !== this.props.report ||
+      prevProps.fight !== this.props.fight ||
+      prevProps.player !== this.props.player
+    ) {
       this.setState({
         isLoading: true,
         events: null,

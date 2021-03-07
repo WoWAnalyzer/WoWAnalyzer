@@ -1,53 +1,51 @@
 //Covenants
-import { ElysianDecree, SinfulBrand, TheHunt } from '@wowanalyzer/demonhunter';
 
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
-import EyeBeamNormalizer from './normalizers/EyeBeam';
+import { ElysianDecree, SinfulBrand, TheHunt } from '@wowanalyzer/demonhunter';
+
+import Abilities from './modules/Abilities';
+import Buffs from './modules/Buffs';
 import Channeling from './modules/core/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
-import Buffs from './modules/Buffs';
-
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Abilities from './modules/Abilities';
+import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 
-import Checklist from './modules/features/Checklist/Module';
-
 // Spells
-import DemonBite from './modules/spells/DemonBite';
-import MetaBuffUptime from './modules/spells/MetaBuffUptime';
-import BladeDance from './modules/spells/BladeDance'
-
-// Talents
-import Momentum from './modules/talents/Momentum';
-import Felblade from './modules/talents/Felblade';
-import DemonicAppetite from './modules/talents/DemonicAppetite';
-import BlindFury from './modules/talents/BlindFury';
-import DemonBlades from './modules/talents/DemonBlades';
-import ImmolationAura from './modules/talents/ImmolationAura';
-import TrailofRuin from './modules/talents/TrailofRuin';
-import FelBarrage from './modules/talents/FelBarrage';
-import Netherwalk from './modules/talents/Netherwalk';
-import FelEruption from './modules/talents/FelEruption';
-import MasterOfTheGlaives from './modules/talents/MasterOfTheGlaives';
-import EssenceBreak from './modules/talents/EssenceBreak';
-import CycleOfHatred from './modules/talents/CycleOfHatred';
-import Demonic from './modules/talents/Demonic';
-import GlaiveTempest from './modules/talents/GlaiveTempest';
-
-//Resources
 import FuryDetails from './modules/resourcetracker/FuryDetails';
 import FuryTracker from './modules/resourcetracker/FuryTracker';
+import GrowingInferno from './modules/shadowlands/conduits/GrowingInferno';
+import ChaosTheory from './modules/shadowlands/legendaries/ChaosTheory';
+import CollectiveAnguish from './modules/shadowlands/legendaries/CollectiveAnguish';
+import BladeDance from './modules/spells/BladeDance';
+import DemonBite from './modules/spells/DemonBite';
+import MetaBuffUptime from './modules/spells/MetaBuffUptime';
+
+// Talents
+import BlindFury from './modules/talents/BlindFury';
+import CycleOfHatred from './modules/talents/CycleOfHatred';
+import DemonBlades from './modules/talents/DemonBlades';
+import Demonic from './modules/talents/Demonic';
+import DemonicAppetite from './modules/talents/DemonicAppetite';
+import EssenceBreak from './modules/talents/EssenceBreak';
+import FelBarrage from './modules/talents/FelBarrage';
+import Felblade from './modules/talents/Felblade';
+import FelEruption from './modules/talents/FelEruption';
+import GlaiveTempest from './modules/talents/GlaiveTempest';
+import ImmolationAura from './modules/talents/ImmolationAura';
+import MasterOfTheGlaives from './modules/talents/MasterOfTheGlaives';
+import Momentum from './modules/talents/Momentum';
+import Netherwalk from './modules/talents/Netherwalk';
+import TrailofRuin from './modules/talents/TrailofRuin';
+
+//Resources
 
 //Legendaries
-import CollectiveAnguish from './modules/shadowlands/legendaries/CollectiveAnguish';
-import ChaosTheory from './modules/shadowlands/legendaries/ChaosTheory';
 
 //Conduits
-import GrowingInferno from './modules/shadowlands/conduits/GrowingInferno';
-
+import EyeBeamNormalizer from './normalizers/EyeBeam';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -86,7 +84,7 @@ class CombatLogParser extends CoreCombatLogParser {
     essenceBreak: EssenceBreak,
     cycleOfHatred: CycleOfHatred,
     demonic: Demonic,
-    glaiveTempest:GlaiveTempest,
+    glaiveTempest: GlaiveTempest,
 
     //Resources
     furyTracker: FuryTracker,

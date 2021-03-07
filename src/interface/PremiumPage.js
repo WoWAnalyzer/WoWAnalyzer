@@ -1,18 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { t, Trans } from '@lingui/macro';
-import { connect } from 'react-redux';
-
+import { logout } from 'interface/actions/user';
+import DocumentTitle from 'interface/DocumentTitle';
+import GitHubButton from 'interface/GitHubButton';
+import DiscordIcon from 'interface/icons/DiscordTiny';
 import PremiumIcon from 'interface/icons/Premium';
 import ViralContentIcon from 'interface/icons/ViralContent';
 import WebBannerIcon from 'interface/icons/WebBanner';
-import DiscordIcon from 'interface/icons/DiscordTiny';
 import PatreonButton from 'interface/PatreonButton';
-import GitHubButton from 'interface/GitHubButton';
-import { TooltipElement } from 'interface/Tooltip';
-import { logout } from 'interface/actions/user';
 import { getUser } from 'interface/selectors/user';
-import DocumentTitle from 'interface/DocumentTitle';
+import { TooltipElement } from 'interface/Tooltip';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { connect } from 'react-redux';
 
 import './PremiumPage.scss';
 

@@ -1,12 +1,10 @@
-import React from 'react';
+import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-
-import SPELLS from 'common/SPELLS';
-
-import Events from 'parser/core/Events';
+import React from 'react';
 
 import SoulFragmentsTracker from '../features/SoulFragmentsTracker';
 import MAX_SOUL_FRAGMENTS from '../features/SoulFragmentsTracker';
@@ -25,8 +23,16 @@ class SoulFragmentsConsume extends Analyzer {
 
   constructor(options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.SPIRIT_BOMB_TALENT, SPELLS.SOUL_CLEAVE, SPELLS.SOUL_BARRIER_TALENT]), this.onCast);
-    this.addEventListener(Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.SOUL_FRAGMENT_STACK), this.onChangeBuffStack);
+    this.addEventListener(
+      Events.cast
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.SPIRIT_BOMB_TALENT, SPELLS.SOUL_CLEAVE, SPELLS.SOUL_BARRIER_TALENT]),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.SOUL_FRAGMENT_STACK),
+      this.onChangeBuffStack,
+    );
   }
 
   onCast(event) {
@@ -42,11 +48,17 @@ class SoulFragmentsConsume extends Analyzer {
   }
 
   onChangeBuffStack(event) {
-    if (event.oldStacks < event.newStacks || // not interested in soul gains
-      event.oldStacks > MAX_SOUL_FRAGMENTS) { // not interested in overcap corrections
+    if (
+      event.oldStacks < event.newStacks || // not interested in soul gains
+      event.oldStacks > MAX_SOUL_FRAGMENTS
+    ) {
+      // not interested in overcap corrections
       return;
     }
-    if (this.castTimestamp !== undefined && (event.timestamp - this.castTimestamp) < REMOVE_STACK_BUFFER) {
+    if (
+      this.castTimestamp !== undefined &&
+      event.timestamp - this.castTimestamp < REMOVE_STACK_BUFFER
+    ) {
       const consumed = event.oldStacks - event.newStacks;
       this.soulsConsumedBySpell[this.trackedSpell].souls += consumed;
       this.totalSoulsConsumedBySpells += consumed;
@@ -66,7 +78,7 @@ class SoulFragmentsConsume extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(6)}
         size="small"
-        dropdown={(
+        dropdown={
           <>
             <table className="table table-condensed">
               <thead>
@@ -93,7 +105,7 @@ class SoulFragmentsConsume extends Analyzer {
               </tbody>
             </table>
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.SOUL_FRAGMENT_STACK}>
           <>
@@ -101,10 +113,8 @@ class SoulFragmentsConsume extends Analyzer {
           </>
         </BoringSpellValueText>
       </Statistic>
-
     );
   }
-
 }
 
 export default SoulFragmentsConsume;

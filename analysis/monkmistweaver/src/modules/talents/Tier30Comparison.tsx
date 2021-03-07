@@ -1,28 +1,28 @@
-import React from 'react';
-
-import SPELLS from 'common/SPELLS';
+import { t } from '@lingui/macro';
 import { formatNumber } from 'common/format';
-
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import SPELLS from 'common/SPELLS';
+import { SpellIcon } from 'interface';
+import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
-
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-
-import Statistic from 'parser/ui/Statistic';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringValueText from 'parser/ui/BoringValueText';
+import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { SpellIcon } from 'interface';
-import { SpellLink } from 'interface';
+import React from 'react';
 
-import { t } from '@lingui/macro';
-
-import { LIFECYCLES_MANA_PERC_REDUCTION, SPIRIT_OF_THE_CRANE_MANA_RETURN, LIFECYCLES_MANA_REDUCTION_PERCENT, MANA_TEA_DURATION } from '../../constants';
+import {
+  LIFECYCLES_MANA_PERC_REDUCTION,
+  SPIRIT_OF_THE_CRANE_MANA_RETURN,
+  LIFECYCLES_MANA_REDUCTION_PERCENT,
+  MANA_TEA_DURATION,
+} from '../../constants';
+import Lifecycles from './Lifecycles';
 import ManaTea from './ManaTea';
 import SpiritOfTheCrane from './SpiritOfTheCrane';
-import Lifecycles from './Lifecycles';
 
 const debug = false;
 
@@ -34,14 +34,14 @@ class Tier30Comparison extends Analyzer {
     spiritOfTheCrane: SpiritOfTheCrane,
     lifeCycles: Lifecycles,
   };
-  manatea: BestTalent & { requiredPerTea: number; } = {
-    selected: false,//is this the selected talent
-    manaFrom: 0,//how much mana did they save/get from talent (will compute even if not selected)
-    icon: SPELLS.MANA_TEA_TALENT.icon,//icon
-    name: SPELLS.MANA_TEA_TALENT.name,//name
-    id: SPELLS.MANA_TEA_TALENT.id,//id
-    best: false,//is it the best talent
-    requiredPerTea: 0,//differs from talent to talent but tldr its the requirements to equal best
+  manatea: BestTalent & { requiredPerTea: number } = {
+    selected: false, //is this the selected talent
+    manaFrom: 0, //how much mana did they save/get from talent (will compute even if not selected)
+    icon: SPELLS.MANA_TEA_TALENT.icon, //icon
+    name: SPELLS.MANA_TEA_TALENT.name, //name
+    id: SPELLS.MANA_TEA_TALENT.id, //id
+    best: false, //is it the best talent
+    requiredPerTea: 0, //differs from talent to talent but tldr its the requirements to equal best
   };
   lifecycles: BestTalent & { requiredVivs: number; requiredEnvs: number } = {
     selected: false,
@@ -53,7 +53,7 @@ class Tier30Comparison extends Analyzer {
     requiredVivs: 0,
     requiredEnvs: 0,
   };
-  sotc: BestTalent & { requiredTps: number; } = {
+  sotc: BestTalent & { requiredTps: number } = {
     selected: false,
     manaFrom: 0,
     icon: SPELLS.SPIRIT_OF_THE_CRANE_TALENT.icon,
@@ -77,7 +77,6 @@ class Tier30Comparison extends Analyzer {
     this.manatea.selected = this.selectedCombatant.hasTalent(SPELLS.MANA_TEA_TALENT.id);
     this.lifecycles.selected = !(this.sotc.selected || this.manatea.selected);
     this.addEventListener(Events.fightend, this.endFight);
-
   }
 
   get suggestionThresholds() {
@@ -91,12 +90,12 @@ class Tier30Comparison extends Analyzer {
   endFight() {
     // --- get mana from talents --- //
     if (this.sotc.selected) {
-      this.sotc.manaFrom = (this.spiritOfTheCrane.manaReturnSotc || 0);
+      this.sotc.manaFrom = this.spiritOfTheCrane.manaReturnSotc || 0;
       this.returnedFromSelected = this.sotc.manaFrom;
     }
 
     if (this.manatea.selected) {
-      this.manatea.manaFrom = (this.manaTea.manaSavedMT || 0);
+      this.manatea.manaFrom = this.manaTea.manaSavedMT || 0;
       this.returnedFromSelected = this.manatea.manaFrom;
     }
 
@@ -109,17 +108,28 @@ class Tier30Comparison extends Analyzer {
     // --- setup talents that were not selected --- //
     this.sotc.manaFrom = this.sotc.selected ? this.sotc.manaFrom : this.generateSotc();
     this.manatea.manaFrom = this.manatea.selected ? this.manatea.manaFrom : this.generateManaTea();
-    this.lifecycles.manaFrom = this.lifecycles.selected ? this.lifecycles.manaFrom : this.generateLifeCycles();
+    this.lifecycles.manaFrom = this.lifecycles.selected
+      ? this.lifecycles.manaFrom
+      : this.generateLifeCycles();
     // --- end setup talents that were not selected --- //
 
     // --- pick best --- //
-    if (this.sotc.manaFrom > this.manatea.manaFrom && this.sotc.manaFrom > this.lifecycles.manaFrom) {
+    if (
+      this.sotc.manaFrom > this.manatea.manaFrom &&
+      this.sotc.manaFrom > this.lifecycles.manaFrom
+    ) {
       this.best = this.sotc;
     }
-    if (this.manatea.manaFrom > this.sotc.manaFrom && this.manatea.manaFrom > this.lifecycles.manaFrom) {
+    if (
+      this.manatea.manaFrom > this.sotc.manaFrom &&
+      this.manatea.manaFrom > this.lifecycles.manaFrom
+    ) {
       this.best = this.manatea;
     }
-    if (this.lifecycles.manaFrom > this.manatea.manaFrom && this.lifecycles.manaFrom > this.sotc.manaFrom) {
+    if (
+      this.lifecycles.manaFrom > this.manatea.manaFrom &&
+      this.lifecycles.manaFrom > this.sotc.manaFrom
+    ) {
       this.best = this.lifecycles;
     }
     if (!this.best) {
@@ -141,31 +151,37 @@ class Tier30Comparison extends Analyzer {
   //sotc gives mana back while the other two save mana
 
   calculateOthers() {
-
     if (this.sotc !== this.best) {
       //sotc gives .65% mana per totm stack used so (max mana * .0065) = mana per totm
       //mana from best talent / mana per totom = totm stacks need but gotta round up since you can't have .5 of a totm stack
-      this.sotc.requiredTps = Math.ceil(this.best.manaFrom / (this.manaTracker.maxResource * .0065));
+      this.sotc.requiredTps = Math.ceil(
+        this.best.manaFrom / (this.manaTracker.maxResource * 0.0065),
+      );
     }
 
     if (this.lifecycles !== this.best) {
       //life cycles reduces mana cost of two spells if you casted the other before hand
       //so best = (x-1) * VivCost * LifcylesReduction + x * EnvCost * LifcylesReduction = (best + ReducedViv) / ReducedEnv = x
       //x-1 since you viv first in all fights
-      this.lifecycles.requiredEnvs = Math.ceil((this.best.manaFrom + SPELLS.VIVIFY.manaCost * LIFECYCLES_MANA_REDUCTION_PERCENT) / SPELLS.ENVELOPING_MIST.manaCost * LIFECYCLES_MANA_REDUCTION_PERCENT);
+      this.lifecycles.requiredEnvs = Math.ceil(
+        ((this.best.manaFrom + SPELLS.VIVIFY.manaCost * LIFECYCLES_MANA_REDUCTION_PERCENT) /
+          SPELLS.ENVELOPING_MIST.manaCost) *
+          LIFECYCLES_MANA_REDUCTION_PERCENT,
+      );
       this.lifecycles.requiredVivs = this.lifecycles.requiredEnvs - 1;
     }
 
     if (this.manatea !== this.best) {
       const fightLength = (this.owner.fight.end_time - this.owner.fight.start_time) / 1000;
-      const manaTeasPossible = (Math.ceil(fightLength / 90) || 1);
+      const manaTeasPossible = Math.ceil(fightLength / 90) || 1;
       this.manatea.requiredPerTea = this.best.manaFrom / manaTeasPossible;
     }
   }
 
   //anaylze current play style and see how much mana they would have gained from this talent
   generateSotc() {
-    const sotcBlackOutKicks = this.abilityTracker.getAbility(SPELLS.BLACKOUT_KICK_TOTM.id).damageHits || 0;
+    const sotcBlackOutKicks =
+      this.abilityTracker.getAbility(SPELLS.BLACKOUT_KICK_TOTM.id).damageHits || 0;
     const manaPercentFromSotc = sotcBlackOutKicks * SPIRIT_OF_THE_CRANE_MANA_RETURN;
     const rawManaFromSotc = manaPercentFromSotc * this.manaTracker.maxResource;
     return rawManaFromSotc || 0;
@@ -176,8 +192,8 @@ class Tier30Comparison extends Analyzer {
   //anaylze current play style and see how much mana they would have saved (so average mana per second / total mt time)
   generateManaTea() {
     const fightLength = (this.owner.fight.end_time - this.owner.fight.start_time) / 1000;
-    const manaTeasPossible = (Math.ceil(fightLength / 90) || 1);
-    const manaPerDuration = (this.totalManaSpent() / fightLength) * MANA_TEA_DURATION / 1000;//duration of mana Tea
+    const manaTeasPossible = Math.ceil(fightLength / 90) || 1;
+    const manaPerDuration = ((this.totalManaSpent() / fightLength) * MANA_TEA_DURATION) / 1000; //duration of mana Tea
     const manaPerTea = manaTeasPossible * manaPerDuration;
     return manaPerTea || 0;
   }
@@ -185,16 +201,20 @@ class Tier30Comparison extends Analyzer {
   //assume that each env casted has a viv before it and that first viv is not effected
   generateLifeCycles() {
     const envCasts = this.abilityTracker.getAbility(SPELLS.ENVELOPING_MIST.id).casts || 0;
-    const vivCasts = (this.abilityTracker.getAbility(SPELLS.VIVIFY.id).casts - 1) || 0;
-    const manaDiscountOnViv = Math.min(vivCasts, envCasts) * SPELLS.VIVIFY.manaCost * LIFECYCLES_MANA_PERC_REDUCTION;
-    const manaDiscountOnEnv = Math.min(vivCasts, envCasts) * SPELLS.ENVELOPING_MIST.manaCost * LIFECYCLES_MANA_PERC_REDUCTION;
-    return (manaDiscountOnEnv + manaDiscountOnViv) || 0;
+    const vivCasts = this.abilityTracker.getAbility(SPELLS.VIVIFY.id).casts - 1 || 0;
+    const manaDiscountOnViv =
+      Math.min(vivCasts, envCasts) * SPELLS.VIVIFY.manaCost * LIFECYCLES_MANA_PERC_REDUCTION;
+    const manaDiscountOnEnv =
+      Math.min(vivCasts, envCasts) *
+      SPELLS.ENVELOPING_MIST.manaCost *
+      LIFECYCLES_MANA_PERC_REDUCTION;
+    return manaDiscountOnEnv + manaDiscountOnViv || 0;
   }
 
   totalManaSpent(): number {
     let manaSpent = 0;
     let lastMana = this.manaTracker.maxResource;
-    this.manaTracker.resourceUpdates.forEach(function(event) {
+    this.manaTracker.resourceUpdates.forEach(function (event) {
       if (event.used !== 0) {
         manaSpent += Math.abs(lastMana - event.used);
       }
@@ -204,21 +224,25 @@ class Tier30Comparison extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        With your current playstyle you are not using the most effective tier 30 talent. <SpellLink id={this.best.id} /> is better based off of how you played.
-      </>,
-    )
-      .icon(this.best.icon)
-      .actual(`${formatNumber(this.returnedFromSelected)}${t({
-      id: "monk.mistweaver.suggestions.tier45Talent.efficiency",
-      message: ` mana returned through `
-    })}${this.best.name}`)
-      .recommended(`${this.best.name} would have returned ${formatNumber(this.best.manaFrom)}`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          With your current playstyle you are not using the most effective tier 30 talent.{' '}
+          <SpellLink id={this.best.id} /> is better based off of how you played.
+        </>,
+      )
+        .icon(this.best.icon)
+        .actual(
+          `${formatNumber(this.returnedFromSelected)}${t({
+            id: 'monk.mistweaver.suggestions.tier45Talent.efficiency',
+            message: ` mana returned through `,
+          })}${this.best.name}`,
+        )
+        .recommended(`${this.best.name} would have returned ${formatNumber(this.best.manaFrom)}`),
+    );
   }
 
   statistic() {
-
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(30)}
@@ -227,7 +251,10 @@ class Tier30Comparison extends Analyzer {
         dropdown={
           <div className="pad">
             <div>
-              This is an infographic for tier 30 talents to see what is required to equal the best pick for how you played. This also attempts to calculate the other talents based on how you played for the difference row, for the equals row it shows the requirements in general, ignoring how you played.
+              This is an infographic for tier 30 talents to see what is required to equal the best
+              pick for how you played. This also attempts to calculate the other talents based on
+              how you played for the difference row, for the equals row it shows the requirements in
+              general, ignoring how you played.
             </div>
             <table className="table table-condensed">
               <thead>
@@ -257,8 +284,9 @@ class Tier30Comparison extends Analyzer {
                 </tr>
               </tbody>
             </table>
-          </div>}
-        tooltip={(
+          </div>
+        }
+        tooltip={
           <>
             <ul>
               <li>LC = Life cycles</li>
@@ -266,10 +294,14 @@ class Tier30Comparison extends Analyzer {
               <li>MT = mana Tea</li>
             </ul>
           </>
-        )}
+        }
       >
         <BoringValueText
-          label={<><SpellIcon id={this.best.id} /> Tier 30 Comparison</>}
+          label={
+            <>
+              <SpellIcon id={this.best.id} /> Tier 30 Comparison
+            </>
+          }
         >
           <>
             {formatNumber(this.best.manaFrom)} Mana from {this.best.name}

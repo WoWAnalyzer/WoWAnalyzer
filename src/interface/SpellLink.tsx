@@ -1,7 +1,6 @@
-import React from 'react';
-
-import TooltipProvider from 'interface/TooltipProvider';
 import SPELLS from 'common/SPELLS';
+import TooltipProvider from 'interface/TooltipProvider';
+import React from 'react';
 
 import SpellIcon from './SpellIcon';
 
@@ -16,7 +15,7 @@ interface Props extends Omit<React.HTMLAttributes<HTMLAnchorElement>, 'id'> {
 const SpellLink = React.forwardRef<HTMLAnchorElement, Props>(
   ({ id, children, icon = true, iconStyle, ilvl, ...other }: Props, ref) => {
     if (process.env.NODE_ENV === 'development' && !children && !SPELLS[id]) {
-      console.log(id)
+      console.log(id);
       throw new Error(`Unknown spell: ${id}`);
     }
 

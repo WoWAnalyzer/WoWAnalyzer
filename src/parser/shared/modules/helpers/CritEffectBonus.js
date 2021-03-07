@@ -9,7 +9,10 @@ class CritEffectBonus extends Analyzer {
   }
 
   getBonus(event) {
-    return this._hooks.reduce((critEffectModifier, hook) => hook(critEffectModifier, event), this.constructor.BASE_CRIT_EFFECT_MOD);
+    return this._hooks.reduce(
+      (critEffectModifier, hook) => hook(critEffectModifier, event),
+      this.constructor.BASE_CRIT_EFFECT_MOD,
+    );
   }
 }
 

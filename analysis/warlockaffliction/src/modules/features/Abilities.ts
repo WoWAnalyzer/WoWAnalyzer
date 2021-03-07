@@ -1,9 +1,7 @@
-import CoreAbilities from 'parser/core/modules/Abilities';
-import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-
 import SPELLS from 'common/SPELLS';
-
 import COVENANTS from 'game/shadowlands/COVENANTS';
+import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
+import CoreAbilities from 'parser/core/modules/Abilities';
 
 const FEL_CELERITY_REDUCTION_SEC = [0, 48, 51, 54, 57, 60, 63, 66, 69, 72, 75, 78, 81, 84, 87, 90];
 

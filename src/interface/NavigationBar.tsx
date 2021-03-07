@@ -1,20 +1,19 @@
-import React, { HTMLAttributes, ReactNode } from 'react';
-import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import { Trans } from '@lingui/macro';
-
 import getFightName from 'common/getFightName';
-import Tooltip from 'interface/Tooltip';
 import DiscordIcon from 'interface/icons/DiscordTiny';
 import GitHubIcon from 'interface/icons/GitHubMarkSmall';
 import PremiumIcon from 'interface/icons/Premium';
 import { ReactComponent as Logo } from 'interface/images/logo.svg';
-import { getFightId, getPlayerName, getReportCode } from 'interface/selectors/url/report';
-import { getReport } from 'interface/selectors/report';
-import { getFightById } from 'interface/selectors/fight';
-import { getUser } from 'interface/selectors/user';
 import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
+import { getFightById } from 'interface/selectors/fight';
+import { getReport } from 'interface/selectors/report';
+import { getFightId, getPlayerName, getReportCode } from 'interface/selectors/url/report';
+import { getUser } from 'interface/selectors/user';
+import Tooltip from 'interface/Tooltip';
+import React, { HTMLAttributes, ReactNode } from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import './NavigationBar.scss';
 

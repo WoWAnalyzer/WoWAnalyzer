@@ -1,8 +1,9 @@
 import SPELLS from 'common/SPELLS';
-import CoreBuffs from 'parser/core/modules/Buffs';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
+import CoreBuffs from 'parser/core/modules/Buffs';
 
-class Buffs extends CoreBuffs {//TODO: Get shrike to fill this out since I'm lazy
+class Buffs extends CoreBuffs {
+  //TODO: Get shrike to fill this out since I'm lazy
   buffs() {
     //const combatant = this.selectedCombatant;
 
@@ -10,7 +11,7 @@ class Buffs extends CoreBuffs {//TODO: Get shrike to fill this out since I'm laz
     // This data can be used by various kinds of modules to improve their results, and modules added in the future may rely on buffs that aren't used today.
     return [
       {
-        spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
+        spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),
         timelineHighlight: true,
       },
       {

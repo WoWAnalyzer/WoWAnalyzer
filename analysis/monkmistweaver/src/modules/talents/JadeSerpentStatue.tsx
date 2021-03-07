@@ -1,22 +1,23 @@
-import React from 'react';
+import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-
 import SPELLS from 'common/SPELLS';
-
-import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
-import Combatants from 'parser/shared/modules/Combatants';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
-
-import Statistic from 'parser/ui/Statistic';
-import BoringValueText from 'parser/ui/BoringValueText';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
-
-import { t } from '@lingui/macro';
+import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Events, {
+  ApplyBuffEvent,
+  HealEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import Combatants from 'parser/shared/modules/Combatants';
+import BoringValueText from 'parser/ui/BoringValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 class JadeSerpentStatue extends Analyzer {
   static dependencies = {
@@ -39,10 +40,22 @@ class JadeSerpentStatue extends Analyzer {
       return;
     }
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_MIST_STATUE), this.jssHeal);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_MIST_STATUE), this.jssApplyBuff);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_MIST_STATUE), this.jssRemoveBuff);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_MIST_STATUE), this.jssRefreshBuff);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_MIST_STATUE),
+      this.jssHeal,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_MIST_STATUE),
+      this.jssApplyBuff,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_MIST_STATUE),
+      this.jssRemoveBuff,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_MIST_STATUE),
+      this.jssRefreshBuff,
+    );
     this.addEventListener(Events.fightend, this.endFight);
   }
 
@@ -54,9 +67,9 @@ class JadeSerpentStatue extends Analyzer {
     return {
       actual: this.jadeSerpentStatueUptime,
       isLessThan: {
-        minor: .85,
-        average: .75,
-        major: .65,
+        minor: 0.85,
+        average: 0.75,
+        major: 0.65,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
@@ -66,7 +79,6 @@ class JadeSerpentStatue extends Analyzer {
     this.healing += (event.amount || 0) + (event.absorbed || 0);
     this.overHealing += event.overheal || 0;
     this.casts += 1;
-
   }
 
   jssApplyBuff(event: ApplyBuffEvent) {
@@ -75,7 +87,6 @@ class JadeSerpentStatue extends Analyzer {
   }
 
   jssRemoveBuff(event: RemoveBuffEvent) {
-
     // Care for buff application before fight.
     if (this.lastBuffApplyTimestamp === null) {
       this.soothingMistUptime += event.timestamp - this.owner.fight.start_time;
@@ -110,17 +121,24 @@ class JadeSerpentStatue extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        You selected <SpellLink id={SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.id} /> as your talent. To gain the most value out of this talent you should have it casting on someone as often as possible. The priority should be tanks or any raid member taking heavy damage, such as from a specific DOT or boss mechanic.
-      </>,
-    )
-      .icon(SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.icon)
-      .actual(`${formatPercentage(actual)}${t({
-      id: "monk.mistweaver.jadeSerpentStatue.uptime",
-      message: `% uptime`
-    })}`)
-      .recommended(`${formatPercentage(recommended)}% uptime is recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You selected <SpellLink id={SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.id} /> as your
+          talent. To gain the most value out of this talent you should have it casting on someone as
+          often as possible. The priority should be tanks or any raid member taking heavy damage,
+          such as from a specific DOT or boss mechanic.
+        </>,
+      )
+        .icon(SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.icon)
+        .actual(
+          `${formatPercentage(actual)}${t({
+            id: 'monk.mistweaver.jadeSerpentStatue.uptime',
+            message: `% uptime`,
+          })}`,
+        )
+        .recommended(`${formatPercentage(recommended)}% uptime is recommended`),
+    );
   }
 
   statistic() {
@@ -131,16 +149,17 @@ class JadeSerpentStatue extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringValueText
-          label={<><SpellIcon id={SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.id} /> % Uptime</>}
+          label={
+            <>
+              <SpellIcon id={SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.id} /> % Uptime
+            </>
+          }
         >
-          <>
-            {formatPercentage(this.jadeSerpentStatueUptime)}
-          </>
+          <>{formatPercentage(this.jadeSerpentStatueUptime)}</>
         </BoringValueText>
       </Statistic>
     );
   }
-
 }
 
 export default JadeSerpentStatue;

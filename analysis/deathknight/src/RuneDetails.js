@@ -1,9 +1,8 @@
+import { Panel } from 'interface';
+import Analyzer from 'parser/core/Analyzer';
+import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import React from 'react';
 import { AutoSizer } from 'react-virtualized';
-
-import Analyzer from 'parser/core/Analyzer';
-import { Panel } from 'interface';
-import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 
 import RuneBreakdown from './RuneBreakdown';
 import RuneTracker from './RuneTracker';
@@ -52,24 +51,15 @@ class RuneDetails extends Analyzer {
       render: () => (
         <Panel>
           <AutoSizer disableHeight>
-            {({width}) => (
-              <BaseChart
-                width={width}
-                height={400}
-                spec={spec}
-                data={{ runes: data }}
-              />
+            {({ width }) => (
+              <BaseChart width={width} height={400} spec={spec} data={{ runes: data }} />
             )}
           </AutoSizer>
-          <RuneBreakdown
-            tracker={this.runeTracker}
-            showSpenders
-          />
+          <RuneBreakdown tracker={this.runeTracker} showSpenders />
         </Panel>
       ),
     };
- }
-
+  }
 }
 
 export default RuneDetails;

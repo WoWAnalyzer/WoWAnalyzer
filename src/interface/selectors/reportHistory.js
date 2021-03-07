@@ -1,1 +1,1 @@
-export const getReportHistory = state => state.reportHistory;
+export const getReportHistory = (state) => state.reportHistory;

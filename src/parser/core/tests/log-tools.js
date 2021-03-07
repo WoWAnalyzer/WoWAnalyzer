@@ -1,5 +1,4 @@
 import decompress from 'decompress';
-
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import getConfig from 'parser/getConfig';
 

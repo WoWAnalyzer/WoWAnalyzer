@@ -1,7 +1,8 @@
-import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import SPELLS from 'common/SPELLS';
-import { MIN_GCD } from '@wowanalyzer/hunter';
+import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import Haste from 'parser/shared/modules/Haste';
+
+import { MIN_GCD } from '@wowanalyzer/hunter';
 
 class GlobalCooldown extends CoreGlobalCooldown {
   static dependencies = {
@@ -21,7 +22,6 @@ class GlobalCooldown extends CoreGlobalCooldown {
     }
     return Math.max(MIN_GCD, gcd);
   }
-
 }
 
 export default GlobalCooldown;

@@ -1,14 +1,13 @@
-import React from 'react';
-
+import { t } from '@lingui/macro';
+import { formatNumber, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS/talents/warrior';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
-import { formatNumber, formatThousands } from 'common/format';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import Events from 'parser/core/Events';
 import { Tooltip } from 'interface';
-import { t } from '@lingui/macro';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import React from 'react';
 
 /**
  * A defensive combat state that reduces all damage you take by 20%,
@@ -19,7 +18,7 @@ import { t } from '@lingui/macro';
 
 const DEFENSIVE_STANCE_DR = 0.2;
 const DEFENSIVE_STANCE_DL = 0.1;
-const MAX_WIDTH = .9;
+const MAX_WIDTH = 0.9;
 
 class DefensiveStance extends Analyzer {
   get drps() {
@@ -41,7 +40,7 @@ class DefensiveStance extends Analyzer {
   }
 
   perSecond(amount) {
-    return amount / this.owner.fightDuration * 1000;
+    return (amount / this.owner.fightDuration) * 1000;
   }
 
   damageTradeoff() {
@@ -56,7 +55,8 @@ class DefensiveStance extends Analyzer {
 
   _onDamageTaken(event) {
     if (this.selectedCombatant.hasBuff(SPELLS.DEFENSIVE_STANCE_TALENT.id)) {
-      const preMitigatedDefensiveStance = (event.amount + event.absorbed) / (1 - DEFENSIVE_STANCE_DR);
+      const preMitigatedDefensiveStance =
+        (event.amount + event.absorbed) / (1 - DEFENSIVE_STANCE_DR);
       this.totalDamageMitigated += preMitigatedDefensiveStance * DEFENSIVE_STANCE_DR;
     }
   }
@@ -71,15 +71,22 @@ class DefensiveStance extends Analyzer {
   statistic() {
     const footer = (
       <div className="statistic-box-bar">
-        <Tooltip content={`You effectively reduced damage taken by a total of ${formatThousands(this.totalDamageMitigated)} damage (${formatThousands(this.perSecond(this.totalDamageMitigated))} DRPS).`}>
-          <div
-            className="stat-health-bg"
-            style={{ width: `${this.damageTradeoff() * 100}%` }}
-          >
+        <Tooltip
+          content={`You effectively reduced damage taken by a total of ${formatThousands(
+            this.totalDamageMitigated,
+          )} damage (${formatThousands(this.perSecond(this.totalDamageMitigated))} DRPS).`}
+        >
+          <div className="stat-health-bg" style={{ width: `${this.damageTradeoff() * 100}%` }}>
             <img src="/img/shield.png" alt="Damage reduced" />
           </div>
         </Tooltip>
-        <Tooltip content={`You lost ${formatThousands(this.totalDamageLost)} damage through the use of Defensive Stance. (${formatThousands(this.perSecond(this.totalDamageLost))} DLPS).`}>
+        <Tooltip
+          content={`You lost ${formatThousands(
+            this.totalDamageLost,
+          )} damage through the use of Defensive Stance. (${formatThousands(
+            this.perSecond(this.totalDamageLost),
+          )} DLPS).`}
+        >
           <div className="remainder DeathKnight-bg">
             <img src="/img/sword.png" alt="Damage lost" />
           </div>
@@ -93,30 +100,53 @@ class DefensiveStance extends Analyzer {
         icon={<SpellIcon id={SPELLS.DEFENSIVE_STANCE_TALENT.id} />}
         value={`≈${formatNumber(this.drps)} DRPS, ${formatNumber(this.dlps)} DLPS`}
         label="Damage reduced & lost"
-        tooltip={(
+        tooltip={
           <>
-            <strong>Total:</strong><br />
-            Effective damage reduction: {formatThousands(this.totalDamageMitigated)} damage ({formatThousands(this.perSecond(this.totalDamageMitigated))} DRPS)<br />
-            Effective damage lost: {formatThousands(this.totalDamageLost)} damage ({formatThousands(this.perSecond(this.totalDamageLost))} DLPS)
+            <strong>Total:</strong>
+            <br />
+            Effective damage reduction: {formatThousands(this.totalDamageMitigated)} damage (
+            {formatThousands(this.perSecond(this.totalDamageMitigated))} DRPS)
+            <br />
+            Effective damage lost: {formatThousands(this.totalDamageLost)} damage (
+            {formatThousands(this.perSecond(this.totalDamageLost))} DLPS)
           </>
-        )}
+        }
         footer={footer}
       />
     );
   }
 
   suggestions(when) {
-    when(this.totalDamageLost).isGreaterThan(this.totalDamageMitigated)
-      .addSuggestion((suggest, dl, dr) => suggest('While Defensive Stance was up, your damage done was reduced by more than the damage you mitigated. Ensure that you are only using Defensive Stance when you are about to take a lot of damage and that you cancel it quickly to minimize the time spent dealing less damage.')
-        .icon(SPELLS.DEFENSIVE_STANCE_TALENT.icon)
-        .actual(t({
-      id: "warrior.arms.suggestions.defensiveStance",
-      message: `A total of ${formatNumber(dl)} of your damage has been reduced compared to ${formatNumber(dr)} of the damage from the boss.`
-    }))
-        .recommended('Reduced damage taken should be higher than your reduced damage.'));
-    when(this.totalDamageMitigated).isLessThan(1)
-      .addSuggestion((suggest) => suggest(<> You never used <SpellLink id={SPELLS.DEFENSIVE_STANCE_TALENT.id} />. Try to use it to reduce incoming damage or use another talent that would be more useful. </>)
-        .icon(SPELLS.DEFENSIVE_STANCE_TALENT.icon));
+    when(this.totalDamageLost)
+      .isGreaterThan(this.totalDamageMitigated)
+      .addSuggestion((suggest, dl, dr) =>
+        suggest(
+          'While Defensive Stance was up, your damage done was reduced by more than the damage you mitigated. Ensure that you are only using Defensive Stance when you are about to take a lot of damage and that you cancel it quickly to minimize the time spent dealing less damage.',
+        )
+          .icon(SPELLS.DEFENSIVE_STANCE_TALENT.icon)
+          .actual(
+            t({
+              id: 'warrior.arms.suggestions.defensiveStance',
+              message: `A total of ${formatNumber(
+                dl,
+              )} of your damage has been reduced compared to ${formatNumber(
+                dr,
+              )} of the damage from the boss.`,
+            }),
+          )
+          .recommended('Reduced damage taken should be higher than your reduced damage.'),
+      );
+    when(this.totalDamageMitigated)
+      .isLessThan(1)
+      .addSuggestion((suggest) =>
+        suggest(
+          <>
+            {' '}
+            You never used <SpellLink id={SPELLS.DEFENSIVE_STANCE_TALENT.id} />. Try to use it to
+            reduce incoming damage or use another talent that would be more useful.{' '}
+          </>,
+        ).icon(SPELLS.DEFENSIVE_STANCE_TALENT.icon),
+      );
   }
 }
 

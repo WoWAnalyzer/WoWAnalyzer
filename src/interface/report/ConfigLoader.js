@@ -1,7 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
 import getConfig from 'parser/getConfig';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 class ConfigLoader extends React.PureComponent {
   static propTypes = {

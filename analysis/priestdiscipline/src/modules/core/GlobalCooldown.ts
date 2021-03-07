@@ -1,5 +1,5 @@
-import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import { CastEvent } from 'parser/core/Events';
+import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 
 import Penance from '../spells/Penance';
 

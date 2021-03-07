@@ -1,13 +1,13 @@
-import React from 'react';
+import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
-import StatisticBox from 'parser/ui/StatisticBox';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-import { t } from '@lingui/macro';
+import StatisticBox from 'parser/ui/StatisticBox';
+import React from 'react';
 
 // NOTE: "Raw" rage is what shows up in combat log events (divided by 10 and rounded to get in-game rage).
 // We deal with raw rage here to prevent accuracy loss.
@@ -24,14 +24,14 @@ const RAGE_GENERATORS = {
   [SPELLS.MOONFIRE.id]: 'Moonfire (Galactic Guardian)',
   [SPELLS.BLOOD_FRENZY_TICK.id]: 'Blood Frenzy',
   [SPELLS.BRISTLING_FUR.id]: 'Bristling Fur',
-  [SPELLS.OAKHEARTS_PUNY_QUODS_BUFF.id]: 'Oakheart\'s Puny Quods',
+  [SPELLS.OAKHEARTS_PUNY_QUODS_BUFF.id]: "Oakheart's Puny Quods",
   [SPELLS.PURE_RAGE_POTION.id]: 'Pure Rage Potion',
 };
 
 class RageWasted extends Analyzer {
   get totalWastedRage() {
     return Object.keys(this.rageWastedBySpell)
-      .map(key => this.rageWastedBySpell[key])
+      .map((key) => this.rageWastedBySpell[key])
       .reduce((total, waste) => total + waste, 0);
   }
 
@@ -51,7 +51,16 @@ class RageWasted extends Analyzer {
         };
       })
       .sort((a, b) => b.waste - a.waste)
-      .reduce((str, spell) => <>{str}<br />{spell.name}: {spell.waste}</>, 'Rage wasted per spell:');
+      .reduce(
+        (str, spell) => (
+          <>
+            {str}
+            <br />
+            {spell.name}: {spell.waste}
+          </>
+        ),
+        'Rage wasted per spell:',
+      );
   }
 
   rageWastedBySpell = {};
@@ -71,7 +80,9 @@ class RageWasted extends Analyzer {
       console.log('no classResources', event);
       return;
     }
-    const rageResource = event.classResources.find(resource => resource.type === RESOURCE_TYPES.RAGE.id);
+    const rageResource = event.classResources.find(
+      (resource) => resource.type === RESOURCE_TYPES.RAGE.id,
+    );
     if (rageResource) {
       this._currentRawRage = rageResource.amount;
       this._currentMaxRage = rageResource.max;
@@ -102,7 +113,9 @@ class RageWasted extends Analyzer {
   onCast(event) {
     if (event.ability.guid === SPELLS.MELEE.id) {
       if (this._currentRawRage + RAW_RAGE_GAINED_FROM_MELEE > this._currentMaxRage) {
-        const realRageWasted = Math.floor((this._currentRawRage + RAW_RAGE_GAINED_FROM_MELEE - this._currentMaxRage) / 10);
+        const realRageWasted = Math.floor(
+          (this._currentRawRage + RAW_RAGE_GAINED_FROM_MELEE - this._currentMaxRage) / 10,
+        );
         this.registerRageWaste(event.ability.guid, realRageWasted);
       }
       // Convert from raw rage to real rage
@@ -112,15 +125,28 @@ class RageWasted extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.wastedRageRatio).isGreaterThan(0)
-      .addSuggestion((suggest, actual, recommended) => suggest(<span>You are wasting rage.  Try to spend rage before you reach the rage cap so you aren't losing out on potential <SpellLink id={SPELLS.IRONFUR.id} />s or <SpellLink id={SPELLS.MAUL.id} />s.</span>)
-        .icon(SPELLS.BRISTLING_FUR.icon)
-        .actual(t({
-      id: "druid.guardian.suggestions.rage.wasted",
-      message: `${formatPercentage(actual)}% wasted rage`
-    }))
-        .recommended(`${formatPercentage(recommended)}% is recommended`)
-        .regular(recommended + 0.02).major(recommended + 0.05));
+    when(this.wastedRageRatio)
+      .isGreaterThan(0)
+      .addSuggestion((suggest, actual, recommended) =>
+        suggest(
+          <span>
+            You are wasting rage. Try to spend rage before you reach the rage cap so you aren't
+            losing out on potential <SpellLink id={SPELLS.IRONFUR.id} />s or{' '}
+            <SpellLink id={SPELLS.MAUL.id} />
+            s.
+          </span>,
+        )
+          .icon(SPELLS.BRISTLING_FUR.icon)
+          .actual(
+            t({
+              id: 'druid.guardian.suggestions.rage.wasted',
+              message: `${formatPercentage(actual)}% wasted rage`,
+            }),
+          )
+          .recommended(`${formatPercentage(recommended)}% is recommended`)
+          .regular(recommended + 0.02)
+          .major(recommended + 0.05),
+      );
   }
 
   statistic() {
@@ -129,13 +155,16 @@ class RageWasted extends Analyzer {
         icon={<SpellIcon id={SPELLS.BRISTLING_FUR.id} />}
         label="Wasted Rage"
         value={`${formatPercentage(this.wastedRageRatio)}%`}
-        tooltip={(
+        tooltip={
           <>
-            You wasted <strong>{this.totalWastedRage}</strong> rage out of <strong>{this.totalRageGained}</strong> total rage gained. (<strong>{formatPercentage(this.wastedRageRatio)}%</strong> of total)<br /><br />
-
+            You wasted <strong>{this.totalWastedRage}</strong> rage out of{' '}
+            <strong>{this.totalRageGained}</strong> total rage gained. (
+            <strong>{formatPercentage(this.wastedRageRatio)}%</strong> of total)
+            <br />
+            <br />
             {this.wastedRageBreakdown}
           </>
-        )}
+        }
       />
     );
   }

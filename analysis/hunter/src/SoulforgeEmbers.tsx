@@ -1,13 +1,13 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import React from 'react';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import SPELLS from 'common/SPELLS';
-import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { SpellIcon } from 'interface';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 /**
  * Launching a Flare into your Tar Trap causes all enemies inside of the Tar Trap to burn for (150% of Attack power) Fire damage over 12 sec.
@@ -16,7 +16,6 @@ import { SpellIcon } from 'interface';
  *
  */
 class SoulforgeEmbers extends Analyzer {
-
   damage: number = 0;
   flareCasts: number = 0;
   lastFlareCastTimestamp: number = 0;
@@ -26,13 +25,18 @@ class SoulforgeEmbers extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SOULFORGE_EMBERS_EFFECT.bonusID);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(
+      SPELLS.SOULFORGE_EMBERS_EFFECT.bonusID,
+    );
     if (!this.active) {
       return;
     }
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLARE), this.onFlare);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TAR_TRAP), this.onTarTrap);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SOULFORGE_EMBERS_DAMAGE), this.onEmbersDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SOULFORGE_EMBERS_DAMAGE),
+      this.onEmbersDamage,
+    );
   }
 
   onFlare(event: CastEvent) {
@@ -59,12 +63,12 @@ class SoulforgeEmbers extends Analyzer {
         <BoringSpellValueText spell={SPELLS.SOULFORGE_EMBERS_EFFECT}>
           <ItemDamageDone amount={this.damage} />
           <br />
-          {this.flareCasts} <SpellIcon id={SPELLS.FLARE.id} noLink /> / {this.tarTrapCasts} <SpellIcon id={SPELLS.TAR_TRAP.id} noLink />
+          {this.flareCasts} <SpellIcon id={SPELLS.FLARE.id} noLink /> / {this.tarTrapCasts}{' '}
+          <SpellIcon id={SPELLS.TAR_TRAP.id} noLink />
         </BoringSpellValueText>
       </Statistic>
     );
   }
-
 }
 
 export default SoulforgeEmbers;

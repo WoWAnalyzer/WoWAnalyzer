@@ -1,21 +1,18 @@
-import React from 'react';
-
-import SPELLS from 'common/SPELLS';
+import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import { SpellLink } from 'interface';
-
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import UptimeIcon from 'interface/icons/Uptime';
+import SPELLS from 'common/SPELLS';
 import SPECS from 'game/SPECS';
-
+import { SpellLink } from 'interface';
+import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events, { HealEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
-import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Combatants from 'parser/shared/modules/Combatants';
-import { Trans } from '@lingui/macro';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import React from 'react';
 
 import { EMBRACE_OF_EARTH_RANKS } from '@wowanalyzer/shaman-restoration/src/constants';
 

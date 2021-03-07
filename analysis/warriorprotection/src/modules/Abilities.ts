@@ -38,7 +38,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: haste => 6 / (1 + haste),
+        cooldown: (haste) => 6 / (1 + haste),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         timelineSortIndex: 3,
       },
@@ -48,7 +48,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         buffSpellId: SPELLS.REVENGE_FREE_CAST.id,
-        cooldown: haste => 3 / (1 + haste),
+        cooldown: (haste) => 3 / (1 + haste),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         timelineSortIndex: 3,
       },
@@ -59,7 +59,7 @@ class Abilities extends CoreAbilities {
         },
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         buffSpellId: SPELLS.PUNISH_DEBUFF.id,
-        cooldown: haste => 9 / (1 + haste),
+        cooldown: (haste) => 9 / (1 + haste),
         timelineSortIndex: 1,
       },
       {
@@ -68,15 +68,18 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL, // 6 / (1 + haste)
-        cooldown: haste => {
-          if (combatant.hasTalent(SPELLS.UNSTOPPABLE_FORCE_TALENT.id) && combatant.hasBuff(SPELLS.AVATAR_TALENT.id)) {
+        cooldown: (haste) => {
+          if (
+            combatant.hasTalent(SPELLS.UNSTOPPABLE_FORCE_TALENT.id) &&
+            combatant.hasBuff(SPELLS.AVATAR_TALENT.id)
+          ) {
             return 6 / 2 / (1 + haste);
           }
           return 6 / (1 + haste);
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: .9,
+          recommendedEfficiency: 0.9,
           extraSuggestion: 'Casting Thunder Clap regularly is very important for performing well.',
         },
         timelineSortIndex: 2,
@@ -91,7 +94,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SHIELD_BLOCK,
         buffSpellId: SPELLS.SHIELD_BLOCK_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: haste => 16 / (1 + haste),
+        cooldown: (haste) => 16 / (1 + haste),
         charges: 2,
         timelineSortIndex: 5,
       },
@@ -198,7 +201,7 @@ class Abilities extends CoreAbilities {
         cooldown: 60,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: .9,
+          recommendedEfficiency: 0.9,
         },
         timelineSortIndex: 9,
       },

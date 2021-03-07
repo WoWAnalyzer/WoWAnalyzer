@@ -1,9 +1,9 @@
-import React from 'react';
 
-import { Abelito75, acornellier, Putro, Zeboot } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS'
+import { Abelito75, acornellier, Putro, Zeboot } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
+import React from 'react';
 
 export default [
   change(date(2021, 2, 24), <>Fixed spells missing from ABC: <SpellLink id={SPELLS.WORD_OF_GLORY.id}/> <SpellLink id={SPELLS.HAMMER_OF_WRATH.id}/></>, acornellier),

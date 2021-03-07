@@ -1,7 +1,7 @@
-import { Putro } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
-import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
+import { Putro } from 'CONTRIBUTORS';
+import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [

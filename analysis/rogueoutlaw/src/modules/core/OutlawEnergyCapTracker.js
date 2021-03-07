@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+
 import { EnergyCapTracker } from '@wowanalyzer/rogue';
 
 const BASE_ENERGY_REGEN = 10;
@@ -8,13 +9,8 @@ const ADRENALINE_RUSH_REGEN_MULTIPLIER = 1.6;
 const ADRENALINE_RUSH_MAX_ADDITION = 50;
 
 class OutlawEnergyCapTracker extends EnergyCapTracker {
-  static buffsChangeMax = [
-    SPELLS.ADRENALINE_RUSH.id,
-  ];
-  static buffsChangeRegen = [
-    SPELLS.ADRENALINE_RUSH.id,
-    SPELLS.BURIED_TREASURE.id,
-  ];
+  static buffsChangeMax = [SPELLS.ADRENALINE_RUSH.id];
+  static buffsChangeRegen = [SPELLS.ADRENALINE_RUSH.id, SPELLS.BURIED_TREASURE.id];
 
   getBaseRegenRate() {
     let regenRate = BASE_ENERGY_REGEN;

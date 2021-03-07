@@ -1,10 +1,8 @@
-import React from 'react';
-
 import { Vonn } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
 import { AlertWarning } from 'interface';
-
 import Config from 'parser/Config';
+import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
 

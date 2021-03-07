@@ -1,9 +1,9 @@
-import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS';
-import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { formatDuration, formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import Analyzer from 'parser/core/Analyzer';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
+import React from 'react';
 
 import BoneShieldTimesByStacks from '../features/BoneShieldTimesByStacks';
 
@@ -24,7 +24,9 @@ class FoulBulwark extends Analyzer {
   }
 
   get averageFoulBullwark() {
-    return formatPercentage(this.boneShieldTimesByStacks.averageBoneShieldStacks * HP_PER_BONE_SHIELD_STACK);
+    return formatPercentage(
+      this.boneShieldTimesByStacks.averageBoneShieldStacks * HP_PER_BONE_SHIELD_STACK,
+    );
   }
 
   statistic() {
@@ -48,7 +50,9 @@ class FoulBulwark extends Analyzer {
               <tr key={i}>
                 <th>{(i * HP_PER_BONE_SHIELD_STACK * 100).toFixed(0)}%</th>
                 <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
-                <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
+                <td>
+                  {formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%
+                </td>
               </tr>
             ))}
           </tbody>

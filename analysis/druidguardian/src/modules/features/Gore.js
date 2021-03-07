@@ -1,14 +1,14 @@
 // Based on Clearcasting Implementation done by @Blazyb
-import React from 'react';
+import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
-import SPELLS from 'common/SPELLS';
 import Events from 'parser/core/Events';
-import { t } from '@lingui/macro';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import React from 'react';
 
 const GORE_DURATION = 10000;
 const debug = false;
@@ -27,8 +27,14 @@ class Gore extends Analyzer {
 
   constructor(options) {
     super(options);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.GORE_BEAR), this.onApplyBuff);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.GORE_BEAR), this.onRefreshBuff);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.GORE_BEAR),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.GORE_BEAR),
+      this.onRefreshBuff,
+    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MANGLE_BEAR), this.onCast);
   }
 
@@ -70,28 +76,45 @@ class Gore extends Analyzer {
   }
 
   suggestions(when) {
-    const unusedGoreProcs = 1 - (this.consumedGoreProc / this.totalProcs);
+    const unusedGoreProcs = 1 - this.consumedGoreProc / this.totalProcs;
 
-    when(unusedGoreProcs).isGreaterThan(0.3)
-      .addSuggestion((suggest, actual, recommended) => suggest(<span>You wasted {formatPercentage(unusedGoreProcs)}% of your <SpellLink id={SPELLS.GORE_BEAR.id} /> procs. Try to use the procs as soon as you get them so they are not overwritten.</span>)
-        .icon(SPELLS.GORE_BEAR.icon)
-        .actual(t({
-      id: "druid.guardian.suggestions.gore.unused",
-      message: `${formatPercentage(unusedGoreProcs)}% unused`
-    }))
-        .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
-        .regular(recommended + 0.15).major(recommended + 0.3));
+    when(unusedGoreProcs)
+      .isGreaterThan(0.3)
+      .addSuggestion((suggest, actual, recommended) =>
+        suggest(
+          <span>
+            You wasted {formatPercentage(unusedGoreProcs)}% of your{' '}
+            <SpellLink id={SPELLS.GORE_BEAR.id} /> procs. Try to use the procs as soon as you get
+            them so they are not overwritten.
+          </span>,
+        )
+          .icon(SPELLS.GORE_BEAR.icon)
+          .actual(
+            t({
+              id: 'druid.guardian.suggestions.gore.unused',
+              message: `${formatPercentage(unusedGoreProcs)}% unused`,
+            }),
+          )
+          .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
+          .regular(recommended + 0.15)
+          .major(recommended + 0.3),
+      );
   }
 
   statistic() {
-    const unusedGoreProcs = 1 - (this.consumedGoreProc / this.totalProcs);
+    const unusedGoreProcs = 1 - this.consumedGoreProc / this.totalProcs;
 
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.GORE_BEAR.id} />}
         value={`${formatPercentage(unusedGoreProcs)}%`}
         label="Unused Gore Procs"
-        tooltip={<>You got total <strong>{this.totalProcs}</strong> gore procs and <strong>used {this.consumedGoreProc}</strong> of them.</>}
+        tooltip={
+          <>
+            You got total <strong>{this.totalProcs}</strong> gore procs and{' '}
+            <strong>used {this.consumedGoreProc}</strong> of them.
+          </>
+        }
       />
     );
   }

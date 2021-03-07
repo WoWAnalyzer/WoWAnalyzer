@@ -1,19 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-
-import { makeCharacterUrl, makeArmoryUrl } from 'interface/makeAnalyzerUrl';
-import WoWAnalyzerIcon from 'interface/icons/WoWAnalyzer';
 import ArmoryIcon from 'interface/icons/Armory';
+import WoWAnalyzerIcon from 'interface/icons/WoWAnalyzer';
+import { makeCharacterUrl, makeArmoryUrl } from 'interface/makeAnalyzerUrl';
 import Combatant from 'parser/core/Combatant';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './CharacterTab.css';
-import PlayerInfo from './PlayerInfo';
-import CharacterStats from './CharacterStats';
 import CharacterRace from './CharacterRace';
+import CharacterStats from './CharacterStats';
+import PlayerInfo from './PlayerInfo';
 
-const CharacterTab = props => {
+const CharacterTab = (props) => {
   const { statTracker, combatant } = props;
 
   return (
@@ -29,9 +28,7 @@ const CharacterTab = props => {
 
           <div className="row">
             <div className="col-md-12">
-              <h2>
-                Other pages
-              </h2>
+              <h2>Other pages</h2>
             </div>
           </div>
           <div className="row">
@@ -39,16 +36,17 @@ const CharacterTab = props => {
               {/* some bonus padding so it looks to be aligned with the icon for stats */}
               {combatant.characterProfile ? (
                 <>
-                  <Link to={makeCharacterUrl(combatant)}><WoWAnalyzerIcon /> Character parses</Link><br />
-                  <a
-                    href={makeArmoryUrl(combatant)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <Link to={makeCharacterUrl(combatant)}>
+                    <WoWAnalyzerIcon /> Character parses
+                  </Link>
+                  <br />
+                  <a href={makeArmoryUrl(combatant)} target="_blank" rel="noopener noreferrer">
                     <ArmoryIcon /> Armory
                   </a>
                 </>
-              ) : <small>Unavailable because your character could not be found.</small>}
+              ) : (
+                <small>Unavailable because your character could not be found.</small>
+              )}
             </div>
           </div>
         </div>

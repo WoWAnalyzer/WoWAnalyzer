@@ -3,8 +3,4 @@ import RenewedFaith from '@wowanalyzer/priest-holy/src/modules/talents/15/Renewe
 import Enlightenment from './Enlightenment';
 import TrailOfLight from './TrailOfLight';
 
-export {
-  RenewedFaith,
-  Enlightenment,
-  TrailOfLight,
-};
+export { RenewedFaith, Enlightenment, TrailOfLight };

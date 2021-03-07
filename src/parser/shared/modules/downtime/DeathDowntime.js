@@ -18,7 +18,7 @@ class DeathDowntime extends Analyzer {
     return this._deathHistory;
   }
 
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.fightend, this.onFightend);
     this.addEventListener(Events.death.to(SELECTED_PLAYER), this.onDeath);

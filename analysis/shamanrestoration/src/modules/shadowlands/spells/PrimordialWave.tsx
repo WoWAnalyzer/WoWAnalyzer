@@ -1,22 +1,16 @@
-import React from 'react';
-
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-
 import COVENANTS from 'game/shadowlands/COVENANTS';
-
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import { formatPercentage } from 'common/format';
-
-
+import React from 'react';
 
 class PrimordialWave extends Analyzer {
-  static dependencies = {
-  };
+  static dependencies = {};
 
   healing = 0;
   riptideHealing = 0;
@@ -32,15 +26,33 @@ class PrimordialWave extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.NECROLORD.id);
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.PRIMORDIAL_WAVE_HEAL), this._onHeal);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PRIMORDIAL_WAVE_CAST), this._onCast);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.PRIMORDIAL_WAVE_HEAL),
+      this._onHeal,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PRIMORDIAL_WAVE_CAST),
+      this._onCast,
+    );
 
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this._riptide);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this._riptide);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE),
+      this._riptide,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE),
+      this._riptide,
+    );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this._riptideHeal);
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_WAVE), this._waveCast);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HEALING_WAVE), this._waveHeal);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_WAVE),
+      this._waveCast,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HEALING_WAVE),
+      this._waveHeal,
+    );
   }
 
   _onHeal(event: HealEvent) {
@@ -100,32 +112,55 @@ class PrimordialWave extends Analyzer {
         size="flexible"
         wide
         category={STATISTIC_CATEGORY.COVENANTS}
-        tooltip={<>
-          {this.healing} healing via Primordial Wave, {formatPercentage(this.overHealing / (this.healing + this.overHealing))}% Overheal<br />
-          {this.riptideHealing} healing via Riptide, {formatPercentage(this.riptideOverHealing / (this.riptideHealing + this.riptideOverHealing))}% Overheal<br />
-          {this.waveHealing} healing via Healing Wave cleave, {formatPercentage(this.waveOverHealing / (this.waveHealing + this.waveOverHealing))}% Overheal
-        </>}
+        tooltip={
+          <>
+            {this.healing} healing via Primordial Wave,{' '}
+            {formatPercentage(this.overHealing / (this.healing + this.overHealing))}% Overheal
+            <br />
+            {this.riptideHealing} healing via Riptide,{' '}
+            {formatPercentage(
+              this.riptideOverHealing / (this.riptideHealing + this.riptideOverHealing),
+            )}
+            % Overheal
+            <br />
+            {this.waveHealing} healing via Healing Wave cleave,{' '}
+            {formatPercentage(this.waveOverHealing / (this.waveHealing + this.waveOverHealing))}%
+            Overheal
+          </>
+        }
       >
         <table className="table table-condensed">
           <tbody>
             <th>
-              <div className="panel-heading value">Total Healing</div><BoringSpellValueText spell={SPELLS.PRIMORDIAL_WAVE_CAST}>
+              <div className="panel-heading value">Total Healing</div>
+              <BoringSpellValueText spell={SPELLS.PRIMORDIAL_WAVE_CAST}>
                 <ItemHealingDone amount={totalHealing} />
               </BoringSpellValueText>
             </th>
             <th>
               <div className="panel-heading value">Breakdown</div>
               <BoringSpellValueText spell={SPELLS.PRIMORDIAL_WAVE_CAST}>
-                <ItemHealingDone amount={this.healing} /><br />
-                <img src="/img/healing.png" alt="Overhealing" className="icon" />{' '}{formatPercentage(this.overHealing / (this.healing + this.overHealing))} % <small>Overhealing</small>
+                <ItemHealingDone amount={this.healing} />
+                <br />
+                <img src="/img/healing.png" alt="Overhealing" className="icon" />{' '}
+                {formatPercentage(this.overHealing / (this.healing + this.overHealing))} %{' '}
+                <small>Overhealing</small>
               </BoringSpellValueText>
               <BoringSpellValueText spell={SPELLS.RIPTIDE}>
-                <ItemHealingDone amount={this.riptideHealing} /><br />
-                <img src="/img/healing.png" alt="Overhealing" className="icon" />{' '}{formatPercentage(this.riptideOverHealing / (this.riptideHealing + this.riptideOverHealing))} % <small>Overhealing</small>
+                <ItemHealingDone amount={this.riptideHealing} />
+                <br />
+                <img src="/img/healing.png" alt="Overhealing" className="icon" />{' '}
+                {formatPercentage(
+                  this.riptideOverHealing / (this.riptideHealing + this.riptideOverHealing),
+                )}{' '}
+                % <small>Overhealing</small>
               </BoringSpellValueText>
               <BoringSpellValueText spell={SPELLS.HEALING_WAVE}>
-                <ItemHealingDone amount={this.waveHealing} /><br />
-                <img src="/img/healing.png" alt="Overhealing" className="icon" />{' '}{formatPercentage(this.waveOverHealing / (this.waveHealing + this.waveOverHealing))} % <small>Overhealing</small>
+                <ItemHealingDone amount={this.waveHealing} />
+                <br />
+                <img src="/img/healing.png" alt="Overhealing" className="icon" />{' '}
+                {formatPercentage(this.waveOverHealing / (this.waveHealing + this.waveOverHealing))}{' '}
+                % <small>Overhealing</small>
               </BoringSpellValueText>
             </th>
           </tbody>
@@ -136,4 +171,3 @@ class PrimordialWave extends Analyzer {
 }
 
 export default PrimordialWave;
-

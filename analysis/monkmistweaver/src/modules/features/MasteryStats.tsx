@@ -1,19 +1,18 @@
-import React from 'react';
-
+import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import { formatThousands } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
+import React from 'react';
 
-import EssenceFontMastery from './EssenceFontMastery';
 import EnvelopingMists from '../spells/EnvelopingMists';
-import SoothingMist from '../spells/SoothingMist';
-import RenewingMist from '../spells/RenewingMist';
-import Vivify from '../spells/Vivify';
 import ExpelHarm from '../spells/ExpelHarm';
+import RenewingMist from '../spells/RenewingMist';
+import SoothingMist from '../spells/SoothingMist';
+import Vivify from '../spells/Vivify';
+import EssenceFontMastery from './EssenceFontMastery';
 
 class MasteryStats extends Analyzer {
   static dependencies = {
@@ -33,12 +32,14 @@ class MasteryStats extends Analyzer {
   protected expelHarm!: ExpelHarm;
 
   get totalMasteryHealing() {
-    return (this.vivify.gustsHealing || 0)
-      + (this.renewingMist.gustsHealing || 0)
-      + (this.envelopingMists.gustsHealing || 0)
-      + (this.soothingMist.gustsHealing || 0)
-      + (this.essenceFontMastery.healing || 0)
-      + (this.expelHarm.gustsHealing || 0);
+    return (
+      (this.vivify.gustsHealing || 0) +
+      (this.renewingMist.gustsHealing || 0) +
+      (this.envelopingMists.gustsHealing || 0) +
+      (this.soothingMist.gustsHealing || 0) +
+      (this.essenceFontMastery.healing || 0) +
+      (this.expelHarm.gustsHealing || 0)
+    );
   }
 
   renderMasterySourceChart() {
@@ -87,21 +88,16 @@ class MasteryStats extends Analyzer {
       },
     ];
 
-    return (
-      <DonutChart
-        items={items}
-      />
-    );
+    return <DonutChart items={items} />;
   }
 
   statistic() {
     return (
-      <Statistic
-        position={STATISTIC_ORDER.CORE(20)}
-        size="flexible"
-      >
+      <Statistic position={STATISTIC_ORDER.CORE(20)} size="flexible">
         <div className="pad">
-          <label><SpellLink id={SPELLS.GUSTS_OF_MISTS.id}>Gusts of Mists</SpellLink> breakdown</label>
+          <label>
+            <SpellLink id={SPELLS.GUSTS_OF_MISTS.id}>Gusts of Mists</SpellLink> breakdown
+          </label>
           {this.renderMasterySourceChart()}
         </div>
       </Statistic>

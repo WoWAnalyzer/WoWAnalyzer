@@ -1,1 +1,1 @@
-export const getSpecsIgnoredNotSupportedWarning = state => state.specsIgnoredNotSupportedWarning;
+export const getSpecsIgnoredNotSupportedWarning = (state) => state.specsIgnoredNotSupportedWarning;

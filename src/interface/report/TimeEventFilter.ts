@@ -1,8 +1,4 @@
-import React, { ReactNode } from 'react';
-
 import { captureException } from 'common/errorLogger';
-import { COMBAT_POTIONS } from 'parser/shared/modules/items/PotionChecker';
-import Fight from 'parser/core/Fight';
 import {
   EventType,
   PhaseEvent,
@@ -18,6 +14,9 @@ import {
   FilterCooldownInfoEvent,
   AnyEvent,
 } from 'parser/core/Events';
+import Fight from 'parser/core/Fight';
+import { COMBAT_POTIONS } from 'parser/shared/modules/items/PotionChecker';
+import React, { ReactNode } from 'react';
 
 import { EventsParseError } from './EventParser';
 import { SELECTION_ALL_PHASES } from './PhaseParser';

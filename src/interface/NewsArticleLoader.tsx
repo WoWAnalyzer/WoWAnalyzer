@@ -1,11 +1,10 @@
-import React, {useState, useEffect} from 'react';
-
 import retryingPromise from 'common/retryingPromise';
+import React, { useState, useEffect } from 'react';
 
 interface Props {
-  fileName: string
-  loader: React.ReactNode
-  render?: (article: any) => any
+  fileName: string;
+  loader: React.ReactNode;
+  render?: (article: any) => any;
 }
 
 const NewsArticleLoader = ({ fileName, loader, render }: Props) => {
@@ -13,13 +12,14 @@ const NewsArticleLoader = ({ fileName, loader, render }: Props) => {
   const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
-    setShowLoader(!article)
+    setShowLoader(!article);
   }, [article]);
 
   useEffect(() => {
-    retryingPromise(() => import(/* webpackChunkName: "articles/[request]" */ `articles/${fileName}/index.tsx`)
-      .then(exports => exports.default)
-      .then(article => setArticle(article))
+    retryingPromise(() =>
+      import(/* webpackChunkName: "articles/[request]" */ `articles/${fileName}/index.tsx`)
+        .then((exports) => exports.default)
+        .then((article) => setArticle(article)),
     );
   }, [fileName]);
 
@@ -28,6 +28,6 @@ const NewsArticleLoader = ({ fileName, loader, render }: Props) => {
   }
 
   return render ? render({ article }) : article;
-}
+};
 
 export default NewsArticleLoader;

@@ -1,14 +1,15 @@
-import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events, { DamageEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import { ONE_WITH_THE_BEAST_DAMAGE_INCREASE } from '@wowanalyzer/hunter-beastmastery/src/constants';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import React from 'react';
+import Events, { DamageEvent } from 'parser/core/Events';
 import ConduitSpellText from 'parser/ui/ConduitSpellText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
+
+import { ONE_WITH_THE_BEAST_DAMAGE_INCREASE } from '@wowanalyzer/hunter-beastmastery/src/constants';
 
 /**
  * Bestial Wrath increases all damage you and your pet deal by X%.
@@ -18,13 +19,14 @@ import ConduitSpellText from 'parser/ui/ConduitSpellText';
  * TODO: Verify how this applies to Bestial Wrath (Multiplicate or Additive)
  */
 class OneWithTheBeast extends Analyzer {
-
   conduitRank: number = 0;
   addedDamage: number = 0;
 
   constructor(options: Options) {
     super(options);
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.ONE_WITH_THE_BEAST_CONDUIT.id);
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(
+      SPELLS.ONE_WITH_THE_BEAST_CONDUIT.id,
+    );
     if (!this.conduitRank) {
       this.active = false;
       return;
@@ -38,7 +40,10 @@ class OneWithTheBeast extends Analyzer {
     if (!this.selectedCombatant.hasBuff(SPELLS.BESTIAL_WRATH.id)) {
       return;
     }
-    this.addedDamage += calculateEffectiveDamage(event, ONE_WITH_THE_BEAST_DAMAGE_INCREASE[this.conduitRank]);
+    this.addedDamage += calculateEffectiveDamage(
+      event,
+      ONE_WITH_THE_BEAST_DAMAGE_INCREASE[this.conduitRank],
+    );
   }
 
   statistic() {
@@ -56,7 +61,6 @@ class OneWithTheBeast extends Analyzer {
       </Statistic>
     );
   }
-
 }
 
 export default OneWithTheBeast;

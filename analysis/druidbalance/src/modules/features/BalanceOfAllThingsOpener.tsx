@@ -1,16 +1,16 @@
-import React from 'react';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import { t } from '@lingui/macro';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
   CastEvent,
   DamageEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
+import React from 'react';
 
 class BalanceOfAllThingsOpener extends Analyzer {
   /*
@@ -152,9 +152,9 @@ class BalanceOfAllThingsOpener extends Analyzer {
         <>
           {' '}
           You did not cast three consecutive <SpellLink id={SPELLS.STARSURGE_MOONKIN.id} /> after
-          getting the <SpellLink id={SPELLS.BALANCE_OF_ALL_THINGS_SOLAR.id} /> buff for {actual} times.
-          Always make sure to pool for atleast 90 Astral Power before entering an eclipse. It is
-          expected to overcap some Astral Power to achieve this.
+          getting the <SpellLink id={SPELLS.BALANCE_OF_ALL_THINGS_SOLAR.id} /> buff for {actual}{' '}
+          times. Always make sure to pool for atleast 90 Astral Power before entering an eclipse. It
+          is expected to overcap some Astral Power to achieve this.
         </>,
       )
         .icon(SPELLS.BALANCE_OF_ALL_THINGS_SOLAR.icon)

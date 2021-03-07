@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import CoreChanneling from 'parser/shared/modules/Channeling';
 import { CastEvent } from 'parser/core/Events';
+import CoreChanneling from 'parser/shared/modules/Channeling';
 
 class Channeling extends CoreChanneling {
   onCast(event: CastEvent) {

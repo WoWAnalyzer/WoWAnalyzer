@@ -1,9 +1,9 @@
+import { change, date } from 'common/changelog';
+import SPELLS from 'common/SPELLS';
+import { joshinator, Khazak, LeoZhekov, Putro, Pendragon } from 'CONTRIBUTORS';
+import { SpellLink } from 'interface';
 import React from 'react';
 
-import { joshinator, Khazak, LeoZhekov, Putro, Pendragon } from 'CONTRIBUTORS';
-import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
-import { change, date } from 'common/changelog';
 
 export default [
   change(date(2021, 2, 17), <> Removed <SpellLink id={SPELLS.DEATH_AND_DECAY.id} /> cooldown tracker for Night Fae players</>, Pendragon),

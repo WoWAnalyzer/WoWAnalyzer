@@ -1,14 +1,13 @@
-import React from 'react';
-
-import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Abilities from 'parser/core/modules/Abilities';
 import SPELLS from 'common/SPELLS';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+import Abilities from 'parser/core/modules/Abilities';
+import DispelTracker from 'parser/shared/modules/DispelTracker';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Events from 'parser/core/Events';
-import DispelTracker from 'parser/shared/modules/DispelTracker';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 /**
  * Removes 1 Enrage and 1 Magic effect from an enemy target.
@@ -16,7 +15,6 @@ import DispelTracker from 'parser/shared/modules/DispelTracker';
  * TODO Revisit this module when we have more information
  */
 class TranquilizingShot extends DispelTracker {
-
   static dependencies = {
     abilities: Abilities,
   };
@@ -53,9 +51,7 @@ class TranquilizingShot extends DispelTracker {
           category={STATISTIC_CATEGORY.GENERAL}
         >
           <BoringSpellValueText spell={SPELLS.TRANQUILIZING_SHOT}>
-            <>
-              {this.totalDispels}
-            </>
+            <>{this.totalDispels}</>
           </BoringSpellValueText>
         </Statistic>
       );
@@ -63,7 +59,6 @@ class TranquilizingShot extends DispelTracker {
       return null;
     }
   }
-
 }
 
 export default TranquilizingShot;

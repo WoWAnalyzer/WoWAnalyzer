@@ -1,11 +1,11 @@
-import SPELLS from 'common/SPELLS';
 import { formatMilliseconds, formatPercentage } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
-import EventEmitter from 'parser/core/modules/EventEmitter';
-import StatTracker from 'parser/shared/modules/StatTracker';
+import SPELLS from 'common/SPELLS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
+import Analyzer from 'parser/core/Analyzer';
 import EventFilter, { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { EventType } from 'parser/core/Events';
+import EventEmitter from 'parser/core/modules/EventEmitter';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 const debug = false;
 

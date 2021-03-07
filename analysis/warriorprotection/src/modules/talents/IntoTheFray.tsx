@@ -1,15 +1,20 @@
-import React from 'react';
-
-import SPELLS from 'common/SPELLS';
 import { formatDuration, formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, ApplyBuffStackEvent, EventType, FightEndEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
-
-import Statistic from 'parser/ui/Statistic';
+import Events, {
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  EventType,
+  FightEndEvent,
+  RemoveBuffEvent,
+  RemoveBuffStackEvent,
+} from 'parser/core/Events';
 import BoringValueText from 'parser/ui/BoringValueText';
+import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { SpellLink } from 'interface';
+import React from 'react';
 
 const MAX_STACKS = 5;
 const HASTE_PER_STACK = 2;
@@ -25,10 +30,22 @@ class IntoTheFray extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.INTO_THE_FRAY_TALENT.id);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.INTO_THE_FRAY_BUFF), this.handleStacks);
-    this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.INTO_THE_FRAY_BUFF), this.handleStacks);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.INTO_THE_FRAY_BUFF), this.handleStacks);
-    this.addEventListener(Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.INTO_THE_FRAY_BUFF), this.handleStacks);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.INTO_THE_FRAY_BUFF),
+      this.handleStacks,
+    );
+    this.addEventListener(
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.INTO_THE_FRAY_BUFF),
+      this.handleStacks,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.INTO_THE_FRAY_BUFF),
+      this.handleStacks,
+    );
+    this.addEventListener(
+      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.INTO_THE_FRAY_BUFF),
+      this.handleStacks,
+    );
     this.addEventListener(Events.fightend, this.fightEnd);
     this.buffStacks = Array.from({ length: MAX_STACKS + 1 }, () => [0]);
   }
@@ -36,14 +53,23 @@ class IntoTheFray extends Analyzer {
   get averageHaste() {
     let avgStacks = 0;
     this.buffStacks.forEach((elem, index) => {
-      avgStacks += elem.reduce((a, b) => a + b) / this.owner.fightDuration * index;
+      avgStacks += (elem.reduce((a, b) => a + b) / this.owner.fightDuration) * index;
     });
     return (avgStacks * HASTE_PER_STACK).toFixed(2);
   }
 
-  handleStacks(event: ApplyBuffEvent | ApplyBuffStackEvent | RemoveBuffEvent | RemoveBuffStackEvent | FightEndEvent, stack?: number) {
-    const stackEvent = event as (typeof event & { stack: number });
-    if (stackEvent.type === EventType.RemoveBuff || isNaN(stackEvent.stack)) { // NaN check if player is dead during on_finish
+  handleStacks(
+    event:
+      | ApplyBuffEvent
+      | ApplyBuffStackEvent
+      | RemoveBuffEvent
+      | RemoveBuffStackEvent
+      | FightEndEvent,
+    stack?: number,
+  ) {
+    const stackEvent = event as typeof event & { stack: number };
+    if (stackEvent.type === EventType.RemoveBuff || isNaN(stackEvent.stack)) {
+      // NaN check if player is dead during on_finish
       stackEvent.stack = 0;
     }
     if (event.type === EventType.ApplyBuff) {
@@ -83,14 +109,22 @@ class IntoTheFray extends Analyzer {
                 <tr key={i}>
                   <th>{(i * HASTE_PER_STACK).toFixed(0)}%</th>
                   <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
-                  <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
+                  <td>
+                    {formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         }
       >
-        <BoringValueText label={<><SpellLink id={SPELLS.INTO_THE_FRAY_TALENT.id} /> average haste gained</>}>
+        <BoringValueText
+          label={
+            <>
+              <SpellLink id={SPELLS.INTO_THE_FRAY_TALENT.id} /> average haste gained
+            </>
+          }
+        >
           {this.averageHaste}%
         </BoringValueText>
       </Statistic>

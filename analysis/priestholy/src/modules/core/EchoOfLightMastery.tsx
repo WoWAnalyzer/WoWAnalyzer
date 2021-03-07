@@ -1,24 +1,23 @@
-import React from 'react';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import { SpellIcon } from 'interface';
-
-import SPELLS from 'common/SPELLS';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import HealingDone from 'parser/shared/modules/throughput/HealingDone';
-import Combatants from 'parser/shared/modules/Combatants';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { formatNumber, formatPercentage } from 'common/format';
-import { TooltipElement } from 'interface';
+import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
+import { SpellIcon } from 'interface';
+import { TooltipElement } from 'interface';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import Combatants from 'parser/shared/modules/Combatants';
+import HealingDone from 'parser/shared/modules/throughput/HealingDone';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import React from 'react';
 
 import { ABILITIES_THAT_TRIGGER_MASTERY } from '../../constants';
 
 const DEBUG = false;
-const CUTOFF_PERCENT = .01;
+const CUTOFF_PERCENT = 0.01;
 
 interface EoLHealEvent extends HealEvent {
   eolCritAmount: number;
@@ -35,14 +34,14 @@ class EchoOfLightMastery extends Analyzer {
   // The eol pools currently on a target
   targetMasteryPool: {
     [targetId: number]: {
-      pendingHealingTotal: number,
+      pendingHealingTotal: number;
       pendingHealingBySpell: {
-        [spellId: number]: number
-      },
-      remainingTicks: number,
-      applicationTime: number,
-      pendingCritTotal: number,
-    }
+        [spellId: number]: number;
+      };
+      remainingTicks: number;
+      applicationTime: number;
+      pendingCritTotal: number;
+    };
   } = {};
   // The test value so we can see how accurate our EoL values are
   testValues = {
@@ -67,7 +66,10 @@ class EchoOfLightMastery extends Analyzer {
   }
 
   get effectiveHealing() {
-    return this.abilityTracker.getAbility(SPELLS.ECHO_OF_LIGHT_HEAL.id).healingEffective + this.abilityTracker.getAbility(SPELLS.ECHO_OF_LIGHT_HEAL.id).healingAbsorbed;
+    return (
+      this.abilityTracker.getAbility(SPELLS.ECHO_OF_LIGHT_HEAL.id).healingEffective +
+      this.abilityTracker.getAbility(SPELLS.ECHO_OF_LIGHT_HEAL.id).healingAbsorbed
+    );
   }
 
   get overHealing() {
@@ -83,10 +85,12 @@ class EchoOfLightMastery extends Analyzer {
   }
 
   get masteryTable() {
-    const spellDetails = Object.keys(this.masteryHealingBySpell).map((key) => ({
-      spellId: key,
-      ...this.masteryHealingBySpell[key],
-    })).sort((a, b) => b.effectiveHealing - a.effectiveHealing);
+    const spellDetails = Object.keys(this.masteryHealingBySpell)
+      .map((key) => ({
+        spellId: key,
+        ...this.masteryHealingBySpell[key],
+      }))
+      .sort((a, b) => b.effectiveHealing - a.effectiveHealing);
 
     const rows = [];
 
@@ -94,9 +98,13 @@ class EchoOfLightMastery extends Analyzer {
       if (DEBUG || this.getPercentOfTotalHealingBySpell(spellDetails[i].spellId) > CUTOFF_PERCENT) {
         rows.push(
           <tr key={'mastery_' + spellDetails[i].spellId}>
-            <td><SpellIcon id={Number(spellDetails[i].spellId)} style={{ height: '2.4em' }} /></td>
+            <td>
+              <SpellIcon id={Number(spellDetails[i].spellId)} style={{ height: '2.4em' }} />
+            </td>
             <td>{formatNumber(spellDetails[i].effectiveHealing)}</td>
-            <td>{formatPercentage(this.getPercentOfTotalHealingBySpell(spellDetails[i].spellId))}%</td>
+            <td>
+              {formatPercentage(this.getPercentOfTotalHealingBySpell(spellDetails[i].spellId))}%
+            </td>
             <td>
               <TooltipElement content={`${formatNumber(spellDetails[i].overHealing)} Overhealing`}>
                 {formatPercentage(this.getMasteryOverhealPercentBySpell(spellDetails[i].spellId))}%
@@ -113,7 +121,12 @@ class EchoOfLightMastery extends Analyzer {
         <tr key="mastery_precast">
           <td>Precast</td>
           <td>{formatNumber(this.precastValues.effectiveHealing)}</td>
-          <td>{formatPercentage(this.precastValues.effectiveHealing / this.healingDone.total.effective)}%</td>
+          <td>
+            {formatPercentage(
+              this.precastValues.effectiveHealing / this.healingDone.total.effective,
+            )}
+            %
+          </td>
           <td>
             <TooltipElement content={`${formatNumber(this.precastValues.overhealing)} Overhealing`}>
               {formatPercentage(this.precastValues.overhealing / this.precastValues.rawHealing)}%
@@ -134,7 +147,10 @@ class EchoOfLightMastery extends Analyzer {
   }
 
   getMasteryOverhealPercentBySpell(spellId: number) {
-    return this.masteryHealingBySpell[spellId].overHealing / this.masteryHealingBySpell[spellId].rawHealing;
+    return (
+      this.masteryHealingBySpell[spellId].overHealing /
+      this.masteryHealingBySpell[spellId].rawHealing
+    );
   }
 
   onHeal(event: EoLHealEvent) {
@@ -172,7 +188,7 @@ class EchoOfLightMastery extends Analyzer {
     this.targetMasteryPool[targetId].pendingHealingBySpell[spellId] += rawHealing;
     if (event.hitType === HIT_TYPES.CRIT) {
       // Track how much of a EoL tick can be contributed to a crit.
-      this.targetMasteryPool[targetId].pendingCritTotal += (rawHealing / 2);
+      this.targetMasteryPool[targetId].pendingCritTotal += rawHealing / 2;
     }
   }
 
@@ -183,26 +199,41 @@ class EchoOfLightMastery extends Analyzer {
     if (!this.targetMasteryPool[targetId]) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
       // @ts-ignore
-      DEBUG && console.warn(`[${event.timestamp}] There was a mastery tick for ${event.amount + (event.absorbed || 0)} (${event.overheal || 0} OH) on target ${this.combatants.players[targetId] ? this.combatants.players[targetId].name : ''} (${targetId}) that doesn't have a mastery pool!`);
+      DEBUG &&
+        console.warn(
+          `[${event.timestamp}] There was a mastery tick for ${
+            event.amount + (event.absorbed || 0)
+          } (${event.overheal || 0} OH) on target ${
+            this.combatants.players[targetId] ? this.combatants.players[targetId].name : ''
+          } (${targetId}) that doesn't have a mastery pool!`,
+        );
       return;
     }
 
     if (this.targetMasteryPool[targetId].remainingTicks < 1) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
       // @ts-ignore
-      DEBUG && console.warn(`[${event.timestamp}] There was a mastery tick for ${event.amount + (event.absorbed || 0)} (${event.overheal || 0} OH) on target ${this.combatants.players[targetId] ? this.combatants.players[targetId].name : ''} (${targetId}) whos mastery pool is empty!`);
+      DEBUG &&
+        console.warn(
+          `[${event.timestamp}] There was a mastery tick for ${
+            event.amount + (event.absorbed || 0)
+          } (${event.overheal || 0} OH) on target ${
+            this.combatants.players[targetId] ? this.combatants.players[targetId].name : ''
+          } (${targetId}) whos mastery pool is empty!`,
+        );
       this.targetMasteryPool[targetId].remainingTicks = 1;
     }
 
     const tickEffectiveHealing = event.amount + (event.absorbed || 0);
-    const tickOverhealing = (event.overheal || 0);
+    const tickOverhealing = event.overheal || 0;
 
     // The percentage of the total pool to be drained
     const poolDrainPercent = 1 / this.targetMasteryPool[targetId].remainingTicks;
     // The total amount that should be drained from the pool
     const poolDrainTotal = this.targetMasteryPool[targetId].pendingHealingTotal * poolDrainPercent;
 
-    const rawCritValue = ((this.targetMasteryPool[targetId].pendingCritTotal || 0) * poolDrainPercent);
+    const rawCritValue =
+      (this.targetMasteryPool[targetId].pendingCritTotal || 0) * poolDrainPercent;
     const effectiveCritValue = rawCritValue - tickOverhealing;
     this.targetMasteryPool[targetId].pendingCritTotal -= rawCritValue;
 
@@ -210,17 +241,21 @@ class EchoOfLightMastery extends Analyzer {
       event.eolCritAmount = effectiveCritValue;
     }
 
-    if (Object.keys(this.targetMasteryPool[targetId].pendingHealingBySpell).length === 0 && this.targetMasteryPool[targetId].pendingHealingBySpell.constructor === Object) {
+    if (
+      Object.keys(this.targetMasteryPool[targetId].pendingHealingBySpell).length === 0 &&
+      this.targetMasteryPool[targetId].pendingHealingBySpell.constructor === Object
+    ) {
       // This must be the result of a precasted EoL Application
       // There is no way to tell which spell caused this EoL, but we can store it for metrics!
       this.precastValues.effectiveHealing += tickEffectiveHealing;
       this.precastValues.overhealing += tickOverhealing;
-      this.precastValues.rawHealing += (tickEffectiveHealing + tickOverhealing);
+      this.precastValues.rawHealing += tickEffectiveHealing + tickOverhealing;
       return;
     }
     for (const spellId in this.targetMasteryPool[targetId].pendingHealingBySpell) {
       // The percent of the pool that should be drained by this spell
-      const tickHealingBySpell = this.targetMasteryPool[targetId].pendingHealingBySpell[spellId] * poolDrainPercent;
+      const tickHealingBySpell =
+        this.targetMasteryPool[targetId].pendingHealingBySpell[spellId] * poolDrainPercent;
       const spellContributionPercent = tickHealingBySpell / poolDrainTotal;
 
       // Make sure the values are initialized
@@ -278,7 +313,12 @@ class EchoOfLightMastery extends Analyzer {
         if (event.timestamp === this.targetMasteryPool[targetId].applicationTime) {
           // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
           // @ts-ignore
-          DEBUG && console.warn(`[${event.timestamp}] There was a double application of EoL tick on target ${this.combatants.players[targetId] ? this.combatants.players[targetId].name : ''} (${targetId}). Applying 4 ticks.`);
+          DEBUG &&
+            console.warn(
+              `[${event.timestamp}] There was a double application of EoL tick on target ${
+                this.combatants.players[targetId] ? this.combatants.players[targetId].name : ''
+              } (${targetId}). Applying 4 ticks.`,
+            );
           this.targetMasteryPool[targetId].remainingTicks = 4;
         } else {
           this.targetMasteryPool[targetId].remainingTicks = 3;
@@ -292,14 +332,25 @@ class EchoOfLightMastery extends Analyzer {
       <Statistic
         size="flexible"
         position={STATISTIC_ORDER.CORE(2)}
-        tooltip={(
+        tooltip={
           <>
-            Total Healing: {formatNumber(this.effectiveHealing)} ({formatPercentage(this.overHealingPercent)}% OH)<br />
-            Expand for Echo of Light healing breakdown. As our mastery is often very finicky, this could end up wrong in various situations. Please report any logs that seem strange to @Khadaj on the WoWAnalyzer discord.<br /><br />
-            <strong>Please do note this may not be 100% accurate.</strong><br /><br />
-            Also, a mastery value can be more than just "healing done times mastery percent" because Echo of Light is based off raw healing. If the heal itself overheals, but the mastery does not, it can surpass that assumed "limit". Don't use this as a reason for a "strange log" unless something is absurdly higher than its effective healing.
+            Total Healing: {formatNumber(this.effectiveHealing)} (
+            {formatPercentage(this.overHealingPercent)}% OH)
+            <br />
+            Expand for Echo of Light healing breakdown. As our mastery is often very finicky, this
+            could end up wrong in various situations. Please report any logs that seem strange to
+            @Khadaj on the WoWAnalyzer discord.
+            <br />
+            <br />
+            <strong>Please do note this may not be 100% accurate.</strong>
+            <br />
+            <br />
+            Also, a mastery value can be more than just "healing done times mastery percent" because
+            Echo of Light is based off raw healing. If the heal itself overheals, but the mastery
+            does not, it can surpass that assumed "limit". Don't use this as a reason for a "strange
+            log" unless something is absurdly higher than its effective healing.
           </>
-        )}
+        }
         dropdown={
           <>
             <div>Values under 1% of total are omitted.</div>
@@ -312,9 +363,7 @@ class EchoOfLightMastery extends Analyzer {
                   <th>% OH</th>
                 </tr>
               </thead>
-              <tbody>
-                {this.masteryTable}
-              </tbody>
+              <tbody>{this.masteryTable}</tbody>
             </table>
           </>
         }

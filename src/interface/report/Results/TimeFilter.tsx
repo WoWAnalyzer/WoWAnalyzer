@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import Fight from 'parser/core/Fight';
 import { Trans } from '@lingui/macro';
+import Fight from 'parser/core/Fight';
+import React, { useEffect, useState } from 'react';
 
 import TimeInput from './TimeInput';
 
@@ -48,7 +48,8 @@ const TimeFilter = (props: Props) => {
 
   const invalidTimes = () => end <= start || end < 0 || end > max || start < 0 || start > max;
 
-  const isReset = () => props.fight.offset_time === 0 && props.fight.end_time === props.fight.original_end_time;
+  const isReset = () =>
+    props.fight.offset_time === 0 && props.fight.end_time === props.fight.original_end_time;
 
   const { isLoading } = props;
   return (

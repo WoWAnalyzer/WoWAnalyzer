@@ -24,7 +24,8 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FERAL_SPIRIT,
-        buffSpellId: [ //Feral Spirit isn't an actual buff, so we can only show the Elemental
+        buffSpellId: [
+          //Feral Spirit isn't an actual buff, so we can only show the Elemental
           // Spirits buffs
           SPELLS.ELEMENTAL_SPIRITS_BUFF_MOLTEN_WEAPON.id,
           SPELLS.ELEMENTAL_SPIRITS_BUFF_ICY_EDGE.id,
@@ -92,7 +93,7 @@ class Abilities extends CoreAbilities {
         name: `${SPELLS.FLAME_SHOCK.name} / ${SPELLS.FROST_SHOCK.name}`,
         spell: [SPELLS.FROST_SHOCK, SPELLS.FLAME_SHOCK],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 6 / (1 + haste),
+        cooldown: (haste) => 6 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -100,7 +101,7 @@ class Abilities extends CoreAbilities {
       {
         spell: STORMSTRIKE_CAST_SPELLS,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 7.5 / (1 + haste),
+        cooldown: (haste) => 7.5 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -111,7 +112,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: haste => 12 / (1 + haste),
+        cooldown: (haste) => 12 / (1 + haste),
       },
       {
         spell: SPELLS.CRASH_LIGHTNING,
@@ -119,7 +120,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: haste => 9 / (1 + haste),
+        cooldown: (haste) => 9 / (1 + haste),
       },
       {
         spell: SPELLS.LIGHTNING_BOLT,
@@ -253,7 +254,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(SPELLS.FIRE_NOVA_TALENT.id),
-        cooldown: haste => 15 / (1 + haste),
+        cooldown: (haste) => 15 / (1 + haste),
       },
       {
         spell: SPELLS.ICE_STRIKE_TALENT,
@@ -262,7 +263,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(SPELLS.ICE_STRIKE_TALENT.id),
-        cooldown: haste => 15 / (1 + haste),
+        cooldown: (haste) => 15 / (1 + haste),
       },
       {
         spell: SPELLS.LIGHTNING_SHIELD,

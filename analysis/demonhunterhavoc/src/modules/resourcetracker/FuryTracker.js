@@ -1,6 +1,6 @@
+import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
-import SPELLS from 'common/SPELLS';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 // Casting Eye Beam at over 50 when you have the Blind Fury talent is considered a waste.
@@ -29,7 +29,7 @@ class FuryTracker extends ResourceTracker {
       if (this.waste <= 0) {
         this.waste = 0;
       }
-      const AMOUNT = (event.classResources[0].max - event.classResources[0].amount) + this.waste;
+      const AMOUNT = event.classResources[0].max - event.classResources[0].amount + this.waste;
       this.processInvisibleEnergize(blindFuryId, AMOUNT);
     }
     super.onCast(event);

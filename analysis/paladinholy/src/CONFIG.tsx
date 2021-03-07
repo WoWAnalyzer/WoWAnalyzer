@@ -1,10 +1,9 @@
-import React from 'react';
-
+import SPELLS from 'common/SPELLS';
 import { acornellier } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
-import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Config from 'parser/Config';
+import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
 

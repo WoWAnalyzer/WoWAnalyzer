@@ -1,5 +1,5 @@
-import { Kettlepaw, Zeboot, g3neral, Tiboonn } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
+import { Kettlepaw, Zeboot, g3neral, Tiboonn } from 'CONTRIBUTORS';
 
 export default [
   change(date(2021, 1, 16), 'Added spell information for conduits', Tiboonn),

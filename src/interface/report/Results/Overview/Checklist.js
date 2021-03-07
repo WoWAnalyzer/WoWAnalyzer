@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { Trans } from '@lingui/macro';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 const Checklist = ({ children }) => (
   <div className="panel">

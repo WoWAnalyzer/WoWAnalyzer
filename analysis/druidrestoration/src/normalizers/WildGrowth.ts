@@ -1,9 +1,8 @@
 import SPELLS from 'common/SPELLS';
-
-import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { AnyEvent, EventType } from 'parser/core/Events';
+import EventsNormalizer from 'parser/core/EventsNormalizer';
 
-const MS_BUFFER=100;
+const MS_BUFFER = 100;
 class WildGrowth extends EventsNormalizer {
   /**
    * when you cast WG and you yourself are one of the targets the applybuff event will be in the events log before the cast event
@@ -30,7 +29,11 @@ class WildGrowth extends EventsNormalizer {
             break;
           }
 
-          if (_event.type === EventType.ApplyBuff && _event.ability.guid === SPELLS.WILD_GROWTH.id && _event.targetID === this.owner.playerId) {
+          if (
+            _event.type === EventType.ApplyBuff &&
+            _event.ability.guid === SPELLS.WILD_GROWTH.id &&
+            _event.targetID === this.owner.playerId
+          ) {
             _events.splice(_idx, 1);
             _newEvents.push(_event);
           }
@@ -54,9 +57,13 @@ class WildGrowth extends EventsNormalizer {
             break;
           }
 
-          if (_event.type === EventType.ApplyBuff
-            && [SPELLS.REJUVENATION.id, SPELLS.REJUVENATION_GERMINATION.id].includes(_event.ability.guid)
-            && _event.targetID === event.targetID) {
+          if (
+            _event.type === EventType.ApplyBuff &&
+            [SPELLS.REJUVENATION.id, SPELLS.REJUVENATION_GERMINATION.id].includes(
+              _event.ability.guid,
+            ) &&
+            _event.targetID === event.targetID
+          ) {
             _events.splice(_idx, 1);
             _newEvents.push(_event);
           }
@@ -80,7 +87,10 @@ class WildGrowth extends EventsNormalizer {
             break;
           }
 
-          if ((_event.type === EventType.ApplyBuff || _event.type === EventType.Cast) && _event.ability.guid === SPELLS.FLOURISH_TALENT.id) {
+          if (
+            (_event.type === EventType.ApplyBuff || _event.type === EventType.Cast) &&
+            _event.ability.guid === SPELLS.FLOURISH_TALENT.id
+          ) {
             _events.splice(_idx, 1);
             _newEvents.push(_event);
           }

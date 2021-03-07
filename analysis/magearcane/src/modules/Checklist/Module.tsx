@@ -1,23 +1,21 @@
-import { ArcaneIntellect, CancelledCasts, MirrorImage, RuneOfPower } from '@wowanalyzer/mage';
-
-import React from 'react';
-
-import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
+import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
+import React from 'react';
 
-import ArcaneFamiliar from '../talents/ArcaneFamiliar';
-import ArcaneOrb from '../talents/ArcaneOrb';
-import ArcaneEcho from '../talents/ArcaneEcho';
+import { ArcaneIntellect, CancelledCasts, MirrorImage, RuneOfPower } from '@wowanalyzer/mage';
+
+import AlwaysBeCasting from '../features/AlwaysBeCasting';
+import ArcaneMissiles from '../features/ArcaneMissiles';
 import ArcanePower from '../features/ArcanePower';
 import ArcanePowerActiveTime from '../features/ArcanePowerActiveTime';
+import ManaValues from '../ManaChart/ManaValues';
+import ArcaneEcho from '../talents/ArcaneEcho';
+import ArcaneFamiliar from '../talents/ArcaneFamiliar';
+import ArcaneOrb from '../talents/ArcaneOrb';
 import RuleOfThrees from '../talents/RuleOfThrees';
 import TimeAnomaly from '../talents/TimeAnomaly';
-import ArcaneMissiles from '../features/ArcaneMissiles';
-import AlwaysBeCasting from '../features/AlwaysBeCasting';
-import ManaValues from '../ManaChart/ManaValues';
-
 import Component from './Component';
 
 class Checklist extends BaseChecklist {

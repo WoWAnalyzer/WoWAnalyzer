@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
-import React from 'react';
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import React from 'react';
 import 'jest-enzyme'; // better matchers
 import 'jest-canvas-mock';
 

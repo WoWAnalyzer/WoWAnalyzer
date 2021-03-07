@@ -1,11 +1,10 @@
-import React from 'react';
-import Analyzer, { SELECTED_PLAYER, Options} from 'parser/core/Analyzer';
+import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import { t } from '@lingui/macro';
-import { SpellLink } from 'interface';
-
+import React from 'react';
 
 /*WCL: https://www.warcraftlogs.com/reports/Y7BWyCx3mHVZzPrk#fight=last&type=summary&view=events&pins=2%24Off%24%23244F4B%24casts%7Cauras%24-1%240.0.0.Any%240.0.0.Any%24true%240.0.0.Any%24true%24258920%7C204255%7C203981%7C263642
 Default spell is Shear (generates 1 soul). Fracture (generates 2 souls) talent replaces it.
@@ -18,7 +17,6 @@ const WASTED_SOUL_MS_BUFFER = 50;
 const FRACTURE_SOUL_GENERATE_BUFFER = 1300;
 
 class ShearFracture extends Analyzer {
-
   castTimeStamp = 0;
   badCasts = 0;
   onSoulFragmentCastTimeStamp = 0;
@@ -30,15 +28,21 @@ class ShearFracture extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    if(this.selectedCombatant.hasTalent(SPELLS.FRACTURE_TALENT.id)){
+    if (this.selectedCombatant.hasTalent(SPELLS.FRACTURE_TALENT.id)) {
       this.cast = SPELLS.FRACTURE_TALENT;
-    };
+    }
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.cast), this.onCast);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SOUL_FRAGMENT), this.onSoulFragmentCast);
-    this.addEventListener(Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.SOUL_FRAGMENT_STACK), this.onSoulFragmentBuffFade);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SOUL_FRAGMENT),
+      this.onSoulFragmentCast,
+    );
+    this.addEventListener(
+      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.SOUL_FRAGMENT_STACK),
+      this.onSoulFragmentBuffFade,
+    );
   }
 
-  onCast(event: CastEvent)  {
+  onCast(event: CastEvent) {
     this.castTimeStamp = event.timestamp;
     this.lastCastEvent = event;
   }
@@ -52,15 +56,18 @@ class ShearFracture extends Analyzer {
       return;
     }
     this.soulFragmentBuffFadeTimeStamp = event.timestamp;
-    if(this.soulFragmentBuffFadeTimeStamp - this.castTimeStamp > FRACTURE_SOUL_GENERATE_BUFFER){
+    if (this.soulFragmentBuffFadeTimeStamp - this.castTimeStamp > FRACTURE_SOUL_GENERATE_BUFFER) {
       return;
     }
 
-    if(this.soulFragmentBuffFadeTimeStamp - this.onSoulFragmentCastTimeStamp < WASTED_SOUL_MS_BUFFER){
-      this.wastedSoulsPerCast +=1;
+    if (
+      this.soulFragmentBuffFadeTimeStamp - this.onSoulFragmentCastTimeStamp <
+      WASTED_SOUL_MS_BUFFER
+    ) {
+      this.wastedSoulsPerCast += 1;
 
       //Exit early if the wasted soul is from the same fracture cast
-      if(this.wastedSoulsPerCast > 1){
+      if (this.wastedSoulsPerCast > 1) {
         this.wastedSoulsPerCast = 0;
         return;
       }
@@ -69,7 +76,6 @@ class ShearFracture extends Analyzer {
       this.lastCastEvent.meta = this.lastCastEvent.meta || {};
       this.lastCastEvent.meta.isInefficientCast = true;
       this.lastCastEvent.meta.inefficientCastReason = 'Fracture cast that over capped souls';
-
     }
   }
 
@@ -85,19 +91,22 @@ class ShearFracture extends Analyzer {
     };
   }
   suggestions(when: When) {
-    when(this.wastedCasts).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        You cast of <SpellLink id={this.cast.id} /> generated souls beyond the cap of 5.
-      </>,
-    )
-      .icon(this.cast.icon)
-      .actual(t({
-      id: "demonhunter.vengence.suggestions.shearfracture.wastedCasts",
-      message: `${actual} bad casts`
-    }))
-      .recommended(`${recommended} bad casts are recommended`));
+    when(this.wastedCasts).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You cast of <SpellLink id={this.cast.id} /> generated souls beyond the cap of 5.
+        </>,
+      )
+        .icon(this.cast.icon)
+        .actual(
+          t({
+            id: 'demonhunter.vengence.suggestions.shearfracture.wastedCasts',
+            message: `${actual} bad casts`,
+          }),
+        )
+        .recommended(`${recommended} bad casts are recommended`),
+    );
   }
-
 }
 
 export default ShearFracture;

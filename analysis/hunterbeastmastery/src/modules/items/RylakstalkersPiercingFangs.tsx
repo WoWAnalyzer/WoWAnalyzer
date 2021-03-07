@@ -1,15 +1,16 @@
-import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import React from 'react';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import SPELLS from 'common/SPELLS';
-import Events, { DamageEvent } from 'parser/core/Events';
 import HIT_TYPES from 'game/HIT_TYPES';
+import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import { RYLAKSTALKERS_PIERCING_FANGS_CRIT_DMG_INCREASE } from '@wowanalyzer/hunter-beastmastery/src/constants';
+import Events, { DamageEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
+
+import { RYLAKSTALKERS_PIERCING_FANGS_CRIT_DMG_INCREASE } from '@wowanalyzer/hunter-beastmastery/src/constants';
 
 /**
  * While Bestial Wrath is active, your pet's critical damage dealt is increased by 20%.
@@ -18,12 +19,13 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
  *
  */
 class RylakstalkersPiercingFangs extends Analyzer {
-
   damage: number = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.RYLAKSTALKERS_PIERCING_FANGS_EFFECT.bonusID);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(
+      SPELLS.RYLAKSTALKERS_PIERCING_FANGS_EFFECT.bonusID,
+    );
     if (!this.active) {
       return;
     }

@@ -1,5 +1,5 @@
-import makeQueryString from 'common/makeQueryString';
 import { QueryParams } from 'common/makeApiUrl';
+import makeQueryString from 'common/makeQueryString';
 
 const WARCRAFT_LOGS_DOMAIN = 'https://www.warcraftlogs.com/';
 

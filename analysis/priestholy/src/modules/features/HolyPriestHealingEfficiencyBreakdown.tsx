@@ -1,8 +1,8 @@
-import React from 'react';
-import HealingEfficiencyBreakdown from 'parser/core/healingEfficiency/HealingEfficiencyBreakdown';
-import Toggle from 'react-toggle';
-import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
+import HealingEfficiencyBreakdown from 'parser/core/healingEfficiency/HealingEfficiencyBreakdown';
+import React from 'react';
+import Toggle from 'react-toggle';
 
 import HolyPriestHealingEfficiencyTracker from './HolyPriestHealingEfficiencyTracker';
 
@@ -25,7 +25,10 @@ class HolyPriestHealingEfficiencyBreakdown extends HealingEfficiencyBreakdown {
         <div className="row">
           <div className="col-md-12">
             <div className="pull-left">
-              <div className="toggle-control pull-right" style={{ marginLeft: '.5em', marginRight: '.5em' }}>
+              <div
+                className="toggle-control pull-right"
+                style={{ marginLeft: '.5em', marginRight: '.5em' }}
+              >
                 <Toggle
                   defaultChecked={false}
                   icons={false}
@@ -38,13 +41,17 @@ class HolyPriestHealingEfficiencyBreakdown extends HealingEfficiencyBreakdown {
               </div>
             </div>
             <div className="pull-right">
-              <div className="toggle-control pull-left" style={{ marginLeft: '.5em', marginRight: '.5em' }}>
+              <div
+                className="toggle-control pull-left"
+                style={{ marginLeft: '.5em', marginRight: '.5em' }}
+              >
                 <Toggle
                   defaultChecked={false}
                   icons={false}
                   onChange={(event: any) => {
                     this.setState({ showEchoOfLight: event.target.checked });
-                    (tracker as HolyPriestHealingEfficiencyTracker).includeEchoOfLight = event.target.checked;
+                    (tracker as HolyPriestHealingEfficiencyTracker).includeEchoOfLight =
+                      event.target.checked;
                   }}
                   id="cooldown-toggle"
                 />
@@ -52,7 +59,10 @@ class HolyPriestHealingEfficiencyBreakdown extends HealingEfficiencyBreakdown {
                   Include <SpellLink id={SPELLS.ECHO_OF_LIGHT_MASTERY.id} />
                 </label>
               </div>
-              <div className="toggle-control pull-left" style={{ marginLeft: '.5em', marginRight: '.5em' }}>
+              <div
+                className="toggle-control pull-left"
+                style={{ marginLeft: '.5em', marginRight: '.5em' }}
+              >
                 <Toggle
                   defaultChecked={false}
                   icons={false}
@@ -63,7 +73,10 @@ class HolyPriestHealingEfficiencyBreakdown extends HealingEfficiencyBreakdown {
                   Show Cooldowns
                 </label>
               </div>
-              <div className="toggle-control pull-left" style={{ marginLeft: '.5em', marginRight: '.5em' }}>
+              <div
+                className="toggle-control pull-left"
+                style={{ marginLeft: '.5em', marginRight: '.5em' }}
+              >
                 <label htmlFor="healing-toggle" style={{ marginLeft: '0.5em', marginRight: '1em' }}>
                   Show Damage
                 </label>
@@ -87,9 +100,7 @@ class HolyPriestHealingEfficiencyBreakdown extends HealingEfficiencyBreakdown {
                   {this.state.detailedView ? <this.DetailHeader /> : <this.BarHeader />}
                 </tr>
               </thead>
-              <tbody>
-                {this.HealingEfficiencyTable({ tracker })}
-              </tbody>
+              <tbody>{this.HealingEfficiencyTable({ tracker })}</tbody>
             </table>
           </div>
         </div>

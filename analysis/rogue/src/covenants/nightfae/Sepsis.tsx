@@ -1,14 +1,14 @@
-import React from 'react';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Abilities from 'parser/core/modules/Abilities';
+import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
+import Abilities from 'parser/core/modules/Abilities';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import COVENANTS from 'game/shadowlands/COVENANTS';
-import { formatNumber } from 'common/format';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import React from 'react';
 
 class Sepsis extends Analyzer {
   static dependencies = {
@@ -22,7 +22,10 @@ class Sepsis extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SEPSIS), this.onDamage);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SEPSIS_POISON), this.onPoisonDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SEPSIS_POISON),
+      this.onPoisonDamage,
+    );
   }
 
   onDamage(event: DamageEvent) {

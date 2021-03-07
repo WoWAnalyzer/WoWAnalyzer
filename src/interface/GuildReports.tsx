@@ -1,18 +1,17 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
 import { i18n } from '@lingui/core';
 import { Trans, defineMessage } from '@lingui/macro';
-
-import ZONES from 'game/ZONES';
-import fetchWcl, { GuildNotFoundError, UnknownApiError, WclApiError } from 'common/fetchWclApi';
-import { WCLGuildReport, WCLGuildReportsResponse } from 'common/WCL_TYPES';
 import { captureException } from 'common/errorLogger';
-import retryingPromise from 'common/retryingPromise';
+import fetchWcl, { GuildNotFoundError, UnknownApiError, WclApiError } from 'common/fetchWclApi';
 import { makeGuildApiUrl } from 'common/makeApiUrl';
+import retryingPromise from 'common/retryingPromise';
+import { WCLGuildReport, WCLGuildReportsResponse } from 'common/WCL_TYPES';
+import ZONES from 'game/ZONES';
 import ActivityIndicator from 'interface/ActivityIndicator';
 import ArmoryIcon from 'interface/icons/Armory';
 import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
 import WipefestIcon from 'interface/icons/Wipefest';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './GuildReports.scss';
 import ReportsList from './GuildReportsList';

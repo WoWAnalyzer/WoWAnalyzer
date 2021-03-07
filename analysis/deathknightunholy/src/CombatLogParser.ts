@@ -1,31 +1,34 @@
-import { RuneDetails, RuneOfTheFallenCrusader, RuneOfHysteria, Superstrain, SwarmingMist } from '@wowanalyzer/deathknight';
-
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Channeling from 'parser/shared/modules/Channeling';
+import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
+import {
+  RuneDetails,
+  RuneOfTheFallenCrusader,
+  RuneOfHysteria,
+  Superstrain,
+  SwarmingMist,
+} from '@wowanalyzer/deathknight';
+
+import SpellUsable from './modules/core/SpellUsable';
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import FesteringStrikeEfficiency from './modules/spells/FesteringStrikeEfficiency';
 import Checklist from './modules/features/checklist/Module';
-import ScourgeStrikeEfficiency from './modules/spells/ScourgeStrikeEfficiency';
-import Apocalypse from './modules/spells/Apocalypse';
-import VirulentPlagueEfficiency from './modules/spells/VirulentPlagueEfficiency';
-import WoundTracker from './modules/features/WoundTracker';
-import SpellUsable from './modules/core/SpellUsable'
+import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import RuneTracker from './modules/features/RuneTracker';
 import SuddenDoom from './modules/features/SuddenDoom';
-
-import SoulReaper from './modules/talents/SoulReaper';
-import ArmyOfTheDamned from './modules/talents/ArmyOfTheDamned';
-
+import WoundTracker from './modules/features/WoundTracker';
 import RunicPowerDetails from './modules/runicpower/RunicPowerDetails';
 import RunicPowerTracker from './modules/runicpower/RunicPowerTracker';
-
-import RuneTracker from './modules/features/RuneTracker';
+import Apocalypse from './modules/spells/Apocalypse';
+import ConvocationOfTheDead from './modules/spells/conduits/ConvocationOfTheDead';
+import FesteringStrikeEfficiency from './modules/spells/FesteringStrikeEfficiency';
+import ScourgeStrikeEfficiency from './modules/spells/ScourgeStrikeEfficiency';
+import VirulentPlagueEfficiency from './modules/spells/VirulentPlagueEfficiency';
+import ArmyOfTheDamned from './modules/talents/ArmyOfTheDamned';
+import SoulReaper from './modules/talents/SoulReaper';
 
 // Covenants
-import ConvocationOfTheDead from './modules/spells/conduits/ConvocationOfTheDead';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -39,7 +42,7 @@ class CombatLogParser extends CoreCombatLogParser {
     festeringStrikeEfficiency: FesteringStrikeEfficiency,
     checklist: Checklist,
     scourgeStrikeEfficiency: ScourgeStrikeEfficiency,
-  	apocalypse: Apocalypse,
+    apocalypse: Apocalypse,
     virulentPlagueEfficiency: VirulentPlagueEfficiency,
     woundTracker: WoundTracker,
     spellUsable: SpellUsable,

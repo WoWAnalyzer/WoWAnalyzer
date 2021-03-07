@@ -1,15 +1,13 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-
+import Events, { DamageEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Events, { DamageEvent } from 'parser/core/Events';
+import React from 'react';
 
 /**
  * Hurls a Steel Trap to the target location that snaps shut on the
@@ -21,7 +19,6 @@ import Events, { DamageEvent } from 'parser/core/Events';
  */
 
 class SteelTrap extends Analyzer {
-
   static dependencies = {
     spellUsable: SpellUsable,
   };
@@ -36,8 +33,14 @@ class SteelTrap extends Analyzer {
 
     this.active = this.selectedCombatant.hasTalent(SPELLS.STEEL_TRAP_TALENT.id);
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STEEL_TRAP_TALENT), this.onCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.STEEL_TRAP_DEBUFF), this.onDamage);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STEEL_TRAP_TALENT),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.STEEL_TRAP_DEBUFF),
+      this.onDamage,
+    );
   }
 
   onCast() {

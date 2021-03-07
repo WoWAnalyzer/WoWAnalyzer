@@ -1,19 +1,16 @@
-import React from 'react';
-
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Enemies from 'parser/shared/modules/Enemies';
-import Events from 'parser/core/Events';
-
+import { t } from '@lingui/macro';
+import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import { formatPercentage, formatThousands } from 'common/format';
-
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import Statistic from 'parser/ui/Statistic';
+import UptimeIcon from 'interface/icons/Uptime';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import UptimeIcon from 'interface/icons/Uptime';
-import { t } from '@lingui/macro';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import React from 'react';
 
 class Doom extends Analyzer {
   get uptime() {
@@ -40,7 +37,10 @@ class Doom extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DOOM_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DOOM_TALENT), this.handleDoomDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DOOM_TALENT),
+      this.handleDoomDamage,
+    );
   }
 
   handleDoomDamage(event) {
@@ -48,14 +48,22 @@ class Doom extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.DOOM_TALENT.id} /> uptime can be improved. Try to pay more attention to your Doom on the boss, as it is one of your Soul Shard generators.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your <SpellLink id={SPELLS.DOOM_TALENT.id} /> uptime can be improved. Try to pay more
+          attention to your Doom on the boss, as it is one of your Soul Shard generators.
+        </>,
+      )
         .icon(SPELLS.DOOM_TALENT.icon)
-        .actual(t({
-      id: "warlock.demonology.suggestions.doom.uptime",
-      message: `${formatPercentage(actual)}% Doom uptime`
-    }))
-        .recommended(`>${formatPercentage(recommended)}% is recommended`));
+        .actual(
+          t({
+            id: 'warlock.demonology.suggestions.doom.uptime',
+            message: `${formatPercentage(actual)}% Doom uptime`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
@@ -66,7 +74,8 @@ class Doom extends Analyzer {
         tooltip={`${formatThousands(this.damage)} damage`}
       >
         <BoringSpellValueText spell={SPELLS.DOOM_TALENT}>
-          <ItemDamageDone amount={this.damage} /><br />
+          <ItemDamageDone amount={this.damage} />
+          <br />
           <UptimeIcon /> {formatPercentage(this.uptime)}% <small>Uptime</small>
         </BoringSpellValueText>
       </Statistic>

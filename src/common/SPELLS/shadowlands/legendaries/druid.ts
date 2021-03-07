@@ -1,7 +1,6 @@
 const legendaries = {
   //region Balance
 
-  
   BALANCE_OF_ALL_THINGS_LUNAR: {
     id: 339946,
     name: 'Balance of All Things',
@@ -34,7 +33,7 @@ const legendaries = {
   },
   THE_DARK_TITANS_LESSON: {
     id: 338831,
-    name: 'The Dark Titan\'s Lesson',
+    name: "The Dark Titan's Lesson",
     icon: 'spell_druid_germination_rejuvenation',
   },
   LIFEBLOOM_DTL_HOT_HEAL: {
@@ -42,7 +41,7 @@ const legendaries = {
     name: 'Lifebloom',
     icon: 'inv_misc_herb_felblossom',
     manaCost: 800,
-    bonusID: 7097
+    bonusID: 7097,
   },
   MEMORY_OF_THE_MOTHER_TREE: {
     id: 189877,

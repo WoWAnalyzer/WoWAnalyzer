@@ -48,7 +48,7 @@ class TestCombatLogParser extends CombatLogParser {
   }
 
   processEvents(events) {
-    events.forEach(event => this.getModule(EventEmitter).triggerEvent(event));
+    events.forEach((event) => this.getModule(EventEmitter).triggerEvent(event));
   }
 }
 

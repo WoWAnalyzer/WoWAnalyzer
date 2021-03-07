@@ -1,7 +1,7 @@
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELLS from 'common/SPELLS';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 class Incarnation extends Analyzer {
   static dependencies = {
@@ -10,7 +10,10 @@ class Incarnation extends Analyzer {
 
   constructor(options) {
     super(options);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT), this.onApplyBuff);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT),
+      this.onApplyBuff,
+    );
   }
 
   onApplyBuff(event) {

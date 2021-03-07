@@ -1,11 +1,10 @@
 import { Messages, i18n } from '@lingui/core';
 import { I18nProvider as LinguiI18nProvider } from '@lingui/react';
+import { getLanguage } from 'interface/selectors/language';
+import { en, de, es, fr, it, ko, pl, pt, ru, zh } from 'make-plural/plurals';
 import React, { ReactNode, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useSelector } from 'react-redux';
-import { en, de, es, fr, it, ko, pl, pt, ru, zh } from 'make-plural/plurals';
-
-import { getLanguage } from 'interface/selectors/language';
 
 i18n.loadLocaleData('en', { plurals: en });
 i18n.loadLocaleData('de', { plurals: de });

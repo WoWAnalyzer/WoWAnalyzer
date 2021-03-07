@@ -3,9 +3,8 @@
  * Use this only for things that the player certainly should be familiar with, such as their own spells.
  * Do NOT use for items.
  */
-import React from 'react';
-
 import { SpellIcon } from 'interface';
+import React from 'react';
 
 import './BoringValue.scss';
 import Spell from 'common/SPELLS/Spell';
@@ -16,7 +15,7 @@ type Props = {
   label: React.ReactNode;
   extra?: React.ReactNode;
   className?: string;
-}
+};
 
 const BoringSpellValue = ({ spell, value, label, extra, className }: Props) => (
   <div className={`flex boring-value ${className || ''}`}>

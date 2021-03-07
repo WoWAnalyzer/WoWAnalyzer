@@ -1,9 +1,9 @@
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Haste from 'parser/shared/modules/Haste';
-import EventEmitter from 'parser/core/modules/EventEmitter';
-import SpellResourceCost from 'parser/shared/modules/SpellResourceCost';
 import HIT_TYPES from 'game/HIT_TYPES';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import EventEmitter from 'parser/core/modules/EventEmitter';
+import Haste from 'parser/shared/modules/Haste';
+import SpellResourceCost from 'parser/shared/modules/SpellResourceCost';
 
 // turn on debug to find if there's inaccuracies, then verboseDebug to help track the cause.
 const debug = false;
@@ -47,11 +47,7 @@ const verboseDebug = false;
  * to decide there should be a resource refund due to not hiting. 208ms is highest I've seen.
  */
 const REFUND_SPENDER_WINDOW = 500;
-const HIT_TYPES_THAT_REFUND = [
-  HIT_TYPES.MISS,
-  HIT_TYPES.DODGE,
-  HIT_TYPES.PARRY,
-];
+const HIT_TYPES_THAT_REFUND = [HIT_TYPES.MISS, HIT_TYPES.DODGE, HIT_TYPES.PARRY];
 
 /**
  * @property {EventEmitter} eventEmitter
@@ -210,7 +206,7 @@ class RegenResourceCapTracker extends Analyzer {
    * be implemented here.
    * @returns {number} Base regen rate of the resource.
    */
-  getBaseRegenRate(){
+  getBaseRegenRate() {
     return this.constructor.baseRegenRate;
   }
 
@@ -224,7 +220,7 @@ class RegenResourceCapTracker extends Analyzer {
   naturalRegenRate() {
     let regen = this.getBaseRegenRate() / 1000;
     if (this.constructor.isRegenHasted) {
-      regen *= (1 + this.haste.current);
+      regen *= 1 + this.haste.current;
     }
     return regen;
   }
@@ -237,11 +233,11 @@ class RegenResourceCapTracker extends Analyzer {
    * @returns {number}  Maximum resource value, or null to try to use value from resource events.
    */
   currentMaxResource() {
-   /**
-    * If left unimplemented and no events provide max resource information the Analyzer will never know
-    * the resource's max value. It handles that situation without crashing, but without a cap value it
-    * is largely useless.
-    */
+    /**
+     * If left unimplemented and no events provide max resource information the Analyzer will never know
+     * the resource's max value. It handles that situation without crashing, but without a cap value it
+     * is largely useless.
+     */
     return null;
   }
 
@@ -256,7 +252,9 @@ class RegenResourceCapTracker extends Analyzer {
    */
   processInvisibleEnergize(amount) {
     if (amount == null || isNaN(amount)) {
-      throw new Error(`processInvisibleEnergize called without required parameter. amount: ${amount}`);
+      throw new Error(
+        `processInvisibleEnergize called without required parameter. amount: ${amount}`,
+      );
     }
     if (amount === 0) {
       return;
@@ -275,7 +273,7 @@ class RegenResourceCapTracker extends Analyzer {
     if (!event || !event.classResources) {
       return null;
     }
-    return event.classResources.find(r => r.type === this.constructor.resourceType.id);
+    return event.classResources.find((r) => r.type === this.constructor.resourceType.id);
   }
 
   /**
@@ -297,29 +295,37 @@ class RegenResourceCapTracker extends Analyzer {
    */
   combatantHasBuffActive(buffId, timestamp = null) {
     if (!buffId || isNaN(buffId)) {
-      throw new Error(`combatantHasBuffActive called without required parameter. buffId: ${buffId}`);
+      throw new Error(
+        `combatantHasBuffActive called without required parameter. buffId: ${buffId}`,
+      );
     }
     if (!timestamp) {
       timestamp = this.owner.currentTimestamp;
     }
     const buffHistory = this.selectedCombatant.getBuffHistory(buffId);
-    return Boolean(buffHistory.find(buff => (buff.start <= timestamp && (!buff.end || buff.end > timestamp))));
+    return Boolean(
+      buffHistory.find((buff) => buff.start <= timestamp && (!buff.end || buff.end > timestamp)),
+    );
   }
 
   onFightend() {
     // updateState one last time to catch any resource capping after the final resource event
     this.updateState(this.predictValue(this.owner.fight.end_time));
-    debug && console.log(`mean prediction error magnitude: ${this.debugMeanPredictionError.toFixed(2)}`);
-    debug && console.log(`greatest magnitude prediction error: ${this.debugGreatestError.toFixed(2)}`);
+    debug &&
+      console.log(`mean prediction error magnitude: ${this.debugMeanPredictionError.toFixed(2)}`);
+    debug &&
+      console.log(`greatest magnitude prediction error: ${this.debugGreatestError.toFixed(2)}`);
   }
 
   onEnergize(event) {
-    if(event.resourceChangeType !== this.constructor.resourceType.id || !event.resourceChange) {
+    if (event.resourceChangeType !== this.constructor.resourceType.id || !event.resourceChange) {
       return;
     }
     const waste = event.waste ? event.waste : 0;
     const gain = event.resourceChange - waste;
-    const applyCumulatively = this.constructor.energizersToApplyCumulatively.includes(event.ability.guid);
+    const applyCumulatively = this.constructor.energizersToApplyCumulatively.includes(
+      event.ability.guid,
+    );
     this.applyEnergize(gain, event, applyCumulatively);
   }
 
@@ -331,12 +337,14 @@ class RegenResourceCapTracker extends Analyzer {
     const time = event ? event.timestamp : this.owner.currentTimestamp;
     const eventResource = event ? this.getResource(event) : null;
 
-    const shouldAccumulate = applyCumulatively ||
+    const shouldAccumulate =
+      applyCumulatively ||
       this.isLastUpdateRecent(time) ||
-      !eventResource || eventResource.amount == null;
+      !eventResource ||
+      eventResource.amount == null;
 
     // eventResource.amount for an energize is the value after the change
-    const current = shouldAccumulate ? (this.predictValue(time) + gain) : eventResource.amount;
+    const current = shouldAccumulate ? this.predictValue(time) + gain : eventResource.amount;
     if (debug && !shouldAccumulate) {
       this.debugActualVsPredicted(eventResource.amount - gain, time);
     }
@@ -355,7 +363,13 @@ class RegenResourceCapTracker extends Analyzer {
       return;
     }
     if (cost < 0) {
-      debug && console.warn(`${this.owner.formatTimestamp(event.timestamp, 3)} Unexpected negative cost ${cost} for spell ${event.ability.guid}`);
+      debug &&
+        console.warn(
+          `${this.owner.formatTimestamp(
+            event.timestamp,
+            3,
+          )} Unexpected negative cost ${cost} for spell ${event.ability.guid}`,
+        );
     }
     if (!this.constructor.exemptFromRefund.includes(event.ability.guid)) {
       this.prevSpender = {
@@ -365,10 +379,12 @@ class RegenResourceCapTracker extends Analyzer {
       };
     }
 
-    const shouldAccumulate = eventResource.amount == null ||
+    const shouldAccumulate =
+      eventResource.amount == null ||
       this.constructor.castsToApplyCumulatively.includes(event.ability.guid) ||
       this.isLastUpdateRecent(event.timestamp);
-    const current = (shouldAccumulate ? this.predictValue(event.timestamp) : eventResource.amount) - cost;
+    const current =
+      (shouldAccumulate ? this.predictValue(event.timestamp) : eventResource.amount) - cost;
     if (debug && !shouldAccumulate) {
       this.debugActualVsPredicted(eventResource.amount, event.timestamp);
     }
@@ -378,30 +394,45 @@ class RegenResourceCapTracker extends Analyzer {
 
   onDamage(event) {
     // only interested in damage events if they show a spending ability failing to connect (and so triggering a refund)
-    if (!this.prevSpender || event.ability.guid !== this.prevSpender.id ||
-        (event.timestamp - this.prevSpender.timestamp) > REFUND_SPENDER_WINDOW ||
-        event.tick || !HIT_TYPES_THAT_REFUND.includes(event.hitType)) {
+    if (
+      !this.prevSpender ||
+      event.ability.guid !== this.prevSpender.id ||
+      event.timestamp - this.prevSpender.timestamp > REFUND_SPENDER_WINDOW ||
+      event.tick ||
+      !HIT_TYPES_THAT_REFUND.includes(event.hitType)
+    ) {
       return;
     }
-    verboseDebug && console.log(`${this.owner.formatTimestamp(this.owner.currentTimestamp, 3)} attack didn't connect so restoring ${Math.round(this.constructor.resourceRefundOnMiss * 100)}% resource`);
+    verboseDebug &&
+      console.log(
+        `${this.owner.formatTimestamp(
+          this.owner.currentTimestamp,
+          3,
+        )} attack didn't connect so restoring ${Math.round(
+          this.constructor.resourceRefundOnMiss * 100,
+        )}% resource`,
+      );
     const refund = Math.floor(this.prevSpender.cost * this.constructor.resourceRefundOnMiss);
     const current = this.predictValue(event.timestamp) + refund;
     this.updateState(current);
   }
 
   onDrain(event) {
-    if(event.resourceChangeType !== this.constructor.resourceType.id || !event.resourceChange) {
+    if (event.resourceChangeType !== this.constructor.resourceType.id || !event.resourceChange) {
       return;
     }
     const eventResource = this.getResource(event);
     const drain = this.getReducedDrain(event);
 
-    const shouldAccumulate = !eventResource || eventResource.amount == null ||
+    const shouldAccumulate =
+      !eventResource ||
+      eventResource.amount == null ||
       this.constructor.energizersToApplyCumulatively.includes(event.ability.guid) ||
       this.isLastUpdateRecent(event.timestamp);
 
     // eventResource.amount for a drain is the value before the change
-    const current = (shouldAccumulate ? this.predictValue(event.timestamp) : eventResource.amount) - drain;
+    const current =
+      (shouldAccumulate ? this.predictValue(event.timestamp) : eventResource.amount) - drain;
     if (debug && !shouldAccumulate) {
       this.debugActualVsPredicted(eventResource.amount, event.timestamp);
     }
@@ -456,7 +487,14 @@ class RegenResourceCapTracker extends Analyzer {
    */
   updateState(amount = null, max = null, regen = null) {
     const timestamp = this.owner.currentTimestamp;
-    verboseDebug && console.log(`${this.owner.formatTimestamp(timestamp, 3)} amount: ${amount ? amount.toFixed(1) : 'n/a'}, max: ${max ? max.toFixed(1) : 'n/a'} , regen: ${regen ? (regen * 1000).toFixed(3) : 'n/a'}`);
+    verboseDebug &&
+      console.log(
+        `${this.owner.formatTimestamp(timestamp, 3)} amount: ${
+          amount ? amount.toFixed(1) : 'n/a'
+        }, max: ${max ? max.toFixed(1) : 'n/a'} , regen: ${
+          regen ? (regen * 1000).toFixed(3) : 'n/a'
+        }`,
+      );
     if (amount == null || isNaN(amount)) {
       amount = this.predictValue(timestamp);
     }
@@ -487,10 +525,14 @@ class RegenResourceCapTracker extends Analyzer {
   }
 
   timeCappedBetweenStates(oldState, newState) {
-    if (!oldState || !newState){
-      throw new Error(`timeCappedBetweenStates called without required parameters. oldState: ${oldState}, newState: ${newState}`);
+    if (!oldState || !newState) {
+      throw new Error(
+        `timeCappedBetweenStates called without required parameters. oldState: ${oldState}, newState: ${newState}`,
+      );
     }
-    const reachCap = oldState.max ? this.predictReachValue(oldState.timestamp, oldState.amount, oldState.regen, oldState.max) : Infinity;
+    const reachCap = oldState.max
+      ? this.predictReachValue(oldState.timestamp, oldState.amount, oldState.regen, oldState.max)
+      : Infinity;
     if (reachCap >= newState.timestamp) {
       return 0;
     }
@@ -521,11 +563,19 @@ class RegenResourceCapTracker extends Analyzer {
    * @returns {number} Timestamp when targetValue would be reached through natural regen.
    */
   predictReachValue(startTime, startValue, regen, targetValue) {
-    if (startValue == null || isNaN(startValue) ||
-        regen == null || isNaN(regen) ||
-        targetValue == null || isNaN(targetValue) ||
-        startTime == null || isNaN(startTime)) {
-      throw new Error(`predictReachValue called without required parameters. startValue: ${startValue}, regen: ${regen}, cap: ${targetValue}, startTime: ${startTime}`);
+    if (
+      startValue == null ||
+      isNaN(startValue) ||
+      regen == null ||
+      isNaN(regen) ||
+      targetValue == null ||
+      isNaN(targetValue) ||
+      startTime == null ||
+      isNaN(startTime)
+    ) {
+      throw new Error(
+        `predictReachValue called without required parameters. startValue: ${startValue}, regen: ${regen}, cap: ${targetValue}, startTime: ${startTime}`,
+      );
     }
     if (startValue >= targetValue) {
       return startTime;
@@ -533,7 +583,7 @@ class RegenResourceCapTracker extends Analyzer {
     if (regen === 0) {
       return Infinity;
     }
-    return startTime + ((targetValue - startValue) / regen);
+    return startTime + (targetValue - startValue) / regen;
   }
 
   /**
@@ -546,7 +596,13 @@ class RegenResourceCapTracker extends Analyzer {
       time = this.owner.currentTimestamp;
     }
     if (time < this.regenState.timestamp) {
-      debug && console.warn(`Attempting to predict the past. State's time: ${this.owner.formatTimestamp(this.regenState.timestamp, 3)}, target time: ${this.owner.formatTimestamp(time, 3)}`);
+      debug &&
+        console.warn(
+          `Attempting to predict the past. State's time: ${this.owner.formatTimestamp(
+            this.regenState.timestamp,
+            3,
+          )}, target time: ${this.owner.formatTimestamp(time, 3)}`,
+        );
       return this.regenState.amount;
     }
     const elapsed = time - this.regenState.timestamp;
@@ -634,7 +690,14 @@ class RegenResourceCapTracker extends Analyzer {
     this.debugAccuracyCheckCount += 1;
     this.debugErrorSum += errorMagnitude;
     if (errorMagnitude > 3) {
-      console.log(`${this.owner.formatTimestamp(timestamp, 3)} actual: ${actual} prediction: ${predicted.toFixed(1)} (error: ${difference > 0 ? '+' : ''}${difference.toFixed(1)})`);
+      console.log(
+        `${this.owner.formatTimestamp(
+          timestamp,
+          3,
+        )} actual: ${actual} prediction: ${predicted.toFixed(1)} (error: ${
+          difference > 0 ? '+' : ''
+        }${difference.toFixed(1)})`,
+      );
     }
   }
   get debugMeanPredictionError() {

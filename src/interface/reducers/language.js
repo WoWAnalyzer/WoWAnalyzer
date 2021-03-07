@@ -1,6 +1,5 @@
-import Cookies from 'universal-cookie';
-
 import { SET_LANGUAGE } from 'interface/actions/language';
+import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 const COOKIE_NAME = 'LANGUAGE';

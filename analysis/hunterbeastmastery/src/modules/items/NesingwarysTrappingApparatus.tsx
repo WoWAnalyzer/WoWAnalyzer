@@ -1,14 +1,15 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import React from 'react';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import SPELLS from 'common/SPELLS';
-import Events, { EnergizeEvent } from 'parser/core/Events';
-import { ResourceIcon } from 'interface';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatNumber } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { ResourceIcon } from 'interface';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { EnergizeEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
+
 import AspectOfTheWild from '@wowanalyzer/hunter-beastmastery/src/modules/spells/AspectOfTheWild';
 import BarbedShot from '@wowanalyzer/hunter-beastmastery/src/modules/spells/BarbedShot';
 
@@ -19,7 +20,6 @@ import BarbedShot from '@wowanalyzer/hunter-beastmastery/src/modules/spells/Barb
  *
  */
 class NesingwarysTrappingApparatus extends Analyzer {
-
   static dependencies = {
     aspectOfTheWild: AspectOfTheWild,
     barbedShot: BarbedShot,
@@ -33,11 +33,16 @@ class NesingwarysTrappingApparatus extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT.bonusID);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(
+      SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT.bonusID,
+    );
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_ENERGIZE), this.onEnergize);
+    this.addEventListener(
+      Events.energize.by(SELECTED_PLAYER).spell(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_ENERGIZE),
+      this.onEnergize,
+    );
   }
 
   onEnergize(event: EnergizeEvent) {
@@ -46,11 +51,17 @@ class NesingwarysTrappingApparatus extends Analyzer {
   }
 
   get effectiveFocus() {
-    return formatNumber(this.aspectOfTheWild.additionalFocusFromNesingwary + this.barbedShot.additionalFocusFromNesingwary);
+    return formatNumber(
+      this.aspectOfTheWild.additionalFocusFromNesingwary +
+        this.barbedShot.additionalFocusFromNesingwary,
+    );
   }
 
   get possibleFocus() {
-    return formatNumber(this.aspectOfTheWild.possibleAdditionalFocusFromNesingwary + this.barbedShot.possibleAdditionalFocusFromNesingwary);
+    return formatNumber(
+      this.aspectOfTheWild.possibleAdditionalFocusFromNesingwary +
+        this.barbedShot.possibleAdditionalFocusFromNesingwary,
+    );
   }
 
   statistic() {
@@ -61,9 +72,11 @@ class NesingwarysTrappingApparatus extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
       >
         <BoringSpellValueText spell={SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT}>
-          <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /> {this.focusGained}/{this.focusWasted + this.focusGained} <small>Focus gained immediately</small>
+          <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /> {this.focusGained}/
+          {this.focusWasted + this.focusGained} <small>Focus gained immediately</small>
           <br />
-          <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /> {this.effectiveFocus}/{this.possibleFocus} <small>Focus gained from generators</small>
+          <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /> {this.effectiveFocus}/
+          {this.possibleFocus} <small>Focus gained from generators</small>
         </BoringSpellValueText>
       </Statistic>
     );

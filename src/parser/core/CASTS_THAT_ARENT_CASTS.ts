@@ -62,7 +62,7 @@ const spells: number[] = [
   //endregion
 
   //region Demon Hunter
-  SPELLS.FELBLADE_DAMAGE.id, //The spell that generates fury when casting 
+  SPELLS.FELBLADE_DAMAGE.id, //The spell that generates fury when casting
   //endregion
 
   //region druid

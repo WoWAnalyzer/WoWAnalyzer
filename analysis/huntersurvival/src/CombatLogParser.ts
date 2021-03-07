@@ -1,3 +1,8 @@
+import CoreCombatLogParser from 'parser/core/CombatLogParser';
+
+//Overridden Racial
+import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+
 import {
   DeathTracker,
   NaturalMending,
@@ -25,68 +30,63 @@ import {
   MarkmansAdvantage,
 } from '@wowanalyzer/hunter';
 
-import CoreCombatLogParser from 'parser/core/CombatLogParser';
-
-//Overridden Racial
-import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
-
 //Overridden Core modules
-import SpellUsable from './modules/core/SpellUsable';
+import Abilities from './modules/Abilities';
+import Buffs from './modules/Buffs';
+import Checklist from './modules/checklist/Module';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 
 //Features
-import Abilities from './modules/Abilities';
-import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import SpellUsable from './modules/core/SpellUsable';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Buffs from './modules/Buffs';
+import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 
 //Checklist
-import Checklist from './modules/checklist/Module';
 
 //Normalizer
-import TipOfTheSpearNormalizer from './normalizers/TipOfTheSpear';
 
 //Spells
-import KillCommand from './modules/spells/KillCommand';
-import ButcheryCarve from './modules/spells/ButcheryCarve';
-import SerpentSting from './modules/spells/SerpentSting';
-import CoordinatedAssault from './modules/spells/CoordinatedAssault';
-import WildfireBomb from './modules/spells/WildfireBomb';
-import RaptorStrike from './modules/spells/RaptorStrike';
-
-//Focus
-import SurvivalFocusCapTracker from './modules/resources/SurvivalFocusCapTracker';
+import ButchersBoneFragments from './modules/items/ButchersBoneFragments';
+import LatentPoisonInjectors from './modules/items/LatentPoisonInjectors';
+import NesingwarysTrappingApparatus from './modules/items/NesingwarysTrappingApparatus';
+import RylakstalkersConfoundingStrikes from './modules/items/RylakstalkersConfoundingStrikes';
+import WildfireCluster from './modules/items/WildfireCluster';
 import Focus from './modules/resources/Focus';
+import SurvivalFocusCapTracker from './modules/resources/SurvivalFocusCapTracker';
 import SurvivalFocusUsage from './modules/resources/SurvivalFocusUsage';
-
-//Talents
-import VipersVenom from './modules/talents/VipersVenom';
-import MongooseBite from './modules/talents/MongooseBite';
-import GuerrillaTactics from './modules/talents/GuerrillaTactics';
-import SteelTrap from './modules/talents/SteelTrap';
-import Chakrams from './modules/talents/Chakrams';
-import BirdOfPrey from './modules/talents/BirdOfPrey';
-import PheromoneBomb from './modules/talents/WildfireInfusion/PheromoneBomb';
-import ShrapnelBomb from './modules/talents/WildfireInfusion/ShrapnelBomb';
-import VolatileBomb from './modules/talents/WildfireInfusion/VolatileBomb';
-import AlphaPredator from './modules/talents/AlphaPredator';
-import Bloodseeker from './modules/talents/Bloodseeker';
-import HydrasBite from './modules/talents/HydrasBite';
-import FlankingStrike from './modules/talents/FlankingStrike';
-import TipOfTheSpear from './modules/talents/TipOfTheSpear';
-
-//Conduits
+import ButcheryCarve from './modules/spells/ButcheryCarve';
 import DeadlyTandem from './modules/spells/conduits/DeadlyTandem';
 import FlameInfusion from './modules/spells/conduits/FlameInfusion';
 import StingingStrike from './modules/spells/conduits/StingingStrike';
 import StrengthOfThePack from './modules/spells/conduits/StrengthOfThePack';
+import CoordinatedAssault from './modules/spells/CoordinatedAssault';
+import KillCommand from './modules/spells/KillCommand';
+import RaptorStrike from './modules/spells/RaptorStrike';
+import SerpentSting from './modules/spells/SerpentSting';
+import WildfireBomb from './modules/spells/WildfireBomb';
+
+//Focus
+
+//Talents
+import AlphaPredator from './modules/talents/AlphaPredator';
+import BirdOfPrey from './modules/talents/BirdOfPrey';
+import Bloodseeker from './modules/talents/Bloodseeker';
+import Chakrams from './modules/talents/Chakrams';
+import FlankingStrike from './modules/talents/FlankingStrike';
+import GuerrillaTactics from './modules/talents/GuerrillaTactics';
+import HydrasBite from './modules/talents/HydrasBite';
+import MongooseBite from './modules/talents/MongooseBite';
+import SteelTrap from './modules/talents/SteelTrap';
+import TipOfTheSpear from './modules/talents/TipOfTheSpear';
+import VipersVenom from './modules/talents/VipersVenom';
+import PheromoneBomb from './modules/talents/WildfireInfusion/PheromoneBomb';
+import ShrapnelBomb from './modules/talents/WildfireInfusion/ShrapnelBomb';
+import VolatileBomb from './modules/talents/WildfireInfusion/VolatileBomb';
+
+//Conduits
 
 //Legendaries
-import NesingwarysTrappingApparatus from './modules/items/NesingwarysTrappingApparatus';
-import WildfireCluster from './modules/items/WildfireCluster';
-import LatentPoisonInjectors from './modules/items/LatentPoisonInjectors';
-import RylakstalkersConfoundingStrikes from './modules/items/RylakstalkersConfoundingStrikes';
-import ButchersBoneFragments from './modules/items/ButchersBoneFragments';
+import TipOfTheSpearNormalizer from './normalizers/TipOfTheSpear';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

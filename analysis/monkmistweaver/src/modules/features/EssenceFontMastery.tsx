@@ -1,19 +1,15 @@
-import React from 'react';
-
+import { t } from '@lingui/macro';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
-import { formatNumber, formatPercentage } from 'common/format';
 import { TooltipElement } from 'interface';
-
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Combatants from 'parser/shared/modules/Combatants';
-
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-
-import { t } from '@lingui/macro';
+import Combatants from 'parser/shared/modules/Combatants';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import React from 'react';
 
 const debug = false;
 
@@ -33,14 +29,17 @@ class EssenceFontMastery extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.hasUpwelling = this.selectedCombatant.hasTalent(SPELLS.UPWELLING_TALENT.id);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS), this.gustHealing);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),
+      this.gustHealing,
+    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT), this.efCast);
   }
 
   get avgMasteryCastsPerEF() {
-    const efMasteryCasts = (this.healEF / 2) || 0;
+    const efMasteryCasts = this.healEF / 2 || 0;
 
-    return (efMasteryCasts / this.castEF) || 0;
+    return efMasteryCasts / this.castEF || 0;
   }
 
   get suggestionThresholds() {
@@ -72,11 +71,30 @@ class EssenceFontMastery extends Analyzer {
     if (!this.combatants.players[targetId]) {
       return;
     }
-    if (this.combatants.players[targetId].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0, event.sourceID) && !this.gustHeal) {
-      debug && console.log(`First Gust Heal: Player ID: ${event.targetID}  Timestamp: ${event.timestamp}`);
+    if (
+      this.combatants.players[targetId].hasBuff(
+        SPELLS.ESSENCE_FONT_BUFF.id,
+        event.timestamp,
+        0,
+        0,
+        event.sourceID,
+      ) &&
+      !this.gustHeal
+    ) {
+      debug &&
+        console.log(`First Gust Heal: Player ID: ${event.targetID}  Timestamp: ${event.timestamp}`);
       this.healEF += 1;
       this.gustHeal = true;
-    } else if (this.combatants.players[targetId].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0, event.sourceID) && this.gustHeal) {
+    } else if (
+      this.combatants.players[targetId].hasBuff(
+        SPELLS.ESSENCE_FONT_BUFF.id,
+        event.timestamp,
+        0,
+        0,
+        event.sourceID,
+      ) &&
+      this.gustHeal
+    ) {
       this.healEF += 1;
       this.healing += (event.amount || 0) + (event.absorbed || 0);
       this.gustHeal = false;
@@ -88,22 +106,29 @@ class EssenceFontMastery extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        You are currently not utilizing your <SpellLink id={SPELLS.ESSENCE_FONT.id} /> HOT buffs effectively. Casting into injured targets with the <SpellLink id={SPELLS.ESSENCE_FONT.id} /> allows you to take advantage of the double <SpellLink id={SPELLS.GUSTS_OF_MISTS.id} /> procs.
-      </>,
-    )
-      .icon(SPELLS.ESSENCE_FONT.icon)
-      .actual(t({
-      id: "monk.mistweaver.suggestions.essenceFontMastery.averageHots",
-      message: `${this.avgMasteryCastsPerEF.toFixed(2)} average EF HoTs`
-    }))
-      .recommended(`${recommended} or more EF HoTs utilized is recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You are currently not utilizing your <SpellLink id={SPELLS.ESSENCE_FONT.id} /> HOT buffs
+          effectively. Casting into injured targets with the{' '}
+          <SpellLink id={SPELLS.ESSENCE_FONT.id} /> allows you to take advantage of the double{' '}
+          <SpellLink id={SPELLS.GUSTS_OF_MISTS.id} /> procs.
+        </>,
+      )
+        .icon(SPELLS.ESSENCE_FONT.icon)
+        .actual(
+          t({
+            id: 'monk.mistweaver.suggestions.essenceFontMastery.averageHots',
+            message: `${this.avgMasteryCastsPerEF.toFixed(2)} average EF HoTs`,
+          }),
+        )
+        .recommended(`${recommended} or more EF HoTs utilized is recommended`),
+    );
   }
 
   statistic() {
-    const efMasteryCasts = (this.healEF / 2) || 0;
-    const efMasteryEffectiveHealing = ((this.healing) / 2) || 0;
+    const efMasteryCasts = this.healEF / 2 || 0;
+    const efMasteryEffectiveHealing = this.healing / 2 || 0;
     const avgEFMasteryHealing = efMasteryEffectiveHealing / efMasteryCasts || 0;
 
     return (
@@ -111,21 +136,25 @@ class EssenceFontMastery extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(0)}
         icon={<SpellIcon id={SPELLS.GUSTS_OF_MISTS.id} />}
         value={efMasteryCasts}
-        label={(
+        label={
           <TooltipElement
-            content={(
+            content={
               <>
-                You healed an average of {this.avgMasteryCastsPerEF.toFixed(2)} targets per Essence Font cast.
+                You healed an average of {this.avgMasteryCastsPerEF.toFixed(2)} targets per Essence
+                Font cast.
                 <ul>
                   <li>{formatNumber(avgEFMasteryHealing)} average healing per cast</li>
-                  <li>{formatNumber(this.secondGustOverheal)} Second Gust of Mists overhealing ({formatPercentage(this.secondGustOverheal / this.secondGustHealing)}%)</li>
+                  <li>
+                    {formatNumber(this.secondGustOverheal)} Second Gust of Mists overhealing (
+                    {formatPercentage(this.secondGustOverheal / this.secondGustHealing)}%)
+                  </li>
                 </ul>
               </>
-            )}
+            }
           >
             Mastery Buffs utilized
           </TooltipElement>
-        )}
+        }
       />
     );
   }
