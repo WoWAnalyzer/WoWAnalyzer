@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
-import { ReportState } from './report';
+import { ReportState } from 'interface/reducers/report';
+import { CharactersByIdState } from 'interface/reducers/charactersById';
 
 export interface RootState {
   error: any;
@@ -11,7 +12,7 @@ export interface RootState {
   language: any;
   specsIgnoredNotSupportedWarning: any;
   openModals: any;
-  charactersById: any;
+  charactersById: CharactersByIdState;
   reportCodesIgnoredPreviousPatchWarning: any;
 }
 

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import SpecIcon from 'interface/SpecIcon';
 import Icon from 'interface/Icon';
-import { Character } from 'common/character';
+import CharacterProfile from 'parser/core/CharacterProfile';
 import Player from 'parser/core/Player';
 import { getClassName } from 'game/ROLES';
 import getAverageItemLevel from 'game/getAverageItemLevel';
@@ -17,7 +17,7 @@ import { getCovenantById } from 'game/shadowlands/COVENANTS';
 interface Props {
   player: Player;
   makeUrl: (playerId: number) => string;
-  characterInfo: Character;
+  characterInfo: CharacterProfile;
   fetchCharacter: (characterId: number, region: string, realm: string, name: string) => void;
 }
 

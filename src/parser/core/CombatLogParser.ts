@@ -11,6 +11,7 @@ import {
   HasTarget,
   MappedEvent,
 } from 'parser/core/Events';
+import CharacterProfile from 'parser/core/CharacterProfile';
 
 import Haste from 'parser/shared/modules/Haste';
 import DeathRecapTracker from 'parser/shared/modules/DeathRecapTracker';
@@ -224,9 +225,7 @@ class CombatLogParser {
   applyPhaseFilter = (phase: any, instance: any) => null; //dummy function gets filled in by event parser
 
   report: Report;
-  /** Character info from the Battle.net API (optional) */
-  // TODO create profile type
-  characterProfile: any;
+  characterProfile: CharacterProfile;
 
   // Player info from WCL - required
   player: PlayerInfo;
@@ -282,14 +281,14 @@ class CombatLogParser {
     selectedPlayer: PlayerInfo,
     selectedFight: Fight,
     combatantInfoEvents: CombatantInfoEvent[],
-    characterProfile: any,
+    characterProfile: CharacterProfile,
     build: string,
     builds: Builds,
   ) {
     this.report = report;
     this.player = selectedPlayer;
     this.playerPets = report.friendlyPets.filter(
-      (pet: { petOwner: any }) => pet.petOwner === selectedPlayer.id,
+      (pet) => pet.petOwner === selectedPlayer.id,
     );
     this.fight = selectedFight;
     this.build = build;

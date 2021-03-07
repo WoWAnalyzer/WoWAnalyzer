@@ -1,9 +1,9 @@
 import { makeCharacterApiUrl } from 'common/makeApiUrl';
-import { Character } from "common/contributor";
+import CharacterProfile from 'parser/core/CharacterProfile';
 
 export const SUPPORTED_REGIONS = ['EU', 'US', 'TW', 'KR'];
 export const STORE_CHARACTER = 'STORE_CHARACTER';
-export function storeCharacter(character: Character) {
+export function storeCharacter(character: CharacterProfile) {
   return {
     type: STORE_CHARACTER,
     payload: character,
