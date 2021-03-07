@@ -1,7 +1,11 @@
 import { Zeboot, LeoZhekov, Sharrq, Tiboonn, Kartarn, Ciuffi } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
+import React from 'react';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 
 export default [
+  change(date(2021, 3, 7), <> Updated <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_BALANCE.id} /> talent for Shadowlands and added statistic for additional gained Astral Power. </>, Kartarn),
   change(date(2021, 2, 21), 'Add modules for Starfire and Wrath to track unempowered casts', Tiboonn),
   change(date(2021, 2, 12), 'Added convoke tracking to the statistics page', Ciuffi),
   change(date(2021, 2, 13), 'Added Analyzer for utilizing Balance of All things legendary.', Kartarn),

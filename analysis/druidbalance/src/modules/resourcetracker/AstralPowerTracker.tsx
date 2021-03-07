@@ -38,11 +38,7 @@ class AstralPowerTracker extends ResourceTracker {
     if (!resource || !resource.cost) {
       return 0;
     }
-    let cost = resource.cost / 10;
-    const abilityId = event.ability.guid;
-    if (abilityId === SPELLS.STARFALL_CAST.id && this.selectedCombatant.hasTalent(SPELLS.SOUL_OF_THE_FOREST_TALENT_BALANCE.id)) {
-      cost = cost - SOUL_OF_THE_FOREST_REDUCTION;
-    }
+    const cost = resource.cost / 10;
     return cost;
   }
 }
