@@ -4,7 +4,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { t } from '@lingui/macro';
-import Events, { CastEvent, DamageEvent, ApplyBuffEvent } from 'parser/core/Events';
+import Events, { CastEvent, ApplyBuffEvent } from 'parser/core/Events';
 
 const UNEMPOWERED_CASTS_NEEDED_FOR_EMPOWERMENT = 2;
 
