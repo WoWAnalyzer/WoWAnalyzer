@@ -31,12 +31,10 @@ class SoulOfTheForest extends Analyzer {
     ) {
       return;
     }
-    console.log(event);
 
     const apBeforeGain = event.resourceChange / (1 + SOTF_WRATH_BONUS_AP); //event.resourceChange contains the AP gained including modifiers, we need to calculate it back
     const bonusAP = apBeforeGain * SOTF_WRATH_BONUS_AP; // calculate how much we gained from the talent
     this.gainedAP += bonusAP;
-    console.log(this.gainedAP);
   }
 
   statistic() {
