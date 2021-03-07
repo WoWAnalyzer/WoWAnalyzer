@@ -5,6 +5,7 @@ import Spell from 'common/SPELLS/Spell';
 import React from 'react';
 
 import EventFilter from './EventFilter';
+import { PetInfo } from './Pet';
 
 export enum EventType {
   Heal = 'heal',
@@ -555,14 +556,7 @@ export interface ResurrectEvent extends Event<EventType.Resurrect> {
 export interface SummonEvent extends Event<EventType.Summon> {
   sourceID: number;
   sourceIsFriendly: boolean;
-  target: {
-    name: string;
-    id: number;
-    guid: number;
-    type: string;
-    petOwner: number;
-    icon: string;
-  };
+  target: PetInfo;
   targetID: number;
   targetInstance: number;
   targetIsFriendly: boolean;

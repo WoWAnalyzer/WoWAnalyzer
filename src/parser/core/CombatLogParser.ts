@@ -17,6 +17,7 @@ import DeathRecapTracker from 'parser/shared/modules/DeathRecapTracker';
 
 import Module, { Options } from './Module';
 import Fight from './Fight';
+import Report from './Report';
 import Analyzer from './Analyzer';
 import EventFilter from './EventFilter';
 import { EventListener } from './EventSubscriber';
@@ -99,6 +100,8 @@ import ParseResults from './ParseResults';
 import EventsNormalizer from './EventsNormalizer';
 import EventEmitter from './modules/EventEmitter';
 import Combatant from './Combatant';
+import { PlayerInfo } from './Player';
+import { PetInfo } from './Pet';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -220,21 +223,14 @@ class CombatLogParser {
   applyTimeFilter = (start: number, end: number) => null; //dummy function gets filled in by event parser
   applyPhaseFilter = (phase: any, instance: any) => null; //dummy function gets filled in by event parser
 
-  // TODO create report type
-  report: any;
+  report: Report;
   /** Character info from the Battle.net API (optional) */
   // TODO create profile type
   characterProfile: any;
 
   // Player info from WCL - required
-  player: SelectedPlayer;
-  playerPets: Array<{
-    name: string;
-    id: number;
-    guid: number;
-    type: "Pet",
-    icon: string;
-  }>;
+  player: PlayerInfo;
+  playerPets: PetInfo[];
   fight: Fight;
   build: string;
   builds: Builds;
@@ -274,7 +270,7 @@ class CombatLogParser {
   }
   finished = false;
 
-  get players(): Player[] {
+  get players(): PlayerInfo[] {
     return this.report.friendlies;
   }
   get selectedCombatant(): Combatant {
@@ -282,8 +278,8 @@ class CombatLogParser {
   }
 
   constructor(
-    report: any,
-    selectedPlayer: SelectedPlayer,
+    report: Report,
+    selectedPlayer: PlayerInfo,
     selectedFight: Fight,
     combatantInfoEvents: CombatantInfoEvent[],
     characterProfile: any,
@@ -694,11 +690,5 @@ class CombatLogParser {
     return results;
   }
 }
-export type SelectedPlayer = {
-  name: string;
-  id: number;
-  guid: number;
-  type: string;
-};
 
 export default CombatLogParser;

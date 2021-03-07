@@ -10,7 +10,7 @@ export function storeCharacter(character: Character) {
   };
 }
 
-export function fetchCharacter(guid: string, region: string, realm: string, name: string) {
+export function fetchCharacter(guid: number, region: string, realm: string, name: string) {
   return async (dispatch: any) => {
     if (!SUPPORTED_REGIONS.includes(region)) {
       throw new Error('Region not supported');

@@ -5,21 +5,20 @@ import { Link } from 'react-router-dom';
 import SpecIcon from 'interface/SpecIcon';
 import Icon from 'interface/Icon';
 import { Character } from 'common/character';
+import Player from 'parser/core/Player';
 import { getClassName } from 'game/ROLES';
 import getAverageItemLevel from 'game/getAverageItemLevel';
 import SPECS from 'game/SPECS';
 import { getCharacterById } from 'interface/selectors/characters';
+
 import { fetchCharacter, SUPPORTED_REGIONS } from 'interface/actions/characters';
-
 import { getCovenantById } from 'game/shadowlands/COVENANTS';
-
-import Player from './Player';
 
 interface Props {
   player: Player;
-  makeUrl: (playerId: string) => string;
+  makeUrl: (playerId: number) => string;
   characterInfo: Character;
-  fetchCharacter: (characterId: string, region: string, realm: string, name: string) => void;
+  fetchCharacter: (characterId: number, region: string, realm: string, name: string) => void;
 }
 
 const PlayerTile = (props: Props) => {

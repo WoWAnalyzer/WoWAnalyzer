@@ -5,7 +5,7 @@ import ROLES from 'game/ROLES';
 
 import './PlayerSelection.scss';
 import PlayerTile from './PlayerTile';
-import Player from './Player';
+import Player from '../../parser/core/Player';
 
 const ROLE_SORT_KEY: {[key: string]: number} = {
   [ROLES.TANK]: 0,
@@ -16,7 +16,7 @@ const ROLE_SORT_KEY: {[key: string]: number} = {
   [ROLES.DPS.RANGED]: 2,
 };
 
-function sortPlayers(a: Player, b: Player) {  
+function sortPlayers(a: Player, b: Player) {
   const aSpec = SPECS[a.combatant.specID];
   const bSpec = SPECS[b.combatant.specID];
   const aRoleSortKey = aSpec ? ROLE_SORT_KEY[aSpec.role] : -1;
@@ -37,7 +37,7 @@ function sortPlayers(a: Player, b: Player) {
 
 interface Props {
   players: Player[];
-  makeUrl: (playerId: string) => string;
+  makeUrl: (playerId: number) => string;
 }
 
 const PlayerSelection = ({ players, makeUrl }: Props) => (
