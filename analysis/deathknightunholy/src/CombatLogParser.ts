@@ -15,6 +15,7 @@ import VirulentPlagueEfficiency from './modules/spells/VirulentPlagueEfficiency'
 import WoundTracker from './modules/features/WoundTracker';
 import SpellUsable from './modules/core/SpellUsable'
 import SuddenDoom from './modules/features/SuddenDoom';
+import UnholyRuneForgeChecker from './modules/features/RuneForgeChecker';
 
 import SoulReaper from './modules/talents/SoulReaper';
 import ArmyOfTheDamned from './modules/talents/ArmyOfTheDamned';
@@ -44,6 +45,7 @@ class CombatLogParser extends CoreCombatLogParser {
     woundTracker: WoundTracker,
     spellUsable: SpellUsable,
     suddenDoom: SuddenDoom,
+    unholyRuneForge: UnholyRuneForgeChecker,
 
     // Talents
     soulReaper: SoulReaper,
