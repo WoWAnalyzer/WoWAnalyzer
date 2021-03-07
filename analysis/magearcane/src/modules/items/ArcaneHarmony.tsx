@@ -10,7 +10,7 @@ import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
-const DAMAGE_BONUS_PER_STACK = .06;
+const DAMAGE_BONUS_PER_STACK = .08;
 
 class ArcaneHarmony extends Analyzer {
   static dependencies = {
