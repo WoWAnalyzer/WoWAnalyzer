@@ -1,6 +1,21 @@
 import { combineReducers } from 'redux';
 
-export default () => combineReducers({
+import { ReportState } from './report';
+
+export interface RootState {
+  error: any;
+  user: any;
+  report: ReportState;
+  combatants: any;
+  reportHistory: any;
+  language: any;
+  specsIgnoredNotSupportedWarning: any;
+  openModals: any;
+  charactersById: any;
+  reportCodesIgnoredPreviousPatchWarning: any;
+}
+
+const createReducers = () => combineReducers({
   // System
   error: require('./error').default,
 
@@ -17,3 +32,5 @@ export default () => combineReducers({
   charactersById: require('./charactersById').default,
   reportCodesIgnoredPreviousPatchWarning: require('./reportCodesIgnoredPreviousPatchWarning').default,
 });
+
+export default createReducers;
