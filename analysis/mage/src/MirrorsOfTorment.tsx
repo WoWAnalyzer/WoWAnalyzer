@@ -4,7 +4,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 
-const FIRE_BLAST_REDUCTION_MS = 4000;
+const FIRE_BLAST_REDUCTION_MS = 6000;
 
 class MirrorsOfTorment extends Analyzer {
   static dependencies = {
