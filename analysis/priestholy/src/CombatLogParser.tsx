@@ -45,17 +45,7 @@ import HymnBuffBenefit from './modules/spells/HymnBuffBenefit';
 import PrayerOfMending from './modules/spells/PrayerOfMending';
 import Renew from './modules/spells/Renew';
 import SpiritOfRedemption from './modules/spells/SpiritOfRedemption';
-
-//Talents
 import Talents from './modules/talents';
-// Features
-// Priest Core
-
-// Mana Tracker
-
-// Items
-
-// Conduits
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;

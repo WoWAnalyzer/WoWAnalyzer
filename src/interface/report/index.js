@@ -223,7 +223,6 @@ class ResultsLoader extends React.PureComponent {
           parsingState={this.state.parsingState}
           progress={this.progress}
           report={report}
-          // eslint-disable-next-line @typescript-eslint/camelcase
           fight={this.state.filteredFight || { offset_time: 0, filtered: false, ...fight }} //if no filtered fight has been parsed yet, pass previous fight object alongside 0 offset time and no filtering
           player={player}
           characterProfile={this.state.characterProfile}

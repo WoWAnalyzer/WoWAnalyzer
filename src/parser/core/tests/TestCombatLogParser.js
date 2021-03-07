@@ -36,9 +36,9 @@ class TestCombatLogParser extends CombatLogParser {
     },
     selectedFight = {
       // use fight interface when converting to TS
-      // eslint-disable-next-line @typescript-eslint/camelcase
+
       start_time: 0,
-      // eslint-disable-next-line @typescript-eslint/camelcase
+
       offset_time: 0,
       filtered: false,
     },

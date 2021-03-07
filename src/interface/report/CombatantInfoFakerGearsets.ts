@@ -1,4 +1,4 @@
-export const specificGearSets: { [key: number]: {} } = {
+export const specificGearSets: { [key: number]: unknown } = {
   62: [
     //Arcane Mage
     {

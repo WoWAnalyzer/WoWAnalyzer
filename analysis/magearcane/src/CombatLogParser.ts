@@ -14,9 +14,6 @@ import {
   TempestBarrier,
 } from '@wowanalyzer/mage';
 
-//Normalizers
-
-//Features
 import Checklist from './modules/Checklist/Module';
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -33,18 +30,12 @@ import ArcaneProdigy from './modules/items/ArcaneProdigy';
 import ArtificeOfTheArchmage from './modules/items/ArtificeOfTheArchmage';
 import Mana from './modules/ManaChart/Mana';
 import ManaValues from './modules/ManaChart/ManaValues';
-
-//Talents
 import ArcaneEcho from './modules/talents/ArcaneEcho';
 import ArcaneFamiliar from './modules/talents/ArcaneFamiliar';
 import ArcaneOrb from './modules/talents/ArcaneOrb';
 import MasterOfTime from './modules/talents/MasterOfTime';
 import RuleOfThrees from './modules/talents/RuleOfThrees';
 import TimeAnomaly from './modules/talents/TimeAnomaly';
-
-//Legendaries
-
-//Conduits
 import ArcaneChargesNormalizer from './normalizers/ArcaneCharges';
 import ArcanePowerNormalizer from './normalizers/ArcanePower';
 

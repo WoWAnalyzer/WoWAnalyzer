@@ -55,19 +55,19 @@ class InfernalStrike extends Analyzer {
 
     // Track recharge
     if (this.currentCastTimestamp > this.lastCastTimestamp + 12000) {
-      this.infernalCharges++;
+      this.infernalCharges += 1;
     }
-    this.infernalCasts++;
+    this.infernalCasts += 1;
 
     // Track overcapped data
     if (this.infernalCharges === 2) {
-      this.castsAtCap++;
+      this.castsAtCap += 1;
       if (this.lastCastTimestamp > 0) {
         this.secsOverCap += (this.currentCastTimestamp - this.lastCastTimestamp - 1200) / 1000;
       }
     }
 
-    this.infernalCharges--;
+    this.infernalCharges -= 1;
   }
 }
 

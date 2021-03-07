@@ -3,21 +3,12 @@ import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import { shouldIgnore, magic } from 'parser/shared/modules/hit-tracking/utilities';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import React from 'react';
-
-interface CastMetadata {
-  castTime: number;
-  buffStartTime: number;
-  buffEndTime: number;
-  melees: number;
-  tankbusters: number;
-  _event: CastEvent;
-}
 
 class ShieldOfTheRighteous extends Analyzer {
   static dependencies = {

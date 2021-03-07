@@ -92,7 +92,7 @@ class OvercapShieldOfTheRighteous extends Analyzer {
    * @param event
    */
   castIsForgivable(event: CastEvent): boolean {
-    for (let i = 0; i < this.hpGeneratingSpells.length; i++) {
+    for (let i = 0; i < this.hpGeneratingSpells.length; i += 1) {
       if (this.spellUsable.isAvailable(this.hpGeneratingSpells[i].id)) {
         return false;
       }

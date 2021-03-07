@@ -2,8 +2,6 @@ import { ItemList } from 'common/ITEMS/Item';
 
 import indexById from '../indexById';
 import safeMerge from '../safeMerge';
-
-//Classes
 import DEATH_KNIGHT from './deathknight';
 import DEMON_HUNTER from './demonhunter';
 import DRUID from './druid';
@@ -18,8 +16,6 @@ import SHADOWLANDS from './shadowlands';
 import SHAMAN from './shaman';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
-
-//Non class-specific
 
 const ITEMS: ItemList = {
   //Class items

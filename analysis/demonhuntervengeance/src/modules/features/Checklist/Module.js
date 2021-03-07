@@ -4,17 +4,10 @@ import BaseModule from 'parser/shared/modules/features/Checklist/Module';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 import React from 'react';
 
-// Buffs-Debuffs
-
-// Talents
-
-//Spells
 import FuryDetails from '../../fury/FuryDetails';
 import DemonSpikes from '../../spells/DemonSpikes';
 import ShearFracture from '../../spells/ShearFracture';
 import SoulCleaveSoulsConsumed from '../../spells/SoulCleaveSoulsConsumed';
-
-// Resources
 import SoulsOvercap from '../../statistics/SoulsOvercap';
 import SoulBarrier from '../../talents/SoulBarrier';
 import SpiritBombFrailtyDebuff from '../../talents/SpiritBombFrailtyDebuff';

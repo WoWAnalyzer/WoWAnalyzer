@@ -8,7 +8,6 @@ describe('toJson', () => {
     ).toEqual({
       guid: 1337,
       name: 'My Awesome Spell',
-      // eslint-disable-next-line @typescript-eslint/camelcase
       ability_icon: 'some_icon',
     });
   });
@@ -19,7 +18,7 @@ describe('toJson', () => {
     ).toEqual({
       guid: 1337,
       name: 'My Awesome "Spell"',
-      // eslint-disable-next-line @typescript-eslint/camelcase
+
       ability_icon: 'some_icon',
     });
     expect(
@@ -27,7 +26,7 @@ describe('toJson', () => {
     ).toEqual({
       guid: 1337,
       name: 'My Awesome "Spell"',
-      // eslint-disable-next-line @typescript-eslint/camelcase
+
       ability_icon: 'some_icon',
     });
   });

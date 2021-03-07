@@ -7,6 +7,7 @@ import './ReportRaidBuffList.scss';
 
 import ReportRaidBuffListItem from './ReportRaidBuffListItem';
 
+// eslint-disable-next-line
 const AVAILABLE_RAID_BUFFS = new Map<number, Array<Class | object>>([
   // Buffs
   //  Stamina

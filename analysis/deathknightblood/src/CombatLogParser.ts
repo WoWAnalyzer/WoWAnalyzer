@@ -13,8 +13,6 @@ import Abilities from './modules/Abilities';
 import Channeling from './modules/core/Channeling';
 import DeathsCaress from './modules/core/DeathsCaress';
 import GlobalCooldown from './modules/core/GlobalCooldown';
-
-// Features
 import RuneForgeChecker from './modules/core/RuneForgeChecker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import BlooddrinkerTicks from './modules/features/BlooddrinkerTicks';
@@ -30,13 +28,9 @@ import InitialMarrowrendCast from './modules/features/InitialMarrowrendCast';
 import MarrowrendUsage from './modules/features/MarrowrendUsage';
 import MitigationCheck from './modules/features/MitigationCheck';
 import Ossuary from './modules/features/Ossuary';
-
-// Resources
 import BrynadaorsMight from './modules/items/BrynadaorsMight';
 import RunicPowerDetails from './modules/runicpower/RunicPowerDetails';
 import RunicPowerTracker from './modules/runicpower/RunicPowerTracker';
-
-// Talents
 import Bloodworms from './modules/talents/Bloodworms';
 import BoneStorm from './modules/talents/Bonestorm';
 import Consumption from './modules/talents/Consumption';
@@ -50,10 +44,6 @@ import RelishInBlood from './modules/talents/RelishInBlood';
 import Tombstone from './modules/talents/Tombstone';
 import Voracious from './modules/talents/Voracious';
 import WillOfTheNecropolis from './modules/talents/WillOfTheNecropolis';
-
-// Runes
-
-// Legendaries
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

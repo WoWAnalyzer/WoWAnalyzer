@@ -1,5 +1,3 @@
-//Covenants
-
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
@@ -12,8 +10,6 @@ import GlobalCooldown from './modules/core/GlobalCooldown';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-
-// Spells
 import FuryDetails from './modules/resourcetracker/FuryDetails';
 import FuryTracker from './modules/resourcetracker/FuryTracker';
 import GrowingInferno from './modules/shadowlands/conduits/GrowingInferno';
@@ -22,8 +18,6 @@ import CollectiveAnguish from './modules/shadowlands/legendaries/CollectiveAngui
 import BladeDance from './modules/spells/BladeDance';
 import DemonBite from './modules/spells/DemonBite';
 import MetaBuffUptime from './modules/spells/MetaBuffUptime';
-
-// Talents
 import BlindFury from './modules/talents/BlindFury';
 import CycleOfHatred from './modules/talents/CycleOfHatred';
 import DemonBlades from './modules/talents/DemonBlades';
@@ -39,12 +33,6 @@ import MasterOfTheGlaives from './modules/talents/MasterOfTheGlaives';
 import Momentum from './modules/talents/Momentum';
 import Netherwalk from './modules/talents/Netherwalk';
 import TrailofRuin from './modules/talents/TrailofRuin';
-
-//Resources
-
-//Legendaries
-
-//Conduits
 import EyeBeamNormalizer from './normalizers/EyeBeam';
 
 class CombatLogParser extends CoreCombatLogParser {

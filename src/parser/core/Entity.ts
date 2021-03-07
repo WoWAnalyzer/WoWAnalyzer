@@ -216,7 +216,7 @@ class Entity {
     let lastApplicationTimestamp: number = sortedApplicationTimestamps[0];
     let buffTimeAtLastApplication: number = baseBuffLength;
     buffTimesAtApplication.set(lastApplicationTimestamp, 0);
-    for (let i = 1; i < sortedApplicationTimestamps.length; i++) {
+    for (let i = 1; i < sortedApplicationTimestamps.length; i += 1) {
       const timeDiffBetweenApplications = sortedApplicationTimestamps[i] - lastApplicationTimestamp;
       const buffAmountAtCurrentApplication = Math.max(
         0,

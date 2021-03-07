@@ -1,6 +1,4 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-
-//Overridden Racial
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 import {
@@ -30,22 +28,13 @@ import {
   MarkmansAdvantage,
 } from '@wowanalyzer/hunter';
 
-//Overridden Core modules
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import Checklist from './modules/checklist/Module';
 import GlobalCooldown from './modules/core/GlobalCooldown';
-
-//Features
 import SpellUsable from './modules/core/SpellUsable';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-
-//Checklist
-
-//Normalizer
-
-//Spells
 import ButchersBoneFragments from './modules/items/ButchersBoneFragments';
 import LatentPoisonInjectors from './modules/items/LatentPoisonInjectors';
 import NesingwarysTrappingApparatus from './modules/items/NesingwarysTrappingApparatus';
@@ -64,10 +53,6 @@ import KillCommand from './modules/spells/KillCommand';
 import RaptorStrike from './modules/spells/RaptorStrike';
 import SerpentSting from './modules/spells/SerpentSting';
 import WildfireBomb from './modules/spells/WildfireBomb';
-
-//Focus
-
-//Talents
 import AlphaPredator from './modules/talents/AlphaPredator';
 import BirdOfPrey from './modules/talents/BirdOfPrey';
 import Bloodseeker from './modules/talents/Bloodseeker';
@@ -82,10 +67,6 @@ import VipersVenom from './modules/talents/VipersVenom';
 import PheromoneBomb from './modules/talents/WildfireInfusion/PheromoneBomb';
 import ShrapnelBomb from './modules/talents/WildfireInfusion/ShrapnelBomb';
 import VolatileBomb from './modules/talents/WildfireInfusion/VolatileBomb';
-
-//Conduits
-
-//Legendaries
 import TipOfTheSpearNormalizer from './normalizers/TipOfTheSpear';
 
 class CombatLogParser extends CoreCombatLogParser {

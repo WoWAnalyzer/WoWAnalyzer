@@ -434,13 +434,13 @@ class Ability {
       });
     }
     Object.keys(props).forEach((prop) => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       this._setProp(prop, props[prop]);
     });
   }
   _setProp(prop: string, value: any) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     this[prop] = value;
   }

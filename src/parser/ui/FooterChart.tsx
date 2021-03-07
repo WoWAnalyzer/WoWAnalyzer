@@ -38,7 +38,6 @@ export default function FooterChart(props: Props) {
               <BaseChart
                 width={width}
                 height={height}
-                // eslint-disable-next-line @typescript-eslint/camelcase
                 data={{ default_data: props.data }}
                 config={props.config || defaultConfig}
                 spec={spec as VisualizationSpec}

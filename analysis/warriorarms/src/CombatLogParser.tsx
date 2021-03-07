@@ -1,8 +1,5 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
-// Normalizers
-
-// Features
 import Abilities from './modules/Abilities';
 import Checklist from './modules/checklist/Module';
 import DotUptimes from './modules/core/Dots';
@@ -22,16 +19,6 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import RageDetail from './modules/features/RageDetails';
 import RageTracker from './modules/features/RageTracker';
 import SpellUsable from './modules/features/SpellUsable';
-
-// Resource
-
-// Core
-
-// Execute Range
-
-// Dots
-
-// Talents
 import Talents from './modules/talents';
 import AngerManagement from './modules/talents/AngerManagement';
 import Avatar from './modules/talents/Avatar';

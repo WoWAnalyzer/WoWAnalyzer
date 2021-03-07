@@ -11,7 +11,6 @@ import {
   TouchOfDeath,
 } from '@wowanalyzer/monk';
 
-// Core
 import Abilities from './modules/Abilities';
 import BrewCDR from './modules/core/BrewCDR';
 import Channeling from './modules/core/Channeling';
@@ -23,7 +22,6 @@ import HealingReceived from './modules/core/HealingReceived';
 import SharedBrews from './modules/core/SharedBrews';
 import Stagger from './modules/core/Stagger';
 import StaggerFabricator from './modules/core/StaggerFabricator';
-// Spells
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import StaggerPoolGraph from './modules/features/StaggerPoolGraph';
 import CelestialEffervescence from './modules/shadowlands/conduits/CelestialEffervescence';
@@ -44,17 +42,8 @@ import RushingJadeWind from './modules/spells/RushingJadeWind';
 import WeaponsOfOrder from './modules/spells/shadowlands/WeaponsOfOrder';
 import Shuffle from './modules/spells/Shuffle';
 import TigerPalm from './modules/spells/TigerPalm';
-// Features
-
-// Items
-
-// normalizers
 import ExpelHarmNorm from './normalizers/ExpelHarm';
 import GiftOfTheOx from './normalizers/GiftOfTheOx';
-
-// Covenants
-
-// Conduits
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

@@ -43,8 +43,8 @@ class Buff {
        */
       PropTypes.checkPropTypes(this.constructor.propTypes, props, 'prop', 'Ability'); // eslint-disable-line react/forbid-foreign-prop-types
       Object.keys(props).forEach((prop) => {
+        // eslint-disable-next-line react/forbid-foreign-prop-types
         if (this.constructor.propTypes[prop] === undefined) {
-          // eslint-disable-line react/forbid-foreign-prop-types
           console.log(prop);
           throw new Error(
             `Property not recognized in Buffs: ${prop} seems misplaced in ${JSON.stringify(

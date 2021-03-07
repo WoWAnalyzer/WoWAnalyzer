@@ -1,18 +1,19 @@
-import React from 'react';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { Trans } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import ManaIcon from 'interface/icons/Mana';
-// just gonna steal my mtt formatting
-import './ManaTideTotem.scss';
 import { TooltipElement } from 'interface';
+import ManaIcon from 'interface/icons/Mana';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, EnergizeEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
+
+// just gonna steal my mtt formatting
+import './ManaTideTotem.scss';
 
 const WATER_SHIELD_MANA_REGEN_PER_SECOND = 50 / 5;
 

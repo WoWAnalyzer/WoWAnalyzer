@@ -14,9 +14,6 @@ import {
   TouchOfDeath,
 } from '@wowanalyzer/monk';
 
-// Normalizers
-
-// Features
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 import CoreChanneling from './modules/core/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
@@ -33,8 +30,6 @@ import MasteryStats from './modules/features/MasteryStats';
 import MistweaverHealingEfficiencyDetails from './modules/features/MistweaverHealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/MistweaverHealingEfficiencyTracker';
 import StatValues from './modules/features/StatValues';
-
-// Spells
 import JadeBond from './modules/shadowlands/conduits/JadeBond';
 import NourishingChi from './modules/shadowlands/conduits/NourishingChi';
 import RisingSunRevival from './modules/shadowlands/conduits/RisingSunRevival';
@@ -55,8 +50,6 @@ import Vivify from './modules/spells/Vivify';
 import AverageTimeBetweenRSKSs from './modules/talents/AverageTimeBetweenRSKs';
 import ChiBurst from './modules/talents/ChiBurst';
 import InvokeChiJi from './modules/talents/InvokeChiJi';
-
-// Talents
 import JadeSerpentStatue from './modules/talents/JadeSerpentStatue';
 import Lifecycles from './modules/talents/Lifecycles';
 import ManaTea from './modules/talents/ManaTea';
@@ -66,12 +59,6 @@ import RisingMist from './modules/talents/RisingMist';
 import SpiritOfTheCrane from './modules/talents/SpiritOfTheCrane';
 import Tier30Comparison from './modules/talents/Tier30Comparison';
 import Upwelling from './modules/talents/Upwelling';
-
-// Mana Tracker
-
-// Potency
-
-// Legendaries
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import HotRemovalNormalizer from './normalizers/HotRemovalNormalizer';
 

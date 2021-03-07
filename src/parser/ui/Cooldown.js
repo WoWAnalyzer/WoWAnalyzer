@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro';
 import { formatThousands, formatNumber, formatPercentage, formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -9,7 +10,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import './Cooldown.css';
-import { Trans } from '@lingui/macro';
 
 class Cooldown extends React.Component {
   static propTypes = {

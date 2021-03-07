@@ -1,15 +1,15 @@
-import PropTypes from 'prop-types';
-import Slider from 'rc-slider';
-import React from 'react';
-import 'rc-slider/assets/index.css';
-
+import { Trans } from '@lingui/macro';
+import { formatNumber, formatPercentage, formatDuration } from 'common/format';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
 import { Icon } from 'interface';
-import { formatNumber, formatPercentage, formatDuration } from 'common/format';
 import { SpecIcon } from 'interface';
 import { TooltipElement } from 'interface';
-import { Trans } from '@lingui/macro';
+import PropTypes from 'prop-types';
+import Slider from 'rc-slider';
+import React from 'react';
+
+import 'rc-slider/assets/index.css';
 
 class LowHealthHealing extends React.Component {
   static propTypes = {

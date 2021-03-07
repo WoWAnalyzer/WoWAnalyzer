@@ -74,9 +74,9 @@ class Results extends React.PureComponent {
         boss: PropTypes.any,
         difficulty: PropTypes.any,
         // use fight interface when converting to TS
-        // eslint-disable-next-line @typescript-eslint/camelcase
+
         start_time: PropTypes.any,
-        // eslint-disable-next-line @typescript-eslint/camelcase
+
         end_time: PropTypes.any,
       }),
       generateResults: PropTypes.func.isRequired,
@@ -102,11 +102,11 @@ class Results extends React.PureComponent {
     fight: PropTypes.shape({
       id: PropTypes.number.isRequired,
       // use fight interface when converting to TS
-      // eslint-disable-next-line @typescript-eslint/camelcase
+
       start_time: PropTypes.number.isRequired,
-      // eslint-disable-next-line @typescript-eslint/camelcase
+
       end_time: PropTypes.number.isRequired,
-      // eslint-disable-next-line @typescript-eslint/camelcase
+
       offset_time: PropTypes.number.isRequired,
       boss: PropTypes.number.isRequired,
       phase: PropTypes.string,

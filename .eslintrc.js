@@ -41,8 +41,10 @@ module.exports = {
       rules: {
         '@typescript-eslint/no-explicit-any': 'off',
         'react/display-name': 'off',
-        // This one in particular hurts
+        // This one in particular hurts:
         '@typescript-eslint/no-non-null-assertion': 'off',
+        // Needs manual resolution, but has about 400 errors:
+        '@typescript-eslint/no-unused-expressions': 'off',
       },
     },
   ],

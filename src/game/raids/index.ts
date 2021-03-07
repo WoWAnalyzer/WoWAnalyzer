@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import { Spec } from 'game/SPECS';
 import { Race } from 'parser/core/Combatant';
 

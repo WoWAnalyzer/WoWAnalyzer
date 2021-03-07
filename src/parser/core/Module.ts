@@ -37,7 +37,7 @@ class Module {
     // properties.
     // See https://github.com/Microsoft/TypeScript/issues/6110 for more info
     Object.keys(others).forEach((key) => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       this[key] = others[key];
     });

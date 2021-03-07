@@ -13,15 +13,11 @@ import NoDamageShieldOfTheRighteous from './modules/features/NoDamageShieldOfThe
 import OvercapShieldOfTheRighteous from './modules/features/OvercapShieldOfTheRighteous';
 import ShieldOfTheRighteous from './modules/features/ShieldOfTheRighteous';
 import SpellUsable from './modules/features/SpellUsable';
-
-//Spells
 import WordOfGloryTiming from './modules/features/WordOfGloryTiming';
 import Consecration from './modules/spells/Consecration';
 import HammerOfTheRighteous from './modules/spells/HammerOfTheRighteous';
 import LightOfTheProtector from './modules/spells/LightOfTheProtector';
 import WordOfGlory from './modules/spells/WordOfGlory';
-
-//Talents
 import BlessedHammerDamageReduction from './modules/talents/BlessedHammerDamageReduction';
 import FirstAvenger from './modules/talents/FirstAvenger';
 import HolyShieldSpellBlock from './modules/talents/HolyShieldSpellBlock';

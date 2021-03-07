@@ -5,9 +5,6 @@ import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/Pr
 import ManaValues from 'parser/shared/modules/ManaValues';
 import React from 'react';
 
-// Short CDs
-
-// Don't waste casts
 import FuryDetails from '../../resourcetracker/FuryDetails';
 import DemonBite from '../../spells/DemonBite';
 import BlindFury from '../../talents/BlindFury';
@@ -17,13 +14,8 @@ import DemonicAppetite from '../../talents/DemonicAppetite';
 import FelBarrage from '../../talents/FelBarrage';
 import Felblade from '../../talents/Felblade';
 import FelEruption from '../../talents/FelEruption';
-
-// Maintain buffs/debuffs
 import ImmolationAura from '../../talents/ImmolationAura';
 import Momentum from '../../talents/Momentum';
-
-// Use your offensive cool downs
-// Manage your fury properly
 import AlwaysBeCasting from '../AlwaysBeCasting';
 import Component from './Component';
 

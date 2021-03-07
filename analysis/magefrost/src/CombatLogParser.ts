@@ -17,10 +17,6 @@ import {
 } from '@wowanalyzer/mage';
 
 import Checklist from './modules/checklist/Module';
-
-//Normalizers
-
-//Features
 import ColdSnap from './modules/cooldowns/ColdSnap';
 import FrozenOrb from './modules/cooldowns/FrozenOrb';
 import Abilities from './modules/features/Abilities';
@@ -30,16 +26,10 @@ import Buffs from './modules/features/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import IceLance from './modules/features/IceLance';
 import IcyVeins from './modules/features/IcyVeins';
-
-//Talents
 import WaterElemental from './modules/features/WaterElemental';
 import WintersChill from './modules/features/WintersChill';
-
-//Legendaries
 import ColdFront from './modules/items/ColdFront';
 import GlacialFragments from './modules/items/GlacialFragments';
-
-//Conduits
 import IceBite from './modules/items/IceBite';
 import IcyPropulsion from './modules/items/IcyPropulsion';
 import ShiveringCore from './modules/items/ShiveringCore';

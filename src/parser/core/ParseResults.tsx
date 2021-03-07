@@ -355,27 +355,27 @@ class ParseResults {
     */
     when: <T extends ValidThresholds>(threshold: T): GenericSuggestionType<T> => {
       if (typeof threshold === 'number') {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         return new NumberSuggestionAssertion(threshold, this.addIssue);
       } else if (typeof threshold === 'string') {
         captureException(new Error('Sent string threshold, only number and boolean allowed'));
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore TODO find all instances of javascript sending in formatted numbers here (via captured error above), then remove this
         return new NumberSuggestionAssertion(Number(threshold), this.addIssue);
       } else if (typeof threshold === 'boolean') {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         return new BoolSuggestionAssertion(threshold, this.addIssue);
       } else if (typeof threshold === 'object') {
         const th = threshold as Threshold<any>;
         switch (th.style) {
           case ThresholdStyle.BOOLEAN:
-            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             return new BoolSuggestionAssertion(threshold, this.addIssue);
           default:
-            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             return new NumberSuggestionAssertion(threshold, this.addIssue);
         }

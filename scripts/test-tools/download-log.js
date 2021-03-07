@@ -15,10 +15,10 @@
  *  node download-log.js <filename> <log-id> <fight-id> <player-id>
  *
  **/
-const argv = require('process').argv;
 const archiver = require('archiver');
 const fs = require('fs');
 const https = require('https');
+const argv = require('process').argv;
 
 function requestFight(reportCode, cb) {
   const url = `https://wowanalyzer.com/i/v1/report/fights/${reportCode}?translate=true`;

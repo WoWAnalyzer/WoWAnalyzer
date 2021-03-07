@@ -490,7 +490,7 @@ class ConvokeSpirits extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.CONVOKE_SPIRITS}></BoringSpellValueText>
+        <BoringSpellValueText spell={SPELLS.CONVOKE_SPIRITS}>-</BoringSpellValueText>
       </Statistic>
     );
   }

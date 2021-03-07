@@ -17,7 +17,7 @@ class StatValues extends BaseHealerStatValues {
     statTracker: StatTracker,
     critEffectBonus: CritEffectBonus,
   };
-  spellInfo: {} = SPELL_INFO;
+  spellInfo = SPELL_INFO;
   qeLive: boolean = true;
   protected statTracker!: StatTracker;
   protected critEffectBonus!: CritEffectBonus;

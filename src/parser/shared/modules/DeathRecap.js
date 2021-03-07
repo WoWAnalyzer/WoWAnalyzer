@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Slider from 'rc-slider';
-import 'rc-slider/assets/index.css';
-
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import { Icon, SpellIcon, SpellLink } from 'interface';
 import { Tooltip, TooltipElement } from 'interface';
 import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
 import { EventType } from 'parser/core/Events';
+import PropTypes from 'prop-types';
+import Slider from 'rc-slider';
+import React from 'react';
+
+import 'rc-slider/assets/index.css';
 
 const SHOW_SECONDS_BEFORE_DEATH = 10;
 const AMOUNT_THRESHOLD = 0;

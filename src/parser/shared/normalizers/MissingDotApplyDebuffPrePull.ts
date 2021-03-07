@@ -72,7 +72,7 @@ class MissingDotApplyDebuffPrePull extends EventsNormalizer {
           // 00:00:02.084	Swaggar Haunt Shriekwing 1329
           // 00:00:02.084	Shriekwing is afflicted by Haunt from Swaggar
 
-          for (let j = i + 1; j < events.length; j++) {
+          for (let j = i + 1; j < events.length; j += 1) {
             const futureEvent = events[j];
 
             if (!this.owner.byPlayer(futureEvent)) {

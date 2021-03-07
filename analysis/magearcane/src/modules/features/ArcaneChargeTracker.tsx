@@ -43,9 +43,9 @@ class ArcaneChargeTracker extends Analyzer {
           );
         this.charges = 4;
       }
-    } else if (this.charges < 4 && event.waste === 1) {
-      this.charges = 4;
-      debug && this.log('ERROR: Auto Corrected to 4 Charges');
+      // FIXME } else if (this.charges < 4 && event.waste === 1) {
+      //   this.charges = 4;
+      //   debug && this.log('ERROR: Auto Corrected to 4 Charges');
     }
   }
 

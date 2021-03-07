@@ -28,16 +28,8 @@ import Lifebloom from './modules/features/Lifebloom';
 import PrematureRejuvenations from './modules/features/PrematureRejuvenations';
 import HealingEfficiencyTracker from './modules/features/RestoDruidHealingEfficiencyTracker';
 import StatWeights from './modules/features/StatWeights';
-
-// Mana Tracker
 import WildGrowth from './modules/features/WildGrowth';
-
-// Conduits
-
-// Potency
 import FlashOfClarity from './modules/shadowlands/conduits/FlashOfClarity';
-
-//legos
 import MemoryoftheMotherTree from './modules/shadowlands/legendaries/MemoryoftheMotherTree';
 import VisionOfUnendingGrowrth from './modules/shadowlands/legendaries/VisionOfUnendingGrowth';
 import Abundance from './modules/talents/Abundance';

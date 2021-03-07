@@ -10,7 +10,6 @@ if (!WCL_API_KEY && process.env.NODE_ENV === 'development') {
 
 // Since the WCL API has a fairly strict request cap, we have implemented a proxy that caches responses.  This proxy provides the same functionality as WCL.
 export default function makeWclApiUrl(endpoint: string, queryParams: QueryParams = {}) {
-  // eslint-disable-next-line @typescript-eslint/camelcase
   queryParams.api_key = WCL_API_KEY;
   return makeApiUrl(`v1/${endpoint}`, queryParams);
 }

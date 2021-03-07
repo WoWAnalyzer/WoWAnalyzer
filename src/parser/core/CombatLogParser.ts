@@ -15,11 +15,7 @@ import Haste from 'parser/shared/modules/Haste';
 import React from 'react';
 
 import { Builds } from '../Config';
-// Normalizers
-// Enhancers
 import SpellTimeWaitingOnGlobalCooldown from '../shared/enhancers/SpellTimeWaitingOnGlobalCooldown';
-// Core modules
-
 import AbilitiesMissing from '../shared/modules/AbilitiesMissing';
 import AbilityTracker from '../shared/modules/AbilityTracker';
 import AlwaysBeCasting from '../shared/modules/AlwaysBeCasting';
@@ -33,8 +29,6 @@ import TotalDowntime from '../shared/modules/downtime/TotalDowntime';
 import Enemies from '../shared/modules/Enemies';
 import EnemyInstances from '../shared/modules/EnemyInstances';
 import EventHistory from '../shared/modules/EventHistory';
-// Tabs
-
 import PreparationRuleAnalyzer from '../shared/modules/features/Checklist/PreparationRuleAnalyzer';
 import RaidHealthTab from '../shared/modules/features/RaidHealthTab';
 import FilteredActiveTime from '../shared/modules/FilteredActiveTime';
@@ -48,15 +42,7 @@ import FoodChecker from '../shared/modules/items/FoodChecker';
 import HealthPotion from '../shared/modules/items/HealthPotion';
 import Healthstone from '../shared/modules/items/Healthstone';
 import PotionChecker from '../shared/modules/items/PotionChecker';
-// Racials
-// Shared Buffs
-// Shadowlands
-// Dungeons
-// PVP
-//Enchants
-// Crafted
 import DarkmoonDeckVoracity from '../shared/modules/items/shadowlands/crafted/DarkmoonDeckVoracity';
-//Dungeons
 import OverchargedAnimaBattery from '../shared/modules/items/shadowlands/dungeons/OverchargedAnimaBattery';
 import WeaponEnhancementChecker from '../shared/modules/items/WeaponEnhancementChecker';
 import ManaValues from '../shared/modules/ManaValues';
@@ -70,7 +56,6 @@ import BloodFury from '../shared/modules/racials/orc/BloodFury';
 import Berserking from '../shared/modules/racials/troll/Berserking';
 import SpellHistory from '../shared/modules/SpellHistory';
 import SpellManaCost from '../shared/modules/SpellManaCost';
-// Castle Nathria
 import SoulInfusion from '../shared/modules/spells/SoulInfusion';
 import VantusRune from '../shared/modules/spells/VantusRune';
 import SpellUsable from '../shared/modules/SpellUsable';
@@ -301,7 +286,7 @@ class CombatLogParser {
     this.characterProfile = characterProfile;
     this._timestamp = selectedFight.start_time;
     this.boss = findByBossId(selectedFight.boss);
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore populated dynamically but object keys still strongly typed
     this.disabledModules = {};
     //initialize disabled modules for each state
@@ -381,7 +366,7 @@ class CombatLogParser {
       // We can't set the options via the constructor since a parent constructor can't override the values of a child's class properties.
       // See https://github.com/Microsoft/TypeScript/issues/6110 for more info
       Object.keys(options).forEach((key) => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         module[key] = options[key];
       });

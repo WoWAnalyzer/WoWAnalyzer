@@ -29,20 +29,13 @@ import {
   SoulforgeEmbers,
 } from '@wowanalyzer/hunter';
 
-//Overridden Core modules
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import Checklist from './modules/checklist/Module';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import SpellUsable from './modules/core/SpellUsable';
-
-//Features
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-
-//Checklist
-
-//Talents
 import DireCommand from './modules/items/DireCommand';
 import FlamewakersCobraSting from './modules/items/FlamewakersCobraSting';
 import NesingwarysTrappingApparatus from './modules/items/NesingwarysTrappingApparatus';
@@ -73,16 +66,6 @@ import SpittingCobra from './modules/talents/SpittingCobra';
 import Stampede from './modules/talents/Stampede';
 import Stomp from './modules/talents/Stomp';
 import ThrillOfTheHunt from './modules/talents/ThrillOfTheHunt';
-
-//Pets
-
-//Spells
-
-//Focus
-
-//Conduits
-
-//Legendaries
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

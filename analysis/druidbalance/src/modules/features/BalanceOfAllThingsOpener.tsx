@@ -122,7 +122,7 @@ class BalanceOfAllThingsOpener extends Analyzer {
     let currentCast: CastEvent;
     // analyze the first three casts, if Convoke was not casted
     if (!isConvokeBoat) {
-      for (let i = 0; i <= 2; i++) {
+      for (let i = 0; i <= 2; i += 1) {
         currentCast = this.castedSpells[i];
 
         if (currentCast && currentCast.ability.guid !== SPELLS.STARSURGE_MOONKIN.id) {

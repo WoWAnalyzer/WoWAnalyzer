@@ -1,21 +1,21 @@
-import React from 'react';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { Trans } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import ROLES from 'game/ROLES';
-
-import './ManaTideTotem.scss';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
 import { SpecIcon } from 'interface';
 import ManaIcon from 'interface/icons/Mana';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
 import Events, { SummonEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
+
+import './ManaTideTotem.scss';
 
 export const MANA_REGEN_PER_SECOND = 2000 / 5;
 

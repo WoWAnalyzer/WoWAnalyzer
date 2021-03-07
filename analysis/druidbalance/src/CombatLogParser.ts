@@ -6,8 +6,6 @@ import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
 import Abilities from './modules/Abilities';
 import Channeling from './modules/core/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
-
-//Features
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import BalanceOfAllThingsOpener from './modules/features/BalanceOfAllThingsOpener';
 import Buffs from './modules/features/Buffs';
@@ -20,15 +18,12 @@ import MoonfireUptime from './modules/features/MoonfireUptime';
 import SunfireUptime from './modules/features/SunfireUptime';
 import UnempoweredStarfire from './modules/features/UnempoweredStarfire';
 import UnempoweredWrath from './modules/features/UnempoweredWrath';
-//Talents
 import AstralPowerDetails from './modules/resourcetracker/AstralPowerDetails';
 import AstralPowerTracker from './modules/resourcetracker/AstralPowerTracker';
 import Starlord from './modules/talents/Starlord';
 import StellarDrift from './modules/talents/StellarDrift';
 import StellarFlareUptime from './modules/talents/StellarFlareUptime';
 import TwinMoons from './modules/talents/TwinMoons';
-
-//Resources
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {

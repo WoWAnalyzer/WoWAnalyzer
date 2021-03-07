@@ -1,7 +1,3 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import 'react-toggle/style.css';
-
 import { formatDuration, formatThousands } from 'common/format';
 import HIT_TYPES from 'game/HIT_TYPES';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -10,6 +6,8 @@ import InformationIcon from 'interface/icons/Information';
 import SpellLink from 'interface/SpellLink';
 import Tooltip, { TooltipElement } from 'interface/Tooltip';
 import { EventType } from 'parser/core/Events';
+import PropTypes from 'prop-types';
+import React from 'react';
 import Toggle from 'react-toggle';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import Table, {
@@ -17,6 +15,7 @@ import Table, {
   Column,
 } from 'react-virtualized/dist/commonjs/Table';
 
+import 'react-toggle/style.css';
 import 'react-virtualized/styles.css';
 import './EventsTab.css';
 
@@ -256,8 +255,8 @@ class EventsTab extends React.Component {
       return searchTerms.some((searchTerm) => {
         if (event.ability !== undefined) {
           // noinspection EqualityComparisonWithCoercionJS
+          // eslint-disable-next-line eqeqeq
           if (event.ability.guid == searchTerm) {
-            // eslint-disable-line eqeqeq
             return true;
           } else if (event.ability.name && event.ability.name.toLowerCase().includes(searchTerm)) {
             return true;

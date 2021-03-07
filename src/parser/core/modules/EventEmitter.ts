@@ -236,7 +236,7 @@ class EventEmitter extends Module {
     this._isHandlingEvent = false;
 
     // TODO fix
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     this.owner.eventHistory.push(event);
     // Some modules need to have a primitive value to cause re-renders
@@ -275,8 +275,8 @@ class EventEmitter extends Module {
     console.log('Total module time:', totalDuration, 'ms');
     console.groupEnd();
   }
-  _finally: Function[] | null = null;
-  finally(func: Function) {
+  _finally: Array<() => void> | null = null;
+  finally(func: () => void) {
     this._finally = this._finally || [];
     this._finally.push(func);
   }
@@ -324,16 +324,15 @@ class EventEmitter extends Module {
     console.error('Disabling', name, 'and child dependencies because an error occured:', err);
     // Disable this module and all active modules that have this as a dependency
     this.owner.deepDisable(module, ModuleError.EVENTS, err);
-    window.Sentry &&
-      window.Sentry.withScope((scope) => {
-        scope.setTag('type', 'module_error');
-        scope.setTag(
-          'spec',
-          `${this.selectedCombatant.spec.specName} ${this.selectedCombatant.spec.className}`,
-        );
-        scope.setExtra('module', name);
-        window.Sentry && window.Sentry.captureException(err);
-      });
+    window.Sentry?.withScope((scope) => {
+      scope.setTag('type', 'module_error');
+      scope.setTag(
+        'spec',
+        `${this.selectedCombatant.spec.specName} ${this.selectedCombatant.spec.className}`,
+      );
+      scope.setExtra('module', name);
+      window.Sentry?.captureException(err);
+    });
   }
 }
 

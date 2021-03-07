@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import TooltipProvider from 'interface/TooltipProvider';
-import React from 'react';
+import React, { CSSProperties } from 'react';
 
 import SpellIcon from './SpellIcon';
 
@@ -8,7 +8,7 @@ interface Props extends Omit<React.HTMLAttributes<HTMLAnchorElement>, 'id'> {
   id: number;
   children?: React.ReactNode;
   icon?: boolean;
-  iconStyle?: object;
+  iconStyle?: CSSProperties;
   ilvl?: number;
 }
 

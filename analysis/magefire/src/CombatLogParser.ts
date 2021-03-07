@@ -32,8 +32,6 @@ import HotStreakPreCasts from './modules/features/HotStreakPreCasts';
 import HotStreakWastedCrits from './modules/features/HotStreakWastedCrits';
 import PhoenixFlames from './modules/features/PhoenixFlames';
 import Pyroclasm from './modules/features/Pyroclasm';
-
-//Talents
 import ShiftingPowerUsage from './modules/features/ShiftingPowerUsage';
 import ControlledDestruction from './modules/items/ControlledDestruction';
 import FeveredIncantation from './modules/items/FeveredIncantation';
@@ -46,12 +44,6 @@ import Meteor from './modules/talents/Meteor';
 import MeteorCombustion from './modules/talents/MeteorCombustion';
 import MeteorRune from './modules/talents/MeteorRune';
 import SearingTouch from './modules/talents/SearingTouch';
-
-//Legendaries
-
-//Covenants
-
-//Conduits
 import CombustionNormalizer from './normalizers/Combustion';
 import FlamestrikeNormalizer from './normalizers/Flamestrike';
 import PyroclasmBuffNormalizer from './normalizers/PyroclasmBuff';

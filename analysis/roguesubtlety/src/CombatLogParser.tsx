@@ -32,8 +32,6 @@ import GeneratorFollowingVanish from './modules/core/GeneratorFollowingVanish';
 import SymbolsDamageTracker from './modules/core/SymbolsDamageTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/checklist/Module';
-
-//Normalizers
 import ShadowBladesUptime from './modules/features/ShadowBladesUptime';
 import SymbolsOfDeathUptime from './modules/features/SymbolsOfDeathUptime';
 import VanishFindWeakness from './modules/features/VanishFindWeakness';

@@ -1,6 +1,4 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-
-//Overridden Racial
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 import {
@@ -33,22 +31,13 @@ import {
   CancelledCasts,
 } from '@wowanalyzer/hunter';
 
-//Overridden Core modules
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import Checklist from './modules/checklist/Module';
 import GlobalCooldown from './modules/core/GlobalCooldown';
-
-//Features
 import SpellUsable from './modules/core/SpellUsable';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-
-//Checklist
-
-//Normalizer
-
-//Focus
 import EagletalonsTrueFocus from './modules/items/EagletalonsTrueFocus';
 import NesingwarysTrappingApparatus from './modules/items/NesingwarysTrappingApparatus';
 import SecretsOfTheUnblinkingVigil from './modules/items/SecretsOfTheUnblinkingVigil';
@@ -57,13 +46,7 @@ import SurgingShots from './modules/items/SurgingShots';
 import Focus from './modules/resources/Focus';
 import MarksmanshipFocusCapTracker from './modules/resources/MarksmanshipFocusCapTracker';
 import MarksmanshipFocusUsage from './modules/resources/MarksmanshipFocusUsage';
-
-//Spells
 import AimedShot from './modules/spells/AimedShot';
-
-//Talents
-
-//Conduits
 import BrutalProjectiles from './modules/spells/conduits/BrutalProjectiles';
 import DeadlyChain from './modules/spells/conduits/DeadlyChain';
 import PowerfulPrecision from './modules/spells/conduits/PowerfulPrecision';
@@ -86,8 +69,6 @@ import SerpentSting from './modules/talents/SerpentSting';
 import SteadyFocus from './modules/talents/SteadyFocus';
 import Streamline from './modules/talents/Streamline';
 import Volley from './modules/talents/Volley';
-
-//Legendaries
 import AimedShotPrepullNormalizer from './normalizers/AimedShotPrepullNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {

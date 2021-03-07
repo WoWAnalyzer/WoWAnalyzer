@@ -19,17 +19,11 @@ import {
 } from '@wowanalyzer/rogue';
 
 import Abilities from './modules/Abilities';
-
-//Normalizers
-
 import ComboPoints from './modules/core/ComboPoints';
 import Energy from './modules/core/Energy';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-
-//Spells
-
 import CrimsonTempestSnapshot from './modules/features/CrimsonTempestSnapshot';
 import GarroteSnapshot from './modules/features/GarroteSnapshot';
 import RuptureSnapshot from './modules/features/RuptureSnapshot';
@@ -37,12 +31,6 @@ import EarlyDotRefresh from './modules/spells/EarlyDotRefresh';
 import EnvenomUptime from './modules/spells/EnvenomUptime';
 import GarroteUptime from './modules/spells/GarroteUptime';
 import RuptureUptime from './modules/spells/RuptureUptime';
-
-//Talents
-
-// Covenants
-
-// Legendaries
 import DashingScoundrel from './modules/spells/shadowlands/legendaries/DashingScoundrel';
 import DuskwalkersPatch from './modules/spells/shadowlands/legendaries/DuskwalkersPatch';
 import Blindside from './modules/talents/Blindside';
