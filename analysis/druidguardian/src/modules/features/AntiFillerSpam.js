@@ -1,13 +1,14 @@
 import { t } from '@lingui/macro';
 import { formatPercentage, formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
+import { SpellIcon } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import StatisticBox from 'parser/ui/StatisticBox';
+import BoringValueText from 'parser/ui/BoringValueText';
+import Statistic from 'parser/ui/Statistic';
 import React from 'react';
 
 import Abilities from '../Abilities';
@@ -134,10 +135,8 @@ class AntiFillerSpam extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.SWIPE_BEAR.id} />}
-        value={`${formatPercentage(this.fillerSpamPercentage)}%`}
-        label="Unnecessary Fillers"
+      <Statistic
+        size="flexible"
         tooltip={
           <>
             You cast <strong>{this._unnecessaryFillerSpells}</strong> unnecessary filler spells out
@@ -146,7 +145,17 @@ class AntiFillerSpam extends Analyzer {
             less damage than your main rotational spells, and should be minimized whenever possible.
           </>
         }
-      />
+      >
+        <BoringValueText
+          label={
+            <>
+              <SpellIcon id={SPELLS.SWIPE_BEAR.id} /> Unnecessary Fillers{' '}
+            </>
+          }
+        >
+          {`${formatPercentage(this.fillerSpamPercentage)}%`}
+        </BoringValueText>
+      </Statistic>
     );
   }
 

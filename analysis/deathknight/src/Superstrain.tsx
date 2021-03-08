@@ -64,7 +64,7 @@ class Superstrain extends Analyzer {
         this._onBloodPlagueDamage,
       );
       this.addEventListener(
-        Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DEATH_COIL),
+        Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DEATH_COIL_DAMAGE),
         this._rpSpender,
       );
     }
@@ -77,6 +77,12 @@ class Superstrain extends Analyzer {
       this.addEventListener(
         Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLOOD_PLAGUE),
         this._onBloodPlagueDamage,
+      );
+      this.addEventListener(
+        Events.damage
+          .by(SELECTED_PLAYER)
+          .spell([SPELLS.FROST_STRIKE_MAIN_HAND_DAMAGE, SPELLS.FROST_STRIKE_OFF_HAND_DAMAGE]),
+        this._rpSpender,
       );
     }
   }
@@ -134,9 +140,15 @@ class Superstrain extends Analyzer {
   }
 
   get rpSpenderName() {
-    return this.selectedCombatant.spec === SPECS.BLOOD_DEATH_KNIGHT
-      ? SPELLS.DEATH_STRIKE.name
-      : SPELLS.DEATH_COIL.name;
+    if (this.selectedCombatant.spec === SPECS.BLOOD_DEATH_KNIGHT) {
+      return SPELLS.DEATH_STRIKE.name;
+    }
+
+    if (this.selectedCombatant.spec === SPECS.UNHOLY_DEATH_KNIGHT) {
+      return SPELLS.DEATH_COIL.name;
+    }
+
+    return SPELLS.FROST_STRIKE.name;
   }
 
   statistic() {

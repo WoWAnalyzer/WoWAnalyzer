@@ -2,12 +2,14 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
+import { SpellIcon } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import BoringValueText from 'parser/ui/BoringValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
 const GORE_DURATION = 10000;
@@ -23,7 +25,6 @@ class Gore extends Analyzer {
   consumedGoreProc = 0;
   overwrittenGoreProc = 0;
   nonGoreMangle = 0;
-  statisticOrder = STATISTIC_ORDER.CORE(5);
 
   constructor(options) {
     super(options);
@@ -105,17 +106,26 @@ class Gore extends Analyzer {
     const unusedGoreProcs = 1 - this.consumedGoreProc / this.totalProcs;
 
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.GORE_BEAR.id} />}
-        value={`${formatPercentage(unusedGoreProcs)}%`}
-        label="Unused Gore Procs"
+      <Statistic
+        position={STATISTIC_ORDER.CORE(5)}
+        size="flexible"
         tooltip={
           <>
             You got total <strong>{this.totalProcs}</strong> gore procs and{' '}
             <strong>used {this.consumedGoreProc}</strong> of them.
           </>
         }
-      />
+      >
+        <BoringValueText
+          label={
+            <>
+              <SpellIcon id={SPELLS.GORE_BEAR.id} /> Unused Gore Proc's{' '}
+            </>
+          }
+        >
+          {`${formatPercentage(unusedGoreProcs)}%`}
+        </BoringValueText>
+      </Statistic>
     );
   }
 }

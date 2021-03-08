@@ -1,15 +1,15 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import BoringSpellValue from 'parser/ui/BoringSpellValue';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
 class Pulverize extends Analyzer {
-  statisticOrder = STATISTIC_ORDER.CORE(13);
-
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.PULVERIZE_TALENT.id);
@@ -51,11 +51,17 @@ class Pulverize extends Analyzer {
       this.selectedCombatant.getBuffUptime(SPELLS.PULVERIZE_BUFF.id) / this.owner.fightDuration;
 
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.PULVERIZE_TALENT.id} />}
-        value={`${formatPercentage(pulverizeUptimePercentage)}%`}
-        label="Pulverize uptime"
-      />
+      <Statistic
+        position={STATISTIC_ORDER.CORE(13)}
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
+      >
+        <BoringSpellValue
+          spell={SPELLS.PULVERIZE_TALENT}
+          value={`${formatPercentage(pulverizeUptimePercentage)}%`}
+          label="Pulverize uptime"
+        />
+      </Statistic>
     );
   }
 }

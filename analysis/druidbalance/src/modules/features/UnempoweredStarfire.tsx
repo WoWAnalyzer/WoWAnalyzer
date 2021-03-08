@@ -33,6 +33,7 @@ class UnempoweredStarfire extends Analyzer {
   badCasts = 0;
   lastCast?: CastEvent;
   lastCastBuffed = false;
+  lastCastSolarEclipse = false;
   hits = 0;
   eclipseCount = 0;
 
@@ -48,7 +49,12 @@ class UnempoweredStarfire extends Analyzer {
   }
 
   checkCast() {
+    // we check the last cast instead of the current one, because we can't analyze how much targets were hit in the current cast
     if (this.lastCastBuffed || this.hits >= TARGETS_FOR_GOOD_CAST || !this.lastCast) {
+      return;
+    }
+    // if the player was in neither Eclipse, he used the spell to get into an eclipse, thus this cast is not considered bad
+    if (!this.lastCastBuffed && !this.lastCastSolarEclipse) {
       return;
     }
     this.badCasts += 1;
@@ -68,6 +74,7 @@ class UnempoweredStarfire extends Analyzer {
       this.selectedCombatant.hasBuff(SPELLS.ECLIPSE_LUNAR.id) ||
       this.selectedCombatant.hasBuff(SPELLS.OWLKIN_FRENZY.id) ||
       this.selectedCombatant.hasBuff(SPELLS.WARRIOR_OF_ELUNE_TALENT.id);
+    this.lastCastSolarEclipse = this.selectedCombatant.hasBuff(SPELLS.ECLIPSE_SOLAR.id);
     this.hits = 0;
   }
 

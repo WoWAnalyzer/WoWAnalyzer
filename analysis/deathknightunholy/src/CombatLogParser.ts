@@ -15,6 +15,7 @@ import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import UnholyRuneForgeChecker from './modules/features/RuneForgeChecker';
 import RuneTracker from './modules/features/RuneTracker';
 import SuddenDoom from './modules/features/SuddenDoom';
 import WoundTracker from './modules/features/WoundTracker';
@@ -47,6 +48,7 @@ class CombatLogParser extends CoreCombatLogParser {
     woundTracker: WoundTracker,
     spellUsable: SpellUsable,
     suddenDoom: SuddenDoom,
+    unholyRuneForge: UnholyRuneForgeChecker,
 
     // Talents
     soulReaper: SoulReaper,

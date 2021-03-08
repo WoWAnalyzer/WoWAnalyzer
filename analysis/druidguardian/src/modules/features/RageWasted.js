@@ -6,7 +6,9 @@ import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-import StatisticBox from 'parser/ui/StatisticBox';
+import BoringValueText from 'parser/ui/BoringValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
 // NOTE: "Raw" rage is what shows up in combat log events (divided by 10 and rounded to get in-game rage).
@@ -151,10 +153,9 @@ class RageWasted extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.BRISTLING_FUR.id} />}
-        label="Wasted Rage"
-        value={`${formatPercentage(this.wastedRageRatio)}%`}
+      <Statistic
+        position={STATISTIC_ORDER.CORE(4)}
+        size="flexible"
         tooltip={
           <>
             You wasted <strong>{this.totalWastedRage}</strong> rage out of{' '}
@@ -165,7 +166,17 @@ class RageWasted extends Analyzer {
             {this.wastedRageBreakdown}
           </>
         }
-      />
+      >
+        <BoringValueText
+          label={
+            <>
+              <SpellIcon id={SPELLS.BRISTLING_FUR.id} /> Wasted Rage{' '}
+            </>
+          }
+        >
+          {`${formatPercentage(this.wastedRageRatio)}%`}
+        </BoringValueText>
+      </Statistic>
     );
   }
 }

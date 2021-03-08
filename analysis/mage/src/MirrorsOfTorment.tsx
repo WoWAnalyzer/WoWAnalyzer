@@ -4,7 +4,7 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { RemoveDebuffEvent, RemoveDebuffStackEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
-const FIRE_BLAST_REDUCTION_MS = 4000;
+const FIRE_BLAST_REDUCTION_MS = 6000;
 
 class MirrorsOfTorment extends Analyzer {
   static dependencies = {

@@ -10,7 +10,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import React from 'react';
 
-const DAMAGE_BONUS_PER_STACK = 0.06;
+const DAMAGE_BONUS_PER_STACK = 0.08;
 
 class ArcaneHarmony extends Analyzer {
   static dependencies = {

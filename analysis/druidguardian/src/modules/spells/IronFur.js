@@ -2,11 +2,13 @@ import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SCHOOLS from 'game/MAGIC_SCHOOLS';
-import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
+import { SpellIcon } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import BoringValueText from 'parser/ui/BoringValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
 const debug = false;
@@ -119,13 +121,9 @@ class IronFur extends Analyzer {
     );
 
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(10)}
-        icon={<SpellIcon id={SPELLS.IRONFUR.id} />}
-        value={`${formatPercentage(
-          this.percentOfHitsMitigated,
-        )}% / ${this.overallIronfurUptime.toFixed(2)}`}
-        label="Hits mitigated with Ironfur / Average Stacks"
+        size="flexible"
         tooltip={
           <>
             Ironfur usage breakdown:
@@ -148,7 +146,17 @@ class IronFur extends Analyzer {
             <strong>{formatPercentage(totalIronFurTime / this.owner.fightDuration)}%</strong>.
           </>
         }
-      />
+      >
+        <BoringValueText
+          label={
+            <>
+              <SpellIcon id={SPELLS.IRONFUR.id} /> Hits mitigated with Ironfur / Average Stacks{' '}
+            </>
+          }
+        >
+          {`${formatPercentage(this.percentOfHitsMitigated)}%`}
+        </BoringValueText>
+      </Statistic>
     );
   }
 }

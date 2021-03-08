@@ -2,7 +2,7 @@ import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, DamageEvent, ApplyBuffEvent } from 'parser/core/Events';
+import Events, { CastEvent, ApplyBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import React from 'react';
 
@@ -32,16 +32,11 @@ class UnempoweredWrath extends Analyzer {
   badCasts = 0;
   lastCast?: CastEvent;
   lastCastBuffed = false;
-  hits = 0;
   eclipseCount = 0;
 
   constructor(options: Options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WRATH_MOONKIN), this.onCast);
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.WRATH_MOONKIN),
-      this.onDamage,
-    );
     this.addEventListener(
       Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.ECLIPSE_SOLAR),
       this.onApplyBuff,
@@ -51,6 +46,13 @@ class UnempoweredWrath extends Analyzer {
 
   checkCast() {
     if (this.lastCastBuffed || !this.lastCast) {
+      return;
+    }
+    // if the player was in neither Eclipse, he used the spell to get into an eclipse, thus this cast is not considered bad
+    if (
+      !this.selectedCombatant.hasBuff(SPELLS.ECLIPSE_LUNAR) &&
+      !this.selectedCombatant.hasBuff(SPELLS.ECLIPSE_SOLAR)
+    ) {
       return;
     }
     this.badCasts += 1;
@@ -64,14 +66,9 @@ class UnempoweredWrath extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    this.checkCast();
     this.lastCast = event;
     this.lastCastBuffed = this.selectedCombatant.hasBuff(SPELLS.ECLIPSE_SOLAR.id);
-    this.hits = 0;
-  }
-
-  onDamage(event: DamageEvent) {
-    this.hits += 1;
+    this.checkCast();
   }
 
   onFightend() {

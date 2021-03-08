@@ -5,6 +5,11 @@ const legendaries = {
     icon: 'spell_fire_masterofelements',
     bonusID: 6832,
   },
+  DISCIPLINARY_COMMAND_BUFF: {
+    id: 327371,
+    name: 'Disciplinary Command',
+    icon: 'spell_fire_masterofelements',
+  },
   EXPANDED_POTENTIAL: {
     id: 327489,
     name: 'Expanded Potential',

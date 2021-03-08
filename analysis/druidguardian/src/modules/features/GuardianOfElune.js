@@ -1,11 +1,13 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import BoringSpellValue from 'parser/ui/BoringSpellValue';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
 const GOE_DURATION = 15000;
@@ -20,7 +22,6 @@ class GuardianOfElune extends Analyzer {
   GoEIronFur = 0;
   nonGoEFRegen = 0;
   GoEFRegen = 0;
-  statisticOrder = STATISTIC_ORDER.CORE(7);
 
   constructor(...args) {
     super(...args);
@@ -123,17 +124,23 @@ class GuardianOfElune extends Analyzer {
     const unusedGoEProcs = 1 - this.consumedGoEProc / this.GoEProcsTotal;
 
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.GUARDIAN_OF_ELUNE.id} />}
-        value={`${formatPercentage(unusedGoEProcs)}%`}
-        label="Unused Guardian of Elune"
+      <Statistic
+        position={STATISTIC_ORDER.CORE(7)}
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
         tooltip={
           <>
-            You got total <strong>{this.GoEProcsTotal}</strong> guardian of elune procs and{' '}
-            <strong>used {this.consumedGoEProc}</strong> of them.
+            You got total <strong>{this.GGProcsTotal}</strong> galactic guardian procs and{' '}
+            <strong>used {this.consumedGGProc}</strong> of them.
           </>
         }
-      />
+      >
+        <BoringSpellValue
+          spell={SPELLS.GUARDIAN_OF_ELUNE}
+          value={`${formatPercentage(unusedGoEProcs)}%`}
+          label="Unused Guardian of Elune"
+        />
+      </Statistic>
     );
   }
 }

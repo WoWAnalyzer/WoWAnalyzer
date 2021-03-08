@@ -98,6 +98,11 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
           tooltip="In order to get the most out of Combustion, which is a large contributor to your damage, you should ensure that you are using every second of the cooldown to cast spells and get damage out. Any time spent not casting anything during Combustion is a major loss of damage."
           thresholds={thresholds.combustionActiveTime}
         />
+        <Requirement
+          name="Avg. Combustion Pre-Cast Delay (seconds)"
+          tooltip="In order to get a head start on your Combustion cooldown, it is recommended to pre-cast an ability (like Fireball) and activate Combustion during that pre-cast. In order to minimize the delay after you activate Combustion, and to prevent losing a GCD during Combustion, it is recommended that you activate Combustion within the last 0.7 seconds of that pre-cast ability. If you do not want to adjust your gameplay or if you cannot accomplish this due to latency, you can tell RaidBots to use a different delay value by entering apl_variable.combustion_cast_remains=value (where value is the delay in seconds ... i.e. 1.1 or 0.9) in the Custom APL section."
+          thresholds={thresholds.combustionPreCastDelay}
+        />
         {combatant.hasTalent(SPELLS.METEOR_TALENT.id) && (
           <Requirement
             name="Meteor Utilization During Combustion"

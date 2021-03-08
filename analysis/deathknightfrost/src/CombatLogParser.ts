@@ -17,6 +17,7 @@ import FrostFeverUptime from './modules/features/FrostFeverUptime';
 import HardHowlingBlastCasts from './modules/features/HardHowlingBlastCasts';
 import KillingMachineEfficiency from './modules/features/KillingMachine';
 import RimeEfficiency from './modules/features/RimeEfficiency';
+import FrostRuneForgeChecker from './modules/features/RuneForgeChecker';
 import RuneTracker from './modules/features/RuneTracker';
 import SpellUsable from './modules/features/SpellUsable';
 import RunicPowerDetails from './modules/runicpower/RunicPowerDetails';
@@ -42,6 +43,7 @@ class CombatLogParser extends CoreCombatLogParser {
     killingMachineEfficiency: KillingMachineEfficiency,
     breathofSindragoa: BreathOfSindragosa,
     hypothermicPresence: HypothermicPresence,
+    frostRuneForgeChecker: FrostRuneForgeChecker,
 
     //resource tracker
     runeTracker: RuneTracker,

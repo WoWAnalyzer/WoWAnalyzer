@@ -24,6 +24,7 @@ import Buffs from './modules/features/Buffs';
 import CombustionActiveTime from './modules/features/CombustionActiveTime';
 import CombustionCharges from './modules/features/CombustionCharges';
 import CombustionFirestarter from './modules/features/CombustionFirestarter';
+import CombustionPreCastDelay from './modules/features/CombustionPreCastDelay';
 import CombustionSpellUsage from './modules/features/CombustionSpellUsage';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import HeatingUp from './modules/features/HeatingUp';
@@ -34,6 +35,7 @@ import PhoenixFlames from './modules/features/PhoenixFlames';
 import Pyroclasm from './modules/features/Pyroclasm';
 import ShiftingPowerUsage from './modules/features/ShiftingPowerUsage';
 import ControlledDestruction from './modules/items/ControlledDestruction';
+import DisciplinaryCommand from './modules/items/DisciplinaryCommand';
 import FeveredIncantation from './modules/items/FeveredIncantation';
 import Firestorm from './modules/items/Firestorm';
 import InfernalCascade from './modules/items/InfernalCascade';
@@ -74,6 +76,7 @@ class CombatLogParser extends CoreCombatLogParser {
     combustionCharges: CombustionCharges,
     combustionSpellUsage: CombustionSpellUsage,
     combustionActiveTime: CombustionActiveTime,
+    combustionPreCastDelay: CombustionPreCastDelay,
     phoenixFlames: PhoenixFlames,
     heatingUp: HeatingUp,
     mirrorImage: MirrorImage,
@@ -93,6 +96,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Legendaries
     feveredIncantation: FeveredIncantation,
     firestorm: Firestorm,
+    disciplinaryCommand: DisciplinaryCommand,
 
     //Covenants
     shiftingPower: ShiftingPower,
