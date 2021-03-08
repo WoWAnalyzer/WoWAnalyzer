@@ -163,8 +163,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               22
               /23
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -261,8 +260,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               38
               /48
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -364,8 +362,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               27
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -450,8 +447,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               11
               /12
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -548,8 +544,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               24
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -634,8 +629,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               37
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -720,8 +714,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               10
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -806,8 +799,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               8
               /10
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -904,8 +896,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               4
               /6
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1065,8 +1056,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1209,8 +1199,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               3
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1307,8 +1296,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               2
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1405,8 +1393,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               3
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1503,8 +1490,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               4
               /5
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1664,8 +1650,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1820,8 +1805,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1918,8 +1902,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               /7
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2016,8 +1999,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2114,8 +2096,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               5
               /58
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2212,8 +2193,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2298,8 +2278,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               1
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2396,8 +2375,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2494,8 +2472,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               /10
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2592,8 +2569,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2678,8 +2654,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2764,8 +2739,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2850,8 +2824,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               /7
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2948,8 +2921,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3034,8 +3006,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3120,8 +3091,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3206,8 +3176,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               /5
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3304,8 +3273,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               /7
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3402,8 +3370,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3488,8 +3455,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               /35
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3586,8 +3552,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3672,8 +3637,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3816,8 +3780,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3914,8 +3877,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
             >
               1
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -4918,7 +4880,8 @@ Array [
       <ForwardRef
         id={335467}
       />
-       is your main source of damage and the damage stacks from early refreshing, you should always use 
+       is your main source of damage and the damage stacks from early refreshing, you should always use
+       
       <ForwardRef
         id={335467}
       />
@@ -5691,7 +5654,8 @@ Array [
       <ForwardRef
         id={263165}
       />
-       early, wasting 
+       early, wasting
+       
       0.2
        channeling seconds! Try to position yourself & time it so you don't get interrupted due to mechanics.
     </React.Fragment>,
@@ -5822,7 +5786,8 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                
               Voidform
             </a>
-            , your 
+            , your
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=34914"
@@ -5837,7 +5802,8 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                
               Vampiric Touch
             </a>
-            , 
+            ,
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=335467"
@@ -5852,7 +5818,8 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                
               Devouring Plague
             </a>
-            , and 
+            , and
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=589"
@@ -6138,7 +6105,8 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                
               Void Bolt
             </a>
-             or 
+             or
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=8092"
@@ -7011,7 +6979,8 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                
               Devouring Plague
             </a>
-             to not overcap while also maximizing DOT uptime for the increased mastery benefit from 
+             to not overcap while also maximizing DOT uptime for the increased mastery benefit from
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=343690"
@@ -7194,7 +7163,8 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                
               Void Bolt
             </a>
-             or 
+             or
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=335467"
@@ -7224,7 +7194,8 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                
               Shadow Word: Pain
             </a>
-             or 
+             or
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=32379"

@@ -109,7 +109,8 @@ Array [
       <ForwardRef
         id={268358}
       />
-       or 
+       or
+       
       <ForwardRef
         id={111400}
       />
@@ -288,8 +289,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               8
               /16
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -391,8 +391,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               50
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -477,8 +476,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               31
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -563,8 +561,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -649,8 +646,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               14
               /30
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -752,8 +748,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               34
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -896,8 +891,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1040,8 +1034,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               3
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1143,8 +1136,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               3
               /5
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1304,8 +1296,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1465,8 +1456,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1551,8 +1541,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               5
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1637,8 +1626,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               2
               /7
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1735,8 +1723,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               /30
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1833,8 +1820,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               /10
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1931,8 +1917,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2017,8 +2002,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               /30
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2115,8 +2099,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2201,8 +2184,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2287,8 +2269,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2385,8 +2366,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2471,8 +2451,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2557,8 +2536,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2643,8 +2621,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2729,8 +2706,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2815,8 +2791,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2901,8 +2876,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2987,8 +2961,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3073,8 +3046,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               /5
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3171,8 +3143,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3269,8 +3240,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3413,8 +3383,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3511,8 +3480,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3798,13 +3766,15 @@ Array [
       32.78
       % of the fight duration (
       95
-       seconds). Dying has a significant performance cost. View the 
+       seconds). Dying has a significant performance cost. View the
+       
       <Link
         to="/report/XAHa3hgKm4JcyDT2/156-%7B%22id%22:%22common.getFightName.fightname%22,%22message%22:%22%7BbossName%7D+-+%7BfightResult%7D+(%7Bduration%7D)%22,%22values%22:%7B%22bossName%22:%22%5C%22%7B0%7D+%7B1%7D%5C%22%22,%22fightResult%22:%22%7B%5C%22id%5C%22:%5C%22common.getFightName.kill%5C%22,%5C%22message%5C%22:%5C%22Kill%5C%22%7D%22,%22duration%22:%224:50%22%7D%7D/Armaghoul/standard/death-recap"
       >
         Death Recap
       </Link>
-       to see the damage taken and what defensives and potions were still available.
+       
+      to see the damage taken and what defensives and potions were still available.
     </React.Fragment>,
     "stat": <React.Fragment>
       <Trans
@@ -5299,7 +5269,8 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
           <div
             className="col-md-12"
           >
-            Demonology has a lot of short cooldowns that make up majority of your rotation, such as 
+            Demonology has a lot of short cooldowns that make up majority of your rotation, such as
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=104316"
@@ -5314,7 +5285,8 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                
               Call Dreadstalkers
             </a>
-             or Felguard's 
+             or Felguard's
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=89751"
@@ -6056,7 +6028,8 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                
               Demonic Gateway
             </a>
-            , 
+            ,
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=268358"
@@ -6071,7 +6044,8 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                
               Demonic Circle
             </a>
-            , 
+            ,
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=111400"
@@ -6086,7 +6060,8 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                
               Burning Rush
             </a>
-             or mitigate incoming damage with 
+             or mitigate incoming damage with
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=104773"
@@ -6387,7 +6362,8 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                
               Soul Strike
             </a>
-             or try to utilize 
+             or try to utilize
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=268358"
@@ -6402,7 +6378,9 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                
               Teleport
             </a>
-             or 
+             
+            or
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=111771"
@@ -6417,7 +6395,8 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                
               Gateway
             </a>
-             to reduce the movement even further.
+             
+            to reduce the movement even further.
           </div>
         </div>
         <div
