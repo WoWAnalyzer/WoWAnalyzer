@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import { Trans, t } from '@lingui/macro';
 import { compose } from 'redux';
 
-import { findByBossId } from 'game/raids';
+import { findByBossId, Phase } from 'game/raids';
 import lazyLoadComponent from 'common/lazyLoadComponent';
 import retryingPromise from 'common/retryingPromise';
 import makeWclUrl from 'common/makeWclUrl';
@@ -27,6 +27,15 @@ import ErrorBoundary from 'interface/ErrorBoundary';
 import Checklist from 'parser/shared/modules/features/Checklist/Module';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import ResultsChangelogTab from 'interface/ResultsChangelogTab';
+import CombatLogParser from 'parser/core/CombatLogParser';
+import CharacterProfile from 'parser/core/CharacterProfile';
+import Report from 'parser/core/Report';
+import Fight  from 'parser/core/Fight';
+import { PlayerInfo } from 'parser/core/Player';
+import ParseResults from 'parser/core/ParseResults';
+import Config from 'parser/Config';
+import { RootState } from 'interface/reducers';
+import { Filter } from 'interface/report/TimeEventFilter';
 
 import './Results.scss';
 import Header from './Header';
@@ -60,72 +69,49 @@ const EventsTab = lazyLoadComponent(() =>
   ),
 );
 
-class Results extends React.PureComponent {
-  static propTypes = {
-    parser: PropTypes.shape({
-      boss: PropTypes.shape({
-        fight: PropTypes.shape({
-          resultsWarning: PropTypes.any,
-        }),
-      }),
-      getOptionalModule: PropTypes.func.isRequired,
-      getModule: PropTypes.func.isRequired,
-      selectedCombatant: PropTypes.any,
-      fight: PropTypes.shape({
-        boss: PropTypes.any,
-        difficulty: PropTypes.any,
-        // use fight interface when converting to TS
-        // eslint-disable-next-line @typescript-eslint/camelcase
-        start_time: PropTypes.any,
-        // eslint-disable-next-line @typescript-eslint/camelcase
-        end_time: PropTypes.any,
-      }),
-      generateResults: PropTypes.func.isRequired,
-      disabledModules: PropTypes.any,
-      playerId: PropTypes.any,
-    }),
-    characterProfile: PropTypes.object,
-    selectedTab: PropTypes.string,
-    makeBuildUrl: PropTypes.func.isRequired,
-    makeTabUrl: PropTypes.func.isRequired,
-    phases: PropTypes.object,
-    selectedPhase: PropTypes.string.isRequired,
-    selectedInstance: PropTypes.number.isRequired,
-    handlePhaseSelection: PropTypes.func.isRequired,
-    applyFilter: PropTypes.func.isRequired,
-    timeFilter: PropTypes.object,
-    build: PropTypes.string,
-    report: PropTypes.shape({
-      code: PropTypes.string.isRequired,
-      start: PropTypes.number.isRequired,
-      end: PropTypes.number.isRequired,
-    }).isRequired,
-    fight: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      // use fight interface when converting to TS
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      start_time: PropTypes.number.isRequired,
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      end_time: PropTypes.number.isRequired,
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      offset_time: PropTypes.number.isRequired,
-      boss: PropTypes.number.isRequired,
-      phase: PropTypes.string,
-    }).isRequired,
-    player: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-    }).isRequired,
-    isLoadingParser: PropTypes.bool,
-    isLoadingEvents: PropTypes.bool,
-    isLoadingPhases: PropTypes.bool,
-    isFilteringEvents: PropTypes.bool,
-    bossPhaseEventsLoadingState: PropTypes.oneOf(Object.values(BOSS_PHASES_STATE)),
-    isLoadingCharacterProfile: PropTypes.bool,
-    parsingState: PropTypes.oneOf(Object.values(EVENT_PARSING_STATE)),
-    progress: PropTypes.number,
-    premium: PropTypes.bool,
-    appendReportHistory: PropTypes.func.isRequired,
+interface ConnectedProps {
+  selectedTab: string;
+  premium: boolean;
+  appendReportHistory: (reportHistoryItem: any) => void;
+}
+
+interface PassedProps {
+  parser: CombatLogParser;
+  characterProfile: CharacterProfile,
+  makeBuildUrl: (tab: string, build: string) => string;
+  makeTabUrl: (tab: string) => string;
+  phases: { [key: string]: Phase }|null;
+  selectedPhase: string;
+  selectedInstance: number;
+  handlePhaseSelection: (phase: string, instance: number) => void;
+  applyFilter: (start: number, end: number) => void;
+  timeFilter?: Filter;
+  build: string|null;
+  report: Report;
+  fight: Fight;
+  player: PlayerInfo;
+  isLoadingParser?: boolean;
+  isLoadingEvents?: boolean;
+  isLoadingPhases?: boolean;
+  isFilteringEvents?: boolean;
+  bossPhaseEventsLoadingState?: BOSS_PHASES_STATE;
+  isLoadingCharacterProfile?: boolean;
+  parsingState?: EVENT_PARSING_STATE;
+  progress?: number;
+  premium?: boolean;
+}
+
+type Props = PassedProps & ConnectedProps;
+
+interface State {
+  adjustForDowntime: boolean;
+}
+
+class Results extends React.PureComponent<Props, State> {
+  state = {
+    adjustForDowntime: false,
   };
+
   static childContextTypes = {
     updateResults: PropTypes.func.isRequired,
     parser: PropTypes.object,
@@ -140,18 +126,11 @@ class Results extends React.PureComponent {
     config: PropTypes.object.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      adjustForDowntime: false,
-    };
-  }
-
   componentDidMount() {
     this.scrollToTop();
     this.appendHistory(this.props.report, this.props.fight, this.props.player);
   }
-  componentDidUpdate(prevProps, prevState, prevContext) {
+  componentDidUpdate(prevProps: Props, prevState: State) {
     if (this.props.selectedTab !== prevProps.selectedTab) {
       // TODO: To improve user experience we could try to avoid scrolling when the header is still within vision.
       this.scrollToTop();
@@ -161,7 +140,7 @@ class Results extends React.PureComponent {
     window.scrollTo(0, 0);
   }
 
-  appendHistory(report, fight, player) {
+  appendHistory(report: Report, fight: Fight, player: PlayerInfo) {
     // TODO: Add spec and show it in the list
     this.props.appendReportHistory({
       code: report.code,
@@ -197,19 +176,19 @@ class Results extends React.PureComponent {
     );
   }
 
-  renderContent(selectedTab, results) {
+  renderContent(selectedTab: string, results: ParseResults|null) {
     const { parser, premium } = this.props;
 
     switch (selectedTab) {
       case TABS.OVERVIEW: {
-        if (this.isLoading) {
+        if (this.isLoading || !results) {
           return this.renderLoadingIndicator();
         }
         const checklist = parser.getOptionalModule(Checklist);
         return <Overview checklist={checklist && checklist.render()} issues={results.issues} />;
       }
       case TABS.STATISTICS:
-        if (this.isLoading) {
+        if (this.isLoading || !results) {
           return this.renderLoadingIndicator();
         }
         return (
@@ -217,9 +196,8 @@ class Results extends React.PureComponent {
             parser={parser}
             adjustForDowntime={this.state.adjustForDowntime}
             onChangeAdjustForDowntime={(newValue) => this.setState({ adjustForDowntime: newValue })}
-          >
-            {results.statistics}
-          </ReportStatistics>
+            statistics={results.statistics}
+          />
         );
       case TABS.TIMELINE:
         if (this.isLoading) {
@@ -271,7 +249,7 @@ class Results extends React.PureComponent {
         );
       }
       default: {
-        if (this.isLoading) {
+        if (this.isLoading || !results) {
           return this.renderLoadingIndicator();
         }
 
@@ -387,11 +365,11 @@ class Results extends React.PureComponent {
       applyFilter,
       timeFilter,
     } = this.props;
-    const config = this.context.config;
+    const config: Config = this.context.config;
 
     const boss = findByBossId(fight.boss);
 
-    const results = !this.isLoading && parser.generateResults(this.state.adjustForDowntime);
+    const results = this.isLoading ? null : parser.generateResults(this.state.adjustForDowntime);
 
     const contributorinfo = (
       <ReadableListing>
@@ -547,7 +525,7 @@ class Results extends React.PureComponent {
   }
 }
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = (state: RootState, props: RouteComponentProps) => ({
   selectedTab: getResultTab(props.location.pathname),
   premium: hasPremium(state),
 });
@@ -557,4 +535,4 @@ export default compose(
   connect(mapStateToProps, {
     appendReportHistory,
   }),
-)(Results);
+)(Results) as React.ComponentType<PassedProps>;
