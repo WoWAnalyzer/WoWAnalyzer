@@ -1,10 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
+import { Issue } from 'parser/core/ParseResults';
 
 import Checklist from './Checklist';
 import Suggestions from './Suggestions';
 
-const Overview = props => {
+interface Props {
+  checklist?: React.ReactNode;
+  issues: Issue[];
+}
+
+const Overview = (props: Props) => {
   const { checklist, issues } = props;
   return (
     <div className="container">
@@ -17,11 +23,6 @@ const Overview = props => {
       </Suggestions>
     </div>
   );
-};
-
-Overview.propTypes = {
-  checklist: PropTypes.node,
-  issues: PropTypes.array,
 };
 
 export default Overview;

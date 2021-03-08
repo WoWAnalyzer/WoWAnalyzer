@@ -6,8 +6,8 @@ interface PlayerFight {
 }
 
 export interface PlayerInfo extends Unit {
-  region: string;
-  server: string;
+  region?: string;
+  server?: string;
   fights: PlayerFight[];
 }
 

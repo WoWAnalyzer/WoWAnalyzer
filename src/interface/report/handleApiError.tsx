@@ -4,10 +4,10 @@ import { Trans, t } from '@lingui/macro';
 import { ApiDownError, CorruptResponseError, JsonParseError, LogNotFoundError } from 'common/fetchWclApi';
 import FullscreenError from 'interface/FullscreenError';
 import ApiDownBackground from 'interface/images/api-down-background.gif';
-import ThunderSoundEffect from 'interface/audio/Thunder Sound effect.mp3';
+import thunderSoundEffect from 'interface/audio/Thunder Sound effect.mp3';
 import { EventsParseError } from 'interface/report/EventParser';
 
-export default function handleApiError(error, onBack) {
+export default function handleApiError(error: Error, onBack: () => void) {
   console.error(error);
   if (error instanceof LogNotFoundError) {
     return (
@@ -54,7 +54,7 @@ export default function handleApiError(error, onBack) {
         </div>
         {/* I couldn't resist */}
         <audio autoPlay>
-          <source src={ThunderSoundEffect} />
+          <source src={thunderSoundEffect} />
         </audio>
       </FullscreenError>
     );

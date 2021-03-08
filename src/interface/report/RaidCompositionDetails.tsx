@@ -1,9 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import Icon from 'interface/Icon';
 
-const RaidCompositionDetails = props => {
+interface Props {
+  tanks: number;
+  healers: number;
+  dps: number;
+  ranged: number;
+  ilvl: number;
+}
+
+const RaidCompositionDetails = (props: Props) => {
   const { tanks, healers, dps, ranged, ilvl } = props;
 
   return (
@@ -60,14 +67,6 @@ const RaidCompositionDetails = props => {
       </div>
     </div>
   );
-};
-
-RaidCompositionDetails.propTypes = {
-  tanks: PropTypes.number.isRequired,
-  healers: PropTypes.number.isRequired,
-  dps: PropTypes.number.isRequired,
-  ranged: PropTypes.number.isRequired,
-  ilvl: PropTypes.number.isRequired,
 };
 
 export default RaidCompositionDetails;

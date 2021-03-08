@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { ignoreSpecNotSupportedWarning } from 'interface/actions/specNotSupported';
@@ -7,34 +6,26 @@ import { getSpecsIgnoredNotSupportedWarning } from 'interface/selectors/skipSpec
 import SupportCheckerSpecPartialSupport from 'interface/report/SupportCheckerSpecPartialSupport';
 import isLatestPatch from 'game/isLatestPatch';
 
-import SupportCheckerSpecOutOfDate from './SupportCheckerSpecOutOfDate';
+import SupportCheckerSpecOutOfDate from 'interface/report/SupportCheckerSpecOutOfDate';
+import Config from 'parser/Config';
+import Report from 'parser/core/Report';
+import { WCLFight } from 'parser/core/Fight';
+import { RootState } from 'interface/reducers';
+import { PlayerInfo } from 'parser/core/Player';
 
-class SupportChecker extends React.PureComponent {
-  static propTypes = {
-    children: PropTypes.node.isRequired,
-    config: PropTypes.shape({
-      patchCompatibility: PropTypes.string,
-      isPartial: PropTypes.bool.isRequired,
-      spec: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        className: PropTypes.string.isRequired,
-        specName: PropTypes.string.isRequired,
-      }).isRequired,
-    }).isRequired,
-    report: PropTypes.object.isRequired,
-    fight: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-    }).isRequired,
-    player: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-    }).isRequired,
-    ignoreSpecNotSupportedWarning: PropTypes.func.isRequired,
-    ignored: PropTypes.array.isRequired,
-  };
+interface Props {
+  children: React.ReactNode;
+  config: Config;
+  report: Report;
+  fight: WCLFight;
+  player: PlayerInfo;
+  ignoreSpecNotSupportedWarning: (specId: number) => void;
+  ignored: number[];
+}
 
-  constructor() {
-    super();
+class SupportChecker extends React.PureComponent<Props> {
+  constructor(props: Props) {
+    super(props);
     this.handleClickContinue = this.handleClickContinue.bind(this);
   }
 
@@ -80,7 +71,7 @@ class SupportChecker extends React.PureComponent {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootState) => ({
   ignored: getSpecsIgnoredNotSupportedWarning(state),
 });
 export default connect(mapStateToProps, {

@@ -1,12 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Trans } from '@lingui/macro';
+import { Race } from 'game/RACES';
 
-const CharacterRace = (
-  {
-    race,
-  },
-) => (
+const CharacterRace = ({ race }: { race: Race }) => (
     <>
       <div className="row">
         <div className="col-md-12">
@@ -22,9 +18,5 @@ const CharacterRace = (
       </div>
     </>
   );
-
-CharacterRace.propTypes = {
-  race: PropTypes.any.isRequired,
-};
 
 export default CharacterRace;

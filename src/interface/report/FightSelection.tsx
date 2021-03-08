@@ -1,8 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { t, Trans } from '@lingui/macro';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import Toggle from 'react-toggle';
 import { compose } from 'redux';
 
@@ -15,22 +14,28 @@ import DocumentTitle from 'interface/DocumentTitle';
 import ReportDurationWarning, { MAX_REPORT_DURATION } from 'interface/report/ReportDurationWarning';
 import ClassicLogWarning from 'interface/report/ClassicLogWarning';
 
-import FightSelectionPanel from './FightSelectionPanel';
+import FightSelectionPanel from 'interface/report/FightSelectionPanel';
+import Report from 'parser/core/Report';
+import { WCLFight } from 'parser/core/Fight';
+import { RootState } from 'interface/reducers';
 
-class FightSelection extends React.PureComponent {
-  static propTypes = {
-    report: PropTypes.shape({
-      code: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      fights: PropTypes.array.isRequired,
-      start: PropTypes.number.isRequired,
-      end: PropTypes.number.isRequired,
-      gameVersion: PropTypes.number.isRequired,
-    }).isRequired,
-    refreshReport: PropTypes.func.isRequired,
-    children: PropTypes.func.isRequired,
-    fightId: PropTypes.number,
-  };
+interface ConnectedProps {
+  fightId: number|null;
+}
+
+interface PassedProps {
+  report: Report;
+  refreshReport: () => void;
+  children: (fight: WCLFight) => void;
+}
+
+type Props = ConnectedProps & PassedProps;
+
+interface State {
+  killsOnly: boolean;
+}
+
+class FightSelection extends React.PureComponent<Props, State> {
   state = {
     killsOnly: false,
   };
@@ -112,7 +117,7 @@ class FightSelection extends React.PureComponent {
         )}
 
         {report.gameVersion === 1 && (
-          <FightSelectionPanel report={report} refreshReport={refreshReport} killsOnly={killsOnly} />
+          <FightSelectionPanel report={report} killsOnly={killsOnly} />
         )}
       </div>
     );
@@ -120,7 +125,7 @@ class FightSelection extends React.PureComponent {
   render() {
     const { report, fightId } = this.props;
 
-    const fight = getFightFromReport(report, fightId);
+    const fight = fightId && getFightFromReport(report, fightId);
     if (!fightId || !fight) {
       return this.renderFightSelection();
     }
@@ -141,8 +146,8 @@ class FightSelection extends React.PureComponent {
   }
 }
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = (state: RootState, props: RouteComponentProps) => ({
   // Because fightId comes from the URL we can't use local state
   fightId: getFightId(props.location.pathname),
 });
-export default compose(withRouter, connect(mapStateToProps))(FightSelection);
+export default compose(withRouter, connect(mapStateToProps))(FightSelection) as React.ComponentType<PassedProps>;

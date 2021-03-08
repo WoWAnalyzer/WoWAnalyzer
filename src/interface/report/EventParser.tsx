@@ -1,85 +1,71 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import ExtendableError from 'es6-error';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 import { getBuild } from 'interface/selectors/url/report';
 import sleep from 'common/sleep';
 import { captureException } from 'common/errorLogger';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import { EventType } from 'parser/core/Events';
+import { AnyEvent, CombatantInfoEvent, EventType } from 'parser/core/Events';
+import Report from 'parser/core/Report';
+import Fight from 'parser/core/Fight';
+import CharacterProfile from 'parser/core/CharacterProfile';
+import CombatLogParser from 'parser/core/CombatLogParser';
+import { RootState } from 'interface/reducers';
+import { Builds } from 'parser/Config';
+import { PlayerInfo } from 'parser/core/Player';
 
 const BENCHMARK = false;
 // Picking a correct batch duration is hard. I tried various durations to get the batch sizes to 1 frame, but that results in a lot of wasted time waiting for the next frame. 30ms (33 fps) as well causes a lot of wasted time. 60ms (16fps) seem to have really low wasted time while not blocking the UI anymore than a user might expect.
 const MAX_BATCH_DURATION = 66.67; // ms
 const TIME_AVAILABLE = console.time && console.timeEnd;
-const bench = id => TIME_AVAILABLE && console.time(id);
-const benchEnd = id => TIME_AVAILABLE && console.timeEnd(id);
+const bench = (id: string) => TIME_AVAILABLE && console.time(id);
+const benchEnd = (id: string) => TIME_AVAILABLE && console.timeEnd(id);
 
 export class EventsParseError extends ExtendableError {
-  reason = null;
-  constructor(reason) {
+  reason?: ExtendableError;
+  constructor(reason: ExtendableError) {
     super();
     this.reason = reason;
     this.message = `An error occured while parsing events: ${reason.message}`;
   }
 }
 
-class EventParser extends React.PureComponent {
-  static propTypes = {
-    report: PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      code: PropTypes.string.isRequired,
-    }).isRequired,
-    fight: PropTypes.shape({
-      // use fight interface when converting to TS
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      start_time: PropTypes.number.isRequired,
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      end_time: PropTypes.number.isRequired,
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      offset_time: PropTypes.number.isRequired,
-      boss: PropTypes.number.isRequired,
-      phase: PropTypes.string,
-    }).isRequired,
-    player: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      id: PropTypes.number.isRequired,
-      guid: PropTypes.number.isRequired,
-      type: PropTypes.string.isRequired,
-    }).isRequired,
+interface Props {
+  report: Report;
+  fight: Fight;
+  player: PlayerInfo;
+  combatants: CombatantInfoEvent[];
+  applyTimeFilter: (start: number, end: number) => null;
+  applyPhaseFilter: (phase: string, instance: any) => null;
+  parserClass: new (...args: ConstructorParameters<typeof CombatLogParser>) => CombatLogParser;
+  build?: string|null;
+  builds?: Builds;
+  characterProfile: CharacterProfile;
+  events: AnyEvent[];
+  children: (isLoading: boolean, progress: number, parser: CombatLogParser|null) => React.ReactNode;
+}
 
-    combatants: PropTypes.arrayOf(
-      PropTypes.shape({
-        sourceID: PropTypes.number.isRequired,
-      }),
-    ),
-    applyTimeFilter: PropTypes.func.isRequired,
-    applyPhaseFilter: PropTypes.func.isRequired,
-    parserClass: PropTypes.func.isRequired,
-    build: PropTypes.string,
-    builds: PropTypes.object,
-    characterProfile: PropTypes.object,
-    events: PropTypes.array.isRequired,
-    children: PropTypes.func.isRequired,
+interface State {
+  isLoading: boolean;
+  progress: number;
+  parser: CombatLogParser|null;
+}
+
+class EventParser extends React.PureComponent<Props, State> {
+  state = {
+    isLoading: true,
+    progress: 0,
+    parser: null,
   };
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoading: true,
-      progress: 0,
-      parser: null,
-    };
-  }
 
   componentDidMount() {
     // noinspection JSIgnoredPromiseFromCall
     this.parse();
   }
-  componentDidUpdate(prevProps, prevState, prevContext) {
+  componentDidUpdate(prevProps: Props, prevState: State) {
     const changed =
       this.props.report !== prevProps.report ||
       this.props.fight !== prevProps.fight ||
@@ -135,7 +121,7 @@ class EventParser extends React.PureComponent {
     });
     return parser;
   }
-  makeEvents(parser) {
+  makeEvents(parser: CombatLogParser) {
     let { events } = this.props;
     // The events we fetched will be all events related to the selected player. This includes the `combatantinfo` for the selected player. However we have already parsed this event when we loaded the combatants in the `initializeAnalyzers` of the CombatLogParser. Loading the selected player again could lead to bugs since it would reinitialize and overwrite the existing entity (the selected player) in the Combatants module.
     events = events.filter(event => event.type !== EventType.CombatantInfo);
@@ -191,8 +177,8 @@ class EventParser extends React.PureComponent {
     return this.props.children(this.state.isLoading, this.state.progress, this.state.parser);
   }
 }
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = (state: RootState, props: RouteComponentProps) => ({
   // Because build comes from the URL we can't use local state
   build: getBuild(props.location.pathname),
 });
-export default compose(withRouter, connect(mapStateToProps))(EventParser);
+export default compose(withRouter, connect(mapStateToProps))(EventParser) as typeof EventParser;

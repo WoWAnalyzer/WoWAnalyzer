@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Trans } from '@lingui/macro';
 
@@ -10,47 +9,35 @@ import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import SkullIcon from 'interface/icons/Skull';
 import CancelIcon from 'interface/icons/Cancel';
 import InformationIcon from 'interface/icons/Information';
+import ProgressBar from 'interface/report/ProgressBar';
 
 import { findByBossId } from 'game/raids';
 
-import ProgressBar from './ProgressBar';
+import Report from 'parser/core/Report';
+import { WCLFight } from 'parser/core/Fight';
 
-class FightSelectionPanelList extends React.PureComponent {
-  static propTypes = {
-    report: PropTypes.shape({
-      code: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-    }),
-    fights: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      difficulty: PropTypes.number,
-      boss: PropTypes.number.isRequired,
-      // use fight interface when converting to TS
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      start_time: PropTypes.number.isRequired,
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      end_time: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      kill: PropTypes.bool,
-    })),
-    killsOnly: PropTypes.bool.isRequired,
-    playerId: PropTypes.number,
-    resultTab: PropTypes.string,
-  };
+interface Props {
+  report: Report;
+  fights: WCLFight[];
+  killsOnly: boolean;
+  playerId?: number;
+  resultTab?: string;
+}
 
-  static groupByFight(fights) {
-    let last = null;
-    return fights.reduce((arr, fight) => {
-      const isDifferent = last === null || last[0].boss !== fight.boss || last[0].difficulty !== fight.difficulty;
-      if (isDifferent) {
-        last = [];
-        arr.push(last);
-      }
-      last.push(fight);
-      return arr;
-    }, []);
-  }
+const groupByFight = (fights: WCLFight[]) => {
+  let last: WCLFight[] = [];
+  return fights.reduce((arr, fight) => {
+    const isDifferent = last.length === 0 || last[0].boss !== fight.boss || last[0].difficulty !== fight.difficulty;
+    if (isDifferent) {
+      last = [];
+      arr.push(last);
+    }
+    last.push(fight);
+    return arr;
+  }, [] as WCLFight[][]);
+}
 
+class FightSelectionPanelList extends React.PureComponent<Props> {
   render() {
     const { fights, report, killsOnly, playerId, resultTab } = this.props;
 
@@ -67,7 +54,7 @@ class FightSelectionPanelList extends React.PureComponent {
 
     return (
       <ul className="list">
-        {this.constructor.groupByFight(filteredFights).map(pulls => {
+        {groupByFight(filteredFights).map(pulls => {
           const firstPull = pulls[0];
           const boss = findByBossId(firstPull.boss);
 
@@ -105,7 +92,7 @@ class FightSelectionPanelList extends React.PureComponent {
                             <div className="flex-sub">
                               <small>{formatDuration(duration)}</small>{' '}
                               <ProgressBar
-                                percentage={pull.kill ? 100 : (10000 - pull.fightPercentage) / 100}
+                                percentage={pull.kill ? 100 : (10000 - pull.fightPercentage!) / 100}
                                 width={100}
                                 height={8}
                               />

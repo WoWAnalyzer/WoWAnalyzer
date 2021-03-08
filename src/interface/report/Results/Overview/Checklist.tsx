@@ -1,8 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Trans } from '@lingui/macro';
 
-const Checklist = ({ children }) => (
+const Checklist = ({ children }: { children: React.ReactNode }) => (
   <div className="panel">
     <div className="panel-heading">
       <h1>
@@ -33,8 +32,5 @@ const Checklist = ({ children }) => (
     </div>
   </div>
 );
-Checklist.propTypes = {
-  children: PropTypes.node,
-};
 
 export default Checklist;

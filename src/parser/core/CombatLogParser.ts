@@ -222,7 +222,7 @@ class CombatLogParser {
   static specModules: DependenciesDefinition = {};
 
   applyTimeFilter = (start: number, end: number) => null; //dummy function gets filled in by event parser
-  applyPhaseFilter = (phase: any, instance: any) => null; //dummy function gets filled in by event parser
+  applyPhaseFilter = (phase: string, instance: any) => null; //dummy function gets filled in by event parser
 
   report: Report;
   characterProfile: CharacterProfile;
@@ -231,8 +231,8 @@ class CombatLogParser {
   player: PlayerInfo;
   playerPets: PetInfo[];
   fight: Fight;
-  build: string;
-  builds: Builds;
+  build: string|null;
+  builds?: Builds;
   boss: Boss | null;
   combatantInfoEvents: CombatantInfoEvent[];
 
@@ -282,8 +282,8 @@ class CombatLogParser {
     selectedFight: Fight,
     combatantInfoEvents: CombatantInfoEvent[],
     characterProfile: CharacterProfile,
-    build: string,
-    builds: Builds,
+    build: string|null,
+    builds?: Builds,
   ) {
     this.report = report;
     this.player = selectedPlayer;

@@ -1,26 +1,24 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { CSSProperties } from 'react';
 import Toggle from 'react-toggle';
 import { Trans } from '@lingui/macro';
 
 import Icon from 'interface/Icon';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import Panel from 'interface/Panel';
+import { Issue } from 'parser/core/ParseResults';
 
 import Suggestion from './Suggestion';
 import './Suggestions.scss';
 
-class Suggestions extends React.PureComponent {
-  static propTypes = {
-    children: PropTypes.array,
-  };
+interface Props {
+  children: Issue[];
+  style?: CSSProperties;
+}
 
-  constructor() {
-    super();
-    this.state = {
-      showMinorIssues: false,
-    };
-  }
+class Suggestions extends React.PureComponent<Props> {
+  state = {
+    showMinorIssues: false,
+  };
 
   render() {
     const { children, ...others } = this.props;

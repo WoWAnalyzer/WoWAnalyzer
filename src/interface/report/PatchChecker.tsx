@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Trans } from '@lingui/macro';
@@ -11,20 +10,22 @@ import GitHubButton from 'interface/GitHubButton';
 import { ignorePreviousPatchWarning } from 'interface/actions/previousPatch';
 import { getReportCodesIgnoredPreviousPatchWarning } from 'interface/selectors/skipPreviousPatchWarning';
 import Panel from 'interface/Panel';
+import Report from 'parser/core/Report';
 
 import Background from './images/weirdnelf.png';
-import PATCHES from './PATCHES';
+import PATCHES, { Patch } from './PATCHES';
+import { RootState } from 'interface/reducers';
 
-class PatchChecker extends React.PureComponent {
-  static propTypes = {
-    children: PropTypes.node.isRequired,
-    report: PropTypes.object.isRequired,
-    ignorePreviousPatchWarning: PropTypes.func.isRequired,
-    ignored: PropTypes.array.isRequired,
-  };
+interface Props {
+  children: React.ReactNode;
+  report: Report;
+  ignorePreviousPatchWarning: (code: string) => void;
+  ignored: string[];
+}
 
-  constructor() {
-    super();
+class PatchChecker extends React.PureComponent<Props> {
+  constructor(props: Props) {
+    super(props);
     this.handleClickContinue = this.handleClickContinue.bind(this);
   }
 
@@ -33,7 +34,7 @@ class PatchChecker extends React.PureComponent {
     this.props.ignorePreviousPatchWarning(this.props.report.code);
   }
 
-  makePreviousPatchUrl(patch) {
+  makePreviousPatchUrl(patch: Patch) {
     return `${window.location.protocol}//${patch.urlPrefix}.${window.location.host}${window.location.pathname}`;
   }
 
@@ -75,7 +76,7 @@ class PatchChecker extends React.PureComponent {
                     This could mean that some parts of your report will no longer be analysed accurately.<br /><br />
 
                     If you would like to view the analysis on an older version of WoWAnalyzer, <a
-                      href={this.makePreviousPatchUrl(reportPatch)}
+                      href={reportPatch && this.makePreviousPatchUrl(reportPatch)}
                       onClick={this.handleClickContinue}
                       style={{ fontSize: '1.1em' }}
                     >
@@ -125,7 +126,7 @@ class PatchChecker extends React.PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: RootState) => ({
   ignored: getReportCodesIgnoredPreviousPatchWarning(state),
 });
 export default connect(mapStateToProps, {

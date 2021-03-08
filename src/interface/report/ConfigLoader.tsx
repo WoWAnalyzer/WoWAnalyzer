@@ -2,14 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import getConfig from 'parser/getConfig';
+import Config from 'parser/Config';
 
-class ConfigLoader extends React.PureComponent {
-  static propTypes = {
-    children: PropTypes.func.isRequired,
-    // eslint-disable-next-line react/no-unused-prop-types
-    specId: PropTypes.number.isRequired,
-  };
-  static getDerivedStateFromProps(props, state) {
+interface Props {
+  specId: number;
+  children: (config: Config) => React.ReactNode;
+}
+
+interface State {
+  config: Config|null;
+}
+
+class ConfigLoader extends React.PureComponent<Props, State> {
+  static getDerivedStateFromProps(props: Props, state: State) {
     if (!state.config || props.specId !== state.config.spec.id) {
       return {
         config: getConfig(props.specId),

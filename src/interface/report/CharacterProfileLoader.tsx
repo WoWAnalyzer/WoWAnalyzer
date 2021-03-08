@@ -1,29 +1,25 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import { makeCharacterApiUrl } from 'common/makeApiUrl';
+import Report from 'parser/core/Report';
+import CharacterProfile from 'parser/core/CharacterProfile';
+import { PlayerInfo } from 'parser/core/Player';
 
 const CHINESE_REGION = 'cn';
 
-class CharacterProfileLoader extends React.PureComponent {
-  static propTypes = {
-    report: PropTypes.shape({
-      exportedCharacters: PropTypes.arrayOf(
-        PropTypes.shape({
-          name: PropTypes.string.isRequired,
-          region: PropTypes.string.isRequired,
-          server: PropTypes.string.isRequired,
-        }),
-      ),
-    }).isRequired,
-    player: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      guid: PropTypes.number.isRequired,
-    }).isRequired,
-    children: PropTypes.func.isRequired,
-  };
+interface Props {
+  report: Report;
+  player: PlayerInfo;
+  children: (isLoading: boolean, characterProfile: CharacterProfile|null) => React.ReactNode;
+}
 
-  constructor(props) {
+interface State {
+  isLoading: boolean;
+  characterProfile: CharacterProfile|null;
+}
+
+class CharacterProfileLoader extends React.PureComponent<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = {
       isLoading: true,
@@ -32,7 +28,7 @@ class CharacterProfileLoader extends React.PureComponent {
     this.load();
   }
 
-  componentDidUpdate(prevProps, prevState, prevContext) {
+  componentDidUpdate(prevProps: Props, prevState: State) {
     if (prevProps.report !== this.props.report || prevProps.player !== this.props.player) {
       this.setState({
         isLoading: true,

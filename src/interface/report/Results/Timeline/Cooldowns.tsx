@@ -1,35 +1,35 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import Abilities from 'parser/core/modules/Abilities';
+import { AnyEvent } from 'parser/core/Events';
 
 import './Cooldowns.scss';
 import Lane from './Lane';
 
-class Cooldowns extends React.PureComponent {
-  static propTypes = {
-    start: PropTypes.number.isRequired,
-    end: PropTypes.number.isRequired,
-    secondWidth: PropTypes.number.isRequired,
-    eventsBySpellId: PropTypes.instanceOf(Map).isRequired,
-    abilities: PropTypes.instanceOf(Abilities).isRequired,
-  };
+interface Props {
+  start: number;
+  end: number;
+  secondWidth: number;
+  eventsBySpellId: Map<number, AnyEvent[]>;
+  abilities: Abilities,
+}
 
-  getSortIndex([spellId, events]) {
+class Cooldowns extends React.PureComponent<Props> {
+  getSortIndex([spellId, events]: [number, AnyEvent[]]) {
     const ability = this.props.abilities.getAbility(spellId);
-    if (!ability || ability.timelineSortIndex === undefined) {
+    if (!ability?.timelineSortIndex) {
       return 1000 - events.length;
     } else {
       return ability.timelineSortIndex;
     }
   }
 
-  renderLanes(eventsBySpellId, growUp) {
+  renderLanes(eventsBySpellId: Map<number, AnyEvent[]>, growUp: boolean) {
     return Array.from(eventsBySpellId)
       .sort((a, b) => this.getSortIndex(growUp ? b : a) - this.getSortIndex(growUp ? a : b))
       .map(item => this.renderLane(item));
   }
-  renderLane([spellId, events]) {
+  renderLane([spellId, events]: [number, AnyEvent[]]) {
     return (
       <Lane
         key={spellId}

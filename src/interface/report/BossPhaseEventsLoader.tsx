@@ -1,42 +1,41 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React  from 'react';
 
 import { fetchEvents } from 'common/fetchWclApi';
 import { makeWclBossPhaseFilter } from 'common/makeWclBossPhaseFilter';
 import { fabricateBossPhaseEvents } from 'common/fabricateBossPhaseEvents';
 import { captureException } from 'common/errorLogger';
 
-import BOSS_PHASES_STATE from './BOSS_PHASES_STATE';
+import BossPhasesState from 'interface/report/BOSS_PHASES_STATE';
+import Report from 'parser/core/Report';
+import { WCLFight } from 'parser/core/Fight';
+import { PhaseEvent } from 'parser/core/Events';
 
-class BossPhaseEventsLoader extends React.PureComponent {
-  static propTypes = {
-    report: PropTypes.shape({
-      code: PropTypes.string.isRequired,
-    }).isRequired,
-    fight: PropTypes.shape({
-      // replace with actual fight object when converting to TS
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      start_time: PropTypes.number.isRequired,
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      end_time: PropTypes.number.isRequired,
-      boss: PropTypes.number.isRequired,
-    }).isRequired,
-    children: PropTypes.func.isRequired,
-  };
+interface Props {
+  report: Report;
+  fight: WCLFight;
+  children: (loadingState: BossPhasesState, events: PhaseEvent[]|null) => React.ReactNode;
+}
 
-  constructor(props) {
+interface State {
+  loadingState: BossPhasesState;
+  events: PhaseEvent[]|null;
+}
+
+class BossPhaseEventsLoader extends React.PureComponent<Props, State> {
+  state = {
+    loadingState: BossPhasesState.LOADING,
+    events: null,
+  }
+
+  constructor(props: Props) {
     super(props);
-    this.state = {
-      loadingState: BOSS_PHASES_STATE.LOADING,
-      events: null,
-    };
     this.load();
   }
 
-  componentDidUpdate(prevProps, prevState, prevContext) {
+  componentDidUpdate(prevProps: Props) {
     if (prevProps.report !== this.props.report || prevProps.fight !== this.props.fight) {
       this.setState({
-        loadingState: BOSS_PHASES_STATE.LOADING,
+        loadingState: BossPhasesState.LOADING,
         events: null,
       });
       this.load();
@@ -44,7 +43,7 @@ class BossPhaseEventsLoader extends React.PureComponent {
   }
 
   async load() {
-    let events;
+    let events = null;
     try {
       events = await this.loadEvents();
     } catch (err) {
@@ -54,7 +53,7 @@ class BossPhaseEventsLoader extends React.PureComponent {
     }
 
     this.setState({
-      loadingState: events === null ? BOSS_PHASES_STATE.SKIPPED : BOSS_PHASES_STATE.DONE,
+      loadingState: events === null ? BossPhasesState.SKIPPED : BossPhasesState.DONE,
       events,
     });
   }

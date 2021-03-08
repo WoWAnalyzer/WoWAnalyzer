@@ -1,12 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import Panel from 'interface/Panel';
+import Report from 'parser/core/Report';
 
 import './FightSelection.scss';
 import FightSelectionPanelList from './FightSelectionPanelList';
 
-const FightSelectionPanel = props => {
+interface Props {
+  report: Report;
+  killsOnly: boolean;
+}
+
+const FightSelectionPanel = (props: Props) => {
   const { report, killsOnly } = props;
 
   return (
@@ -20,13 +25,6 @@ const FightSelectionPanel = props => {
       </Panel>
     </>
   );
-};
-
-FightSelectionPanel.propTypes = {
-  report: PropTypes.shape({
-    fights: PropTypes.array.isRequired,
-  }).isRequired,
-  killsOnly: PropTypes.bool.isRequired,
 };
 
 export default FightSelectionPanel;

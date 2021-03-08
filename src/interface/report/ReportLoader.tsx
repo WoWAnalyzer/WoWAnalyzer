@@ -1,8 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { t } from '@lingui/macro';
 
 import { fetchFights, LogNotFoundError } from 'common/fetchWclApi';
@@ -12,6 +11,8 @@ import { getReportCode } from 'interface/selectors/url/report';
 import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import ActivityIndicator from 'interface/ActivityIndicator';
 import DocumentTitle from 'interface/DocumentTitle';
+import Report from 'parser/core/Report';
+import { RootState } from 'interface/reducers';
 
 import handleApiError from './handleApiError';
 
@@ -20,26 +21,34 @@ import handleApiError from './handleApiError';
 // Actually leaving this disabled for now so we can continue to serve reports when WCL goes down and high traffic to a specific report page doesn't bring us down (since everything would be logged). To solve the issue of confusion, I'll try improving the fight selection text instead.
 const REFRESH_BY_DEFAULT = false;
 
-class ReportLoader extends React.PureComponent {
-  static propTypes = {
-    children: PropTypes.func.isRequired,
-    reportCode: PropTypes.string,
-    setReport: PropTypes.func.isRequired,
-    history: PropTypes.shape({
-      push: PropTypes.func.isRequired, // adds to browser history
-    }).isRequired,
-  };
-  state = {
+interface ConnectedProps extends RouteComponentProps {
+  reportCode: string;
+  setReport: (report: Report|null) => void;
+}
+
+interface PassedProps {
+  children: (report: Report, handleRefresh: () => void) => React.ReactNode;
+}
+
+type Props = ConnectedProps & PassedProps;
+
+interface State {
+  error: Error|null;
+  report: Report|null;
+}
+
+class ReportLoader extends React.PureComponent<Props, State> {
+  state: State = {
     error: null,
     report: null,
   };
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
     this.handleRefresh = this.handleRefresh.bind(this);
   }
-  setState(error = null, report = null) {
-    super.setState({
+  updateState(error: Error|null = null, report: Report|null = null) {
+    this.setState({
       error,
       report,
     });
@@ -47,7 +56,7 @@ class ReportLoader extends React.PureComponent {
     this.props.setReport(report);
   }
   resetState() {
-    this.setState(null, null);
+    this.updateState(null, null);
   }
 
   componentDidMount() {
@@ -56,13 +65,13 @@ class ReportLoader extends React.PureComponent {
       this.loadReport(this.props.reportCode, REFRESH_BY_DEFAULT);
     }
   }
-  componentDidUpdate(prevProps, prevState) {
+  component(prevProps: Props) {
     if (this.props.reportCode && this.props.reportCode !== prevProps.reportCode) {
       // noinspection JSIgnoredPromiseFromCall
       this.loadReport(this.props.reportCode);
     }
   }
-  async loadReport(reportCode, refresh = false) {
+  async loadReport(reportCode: string, refresh: boolean = false) {
     const isAnonymous = reportCode.startsWith('a:');
     try {
       this.resetState();
@@ -70,7 +79,7 @@ class ReportLoader extends React.PureComponent {
       if (this.props.reportCode !== reportCode) {
         return; // the user switched report already
       }
-      this.setState(null, {
+      this.updateState(null, {
         ...report,
         isAnonymous,
         code: reportCode, // Pass the code so know which report this is
@@ -82,7 +91,7 @@ class ReportLoader extends React.PureComponent {
       if (!isCommonError) {
         captureException(err);
       }
-      this.setState(err, null);
+      this.updateState(err, null);
     }
   }
   handleRefresh() {
@@ -90,7 +99,7 @@ class ReportLoader extends React.PureComponent {
     this.loadReport(this.props.reportCode, true);
   }
 
-  renderError(error) {
+  renderError(error: Error) {
     return handleApiError(error, () => {
       this.resetState();
       this.props.history.push(makeAnalyzerUrl());
@@ -111,7 +120,7 @@ class ReportLoader extends React.PureComponent {
     }
 
     const report = this.state.report;
-    if (!report) {
+    if (report === null) {
       return this.renderLoading();
     }
 
@@ -126,7 +135,7 @@ class ReportLoader extends React.PureComponent {
   }
 }
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = (state: RootState, props: RouteComponentProps) => ({
   reportCode: getReportCode(props.location.pathname),
 });
 export default compose(
@@ -134,4 +143,4 @@ export default compose(
   connect(mapStateToProps, {
     setReport,
   }),
-)(ReportLoader);
+)(ReportLoader) as React.ComponentType<PassedProps>;
