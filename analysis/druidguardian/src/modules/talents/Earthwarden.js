@@ -5,8 +5,9 @@ import HIT_TYPES from 'game/HIT_TYPES';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import DamageTaken from 'parser/shared/modules/throughput/DamageTaken';
-
-import StatisticBox from 'parser/ui/StatisticBox';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import BoringValueText from 'parser/ui/BoringValueText';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import { t } from '@lingui/macro';
@@ -73,10 +74,9 @@ class Earthwarden extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.EARTHWARDEN_BUFF.id} />}
-        label="Hits mitigated by Earthwarden"
-        value={`${formatPercentage(this.percentOfSwingsMitigated)}%`}
+      <Statistic
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"        
         tooltip={(
           <>
             You mitigated {this.swingsMitigated} out of a possible {this.totalSwings} attacks ({formatPercentage(this.percentOfSwingsMitigated)}%) with Earthwarden. <br /><br />
@@ -84,7 +84,11 @@ class Earthwarden extends Analyzer {
             ({formatPercentage(this.totalMitigation)}% of total damage, {formatNumber(this.hps)} HPS)
           </>
         )}
-      />
+      >
+        <BoringValueText label={<><SpellIcon id={SPELLS.EARTHWARDEN_BUFF.id} /> Hits mitigated by Earthwarden </>} >           
+                {`${formatPercentage(this.percentOfSwingsMitigated)}%`}          
+        </BoringValueText>
+      </Statistic>
     );
   }
 
