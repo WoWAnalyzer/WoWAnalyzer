@@ -1,25 +1,22 @@
 import React from 'react';
 import AlertWarning from 'interface/AlertWarning';
-import PropTypes from 'prop-types';
 import { ItemLink } from 'interface';
+import { Item } from 'parser/core/Events';
 
-const WARNING_ITEMS = [];
+const WARNING_ITEMS: number[] = [];
 
-class ItemWarning extends React.Component {
-  static propTypes = {
-    gear: PropTypes.array.isRequired,
-  };
+interface Props {
+  gear: Item[];
+}
 
-  badItems = [];
+class ItemWarning extends React.Component<Props> {
+  badItems: number[] = [];
   checkItems() {
-    const { gear } = this.props;
-    if (gear) {
-      Object.values(gear).forEach(item => {
-        if (WARNING_ITEMS.includes(item.id) && !this.badItems.includes(item.id)) {
-          this.badItems.push(item.id);
-        }
-      }, 0);
-    }
+    this.props.gear.forEach(item => {
+      if (WARNING_ITEMS.includes(item.id) && !this.badItems.includes(item.id)) {
+        this.badItems.push(item.id);
+      }
+    }, 0);
   }
 
   render() {

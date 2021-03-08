@@ -110,7 +110,7 @@ class EventParser extends React.PureComponent<Props, State> {
       fight,
       combatants,
       characterProfile,
-      buildKey && build,
+      buildKey && build ? build : null,
       builds,
     );
     parser.applyTimeFilter = this.props.applyTimeFilter;

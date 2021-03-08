@@ -17,66 +17,58 @@ import ReportRaidBuffList from 'interface/ReportRaidBuffList';
 import { fetchCharacter } from 'interface/actions/characters';
 import { generateFakeCombatantInfo } from 'interface/report/CombatantInfoFaker';
 import Panel from 'interface/Panel';
+import { WCLFight } from 'parser/core/Fight';
+import Report from 'parser/core/Report';
+import CharacterProfile from 'parser/core/CharacterProfile';
+import { RootState } from 'interface/reducers';
+import { PlayerInfo } from 'parser/core/Player';
+import { CombatantInfoEvent } from 'parser/core/Events';
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import { Trans, t } from '@lingui/macro';
 
 import PlayerSelection from './PlayerSelection';
 import handleApiError from './handleApiError';
 
-const defaultState = {
+const FAKE_PLAYER_IF_DEV_ENV = false;
+
+interface ConnectedProps extends RouteComponentProps {
+  setCombatants: (combatants: CombatantInfoEvent[]|null) => void;
+  playerName: string|null;
+  playerId: number|null;
+  fetchCharacter: (guid: number, region: string, realm: string, name: string) => CharacterProfile;
+}
+
+interface PassedProps {
+  report: Report;
+  fight: WCLFight;
+  children: (player: PlayerInfo, combatant: CombatantInfoEvent, combatants: CombatantInfoEvent[]) => React.ReactNode}
+
+type Props = ConnectedProps & PassedProps;
+
+interface State {
+  error: Error|null;
+  combatants: CombatantInfoEvent[]|null;
+  combatantsFightId: number|null;
+}
+
+const defaultState: State = {
   error: null,
   combatants: null,
   combatantsFightId: null,
 };
 
-const FAKE_PLAYER_IF_DEV_ENV = false;
-
-class PlayerLoader extends React.PureComponent {
+class PlayerLoader extends React.PureComponent<Props, State> {
   tanks = 0;
   healers = 0;
   dps = 0;
   ranged = 0;
   ilvl = 0;
 
-  static propTypes = {
-    report: PropTypes.shape({
-      code: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      friendlies: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        type: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-      })),
-      exportedCharacters: PropTypes.any,
-      start: PropTypes.number.isRequired,
-      end: PropTypes.number.isRequired,
-      gameVersion: PropTypes.number.isRequired,
-    }).isRequired,
-    fight: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      // replace with actual fight interface when converting to TS
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      start_time: PropTypes.number.isRequired,
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      end_time: PropTypes.number.isRequired,
-    }).isRequired,
-    setCombatants: PropTypes.func.isRequired,
-    playerName: PropTypes.string,
-    playerId: PropTypes.number,
-    children: PropTypes.func.isRequired,
-    history: PropTypes.shape({
-      push: PropTypes.func.isRequired,
-      replace: PropTypes.func.isRequired,
-    }).isRequired,
-    fetchCharacter: PropTypes.func.isRequired,
-  };
-
-  static getDerivedStateFromProps(props, state) {
+  static getDerivedStateFromProps(props: Props, state: State) {
     if (props.fight.id !== state.combatantsFightId) {
       // When switching fights we need to unset combatants before rendering to avoid children from doing API calls twice
       return defaultState;
@@ -92,7 +84,7 @@ class PlayerLoader extends React.PureComponent {
     this.scrollToTop();
   }
 
-  componentDidUpdate(prevProps, prevState, prevContext) {
+  componentDidUpdate(prevProps: Props, prevState: State) {
     const changedReport = this.props.report !== prevProps.report;
     const changedFight = this.props.fight !== prevProps.fight;
     if (changedReport || changedFight) {
@@ -104,15 +96,15 @@ class PlayerLoader extends React.PureComponent {
     }
   }
 
-  async loadCombatants(report, fight) {
+  async loadCombatants(report: Report, fight: WCLFight) {
     if (report.gameVersion === 2) {
       return;
     }
     try {
-      const combatants = await fetchCombatants(report.code, fight.start_time, fight.end_time);
+      const combatants = await fetchCombatants(report.code, fight.start_time, fight.end_time) as CombatantInfoEvent[];
       combatants.forEach(player => {
         if (process.env.NODE_ENV === 'development' && FAKE_PLAYER_IF_DEV_ENV) {
-          console.error('This player (sourceID: ' + player.sourceID + ') has an error. Because you\'re in development environment, we have faked the missing information, see CombatantInfoFaker.ts for more information.');
+          console.error(`This player (sourceID: ${player.sourceID!}) has an error. Because you're in development environment, we have faked the missing information, see CombatantInfoFaker.ts for more information.`);
           player = generateFakeCombatantInfo(player);
         }
         if (player.error || player.specID === -1) {
@@ -171,7 +163,7 @@ class PlayerLoader extends React.PureComponent {
     window.scrollTo(0, 0);
   }
 
-  renderError(error) {
+  renderError(error: Error) {
     return handleApiError(error, () => {
       this.setState(defaultState);
       // We need to set the combatants in the global state so the NavigationBar, which is not a child of this component, can also use it
@@ -248,6 +240,7 @@ class PlayerLoader extends React.PureComponent {
           }));
         }
       }
+
       return (
         <div className="container offset">
           <div style={{ position: 'relative', marginBottom: 15 }}>
@@ -287,20 +280,20 @@ class PlayerLoader extends React.PureComponent {
           {combatants.length === 0 && <AdvancedLoggingWarning />}
 
           <PlayerSelection
-            players={report.friendlies.map(friendly => {
+            players={report.friendlies.flatMap(friendly => {
               const combatant = combatants.find(combatant => combatant.sourceID === friendly.id);
               if (!combatant) {
-                return null;
+                return [];
               }
               const exportedCharacter = report.exportedCharacters ? report.exportedCharacters.find(char => char.name === friendly.name) : null;
 
-              return {
+              return [{
                 ...friendly,
                 combatant,
-                server: exportedCharacter ? exportedCharacter.server : undefined,
-                region: exportedCharacter ? exportedCharacter.region : undefined,
-              };
-            }).filter(friendly => friendly !== null)}
+                server: exportedCharacter?.server,
+                region: exportedCharacter?.region,
+              }];
+            })}
             makeUrl={playerId => makeAnalyzerUrl(report, fight.id, playerId)}
           />
           <ReportRaidBuffList
@@ -322,7 +315,7 @@ class PlayerLoader extends React.PureComponent {
   }
 }
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = (state: RootState, props: RouteComponentProps) => ({
   playerName: getPlayerName(props.location.pathname),
   playerId: getPlayerId(props.location.pathname),
 });
@@ -332,4 +325,4 @@ export default compose(
     setCombatants,
     fetchCharacter,
   }),
-)(PlayerLoader);
+)(PlayerLoader) as React.ComponentType<PassedProps>;

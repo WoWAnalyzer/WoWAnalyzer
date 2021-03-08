@@ -26,7 +26,7 @@ const PlayerTile = (props: Props) => {
 
   useEffect(() => {
     const load = async () => {
-      if (!SUPPORTED_REGIONS.includes(player.region)) {
+      if (!player.region || !player.server || !SUPPORTED_REGIONS.includes(player.region)) {
         return null;
       }
 
