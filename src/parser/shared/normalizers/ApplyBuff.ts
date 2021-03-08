@@ -11,6 +11,7 @@ import {
   HasSource,
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
+
 import { PlayerInfo } from '../../core/Player';
 
 const debug = false;

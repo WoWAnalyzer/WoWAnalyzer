@@ -11,10 +11,10 @@ import { ignorePreviousPatchWarning } from 'interface/actions/previousPatch';
 import { getReportCodesIgnoredPreviousPatchWarning } from 'interface/selectors/skipPreviousPatchWarning';
 import Panel from 'interface/Panel';
 import Report from 'parser/core/Report';
+import { RootState } from 'interface/reducers';
 
 import Background from './images/weirdnelf.png';
 import PATCHES, { Patch } from './PATCHES';
-import { RootState } from 'interface/reducers';
 
 interface Props {
   children: React.ReactNode;
