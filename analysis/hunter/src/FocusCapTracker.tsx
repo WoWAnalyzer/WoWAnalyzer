@@ -86,7 +86,7 @@ class FocusCapTracker extends RegenResourceCapTracker {
             message: `${formatPercentage(1 - actual)}% regenerated focus lost due to being capped.`,
           }),
         )
-        .recommended(`<${formatPercentage(recommended, 0)}% is recommended.`),
+        .recommended(`<${formatPercentage(1 - recommended, 0)}% is recommended.`),
     );
   }
 

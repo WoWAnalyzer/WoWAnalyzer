@@ -54,18 +54,18 @@ const getStatisticGroupName = (key: STATISTIC_CATEGORY) => {
 
 interface Props {
   parser: CombatLogParser;
-  children: ReactElement[];
+  statistics: ReactElement[];
   adjustForDowntime: boolean;
   onChangeAdjustForDowntime: (newValue: boolean) => void;
 }
 
 const ReportStatistics = ({
   parser,
-  children,
+  statistics,
   adjustForDowntime,
   onChangeAdjustForDowntime,
 }: Props) => {
-  const groups = children.reduce<{
+  const groups = statistics.reduce<{
     [category: string]: ReactElement[];
   }>((obj, statistic) => {
     const category = statistic.props.category || STATISTIC_CATEGORY.GENERAL;

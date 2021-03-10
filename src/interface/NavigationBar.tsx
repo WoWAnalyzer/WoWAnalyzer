@@ -10,8 +10,8 @@ import { getReport } from 'interface/selectors/report';
 import { getFightId, getPlayerName, getReportCode } from 'interface/selectors/url/report';
 import { getUser } from 'interface/selectors/user';
 import Tooltip from 'interface/Tooltip';
+import { useWaSelector } from 'interface/utils/useWaSelector';
 import React, { HTMLAttributes, ReactNode } from 'react';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
@@ -24,9 +24,9 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 const NavigationBar = ({ children, ...others }: Props) => {
   const { pathname } = useLocation();
   const playerName = getPlayerName(pathname);
-  const report = useSelector((state) => getReportCode(pathname) && getReport(state));
-  const fight = useSelector((state) => getFightById(state, getFightId(pathname)));
-  const user = useSelector((state) => getUser(state));
+  const report = useWaSelector((state) => getReportCode(pathname) && getReport(state));
+  const fight = useWaSelector((state) => getFightById(state, getFightId(pathname)));
+  const user = useWaSelector((state) => getUser(state));
 
   return (
     <nav className="global" {...others}>

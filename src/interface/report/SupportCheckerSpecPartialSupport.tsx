@@ -1,16 +1,16 @@
 import { Trans } from '@lingui/macro';
 import Config from 'parser/Config';
-import { Player } from 'parser/core/CombatLogParser';
-import Fight from 'parser/core/Fight';
+import { WCLFight } from 'parser/core/Fight';
+import { PlayerInfo } from 'parser/core/Player';
 import React from 'react';
 
 import SupportCheckerIssue from './SupportCheckerIssue';
 
 interface Props {
   report: unknown;
-  fight: Fight;
+  fight: WCLFight;
   config: Config;
-  player: Player;
+  player: PlayerInfo;
   onContinueAnyway: () => void;
 }
 

@@ -1,5 +1,6 @@
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import { Boss, findByBossId } from 'game/raids';
+import CharacterProfile from 'parser/core/CharacterProfile';
 import {
   AnyEvent,
   CombatantInfoEvent,
@@ -81,6 +82,9 @@ import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import EventEmitter from './modules/EventEmitter';
 import ParseResults from './ParseResults';
+import { PetInfo } from './Pet';
+import { PlayerInfo } from './Player';
+import Report from './Report';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -200,26 +204,17 @@ class CombatLogParser {
   static specModules: DependenciesDefinition = {};
 
   applyTimeFilter = (start: number, end: number) => null; //dummy function gets filled in by event parser
-  applyPhaseFilter = (phase: any, instance: any) => null; //dummy function gets filled in by event parser
+  applyPhaseFilter = (phase: string, instance: any) => null; //dummy function gets filled in by event parser
 
-  // TODO create report type
-  report: any;
-  /** Character info from the Battle.net API (optional) */
-  // TODO create profile type
-  characterProfile: any;
+  report: Report;
+  characterProfile: CharacterProfile;
 
   // Player info from WCL - required
-  player: SelectedPlayer;
-  playerPets: Array<{
-    name: string;
-    id: number;
-    guid: number;
-    type: 'Pet';
-    icon: string;
-  }>;
+  player: PlayerInfo;
+  playerPets: PetInfo[];
   fight: Fight;
-  build: string;
-  builds: Builds;
+  build?: string;
+  builds?: Builds;
   boss: Boss | null;
   combatantInfoEvents: CombatantInfoEvent[];
 
@@ -256,7 +251,7 @@ class CombatLogParser {
   }
   finished = false;
 
-  get players(): Player[] {
+  get players(): PlayerInfo[] {
     return this.report.friendlies;
   }
   get selectedCombatant(): Combatant {
@@ -264,19 +259,17 @@ class CombatLogParser {
   }
 
   constructor(
-    report: any,
-    selectedPlayer: SelectedPlayer,
+    report: Report,
+    selectedPlayer: PlayerInfo,
     selectedFight: Fight,
     combatantInfoEvents: CombatantInfoEvent[],
-    characterProfile: any,
-    build: string,
-    builds: Builds,
+    characterProfile: CharacterProfile,
+    build?: string,
+    builds?: Builds,
   ) {
     this.report = report;
     this.player = selectedPlayer;
-    this.playerPets = report.friendlyPets.filter(
-      (pet: { petOwner: any }) => pet.petOwner === selectedPlayer.id,
-    );
+    this.playerPets = report.friendlyPets.filter((pet) => pet.petOwner === selectedPlayer.id);
     this.fight = selectedFight;
     this.build = build;
     this.builds = builds;
@@ -676,11 +669,5 @@ class CombatLogParser {
     return results;
   }
 }
-export type SelectedPlayer = {
-  name: string;
-  id: number;
-  guid: number;
-  type: string;
-};
 
 export default CombatLogParser;

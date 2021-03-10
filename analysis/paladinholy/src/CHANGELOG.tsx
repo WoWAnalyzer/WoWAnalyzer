@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 3, 10), <>Update <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id}/> mana cost</>, acornellier),
   change(date(2021, 2, 24), <>Fixed spells missing from ABC: <SpellLink id={SPELLS.WORD_OF_GLORY.id}/> <SpellLink id={SPELLS.HAMMER_OF_WRATH.id}/></>, acornellier),
   change(date(2021, 1, 16), 'Due to the paywalling of the timeline feature, and fundamental differences of opinion - I will no longer be updating this module beyond todays date. All the modules should be accurate for Castle Nathria, but will not be accurate going forward.', Abelito75),
   change(date(2021, 1, 9), <>Removed Avenging Wrath, Avenging Crusader, and Holy Avenger from the gcd.</>, Abelito75),

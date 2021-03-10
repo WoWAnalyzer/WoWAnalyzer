@@ -17,7 +17,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import React from 'react';
 
 const MAX_STACKS = 3;
-const HASTE_PER_STACK = 3;
+const HASTE_PER_STACK = 4;
 
 class Starlord extends Analyzer {
   get averageHaste() {

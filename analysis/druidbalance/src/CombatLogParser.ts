@@ -20,6 +20,7 @@ import UnempoweredStarfire from './modules/features/UnempoweredStarfire';
 import UnempoweredWrath from './modules/features/UnempoweredWrath';
 import AstralPowerDetails from './modules/resourcetracker/AstralPowerDetails';
 import AstralPowerTracker from './modules/resourcetracker/AstralPowerTracker';
+import SoulOfTheForest from './modules/talents/SoulOfTheForest';
 import Starlord from './modules/talents/Starlord';
 import StellarDrift from './modules/talents/StellarDrift';
 import StellarFlareUptime from './modules/talents/StellarFlareUptime';
@@ -52,7 +53,7 @@ class CombatLogParser extends MainCombatLogParser {
     twinMoons: TwinMoons,
     stellarDrift: StellarDrift,
     starlord: Starlord,
-
+    soulOfTheForest: SoulOfTheForest,
     //Covenants
     convokeSpirits: ConvokeSpirits,
 

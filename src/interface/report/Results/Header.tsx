@@ -1,12 +1,14 @@
 /* eslint-disable react/prop-types */
 import getBossName from 'common/getBossName';
 import { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
-import { Phase } from 'game/raids';
+import { Boss, Phase } from 'game/raids';
 import { TooltipElement } from 'interface/Tooltip';
 import Config, { Build } from 'parser/Config';
+import { ParseResultsTab } from 'parser/core/Analyzer';
+import CharacterProfile from 'parser/core/CharacterProfile';
 import Fight from 'parser/core/Fight';
 import DEFAULT_BUILD from 'parser/DEFAULT_BUILD';
-import React, { ComponentType, ReactNode } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 import HeaderBackground from './HeaderBackground';
@@ -19,35 +21,20 @@ import './Header.scss';
 interface Props {
   config: Config;
   name: string;
-  characterProfile: {
-    region: string;
-    thumbnail: string;
-  };
-  boss: {
-    name: string;
-    headshot: string;
-    background: string;
-    backgroundPosition: string;
-  };
-  handlePhaseSelection: () => void;
-  applyFilter: () => void;
-  phases?: {
-    [key: string]: Phase;
-  };
+  characterProfile: CharacterProfile;
+  boss: Boss | null;
+  handlePhaseSelection: (phase: string, instance: number) => void;
+  applyFilter: (start: number, end: number) => void;
+  phases: { [key: string]: Phase } | null;
   makeBuildUrl: (selectedTab: string, buildName: string) => string;
-  build: string;
+  build?: string;
   selectedPhase: string;
   selectedInstance: number;
   isLoading: boolean;
   fight: Fight;
   makeTabUrl: (url: string) => string;
   selectedTab: string;
-  tabs: Array<{
-    title: ReactNode;
-    icon?: ComponentType;
-    url: string;
-    order?: number;
-  }>;
+  tabs: ParseResultsTab[];
 }
 
 const Header = ({

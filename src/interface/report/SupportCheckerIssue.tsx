@@ -10,16 +10,16 @@ import ReadableListing from 'interface/ReadableListing';
 import Background from 'interface/report/images/weirdnelf.png';
 import Tooltip from 'interface/Tooltip';
 import Config from 'parser/Config';
-import { Player } from 'parser/core/CombatLogParser';
-import Fight from 'parser/core/Fight';
+import { WCLFight } from 'parser/core/Fight';
+import { PlayerInfo } from 'parser/core/Player';
 import React, { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
 interface Props {
   report: unknown;
-  fight: Fight;
+  fight: WCLFight;
   config: Config;
-  player: Player;
+  player: PlayerInfo;
   title: ReactNode;
   children: ReactNode;
   onContinueAnyway: () => void;

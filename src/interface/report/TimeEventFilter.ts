@@ -14,7 +14,7 @@ import {
   FilterCooldownInfoEvent,
   AnyEvent,
 } from 'parser/core/Events';
-import Fight from 'parser/core/Fight';
+import Fight, { WCLFight } from 'parser/core/Fight';
 import { COMBAT_POTIONS } from 'parser/shared/modules/items/PotionChecker';
 import React, { ReactNode } from 'react';
 
@@ -33,13 +33,13 @@ const eventFollows = (e: BuffEvent | StackEvent, e2: BuffEvent | StackEvent) =>
   e2.targetID === e.targetID;
 
 interface Props {
-  fight: Fight;
+  fight: WCLFight;
   filter: Filter;
   phase: string;
   phaseinstance: number;
   bossPhaseEvents: PhaseEvent[];
   events: AnyEvent[];
-  children: (isLoading: boolean, events?: AnyEvent[], fight?: unknown) => ReactNode;
+  children: (isLoading: boolean, events?: AnyEvent[], fight?: Fight) => ReactNode;
 }
 
 interface State {
@@ -48,7 +48,7 @@ interface State {
   fight?: Fight;
 }
 
-interface Filter {
+export interface Filter {
   start: number;
   end: number;
 }
@@ -124,13 +124,9 @@ class TimeEventFilter extends React.PureComponent<Props, State> {
         events: eventFilter.events,
         fight: {
           ...this.props.fight,
-
           start_time: eventFilter.start,
-
           end_time: eventFilter.end,
-
           offset_time: eventFilter.start - this.props.fight.start_time, //time between time filter start and fight start (for e.g. timeline)
-
           original_end_time: this.props.fight.end_time,
           filtered:
             eventFilter.start !== this.props.fight.start_time ||

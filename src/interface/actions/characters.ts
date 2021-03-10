@@ -1,16 +1,16 @@
-import { Character } from 'common/contributor';
 import { makeCharacterApiUrl } from 'common/makeApiUrl';
+import CharacterProfile from 'parser/core/CharacterProfile';
 
 export const SUPPORTED_REGIONS = ['EU', 'US', 'TW', 'KR'];
 export const STORE_CHARACTER = 'STORE_CHARACTER';
-export function storeCharacter(character: Character) {
+export function storeCharacter(character: CharacterProfile) {
   return {
     type: STORE_CHARACTER,
     payload: character,
   };
 }
 
-export function fetchCharacter(guid: string, region: string, realm: string, name: string) {
+export function fetchCharacter(guid: number, region: string, realm: string, name: string) {
   return async (dispatch: any) => {
     if (!SUPPORTED_REGIONS.includes(region)) {
       throw new Error('Region not supported');

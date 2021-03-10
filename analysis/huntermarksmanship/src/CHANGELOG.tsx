@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Putro, Zeboot } from 'CONTRIBUTORS';
+import { Putro, Zeboot, Kartarn } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import React from 'react';
 
 export default [
+  change(date(2021, 3, 6), 'Fixed suggestion for wasted regenerated focus.', Kartarn),
   change(date(2021, 1, 16), 'Due to the paywalling of the timeline feature, and fundamental differences of opinion - I will no longer be updating this module beyond todays date. All the modules should be accurate for Castle Nathria, but will not be accurate going forward.', Putro),
   change(date(2021, 1, 16), <> Added support for <SpellLink id={SPELLS.REVERSAL_OF_FORTUNE_CONDUIT.id} />, <SpellLink id={SPELLS.REJUVENATING_WIND_CONDUIT.id} /> and <SpellLink id={SPELLS.HARMONY_OF_THE_TORTOLLAN_CONDUIT.id} />. </>, Putro),
   change(date(2021, 1, 10), <> Create a hacky solution to handle precasting <SpellLink id={SPELLS.AIMED_SHOT.id} /> to properly handle downtime - this leads to showing extremely short casttime for any precast Aimed Shot that finishes cast inside combat.</>, Putro),

@@ -155,7 +155,7 @@ const spells = {
     id: 20473,
     name: 'Holy Shock',
     icon: 'spell_holy_searinglight',
-    manaCost: 1400,
+    manaCost: 1600,
   },
   HOLY_SHOCK_HEAL: {
     id: 25914,

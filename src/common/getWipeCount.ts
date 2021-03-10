@@ -1,6 +1,6 @@
-import Fight from 'parser/core/Fight';
+import { WCLFight } from 'parser/core/Fight';
 
-export default function getWipeCount(fights: Fight[], fight: Fight): number {
+export default function getWipeCount(fights: WCLFight[], fight: WCLFight): number {
   let count = 1;
   fights.forEach((item) => {
     if (item.boss === fight.boss) {
