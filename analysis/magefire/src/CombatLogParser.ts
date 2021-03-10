@@ -36,6 +36,7 @@ import CombustionFirestarter from './modules/features/CombustionFirestarter';
 import CombustionCharges from './modules/features/CombustionCharges';
 import CombustionSpellUsage from './modules/features/CombustionSpellUsage';
 import CombustionActiveTime from './modules/features/CombustionActiveTime';
+import CombustionPreCastDelay from './modules/features/CombustionPreCastDelay';
 import PhoenixFlames from './modules/features/PhoenixFlames';
 import HeatingUp from './modules/features/HeatingUp';
 import Pyroclasm from './modules/features/Pyroclasm';
@@ -50,6 +51,7 @@ import Kindling from './modules/talents/Kindling';
 //Legendaries
 import FeveredIncantation from './modules/items/FeveredIncantation';
 import Firestorm from './modules/items/Firestorm';
+import DisciplinaryCommand from './modules/items/DisciplinaryCommand';
 
 //Covenants
 import ShiftingPowerUsage from './modules/features/ShiftingPowerUsage';
@@ -85,6 +87,7 @@ class CombatLogParser extends CoreCombatLogParser {
     combustionCharges: CombustionCharges,
     combustionSpellUsage: CombustionSpellUsage,
     combustionActiveTime: CombustionActiveTime,
+    combustionPreCastDelay: CombustionPreCastDelay,
     phoenixFlames: PhoenixFlames,
     heatingUp: HeatingUp,
     mirrorImage: MirrorImage,
@@ -104,6 +107,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Legendaries
     feveredIncantation: FeveredIncantation,
     firestorm: Firestorm,
+    disciplinaryCommand: DisciplinaryCommand,
 
     //Covenants
     shiftingPower: ShiftingPower,

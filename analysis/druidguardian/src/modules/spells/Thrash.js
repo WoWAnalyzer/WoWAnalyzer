@@ -1,8 +1,11 @@
 import React from 'react';
 import { formatPercentage } from 'common/format';
-import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { SpellIcon } from 'interface';
+import BoringSpellValue from 'parser/ui/BoringSpellValue';
+import BoringValueText from 'parser/ui/BoringValueText';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import Statistic from 'parser/ui/Statistic';
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import SPELLS from 'common/SPELLS';
@@ -12,7 +15,6 @@ class Thrash extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
-  statisticOrder = STATISTIC_ORDER.CORE(11);
 
   suggestions(when) {
     const thrashUptimePercentage = this.enemies.getBuffUptime(SPELLS.THRASH_BEAR_DOT.id) / this.owner.fightDuration;
@@ -32,11 +34,14 @@ class Thrash extends Analyzer {
     const thrashUptimePercentage = this.enemies.getBuffUptime(SPELLS.THRASH_BEAR_DOT.id) / this.owner.fightDuration;
 
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.THRASH_BEAR.id} />}
-        value={`${formatPercentage(thrashUptimePercentage)}%`}
-        label="Thrash uptime"
-      />
+      <Statistic
+        position={STATISTIC_ORDER.CORE(11)}
+        size="flexible"
+      >
+        <BoringValueText label={<><SpellIcon id={SPELLS.THRASH_BEAR.id} /> Thrash uptime </>} >           
+              {`${formatPercentage(thrashUptimePercentage)}%`}          
+        </BoringValueText>
+      </Statistic>
     );
   }
 }

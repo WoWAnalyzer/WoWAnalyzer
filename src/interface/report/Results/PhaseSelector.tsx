@@ -15,7 +15,7 @@ interface Props {
   };
   selectedPhase: string;
   selectedInstance: number;
-  handlePhaseSelection: (phase?: string, instance?: number) => void;
+  handlePhaseSelection: (phase: string, instance: number) => void;
   isLoading: boolean;
 }
 

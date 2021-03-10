@@ -11,6 +11,12 @@ import { EventType, MappedEvent } from './Events';
 export { SELECTED_PLAYER, SELECTED_PLAYER_PET };
 export type Options = _Options
 
+export interface ParseResultsTab {
+  title: string;
+  url: string;
+  render: () => React.ReactNode;
+}
+
 class Analyzer extends EventSubscriber {
 
   /**
@@ -43,12 +49,8 @@ class Analyzer extends EventSubscriber {
   /**
    * @deprecated Return a `Panel` from the statistic method instead.
    */
-  tab(): {
-    title: string;
-    url: string;
-    render: React.FC;
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-  } | void {}
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  tab(): (ParseResultsTab | void) {}
 }
 
 export default Analyzer;
