@@ -231,7 +231,7 @@ class CombatLogParser {
   player: PlayerInfo;
   playerPets: PetInfo[];
   fight: Fight;
-  build: string|null;
+  build?: string;
   builds?: Builds;
   boss: Boss | null;
   combatantInfoEvents: CombatantInfoEvent[];
@@ -282,7 +282,7 @@ class CombatLogParser {
     selectedFight: Fight,
     combatantInfoEvents: CombatantInfoEvent[],
     characterProfile: CharacterProfile,
-    build: string|null,
+    build?: string,
     builds?: Builds,
   ) {
     this.report = report;

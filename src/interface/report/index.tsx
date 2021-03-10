@@ -179,7 +179,7 @@ class ResultsLoader extends React.PureComponent<Props, State> {
 
   render() {
     const { config, report, fight, player, combatants } = this.props;
-    const build = this.state.parser && this.state.parser.build;
+    const build = (this.state.parser && this.state.parser.build) || undefined;
     return (
       <>
         {/* Load these different api calls asynchronously */}

@@ -28,7 +28,7 @@ interface Props {
   applyFilter: (start: number, end: number) => void;
   phases: { [key: string]: Phase }|null;
   makeBuildUrl: (selectedTab: string, buildName: string) => string;
-  build: string|null;
+  build?: string;
   selectedPhase: string;
   selectedInstance: number;
   isLoading: boolean;

@@ -86,7 +86,7 @@ interface PassedProps {
   handlePhaseSelection: (phase: string, instance: number) => void;
   applyFilter: (start: number, end: number) => void;
   timeFilter?: Filter;
-  build: string|null;
+  build?: string;
   report: Report;
   fight: Fight;
   player: PlayerInfo;

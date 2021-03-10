@@ -41,7 +41,7 @@ interface Props {
   applyTimeFilter: (start: number, end: number) => null;
   applyPhaseFilter: (phase: string, instance: any) => null;
   parserClass: new (...args: ConstructorParameters<typeof CombatLogParser>) => CombatLogParser;
-  build?: string|null;
+  build?: string;
   builds?: Builds;
   characterProfile: CharacterProfile;
   events: AnyEvent[];
@@ -110,7 +110,7 @@ class EventParser extends React.PureComponent<Props, State> {
       fight,
       combatants,
       characterProfile,
-      buildKey && build ? build : null,
+      buildKey && build,
       builds,
     );
     parser.applyTimeFilter = this.props.applyTimeFilter;
