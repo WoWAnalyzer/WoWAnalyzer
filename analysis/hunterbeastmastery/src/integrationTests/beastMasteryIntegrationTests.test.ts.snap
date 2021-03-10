@@ -771,7 +771,7 @@ Array [
     "stat": <React.Fragment>
       {"id":"hunter.marksmanship.suggestions.focusCapTracker.focusLost","message":"{0}% regenerated focus lost due to being capped.","values":{"0":"23.98"}}
        (
-      &lt;90% is recommended.
+      &lt;10% is recommended.
       )
     </React.Fragment>,
   },
