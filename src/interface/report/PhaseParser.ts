@@ -2,31 +2,27 @@ import React, { ReactNode } from 'react';
 
 import { EventType, PhaseEvent } from 'parser/core/Events';
 import { findByBossId, Phase } from 'game/raids';
-import Fight from 'parser/core/Fight';
+import { WCLFight } from 'parser/core/Fight';
 
 export const SELECTION_ALL_PHASES = "ALL";
 export const SELECTION_CUSTOM_PHASE = "CUSTOM";
 
 interface Props {
-  fight: Fight,
+  fight: WCLFight,
   bossPhaseEvents: PhaseEvent[],
-  children: (isLoading: boolean, phases?: { [key: string]: Phase }) => ReactNode,
+  children: (isLoading: boolean, phases: { [key: string]: Phase }|null) => ReactNode,
 }
 
 interface State {
   isLoading: boolean,
-  phases: { [key: string]: Phase } | undefined,
+  phases: { [key: string]: Phase } | null,
 }
 
 class PhaseParser extends React.PureComponent<Props, State> {
-
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      isLoading: true,
-      phases: undefined,
-    };
-  }
+  state: State = {
+    isLoading: true,
+    phases: null,
+  };
 
   componentDidMount() {
     // noinspection JSIgnoredPromiseFromCall

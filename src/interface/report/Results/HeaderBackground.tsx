@@ -1,10 +1,10 @@
 import React from 'react';
 
 interface Props {
-  boss?: {
+  boss: {
     background?: string;
     backgroundPosition?: string;
-  };
+  }|null;
 }
 
 const HeaderBackground = ({ boss }: Props) => {

@@ -1,15 +1,15 @@
 import { t } from '@lingui/macro';
 
-import Fight from 'parser/core/Fight';
+import { WCLFight } from 'parser/core/Fight';
 
 import getBossName from './getBossName';
 import getWipeCount from './getWipeCount';
 import { formatDuration } from './format';
 import { WCLFightsResponse } from './WCL_TYPES';
 
-export default function getFightName(report: WCLFightsResponse, fight: Fight) {
+export default function getFightName(report: WCLFightsResponse, fight: WCLFight) {
   const bossName = getBossName(fight, true);
-  const wipes = getWipeCount(report.fights as Fight[], fight);
+  const wipes = getWipeCount(report.fights, fight);
   const fightResult = fight.kill ? t({
     id: "common.getFightName.kill",
     message: `Kill`

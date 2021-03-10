@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 
 import { captureException } from 'common/errorLogger';
 import { COMBAT_POTIONS } from 'parser/shared/modules/items/PotionChecker';
-import Fight from 'parser/core/Fight';
+import Fight, { WCLFight } from 'parser/core/Fight';
 import {
   EventType,
   PhaseEvent,
@@ -34,13 +34,13 @@ const eventFollows = (e: BuffEvent | StackEvent, e2: BuffEvent | StackEvent) =>
   e2.targetID === e.targetID;
 
 interface Props {
-  fight: Fight;
+  fight: WCLFight;
   filter: Filter;
   phase: string;
   phaseinstance: number;
   bossPhaseEvents: PhaseEvent[];
   events: AnyEvent[];
-  children: (isLoading: boolean, events?: AnyEvent[], fight?: unknown) => ReactNode;
+  children: (isLoading: boolean, events?: AnyEvent[], fight?: Fight) => ReactNode;
 }
 
 interface State {
@@ -49,7 +49,7 @@ interface State {
   fight?: Fight;
 }
 
-interface Filter {
+export interface Filter {
   start: number;
   end: number;
 }

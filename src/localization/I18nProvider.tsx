@@ -2,10 +2,10 @@ import { Messages, i18n } from '@lingui/core';
 import { I18nProvider as LinguiI18nProvider } from '@lingui/react';
 import React, { ReactNode, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { useSelector } from 'react-redux';
 import { en, de, es, fr, it, ko, pl, pt, ru, zh } from 'make-plural/plurals';
 
 import { getLanguage } from 'interface/selectors/language';
+import { useWaSelector } from 'interface/utils/useWaSelector';
 
 i18n.loadLocaleData('en', { plurals: en });
 i18n.loadLocaleData('de', { plurals: de });
@@ -32,7 +32,7 @@ interface Props {
 }
 
 const I18nProvider = ({ children }: Props) => {
-  const locale = useSelector((state) => getLanguage(state));
+  const locale = useWaSelector((state) => getLanguage(state));
   const [activeLocale, setActiveLocale] = useState<string | undefined>(undefined);
 
   useEffect(() => {
