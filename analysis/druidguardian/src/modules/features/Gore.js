@@ -1,9 +1,11 @@
 // Based on Clearcasting Implementation done by @Blazyb
 import React from 'react';
 import { formatPercentage } from 'common/format';
-import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { SpellIcon } from 'interface';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import BoringValueText from 'parser/ui/BoringValueText';
+import Statistic from 'parser/ui/Statistic';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELLS from 'common/SPELLS';
@@ -23,8 +25,7 @@ class Gore extends Analyzer {
   consumedGoreProc = 0;
   overwrittenGoreProc = 0;
   nonGoreMangle = 0;
-  statisticOrder = STATISTIC_ORDER.CORE(5);
-
+  
   constructor(options) {
     super(options);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.GORE_BEAR), this.onApplyBuff);
@@ -86,13 +87,16 @@ class Gore extends Analyzer {
   statistic() {
     const unusedGoreProcs = 1 - (this.consumedGoreProc / this.totalProcs);
 
-    return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.GORE_BEAR.id} />}
-        value={`${formatPercentage(unusedGoreProcs)}%`}
-        label="Unused Gore Procs"
+    return (      
+      <Statistic        
+        position={STATISTIC_ORDER.CORE(5)}
+        size="flexible"
         tooltip={<>You got total <strong>{this.totalProcs}</strong> gore procs and <strong>used {this.consumedGoreProc}</strong> of them.</>}
-      />
+      >
+        <BoringValueText label={<><SpellIcon id={SPELLS.GORE_BEAR.id} /> Unused Gore Proc's </>} >           
+              {`${formatPercentage(unusedGoreProcs)}%`}          
+        </BoringValueText>  
+      </Statistic>
     );
   }
 }

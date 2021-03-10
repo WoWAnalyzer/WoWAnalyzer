@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 
 import CombatLogParser from 'parser/core/CombatLogParser';
 import Config from 'parser/Config';
@@ -21,4 +21,4 @@ const ParserLoader = ({ children, config }: Props) => {
   return children(!parserClass, parserClass);
 };
 
-export default ParserLoader;
+export default ParserLoader as React.ComponentType<Props>;

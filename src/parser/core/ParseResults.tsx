@@ -1,5 +1,6 @@
 import React from 'react';
 import { captureException } from 'common/errorLogger';
+import { ParseResultsTab } from 'parser/core/Analyzer';
 
 import ISSUE_IMPORTANCE from './ISSUE_IMPORTANCE';
 
@@ -324,8 +325,8 @@ type GenericSuggestionType<T extends ValidThresholds> =
 export type When = <T extends ValidThresholds>(threshold: T) => GenericSuggestionType<T>;
 
 class ParseResults {
-  tabs: React.ReactNode[] = [];
-  statistics: React.ReactNode[] = [];
+  tabs: ParseResultsTab[] = [];
+  statistics: React.ReactElement[] = [];
   issues: Issue[] = [];
 
   constructor() {

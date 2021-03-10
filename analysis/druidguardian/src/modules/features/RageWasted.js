@@ -4,7 +4,9 @@ import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
-import StatisticBox from 'parser/ui/StatisticBox';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import BoringValueText from 'parser/ui/BoringValueText';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import { t } from '@lingui/macro';
@@ -125,10 +127,9 @@ class RageWasted extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.BRISTLING_FUR.id} />}
-        label="Wasted Rage"
-        value={`${formatPercentage(this.wastedRageRatio)}%`}
+      <Statistic        
+        position={STATISTIC_ORDER.CORE(4)}
+        size="flexible"
         tooltip={(
           <>
             You wasted <strong>{this.totalWastedRage}</strong> rage out of <strong>{this.totalRageGained}</strong> total rage gained. (<strong>{formatPercentage(this.wastedRageRatio)}%</strong> of total)<br /><br />
@@ -136,7 +137,11 @@ class RageWasted extends Analyzer {
             {this.wastedRageBreakdown}
           </>
         )}
-      />
+      >        
+        <BoringValueText label={<><SpellIcon id={SPELLS.BRISTLING_FUR.id} /> Wasted Rage </>} >           
+              {`${formatPercentage(this.wastedRageRatio)}%`}          
+        </BoringValueText>
+      </Statistic>      
     );
   }
 }

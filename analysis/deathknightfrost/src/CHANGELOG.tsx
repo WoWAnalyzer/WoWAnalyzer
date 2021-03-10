@@ -6,6 +6,8 @@ import { SpellLink } from 'interface';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2021, 3, 7), 'Added Frost specific runeforge suggestions', Khazak),
+  change(date(2021, 3, 7), <>Added basic Frost specific suggestions to <SpellLink id={SPELLS.SUPERSTRAIN.id}/></>, Khazak),
   change(date(2021, 2, 17), <> Removed <SpellLink id={SPELLS.DEATH_AND_DECAY.id} /> cooldown tracker for Night Fae players</>, Pendragon),
   change(date(2020, 12, 27), <> Fix a crash in the <SpellLink id={SPELLS.SWARMING_MIST.id} /> module.</>, Putro),
   change(date(2020, 12, 20), <> Added module for <SpellLink id={SPELLS.SWARMING_MIST.id} /> and added RP gained from <SpellLink id={SPELLS.SUPERSTRAIN.id} /> to statistic damage</>, joshinator),

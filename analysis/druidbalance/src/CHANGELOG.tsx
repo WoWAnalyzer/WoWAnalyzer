@@ -1,8 +1,12 @@
 import { Zeboot, LeoZhekov, Sharrq, Tiboonn, Kartarn, Ciuffi } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
+import { SpellLink } from 'interface';
+import SPELLS from 'common/SPELLS';
+import React from 'react';
 
 export default [
-  change(date(2021, 3, 6), 'Updated Starlord, Stellar Drift and Twin Moons talents for Shadowlands.', Kartarn),
+  change(date(2021, 3, 10), 'Updated Starlord, Stellar Drift and Twin Moons talents for Shadowlands.', Kartarn),
+  change(date(2021, 3, 7), <> Implemented correct wrong-cast suggestions in timeline for casting <SpellLink id={SPELLS.STARFIRE.id} /> and <SpellLink id={SPELLS.WRATH_MOONKIN.id} /> while not in the correct eclipse.</>, Kartarn),
   change(date(2021, 2, 21), 'Add modules for Starfire and Wrath to track unempowered casts', Tiboonn),
   change(date(2021, 2, 12), 'Added convoke tracking to the statistics page', Ciuffi),
   change(date(2021, 2, 13), 'Added Analyzer for utilizing Balance of All things legendary.', Kartarn),

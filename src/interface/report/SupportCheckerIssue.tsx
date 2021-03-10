@@ -9,18 +9,18 @@ import GitHubButton from 'interface/GitHubButton';
 import DiscordButton from 'interface/DiscordButton';
 import Icon from 'interface/Icon';
 import Background from 'interface/report/images/weirdnelf.png';
-import Fight from 'parser/core/Fight';
-import { Player } from 'parser/core/CombatLogParser';
+import { WCLFight } from 'parser/core/Fight';
 import ReadableListing from 'interface/ReadableListing';
 import Contributor from 'interface/ContributorButton';
 import Config from 'parser/Config';
 import Changelog from 'interface/Changelog';
+import { PlayerInfo } from 'parser/core/Player';
 
 interface Props {
   report: unknown;
-  fight: Fight;
+  fight: WCLFight;
   config: Config;
-  player: Player;
+  player: PlayerInfo;
   title: ReactNode;
   children: ReactNode;
   onContinueAnyway: () => void;
