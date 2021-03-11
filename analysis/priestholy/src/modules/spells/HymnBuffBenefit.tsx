@@ -77,9 +77,7 @@ class HymnBuffBenefit extends Analyzer {
           // we need to do some "approximations" using the total overheal in tandem with the total healing. We do not want to naively
           // assume all healing was fully effective, as this would drastically overweight the power of the buff in situations where a
           // lot of overhealing occurs.
-          (healingFromBuff: any, entry: WCLHealing) => {
-            return healingFromBuff + ((entry.total - entry.total / (1 + (DIVINE_HYMN_HEALING_INCREASE_PER_STACK * stackCount))) * (entry.total / (entry.total + (entry.overheal || 0))));
-          },
+          (healingFromBuff: any, entry: WCLHealing) => healingFromBuff + ((entry.total - entry.total / (1 + (DIVINE_HYMN_HEALING_INCREASE_PER_STACK * stackCount))) * (entry.total / (entry.total + (entry.overheal || 0)))),
           0,
         );
       });
