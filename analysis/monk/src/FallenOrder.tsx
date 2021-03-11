@@ -1,17 +1,17 @@
-import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Abilities from 'parser/core/modules/Abilities';
-import SPELLS from 'common/SPELLS';
-import Events, { DamageEvent, HealEvent, SummonEvent } from 'parser/core/Events';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import React from 'react';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { formatNumber } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import SPECS from 'game/SPECS';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Events, { DamageEvent, HealEvent, SummonEvent } from 'parser/core/Events';
+import Abilities from 'parser/core/modules/Abilities';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 class FallenOrder extends Analyzer {
   static dependencies = {
@@ -40,7 +40,8 @@ class FallenOrder extends Analyzer {
       spell: SPELLS.FALLEN_ORDER_CAST,
       category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
       cooldown: 180,
-      gcd: this.selectedCombatant.spec === SPECS.MISTWEAVER_MONK ? { base: 1500 } : { static: 1000 },
+      gcd:
+        this.selectedCombatant.spec === SPECS.MISTWEAVER_MONK ? { base: 1500 } : { static: 1000 },
       castEfficiency: {
         suggestion: true,
         recommendedEfficiency: 0.8,
@@ -48,16 +49,47 @@ class FallenOrder extends Analyzer {
     });
 
     //summon events (need to track this to get melees)
-    this.addEventListener(Events.summon.by(SELECTED_PLAYER).spell([SPELLS.FALLEN_ORDER_OX_CLONE, SPELLS.FALLEN_ORDER_TIGER_CLONE, SPELLS.FALLEN_ORDER_CRANE_CLONE]), this.trackSummons);
+    this.addEventListener(
+      Events.summon
+        .by(SELECTED_PLAYER)
+        .spell([
+          SPELLS.FALLEN_ORDER_OX_CLONE,
+          SPELLS.FALLEN_ORDER_TIGER_CLONE,
+          SPELLS.FALLEN_ORDER_CRANE_CLONE,
+        ]),
+      this.trackSummons,
+    );
 
     //mistweaver spells
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER_PET).spell([SPELLS.FALLEN_ORDER_ENVELOPING_MIST, SPELLS.FALLEN_ORDER_SOOTHING_MIST]), this.mistHealingTracker);
+    this.addEventListener(
+      Events.heal
+        .by(SELECTED_PLAYER_PET)
+        .spell([SPELLS.FALLEN_ORDER_ENVELOPING_MIST, SPELLS.FALLEN_ORDER_SOOTHING_MIST]),
+      this.mistHealingTracker,
+    );
     //brewmaster spells
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell([SPELLS.FALLEN_ORDER_KEG_SMASH, SPELLS.FALLEN_ORDER_BREATH_OF_FIRE, SPELLS.BREATH_OF_FIRE_DEBUFF]), this.brewDamageTracker);
+    this.addEventListener(
+      Events.damage
+        .by(SELECTED_PLAYER_PET)
+        .spell([
+          SPELLS.FALLEN_ORDER_KEG_SMASH,
+          SPELLS.FALLEN_ORDER_BREATH_OF_FIRE,
+          SPELLS.BREATH_OF_FIRE_DEBUFF,
+        ]),
+      this.brewDamageTracker,
+    );
     //windwalker spells
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell([SPELLS.FALLEN_ORDER_SPINNING_CRANE_KICK, SPELLS.FISTS_OF_FURY_DAMAGE]), this.windDamageTracker);
+    this.addEventListener(
+      Events.damage
+        .by(SELECTED_PLAYER_PET)
+        .spell([SPELLS.FALLEN_ORDER_SPINNING_CRANE_KICK, SPELLS.FISTS_OF_FURY_DAMAGE]),
+      this.windDamageTracker,
+    );
     //shared
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.MELEE), this.handleMelee);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.MELEE),
+      this.handleMelee,
+    );
   }
 
   trackSummons(event: SummonEvent) {
@@ -102,7 +134,6 @@ class FallenOrder extends Analyzer {
     } else {
       this.mistDamageTracker(event);
     }
-
   }
 
   statistic() {
@@ -113,7 +144,7 @@ class FallenOrder extends Analyzer {
         position={STATISTIC_ORDER.CORE()}
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
-        tooltip={(
+        tooltip={
           <>
             <ul>
               <li>Damage from Brewmaster clones: {formatNumber(this.brewDamage)}</li>
@@ -121,10 +152,11 @@ class FallenOrder extends Analyzer {
               <li>Damage from Windwalker clones: {formatNumber(this.windDamage)}</li>
             </ul>
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.FALLEN_ORDER_CAST}>
-          <ItemHealingDone amount={this.mistHealing} /><br />
+          <ItemHealingDone amount={this.mistHealing} />
+          <br />
           <ItemDamageDone amount={totalDamage} />
         </BoringSpellValueText>
       </Statistic>

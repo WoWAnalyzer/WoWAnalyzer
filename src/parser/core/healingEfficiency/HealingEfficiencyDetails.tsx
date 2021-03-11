@@ -1,11 +1,10 @@
+import { Trans } from '@lingui/macro';
+import Analyzer from 'parser/core/Analyzer';
+import Panel from 'parser/ui/Panel';
 import React from 'react';
 
-import Panel from 'parser/ui/Panel';
-import Analyzer from 'parser/core/Analyzer';
-import { Trans } from '@lingui/macro';
-
-import HealingEfficiencyTracker from './HealingEfficiencyTracker';
 import HealingEfficiencyBreakdown from './HealingEfficiencyBreakdown';
+import HealingEfficiencyTracker from './HealingEfficiencyTracker';
 
 class HealingEfficiencyDetails extends Analyzer {
   static dependencies = {

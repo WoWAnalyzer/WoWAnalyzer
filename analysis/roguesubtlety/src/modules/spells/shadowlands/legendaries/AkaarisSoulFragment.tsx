@@ -1,13 +1,13 @@
-import React from 'react';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Abilities from 'parser/core/modules/Abilities';
-import SPELLS from 'common/SPELLS';
-import Events, { DamageEvent } from 'parser/core/Events';
 import { formatNumber } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { DamageEvent } from 'parser/core/Events';
+import Abilities from 'parser/core/modules/Abilities';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import React from 'react';
 
 class AkaarisSoulFragment extends Analyzer {
   static dependencies = {
@@ -19,8 +19,13 @@ class AkaarisSoulFragment extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.AKAARIS_SOUL_FRAGMENT.bonusID);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.AKAARIS_SOUL_FRAGMENT_SHADOWSTRIKE), this.onDamage);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(
+      SPELLS.AKAARIS_SOUL_FRAGMENT.bonusID,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.AKAARIS_SOUL_FRAGMENT_SHADOWSTRIKE),
+      this.onDamage,
+    );
   }
 
   onDamage(event: DamageEvent) {
@@ -32,11 +37,12 @@ class AkaarisSoulFragment extends Analyzer {
       <Statistic
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
-        tooltip={(
+        tooltip={
           <>
-            Akaari's Soul Fragment contributed {formatNumber(this.damage)} total damage done with a secondary Shadowstrike.
+            Akaari's Soul Fragment contributed {formatNumber(this.damage)} total damage done with a
+            secondary Shadowstrike.
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.AKAARIS_SOUL_FRAGMENT}>
           <>

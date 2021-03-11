@@ -2,11 +2,11 @@
  * A simple component that shows the spell value in the most plain way possible.
  * Use this only as the very last resort.
  */
-import React from 'react';
 
 import { ItemIcon } from 'interface';
 import { ItemLink } from 'interface';
 import { Item } from 'parser/core/Events';
+import React from 'react';
 
 type Props = {
   item: Item;

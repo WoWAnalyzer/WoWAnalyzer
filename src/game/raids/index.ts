@@ -1,5 +1,6 @@
-import { Race } from 'parser/core/Combatant';
+/* eslint-disable @typescript-eslint/no-var-requires */
 import { Spec } from 'game/SPECS';
+import { Race } from 'parser/core/Combatant';
 
 export interface PhaseConfig {
   name: string;
@@ -46,7 +47,7 @@ export interface Dungeon {
   headshot?: string;
   icon?: string;
   fight: unknown;
-};
+}
 
 const raids = {
   // Battle for Azeroth

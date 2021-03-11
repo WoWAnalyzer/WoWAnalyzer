@@ -7,9 +7,10 @@ export default function getConfig(specId: number) {
   }
 
   if (config.builds) {
-    config.builds = Object.fromEntries(
-      Object.entries(config.builds).filter(([_key, build]) => build.visible, {})
-    ) || undefined;
+    config.builds =
+      Object.fromEntries(
+        Object.entries(config.builds).filter(([_key, build]) => build.visible, {}),
+      ) || undefined;
   }
 
   return config;

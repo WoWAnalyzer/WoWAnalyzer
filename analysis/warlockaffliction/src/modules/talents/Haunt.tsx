@@ -1,22 +1,18 @@
-import React from 'react';
-
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent } from 'parser/core/Events';
-import Enemies from 'parser/shared/modules/Enemies';
-import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-
+import { t } from '@lingui/macro';
+import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
-import { formatPercentage, formatThousands, formatNumber } from 'common/format';
-
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import Statistic from 'parser/ui/Statistic';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import UptimeBar from 'parser/ui/UptimeBar';
-
-import { t } from '@lingui/macro';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import Events, { DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import Enemies from 'parser/shared/modules/Enemies';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import UptimeBar from 'parser/ui/UptimeBar';
+import React from 'react';
 
 const HAUNT_DAMAGE_BONUS = 0.1;
 

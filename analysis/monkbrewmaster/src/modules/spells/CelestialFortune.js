@@ -1,21 +1,21 @@
-import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import StatTracker from 'parser/shared/modules/StatTracker';
-import Combatants from 'parser/shared/modules/Combatants';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import Statistic from 'parser/ui/Statistic';
-import BoringValue from 'parser/ui/BoringValueText';
-import SPELLS from 'common/SPELLS';
+import { formatNumber } from 'common/format';
 import ITEMS from 'common/ITEMS';
-import { ItemIcon } from 'interface';
+import SPELLS from 'common/SPELLS';
 import SPECS from 'game/SPECS';
+import { ItemIcon } from 'interface';
 import { SpellIcon } from 'interface';
 import { SpecIcon } from 'interface';
 import { SpellLink } from 'interface';
 import { Icon } from 'interface';
 import { Panel } from 'interface';
-import { formatNumber } from 'common/format';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import Combatants from 'parser/shared/modules/Combatants';
+import StatTracker from 'parser/shared/modules/StatTracker';
+import BoringValue from 'parser/ui/BoringValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 /**
  * Celestial Fortune
@@ -90,7 +90,9 @@ class CelestialFortune extends Analyzer {
     }
 
     const sourceAbsorbs = this._currentAbsorbs[event.sourceID];
-    sourceAbsorbs[event.ability.guid] = sourceAbsorbs[event.ability.guid] ? sourceAbsorbs[event.ability.guid] + event.amount : event.amount;
+    sourceAbsorbs[event.ability.guid] = sourceAbsorbs[event.ability.guid]
+      ? sourceAbsorbs[event.ability.guid] + event.amount
+      : event.amount;
   }
 
   onRemoveBuff(event) {
@@ -154,7 +156,7 @@ class CelestialFortune extends Analyzer {
     const spellId = event.ability.guid;
     this._initHealing(sourceId, spellId, true);
     const totalAbsorb = amountAbsorbed + event.absorb;
-    const cfBonus = totalAbsorb * crit / (1 + crit);
+    const cfBonus = (totalAbsorb * crit) / (1 + crit);
     // any absorb overhealing is taken from the cf bonus *first*
     const amount = Math.max(0, cfBonus - event.absorb);
 
@@ -166,14 +168,15 @@ class CelestialFortune extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        size="flexible"
-        position={STATISTIC_ORDER.OPTIONAL()}
-      >
-        <BoringValue label={<><SpellIcon id={SPELLS.CELESTIAL_FORTUNE_HEAL.id} /> Celestial Fortune Healing</>}>
-          <>
-            {formatNumber(this.hps)} HPS
-          </>
+      <Statistic size="flexible" position={STATISTIC_ORDER.OPTIONAL()}>
+        <BoringValue
+          label={
+            <>
+              <SpellIcon id={SPELLS.CELESTIAL_FORTUNE_HEAL.id} /> Celestial Fortune Healing
+            </>
+          }
+        >
+          <>{formatNumber(this.hps)} HPS</>
         </BoringValue>
       </Statistic>
     );
@@ -188,7 +191,10 @@ class CelestialFortune extends Analyzer {
       const spec = SPECS[combatant.specId];
       const specClassName = spec.className.replace(' ', '');
       return (
-        <span style={style} className={specClassName}><SpecIcon id={spec.id} />{` ${combatant.name}`}</span>
+        <span style={style} className={specClassName}>
+          <SpecIcon id={spec.id} />
+          {` ${combatant.name}`}
+        </span>
       );
     }
 
@@ -216,20 +222,36 @@ class CelestialFortune extends Analyzer {
                 <td />
                 <td>
                   <SpellLink id={Number(id)} icon={false}>
-                    {SPELLS[id] ? <><Icon icon={SPELLS[id].icon} /> {SPELLS[id].name}</> : ITEMS[id] ? <><ItemIcon id={ITEMS[id]} /> {ITEMS[id].name}</> : id}
+                    {SPELLS[id] ? (
+                      <>
+                        <Icon icon={SPELLS[id].icon} /> {SPELLS[id].name}
+                      </>
+                    ) : ITEMS[id] ? (
+                      <>
+                        <ItemIcon id={ITEMS[id]} /> {ITEMS[id].name}
+                      </>
+                    ) : (
+                      id
+                    )}
                   </SpellLink>
                 </td>
-                <td>{absorb ? '≈' : ''}{`${formatNumber(amount / (this.owner.fightDuration / 1000))} HPS`}</td>
+                <td>
+                  {absorb ? '≈' : ''}
+                  {`${formatNumber(amount / (this.owner.fightDuration / 1000))} HPS`}
+                </td>
                 <td style={{ width: '20%' }}>
                   <div className="flex performance-bar-container">
                     <div
                       className="flex-sub performance-bar"
-                      style={{ width: `${amount / this._totalHealing * 100}%`, backgroundColor: '#70b570' }}
+                      style={{
+                        width: `${(amount / this._totalHealing) * 100}%`,
+                        backgroundColor: '#70b570',
+                      }}
                     />
                   </div>
                 </td>
                 <td className="text-left">
-                  {`${(amount / this._totalHealing * 100).toFixed(2)}%`}
+                  {`${((amount / this._totalHealing) * 100).toFixed(2)}%`}
                 </td>
               </tr>
             ))}
@@ -241,12 +263,15 @@ class CelestialFortune extends Analyzer {
               <div className="flex performance-bar-container">
                 <div
                   className="flex-sub performance-bar"
-                  style={{ width: `${obj._totalHealing / this._totalHealing * 100}%`, backgroundColor: '#ff8000' }}
+                  style={{
+                    width: `${(obj._totalHealing / this._totalHealing) * 100}%`,
+                    backgroundColor: '#ff8000',
+                  }}
                 />
               </div>
             </td>
             <td className="text-left">
-              {`${(obj._totalHealing / this._totalHealing * 100).toFixed(2)}%`}
+              {`${((obj._totalHealing / this._totalHealing) * 100).toFixed(2)}%`}
             </td>
           </tr>
         </tbody>
@@ -266,7 +291,10 @@ class CelestialFortune extends Analyzer {
       render: () => (
         <Panel>
           <div style={{ marginTop: -10, marginBottom: -10 }}>
-            <div style={{ padding: '1em' }}>Bonus healing provided by <SpellLink id={SPELLS.CELESTIAL_FORTUNE_HEAL.id} />, broken down by triggering spell and which player cast that spell.</div>
+            <div style={{ padding: '1em' }}>
+              Bonus healing provided by <SpellLink id={SPELLS.CELESTIAL_FORTUNE_HEAL.id} />, broken
+              down by triggering spell and which player cast that spell.
+            </div>
             <table className="data-table" style={{ marginTop: 10, marginBottom: 10 }}>
               {this.entries()}
             </table>

@@ -1,21 +1,18 @@
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import Combatants from 'parser/shared/modules/Combatants';
+import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
+import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 import React from 'react';
 
 import { EnergyDetails, ComboPointDetails } from '@wowanalyzer/rogue';
 
-import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
-import CastEfficiency from 'parser/shared/modules/CastEfficiency';
-import Combatants from 'parser/shared/modules/Combatants';
-import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
-
 import OutlawEnergyCapTracker from '../../core/OutlawEnergyCapTracker';
-
-import Finishers from '../Finishers';
-import RollTheBonesBuffs from '../../spells/RollTheBonesBuffs';
-import RollTheBonesEfficiency from '../../spells/RollTheBonesEfficiency';
 import BetweenTheEyes from '../../spells/BetweenTheEyes';
 import Dispatch from '../../spells/Dispatch';
 import Opportunity from '../../spells/Opportunity';
-
+import RollTheBonesBuffs from '../../spells/RollTheBonesBuffs';
+import RollTheBonesEfficiency from '../../spells/RollTheBonesEfficiency';
+import Finishers from '../Finishers';
 import Component from './Component';
 
 class Checklist extends BaseChecklist {

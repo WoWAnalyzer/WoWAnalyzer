@@ -1,17 +1,14 @@
-import React from 'react';
+import { t } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import SPELLS from 'common/SPELLS';
-import { formatPercentage } from 'common/format';
-import { t } from '@lingui/macro';
+import React from 'react';
 
-const BETTER_SPELLS = [
-  SPELLS.JUDGMENT_CAST_PROTECTION.id,
-  SPELLS.AVENGERS_SHIELD.id,
-];
+const BETTER_SPELLS = [SPELLS.JUDGMENT_CAST_PROTECTION.id, SPELLS.AVENGERS_SHIELD.id];
 
 export default class HammerOfTheRighteous extends Analyzer {
   static dependencies = {
@@ -25,16 +22,19 @@ export default class HammerOfTheRighteous extends Analyzer {
 
   constructor(props) {
     super(props);
-    if(this.selectedCombatant.hasTalent(SPELLS.BLESSED_HAMMER_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(SPELLS.BLESSED_HAMMER_TALENT.id)) {
       this.activeSpell = SPELLS.BLESSED_HAMMER_TALENT;
     }
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.activeSpell), this._handleFiller);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(this.activeSpell),
+      this._handleFiller,
+    );
   }
 
   _handleFiller(event) {
     const hadBetterSpell = !BETTER_SPELLS.every(this.spells.isOnCooldown.bind(this.spells));
-    if(hadBetterSpell) {
+    if (hadBetterSpell) {
       this._badCasts += 1;
     }
 
@@ -49,7 +49,7 @@ export default class HammerOfTheRighteous extends Analyzer {
     return {
       actual: this.badCastRatio,
       isGreaterThan: {
-        minor: 0.10,
+        minor: 0.1,
         average: 0.15,
         major: 0.25,
       },
@@ -58,13 +58,25 @@ export default class HammerOfTheRighteous extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.badCastThreshold)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>You should avoid casting <SpellLink id={this.activeSpell.id} /> while better spells (namely <SpellLink id={SPELLS.JUDGMENT_CAST_PROTECTION.id} /> and <SpellLink id={SPELLS.AVENGERS_SHIELD.id} />) are available. This is a <em>filler</em> ability and should only be used when you have no better spells to cast.</>)
+    when(this.badCastThreshold).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You should avoid casting <SpellLink id={this.activeSpell.id} /> while better spells
+          (namely <SpellLink id={SPELLS.JUDGMENT_CAST_PROTECTION.id} /> and{' '}
+          <SpellLink id={SPELLS.AVENGERS_SHIELD.id} />) are available. This is a <em>filler</em>{' '}
+          ability and should only be used when you have no better spells to cast.
+        </>,
+      )
         .icon(this.activeSpell.icon)
-        .actual(t({
-      id: "paladin.protection.suggestions.hammerOfTheRighteous.efficiency",
-      message: `${formatPercentage(this.badCastRatio)}% of casts while better spells were available`
-    }))
-        .recommended(`< ${formatPercentage(recommended)}% is recommended`));
+        .actual(
+          t({
+            id: 'paladin.protection.suggestions.hammerOfTheRighteous.efficiency',
+            message: `${formatPercentage(
+              this.badCastRatio,
+            )}% of casts while better spells were available`,
+          }),
+        )
+        .recommended(`< ${formatPercentage(recommended)}% is recommended`),
+    );
   }
 }

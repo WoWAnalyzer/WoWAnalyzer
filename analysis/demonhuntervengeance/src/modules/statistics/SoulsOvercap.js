@@ -1,16 +1,13 @@
-import React from 'react';
-
-import Analyzer from 'parser/core/Analyzer';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-
+import { t } from '@lingui/macro';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-
-import { formatNumber, formatPercentage } from 'common/format';
+import Analyzer from 'parser/core/Analyzer';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { t } from '@lingui/macro';
+import React from 'react';
 
 import SoulFragmentsTracker from '../features/SoulFragmentsTracker';
 
@@ -20,7 +17,7 @@ class SoulsOvercap extends Analyzer {
       actual: this.wasterPerGenerated(),
       isGreaterThan: {
         minor: 0.05,
-        average: 0.10,
+        average: 0.1,
         major: 0.15,
       },
       style: 'percentage',
@@ -40,7 +37,9 @@ class SoulsOvercap extends Analyzer {
 */
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id) && !this.selectedCombatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id);
+    this.active =
+      this.selectedCombatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id) &&
+      !this.selectedCombatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id);
   }
 
   wasterPerGenerated() {
@@ -48,14 +47,23 @@ class SoulsOvercap extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestionThresholdsEfficiency)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>You are generating <SpellLink id={SPELLS.SOUL_FRAGMENT.id} />s when you are already at 5 souls. These are auto consumed. You are missing out on the extra damage consuming them with <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> provides.</>)
+    when(this.suggestionThresholdsEfficiency).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You are generating <SpellLink id={SPELLS.SOUL_FRAGMENT.id} />s when you are already at 5
+          souls. These are auto consumed. You are missing out on the extra damage consuming them
+          with <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> provides.
+        </>,
+      )
         .icon(SPELLS.SOUL_FRAGMENT.icon)
-        .actual(t({
-      id: "demonhunter.vengeance.suggestions.souls.wasted",
-      message: `${formatPercentage(this.wasterPerGenerated())}% wasted Soul Fragments.`
-    }))
-        .recommended(`${formatPercentage(recommended)}% or less is recommended`));
+        .actual(
+          t({
+            id: 'demonhunter.vengeance.suggestions.souls.wasted',
+            message: `${formatPercentage(this.wasterPerGenerated())}% wasted Soul Fragments.`,
+          }),
+        )
+        .recommended(`${formatPercentage(recommended)}% or less is recommended`),
+    );
   }
 
   statistic() {
@@ -63,14 +71,21 @@ class SoulsOvercap extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(5)}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            You generated {formatNumber(this.soulFragmentsTracker.soulsWasted)} souls at cap. These are absorbed automatically and aren't avalible to boost Spirit Bomb's damage.<br />
-            Total Soul Fragments generated: {formatNumber(this.soulFragmentsTracker.soulsGenerated)}<br />
-            Total Soul Fragments spent: {formatNumber(this.soulFragmentsTracker.soulsSpent)}<br />
-            At the end of the fight, you had {formatNumber(this.soulFragmentsTracker.currentSouls)} unused Soul Fragments.
+            You generated {formatNumber(this.soulFragmentsTracker.soulsWasted)} souls at cap. These
+            are absorbed automatically and aren't avalible to boost Spirit Bomb's damage.
+            <br />
+            Total Soul Fragments generated: {formatNumber(this.soulFragmentsTracker.soulsGenerated)}
+            <br />
+            Total Soul Fragments spent: {formatNumber(this.soulFragmentsTracker.soulsSpent)}
+            <br />
+            At the end of the fight, you had {formatNumber(
+              this.soulFragmentsTracker.currentSouls,
+            )}{' '}
+            unused Soul Fragments.
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.SOUL_FRAGMENT}>
           <>

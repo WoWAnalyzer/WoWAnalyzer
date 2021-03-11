@@ -1,9 +1,8 @@
 import SPELLS from 'common/SPELLS';
-
-import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
-import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
-import Events from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 
 const MARK_FOR_DEATH_DURATION = 60 * 1000;
 
@@ -15,7 +14,10 @@ class SpellUsable extends CoreSpellUsable {
 
   constructor(options) {
     super(options);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.MARKED_FOR_DEATH_TALENT), this.onRemoveBuff);
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.MARKED_FOR_DEATH_TALENT),
+      this.onRemoveBuff,
+    );
   }
 
   onCast(event) {

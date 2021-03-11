@@ -1,5 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 import ManaUsageGraph from './ManaUsageGraph';
 
@@ -13,19 +13,18 @@ class HealingDoneGraph extends React.PureComponent {
   };
 
   groupHealingBySeconds(healingBySecond, interval) {
-    return Object.keys(healingBySecond)
-      .reduce((obj, second) => {
-        const healing = healingBySecond[second];
+    return Object.keys(healingBySecond).reduce((obj, second) => {
+      const healing = healingBySecond[second];
 
-        const index = Math.floor(second / interval);
+      const index = Math.floor(second / interval);
 
-        if (obj[index]) {
-          obj[index] = obj[index].add(healing.regular, healing.absorbed, healing.overheal);
-        } else {
-          obj[index] = healing;
-        }
-        return obj;
-      }, {});
+      if (obj[index]) {
+        obj[index] = obj[index].add(healing.regular, healing.absorbed, healing.overheal);
+      } else {
+        obj[index] = healing;
+      }
+      return obj;
+    }, {});
   }
 
   render() {
@@ -38,7 +37,7 @@ class HealingDoneGraph extends React.PureComponent {
 
     let max = 0;
     Object.keys(healingPerFrame)
-      .map(k => healingPerFrame[k])
+      .map((k) => healingPerFrame[k])
       .forEach((healingDone) => {
         const current = healingDone.effective;
         if (current > max) {
@@ -62,7 +61,7 @@ class HealingDoneGraph extends React.PureComponent {
     const fightDurationSec = Math.ceil((end - start) / 1000);
     const labels = [];
     for (let i = 0; i <= fightDurationSec / interval; i += 1) {
-      labels.push(Math.ceil(offset/1000) + i * interval);
+      labels.push(Math.ceil(offset / 1000) + i * interval);
 
       healingPerFrame[i] = healingPerFrame[i] !== undefined ? healingPerFrame[i].effective : 0;
       manaUsagePerFrame[i] = manaUsagePerFrame[i] !== undefined ? manaUsagePerFrame[i] : 0;
@@ -79,16 +78,18 @@ class HealingDoneGraph extends React.PureComponent {
         y: lastKnown * max,
       };
     });
-    const healing = Object.values(healingPerFrame).map((value, i) => ({ x: labels[i], y: value / interval }));
-    const manaUsed = Object.values(manaUsagePerFrame).map((value, i) => ({ x: labels[i], y: value * max }));
+    const healing = Object.values(healingPerFrame).map((value, i) => ({
+      x: labels[i],
+      y: value / interval,
+    }));
+    const manaUsed = Object.values(manaUsagePerFrame).map((value, i) => ({
+      x: labels[i],
+      y: value * max,
+    }));
 
     return (
       <div className="graph-container" style={{ marginBottom: 20 }}>
-        <ManaUsageGraph
-          mana={mana}
-          healing={healing}
-          manaUsed={manaUsed}
-        />
+        <ManaUsageGraph mana={mana} healing={healing} manaUsed={manaUsed} />
       </div>
     );
   }

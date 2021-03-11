@@ -1,15 +1,16 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS';
-import React from 'react';
-import Renew from '@wowanalyzer/priest-holy/src/modules/spells/Renew';
-import PrayerOfMending from '@wowanalyzer/priest-holy/src/modules/spells/PrayerOfMending';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { formatThousands } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
+
+import PrayerOfMending from '@wowanalyzer/priest-holy/src/modules/spells/PrayerOfMending';
+import Renew from '@wowanalyzer/priest-holy/src/modules/spells/Renew';
 
 // Example Log: /report/PNYB4zgrnR86h7Lc/6-Normal+Zek'voz,+Herald+of+N'zoth/Khadaj
 class HolyWordSalvation extends Analyzer {
@@ -27,7 +28,10 @@ class HolyWordSalvation extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.HOLY_WORD_SALVATION_TALENT.id);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HOLY_WORD_SALVATION_TALENT), this.onHeal);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HOLY_WORD_SALVATION_TALENT),
+      this.onHeal,
+    );
   }
 
   get renewCount() {
@@ -84,13 +88,15 @@ class HolyWordSalvation extends Analyzer {
   statistic() {
     return (
       <Statistic
-        tooltip={(
+        tooltip={
           <>
-            Healing from Salv: {formatThousands(this.healingFromSalv + this.absorptionFromSalv)}<br />
-            Healing from Renews: {formatThousands(this.healingFromRenew + this.absorptionFromRenew)}<br />
+            Healing from Salv: {formatThousands(this.healingFromSalv + this.absorptionFromSalv)}
+            <br />
+            Healing from Renews: {formatThousands(this.healingFromRenew + this.absorptionFromRenew)}
+            <br />
             Healing from PoMs: {formatThousands(this.healingFromPom + this.absorptionFromPom)}
           </>
-        )}
+        }
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(7)}

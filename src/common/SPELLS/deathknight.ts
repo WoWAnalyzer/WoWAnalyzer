@@ -36,8 +36,8 @@ const spells = {
 
   BONESTORM_HIT: {
     id: 196528,
-    name: "Bonestorm",
-    icon: "achievement_boss_lordmarrowgar",
+    name: 'Bonestorm',
+    icon: 'achievement_boss_lordmarrowgar',
   },
 
   // Only used during Dancing Rune Weapon. Its the Heart Strike of the copied weapons. Generates 5 RP.
@@ -58,7 +58,7 @@ const spells = {
   },
   DEATHS_CARESS: {
     id: 195292,
-    name: 'Death\'s Caress',
+    name: "Death's Caress",
     icon: 'ability_deathknight_deathscaress',
   },
 
@@ -117,8 +117,7 @@ const spells = {
     icon: 'inv_axe_2h_artifactmaw_d_02',
   },
 
-
-// Buffs
+  // Buffs
   OSSUARY: {
     id: 219788,
     name: 'Ossuary',
@@ -143,7 +142,7 @@ const spells = {
   // CC
   GOREFIENDS_GRASP: {
     id: 108199,
-    name: 'Gorefiend\'s Grasp',
+    name: "Gorefiend's Grasp",
     icon: 'ability_deathknight_aoedeathgrip',
   },
 
@@ -198,22 +197,25 @@ const spells = {
     name: 'Howling Blast',
     icon: 'spell_frost_arcticwinds',
   },
-  REMORSELESS_WINTER_ENV_CAST: { // not actually sure what this does
+  REMORSELESS_WINTER_ENV_CAST: {
+    // not actually sure what this does
     id: 211793,
     name: 'Remorseless Winter',
     icon: 'ability_deathknight_remorselesswinters2',
   },
-  REMORSELESS_WINTER_DAMAGE: { // every tick puts a cast event on the environment and also the id of the damage event
+  REMORSELESS_WINTER_DAMAGE: {
+    // every tick puts a cast event on the environment and also the id of the damage event
     id: 196771,
     name: 'Remorseless Winter',
     icon: 'ability_deathknight_remorselesswinters2',
   },
-  REMORSELESS_WINTER: { // This the spell the player casts, triggers energize event, also exists as buff on player
+  REMORSELESS_WINTER: {
+    // This the spell the player casts, triggers energize event, also exists as buff on player
     id: 196770,
     name: 'Remorseless Winter',
     icon: 'ability_deathknight_remorselesswinters2',
   },
-  GATHERING_STORM_TALENT_BUFF:{
+  GATHERING_STORM_TALENT_BUFF: {
     id: 211805,
     name: 'Gathering Storm',
     icon: 'spell_frost_ice-shards',
@@ -230,8 +232,8 @@ const spells = {
   },
   FROSTWYRMS_FURY: {
     id: 279302,
-    name: 'Frostwyrm\'s Fury',
-    icon: 'achievement_boss_sindragosa'
+    name: "Frostwyrm's Fury",
+    icon: 'achievement_boss_sindragosa',
   },
   // Buffs
   EMPOWER_RUNE_WEAPON: {
@@ -275,25 +277,25 @@ const spells = {
     icon: 'spell_frost_frostarmor',
   },
 
-  FROST_FEVER_RP_GAIN:{
+  FROST_FEVER_RP_GAIN: {
     id: 195617,
     name: 'Frost Fever',
     icon: 'spell_deathknight_frostfever',
   },
 
-  RUNIC_ATTENUATION_RP_GAIN:{
+  RUNIC_ATTENUATION_RP_GAIN: {
     id: 221322,
     name: 'Runic Attenuation',
     icon: 'boss_odunrunes_blue',
   },
 
-  BREATH_OF_SINDRAGOSA_TALENT_RUNE_GAIN:{
+  BREATH_OF_SINDRAGOSA_TALENT_RUNE_GAIN: {
     id: 303753,
     name: 'Breath of Sindragosa',
     icon: 'inv_misc_rune_10',
   },
 
-  OBLITERATION_RUNE_GAIN:{
+  OBLITERATION_RUNE_GAIN: {
     id: 281327,
     name: 'Obliteration',
     icon: 'inv_axe_114',
@@ -396,13 +398,13 @@ const spells = {
   EPIDEMIC: {
     id: 207317,
     name: 'Epidemic',
-    icon: 'spell_nature_nullifydisease'
+    icon: 'spell_nature_nullifydisease',
   },
 
   EPIDEMIC_DAMAGE: {
     id: 212739,
     name: 'Epidemic',
-    icon: 'spell_nature_nullifydisease'
+    icon: 'spell_nature_nullifydisease',
   },
 
   SOUL_REAPER_TALENT_SECOND_HIT: {
@@ -414,14 +416,14 @@ const spells = {
   SUDDEN_DOOM_BUFF: {
     id: 81340,
     name: 'Sudden Doom',
-    icon: 'spell_shadow_painspike'
+    icon: 'spell_shadow_painspike',
   },
 
   // Shared:
   RUNEFORGING: {
     id: 53428,
     name: 'Runeforging',
-    icon: 'spell_deathknight_frozenruneweapon'
+    icon: 'spell_deathknight_frozenruneweapon',
   },
   //Rune of the Fallen Crusader Proc
   UNHOLY_STRENGTH_BUFF: {
@@ -467,7 +469,7 @@ const spells = {
   ANTI_MAGIC_ZONE_BUFF: {
     id: 145629,
     name: 'Anti-Magic Zone',
-    icon: 'spell_deathknight_antimagiczone'
+    icon: 'spell_deathknight_antimagiczone',
   },
 
   ANTI_MAGIC_SHELL: {
@@ -580,7 +582,7 @@ const spells = {
 
   DEATHS_ADVANCE: {
     id: 48265,
-    name: 'Death\'s Advance',
+    name: "Death's Advance",
     icon: 'spell_shadow_demonicempathy',
   },
 
@@ -618,7 +620,7 @@ const spells = {
     icon: 'spell_deathknight_frozenruneweapon',
   },
 
-  RUNIC_POWER:{
+  RUNIC_POWER: {
     id: 189096,
     name: 'Runic Power',
     icon: 'inv_sword_62',
@@ -685,5 +687,5 @@ const runeforges = {
 
 export default {
   ...spells,
-  ...runeforges
+  ...runeforges,
 } as const;

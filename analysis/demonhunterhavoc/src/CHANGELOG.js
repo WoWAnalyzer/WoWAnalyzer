@@ -1,8 +1,8 @@
-import React from 'react';
-import { LeoZhekov, flurreN } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
+import { LeoZhekov, flurreN } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
+import React from 'react';
 
 export default [
   change(date(2021, 1, 28), <>Added <SpellLink id={SPELLS.GROWING_INFERNO.id} /> to Statistics</>, flurreN),

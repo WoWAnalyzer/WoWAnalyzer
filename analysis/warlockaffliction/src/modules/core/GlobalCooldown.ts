@@ -1,7 +1,6 @@
-import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
-
 import SPELLS from 'common/SPELLS';
 import { CastEvent } from 'parser/core/Events';
+import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 
 /**
  * Drain Soul's cast event is actually a beginchannel event, so it shouldn't add the GCD as active time.

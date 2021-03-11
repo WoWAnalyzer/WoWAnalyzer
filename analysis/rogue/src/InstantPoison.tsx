@@ -1,14 +1,13 @@
-import React from 'react';
-
+import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
-import SPELLS from 'common/SPELLS';
+import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringValueText from 'parser/ui/BoringValueText';
-import { SpellIcon, SpellLink } from 'interface';
-import { formatPercentage } from 'common/format';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import React from 'react';
 
 class InstantPoison extends Analyzer {
   numPoisonHits: number = 0;
@@ -16,8 +15,14 @@ class InstantPoison extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.INSTANT_POISON), this.onInstantPoisonDamage);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MELEE), this.onMeleeDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.INSTANT_POISON),
+      this.onInstantPoisonDamage,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MELEE),
+      this.onMeleeDamage,
+    );
   }
 
   onInstantPoisonDamage(event: DamageEvent) {
@@ -41,16 +46,19 @@ class InstantPoison extends Analyzer {
         major: 0.1,
       },
       style: ThresholdStyle.PERCENTAGE,
-    }
+    };
   }
 
   statistic(): React.ReactNode {
     return (
-      <Statistic
-        size="flexible"
-        category={STATISTIC_CATEGORY.GENERAL}
-      >
-        <BoringValueText label={<><SpellIcon id={SPELLS.INSTANT_POISON.id}/> Instant Poison Proc Percentage</>}>
+      <Statistic size="flexible" category={STATISTIC_CATEGORY.GENERAL}>
+        <BoringValueText
+          label={
+            <>
+              <SpellIcon id={SPELLS.INSTANT_POISON.id} /> Instant Poison Proc Percentage
+            </>
+          }
+        >
           {formatPercentage(this.procPercentage)} %
         </BoringValueText>
       </Statistic>
@@ -58,17 +66,25 @@ class InstantPoison extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.instantPoisonSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(
+    when(this.instantPoisonSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
         <>
-          Ensure that your poisons are freshly applied before the fight starts so that they do not expire.
-        </>)
+          Ensure that your poisons are freshly applied before the fight starts so that they do not
+          expire.
+        </>,
+      )
         .icon(SPELLS.INSTANT_POISON.icon)
-        .actual(<>You procced <SpellLink id={SPELLS.INSTANT_POISON.id} /> on {formatPercentage(this.procPercentage)} % of your melee hits.</>)
-        .recommended(`If your poisons are applied, you should have around a 30% proc chance over the fight.`)
-      );
+        .actual(
+          <>
+            You procced <SpellLink id={SPELLS.INSTANT_POISON.id} /> on{' '}
+            {formatPercentage(this.procPercentage)} % of your melee hits.
+          </>,
+        )
+        .recommended(
+          `If your poisons are applied, you should have around a 30% proc chance over the fight.`,
+        ),
+    );
   }
-
 }
 
 export default InstantPoison;

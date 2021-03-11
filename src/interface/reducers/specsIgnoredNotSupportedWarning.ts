@@ -9,10 +9,7 @@ export default function specsIgnoredNotSupportedWarning(
 ) {
   switch (action.type) {
     case IGNORE_SPEC_NOT_SUPPORTED_WARNING:
-      return [
-        ...state,
-        action.payload,
-      ];
+      return [...state, action.payload];
     default:
       return state;
   }

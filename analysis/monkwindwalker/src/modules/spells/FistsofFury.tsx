@@ -1,14 +1,14 @@
-import React from 'react';
+import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import Statistic from 'parser/ui/Statistic';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Events, { DamageEvent } from 'parser/core/Events';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import { t } from '@lingui/macro';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import React from 'react';
 
 // Inspired by the penance bolt counter module from Discipline Priest
 
@@ -25,11 +25,17 @@ class FistsofFury extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FISTS_OF_FURY_DAMAGE), this.onFistsDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FISTS_OF_FURY_DAMAGE),
+      this.onFistsDamage,
+    );
   }
 
   isNewFistsTick(timestamp: number) {
-    return !this.previousTickTimestamp || (timestamp - this.previousTickTimestamp) > FISTS_OF_FURY_MINIMUM_TICK_TIME;
+    return (
+      !this.previousTickTimestamp ||
+      timestamp - this.previousTickTimestamp > FISTS_OF_FURY_MINIMUM_TICK_TIME
+    );
   }
 
   onFistsDamage(event: DamageEvent) {
@@ -61,12 +67,23 @@ class FistsofFury extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(<span> You are cancelling your <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /> casts early and losing ticks </span>)
-      .icon(SPELLS.FISTS_OF_FURY_CAST.icon).actual(t({
-      id: "monk.windwalker.suggestions.fistOfFury.avgTicksPerCast",
-      message: `${actual.toFixed(2)} average ticks on each Fists of Fury cast`
-    }))
-      .recommended(`Aim to get ${recommended} ticks with each Fists of Fury cast.`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <span>
+          {' '}
+          You are cancelling your <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /> casts early and
+          losing ticks{' '}
+        </span>,
+      )
+        .icon(SPELLS.FISTS_OF_FURY_CAST.icon)
+        .actual(
+          t({
+            id: 'monk.windwalker.suggestions.fistOfFury.avgTicksPerCast',
+            message: `${actual.toFixed(2)} average ticks on each Fists of Fury cast`,
+          }),
+        )
+        .recommended(`Aim to get ${recommended} ticks with each Fists of Fury cast.`),
+    );
   }
 
   statistic() {

@@ -1,10 +1,10 @@
-import React from 'react';
-import SPELLS from 'common/SPELLS';
 import { formatThousands } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import { SpellLink } from 'interface';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import React from 'react';
 
 /**
  * Throws a whirling weapon at the target location that inflicts [ 309.6% of Attack Power ] damage
@@ -26,7 +26,11 @@ class Ravager extends Analyzer {
     const total = ravager.damageEffective || 0;
     return (
       <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.RAVAGER_TALENT_ARMS.id} /> damage</>}
+        title={
+          <>
+            <SpellLink id={SPELLS.RAVAGER_TALENT_ARMS.id} /> damage
+          </>
+        }
         value={formatThousands(total)}
       />
     );

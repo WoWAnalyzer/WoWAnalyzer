@@ -1,9 +1,9 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, CSSProperties } from 'react';
 
 interface Props {
   title: React.ReactNode;
   image: React.ReactNode;
-  style: object;
+  style: CSSProperties;
   children: ReactNode;
 }
 

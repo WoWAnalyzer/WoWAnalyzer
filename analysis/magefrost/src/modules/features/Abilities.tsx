@@ -1,8 +1,8 @@
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
-
 import CoreAbilities from 'parser/core/modules/Abilities';
-import { WINTERS_PROTECTION_REDUCTION_SEC, FLOW_OF_TIME_REDUCTION_SEC } from '@wowanalyzer/mage'
+
+import { WINTERS_PROTECTION_REDUCTION_SEC, FLOW_OF_TIME_REDUCTION_SEC } from '@wowanalyzer/mage';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -83,7 +83,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.COMET_STORM_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
         timelineSortIndex: 5,
         damageSpellIds: [SPELLS.COMET_STORM_DAMAGE.id],
@@ -96,7 +96,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           //If using Glacial Spike, it is recommended to hold Ebonbolt as an emergency proc if GS is available and you dont have a Brain Freeze Proc. Therefore, with good luck, it is possible to go the entire fight without casting Ebonbolt.
           suggestion: !combatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id),
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
         timelineSortIndex: 6,
         damageSpellIds: [SPELLS.EBONBOLT_DAMAGE.id],
@@ -131,7 +131,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.ICE_NOVA_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
         timelineSortIndex: 9,
         //damageSpellIds: [SPELLS.ICE_NOVA_TALENT.id], // needs verification
@@ -147,7 +147,7 @@ class Abilities extends CoreAbilities {
         cooldown: 60,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
         timelineSortIndex: 15,
         damageSpellIds: [SPELLS.FROZEN_ORB_DAMAGE.id],
@@ -163,7 +163,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
         timelineSortIndex: 16, // Shares talent row with Mirror Image
       },
@@ -175,7 +175,7 @@ class Abilities extends CoreAbilities {
         cooldown: 180,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
         timelineSortIndex: 17,
       },
@@ -197,7 +197,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -210,7 +210,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -223,7 +223,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.90,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -235,7 +235,6 @@ class Abilities extends CoreAbilities {
         cooldown: 60,
         enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
       },
-
 
       //Defensives
       {
@@ -250,7 +249,12 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ICE_BLOCK,
         buffSpellId: SPELLS.ICE_BLOCK.id,
-        cooldown: combatant.hasConduitBySpellID(SPELLS.WINTERS_PROTECTION.id) ? 240 - WINTERS_PROTECTION_REDUCTION_SEC[combatant.conduitRankBySpellID(SPELLS.WINTERS_PROTECTION.id)] : 240,
+        cooldown: combatant.hasConduitBySpellID(SPELLS.WINTERS_PROTECTION.id)
+          ? 240 -
+            WINTERS_PROTECTION_REDUCTION_SEC[
+              combatant.conduitRankBySpellID(SPELLS.WINTERS_PROTECTION.id)
+            ]
+          : 240,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         gcd: {
           base: 1500,
@@ -286,13 +290,17 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: !combatant.hasTalent(SPELLS.SHIMMER_TALENT.id),
-        cooldown: combatant.hasConduitBySpellID(SPELLS.FLOW_OF_TIME.id) ? 15 - FLOW_OF_TIME_REDUCTION_SEC[combatant.conduitRankBySpellID(SPELLS.FLOW_OF_TIME.id)] : 15,
+        cooldown: combatant.hasConduitBySpellID(SPELLS.FLOW_OF_TIME.id)
+          ? 15 - FLOW_OF_TIME_REDUCTION_SEC[combatant.conduitRankBySpellID(SPELLS.FLOW_OF_TIME.id)]
+          : 15,
       },
       {
         spell: SPELLS.SHIMMER_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: null,
-        cooldown: combatant.hasConduitBySpellID(SPELLS.FLOW_OF_TIME.id) ? 25 - FLOW_OF_TIME_REDUCTION_SEC[combatant.conduitRankBySpellID(SPELLS.FLOW_OF_TIME.id)] : 25,
+        cooldown: combatant.hasConduitBySpellID(SPELLS.FLOW_OF_TIME.id)
+          ? 25 - FLOW_OF_TIME_REDUCTION_SEC[combatant.conduitRankBySpellID(SPELLS.FLOW_OF_TIME.id)]
+          : 25,
         charges: 2,
         enabled: combatant.hasTalent(SPELLS.SHIMMER_TALENT.id),
       },
@@ -365,13 +373,22 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
       },
       {
-        spell: [SPELLS.POLYMORPH_SHEEP, SPELLS.POLYMORPH_PIG,
-          SPELLS.POLYMORPH_BLACK_CAT, SPELLS.POLYMORPH_MONKEY,
-          SPELLS.POLYMORPH_RABBIT, SPELLS.POLYMORPH_POLAR_BEAR_CUB,
-          SPELLS.POLYMORPH_PORCUPINE, SPELLS.POLYMORPH_TURTLE,
-          SPELLS.POLYMORPH_TURKEY, SPELLS.POLYMORPH_PENGUIN,
-          SPELLS.POLYMORPH_BUMBLEBEE, SPELLS.POLYMORPH_PEACOCK,
-          SPELLS.POLYMORPH_DIREHORN, SPELLS.POLYMORPH_MAWRAT],
+        spell: [
+          SPELLS.POLYMORPH_SHEEP,
+          SPELLS.POLYMORPH_PIG,
+          SPELLS.POLYMORPH_BLACK_CAT,
+          SPELLS.POLYMORPH_MONKEY,
+          SPELLS.POLYMORPH_RABBIT,
+          SPELLS.POLYMORPH_POLAR_BEAR_CUB,
+          SPELLS.POLYMORPH_PORCUPINE,
+          SPELLS.POLYMORPH_TURTLE,
+          SPELLS.POLYMORPH_TURKEY,
+          SPELLS.POLYMORPH_PENGUIN,
+          SPELLS.POLYMORPH_BUMBLEBEE,
+          SPELLS.POLYMORPH_PEACOCK,
+          SPELLS.POLYMORPH_DIREHORN,
+          SPELLS.POLYMORPH_MAWRAT,
+        ],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,

@@ -44,17 +44,20 @@ const spells = {
     name: 'Divine Steed',
     icon: 'ability_paladin_divinesteed',
   },
-  DIVINE_STEED_BUFF_ALT: { // probably class mount glyph
+  DIVINE_STEED_BUFF_ALT: {
+    // probably class mount glyph
     id: 254471,
     name: 'Divine Steed',
     icon: 'ability_paladin_divinesteed',
   },
-  DIVINE_STEED_BUFF_ALT_2: { // probably class mount glyph - https://www.warcraftlogs.com/reports/4DWRHk73Vvt1wmz2/#fight=22&type=auras&source=20
+  DIVINE_STEED_BUFF_ALT_2: {
+    // probably class mount glyph - https://www.warcraftlogs.com/reports/4DWRHk73Vvt1wmz2/#fight=22&type=auras&source=20
     id: 276112,
     name: 'Divine Steed',
     icon: 'ability_paladin_divinesteed',
   },
-  DIVINE_STEED_BUFF_ALT_3: { // Silvermoon charger I think - https://www.warcraftlogs.com/reports/TrfWp1jHdRtQDqkx/#fight=2&source=37&type=auras
+  DIVINE_STEED_BUFF_ALT_3: {
+    // Silvermoon charger I think - https://www.warcraftlogs.com/reports/TrfWp1jHdRtQDqkx/#fight=2&source=37&type=auras
     id: 221886,
     name: 'Divine Steed',
     icon: 'ability_paladin_divinesteed',
@@ -203,7 +206,7 @@ const spells = {
   },
   LIGHTS_HAMMER_HEAL: {
     id: 119952,
-    name: 'Light\'s Hammer',
+    name: "Light's Hammer",
     icon: 'spell_paladin_lightshammer',
   },
   JUDGMENT_OF_LIGHT_HEAL: {
@@ -316,12 +319,12 @@ const spells = {
   },
   TEMPLARS_VERDICT_DAMAGE: {
     id: 224266,
-    name: 'Templar\'s Verdict',
+    name: "Templar's Verdict",
     icon: 'spell_paladin_templarsverdict',
   },
   TEMPLARS_VERDICT: {
     id: 85256,
-    name: 'Templar\'s Verdict',
+    name: "Templar's Verdict",
     icon: 'spell_paladin_templarsverdict',
   },
   BLADE_OF_JUSTICE: {
@@ -415,7 +418,7 @@ const spells = {
     icon: 'ability_paladin_sheathoflight',
   },
 
-	// Protection
+  // Protection
   ARDENT_DEFENDER: {
     id: 31850,
     name: 'Ardent Defender',
@@ -423,7 +426,7 @@ const spells = {
   },
   AVENGERS_SHIELD: {
     id: 31935,
-    name: 'Avenger\'s Shield',
+    name: "Avenger's Shield",
     icon: 'spell_holy_avengersshield',
   },
   GUARDIAN_OF_ANCIENT_KINGS: {
@@ -484,7 +487,7 @@ const spells = {
     icon: 'spell_holy_divineshield',
   },
 
-	// Buffs
+  // Buffs
   SHIELD_OF_THE_RIGHTEOUS_BUFF: {
     id: 132403,
     name: 'Shield of the Righteous',
@@ -502,7 +505,7 @@ const spells = {
   },
   FAITHS_ARMOR_BUFF: {
     id: 211903,
-    name: 'Faith\'s Armor',
+    name: "Faith's Armor",
     icon: 'inv_misc_armorkit_23',
   },
   BULWARK_OF_ORDER_SHIELD: {
@@ -531,7 +534,7 @@ const spells = {
     name: 'Shining Light',
     icon: 'ability_paladin_toweroflight',
   },
-	// Bonus set tiers
+  // Bonus set tiers
   PROTECTION_PALADIN_T19_2SET_BONUS_BUFF: {
     id: 211553,
     name: 'T19 2 Set Bonus',
@@ -552,10 +555,10 @@ const spells = {
     name: 'T20 4 Set Bonus',
     icon: 'ability_paladin_shieldofthetemplar',
   },
-	//DEBUFFS
+  //DEBUFFS
   AVENGERS_PROTECTION_DEBUFF: {
     id: 242265,
-    name: 'Avenger\'s Protection',
+    name: "Avenger's Protection",
     icon: 'ability_paladin_shieldofthetemplar',
   },
   BLESSED_HAMMER_DEBUFF: {

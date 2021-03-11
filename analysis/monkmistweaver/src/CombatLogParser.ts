@@ -1,74 +1,66 @@
-import { FaelineStomp, FallenOrder, FortifyingIngredients, GroundingBreath, HarmDenial, ImbuedReflections, TouchOfDeath } from '@wowanalyzer/monk';
-
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-
+import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
-import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 
-import GlobalCooldown from './modules/core/GlobalCooldown';
-import CoreChanneling from './modules/core/Channeling';
-import HotTrackerMW from './modules/core/HotTrackerMW';
-
-// Normalizers
-import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
-import HotRemovalNormalizer from './normalizers/HotRemovalNormalizer';
-
-// Features
-import Abilities from './modules/features/Abilities';
-import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import EssenceFontMastery from './modules/features/EssenceFontMastery';
-import Checklist from './modules/features/Checklist/Module';
-import StatValues from './modules/features/StatValues';
-import EvmVivCastRatio from './modules/features/EvmVivCastRatio';
-import MasteryStats from './modules/features/MasteryStats';
-import Buffs from './modules/features/Buffs';
-
-// Spells
-import ThunderFocusTea from './modules/spells/ThunderFocusTea';
-import EssenceFont from './modules/spells/EssenceFont';
-import EnvelopingMists from './modules/spells/EnvelopingMists';
-import SoothingMist from './modules/spells/SoothingMist';
-import Vivify from './modules/spells/Vivify';
-import LifeCocoon from './modules/spells/LifeCocoon';
-import SpinningCraneKick from './modules/spells/SpinningCraneKick';
-import RenewingMist from './modules/spells/RenewingMist';
-import InvokeYulon from './modules/spells/InvokeYulon';
-import InvokeChiJi from './modules/talents/InvokeChiJi';
-import ExpelHarm from './modules/spells/ExpelHarm';
-import EnvelopingBreath from './modules/spells/EnvelopingBreath';
-
-// Talents
-import JadeSerpentStatue from './modules/talents/JadeSerpentStatue';
-import ChiBurst from './modules/talents/ChiBurst';
-import ManaTea from './modules/talents/ManaTea';
-import RefreshingJadeWind from './modules/talents/RefreshingJadeWind';
-import Lifecycles from './modules/talents/Lifecycles';
-import SpiritOfTheCrane from './modules/talents/SpiritOfTheCrane';
-import RisingMist from './modules/talents/RisingMist';
-import AverageTimeBetweenRSKSs from './modules/talents/AverageTimeBetweenRSKs';
-import RenewingMistDuringManaTea from './modules/talents/RenewingMistDuringManaTea';
-import Tier30Comparison from './modules/talents/Tier30Comparison';
-import Upwelling from './modules/talents/Upwelling';
-
-// Mana Tracker
-import MistweaverHealingEfficiencyDetails from './modules/features/MistweaverHealingEfficiencyDetails';
-import HealingEfficiencyTracker from './modules/features/MistweaverHealingEfficiencyTracker';
+import {
+  FaelineStomp,
+  FallenOrder,
+  FortifyingIngredients,
+  GroundingBreath,
+  HarmDenial,
+  ImbuedReflections,
+  TouchOfDeath,
+} from '@wowanalyzer/monk';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
+import CoreChanneling from './modules/core/Channeling';
+import GlobalCooldown from './modules/core/GlobalCooldown';
+import HotTrackerMW from './modules/core/HotTrackerMW';
+import Abilities from './modules/features/Abilities';
+import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import Buffs from './modules/features/Buffs';
+import Checklist from './modules/features/Checklist/Module';
+import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import EssenceFontHealingBreakdown from './modules/features/EssenceFontHealingBreakdown';
-
-// Potency
+import EssenceFontMastery from './modules/features/EssenceFontMastery';
+import EvmVivCastRatio from './modules/features/EvmVivCastRatio';
+import MasteryStats from './modules/features/MasteryStats';
+import MistweaverHealingEfficiencyDetails from './modules/features/MistweaverHealingEfficiencyDetails';
+import HealingEfficiencyTracker from './modules/features/MistweaverHealingEfficiencyTracker';
+import StatValues from './modules/features/StatValues';
 import JadeBond from './modules/shadowlands/conduits/JadeBond';
 import NourishingChi from './modules/shadowlands/conduits/NourishingChi';
 import RisingSunRevival from './modules/shadowlands/conduits/RisingSunRevival';
-
-// Legendaries
-import TearofMorning from './modules/shadowlands/legendaries/TearofMorning';
 import AncientTeachingsoftheMonastery from './modules/shadowlands/legendaries/AncientTeachingsoftheMonastery';
 import CloudedFocus from './modules/shadowlands/legendaries/CloudedFocus';
+import TearofMorning from './modules/shadowlands/legendaries/TearofMorning';
+import EnvelopingBreath from './modules/spells/EnvelopingBreath';
+import EnvelopingMists from './modules/spells/EnvelopingMists';
+import EssenceFont from './modules/spells/EssenceFont';
+import ExpelHarm from './modules/spells/ExpelHarm';
+import InvokeYulon from './modules/spells/InvokeYulon';
+import LifeCocoon from './modules/spells/LifeCocoon';
+import RenewingMist from './modules/spells/RenewingMist';
+import SoothingMist from './modules/spells/SoothingMist';
+import SpinningCraneKick from './modules/spells/SpinningCraneKick';
+import ThunderFocusTea from './modules/spells/ThunderFocusTea';
+import Vivify from './modules/spells/Vivify';
+import AverageTimeBetweenRSKSs from './modules/talents/AverageTimeBetweenRSKs';
+import ChiBurst from './modules/talents/ChiBurst';
+import InvokeChiJi from './modules/talents/InvokeChiJi';
+import JadeSerpentStatue from './modules/talents/JadeSerpentStatue';
+import Lifecycles from './modules/talents/Lifecycles';
+import ManaTea from './modules/talents/ManaTea';
+import RefreshingJadeWind from './modules/talents/RefreshingJadeWind';
+import RenewingMistDuringManaTea from './modules/talents/RenewingMistDuringManaTea';
+import RisingMist from './modules/talents/RisingMist';
+import SpiritOfTheCrane from './modules/talents/SpiritOfTheCrane';
+import Tier30Comparison from './modules/talents/Tier30Comparison';
+import Upwelling from './modules/talents/Upwelling';
+import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
+import HotRemovalNormalizer from './normalizers/HotRemovalNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;

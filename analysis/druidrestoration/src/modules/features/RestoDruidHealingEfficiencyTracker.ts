@@ -1,13 +1,15 @@
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import HealingDone from 'parser/shared/modules/throughput/HealingDone';
-import DamageDone from 'parser/shared/modules/throughput/DamageDone';
-import CastEfficiency from 'parser/shared/modules/CastEfficiency';
-import HealingEfficiencyTracker, { SpellInfoDetails } from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
 import SPELLS from 'common/SPELLS';
+import HealingEfficiencyTracker, {
+  SpellInfoDetails,
+} from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import DamageDone from 'parser/shared/modules/throughput/DamageDone';
+import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 
-import RegrowthAttributor from '../core/hottracking/RegrowthAttributor';
 import Abilities from '../Abilities';
+import RegrowthAttributor from '../core/hottracking/RegrowthAttributor';
 import Clearcasting from '../features/Clearcasting';
 
 /*
@@ -36,7 +38,7 @@ class RestoDruidHealingEfficiencyTracker extends HealingEfficiencyTracker {
   protected damageDone!: DamageDone;
   protected castEfficiency!: CastEfficiency;
 
-   // Custom dependencies
+  // Custom dependencies
   protected abilities!: Abilities;
   protected regrowthAttributor!: RegrowthAttributor;
   protected clearcasting!: Clearcasting;

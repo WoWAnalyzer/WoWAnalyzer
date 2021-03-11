@@ -1,14 +1,12 @@
-import React from 'react';
-
+import { formatThousands, formatNumber, formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Events, { DamageEvent } from 'parser/core/Events';
-
-import SPELLS from 'common/SPELLS';
-import { formatThousands, formatNumber, formatPercentage } from 'common/format';
-import Statistic from 'parser/ui/Statistic';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import React from 'react';
 
 const AC_DAMAGE_BONUS = 0.15;
 

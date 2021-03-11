@@ -1,7 +1,18 @@
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import EventEmitter from 'parser/core/modules/EventEmitter';
-import Events, { AnyEvent, ApplyBuffEvent, ApplyBuffStackEvent, ApplyDebuffEvent, ApplyDebuffStackEvent, EventType, RemoveBuffEvent, RemoveBuffStackEvent, RemoveDebuffEvent, RemoveDebuffStackEvent } from 'parser/core/Events';
 import Entity, { TrackedBuffEvent } from 'parser/core/Entity';
+import Events, {
+  AnyEvent,
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  ApplyDebuffEvent,
+  ApplyDebuffStackEvent,
+  EventType,
+  RemoveBuffEvent,
+  RemoveBuffStackEvent,
+  RemoveDebuffEvent,
+  RemoveDebuffStackEvent,
+} from 'parser/core/Events';
+import EventEmitter from 'parser/core/modules/EventEmitter';
 
 const debug = false;
 
@@ -37,7 +48,12 @@ abstract class Entities<T extends Entity> extends Analyzer {
   abstract getEntity(event: AnyEvent): T | null;
 
   applyBuff(event: ApplyBuffEvent | ApplyDebuffEvent) {
-    if (!this.owner.byPlayer(event) && !this.owner.toPlayer(event) && !this.owner.byPlayerPet(event) && !this.owner.toPlayerPet(event)) {
+    if (
+      !this.owner.byPlayer(event) &&
+      !this.owner.toPlayer(event) &&
+      !this.owner.byPlayerPet(event) &&
+      !this.owner.toPlayerPet(event)
+    ) {
       // We don't need to know about debuffs on bosses or buffs on other players not caused by us, but we do want to know about our outgoing buffs, and other people's buffs on us
       return;
     }
@@ -67,8 +83,19 @@ abstract class Entities<T extends Entity> extends Analyzer {
     entity.applyBuff(buff);
   }
 
-  updateBuffStack(event: ApplyBuffStackEvent | ApplyDebuffStackEvent | RemoveBuffStackEvent | RemoveDebuffStackEvent) {
-    if (!this.owner.byPlayer(event) && !this.owner.toPlayer(event) && !this.owner.byPlayerPet(event) && !this.owner.toPlayerPet(event)) {
+  updateBuffStack(
+    event:
+      | ApplyBuffStackEvent
+      | ApplyDebuffStackEvent
+      | RemoveBuffStackEvent
+      | RemoveDebuffStackEvent,
+  ) {
+    if (
+      !this.owner.byPlayer(event) &&
+      !this.owner.toPlayer(event) &&
+      !this.owner.byPlayerPet(event) &&
+      !this.owner.toPlayerPet(event)
+    ) {
       // We don't need to know about debuffs on bosses or buffs on other players not caused by us, but we do want to know about our outgoing buffs, and other people's buffs on us
       return;
     }
@@ -79,7 +106,12 @@ abstract class Entities<T extends Entity> extends Analyzer {
 
     debug && this.log(`Apply buff stack ${event.ability.name} to ${entity.name}`);
 
-    const existingBuff = entity.buffs.find(item => item.ability.guid === event.ability.guid && item.end === null && event.sourceID === item.sourceID);
+    const existingBuff = entity.buffs.find(
+      (item) =>
+        item.ability.guid === event.ability.guid &&
+        item.end === null &&
+        event.sourceID === item.sourceID,
+    );
     if (existingBuff) {
       const oldStacks = existingBuff.stacks || 1; // the original spell counts as 1 stack
       existingBuff.stacks = event.stack;
@@ -87,12 +119,19 @@ abstract class Entities<T extends Entity> extends Analyzer {
 
       this._triggerChangeBuffStack(existingBuff, event.timestamp, oldStacks, existingBuff.stacks);
     } else {
-      console.error('Buff stack updated while active buff wasn\'t known. Was this buff applied pre-combat? Maybe we should register the buff with start time as fight start when this happens, but it might also be a basic case of erroneous combatlog ordering.');
+      console.error(
+        "Buff stack updated while active buff wasn't known. Was this buff applied pre-combat? Maybe we should register the buff with start time as fight start when this happens, but it might also be a basic case of erroneous combatlog ordering.",
+      );
     }
   }
 
   removeBuff(event: RemoveBuffEvent | RemoveDebuffEvent) {
-    if (!this.owner.byPlayer(event) && !this.owner.toPlayer(event) && !this.owner.byPlayerPet(event) && !this.owner.toPlayerPet(event)) {
+    if (
+      !this.owner.byPlayer(event) &&
+      !this.owner.toPlayer(event) &&
+      !this.owner.byPlayerPet(event) &&
+      !this.owner.toPlayerPet(event)
+    ) {
       // We don't need to know about debuffs on bosses or buffs on other players not caused by us, but we do want to know about our outgoing buffs, and other people's buffs on us
       return;
     }
@@ -103,7 +142,12 @@ abstract class Entities<T extends Entity> extends Analyzer {
 
     debug && this.log(`Remove buff ${event.ability.name} from ${entity.name}`);
 
-    const existingBuff = entity.buffs.find(item => item.ability.guid === event.ability.guid && item.end === null && event.sourceID === item.sourceID);
+    const existingBuff = entity.buffs.find(
+      (item) =>
+        item.ability.guid === event.ability.guid &&
+        item.end === null &&
+        event.sourceID === item.sourceID,
+    );
     if (existingBuff) {
       existingBuff.end = event.timestamp;
       existingBuff.stackHistory.push({ stacks: 0, timestamp: event.timestamp });
@@ -118,7 +162,10 @@ abstract class Entities<T extends Entity> extends Analyzer {
         ...event,
         start: this.owner.fight.start_time,
         end: event.timestamp,
-        stackHistory: [{ stacks: 1, timestamp: this.owner.fight.start_time }, { stacks: 0, timestamp: event.timestamp }],
+        stackHistory: [
+          { stacks: 1, timestamp: this.owner.fight.start_time },
+          { stacks: 0, timestamp: event.timestamp },
+        ],
         isDebuff,
         stacks: 0,
       };
@@ -134,38 +181,39 @@ abstract class Entities<T extends Entity> extends Analyzer {
    * This event is also fired for `removebuff` where `oldStacks` will be either the old stacks (if there were multiple) or 1 and `newStacks` will be 0. NOTE: This event is usually fired before the `removebuff` event!
    */
   _triggerChangeBuffStack(buff: any, timestamp: number, oldStacks: number, newStacks: number) {
-    this.eventEmitter.fabricateEvent({
-      ...buff,
-      type: buff.isDebuff ? EventType.ChangeDebuffStack : EventType.ChangeBuffStack,
-      timestamp,
-      oldStacks,
-      newStacks,
-      stacksGained: newStacks - oldStacks,
-      stack: undefined,
-    }, buff);
+    this.eventEmitter.fabricateEvent(
+      {
+        ...buff,
+        type: buff.isDebuff ? EventType.ChangeDebuffStack : EventType.ChangeBuffStack,
+        timestamp,
+        oldStacks,
+        newStacks,
+        stacksGained: newStacks - oldStacks,
+        stack: undefined,
+      },
+      buff,
+    );
   }
 
   // Surely this can be done with a couple less loops???
   getBuffUptime(spellId: number, sourceID = this.owner.playerId) {
-    const events: Array<{timestamp: number, type: string, buff: TrackedBuffEvent}> = [];
+    const events: Array<{ timestamp: number; type: string; buff: TrackedBuffEvent }> = [];
 
     const entities = this.getEntities();
-    Object.values(entities)
-      .forEach(enemy => {
-        enemy.getBuffHistory(spellId, sourceID)
-          .forEach((buff: TrackedBuffEvent) => {
-            events.push({
-              timestamp: buff.start,
-              type: APPLY,
-              buff,
-            });
-            events.push({
-              timestamp: buff.end !== null ? buff.end : this.owner.currentTimestamp, // buff end is null if it's still active, it can also be 0 if buff ended at pull
-              type: REMOVE,
-              buff,
-            });
-          });
+    Object.values(entities).forEach((enemy) => {
+      enemy.getBuffHistory(spellId, sourceID).forEach((buff: TrackedBuffEvent) => {
+        events.push({
+          timestamp: buff.start,
+          type: APPLY,
+          buff,
+        });
+        events.push({
+          timestamp: buff.end !== null ? buff.end : this.owner.currentTimestamp, // buff end is null if it's still active, it can also be 0 if buff ended at pull
+          type: REMOVE,
+          buff,
+        });
       });
+    });
 
     let active = 0;
     let start: number;

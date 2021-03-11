@@ -1,15 +1,12 @@
-import React from 'react';
-
-import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
-
+import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import Statistic from 'parser/ui/Statistic';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 const TWIN_MOONS_BONUS_DAMAGE = 0.1;
 
@@ -29,7 +26,10 @@ class TwinMoons extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.TWIN_MOONS_TALENT.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.MOONFIRE_BEAR, SPELLS.MOONFIRE]), this.onDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.MOONFIRE_BEAR, SPELLS.MOONFIRE]),
+      this.onDamage,
+    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MOONFIRE), this.onCast);
   }
 
@@ -50,11 +50,14 @@ class TwinMoons extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(7)}
         size="flexible"
-        tooltip={`You hit ${this.moonfireHits} times with ${this.moonfireCasts} casts. This talent added ${formatNumber(this.perSecond)} DPS to your Moonfire.`}
+        tooltip={`You hit ${this.moonfireHits} times with ${
+          this.moonfireCasts
+        } casts. This talent added ${formatNumber(this.perSecond)} DPS to your Moonfire.`}
       >
         <BoringSpellValueText spell={SPELLS.TWIN_MOONS_TALENT}>
           <>
-            {formatPercentage(this.percentTwoHits)} % <small>double hits</small><br />
+            {formatPercentage(this.percentTwoHits)} % <small>double hits</small>
+            <br />
             {formatNumber(this.bonusDamage)} <small>damage gained</small>
           </>
         </BoringSpellValueText>

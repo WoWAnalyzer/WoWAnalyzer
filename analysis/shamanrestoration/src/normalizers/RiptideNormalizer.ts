@@ -1,6 +1,6 @@
-import EventsNormalizer from 'parser/core/EventsNormalizer';
 import SPELLS from 'common/SPELLS';
 import { AnyEvent, EventType, HealEvent } from 'parser/core/Events';
+import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 /**
  * reordering riptide applybuff after the initial heal because i really need it this way around
@@ -14,13 +14,21 @@ class RiptideNormalizer extends EventsNormalizer {
     let healEvent: HealEvent | null = null;
 
     events.forEach((event: AnyEvent, eventIndex) => {
-      if (event.type === EventType.Heal && event.ability.guid === SPELLS.RIPTIDE.id && !event.tick) {
+      if (
+        event.type === EventType.Heal &&
+        event.ability.guid === SPELLS.RIPTIDE.id &&
+        !event.tick
+      ) {
         healEvent = event;
         return;
       }
 
       if (healEvent !== null) {
-        if (event.type === EventType.ApplyBuff && event.ability.guid === SPELLS.RIPTIDE.id && event.targetID === healEvent.targetID) {
+        if (
+          event.type === EventType.ApplyBuff &&
+          event.ability.guid === SPELLS.RIPTIDE.id &&
+          event.targetID === healEvent.targetID
+        ) {
           healEvent.__modified = true;
           healEvent.timestamp = event.timestamp;
           fixedEvents.push(event);
@@ -40,6 +48,5 @@ class RiptideNormalizer extends EventsNormalizer {
 
     return fixedEvents;
   }
-
 }
 export default RiptideNormalizer;

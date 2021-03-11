@@ -1,11 +1,12 @@
-import React from 'react';
+import { Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage, formatDuration } from 'common/format';
-import Toggle from 'react-toggle';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
-import HolyPriestHealingEfficiencyTracker from '@wowanalyzer/priest-holy/src/modules/features/HolyPriestHealingEfficiencyTracker';
-import { Trans } from '@lingui/macro';
 import PerformanceBar from 'parser/ui/PerformanceBar';
+import React from 'react';
+import Toggle from 'react-toggle';
+
+import HolyPriestHealingEfficiencyTracker from '@wowanalyzer/priest-holy/src/modules/features/HolyPriestHealingEfficiencyTracker';
 
 import HealingEfficiencyTracker, { SpellInfoDetails } from './HealingEfficiencyTracker';
 
@@ -32,7 +33,9 @@ class HealingEfficiencyBreakdown extends React.Component<Props, State> {
 
   HealingEfficiencyTable = (props: Props) => {
     const { tracker } = props;
-    const { spells, topHpm, topDpm, topHpet, topDpet } = tracker.getAllSpellStats(this.state.showCooldowns);
+    const { spells, topHpm, topDpm, topHpet, topDpet } = tracker.getAllSpellStats(
+      this.state.showCooldowns,
+    );
 
     const spellArray = Object.values(spells);
 
@@ -54,49 +57,80 @@ class HealingEfficiencyBreakdown extends React.Component<Props, State> {
       return 0;
     });
 
-    const spellRows = spellArray.map((spellDetail => {
+    const spellRows = spellArray.map((spellDetail) => {
       if (spellDetail.casts > 0) {
         return this.HealingEfficiencySpellRow(spellDetail, topHpm, topDpm, topHpet, topDpet);
       }
       return null;
-    }));
+    });
 
     return <>{spellRows}</>;
   };
 
-  HealingEfficiencySpellRow = (spellDetail: SpellInfoDetails, topHpm: number, topDpm: number, topHpet: number, topDpet: number) => (
+  HealingEfficiencySpellRow = (
+    spellDetail: SpellInfoDetails,
+    topHpm: number,
+    topDpm: number,
+    topHpet: number,
+    topDpet: number,
+  ) => (
     <tr key={spellDetail.spell.id}>
       <td>
         <SpellLink id={spellDetail.spell.id} />
       </td>
-      {this.state.detailedView ? this.DetailView(spellDetail) : this.BarView(spellDetail, topHpm, topDpm, topHpet, topDpet)}
+      {this.state.detailedView
+        ? this.DetailView(spellDetail)
+        : this.BarView(spellDetail, topHpm, topDpm, topHpet, topDpet)}
     </tr>
   );
 
   BarHeader = () => (
     <>
-      <th><Trans id="shared.healingEfficiency.tableHeader.manaSpent">Mana Spent</Trans></th>
+      <th>
+        <Trans id="shared.healingEfficiency.tableHeader.manaSpent">Mana Spent</Trans>
+      </th>
       {this.state.showHealing && (
         <>
-          <th colSpan={2} className="text-center"><Trans id="common.stat.healingPerMana">Healing per mana spent</Trans></th>
           <th colSpan={2} className="text-center">
-            <TooltipElement content={<Trans id="common.stat.healingPerExecutionTime.long">Healing per second spent casting the spell, including GCD wait time.</Trans>}>
-              <Trans id="common.stat.healingPerExecutionTime">Healing per second spent casting</Trans>
+            <Trans id="common.stat.healingPerMana">Healing per mana spent</Trans>
+          </th>
+          <th colSpan={2} className="text-center">
+            <TooltipElement
+              content={
+                <Trans id="common.stat.healingPerExecutionTime.long">
+                  Healing per second spent casting the spell, including GCD wait time.
+                </Trans>
+              }
+            >
+              <Trans id="common.stat.healingPerExecutionTime">
+                Healing per second spent casting
+              </Trans>
             </TooltipElement>
           </th>
         </>
       )}
       {!this.state.showHealing && (
         <>
-          <th colSpan={2} className="text-center"><Trans id="common.stat.damagePerMana">Damage per mana spent</Trans></th>
-          <th colSpan={2} className="text-center"><Trans id="common.stat.damagePerExecutionTime.long">Damage per second spent casting the spell</Trans></th>
+          <th colSpan={2} className="text-center">
+            <Trans id="common.stat.damagePerMana">Damage per mana spent</Trans>
+          </th>
+          <th colSpan={2} className="text-center">
+            <Trans id="common.stat.damagePerExecutionTime.long">
+              Damage per second spent casting the spell
+            </Trans>
+          </th>
         </>
       )}
     </>
   );
 
-
-  BarView = (spellDetail: SpellInfoDetails, topHpm: number, topDpm: number, topHpet: number, topDpet: number) => {
+  BarView = (
+    spellDetail: SpellInfoDetails,
+    topHpm: number,
+    topDpm: number,
+    topHpet: number,
+    topDpet: number,
+  ) => {
     const hasHealing = spellDetail.healingDone;
     const hasDamage = spellDetail.damageDone > 0;
     const barWidth = 20;
@@ -110,19 +144,27 @@ class HealingEfficiencyBreakdown extends React.Component<Props, State> {
         {this.state.showHealing && (
           <>
             <td className="text-right">{hasHealing ? spellDetail.hpm.toFixed(2) : '-'}</td>
-            <td width={barWidth + '%'}><PerformanceBar percent={spellDetail.hpm / topHpm} /></td>
+            <td width={barWidth + '%'}>
+              <PerformanceBar percent={spellDetail.hpm / topHpm} />
+            </td>
 
-            <td className="text-right">{hasHealing ? (spellDetail.hpet * 1000) : '-'}</td>
-            <td width={barWidth + '%'}><PerformanceBar percent={(spellDetail.hpet / topHpet)} /></td>
+            <td className="text-right">{hasHealing ? spellDetail.hpet * 1000 : '-'}</td>
+            <td width={barWidth + '%'}>
+              <PerformanceBar percent={spellDetail.hpet / topHpet} />
+            </td>
           </>
         )}
         {!this.state.showHealing && (
           <>
             <td className="text-right">{hasDamage ? spellDetail.dpm.toFixed(2) : '-'}</td>
-            <td width={barWidth + '%'}><PerformanceBar percent={spellDetail.dpm / topDpm} /></td>
+            <td width={barWidth + '%'}>
+              <PerformanceBar percent={spellDetail.dpm / topDpm} />
+            </td>
 
-            <td className="text-right">{hasDamage ? (spellDetail.dpet * 1000) : '-'}</td>
-            <td width={barWidth + '%'}><PerformanceBar percent={(spellDetail.dpet / topDpet)} /></td>
+            <td className="text-right">{hasDamage ? spellDetail.dpet * 1000 : '-'}</td>
+            <td width={barWidth + '%'}>
+              <PerformanceBar percent={spellDetail.dpet / topDpet} />
+            </td>
           </>
         )}
       </>
@@ -132,21 +174,49 @@ class HealingEfficiencyBreakdown extends React.Component<Props, State> {
   DetailHeader = () => (
     <>
       <th>
-        <TooltipElement content={<Trans id="shared.healingEfficiency.tableHeader.casts.tooltip">Total Casts (Number of targets hit)</Trans>}><Trans id="shared.healingEfficiency.tableHeader.casts">Casts</Trans></TooltipElement>
+        <TooltipElement
+          content={
+            <Trans id="shared.healingEfficiency.tableHeader.casts.tooltip">
+              Total Casts (Number of targets hit)
+            </Trans>
+          }
+        >
+          <Trans id="shared.healingEfficiency.tableHeader.casts">Casts</Trans>
+        </TooltipElement>
       </th>
-      <th><Trans id="shared.healingEfficiency.tableHeader.manaSpent">Mana Spent</Trans></th>
-      <th><Trans id="shared.healingEfficiency.tableHeader.timeSpent">Time Spent</Trans></th>
+      <th>
+        <Trans id="shared.healingEfficiency.tableHeader.manaSpent">Mana Spent</Trans>
+      </th>
+      <th>
+        <Trans id="shared.healingEfficiency.tableHeader.timeSpent">Time Spent</Trans>
+      </th>
       {this.state.showHealing && (
         <>
-          <th><Trans id="shared.healingEfficiency.tableHeader.healingDone">Healing Done</Trans></th>
-          <th><Trans id="shared.healingEfficiency.tableHeader.overhealingDone">Overhealing</Trans></th>
           <th>
-            <TooltipElement content={<Trans id="common.stat.healingPerMana.long">Healing per mana spent casting the spell</Trans>}>
+            <Trans id="shared.healingEfficiency.tableHeader.healingDone">Healing Done</Trans>
+          </th>
+          <th>
+            <Trans id="shared.healingEfficiency.tableHeader.overhealingDone">Overhealing</Trans>
+          </th>
+          <th>
+            <TooltipElement
+              content={
+                <Trans id="common.stat.healingPerMana.long">
+                  Healing per mana spent casting the spell
+                </Trans>
+              }
+            >
               <Trans id="common.stat.healingPerMana.short">HPM</Trans>
             </TooltipElement>
           </th>
           <th>
-            <TooltipElement content={<Trans id="common.stat.healingPerExecutionTime.long">Healing per second spent casting the spell, including GCD wait time.</Trans>}>
+            <TooltipElement
+              content={
+                <Trans id="common.stat.healingPerExecutionTime.long">
+                  Healing per second spent casting the spell, including GCD wait time.
+                </Trans>
+              }
+            >
               <Trans id="common.stat.healingPerExecutionTime.short">HPET</Trans>
             </TooltipElement>
           </th>
@@ -154,14 +224,28 @@ class HealingEfficiencyBreakdown extends React.Component<Props, State> {
       )}
       {!this.state.showHealing && (
         <>
-          <th><Trans id="shared.healingEfficiency.tableHeader.damageDone">Damage Done</Trans></th>
           <th>
-            <TooltipElement content={<Trans id="common.stat.damagePerMana.long">Damage per mana spent casting the spell</Trans>}>
+            <Trans id="shared.healingEfficiency.tableHeader.damageDone">Damage Done</Trans>
+          </th>
+          <th>
+            <TooltipElement
+              content={
+                <Trans id="common.stat.damagePerMana.long">
+                  Damage per mana spent casting the spell
+                </Trans>
+              }
+            >
               <Trans id="common.stat.damagePerMana.short">DPM</Trans>
             </TooltipElement>
           </th>
           <th>
-            <TooltipElement content={<Trans id="common.stat.damagePerExecutionTime.long">Damage per second spent casting the spell</Trans>}>
+            <TooltipElement
+              content={
+                <Trans id="common.stat.damagePerExecutionTime.long">
+                  Damage per second spent casting the spell
+                </Trans>
+              }
+            >
               <Trans id="common.stat.damagePerExecutionTime.short">DPET</Trans>
             </TooltipElement>
           </th>
@@ -177,12 +261,25 @@ class HealingEfficiencyBreakdown extends React.Component<Props, State> {
 
     return (
       <>
-        <td>{spellDetail.casts} ({this.state.showHealing ? Math.floor(spellDetail.healingHits) : Math.floor(spellDetail.damageHits)})</td>
+        <td>
+          {spellDetail.casts} (
+          {this.state.showHealing
+            ? Math.floor(spellDetail.healingHits)
+            : Math.floor(spellDetail.damageHits)}
+          )
+        </td>
         <td>
           {formatNumber(spellDetail.manaSpent)}
           {' (' + formatPercentage(spellDetail.manaPercentSpent) + '%)'}
         </td>
-        <td>{spellDetail.timeSpentCasting !== 0 ? (formatDuration(spellDetail.timeSpentCasting / 1000) + ' (' + formatPercentage(spellDetail.percentTimeSpentCasting) + '%)') : '-'}</td>
+        <td>
+          {spellDetail.timeSpentCasting !== 0
+            ? formatDuration(spellDetail.timeSpentCasting / 1000) +
+              ' (' +
+              formatPercentage(spellDetail.percentTimeSpentCasting) +
+              '%)'
+            : '-'}
+        </td>
         {this.state.showHealing && (
           <>
             <td>
@@ -191,7 +288,9 @@ class HealingEfficiencyBreakdown extends React.Component<Props, State> {
             </td>
             <td>
               {hasOverhealing ? formatNumber(spellDetail.overhealingDone) : '-'}
-              {hasOverhealing ? ' (' + formatPercentage(spellDetail.percentOverhealingDone) + '%)' : ''}
+              {hasOverhealing
+                ? ' (' + formatPercentage(spellDetail.percentOverhealingDone) + '%)'
+                : ''}
             </td>
             <td>{hasHealing ? spellDetail.hpm.toFixed(2) : '-'}</td>
             <td>{hasHealing ? formatNumber(spellDetail.hpet * 1000) : '-'}</td>
@@ -222,7 +321,7 @@ class HealingEfficiencyBreakdown extends React.Component<Props, State> {
               <Toggle
                 defaultChecked={false}
                 icons={false}
-                onChange={event => this.setState({ detailedView: event.target.checked })}
+                onChange={(event) => this.setState({ detailedView: event.target.checked })}
                 id="detailed-toggle"
               />
               <label htmlFor="detailed-toggle" style={{ marginLeft: '0.5em' }}>
@@ -231,11 +330,14 @@ class HealingEfficiencyBreakdown extends React.Component<Props, State> {
             </div>
           </div>
           <div className="pull-right">
-            <div className="toggle-control pull-left" style={{ marginLeft: '.5em', marginRight: '.5em' }}>
+            <div
+              className="toggle-control pull-left"
+              style={{ marginLeft: '.5em', marginRight: '.5em' }}
+            >
               <Toggle
                 defaultChecked={false}
                 icons={false}
-                onChange={event => this.setState({ showCooldowns: event.target.checked })}
+                onChange={(event) => this.setState({ showCooldowns: event.target.checked })}
                 id="cooldown-toggle"
               />
               <label htmlFor="cooldown-toggle" style={{ marginLeft: '0.5em' }}>
@@ -249,7 +351,7 @@ class HealingEfficiencyBreakdown extends React.Component<Props, State> {
               <Toggle
                 defaultChecked
                 icons={false}
-                onChange={event => this.setState({ showHealing: event.target.checked })}
+                onChange={(event) => this.setState({ showHealing: event.target.checked })}
                 id="healing-toggle"
               />
               <label htmlFor="healing-toggle" style={{ marginLeft: '0.5em' }}>
@@ -261,7 +363,9 @@ class HealingEfficiencyBreakdown extends React.Component<Props, State> {
         <table className="data-table">
           <thead>
             <tr>
-              <th><Trans id="common.ability">Ability</Trans></th>
+              <th>
+                <Trans id="common.ability">Ability</Trans>
+              </th>
               {this.state.detailedView ? <this.DetailHeader /> : <this.BarHeader />}
             </tr>
           </thead>

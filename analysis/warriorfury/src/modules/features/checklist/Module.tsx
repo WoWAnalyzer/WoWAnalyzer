@@ -1,22 +1,18 @@
-import React from 'react';
-
-import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
+import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
+import React from 'react';
 
 import RageDetails from '../../core/RageDetails';
 import RageTracker from '../../core/RageTracker';
-
-import AlwaysBeCasting from '../AlwaysBeCasting';
 import MissedRampage from '../../spells/MissedRampage';
-
-import Component from './Component';
-
-import SiegeBreaker from '../../talents/Siegebreaker';
+import WhirlWind from '../../spells/Whirlwind';
 import Bladestorm from '../../talents/Bladestorm';
 import DragonRoar from '../../talents/DragonRoar';
-import WhirlWind from '../../spells/Whirlwind';
+import SiegeBreaker from '../../talents/Siegebreaker';
+import AlwaysBeCasting from '../AlwaysBeCasting';
+import Component from './Component';
 
 class Checklist extends BaseChecklist {
   static dependencies = {

@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
 import { Trans } from '@lingui/macro';
-import { Link, useHistory } from 'react-router-dom';
-
-import { constructURL } from 'interface/ReportSelecter';
 import DocumentTitle from 'interface/DocumentTitle';
+import { constructURL } from 'interface/ReportSelecter';
+import React, { useEffect, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 
 interface Props {
   query: string;
@@ -24,8 +23,18 @@ const Search = ({ query }: Props) => {
   return (
     <div className="container">
       <DocumentTitle title="Search" />
-      <h1><Trans id="interface.search.reportSearch">Report Search</Trans></h1>
-      {valid ? <><Trans id="interface.search.searchingFor">Searching for</Trans> </> : <><Trans id="interface.search.invalidSearchParameter">Invalid search parameter:</Trans> </>}
+      <h1>
+        <Trans id="interface.search.reportSearch">Report Search</Trans>
+      </h1>
+      {valid ? (
+        <>
+          <Trans id="interface.search.searchingFor">Searching for</Trans>{' '}
+        </>
+      ) : (
+        <>
+          <Trans id="interface.search.invalidSearchParameter">Invalid search parameter:</Trans>{' '}
+        </>
+      )}
       <b>{query}</b>
       <br />
       <br />
@@ -42,7 +51,9 @@ const Search = ({ query }: Props) => {
         </ul>
       </Trans>
       <br />
-      <Link to="/"><Trans id="interface.search.goBackHome">Go back home</Trans></Link>
+      <Link to="/">
+        <Trans id="interface.search.goBackHome">Go back home</Trans>
+      </Link>
     </div>
   );
 };

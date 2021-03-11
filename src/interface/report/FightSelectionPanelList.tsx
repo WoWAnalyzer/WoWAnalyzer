@@ -1,20 +1,17 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
 import { Trans } from '@lingui/macro';
-
+import { formatDuration } from 'common/format';
 import getFightName from 'common/getFightName';
 import getWipeCount from 'common/getWipeCount';
-import { formatDuration } from 'common/format';
-import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
-import SkullIcon from 'interface/icons/Skull';
+import { findByBossId } from 'game/raids';
 import CancelIcon from 'interface/icons/Cancel';
 import InformationIcon from 'interface/icons/Information';
+import SkullIcon from 'interface/icons/Skull';
+import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import ProgressBar from 'interface/report/ProgressBar';
-
-import { findByBossId } from 'game/raids';
-
-import Report from 'parser/core/Report';
 import { WCLFight } from 'parser/core/Fight';
+import Report from 'parser/core/Report';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 interface Props {
   report: Report;
@@ -27,7 +24,8 @@ interface Props {
 const groupByFight = (fights: WCLFight[]) => {
   let last: WCLFight[] = [];
   return fights.reduce((arr, fight) => {
-    const isDifferent = last.length === 0 || last[0].boss !== fight.boss || last[0].difficulty !== fight.difficulty;
+    const isDifferent =
+      last.length === 0 || last[0].boss !== fight.boss || last[0].difficulty !== fight.difficulty;
     if (isDifferent) {
       last = [];
       arr.push(last);
@@ -35,13 +33,13 @@ const groupByFight = (fights: WCLFight[]) => {
     last.push(fight);
     return arr;
   }, [] as WCLFight[][]);
-}
+};
 
 class FightSelectionPanelList extends React.PureComponent<Props> {
   render() {
     const { fights, report, killsOnly, playerId, resultTab } = this.props;
 
-    const filteredFights = fights.filter(fight => {
+    const filteredFights = fights.filter((fight) => {
       if (fight.boss === 0) {
         // Hide trashfights
         return false;
@@ -54,7 +52,7 @@ class FightSelectionPanelList extends React.PureComponent<Props> {
 
     return (
       <ul className="list">
-        {groupByFight(filteredFights).map(pulls => {
+        {groupByFight(filteredFights).map((pulls) => {
           const firstPull = pulls[0];
           const boss = findByBossId(firstPull.boss);
 
@@ -62,20 +60,12 @@ class FightSelectionPanelList extends React.PureComponent<Props> {
             <li key={firstPull.id} className="item">
               <div className="flex">
                 <div className="flex-sub content">
-                  {boss && boss.headshot && (
-                    <img
-                      src={boss.headshot}
-                      className="headshot"
-                      alt=""
-                    />
-                  )}
+                  {boss && boss.headshot && <img src={boss.headshot} className="headshot" alt="" />}
                 </div>
                 <div className="flex-main">
-                  <h2 style={{ marginTop: 0 }}>
-                    {getFightName(report, firstPull)}
-                  </h2>
+                  <h2 style={{ marginTop: 0 }}>{getFightName(report, firstPull)}</h2>
                   <div className="pulls">
-                    {pulls.map(pull => {
+                    {pulls.map((pull) => {
                       const duration = Math.round((pull.end_time - pull.start_time) / 1000);
                       const Icon = pull.kill ? SkullIcon : CancelIcon;
 
@@ -87,7 +77,16 @@ class FightSelectionPanelList extends React.PureComponent<Props> {
                         >
                           <div className="flex">
                             <div className="flex-main">
-                              <Icon /> {pull.kill ? <Trans id="interface.report.fightSelectionPanelList.kill">Kill</Trans> : <Trans id="interface.report.fightSelectionPanelList.wipe">Wipe {getWipeCount(fights, pull)}</Trans>}
+                              <Icon />{' '}
+                              {pull.kill ? (
+                                <Trans id="interface.report.fightSelectionPanelList.kill">
+                                  Kill
+                                </Trans>
+                              ) : (
+                                <Trans id="interface.report.fightSelectionPanelList.wipe">
+                                  Wipe {getWipeCount(fights, pull)}
+                                </Trans>
+                              )}
                             </div>
                             <div className="flex-sub">
                               <small>{formatDuration(duration)}</small>{' '}
@@ -108,7 +107,11 @@ class FightSelectionPanelList extends React.PureComponent<Props> {
           );
         })}
         <li className="item clearfix text-muted" style={{ paddingTop: 10, paddingBottom: 10 }}>
-          <InformationIcon /> <Trans id="interface.report.fightSelectionPanelList.information">You will usually get the most helpful results using raid fights where you're being challenged, such as progress raids.</Trans>
+          <InformationIcon />{' '}
+          <Trans id="interface.report.fightSelectionPanelList.information">
+            You will usually get the most helpful results using raid fights where you're being
+            challenged, such as progress raids.
+          </Trans>
         </li>
       </ul>
     );

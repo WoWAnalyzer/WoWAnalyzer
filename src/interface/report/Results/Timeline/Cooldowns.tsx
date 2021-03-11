@@ -1,7 +1,6 @@
-import React from 'react';
-
-import Abilities from 'parser/core/modules/Abilities';
 import { AnyEvent } from 'parser/core/Events';
+import Abilities from 'parser/core/modules/Abilities';
+import React from 'react';
 
 import './Cooldowns.scss';
 import Lane from './Lane';
@@ -11,7 +10,7 @@ interface Props {
   end: number;
   secondWidth: number;
   eventsBySpellId: Map<number, AnyEvent[]>;
-  abilities: Abilities,
+  abilities: Abilities;
 }
 
 class Cooldowns extends React.PureComponent<Props> {
@@ -27,7 +26,7 @@ class Cooldowns extends React.PureComponent<Props> {
   renderLanes(eventsBySpellId: Map<number, AnyEvent[]>, growUp: boolean) {
     return Array.from(eventsBySpellId)
       .sort((a, b) => this.getSortIndex(growUp ? b : a) - this.getSortIndex(growUp ? a : b))
-      .map(item => this.renderLane(item));
+      .map((item) => this.renderLane(item));
   }
   renderLane([spellId, events]: [number, AnyEvent[]]) {
     return (
@@ -44,11 +43,7 @@ class Cooldowns extends React.PureComponent<Props> {
   }
   render() {
     const { eventsBySpellId } = this.props;
-    return (
-      <div className="cooldowns">
-        {this.renderLanes(eventsBySpellId, false)}
-      </div>
-    );
+    return <div className="cooldowns">{this.renderLanes(eventsBySpellId, false)}</div>;
   }
 }
 

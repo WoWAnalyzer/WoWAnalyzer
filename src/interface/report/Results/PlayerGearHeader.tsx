@@ -1,8 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-
 import { makeCharacterUrl } from 'interface/makeAnalyzerUrl';
 import Combatant from 'parser/core/Combatant';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 interface Props {
   player: Combatant;
@@ -15,7 +14,8 @@ const PlayerGearHeader = ({ player, averageIlvl }: Props) => (
       <Link to={makeCharacterUrl(player)}>
         {player.name}
         <br></br>
-        {player.characterProfile && player.characterProfile.realm}</Link>
+        {player.characterProfile && player.characterProfile.realm}
+      </Link>
     </div>
     <div>
       {player.race && player.race.name} {player.spec.className}

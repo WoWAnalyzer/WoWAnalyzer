@@ -1,14 +1,13 @@
-import React from 'react';
-
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
-import { formatNumber, formatPercentage } from 'common/format';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import React from 'react';
 
 const AFFECTED_SPELLS = [
   SPELLS.LIGHTNING_BOLT_OVERLOAD,
@@ -32,10 +31,9 @@ class Stormkeeper extends Analyzer {
 
     this.active = this.selectedCombatant.hasTalent(SPELLS.STORMKEEPER_TALENT_ENHANCEMENT.id);
 
-    AFFECTED_SPELLS.forEach(affectedSpell => {
+    AFFECTED_SPELLS.forEach((affectedSpell) => {
       this.addEventListener(
-        Events.damage.by(SELECTED_PLAYER)
-          .spell(affectedSpell),
+        Events.damage.by(SELECTED_PLAYER).spell(affectedSpell),
         this.onSpellDamage,
       );
     });
@@ -63,11 +61,14 @@ class Stormkeeper extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={`Buffed casts contributed ${formatNumber(this.damageDoneByBuffedCasts)} damage (${formatPercentage(this.damagePercent)}% of your damage)`}
+        tooltip={`Buffed casts contributed ${formatNumber(
+          this.damageDoneByBuffedCasts,
+        )} damage (${formatPercentage(this.damagePercent)}% of your damage)`}
       >
         <BoringSpellValueText spell={SPELLS.STORMKEEPER_TALENT_ENHANCEMENT}>
           <>
-            <ItemDamageDone amount={this.damageDoneByBuffedCasts} /><br />
+            <ItemDamageDone amount={this.damageDoneByBuffedCasts} />
+            <br />
           </>
         </BoringSpellValueText>
       </Statistic>

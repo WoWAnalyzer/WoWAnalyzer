@@ -1,11 +1,10 @@
-import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
-import HIT_TYPES from 'game/HIT_TYPES';
-import Enemies from 'parser/shared/modules/Enemies';
-import EventFilter, { SELECTED_PLAYER } from 'parser/core/EventFilter';
-
 import SPELLS from 'common/SPELLS';
+import HIT_TYPES from 'game/HIT_TYPES';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import EventFilter, { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events from 'parser/core/Events';
+import Enemies from 'parser/shared/modules/Enemies';
+import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 
 const debug = false;
 
@@ -13,7 +12,7 @@ const DAMAGE_GENERATORS = {
   [SPELLS.IMMOLATE_DEBUFF.id]: () => 1, // has 50% chance of additional fragment on crit
   [SPELLS.CONFLAGRATE.id]: () => 5,
   [SPELLS.SHADOWBURN_TALENT.id]: () => 3,
-  [SPELLS.INCINERATE.id]: event => (event.hitType === HIT_TYPES.CRIT) ? 1 : 0,
+  [SPELLS.INCINERATE.id]: (event) => (event.hitType === HIT_TYPES.CRIT ? 1 : 0),
 };
 
 const IMMO_PROB = 0.5;
@@ -71,21 +70,38 @@ class SoulShardTracker extends ResourceTracker {
       const eventResource = this.getResource(event);
       // eventResource.amount has correct amount of fragments *before* the cast
       // if this is larger than the fragments currently tracked, then some random fragment generation must have happened since last cast till this cast
-      debug && console.log(`Fragments from event before cast: ${eventResource.amount}, currently tracked fragments: ${this.current}`);
+      debug &&
+        console.log(
+          `Fragments from event before cast: ${eventResource.amount}, currently tracked fragments: ${this.current}`,
+        );
       // before processing the spender, synchronize fragments to account for random procs
       if (eventResource.amount > this.current) {
         const missingFragments = eventResource.amount - this.current;
-        debug && console.log(`Missing ${missingFragments} fragments, Immolate critted ${this.immolateCrits}x, Rain of Fire hit ${this.rainOfFireHits}x`);
+        debug &&
+          console.log(
+            `Missing ${missingFragments} fragments, Immolate critted ${this.immolateCrits}x, Rain of Fire hit ${this.rainOfFireHits}x`,
+          );
         if (!this.hasInferno) {
           // if we're not running Inferno, there's no other way to get random fragments than Immolate
           // ... or it's some kind of Infernal shenanigan again, we can't account more fragments than there were events possibly causing them
-          debug && console.log(`Adding ${Math.min(missingFragments, this.immolateCrits)} fragments to Immolate`);
-          this.processInvisibleEnergize(SPELLS.IMMOLATE_DEBUFF.id, Math.min(missingFragments, this.immolateCrits));
+          debug &&
+            console.log(
+              `Adding ${Math.min(missingFragments, this.immolateCrits)} fragments to Immolate`,
+            );
+          this.processInvisibleEnergize(
+            SPELLS.IMMOLATE_DEBUFF.id,
+            Math.min(missingFragments, this.immolateCrits),
+          );
         } else {
-          const distribution = this._getRandomFragmentDistribution(this.immolateCrits, this.rainOfFireHits, missingFragments);
+          const distribution = this._getRandomFragmentDistribution(
+            this.immolateCrits,
+            this.rainOfFireHits,
+            missingFragments,
+          );
           const actualImmolate = Math.min(distribution.immolate, this.immolateCrits);
           const actualRain = Math.min(distribution.rainOfFire, this.rainOfFireHits);
-          debug && console.log(`Adding ${actualImmolate} to Immolate, ${actualRain} to Rain of Fire`);
+          debug &&
+            console.log(`Adding ${actualImmolate} to Immolate, ${actualRain} to Rain of Fire`);
           if (actualImmolate > 0) {
             // so we don't get "empty" energizes, meaning 0 generated, 0 wasted but still 1 cast
             this.processInvisibleEnergize(SPELLS.IMMOLATE_DEBUFF.id, actualImmolate);
@@ -139,8 +155,15 @@ class SoulShardTracker extends ResourceTracker {
     if (missingFragments <= 0) {
       return;
     }
-    const distribution = this._getRandomFragmentDistribution(this.immolateCrits, this.rainOfFireHits, missingFragments);
-    debug && console.log(`At the end of fight, missing ${missingFragments} fragments, redistributed ${distribution.immolate} to Immolate, ${distribution.rainOfFire} to Rain of Fire`);
+    const distribution = this._getRandomFragmentDistribution(
+      this.immolateCrits,
+      this.rainOfFireHits,
+      missingFragments,
+    );
+    debug &&
+      console.log(
+        `At the end of fight, missing ${missingFragments} fragments, redistributed ${distribution.immolate} to Immolate, ${distribution.rainOfFire} to Rain of Fire`,
+      );
     // with all the other balancing, it shouldn't probably be possible to give more shards than is the maximum
     this.processInvisibleEnergize(SPELLS.IMMOLATE_DEBUFF.id, distribution.immolate);
     if (this.hasInferno) {
@@ -168,11 +191,17 @@ class SoulShardTracker extends ResourceTracker {
   }
 
   _hasInfernal(timestamp) {
-    return (this.lastInfernalSummon !== undefined) && (timestamp < this.lastInfernalSummon + INFERNAL_DURATION);
+    return (
+      this.lastInfernalSummon !== undefined &&
+      timestamp < this.lastInfernalSummon + INFERNAL_DURATION
+    );
   }
 
   _infernalTicked(timestamp) {
-    return (this.lastInfernalTick !== undefined) && (timestamp > this.lastInfernalTick + INFERNAL_FRAGMENT_TICK_PERIOD);
+    return (
+      this.lastInfernalTick !== undefined &&
+      timestamp > this.lastInfernalTick + INFERNAL_FRAGMENT_TICK_PERIOD
+    );
   }
 
   _getRandomFragmentDistribution(immolateCrits, rainOfFireHits, totalFragments) {
@@ -202,7 +231,7 @@ class SoulShardTracker extends ResourceTracker {
           i = (Pi * ni * T) / (Pi * ni + Pr * nr)
           r = T - i
      */
-    const denominator = (IMMO_PROB * immolateCrits + ROF_PROB * rainOfFireHits) || 1; // to avoid division by zero, if immolateCrits is 0, then 0 / 1 is still 0
+    const denominator = IMMO_PROB * immolateCrits + ROF_PROB * rainOfFireHits || 1; // to avoid division by zero, if immolateCrits is 0, then 0 / 1 is still 0
     const i = Math.round((IMMO_PROB * immolateCrits * totalFragments) / denominator);
     const r = totalFragments - i;
     // known caveat - presumably Summon Infernal can mess up the shard tracking so that this function gets called with 0 Immolate crits and 0 Rain of Fire hits, but nonzero fragments

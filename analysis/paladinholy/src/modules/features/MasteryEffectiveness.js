@@ -1,22 +1,20 @@
-import React from 'react';
 import { Trans, t } from '@lingui/macro';
-
-import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Combatants from 'parser/shared/modules/Combatants';
-import StatTracker from 'parser/shared/modules/StatTracker';
-import HealingValue from 'parser/shared/modules/HealingValue';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import Statistic from 'parser/ui/Statistic';
-import Panel from 'parser/ui/Panel';
-import Radar from 'parser/ui/DistanceRadar';
-import PlayerBreakdown from 'parser/ui/PlayerBreakdown';
-
 import Events from 'parser/core/Events';
+import Combatants from 'parser/shared/modules/Combatants';
+import HealingValue from 'parser/shared/modules/HealingValue';
+import StatTracker from 'parser/shared/modules/StatTracker';
+import Radar from 'parser/ui/DistanceRadar';
+import Panel from 'parser/ui/Panel';
+import PlayerBreakdown from 'parser/ui/PlayerBreakdown';
+import Statistic from 'parser/ui/Statistic';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import React from 'react';
 
-import BeaconTargets from '../beacons/BeaconTargets';
 import { ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
+import BeaconTargets from '../beacons/BeaconTargets';
 
 const debug = false;
 
@@ -83,7 +81,7 @@ class MasteryEffectiveness extends Analyzer {
 
   masteryHealEvents = [];
 
-  constructor(options){
+  constructor(options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
@@ -134,11 +132,12 @@ class MasteryEffectiveness extends Analyzer {
       event.timestamp,
     );
 
-    if(!distance){
+    if (!distance) {
       distance = this.distanceSum / this.distanceCount;
     }
 
-    if(!distance){// still undefined? we just die now (should only happen with weird first event absorb logs)
+    if (!distance) {
+      // still undefined? we just die now (should only happen with weird first event absorb logs)
       console.error(
         "Received a heal before we know the player location. Can't process since player location is still unknown.",
         event,
@@ -274,7 +273,9 @@ class MasteryEffectiveness extends Analyzer {
       <Statistic key="Statistic" position={STATISTIC_ORDER.CORE(10)}>
         <div className="pad" style={{ position: 'relative' }}>
           <label>
-            <Trans id="paladin.holy.modules.masteryEffectiveness.masteryEffectiveness">Mastery effectiveness</Trans>
+            <Trans id="paladin.holy.modules.masteryEffectiveness.masteryEffectiveness">
+              Mastery effectiveness
+            </Trans>
           </label>
           <div className="value">
             {formatPercentage(this.masteryEffectivenessMasteryHealingGainAverage, 0)}%
@@ -303,14 +304,20 @@ class MasteryEffectiveness extends Analyzer {
                 fontSize: 13,
               }}
             >
-              <Trans id="paladin.holy.modules.masteryEffectiveness.averageDistance">Average distance</Trans>
+              <Trans id="paladin.holy.modules.masteryEffectiveness.averageDistance">
+                Average distance
+              </Trans>
             </div>
           </div>
         </div>
       </Statistic>,
       <Panel
         key="Panel"
-        title={<Trans id="paladin.holy.modules.masteryEffectiveness.masteryEffectivenessBreakdown">Mastery effectiveness breakdown</Trans>}
+        title={
+          <Trans id="paladin.holy.modules.masteryEffectiveness.masteryEffectivenessBreakdown">
+            Mastery effectiveness breakdown
+          </Trans>
+        }
         explanation={
           <Trans id="paladin.holy.modules.masteryEffectiveness.masteryEffectivenessBreakdownDetails">
             This shows you your mastery effectiveness on each individual player and the amount of
@@ -345,14 +352,18 @@ class MasteryEffectiveness extends Analyzer {
         </Trans>,
       )
         .icon('inv_hammer_04')
-        .actual(t({
-        id: "paladin.holy.modules.masteryEffectiveness.suggestion.actual",
-        message: `${formatPercentage(actual)}% mastery effectiveness`
-      }))
-        .recommended(t({
-        id: "paladin.holy.modules.masteryEffectiveness.suggestion.recommended",
-        message: `>${formatPercentage(recommended)}% is recommended`
-      })),
+        .actual(
+          t({
+            id: 'paladin.holy.modules.masteryEffectiveness.suggestion.actual',
+            message: `${formatPercentage(actual)}% mastery effectiveness`,
+          }),
+        )
+        .recommended(
+          t({
+            id: 'paladin.holy.modules.masteryEffectiveness.suggestion.recommended',
+            message: `>${formatPercentage(recommended)}% is recommended`,
+          }),
+        ),
     );
   }
 }

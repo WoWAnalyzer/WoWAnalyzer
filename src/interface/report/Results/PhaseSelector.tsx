@@ -1,8 +1,7 @@
-import React from 'react';
-
+import { Phase } from 'game/raids';
 import { SELECTION_ALL_PHASES, SELECTION_CUSTOM_PHASE } from 'interface/report/PhaseParser';
 import Fight from 'parser/core/Fight';
-import { Phase } from 'game/raids';
+import React from 'react';
 
 import './PhaseSelector.scss';
 
@@ -11,7 +10,7 @@ const INSTANCE_SEPARATOR = '_INSTANCE_';
 interface Props {
   fight: Fight;
   phases: {
-    [key: string]: Phase
+    [key: string]: Phase;
   };
   selectedPhase: string;
   selectedInstance: number;
@@ -21,16 +20,16 @@ interface Props {
 
 interface State {
   phases: {
-    [key: string]: PhaseSelection
+    [key: string]: PhaseSelection;
   };
 }
 
 interface PhaseSelection {
-  name: string,
-  key: string,
-  instance: number,
-  start: number,
-  multiple?: boolean,
+  name: string;
+  key: string;
+  instance: number;
+  start: number;
+  multiple?: boolean;
 }
 
 class PhaseSelector extends React.PureComponent<Props, State> {
@@ -54,29 +53,32 @@ class PhaseSelector extends React.PureComponent<Props, State> {
 
   //builds a dictionary of phases / phase instances to keep track of in order to be able to attribute a unique "key" to each phase for the dropdown
   //without losing the actual key (and without having to for example replace an "instance token" like an underscore)
-  buildPhases(): {[key: string]: PhaseSelection} {
+  buildPhases(): { [key: string]: PhaseSelection } {
     const phases: PhaseSelection[] = [];
-    Object.keys(this.props.phases).forEach(key => {
+    Object.keys(this.props.phases).forEach((key) => {
       const phase = this.props.phases[key];
       if (phase.start.length !== phase.end.length) {
         phases.push({ name: phase.name, key: key, start: phase.start![0], instance: 0 });
       } else {
-        phases.push(...phase.start!.map((start, index) => (
-          {
+        phases.push(
+          ...phase.start!.map((start, index) => ({
             name: phase.name,
             key,
             instance: index,
             start: start,
             multiple: phase.multiple,
-          }
-        )));
+          })),
+        );
       }
     });
     phases.sort((a, b) => a.start - b.start);
-    return phases.reduce((obj, phase) => ({
+    return phases.reduce(
+      (obj, phase) => ({
         ...obj,
         [phase.key + INSTANCE_SEPARATOR + phase.instance]: phase,
-      }), {});
+      }),
+      {},
+    );
   }
 
   //if phase information changed, build new dictionary of phase selection
@@ -94,16 +96,31 @@ class PhaseSelector extends React.PureComponent<Props, State> {
     return (
       <select
         className="form-control phase"
-        value={(fight.filtered && !fight.phase) ? SELECTION_CUSTOM_PHASE : (selectedPhase === SELECTION_ALL_PHASES ? SELECTION_ALL_PHASES : selectedPhase + INSTANCE_SEPARATOR + selectedInstance)}
+        value={
+          fight.filtered && !fight.phase
+            ? SELECTION_CUSTOM_PHASE
+            : selectedPhase === SELECTION_ALL_PHASES
+            ? SELECTION_ALL_PHASES
+            : selectedPhase + INSTANCE_SEPARATOR + selectedInstance
+        }
         onChange={this.handleChange}
         ref={this.phaseRef}
         disabled={this.props.isLoading}
       >
-        {fight.filtered && !fight.phase && <option key="custom" value={SELECTION_CUSTOM_PHASE}>Custom</option>}
-        <option key="all" value={SELECTION_ALL_PHASES}>All Phases</option>
-        {Object.keys(phases).map(key =>
-          <option key={key} value={key}>{phases[key].name}{phases[key].multiple ? ' ' + (phases[key].instance + 1) : ''}</option>,
+        {fight.filtered && !fight.phase && (
+          <option key="custom" value={SELECTION_CUSTOM_PHASE}>
+            Custom
+          </option>
         )}
+        <option key="all" value={SELECTION_ALL_PHASES}>
+          All Phases
+        </option>
+        {Object.keys(phases).map((key) => (
+          <option key={key} value={key}>
+            {phases[key].name}
+            {phases[key].multiple ? ' ' + (phases[key].instance + 1) : ''}
+          </option>
+        ))}
       </select>
     );
   }

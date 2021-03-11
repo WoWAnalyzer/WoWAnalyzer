@@ -1,16 +1,14 @@
-import React from 'react';
-
+import { t } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import { formatPercentage } from 'common/format';
-
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { t } from '@lingui/macro';
 import Events from 'parser/core/Events';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import Statistic from 'parser/ui/Statistic';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 const REFRESH_AT_STACKS = 7;
 
@@ -19,7 +17,6 @@ const BS_DURATION = 30;
 const MR_GAIN = 3;
 
 class MarrowrendUsage extends Analyzer {
-
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
@@ -49,10 +46,22 @@ class MarrowrendUsage extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.BONE_SHIELD), this.onApplyBuff);
-    this.addEventListener(Events.applybuffstack.to(SELECTED_PLAYER).spell(SPELLS.BONE_SHIELD), this.onApplyBuff);
-    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.BONE_SHIELD), this.onRemoveBuff);
-    this.addEventListener(Events.removebuffstack.to(SELECTED_PLAYER).spell(SPELLS.BONE_SHIELD), this.onRemoveBuffStack);
+    this.addEventListener(
+      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.BONE_SHIELD),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.applybuffstack.to(SELECTED_PLAYER).spell(SPELLS.BONE_SHIELD),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.BONE_SHIELD),
+      this.onRemoveBuff,
+    );
+    this.addEventListener(
+      Events.removebuffstack.to(SELECTED_PLAYER).spell(SPELLS.BONE_SHIELD),
+      this.onRemoveBuffStack,
+    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MARROWREND), this.onCast);
   }
 
@@ -84,13 +93,19 @@ class MarrowrendUsage extends Analyzer {
         const wasted = MR_GAIN - this.currentBoneShieldBuffer;
         this.badMRCasts += 1;
         this.bsStacksWasted += wasted;
-        badCast = badCast + `You made this cast with ${boneShieldStacks} stacks of Bone Shield while it had ${(durationLeft).toFixed(1)} seconds left, wasting ${wasted} charges.`;
+        badCast =
+          badCast +
+          `You made this cast with ${boneShieldStacks} stacks of Bone Shield while it had ${durationLeft.toFixed(
+            1,
+          )} seconds left, wasting ${wasted} charges.`;
       }
 
       if (this.hasBonesOfTheDamned && boneShieldStacks >= REFRESH_AT_STACKS) {
         // this was a potentially proc of BotD
         this.botdStacksWasted += 1;
-        badCast = badCast + `This cast couldn't proc ${SPELLS.BONES_OF_THE_DAMNED.name} because you had already ${boneShieldStacks} stacks.`;
+        badCast =
+          badCast +
+          `This cast couldn't proc ${SPELLS.BONES_OF_THE_DAMNED.name} because you had already ${boneShieldStacks} stacks.`;
       }
 
       if (badCast !== '') {
@@ -144,7 +159,7 @@ class MarrowrendUsage extends Analyzer {
       isGreaterThan: {
         minor: 0,
         average: 0.1,
-        major: .2,
+        major: 0.2,
       },
       style: 'percentage',
     };
@@ -156,24 +171,37 @@ class MarrowrendUsage extends Analyzer {
       isLessThan: {
         minor: 1,
         average: 0.9,
-        major: .8,
+        major: 0.8,
       },
       style: 'percentage',
     };
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        const botDDisclaimer = this.hasBonesOfTheDamned ? ` (not counting possible ${SPELLS.BONES_OF_THE_DAMNED.name} procs)` : '';
-        return suggest(<>You casted {this.badMRCasts} Marrowrends with more than {REFRESH_AT_STACKS} stacks of <SpellLink id={SPELLS.BONE_SHIELD.id} /> that were not about to expire, wasting {this.bsStacksWasted} stacks{botDDisclaimer}.<br />Cast <SpellLink id={SPELLS.HEART_STRIKE.id} /> instead if you are at {this.refreshAtStacks} stacks or above.</>)
-          .icon(SPELLS.MARROWREND.icon)
-          .actual(t({
-          id: "deathknight.blood.suggestions.boneShield.stacksWasted",
-          message: `${formatPercentage(actual)}% wasted ${SPELLS.BONE_SHIELD.name} stacks`
-        }))
-          .recommended(`${this.bsStacksWasted} stacks wasted, ${this.totalStacksGenerated} stacks generated`);
-      });
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+      const botDDisclaimer = this.hasBonesOfTheDamned
+        ? ` (not counting possible ${SPELLS.BONES_OF_THE_DAMNED.name} procs)`
+        : '';
+      return suggest(
+        <>
+          You casted {this.badMRCasts} Marrowrends with more than {REFRESH_AT_STACKS} stacks of{' '}
+          <SpellLink id={SPELLS.BONE_SHIELD.id} /> that were not about to expire, wasting{' '}
+          {this.bsStacksWasted} stacks{botDDisclaimer}.<br />
+          Cast <SpellLink id={SPELLS.HEART_STRIKE.id} /> instead if you are at{' '}
+          {this.refreshAtStacks} stacks or above.
+        </>,
+      )
+        .icon(SPELLS.MARROWREND.icon)
+        .actual(
+          t({
+            id: 'deathknight.blood.suggestions.boneShield.stacksWasted',
+            message: `${formatPercentage(actual)}% wasted ${SPELLS.BONE_SHIELD.name} stacks`,
+          }),
+        )
+        .recommended(
+          `${this.bsStacksWasted} stacks wasted, ${this.totalStacksGenerated} stacks generated`,
+        );
+    });
   }
 
   statistic() {
@@ -181,15 +209,27 @@ class MarrowrendUsage extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(3)}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
-            {this.refreshMRCasts} casts to refresh Bone Shield, those do not count towards bad casts.<br />
-            {this.hasBonesOfTheDamned && <>{this.wastedbonesOfTheDamnedProcs} casts with {REFRESH_AT_STACKS} stacks of {SPELLS.BONE_SHIELD.name}, wasting potential {SPELLS.BONES_OF_THE_DAMNED.name} procs.<br /></>}
-            {this.badMRCasts} casts with more than {REFRESH_AT_STACKS} stacks of Bone Shield wasting {this.bsStacksWasted} stacks.<br /><br />
-
-            Avoid casting Marrowrend unless you have {this.refreshAtStacks} or less stacks or if Bone Shield has less than 6sec of its duration left.
+            {this.refreshMRCasts} casts to refresh Bone Shield, those do not count towards bad
+            casts.
+            <br />
+            {this.hasBonesOfTheDamned && (
+              <>
+                {this.wastedbonesOfTheDamnedProcs} casts with {REFRESH_AT_STACKS} stacks of{' '}
+                {SPELLS.BONE_SHIELD.name}, wasting potential {SPELLS.BONES_OF_THE_DAMNED.name}{' '}
+                procs.
+                <br />
+              </>
+            )}
+            {this.badMRCasts} casts with more than {REFRESH_AT_STACKS} stacks of Bone Shield wasting{' '}
+            {this.bsStacksWasted} stacks.
+            <br />
+            <br />
+            Avoid casting Marrowrend unless you have {this.refreshAtStacks} or less stacks or if
+            Bone Shield has less than 6sec of its duration left.
           </>
-        )}
+        }
       >
         <BoringSpellValueText spell={SPELLS.MARROWREND}>
           <>

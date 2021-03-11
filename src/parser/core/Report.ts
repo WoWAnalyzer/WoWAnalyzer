@@ -1,7 +1,7 @@
-import { WCLFight } from './Fight';
 import { EnemyInfo } from './Enemy';
-import { PlayerInfo } from './Player';
+import { WCLFight } from './Fight';
 import { PetInfo } from './Pet';
+import { PlayerInfo } from './Player';
 
 export interface ExportedCharacter {
   id: number;
@@ -33,4 +33,4 @@ export interface Report extends WCLReport {
   isAnonymous: boolean;
 }
 
-export default Report
+export default Report;

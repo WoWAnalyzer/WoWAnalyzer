@@ -1,10 +1,15 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
-import { BORN_TO_BE_WILD_CD_REDUCTION, CALL_OF_THE_WILD_CD_REDUCTION, HARMONY_OF_THE_TORTOLLAN_EFFECT_BY_RANK, hastedCooldown } from '@wowanalyzer/hunter';
+import React from 'react';
+
+import {
+  BORN_TO_BE_WILD_CD_REDUCTION,
+  CALL_OF_THE_WILD_CD_REDUCTION,
+  HARMONY_OF_THE_TORTOLLAN_EFFECT_BY_RANK,
+  hastedCooldown,
+} from '@wowanalyzer/hunter';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -24,7 +29,10 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.9,
           extraSuggestion: (
             <>
-              <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> should be cast on cooldown as its cooldown is quickly reset again through <SpellLink id={SPELLS.BARBED_SHOT.id} />. You want to start each <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> window with as much focus as possible.
+              <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> should be cast on cooldown as its cooldown
+              is quickly reset again through <SpellLink id={SPELLS.BARBED_SHOT.id} />. You want to
+              start each <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> window with as much focus as
+              possible.
             </>
           ),
         },
@@ -32,7 +40,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.KILL_COMMAND_CAST_BM,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => hastedCooldown(7.5, haste),
+        cooldown: (haste) => hastedCooldown(7.5, haste),
         gcd: {
           base: 1500,
         },
@@ -59,7 +67,11 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BARBED_SHOT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         charges: 2,
-        cooldown: haste => hastedCooldown(this.selectedCombatant.hasConduitBySpellID(SPELLS.BLOODLETTING_CONDUIT.id) ? 11 : 12, haste),
+        cooldown: (haste) =>
+          hastedCooldown(
+            this.selectedCombatant.hasConduitBySpellID(SPELLS.BLOODLETTING_CONDUIT.id) ? 11 : 12,
+            haste,
+          ),
         gcd: {
           base: 1500,
         },
@@ -74,7 +86,12 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ASPECT_OF_THE_WILD,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 120 * (1 - (combatant.hasLegendaryByBonusID(SPELLS.CALL_OF_THE_WILD_EFFECT.id) ? CALL_OF_THE_WILD_CD_REDUCTION : 0)),
+        cooldown:
+          120 *
+          (1 -
+            (combatant.hasLegendaryByBonusID(SPELLS.CALL_OF_THE_WILD_EFFECT.id)
+              ? CALL_OF_THE_WILD_CD_REDUCTION
+              : 0)),
         gcd: {
           static: 0,
         },
@@ -92,10 +109,21 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         isDefensive: true,
-        cooldown: (180
-          - (combatant.hasConduitBySpellID(SPELLS.HARMONY_OF_THE_TORTOLLAN_CONDUIT.id) ? HARMONY_OF_THE_TORTOLLAN_EFFECT_BY_RANK[combatant.conduitRankBySpellID(SPELLS.HARMONY_OF_THE_TORTOLLAN_CONDUIT.id)] : 0))
-          * (1 - (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? BORN_TO_BE_WILD_CD_REDUCTION : 0))
-          * (1 - (combatant.hasLegendaryByBonusID(SPELLS.CALL_OF_THE_WILD_EFFECT.id) ? CALL_OF_THE_WILD_CD_REDUCTION : 0)),
+        cooldown:
+          (180 -
+            (combatant.hasConduitBySpellID(SPELLS.HARMONY_OF_THE_TORTOLLAN_CONDUIT.id)
+              ? HARMONY_OF_THE_TORTOLLAN_EFFECT_BY_RANK[
+                  combatant.conduitRankBySpellID(SPELLS.HARMONY_OF_THE_TORTOLLAN_CONDUIT.id)
+                ]
+              : 0)) *
+          (1 -
+            (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id)
+              ? BORN_TO_BE_WILD_CD_REDUCTION
+              : 0)) *
+          (1 -
+            (combatant.hasLegendaryByBonusID(SPELLS.CALL_OF_THE_WILD_EFFECT.id)
+              ? CALL_OF_THE_WILD_CD_REDUCTION
+              : 0)),
         gcd: {
           static: 0,
         },
@@ -124,9 +152,16 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 180
-          * (1 - (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? BORN_TO_BE_WILD_CD_REDUCTION : 0))
-          * (1 - (combatant.hasLegendaryByBonusID(SPELLS.CALL_OF_THE_WILD_EFFECT.id) ? CALL_OF_THE_WILD_CD_REDUCTION : 0)),
+        cooldown:
+          180 *
+          (1 -
+            (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id)
+              ? BORN_TO_BE_WILD_CD_REDUCTION
+              : 0)) *
+          (1 -
+            (combatant.hasLegendaryByBonusID(SPELLS.CALL_OF_THE_WILD_EFFECT.id)
+              ? CALL_OF_THE_WILD_CD_REDUCTION
+              : 0)),
         gcd: {
           static: 0,
         },
@@ -179,7 +214,9 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SOULFORGE_EMBERS_EFFECT.bonusID),
+          suggestion: this.selectedCombatant.hasLegendaryByBonusID(
+            SPELLS.SOULFORGE_EMBERS_EFFECT.bonusID,
+          ),
           recommendedEfficiency: 0.55,
         },
       },
@@ -199,7 +236,9 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: this.selectedCombatant.hasLegendaryByBonusID(SPELLS.SOULFORGE_EMBERS_EFFECT.bonusID),
+          suggestion: this.selectedCombatant.hasLegendaryByBonusID(
+            SPELLS.SOULFORGE_EMBERS_EFFECT.bonusID,
+          ),
           recommendedEfficiency: 0.9,
         },
       },
@@ -256,7 +295,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CHIMAERA_SHOT_TALENT_BEAST_MASTERY,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT_BEAST_MASTERY.id),
-        cooldown: haste => hastedCooldown(15, haste),
+        cooldown: (haste) => hastedCooldown(15, haste),
         gcd: {
           base: 1500,
         },

@@ -1,13 +1,12 @@
-import React from 'react';
-
-import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
+import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
+import React from 'react';
 
-import Component from './Component';
-import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import WindfuryTotem from '../core/WindfuryTotem';
+import AlwaysBeCasting from '../features/AlwaysBeCasting';
+import Component from './Component';
 // import Flametongue from '../core/Flametongue';
 // import Hailstorm from '../talents/Hailstorm';
 // import FlametongueRefresh from '../core/FlametongueRefresh';

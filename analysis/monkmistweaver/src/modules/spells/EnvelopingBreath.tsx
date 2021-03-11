@@ -1,20 +1,19 @@
-import React from 'react';
-
-import SPELLS from 'common/SPELLS';
+import { t } from '@lingui/macro';
 import { formatNumber } from 'common/format';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, CastEvent, DeathEvent, HealEvent } from 'parser/core/Events';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-import Combatants from 'parser/shared/modules/Combatants';
+import Events, { ApplyBuffEvent, CastEvent, DeathEvent, HealEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import { t } from '@lingui/macro';
+import Combatants from 'parser/shared/modules/Combatants';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import React from 'react';
 
-const ENVELOPING_BREATH_INCREASE = .1;
-const debug: boolean = false;
+const ENVELOPING_BREATH_INCREASE = 0.1;
+const debug = false;
 
 class EnvelopingBreath extends Analyzer {
   static dependencies = {
@@ -29,11 +28,20 @@ class EnvelopingBreath extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.handleEnvelopingBreathHeal);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH), this.handleEnvelopingBreathCount);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_MIST), this.handleEnvelopingMist);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH),
+      this.handleEnvelopingBreathCount,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_MIST),
+      this.handleEnvelopingMist,
+    );
     if (this.selectedCombatant.hasTalent(SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)) {
       this.addEventListener(Events.death.to(SELECTED_PLAYER_PET), this.handleChijiDeath);
-      this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT), this.handleChijiSummon);
+      this.addEventListener(
+        Events.cast.by(SELECTED_PLAYER).spell(SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT),
+        this.handleChijiSummon,
+      );
     }
   }
 
@@ -58,14 +66,25 @@ class EnvelopingBreath extends Analyzer {
     const sourceId = event.sourceID;
 
     if (this.combatants.players[targetId]) {
-      if (this.combatants.players[targetId].hasBuff(SPELLS.ENVELOPING_BREATH.id, event.timestamp, 0, 0, sourceId)) {
+      if (
+        this.combatants.players[targetId].hasBuff(
+          SPELLS.ENVELOPING_BREATH.id,
+          event.timestamp,
+          0,
+          0,
+          sourceId,
+        )
+      ) {
         this.envBIncrease += calculateEffectiveHealing(event, ENVELOPING_BREATH_INCREASE);
       }
     }
   }
 
   handleEnvelopingMist(event: CastEvent) {
-    if (this.chijiActive || this.selectedCombatant.hasBuff(SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id)) {
+    if (
+      this.chijiActive ||
+      this.selectedCombatant.hasBuff(SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id)
+    ) {
       this.envsDuringCelestial += 1;
     }
   }
@@ -85,17 +104,24 @@ class EnvelopingBreath extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        You are not utilizing <SpellLink id={SPELLS.ENVELOPING_BREATH.id} /> effectively. Make sure you are choosing good targets for your <SpellLink id={SPELLS.ENVELOPING_MIST.id} /> during your Celestial cooldowns to apply the maximum number of <SpellLink id={SPELLS.ENVELOPING_BREATH.id} /> possible.
-      </>,
-    )
-      .icon(SPELLS.ENVELOPING_BREATH.icon)
-      .actual(`${this.averageEnvBPerEnv.toFixed(2)}${t({
-      id: "monk.mistweaver.suggestions.envelopingBreath.averageEnvBPerEnv",
-      message: ` Enveloping Breaths per Enveloping Mist during Celestial`
-    })}`)
-      .recommended(`${recommended} Enveloping Breaths are recommended per cast`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You are not utilizing <SpellLink id={SPELLS.ENVELOPING_BREATH.id} /> effectively. Make
+          sure you are choosing good targets for your <SpellLink id={SPELLS.ENVELOPING_MIST.id} />{' '}
+          during your Celestial cooldowns to apply the maximum number of{' '}
+          <SpellLink id={SPELLS.ENVELOPING_BREATH.id} /> possible.
+        </>,
+      )
+        .icon(SPELLS.ENVELOPING_BREATH.icon)
+        .actual(
+          `${this.averageEnvBPerEnv.toFixed(2)}${t({
+            id: 'monk.mistweaver.suggestions.envelopingBreath.averageEnvBPerEnv',
+            message: ` Enveloping Breaths per Enveloping Mist during Celestial`,
+          })}`,
+        )
+        .recommended(`${recommended} Enveloping Breaths are recommended per cast`),
+    );
   }
 
   statistic() {
@@ -113,7 +139,6 @@ class EnvelopingBreath extends Analyzer {
       </Statistic>
     );
   }
-
 }
 
 export default EnvelopingBreath;

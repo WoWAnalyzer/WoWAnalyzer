@@ -18,10 +18,10 @@ const toSecond = (ms: number) => Math.trunc((ms % MINUTE) / SECOND);
 const toMillisecond = (ms: number) => Math.trunc(ms % SECOND);
 
 const convertTime = (time: number) => ({
-    milliseconds: toMillisecond(time),
-    seconds: toSecond(time),
-    minutes: toMinute(time),
-  });
+  milliseconds: toMillisecond(time),
+  seconds: toSecond(time),
+  minutes: toMinute(time),
+});
 
 const TimeInput = (props: Props) => {
   const mRef = React.createRef<HTMLInputElement>();

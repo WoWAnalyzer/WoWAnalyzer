@@ -74,7 +74,7 @@ const ManaStyles = {
   gridLines: {
     display: true,
     color: 'rgba(255, 255, 255, 0.6)',
-    borderDash: [2,2],
+    borderDash: [2, 2],
   },
   legend: {
     display: true,

@@ -27,10 +27,24 @@ export const VOID_FORM_ACTIVATORS = [
 ];
 
 // Abilities that don't show waste in resource gain
-export const SHADOW_SPELLS_WITHOUT_WASTE = [
-  SPELLS.VOID_TORRENT_TALENT.id,
-];
+export const SHADOW_SPELLS_WITHOUT_WASTE = [SPELLS.VOID_TORRENT_TALENT.id];
 
 // Shadowlands Conduits
 export const DISSONANT_ECHOES_DAMAGE_INCREASE = 0.35;
-export const HAUNTING_APPARITIONS_DAMAGE_INCREASE = [0.31, 0.341, 0.372, 0.403, 0.434, 0.465, 0.496, 0.527, 0.558, 0.589, 0.62, 0.651, 0.682, 0.713, 0.744];
+export const HAUNTING_APPARITIONS_DAMAGE_INCREASE = [
+  0.31,
+  0.341,
+  0.372,
+  0.403,
+  0.434,
+  0.465,
+  0.496,
+  0.527,
+  0.558,
+  0.589,
+  0.62,
+  0.651,
+  0.682,
+  0.713,
+  0.744,
+];

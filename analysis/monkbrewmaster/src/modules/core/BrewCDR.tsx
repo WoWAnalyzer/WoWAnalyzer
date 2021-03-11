@@ -1,18 +1,18 @@
-import React from 'react';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
-import { formatPercentage } from 'common/format';
-import Events, { ChangeHasteEvent, EventType } from 'parser/core/Events';
-import EventFilter from 'parser/core/EventFilter';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import Statistic from 'parser/ui/Statistic';
+import EventFilter from 'parser/core/EventFilter';
+import Events, { ChangeHasteEvent, EventType } from 'parser/core/Events';
 import BoringValue from 'parser/ui/BoringValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
 
 import Abilities from '../Abilities';
+import BlackOxBrew from '../spells/BlackOxBrew';
 import KegSmash from '../spells/KegSmash';
 import TigerPalm from '../spells/TigerPalm';
-import BlackOxBrew from '../spells/BlackOxBrew';
 
 class BrewCDR extends Analyzer {
   static dependencies = {
@@ -78,23 +78,51 @@ class BrewCDR extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
-        tooltip={(
+        tooltip={
           <>
             Your cooldowns were reduced by:
             <ul>
-              <li>{this.ks.totalCasts} Keg Smash casts — <strong>{(this.ks.cdr / 1000).toFixed(2)}s</strong> (<strong>{(this.ks.wastedCDR / 1000).toFixed(2)}s</strong> wasted)</li>
-              {this.ks.bocHits > 0 && <li>Using Blackout Combo on {this.ks.bocHits} Keg Smash hits — <strong>{(this.ks.bocCDR / 1000).toFixed(2)}s</strong> (<strong>{(this.ks.wastedBocCDR / 1000).toFixed(2)}s</strong> wasted)</li>}
-              <li>{this.tp.totalCasts} Tiger Palm hits — <strong>{(this.tp.cdr / 1000).toFixed(2)}s</strong> (<strong>{(this.tp.wastedCDR / 1000).toFixed(2)}s</strong> wasted)</li>
-              {this.bob.active && <li>{this.bob.casts} Black Ox Brew casts — <strong>{(this.bob.cdr[SPELLS.PURIFYING_BREW.id] / 1000).toFixed(2)}s</strong> (<strong>{(this.bob.wastedCDR[SPELLS.PURIFYING_BREW.id] / 1000).toFixed(2)}s</strong> wasted)</li>}
+              <li>
+                {this.ks.totalCasts} Keg Smash casts —{' '}
+                <strong>{(this.ks.cdr / 1000).toFixed(2)}s</strong> (
+                <strong>{(this.ks.wastedCDR / 1000).toFixed(2)}s</strong> wasted)
+              </li>
+              {this.ks.bocHits > 0 && (
+                <li>
+                  Using Blackout Combo on {this.ks.bocHits} Keg Smash hits —{' '}
+                  <strong>{(this.ks.bocCDR / 1000).toFixed(2)}s</strong> (
+                  <strong>{(this.ks.wastedBocCDR / 1000).toFixed(2)}s</strong> wasted)
+                </li>
+              )}
+              <li>
+                {this.tp.totalCasts} Tiger Palm hits —{' '}
+                <strong>{(this.tp.cdr / 1000).toFixed(2)}s</strong> (
+                <strong>{(this.tp.wastedCDR / 1000).toFixed(2)}s</strong> wasted)
+              </li>
+              {this.bob.active && (
+                <li>
+                  {this.bob.casts} Black Ox Brew casts —{' '}
+                  <strong>{(this.bob.cdr[SPELLS.PURIFYING_BREW.id] / 1000).toFixed(2)}s</strong> (
+                  <strong>
+                    {(this.bob.wastedCDR[SPELLS.PURIFYING_BREW.id] / 1000).toFixed(2)}s
+                  </strong>{' '}
+                  wasted)
+                </li>
+              )}
             </ul>
-            <strong>Total cooldown reduction:</strong> {(this.totalCDR / 1000).toFixed(2)}s.<br />
+            <strong>Total cooldown reduction:</strong> {(this.totalCDR / 1000).toFixed(2)}s.
+            <br />
           </>
-        )}
+        }
       >
-        <BoringValue label={<><SpellIcon id={SPELLS.TIGER_PALM.id} /> Effective Brew CDR</>}>
-          <>
-            {formatPercentage(this.cooldownReductionRatio)} %
-          </>
+        <BoringValue
+          label={
+            <>
+              <SpellIcon id={SPELLS.TIGER_PALM.id} /> Effective Brew CDR
+            </>
+          }
+        >
+          <>{formatPercentage(this.cooldownReductionRatio)} %</>
         </BoringValue>
       </Statistic>
     );

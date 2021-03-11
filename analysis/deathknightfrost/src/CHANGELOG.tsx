@@ -1,9 +1,9 @@
+import { change, date } from 'common/changelog';
+import SPELLS from 'common/SPELLS';
+import { joshinator, Khazak, LeoZhekov, Putro, Pendragon } from 'CONTRIBUTORS';
+import { SpellLink } from 'interface';
 import React from 'react';
 
-import { joshinator, Khazak, LeoZhekov, Putro, Pendragon } from 'CONTRIBUTORS';
-import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
-import { change, date } from 'common/changelog';
 
 export default [
   change(date(2021, 3, 7), 'Added Frost specific runeforge suggestions', Khazak),

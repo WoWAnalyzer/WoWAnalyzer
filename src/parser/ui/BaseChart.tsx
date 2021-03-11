@@ -1,6 +1,6 @@
 import React from 'react';
-import { Config } from 'vega-lite';
 import { VegaLite, VisualizationSpec } from 'react-vega';
+import { Config } from 'vega-lite';
 
 export const defaultConfig = {
   autosize: {

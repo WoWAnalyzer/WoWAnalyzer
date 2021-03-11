@@ -105,11 +105,13 @@ Array [
     "icon": "spell_mage_altertime",
     "importance": "major",
     "issue": <React.Fragment>
-      Your downtime can be improved. Try to Always Be Casting (ABC), reducing time away from the boss unless due to mechanics.  If you do have to move, try casting filler spells, such as 
+      Your downtime can be improved. Try to Always Be Casting (ABC), reducing time away from the boss unless due to mechanics. If you do have to move, try casting filler spells, such as
+       
       <ForwardRef
         id={49184}
       />
-       or 
+       or
+       
       <ForwardRef
         id={196770}
       />
@@ -178,7 +180,7 @@ exports[`Frost Death Knight integration test: example log BreathOfSindragosa mat
           className="value"
         >
           14.1
-          s  
+          s 
           <small>
             average duration
           </small>
@@ -213,11 +215,13 @@ Array [
     "icon": "spell_deathknight_breathofsindragosa",
     "importance": "major",
     "issue": <React.Fragment>
-       You are not getting good uptime from your 
+       
+      You are not getting good uptime from your
+       
       <ForwardRef
         id={152279}
       />
-       casts. A good cast is one that lasts 25 seconds or more.  To ensure a good duration, make sure you have 70+ Runic Power pooled and have less than 4 Runes available before you start the cast.  Also make sure to use 
+       casts. A good cast is one that lasts 25 seconds or more. To ensure a good duration, make sure you have 70+ Runic Power pooled and have less than 4 Runes available before you start the cast. Also make sure to use 
       <ForwardRef
         id={47568}
       />
@@ -385,8 +389,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               29
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -471,8 +474,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               3
               /8
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -569,8 +571,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               15
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -655,8 +656,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               24
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -741,8 +741,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               3
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -885,8 +884,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1029,8 +1027,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               3
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1127,8 +1124,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               1
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1225,8 +1221,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               1
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1328,8 +1323,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1431,8 +1425,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1529,8 +1522,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1685,8 +1677,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               2
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1783,8 +1774,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1881,8 +1871,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1967,8 +1956,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2065,8 +2053,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2221,8 +2208,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /6
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2319,8 +2305,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2417,8 +2402,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /18
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2515,8 +2499,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2613,8 +2596,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /10
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2711,8 +2693,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2797,8 +2778,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /4
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2895,8 +2875,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2981,8 +2960,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               1
               /3
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3079,8 +3057,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /5
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3177,8 +3154,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3321,8 +3297,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3419,8 +3394,7 @@ exports[`Frost Death Knight integration test: example log CastEfficiency matches
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3534,12 +3508,13 @@ Array [
       />
        
       <React.Fragment>
-        Although you normally want to use this off CD, you can save it to line it up with 
+        Although you normally want to use this off CD, you can save it to line it up with
+         
         <ForwardRef
           icon={true}
           id={51271}
         />
-        .  You can also hold it if you know there will be an opportunity to hit more than one enemy in the next 30 seconds.
+        . You can also hold it if you know there will be an opportunity to hit more than one enemy in the next 30 seconds.
       </React.Fragment>
     </React.Fragment>,
     "stat": <React.Fragment>
@@ -3581,13 +3556,15 @@ Array [
       15.78
       % of the fight duration (
       22
-       seconds). Dying has a significant performance cost. View the 
+       seconds). Dying has a significant performance cost. View the
+       
       <Link
         to="/report/TcCmAWp2RGzvkK69/1-%7B%22id%22:%22common.getFightName.fightname%22,%22message%22:%22%7BbossName%7D+-+%7BfightResult%7D+(%7Bduration%7D)%22,%22values%22:%7B%22bossName%22:%22%5C%22%7B0%7D+%7B1%7D%5C%22%22,%22fightResult%22:%22%7B%5C%22id%5C%22:%5C%22common.getFightName.kill%5C%22,%5C%22message%5C%22:%5C%22Kill%5C%22%7D%22,%22duration%22:%222:22%22%7D%7D/Khazakk/standard/death-recap"
       >
         Death Recap
       </Link>
-       to see the damage taken and what defensives and potions were still available.
+       
+      to see the damage taken and what defensives and potions were still available.
     </React.Fragment>,
     "stat": <React.Fragment>
       <Trans
@@ -4011,7 +3988,8 @@ Array [
       <ForwardRef
         id={55095}
       />
-       uptime can be improved. Try to pay attention to when Frost Fever is about to fall off the priority target, using 
+       uptime can be improved. Try to pay attention to when Frost Fever is about to fall off the priority target, using
+       
       <ForwardRef
         id={49184}
       />
@@ -5424,7 +5402,8 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
           <div
             className="col-md-12"
           >
-            While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes. In a worst case scenario, you can cast 
+            While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes. In a worst case scenario, you can cast
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=49184"

@@ -1,8 +1,8 @@
-import { Putro, Zeboot, Kartarn } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
-import React from 'react';
-import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
+import { Putro, Zeboot, Kartarn } from 'CONTRIBUTORS';
+import { SpellLink } from 'interface';
+import React from 'react';
 
 export default [
   change(date(2021, 3, 6), 'Fixed suggestion for wasted regenerated focus.', Kartarn),

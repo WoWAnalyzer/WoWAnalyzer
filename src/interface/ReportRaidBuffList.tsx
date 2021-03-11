@@ -1,13 +1,13 @@
-import React from 'react';
-
-import SPECS from 'game/SPECS';
 import SPELLS from 'common/SPELLS';
+import SPECS from 'game/SPECS';
 import { Class, CombatantInfoEvent } from 'parser/core/Events';
+import React from 'react';
 
 import './ReportRaidBuffList.scss';
 
 import ReportRaidBuffListItem from './ReportRaidBuffListItem';
 
+// eslint-disable-next-line
 const AVAILABLE_RAID_BUFFS = new Map<number, Array<Class | object>>([
   // Buffs
   //  Stamina
@@ -71,11 +71,7 @@ const ReportRaidBuffList = ({ combatants }: Props) => {
     <div className="raidbuffs">
       <h1>Raid Buffs</h1>
       {Array.from(buffs, ([spellId, count]) => (
-        <ReportRaidBuffListItem
-          key={spellId}
-          spellId={Number(spellId)}
-          count={count}
-        />
+        <ReportRaidBuffListItem key={spellId} spellId={Number(spellId)} count={count} />
       ))}
     </div>
   );

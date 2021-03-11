@@ -1,12 +1,13 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import React from 'react';
-import Events, { CastEvent } from 'parser/core/Events';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import React from 'react';
+
 import { EAGLETALONS_TRUE_FOCUS_COST_REDUCTION } from '@wowanalyzer/hunter-marksmanship/src/constants';
 
 /**
@@ -14,12 +15,13 @@ import { EAGLETALONS_TRUE_FOCUS_COST_REDUCTION } from '@wowanalyzer/hunter-marks
  */
 
 class EagletalonsTrueFocus extends Analyzer {
-
   focusSaved = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendaryByBonusID(SPELLS.EAGLETALONS_TRUE_FOCUS_EFFECT.bonusID);
+    this.active = this.selectedCombatant.hasLegendaryByBonusID(
+      SPELLS.EAGLETALONS_TRUE_FOCUS_EFFECT.bonusID,
+    );
     if (!this.active) {
       return;
     }
@@ -30,7 +32,9 @@ class EagletalonsTrueFocus extends Analyzer {
     if (!this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
       return;
     }
-    const resource = event.classResources?.find(resource => resource.type === RESOURCE_TYPES.FOCUS.id);
+    const resource = event.classResources?.find(
+      (resource) => resource.type === RESOURCE_TYPES.FOCUS.id,
+    );
     if (!resource) {
       return;
     }

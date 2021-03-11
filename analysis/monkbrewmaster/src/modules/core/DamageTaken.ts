@@ -1,7 +1,7 @@
-import CoreDamageTaken from 'parser/shared/modules/throughput/DamageTaken';
 import SPELLS from 'common/SPELLS';
-import Events, { AbsorbedEvent } from 'parser/core/Events';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { AbsorbedEvent } from 'parser/core/Events';
+import CoreDamageTaken from 'parser/shared/modules/throughput/DamageTaken';
 
 class DamageTaken extends CoreDamageTaken {
   _staggeredDamage: { [guid: number]: number } = {};
@@ -9,7 +9,10 @@ class DamageTaken extends CoreDamageTaken {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(Events.absorbed.to(SELECTED_PLAYER).spell(SPELLS.STAGGER), this.onToPlayerAbsorbed);
+    this.addEventListener(
+      Events.absorbed.to(SELECTED_PLAYER).spell(SPELLS.STAGGER),
+      this.onToPlayerAbsorbed,
+    );
   }
 
   onToPlayerAbsorbed(event: AbsorbedEvent) {

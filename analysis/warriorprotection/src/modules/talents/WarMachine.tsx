@@ -1,11 +1,11 @@
-import React from 'react';
-import Analyzer, { Options } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import Statistic from 'parser/ui/Statistic';
+import { SpellLink } from 'interface';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import BoringValueText from 'parser/ui/BoringValueText';
+import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { SpellLink } from 'interface';
+import React from 'react';
 
 import RageTracker from '../core/RageTracker';
 
@@ -31,7 +31,13 @@ class WarMachine extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringValueText label={<><SpellLink id={SPELLS.WAR_MACHINE_TALENT_PROTECTION.id} /> Extra Rage From Melees</>}>
+        <BoringValueText
+          label={
+            <>
+              <SpellLink id={SPELLS.WAR_MACHINE_TALENT_PROTECTION.id} /> Extra Rage From Melees
+            </>
+          }
+        >
           <>
             {rageFromWarMachine} <small>rage</small>
           </>

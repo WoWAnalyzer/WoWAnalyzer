@@ -233,14 +233,14 @@ const spells = {
     icon: 'ability_whirlwind',
   },
 
-  // Arms/Fury: 
+  // Arms/Fury:
   PIERCING_HOWL: {
     id: 12323,
     name: 'Piercing Howl',
     icon: 'spell_shadow_deathscream',
   },
 
-  // Arms/Prot 
+  // Arms/Prot
   RAVAGER_DAMAGE: {
     id: 156287,
     name: 'Ravager',
@@ -260,20 +260,19 @@ const spells = {
   },
   WAR_MACHINE_TALENT_BUFF: {
     id: 262232,
-    name: "War Machine",
-    icon: "ability_hunter_rapidkilling",
+    name: 'War Machine',
+    icon: 'ability_hunter_rapidkilling',
   },
   STORM_BOLT_TALENT_DEBUFF: {
     id: 132169,
-    name: "Storm Bolt",
-    icon: "warrior_talent_icon_stormbolt",
+    name: 'Storm Bolt',
+    icon: 'warrior_talent_icon_stormbolt',
   },
   IMPENDING_VICTORY_TALENT_HEAL: {
     id: 202166,
-    name: "Impending Victory",
-    icon: "spell_impending_victory",
+    name: 'Impending Victory',
+    icon: 'spell_impending_victory',
   },
-
 
   // Arms:
   BLADESTORM: {
@@ -341,13 +340,13 @@ const spells = {
   // Arm Talents
   IN_FOR_THE_KILL_TALENT_BUFF: {
     id: 248622,
-    name: "In For The Kill",
-    icon: "ability_blackhand_marked4death",
+    name: 'In For The Kill',
+    icon: 'ability_blackhand_marked4death',
   },
   SUDDEN_DEATH_ARMS_TALENT_BUFF: {
     id: 52437,
-    name: "Sudden Death",
-    icon: "abilty_warrior_improveddisciplines",
+    name: 'Sudden Death',
+    icon: 'abilty_warrior_improveddisciplines',
   },
   SECOND_WIND_TALENT_HEAL: {
     id: 202147,
@@ -410,8 +409,8 @@ const spells = {
   // Talents
   WAR_MACHINE_FURY_TALENT_BUFF: {
     id: 280776,
-    name: "Sudden Death",
-    icon: "abilty_warrior_improveddisciplines",
+    name: 'Sudden Death',
+    icon: 'abilty_warrior_improveddisciplines',
   },
   BLADESTORM_OH_DAMAGE: {
     id: 95738,
@@ -420,8 +419,8 @@ const spells = {
   },
   SIEGEBREAKER_DEBUFF: {
     id: 280773,
-    name: "Siegebreaker",
-    icon: "inv_make_101",
+    name: 'Siegebreaker',
+    icon: 'inv_make_101',
   },
   FROTHING_BERSERKER_REFUND: {
     id: 215572,
@@ -440,7 +439,6 @@ const spells = {
     name: 'Bloodbath',
     icon: 'ability_warrior_bloodbath',
   },
-
 
   // Protection:
   DEVASTATE: {
@@ -481,8 +479,8 @@ const spells = {
   },
   INTO_THE_FRAY_BUFF: {
     id: 202602,
-    name: "Into the Fray",
-    icon: "ability_warrior_bloodfrenzy",
+    name: 'Into the Fray',
+    icon: 'ability_warrior_bloodfrenzy',
   },
   PUNISH_DEBUFF: {
     id: 275335,
@@ -517,8 +515,6 @@ const spells = {
     name: 'Deep Wounds',
     icon: 'ability_backstab',
   },
-
-  
 } as const;
 
 export default spells;

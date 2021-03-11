@@ -1,81 +1,72 @@
-import React from 'react';
-
-import { SpiritWolf, StaticCharge, AstralShift } from '@wowanalyzer/shaman';
-
 import { Panel } from 'interface';
-
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
+import React from 'react';
 
-import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-
-import HealingEfficiencyDetails from './modules/core/HealingEfficiencyDetails';
-import HealingEfficiencyTracker from './modules/core/HealingEfficiencyTracker';
-import Abilities from './modules/Abilities';
-
-import HealingDone from './modules/core/HealingDone';
-import HealingRainLocation from './modules/core/HealingRainLocation';
-import RestorationAbilityTracker from './modules/core/RestorationAbilityTracker';
-
-import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
-
-import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import Checklist from './modules/features/checklist/Module';
-import SpellUsable from './modules/features/SpellUsable';
-import StatValues from './modules/features/StatValues';
-
-import TidalWaves from './modules/features/TidalWaves';
-import CastBehavior from './modules/features/CastBehavior';
-// Talents
-import TalentStatisticBox from './modules/talents/TalentStatisticBox';
-import Torrent from './modules/talents/Torrent';
-import UnleashLife from './modules/talents/UnleashLife';
-import Deluge from './modules/talents/Deluge';
-import SurgeOfEarth from './modules/talents/SurgeOfEarth';
-import Undulation from './modules/talents/Undulation';
-import FlashFlood from './modules/talents/FlashFlood';
-import AncestralVigor from './modules/talents/AncestralVigor';
-import EarthenWallTotem from './modules/talents/EarthenWallTotem';
-import Downpour from './modules/talents/Downpour';
-import CloudburstTotem from './modules/talents/CloudburstTotem';
-import Ascendance from './modules/talents/Ascendance';
-import Wellspring from './modules/talents/Wellspring';
-import HighTide from './modules/talents/HighTide';
-import NaturesGuardian from './modules/talents/NaturesGuardian';
-import AncestralProtectionTotem from './modules/talents/AncestralProtectionTotem';
-// Spells
-import ChainHeal from './modules/spells/ChainHeal';
-import HealingSurge from './modules/spells/HealingSurge';
-import HealingRain from './modules/spells/HealingRain';
-import HealingWave from './modules/spells/HealingWave';
-import LavaSurge from './modules/spells/LavaSurge';
-import Resurgence from './modules/spells/Resurgence';
-import ManaTideTotem from './modules/spells/ManaTideTotem';
-import WaterShield from './modules/spells/WaterShield';
-import SpiritLinkDamageReduction from './modules/spells/SpiritLinkDamageReduction';
-// Potency Conduits
-import EmbraceOfEarth from './modules/shadowlands/conduits/EmbraceOfEarth';
-import HeavyRainfall from './modules/shadowlands/conduits/HeavyRainfall';
-import SwirlingCurrents from './modules/shadowlands/conduits/SwirlingCurrents';
-import NaturesFocus from './modules/shadowlands/conduits/NaturesFocus';
-// Legendaries
-import PrimalTideCore from './modules/shadowlands/legendaries/PrimalTideCore';
-import JonatsNaturalFocus from './modules/shadowlands/legendaries/JonatsNaturalFocus';
-import EarthenHarmony from './modules/shadowlands/legendaries/EarthenHarmony';
-// Covenants
-import ChainHarvest from './modules/shadowlands/spells/ChainHarvest';
-import PrimordialWave from './modules/shadowlands/spells/PrimordialWave';
-// Shared
-import EarthShield from './modules/spells/EarthShield'; // technically shared
-
-import CloudburstNormalizer from './normalizers/CloudburstNormalizer';
-import RiptideNormalizer from './normalizers/RiptideNormalizer';
+import { SpiritWolf, StaticCharge, AstralShift } from '@wowanalyzer/shaman';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 import Feeding from './Feeding';
+import Abilities from './modules/Abilities';
+import HealingDone from './modules/core/HealingDone';
+import HealingEfficiencyDetails from './modules/core/HealingEfficiencyDetails';
+import HealingEfficiencyTracker from './modules/core/HealingEfficiencyTracker';
+import HealingRainLocation from './modules/core/HealingRainLocation';
+import RestorationAbilityTracker from './modules/core/RestorationAbilityTracker';
+import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import CastBehavior from './modules/features/CastBehavior';
+import Checklist from './modules/features/checklist/Module';
+import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
+import SpellUsable from './modules/features/SpellUsable';
+import StatValues from './modules/features/StatValues';
+import TidalWaves from './modules/features/TidalWaves';
+// Talents
+import EmbraceOfEarth from './modules/shadowlands/conduits/EmbraceOfEarth';
+import HeavyRainfall from './modules/shadowlands/conduits/HeavyRainfall';
+import NaturesFocus from './modules/shadowlands/conduits/NaturesFocus';
+import SwirlingCurrents from './modules/shadowlands/conduits/SwirlingCurrents';
+import EarthenHarmony from './modules/shadowlands/legendaries/EarthenHarmony';
+import JonatsNaturalFocus from './modules/shadowlands/legendaries/JonatsNaturalFocus';
+import PrimalTideCore from './modules/shadowlands/legendaries/PrimalTideCore';
+import ChainHarvest from './modules/shadowlands/spells/ChainHarvest';
+import PrimordialWave from './modules/shadowlands/spells/PrimordialWave';
+import ChainHeal from './modules/spells/ChainHeal';
+import EarthShield from './modules/spells/EarthShield'; // technically shared
+import HealingRain from './modules/spells/HealingRain';
+import HealingSurge from './modules/spells/HealingSurge';
+import HealingWave from './modules/spells/HealingWave';
+import LavaSurge from './modules/spells/LavaSurge';
+import ManaTideTotem from './modules/spells/ManaTideTotem';
+import Resurgence from './modules/spells/Resurgence';
+import SpiritLinkDamageReduction from './modules/spells/SpiritLinkDamageReduction';
+import WaterShield from './modules/spells/WaterShield';
+import AncestralProtectionTotem from './modules/talents/AncestralProtectionTotem';
+import AncestralVigor from './modules/talents/AncestralVigor';
+import Ascendance from './modules/talents/Ascendance';
+import CloudburstTotem from './modules/talents/CloudburstTotem';
+import Deluge from './modules/talents/Deluge';
+import Downpour from './modules/talents/Downpour';
+import EarthenWallTotem from './modules/talents/EarthenWallTotem';
+import FlashFlood from './modules/talents/FlashFlood';
+import HighTide from './modules/talents/HighTide';
+import NaturesGuardian from './modules/talents/NaturesGuardian';
+import SurgeOfEarth from './modules/talents/SurgeOfEarth';
+import TalentStatisticBox from './modules/talents/TalentStatisticBox';
+import Torrent from './modules/talents/Torrent';
+import Undulation from './modules/talents/Undulation';
+import UnleashLife from './modules/talents/UnleashLife';
+import Wellspring from './modules/talents/Wellspring';
+// Spells
+// Potency Conduits
+// Legendaries
+// Covenants
+// Shared
+import CloudburstNormalizer from './normalizers/CloudburstNormalizer';
+import RiptideNormalizer from './normalizers/RiptideNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;

@@ -1,11 +1,11 @@
-import React from 'react';
-
-import { EnergyTracker } from '@wowanalyzer/rogue'
-import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import resourceSuggest from 'parser/shared/modules/resources/resourcetracker/ResourceSuggest';
+import Analyzer from 'parser/core/Analyzer';
 import { When } from 'parser/core/ParseResults';
+import resourceSuggest from 'parser/shared/modules/resources/resourcetracker/ResourceSuggest';
+import React from 'react';
+
+import { EnergyTracker } from '@wowanalyzer/rogue';
 
 class Energy extends Analyzer {
   static dependencies = {
@@ -20,7 +20,11 @@ class Energy extends Analyzer {
       minor: 0.05,
       avg: 0.1,
       major: 0.15,
-      extraSuggestion: <>Try to spend energy before using <SpellLink id={SPELLS.VENDETTA.id} /> </>,
+      extraSuggestion: (
+        <>
+          Try to spend energy before using <SpellLink id={SPELLS.VENDETTA.id} />{' '}
+        </>
+      ),
     });
   }
 }

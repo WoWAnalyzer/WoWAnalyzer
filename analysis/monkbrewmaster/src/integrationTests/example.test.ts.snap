@@ -359,8 +359,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               34
               /47
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -462,8 +461,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               29
               /70
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -565,8 +563,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               8
               /19
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -663,8 +660,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               38
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -749,8 +745,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -835,8 +830,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               3
               /8
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -996,8 +990,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1140,8 +1133,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               1
               /2
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1238,8 +1230,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1399,8 +1390,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               22
               /38
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1502,8 +1492,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               4
               /9
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1605,8 +1594,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               13
               /56
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1703,8 +1691,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               1
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1801,8 +1788,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -1957,8 +1943,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               3
               /15
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2055,8 +2040,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2141,8 +2125,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2227,8 +2210,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               0
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2313,8 +2295,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               0
               /7
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2411,8 +2392,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               0
               /5
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2509,8 +2489,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               4
               /35
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2607,8 +2586,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               1
               /19
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2705,8 +2683,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               0
               /35
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2803,8 +2780,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               1
               
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -2947,8 +2923,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3045,8 +3020,7 @@ exports[`Brewmaster Monk integration test: example log CastEfficiency matches th
             >
               0
               /1
-               
-              casts
+               casts
             </td>
             <td
               style={
@@ -3492,13 +3466,15 @@ Array [
       5.44
       % of the fight duration (
       15
-       seconds). Dying has a significant performance cost. View the 
+       seconds). Dying has a significant performance cost. View the
+       
       <Link
         to="/report/bdf9wjm7XJQn3DCR/31-%7B%22id%22:%22common.getFightName.fightname%22,%22message%22:%22%7BbossName%7D+-+%7BfightResult%7D+(%7Bduration%7D)%22,%22values%22:%7B%22bossName%22:%22%5C%22%7B0%7D+%7B1%7D%5C%22%22,%22fightResult%22:%22%7B%5C%22id%5C%22:%5C%22common.getFightName.wipe%5C%22,%5C%22message%5C%22:%5C%22Wipe+%7Bwipes%7D%5C%22,%5C%22values%5C%22:%7B%5C%22wipes%5C%22:15%7D%7D%22,%22duration%22:%224:38%22%7D%7D/Xaronbm/standard/death-recap"
       >
         Death Recap
       </Link>
-       to see the damage taken and what defensives and potions were still available.
+       
+      to see the damage taken and what defensives and potions were still available.
     </React.Fragment>,
     "stat": <React.Fragment>
       <Trans
@@ -4281,7 +4257,8 @@ Array [
       <ForwardRef
         id={100780}
       />
-       is your lowest priority ability. You should avoid casting it when you have other damaging abilities like 
+       is your lowest priority ability. You should avoid casting it when you have other damaging abilities like
+       
       <ForwardRef
         id={121253}
       />
@@ -4289,7 +4266,8 @@ Array [
       <ForwardRef
         id={205523}
       />
-       available.
+       
+      available.
     </React.Fragment>,
     "stat": <React.Fragment>
       68.42% of casts while better spells were available
@@ -4334,7 +4312,8 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
              
             Celestial Brew
           </a>
-           effectively
+           
+          effectively
         </div>
         <div
           className="flex-sub perf"
@@ -4418,7 +4397,8 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                
               Celestial Brew
             </a>
-             is a key part of your defensive toolkit. While it might be tempting to wait to cast it until you have max 
+             is a key part of your defensive toolkit. While it might be tempting to wait to cast it until you have max
+             
             <a
               className="spell-link-text"
               href="http://wowhead.com/spell=325092"
@@ -4650,7 +4630,8 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
              
             Purifying Brew
           </a>
-           effectively
+           
+          effectively
         </div>
         <div
           className="flex-sub perf"
@@ -4775,7 +4756,8 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                    
                   Purifying Brew
                 </a>
-                 at less than 
+                 at less than
+                 
                 <a
                   className="spell-link-text"
                   href="http://wowhead.com/spell=124273"
@@ -4790,7 +4772,8 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                    
                   Heavy Stagger
                 </a>
-                —but not if it would waste charges! In a raid environment, 
+                —but not if it would waste charges! In a raid environment,
+                 
                 <a
                   className="spell-link-text"
                   href="http://wowhead.com/spell=124273"
@@ -4820,10 +4803,12 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                    
                   Heavy Stagger
                 </a>
-                 consistently, this remains a good rule of thumb.
+                 
+                consistently, this remains a good rule of thumb.
               </li>
               <li>
-                If you are going to purify a hit, do so as soon as possible after it lands. Every half-second delayed after the hit causes you to take 5% of the hit's damage from 
+                If you are going to purify a hit, do so as soon as possible after it lands. Every half-second delayed after the hit causes you to take 5% of the hit's damage from
+                 
                 <a
                   className="spell-link-text"
                   href="http://wowhead.com/spell=115069"
@@ -4856,7 +4841,8 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
                
               Purifying Brew
             </a>
-            , see the 
+            , see the
+             
             <a
               href="https://www.peakofserenity.com/bfa/brewmaster/purifying/"
             >
@@ -5228,13 +5214,16 @@ exports[`Brewmaster Monk integration test: example log matches the checklist sna
             <em>
               primary
             </em>
-             role of a tank is to get hit in the face a bunch and not die in the process, once that is under control we get to spend some energy dealing damage! Maintaining a 
+             role of a tank is to get hit in the face a bunch and not die in the process, once that is under control we get to spend some energy dealing damage! Maintaining a
+             
             <a
               href="https://www.peakofserenity.com/bfa/brewmaster/guide/"
             >
               correct DPS rotation
             </a>
-             also provides optimal brew generation. 
+             
+            also provides optimal brew generation.
+             
             <strong>
               However, if you are dying, ignore this checklist item!
             </strong>

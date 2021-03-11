@@ -1,14 +1,11 @@
-import React from 'react';
-
+import { t } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import { formatPercentage } from 'common/format';
-
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, HealEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-
-import { t } from '@lingui/macro';
+import React from 'react';
 
 const TARGETSPERCAST = 78;
 
@@ -25,16 +22,22 @@ class RefreshingJadeWind extends Analyzer {
       return;
     }
 
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.REFRESHING_JADE_WIND_TALENT), this.rjwBuff);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REFRESHING_JADE_WIND_HEAL), this.rjwHeal);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.REFRESHING_JADE_WIND_TALENT),
+      this.rjwBuff,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REFRESHING_JADE_WIND_HEAL),
+      this.rjwHeal,
+    );
   }
 
   get avgTargetsHitPerRJWPercentage() {
-    return (this.healsRJW / this.castRJW) / TARGETSPERCAST || 0;
+    return this.healsRJW / this.castRJW / TARGETSPERCAST || 0;
   }
 
   get rjwEffectiveness() {
-    const rjwEfficiency = (this.healsRJW / (this.castRJW * TARGETSPERCAST)) || 0;
+    const rjwEfficiency = this.healsRJW / (this.castRJW * TARGETSPERCAST) || 0;
     return rjwEfficiency.toFixed(4);
   }
 
@@ -42,9 +45,9 @@ class RefreshingJadeWind extends Analyzer {
     return {
       actual: this.avgTargetsHitPerRJWPercentage,
       isLessThan: {
-        minor: .9,
-        average: .8,
-        major: .7,
+        minor: 0.9,
+        average: 0.8,
+        major: 0.7,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
@@ -61,17 +64,24 @@ class RefreshingJadeWind extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => suggest(
-      <>
-        You are not utilizing your <SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} /> effectively. <SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} /> excells when you hit 6 targets for the duration of the spell. The easiest way to accomplish this is to stand in melee, but there can be other uses when the raid stacks for various abilities.
-      </>,
-    )
-      .icon(SPELLS.REFRESHING_JADE_WIND_TALENT.icon)
-      .actual(`${formatPercentage(this.avgTargetsHitPerRJWPercentage)}${t({
-      id: "monk.mistweaver.suggestions.refreshingJadeWind.avgTargetsHit",
-      message: `% of targets hit per Refreshing Jade Wind`
-    })}`)
-      .recommended(`>${formatPercentage(recommended)}% is recommended`));
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You are not utilizing your <SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} />{' '}
+          effectively. <SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} /> excells when you hit
+          6 targets for the duration of the spell. The easiest way to accomplish this is to stand in
+          melee, but there can be other uses when the raid stacks for various abilities.
+        </>,
+      )
+        .icon(SPELLS.REFRESHING_JADE_WIND_TALENT.icon)
+        .actual(
+          `${formatPercentage(this.avgTargetsHitPerRJWPercentage)}${t({
+            id: 'monk.mistweaver.suggestions.refreshingJadeWind.avgTargetsHit',
+            message: `% of targets hit per Refreshing Jade Wind`,
+          })}`,
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 }
 

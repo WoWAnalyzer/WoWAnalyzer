@@ -21,10 +21,12 @@ export function fetchCharacter(guid: number, region: string, realm: string, name
     }
     const data = await response.json();
 
-    dispatch(storeCharacter({
-      guid,
-      ...data,
-    }));
+    dispatch(
+      storeCharacter({
+        guid,
+        ...data,
+      }),
+    );
     return data;
   };
 }

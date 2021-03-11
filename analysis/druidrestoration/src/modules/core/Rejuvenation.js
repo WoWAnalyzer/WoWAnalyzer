@@ -1,8 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import HealingDone from 'parser/shared/modules/throughput/HealingDone';
-
 import Events from 'parser/core/Events';
+import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 
 import Mastery from './Mastery';
 
@@ -17,7 +16,10 @@ class Rejuvenation extends Analyzer {
    * The total healing attributable to Rejuvenation
    */
   get totalRejuvHealing() {
-    return this.mastery.getMultiMasteryHealing([SPELLS.REJUVENATION.id, SPELLS.REJUVENATION_GERMINATION.id]);
+    return this.mastery.getMultiMasteryHealing([
+      SPELLS.REJUVENATION.id,
+      SPELLS.REJUVENATION_GERMINATION.id,
+    ]);
   }
 
   /*
@@ -61,9 +63,8 @@ class Rejuvenation extends Analyzer {
    * The expected healing done by using the given amount of mana to fill with Rejuv casts
    */
   getRejuvFillHealing(mana) {
-    return mana / (BASE_MANA / REJUV_COST) * this.avgRejuvHealing;
+    return (mana / (BASE_MANA / REJUV_COST)) * this.avgRejuvHealing;
   }
-
 }
 
 export default Rejuvenation;

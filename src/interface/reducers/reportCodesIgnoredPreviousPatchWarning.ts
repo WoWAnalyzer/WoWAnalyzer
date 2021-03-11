@@ -9,10 +9,7 @@ export default function reportCodesIgnoredPreviousPatchWarning(
 ) {
   switch (action.type) {
     case IGNORE_PREVIOUS_PATCH_WARNING:
-      return [
-        ...state,
-        action.payload,
-      ];
+      return [...state, action.payload];
     default:
       return state;
   }

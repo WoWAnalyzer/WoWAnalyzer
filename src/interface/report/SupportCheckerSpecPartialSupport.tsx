@@ -1,9 +1,8 @@
 import { Trans } from '@lingui/macro';
-import React from 'react';
-
-import { WCLFight } from 'parser/core/Fight';
 import Config from 'parser/Config';
+import { WCLFight } from 'parser/core/Fight';
 import { PlayerInfo } from 'parser/core/Player';
+import React from 'react';
 
 import SupportCheckerIssue from './SupportCheckerIssue';
 
@@ -17,11 +16,7 @@ interface Props {
 
 const SupportCheckerSpecPartialSupport = ({ config, ...others }: Props) => (
   <SupportCheckerIssue
-    title={
-      <Trans id="interface.report.supportChecker.specPartialSupport">
-        Partial support
-      </Trans>
-    }
+    title={<Trans id="interface.report.supportChecker.specPartialSupport">Partial support</Trans>}
     config={config}
     {...others}
   >

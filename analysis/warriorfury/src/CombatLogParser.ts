@@ -1,19 +1,19 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 import Abilities from './modules/Abilities';
+import Enrage from './modules/buffdebuff/Enrage';
+import RageDetails from './modules/core/RageDetails';
+import RageTracker from './modules/core/RageTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import Buffs from './modules/features/Buffs';
 import Channeling from './modules/features/Channeling';
 import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import SpellUsable from './modules/features/SpellUsable';
-
 import EnrageNormalizer from './modules/normalizers/Enrage';
-
-import Enrage from './modules/buffdebuff/Enrage';
-
 import MissedRampage from './modules/spells/MissedRampage';
 import Recklessness from './modules/spells/Recklessness';
-
+import WhirlWind from './modules/spells/Whirlwind';
 import AngerManagement from './modules/talents/AngerManagement';
 import Bladestorm from './modules/talents/Bladestorm';
 import DragonRoar from './modules/talents/DragonRoar';
@@ -23,11 +23,6 @@ import RecklessAbandon from './modules/talents/RecklessAbandon';
 import Siegebreaker from './modules/talents/Siegebreaker';
 import SuddenDeath from './modules/talents/SuddenDeath';
 import Warpaint from './modules/talents/Warpaint';
-
-import RageTracker from './modules/core/RageTracker';
-import RageDetails from './modules/core/RageDetails';
-import Buffs from './modules/features/Buffs';
-import WhirlWind from './modules/spells/Whirlwind';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

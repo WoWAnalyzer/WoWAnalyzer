@@ -1,11 +1,11 @@
-import React from 'react';
+import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Events, { ApplyBuffEvent, BeginCastEvent, CastEvent } from 'parser/core/Events';
-import { Trans } from '@lingui/macro';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import React from 'react';
 
 const COMBUSTION_PRE_CASTS = [
   SPELLS.FIREBALL,
@@ -28,9 +28,18 @@ class CombustionPreCastDelay extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION), this.onCombustion);
-    this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(COMBUSTION_PRE_CASTS), this.onPreCastStarted);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(COMBUSTION_PRE_CASTS), this.onPreCastFinished);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION),
+      this.onCombustion,
+    );
+    this.addEventListener(
+      Events.begincast.by(SELECTED_PLAYER).spell(COMBUSTION_PRE_CASTS),
+      this.onPreCastStarted,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(COMBUSTION_PRE_CASTS),
+      this.onPreCastFinished,
+    );
   }
 
   onCombustion(event: ApplyBuffEvent) {
@@ -77,11 +86,26 @@ class CombustionPreCastDelay extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.combustionCastDelayThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>On average, you used <SpellLink id={SPELLS.COMBUSTION.id} /> with {this.averageCastDelay} seconds left on your pre-cast ability (The spell you were casting when you used <SpellLink id={SPELLS.COMBUSTION.id} />). In order to maximize the number of casts you can get in during <SpellLink id={SPELLS.COMBUSTION.id} />, it is recommended that you are activating <SpellLink id={SPELLS.COMBUSTION.id} /> closer to the end of your pre-cast (preferably within {recommended} seconds of the cast completing).</>)
-          .icon(SPELLS.COMBUSTION.icon)
-          .actual(<Trans id="mage.fire.suggestions.combustion.castDelay">{actual}s Avg. Pre-Cast Delay</Trans>)
-          .recommended(`${recommended} is recommended`));
+    when(this.combustionCastDelayThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          On average, you used <SpellLink id={SPELLS.COMBUSTION.id} /> with {this.averageCastDelay}{' '}
+          seconds left on your pre-cast ability (The spell you were casting when you used{' '}
+          <SpellLink id={SPELLS.COMBUSTION.id} />
+          ). In order to maximize the number of casts you can get in during{' '}
+          <SpellLink id={SPELLS.COMBUSTION.id} />, it is recommended that you are activating{' '}
+          <SpellLink id={SPELLS.COMBUSTION.id} /> closer to the end of your pre-cast (preferably
+          within {recommended} seconds of the cast completing).
+        </>,
+      )
+        .icon(SPELLS.COMBUSTION.icon)
+        .actual(
+          <Trans id="mage.fire.suggestions.combustion.castDelay">
+            {actual}s Avg. Pre-Cast Delay
+          </Trans>,
+        )
+        .recommended(`${recommended} is recommended`),
+    );
   }
 }
 export default CombustionPreCastDelay;

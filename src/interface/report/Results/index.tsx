@@ -1,54 +1,53 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import { Trans, t } from '@lingui/macro';
-import { compose } from 'redux';
-
-import { findByBossId, Phase } from 'game/raids';
-import lazyLoadComponent from 'common/lazyLoadComponent';
-import retryingPromise from 'common/retryingPromise';
-import makeWclUrl from 'common/makeWclUrl';
-import Tooltip from 'interface/Tooltip';
 import getFightName from 'common/getFightName';
-import REPORT_HISTORY_TYPES from 'interface/REPORT_HISTORY_TYPES';
+import lazyLoadComponent from 'common/lazyLoadComponent';
+import makeWclUrl from 'common/makeWclUrl';
+import retryingPromise from 'common/retryingPromise';
+import { findByBossId, Phase } from 'game/raids';
 import { appendReportHistory } from 'interface/actions/reportHistory';
-import { getResultTab } from 'interface/selectors/url/report';
-import { hasPremium } from 'interface/selectors/user';
-import AlertWarning from 'interface/AlertWarning';
 import Ad from 'interface/Ad';
-import ReadableListing from 'interface/ReadableListing';
+import AlertWarning from 'interface/AlertWarning';
 import Contributor from 'interface/ContributorButton';
+import ErrorBoundary from 'interface/ErrorBoundary';
 import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
 import WipefestIcon from 'interface/icons/Wipefest';
 import LoadingBar from 'interface/LoadingBar';
 import Panel from 'interface/Panel';
-import ErrorBoundary from 'interface/ErrorBoundary';
-import Checklist from 'parser/shared/modules/features/Checklist/Module';
-import StatTracker from 'parser/shared/modules/StatTracker';
-import ResultsChangelogTab from 'interface/ResultsChangelogTab';
-import CombatLogParser from 'parser/core/CombatLogParser';
-import CharacterProfile from 'parser/core/CharacterProfile';
-import Report from 'parser/core/Report';
-import Fight  from 'parser/core/Fight';
-import { PlayerInfo } from 'parser/core/Player';
-import ParseResults from 'parser/core/ParseResults';
-import Config from 'parser/Config';
+import ReadableListing from 'interface/ReadableListing';
 import { RootState } from 'interface/reducers';
 import { Filter } from 'interface/report/TimeEventFilter';
+import REPORT_HISTORY_TYPES from 'interface/REPORT_HISTORY_TYPES';
+import ResultsChangelogTab from 'interface/ResultsChangelogTab';
+import { getResultTab } from 'interface/selectors/url/report';
+import { hasPremium } from 'interface/selectors/user';
+import Tooltip from 'interface/Tooltip';
+import Config from 'parser/Config';
+import CharacterProfile from 'parser/core/CharacterProfile';
+import CombatLogParser from 'parser/core/CombatLogParser';
+import Fight from 'parser/core/Fight';
+import ParseResults from 'parser/core/ParseResults';
+import { PlayerInfo } from 'parser/core/Player';
+import Report from 'parser/core/Report';
+import Checklist from 'parser/shared/modules/features/Checklist/Module';
+import StatTracker from 'parser/shared/modules/StatTracker';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
+import { compose } from 'redux';
 
 import './Results.scss';
-import Header from './Header';
+import BOSS_PHASES_STATE from '../BOSS_PHASES_STATE';
+import EVENT_PARSING_STATE from '../EVENT_PARSING_STATE';
+import ReportDurationWarning, { MAX_REPORT_DURATION } from '../ReportDurationWarning';
 import About from './About';
+import Character from './CharacterTab';
+import DegradedExperience from './DegradedExperience';
+import EncounterStats from './EncounterStats';
+import Header from './Header';
+import ItemWarning from './ItemWarning';
 import Overview from './Overview';
 import ReportStatistics from './ReportStatistics';
-import Character from './CharacterTab';
-import EncounterStats from './EncounterStats';
-import DegradedExperience from './DegradedExperience';
-import ItemWarning from './ItemWarning';
-import EVENT_PARSING_STATE from '../EVENT_PARSING_STATE';
-import BOSS_PHASES_STATE from '../BOSS_PHASES_STATE';
-import ReportDurationWarning, { MAX_REPORT_DURATION } from '../ReportDurationWarning';
 import ScrollToTop from './ScrollToTop';
 import TABS from './TABS';
 
@@ -77,10 +76,10 @@ interface ConnectedProps {
 
 interface PassedProps {
   parser: CombatLogParser;
-  characterProfile: CharacterProfile,
+  characterProfile: CharacterProfile;
   makeBuildUrl: (tab: string, build: string) => string;
   makeTabUrl: (tab: string) => string;
-  phases: { [key: string]: Phase }|null;
+  phases: { [key: string]: Phase } | null;
   selectedPhase: string;
   selectedInstance: number;
   handlePhaseSelection: (phase: string, instance: number) => void;
@@ -176,7 +175,7 @@ class Results extends React.PureComponent<Props, State> {
     );
   }
 
-  renderContent(selectedTab: string, results: ParseResults|null) {
+  renderContent(selectedTab: string, results: ParseResults | null) {
     const { parser, premium } = this.props;
 
     switch (selectedTab) {

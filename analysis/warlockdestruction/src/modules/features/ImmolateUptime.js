@@ -1,18 +1,14 @@
-import React from 'react';
-
-import Analyzer from 'parser/core/Analyzer';
-import Enemies from 'parser/shared/modules/Enemies';
-
+import { t } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
-import { formatPercentage } from 'common/format';
-
+import Analyzer from 'parser/core/Analyzer';
+import Enemies from 'parser/shared/modules/Enemies';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import StatisticBar from 'parser/ui/StatisticBar';
 import UptimeBar from 'parser/ui/UptimeBar';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-
-import { t } from '@lingui/macro';
+import React from 'react';
 
 class ImmolateUptime extends Analyzer {
   get uptime() {
@@ -36,23 +32,29 @@ class ImmolateUptime extends Analyzer {
   };
 
   suggestions(when) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>Your <SpellLink id={SPELLS.IMMOLATE_DEBUFF.id} /> uptime can be improved. Try to pay more attention to it as it provides a significant amount of Soul Shard Fragments over the fight and is also a big portion of your total damage.</>)
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your <SpellLink id={SPELLS.IMMOLATE_DEBUFF.id} /> uptime can be improved. Try to pay more
+          attention to it as it provides a significant amount of Soul Shard Fragments over the fight
+          and is also a big portion of your total damage.
+        </>,
+      )
         .icon(SPELLS.IMMOLATE_DEBUFF.icon)
-        .actual(t({
-      id: "warlock.destruction.suggestions.immolate.uptime",
-      message: `${formatPercentage(actual)}% Immolate uptime`
-    }))
-        .recommended(`>${formatPercentage(recommended)}% is recommended`));
+        .actual(
+          t({
+            id: 'warlock.destruction.suggestions.immolate.uptime',
+            message: `${formatPercentage(actual)}% Immolate uptime`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
     const history = this.enemies.getDebuffHistory(SPELLS.IMMOLATE_DEBUFF.id);
     return (
-      <StatisticBar
-        wide
-        position={STATISTIC_ORDER.CORE(1)}
-      >
+      <StatisticBar wide position={STATISTIC_ORDER.CORE(1)}>
         <div className="flex">
           <div className="flex-sub icon">
             <SpellIcon id={SPELLS.IMMOLATE.id} />

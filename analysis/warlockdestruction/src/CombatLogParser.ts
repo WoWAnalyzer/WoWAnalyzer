@@ -1,34 +1,31 @@
-import { GrimoireOfSacrificeNormalizer, GrimoireOfSacrifice } from '@wowanalyzer/warlock';
-
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
-import SpellUsable from './modules/core/SpellUsable';
+import { GrimoireOfSacrificeNormalizer, GrimoireOfSacrifice } from '@wowanalyzer/warlock';
 
+import SpellUsable from './modules/core/SpellUsable';
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import ImmolateUptime from './modules/features/ImmolateUptime';
-import Havoc from './modules/features/Havoc';
-import RainOfFire from './modules/features/RainOfFire';
-import Checklist from './modules/features/Checklist/Module';
 import Backdraft from './modules/features/Backdraft';
-
-import SoulShardTracker from './modules/soulshards/SoulShardTracker';
+import Checklist from './modules/features/Checklist/Module';
+import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import Havoc from './modules/features/Havoc';
+import ImmolateUptime from './modules/features/ImmolateUptime';
+import RainOfFire from './modules/features/RainOfFire';
 import SoulShardDetails from './modules/soulshards/SoulShardDetails';
-
-import Flashover from './modules/talents/Flashover';
-import Eradication from './modules/talents/Eradication';
-import SoulFire from './modules/talents/SoulFire';
-import ReverseEntropy from './modules/talents/ReverseEntropy';
-import InternalCombustion from './modules/talents/InternalCombustion';
-import Shadowburn from './modules/talents/Shadowburn';
-import Inferno from './modules/talents/Inferno';
-import FireAndBrimstone from './modules/talents/FireAndBrimstone';
+import SoulShardTracker from './modules/soulshards/SoulShardTracker';
 import Cataclysm from './modules/talents/Cataclysm';
-import RoaringBlaze from './modules/talents/RoaringBlaze';
-import SoulConduit from './modules/talents/SoulConduit';
 import ChannelDemonfire from './modules/talents/ChannelDemonfire';
+import Eradication from './modules/talents/Eradication';
+import FireAndBrimstone from './modules/talents/FireAndBrimstone';
+import Flashover from './modules/talents/Flashover';
+import Inferno from './modules/talents/Inferno';
+import InternalCombustion from './modules/talents/InternalCombustion';
+import ReverseEntropy from './modules/talents/ReverseEntropy';
+import RoaringBlaze from './modules/talents/RoaringBlaze';
+import Shadowburn from './modules/talents/Shadowburn';
+import SoulConduit from './modules/talents/SoulConduit';
+import SoulFire from './modules/talents/SoulFire';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

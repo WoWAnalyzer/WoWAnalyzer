@@ -1,4 +1,4 @@
-import { ItemList } from "common/ITEMS/Item";
+import { ItemList } from 'common/ITEMS/Item';
 
 const potions: ItemList = {
   SPIRITUAL_HEALING_POTION: {
@@ -98,7 +98,7 @@ const potions: ItemList = {
   },
   POTION_OF_THE_PSYCHOPOMPS_SPEED: {
     id: 184090,
-    name: 'Potion of the Psychopomp\'s Speed',
+    name: "Potion of the Psychopomp's Speed",
     icon: 'trade_alchemy_dpotion_d13',
   },
   POTION_OF_UNHINDERED_PASSING: {
@@ -106,6 +106,5 @@ const potions: ItemList = {
     name: 'Potion of Unhindered Passing',
     icon: 'inv_alchemy_90_utility_teal',
   },
-
 };
 export default potions;

@@ -1,8 +1,7 @@
-import React from 'react';
-
+import { Anomoly } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
 import Config from 'parser/Config';
-import { Anomoly } from 'CONTRIBUTORS';
+import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
 

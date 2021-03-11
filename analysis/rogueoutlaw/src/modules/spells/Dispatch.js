@@ -1,13 +1,10 @@
-import React from 'react';
-
+import { t } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
-
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
-
-import { t } from '@lingui/macro';
+import React from 'react';
 
 import BetweenTheEyesDamageTracker from './BetweenTheEyesDamageTracker';
 
@@ -28,7 +25,12 @@ class Dispatch extends Analyzer {
   }
 
   get delayedCastSuggestion() {
-    return <>Whenever you have the <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> buff, you should prioritize <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> as your damaging spender.</>;
+    return (
+      <>
+        Whenever you have the <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> buff, you should
+        prioritize <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> as your damaging spender.
+      </>
+    );
   }
 
   static dependencies = {
@@ -38,17 +40,29 @@ class Dispatch extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.betweenTheEyesDamageTracker.subscribeInefficientCast([SPELLS.DISPATCH], (s) => `Between The Eyes should be prioritized as your spender during Ruthless Precision`);
+    this.betweenTheEyesDamageTracker.subscribeInefficientCast(
+      [SPELLS.DISPATCH],
+      (s) => `Between The Eyes should be prioritized as your spender during Ruthless Precision`,
+    );
   }
 
   suggestions(when) {
-    when(this.thresholds).addSuggestion((suggest, actual, recommended) => suggest(<>You casted <SpellLink id={SPELLS.DISPATCH.id} /> while <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> was available. {this.delayedCastSuggestion}</>)
-      .icon(SPELLS.DISPATCH.icon)
-      .actual(t({
-      id: "rogue.outlaw.dispatch.efficiency",
-      message: `${formatPercentage(actual)}% inefficient casts`
-    }))
-      .recommended(`${formatPercentage(recommended)}% is recommended`));
+    when(this.thresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You casted <SpellLink id={SPELLS.DISPATCH.id} /> while{' '}
+          <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> was available. {this.delayedCastSuggestion}
+        </>,
+      )
+        .icon(SPELLS.DISPATCH.icon)
+        .actual(
+          t({
+            id: 'rogue.outlaw.dispatch.efficiency',
+            message: `${formatPercentage(actual)}% inefficient casts`,
+          }),
+        )
+        .recommended(`${formatPercentage(recommended)}% is recommended`),
+    );
   }
 }
 

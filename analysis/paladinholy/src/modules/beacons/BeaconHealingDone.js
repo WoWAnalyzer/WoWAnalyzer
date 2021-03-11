@@ -1,13 +1,12 @@
-import React from 'react';
 import { Trans } from '@lingui/macro';
-
-import Panel from 'parser/ui/Panel';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
+import Panel from 'parser/ui/Panel';
+import React from 'react';
 
-import BeaconHealSource from './BeaconHealSource';
 import BeaconHealingBreakdown from './BeaconHealingBreakdown';
+import BeaconHealSource from './BeaconHealSource';
 
 class BeaconHealingDone extends Analyzer {
   static dependencies = {
@@ -48,7 +47,11 @@ class BeaconHealingDone extends Analyzer {
   statistic() {
     return (
       <Panel
-        title={<Trans id="paladin.holy.modules.beacons.beaconHealingDone.beaconHealingSources">Beacon healing sources</Trans>}
+        title={
+          <Trans id="paladin.holy.modules.beacons.beaconHealingDone.beaconHealingSources">
+            Beacon healing sources
+          </Trans>
+        }
         explanation={
           <Trans id="paladin.holy.modules.beacons.beaconHealingDone.beaconHealingSources.explanation">
             Beacon healing is triggered by the <b>raw</b> healing done of your primary spells. This

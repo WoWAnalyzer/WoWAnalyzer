@@ -1,15 +1,14 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
+import { Panel } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Combatants from 'parser/shared/modules/Combatants';
+import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Buffs';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
+import Combatants from 'parser/shared/modules/Combatants';
 import Enemies from 'parser/shared/modules/Enemies';
 import Healthstone from 'parser/shared/modules/items/Healthstone';
-import { Panel } from 'interface';
-import Events from 'parser/core/Events';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import React from 'react';
 
 import DeathRecap from './DeathRecap';
 import DEFENSIVE_BUFFS from './DEFENSIVE_BUFFS';
@@ -38,20 +37,21 @@ class DeathRecapTracker extends Analyzer {
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(Events.instakill.to(SELECTED_PLAYER), this.onInstakill);
     this.addEventListener(Events.death.to(SELECTED_PLAYER), this.onDeath);
-    this.cooldowns = this.abilities.activeAbilities.filter(ability => (
-      ability.category === Abilities.SPELL_CATEGORIES.DEFENSIVE
-      || ability.category === Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE
-      || ability.isDefensive
-    ));
+    this.cooldowns = this.abilities.activeAbilities.filter(
+      (ability) =>
+        ability.category === Abilities.SPELL_CATEGORIES.DEFENSIVE ||
+        ability.category === Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE ||
+        ability.isDefensive,
+    );
     // Add additional defensive buffs/debuffs to common/DEFENSIVE_BUFFS
-    DEFENSIVE_BUFFS.forEach(e => {
+    DEFENSIVE_BUFFS.forEach((e) => {
       this.buffs.push({
         id: e.spell.id,
       });
     });
-    this.buffsModule.activeBuffs.forEach(buff => {
+    this.buffsModule.activeBuffs.forEach((buff) => {
       if (buff.spellId instanceof Array) {
-        buff.spellId.forEach(spellId => {
+        buff.spellId.forEach((spellId) => {
           this.buffs.push({
             id: spellId,
           });
@@ -68,10 +68,13 @@ class DeathRecapTracker extends Analyzer {
     const extendedEvent = { ...event };
     extendedEvent.time = event.timestamp - this.owner.fight.start_time;
 
-    const cooldownsOnly = this.cooldowns.filter(e => e.cooldown);
-    extendedEvent.defensiveCooldowns = cooldownsOnly.map(e => ({ id: e.primarySpell.id, cooldownReady: this.spellUsable.isAvailable(e.primarySpell.id) }));
+    const cooldownsOnly = this.cooldowns.filter((e) => e.cooldown);
+    extendedEvent.defensiveCooldowns = cooldownsOnly.map((e) => ({
+      id: e.primarySpell.id,
+      cooldownReady: this.spellUsable.isAvailable(e.primarySpell.id),
+    }));
     if (event.hitPoints > 0) {
-      this.lastBuffs = this.buffs.filter(e => {
+      this.lastBuffs = this.buffs.filter((e) => {
         const buff = this.selectedCombatant.getBuff(e.id);
         const hasBuff = buff !== undefined;
         if (!hasBuff) {
@@ -86,9 +89,14 @@ class DeathRecapTracker extends Analyzer {
     extendedEvent.buffsUp = this.lastBuffs;
 
     if (!event.sourceIsFriendly && this.enemies.enemies[event.sourceID]) {
-      const sourceHasDebuff = debuff => (!debuff.end || event.timestamp <= debuff.end) && event.timestamp >= debuff.start && debuff.isDebuff && this.buffs.some(e => e.id === debuff.ability.guid);
-      extendedEvent.debuffsUp = this.enemies.enemies[event.sourceID].buffs.filter(sourceHasDebuff)
-        .map(e => ({ id: e.ability.guid }));
+      const sourceHasDebuff = (debuff) =>
+        (!debuff.end || event.timestamp <= debuff.end) &&
+        event.timestamp >= debuff.start &&
+        debuff.isDebuff &&
+        this.buffs.some((e) => e.id === debuff.ability.guid);
+      extendedEvent.debuffsUp = this.enemies.enemies[event.sourceID].buffs
+        .filter(sourceHasDebuff)
+        .map((e) => ({ id: e.ability.guid }));
     }
 
     this.events.push(extendedEvent);
@@ -104,7 +112,7 @@ class DeathRecapTracker extends Analyzer {
     this.addEvent(event);
   }
   onDeath(event) {
-    if(event.timestamp <= this.owner.fight.start_time){
+    if (event.timestamp <= this.owner.fight.start_time) {
       return;
     }
     this.addEvent(event);
@@ -112,7 +120,7 @@ class DeathRecapTracker extends Analyzer {
   }
 
   get secondsBeforeDeath() {
-    return this.deaths.map(deathtime => ({
+    return this.deaths.map((deathtime) => ({
       deathtime,
       events: this.events,
       open: false,
@@ -129,10 +137,7 @@ class DeathRecapTracker extends Analyzer {
       title: 'Death Recap',
       url: 'death-recap',
       render: () => (
-        <Panel
-          title="Death recap"
-          pad={false}
-        >
+        <Panel title="Death recap" pad={false}>
           <DeathRecap
             report={this.owner}
             events={this.secondsBeforeDeath}

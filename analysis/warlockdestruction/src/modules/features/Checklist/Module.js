@@ -1,17 +1,15 @@
-import React from 'react';
-
-import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
+import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
+import React from 'react';
 
-import AlwaysBeCasting from '../AlwaysBeCasting';
-import ImmolateUptime from '../ImmolateUptime';
-import Backdraft from '../Backdraft';
 import SoulShardDetails from '../../soulshards/SoulShardDetails';
 import SoulShardTracker from '../../soulshards/SoulShardTracker';
 import Eradication from '../../talents/Eradication';
-
+import AlwaysBeCasting from '../AlwaysBeCasting';
+import Backdraft from '../Backdraft';
+import ImmolateUptime from '../ImmolateUptime';
 import Component from './Component';
 
 class Checklist extends BaseChecklist {

@@ -1,6 +1,5 @@
-import React from 'react';
-
 import SPECS from 'game/SPECS';
+import React from 'react';
 
 import CHANGELOG from './CHANGELOG';
 
@@ -15,10 +14,19 @@ export default {
   // TODO: once there is an estabilished "rule of thumb" rotation, put it in the description
   description: (
     <>
-      Hello fellow Netherlords! With some help from <strong>Motoko</strong> from Warlock Discord, we've put together this tool to help you improve your gameplay. It should be fine for you generally, but it will be even more useful in an expert's hands. <br /> <br />
-
-      If you have any questions about Warlocks, feel free to pay a visit to <a href="https://discord.gg/BlackHarvest" target="_blank" rel="noopener noreferrer">Council of the Black Harvest Discord</a>&nbsp;
-      or <a href="http://lockonestopshop.com" target="_blank" rel="noopener noreferrer">Lock One Stop Shop</a>, if you'd like to discuss anything about this analyzer, message me @Chizu#2873 on WoWAnalyzer Discord.
+      Hello fellow Netherlords! With some help from <strong>Motoko</strong> from Warlock Discord,
+      we've put together this tool to help you improve your gameplay. It should be fine for you
+      generally, but it will be even more useful in an expert's hands. <br /> <br />
+      If you have any questions about Warlocks, feel free to pay a visit to{' '}
+      <a href="https://discord.gg/BlackHarvest" target="_blank" rel="noopener noreferrer">
+        Council of the Black Harvest Discord
+      </a>
+      &nbsp; or{' '}
+      <a href="http://lockonestopshop.com" target="_blank" rel="noopener noreferrer">
+        Lock One Stop Shop
+      </a>
+      , if you'd like to discuss anything about this analyzer, message me @Chizu#2873 on WoWAnalyzer
+      Discord.
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
@@ -30,7 +38,10 @@ export default {
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () => import('./CombatLogParser' /* webpackChunkName: "AfflictionWarlock" */).then(exports => exports.default),
+  parser: () =>
+    import('./CombatLogParser' /* webpackChunkName: "AfflictionWarlock" */).then(
+      (exports) => exports.default,
+    ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };

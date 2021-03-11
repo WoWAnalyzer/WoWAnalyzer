@@ -1,12 +1,17 @@
-import React from 'react';
-
 import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, {
+  ApplyBuffEvent,
+  CastEvent,
+  GlobalCooldownEvent,
+  HealEvent,
+  RefreshBuffEvent,
+} from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import DistanceMoved from 'parser/shared/modules/others/DistanceMoved';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import { SpellLink } from 'interface';
-import Events, { ApplyBuffEvent, CastEvent, GlobalCooldownEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
+import React from 'react';
 
 const MS_BUFFER = 100;
 
@@ -49,8 +54,14 @@ class Renew extends Analyzer {
     }
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RENEW), this.onHeal);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RENEW), this.onApplyBuff);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.RENEW), this.onRefreshBuff);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RENEW),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.RENEW),
+      this.onRefreshBuff,
+    );
     this.addEventListener(Events.GlobalCooldown.by(SELECTED_PLAYER), this.onGCD);
   }
 
@@ -66,9 +77,9 @@ class Renew extends Analyzer {
     return {
       actual: this.badRenews,
       isGreaterThan: {
-        minor: 2 * this.owner.fightDuration / 1000 / 60,
-        average: 3 * this.owner.fightDuration / 1000 / 60,
-        major: 4 * this.owner.fightDuration / 1000 / 60,
+        minor: (2 * this.owner.fightDuration) / 1000 / 60,
+        average: (3 * this.owner.fightDuration) / 1000 / 60,
+        major: (4 * this.owner.fightDuration) / 1000 / 60,
       },
       style: ThresholdStyle.NUMBER,
     };
@@ -80,12 +91,14 @@ class Renew extends Analyzer {
   }
 
   overhealingFromRenew(applicationCount: number) {
-    const averageOverHealingPerRenewApplication = this.totalRenewOverhealing / this.totalRenewApplications;
+    const averageOverHealingPerRenewApplication =
+      this.totalRenewOverhealing / this.totalRenewApplications;
     return averageOverHealingPerRenewApplication * applicationCount;
   }
 
   absorptionFromRenew(applicationCount: number) {
-    const averageAbsorptionPerRenewApplication = this.totalRenewOverhealing / this.totalRenewApplications;
+    const averageAbsorptionPerRenewApplication =
+      this.totalRenewOverhealing / this.totalRenewApplications;
     return averageAbsorptionPerRenewApplication * applicationCount;
   }
 
@@ -175,14 +188,22 @@ class Renew extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.badRenewThreshold)
-      .addSuggestion((suggest, actual, recommended) => suggest(<>You should cast <SpellLink id={SPELLS.RENEW.id} /> less.</>)
+    when(this.badRenewThreshold).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You should cast <SpellLink id={SPELLS.RENEW.id} /> less.
+        </>,
+      )
         .icon(SPELLS.RENEW.icon)
-        .actual(<>
-          You used Renew {this.badRenews} times when another spell would have been more productive.
-          Renew is one of the least efficient spells Holy Priests have, and should only be cast when moving with no other instants available.</>)
+        .actual(
+          <>
+            You used Renew {this.badRenews} times when another spell would have been more
+            productive. Renew is one of the least efficient spells Holy Priests have, and should
+            only be cast when moving with no other instants available.
+          </>,
+        )
         .recommended(`Two or less per minute is recommended, except for movement heavy fights.`),
-      );
+    );
   }
 }
 

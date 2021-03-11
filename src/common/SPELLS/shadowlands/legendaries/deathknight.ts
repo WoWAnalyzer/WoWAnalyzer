@@ -1,17 +1,17 @@
-import { LegendarySpell, SpellList } from "common/SPELLS/Spell";
+import { LegendarySpell, SpellList } from 'common/SPELLS/Spell';
 
 const legendaries: SpellList<LegendarySpell> = {
   //region Blood
   BRYNDAORS_MIGHT: {
     id: 334501,
-    name: 'Bryndaor\'s Might',
+    name: "Bryndaor's Might",
     icon: 'ability_creature_cursed_04',
-    bonusID: 6940
+    bonusID: 6940,
   },
   BRYNDAORS_MIGHT_RUNIC_POWER_GAIN: {
     id: 334502,
-    name: 'Bryndaor\'s Might',
-    icon: 'ability_creature_cursed_04'
+    name: "Bryndaor's Might",
+    icon: 'ability_creature_cursed_04',
   },
 
   //endregion
@@ -25,7 +25,7 @@ const legendaries: SpellList<LegendarySpell> = {
 
   KOLTIRAS_FAVOR_RUNE_GAIN: {
     id: 334584,
-    name: 'Koltira\'s Favor',
+    name: "Koltira's Favor",
     icon: 'spell_shadow_focusedpower',
   },
 
@@ -47,8 +47,8 @@ const legendaries: SpellList<LegendarySpell> = {
     id: 334974,
     name: 'Superstrain',
     icon: 'spell_deathknight_explode_ghoul',
-    bonusID: 6953
-  }
+    bonusID: 6953,
+  },
 
   //endregion
 } as const;

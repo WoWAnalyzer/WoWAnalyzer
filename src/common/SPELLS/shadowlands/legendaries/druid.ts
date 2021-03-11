@@ -1,7 +1,6 @@
 const legendaries = {
   //region Balance
 
-  
   BALANCE_OF_ALL_THINGS_LUNAR: {
     id: 339946,
     name: 'Balance of All Things',
@@ -24,17 +23,17 @@ const legendaries = {
   //region Guardian
   URSOCS_FURY_REMEMBERED: {
     id: 339056,
-    name: 'Ursoc\'s Fury Remembered',
+    name: "Ursoc's Fury Remembered",
     icon: 'achievement_emeraldnightmare_ursoc',
   },
-  LEGACY_OF_THE_SLEEPER:  {
+  LEGACY_OF_THE_SLEEPER: {
     id: 339062,
     name: 'Legacy of the Sleeper',
     icon: 'inv_hand_1h_artifactursoc_d_01',
   },
   THE_NATURAL_ORDERS_WILL: {
     id: 339063,
-    name: 'The Natural Order\'s Will',
+    name: "The Natural Order's Will",
     icon: 'ability_druid_fortifiedbark',
   },
   LUFFA_INFUSED_EMBRACE: {
@@ -53,7 +52,7 @@ const legendaries = {
   },
   THE_DARK_TITANS_LESSON: {
     id: 338831,
-    name: 'The Dark Titan\'s Lesson',
+    name: "The Dark Titan's Lesson",
     icon: 'spell_druid_germination_rejuvenation',
   },
   LIFEBLOOM_DTL_HOT_HEAL: {
@@ -61,7 +60,7 @@ const legendaries = {
     name: 'Lifebloom',
     icon: 'inv_misc_herb_felblossom',
     manaCost: 800,
-    bonusID: 7097
+    bonusID: 7097,
   },
   MEMORY_OF_THE_MOTHER_TREE: {
     id: 189877,
@@ -71,7 +70,7 @@ const legendaries = {
   },
   //endregion
 
-  //region Shared  
+  //region Shared
   CIRCLE_OF_LIFE_AND_DEATH: {
     id: 338657,
     name: 'Circle of Life and Death',
@@ -89,7 +88,7 @@ const legendaries = {
   },
   LYCARAS_FLEETING_GLIMPSE: {
     id: 340059,
-    name: 'Lycara\'s Fleeting Glimpse',
+    name: "Lycara's Fleeting Glimpse",
     icon: 'spell_unused',
   },
 

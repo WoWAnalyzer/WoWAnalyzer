@@ -1,7 +1,7 @@
+import { change, date } from 'common/changelog';
+import { HawkCorrigan, Putro, Zeboot, Maximaw } from 'CONTRIBUTORS';
 import React from 'react';
 
-import { HawkCorrigan, Putro, Zeboot, Maximaw } from 'CONTRIBUTORS';
-import { change, date } from 'common/changelog';
 
 export default [
   change(date(2021, 1, 28), <>Added check for suboptimal Chain Lightning.</>, Maximaw),

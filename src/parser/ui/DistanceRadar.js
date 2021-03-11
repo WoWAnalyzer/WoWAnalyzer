@@ -1,8 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
 import { formatNumber } from 'common/format';
 import { Tooltip } from 'interface';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import DistanceRadarRing from './DistanceRadarRing';
 
@@ -17,7 +16,10 @@ const Radar = ({ distance, size, style, playerColor }) => {
         ...style,
       }}
     >
-      <DistanceRadarRing size={40 * pixelsPerYard} style={{ opacity: 0.25, background: 'rgba(255, 255, 255, 0.05)' }} />
+      <DistanceRadarRing
+        size={40 * pixelsPerYard}
+        style={{ opacity: 0.25, background: 'rgba(255, 255, 255, 0.05)' }}
+      />
       <DistanceRadarRing size={30 * pixelsPerYard} style={{ opacity: 0.5 }} />
       <DistanceRadarRing size={20 * pixelsPerYard} style={{ opacity: 0.75 }} />
       <DistanceRadarRing size={10 * pixelsPerYard} style={{ opacity: 1 }} />
